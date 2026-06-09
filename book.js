@@ -341,8 +341,8 @@
       })
       .catch(function (e) {
         setContent('<div class="state error"><h2>Не вдалося завантажити розділ</h2><p>' +
-          escapeHtml(e.message) + "</p><p>Якщо відкрито як <code>file://</code> — запусти локальний сервер: " +
-          "<code>cd embedded &amp;&amp; python -m http.server</code> і відкрий <code>http://localhost:8000/</code>.</p>" +
+          escapeHtml(e.message) + '</p><p>Схоже, книгу відкрито без веб-сервера (<code>file://</code>) — браузер блокує завантаження розділів. ' +
+          'Поклади її на GitHub Pages (Settings → Pages → from root), або для локального перегляду запусти сервер із кореня репо: <code>python -m http.server</code>.</p>' +
           '<p><a href="#">← На головну</a></p></div>');
         buildCoverSidebar();
       });
