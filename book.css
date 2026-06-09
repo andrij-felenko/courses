@@ -251,6 +251,67 @@ figcaption strong { font-style: normal; color: var(--text); }
 .back-link:hover { background: #ddd6fe; text-decoration: none; }
 
 /* ════════════════════════════════════════════════════════════════════════
+   ІСТОРИЧНА ВСТАВКА: тизер-кнопка в тексті + модальне вікно поверх усього
+   ════════════════════════════════════════════════════════════════════════ */
+/* тизер — це callout-hist, але клікабельний (відкриває popup) */
+a.hist-teaser {
+  width: 100%; text-align: left; cursor: pointer; text-decoration: none;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+a.hist-teaser:hover { transform: translateY(-1px); box-shadow: var(--shadow); text-decoration: none; }
+a.hist-teaser .callout-body { color: var(--text); }
+.hist-open {
+  display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem;
+  font-size: 0.76rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--hist-color);
+}
+a.hist-teaser:hover .hist-open { text-decoration: underline; }
+
+/* блокування прокрутки фону, поки відкрито popup */
+body.modal-open { overflow: hidden; }
+
+.hist-modal {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 2.5rem 1.25rem;
+}
+.hist-modal[hidden] { display: none; }
+.hist-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(9,16,28,0.6); backdrop-filter: blur(2px);
+  animation: histFade 0.15s ease;
+}
+.hist-modal-dialog {
+  position: relative; display: flex; flex-direction: column;
+  width: 100%; max-width: 880px; max-height: 90vh;
+  background: #f2f6fa; border-radius: 14px; overflow: hidden;
+  border-top: 5px solid var(--hist-border); box-shadow: var(--shadow-lg);
+  animation: histPop 0.18s ease;
+}
+.hist-modal-close {
+  position: absolute; top: 0.75rem; right: 0.75rem; z-index: 2;
+  width: 40px; height: 40px; border-radius: 50%; border: none;
+  background: #fff; color: var(--hist-color); font-size: 1.15rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm);
+  transition: background 0.15s;
+}
+.hist-modal-close:hover { background: #ede9fe; }
+.hist-modal-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: thin; }
+.hist-modal-head { padding: 2.5rem 3rem 0; }
+.hist-modal-head h1 {
+  font-size: 1.55rem; font-weight: 900; color: var(--h2-color);
+  line-height: 1.25; margin: 0.2rem 0 0.6rem; max-width: 46ch;
+}
+.hist-modal-head .hist-intro {
+  font-size: 0.92rem; color: var(--text-muted); font-style: italic; line-height: 1.6;
+  border-left: 3px solid var(--hist-border); padding-left: 1rem; margin-top: 0.75rem;
+}
+.hist-modal-head .hist-intro a { color: var(--hist-color); }
+.hist-modal .content-body { padding: 1.6rem 3rem 2.5rem; }
+@keyframes histFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes histPop { from { opacity: 0; transform: translateY(10px) scale(0.985); } to { opacity: 1; transform: none; } }
+
+/* ════════════════════════════════════════════════════════════════════════
    COVER / TABLE OF CONTENTS (домашня сторінка)
    ════════════════════════════════════════════════════════════════════════ */
 .cover-hero {
@@ -347,4 +408,8 @@ figcaption strong { font-style: normal; color: var(--text); }
   .cover-hero h1 { font-size: 1.95rem; }
   .sec, .hist-art-header, .toc { padding-left: 1.4rem; padding-right: 1.4rem; }
   .ch-grid { grid-template-columns: 1fr; }
+  .hist-modal { padding: 0; }
+  .hist-modal-dialog { max-width: 100%; max-height: 100vh; border-radius: 0; }
+  .hist-modal-head { padding: 2.4rem 1.4rem 0; }
+  .hist-modal .content-body { padding: 1.2rem 1.4rem 2rem; }
 }

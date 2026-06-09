@@ -253,16 +253,29 @@
       var gp = text.split(/\n\s*\n/).map(function (p) { return "<p>" + renderInline(p.replace(/\n/g, " "), ctx) + "</p>"; }).join("");
       return "<blockquote>" + gp + "</blockquote>";
     }
-    // зафіксувати, до якої секції тулиться історична вставка (для сайдбару)
+    // знайти посилання на історичні вставки ЦЬОГО розділу (для тизера й сайдбару)
+    var primary = null;
     var links = text.match(/\]\(([^)]+\.md)\)/g);
     if (links && ctx.histBases) {
       links.forEach(function (lm) {
         var hp = lm.match(/\]\(([^)]+)\)/)[1];
         var b = baseOf(hp.split("/").pop());
-        if (ctx.histBases.has(b)) ctx.attach.push({ base: b, after: sections.length - 1 });
+        if (ctx.histBases.has(b)) { if (!primary) primary = b; ctx.attach.push({ base: b, after: sections.length - 1 }); }
       });
     }
     var body = text.replace(/^(🔧|📜|▶️|▶️?)\s*/, "");
+
+    // 📜-вставка цього розділу → клікабельний тизер, що відкриває popup (а не лінк у кінець)
+    if (kind === "hist" && primary) {
+      var flat = body.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (m, tx, href) {
+        var b = baseOf(href.split("/").pop());
+        return (ctx.histBases && ctx.histBases.has(b)) ? "**" + tx + "**" : tx;   // прибрати анкери: вся картка клікабельна
+      });
+      return '<a class="callout callout-hist hist-teaser" href="#" data-hist="' + primary + '">' +
+        '<span class="callout-ico">📜</span><div class="callout-body">' + renderInline(flat.replace(/\n/g, " "), ctx) +
+        '<span class="hist-open">📖 Відкрити вставку →</span></div></a>';
+    }
+
     var paras = body.split(/\n\s*\n/);
     var inner = paras.length === 1
       ? renderInline(paras[0].replace(/\n/g, " "), ctx)
@@ -319,7 +332,7 @@
         var html = '<span id="top" class="anc"></span>';
         html += chapterHeader(chap, pm.introHtml);
         html += '<div class="sec content-body">' + pm.bodyHtml + "</div>";
-        arts.forEach(function (a) { html += historyArticle(a); });
+        arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна
         setContent(html);
 
         buildChapterSidebar(chap, pm.sections, ctx.attach, arts);
@@ -343,13 +356,14 @@
     return h + "</header>";
   }
 
-  function historyArticle(a) {
-    var h = '<section class="hist-art"><span id="hist-' + a.base + '" class="anc"></span>' +
-      '<div class="hist-art-header"><div class="hist-art-label">📜 Історична вставка</div><h1>' +
+  function histModal(a) {
+    var h = '<div class="hist-modal" id="histmodal-' + a.base + '" role="dialog" aria-modal="true" aria-label="' +
+      escapeAttr(a.title) + '" hidden><div class="hist-modal-backdrop" data-close></div>' +
+      '<div class="hist-modal-dialog"><button class="hist-modal-close" type="button" data-close aria-label="Закрити">✕</button>' +
+      '<div class="hist-modal-scroll"><div class="hist-modal-head"><div class="hist-art-label">📜 Історична вставка</div><h1>' +
       escapeHtml(a.title) + "</h1>";
     if (a.introHtml) h += '<div class="hist-intro">' + a.introHtml + "</div>";
-    h += '<a class="back-link" href="#top">↑ Повернутися до розділу</a></div>';
-    h += '<div class="sec content-body">' + a.bodyHtml + "</div></section>";
+    h += '</div><div class="content-body">' + a.bodyHtml + "</div></div></div></div>";
     return h;
   }
 
@@ -368,7 +382,7 @@
     function subLink(base) {
       if (usedSub[base]) return "";          // та сама історія може згадуватись кількома callout-ами
       usedSub[base] = true;
-      return '<a class="sb-sub" data-target="hist-' + base + '" href="#ch=' + slug + "&at=hist-" + base + '">📜 ' +
+      return '<a class="sb-sub" data-hist="' + base + '" href="#">📜 ' +
         escapeHtml(titleByBase[base] || base) + "</a>";
     }
 
@@ -492,6 +506,7 @@
   function route() {
     var r = parseHash();
     closeMobileSidebar();
+    closeAllModals();
     if (r.view === "cover") { currentSlug = null; renderCover(); window.scrollTo(0, 0); return; }
     var chap = CH_BY_SLUG[r.slug];
     if (!chap) {
@@ -508,6 +523,7 @@
 
   function scrollToAnchor(at) {
     if (!at) { window.scrollTo(0, 0); return; }
+    if (at.indexOf("hist-") === 0) { openHist(at.slice(5)); return; }   // deep-link на історію → popup
     var el = document.getElementById(at);
     if (el) el.scrollIntoView({ behavior: "auto", block: "start" });
     else window.scrollTo(0, 0);
@@ -516,6 +532,22 @@
   function markActive(at) {
     var links = $sidebar.querySelectorAll("[data-target]");
     for (var i = 0; i < links.length; i++) links[i].classList.toggle("active", links[i].getAttribute("data-target") === at);
+  }
+
+  /* ── Popup історичної вставки ───────────────────────────────────────── */
+  function openHist(base) {
+    closeAllModals();
+    var m = document.getElementById("histmodal-" + base);
+    if (!m) return;
+    m.hidden = false;
+    document.body.classList.add("modal-open");
+    var sc = m.querySelector(".hist-modal-scroll"); if (sc) sc.scrollTop = 0;
+    var cl = m.querySelector(".hist-modal-close"); if (cl) cl.focus();
+  }
+  function closeAllModals() {
+    var ms = document.querySelectorAll(".hist-modal");
+    for (var i = 0; i < ms.length; i++) ms[i].hidden = true;
+    document.body.classList.remove("modal-open");
   }
 
   var spy = null;
@@ -555,6 +587,14 @@
       top.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
       window.addEventListener("scroll", function () { top.classList.toggle("vis", window.scrollY > 600); });
     }
+    // делеговані кліки: відкрити/закрити popup історичної вставки
+    document.addEventListener("click", function (e) {
+      var op = e.target.closest && e.target.closest("[data-hist]");
+      if (op) { e.preventDefault(); openHist(op.getAttribute("data-hist")); return; }
+      var cl = e.target.closest && e.target.closest("[data-close]");
+      if (cl) { e.preventDefault(); closeAllModals(); }
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeAllModals(); });
   }
 
   /* ── Старт ──────────────────────────────────────────────────────────── */
