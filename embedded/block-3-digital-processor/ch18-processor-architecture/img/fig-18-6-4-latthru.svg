@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="404" viewBox="0 0 900 404">
+<rect width="900" height="404" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Головна думка: затримка vs пропускна здатність</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">конвеєр не робить ОДНУ команду швидше — він робить так, щоб команди ВИХОДИЛИ частіше</text>
+<rect x="60.0" y="90.0" width="380.0" height="150.0" rx="12" fill="#f8f9fb" stroke="#1f47b5" stroke-width="2"/>
+<text x="250.0" y="114.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ЗАТРИМКА (latency)</text>
+<text x="250.0" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">час однієї команди від початку до кінця</text>
+<rect x="90.0" y="150.0" width="88.0" height="34.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.4"/>
+<text x="134.0" y="171.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Виб</text>
+<rect x="186.0" y="150.0" width="88.0" height="34.0" rx="4" fill="#fff8e8" stroke="#caa24a" stroke-width="1.4"/>
+<text x="230.0" y="171.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">Дек</text>
+<rect x="282.0" y="150.0" width="88.0" height="34.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="326.0" y="171.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Вик</text>
+<text x="250.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">3 такти — і конвеєр цього НЕ змінює</text>
+<text x="250.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">(одна команда йде так само довго)</text>
+<rect x="460.0" y="90.0" width="380.0" height="150.0" rx="12" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2"/>
+<text x="650.0" y="114.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ПРОПУСКНА ЗДАТНІСТЬ (throughput)</text>
+<text x="650.0" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">скільки команд завершується за такт</text>
+<rect x="498.0" y="150.0" width="70.0" height="34.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="533.0" y="171.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">✓ готова</text>
+<rect x="578.0" y="150.0" width="70.0" height="34.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="613.0" y="171.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">✓ готова</text>
+<rect x="658.0" y="150.0" width="70.0" height="34.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="693.0" y="171.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">✓ готова</text>
+<rect x="738.0" y="150.0" width="70.0" height="34.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="773.0" y="171.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">✓ готова</text>
+<text x="650.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">одна нова — КОЖНОГО такту</text>
+<text x="650.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">(ось що множить конвеєр)</text>
+<rect x="60.0" y="258.0" width="780.0" height="116.0" rx="10" fill="#f6f8f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="450.0" y="282.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Аналогія з заводом: конвеєр не складає один автомобіль швидше — він робить так, щоб машини СХОДИЛИ з лінії частіше.</text>
+<text x="450.0" y="304.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Так конвеєр і зменшує CPI з §18.5: у ідеалі — одна завершена команда за такт (CPI → 1), хоч кожна окремо й триває кілька тактів.</text>
+<text x="450.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Це і є «пропускна здатність» із назви теми: важлива не швидкість однієї команди, а ТЕМП їхнього виходу.</text>
+<text x="450.0" y="352.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">N-стадійний конвеєр у ідеалі дає до ~N разів більшу пропускну здатність за ту саму частоту.</text>
+</svg>

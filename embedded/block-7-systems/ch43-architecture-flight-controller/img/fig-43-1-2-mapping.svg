@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470"
+     viewBox="0 0 900 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="470" fill="white"/>
+<text x="450.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Та сама абстракція — у реальному залізі й коді</text>
+<text x="450.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">кожна ланка контуру = конкретні компоненти апарата</text>
+<rect x="44" y="72" width="196" height="72" rx="10" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.7"/>
+<text x="142" y="112" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">ДАВАЧІ</text>
+<line x1="240" y1="108" x2="285" y2="108" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="288" y="72" width="576" height="72" rx="9" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="304" y="100" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">IMU (гіроскоп + акселерометр) · магнітометр · барометр</text>
+<text x="304" y="120" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">GNSS-приймач · давач струму та напруги</text>
+<rect x="44" y="164" width="196" height="72" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.7"/>
+<text x="142" y="196" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">ОЦІНЮВАЧ</text>
+<text x="142" y="212" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">СТАНУ</text>
+<line x1="240" y1="200" x2="285" y2="200" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="288" y="164" width="576" height="72" rx="9" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="304" y="192" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">орієнтація: крен · тангаж · курс</text>
+<text x="304" y="212" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">висота · положення · швидкість</text>
+<rect x="44" y="256" width="196" height="72" rx="10" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.7"/>
+<text x="142" y="296" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">КЕРУВАННЯ</text>
+<line x1="240" y1="292" x2="285" y2="292" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="288" y="256" width="576" height="72" rx="9" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="304" y="284" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">ПІД-контури й каскади (з Розділу 34):</text>
+<text x="304" y="304" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">кутова швидкість → кут → положення → траєкторія</text>
+<rect x="44" y="348" width="196" height="72" rx="10" fill="#fff5e6" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.7"/>
+<text x="142" y="380" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">ВИКОНАВЧІ</text>
+<text x="142" y="396" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">МЕХАНІЗМИ</text>
+<line x1="240" y1="384" x2="285" y2="384" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="288" y="348" width="576" height="72" rx="9" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="304" y="376" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">ESC → безколекторні мотори (тяга)</text>
+<text x="304" y="396" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">серворушії → керма / елерони</text>
+<text x="450.0" y="456" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Контур із Рис. 43.1.1 — не метафора: за кожним блоком стоять відчутні мікросхеми, мотори й рядки коду.</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="470" viewBox="0 0 860 470">
+<rect width="860" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="430.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="21" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Драбина абстракції: як приборкують складність</text>
+<text x="430.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кожен рівень збудований з нижнього й ХОВАЄ його деталі — так із транзисторів виростає процесор</text>
+<rect x="200.0" y="400.0" width="460.0" height="56.0" rx="10" fill="#f3f5fd" stroke="#1f47b5" stroke-width="2"/>
+<text x="430.0" y="425.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">транзистор</text>
+<text x="430.0" y="443.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">ключ із §12 / §15.5</text>
+<line x1="430.0" y1="400.0" x2="430.0" y2="386.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="216.1" y="330.0" width="427.8" height="56.0" rx="10" fill="#eef4ff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="430.0" y="355.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">вентиль (AND, OR, NOT, …)</text>
+<text x="430.0" y="373.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кілька транзисторів (§15.2–15.5)</text>
+<line x1="430.0" y1="330.0" x2="430.0" y2="316.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="232.2" y="260.0" width="395.6" height="56.0" rx="10" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2"/>
+<text x="430.0" y="285.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">блок: суматор · MUX · дешифратор</text>
+<text x="430.0" y="303.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">десятки вентилів (§15.6)</text>
+<line x1="430.0" y1="260.0" x2="430.0" y2="246.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="248.3" y="190.0" width="363.4" height="56.0" rx="10" fill="#fbf6ec" stroke="#9a7322" stroke-width="2"/>
+<text x="430.0" y="215.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#9a7322" text-anchor="middle" font-weight="bold" font-style="normal">функціональний вузол: АЛП, регістр</text>
+<text x="430.0" y="233.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">блоки + пам'ять (§15.7, Розділ 16)</text>
+<line x1="430.0" y1="190.0" x2="430.0" y2="176.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="264.4" y="120.0" width="331.2" height="56.0" rx="10" fill="#fdf4f4" stroke="#c0271e" stroke-width="2"/>
+<text x="430.0" y="145.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ПРОЦЕСОР</text>
+<text x="430.0" y="163.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">вузли + керування (Розділ 18)</text>
+<text x="800.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="italic">вище —</text>
+<text x="800.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="italic">більше</text>
+<text x="800.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="italic">абстракції</text>
+<text x="70.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">нижче —</text>
+<text x="70.0" y="426.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">більше деталей</text>
+</svg>

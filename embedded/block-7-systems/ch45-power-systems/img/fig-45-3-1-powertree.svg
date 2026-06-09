@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="500"
+     viewBox="0 0 980 500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="980" height="500" fill="white"/>
+<text x="490.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Живлення апарата — це дерево шин від однієї батареї</text>
+<text x="490.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">від кореня (батареї) гілки розходяться через перетворювачі до кожного навантаження</text>
+<rect x="40" y="210" width="130" height="80" rx="11" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.9"/>
+<text x="105" y="244" font-size="13" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">Батарея</text>
+<text x="105" y="266" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">4S ~14.8 В</text>
+<line x1="170" y1="235" x2="300" y2="110" stroke="#cc0000" stroke-width="2.6" marker-end="url(#arrR)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="300" y="82.0" width="200" height="56" rx="9" fill="#fff0f0" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.6"/>
+<text x="400.0" y="108" font-size="11.5" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">ESC ×4 → мотори</text>
+<text x="400.0" y="126" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">сира батарея, великий струм</text>
+<line x1="170" y1="250" x2="300" y2="250" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="300" y="223.0" width="130" height="54" rx="9" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.6"/>
+<text x="365.0" y="248" font-size="11.5" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">Buck → 5 В</text>
+<text x="365.0" y="266" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">головна шина</text>
+<line x1="430" y1="235" x2="560" y2="200" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="560" y="176.0" width="180" height="48" rx="9" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="650.0" y="198" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Контролер, приймач</text>
+<line x1="430" y1="262" x2="540" y2="300" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="540" y="276.0" width="120" height="48" rx="9" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.6"/>
+<text x="600.0" y="298" font-size="11.5" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">LDO → 3.3 В</text>
+<text x="600.0" y="316" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">тихо</text>
+<line x1="660" y1="300" x2="760" y2="300" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="760" y="276.0" width="160" height="48" rx="9" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.6"/>
+<text x="840.0" y="298" font-size="11.5" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">Давачі (чисто)</text>
+<line x1="170" y1="270" x2="300" y2="400" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="300" y="373.0" width="130" height="54" rx="9" fill="#fff5e6" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.6"/>
+<text x="365.0" y="398" font-size="11.5" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">Buck → 12 В</text>
+<line x1="430" y1="400" x2="560" y2="400" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="560" y="376.0" width="180" height="48" rx="9" fill="white" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.6"/>
+<text x="650.0" y="398" font-size="11.5" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">Камера / підвіс</text>
+<text x="490.0" y="486" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Часто все це збирають на платі розподілу живлення (PDB). Кожна гілка має свій струмовий ліміт; відмова в корені валить усі гілки нижче (44.7).</text>
+</svg>

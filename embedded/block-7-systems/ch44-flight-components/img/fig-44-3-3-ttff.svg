@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="470"
+     viewBox="0 0 940 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="940" height="470" fill="white"/>
+<text x="470.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Чому перший фікс не миттєвий: що приймач мусить дізнатися</text>
+<text x="470.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">час до першого фікса (TTFF) залежить від того, що вже відомо</text>
+<rect x="40" y="90" width="470" height="96" rx="11" fill="white" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.7"/>
+<text x="58" y="116" font-size="13.5" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">Холодний старт</text>
+<text x="58" y="140" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">знає: не знає нічого</text>
+<text x="58" y="162" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">мусить: знайти супутники + ефемериди (+ альманах)</text>
+<rect x="540" y="120" width="349.6" height="34" rx="6" fill="#cc0000" fill-opacity="0.6" stroke="none" stroke-width="1.6"/>
+<rect x="540" y="120" width="372" height="34" rx="6" fill="none" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="550" y="142" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">~30–60 с,  до 12.5 хв на повний альманах</text>
+<rect x="40" y="206" width="470" height="96" rx="11" fill="white" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.7"/>
+<text x="58" y="232" font-size="13.5" fill="#d98a00" text-anchor="start" font-weight="bold" font-style="normal">Теплий старт</text>
+<text x="58" y="256" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">знає: є альманах і груба позиція/час</text>
+<text x="58" y="278" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">мусить: лише свіжі ефемериди</text>
+<rect x="540" y="236" width="138.0" height="34" rx="6" fill="#d98a00" fill-opacity="0.6" stroke="none" stroke-width="1.6"/>
+<rect x="540" y="236" width="372" height="34" rx="6" fill="none" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="550" y="258" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">~30–45 с</text>
+<rect x="40" y="322" width="470" height="96" rx="11" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.7"/>
+<text x="58" y="348" font-size="13.5" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">Гарячий старт</text>
+<text x="58" y="372" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">знає: усе свіже з нещодавна</text>
+<text x="58" y="394" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">мусить: майже нічого</text>
+<rect x="540" y="352" width="55.2" height="34" rx="6" fill="#0a8f3c" fill-opacity="0.6" stroke="none" stroke-width="1.6"/>
+<rect x="540" y="352" width="372" height="34" rx="6" fill="none" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="550" y="374" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">~0.5–20 с</text>
+<text x="470.0" y="454" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Ефемериди дійсні ~2 год, альманах — тижні. Ось чому свіжовключений апарат «думає» довше, ніж той, що нещодавно вже ловив супутники.</text>
+</svg>

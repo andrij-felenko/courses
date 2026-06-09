@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="380" viewBox="0 0 960 380">
+<rect width="960" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="480.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Лік: антиаліасинговий фільтр ПЕРЕД АЦП</text>
+<text x="480.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">аналоговий ФНЧ зрізає все вище за fs/2, поки воно ще не потрапило в пастку (пор. §25.4)</text>
+<text x="110.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">сигнал + шум</text>
+<rect x="60.0" y="130.0" width="100.0" height="50.0" rx="8" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="110.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">є ВЧ-шум</text>
+<line x1="160.0" y1="155.0" x2="250.0" y2="155.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<rect x="250.0" y="125.0" width="150.0" height="60.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="325.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ФНЧ</text>
+<text x="325.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">анти-аліас</text>
+<line x1="400.0" y1="155.0" x2="490.0" y2="155.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<rect x="490.0" y="130.0" width="110.0" height="50.0" rx="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.4"/>
+<text x="545.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">лише НЧ</text>
+<text x="545.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.6" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(&lt; fs/2)</text>
+<line x1="600.0" y1="155.0" x2="690.0" y2="155.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<rect x="690.0" y="130.0" width="110.0" height="50.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="745.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">АЦП</text>
+<line x1="110.0" y1="320.0" x2="290.0" y2="320.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="220.0" y1="320.0" x2="220.0" y2="230.0" stroke="#c0271e" stroke-width="1.4" stroke-dasharray="4,3" stroke-linecap="round"/>
+<text x="220.0" y="336.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">fs/2</text>
+<line x1="140.0" y1="320.0" x2="140.0" y2="250.0" stroke="#1f8a3b" stroke-width="5" stroke-linecap="round"/>
+<text x="110.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.2" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">сигнал</text>
+<line x1="255.0" y1="320.0" x2="255.0" y2="270.0" stroke="#c0271e" stroke-width="5" stroke-linecap="round"/>
+<text x="240.0" y="264.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.2" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">ВЧ-шум</text>
+<text x="190.0" y="354.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">до фільтра</text>
+<line x1="490.0" y1="320.0" x2="670.0" y2="320.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="600.0" y1="320.0" x2="600.0" y2="230.0" stroke="#c0271e" stroke-width="1.4" stroke-dasharray="4,3" stroke-linecap="round"/>
+<text x="600.0" y="336.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">fs/2</text>
+<line x1="520.0" y1="320.0" x2="520.0" y2="250.0" stroke="#1f8a3b" stroke-width="5" stroke-linecap="round"/>
+<text x="490.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.2" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">сигнал</text>
+<text x="570.0" y="354.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">після фільтра</text>
+<text x="740.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ВЧ-шум зрізано —</text>
+<text x="740.0" y="266.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">складатися нема чому</text>
+</svg>

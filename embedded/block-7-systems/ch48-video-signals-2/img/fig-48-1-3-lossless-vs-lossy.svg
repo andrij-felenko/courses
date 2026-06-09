@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="450"
+     viewBox="0 0 960 450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="450" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Без утрат чи з утратами: дві стратегії</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">без утрат — точна копія, та стиск скромний; з утратами — викидаємо непомітне, стиск у рази більший</text>
+<rect x="70" y="120" width="380" height="150" rx="12" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.8"/>
+<text x="260" y="148" font-size="13" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">БЕЗ УТРАТ (lossless)</text>
+<text x="92" y="174" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• точно відновлює оригінал (як zip)</text>
+<text x="92" y="196" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• лише пакує повтори розумніше</text>
+<text x="92" y="218" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• стиск скромний: ~2× для зображень</text>
+<text x="260" y="252" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">де треба ТОЧНІСТЬ: код, текст, медкадри</text>
+<rect x="510" y="120" width="380" height="150" rx="12" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.8"/>
+<text x="700" y="148" font-size="13" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">З УТРАТАМИ (lossy)</text>
+<text x="532" y="174" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• свідомо викидає непомітне (DCT)</text>
+<text x="532" y="196" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• відновлене ≈ оригінал, не точно</text>
+<text x="532" y="218" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• стиск великий: 10–100× і більше</text>
+<text x="700" y="252" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">де важить РОЗМІР: фото, відео, FPV</text>
+<text x="170" y="308" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">наочно (умовно):</text>
+<rect x="170" y="320" width="600" height="22" rx="4" fill="#e5e7eb" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="778" y="336" font-size="10" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">сире</text>
+<rect x="170" y="348" width="300" height="18" rx="4" fill="#1f4ed8" fill-opacity="0.7" stroke="none" stroke-width="1.6"/>
+<text x="478" y="362" font-size="10" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">без утрат ~½</text>
+<rect x="170" y="372" width="40" height="18" rx="4" fill="#0a8f3c" fill-opacity="0.8" stroke="none" stroke-width="1.6"/>
+<text x="218" y="386" font-size="10" fill="#15803d" text-anchor="start" font-weight="bold" font-style="normal">з утратами ~1/20</text>
+<text x="480.0" y="436" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Відео майже завжди стискають З УТРАТАМИ: інакше пожежний шланг не приборкати. Питання — скільки якості віддати.</text>
+</svg>

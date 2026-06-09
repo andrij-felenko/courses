@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
+     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Компенсація руху: «блок переїхав» замість «новий блок»</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">кодувальник помічає, що шматок просто зсунувся — пише вектор руху + крихітну поправку</text>
+<text x="180" y="110" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">кадр N</text>
+<rect x="90" y="124" width="180" height="150" rx="4" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="110" y="150" width="40" height="40" rx="8" fill="#f59e0b" fill-opacity="1.0" stroke="white" stroke-width="1.4"/>
+<text x="130" y="175" font-size="9" fill="white" text-anchor="middle" font-weight="bold" font-style="normal">блок</text>
+<line x1="280" y1="199" x2="396" y2="199" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="490" y="110" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">кадр N+1</text>
+<rect x="400" y="124" width="180" height="150" rx="4" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="420" y="150" width="40" height="40" rx="8" fill="none" fill-opacity="1.0" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4,3"/>
+<rect x="470" y="200" width="40" height="40" rx="8" fill="#f59e0b" fill-opacity="1.0" stroke="white" stroke-width="1.4"/>
+<line x1="440" y1="170" x2="488" y2="218" stroke="#cc0000" stroke-width="2.2" marker-end="url(#arrR)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="545" y="200" font-size="9" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">вектор</text>
+<text x="545" y="213" font-size="9" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">руху</text>
+<rect x="640" y="150" width="260" height="130" rx="11" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.6"/>
+<text x="770" y="176" font-size="11" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">що зберігаємо:</text>
+<text x="660" y="200" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• вектор руху: «+5, +5»</text>
+<text x="660" y="219" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">  (кілька байтів!)</text>
+<text x="660" y="238" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• крихітна поправка-залишок</text>
+<text x="660" y="257" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">  (що не збіглося після зсуву)</text>
+<text x="480.0" y="430" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Не «ось новий блок» (дорого), а «візьми старий і посунь сюди» (дешево). Це й є компенсація руху —</text>
+<text x="480.0" y="446" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">найрозумніша частина відеостиснення: вона ловить рух камери й об'єктів майже задарма.</text>
+</svg>

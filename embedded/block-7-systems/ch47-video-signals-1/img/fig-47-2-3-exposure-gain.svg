@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="450"
+     viewBox="0 0 960 450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="450" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Дві ручки яскравості: витримка й підсилення</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">витримка набирає більше світла (ризик змазу); підсилення множить сигнал уже після (ризик шуму)</text>
+<rect x="70" y="180" width="120" height="100" rx="6" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="130" y="234" font-size="11" fill="#e5e7eb" text-anchor="middle" font-weight="normal" font-style="normal">темний</text>
+<text x="130" y="300" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">тьмяний кадр</text>
+<line x1="192" y1="200" x2="250" y2="162" stroke="#1f4ed8" stroke-width="2.0" marker-end="url(#arrB)" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="192" y1="262" x2="250" y2="298" stroke="#d98a00" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="255" y="112" width="330" height="96" rx="11" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.7"/>
+<text x="420" y="136" font-size="12" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">↑ ВИТРИМКА (довше відкрито)</text>
+<text x="420" y="160" font-size="10.5" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">більше світла в відерце → яскравіше</text>
+<text x="420" y="182" font-size="10.5" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">✗ ризик: розмиє рух (змаз)</text>
+<rect x="255" y="250" width="330" height="96" rx="11" fill="#fff5e6" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.7"/>
+<text x="420" y="274" font-size="12" fill="#b06b00" text-anchor="middle" font-weight="bold" font-style="normal">↑ ПІДСИЛЕННЯ (множимо сигнал)</text>
+<text x="420" y="298" font-size="10.5" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">множимо вже зчитане число</text>
+<text x="420" y="320" font-size="10.5" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">✗ ризик: множить і ШУМ (зерно)</text>
+<line x1="587" y1="160" x2="645" y2="218" stroke="#1f4ed8" stroke-width="2.0" marker-end="url(#arrB)" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="587" y1="298" x2="645" y2="240" stroke="#d98a00" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="650" y="185" width="120" height="100" rx="6" fill="#475569" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="710" y="239" font-size="11" fill="white" text-anchor="middle" font-weight="normal" font-style="normal">яскравіше</text>
+<text x="710" y="305" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">але з платою</text>
+<text x="480.0" y="436" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Підсилення НЕ додає світла — лише розтягує наявне разом із шумом. Тому «витягнути» темний кадр без втрат не можна.</text>
+</svg>

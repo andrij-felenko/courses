@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="440" viewBox="0 0 880 440">
+<rect width="880" height="440" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Лічильник: ланцюг toggle-тригерів рахує імпульси у двійковій</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кожен наступний тригер ділить ще навпіл, тож разом вони лічать 000, 001, 010, … як двійкове число</text>
+<text x="138.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">такт</text>
+<line x1="150.0" y1="112.0" x2="840.0" y2="112.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
+<polyline points="150.0,112.0 180.0,112.0 180.0,88.0 215.0,88.0 215.0,112.0 270.0,112.0 270.0,88.0 305.0,88.0 305.0,112.0 360.0,112.0 360.0,88.0 395.0,88.0 395.0,112.0 450.0,112.0 450.0,88.0 485.0,88.0 485.0,112.0 540.0,112.0 540.0,88.0 575.0,88.0 575.0,112.0 630.0,112.0 630.0,88.0 665.0,88.0 665.0,112.0 720.0,112.0 720.0,88.0 755.0,88.0 755.0,112.0 810.0,112.0 810.0,88.0 845.0,88.0 845.0,112.0 840.0,112.0" fill="none" stroke="#1b1b1b" stroke-width="2.3"/>
+<line x1="180.0" y1="90.0" x2="180.0" y2="350.0" stroke="#8a8a8a" stroke-width="0.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="270.0" y1="90.0" x2="270.0" y2="350.0" stroke="#8a8a8a" stroke-width="0.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="360.0" y1="90.0" x2="360.0" y2="350.0" stroke="#8a8a8a" stroke-width="0.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="450.0" y1="90.0" x2="450.0" y2="350.0" stroke="#8a8a8a" stroke-width="0.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="540.0" y1="90.0" x2="540.0" y2="350.0" stroke="#8a8a8a" stroke-width="0.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="630.0" y1="90.0" x2="630.0" y2="350.0" stroke="#8a8a8a" stroke-width="0.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="720.0" y1="90.0" x2="720.0" y2="350.0" stroke="#8a8a8a" stroke-width="0.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="810.0" y1="90.0" x2="810.0" y2="350.0" stroke="#8a8a8a" stroke-width="0.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<text x="138.0" y="169.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">Q0 (÷2)</text>
+<line x1="150.0" y1="176.0" x2="840.0" y2="176.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
+<polyline points="150.0,176.0 180.0,176.0 180.0,154.0 270.0,154.0 270.0,176.0 360.0,176.0 360.0,154.0 450.0,154.0 450.0,176.0 540.0,176.0 540.0,154.0 630.0,154.0 630.0,176.0 720.0,176.0 720.0,154.0 810.0,154.0 810.0,176.0 840.0,176.0" fill="none" stroke="#1f8a3b" stroke-width="2.3"/>
+<text x="138.0" y="229.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">Q1 (÷4)</text>
+<line x1="150.0" y1="236.0" x2="840.0" y2="236.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
+<polyline points="150.0,236.0 270.0,236.0 270.0,214.0 450.0,214.0 450.0,236.0 630.0,236.0 630.0,214.0 810.0,214.0 810.0,236.0 840.0,236.0" fill="none" stroke="#1f8a3b" stroke-width="2.3"/>
+<text x="138.0" y="289.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">Q2 (÷8)</text>
+<line x1="150.0" y1="296.0" x2="840.0" y2="296.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
+<polyline points="150.0,296.0 450.0,296.0 450.0,274.0 810.0,274.0 810.0,296.0 840.0,296.0" fill="none" stroke="#1f8a3b" stroke-width="2.3"/>
+<text x="180.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">001</text>
+<text x="270.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">010</text>
+<text x="360.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">011</text>
+<text x="450.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">100</text>
+<text x="540.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">101</text>
+<text x="630.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">110</text>
+<text x="720.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">111</text>
+<text x="810.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">000</text>
+<text x="150.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">→</text>
+<rect x="70.0" y="360.0" width="740.0" height="60.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="440.0" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Q2 Q1 Q0 разом — це двійкове число, що зростає на 1 щотакту: 0→1→2→…→7→0.</text>
+<text x="440.0" y="406.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Молодший біт Q0 ділить такт на 2, Q1 — на 4, Q2 — на 8: біт n = такт / 2ⁿ⁺¹.</text>
+</svg>

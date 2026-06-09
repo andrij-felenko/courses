@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360">
+<rect width="940" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Однаковий пріоритет: не перебивають, а чекають у черзі</text>
+<text x="470.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">переривання того ж рівня не витісняє чинний обробник — воно дочікується його кінця</text>
+<text x="64.0" y="128.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">обробник A</text>
+<rect x="150.0" y="134.0" width="240.0" height="32.0" rx="6" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="270.0" y="156.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">A виконується</text>
+<circle cx="280.0" cy="210.0" r="4.0" fill="#caa24a" stroke="#caa24a" stroke-width="0"/>
+<text x="280.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a6a14" text-anchor="middle" font-weight="bold" font-style="normal">B (той самий рівень) прийшло тут</text>
+<line x1="280.0" y1="204.0" x2="280.0" y2="166.0" stroke="#caa24a" stroke-width="1.4" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="280.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">↓ але мусить чекати</text>
+<rect x="390.0" y="234.0" width="200.0" height="32.0" rx="6" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="490.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">B виконується</text>
+<line x1="390.0" y1="166.0" x2="390.0" y2="234.0" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="490.0" y="284.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">аж коли A завершився</text>
+<text x="470.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.3" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Тому на ESP32 ваші обробники з attachInterrupt (усі рівня 1) НЕ перебивають один одного.</text>
+</svg>

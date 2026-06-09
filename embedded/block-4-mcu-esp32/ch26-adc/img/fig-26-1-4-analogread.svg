@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="350" viewBox="0 0 960 350">
+<rect width="960" height="350" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="480.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">У коді це один рядок: analogRead дає число</text>
+<text x="480.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">ніжка → АЦП → ціле 0…4095; назад у вольти — множенням на крок</text>
+<rect x="70.0" y="120.0" width="150.0" height="70.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="145.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ніжка</text>
+<text x="145.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">GPIO34</text>
+<line x1="220.0" y1="155.0" x2="300.0" y2="155.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="260.0" y="144.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Vin</text>
+<rect x="300.0" y="120.0" width="150.0" height="70.0" rx="10" fill="#fbecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="375.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">АЦП</text>
+<text x="375.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">12 біт</text>
+<line x1="450.0" y1="155.0" x2="540.0" y2="155.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<rect x="540.0" y="120.0" width="160.0" height="70.0" rx="10" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="620.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">число</text>
+<text x="620.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">0 … 4095</text>
+<rect x="80.0" y="230.0" width="800.0" height="96.0" rx="10" fill="#fbfcff" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="100.0" y="258.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">int  n = analogRead(34);      // напр., n = 2048</text>
+<text x="100.0" y="284.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">float v = n * 3.3 / 4095;     // → v ≈ 1.65 В</text>
+<text x="100.0" y="310.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">n — «який це щабель», v — назад у вольти (крок ≈ 3.3/4095 ≈ 0.8 мВ)</text>
+</svg>

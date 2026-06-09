@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
+     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">HDR: коли сцена ширша за сенсор — кілька кадрів в один</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">короткий кадр ловить світле, довгий — темне; зливаємо — і в одному кадрі є і небо, і тінь</text>
+<text x="140" y="106" font-size="11.5" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">КОРОТКИЙ кадр</text>
+<rect x="72" y="124" width="136" height="63" rx="8" fill="#a5b4d8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="72" y="187" width="136" height="63" rx="8" fill="#000000" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="70" y="122" width="140" height="130" rx="6" fill="none" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="140" y="270" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">небо добре, тінь чорна</text>
+<text x="340" y="106" font-size="11.5" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">ДОВГИЙ кадр</text>
+<rect x="272" y="124" width="136" height="63" rx="8" fill="#ffffff" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="272" y="187" width="136" height="63" rx="8" fill="#6b7280" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="270" y="122" width="140" height="130" rx="6" fill="none" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="340" y="270" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">тінь добре, небо біле</text>
+<text x="445" y="192" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">+</text>
+<text x="560" y="106" font-size="11.5" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">ЗЛИТО (HDR)</text>
+<rect x="492" y="124" width="136" height="63" rx="8" fill="#7c93c4" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="492" y="187" width="136" height="63" rx="8" fill="#5b6470" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="490" y="122" width="140" height="130" rx="6" fill="none" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="560" y="270" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">і небо, і тінь видно</text>
+<line x1="636" y1="188" x2="686" y2="188" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="700" y="128" width="200" height="132" rx="11" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.5"/>
+<text x="800" y="154" font-size="10.5" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">для машинного бачення</text>
+<text x="716" y="178" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">вузький діапазон →</text>
+<text x="716" y="195" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">ціль гине в блиску</text>
+<text x="716" y="212" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">неба чи в тіні;</text>
+<text x="716" y="229" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">ширший DR / HDR →</text>
+<text x="716" y="246" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">ціль видно скрізь</text>
+<text x="480.0" y="430" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Сцена «яскраве небо + темна земля» легко перевищує діапазон сенсора. Кілька витримок, злитих в одну,</text>
+<text x="480.0" y="446" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">вкладають увесь діапазон у кадр. Та для рухомого апарата HDR складний (об'єкти зсуваються між кадрами).</text>
+</svg>

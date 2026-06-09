@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420">
+<rect width="880" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">До й після IEEE 754: від хаосу форматів до спільного стандарту</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">до 1985-го кожен виробник робив плаваючу кому по-своєму — та сама програма давала РІЗНІ числа</text>
+<text x="220.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ДО: Вавилон форматів</text>
+<text x="220.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">(та сама програма →)</text>
+<rect x="70.0" y="124.0" width="130.0" height="86.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="135.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">IBM</text>
+<text x="135.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">16-кова основа</text>
+<text x="135.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">= 3.1399</text>
+<rect x="70.0" y="224.0" width="130.0" height="86.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="135.0" y="246.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">DEC VAX</text>
+<text x="135.0" y="266.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">свій формат</text>
+<text x="135.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">= 3.1416</text>
+<rect x="290.0" y="124.0" width="130.0" height="86.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="355.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Cray</text>
+<text x="355.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">інше округлення</text>
+<text x="355.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">= 3.14001</text>
+<rect x="290.0" y="224.0" width="130.0" height="86.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="355.0" y="246.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">CDC</text>
+<text x="355.0" y="266.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">60-біт слова</text>
+<text x="355.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">= 3.1420</text>
+<text x="220.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">різні відповіді → нікому не вірити</text>
+<line x1="440.0" y1="230.0" x2="510.0" y2="230.0" stroke="#1b1b1b" stroke-width="2.4" marker-end="url(#aInk)"/>
+<text x="475.0" y="218.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">754</text>
+<text x="700.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ПІСЛЯ: один стандарт</text>
+<rect x="560.0" y="124.0" width="130.0" height="86.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="625.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Intel</text>
+<text x="625.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">IEEE 754</text>
+<text x="625.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">= 3.14159</text>
+<rect x="710.0" y="124.0" width="130.0" height="86.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="775.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ARM</text>
+<text x="775.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">IEEE 754</text>
+<text x="775.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">= 3.14159</text>
+<rect x="560.0" y="224.0" width="130.0" height="86.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="625.0" y="246.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ESP32</text>
+<text x="625.0" y="266.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">IEEE 754</text>
+<text x="625.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">= 3.14159</text>
+<rect x="710.0" y="224.0" width="130.0" height="86.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="775.0" y="246.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ПК</text>
+<text x="775.0" y="266.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">IEEE 754</text>
+<text x="775.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">= 3.14159</text>
+<text x="700.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">формат → базові операції біт-у-біт</text>
+<text x="440.0" y="372.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">IEEE 754 (1985) зробив плаваючу кому ПЕРЕДБАЧУВАНОЮ й ПЕРЕНОСНОЮ — і лише тому їй узагалі можна довіряти.</text>
+<text x="440.0" y="394.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Пастки §17.6 нікуди не зникли — та принаймні стали однаковими й відтворюваними на будь-якій машині.</text>
+</svg>

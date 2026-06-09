@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440"
+     viewBox="0 0 960 440" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="440" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Естафета зарядів: як CCD зчитує матрицю</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">замість підсилювача в кожному пікселі — заряд пересувають «відерце за відерцем» до одного виходу</text>
+<text x="392" y="142" font-size="10.5" fill="#b06b00" text-anchor="middle" font-weight="bold" font-style="normal">заряд зсувається праворуч, такт за тактом →</text>
+<polygon points="110,170 110,230 190,230 190,170" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="116" y="197.2" width="68" height="30.799999999999997" rx="2" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<line x1="191" y1="158" x2="203" y2="158" stroke="#d98a00" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<polygon points="204,170 204,230 284,230 284,170" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="210" y="210.4" width="68" height="17.6" rx="2" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<line x1="285" y1="158" x2="297" y2="158" stroke="#d98a00" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<polygon points="298,170 298,230 378,230 378,170" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="304" y="188.4" width="68" height="39.6" rx="2" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<line x1="379" y1="158" x2="391" y2="158" stroke="#d98a00" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<polygon points="392,170 392,230 472,230 472,170" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="398" y="206.0" width="68" height="22.0" rx="2" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<line x1="473" y1="158" x2="485" y2="158" stroke="#d98a00" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<polygon points="486,170 486,230 566,230 566,170" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="492" y="201.6" width="68" height="26.4" rx="2" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<line x1="567" y1="158" x2="579" y2="158" stroke="#d98a00" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<polygon points="580,170 580,230 660,230 660,170" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="586" y="214.8" width="68" height="13.2" rx="2" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<line x1="661" y1="158" x2="673" y2="158" stroke="#d98a00" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<polygon points="674,170 674,230 754,230 754,170" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="680" y="192.8" width="68" height="35.2" rx="2" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<text x="110" y="258" font-size="10.5" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">пікселі-відерця (заряд від світла)</text>
+<line x1="768" y1="200" x2="776" y2="200" stroke="#1f4ed8" stroke-width="2.2" marker-end="url(#arrB)" stroke-opacity="1.0" stroke-linecap="round"/>
+<polygon points="776,174 776,226 824,200" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.8" stroke-linejoin="round"/>
+<text x="800" y="248" font-size="10.5" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">ОДИН</text>
+<text x="800" y="263" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">підсилювач</text>
+<text x="480.0" y="410" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Як відра в пожежній естафеті: заряд кожного пікселя по черзі передають уздовж ряду до єдиного «читача» на краю.</text>
+<text x="480.0" y="426" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Один підсилювач на всіх — звідси надзвичайна РІВНІСТЬ і мала шумність, але й повільність.</text>
+</svg>

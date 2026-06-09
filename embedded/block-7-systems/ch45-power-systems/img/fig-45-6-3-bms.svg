@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
+     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">BMS: вартовий, що стереже кожну межу</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">вийшов за поріг — BMS вимикає: понапруга, недонапруга, надструм, перегрів</text>
+<rect x="380" y="150" width="200" height="150" rx="14" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="2.0"/>
+<text x="480" y="198" font-size="22" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">BMS</text>
+<text x="480" y="224" font-size="11.5" fill="#1f4ed8" text-anchor="middle" font-weight="normal" font-style="normal">захист + баланс</text>
+<text x="480" y="256" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">стежить за кожною</text>
+<text x="480" y="270" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">коміркою, струмом, t°</text>
+<rect x="150" y="116" width="150" height="90" rx="10" fill="white" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.7"/>
+<text x="225" y="140" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">ПОНАПРУГА</text>
+<text x="225" y="162" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">банка &gt; 4.25 В</text>
+<text x="225" y="182" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">→ обрізає заряд</text>
+<line x1="300" y1="161" x2="380" y2="161" stroke="#cc0000" stroke-width="1.4" stroke-dasharray="4,3" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="150" y="246" width="150" height="90" rx="10" fill="white" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.7"/>
+<text x="225" y="270" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">НЕДОНАПРУГА</text>
+<text x="225" y="292" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">банка &lt; 3.0 В</text>
+<text x="225" y="312" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">→ обрізає розряд</text>
+<line x1="300" y1="291" x2="380" y2="291" stroke="#d98a00" stroke-width="1.4" stroke-dasharray="4,3" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="660" y="116" width="150" height="90" rx="10" fill="white" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.7"/>
+<text x="735" y="140" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">НАДСТРУМ</text>
+<text x="735" y="162" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">I &gt; межі / коротке</text>
+<text x="735" y="182" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">→ вимикає миттєво</text>
+<line x1="660" y1="161" x2="580" y2="161" stroke="#cc0000" stroke-width="1.4" stroke-dasharray="4,3" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="660" y="246" width="150" height="90" rx="10" fill="white" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.7"/>
+<text x="735" y="270" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">ПЕРЕГРІВ</text>
+<text x="735" y="292" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">t° &gt; ~60 °C</text>
+<text x="735" y="312" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">→ вимикає</text>
+<line x1="660" y1="291" x2="580" y2="291" stroke="#d98a00" stroke-width="1.4" stroke-dasharray="4,3" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="480.0" y="430" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">На дроні «голий» LiPo часто покладається на failsafe польотного контролера (низька напруга),</text>
+<text x="480.0" y="446" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">а в серйозних Li-ion пакетах стоїть справжній BMS, що сам обриває коло на будь-якому порушенні.</text>
+</svg>

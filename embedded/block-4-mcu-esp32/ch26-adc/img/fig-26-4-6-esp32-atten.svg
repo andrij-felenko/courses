@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="400" viewBox="0 0 960 400">
+<rect width="960" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="480.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Vref в ESP32: внутрішні ≈ 1.1 В + ослаблення входу</text>
+<text x="480.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">вхід ділять перед АЦП, щоб ≈1.1-вольтова опорна «накрила» більший діапазон</text>
+<text x="134.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="end" font-weight="bold" font-style="normal">0 dB</text>
+<rect x="150.0" y="100.0" width="220.0" height="30.0" rx="4" fill="#ffffff" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="380.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">0 … ~1.1 В</text>
+<text x="134.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">2.5 dB</text>
+<rect x="150.0" y="156.0" width="300.0" height="30.0" rx="4" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="460.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">0 … ~1.5 В</text>
+<text x="134.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#caa24a" text-anchor="end" font-weight="bold" font-style="normal">6 dB</text>
+<rect x="150.0" y="212.0" width="440.0" height="30.0" rx="4" fill="#ffffff" stroke="#caa24a" stroke-width="1.6"/>
+<text x="600.0" y="232.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">0 … ~2.2 В</text>
+<text x="134.0" y="284.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">11 dB</text>
+<rect x="150.0" y="268.0" width="660.0" height="30.0" rx="4" fill="#ffffff" stroke="#c0271e" stroke-width="1.6"/>
+<text x="820.0" y="288.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">0 … ~3.3 В</text>
+<text x="900.0" y="128.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">← типове</text>
+<text x="900.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.6" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">(0..~3.3 В)</text>
+<rect x="150.0" y="332.0" width="700.0" height="52.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="1.4"/>
+<text x="500.0" y="354.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Менше ослаблення — вужчий діапазон, зате той самий 12-бітний крок лягає дрібніше.</text>
+<text x="500.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Опорна різниться від чипа до чипа (1.0…1.2 В), тому АЦП ESP32 треба калібрувати — §26.6.</text>
+</svg>

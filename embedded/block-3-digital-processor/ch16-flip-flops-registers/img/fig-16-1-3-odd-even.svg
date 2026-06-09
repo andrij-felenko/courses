@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420">
+<rect width="880" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ключ: петля з ПАРНОЇ кількості інверсій тримає стан, з непарної — коливається</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">один інвертор у кільці суперечить сам собі (стійкого стану нема); два — узгоджуються у два стійкі стани</text>
+<rect x="50.0" y="84.0" width="380.0" height="290.0" rx="10" fill="none" stroke="#e4e4e4" stroke-width="1.5"/>
+<text x="240.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1 інвертор (непарна) → КОЛИВАННЯ</text>
+<path d="M 190,153.0 L 190,187.0 L 234,170 Z" fill="#fafafa" stroke="#1b1b1b" stroke-width="2"/>
+<circle cx="240.0" cy="170.0" r="6.0" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="150.0" y1="170.0" x2="190.0" y2="170.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="246.0" y1="170.0" x2="280.0" y2="170.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="280.0" y1="170.0" x2="280.0" y2="130.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="280.0" y1="130.0" x2="130.0" y2="130.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="130.0" y1="130.0" x2="130.0" y2="170.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="130.0" y1="170.0" x2="150.0" y2="170.0" stroke="#1b1b1b" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="205.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">вихід → вхід</text>
+<text x="240.0" y="215.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="italic">«0→1→0→1…» — ніколи не вщухає</text>
+<polyline points="70.0,284.0 72.9,284.0 75.8,284.0 78.7,284.0 81.6,284.0 84.5,284.0 87.4,284.0 90.3,284.0 93.2,284.0 96.1,284.0 99.0,284.0 101.9,284.0 104.8,320.0 107.7,320.0 110.6,320.0 113.5,320.0 116.4,320.0 119.3,320.0 122.2,320.0 125.1,320.0 128.0,320.0 130.9,320.0 133.8,320.0 136.7,320.0 139.6,284.0 142.5,284.0 145.4,284.0 148.3,284.0 151.2,284.0 154.1,284.0 157.0,284.0 159.9,284.0 162.8,284.0 165.7,284.0 168.6,284.0 171.5,284.0 174.4,320.0 177.3,320.0 180.2,320.0 183.1,320.0 186.0,320.0 188.9,320.0 191.8,320.0 194.7,320.0 197.6,320.0 200.5,320.0 203.4,320.0 206.3,320.0 209.2,284.0 212.1,284.0 215.0,284.0 217.9,284.0 220.8,284.0 223.7,284.0 226.6,284.0 229.5,284.0 232.4,284.0 235.3,284.0 238.2,284.0 241.1,284.0 244.0,320.0 246.9,320.0 249.8,320.0 252.7,320.0 255.6,320.0 258.5,320.0 261.4,320.0 264.3,320.0 267.2,320.0 270.1,320.0 273.0,320.0 275.9,320.0 278.8,284.0 281.7,284.0 284.6,284.0 287.5,284.0 290.4,284.0 293.3,284.0 296.2,284.0 299.1,284.0 302.0,284.0 304.9,284.0 307.8,284.0 310.7,284.0 313.6,320.0 316.5,320.0 319.4,320.0 322.3,320.0 325.2,320.0 328.1,320.0 331.0,320.0 333.9,320.0 336.8,320.0 339.7,320.0 342.6,320.0 345.5,320.0 348.4,284.0 351.3,284.0 354.2,284.0 357.1,284.0 360.0,284.0 362.9,284.0 365.8,284.0 368.7,284.0 371.6,284.0 374.5,284.0 377.4,284.0 380.3,284.0 383.2,320.0 386.1,320.0 389.0,320.0 391.9,320.0 394.8,320.0 397.7,320.0 400.6,320.0 403.5,320.0 406.4,320.0 409.3,320.0 412.2,320.0 415.1,320.0" fill="none" stroke="#c0271e" stroke-width="2"/>
+<text x="240.0" y="360.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">автоколивання (кільцевий генератор)</text>
+<rect x="450.0" y="84.0" width="380.0" height="290.0" rx="10" fill="none" stroke="#e4e4e4" stroke-width="1.5"/>
+<text x="640.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">2 інвертори (парна) → ДВА СТАНИ</text>
+<path d="M 610,169.0 L 610,199.0 L 650,184 Z" fill="#fafafa" stroke="#1b1b1b" stroke-width="2"/>
+<circle cx="656.0" cy="184.0" r="6.0" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<path d="M 610,221.0 L 610,251.0 L 650,236 Z" fill="#fafafa" stroke="#1b1b1b" stroke-width="2"/>
+<circle cx="656.0" cy="236.0" r="6.0" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="656.0" y1="184.0" x2="690.0" y2="184.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="656.0" y1="236.0" x2="690.0" y2="236.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<circle cx="690.0" cy="184.0" r="3.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1"/>
+<circle cx="690.0" cy="236.0" r="3.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1"/>
+<text x="696.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Q=1</text>
+<text x="696.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Q̄=0</text>
+<line x1="690.0" y1="184.0" x2="690.0" y2="150.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="690.0" y1="150.0" x2="588.0" y2="150.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="588.0" y1="150.0" x2="588.0" y2="236.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="588.0" y1="236.0" x2="610.0" y2="236.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="690.0" y1="236.0" x2="690.0" y2="270.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="690.0" y1="270.0" x2="574.0" y2="270.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="574.0" y1="270.0" x2="574.0" y2="184.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="574.0" y1="184.0" x2="610.0" y2="184.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<text x="640.0" y="300.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="italic">«Q=1 тримає Q̄=0 тримає Q=1» — застрягло</text>
+<text x="640.0" y="352.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">стабільно: пам'ятає 1 біт</text>
+</svg>

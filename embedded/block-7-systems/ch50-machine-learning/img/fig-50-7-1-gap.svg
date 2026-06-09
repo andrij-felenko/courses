@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
+     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Прірва: велика модель — крихітний пристрій</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">навчена модель — мільйони ваг, мегабайти, важкі обчислення; мікроконтролер — кілобайти, мегагерци, мілівати</text>
+<rect x="60" y="130" width="330" height="230" rx="12" fill="#fef2f2" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.9"/>
+<text x="225" y="158" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">НАВЧЕНА МОДЕЛЬ</text>
+<text x="92" y="192" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• мільйони параметрів</text>
+<text x="92" y="222" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• десятки МБ (ваги float32)</text>
+<text x="92" y="252" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• важкий вивід</text>
+<text x="92" y="282" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">  (мільйони множень)</text>
+<text x="225" y="332" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">завелика, щоб улізти</text>
+<polyline points="482,130 468,172 496,210 466,252 492,300 476,360" fill="none" fill-opacity="1.0" stroke="#cbd5e1" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="480" y="170" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">не</text>
+<text x="480" y="186" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">влазить!</text>
+<text x="480" y="268" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">→ СТИСНУТИ</text>
+<text x="480" y="283" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">модель</text>
+<rect x="570" y="130" width="330" height="230" rx="12" fill="#fffbeb" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.9"/>
+<text x="735" y="158" font-size="12" fill="#b06b00" text-anchor="middle" font-weight="bold" font-style="normal">МІКРОКОНТРОЛЕР</text>
+<text x="602" y="192" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• кілобайти RAM</text>
+<text x="602" y="222" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• мегагерци</text>
+<text x="602" y="252" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• мілівати</text>
+<text x="602" y="282" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• часто без підтримки float</text>
+<text x="735" y="332" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">усе крихітне (49.9)</text>
+<text x="480.0" y="446" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Між навченою моделлю й бортовим чипом — прірва в тисячі разів. TinyML наводить через неї міст.</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="370" viewBox="0 0 960 370">
+<rect width="960" height="370" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="480.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чарівна зміна: «чекати» більше не морозить інших</text>
+<text x="480.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">коли задача чекає, процесор не простоює — його одразу забирає інша задача</text>
+<text x="70.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">час процесора →</text>
+<line x1="70.0" y1="150.0" x2="890.0" y2="150.0" stroke="#e4e4e4" stroke-width="1.2" stroke-linecap="round"/>
+<rect x="70.0" y="150.0" width="120.0" height="34.0" rx="3" fill="#1f8a3b" stroke="#1b1b1b" stroke-width="0.8"/>
+<text x="130.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">Задача A</text>
+<rect x="190.0" y="150.0" width="240.0" height="34.0" rx="3" fill="#1f47b5" stroke="#1b1b1b" stroke-width="0.8"/>
+<text x="310.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">Задача B</text>
+<rect x="430.0" y="150.0" width="120.0" height="34.0" rx="3" fill="#1f8a3b" stroke="#1b1b1b" stroke-width="0.8"/>
+<text x="490.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">Задача A</text>
+<rect x="550.0" y="150.0" width="160.0" height="34.0" rx="3" fill="#7a4fb0" stroke="#1b1b1b" stroke-width="0.8"/>
+<text x="630.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">Задача C</text>
+<rect x="710.0" y="150.0" width="120.0" height="34.0" rx="3" fill="#1f8a3b" stroke="#1b1b1b" stroke-width="0.8"/>
+<text x="770.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">Задача A</text>
+<line x1="190.0" y1="150.0" x2="190.0" y2="106.0" stroke="#c0271e" stroke-width="1.8" stroke-linecap="round"/>
+<text x="190.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.8" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">A каже «чекаю» → процесор іде до B</text>
+<line x1="430.0" y1="150.0" x2="430.0" y2="106.0" stroke="#1f8a3b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="430.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.8" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">пауза A минула → A біжить далі</text>
+<rect x="150.0" y="250.0" width="660.0" height="96.0" rx="10" fill="#fbfcff" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="480.0" y="276.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Те саме очікування, що в super-loop морозило ВСЕ (рис. 27.2.1),</text>
+<text x="480.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">тут стає корисною паузою: поки A чекає, працюють B і C.</text>
+<text x="480.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Блокувальний давач більше не «вішає» пристрій — він лише поступається чергою.</text>
+</svg>

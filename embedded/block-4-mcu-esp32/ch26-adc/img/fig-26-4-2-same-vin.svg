@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="400" viewBox="0 0 920 400">
+<rect width="920" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Та сама напруга, різний Vref → РІЗНИЙ код</text>
+<text x="460.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">без знання Vref код нічого не каже про вольти</text>
+<rect x="210.0" y="110.0" width="80.0" height="220.0" rx="0" fill="#ffffff" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="250.0" y="98.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Vref = 3.3 В</text>
+<text x="200.0" y="334.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">0</text>
+<line x1="204.0" y1="293.3" x2="296.0" y2="293.3" stroke="#1f8a3b" stroke-width="2.4" stroke-linecap="round"/>
+<text x="300.0" y="297.3" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Vin = 0.55 В</text>
+<text x="250.0" y="354.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">17 % → код 683</text>
+<rect x="610.0" y="110.0" width="80.0" height="220.0" rx="0" fill="#ffffff" stroke="#7a4fb0" stroke-width="1.8"/>
+<text x="650.0" y="98.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#7a4fb0" text-anchor="middle" font-weight="bold" font-style="normal">Vref = 1.1 В</text>
+<text x="600.0" y="334.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">0</text>
+<line x1="604.0" y1="220.0" x2="696.0" y2="220.0" stroke="#1f8a3b" stroke-width="2.4" stroke-linecap="round"/>
+<text x="700.0" y="224.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Vin = 0.55 В</text>
+<text x="650.0" y="354.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">50 % → код 2048</text>
+<rect x="150.0" y="356.0" width="620.0" height="36.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="460.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">0.55 В — це 17 % від 3.3 В, але аж 50 % від 1.1 В.</text>
+<text x="460.0" y="388.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Той самий вхід дає код 683 або 2048 — усе залежить від Vref.</text>
+</svg>

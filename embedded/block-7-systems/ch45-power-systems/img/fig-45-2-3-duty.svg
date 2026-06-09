@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Шпаруватість → напруга, а зворотний зв'язок тримає її сталою</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">контролер міряє вихід і підкручує D — це той самий контур із Розділу 34</text>
+<text x="70" y="128" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal" font-family="Consolas, monospace">D = 0.31</text>
+<line x1="180" y1="150" x2="480" y2="150" stroke="#6b7280" stroke-width="1.0" stroke-opacity="1.0" stroke-linecap="round"/>
+<polyline points="180,150 180,118 198.6,118 198.6,150 240,150" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="240,150 240,118 258.6,118 258.6,150 300,150" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="300,150 300,118 318.6,118 318.6,150 360,150" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="360,150 360,118 378.6,118 378.6,150 420,150" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="420,150 420,118 438.6,118 438.6,150 480,150" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2.0" stroke-linejoin="round"/>
+<line x1="490" y1="134" x2="540" y2="134" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="544" y="116" width="90" height="38" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.6"/>
+<text x="589" y="140" font-size="12" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">Vвих 5 В</text>
+<text x="70" y="206" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal" font-family="Consolas, monospace">D = 0.5</text>
+<line x1="180" y1="228" x2="480" y2="228" stroke="#6b7280" stroke-width="1.0" stroke-opacity="1.0" stroke-linecap="round"/>
+<polyline points="180,228 180,196 210.0,196 210.0,228 240,228" fill="none" fill-opacity="1.0" stroke="#d98a00" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="240,228 240,196 270.0,196 270.0,228 300,228" fill="none" fill-opacity="1.0" stroke="#d98a00" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="300,228 300,196 330.0,196 330.0,228 360,228" fill="none" fill-opacity="1.0" stroke="#d98a00" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="360,228 360,196 390.0,196 390.0,228 420,228" fill="none" fill-opacity="1.0" stroke="#d98a00" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="420,228 420,196 450.0,196 450.0,228 480,228" fill="none" fill-opacity="1.0" stroke="#d98a00" stroke-width="2.0" stroke-linejoin="round"/>
+<line x1="490" y1="212" x2="540" y2="212" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="544" y="194" width="90" height="38" rx="8" fill="white" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.6"/>
+<text x="589" y="218" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">Vвих 8 В</text>
+<text x="70" y="284" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal" font-family="Consolas, monospace">D = 0.75</text>
+<line x1="180" y1="306" x2="480" y2="306" stroke="#6b7280" stroke-width="1.0" stroke-opacity="1.0" stroke-linecap="round"/>
+<polyline points="180,306 180,274 225.0,274 225.0,306 240,306" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="240,306 240,274 285.0,274 285.0,306 300,306" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="300,306 300,274 345.0,274 345.0,306 360,306" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="360,306 360,274 405.0,274 405.0,306 420,306" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="420,306 420,274 465.0,274 465.0,306 480,306" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="2.0" stroke-linejoin="round"/>
+<line x1="490" y1="290" x2="540" y2="290" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="544" y="272" width="90" height="38" rx="8" fill="white" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.6"/>
+<text x="589" y="296" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">Vвих 12 В</text>
+<text x="180" y="100" font-size="10" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">(при Vвх = 16 В)</text>
+<rect x="120" y="360" width="720" height="76" rx="12" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.6"/>
+<text x="140" y="386" font-size="12" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">Зворотний зв'язок:</text>
+<text x="140" y="410" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">виміряти Vвих → порівняти з ціллю → підкрутити D → знову виміряти  (тримає вихід рівним, хоч би як стрибав вхід чи струм)</text>
+<text x="480.0" y="462" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Без зворотного зв'язку це був би просто «різак»; із ним — точний стабілізатор напруги.</text>
+</svg>

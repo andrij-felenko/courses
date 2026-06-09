@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="408" viewBox="0 0 900 408">
+<rect width="900" height="408" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Проблема: функція викликає функцію — і так у глибину</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">при кожному виклику треба пам'ятати, КУДИ повертатися, і дати функції місце під її локальні змінні</text>
+<rect x="90.0" y="110.0" width="200.0" height="80.0" rx="10" fill="#fafafa" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="190.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">main()</text>
+<text x="190.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">викликає f()</text>
+<text x="190.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">+ свої локальні</text>
+<rect x="330.0" y="110.0" width="200.0" height="80.0" rx="10" fill="#fafafa" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="430.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">f()</text>
+<text x="430.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">викликає g()</text>
+<text x="430.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">+ свої локальні</text>
+<rect x="570.0" y="110.0" width="200.0" height="80.0" rx="10" fill="#fafafa" stroke="#caa24a" stroke-width="1.8"/>
+<text x="670.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">g()</text>
+<text x="670.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">викликає h()…</text>
+<text x="670.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">+ свої локальні</text>
+<line x1="292.0" y1="150.0" x2="328.0" y2="150.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<line x1="532.0" y1="150.0" x2="568.0" y2="150.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="790.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">… і глибше</text>
+<rect x="60.0" y="222.0" width="780.0" height="110.0" rx="10" fill="#f6f8f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="450.0" y="246.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Кожна функція мусить: 1) запам'ятати АДРЕСУ ПОВЕРНЕННЯ — куди продовжити того, хто її викликав;</text>
+<text x="450.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">2) мати власне місце під параметри й ЛОКАЛЬНІ змінні. І так на будь-яку глибину вкладеності.</text>
+<text x="450.0" y="294.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ключове спостереження: хто викликаний ОСТАННІМ — повертається ПЕРШИМ (g завершиться раніше за f, f — раніше за main).</text>
+<text x="450.0" y="316.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Така поведінка «останній прийшов — перший пішов» має ідеальну структуру даних. Її звуть стеком.</text>
+<text x="450.0" y="366.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Без такого механізму неможливі ні вкладені виклики, ні рекурсія, ні навіть звичайне повернення з функції.</text>
+</svg>

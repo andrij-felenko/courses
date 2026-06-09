@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
+     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Дрейф і виправлення: чому одного давача замало</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">інерціальна оцінка повзе геть від істини; зовнішній вимір вертає її назад</text>
+<line x1="90" y1="110" x2="90" y2="360" stroke="#1a1a1a" stroke-width="1.4" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="90" y1="360" x2="870" y2="360" stroke="#1a1a1a" stroke-width="1.4" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="82" y="114" font-size="10.5" fill="#6b7280" text-anchor="end" font-weight="bold" font-style="normal">похибка</text>
+<text x="82" y="128" font-size="10.5" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">оцінки</text>
+<text x="870" y="382" font-size="11" fill="#6b7280" text-anchor="end" font-weight="bold" font-style="normal">час →</text>
+<line x1="90" y1="340" x2="870" y2="340" stroke="#0a8f3c" stroke-width="2.2" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="866" y="356" font-size="10" fill="#0a8f3c" text-anchor="end" font-weight="bold" font-style="normal">істина (нульова похибка)</text>
+<polyline points="90,340 240,250 240,322 390,250 390,322 540,250 540,322 690,250 690,322 840,250" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="150" y="244" font-size="10.5" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">інерціальна оцінка дрейфує</text>
+<line x1="240" y1="250" x2="240" y2="326" stroke="#1f4ed8" stroke-width="1.4" stroke-dasharray="3,3" stroke-opacity="1.0" stroke-linecap="round"/>
+<circle cx="240" cy="322" r="5" fill="#1f4ed8" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="390" y1="250" x2="390" y2="326" stroke="#1f4ed8" stroke-width="1.4" stroke-dasharray="3,3" stroke-opacity="1.0" stroke-linecap="round"/>
+<circle cx="390" cy="322" r="5" fill="#1f4ed8" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="540" y1="250" x2="540" y2="326" stroke="#1f4ed8" stroke-width="1.4" stroke-dasharray="3,3" stroke-opacity="1.0" stroke-linecap="round"/>
+<circle cx="540" cy="322" r="5" fill="#1f4ed8" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="690" y1="250" x2="690" y2="326" stroke="#1f4ed8" stroke-width="1.4" stroke-dasharray="3,3" stroke-opacity="1.0" stroke-linecap="round"/>
+<circle cx="690" cy="322" r="5" fill="#1f4ed8" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="740" y="136" font-size="10.5" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">● виправлення</text>
+<text x="740" y="152" font-size="10" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">(зорі / GPS / баро)</text>
+<text x="480.0" y="430" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Гіро й акселерометр точні МИТТЄВО, та їхня похибка накопичується; зовнішній давач точний, але рідкий і шумний.</text>
+<text x="480.0" y="446" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="italic">Звести їх оптимально — і є сенсорний фьюжн; математику цього дав фільтр Калмана (тема 46.4).</text>
+</svg>

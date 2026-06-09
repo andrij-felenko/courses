@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="430" viewBox="0 0 920 430">
+<rect width="920" height="430" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Специфікація ESP32, розкладена на знайому анатомію</text>
+<text x="460.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">жодної незнайомої графи — лише складові з тем §20.1–§20.4</text>
+<line x1="40.0" y1="86.0" x2="880.0" y2="86.0" stroke="#e4e4e4" stroke-width="1.2" stroke-linecap="round"/>
+<text x="48.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">ЯДРО</text>
+<rect x="210.0" y="104.0" width="112.0" height="36.0" rx="8" fill="#fbecec" stroke="#c0271e" stroke-width="2"/>
+<text x="266.0" y="127.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">2 × 32-біт</text>
+<rect x="336.0" y="104.0" width="110.0" height="36.0" rx="8" fill="#fbecec" stroke="#c0271e" stroke-width="2"/>
+<text x="391.0" y="127.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">240 МГц</text>
+<text x="48.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">ПАМ'ЯТЬ</text>
+<rect x="210.0" y="162.0" width="120.0" height="36.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="270.0" y="185.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">520 КБ SRAM</text>
+<rect x="344.0" y="162.0" width="170.0" height="36.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="429.0" y="185.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">4 МБ флеш (зовні)</text>
+<text x="48.0" y="242.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#d2772a" text-anchor="start" font-weight="bold" font-style="normal">РАДІО</text>
+<rect x="210.0" y="220.0" width="137.0" height="36.0" rx="8" fill="#f7f4ea" stroke="#d2772a" stroke-width="2"/>
+<text x="278.5" y="243.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#d2772a" text-anchor="middle" font-weight="bold" font-style="normal">Wi-Fi 2.4 ГГц</text>
+<rect x="361.0" y="220.0" width="154.0" height="36.0" rx="8" fill="#f7f4ea" stroke="#d2772a" stroke-width="2"/>
+<text x="438.0" y="243.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#d2772a" text-anchor="middle" font-weight="bold" font-style="normal">Bluetooth / BLE</text>
+<text x="48.0" y="300.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">ПЕРИФЕРІЯ</text>
+<rect x="210.0" y="278.0" width="110.0" height="36.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="265.0" y="301.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">~34 GPIO</text>
+<rect x="334.0" y="278.0" width="110.0" height="36.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="389.0" y="301.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ADC · DAC</text>
+<rect x="458.0" y="278.0" width="128.0" height="36.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="522.0" y="301.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">SPI/I2C/UART</text>
+<rect x="600.0" y="278.0" width="110.0" height="36.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="655.0" y="301.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ШІМ ×16</text>
+<text x="48.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a6a14" text-anchor="start" font-weight="bold" font-style="normal">ЖИВЛЕННЯ</text>
+<rect x="210.0" y="336.0" width="145.0" height="36.0" rx="8" fill="#f7f4ea" stroke="#8a6a14" stroke-width="2"/>
+<text x="282.5" y="359.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a6a14" text-anchor="middle" font-weight="bold" font-style="normal">40 МГц+PLL→240</text>
+<rect x="369.0" y="336.0" width="179.0" height="36.0" rx="8" fill="#f7f4ea" stroke="#8a6a14" stroke-width="2"/>
+<text x="458.5" y="359.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a6a14" text-anchor="middle" font-weight="bold" font-style="normal">глибокий сон + ULP</text>
+<rect x="120.0" y="394.0" width="680.0" height="28.0" rx="8" fill="#fff6e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="460.0" y="413.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ми не «вчили ESP32» окремо — ми зрозуміли мікроконтролер, а ESP32 — його багате втілення.</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<rect width="900" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Купа на мікроконтролері: потужно, та небезпечно</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">на крихітному МК динамічна пам'ять особливо ризикована — тому вбудована практика часто її уникає або суворо обмежує</text>
+<rect x="70.0" y="88.0" width="760.0" height="46.0" rx="10" fill="#fdf6f6" stroke="#c0271e" stroke-width="1.7"/>
+<text x="92.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Мізерна RAM</text>
+<text x="330.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">лічені кілобайти — фрагментація вичерпує її швидко й фатально</text>
+<rect x="70.0" y="144.0" width="760.0" height="46.0" rx="10" fill="#fdf6f6" stroke="#c0271e" stroke-width="1.7"/>
+<text x="92.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Витоки = крах</text>
+<text x="330.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">пристрій працює тижнями без перезапуску; навіть крихітний витік зрештою вб'є його</text>
+<rect x="70.0" y="200.0" width="760.0" height="46.0" rx="10" fill="#fff8e8" stroke="#caa24a" stroke-width="1.7"/>
+<text x="92.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">Недетермінований час</text>
+<text x="330.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">allocate триває то довше, то коротше — погано для реального часу (керування)</text>
+<rect x="60.0" y="268.0" width="780.0" height="110.0" rx="10" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.7"/>
+<text x="450.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Тому у вбудованих системах часто: уникають динамічної пам'яті зовсім, або виділяють ОДИН раз на старті,</text>
+<text x="450.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">або беруть фіксовані «пули» блоків однакового розміру (без фрагментації), або обходяться стеком і глобальними.</text>
+<text x="450.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Правило для МК: динамічна пам'ять — за потреби й обережно; для постійних чи критичних до часу даних — статика й стек.</text>
+<text x="450.0" y="362.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Це не значить «купа погана» — на великих системах вона незамінна; та на крихітному залізі реального часу до неї підходять сторожко.</text>
+<text x="450.0" y="402.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Коли в Модулях 4–5 ви писатимете прошивки, віддавайте перевагу передбачуваній статичній пам'яті там, де можна.</text>
+</svg>

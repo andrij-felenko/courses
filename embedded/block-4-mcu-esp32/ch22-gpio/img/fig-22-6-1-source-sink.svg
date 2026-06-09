@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="440" viewBox="0 0 920 440">
+<rect width="920" height="440" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Source і sink: ніжка віддає або приймає струм</text>
+<text x="460.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">у HIGH вона живить навантаження до GND (source); у LOW приймає його з VDD (sink)</text>
+<rect x="40.0" y="84.0" width="400.0" height="330.0" rx="12" fill="none" stroke="#e4e4e4" stroke-width="1.6"/>
+<text x="240.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">SOURCE — ніжка ВІДДАЄ струм</text>
+<rect x="120.0" y="140.0" width="120.0" height="50.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="180.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ніжка</text>
+<text x="180.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">HIGH (вгорі вкл.)</text>
+<line x1="180.0" y1="190.0" x2="180.0" y2="220.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="180.0" cy="220.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<line x1="180.0" y1="220.0" x2="180.0" y2="236.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<polygon points="168,236 192,236 180,256" fill="#fff6e0" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="168.0" y1="256.0" x2="192.0" y2="256.0" stroke="#1b1b1b" stroke-width="2.6" stroke-linecap="round"/>
+<line x1="180.0" y1="256.0" x2="180.0" y2="320.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="193.0" y1="240.0" x2="206.0" y2="231.0" stroke="#caa24a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="195.0" y1="248.0" x2="208.0" y2="239.0" stroke="#caa24a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="214.0" y="252.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">LED</text>
+<line x1="180.0" y1="320.0" x2="180.0" y2="360.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="120.0" y1="360.0" x2="240.0" y2="360.0" stroke="#1f47b5" stroke-width="2.2" stroke-linecap="round"/>
+<text x="120.0" y="380.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">GND</text>
+<line x1="260.0" y1="230.0" x2="260.0" y2="350.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<text x="266.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">I тече з ніжки</text>
+<rect x="480.0" y="84.0" width="400.0" height="330.0" rx="12" fill="none" stroke="#e4e4e4" stroke-width="1.6"/>
+<text x="680.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">SINK — ніжка ПРИЙМАЄ струм</text>
+<line x1="620.0" y1="150.0" x2="740.0" y2="150.0" stroke="#c0271e" stroke-width="2.2" stroke-linecap="round"/>
+<text x="620.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">VDD</text>
+<line x1="680.0" y1="150.0" x2="680.0" y2="180.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="680.0" y1="180.0" x2="680.0" y2="196.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<polygon points="668,196 692,196 680,216" fill="#fff6e0" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="668.0" y1="216.0" x2="692.0" y2="216.0" stroke="#1b1b1b" stroke-width="2.6" stroke-linecap="round"/>
+<line x1="680.0" y1="216.0" x2="680.0" y2="280.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="693.0" y1="200.0" x2="706.0" y2="191.0" stroke="#caa24a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="695.0" y1="208.0" x2="708.0" y2="199.0" stroke="#caa24a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="714.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">LED</text>
+<line x1="680.0" y1="280.0" x2="680.0" y2="300.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="680.0" cy="300.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<rect x="620.0" y="300.0" width="120.0" height="50.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="680.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ніжка</text>
+<text x="680.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">LOW (внизу вкл.)</text>
+<line x1="760.0" y1="160.0" x2="760.0" y2="300.0" stroke="#c0271e" stroke-width="2.2" marker-end="url(#aRed)"/>
+<text x="766.0" y="235.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="start" font-weight="normal" font-style="normal">I тече в ніжку</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="450"
+     viewBox="0 0 960 450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="450" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Сусідні кадри майже однакові — шли лише різницю</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">за 1/30 секунди світ майже не змінюється; навіщо слати весь кадр, коли рухається дрібка?</text>
+<text x="160" y="110" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">кадр N</text>
+<rect x="70" y="124" width="180" height="120" rx="4" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="74" y="200" width="172" height="40" rx="8" fill="#334155" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="220" cy="150" r="14" fill="#fbbf24" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="110" cy="185" r="11" fill="#60a5fa" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="262" y="188" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">→</text>
+<text x="372" y="110" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">кадр N+1</text>
+<rect x="282" y="124" width="180" height="120" rx="4" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="286" y="200" width="172" height="40" rx="8" fill="#334155" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="432" cy="150" r="14" fill="#fbbf24" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="352" cy="185" r="11" fill="#60a5fa" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="560" y="110" font-size="12" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">РІЗНИЦЯ (що змінилось)</text>
+<rect x="470" y="124" width="180" height="120" rx="4" fill="#0f172a" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.8"/>
+<circle cx="510" cy="185" r="11" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.5"/>
+<circle cx="540" cy="185" r="11" fill="#60a5fa" fill-opacity="0.8" stroke="none" stroke-width="1.6"/>
+<text x="560" y="262" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">майже все ЧОРНЕ (нуль) — змінилась лиш дрібка</text>
+<line x1="660" y1="184" x2="700" y2="184" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="710" y="150" width="180" height="70" rx="10" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.5"/>
+<text x="800" y="176" font-size="11" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">слати лише це</text>
+<text x="800" y="196" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">→ у рази менше даних</text>
+<text x="480.0" y="420" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Замість цілого кадру щоразу — лише те, що відрізняється від попереднього. Це часовий надлишок (48.1).</text>
+<text x="480.0" y="436" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Так відео ужимається не в десятки (як JPEG), а в СОТНІ разів.</text>
+</svg>

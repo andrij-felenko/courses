@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="430"
+     viewBox="0 0 940 430" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="940" height="430" fill="white"/>
+<text x="470.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Планувальник: кожна задача — у своєму темпі</text>
+<text x="470.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">AP_Scheduler дає слот за пріоритетом; швидке біжить найчастіше (втілення Рис. 43.1.3)</text>
+<rect x="40" y="80" width="200" height="34" rx="7" fill="#1a1a1a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="54" y="103" font-size="12" fill="white" text-anchor="start" font-weight="bold" font-style="normal">Задача</text>
+<rect x="250" y="80" width="160" height="34" rx="7" fill="#1a1a1a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="264" y="103" font-size="12" fill="white" text-anchor="start" font-weight="bold" font-style="normal">Частота</text>
+<rect x="420" y="80" width="480" height="34" rx="7" fill="#1a1a1a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="434" y="103" font-size="12" fill="white" text-anchor="start" font-weight="bold" font-style="normal">Що робить</text>
+<rect x="40" y="114" width="200" height="46" rx="8" fill="#eafaef" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="54" y="142" font-size="12" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal" font-family="Consolas, monospace">fast_loop</text>
+<rect x="250" y="114" width="160" height="46" rx="8" fill="#eafaef" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="264" y="134" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">400 Гц</text>
+<circle cx="266" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="277" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="288" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="299" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="310" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="321" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="332" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="343" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="354" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="365" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="376" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="387" cy="148" r="3" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="420" y="114" width="480" height="46" rx="8" fill="#eafaef" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="434" y="142" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">IMU → оцінювач → контур орієнтації</text>
+<rect x="40" y="160" width="200" height="46" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="54" y="188" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal" font-family="Consolas, monospace">update_GPS</text>
+<rect x="250" y="160" width="160" height="46" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="264" y="180" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">50 Гц</text>
+<circle cx="266" cy="194" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="277" cy="194" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="288" cy="194" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="299" cy="194" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="310" cy="194" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="420" y="160" width="480" height="46" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="434" y="188" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">оновити положення з GNSS</text>
+<rect x="40" y="206" width="200" height="46" rx="8" fill="#fafafa" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="54" y="234" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal" font-family="Consolas, monospace">update_nav</text>
+<rect x="250" y="206" width="160" height="46" rx="8" fill="#fafafa" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="264" y="226" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">10–50 Гц</text>
+<circle cx="266" cy="240" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="277" cy="240" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="288" cy="240" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="299" cy="240" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="420" y="206" width="480" height="46" rx="8" fill="#fafafa" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="434" y="234" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">контур положення, навігація</text>
+<rect x="40" y="252" width="200" height="46" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="54" y="280" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal" font-family="Consolas, monospace">gcs_update</text>
+<rect x="250" y="252" width="160" height="46" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="264" y="272" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">50 Гц</text>
+<circle cx="266" cy="286" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="277" cy="286" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="288" cy="286" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="299" cy="286" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="310" cy="286" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="420" y="252" width="480" height="46" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="434" y="280" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">обмін MAVLink із землею</text>
+<rect x="40" y="298" width="200" height="46" rx="8" fill="#fafafa" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="54" y="326" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal" font-family="Consolas, monospace">update_logging</text>
+<rect x="250" y="298" width="160" height="46" rx="8" fill="#fafafa" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="264" y="318" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">25–400 Гц</text>
+<circle cx="266" cy="332" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="277" cy="332" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="288" cy="332" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="299" cy="332" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="310" cy="332" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="321" cy="332" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="332" cy="332" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="343" cy="332" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="420" y="298" width="480" height="46" rx="8" fill="#fafafa" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="434" y="326" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">писати журнали польоту</text>
+<rect x="40" y="344" width="200" height="46" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="54" y="372" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal" font-family="Consolas, monospace">one_hz_loop</text>
+<rect x="250" y="344" width="160" height="46" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="264" y="364" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">1 Гц</text>
+<circle cx="266" cy="378" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="420" y="344" width="480" height="46" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="434" y="372" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">перевірки здоров'я, службове</text>
+<text x="470.0" y="416" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Точки = відносна частота. «fast_loop» — критичний внутрішній контур (43.2): мусить устигати кожні 2.5 мс.</text>
+</svg>

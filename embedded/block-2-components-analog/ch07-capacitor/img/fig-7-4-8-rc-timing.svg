@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="400" viewBox="0 0 720 400">
+<rect width="720" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="360.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">RC задає затримку: напруга повзе до порога</text>
+<text x="360.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">коли напруга перетне поріг — спрацьовує подія (мерехтіння, скидання, таймер)</text>
+<line x1="110.0" y1="330.0" x2="110.0" y2="86.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="110.0" y1="330.0" x2="644.0" y2="330.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="648.0" y="334.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">час t</text>
+<text x="106.0" y="78.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">напруга V</text>
+<line x1="110" y1="100" x2="630" y2="100" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="6,5"/>
+<text x="630.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">V₀</text>
+<line x1="110" y1="178.2" x2="630" y2="178.2" stroke="#1f8a3b" stroke-width="1.8" stroke-dasharray="7,4"/>
+<text x="630.0" y="170.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">поріг</text>
+<path d="M 110.0,330.0 L 115.2,318.8 L 120.4,308.1 L 125.6,298.0 L 130.8,288.3 L 136.0,279.1 L 141.2,270.4 L 146.4,262.1 L 151.6,254.2 L 156.8,246.7 L 162.0,239.5 L 167.2,232.7 L 172.4,226.2 L 177.6,220.1 L 182.8,214.2 L 188.0,208.6 L 193.2,203.3 L 198.4,198.3 L 203.6,193.5 L 208.8,189.0 L 214.0,184.6 L 219.2,180.5 L 224.4,176.6 L 229.6,172.8 L 234.8,169.3 L 240.0,165.9 L 245.2,162.7 L 250.4,159.6 L 255.6,156.7 L 260.8,154.0 L 266.0,151.3 L 271.2,148.8 L 276.4,146.4 L 281.6,144.2 L 286.8,142.0 L 292.0,140.0 L 297.2,138.0 L 302.4,136.2 L 307.6,134.4 L 312.8,132.7 L 318.0,131.1 L 323.2,129.6 L 328.4,128.2 L 333.6,126.8 L 338.8,125.5 L 344.0,124.2 L 349.2,123.1 L 354.4,121.9 L 359.6,120.9 L 364.8,119.8 L 370.0,118.9 L 375.2,118.0 L 380.4,117.1 L 385.6,116.2 L 390.8,115.5 L 396.0,114.7 L 401.2,114.0 L 406.4,113.3 L 411.6,112.7 L 416.8,112.0 L 422.0,111.5 L 427.2,110.9 L 432.4,110.4 L 437.6,109.9 L 442.8,109.4 L 448.0,108.9 L 453.2,108.5 L 458.4,108.1 L 463.6,107.7 L 468.8,107.3 L 474.0,106.9 L 479.2,106.6 L 484.4,106.3 L 489.6,106.0 L 494.8,105.7 L 500.0,105.4 L 505.2,105.1 L 510.4,104.9 L 515.6,104.7 L 520.8,104.4 L 526.0,104.2 L 531.2,104.0 L 536.4,103.8 L 541.6,103.6 L 546.8,103.4 L 552.0,103.3 L 557.2,103.1 L 562.4,103.0 L 567.6,102.8 L 572.8,102.7 L 578.0,102.6 L 583.2,102.4 L 588.4,102.3 L 593.6,102.2 L 598.8,102.1 L 604.0,102.0 L 609.2,101.9 L 614.4,101.8 L 619.6,101.7 L 624.8,101.6 L 630.0,101.5" fill="none" stroke="#c0271e" stroke-width="2.6"/>
+<line x1="222.2" y1="330.0" x2="222.2" y2="178.2" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="4,4" stroke-linecap="round"/>
+<circle cx="222.2" cy="178.2" r="4.5" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="0"/>
+<line x1="110.0" y1="360.0" x2="222.2" y2="360.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<text x="166.1" y="356.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">затримка</text>
+<circle cx="180.0" cy="100.0" r="0.0" fill="none" stroke="none" stroke-width="0"/>
+<text x="282.2" y="148.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">→ спрацювало</text>
+<text x="360.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">інші R·C — інша затримка: той самий важіль τ = R·C.</text>
+</svg>

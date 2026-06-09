@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="380" viewBox="0 0 880 380">
+<rect width="880" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ланцюговий проти синхронного: де перенос «біжить», а де ні</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">у ланцюговому кожен тригер чекає попередній (затримка накопичується); у синхронному всі по одному такту</text>
+<rect x="50.0" y="90.0" width="390.0" height="250.0" rx="10" fill="none" stroke="#caa24a" stroke-width="1.6"/>
+<text x="245.0" y="114.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#9a7322" text-anchor="middle" font-weight="bold" font-style="normal">Ланцюговий (ripple)</text>
+<rect x="90.0" y="150.0" width="70.0" height="50.0" rx="5" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="125.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">T0</text>
+<path d="M 90,185 L 102,192 L 90,199" fill="none" stroke="#1b1b1b" stroke-width="1.8"/>
+<line x1="160.0" y1="175.0" x2="200.0" y2="192.0" stroke="#1b1b1b" stroke-width="1.6" marker-end="url(#aInk)"/>
+<rect x="200.0" y="150.0" width="70.0" height="50.0" rx="5" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="235.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">T1</text>
+<path d="M 200,185 L 212,192 L 200,199" fill="none" stroke="#1b1b1b" stroke-width="1.8"/>
+<line x1="270.0" y1="175.0" x2="310.0" y2="192.0" stroke="#1b1b1b" stroke-width="1.6" marker-end="url(#aInk)"/>
+<rect x="310.0" y="150.0" width="70.0" height="50.0" rx="5" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="345.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">T2</text>
+<path d="M 310,185 L 322,192 L 310,199" fill="none" stroke="#1b1b1b" stroke-width="1.8"/>
+<line x1="50.0" y1="175.0" x2="90.0" y2="175.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="46.0" y="179.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">такт</text>
+<text x="245.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">такт → T0 → T1 → T2</text>
+<text x="245.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">перенос «біжить» (як суматор §15.6)</text>
+<text x="245.0" y="282.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">просто, та старший біт відстає</text>
+<text x="245.0" y="300.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">на суму затримок → можливі глітчі</text>
+<rect x="460.0" y="90.0" width="380.0" height="250.0" rx="10" fill="none" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="650.0" y="114.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Синхронний</text>
+<rect x="500.0" y="150.0" width="64.0" height="50.0" rx="5" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="532.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">T0</text>
+<path d="M 500,185 L 512,192 L 500,199" fill="none" stroke="#1b1b1b" stroke-width="1.8"/>
+<rect x="600.0" y="150.0" width="64.0" height="50.0" rx="5" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="632.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">T1</text>
+<path d="M 600,185 L 612,192 L 600,199" fill="none" stroke="#1b1b1b" stroke-width="1.8"/>
+<rect x="700.0" y="150.0" width="64.0" height="50.0" rx="5" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="732.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">T2</text>
+<path d="M 700,185 L 712,192 L 700,199" fill="none" stroke="#1b1b1b" stroke-width="1.8"/>
+<line x1="480.0" y1="225.0" x2="800.0" y2="225.0" stroke="#c0271e" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="505.0" y1="200.0" x2="505.0" y2="225.0" stroke="#c0271e" stroke-width="1.2" stroke-linecap="round"/>
+<circle cx="505.0" cy="225.0" r="2.5" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
+<line x1="605.0" y1="200.0" x2="605.0" y2="225.0" stroke="#c0271e" stroke-width="1.2" stroke-linecap="round"/>
+<circle cx="605.0" cy="225.0" r="2.5" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
+<line x1="705.0" y1="200.0" x2="705.0" y2="225.0" stroke="#c0271e" stroke-width="1.2" stroke-linecap="round"/>
+<circle cx="705.0" cy="225.0" r="2.5" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
+<text x="470.0" y="229.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">такт</text>
+<text x="650.0" y="252.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">усі тригери — по СПІЛЬНОМУ такту</text>
+<text x="650.0" y="272.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">логіка вирішує, кому перемкнутись</text>
+<text x="650.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">складніше, зате швидко й без глітчів</text>
+<text x="440.0" y="364.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ланцюговий — для невибагливого; синхронний — там, де треба швидкість і чистота (як у процесорі).</text>
+</svg>

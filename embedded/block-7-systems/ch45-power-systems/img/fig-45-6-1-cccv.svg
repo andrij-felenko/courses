@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Заряд CC/CV: спершу струмом, тоді напругою</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">CC — сталий струм до 4.2 В/комірку; CV — стала напруга, струм спадає до ~C/10</text>
+<rect x="95" y="88" width="690" height="120" rx="6" fill="#f8fafc" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="83" y="102" font-size="11" fill="#6b7280" text-anchor="end" font-weight="bold" font-style="normal">В</text>
+<line x1="95" y1="185.41176470588232" x2="785" y2="185.41176470588232" stroke="#eef0f2" stroke-width="1" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="91" y="189.41176470588232" font-size="8.5" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">3.7</text>
+<line x1="95" y1="151.52941176470586" x2="785" y2="151.52941176470586" stroke="#eef0f2" stroke-width="1" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="91" y="155.52941176470586" font-size="8.5" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">4.0</text>
+<line x1="95" y1="128.94117647058818" x2="785" y2="128.94117647058818" stroke="#eef0f2" stroke-width="1" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="91" y="132.94117647058818" font-size="8.5" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">4.2</text>
+<line x1="95" y1="128.94117647058818" x2="785" y2="128.94117647058818" stroke="#cc0000" stroke-width="1.3" stroke-dasharray="6,4" stroke-opacity="1.0" stroke-linecap="round"/>
+<polyline points="95,185.41176470588232 385,128.94117647058818 785,128.94117647058818" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="225" y="176.3764705882353" font-size="10.5" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">напруга росте</text>
+<text x="505" y="120.94117647058818" font-size="10.5" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">тримається 4.2 В</text>
+<rect x="95" y="232" width="690" height="120" rx="6" fill="#f8fafc" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="83" y="246" font-size="11" fill="#6b7280" text-anchor="end" font-weight="bold" font-style="normal">I</text>
+<polyline points="95,256.0 385,256.0 385.0,256.0 401.6666666666667,266.15226761669095 418.3333333333333,275.1116123426306 435.0,283.01820631246 451.6666666666667,289.9957510008285 468.3333333333333,296.15341257595924 485.0,301.58752984317636 501.6666666666667,306.38312149977685 518.3333333333334,310.6152162827874 535.0,314.35002682023855 551.6666666666666,317.6459855512796 568.3333333333334,320.5546589224699 585.0,323.1215541631757 601.6666666666666,325.38683126235765 618.3333333333334,327.38593128588155 635.0,329.15013086459817 651.6666666666667,330.70703152835665 668.3333333333333,332.08099154175545 685.0,333.29350699785493 701.6666666666667,334.3635481321987 718.3333333333333,335.30785611889513 735.0,336.14120499224066 751.6666666666667,336.87663279174046 768.3333333333333,337.52564554687365 785.0,338.09839729301655" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="2.6" stroke-linejoin="round"/>
+<line x1="95" y1="342.4" x2="785" y2="342.4" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4,4" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="103" y="336.4" font-size="9.5" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">C/10 — поріг кінця</text>
+<text x="215" y="272.0" font-size="10.5" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">струм сталий (1C)</text>
+<text x="495" y="304.0" font-size="10.5" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">струм спадає</text>
+<line x1="385" y1="88" x2="385" y2="352" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="6,5" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="240.0" y="76" font-size="12" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">ФАЗА CC (сталий струм)</text>
+<text x="585.0" y="76" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">ФАЗА CV (стала напруга)</text>
+<text x="440.0" y="374" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">час →</text>
+<text x="480.0" y="458" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">CC швидко наповнює до межі 4.2 В; CV безпечно «дотискає», поки струм не впаде до ~C/10.</text>
+</svg>

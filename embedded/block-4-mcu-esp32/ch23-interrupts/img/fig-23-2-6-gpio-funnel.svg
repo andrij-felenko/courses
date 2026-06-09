@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="420" viewBox="0 0 940 420">
+<rect width="940" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Під капотом attachInterrupt: усі ніжки — крізь одну лійку</text>
+<text x="470.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">усі GPIO ділять одне переривання; обробник читає, ХТО спрацював, і кличе вашу функцію</text>
+<rect x="50.0" y="110.0" width="90.0" height="36.0" rx="6" fill="#fbfcff" stroke="#1b1b1b" stroke-width="1.4"/>
+<text x="95.0" y="133.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">GPIO2</text>
+<line x1="140.0" y1="128.0" x2="250.0" y2="200.0" stroke="#8a8a8a" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#aGrey)"/>
+<rect x="50.0" y="160.0" width="90.0" height="36.0" rx="6" fill="#fbfcff" stroke="#1b1b1b" stroke-width="1.4"/>
+<text x="95.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">GPIO4</text>
+<line x1="140.0" y1="178.0" x2="250.0" y2="200.0" stroke="#c0271e" stroke-width="2.2" marker-end="url(#aRed)"/>
+<rect x="50.0" y="210.0" width="90.0" height="36.0" rx="6" fill="#fbfcff" stroke="#1b1b1b" stroke-width="1.4"/>
+<text x="95.0" y="233.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">GPIO5</text>
+<line x1="140.0" y1="228.0" x2="250.0" y2="200.0" stroke="#8a8a8a" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#aGrey)"/>
+<rect x="250.0" y="170.0" width="150.0" height="70.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="1.8"/>
+<text x="325.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">одне переривання</text>
+<text x="325.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">GPIO (на ядро)</text>
+<line x1="400.0" y1="205.0" x2="470.0" y2="205.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="560.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">регістр GPIO_STATUS</text>
+<rect x="472.0" y="168.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="489.0" y="191.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="506.0" y="168.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="523.0" y="191.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="540.0" y="168.0" width="34.0" height="34.0" rx="0" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="557.0" y="191.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="574.0" y="168.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="591.0" y="191.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="608.0" y="168.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="625.0" y="191.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="642.0" y="168.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="659.0" y="191.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<text x="560.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">біт каже: спрацював GPIO4</text>
+<line x1="560.0" y1="240.0" x2="560.0" y2="290.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<rect x="440.0" y="290.0" width="240.0" height="50.0" rx="8" fill="#fbfcff" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="560.0" y="312.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">диспетчер ядра Arduino</text>
+<text x="560.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.7" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">за бітом обирає, кого кликати</text>
+<line x1="680.0" y1="315.0" x2="760.0" y2="315.0" stroke="#1f8a3b" stroke-width="2.4" marker-end="url(#aGreen)"/>
+<rect x="760.0" y="292.0" width="150.0" height="48.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="835.0" y="313.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ваш onPress()</text>
+<text x="835.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(для GPIO4)</text>
+<text x="470.0" y="398.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.3" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ось чому ISR має бути швидким: він спільний для всіх ніжок, і затримка в ньому б'є по всіх.</text>
+</svg>

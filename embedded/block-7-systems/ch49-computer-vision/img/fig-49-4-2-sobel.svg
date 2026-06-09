@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Собель: згортка, що оцінює градієнт</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">Gx ловить вертикальні межі, Gy — горизонтальні; разом дають силу межі √(Gx²+Gy²) і напрям</text>
+<text x="150" y="114" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">Gx (вертикальні межі)</text>
+<rect x="99" y="130" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.2"/>
+<text x="116.0" y="152.44" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">-1</text>
+<rect x="133" y="130" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.2"/>
+<text x="150.0" y="152.44" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="167" y="130" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.2"/>
+<text x="184.0" y="152.44" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="99" y="164" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.2"/>
+<text x="116.0" y="186.44" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">-2</text>
+<rect x="133" y="164" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.2"/>
+<text x="150.0" y="186.44" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="167" y="164" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.2"/>
+<text x="184.0" y="186.44" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<rect x="99" y="198" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.2"/>
+<text x="116.0" y="220.44" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">-1</text>
+<rect x="133" y="198" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.2"/>
+<text x="150.0" y="220.44" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="167" y="198" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.2"/>
+<text x="184.0" y="220.44" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<text x="150" y="252" font-size="8.4" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">різниця «право − ліво»</text>
+<text x="390" y="114" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">Gy (горизонтальні межі)</text>
+<rect x="339" y="130" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="356.0" y="152.44" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">-1</text>
+<rect x="373" y="130" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="390.0" y="152.44" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">-2</text>
+<rect x="407" y="130" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="424.0" y="152.44" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">-1</text>
+<rect x="339" y="164" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="356.0" y="186.44" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="373" y="164" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="390.0" y="186.44" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="407" y="164" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="424.0" y="186.44" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="339" y="198" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="356.0" y="220.44" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="373" y="198" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="390.0" y="220.44" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<rect x="407" y="198" width="34" height="34" rx="8" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="424.0" y="220.44" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<text x="390" y="252" font-size="8.4" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">різниця «низ − верх»</text>
+<rect x="560" y="150" width="360" height="124" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="740" y="174" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">сила межі в кожнім пікселі:</text>
+<text x="740" y="204" font-size="14" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">|G| = √(Gx² + Gy²)</text>
+<text x="740" y="234" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">напрям межі = atan2(Gy, Gx)</text>
+<text x="740" y="256" font-size="8.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">(куди дивиться перепад)</text>
+<text x="125" y="312" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">вхід: квадрат</text>
+<rect x="70" y="322" width="110" height="100" rx="8" fill="#10131a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1"/>
+<rect x="102" y="344" width="50" height="50" rx="8" fill="none" fill-opacity="1.0" stroke="#94a3b8" stroke-width="3"/>
+<text x="232" y="372" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">→</text>
+<text x="310" y="312" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Gx: бокові</text>
+<rect x="255" y="322" width="110" height="100" rx="8" fill="#10131a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="287" y1="344" x2="287" y2="394" stroke="#f8fafc" stroke-width="3.5" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="337" y1="344" x2="337" y2="394" stroke="#f8fafc" stroke-width="3.5" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="460" y="312" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Gy: верх/низ</text>
+<rect x="405" y="322" width="110" height="100" rx="8" fill="#10131a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="437" y1="344" x2="487" y2="344" stroke="#f8fafc" stroke-width="3.5" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="437" y1="394" x2="487" y2="394" stroke="#f8fafc" stroke-width="3.5" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="572" y="372" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">→</text>
+<text x="655" y="312" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">|G|: повний контур</text>
+<rect x="600" y="322" width="110" height="100" rx="8" fill="#10131a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="632" y1="344" x2="632" y2="394" stroke="#f8fafc" stroke-width="3.5" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="682" y1="344" x2="682" y2="394" stroke="#f8fafc" stroke-width="3.5" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="632" y1="344" x2="682" y2="344" stroke="#f8fafc" stroke-width="3.5" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="632" y1="394" x2="682" y2="394" stroke="#f8fafc" stroke-width="3.5" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="740" y="322" width="170" height="100" rx="10" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.5"/>
+<text x="825" y="360" font-size="9.5" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">Собель — це й є</text>
+<text x="825" y="378" font-size="9.5" fill="#15803d" text-anchor="middle" font-weight="normal" font-style="normal">два ядра-похідні</text>
+<text x="825" y="396" font-size="9.5" fill="#15803d" text-anchor="middle" font-weight="normal" font-style="normal">із 49.3</text>
+</svg>

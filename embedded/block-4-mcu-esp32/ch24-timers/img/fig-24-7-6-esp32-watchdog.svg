@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="380" viewBox="0 0 960 380">
+<rect width="960" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="480.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Watchdog у ESP32: сторож для задач і для переривань</text>
+<text x="480.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">два сторожі стережуть різні види зависань; навіть Arduino-скетч під їхнім наглядом</text>
+<rect x="60.0" y="90.0" width="410.0" height="180.0" rx="12" fill="none" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="265.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Task WDT (задачний)</text>
+<text x="80.0" y="144.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">стежить, чи задачі дістають час</text>
+<text x="80.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">якщо задача (чи loop) надовго</text>
+<text x="80.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">«захопила» ядро — скид</text>
+<text x="80.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">→ ось чому довгий loop без</text>
+<text x="96.0" y="234.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">delay/yield інколи «падає»</text>
+<rect x="490.0" y="90.0" width="410.0" height="180.0" rx="12" fill="none" stroke="#c0271e" stroke-width="1.8"/>
+<text x="695.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Interrupt WDT (перерив.)</text>
+<text x="510.0" y="144.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">стежить, чи переривання не</text>
+<text x="510.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">вимкнені занадто довго</text>
+<text x="510.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">(довга критична секція §23.6</text>
+<text x="510.0" y="206.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">чи завислий обробник)</text>
+<text x="510.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">→ ловить «німі» зависання в ISR</text>
+<rect x="150.0" y="295.0" width="660.0" height="70.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="1.4"/>
+<text x="480.0" y="321.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.3" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">У коді: увімкнути watchdog із таймаутом і регулярно годувати (esp_task_wdt_reset).</text>
+<text x="480.0" y="343.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.7" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Таймаут беруть більший за найдовшу чесну операцію — щоб не було хибних скидів.</text>
+</svg>

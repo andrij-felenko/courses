@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="330" viewBox="0 0 720 330">
+<rect width="720" height="330" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="360.0" y="28.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Втрати від струму: біполярний (лінійно) vs MOSFET (квадратично)</text>
+<line x1="90.0" y1="270.0" x2="90.0" y2="56.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="90.0" y1="270.0" x2="624.0" y2="270.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="628.0" y="274.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Id</text>
+<text x="86.0" y="48.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">P</text>
+<path d="M 90.0,270.0 L 116.0,260.0 L 142.0,250.0 L 168.0,240.0 L 194.0,230.0 L 220.0,220.0 L 246.0,210.0 L 272.0,200.0 L 298.0,190.0 L 324.0,180.0 L 350.0,170.0 L 376.0,160.0 L 402.0,150.0 L 428.0,140.0 L 454.0,130.0 L 480.0,120.0 L 506.0,110.0 L 532.0,100.0 L 558.0,90.0 L 584.0,80.0 L 610.0,70.0" fill="none" stroke="#c0271e" stroke-width="2.6"/>
+<path d="M 90.0,270.0 L 109.5,269.6 L 129.0,268.5 L 148.5,266.6 L 168.0,264.0 L 187.5,260.6 L 207.0,256.5 L 226.5,251.6 L 246.0,246.0 L 265.5,239.6 L 285.0,232.5 L 304.5,224.6 L 324.0,216.0 L 343.5,206.6 L 363.0,196.5 L 382.5,185.6 L 402.0,174.0 L 421.5,161.6 L 441.0,148.5 L 460.5,134.6 L 480.0,120.0 L 499.5,104.6 L 519.0,88.5 L 538.5,71.6" fill="none" stroke="#1f47b5" stroke-width="2.6"/>
+<circle cx="480.0" cy="120.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="480.0" y1="270.0" x2="480.0" y2="120.0" stroke="#8a8a8a" stroke-width="1" stroke-dasharray="4 3" stroke-linecap="round"/>
+<text x="480.0" y="288.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">60 А</text>
+<text x="571.0" y="81.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">біполярний</text>
+<text x="402.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">MOSFET</text>
+<text x="259.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">тут MOSFET холодніший</text>
+<text x="360.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">До ~60 А MOSFET виграє; квадрат Id² наздоганяє лише за дуже великих струмів.</text>
+</svg>

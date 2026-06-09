@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чіп прошиває сам себе: ROM-завантажувач</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">ПК лише диктує — внутрішній загрузчик пише Flash</text>
+<rect x="40.0" y="150.0" width="140.0" height="84.0" rx="10" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="110.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ПК</text>
+<text x="110.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">диктує байти</text>
+<line x1="182.0" y1="192.0" x2="252.0" y2="192.0" stroke="#1b1b1b" stroke-width="2.6" marker-end="url(#aInk)"/>
+<text x="217.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">дріт</text>
+<rect x="262.0" y="110.0" width="420.0" height="204.0" rx="12" fill="#fbfcff" stroke="#1b1b1b" stroke-width="2.2"/>
+<text x="472.0" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">Мікроконтролер</text>
+<rect x="285.0" y="156.0" width="184.0" height="84.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="2"/>
+<text x="377.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a6a14" text-anchor="middle" font-weight="bold" font-style="normal">ROM-завантажувач</text>
+<text x="377.0" y="210.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(заводський, незмінний)</text>
+<line x1="471.0" y1="198.0" x2="542.0" y2="198.0" stroke="#1f8a3b" stroke-width="2.6" marker-end="url(#aGreen)"/>
+<text x="507.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">пише</text>
+<rect x="548.0" y="156.0" width="120.0" height="84.0" rx="10" fill="#eef3ff" stroke="#1f47b5" stroke-width="2"/>
+<text x="608.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Flash</text>
+<text x="608.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">образ</text>
+<text x="450.0" y="350.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ПК не пише в чіп напряму — диктує; загрузчик пише Flash сам.</text>
+<text x="450.0" y="372.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">ROM незнищенний → чіп ніколи не «закам'яніє».</text>
+</svg>

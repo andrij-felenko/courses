@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
+     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Практичні кроки: як почати</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">класика перед нейромережею; готова модель + донавчання; добрі різноманітні дані + чесна перевірка; запобіжники; ітеруй</text>
+<circle cx="82" cy="132" r="15" fill="#0a8f3c" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="82" y="137" font-size="13" fill="white" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<text x="112" y="127" font-size="10.5" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">Найдешевший метод спершу</text>
+<text x="112" y="145" font-size="9" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">класика (поріг, Хаф — 49.6) перед нейромережею</text>
+<circle cx="82" cy="180" r="15" fill="#1f4ed8" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="82" y="185" font-size="13" fill="white" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<text x="112" y="175" font-size="10.5" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">Готова модель + перенесення</text>
+<text x="112" y="193" font-size="9" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">бери натреновану й донавчи під себе; не з нуля</text>
+<circle cx="82" cy="228" r="15" fill="#d98a00" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="82" y="233" font-size="13" fill="white" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<text x="112" y="223" font-size="10.5" fill="#d98a00" text-anchor="start" font-weight="bold" font-style="normal">Добрі різноманітні дані</text>
+<text x="112" y="241" font-size="9" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">+ чесний тестовий набір (50.6); знімай в усіх умовах</text>
+<circle cx="82" cy="276" r="15" fill="#cc0000" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="82" y="281" font-size="13" fill="white" text-anchor="middle" font-weight="bold" font-style="normal">4</text>
+<text x="112" y="271" font-size="10.5" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">Запобіжники й аварійні режими</text>
+<text x="112" y="289" font-size="9" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">ML не керує польотом сама; нагляд людини, фолбек</text>
+<circle cx="82" cy="324" r="15" fill="#1f4ed8" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="82" y="329" font-size="13" fill="white" text-anchor="middle" font-weight="bold" font-style="normal">5</text>
+<text x="112" y="319" font-size="10.5" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">Простий → виміряй → покращ</text>
+<text x="112" y="337" font-size="9" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">ітеруй малими кроками; стеж за бюджетом (49.9, 50.7)</text>
+<rect x="50" y="372" width="860" height="48" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="480" y="391" font-size="9.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">інструменти, з якими це роблять:</text>
+<text x="480" y="409" font-size="8.8" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">OpenCV (класика) · TensorFlow / PyTorch + TFLite (ML) · ArduPilot + MAVLink (інтеграція) · Raspberry Pi / Jetson (залізо)</text>
+</svg>

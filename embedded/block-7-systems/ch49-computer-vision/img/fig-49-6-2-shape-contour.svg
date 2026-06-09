@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">За формою: контур → кути → що це</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">обвівши контур, рахуємо кути (3 → трикутник, 4 → квадрат) чи «круглість»; фільтруємо плями за площею й формою</text>
+<rect x="60" y="138" width="220" height="172" rx="8" fill="#0f172a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<polygon points="170,172 114,264 226,264" fill="none" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="170" cy="172" r="5" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1"/>
+<circle cx="114" cy="264" r="5" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1"/>
+<circle cx="226" cy="264" r="5" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1"/>
+<text x="170" y="324" font-size="11" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">трикутник</text>
+<text x="170" y="340" font-size="8.6" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">контур → 3 кути</text>
+<rect x="370" y="138" width="220" height="172" rx="8" fill="#0f172a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<polygon points="430,178 530,178 530,270 430,270" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="430" cy="178" r="5" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1"/>
+<circle cx="530" cy="178" r="5" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1"/>
+<circle cx="530" cy="270" r="5" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1"/>
+<circle cx="430" cy="270" r="5" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1"/>
+<text x="480" y="324" font-size="11" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">квадрат</text>
+<text x="480" y="340" font-size="8.6" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">4 кути, ≈рівні сторони</text>
+<rect x="680" y="138" width="220" height="172" rx="8" fill="#0f172a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="790" cy="224" r="52" fill="none" fill-opacity="1.0" stroke="#d98a00" stroke-width="3"/>
+<text x="790" y="324" font-size="11" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">коло</text>
+<text x="790" y="340" font-size="8.6" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">0 кутів, висока «круглість»</text>
+<rect x="60" y="356" width="840" height="64" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="480" y="378" font-size="9.6" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Плями ще й ФІЛЬТРУЮТЬ: за площею (відсіяти дрібне й завелике), за співвідношенням сторін (видовжене?),</text>
+<text x="480" y="398" font-size="9.3" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">за «круглістю» (наскільки схоже на коло). Так із купи плям лишаються тільки потрібні.</text>
+<text x="480.0" y="458" font-size="10.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Форму впізнають за контуром: скільки в нього кутів і яка «круглість». Простий і прозорий спосіб — без жодного навчання.</text>
+</svg>

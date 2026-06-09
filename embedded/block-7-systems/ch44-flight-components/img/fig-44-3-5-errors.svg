@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480"
+     viewBox="0 0 960 480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Звідки похибки — і як спуститися від метрів до сантиметрів</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">атмосфера й відбиття псують сигнал; корекції їх прибирають</text>
+<rect x="40" y="90" width="380" height="300" rx="12" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="230" y="116" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Джерела похибки</text>
+<rect x="60" y="140" width="340" height="52" rx="8" fill="white" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.3"/>
+<text x="74" y="162" font-size="11.5" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">Іоносфера / тропосфера</text>
+<text x="74" y="180" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">сигнал гальмується — найбільша</text>
+<rect x="60" y="200" width="340" height="52" rx="8" fill="white" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.3"/>
+<text x="74" y="222" font-size="11.5" fill="#d98a00" text-anchor="start" font-weight="bold" font-style="normal">Багатопроменевість</text>
+<text x="74" y="240" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">відбиття від будівель, землі</text>
+<rect x="60" y="260" width="340" height="52" rx="8" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.3"/>
+<text x="74" y="282" font-size="11.5" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">Орбіта й годинник супутника</text>
+<text x="74" y="300" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">невеликі, але є</text>
+<rect x="60" y="320" width="340" height="52" rx="8" fill="white" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.3"/>
+<text x="74" y="342" font-size="11.5" fill="#6b7280" text-anchor="start" font-weight="bold" font-style="normal">Шум приймача</text>
+<text x="74" y="360" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">найменша</text>
+<text x="690" y="116" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Драбина точності</text>
+<rect x="470" y="150" width="320" height="56" rx="10" fill="#fde2e2" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.6"/>
+<text x="484" y="174" font-size="12" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">Звичайний GNSS</text>
+<text x="484" y="194" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">точність ~3–5 м</text>
+<rect x="540" y="220" width="320" height="56" rx="10" fill="#fff0d8" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.6"/>
+<text x="554" y="244" font-size="12" fill="#d98a00" text-anchor="start" font-weight="bold" font-style="normal">+ SBAS (WAAS/EGNOS)</text>
+<text x="554" y="264" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">точність ~1–2 м</text>
+<rect x="610" y="290" width="320" height="56" rx="10" fill="#d8f3e0" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.6"/>
+<text x="624" y="314" font-size="12" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">+ RTK (база + фаза несучої)</text>
+<text x="624" y="334" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">точність ~1–3 см</text>
+<text x="690" y="366" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">↓ що нижче — то точніше</text>
+<text x="480.0" y="468" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Багатосмуговий (L1/L5) і багатосузір'яний приймач сам собою точніший: більше супутників і менший вплив іоносфери.</text>
+</svg>

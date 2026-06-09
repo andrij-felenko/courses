@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470">
+<rect width="900" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Серцебиття процесора: вибірка → декодування → виконання → і знову</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">процесор безкінечно повторює це коло — за кожен оберт виконує рівно одну команду; такт (§16.6) задає ритм</text>
+<rect x="100.0" y="115.0" width="240.0" height="130.0" rx="12" fill="#ffffff" stroke="#c0271e" stroke-width="2.2"/>
+<circle cx="122.0" cy="137.0" r="14.0" fill="#c0271e" stroke="#c0271e" stroke-width="0"/>
+<text x="122.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<text x="228.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ВИБІРКА</text>
+<text x="228.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">fetch</text>
+<text x="220.0" y="185.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">узяти наступну команду</text>
+<text x="220.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">з пам'яті (за адресою PC)</text>
+<text x="220.0" y="223.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">в IR; PC + 1</text>
+<rect x="560.0" y="115.0" width="240.0" height="130.0" rx="12" fill="#ffffff" stroke="#caa24a" stroke-width="2.2"/>
+<circle cx="582.0" cy="137.0" r="14.0" fill="#caa24a" stroke="#caa24a" stroke-width="0"/>
+<text x="582.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<text x="688.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">ДЕКОДУВАННЯ</text>
+<text x="688.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">decode</text>
+<text x="680.0" y="185.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">зрозуміти, що команда</text>
+<text x="680.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">означає: яка операція,</text>
+<text x="680.0" y="223.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">які операнди</text>
+<rect x="330.0" y="295.0" width="240.0" height="130.0" rx="12" fill="#ffffff" stroke="#1f8a3b" stroke-width="2.2"/>
+<circle cx="352.0" cy="317.0" r="14.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="0"/>
+<text x="352.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<text x="458.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ВИКОНАННЯ</text>
+<text x="458.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">execute</text>
+<text x="450.0" y="365.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">зробити: АЛП рахує /</text>
+<text x="450.0" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">завантажити-зберегти /</text>
+<text x="450.0" y="403.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">змінити PC (стрибок)</text>
+<line x1="340.0" y1="175.0" x2="558.0" y2="175.0" stroke="#1b1b1b" stroke-width="2.6" marker-end="url(#aInk)"/>
+<line x1="660.0" y1="245.0" x2="530.0" y2="300.0" stroke="#1b1b1b" stroke-width="2.6" marker-end="url(#aInk)"/>
+<line x1="372.0" y1="305.0" x2="245.0" y2="240.0" stroke="#1b1b1b" stroke-width="2.6" marker-end="url(#aInk)"/>
+<text x="450.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">що робити далі?</text>
+<text x="620.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">роби це</text>
+<text x="270.0" y="285.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">знову</text>
+<text x="450.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="30" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">♥</text>
+<text x="450.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">цикл команди</text>
+<text x="450.0" y="440.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Це коло крутиться, поки процесор живиться, — мільярди обертів за секунду. Кожен оберт = одна виконана інструкція.</text>
+</svg>

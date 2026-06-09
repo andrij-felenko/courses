@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="450"
+     viewBox="0 0 960 450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="450" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Драбина кодеків: щораз тісніше, та складніше</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">MJPEG → H.264 → H.265/AV1: кожне покоління тисне вдвічі краще, але вимагає вдвічі більше обчислень</text>
+<rect x="120" y="280" width="160" height="80" rx="8" fill="#0a8f3c" fill-opacity="0.18" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="120" y="280" width="160" height="4" rx="8" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="200" y="304" font-size="12" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">MJPEG</text>
+<text x="200" y="322" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">усі I (~10×)</text>
+<text x="200" y="338" font-size="8.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">просто</text>
+<rect x="330" y="225" width="160" height="135" rx="8" fill="#1f4ed8" fill-opacity="0.18" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="330" y="225" width="160" height="4" rx="8" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="410" y="249" font-size="12" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">H.264 (2003)</text>
+<text x="410" y="267" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">I+P+B (~50–200×)</text>
+<text x="410" y="283" font-size="8.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">складніше</text>
+<rect x="540" y="170" width="160" height="190" rx="8" fill="#d98a00" fill-opacity="0.18" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="540" y="170" width="160" height="4" rx="8" fill="#d98a00" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="620" y="194" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">H.265 (2013)</text>
+<text x="620" y="212" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">≈×2 до H.264</text>
+<text x="620" y="228" font-size="8.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">важче + роялті</text>
+<rect x="750" y="115" width="160" height="245" rx="8" fill="#0a8f3c" fill-opacity="0.18" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="750" y="115" width="160" height="4" rx="8" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="830" y="139" font-size="12" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">AV1 (2018)</text>
+<text x="830" y="157" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">≈H.265, БЕЗ роялті</text>
+<text x="830" y="173" font-size="8.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">найважче</text>
+<line x1="105" y1="360" x2="930" y2="360" stroke="#1a1a1a" stroke-width="1.5" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="110" y="378" font-size="10" fill="#6b7280" text-anchor="start" font-weight="bold" font-style="normal">стиск →</text>
+<text x="930" y="378" font-size="10" fill="#6b7280" text-anchor="end" font-weight="bold" font-style="normal">більше обчислень →</text>
+<text x="480.0" y="436" font-size="10.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">«Закон» кодеків: кожне покоління ~вдвічі компактніше, та ~вдвічі ненажерливіше до обчислень. На дроні це впирається в чип і затримку.</text>
+</svg>

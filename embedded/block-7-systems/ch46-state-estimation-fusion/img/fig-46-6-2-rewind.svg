@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="450"
+     viewBox="0 0 960 450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="450" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Лік від затримки: виправ минуле, програй наперед</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">фільтр тримає буфер минулих станів; корегує стан на момент виміру й переграє вперед</text>
+<line x1="90" y1="220" x2="870" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="870" y="242" font-size="11" fill="#6b7280" text-anchor="end" font-weight="bold" font-style="normal">час →</text>
+<circle cx="160" cy="220" r="7" fill="#6b7280" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="280" cy="220" r="7" fill="#6b7280" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="400" cy="220" r="7" fill="#0a8f3c" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="520" cy="220" r="7" fill="#1f4ed8" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="640" cy="220" r="7" fill="#1f4ed8" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="760" cy="220" r="7" fill="#1f4ed8" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="160" y="248" font-size="10" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">буфер минулих станів</text>
+<text x="760" y="198" font-size="10.5" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">«зараз»</text>
+<rect x="660" y="92" width="220" height="50" rx="10" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.6"/>
+<text x="770" y="114" font-size="11" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">прилетів GPS-фікс</text>
+<text x="770" y="132" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">із міткою часу (минуле)</text>
+<line x1="700" y1="144" x2="408" y2="208" stroke="#0a8f3c" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrG)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="400" y="200" font-size="10.5" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">1) корегуємо стан НА МОМЕНТ виміру</text>
+<line x1="410" y1="238" x2="760" y2="238" stroke="#d98a00" stroke-width="2.4" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="585" y="256" font-size="10.5" fill="#b06b00" text-anchor="middle" font-weight="bold" font-style="normal">2) переграємо вперед до «зараз»</text>
+<text x="480.0" y="436" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Саме так працює EKF в ArduPilot: завдяки буферу він фьюзить запізнілий GPS у правильний момент минулого — без ривків.</text>
+</svg>

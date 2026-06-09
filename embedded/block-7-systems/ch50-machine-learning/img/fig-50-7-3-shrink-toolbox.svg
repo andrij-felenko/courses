@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Скриня прийомів: як ужати модель</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">квантування (8 біт), менша архітектура (MobileNet), прорідження (викинути зайві ваги), дистиляція (учень копіює вчителя)</text>
+<rect x="50" y="116" width="430" height="120" rx="12" fill="#f4f4f5" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.8"/>
+<text x="72" y="148" font-size="12" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">КВАНТУВАННЯ</text>
+<text x="72" y="176" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">32→8 біт: ×4 менше,</text>
+<text x="72" y="196" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">швидше (50.7.2)</text>
+<rect x="380" y="140" width="16" height="48" rx="8" fill="#cc0000" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="420" y="172" width="16" height="16" rx="8" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="510" y="116" width="430" height="120" rx="12" fill="#f4f4f5" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.8"/>
+<text x="532" y="148" font-size="12" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">МЕНША АРХІТЕКТУРА</text>
+<text x="532" y="176" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">MobileNet тощо:</text>
+<text x="532" y="196" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">менше й дешевше шарів</text>
+<rect x="840" y="156" width="12" height="40" rx="8" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<rect x="856" y="152" width="12" height="48" rx="8" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<rect x="872" y="148" width="12" height="56" rx="8" fill="#1f4ed8" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<rect x="50" y="254" width="430" height="120" rx="12" fill="#f4f4f5" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.8"/>
+<text x="72" y="286" font-size="12" fill="#d98a00" text-anchor="start" font-weight="bold" font-style="normal">ПРОРІДЖЕННЯ</text>
+<text x="72" y="314" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">викинути ваги ≈0 (їх</text>
+<text x="72" y="334" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">багато) → рідша, менша</text>
+<rect x="380" y="290" width="12" height="12" rx="8" fill="#d98a00" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="396" y="290" width="12" height="12" rx="8" fill="#d98a00" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="412" y="290" width="12" height="12" rx="8" fill="#e5e7eb" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="380" y="306" width="12" height="12" rx="8" fill="#d98a00" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="396" y="306" width="12" height="12" rx="8" fill="#d98a00" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="412" y="306" width="12" height="12" rx="8" fill="#d98a00" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="380" y="322" width="12" height="12" rx="8" fill="#e5e7eb" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="396" y="322" width="12" height="12" rx="8" fill="#d98a00" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="412" y="322" width="12" height="12" rx="8" fill="#d98a00" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<rect x="510" y="254" width="430" height="120" rx="12" fill="#f4f4f5" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.8"/>
+<text x="532" y="286" font-size="12" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">ДИСТИЛЯЦІЯ</text>
+<text x="532" y="314" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">малий «учень» копіює</text>
+<text x="532" y="334" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">велике «вчителя»</text>
+<circle cx="840" cy="308" r="18" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="2"/>
+<line x1="860" y1="308" x2="878" y2="308" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<circle cx="894" cy="308" r="9" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2"/>
+<rect x="50" y="396" width="850" height="46" rx="10" fill="#fffbeb" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.5"/>
+<text x="480" y="416" font-size="9.6" fill="#92400e" text-anchor="middle" font-weight="bold" font-style="normal">Їх СКЛАДАЮТЬ разом: квантована, проріджена MobileNet після дистиляції влазить навіть у мікроконтролер,</text>
+<text x="480" y="432" font-size="9.2" fill="#92400e" text-anchor="middle" font-weight="normal" font-style="normal">віддаючи лише дрібку точності за величезний виграш у розмірі й швидкості.</text>
+</svg>

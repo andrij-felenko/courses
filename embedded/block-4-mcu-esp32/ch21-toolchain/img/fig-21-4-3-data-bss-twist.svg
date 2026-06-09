@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="440" viewBox="0 0 920 440">
+<rect width="920" height="440" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Парадокс початкових значень: RAM при старті порожня</text>
+<text x="460.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">то звідки береться «5» у int x = 5?</text>
+<text x="70.0" y="118.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a6a14" text-anchor="start" font-weight="bold" font-style="normal">.data  —  int x = 5;</text>
+<rect x="60.0" y="136.0" width="200.0" height="62.0" rx="8" fill="#eef3ff" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="160.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Flash</text>
+<text x="160.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">тримає «5»</text>
+<line x1="266.0" y1="167.0" x2="422.0" y2="167.0" stroke="#1f8a3b" stroke-width="2.6" marker-end="url(#aGreen)"/>
+<text x="344.0" y="155.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">копія при старті</text>
+<rect x="432.0" y="136.0" width="210.0" height="62.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="537.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">RAM (x)</text>
+<text x="537.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">= 5, далі мінятиметься</text>
+<text x="770.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">коштує і Flash, і RAM</text>
+<text x="70.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">.bss  —  int y;</text>
+<rect x="60.0" y="286.0" width="200.0" height="62.0" rx="8" fill="#f0f0f0" stroke="#8a8a8a" stroke-width="1.8"/>
+<text x="160.0" y="312.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">Flash</text>
+<text x="160.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">нічого (0 байтів)</text>
+<line x1="266.0" y1="317.0" x2="422.0" y2="317.0" stroke="#1f8a3b" stroke-width="2.6" marker-end="url(#aGreen)"/>
+<text x="344.0" y="305.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">просто обнулити</text>
+<rect x="432.0" y="286.0" width="210.0" height="62.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="537.0" y="312.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">RAM (y)</text>
+<text x="537.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">= 0</text>
+<text x="770.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">коштує лише RAM</text>
+<text x="460.0" y="404.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ініціалізована змінна має «склад» у Flash і «дім» у RAM; нульова — лише дім.</text>
+</svg>

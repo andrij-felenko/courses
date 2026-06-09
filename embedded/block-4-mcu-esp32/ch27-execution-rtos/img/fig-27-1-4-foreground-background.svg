@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360">
+<rect width="940" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Дві сцени: головний цикл (рутина) + переривання (термінове)</text>
+<text x="470.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">loop() робить неквапну роботу; ISR (Розділ 23) вихоплює процесор на термінові події</text>
+<text x="70.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">час →</text>
+<line x1="70.0" y1="150.0" x2="880.0" y2="150.0" stroke="#e4e4e4" stroke-width="1.2" stroke-linecap="round"/>
+<rect x="70.0" y="150.0" width="120.0" height="34.0" rx="4" fill="#fff6e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="130.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">loop()</text>
+<rect x="205.0" y="150.0" width="120.0" height="34.0" rx="4" fill="#fff6e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="265.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">loop()</text>
+<rect x="340.0" y="150.0" width="120.0" height="34.0" rx="4" fill="#fff6e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="400.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">loop()</text>
+<rect x="475.0" y="150.0" width="120.0" height="34.0" rx="4" fill="#fff6e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="535.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">loop()</text>
+<rect x="610.0" y="150.0" width="120.0" height="34.0" rx="4" fill="#fff6e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="670.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">loop()</text>
+<rect x="745.0" y="150.0" width="120.0" height="34.0" rx="4" fill="#fff6e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="805.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">loop()</text>
+<line x1="220.0" y1="150.0" x2="220.0" y2="90.0" stroke="#c0271e" stroke-width="2.4" stroke-linecap="round"/>
+<polyline points="190.0,90.0 250.0,90.0 220.0,90.0 220.0,150.0" fill="none" stroke="#c0271e" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="186.0" y="64.0" width="68.0" height="26.0" rx="5" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="220.0" y="82.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ISR</text>
+<line x1="540.0" y1="150.0" x2="540.0" y2="90.0" stroke="#c0271e" stroke-width="2.4" stroke-linecap="round"/>
+<polyline points="510.0,90.0 570.0,90.0 540.0,90.0 540.0,150.0" fill="none" stroke="#c0271e" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="506.0" y="64.0" width="68.0" height="26.0" rx="5" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="540.0" y="82.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ISR</text>
+<line x1="770.0" y1="150.0" x2="770.0" y2="90.0" stroke="#c0271e" stroke-width="2.4" stroke-linecap="round"/>
+<polyline points="740.0,90.0 800.0,90.0 770.0,90.0 770.0,150.0" fill="none" stroke="#c0271e" stroke-width="0" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="736.0" y="64.0" width="68.0" height="26.0" rx="5" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="770.0" y="82.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ISR</text>
+<text x="220.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.2" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">термінова подія</text>
+<rect x="150.0" y="250.0" width="640.0" height="92.0" rx="10" fill="#fbfcff" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="470.0" y="276.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Класична «передній план / тло»: рутину тягне цикл, а на термінове —</text>
+<text x="470.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">натискання, прихід байта, переповнення таймера — миттєво відгукується ISR.</text>
+<text x="470.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Так навіть простий super-loop устигає й за повільним, і за швидким (Розділ 23).</text>
+</svg>

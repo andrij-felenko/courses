@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="440" viewBox="0 0 940 440">
+<rect width="940" height="440" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Карта GPIO-регістрів ESP32 (memory-mapped, §20.3)</text>
+<text x="470.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кожен регістр — комірка з фіксованою адресою; ніжки 0–31 і 32–39 у різних регістрах</text>
+<rect x="60.0" y="92.0" width="820.0" height="68.0" rx="10" fill="#fbfcff" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="80.0" y="122.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">GPIO_OUT / GPIO_OUT1</text>
+<text x="80.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">стан виходів (читати/писати)</text>
+<text x="610.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">OUT: 0–31 · OUT1: 32–39</text>
+<rect x="60.0" y="170.0" width="820.0" height="68.0" rx="10" fill="#fbfcff" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="80.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">GPIO_OUT_W1TS / _W1TC</text>
+<text x="80.0" y="224.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">атомарно встановити / скинути біти</text>
+<text x="610.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">set і clear без read-modify-write</text>
+<rect x="60.0" y="248.0" width="820.0" height="68.0" rx="10" fill="#fbfcff" stroke="#caa24a" stroke-width="1.6"/>
+<text x="80.0" y="278.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">GPIO_ENABLE / _ENABLE1</text>
+<text x="80.0" y="302.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">напрям ніжки: вихід чи вхід</text>
+<text x="610.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">1 = вихід увімкнено</text>
+<rect x="60.0" y="326.0" width="820.0" height="68.0" rx="10" fill="#fbfcff" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="80.0" y="356.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">GPIO_IN / GPIO_IN1</text>
+<text x="80.0" y="380.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">читати рівні входів</text>
+<text x="610.0" y="364.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">IN: 0–31 · IN1: 32–39</text>
+<text x="470.0" y="424.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Звертаються через GPIO.out_w1ts = …, REG_WRITE(addr, val) або (в IDF) gpio_set_level().</text>
+</svg>

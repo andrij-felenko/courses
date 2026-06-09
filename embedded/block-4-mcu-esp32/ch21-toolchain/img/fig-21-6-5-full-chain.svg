@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="400" viewBox="0 0 960 400">
+<rect width="960" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="480.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Уся reset-послідовність: від скидання до loop()</text>
+<text x="480.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кожна ланка готує наступну; жодна не «диво»</text>
+<rect x="18.0" y="160.0" width="124.0" height="82.0" rx="10" fill="#fbfbfb" stroke="#c0271e" stroke-width="2"/>
+<text x="80.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Скидання</text>
+<text x="80.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">вектор</text>
+<line x1="142.0" y1="201.0" x2="151.0" y2="201.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="150.0" y="160.0" width="124.0" height="82.0" rx="10" fill="#fbfbfb" stroke="#caa24a" stroke-width="2"/>
+<text x="212.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">ROM-загр.</text>
+<text x="212.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">прошивка? ні</text>
+<line x1="274.0" y1="201.0" x2="283.0" y2="201.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="282.0" y="160.0" width="124.0" height="82.0" rx="10" fill="#fbfbfb" stroke="#caa24a" stroke-width="2"/>
+<text x="344.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">Загр. у Flash</text>
+<text x="344.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">розділи, такт</text>
+<line x1="406.0" y1="201.0" x2="415.0" y2="201.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="414.0" y="160.0" width="124.0" height="82.0" rx="10" fill="#fbfbfb" stroke="#1f47b5" stroke-width="2"/>
+<text x="476.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">C-стартап</text>
+<text x="476.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">.data/.bss/стек</text>
+<line x1="538.0" y1="201.0" x2="547.0" y2="201.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="546.0" y="160.0" width="124.0" height="82.0" rx="10" fill="#fbfbfb" stroke="#1b1b1b" stroke-width="2"/>
+<text x="608.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">main()</text>
+<text x="608.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">фреймворку</text>
+<line x1="670.0" y1="201.0" x2="679.0" y2="201.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="678.0" y="160.0" width="124.0" height="82.0" rx="10" fill="#fbfbfb" stroke="#1f8a3b" stroke-width="2"/>
+<text x="740.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">setup()</text>
+<text x="740.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">раз</text>
+<line x1="802.0" y1="201.0" x2="811.0" y2="201.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="810.0" y="160.0" width="124.0" height="82.0" rx="10" fill="#fbfbfb" stroke="#1f8a3b" stroke-width="2"/>
+<text x="872.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">loop()</text>
+<text x="872.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">вічно</text>
+<text x="480.0" y="304.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Від скидання до вашого коду — чіткий ланцюг помічників, кожен зі своїм кроком.</text>
+</svg>

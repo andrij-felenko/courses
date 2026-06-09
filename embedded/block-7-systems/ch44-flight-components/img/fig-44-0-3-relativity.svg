@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="480"
+     viewBox="0 0 940 480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="940" height="480" fill="white"/>
+<text x="470.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Без Ейнштейна GPS брехав би на ~10 км щодоби</text>
+<text x="470.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">годинник на орбіті йде інакше; поправку зашито в систему</text>
+<circle cx="180" cy="300" r="90" fill="#dbeafe" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.6"/>
+<text x="180" y="305" font-size="12" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">Земля</text>
+<circle cx="180" cy="300" r="200" fill="none" fill-opacity="1.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,5"/>
+<rect x="170.1" y="92.3" width="19.8" height="15.400000000000002" rx="3" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="151.4" y="94.5" width="14.3" height="11.0" rx="2" fill="#eef2ff" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="194.3" y="94.5" width="14.3" height="11.0" rx="2" fill="#eef2ff" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="180" y="70" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">GPS-супутник</text>
+<text x="180" y="132" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">висота ~20 000 км · ~14 000 км/год</text>
+<rect x="430" y="90" width="470" height="70" rx="11" fill="#fff0f0" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.6"/>
+<text x="450" y="116" font-size="12" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">Загальна відносність (висота, слабша гравітація):</text>
+<text x="450" y="140" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal" font-family="Consolas, monospace">годинник ПРИСКОРЮЄТЬСЯ    →   +45 мкс/добу</text>
+<rect x="430" y="176" width="470" height="70" rx="11" fill="#eff4ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.6"/>
+<text x="450" y="202" font-size="12" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">Спеціальна відносність (велика швидкість):</text>
+<text x="450" y="226" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal" font-family="Consolas, monospace">годинник СПОВІЛЬНЮЄТЬСЯ  →   −7 мкс/добу</text>
+<rect x="430" y="262" width="470" height="56" rx="11" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.7"/>
+<text x="665" y="296" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal" font-family="Consolas, monospace">Разом:  +45 − 7  =  +38 мкс/добу</text>
+<rect x="430" y="334" width="470" height="60" rx="11" fill="#fff5e6" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.7"/>
+<text x="665" y="358" font-size="12.5" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">Без поправки: ~10 км помилки ЩОДОБИ</text>
+<text x="665" y="380" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">(хибно вже за 2 хв)</text>
+<rect x="60" y="410" width="840" height="44" rx="11" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.6"/>
+<text x="480" y="437" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Рішення: годинник супутника НАВМИСНО налаштовують іти повільніше ще на Землі (10.229 999 995 43 МГц замість 10.23 МГц) — на орбіті він піде «правильно».</text>
+</svg>

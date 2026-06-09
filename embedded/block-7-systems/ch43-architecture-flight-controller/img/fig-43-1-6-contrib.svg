@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430"
+     viewBox="0 0 900 430" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="430" fill="white"/>
+<text x="450.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Навіщо окремий оцінювач: жоден давач сам не дає «стану»</text>
+<text x="450.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">сильне одного закриває слабке іншого; дещо не міряє ніхто — це оцінюють</text>
+<rect x="40" y="81" width="310" height="58" rx="9" fill="white" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.5"/>
+<text x="56" y="104" font-size="12" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">Гіроскоп — кутова швидкість</text>
+<text x="56" y="123" font-size="11" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">✗ кут із нього дрейфує</text>
+<line x1="350" y1="110" x2="396" y2="240" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="40" y="156" width="310" height="58" rx="9" fill="white" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.5"/>
+<text x="56" y="179" font-size="12" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">Акселерометр — нахил (вниз)</text>
+<text x="56" y="198" font-size="11" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">✗ трясеться від вібрації</text>
+<line x1="350" y1="185" x2="396" y2="240" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="40" y="231" width="310" height="58" rx="9" fill="white" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.5"/>
+<text x="56" y="254" font-size="12" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">Магнітометр — курс (північ)</text>
+<text x="56" y="273" font-size="11" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">✗ плутає залізо й струми</text>
+<line x1="350" y1="260" x2="396" y2="240" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="40" y="306" width="310" height="58" rx="9" fill="white" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.5"/>
+<text x="56" y="329" font-size="12" fill="#d98a00" text-anchor="start" font-weight="bold" font-style="normal">GNSS — положення, швидкість</text>
+<text x="56" y="348" font-size="11" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">✗ повільний, не всюди</text>
+<line x1="350" y1="335" x2="396" y2="240" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="400" y="120" width="150" height="240" rx="11" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.7"/>
+<text x="475" y="228" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">ОЦІНЮВАЧ</text>
+<text x="475" y="246" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">СТАНУ</text>
+<text x="475" y="264" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">(фьюжн)</text>
+<line x1="550" y1="240" x2="596" y2="240" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="600" y="150" width="280" height="180" rx="11" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.7"/>
+<text x="618" y="178" font-size="12.5" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">СТАН (чистий, надійний):</text>
+<text x="618" y="202" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">крен · тангаж · курс</text>
+<text x="618" y="221" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">висота · положення · швидкість</text>
+<text x="618" y="240" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal"></text>
+<text x="618" y="259" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">+ те, чого не міряє жоден давач</text>
+<text x="618" y="278" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">(напр. швидкість вітру) — ОЦІНЮЄТЬСЯ</text>
+<text x="450.0" y="418" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Оцінювач — це не «згладжування»: він поєднує давачі й виводить навіть те, що напряму не вимірюється.</text>
+</svg>

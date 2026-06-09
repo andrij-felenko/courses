@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Крос-компіляція: збираємо тут — а для туди</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">машина-будівельник і машина-ціль — різні</text>
+<rect x="60.0" y="108.0" width="320.0" height="210.0" rx="12" fill="none" stroke="#e4e4e4" stroke-width="2"/>
+<text x="220.0" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ПК (ядро x86)</text>
+<rect x="100.0" y="158.0" width="240.0" height="70.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="220.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Тулчейн працює тут</text>
+<text x="220.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(компілює, лінкує)</text>
+<text x="220.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">✗ результат тут НЕ запуститься</text>
+<text x="220.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">це «чужі» для ПК числа</text>
+<line x1="388.0" y1="210.0" x2="510.0" y2="210.0" stroke="#1f8a3b" stroke-width="3.5" marker-end="url(#aGreen)"/>
+<rect x="408.0" y="192.0" width="84.0" height="30.0" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.6"/>
+<text x="450.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a6a14" text-anchor="middle" font-weight="bold" font-style="normal">прошивка</text>
+<rect x="520.0" y="108.0" width="320.0" height="210.0" rx="12" fill="none" stroke="#e4e4e4" stroke-width="2"/>
+<text x="680.0" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Мікроконтролер</text>
+<text x="680.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(Xtensa / RISC-V)</text>
+<rect x="560.0" y="178.0" width="240.0" height="70.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="680.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Код біжить тут</text>
+<text x="680.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">✓ це його рідні числа</text>
+<text x="680.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">для кожного чипа — своя «ціль» у тулчейні</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360">
+<rect width="940" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Формула періоду: дві ручки задають будь-який інтервал</text>
+<text x="470.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">період = (значення ВЕРХУ) × (тривалість тіку), а тік задає передільник</text>
+<rect x="120.0" y="100.0" width="700.0" height="56.0" rx="10" fill="#0f1115" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="470" y="136" font-family="Consolas, monospace" font-size="17" fill="#e8e8e8" text-anchor="middle" font-weight="bold">T = ВЕРХ × передільник / частота_такту</text>
+<text x="470.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Приклад: період 1 мс на ESP32</text>
+<rect x="120.0" y="206.0" width="700.0" height="90.0" rx="10" fill="none" stroke="#e4e4e4" stroke-width="1.6"/>
+<text x="140.0" y="232.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">частота такту = 80 МГц</text>
+<text x="140.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">передільник ÷80  →  тік = 1 мкс</text>
+<text x="140.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">ВЕРХ = 1000  →  T = 1000 × 1 мкс = 1 мс ✓</text>
+<text x="560.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">1000 тіків по 1 мкс</text>
+<text x="560.0" y="264.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">= 1000 мкс = 1 мс</text>
+<text x="470.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.3" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Хочеш інший період — міняй ВЕРХ (або передільник). Дві ручки покривають усе.</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420">
+<rect width="880" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Вихід одного — вхід іншого: будуємо Y = A·B + C</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">так із вентилів складають будь-який вираз; простежмо сигнал на прикладі A=1, B=1, C=0</text>
+<line x1="150.0" y1="138.0" x2="280.0" y2="138.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="140.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">A = 1</text>
+<line x1="150.0" y1="162.0" x2="280.0" y2="162.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="140.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">B = 1</text>
+<path d="M 280,128.0 L 308.0,128.0 A 22.0,22.0 0 0 1 308.0,172.0 L 280,172.0 Z" fill="#fafafa" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="330.0" y1="150.0" x2="470.0" y2="150.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="470.0" y1="150.0" x2="470.0" y2="208.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="470.0" y1="208.0" x2="524.0" y2="208.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="420.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">P = A·B = 1</text>
+<line x1="150.0" y1="232.0" x2="524.0" y2="232.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="140.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="end" font-weight="bold" font-style="normal">C = 0</text>
+<path d="M 520,197.0 Q 549.7,197.0 574,220 Q 549.7,243.0 520,243.0 Q 535.12,220 520,197.0 Z" fill="#fafafa" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="574.0" y1="220.0" x2="630.0" y2="220.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="636.0" y="224.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Y = 1</text>
+<text x="305.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">AND</text>
+<text x="547.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">OR</text>
+<rect x="70.0" y="300.0" width="740.0" height="96.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="90.0" y="326.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Простежмо: A=1, B=1 → AND дає P = 1·1 = 1.  Далі OR: P або C = 1 або 0 = 1.  Отже Y = 1.</text>
+<text x="90.0" y="350.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Інший вхід: A=1, B=0 → P = 0; тоді Y = 0 або C. Так увесь вираз Y = A·B + C «оживає» в залізі.</text>
+<text x="90.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">Саме так — з'єднуючи виходи зі входами — будують суматори, мультиплексори й усю логіку (§15.6).</text>
+</svg>

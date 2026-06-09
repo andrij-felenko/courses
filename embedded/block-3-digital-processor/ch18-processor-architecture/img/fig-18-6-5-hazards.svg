@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" viewBox="0 0 900 440">
+<rect width="900" height="440" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чому конвеєр не безкоштовний: затори (hazards)</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">інколи команда не може йти конвеєром гладко — і доводиться чекати або викидати вже почату роботу</text>
+<rect x="60.0" y="84.0" width="380.0" height="150.0" rx="12" fill="#fff8e8" stroke="#caa24a" stroke-width="1.8"/>
+<text x="250.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#9a7322" text-anchor="middle" font-weight="bold" font-style="normal">Залежність даних</text>
+<text x="250.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">команда 2 потребує результату</text>
+<text x="250.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">команди 1 — а той ще НЕ готовий</text>
+<text x="250.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ДОДАЙ R3 ← R1+R2</text>
+<text x="250.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ВІДНІМИ R4 ← R3−1   ← чекає R3</text>
+<text x="250.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">→ «бульбашка»: конвеєр на такт стає</text>
+<rect x="460.0" y="84.0" width="380.0" height="150.0" rx="12" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.8"/>
+<text x="650.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Розгалуження (стрибок)</text>
+<text x="650.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">конвеєр уже вибрав НАСТУПНІ команди,</text>
+<text x="650.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">та стрибок веде ІНДЕ → вони зайві</text>
+<rect x="500.0" y="166.0" width="70.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.4"/>
+<text x="535.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">стриб.</text>
+<rect x="576.0" y="166.0" width="70.0" height="30.0" rx="4" fill="#fdecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="611.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">зайва</text>
+<line x1="582.0" y1="170.0" x2="640.0" y2="192.0" stroke="#c0271e" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="582.0" y1="192.0" x2="640.0" y2="170.0" stroke="#c0271e" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="652.0" y="166.0" width="70.0" height="30.0" rx="4" fill="#fdecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="687.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">зайва</text>
+<line x1="658.0" y1="170.0" x2="716.0" y2="192.0" stroke="#c0271e" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="658.0" y1="192.0" x2="716.0" y2="170.0" stroke="#c0271e" stroke-width="1.8" stroke-linecap="round"/>
+<text x="650.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">→ викинути (flush) і вибирати заново</text>
+<rect x="60.0" y="252.0" width="780.0" height="122.0" rx="10" fill="#f6f8f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="450.0" y="276.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Затори «спорожнюють» конвеєр і крадуть частину виграшу, тож ідеального ×N не буває — реально трохи менше.</text>
+<text x="450.0" y="298.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">З залежностями даних борються «пробросом» результату вперед; зі стрибками — ПЕРЕДБАЧЕННЯМ переходів</text>
+<text x="450.0" y="316.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">(процесор вгадує, куди піде гілка, і вибирає звідти; вгадав — летить далі, схибив — викидає й починає заново).</text>
+<text x="450.0" y="340.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Саме тому глибокі конвеєри так бояться непередбачуваних розгалужень: схибив — і десяток тактів змарновано.</text>
+<text x="450.0" y="362.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Простіші, однакові команди легше конвеєрити — це аргумент на користь RISC, до якого дійдемо в §18.8.</text>
+</svg>

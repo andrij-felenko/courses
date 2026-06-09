@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="400" viewBox="0 0 860 400">
+<rect width="860" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="430.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Загальна модель: комбінаційна логіка + зворотний зв'язок = СТАН</text>
+<text x="430.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">частину виходу заводять назад як «стан» — і тепер вихід залежить і від входів, і від минулого</text>
+<rect x="300.0" y="110.0" width="260.0" height="120.0" rx="12" fill="#eef4ff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="430.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">комбінаційна логіка</text>
+<text x="430.0" y="178.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(вентилі без петель)</text>
+<line x1="150.0" y1="140.0" x2="300.0" y2="140.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="144.0" y="144.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">входи</text>
+<line x1="560.0" y1="140.0" x2="700.0" y2="140.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="706.0" y="144.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">виходи</text>
+<line x1="560.0" y1="200.0" x2="640.0" y2="200.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="600.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">наступний стан</text>
+<line x1="640.0" y1="200.0" x2="640.0" y2="300.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="360.0" y="280.0" width="140.0" height="44.0" rx="8" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2"/>
+<text x="430.0" y="307.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">пам'ять стану</text>
+<line x1="640.0" y1="300.0" x2="500.0" y2="300.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="360.0" y1="300.0" x2="200.0" y2="300.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="200.0" y1="300.0" x2="200.0" y2="200.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="200.0" y1="200.0" x2="300.0" y2="200.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="260.0" y1="200.0" x2="300.0" y2="200.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<text x="230.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">поточний стан</text>
+<rect x="70.0" y="350.0" width="720.0" height="40.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="430.0" y="375.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">вихід = f(входи, стан) · наступний стан = g(входи, стан) — це кістяк УСІХ схем з пам'яттю</text>
+</svg>

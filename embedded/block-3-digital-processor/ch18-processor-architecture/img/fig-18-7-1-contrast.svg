@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470">
+<rect width="900" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Дві архітектури: спільна пам'ять (фон Нейман) vs окремі (Гарвард)</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">питання одне: код і дані живуть в ОДНІЙ пам'яті з однією шиною — чи в ДВОХ окремих?</text>
+<text x="225.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ФОН НЕЙМАН</text>
+<text x="225.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">одна пам'ять, одна шина на все</text>
+<rect x="70.0" y="128.0" width="200.0" height="110.0" rx="10" fill="#f3f5fd" stroke="#1f47b5" stroke-width="2"/>
+<text x="170.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ПАМ'ЯТЬ</text>
+<text x="170.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">КОД + ДАНІ</text>
+<text x="170.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">разом</text>
+<line x1="272.0" y1="168.0" x2="330.0" y2="168.0" stroke="#1b1b1b" stroke-width="2.6" marker-end="url(#aInk)"/>
+<line x1="330.0" y1="196.0" x2="272.0" y2="196.0" stroke="#1b1b1b" stroke-width="2.6" marker-end="url(#aInk)"/>
+<text x="301.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">одна</text>
+<text x="301.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">шина</text>
+<rect x="330.0" y="132.0" width="110.0" height="100.0" rx="10" fill="#fdf4f4" stroke="#c0271e" stroke-width="2"/>
+<text x="385.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ПРОЦЕСОР</text>
+<text x="225.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">просто й гнучко — та шина одна (вузьке місце)</text>
+<text x="670.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ГАРВАРД</text>
+<text x="670.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">окремі пам'яті й шини для коду й даних</text>
+<rect x="500.0" y="124.0" width="150.0" height="50.0" rx="10" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2"/>
+<text x="575.0" y="154.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ПАМ'ЯТЬ КОДУ</text>
+<rect x="500.0" y="196.0" width="150.0" height="50.0" rx="10" fill="#f3f5fd" stroke="#1f47b5" stroke-width="2"/>
+<text x="575.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ПАМ'ЯТЬ ДАНИХ</text>
+<line x1="652.0" y1="149.0" x2="740.0" y2="168.0" stroke="#1f8a3b" stroke-width="2.4" marker-end="url(#aGreen)"/>
+<line x1="652.0" y1="221.0" x2="740.0" y2="200.0" stroke="#1f47b5" stroke-width="2.4" marker-end="url(#aBlue)"/>
+<text x="700.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">шина коду</text>
+<text x="700.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">шина даних</text>
+<rect x="740.0" y="142.0" width="110.0" height="84.0" rx="10" fill="#fdf4f4" stroke="#c0271e" stroke-width="2"/>
+<text x="795.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ПРОЦЕСОР</text>
+<text x="670.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">дві шини — код і дані можна брати ВОДНОЧАС</text>
+<line x1="450.0" y1="120.0" x2="450.0" y2="290.0" stroke="#e4e4e4" stroke-width="1.5" stroke-dasharray="5 5" stroke-linecap="round"/>
+<rect x="60.0" y="312.0" width="780.0" height="96.0" rx="10" fill="#f6f8f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="450.0" y="336.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Уся різниця — в кількості «доріг» між процесором і пам'яттю. Фон Нейман: одна дорога на все (просто, та буває затор).</text>
+<text x="450.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Гарвард: дві окремі дороги (код і дані не заважають одне одному) — швидше, але менш гнучко. Це й увесь поділ.</text>
+<text x="450.0" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Назва «Гарвард» — від машини Harvard Mark I (1944), що тримала програму й дані нарізно. «Фон Нейман» — з історії цього розділу.</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<rect width="900" height="500" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Дерево рішень: ESP32 чи простий 8-біт</text>
+<text x="450.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кілька питань по черзі — і вибір стає очевидним</text>
+<polygon points="300,104 435,150 300,196 165,150" fill="#fffaf0" stroke="#caa24a" stroke-width="2"/>
+<text x="300.0" y="147.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Потрібен бездротовий</text>
+<text x="300.0" y="163.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">зв'язок (Wi-Fi/BT)?</text>
+<polygon points="300,244 445,290 300,336 155,290" fill="#fffaf0" stroke="#caa24a" stroke-width="2"/>
+<text x="300.0" y="287.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Важкі обчислення</text>
+<text x="300.0" y="303.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">або багато пам'яті?</text>
+<polygon points="300,372 455,422 300,472 145,422" fill="#fffaf0" stroke="#caa24a" stroke-width="2"/>
+<text x="300.0" y="419.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ціна×масштаб, роки від</text>
+<text x="300.0" y="435.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">батарейки, простота?</text>
+<rect x="620.0" y="250.0" width="230.0" height="72.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="735.0" y="282.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ESP32</text>
+<text x="735.0" y="302.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(потужність потрібна)</text>
+<rect x="620.0" y="402.0" width="230.0" height="72.0" rx="10" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="735.0" y="434.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Простий 8-біт</text>
+<text x="735.0" y="454.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(ціна · простота · сон)</text>
+<line x1="300.0" y1="196.0" x2="300.0" y2="244.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="312.0" y="224.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">ні</text>
+<line x1="436.0" y1="150.0" x2="620.0" y2="274.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<text x="512.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">так</text>
+<line x1="300.0" y1="336.0" x2="300.0" y2="372.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="312.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">ні</text>
+<line x1="446.0" y1="290.0" x2="620.0" y2="288.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<text x="516.0" y="274.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">так</text>
+<line x1="456.0" y1="422.0" x2="620.0" y2="438.0" stroke="#1f47b5" stroke-width="2.2" marker-end="url(#aBlue)"/>
+<text x="540.0" y="416.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">так</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="432" viewBox="0 0 900 432">
+<rect width="900" height="432" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Біди купи: витік, використання після звільнення, подвійне звільнення</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">ручне керування означає ручні помилки — і всі вони підступні, бо проявляються не одразу</text>
+<rect x="70.0" y="86.0" width="760.0" height="64.0" rx="10" fill="#fdf6f6" stroke="#c0271e" stroke-width="1.7"/>
+<text x="92.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Витік пам'яті (leak)</text>
+<text x="92.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">узяв блок і не повернув (чи загубив покажчик);</text>
+<text x="470.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">пам'ять помалу заповнюється → з часом вичерпується</text>
+<rect x="70.0" y="162.0" width="760.0" height="64.0" rx="10" fill="#fff8e8" stroke="#caa24a" stroke-width="1.7"/>
+<text x="92.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">Використання після звільнення</text>
+<text x="92.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">звільнив блок, та далі ним користуєшся через покажчик —</text>
+<text x="470.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">це висячий покажчик (§19.4): сміття або аварія</text>
+<rect x="70.0" y="238.0" width="760.0" height="64.0" rx="10" fill="#fdf6f6" stroke="#c0271e" stroke-width="1.7"/>
+<text x="92.0" y="264.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Подвійне звільнення (double free)</text>
+<text x="92.0" y="284.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">звільнив той самий блок ДВІЧІ —</text>
+<text x="470.0" y="284.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">псує бухгалтерію розпорядника купи</text>
+<rect x="60.0" y="322.0" width="780.0" height="100.0" rx="10" fill="#f6f8f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="450.0" y="346.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Найпідступніший — ВИТІК: програма працює, але помалу «з'їдає» пам'ять; на сервері це тижні, на МК — інколи години до краху.</text>
+<text x="450.0" y="368.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Усі три ростуть із того самого кореня, що й біди покажчиків (§19.4): пам'яттю керуєш ти, і ти ж за неї відповідаєш.</text>
+<text x="450.0" y="394.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Повний звід типових бід пам'яті — і стека, і купи — зберемо в наступному підрозділі (§19.7).</text>
+<text x="450.0" y="414.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Золоте правило: кожному allocate — рівно один free, не раніше й не пізніше; і не чіпай блок після звільнення.</text>
+</svg>

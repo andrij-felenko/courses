@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430">
+<rect width="900" height="430" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Два ядра ESP32 (і ще одне крихітне)</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">справжня паралельність: радіо на одному ядрі, ваша логіка — на другому</text>
+<rect x="110.0" y="132.0" width="230.0" height="92.0" rx="4" fill="#fbecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="225.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Ядро 0 (PRO)</text>
+<text x="225.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Xtensa LX6 · 240 МГц</text>
+<text x="225.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#b9560f" text-anchor="middle" font-weight="bold" font-style="normal">↳ типово: радіо-стек</text>
+<rect x="460.0" y="132.0" width="230.0" height="92.0" rx="4" fill="#fbecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="575.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Ядро 1 (APP)</text>
+<text x="575.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Xtensa LX6 · 240 МГц</text>
+<text x="575.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">↳ типово: ваша програма</text>
+<text x="400.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">паралельно</text>
+<rect x="730.0" y="150.0" width="150.0" height="76.0" rx="4" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="805.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ULP</text>
+<text x="805.0" y="194.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">ультраощадний</text>
+<text x="805.0" y="209.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">живе у сні</text>
+<rect x="110.0" y="288.0" width="580.0" height="60.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="400.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">спільна пам'ять і периферія</text>
+<text x="400.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(обидва ядра — по тій самій шині)</text>
+<line x1="225.0" y1="224.0" x2="225.0" y2="288.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="575.0" y1="224.0" x2="575.0" y2="288.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="805.0" y1="226.0" x2="690.0" y2="300.0" stroke="#8a8a8a" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#aGrey)"/>
+<rect x="110.0" y="368.0" width="770.0" height="38.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="495.0" y="391.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Друге ядро — рятунок для зв'язку: радіо не краде час у вашої логіки.</text>
+</svg>

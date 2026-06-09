@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="380" viewBox="0 0 920 380">
+<rect width="920" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">DNL: щаблі різної ширини, аж до пропущеного коду</text>
+<text x="460.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">диференціальна нелінійність — відхилення ширини кожного щабля від рівного 1 LSB</text>
+<line x1="120.0" y1="330.0" x2="120.0" y2="98.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="120.0" y1="330.0" x2="814.0" y2="330.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="110.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">код</text>
+<text x="806.0" y="354.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Vin</text>
+<text x="494.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">пропущений код!</text>
+<circle cx="494.0" cy="220.0" r="3.5" fill="#c0271e" stroke="#c0271e" stroke-width="0"/>
+<polyline points="120.0,330.0 205.0,330.0 205.0,302.5 341.0,302.5 341.0,275.0 392.0,275.0 392.0,247.5 494.0,247.5 494.0,220.0 494.0,220.0 494.0,192.5 613.0,192.5 613.0,165.0 689.5,165.0 689.5,137.5 800.0,137.5 800.0,110.0" fill="none" stroke="#1f47b5" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="120.0,330.0 800.0,110.0" fill="none" stroke="#8a8a8a" stroke-width="1.4" stroke-dasharray="5,4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="132.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.6" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">вузький щабель</text>
+<text x="270.0" y="260.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.6" fill="#caa24a" text-anchor="start" font-weight="normal" font-style="normal">широкий щабель</text>
+<rect x="160.0" y="346.0" width="600.0" height="26.0" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="460.0" y="364.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Якщо щабель «зник» (DNL &lt; −1 LSB), такий код не з'явиться НІКОЛИ.</text>
+</svg>

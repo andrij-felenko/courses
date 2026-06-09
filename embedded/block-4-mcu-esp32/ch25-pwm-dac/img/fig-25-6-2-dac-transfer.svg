@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="430" viewBox="0 0 940 430">
+<rect width="940" height="430" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="470.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ЦАП: число перетворюється на напругу (8 біт → 256 рівнів)</text>
+<text x="470.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кожному коду 0..255 відповідає своя напруга 0..Vref; разом виходять сходинки</text>
+<line x1="130.0" y1="360.0" x2="130.0" y2="83.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="130.0" y1="360.0" x2="824.0" y2="360.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="118.0" y="93.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">напруга</text>
+<text x="118.0" y="109.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="end" font-weight="normal" font-style="normal">Vref ≈ 3.3 В</text>
+<text x="816.0" y="386.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">код (0 … 255)</text>
+<polyline points="130.0,360.0 172.5,360.0 172.5,344.6 215.0,344.6 215.0,329.1 257.5,329.1 257.5,313.7 300.0,313.7 300.0,298.2 342.5,298.2 342.5,282.8 385.0,282.8 385.0,267.4 427.5,267.4 427.5,251.9 470.0,251.9 470.0,236.5 512.5,236.5 512.5,221.1 555.0,221.1 555.0,205.6 597.5,205.6 597.5,190.2 640.0,190.2 640.0,174.8 682.5,174.8 682.5,159.3 725.0,159.3 725.0,143.9 767.5,143.9 767.5,128.4 810.0,128.4 810.0,113.0" fill="none" stroke="#1f47b5" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="130.0" y1="236.5" x2="470.0" y2="236.5" stroke="#1f8a3b" stroke-width="1.3" stroke-dasharray="5,4" stroke-linecap="round"/>
+<line x1="470.0" y1="360.0" x2="470.0" y2="236.5" stroke="#1f8a3b" stroke-width="1.3" stroke-dasharray="5,4" stroke-linecap="round"/>
+<circle cx="470.0" cy="236.5" r="4.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="0"/>
+<text x="478.0" y="228.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">код 128 → ≈ 1.65 В</text>
+<text x="136.0" y="354.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">код 0 → 0 В</text>
+<text x="806.0" y="105.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">код 255 → ≈ 3.3 В</text>
+<circle cx="810.0" cy="113.0" r="4.0" fill="#c0271e" stroke="#c0271e" stroke-width="0"/>
+<rect x="150.0" y="372.0" width="640.0" height="44.0" rx="8" fill="#fff6e0" stroke="#caa24a" stroke-width="1.4"/>
+<text x="470.0" y="390.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.3" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Один крок (LSB) = Vref / 255 ≈ 3.3 / 255 ≈ 0.0129 В ≈ 12.9 мВ.</text>
+<text x="470.0" y="408.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Більше біт — дрібніші сходинки; 8 біт дають 256 рівнів напруги.</text>
+</svg>

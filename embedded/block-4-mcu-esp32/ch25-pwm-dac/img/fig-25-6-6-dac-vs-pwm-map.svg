@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470" viewBox="0 0 960 470">
+<rect width="960" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="480.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Коли обирати ЦАП, а коли ШІМ</text>
+<text x="480.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">обидва дають «аналог», але по-різному — у кожного своя сильна сторона</text>
+<rect x="330.0" y="74.0" width="250.0" height="34.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="455.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ЦАП (DAC)</text>
+<rect x="640.0" y="74.0" width="250.0" height="34.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="765.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ШІМ (PWM)</text>
+<rect x="40.0" y="120.0" width="880.0" height="40.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="56.0" y="145.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Як працює</text>
+<text x="455.0" y="145.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">справжня напруга одразу</text>
+<text x="765.0" y="145.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">миготіння + усереднення</text>
+<rect x="40.0" y="162.0" width="880.0" height="40.0" rx="4" fill="#f6f8fc" stroke="#e4e4e4" stroke-width="1"/>
+<text x="56.0" y="187.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Фільтр</text>
+<text x="455.0" y="187.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">не потрібен</text>
+<text x="765.0" y="187.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">треба RC для чистого аналогу</text>
+<rect x="40.0" y="204.0" width="880.0" height="40.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="56.0" y="229.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Канали (ESP32)</text>
+<text x="455.0" y="229.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">лише 2 (GPIO25/26)</text>
+<text x="765.0" y="229.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">багато (LEDC ~16)</text>
+<rect x="40.0" y="246.0" width="880.0" height="40.0" rx="4" fill="#f6f8fc" stroke="#e4e4e4" stroke-width="1"/>
+<text x="56.0" y="271.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Роздільність</text>
+<text x="455.0" y="271.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">8 біт (256 рівнів)</text>
+<text x="765.0" y="271.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">до ~20 біт (§25.3)</text>
+<rect x="40.0" y="288.0" width="880.0" height="40.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="56.0" y="313.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Зміна значення</text>
+<text x="455.0" y="313.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">миттєва</text>
+<text x="765.0" y="313.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">сповільнює інерція фільтра</text>
+<rect x="40.0" y="330.0" width="880.0" height="40.0" rx="4" fill="#f6f8fc" stroke="#e4e4e4" stroke-width="1"/>
+<text x="56.0" y="355.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Драйв</text>
+<text x="455.0" y="355.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">слабкий, треба буфер</text>
+<text x="765.0" y="355.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">повна напруга, тягне силу</text>
+<rect x="40.0" y="372.0" width="880.0" height="40.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="56.0" y="397.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Наявність</text>
+<text x="455.0" y="397.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">ESP32/S2 (S3/C3 — нема)</text>
+<text x="765.0" y="397.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">усі чіпи, будь-яка ніжка</text>
+<rect x="40.0" y="414.0" width="880.0" height="40.0" rx="4" fill="#f6f8fc" stroke="#e4e4e4" stroke-width="1"/>
+<text x="56.0" y="439.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Найкраще для</text>
+<text x="455.0" y="439.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">звук, опорна напруга</text>
+<text x="765.0" y="439.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">яскравість, мотор, потужність</text>
+</svg>

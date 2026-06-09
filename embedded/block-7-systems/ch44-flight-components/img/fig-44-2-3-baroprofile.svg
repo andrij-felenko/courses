@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="480"
+     viewBox="0 0 940 480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="940" height="480" fill="white"/>
+<text x="470.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Барометр: міряє тиск, а тиск падає з висотою</text>
+<text x="470.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">≈ 1 гПа на кожні 8 м біля землі (≈ 12 Па/м); MEMS-сенсор ловить ~10 см</text>
+<line x1="120" y1="400" x2="120" y2="90" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="120" y1="400" x2="690" y2="400" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="110" y="94" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-style="normal">висота</text>
+<text x="686" y="418" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-style="normal">тиск →</text>
+<polyline points="120.0,400.0 130.6034258077303,395.0 141.08136875959002,390.0 151.4353138423565,385.0 161.66672846920488,380.0 171.77706268767847,375.0 181.76774938519569,370.0 191.64020449212637,365.0 201.3958271824651,360.0 211.03600007212833,355.0 220.56208941490627,350.0 229.97544529609496,345.0 239.2774018238373,340.0 248.46927731819937,335.0 257.5523744980097,330.0 266.52798066548695,325.0 275.39736788868265,320.0 284.16179318176546,315.0 292.82249868317126,310.0 301.38071183164527,305.0 309.83764554020144,300.0 318.1944983680213,295.0 326.45245469032113,290.0 334.6126848662071,285.0 342.6763454045438,280.0 350.6445791278616,275.0 358.5185153343224,270.0 366.29926995776987,265.0 373.98794572588474,260.0 381.5856323164698,255.0 389.09340651188313,250.0 396.5123323516469,244.99999999999997 403.84346128324637,240.0 411.08783231114836,235.0 418.2464721440525,230.0 425.32039534040234,225.0 432.3106044521742,220.0 439.21809016696244,215.0 446.0438314483862,210.0 452.7887956748319,205.0 459.45393877655545,200.0 466.04020537116185,195.0 472.54852889748054,190.0 478.9798317478571,185.0 485.3350253988799,180.00000000000003 491.6150105405586,175.0 497.8206772039745,169.99999999999997 503.9529048874204,165.0 510.01256268104765,160.0 516.0005093900379,155.0 521.9175936563165,150.0 527.7646540788278,145.0 533.5425193323845,140.0 539.2520082851116,135.0 544.8939301145012,130.0 550.4690844220931,125.0 555.9782613467976,120.0 561.4222416768782,115.0 566.80179696061,110.0 572.1176896156255,105.0 577.3706730369701,100.0" fill="none" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="2.6" stroke-linejoin="round"/>
+<circle cx="120.0" cy="400.0" r="5" fill="#0a8f3c" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="130.0" y="404.0" font-size="11" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">рівень моря ≈ 1013 гПа</text>
+<line x1="120" y1="360" x2="190" y2="360" stroke="#d98a00" stroke-width="1.4" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="200" y="364" font-size="11" fill="#d98a00" text-anchor="start" font-weight="bold" font-style="normal">≈ 1 гПа / 8 м  (≈ 12 Па/м)</text>
+<rect x="710" y="96" width="200" height="110" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="724" y="122" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">MEMS-барометр:</text>
+<text x="724" y="142" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">міряє абсолютний тиск,</text>
+<text x="724" y="162" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">роздільність кілька Па</text>
+<text x="724" y="182" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">→ ~10 см висоти.</text>
+<rect x="710" y="224" width="200" height="120" rx="10" fill="#fff5e6" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.4"/>
+<text x="724" y="250" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">1643 — Торрічеллі:</text>
+<text x="724" y="270" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">ртутний барометр.</text>
+<text x="724" y="290" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">1648, Пюї-де-Дом:</text>
+<text x="724" y="310" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">довели, що вище —</text>
+<text x="724" y="330" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">тиск нижчий.</text>
+<text x="470.0" y="468" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Барометр дає не висоту, а тиск; висоту з нього РАХУЮТЬ. Тому він чудовий на коротких масштабах, але без якоря пливе.</text>
+</svg>

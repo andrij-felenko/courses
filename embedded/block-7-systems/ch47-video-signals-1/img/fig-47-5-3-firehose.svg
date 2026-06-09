@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
+     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Сирий потік: ширина × висота × канали × біти × кадри</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">нестиснене відео — це пожежний шланг даних: 1080p30 ≈ 1.5 Гбіт/с, 4K60 ≈ 12 Гбіт/с</text>
+<rect x="120" y="96" width="720" height="52" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="480" y="128" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">потік = Ш × В × канали × біти × кадри/с</text>
+<rect x="90" y="172" width="360" height="132" rx="11" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.6"/>
+<text x="270" y="198" font-size="12" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">1080p · 30 fps · 8 біт · RGB</text>
+<text x="112" y="224" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">1920 × 1080 = 2.07 Мпк</text>
+<text x="112" y="245" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">× 3 канали × 8 біт = 49.8 Мбіт/кадр</text>
+<text x="112" y="266" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">× 30 кадрів/с ≈ 1.5 Гбіт/с</text>
+<text x="270" y="294" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">≈ 187 МБ щосекунди!</text>
+<rect x="510" y="172" width="360" height="132" rx="11" fill="#fff5e6" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.6"/>
+<text x="690" y="198" font-size="12" fill="#b06b00" text-anchor="middle" font-weight="bold" font-style="normal">4K · 60 fps · 8 біт · RGB</text>
+<text x="532" y="224" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">3840 × 2160 = 8.3 Мпк</text>
+<text x="532" y="245" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">× 3 × 8 = 199 Мбіт/кадр</text>
+<text x="532" y="266" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">× 60 ≈ 12 Гбіт/с</text>
+<text x="690" y="294" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">≈ 1.5 ГБ щосекунди!</text>
+<rect x="120" y="332" width="720" height="76" rx="10" fill="#fde2e2" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.5"/>
+<text x="480" y="360" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">А радіоканал FPV тягне одиниці-десятки Мбіт/с, SD-картка — сотні.</text>
+<text x="480" y="384" font-size="10.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">Сире відео в тисячі разів більше — передати/зберегти його як є НЕМОЖЛИВО. Звідси стиснення (Розділ 48).</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440"
+     viewBox="0 0 960 440" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="440" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Струм котушки — трикутна хвиля; шпаруватість задає напругу</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">росте, поки ключ ВКЛ; спадає, поки ВИКЛ; середнє = струм навантаження</text>
+<line x1="90" y1="340" x2="630" y2="340" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="630" y="358" font-size="10.5" fill="#1a1a1a" text-anchor="end" font-weight="normal" font-style="normal">час</text>
+<line x1="90" y1="340" x2="90" y2="110" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="82" y="116" font-size="10.5" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-style="normal">струм у котушці</text>
+<rect x="90" y="120" width="64" height="220" rx="8" fill="#0a8f3c" fill-opacity="0.08" stroke="none" stroke-width="1.6"/>
+<text x="122.0" y="136" font-size="9" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">ВКЛ</text>
+<rect x="154" y="120" width="96" height="220" rx="8" fill="#d98a00" fill-opacity="0.1" stroke="none" stroke-width="1.6"/>
+<text x="202.0" y="136" font-size="9" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">ВИКЛ</text>
+<polyline points="90,290 154,190 250,290 314,190 410,290 474,190 570,290" fill="none" fill-opacity="1.0" stroke="#d98a00" stroke-width="2.6" stroke-linejoin="round"/>
+<line x1="90" y1="240.0" x2="570" y2="240.0" stroke="#0a8f3c" stroke-width="1.6" stroke-dasharray="6,4" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="98" y="234.0" font-size="10" fill="#0a8f3c" text-anchor="start" font-weight="normal" font-style="normal">середнє = струм навантаження</text>
+<line x1="586" y1="290" x2="586" y2="190" stroke="#6b7280" stroke-width="1.0" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="592" y="244.0" font-size="9" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">пульсація</text>
+<rect x="640" y="130" width="280" height="90" rx="11" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="780" y="162" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal" font-family="Consolas, monospace">Vвих = Vвх × D</text>
+<text x="780" y="190" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">D = частка часу «ВКЛ»</text>
+<text x="780" y="208" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">(шпаруватість, Розділ 25)</text>
+<text x="480.0" y="428" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Більша шпаруватість D (довше «ВКЛ») → вища Vвих. Саме нею керують вихідною напругою.</text>
+</svg>

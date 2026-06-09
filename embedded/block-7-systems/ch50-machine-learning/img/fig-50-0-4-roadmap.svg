@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Куди ми йдемо: від «вчитися з даних» до «нейромережа на чипі»</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">що таке ML → дві фази → нейрон і шар → як вчиться → CNN → дані й узагальнення → TinyML → де рахувати → межі</text>
+<rect x="40" y="128" width="160" height="84" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.7"/>
+<rect x="40" y="128" width="48" height="84" rx="10" fill="#1f4ed8" fill-opacity="0.16" stroke="none" stroke-width="1.6"/>
+<text x="64" y="175" font-size="12" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">50.1</text>
+<text x="98" y="164" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">що таке</text>
+<text x="98" y="182" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">ML</text>
+<line x1="200" y1="170" x2="220" y2="170" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="220" y="128" width="160" height="84" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.7"/>
+<rect x="220" y="128" width="48" height="84" rx="10" fill="#1f4ed8" fill-opacity="0.16" stroke="none" stroke-width="1.6"/>
+<text x="244" y="175" font-size="12" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">50.2</text>
+<text x="278" y="164" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">навчання /</text>
+<text x="278" y="182" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">вивід</text>
+<line x1="380" y1="170" x2="400" y2="170" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="400" y="128" width="160" height="84" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.7"/>
+<rect x="400" y="128" width="48" height="84" rx="10" fill="#d98a00" fill-opacity="0.16" stroke="none" stroke-width="1.6"/>
+<text x="424" y="175" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">50.3</text>
+<text x="458" y="164" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">нейрон</text>
+<text x="458" y="182" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">і шар</text>
+<line x1="560" y1="170" x2="580" y2="170" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="580" y="128" width="160" height="84" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.7"/>
+<rect x="580" y="128" width="48" height="84" rx="10" fill="#d98a00" fill-opacity="0.16" stroke="none" stroke-width="1.6"/>
+<text x="604" y="175" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">50.4</text>
+<text x="638" y="164" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">як вчиться</text>
+<text x="638" y="182" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">(градієнт)</text>
+<line x1="740" y1="170" x2="760" y2="170" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="760" y="128" width="160" height="84" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.7"/>
+<rect x="760" y="128" width="48" height="84" rx="10" fill="#0a8f3c" fill-opacity="0.16" stroke="none" stroke-width="1.6"/>
+<text x="784" y="175" font-size="12" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">50.5</text>
+<text x="818" y="164" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">CNN для</text>
+<text x="818" y="182" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">зображень</text>
+<line x1="840" y1="212" x2="840" y2="288" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="760" y="290" width="160" height="84" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.7"/>
+<rect x="760" y="290" width="48" height="84" rx="10" fill="#0a8f3c" fill-opacity="0.16" stroke="none" stroke-width="1.6"/>
+<text x="784" y="337" font-size="12" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">50.6</text>
+<text x="818" y="326" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">дані,</text>
+<text x="818" y="344" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">узагальнення</text>
+<line x1="760" y1="332" x2="720" y2="332" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="540" y="290" width="160" height="84" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.7"/>
+<rect x="540" y="290" width="48" height="84" rx="10" fill="#0a8f3c" fill-opacity="0.16" stroke="none" stroke-width="1.6"/>
+<text x="564" y="337" font-size="12" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">50.7</text>
+<text x="598" y="326" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">TinyML,</text>
+<text x="598" y="344" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">квантування</text>
+<line x1="540" y1="332" x2="500" y2="332" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="320" y="290" width="160" height="84" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.7"/>
+<rect x="320" y="290" width="48" height="84" rx="10" fill="#1f4ed8" fill-opacity="0.16" stroke="none" stroke-width="1.6"/>
+<text x="344" y="337" font-size="12" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">50.8</text>
+<text x="378" y="326" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">де</text>
+<text x="378" y="344" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">рахувати</text>
+<line x1="320" y1="332" x2="280" y2="332" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="100" y="290" width="160" height="84" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.7"/>
+<rect x="100" y="290" width="48" height="84" rx="10" fill="#d98a00" fill-opacity="0.16" stroke="none" stroke-width="1.6"/>
+<text x="124" y="337" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">50.9</text>
+<text x="158" y="326" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">межі,</text>
+<text x="158" y="344" font-size="9.3" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">етика</text>
+<text x="620" y="304" font-size="8.5" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">📜 50.5: окрема історія Лекуна й CNN</text>
+<rect x="40" y="392" width="880" height="60" rx="10" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.4"/>
+<text x="480" y="416" font-size="10.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Дев'ять кроків від «машина вчиться з прикладів» до навченої мережі, що працює на бортовому чипі.</text>
+<text x="480" y="437" font-size="9.6" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">Тут глибоке навчання з 49.7 нарешті відкривають зсередини — і саджають на апарат.</text>
+</svg>
