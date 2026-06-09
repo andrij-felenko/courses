@@ -10,6 +10,7 @@
   "use strict";
 
   var BOOK = window.BOOK;
+  var BASE = BOOK.basePath || "";   // префікс до контенту (embedded/) відносно index.html
   var $content = document.getElementById("content");
   var $sidebar = document.getElementById("sidebar");
 
@@ -224,7 +225,7 @@
 
   function renderFigure(t, ctx) {
     var src = t.src.trim();
-    if (!/^https?:|^\//.test(src)) src = ctx.dir + "/" + src;
+    if (!/^https?:|^\//.test(src)) src = BASE + ctx.dir + "/" + src;
     var h = '<figure><img src="' + escapeAttr(src) + '" alt="' + escapeAttr(t.alt) + '" loading="lazy">';
     if (t.caption) h += "<figcaption>" + renderInline(t.caption, ctx) + "</figcaption>";
     return h + "</figure>";
@@ -305,7 +306,7 @@
     setContent('<div class="state"><div class="spinner"></div>Завантаження розділу…</div>');
     var dir = chap.dir;
     var histFiles = chap.histories || [];
-    Promise.all([fetchText(dir + "/" + chap.main)].concat(histFiles.map(function (h) { return fetchText(dir + "/" + h); })))
+    Promise.all([fetchText(BASE + dir + "/" + chap.main)].concat(histFiles.map(function (h) { return fetchText(BASE + dir + "/" + h); })))
       .then(function (texts) {
         var mainText = texts[0], histTexts = texts.slice(1);
         var ctx = {
