@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="380" viewBox="0 0 880 380">
+<rect width="880" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
+</defs>
+<text x="440.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Приклад: струм у R₃ через суперпозицію</text>
+<text x="440.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">V₁=8 В, V₂=4 В, усі R=4 Ω — знайти струм у середній гілці</text>
+<line x1="60.0" y1="100.0" x2="220.0" y2="100.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<line x1="60.0" y1="230.0" x2="220.0" y2="230.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<line x1="60.0" y1="100.0" x2="60.0" y2="122.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="44.0" y1="130.0" x2="76.0" y2="130.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<line x1="51.0" y1="146.0" x2="69.0" y2="146.0" stroke="#1b1b1b" stroke-width="5" stroke-linecap="round"/>
+<text x="48.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">V₁</text>
+<line x1="60.0" y1="154.0" x2="60.0" y2="170.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="48.0" y="170.0" width="24.0" height="40.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="42.0" y="194.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="italic">R₁</text>
+<line x1="60.0" y1="210.0" x2="60.0" y2="230.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="140.0" y1="100.0" x2="140.0" y2="145.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<rect x="128.0" y="145.0" width="24.0" height="50.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="158.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="italic">R₃</text>
+<line x1="140.0" y1="195.0" x2="140.0" y2="230.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<line x1="140.0" y1="160.0" x2="140.0" y2="184.0" stroke="#1f8a3b" stroke-width="2.4" marker-end="url(#aGreen)"/>
+<text x="156.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">I′</text>
+<line x1="220.0" y1="100.0" x2="220.0" y2="170.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<text x="232.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="start" font-weight="italic" font-style="normal">(КЗ)</text>
+<rect x="208.0" y="170.0" width="24.0" height="40.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="238.0" y="194.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="italic">R₂</text>
+<line x1="220.0" y1="210.0" x2="220.0" y2="230.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="140.0" cy="100.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1"/>
+<text x="140.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">A</text>
+<text x="140.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">крок 1: лише V₁</text>
+<text x="150.0" y="274.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">I′ ≈ 0.67 А</text>
+<text x="300.0" y="165.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="26" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">+</text>
+<line x1="345.0" y1="100.0" x2="505.0" y2="100.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<line x1="345.0" y1="230.0" x2="505.0" y2="230.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<line x1="345.0" y1="100.0" x2="345.0" y2="170.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<text x="333.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="end" font-weight="italic" font-style="normal">(КЗ)</text>
+<rect x="333.0" y="170.0" width="24.0" height="40.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="327.0" y="194.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="italic">R₁</text>
+<line x1="345.0" y1="210.0" x2="345.0" y2="230.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="425.0" y1="100.0" x2="425.0" y2="145.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<rect x="413.0" y="145.0" width="24.0" height="50.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="443.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="italic">R₃</text>
+<line x1="425.0" y1="195.0" x2="425.0" y2="230.0" stroke="#cf8b5e" stroke-width="2" stroke-linecap="round"/>
+<line x1="425.0" y1="160.0" x2="425.0" y2="184.0" stroke="#1f8a3b" stroke-width="2.4" marker-end="url(#aGreen)"/>
+<text x="441.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">I″</text>
+<line x1="505.0" y1="100.0" x2="505.0" y2="122.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="489.0" y1="130.0" x2="521.0" y2="130.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<line x1="496.0" y1="146.0" x2="514.0" y2="146.0" stroke="#1b1b1b" stroke-width="5" stroke-linecap="round"/>
+<text x="517.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">V₂</text>
+<line x1="505.0" y1="154.0" x2="505.0" y2="170.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="493.0" y="170.0" width="24.0" height="40.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="523.0" y="194.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="italic">R₂</text>
+<line x1="505.0" y1="210.0" x2="505.0" y2="230.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="425.0" cy="100.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1"/>
+<text x="425.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">A</text>
+<text x="425.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">крок 2: лише V₂</text>
+<text x="435.0" y="274.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">I″ ≈ 0.33 А</text>
+<text x="585.0" y="165.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="26" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">=</text>
+<rect x="630.0" y="120.0" width="220.0" height="150.0" rx="12" fill="#eef7f0" stroke="#1f8a3b" stroke-width="2"/>
+<text x="740.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">крок 3: додаємо</text>
+<text x="740.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">I = I′ + I″</text>
+<text x="740.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">= 0.67 + 0.33</text>
+<rect x="670.0" y="224.0" width="140.0" height="34.0" rx="8" fill="#fff" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="740.0" y="247.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">I = 1.0 А</text>
+<text x="440.0" y="366.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Кожне джерело «тягне» свою частку струму; повний струм — їхня алгебрична сума.</text>
+</svg>

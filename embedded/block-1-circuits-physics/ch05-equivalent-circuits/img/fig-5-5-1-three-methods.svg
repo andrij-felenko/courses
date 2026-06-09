@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="360" viewBox="0 0 820 360">
+<rect width="820" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
+</defs>
+<text x="410.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Три способи знайти R_th (і V_th)</text>
+<text x="410.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">V_th — завжди напруга холостого ходу; а R_th дістають по-різному</text>
+<circle cx="95.0" cy="118.0" r="17.0" fill="#1f47b5" stroke="#1b1b1b" stroke-width="2"/>
+<text x="95.0" y="123.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="125.0" y="92.0" width="660.0" height="70.0" rx="10" fill="#f6f8fc" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="145.0" y="118.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">R_th = V_th / I_кз</text>
+<text x="145.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">поділити напругу холостого ходу на струм короткого</text>
+<text x="770.0" y="118.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="end" font-weight="bold" font-style="italic">універсальний</text>
+<circle cx="95.0" cy="202.0" r="17.0" fill="#1f8a3b" stroke="#1b1b1b" stroke-width="2"/>
+<text x="95.0" y="207.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<rect x="125.0" y="176.0" width="660.0" height="70.0" rx="10" fill="#f6f8fc" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="145.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">вимкнути джерела → згорнути</text>
+<text x="145.0" y="224.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">джерела в нуль, далі звичайне послідовно/паралельно</text>
+<text x="770.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="italic">для незалежних джерел</text>
+<circle cx="95.0" cy="286.0" r="17.0" fill="#e08030" stroke="#1b1b1b" stroke-width="2"/>
+<text x="95.0" y="291.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<rect x="125.0" y="260.0" width="660.0" height="70.0" rx="10" fill="#f6f8fc" stroke="#e08030" stroke-width="1.6"/>
+<text x="145.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">пробне джерело</text>
+<text x="145.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">джерела off; подати V_проб, виміряти I → R = V/I</text>
+<text x="770.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#e08030" text-anchor="end" font-weight="bold" font-style="italic">для залежних джерел</text>
+</svg>
