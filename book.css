@@ -267,6 +267,15 @@ a.hist-teaser .callout-body { color: var(--text); }
 }
 a.hist-teaser:hover .hist-open { text-decoration: underline; }
 
+/* авто-банер історій зверху розділу (для тем, де історія згадана лише інлайн) */
+.hist-banner { margin: 0 0 1.6rem; }
+.hist-banner-label {
+  font-size: 0.66rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--hist-color); margin: 0 0 0.55rem;
+}
+.hist-banner .hist-teaser { margin: 0 0 0.6rem; }
+.hist-banner .hist-teaser:last-child { margin-bottom: 0; }
+
 /* блокування прокрутки фону, поки відкрито popup */
 body.modal-open { overflow: hidden; }
 

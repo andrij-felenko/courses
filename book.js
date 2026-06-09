@@ -315,6 +315,13 @@
   /* ════════════════════════════════════════════════════════════════════
      5) РЕНДЕР РОЗДІЛУ
      ════════════════════════════════════════════════════════════════════ */
+  // картка-тизер історичної вставки (для авто-банера зверху розділу)
+  function histTeaserCard(base, label) {
+    return '<a class="callout callout-hist hist-teaser" href="#" data-hist="' + base + '">' +
+      '<span class="callout-ico">📜</span><div class="callout-body"><strong>' + escapeHtml(label) +
+      '</strong> <span class="hist-open">📖 Відкрити вставку →</span></div></a>';
+  }
+
   function renderChapter(chap) {
     setContent('<div class="state"><div class="spinner"></div>Завантаження розділу…</div>');
     var dir = chap.dir;
@@ -329,9 +336,20 @@
         var pm = parseMain(mainText, ctx);
         var arts = histFiles.map(function (h, k) { return parseHistory(histTexts[k], h, ctx); });
 
+        // історії, на які в тексті НЕМАЄ 📜-callout-тизера (їх згадують лише інлайн або ніяк),
+        // виносимо картками вгору розділу — щоб усюди було як у блоці 1
+        var attached = {}; ctx.attach.forEach(function (a) { attached[a.base] = true; });
+        var titleByBase = {}; arts.forEach(function (a) { titleByBase[a.base] = a.title; });
+        var leftover = histFiles.map(baseOf).filter(function (b) { return !attached[b]; });
+        var banner = "";
+        if (leftover.length) {
+          banner = '<div class="hist-banner"><div class="hist-banner-label">📜 Історичні вставки до розділу</div>' +
+            leftover.map(function (b) { return histTeaserCard(b, titleByBase[b] || b); }).join("") + "</div>";
+        }
+
         var html = '<span id="top" class="anc"></span>';
         html += chapterHeader(chap, pm.introHtml);
-        html += '<div class="sec content-body">' + pm.bodyHtml + "</div>";
+        html += '<div class="sec content-body">' + banner + pm.bodyHtml + "</div>";
         arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна
         setContent(html);
 
