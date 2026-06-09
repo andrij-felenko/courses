@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="410" viewBox="0 0 900 410">
+<rect width="900" height="410" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Конвертер рівнів (типу MAX232): місток між TTL і RS-232</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">перетворює напруги В ОБИДВА боки й інвертує; накачує ±10 В з одного 5-вольтового живлення</text>
+<rect x="70.0" y="150.0" width="150.0" height="110.0" rx="10" fill="#fbfbfb" stroke="#1b1b1b" stroke-width="2"/>
+<text x="145.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">МК</text>
+<text x="145.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">TTL 3.3/5 В</text>
+<text x="145.0" y="232.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">неінвертовано</text>
+<rect x="360.0" y="130.0" width="180.0" height="150.0" rx="12" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2.2"/>
+<text x="450.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">MAX232</text>
+<text x="450.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">зсув рівнів</text>
+<text x="450.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">+ інверсія</text>
+<text x="450.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">зарядні помпи</text>
+<text x="450.0" y="260.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">→ ±10 В з 5 В</text>
+<rect x="680.0" y="150.0" width="150.0" height="110.0" rx="10" fill="#fbfbfb" stroke="#1b1b1b" stroke-width="2"/>
+<text x="755.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">RS-232</text>
+<text x="755.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#b08900" text-anchor="middle" font-weight="bold" font-style="normal">±12 В</text>
+<text x="755.0" y="232.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">інвертовано</text>
+<line x1="222.0" y1="190.0" x2="358.0" y2="190.0" stroke="#1f47b5" stroke-width="2.2" marker-end="url(#aBlue)"/>
+<line x1="358.0" y1="222.0" x2="222.0" y2="222.0" stroke="#1f47b5" stroke-width="2.2" marker-end="url(#aBlue)"/>
+<text x="290.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">TTL</text>
+<line x1="542.0" y1="190.0" x2="678.0" y2="190.0" stroke="#b08900" stroke-width="2.2" marker-end="url(#aInk)"/>
+<line x1="678.0" y1="222.0" x2="542.0" y2="222.0" stroke="#b08900" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="610.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#b08900" text-anchor="middle" font-weight="bold" font-style="normal">RS-232</text>
+<rect x="60.0" y="320.0" width="780.0" height="56.0" rx="10" fill="#fbecec" stroke="#c0271e" stroke-width="1.6"/>
+<text x="450.0" y="343.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">НІКОЛИ не з'єднуй ±12 В RS-232 прямо з ніжкою МК — спалиш вхід. Завжди через конвертер.</text>
+<text x="450.0" y="363.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Старі GPS, промислові давачі, модеми часто мають саме RS-232 — їм потрібен MAX232-місток.</text>
+</svg>

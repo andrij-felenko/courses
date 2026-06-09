@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="350" viewBox="0 0 700 350">
+<rect width="700" height="350" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aHot" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e8702a"/></marker>
+</defs>
+<text x="350.0" y="28.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Форми вихідного сигналу давача — і чим читати кожну</text>
+<rect x="28.0" y="64.0" width="644.0" height="46.0" rx="6" fill="#fbfbfb" stroke="#e4e4e4" stroke-width="1"/>
+<text x="46.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">напруга</text>
+<line x1="210.0" y1="97.0" x2="300.0" y2="77.0" stroke="#1f8a3b" stroke-width="2.2" stroke-linecap="round"/>
+<text x="326.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">просто на АЦП; боїться завад і падіння на дротах</text>
+<rect x="28.0" y="118.0" width="644.0" height="46.0" rx="6" fill="#fbfbfb" stroke="#e4e4e4" stroke-width="1"/>
+<text x="46.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">струм 4–20 мА</text>
+<rect x="210.0" y="132.0" width="90.0" height="22.0" rx="4" fill="none" stroke="#c0271e" stroke-width="1.6"/>
+<line x1="218.0" y1="143.0" x2="288.0" y2="143.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="326.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">однаковий уздовж кола → стійкий на відстані</text>
+<rect x="28.0" y="172.0" width="644.0" height="46.0" rx="6" fill="#fbfbfb" stroke="#e4e4e4" stroke-width="1"/>
+<text x="46.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">зміна R / C</text>
+<polyline points="210.0,196.0 217.5,188.0 232.5,204.0 247.5,188.0 262.5,204.0 277.5,188.0 292.5,204.0 300.0,196.0" fill="none" stroke="#1b1b1b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="326.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">потребує дільника чи моста, далі АЦП</text>
+<rect x="28.0" y="226.0" width="644.0" height="46.0" rx="6" fill="#fbfbfb" stroke="#e4e4e4" stroke-width="1"/>
+<text x="46.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">частота / період</text>
+<polyline points="210.0,262.0 210.0,240.0 225.0,240.0 225.0,262.0 240.0,262.0 240.0,240.0 255.0,240.0 255.0,262.0 270.0,262.0 270.0,240.0 285.0,240.0 285.0,262.0 300.0,262.0 300.0,262.0" fill="none" stroke="#1f47b5" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="326.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">рахує таймер — точно, без аналогу</text>
+<rect x="28.0" y="280.0" width="644.0" height="46.0" rx="6" fill="#fbfbfb" stroke="#e4e4e4" stroke-width="1"/>
+<text x="46.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">цифрове число</text>
+<text x="255.0" y="310.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#6a4ea8" text-anchor="middle" font-weight="bold" font-style="normal">0 1 0 1 1 0</text>
+<text x="326.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">давач уже містить АЦП; читаємо готове</text>
+</svg>

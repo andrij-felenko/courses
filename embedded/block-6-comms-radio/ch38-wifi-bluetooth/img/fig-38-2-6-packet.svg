@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+<rect width="900" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Анатомія радіопакета: преамбула · заголовок · дані · CRC</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">у повітря йде не потік, а окремі самодостатні пакети — за структурою як у §35.6, лише з преамбулою</text>
+<rect x="90.0" y="130.0" width="150.0" height="50.0" rx="6" fill="#fbfbfb" stroke="#b08900" stroke-width="1.8"/>
+<text x="165.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#b08900" text-anchor="middle" font-weight="bold" font-style="normal">ПРЕАМБУЛА</text>
+<text x="165.0" y="206.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">відома послідовність —</text>
+<text x="165.0" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">приймач «ловить» і синхронізується</text>
+<rect x="246.0" y="130.0" width="160.0" height="50.0" rx="6" fill="#fbfbfb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="326.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ЗАГОЛОВОК</text>
+<text x="326.0" y="206.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">адреси, довжина,</text>
+<text x="326.0" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">тип пакета</text>
+<rect x="412.0" y="130.0" width="180.0" height="50.0" rx="6" fill="#fbfbfb" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="502.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ДАНІ</text>
+<text x="502.0" y="206.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">корисне</text>
+<text x="502.0" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">навантаження</text>
+<rect x="598.0" y="130.0" width="90.0" height="50.0" rx="6" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="643.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">CRC</text>
+<text x="643.0" y="206.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">контроль</text>
+<text x="643.0" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">цілості</text>
+<line x1="90.0" y1="110.0" x2="688.0" y2="110.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<text x="392.0" y="102.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">час →</text>
+<rect x="60.0" y="268.0" width="780.0" height="70.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.3"/>
+<text x="450.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Преамбула — нове проти дроту: приймач не «під'єднаний», тож мусить спершу ВПІЙМАТИ й налаштуватися на сигнал.</text>
+<text x="450.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Решта знайома: заголовок з адресами, дані, CRC — той самий пакет, що ми будували для UART (§35.6).</text>
+</svg>

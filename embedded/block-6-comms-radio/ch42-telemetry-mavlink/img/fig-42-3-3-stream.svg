@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360">
+<rect width="940" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmb" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#b08900"/></marker>
+</defs>
+<text x="470.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Що тече вниз: потік MAVLink-повідомлень</text>
+<text x="470.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">різні повідомлення йдуть зі своєю частотою — серце (heartbeat) рідко, кути часто</text>
+<rect x="70.0" y="100.0" width="250.0" height="38.0" rx="6" fill="#fbfbfb" stroke="#c0271e" stroke-width="1.6"/>
+<text x="82.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">HEARTBEAT</text>
+<text x="340.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">«я живий», тип, режим, armed</text>
+<rect x="700.0" y="106.0" width="90.0" height="26.0" rx="5" fill="#f0f0f0" stroke="#8a8a8a" stroke-width="1"/>
+<text x="745.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">~1 Гц</text>
+<line x1="325.0" y1="119.0" x2="335.0" y2="119.0" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#aGrey)"/>
+<rect x="70.0" y="148.0" width="250.0" height="38.0" rx="6" fill="#fbfbfb" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="82.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">ATTITUDE</text>
+<text x="340.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">крен, тангаж, нишпорення</text>
+<rect x="700.0" y="154.0" width="90.0" height="26.0" rx="5" fill="#f0f0f0" stroke="#8a8a8a" stroke-width="1"/>
+<text x="745.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">~10–50 Гц</text>
+<line x1="325.0" y1="167.0" x2="335.0" y2="167.0" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#aGrey)"/>
+<rect x="70.0" y="196.0" width="250.0" height="38.0" rx="6" fill="#fbfbfb" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="82.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">GLOBAL_POSITION_INT</text>
+<text x="340.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">координати, висота</text>
+<rect x="700.0" y="202.0" width="90.0" height="26.0" rx="5" fill="#f0f0f0" stroke="#8a8a8a" stroke-width="1"/>
+<text x="745.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">~5 Гц</text>
+<line x1="325.0" y1="215.0" x2="335.0" y2="215.0" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#aGrey)"/>
+<rect x="70.0" y="244.0" width="250.0" height="38.0" rx="6" fill="#fbfbfb" stroke="#b08900" stroke-width="1.6"/>
+<text x="82.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#b08900" text-anchor="start" font-weight="bold" font-style="normal">SYS_STATUS</text>
+<text x="340.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">батарея, стан давачів</text>
+<rect x="700.0" y="250.0" width="90.0" height="26.0" rx="5" fill="#f0f0f0" stroke="#8a8a8a" stroke-width="1"/>
+<text x="745.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">~2 Гц</text>
+<line x1="325.0" y1="263.0" x2="335.0" y2="263.0" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#aGrey)"/>
+<rect x="70.0" y="292.0" width="250.0" height="38.0" rx="6" fill="#fbfbfb" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="82.0" y="316.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">VFR_HUD</text>
+<text x="340.0" y="316.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">швидкість, висота, набір</text>
+<rect x="700.0" y="298.0" width="90.0" height="26.0" rx="5" fill="#f0f0f0" stroke="#8a8a8a" stroke-width="1"/>
+<text x="745.0" y="316.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">~10 Гц</text>
+<line x1="325.0" y1="311.0" x2="335.0" y2="311.0" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#aGrey)"/>
+<rect x="60.0" y="338.0" width="820.0" height="1.0" rx="0" fill="none" stroke="none" stroke-width="0"/>
+<text x="470.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Кожен тип — на своїй «частоті потоку» (stream rate), яку можна налаштувати під вузький канал.</text>
+</svg>

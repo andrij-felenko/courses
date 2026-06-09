@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="380" viewBox="0 0 900 380">
+<rect width="900" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmb" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#b08900"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Диво приймача: код збирає сигнал, а заваду — розмазує</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">множення на той самий код стискає корисний сигнал у вузьку смугу, а вузьку заваду — розпорошує</text>
+<line x1="80.0" y1="250.0" x2="820.0" y2="250.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="820.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">частота</text>
+<rect x="150.0" y="220.0" width="240.0" height="30.0" rx="0" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="270.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">сигнал (розмазаний)</text>
+<line x1="300.0" y1="250.0" x2="300.0" y2="130.0" stroke="#c0271e" stroke-width="4" stroke-linecap="round"/>
+<text x="300.0" y="122.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">вузька завада</text>
+<line x1="420.0" y1="190.0" x2="500.0" y2="190.0" stroke="#1b1b1b" stroke-width="2.4" marker-end="url(#aInk)"/>
+<text x="460.0" y="178.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">× код</text>
+<line x1="640.0" y1="250.0" x2="640.0" y2="120.0" stroke="#1f8a3b" stroke-width="5" stroke-linecap="round"/>
+<text x="640.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">сигнал зібрано!</text>
+<rect x="560.0" y="228.0" width="240.0" height="22.0" rx="0" fill="#fdecec" stroke="#c0271e" stroke-width="1.2"/>
+<text x="680.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">завада розмазана</text>
+<rect x="60.0" y="306.0" width="780.0" height="76.0" rx="9" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.3"/>
+<text x="450.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Виграш від розгортання (processing gain) піднімає сигнал над завадою — у стільки разів, скільки чипів.</text>
+<text x="450.0" y="352.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Саме так GPS працює, хоч його сигнал слабший за шум: код «витягує» його з-під шумового рівня.</text>
+<text x="450.0" y="372.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">GPS: код 1.023 млн чипів/с на 50 біт/с даних → виграш ~43 дБ.</text>
+</svg>

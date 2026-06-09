@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320">
+<rect width="960" height="320" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmb" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#b08900"/></marker>
+</defs>
+<text x="480.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Кадр MAVLink (v1): з чого складається пакет</text>
+<text x="480.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">невеликий заголовок + корисні дані + контрольна сума — зрілий нащадок пакета з Розділу 35</text>
+<rect x="50.0" y="120.0" width="70.0" height="52.0" rx="3" fill="#eef2fb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="85.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">STX</text>
+<text x="85.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">0xFE</text>
+<rect x="120.0" y="120.0" width="70.0" height="52.0" rx="3" fill="#f4f4f4" stroke="#8a8a8a" stroke-width="1.8"/>
+<text x="155.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">LEN</text>
+<text x="155.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">довж.</text>
+<rect x="190.0" y="120.0" width="60.0" height="52.0" rx="3" fill="#f4f4f4" stroke="#8a8a8a" stroke-width="1.8"/>
+<text x="220.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">SEQ</text>
+<text x="220.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">№</text>
+<rect x="250.0" y="120.0" width="70.0" height="52.0" rx="3" fill="#fbf3df" stroke="#b08900" stroke-width="1.8"/>
+<text x="285.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#b08900" text-anchor="middle" font-weight="bold" font-style="normal">SYS</text>
+<text x="285.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">хто</text>
+<rect x="320.0" y="120.0" width="80.0" height="52.0" rx="3" fill="#fbf3df" stroke="#b08900" stroke-width="1.8"/>
+<text x="360.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#b08900" text-anchor="middle" font-weight="bold" font-style="normal">COMP</text>
+<text x="360.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">вузол</text>
+<rect x="400.0" y="120.0" width="90.0" height="52.0" rx="3" fill="#fbecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="445.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">MSG ID</text>
+<text x="445.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">тип</text>
+<rect x="490.0" y="120.0" width="280.0" height="52.0" rx="3" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="630.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">PAYLOAD</text>
+<text x="630.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">дані (0–255 Б)</text>
+<rect x="770.0" y="120.0" width="80.0" height="52.0" rx="3" fill="#eef2fb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="810.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">CRC</text>
+<text x="810.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">2 Б</text>
+<text x="85.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="start" font-weight="normal" font-style="normal">старт</text>
+<text x="880.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="end" font-weight="normal" font-style="normal">перевірка</text>
+<text x="530.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">↑ корисні дані повідомлення (формат залежить від MSG ID)</text>
+<rect x="60.0" y="230.0" width="840.0" height="70.0" rx="9" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="480.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Заголовок (6 Б) + дані + CRC (2 Б). Усе двійкове, компактне — спроєктовано під вузький радіоканал.</text>
+<text x="480.0" y="276.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Це точно той самий принцип, що ми будували для UART у §35.6: старт, довжина, дані, контрольна сума.</text>
+</svg>

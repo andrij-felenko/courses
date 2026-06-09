@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="270" viewBox="0 0 740 270">
+<rect width="740" height="270" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="370.0" y="26.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Будова БІХ: пряма гілка входів + зворотна гілка виходів</text>
+<rect x="40.0" y="70.0" width="180.0" height="56.0" rx="8" fill="#eef7ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="130.0" y="94.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">входи x[n], x[n−1]…</text>
+<text x="130.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">× b₀, b₁…  (пряма)</text>
+<line x1="220.0" y1="98.0" x2="304.0" y2="98.0" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#aGreen)"/>
+<circle cx="330.0" cy="98.0" r="22.0" fill="#fbfbfb" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="330.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Σ</text>
+<line x1="352.0" y1="98.0" x2="470.0" y2="98.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="486.0" y="103.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">y[n]</text>
+<line x1="420.0" y1="98.0" x2="420.0" y2="200.0" stroke="#8a8a8a" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="420.0" y1="200.0" x2="222.0" y2="200.0" stroke="#c0271e" stroke-width="1.6" marker-end="url(#aRed)"/>
+<rect x="40.0" y="172.0" width="180.0" height="56.0" rx="8" fill="#fdf6f5" stroke="#c0271e" stroke-width="1.8"/>
+<text x="130.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">виходи y[n−1], y[n−2]…</text>
+<text x="130.0" y="214.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">× (−a₁), (−a₂)  (зворотна)</text>
+<line x1="132.0" y1="172.0" x2="318.0" y2="118.0" stroke="#c0271e" stroke-width="1.6" marker-end="url(#aRed)"/>
+<text x="370.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">вихід частково складається з самого себе — це й дає БІХ силу та ризик</text>
+</svg>

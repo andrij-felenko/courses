@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320">
+<rect width="960" height="320" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmb" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#b08900"/></marker>
+</defs>
+<text x="480.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Завантаження місії: рукостискання пункт за пунктом</text>
+<text x="480.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">маршрут вантажать надійно — з підтвердженням кожної точки (надійність важливіша за швидкість, §42.4)</text>
+<rect x="60.0" y="100.0" width="150.0" height="60.0" rx="8" fill="#fbfbfb" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="135.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">твій код</text>
+<line x1="814.0" y1="116.0" x2="866.0" y2="144.0" stroke="#1f47b5" stroke-width="3" stroke-linecap="round"/>
+<line x1="814.0" y1="144.0" x2="866.0" y2="116.0" stroke="#1f47b5" stroke-width="3" stroke-linecap="round"/>
+<circle cx="814.0" cy="116.0" r="9.0" fill="none" stroke="#1f47b5" stroke-width="2"/>
+<circle cx="866.0" cy="116.0" r="9.0" fill="none" stroke="#1f47b5" stroke-width="2"/>
+<circle cx="814.0" cy="144.0" r="9.0" fill="none" stroke="#1f47b5" stroke-width="2"/>
+<circle cx="866.0" cy="144.0" r="9.0" fill="none" stroke="#1f47b5" stroke-width="2"/>
+<rect x="832.0" y="124.0" width="16.0" height="12.0" rx="2" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.6"/>
+<line x1="220.0" y1="100.0" x2="760.0" y2="100.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="500.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">MISSION_COUNT = 3</text>
+<line x1="770.0" y1="124.0" x2="230.0" y2="124.0" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#aGreen)"/>
+<text x="500.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">← MISSION_REQUEST (0)</text>
+<line x1="220.0" y1="148.0" x2="760.0" y2="148.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="500.0" y="144.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">MISSION_ITEM_INT (0)</text>
+<line x1="770.0" y1="172.0" x2="230.0" y2="172.0" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#aGreen)"/>
+<text x="500.0" y="168.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">← REQUEST (1) …</text>
+<line x1="220.0" y1="196.0" x2="760.0" y2="196.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="500.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">… ITEM (2)</text>
+<line x1="770.0" y1="220.0" x2="230.0" y2="220.0" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#aGreen)"/>
+<text x="500.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">← MISSION_ACK ✓</text>
+<rect x="60.0" y="244.0" width="840.0" height="60.0" rx="9" fill="#fbf3df" stroke="#b08900" stroke-width="1.3"/>
+<text x="480.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Станція каже «маршрут із N точок», апарат просить їх по черзі, кожну підтверджують — і наприкінці ACK.</text>
+<text x="480.0" y="288.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Жодна точка не загубиться — це та сама «надійна» стратегія з §42.4.</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="690" viewBox="0 0 900 690">
+<rect width="900" height="690" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="38.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="21" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ланцюг питань: від коду Морзе до кадру UART</text>
+<text x="450.0" y="60.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кожен крок прибирав щось зайве — аж лишився старт-стоп-кадр, який ти задаєш як Serial.begin(baud)</text>
+<line x1="210.0" y1="96.0" x2="210.0" y2="662.0" stroke="#8a8a8a" stroke-width="3" stroke-linecap="round"/>
+<circle cx="210.0" cy="126.0" r="7.0" fill="#fff" stroke="#1b1b1b" stroke-width="2.6"/>
+<text x="188.0" y="131.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="end" font-weight="bold" font-style="normal">1837–44</text>
+<text x="236.0" y="123.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Морзе / Morse</text>
+<text x="236.0" y="143.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="italic">Крапка-тире: код ЗМІННОЇ довжини. Швидко — та потрібен вправний оператор і добре вухо</text>
+<circle cx="210.0" cy="227.2" r="10.0" fill="#fff" stroke="#c0271e" stroke-width="3"/>
+<circle cx="210.0" cy="227.2" r="4.5" fill="#c0271e" stroke="#c0271e" stroke-width="0"/>
+<text x="188.0" y="232.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="end" font-weight="bold" font-style="normal">1870</text>
+<text x="236.0" y="224.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Бодо / Baudot</text>
+<text x="236.0" y="244.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="italic">5 однакових одиниць на знак: машинна РІВНОМІРНІСТЬ замість віртуозності руки</text>
+<circle cx="210.0" cy="328.4" r="7.0" fill="#fff" stroke="#1b1b1b" stroke-width="2.6"/>
+<text x="188.0" y="333.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="end" font-weight="bold" font-style="normal">1874+</text>
+<text x="236.0" y="325.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">розподільник / distributeur</text>
+<text x="236.0" y="345.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="italic">Один дріт — кілька операторів по черзі: народження поділу часу (TDM)</text>
+<circle cx="210.0" cy="429.6" r="7.0" fill="#fff" stroke="#1b1b1b" stroke-width="2.6"/>
+<text x="188.0" y="434.6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="end" font-weight="bold" font-style="normal">1901</text>
+<text x="236.0" y="426.6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Маррей / Murray</text>
+<text x="236.0" y="446.6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="italic">Клавіатура й перфострічка замість акордів; код-нащадок → ITA-2</text>
+<circle cx="210.0" cy="530.8" r="7.0" fill="#fff" stroke="#1b1b1b" stroke-width="2.6"/>
+<text x="188.0" y="535.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="end" font-weight="bold" font-style="normal">1900–10-ті</text>
+<text x="236.0" y="527.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">старт-стоп / Krum, Teletype</text>
+<text x="236.0" y="547.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="italic">Кадр САМ СЕБЕ синхронізує: СТАРТ-біт + дані + СТОП — без спільного дроту такту</text>
+<rect x="202.0" y="624.0" width="16.0" height="16.0" rx="3" fill="#fff" stroke="#1f8a3b" stroke-width="2.6"/>
+<text x="188.0" y="637.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">Розділ 35</text>
+<text x="236.0" y="629.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">UART</text>
+<text x="236.0" y="649.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">Той самий кадр у кремнії: чому послідовно, асинхронно — і звідки слово «baud»</text>
+</svg>

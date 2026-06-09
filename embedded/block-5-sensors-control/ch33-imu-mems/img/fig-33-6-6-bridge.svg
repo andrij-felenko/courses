@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="220" viewBox="0 0 740 220">
+<rect width="740" height="220" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="370.0" y="26.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Місток у Розділ 34: від давачів до керування</text>
+<rect x="20.0" y="80.0" width="160.0" height="70.0" rx="10" fill="#fbfbfb" stroke="#8a8a8a" stroke-width="1.8"/>
+<text x="100.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">3 давачі IMU</text>
+<text x="100.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">аксель+гіро+магніт</text>
+<rect x="200.0" y="80.0" width="160.0" height="70.0" rx="10" fill="#fbfbfb" stroke="#9a4ea8" stroke-width="1.8"/>
+<text x="280.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#9a4ea8" text-anchor="middle" font-weight="bold" font-style="normal">ФЬЮЖН (AHRS)</text>
+<text x="280.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">злиття → орієнтація</text>
+<rect x="380.0" y="80.0" width="160.0" height="70.0" rx="10" fill="#fbfbfb" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="460.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">орієнтація</text>
+<text x="460.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кути / кватерніон</text>
+<rect x="560.0" y="80.0" width="160.0" height="70.0" rx="10" fill="#fbfbfb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="640.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ПІД-керування</text>
+<text x="640.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">утримати, стабілізувати</text>
+<line x1="180.0" y1="115.0" x2="196.0" y2="115.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="360.0" y1="115.0" x2="376.0" y2="115.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="540.0" y1="115.0" x2="556.0" y2="115.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="370.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">саме для цього IMU й зводить три давачі — щоб дати апарату надійне чуття орієнтації</text>
+</svg>

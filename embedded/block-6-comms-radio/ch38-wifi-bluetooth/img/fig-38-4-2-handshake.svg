@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+<rect width="900" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">TCP спершу встановлює з'єднання (рукостискання)</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">перш ніж слати дані, сторони тричі обмінюються службовими пакетами — це коштує час</text>
+<text x="220.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">клієнт</text>
+<text x="680.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">сервер</text>
+<line x1="220.0" y1="104.0" x2="220.0" y2="300.0" stroke="#8a8a8a" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="680.0" y1="104.0" x2="680.0" y2="300.0" stroke="#8a8a8a" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="220.0" y1="130.0" x2="680.0" y2="155.0" stroke="#1f47b5" stroke-width="2.2" marker-end="url(#aBlue)"/>
+<text x="450.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">1) SYN — «з'єднаймось?»</text>
+<line x1="680.0" y1="175.0" x2="220.0" y2="200.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<text x="450.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">2) SYN-ACK — «згода»</text>
+<line x1="220.0" y1="220.0" x2="680.0" y2="245.0" stroke="#1f47b5" stroke-width="2.2" marker-end="url(#aBlue)"/>
+<text x="450.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">3) ACK — «домовились»</text>
+<text x="450.0" y="278.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">з'єднання встановлено → тепер ідуть дані</text>
+<rect x="60.0" y="308.0" width="780.0" height="44.0" rx="10" fill="#f3f3f3" stroke="#8a8a8a" stroke-width="1.3"/>
+<text x="450.0" y="334.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Рукостискання дає надійність, але додає затримку на старті — для коротких частих повідомлень це дорого.</text>
+</svg>

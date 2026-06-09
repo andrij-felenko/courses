@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+<rect width="900" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Три операції: читати, писати й СПОВІЩАТИ</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">notify — головний трюк ощадливості: периферія сама штовхає нове значення, не треба опитувати</text>
+<rect x="60.0" y="96.0" width="270.0" height="160.0" rx="12" fill="#fbfbfb" stroke="#1f47b5" stroke-width="2"/>
+<text x="195.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">READ</text>
+<text x="195.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">центральний ТЯГНЕ значення</text>
+<text x="195.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(коли захоче)</text>
+<rect x="350.0" y="96.0" width="270.0" height="160.0" rx="12" fill="#fbfbfb" stroke="#b08900" stroke-width="2"/>
+<text x="485.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#b08900" text-anchor="middle" font-weight="bold" font-style="normal">WRITE</text>
+<text x="485.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">центральний ШТОВХАЄ значення</text>
+<text x="485.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(напр. поріг, команду)</text>
+<rect x="640.0" y="96.0" width="270.0" height="160.0" rx="12" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="775.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">NOTIFY</text>
+<text x="775.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">периферія САМА штовхає, щойно</text>
+<text x="775.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">значення змінилось</text>
+<text x="775.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">← економить енергію!</text>
+<rect x="60.0" y="274.0" width="780.0" height="70.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="450.0" y="298.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Опитування (постійно READ) тримало б радіо ввімкненим; NOTIFY дає прокидатися лише при новині.</text>
+<text x="450.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Тому пульсометр чи давач шлють дані через notify: телефон підписався — і отримує оновлення сам.</text>
+</svg>

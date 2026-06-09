@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="440" viewBox="0 0 920 440">
+<rect width="920" height="440" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Дві стратегії меж: роздільник проти поля довжини</text>
+<text x="460.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">роздільник простий для тексту, але двійкові дані можуть його містити; довжина цього уникає</text>
+<text x="80.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">роздільник (напр. '\n')</text>
+<rect x="90.0" y="124.0" width="64.0" height="38.0" rx="4" fill="#f4f4f4" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="122.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">48</text>
+<rect x="160.0" y="124.0" width="64.0" height="38.0" rx="4" fill="#f4f4f4" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="192.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">49</text>
+<rect x="230.0" y="124.0" width="64.0" height="38.0" rx="4" fill="#fdeeee" stroke="#c0271e" stroke-width="1.4"/>
+<text x="262.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0A</text>
+<rect x="300.0" y="124.0" width="64.0" height="38.0" rx="4" fill="#f4f4f4" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="332.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">4F</text>
+<rect x="370.0" y="124.0" width="64.0" height="38.0" rx="4" fill="#fdeeee" stroke="#c0271e" stroke-width="1.4"/>
+<text x="402.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0A</text>
+<text x="400.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">← '\n' = кінець</text>
+<rect x="540.0" y="110.0" width="350.0" height="86.0" rx="10" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="715.0" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">пастка двійкових даних</text>
+<text x="560.0" y="156.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">якщо 0x0A трапиться в ДАНИХ —</text>
+<text x="560.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">приймач хибно вирішить, що пакет скінчився</text>
+<text x="560.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">→ потрібне екранування (байт-стафінг, COBS)</text>
+<text x="80.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">поле довжини</text>
+<rect x="90.0" y="264.0" width="64.0" height="38.0" rx="4" fill="#fbf3df" stroke="#b08900" stroke-width="1.4"/>
+<text x="122.0" y="288.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">LEN=3</text>
+<rect x="160.0" y="264.0" width="64.0" height="38.0" rx="4" fill="#eef4ff" stroke="#1f47b5" stroke-width="1.4"/>
+<text x="192.0" y="288.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">D</text>
+<rect x="230.0" y="264.0" width="64.0" height="38.0" rx="4" fill="#eef4ff" stroke="#1f47b5" stroke-width="1.4"/>
+<text x="262.0" y="288.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">A</text>
+<rect x="300.0" y="264.0" width="64.0" height="38.0" rx="4" fill="#eef4ff" stroke="#1f47b5" stroke-width="1.4"/>
+<text x="332.0" y="288.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">T</text>
+<text x="380.0" y="288.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">читаємо рівно 3 байти — байт-у-байт байдуже які</text>
+<rect x="540.0" y="250.0" width="350.0" height="66.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="715.0" y="274.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">довжина не боїться вмісту</text>
+<text x="560.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">будь-який байт у даних — просто дані</text>
+<rect x="60.0" y="350.0" width="800.0" height="60.0" rx="10" fill="#f3f3f3" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="460.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Для тексту зручний роздільник (рядок = повідомлення); для двійкових даних — поле довжини.</text>
+<text x="460.0" y="395.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Можна й поєднувати: SYNC для старту + LEN для кінця — тоді вміст байтів узагалі не важливий.</text>
+</svg>

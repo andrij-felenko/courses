@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="260" viewBox="0 0 700 260">
+<rect width="700" height="260" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="350.0" y="26.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">EMA — це цифровий RC-фільтр: та сама експонента</text>
+<rect x="24.0" y="50.0" width="320.0" height="190.0" rx="8" fill="#fbf6ee" stroke="#caa24a" stroke-width="1.4"/>
+<text x="184.0" y="72.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#9a7a1e" text-anchor="middle" font-weight="bold" font-style="normal">аналогова RC-ланка</text>
+<line x1="50.0" y1="110.0" x2="90.0" y2="110.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<polyline points="90.0,110.0 98.0,102.0 108.0,118.0 118.0,102.0 128.0,118.0 138.0,102.0 146.0,110.0" fill="none" stroke="#1b1b1b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="146.0" y1="110.0" x2="200.0" y2="110.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="200.0" y1="110.0" x2="200.0" y2="130.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="186.0" y1="130.0" x2="214.0" y2="130.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<line x1="186.0" y1="138.0" x2="214.0" y2="138.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<line x1="200.0" y1="138.0" x2="200.0" y2="158.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="50.0" y1="158.0" x2="230.0" y2="158.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="50.0" y1="110.0" x2="50.0" y2="158.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="60.0" y1="228.0" x2="60.0" y2="178.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="60.0" y1="228.0" x2="310.0" y2="228.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<polyline points="60.0,228.0 68.3,223.8 76.7,220.0 85.0,216.6 93.3,213.5 101.7,210.7 110.0,208.1 118.3,205.8 126.7,203.8 135.0,201.9 143.3,200.2 151.7,198.6 160.0,197.3 168.3,196.0 176.7,194.9 185.0,193.8 193.3,192.9 201.7,192.0 210.0,191.3 218.3,190.6 226.7,190.0 235.0,189.4 243.3,188.9 251.7,188.4 260.0,188.0 268.3,187.6 276.7,187.3 285.0,187.0 293.3,186.7 301.7,186.4 310.0,186.2" fill="none" stroke="#9a7a1e" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="360.0" y="50.0" width="316.0" height="190.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="518.0" y="72.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">EMA в коді</text>
+<rect x="430.0" y="96.0" width="176.0" height="34.0" rx="5" fill="#fff" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="518.0" y="118.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">y += α·(x − y)</text>
+<line x1="396.0" y1="228.0" x2="396.0" y2="178.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="396.0" y1="228.0" x2="646.0" y2="228.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<polyline points="396.0,228.0 404.3,223.8 412.7,220.0 421.0,216.6 429.3,213.5 437.7,210.7 446.0,208.1 454.3,205.8 462.7,203.8 471.0,201.9 479.3,200.2 487.7,198.6 496.0,197.3 504.3,196.0 512.7,194.9 521.0,193.8 529.3,192.9 537.7,192.0 546.0,191.3 554.3,190.6 562.7,190.0 571.0,189.4 579.3,188.9 587.7,188.4 596.0,188.0 604.3,187.6 612.7,187.3 621.0,187.0 629.3,186.7 637.7,186.4 646.0,186.2" fill="none" stroke="#1f8a3b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="350.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">однакова експонента → один і той самий фільтр НЧ першого порядку</text>
+</svg>

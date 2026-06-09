@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Інтеграція в головний цикл: чуйність зберігається</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">feed() стоїть поряд з іншими задачами в loop(); кожна відпрацьовує й віддає керування</text>
+<circle cx="250.0" cy="230.0" r="110.0" fill="none" stroke="#1b1b1b" stroke-width="2"/>
+<circle cx="250.0" cy="120.0" r="8.0" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="250.0" y="70.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">читати UART</text>
+<text x="250.0" y="83.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">→ feed()</text>
+<circle cx="360.0" cy="230.0" r="8.0" fill="#eef4ff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="406.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ПІД-крок</text>
+<circle cx="250.0" cy="340.0" r="8.0" fill="#eef4ff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="250.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">оновити</text>
+<text x="250.0" y="395.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">дисплей</text>
+<circle cx="140.0" cy="230.0" r="8.0" fill="#eef4ff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="94.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">телеметрія</text>
+<line x1="280.7" y1="124.4" x2="355.6" y2="199.3" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<line x1="355.6" y1="260.7" x2="280.7" y2="335.6" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<line x1="219.3" y1="335.6" x2="144.4" y2="260.7" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<line x1="144.4" y1="199.3" x2="219.3" y2="124.4" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<text x="250.0" y="234.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">loop()</text>
+<rect x="500.0" y="150.0" width="360.0" height="160.0" rx="12" fill="#fbfbfb" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="680.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">чому це працює</text>
+<text x="520.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• feed() обробляє наявні байти й виходить</text>
+<text x="520.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• нікого не змушує чекати</text>
+<text x="520.0" y="252.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• буфер UART тримає байти між обертами</text>
+<text x="520.0" y="276.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• кожна задача отримує свій час</text>
+<rect x="60.0" y="330.0" width="780.0" height="40.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.3"/>
+<text x="450.0" y="355.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Неблокуючий розбір — частина того самого super-loop / millis-підходу (Розділи 24, 27).</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="290" viewBox="0 0 720 290">
+<rect width="720" height="290" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="360.0" y="26.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Слабке місце: акселерометр плутає прискорення з нахилом</text>
+<rect x="160.0" y="124.0" width="80.0" height="52.0" rx="5" fill="#eef1fb" stroke="#1b1b1b" stroke-width="1.6"/>
+<line x1="200.0" y1="150.0" x2="200.0" y2="228.0" stroke="#1f8a3b" stroke-width="3" marker-end="url(#aGreen)"/>
+<text x="208.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">g</text>
+<text x="200.0" y="80.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Спокій</text>
+<text x="200.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">«низ» правильний</text>
+<rect x="460.0" y="124.0" width="80.0" height="52.0" rx="5" fill="#eef1fb" stroke="#1b1b1b" stroke-width="1.6"/>
+<line x1="500.0" y1="150.0" x2="500.0" y2="228.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<text x="486.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">g</text>
+<line x1="500.0" y1="150.0" x2="570.0" y2="150.0" stroke="#1f47b5" stroke-width="2.4" marker-end="url(#aBlue)"/>
+<text x="560.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">a (розгін)</text>
+<line x1="500.0" y1="150.0" x2="566.0" y2="224.0" stroke="#c0271e" stroke-width="3" marker-end="url(#aRed)"/>
+<text x="574.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">g + a</text>
+<text x="500.0" y="80.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Розгін</text>
+<text x="520.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">виміряний «низ» відхилений → кут бреше</text>
+<text x="360.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">короткі поштовхи згладжуються; тривале прискорення фільтр від нахилу не відрізнить · рискання теж не видно</text>
+</svg>

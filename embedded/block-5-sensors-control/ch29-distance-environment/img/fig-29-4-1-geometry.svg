@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="320" viewBox="0 0 700 320">
+<rect width="700" height="320" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="350.0" y="26.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Тріангуляція: відстань із кута, під яким вернувся промінь</text>
+<rect x="77.0" y="163.0" width="26.0" height="34.0" rx="3" fill="#fbf2f1" stroke="#c0271e" stroke-width="1.6"/>
+<polygon points="103.0,175.0 113.0,180.0 103.0,185.0" fill="#c0271e" stroke="none" stroke-width="1"/>
+<text x="90.0" y="154.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ІЧ-світлодіод</text>
+<ellipse cx="90.0" cy="250.0" rx="6" ry="20.0" fill="#dceaf5" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="74.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">лінза+PSD</text>
+<line x1="90.0" y1="198.0" x2="90.0" y2="232.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="76.0" y="215.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="italic">база b</text>
+<line x1="108.0" y1="180.0" x2="620.0" y2="180.0" stroke="#c0271e" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#aRed)"/>
+<text x="360.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">промінь →</text>
+<rect x="350.0" y="154.0" width="12.0" height="52.0" rx="0" fill="#eee" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="356.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ближча</text>
+<rect x="560.0" y="158.0" width="12.0" height="44.0" rx="0" fill="#eee" stroke="#c0271e" stroke-width="1.5"/>
+<text x="566.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">дальша</text>
+<line x1="350.0" y1="186.0" x2="94.0" y2="244.0" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#aGreen)"/>
+<line x1="560.0" y1="186.0" x2="96.0" y2="246.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<line x1="90.0" y1="250.0" x2="64.0" y2="264.0" stroke="#1f8a3b" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="90.0" y1="250.0" x2="64.0" y2="252.0" stroke="#c0271e" stroke-width="1.6" stroke-linecap="round"/>
+<circle cx="64.0" cy="264.0" r="3.5" fill="#1f8a3b"/>
+<circle cx="64.0" cy="252.0" r="3.5" fill="#c0271e"/>
+<text x="60.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="italic">пляма: близько ≠ далеко</text>
+<text x="350.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">положення плями кодує кут, а кут — відстань · часу міряти не треба</text>
+</svg>

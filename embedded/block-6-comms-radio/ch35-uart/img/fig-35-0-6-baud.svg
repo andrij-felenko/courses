@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470">
+<rect width="900" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Що таке «baud»: одиниць за секунду — і чому це не завжди біт/с</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">одиниця названа на честь Бодо; класичний телетайп — 45.45 бод (≈ 60 слів/хв)</text>
+<rect x="80.0" y="150.0" width="88.0" height="56.0" rx="0" fill="#fbecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="124.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">СТАРТ</text>
+<rect x="168.0" y="150.0" width="88.0" height="56.0" rx="0" fill="#fff" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="212.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">D1</text>
+<rect x="256.0" y="150.0" width="88.0" height="56.0" rx="0" fill="#fff" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="300.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">D2</text>
+<rect x="344.0" y="150.0" width="88.0" height="56.0" rx="0" fill="#fff" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="388.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">D3</text>
+<rect x="432.0" y="150.0" width="88.0" height="56.0" rx="0" fill="#fff" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="476.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">D4</text>
+<rect x="520.0" y="150.0" width="88.0" height="56.0" rx="0" fill="#fff" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="564.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">D5</text>
+<rect x="608.0" y="150.0" width="132.0" height="56.0" rx="0" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="674.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">СТОП</text>
+<line x1="80.0" y1="230.0" x2="168.0" y2="230.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<line x1="168.0" y1="230.0" x2="80.0" y2="230.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<text x="124.0" y="248.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">1 одиниця ≈ 22 мс</text>
+<line x1="80.0" y1="136.0" x2="740.0" y2="136.0" stroke="#1b1b1b" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="740.0" y1="136.0" x2="80.0" y2="136.0" stroke="#1b1b1b" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="410.0" y="128.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">1 знак = 1 + 5 + 1.5 = 7.5 одиниць</text>
+<rect x="120.0" y="300.0" width="660.0" height="120.0" rx="10" fill="#f3f3f3" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="140.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">1 бод = 1 одиниця/с  →  при 45.45 бод одна одиниця триває 1/45.45 ≈ 22 мс</text>
+<text x="140.0" y="356.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">знак = 7.5 × 22 мс ≈ 165 мс  →  ≈ 6 знаків/с  →  ≈ 60 слів/хв (≈ 6 знаків/слово)</text>
+<text x="140.0" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">для ДВОХ рівнів (мітка/пропуск) 1 бод = 1 біт/с — тому Serial.begin(9600) це й 9600 біт/с</text>
+<rect x="60.0" y="430.0" width="780.0" height="28.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="450.0" y="449.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Baud рахує СИМВОЛИ на лінії. Збігається з біт/с лише поки символ несе рівно 1 біт.</text>
+</svg>

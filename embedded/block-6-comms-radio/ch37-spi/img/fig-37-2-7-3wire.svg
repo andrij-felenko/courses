@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="340" viewBox="0 0 900 340">
+<rect width="900" height="340" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Економний варіант: 3-дротовий SPI (одна лінія даних)</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">MOSI і MISO зливають в одну двонапрямлену лінію — менше дротів, але вже напівдуплекс</text>
+<rect x="70.0" y="100.0" width="360.0" height="140.0" rx="12" fill="none" stroke="#e4e4e4" stroke-width="2"/>
+<text x="250.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">4-дротовий (звичайний)</text>
+<line x1="110.0" y1="150.0" x2="390.0" y2="150.0" stroke="#1f47b5" stroke-width="2" stroke-linecap="round"/>
+<text x="100.0" y="154.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="end" font-weight="bold" font-style="normal">SCK</text>
+<line x1="110.0" y1="174.0" x2="390.0" y2="174.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<text x="100.0" y="178.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">MOSI</text>
+<line x1="110.0" y1="198.0" x2="390.0" y2="198.0" stroke="#1f8a3b" stroke-width="2" stroke-linecap="round"/>
+<text x="100.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">MISO</text>
+<line x1="110.0" y1="222.0" x2="390.0" y2="222.0" stroke="#b08900" stroke-width="2" stroke-linecap="round"/>
+<text x="100.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#b08900" text-anchor="end" font-weight="bold" font-style="normal">CS</text>
+<text x="250.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">повний дуплекс, 4 лінії</text>
+<rect x="470.0" y="100.0" width="360.0" height="140.0" rx="12" fill="none" stroke="#e4e4e4" stroke-width="2"/>
+<text x="650.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">3-дротовий</text>
+<line x1="510.0" y1="156.0" x2="790.0" y2="156.0" stroke="#1f47b5" stroke-width="2" stroke-linecap="round"/>
+<text x="500.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="end" font-weight="bold" font-style="normal">SCK</text>
+<line x1="510.0" y1="186.0" x2="790.0" y2="186.0" stroke="#7a2bd6" stroke-width="2" stroke-linecap="round"/>
+<text x="500.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#7a2bd6" text-anchor="end" font-weight="bold" font-style="normal">SDIO</text>
+<line x1="510.0" y1="216.0" x2="790.0" y2="216.0" stroke="#b08900" stroke-width="2" stroke-linecap="round"/>
+<text x="500.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#b08900" text-anchor="end" font-weight="bold" font-style="normal">CS</text>
+<text x="650.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#7a2bd6" text-anchor="middle" font-weight="bold" font-style="normal">↔ дані в обидва боки по черзі</text>
+<text x="650.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">напівдуплекс, 3 лінії</text>
+<rect x="60.0" y="262.0" width="780.0" height="56.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="450.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">3-дротовий SPI економить ніжку там, де дані й так ідуть по черзі (багато дисплеїв, дрібні чіпи).</text>
+<text x="450.0" y="306.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Це той самий компроміс «менше дротів ↔ менше одночасності», що й I2C проти SPI.</text>
+</svg>

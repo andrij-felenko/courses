@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420">
+<rect width="920" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Блокуючий прийом заморожує МК; неблокуючий — ні</text>
+<text x="460.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">не можна «стояти й чекати» кожен байт — інакше решта програми не виконується</text>
+<text x="80.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">блокуючий: while(!available());</text>
+<rect x="80.0" y="124.0" width="760.0" height="40.0" rx="6" fill="#fdeeee" stroke="#c0271e" stroke-width="1.6"/>
+<text x="110.0" y="149.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">CPU застряг у циклі очікування — інші задачі СТОЯТЬ</text>
+<line x1="80.0" y1="184.0" x2="840.0" y2="184.0" stroke="#1b1b1b" stroke-width="1.4" marker-end="url(#aInk)"/>
+<rect x="120.0" y="170.0" width="30.0" height="28.0" rx="3" fill="#dfe7fb" stroke="#1f47b5" stroke-width="1.4"/>
+<text x="135.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">B</text>
+<rect x="360.0" y="170.0" width="30.0" height="28.0" rx="3" fill="#dfe7fb" stroke="#1f47b5" stroke-width="1.4"/>
+<text x="375.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">B</text>
+<rect x="600.0" y="170.0" width="30.0" height="28.0" rx="3" fill="#dfe7fb" stroke="#1f47b5" stroke-width="1.4"/>
+<text x="615.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">B</text>
+<text x="840.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">час →</text>
+<text x="80.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">неблокуючий: if(available()) feed(read());</text>
+<rect x="90.0" y="270.0" width="90.0" height="34.0" rx="6" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="135.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">feed</text>
+<rect x="188.0" y="270.0" width="90.0" height="34.0" rx="6" fill="#f1f1f1" stroke="#1b1b1b" stroke-width="1.5"/>
+<text x="233.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ПІД</text>
+<rect x="286.0" y="270.0" width="90.0" height="34.0" rx="6" fill="#f1f1f1" stroke="#1b1b1b" stroke-width="1.5"/>
+<text x="331.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">лог</text>
+<rect x="384.0" y="270.0" width="90.0" height="34.0" rx="6" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="429.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">feed</text>
+<rect x="482.0" y="270.0" width="90.0" height="34.0" rx="6" fill="#f1f1f1" stroke="#1b1b1b" stroke-width="1.5"/>
+<text x="527.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">дисплей</text>
+<rect x="580.0" y="270.0" width="90.0" height="34.0" rx="6" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="625.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">feed</text>
+<rect x="678.0" y="270.0" width="90.0" height="34.0" rx="6" fill="#f1f1f1" stroke="#1b1b1b" stroke-width="1.5"/>
+<text x="723.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ПІД</text>
+<line x1="80.0" y1="322.0" x2="840.0" y2="322.0" stroke="#1b1b1b" stroke-width="1.4" marker-end="url(#aInk)"/>
+<text x="460.0" y="342.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">feed() обробляє наявні байти й ОДРАЗУ повертається — між ними працює решта</text>
+<rect x="60.0" y="366.0" width="800.0" height="44.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.3"/>
+<text x="460.0" y="392.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ключ: НЕ чекати байт, а реагувати на той, що вже прийшов, і вертати керування циклу.</text>
+</svg>
