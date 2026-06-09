@@ -100,7 +100,7 @@ def minus(cx, cy, r=12, color=BLUE, w=2.5):
 
 def save(name, body):
     with open(os.path.join(OUT, name), "w", encoding="utf-8") as f:
-        f.write(body)
+        f.write(body + footer())
     print("wrote", name)
 
 
