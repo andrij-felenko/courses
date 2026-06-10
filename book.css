@@ -422,3 +422,56 @@ body.modal-open { overflow: hidden; }
   .hist-modal-head { padding: 2.4rem 1.4rem 0; }
   .hist-modal .content-body { padding: 1.2rem 1.4rem 2rem; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   БІБЛІОТЕКА — стартова сторінка зі списком книг (index.html + library.js)
+   ════════════════════════════════════════════════════════════════════════ */
+.library-page { background: var(--bg-alt); }
+.lib-hero {
+  background: linear-gradient(135deg, #09192e 0%, #0f2744 45%, #1d4e8a 100%);
+  color: #fff; padding: 4.5rem 2rem 5rem; text-align: center;
+}
+.lib-hero .kicker { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #60a5c8; margin-bottom: 1rem; }
+.lib-hero h1 { font-size: 2.6rem; font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+.lib-hero p { font-size: 1.05rem; line-height: 1.7; color: #a7cae0; max-width: 56ch; margin: 0 auto; }
+
+.lib-shelf {
+  max-width: 1000px; margin: -3rem auto 4rem; padding: 0 1.5rem;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.6rem;
+}
+.lib-card {
+  display: flex; flex-direction: column;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+  text-decoration: none; color: inherit; box-shadow: var(--shadow);
+  transition: transform 0.14s, box-shadow 0.14s;
+}
+.lib-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.lib-cover {
+  position: relative; min-height: 148px;
+  background: linear-gradient(140deg, var(--accent, #1d6fa4), #0f2744 130%);
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 1.1rem 1.35rem; color: #fff;
+}
+.lib-ico { position: absolute; top: 0.9rem; right: 1.2rem; font-size: 2.5rem; line-height: 1; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); }
+.lib-short { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.92; }
+.lib-body { padding: 1.2rem 1.35rem 1.4rem; display: flex; flex-direction: column; flex: 1; }
+.lib-body h2 { font-size: 1.22rem; font-weight: 800; color: var(--h2-color); line-height: 1.25; margin-bottom: 0.5rem; }
+.lib-body > p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.1rem; flex: 1; }
+.lib-meta { margin-bottom: 1rem; }
+.lib-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 0.4rem; }
+.lib-bar span { display: block; height: 100%; background: var(--accent, #1d6fa4); border-radius: 3px; }
+.lib-stat { font-size: 0.75rem; color: var(--text-muted); }
+.lib-cta { font-weight: 800; color: var(--accent, #1d6fa4); font-size: 0.92rem; }
+.lib-card:hover .lib-cta { text-decoration: underline; }
+@media (max-width: 640px) {
+  .lib-hero { padding: 3.5rem 1.4rem 4rem; }
+  .lib-hero h1 { font-size: 2rem; }
+  .lib-shelf { grid-template-columns: 1fr; margin-top: -2.2rem; }
+}
+
+/* посилання «← Бібліотека» вгорі сайдбару книги */
+.sb-home {
+  display: block; padding: 0.6rem 1.25rem;
+  font-size: 0.74rem; font-weight: 700; color: #8fb3cc; text-decoration: none;
+  background: #16242f; border-bottom: 1px solid #28404f;
+}
+.sb-home:hover { background: var(--sidebar-hover); color: #fff; }

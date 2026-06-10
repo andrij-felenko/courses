@@ -3,34 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Вбудована електроніка й автономні системи</title>
-<meta name="description" content="Глибокий курс вбудованої електроніки й автономних систем — від заряду в атомі до машинного бачення на борту.">
+<title>Бібліотека — мої книги</title>
+<meta name="description" content="Бібліотека книг, написаних під мене: вбудована електроніка й автономні системи та «Хімія без зубріння».">
 <link rel="stylesheet" href="book.css">
 </head>
-<body>
+<body class="library-page">
 
-<button id="menu-btn" aria-label="Меню">☰</button>
-
-<nav id="sidebar" aria-label="Навігація книги">
-  <!-- наповнюється book.js -->
-</nav>
-<div id="scrim"></div>
-
-<main id="content">
-  <div class="state"><div class="spinner"></div>Готуємо книгу…</div>
+<main id="library-root">
+  <div class="state"><div class="spinner"></div>Готуємо бібліотеку…</div>
 </main>
-
-<button id="back-top" aria-label="Догори" title="Догори">↑</button>
 
 <noscript>
   <div style="max-width:700px;margin:3rem auto;padding:0 1.5rem;font-family:system-ui,sans-serif;line-height:1.7">
     <h1>Потрібен JavaScript</h1>
-    <p>Ця книга збирається з Markdown-файлів у браузері, тож увімкни JavaScript.
-       Окремі розділи можна читати і як звичайні <code>.md</code> у репозиторії.</p>
+    <p>Бібліотека й книги збираються в браузері. Увімкни JavaScript, або відкрий книги напряму:
+       <a href="electronics.html">Вбудована електроніка</a> ·
+       <a href="chem.html">Хімія без зубріння</a>.</p>
   </div>
 </noscript>
 
+<!-- Реєстр книг: підключаємо manifest кожної книги й одразу фіксуємо посилання на неї.
+     Щоб додати книгу — додай пару рядків (manifest + LIBRARY.push) за зразком. -->
+<script>window.LIBRARY = [];</script>
+
 <script src="manifest.js"></script>
-<script src="book.js"></script>
+<script>
+  window.LIBRARY.push({ id: "electronics", entry: "electronics.html", accent: "#1d6fa4", icon: "⚡", book: window.BOOK });
+</script>
+
+<script src="manifest-chem.js"></script>
+<script>
+  window.LIBRARY.push({ id: "chem", entry: "chem.html", accent: "#16a34a", icon: "⚗️", book: window.BOOK });
+</script>
+
+<script src="library.js"></script>
 </body>
 </html>

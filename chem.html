@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Хімія без зубріння</title>
+<meta name="description" content="Коротка книжка, щоб зрозуміти, про що вся шкільна хімія — від атома до молекул життя. База 7–11 класів: просто, але до глибини.">
+<link rel="stylesheet" href="book.css">
+</head>
+<body>
+
+<button id="menu-btn" aria-label="Меню">☰</button>
+
+<nav id="sidebar" aria-label="Навігація книги">
+  <!-- наповнюється book.js -->
+</nav>
+<div id="scrim"></div>
+
+<main id="content">
+  <div class="state"><div class="spinner"></div>Готуємо книгу…</div>
+</main>
+
+<button id="back-top" aria-label="Догори" title="Догори">↑</button>
+
+<noscript>
+  <div style="max-width:700px;margin:3rem auto;padding:0 1.5rem;font-family:system-ui,sans-serif;line-height:1.7">
+    <h1>Потрібен JavaScript</h1>
+    <p>Ця книга збирається з Markdown-файлів у браузері, тож увімкни JavaScript.
+       Окремі розділи можна читати і як звичайні <code>.md</code> у репозиторії.</p>
+  </div>
+</noscript>
+
+<script src="manifest-chem.js"></script>
+<script src="book.js"></script>
+</body>
+</html>

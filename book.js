@@ -82,22 +82,22 @@
     var parts = href.split("/");
     var file = parts.pop();
     var folder = null;
-    for (var k = parts.length - 1; k >= 0; k--) { if (/^ch\d+-/.test(parts[k])) { folder = parts[k]; break; } }
+    for (var k = parts.length - 1; k >= 0; k--) { if (/^(?:ch|r)\d+-/.test(parts[k])) { folder = parts[k]; break; } }
     var slug = folder || ctx.currentSlug;
     var base = baseOf(file);
     var chap = findChapterBySlug(slug);
-    var secM = text && String(text).match(/§\s*(\d+)\.(\d+)/);
+    var secM = text && String(text).match(/§\s*(\d+(?:\.\d+){1,2})/);
 
     var at;
     if (slug === ctx.currentSlug) {
       if (chap && base === baseOf(chap.main)) {
-        at = secM ? "sec-" + secM[1] + "-" + secM[2] : (/^sec-/.test(frag) ? frag : "top");
+        at = secM ? "sec-" + secM[1].split(".").join("-") : (/^sec-/.test(frag) ? frag : "top");
       } else { at = "hist-" + base; }
       return { href: "#ch=" + slug + "&at=" + at, external: false };
     }
     if (!chap || chap.status !== "done") return { href: "#ch=" + slug, external: false };
     if (base !== baseOf(chap.main)) at = "hist-" + base;
-    else at = secM ? "sec-" + secM[1] + "-" + secM[2] : "";
+    else at = secM ? "sec-" + secM[1].split(".").join("-") : "";
     return { href: "#ch=" + slug + (at ? "&at=" + at : ""), external: false };
   }
 
@@ -208,12 +208,12 @@
 
   function renderHeading(t, ctx, sections) {
     if (t.level === 2) {
-      var m = t.text.match(/^(\d+)\.(\d+)\s+(.*)$/);
+      var m = t.text.match(/^(\d+(?:\.\d+){1,2})\s+(.*)$/);   // «1.1 …» (embedded) або «1.2.3 …» (М.Р.Т)
       if (m) {
-        var id = "sec-" + m[1] + "-" + m[2];
-        sections.push({ num: m[1] + "." + m[2], title: m[3], id: id });
+        var id = "sec-" + m[1].split(".").join("-");
+        sections.push({ num: m[1], title: m[2], id: id });
         return '<span id="' + id + '" class="anc"></span><h2 class="sec-h"><span class="sn">§ ' +
-          m[1] + "." + m[2] + "</span>" + renderInline(m[3], ctx) + "</h2>";
+          m[1] + "</span>" + renderInline(m[2], ctx) + "</h2>";
       }
       var hid = "h-" + slugify(t.text);
       return '<span id="' + hid + '" class="anc"></span><h2 class="hist-h">' + renderInline(t.text, ctx) + "</h2>";
@@ -246,6 +246,9 @@
     var text = t.lines.join("\n").trim();
     var kind = null, icon = null;
     if (/^🔧/.test(text)) { kind = "eng"; icon = "🔧"; }
+    else if (/^🏠/.test(text)) { kind = "eng"; icon = "🏠"; }   // «де це вдома» (книга «Хімія»)
+    else if (/^🧪/.test(text)) { kind = "eng"; icon = "🧪"; }   // «спробуй сам»
+    else if (/^💡/.test(text)) { kind = "nav"; icon = "💡"; }   // «одним реченням»
     else if (/^📜/.test(text)) { kind = "hist"; icon = "📜"; }
     else if (/^(▶️|▶)/.test(text)) { kind = "nav"; icon = "▶️"; }
 
@@ -263,7 +266,7 @@
         if (ctx.histBases.has(b)) { if (!primary) primary = b; ctx.attach.push({ base: b, after: sections.length - 1 }); }
       });
     }
-    var body = text.replace(/^(🔧|📜|▶️|▶️?)\s*/, "");
+    var body = text.replace(/^(🔧|🏠|🧪|💡|📜|▶️|▶)\s*/, "");
 
     // 📜-вставка цього розділу → клікабельний тизер, що відкриває popup (а не лінк у кінець)
     if (kind === "hist" && primary) {
@@ -369,7 +372,7 @@
   function chapterHeader(chap, introHtml) {
     var m = chap.module;
     var h = '<header class="ch-header"><div class="ch-label">Модуль ' + m.n + " · " + escapeHtml(m.title) +
-      " &nbsp;/&nbsp; Розділ " + chap.n + "</div><h1>" + escapeHtml(chap.title) + "</h1>";
+      " &nbsp;/&nbsp; Розділ " + m.n + "." + chap.n + "</div><h1>" + escapeHtml(chap.title) + "</h1>";
     if (introHtml) h += '<p class="ch-intro">' + introHtml + "</p>";
     return h + "</header>";
   }
@@ -405,11 +408,12 @@
     }
 
     var s = "";
+    if (BOOK.libraryHref) s += '<a class="sb-home" href="' + BOOK.libraryHref + '">← Бібліотека (усі книги)</a>';
     s += '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Зміст книги</span>' +
       '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>";
     s += '<a class="sb-back" href="#">← Усі модулі та розділи</a>';
     s += '<div class="sb-group-label">Модуль ' + chap.module.n + "</div>";
-    s += '<div class="sb-chap">Розділ ' + chap.n + ". " + escapeHtml(chap.title) + "</div>";
+    s += '<div class="sb-chap">Розділ ' + chap.module.n + "." + chap.n + " — " + escapeHtml(chap.title) + "</div>";
     s += '<a class="sb-link" data-target="top" href="#ch=' + slug + '&at=top">Вступ</a>';
     (attachedAfter[-1] || []).forEach(function (b) { s += subLink(b); });
     s += '<hr class="sb-divider">';
@@ -440,10 +444,10 @@
       }
       if (c.status === "done") {
         return '<a href="#ch=' + c.slug + '"><span class="pg-dir">' + label + '</span><span class="pg-ttl">' +
-          c.n + ". " + escapeHtml(c.title) + "</span></a>";
+          c.module.n + "." + c.n + " — " + escapeHtml(c.title) + "</span></a>";
       }
       return '<div style="display:block;background:#16242f;border:1px solid #28404f;border-radius:7px;padding:.55rem .75rem;opacity:.6">' +
-        '<span class="pg-dir">' + label + '</span><span class="pg-ttl">' + c.n + ". " + escapeHtml(c.title) + " · незабаром</span></div>";
+        '<span class="pg-dir">' + label + '</span><span class="pg-ttl">' + c.module.n + "." + c.n + " — " + escapeHtml(c.title) + " · незабаром</span></div>";
     }
     return '<div class="sb-pager">' + cell(prev, "prev") + cell(next, "next") + "</div>";
   }
@@ -470,11 +474,11 @@
       m.chapters.forEach(function (c) {
         if (c.status === "done") {
           var hc = (c.histories || []).length;
-          h += '<a class="ch-card done" href="#ch=' + c.slug + '"><span class="c-num">' + c.n + "</span>" +
+          h += '<a class="ch-card done" href="#ch=' + c.slug + '"><span class="c-num">' + m.n + "." + c.n + "</span>" +
             '<span class="c-body"><span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
             '<span class="c-meta">' + (hc ? hc + " історич. вставок · " : "") + "читати →</span></span></a>";
         } else {
-          h += '<div class="ch-card pending"><span class="c-num">' + c.n + "</span>" +
+          h += '<div class="ch-card pending"><span class="c-num">' + m.n + "." + c.n + "</span>" +
             '<span class="c-body"><span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
             '<span class="c-badge">незабаром</span></span></div>';
         }
@@ -488,15 +492,16 @@
   function stat(num, lbl) { return '<div class="stat"><div class="num">' + num + '</div><div class="lbl">' + lbl + "</div></div>"; }
 
   function buildCoverSidebar() {
-    var s = '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Книга</span>' +
+    var s = (BOOK.libraryHref ? '<a class="sb-home" href="' + BOOK.libraryHref + '">← Бібліотека (усі книги)</a>' : "") +
+      '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Книга</span>' +
       '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>";
     BOOK.modules.forEach(function (m) {
       s += '<div class="sb-group-label">Модуль ' + m.n + " · " + escapeHtml(m.title) + "</div>";
       m.chapters.forEach(function (c) {
         if (c.status === "done") {
-          s += '<a class="sb-link" href="#ch=' + c.slug + '">' + c.n + ". " + escapeHtml(c.title) + "</a>";
+          s += '<a class="sb-link" href="#ch=' + c.slug + '">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</a>";
         } else {
-          s += '<span class="sb-link" style="opacity:.45;cursor:default">' + c.n + ". " + escapeHtml(c.title) + "</span>";
+          s += '<span class="sb-link" style="opacity:.45;cursor:default">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</span>";
         }
       });
     });
@@ -504,7 +509,7 @@
   }
 
   function renderComingSoon(chap) {
-    setContent('<div class="state"><h2>Розділ ' + chap.n + ". " + escapeHtml(chap.title) + "</h2>" +
+    setContent('<div class="state"><h2>Розділ ' + chap.module.n + "." + chap.n + " — " + escapeHtml(chap.title) + "</h2>" +
       "<p>Цей розділ ще пишеться. Заходь трохи згодом 🙂</p><p><a href=\"#\">← До змісту книги</a></p></div>");
     buildCoverSidebar();
   }
