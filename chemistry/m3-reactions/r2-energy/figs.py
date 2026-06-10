@@ -113,7 +113,75 @@ def fig_activation_barrier():
     (IMG / "fig-3-2-1-2-activation-barrier.svg").write_text(s, encoding="utf-8")
 
 
+def fig_fire_triangle():
+    s = svg_open(960, 430)
+    s += text(480, 34, "вогню потрібні всі три кути — прибери будь-який, і він гасне", size=15.5, weight="bold")
+
+    # ── трикутник вогню зліва ──
+    ax, ay = 230, 90        # вершина
+    bx, by = 110, 290       # лівий низ
+    cx, cy = 350, 290       # правий низ
+    s += path("M %d %d L %d %d L %d %d Z" % (ax, ay, bx, by, cx, cy), stroke="#b3541e", w=3, fill="#fdeee0")
+    s += text(ax, ay - 14, "ПАЛЬНЕ", size=14, weight="bold", fill="#a8521a")
+    s += text(ax, ay - 1 + 4, "🔥", size=15)
+    s += text(bx - 8, by + 24, "КИСЕНЬ", size=14, weight="bold", anchor="middle", fill="#1f6f9e")
+    s += text(cx + 6, cy + 24, "ТЕПЛО", size=14, weight="bold", anchor="middle", fill="#c23b2a")
+    s += text(230, 215, "вогонь", size=16, weight="bold", fill="#b3541e")
+    s += text(230, 238, "горить", size=16, weight="bold", fill="#b3541e")
+
+    # ── три способи гасіння справа ──
+    items = (
+        (430, "Прибрати ПАЛЬНЕ", "перекрити газ на плиті, прибрати сухе вбік", "#a8521a"),
+        (430 + 0, None, None, None),
+    )
+    rows = (
+        ("прибрати ПАЛЬНЕ", "перекрити газ, відсунути сухе", "#a8521a", 95),
+        ("прибрати КИСЕНЬ", "накрити кришкою, ковдрою, піною", "#1f6f9e", 195),
+        ("прибрати ТЕПЛО", "залити водою — вона забирає жар", "#c23b2a", 295),
+    )
+    for (title, how, color, yy) in rows:
+        s += '<rect x="470" y="%d" width="430" height="78" rx="10" fill="#f9fbfd" stroke="#cdd8e0"/>\n' % yy
+        s += text(490, yy + 32, "✕ " + title, size=15, anchor="start", weight="bold", fill=color)
+        s += text(490, yy + 58, how, size=13, anchor="start", fill="#555")
+
+    s += "</svg>\n"
+    (IMG / "fig-3-2-2-1-fire-triangle.svg").write_text(s, encoding="utf-8")
+
+
+def fig_oil_water():
+    s = svg_open(960, 380)
+    s += text(480, 34, "чому палаючу олію НЕ можна гасити водою", size=16, weight="bold")
+
+    # ── ліворуч: вода тоне під олію і миттєво кипить ──
+    s += text(255, 76, "вода важча за олію — тоне на дно", size=13.5, fill="#444")
+    # сковорода
+    s += '<path d="M 90 250 L 420 250 L 405 300 L 105 300 Z" fill="#5a5a5a" stroke="#3a3a3a" stroke-width="2"/>\n'
+    s += '<rect x="120" y="200" width="280" height="52" fill="#e0b54a" opacity="0.85"/>\n'  # олія
+    s += text(255, 230, "палаюча олія", size=13, fill="#7a5a10")
+    # крапля води падає
+    s += '<ellipse cx="255" cy="150" rx="13" ry="17" fill="#7fbfe0" stroke="#4a90c0"/>\n'
+    s += arrow(255, 172, 255, 205, color="#4a90c0", w=2)
+    # бульбашка пари на дні
+    s += '<circle cx="255" cy="240" r="10" fill="#cfe8f5" stroke="#7fbfe0"/>\n'
+    s += text(255, 335, "крапля тоне, миттєво скипає в пару —", size=12.5, fill="#c23b2a")
+    s += text(255, 353, "пара× 1700 обсягу викидає палаючу олію вгору", size=12.5, fill="#c23b2a")
+
+    # ── праворуч: вибух полум'я ──
+    s += text(710, 76, "виходить вогняний стовп, а не гасіння", size=13.5, fill="#444")
+    s += '<path d="M 590 250 L 830 250 L 818 300 L 602 300 Z" fill="#5a5a5a" stroke="#3a3a3a" stroke-width="2"/>\n'
+    # бризки олії з полум'ям угору
+    for (bx, h) in ((650, 170), (690, 120), (720, 90), (755, 130), (790, 175)):
+        s += '<path d="M %d 240 q -10 -%d 0 -%d q 10 %d 0 %d" fill="#e8852a" stroke="#c23b2a" stroke-width="1.5"/>\n' % (bx, h // 2, h, h // 2, h)
+    s += text(710, 335, "✓ правильно: накрити кришкою (прибрати кисень)", size=12.5, fill="#2f9e54")
+    s += text(710, 353, "або згасити вогонь спеціальним засобом", size=12.5, fill="#2f9e54")
+
+    s += "</svg>\n"
+    (IMG / "fig-3-2-2-2-oil-water.svg").write_text(s, encoding="utf-8")
+
+
 if __name__ == "__main__":
     fig_bond_budget()
     fig_activation_barrier()
+    fig_fire_triangle()
+    fig_oil_water()
     print("OK:", *(p.name for p in sorted(IMG.glob("*.svg"))))
