@@ -104,7 +104,10 @@ window.BOOK = {
             "ch06-s7-history-crt.md"
           ]
         },
-        { n: 7, status: "pending", title: "Змінний струм: синусоїда, фаза й RMS" }
+        { n: 7, status: "pending", title: "Змінний струм: синусоїда, фаза й RMS" },
+        { n: 8, status: "pending", title: "Магнетизм і електромагніти" },
+        { n: 9, status: "pending", title: "Шум і завади: фізичні джерела" },
+        { n: 10, status: "pending", title: "Електростатика на практиці: іскри, блискавка й ESD" }
       ]
     },
     {
@@ -134,7 +137,10 @@ window.BOOK = {
         { n: 8, status: "done", title: "Операційний підсилювач і компаратор",
           dir: "block-2-components-analog/ch13-opamp-comparator", main: "ch13-opamp-comparator.md",
           histories: ["ch13-history-opamp.md"] },
-        { n: 9, status: "pending", title: "Як читати даташит" }
+        { n: 9, status: "pending", title: "Як читати даташит" },
+        { n: 10, status: "pending", title: "Резонатори й опорні частоти" },
+        { n: 11, status: "pending", title: "Силова комутація змінного струму" },
+        { n: 12, status: "pending", title: "Легендарні аналогові ІМС" }
       ]
     },
     {
@@ -159,7 +165,11 @@ window.BOOK = {
           histories: ["ch18-history-von-neumann.md", "ch18-s1-history-babbage-lovelace.md"] },
         { n: 6, status: "done", title: "Пам'ять, адресація, стек і купа",
           dir: "block-3-digital-processor/ch19-memory-stack-heap", main: "ch19-memory-stack-heap.md",
-          histories: ["ch19-history-core-memory.md"] }
+          histories: ["ch19-history-core-memory.md"] },
+        { n: 7, status: "pending", title: "Програмована логіка: ПЛІС/FPGA" },
+        { n: 8, status: "pending", title: "Зовнішня пам'ять" },
+        { n: 9, status: "pending", title: "Коди виявлення й корекції помилок" },
+        { n: 10, status: "pending", title: "Як народжується чіп: від піску до корпуса" }
       ]
     },
     {
@@ -192,7 +202,10 @@ window.BOOK = {
         { n: 9, status: "pending", title: "DMA: дані без участі ядра" },
         { n: 10, status: "done", title: "Модель виконання й RTOS",
           dir: "block-4-mcu-esp32/ch27-execution-rtos", main: "ch27-execution-rtos.md",
-          histories: ["ch27-history-time-sharing.md"] }
+          histories: ["ch27-history-time-sharing.md"] },
+        { n: 11, status: "pending", title: "Пейзаж мікроконтролерів" },
+        { n: 12, status: "pending", title: "USB на мікроконтролері" },
+        { n: 13, status: "pending", title: "Енергоощадність глибоко" }
       ]
     },
     {
@@ -221,7 +234,10 @@ window.BOOK = {
           histories: ["ch33-history-mems-airbag.md"] },
         { n: 8, status: "done", title: "Орієнтація й керування зі зворотним зв'язком (ПІД)",
           dir: "block-5-sensors-control/ch34-orientation-pid", main: "ch34-orientation-pid.md",
-          histories: ["ch34-history-governor-pid.md", "ch34-s4-history-kalman.md"] }
+          histories: ["ch34-history-governor-pid.md", "ch34-s4-history-kalman.md"] },
+        { n: 9, status: "pending", title: "Виконавчі механізми: мотори й рух" },
+        { n: 10, status: "pending", title: "Давачі середовища глибше" },
+        { n: 11, status: "pending", title: "Час і синхронізація вимірювань" }
       ]
     },
     {
@@ -253,7 +269,10 @@ window.BOOK = {
           histories: ["ch41-history-marconi.md"] },
         { n: 9, status: "done", title: "Радіозв'язок системи: керування, телеметрія, MAVLink",
           dir: "block-6-comms-radio/ch42-telemetry-mavlink", main: "ch42-telemetry-mavlink.md",
-          histories: ["ch42-history-mavlink.md"] }
+          histories: ["ch42-history-mavlink.md"] },
+        { n: 10, status: "pending", title: "Мережі: Ethernet, IP і як пакет знаходить дорогу" },
+        { n: 11, status: "pending", title: "MAVLink у роботі: словник даних і керування" },
+        { n: 12, status: "pending", title: "Приєднання модулів: розпіновки, рівні, конектори, надійність" }
       ]
     },
     {
@@ -287,7 +306,112 @@ window.BOOK = {
         { n: 10, status: "done", title: "Машинне навчання й нейромережі на пристрої",
           dir: "block-7-systems/ch50-machine-learning", main: "ch50-machine-learning.md",
           histories: ["ch50-history-ai-winters.md", "ch50-s5-history-lecun-cnn.md"] },
-        { n: 11, status: "pending", title: "Бортовий комп'ютер: «політ» + «розум» разом" }
+        { n: 11, status: "pending", title: "Бортовий комп'ютер: «політ» + «розум» разом" },
+        { n: 12, status: "pending", title: "Інші автономні платформи: ровер, човен, літак" },
+        { n: 13, status: "pending", title: "Наземна станція й оператор" }
+      ]
+    },
+    {
+      n: 8,
+      title: "Схемотехніка власних плат",
+      slug: "block-8-circuit-design",
+      chapters: [
+        { n: 1, status: "pending", title: "Від ідеї до структурної схеми" },
+        { n: 2, status: "pending", title: "Вибір компонентів і розрахунок обв'язки" },
+        { n: 3, status: "pending", title: "Вузол живлення на схемі" },
+        { n: 4, status: "pending", title: "Скидання, тактування, прошивання: обв'язка мікроконтролера" },
+        { n: 5, status: "pending", title: "Інтерфейси назовні й захист виводів" },
+        { n: 6, status: "pending", title: "SPICE: схема в симуляторі" },
+        { n: 7, status: "pending", title: "САПР: бібліотеки, символи, нетліст" },
+        { n: 8, status: "pending", title: "Рев'ю схеми і підготовка до розведення" }
+      ]
+    },
+    {
+      n: 9,
+      title: "Плати фізично: розведення, виготовлення, монтаж",
+      slug: "block-9-pcb-layout-assembly",
+      chapters: [
+        { n: 1, status: "pending", title: "Плата зсередини: шари, стек, матеріали" },
+        { n: 2, status: "pending", title: "Трасування сигналів" },
+        { n: 3, status: "pending", title: "Земля, полігони і EMI плати" },
+        { n: 4, status: "pending", title: "DFM і DFT: спроєктовано для фабрики" },
+        { n: 5, status: "pending", title: "Замовлення: файли, фабрика, компоненти" },
+        { n: 6, status: "pending", title: "Паяння і монтаж" },
+        { n: 7, status: "pending", title: "Бріг-ап нової плати" },
+        { n: 8, status: "pending", title: "Ревізії і життя плати" }
+      ]
+    },
+    {
+      n: 10,
+      title: "Живлення і енергія",
+      slug: "block-10-power-energy",
+      chapters: [
+        { n: 1, status: "pending", title: "Топології перетворювачів" },
+        { n: 2, status: "pending", title: "Спроєктувати і виміряти перетворювач" },
+        { n: 3, status: "pending", title: "USB-живлення і розумна зарядка" },
+        { n: 4, status: "pending", title: "Батареї і заряд" },
+        { n: 5, status: "pending", title: "Сонячна енергія і MPPT" },
+        { n: 6, status: "pending", title: "Енергоощадна архітектура" },
+        { n: 7, status: "pending", title: "Захисти живлення" }
+      ]
+    },
+    {
+      n: 11,
+      title: "Автономія і робототехніка",
+      slug: "block-11-autonomy-robotics",
+      chapters: [
+        { n: 1, status: "pending", title: "Бортовий Linux і одноплатники" },
+        { n: 2, status: "pending", title: "ROS2: нервова система робота" },
+        { n: 3, status: "pending", title: "Сприйняття: лідар, камера, карта" },
+        { n: 4, status: "pending", title: "Локалізація і ймовірність" },
+        { n: 5, status: "pending", title: "Планування шляху" },
+        { n: 6, status: "pending", title: "Локальне керування і обхід перешкод" },
+        { n: 7, status: "pending", title: "Платформи: ровер, маніпулятор, коптер" },
+        { n: 8, status: "pending", title: "Симуляція робота" }
+      ]
+    },
+    {
+      n: 12,
+      title: "Глибокий ШІ на краю",
+      slug: "block-12-edge-ai",
+      chapters: [
+        { n: 1, status: "pending", title: "Навчання по-справжньому: бекпроп і оптимізатори" },
+        { n: 2, status: "pending", title: "Від CNN до трансформерів" },
+        { n: 3, status: "pending", title: "Дані і розмітка" },
+        { n: 4, status: "pending", title: "Стиснення моделей: квантування, прунінг, дистиляція" },
+        { n: 5, status: "pending", title: "NPU і акселератори" },
+        { n: 6, status: "pending", title: "MLOps парку пристроїв" },
+        { n: 7, status: "pending", title: "Надійність ML на краю" }
+      ]
+    },
+    {
+      n: 13,
+      title: "UI та HMI на залізі",
+      slug: "block-13-ui-hmi",
+      chapters: [
+        { n: 1, status: "pending", title: "Дисплеї і дотик як компоненти" },
+        { n: 2, status: "pending", title: "Графічний конвеєр" },
+        { n: 3, status: "pending", title: "Архітектура UI-застосунку" },
+        { n: 4, status: "pending", title: "Qt: від десктопа до MCU" },
+        { n: 5, status: "pending", title: "LVGL і TouchGFX" },
+        { n: 6, status: "pending", title: "Slint, Embedded Wizard і вибір фреймворку" },
+        { n: 7, status: "pending", title: "Практичні патерни UI на залізі" }
+      ]
+    },
+    {
+      n: 14,
+      title: "Продукт: від прототипа до серії",
+      slug: "block-14-product",
+      chapters: [
+        { n: 1, status: "pending", title: "Вимоги і архітектура виробу" },
+        { n: 2, status: "pending", title: "DFM і вартість BOM" },
+        { n: 3, status: "pending", title: "EMC і сертифікація" },
+        { n: 4, status: "pending", title: "Тестування: від юнітів до HIL і фабрики" },
+        { n: 5, status: "pending", title: "Надійність і аналіз відмов" },
+        { n: 6, status: "pending", title: "OTA-флот і версіонування" },
+        { n: 7, status: "pending", title: "Безпека продукту" },
+        { n: 8, status: "pending", title: "Документація, постачання, підтримка" },
+        { n: 9, status: "pending", title: "Пристрій в екосистемі: стільниковий IoT, Matter і хмара" }
       ]
     }
   ]

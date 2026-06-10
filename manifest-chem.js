@@ -48,9 +48,9 @@ window.BOOK = {
       chapters: [
         { n: "3.1", status: "done", title: "Що таке реакція насправді",
           dir: "m3-reactions/r1-essence", main: "r1-essence.md", histories: [] },
-        { n: "3.2", status: "pending", title: "Енергія: чому горить і гріє",
+        { n: "3.2", status: "done", title: "Енергія: чому горить і гріє",
           dir: "m3-reactions/r2-energy", main: "r2-energy.md", histories: [] },
-        { n: "3.3", status: "pending", title: "Швидкість і рівновага",
+        { n: "3.3", status: "done", title: "Швидкість і рівновага",
           dir: "m3-reactions/r3-rate-equilibrium", main: "r3-rate-equilibrium.md", histories: [] }
       ]
     },
@@ -70,11 +70,11 @@ window.BOOK = {
     {
       n: 5, title: "Органіка: хімія життя", slug: "m5-organic",
       chapters: [
-        { n: "5.1", status: "pending", title: "Карбон і його ланцюги",
+        { n: "5.1", status: "done", title: "Карбон і його ланцюги",
           dir: "m5-organic/r1-carbon", main: "r1-carbon.md", histories: [] },
-        { n: "5.2", status: "pending", title: "Кисень приєднується: спирти, кислоти, жири",
+        { n: "5.2", status: "done", title: "Кисень приєднується: спирти, кислоти, жири",
           dir: "m5-organic/r2-oxygen-compounds", main: "r2-oxygen-compounds.md", histories: [] },
-        { n: "5.3", status: "pending", title: "Молекули життя",
+        { n: "5.3", status: "done", title: "Молекули життя",
           dir: "m5-organic/r3-life-molecules", main: "r3-life-molecules.md", histories: [] }
       ]
     }
