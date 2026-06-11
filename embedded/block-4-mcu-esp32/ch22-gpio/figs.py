@@ -1819,6 +1819,538 @@ def fig86_recap_pin_model():
     save("fig-22-8-6-recap-pin-model.svg", s)
 
 
+# ── 🔌 вставка до 4.4.5 — тактова кнопка ─────────────────────────────────────
+def _tint5c(col):
+    return {RED: LRED, GREEN: LGRN, BLUE: LBLUE, GOLD: LAMB}.get(col, "#eef0f5")
+
+
+def fig5c1_inside():
+    W, H = 880, 340
+    s = header(W, H)
+    s += text(W / 2, 32, "Тактова кнопка зсередини: 4 ніжки — це 2 пари", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "ніжки по один бік уже з'єднані всередині; кнопка замикає одну пару з іншою",
+              10.3, GREY, "middle", style="italic")
+    # body of button
+    bx, by, bw, bh = 300, 100, 280, 150
+    s += rect(bx, by, bw, bh, "#fbfbff", INK, 2, 12)
+    s += text(bx + bw / 2, by + 26, "корпус кнопки", 10.5, GREY, "middle", "bold")
+    # dome
+    s += ('<path d="M{a},{b} Q {c},{d} {e},{b}" fill="none" stroke="{col}" stroke-width="2.4"/>\n'
+          ).format(a=bx + 90, b=by + 110, c=bx + bw / 2, d=by + 70, e=bx + bw - 90, col=RED)
+    s += text(bx + bw / 2, by + 100, "пружна мембрана (купол)", 9.3, RED, "middle")
+    # 4 pins, two pairs
+    pins = [(bx, by + 30, "1"), (bx, by + bh - 30, "2"),
+            (bx + bw, by + 30, "3"), (bx + bw, by + bh - 30, "4")]
+    for px, py, n in pins:
+        side = -1 if px == bx else 1
+        s += line(px, py, px + side * 40, py, METAL, 3)
+        s += circle(px + side * 40, py, 4, METAL, METAL, 1)
+        s += text(px + side * 52, py + 4, n, 11, INK, "middle", "bold")
+    # internal pairing (1-2 connected, 3-4 connected)
+    s += line(bx, by + 30, bx, by + bh - 30, GREEN, 2.4)
+    s += line(bx + bw, by + 30, bx + bw, by + bh - 30, GREEN, 2.4)
+    s += text(bx - 4, by + bh / 2 + 4, "1–2 з'єднані", 8.6, GREEN, "end")
+    s += text(bx + bw + 4, by + bh / 2 + 4, "3–4 з'єднані", 8.6, GREEN, "start")
+    s += text(bx + bw / 2, by + bh + 30, "натиск → купол замикає ліву пару (1,2) з правою (3,4)",
+              10, INK, "middle", "bold")
+    s += rect(150, 296, 580, 34, "#fbfbfb", GREY, 1.4, 8)
+    s += text(440, 318, "Тиснемо — пари зчіпаються; відпускаємо — розходяться. Між дотиками контакт «дзвенить».",
+              9.3, INK, "middle")
+    save("fig-22-5c-1-inside.svg", s)
+
+
+def fig5c2_wiring():
+    W, H = 880, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Підключення кнопки: ніжка з підтяжкою, інший бік — на землю", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "натиснута кнопка тягне ніжку в LOW; підтяжка тримає HIGH, поки не натиснуто",
+              10, GREY, "middle", style="italic")
+    # 3V3 rail
+    s += line(120, 96, 760, 96, RED, 2)
+    s += text(110, 100, "3.3 В", 10, RED, "end", "bold")
+    # pull-up resistor
+    s += rect(300, 110, 26, 50, "#fff", INK, 1.6, 3)
+    s += text(348, 138, "10 кОм", 9, GREY, "start")
+    s += line(313, 96, 313, 110, INK, 1.6)
+    # node to GPIO
+    s += line(313, 160, 313, 200, INK, 1.6)
+    s += line(313, 180, 470, 180, INK, 1.6)
+    s += rect(470, 158, 150, 44, LBLUE, BLUE, 1.8, 8)
+    s += text(545, 185, "GPIO (вхід)", 11, BLUE, "middle", "bold")
+    # button to GND
+    s += rect(286, 200, 54, 34, "#fbfbff", INK, 1.8, 5)
+    s += text(313, 222, "S", 11, INK, "middle", "bold")
+    s += line(313, 234, 313, 262, INK, 1.6)
+    s += line(250, 262, 376, 262, INK, 2)
+    s += text(313, 280, "GND", 10, INK, "middle", "bold")
+    s += text(150, 250, "не натиснуто → HIGH", 10, GREEN, "start", "bold")
+    s += text(600, 250, "натиснуто → LOW", 10, RED, "start", "bold")
+    save("fig-22-5c-2-wiring.svg", s)
+
+
+# ── 🔌 вставка до 4.4.8 — розширювачі GPIO ───────────────────────────────────
+def fig8c1_concept():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Розширювач портів: віддав 2 ніжки — дістав 8", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "дві лінії I²C керують чипом, що дає цілий банк нових GPIO",
+              11, GREY, "middle", style="italic")
+    # MCU
+    s += rect(70, 110, 150, 110, LBLUE, BLUE, 2, 10)
+    s += text(145, 150, "ESP32", 13, BLUE, "middle", "bold")
+    s += text(145, 176, "SDA · SCL", 10, INK, "middle", "bold")
+    s += text(145, 196, "(лише 2 ніжки)", 8.6, GREY, "middle")
+    # bus
+    s += arrow(220, 165, 330, 165, INK, 2.4)
+    s += text(275, 153, "I²C", 10, INK, "middle", "bold")
+    # expander
+    s += rect(330, 100, 200, 130, LAMB, GOLD, 2, 12)
+    s += text(430, 128, "розширювач", 12.5, "#8a6d1a", "middle", "bold")
+    s += text(430, 148, "PCF8574-клас", 9.5, GREY, "middle")
+    # 8 output pins
+    for i in range(8):
+        y = 108 + i * 15
+        s += line(530, y, 560, y, METAL, 2)
+    s += text(600, 150, "8 нових", 12, GREEN, "middle", "bold")
+    s += text(600, 170, "GPIO (P0…P7)", 11, GREEN, "middle", "bold")
+    s += rect(150, 262, 600, 52, "#fbfbfb", GREY, 1.4, 10)
+    s += text(450, 284, "А ніжки A0–A2 дають кожному чипу свою адресу:", 10.5, INK, "middle", "bold")
+    s += text(450, 304, "2 ніжки ESP32 → до 8 чипів на шині → до 64 нових GPIO.", 10, GREY, "middle")
+    save("fig-22-8c-1-concept.svg", s)
+
+
+def fig8c2_wiring():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Підключення розширювача по I²C", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "дві спільні лінії з підтяжками; адресні ніжки на землю; INT економить опитування",
+              10, GREY, "middle", style="italic")
+    s += rect(70, 110, 140, 120, LBLUE, BLUE, 2, 10)
+    s += text(140, 150, "ESP32", 12.5, BLUE, "middle", "bold")
+    s += rect(560, 96, 160, 150, LAMB, GOLD, 2, 12)
+    s += text(640, 122, "розширювач", 11.5, "#8a6d1a", "middle", "bold")
+    # 3V3 rail + pullups
+    s += line(250, 92, 520, 92, RED, 2)
+    s += text(250, 86, "3.3 В", 9, RED, "middle", "bold")
+    # SDA / SCL with pullups
+    for i, (lab, yy) in enumerate([("SDA", 150), ("SCL", 174)]):
+        s += line(210, yy, 560, yy, BLUE, 1.8)
+        s += text(385, yy - 5, lab, 9, BLUE, "middle", "bold")
+        rx = 320 + i * 40
+        s += rect(rx, 100, 16, 30, "#fff", INK, 1.4, 3)
+        s += line(rx + 8, 92, rx + 8, 100, INK, 1.4)
+        s += line(rx + 8, 130, rx + 8, yy, INK, 1.4)
+    s += text(360, 120, "підтяжки", 8, GREY, "middle")
+    # power + address
+    s += line(210, 200, 560, 200, GREEN, 1.6)
+    s += text(385, 195, "VCC · GND", 8.6, GREEN, "middle")
+    s += text(640, 200, "A0–A2 → GND", 8.6, GREY, "middle")
+    s += text(640, 218, "(задає адресу)", 8, GREY, "middle")
+    # expander out: LED + button
+    s += line(720, 130, 760, 130, METAL, 2)
+    s += circle(772, 130, 9, LGRN, GREEN, 1.6)
+    s += text(792, 134, "світлодіод", 8.6, GREEN, "start")
+    s += line(720, 170, 760, 170, METAL, 2)
+    s += rect(760, 162, 22, 16, "#fff", INK, 1.4, 3)
+    s += text(792, 174, "кнопка", 8.6, INK, "start")
+    # INT
+    s += arrow(560, 224, 210, 224, RED, 1.8)
+    s += text(385, 238, "INT → ESP32 (необов'язково): «щось змінилось»", 8.6, RED, "middle", "bold")
+    s += rect(150, 286, 600, 34, "#fbfbfb", GREY, 1.4, 8)
+    s += text(450, 308, "Шина I²C спільна; INT дозволяє не опитувати, а чекати сигналу про зміну.", 9.3, INK, "middle")
+    save("fig-22-8c-2-wiring.svg", s)
+
+
+# ── ⚙️ вставка до 4.4.5 — антидребезг у коді ─────────────────────────────────
+def fig5a1_three():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Антидребезг у коді: три підходи", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "усі ловлять одну ідею — «вважати пачку дрижань за одну подію» — по-різному",
+              10.3, GREY, "middle", style="italic")
+    cols = [(BLUE, "Лічильник", "рахуй N однакових", "відліків поспіль;", "набралось — приймай", "тримає: лічильник"),
+            (GREEN, "Мітка часу", "запам'ятай час зміни;", "ігноруй зміни,", "поки не минув час T", "тримає: час зміни"),
+            (GOLD, "Автомат", "стани: стабільний →", "під підозрою →", "знову стабільний", "тримає: стан + час")]
+    x = 60
+    for col, title, a, b, c, foot in cols:
+        fill = {BLUE: LBLUE, GREEN: LGRN, GOLD: LAMB}[col]
+        s += rect(x, 86, 260, 160, fill, col, 2, 12)
+        s += text(x + 130, 114, title, 13.5, col, "middle", "bold")
+        for i, ln in enumerate([a, b, c]):
+            s += text(x + 130, 142 + i * 22, ln, 10, INK, "middle")
+        s += text(x + 130, 226, foot, 9, GREY, "middle", "bold")
+        x += 280
+    s += text(W / 2, 286, "Лічильник — найпростіший; мітка часу — не блокує цикл; автомат — найнадійніший.",
+              11, INK, "middle", "bold")
+    save("fig-22-5a-1-three.svg", s)
+
+
+def fig5a2_fsm():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Скінченний автомат антидребезгу", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "не вірити першій зміні: дочекатись, поки рівень устоїться, і лише тоді визнати подію",
+              10, GREY, "middle", style="italic")
+    # three states
+    s += circle(170, 160, 56, LGRN, GREEN, 2.2)
+    s += text(170, 156, "СТАБІЛЬНИЙ", 11, GREEN, "middle", "bold")
+    s += text(170, 174, "(рівень тримається)", 8, GREY, "middle")
+    s += circle(450, 160, 56, LAMB, GOLD, 2.2)
+    s += text(450, 156, "ПІД ПІДОЗРОЮ", 10.5, "#8a6d1a", "middle", "bold")
+    s += text(450, 174, "(чекаємо час T)", 8, GREY, "middle")
+    s += circle(730, 160, 56, LGRN, GREEN, 2.2)
+    s += text(730, 152, "СТАБІЛЬНИЙ′", 11, GREEN, "middle", "bold")
+    s += text(730, 170, "подія!", 9, RED, "middle", "bold")
+    s += arrow(226, 150, 394, 150, INK, 2)
+    s += text(310, 138, "зміна помічена", 9, INK, "middle")
+    s += arrow(506, 150, 674, 150, GREEN, 2)
+    s += text(590, 138, "T минув, рівень той самий", 8.6, GREEN, "middle")
+    # bounce-back
+    s += ('<path d="M{a},{b} Q {c},{d} {e},{f}" fill="none" stroke="{col}" stroke-width="1.8" '
+          'stroke-dasharray="5 4" marker-end="url(#aRed)"/>\n').format(
+        a=430, b=216, c=300, d=270, e=200, f=216, col=RED)
+    s += text(310, 262, "рівень повернувся — хибна тривога, назад", 9, RED, "middle")
+    s += text(W / 2, 294, "Дрижання застрягає у стані «під підозрою» й не доходить до події — саме цього ми й хотіли.",
+              9.6, INK, "middle", "bold")
+    save("fig-22-5a-2-fsm.svg", s)
+
+
+# ── ⚙️ вставка до 4.4.7 — біт-бенгінг ────────────────────────────────────────
+def fig7a1_idea():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Біт-бенгінг: ти сам стаєш протоколом", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "нема апаратного блока — вручну смикаєш ніжки в потрібному порядку й ритмі",
+              10.3, GREY, "middle", style="italic")
+    # DATA waveform for bits 1,0,1
+    bits = [1, 0, 1]
+    x0, w = 180, 160
+    yD, yC, hi = 110, 200, 34
+    s += text(140, yD + 5, "DATA", 11, BLUE, "end", "bold")
+    s += text(140, yC + 5, "CLK", 11, GREEN, "end", "bold")
+    for i, b in enumerate(bits):
+        x = x0 + i * w
+        # DATA level
+        dy = yD - hi if b else yD
+        s += line(x, dy, x + w, dy, BLUE, 2.4)
+        if i < 2:
+            ny = yD - hi if bits[i + 1] else yD
+            s += line(x + w, dy, x + w, ny, BLUE, 1.6)
+        s += text(x + w / 2, yD + 24, str(b), 11, BLUE, "middle", "bold")
+        # CLK pulse: low, up at mid, down
+        s += line(x, yC, x + w * 0.3, yC, GREEN, 2.2)
+        s += line(x + w * 0.3, yC, x + w * 0.3, yC - hi, GREEN, 2.2)
+        s += line(x + w * 0.3, yC - hi, x + w * 0.7, yC - hi, GREEN, 2.2)
+        s += line(x + w * 0.7, yC - hi, x + w * 0.7, yC, GREEN, 2.2)
+        s += line(x + w * 0.7, yC, x + w, yC, GREEN, 2.2)
+    s += rect(150, 244, 600, 44, "#fbfbfb", GREY, 1.4, 8)
+    s += text(450, 264, "На кожен біт: 1) постав біт на DATA → 2) CLK ↑ → 3) CLK ↓.", 10.5, INK, "middle", "bold")
+    s += text(450, 282, "Протокол — це лише точна послідовність станів ніжок у часі; відтвори її — і він готовий.", 9.3, GREY, "middle")
+    save("fig-22-7a-1-idea.svg", s)
+
+
+def fig7a2_cost():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Чесна ціна тактів", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "кожне смикання ніжки коштує процесорного часу — і поки бенгаємо, ядро зайняте",
+              10.3, GREY, "middle", style="italic")
+    # speed comparison
+    s += rect(60, 86, 380, 100, LRED, RED, 1.8, 10)
+    s += text(250, 112, "digitalWrite()", 12, RED, "middle", "bold")
+    s += text(250, 136, "~2 мкс на перемикання (пошук + виклик)", 9.6, INK, "middle")
+    s += text(250, 158, "→ шина ледача", 10.5, RED, "middle", "bold")
+    s += rect(460, 86, 380, 100, LGRN, GREEN, 1.8, 10)
+    s += text(650, 112, "прямо в регістр (W1TS/W1TC)", 11.5, GREEN, "middle", "bold")
+    s += text(650, 136, "наносекунди на перемикання (§4.4.7)", 9.6, INK, "middle")
+    s += text(650, 158, "→ шина в рази швидша", 10.5, GREEN, "middle", "bold")
+    # cpu busy comparison
+    s += rect(60, 200, 380, 96, LAMB, GOLD, 1.8, 10)
+    s += text(250, 226, "Біт-бенгінг", 12, "#8a6d1a", "middle", "bold")
+    s += text(250, 250, "ядро зайняте весь час передачі —", 9.6, INK, "middle")
+    s += text(250, 270, "більше нічого не встигає", 9.6, GREY, "middle")
+    s += rect(460, 200, 380, 96, LBLUE, BLUE, 1.8, 10)
+    s += text(650, 226, "Апаратний блок (SPI/I²C)", 11.5, BLUE, "middle", "bold")
+    s += text(650, 250, "крутиться у фоні сам —", 9.6, INK, "middle")
+    s += text(650, 270, "ядро вільне для іншого", 9.6, GREY, "middle")
+    s += text(W / 2, 312, "Біт-бенгінг — запасний вихід, коли блока нема; є блок — бери блок.", 10.5, INK, "middle", "bold")
+    save("fig-22-7a-2-cost.svg", s)
+
+
+# ── ⚙️ вставка до 4.4.8 — матриця кнопок 4×4 ─────────────────────────────────
+def fig8a1_grid():
+    W, H = 900, 360
+    s = header(W, H)
+    s += text(W / 2, 32, "Матриця кнопок: 16 клавіш — 8 ніжок", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "сканування: подаємо сигнал у рядок, читаємо стовпці; натиснута клавіша з'єднує їх",
+              10, GREY, "middle", style="italic")
+    cols_x = [330, 420, 510, 600]
+    rows_y = [120, 165, 210, 255]
+    driven = 1   # R1 active
+    pressed = (1, 2)
+    # column lines
+    for j, cx in enumerate(cols_x):
+        col = GREEN if j == pressed[1] else GREY
+        s += line(cx, 100, cx, 275, col, 2.2 if j == pressed[1] else 1.4)
+        s += text(cx, 90, "C" + str(j), 10, col, "middle", "bold")
+    # row lines
+    for i, ry in enumerate(rows_y):
+        col = GREEN if i == driven else GREY
+        s += line(310, ry, 620, ry, col, 2.4 if i == driven else 1.4)
+        s += text(290, ry + 4, "R" + str(i), 10, col, "end", "bold")
+        for j, cx in enumerate(cols_x):
+            on = (i, j) == pressed
+            s += circle(cx, ry, 6, (LGRN if on else "#fff"), (GREEN if on else GREY), 1.6)
+    s += text(150, 130, "R1 активний →", 9.5, GREEN, "start", "bold")
+    s += text(660, 165, "натиск (R1,C2)", 9.5, GREEN, "start", "bold")
+    s += text(660, 120, "C2 озвався", 9, GREEN, "start")
+    s += rect(150, 296, 600, 52, "#fbfbfb", GREY, 1.4, 10)
+    s += text(450, 318, "R рядків + C стовпців = R+C ніжок дають R×C клавіш.", 11, INK, "middle", "bold")
+    s += text(450, 338, "4 + 4 = 8 ніжок → 16 клавіш (а не 16 ніжок по одній на клавішу).", 9.6, GREY, "middle")
+    save("fig-22-8a-1-grid.svg", s)
+
+
+def fig8a2_ghost():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Привид (ghosting) і ліки — діод у кожній клавіші", 18, INK, "middle", "bold")
+
+    def cell(ox, oy, with_diode, title, col):
+        o = text(ox + 90, oy - 12, title, 12, col, "middle", "bold")
+        xs = [ox + 40, ox + 140]
+        ys = [oy + 30, oy + 110]
+        for cx in xs:
+            o2 = line(cx, oy + 10, cx, oy + 130, GREY, 1.4)
+            o += o2
+        for ry in ys:
+            o += line(ox + 20, ry, ox + 160, ry, GREY, 1.4)
+        # pressed keys: (0,0),(0,1),(1,0) ; phantom (1,1)
+        pressed = {(0, 0), (0, 1), (1, 0)}
+        for ii, ry in enumerate(ys):
+            for jj, cx in enumerate(xs):
+                on = (ii, jj) in pressed
+                phantom = (ii, jj) == (1, 1) and not with_diode
+                fill = LGRN if on else ("#fff")
+                stroke = GREEN if on else GREY
+                if phantom:
+                    fill, stroke = LRED, RED
+                o += circle(cx, ry, 7, fill, stroke, 1.8)
+                if phantom:
+                    o += text(cx + 16, ry + 4, "✗ привид", 8.6, RED, "start", "bold")
+                if with_diode:
+                    o += ('<path d="M{a},{b} l 8,5 l -8,5 Z" fill="{c}"/>\n').format(a=cx - 14, b=ry - 5, c=GOLD)
+        return o
+
+    s += cell(80, 110, False, "Без діодів", RED)
+    # sneak path on left
+    s += line(120, 140, 220, 140, RED, 1.8, dash="5 4")
+    s += line(220, 140, 220, 220, RED, 1.8, dash="5 4")
+    s += text(170, 256, "струм «крадеться» в обхід → фальшива 4-та", 8.6, RED, "middle")
+    s += cell(560, 110, True, "З діодами", GREEN)
+    s += text(650, 256, "діод пускає струм лише в один бік →", 8.6, GREEN, "middle")
+    s += text(650, 272, "обхідний шлях закрито ✓", 8.6, GREEN, "middle", "bold")
+    s += text(W / 2, 312, "Три натиснуті в прямокутнику без діодів дають уявну четверту; діод у кожній клавіші це лікує.",
+              9.6, INK, "middle", "bold")
+    save("fig-22-8a-2-ghost.svg", s)
+
+
+# ── 🧮 вставка до 4.4.4 — чому підтяжка саме 10 кОм ──────────────────────────
+def fig4m1_tradeoff():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Чому ~10 кОм: затиснуто з двох боків", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "малий резистор жере струм; великий — слабкий, повільний і ловить витік",
+              10.3, GREY, "middle", style="italic")
+    # axis
+    s += line(120, 170, 780, 170, INK, 2)
+    for x, lab in [(160, "1 кОм"), (360, "10 кОм"), (560, "100 кОм"), (740, "1 МОм")]:
+        s += line(x, 165, x, 175, INK, 1.6)
+        s += text(x, 192, lab, 10, INK, "middle", "bold")
+    s += text(120, 162, "менший R", 9, GREY, "start")
+    s += text(780, 162, "більший R", 9, GREY, "end")
+    # left pressure
+    s += arrow(300, 120, 180, 120, RED, 2.2)
+    s += text(300, 110, "марнує струм (I = V/R більший)", 9.6, RED, "start")
+    # right pressure
+    s += arrow(440, 142, 600, 142, BLUE, 2.2)
+    s += text(440, 134, "шум · витік · повільний фронт", 9.6, BLUE, "start")
+    # sweet spot
+    s += circle(360, 170, 12, LGRN, GREEN, 2.4)
+    s += text(360, 232, "золота середина", 10.5, GREEN, "middle", "bold")
+    s += text(W / 2, 272, "~10 кОм мирить обидва тиски: тримає рівень упевнено й майже не жере струму.",
+              10.5, INK, "middle", "bold")
+    save("fig-22-4m-1-tradeoff.svg", s)
+
+
+def fig4m2_numbers():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Підтяжка під 3.3 В: число за числом", 19, INK, "middle", "bold")
+    cols = ["R", "струм у LOW  (I=V/R)", "фронт  (τ=R·C, C≈50 пФ)", "стійкість до шуму"]
+    cx = [130, 330, 560, 780]
+    s += rect(70, 70, 760, 30, "#eef1f8", BLUE, 1.4, 6)
+    for c, x in zip(cols, cx):
+        s += text(x, 90, c, 10.5, BLUE, "middle", "bold")
+    rows = [("1 кОм", "3.3 мА", "50 нс — дуже швидкий", "відмінна", INK),
+            ("10 кОм", "0.33 мА", "0.5 мкс — швидкий", "добра", GREEN),
+            ("100 кОм", "33 мкА", "5 мкс — повільніший", "слабша", INK),
+            ("1 МОм", "3.3 мкА", "50 мкс — повільний", "погана (витік!)", RED)]
+    y = 116
+    for r, cur, fr, noise, col in rows:
+        hl = col == GREEN
+        if hl:
+            s += rect(74, y - 18, 752, 30, LGRN, GREEN, 1.4, 5)
+        s += text(cx[0], y, r, 11, col, "middle", "bold")
+        s += text(cx[1], y, cur, 10, INK, "middle")
+        s += text(cx[2], y, fr, 9.6, INK, "middle")
+        s += text(cx[3], y, noise, 9.6, col if col == RED else INK, "middle")
+        if hl:
+            s += text(cx[0], y + 13, "← звичайний вибір", 7.6, GREEN, "middle")
+        y += 40
+    s += text(W / 2, 286, "10 кОм — типовий компроміс. Швидка шина I²C → 2–4.7 кОм; глибокий сон → 100 кОм і більше.",
+              10, INK, "middle", "bold")
+    save("fig-22-4m-2-numbers.svg", s)
+
+
+# ── 🧮 вставка до 4.4.6 — бюджет ніжки й порту ───────────────────────────────
+def fig6m1_two_budgets():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Два бюджети: окрема ніжка й увесь чіп", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "як розетка й головний автомат: тримати треба обидві межі заразом",
+              10.3, GREY, "middle", style="italic")
+    # per-pin
+    s += rect(60, 84, 360, 190, LBLUE, BLUE, 2, 12)
+    s += text(240, 110, "Бюджет ніжки («розетка»)", 12, BLUE, "middle", "bold")
+    for i in range(4):
+        y = 134 + i * 30
+        s += text(110, y, "ніжка " + str(i), 10, INK, "start")
+        s += rect(200, y - 12, 150, 18, "#fff", BLUE, 1.2, 3)
+        s += rect(200, y - 12, 90, 18, LBLUE, BLUE, 0, 3)
+        s += text(360, y, "≤ ~20 мА", 9.5, BLUE, "end", "bold")
+    s += text(240, 262, "кожна окремо — не більш як ~20 мА (стеля 40)", 8.8, GREY, "middle")
+    # chip total
+    s += rect(480, 84, 360, 190, LAMB, GOLD, 2, 12)
+    s += text(660, 110, "Бюджет чипа («автомат»)", 12, "#8a6d1a", "middle", "bold")
+    s += text(660, 150, "Σ усіх ніжок", 13, INK, "middle", "bold")
+    s += text(660, 178, "≤ межа живлення чипа", 11, "#8a6d1a", "middle", "bold")
+    s += text(660, 214, "8 світлодіодів × 10 мА = 80 мА", 9.6, INK, "middle")
+    s += text(660, 234, "— це вже привід перевірити суму", 9, GREY, "middle")
+    s += text(660, 262, "забагато → притишити струм або драйвер", 8.8, RED, "middle")
+    s += text(W / 2, 304, "Мало, щоб кожна ніжка була в межах — їхня СУМА теж мусить уміститися.",
+              10.5, INK, "middle", "bold")
+    save("fig-22-6m-1-two-budgets.svg", s)
+
+
+def fig6m2_led_color():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Резистор світлодіода: R = (V_ніжки − V_LED) / I", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "за кольором різний V_LED — а отже, різний запас на 3.3 В",
+              10.5, GREY, "middle", style="italic")
+    cols = ["колір", "V_LED (Vf)", "R для 10 мА на 3.3 В", "запас"]
+    cx = [150, 340, 560, 770]
+    s += rect(70, 76, 760, 28, "#eef1f8", BLUE, 1.4, 6)
+    for c, x in zip(cols, cx):
+        s += text(x, 95, c, 10.5, BLUE, "middle", "bold")
+    rows = [("червоний", "2.0 В", "130 Ом", "добрий", GREEN),
+            ("зелений / жовтий", "2.1 В", "120 Ом", "добрий", GREEN),
+            ("синій / білий", "3.0 В", "30 Ом", "МАЛИЙ", RED)]
+    y = 122
+    for color, vf, r, hr, col in rows:
+        s += text(cx[0], y, color, 11, INK, "middle")
+        s += text(cx[1], y, vf, 10.5, INK, "middle")
+        s += text(cx[2], y, r, 10.5, INK, "middle")
+        s += text(cx[3], y, hr, 10.5, col, "middle", "bold")
+        y += 34
+    s += rect(120, 232, 660, 84, LRED, RED, 1.4, 10)
+    s += text(450, 256, "Синій/білий мають V_LED близьке до 3.3 В — на резистор лишається крихта.", 10.5, INK, "middle", "bold")
+    s += text(450, 278, "Тоді струм дуже чутливий до розкиду Vf, і LED або ледь світить, або перевантажений.", 9.6, GREY, "middle")
+    s += text(450, 300, "Висновок: на 3.3 В сині/білі капризні — їм комфортніше від 5 В.", 9.8, RED, "middle", "bold")
+    save("fig-22-6m-2-led-color.svg", s)
+
+
+# ── 📜 історія до 4.4.5 — дребезг старший за електроніку ──────────────────────
+def fig5i1_timeline():
+    W, H = 920, 250
+    s = header(W, H)
+    s += text(W / 2, 32, "Дребезг контактів: понад півтора століття ворогові", 18, INK, "middle", "bold")
+    s += line(70, 150, 850, 150, INK, 2)
+    marks = [(120, "1840-ві", "телеграфні реле:", "контакт клацає, іскрить", BLUE),
+             (320, "1888–91", "Строуджер —", "автоматична АТС", GREEN),
+             (500, "1892", "перша АТС", "(Ла-Порт, Індіана)", GREEN),
+             (680, "XX ст.", "мільйони контактів", "у телефонних мережах", INK),
+             (835, "сьогодні", "пара рядків", "коду в МК (§4.4.5)", GOLD)]
+    for x, yr, a, b, col in marks:
+        s += circle(x, 150, 6, col, col, 1)
+        s += text(x, 130, yr, 10.5, col, "middle", "bold")
+        s += text(x, 178, a, 8.8, INK, "middle")
+        s += text(x, 193, b, 8.8, GREY, "middle")
+    s += text(W / 2, 230, "Дрижання металевого контакту мучило інженерів задовго до мікроконтролерів.",
+              10.5, INK, "middle", "bold")
+    save("fig-22-5i-1-timeline.svg", s)
+
+
+def fig5i2_stepping():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Крокова АТС Строуджера: цифра крокує по контактах", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "номеронабирач шле пачку імпульсів; кожен імпульс — один крок по дузі контактів",
+              10, GREY, "middle", style="italic")
+    # dial sends pulses
+    s += circle(150, 170, 50, LBLUE, BLUE, 2)
+    s += text(150, 168, "диск", 11, BLUE, "middle", "bold")
+    s += text(150, 186, "набору", 9, GREY, "middle")
+    # pulses
+    py = 130
+    s += text(255, 120, "імпульси:", 9, INK, "middle")
+    for i in range(4):
+        x = 230 + i * 24
+        s += line(x, py, x, py - 20, GREEN, 2)
+        s += line(x, py - 20, x + 12, py - 20, GREEN, 2)
+        s += line(x + 12, py - 20, x + 12, py, GREEN, 2)
+        s += line(x + 12, py, x + 24, py, GREEN, 2)
+    s += arrow(340, 170, 420, 170, INK, 2.2)
+    # contact arc with wiper
+    cx, cy, r = 600, 180, 90
+    for k in range(7):
+        ang = -70 + k * 22
+        import math
+        ax = cx + r * math.cos(math.radians(ang))
+        ay = cy + r * math.sin(math.radians(ang))
+        on = (k == 4)
+        s += circle(ax, ay, 7, (LGRN if on else "#fff"), (GREEN if on else GREY), 1.6)
+        if on:
+            s += text(ax + 18, ay + 4, "потрібна лінія", 8.6, GREEN, "start", "bold")
+    s += line(cx, cy, cx + r * math.cos(math.radians(18)), cy + r * math.sin(math.radians(18)), INK, 2.4)
+    s += circle(cx, cy, 5, INK, INK, 1)
+    s += text(cx, cy + 40, "рухома щітка", 9, INK, "middle")
+    s += rect(120, 280, 660, 34, LRED, RED, 1.4, 8)
+    s += text(450, 302, "Брудний чи «дзвінкий» контакт → зайвий крок → не той номер. Чистота контакту — питання зв'язку.",
+              9.4, INK, "middle", "bold")
+    save("fig-22-5i-2-stepping.svg", s)
+
+
+def fig5i3_cures():
+    W, H = 900, 280
+    s = header(W, H)
+    s += text(W / 2, 32, "Століття ліків за чистий контакт", 19, INK, "middle", "bold")
+    cures = [("самоочисні контакти", "труться, стираючи бруд", BLUE),
+             ("благородні метали", "золото, срібло — не окисляються", GOLD),
+             ("ртутні реле", "контакт у ртуті — дребезгу нема", GREEN)]
+    x = 60
+    for t, sub, col in cures:
+        fill = {BLUE: LBLUE, GOLD: LAMB, GREEN: LGRN}[col]
+        s += rect(x, 86, 250, 96, fill, col, 1.8, 12)
+        s += text(x + 125, 120, t, 11.5, col, "middle", "bold")
+        s += text(x + 125, 148, sub, 9, INK, "middle")
+        x += 270
+    s += text(W / 2, 222, "Телефонні інженери били дрижання залізом і ртуттю; ви б'єте його кодом (§4.4.5).",
+              11, INK, "middle", "bold")
+    s += text(W / 2, 246, "Той самий ворог — куди легша зброя.", 10, GREY, "middle")
+    save("fig-22-5i-3-cures.svg", s)
+
+
 if __name__ == "__main__":
     # §22.1 Ніжка на рівні заліза: вихід push-pull
     fig11_drive_the_line()
@@ -1876,4 +2408,29 @@ if __name__ == "__main__":
     fig84_connect_switch_sensor()
     fig85_connect_driven_sensor()
     fig86_recap_pin_model()
-    print("OK - figures for Section 22 (22.1..22.8, complete) generated in", OUT)
+    # 🔌 вставка до 4.4.5 — тактова кнопка
+    fig5c1_inside()
+    fig5c2_wiring()
+    # 🔌 вставка до 4.4.8 — розширювачі GPIO
+    fig8c1_concept()
+    fig8c2_wiring()
+    # ⚙️ вставка до 4.4.5 — антидребезг у коді
+    fig5a1_three()
+    fig5a2_fsm()
+    # ⚙️ вставка до 4.4.7 — біт-бенгінг
+    fig7a1_idea()
+    fig7a2_cost()
+    # ⚙️ вставка до 4.4.8 — матриця кнопок 4×4
+    fig8a1_grid()
+    fig8a2_ghost()
+    # 🧮 вставка до 4.4.4 — чому підтяжка саме 10 кОм
+    fig4m1_tradeoff()
+    fig4m2_numbers()
+    # 🧮 вставка до 4.4.6 — бюджет ніжки й порту
+    fig6m1_two_budgets()
+    fig6m2_led_color()
+    # 📜 історія до 4.4.5 — дребезг старший за електроніку
+    fig5i1_timeline()
+    fig5i2_stepping()
+    fig5i3_cures()
+    print("OK - figures for Section 22 (22.1..22.8 + s5c s8c s5a s7a s8a s4m s6m s5i) generated in", OUT)

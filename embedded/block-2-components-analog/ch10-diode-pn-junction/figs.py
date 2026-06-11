@@ -2035,6 +2035,1245 @@ def fig91_clamps():
     save("fig-10-9-6-clamps.svg", s)
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+#  §10.10 — Оптопара й гальванічна розв'язка (тема 2.5.10)
+# ═════════════════════════════════════════════════════════════════════════════
+def _phototrans(cx, cy, r=26, col=INK):
+    """Фототранзистор: коло з NPN-символом і двома фотонами в базу."""
+    s = circle(cx, cy, r, "#ffffff", col, 2)
+    bx = cx - r * 0.35
+    s += line(bx, cy - r * 0.5, bx, cy + r * 0.5, col, 2.6)            # база-планка
+    s += line(bx, cy - r * 0.22, cx + r * 0.5, cy - r * 0.55, col, 2)  # колектор
+    s += line(bx, cy + r * 0.22, cx + r * 0.5, cy + r * 0.55, col, 2)  # емітер
+    # стрілка емітера
+    ex, ey = cx + r * 0.5, cy + r * 0.55
+    s += f'<path d="M {ex:.1f},{ey:.1f} L {ex-9:.1f},{ey-2:.1f} L {ex-5:.1f},{ey-9:.1f} Z" fill="{col}"/>\n'
+    return s
+
+
+def fig5a10_1_need():
+    W, H = 820, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "Дві «землі», які не можна з'єднувати дротом", 18, INK, "middle", "bold")
+    # ліве коло
+    s += _frame(40, 70, 300, 210, "бік мікроконтролера (5 В, тиха земля)")
+    s += rect(90, 150, 90, 50, "#eef6ef", GREEN, 1.6, 6) + text(135, 180, "MCU", 12, INK, "middle", "bold")
+    s += text(135, 250, "земля A", 11, BLUE, "middle", "bold")
+    # праве коло
+    s += _frame(480, 70, 300, 210, "бік мережі (сотні вольт, «брудна» земля)")
+    s += rect(580, 150, 110, 50, "#fbecec", RED, 1.6, 6) + text(635, 180, "230 В ~", 12, RED, "middle", "bold")
+    s += text(635, 250, "земля B", 11, BLUE, "middle", "bold")
+    # небезпечний дріт
+    s += line(180, 175, 580, 175, RED, 2.4, dash="7,5")
+    s += text(380, 165, "прямий дріт", 11, RED, "middle", "bold")
+    # перекреслення
+    s += line(360, 150, 400, 200, RED, 4) + line(400, 150, 360, 200, RED, 4)
+    s += text(W / 2, H - 14, "З'єднати мідь = пустити сотні вольт у логіку й завадні петлі по «землях». Потрібен зв'язок БЕЗ струму.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-10-1-need.svg", s)
+
+
+def fig5a10_2_inside():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Оптопара зсередини: світло замість дроту", 18, INK, "middle", "bold")
+    # корпус
+    s += rect(150, 70, 540, 230, "#f4f1ea", "#b8a98a", 1.8, 10)
+    s += text(420, 92, "непрозорий корпус (світло не виходить назовні)", 10.5, "#9c6a16", "middle", style="italic")
+    # ізоляційний бар'єр посередині
+    bxm = 420
+    s += line(bxm, 110, bxm, 286, "#9bb0c2", 2, dash="4,5")
+    s += rect(bxm - 26, 150, 52, 96, "#eef3fb", "#9bb0c2", 1.2)
+    s += text(bxm, 270, "прозорий ізолятор", 9, "#5b6b7a", "middle")
+    # лівий бік — світлодіод
+    s += text(285, 120, "вхід", 12, GREEN, "middle", "bold")
+    s += _diode_h(300, 190, 14, True, RED)
+    s += text(300, 224, "світлодіод", 10, RED, "middle", "bold")
+    s += line(200, 190, 286, 190, INK, 2) + line(314, 190, 360, 190, INK, 2)
+    s += line(200, 190, 200, 250, INK, 2) + text(190, 165, "A", 11, INK, "end", "bold")
+    s += line(360, 190, 360, 250, INK, 2) + text(372, 165, "K", 11, INK, "start", "bold")
+    s += line(180, 250, 360, 250, INK, 2)
+    # фотони через бар'єр
+    for k in range(3):
+        s += _photon(352, 175 + k * 12, bxm + 38, 175 + k * 12, SUN, 3.0, 2)
+    # правий бік — фототранзистор
+    s += _phototrans(540, 190, 26, INK)
+    s += text(540, 234, "фототранзистор", 10, INK, "middle", "bold")
+    s += line(560, 172, 620, 172, INK, 2) + line(620, 172, 620, 250, INK, 2) + text(632, 150, "C", 11, INK, "start", "bold")
+    s += line(560, 208, 620, 208, INK, 2) + line(620, 208, 620, 250, INK, 2) + text(632, 230, "E", 11, INK, "start", "bold")
+    s += text(540, 120, "вихід", 12, INK, "middle", "bold")
+    s += text(W / 2, H - 14, "Струм у світлодіоді → світло → фотострум у транзисторі. Сигнал перейшов, а міді між боками НЕМАЄ.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-10-2-inside.svg", s)
+
+
+def fig5a10_3_ctr():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "CTR: скільки виходу дає вхід", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "коефіцієнт передачі струму CTR = I_C / I_F  (у PC817-класу ≈ 50…600 %)",
+              12, GREY, "middle", style="italic")
+    # вхідний бік
+    s += line(70, 120, 70, 250, INK, 2) + text(60, 120, "+5 В", 10, RED, "end", "bold")
+    s += rect(54, 150, 32, 16, "#ffffff", INK, 1.5) + text(110, 162, "R1", 11, INK, "start", "bold")
+    s += text(150, 150, "I_F = (5−1.2)/R1", 10.5, INK, "start")
+    s += text(150, 168, "візьмемо 10 мА", 10.5, GREEN, "start", "bold")
+    s += _diode_h(70, 200, 11, False, RED)
+    s += arrow(70, 215, 70, 245, GREEN, 2) + text(80, 234, "I_F", 11, GREEN, "start", "bold")
+    s += text(70, 270, "вхід", 11, INK, "middle", "bold")
+    # бар'єр
+    s += line(300, 90, 300, 300, "#9bb0c2", 2, dash="4,5")
+    s += text(300, 314, "ізоляція", 9.5, "#5b6b7a", "middle")
+    # вихідний бік
+    s += line(560, 110, 560, 150, INK, 2) + text(560, 100, "+V_OUT", 10, RED, "middle", "bold")
+    s += rect(544, 150, 32, 16, "#ffffff", INK, 1.5) + text(600, 162, "R_C (навантаження)", 10.5, INK, "start")
+    s += _phototrans(560, 215, 24, INK)
+    s += arrow(560, 178, 560, 192, GREEN, 2)
+    s += line(560, 239, 560, 280, INK, 2) + text(560, 296, "вихід", 11, INK, "middle", "bold")
+    s += text(620, 215, "I_C ≈ CTR·I_F", 11.5, INK, "start", "bold")
+    s += text(620, 233, "при CTR=200%:", 10, GREY, "start")
+    s += text(620, 249, "I_C ≈ 20 мА", 11, GREEN, "start", "bold")
+    s += text(W / 2, H - 12, "Резистори рахують ОКРЕМО з кожного боку; CTR гуляє від партії й падає з роками — беруть запас.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-10-3-ctr.svg", s)
+
+
+def fig5a10_4_isolation():
+    W, H = 820, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "Бар'єр ізоляції: кіловольти, які не пройдуть", 18, INK, "middle", "bold")
+    # бар'єр
+    s += rect(386, 70, 48, 230, "#eef3fb", "#9bb0c2", 1.6, 6)
+    s += text(410, 60, "ізоляційний бар'єр", 10.5, "#5b6b7a", "middle", "bold")
+    s += text(410, 180, "≈ 5 кВ", 15, RED, "middle", "bold")
+    s += text(410, 200, "витримує", 10, GREY, "middle")
+    # ліворуч — небезпечний бік
+    s += rect(70, 110, 250, 150, "#fbecec", RED, 1.6, 8)
+    s += text(195, 100, "первинний бік (небезпека)", 10.5, RED, "middle", "bold")
+    s += text(195, 160, "230 В ~", 16, RED, "middle", "bold")
+    s += text(195, 195, "мережа, мотор, нагрівач", 10, GREY, "middle")
+    s += _photon(322, 185, 384, 185, SUN, 3, 2)
+    # праворуч — безпечний бік
+    s += rect(500, 110, 250, 150, "#eef6ef", GREEN, 1.6, 8)
+    s += text(625, 100, "вторинний бік (людина, USB)", 10.5, "#1f6e33", "middle", "bold")
+    s += text(625, 160, "3.3 В", 16, "#1f6e33", "middle", "bold")
+    s += text(625, 195, "контролер, ноутбук, ти", 10, GREY, "middle")
+    s += text(W / 2, H - 12, "Світло переносить сигнал, а напруга лишається по свій бік стіни. Пробою немає — є гальванічна розв'язка.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-10-4-isolation.svg", s)
+
+
+def fig5a10_5_speed():
+    W, H = 820, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "Ціна простоти — швидкість", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "фототранзистор накопичує заряд у базі — фронти «розпливаються»", 12, GREY, "middle", style="italic")
+    # вхід — різкий меандр
+    s += text(120, 90, "вхід (різкий меандр):", 11, INK, "start", "bold")
+    ox, oy = 120, 150
+    pts = []
+    for k in range(3):
+        x0 = ox + k * 150
+        pts += [(x0, oy), (x0, oy - 40), (x0 + 75, oy - 40), (x0 + 75, oy), (x0 + 150, oy)]
+    s += _poly(pts, BLUE, 2.4)
+    # вихід — заокруглений
+    s += text(120, 230, "вихід фототранзистора (затягнутий):", 11, INK, "start", "bold")
+    oy2 = 300
+    pts2 = []
+    for j in range(0, 451):
+        x = ox + j
+        ph = (j % 150) / 150.0
+        kbit = (j // 150)
+        # цільовий рівень
+        hi = 40
+        if ph < 0.5:
+            v = hi * (1 - math.exp(-ph / 0.12))
+        else:
+            v = hi * math.exp(-(ph - 0.5) / 0.12)
+        pts2.append((x, oy2 - v))
+    s += _poly(pts2, RED, 2.6)
+    s += text(620, 150, "типово:", 11, INK, "start", "bold")
+    s += text(620, 170, "одиниці–", 10.5, INK, "start")
+    s += text(620, 186, "десятки кГц", 10.5, INK, "start", "bold")
+    s += text(620, 286, "швидкі:", 11, GREEN, "start", "bold")
+    s += text(620, 306, "логічний вихід,", 10, "#1f6e33", "start")
+    s += text(620, 322, "фотодіод+підсил.", 10, "#1f6e33", "start")
+    save("fig-10-10-5-speed.svg", s)
+
+
+def fig5a10_6_family():
+    W, H = 860, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "Сім'я розв'язки: світлом, полем, ємністю", 17.5, INK, "middle", "bold")
+    cards = [
+        (40, "оптопара", ["світлодіод →", "фотоприймач", "(ця тема)"], LGRN, GREEN),
+        (250, "трансформатор", ["магнітне поле", "(§2.2.6)", "лише для змінного"], LBLUE, BLUE),
+        (460, "ємнісна / RF", ["сигнал крізь", "малу ємність", "цифрові ізолятори"], "#f6f0e6", COPP),
+        (670, "де треба", ["мережа↔логіка,", "USB↔прилад,", "медицина, ПЛК"], "#f4eef6", "#7a4e8a"),
+    ]
+    for x, title, lines, fill, bc in cards:
+        s += rect(x, 80, 170, 170, fill, bc, 1.8, 10)
+        s += text(x + 85, 108, title, 12.5, INK, "middle", "bold")
+        for k, ln in enumerate(lines):
+            s += text(x + 85, 140 + k * 24, ln, 10.5, INK, "middle")
+    s += text(W / 2, H - 14, "Спільна ідея — передати сигнал, не передаючи струму. Оптопара робить це світлом і живе в мільярдах пристроїв.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-10-6-family.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  🔌 Вставка до §2.5.8 — Сімейства діодів (Рис. 2.5.8c.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def fig8c1_workhorses():
+    W, H = 860, 410
+    s = header(W, H)
+    s += text(W / 2, 28, "Три робочі конячки, які варто знати напам'ять", 17.5, INK, "middle", "bold")
+    cards = [
+        (30, "1N4148", "сигнальний / швидкий", LBLUE, BLUE,
+         ["100 В · ~200 мА", "відновлення ~4 нс", "логіка, перемикання,", "малі сигнали, «АБО»"]),
+        (310, "1N400x", "випрямний 1 А", LRED, RED,
+         ["1 А · 50…1000 В", "повільний (мережа 50 Гц)", "x = напруга:", "4001=50В … 4007=1000В"]),
+        (590, "1N581x", "Шотткі 1 А", LGRN, GREEN,
+         ["падіння ~0.4 В", "5817=20В · 5819=40В", "імпульсні БЖ,", "сонячні панелі, ВЧ"]),
+    ]
+    for x, name, role, fill, bc, lines in cards:
+        s += rect(x, 60, 250, 310, fill, bc, 2, 12)
+        s += text(x + 125, 92, name, 18, INK, "middle", "bold")
+        s += text(x + 125, 114, role, 11.5, bc, "middle", "bold")
+        s += line(x + 20, 128, x + 230, 128, "#cccccc", 1)
+        for k, ln in enumerate(lines):
+            s += text(x + 125, 158 + k * 30, ln, 11.5, INK, "middle")
+    s += text(W / 2, H - 14, "Менш потужні — 1N5400 (3 А випрямний), 1N5822 (Шотткі 3 А); для SMD — SS14/SS34, BAT54.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-8c-1-workhorses.svg", s)
+
+
+def fig8c2_marking():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 28, "Як читати: смужка — катод; корпус — натяк на струм", 16.5, INK, "middle", "bold")
+    # ── вивідний DO-41 зі смужкою ──
+    s += _frame(40, 60, 380, 300, "вивідний (THT)")
+    y = 130
+    s += line(90, y, 150, y, INK, 2.5)
+    s += rect(150, y - 16, 90, 32, "#3a3a3a", INK, 1.6, 5)
+    s += line(228, y - 16, 228, y + 16, "#dddddd", 4)   # смужка-катод
+    s += line(240, y, 300, y, INK, 2.5)
+    s += text(195, y - 26, "1N4007", 11, "#dddddd", "middle", "bold")
+    s += text(140, y + 34, "анод", 10, INK, "middle")
+    s += text(255, y + 34, "катод (смужка!)", 10, BLUE, "middle", "bold")
+    s += arrow(228, y + 44, 228, y + 22, BLUE, 1.6)
+    s += text(230, 250, "корпуси за струмом:", 11, INK, "start", "bold")
+    s += text(230, 274, "DO-35 (скло) — сигнальні 1N4148", 10, GREY, "start")
+    s += text(230, 296, "DO-41 — 1 А (1N400x, 1N581x)", 10, GREY, "start")
+    s += text(230, 318, "DO-201 / металеві — десятки А", 10, GREY, "start")
+    s += text(230, 340, "смужка завжди = катод", 10, BLUE, "start", "bold")
+    # ── SMD ──
+    s += _frame(450, 60, 370, 300, "поверхневий (SMD)")
+    s += rect(540, 110, 100, 44, "#3a3a3a", INK, 1.6, 4)
+    s += line(632, 110, 632, 154, "#dddddd", 5)
+    s += text(580, 138, "S4", 12, "#dddddd", "middle", "bold")
+    s += text(590, 96, "смужка — катод", 9.5, BLUE, "middle", "bold")
+    s += text(635, 168, "SS14", 10, INK, "middle", "bold")
+    s += text(635, 100, "", 9, GREY, "middle")
+    s += text(635, 200, "коди дрібні:", 10.5, INK, "middle", "bold")
+    rows = ("SS14 — Шотткі 40 В 1 А (SMA)", "BAT54 — Шотткі 30 В (SOT-23)",
+            "1N4148 → SOD-123 теж є", "корпус: SOD-123 < SMA < SMB < SMC")
+    for k, r in enumerate(rows):
+        s += text(635, 226 + k * 26, r, 9.5, GREY, "middle")
+    s += text(W / 2, H - 10, "Два головні числа в даташиті (§2.5.5): прямий струм I_F і зворотна напруга V_R — обидва з запасом.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-8c-2-marking.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  🔌 Вставка до §2.5.10 — Оптопара PC817-класу (Рис. 2.5.10c.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def fig10c1_pc817_calc():
+    W, H = 860, 420
+    s = header(W, H)
+    s += text(W / 2, 28, "PC817 у цифровому ключі: рахуємо обидва боки в числах", 16.5, INK, "middle", "bold")
+    # ── корпус DIP-4 ──
+    bx, by = 70, 90
+    s += rect(bx, by, 150, 130, "#2b2b2b", INK, 2, 8)
+    s += circle(bx + 16, by + 16, 5, "none", "#aaa", 1.4)  # крапка вивід 1
+    s += text(bx + 75, by + 60, "PC817", 14, "#dddddd", "middle", "bold")
+    s += text(bx + 75, by + 80, "DIP-4", 10, "#aaaaaa", "middle")
+    for k, lab in ((0, "1 анод"), (1, "2 катод")):
+        s += line(bx, by + 35 + k * 50, bx - 26, by + 35 + k * 50, INK, 2)
+        s += text(bx - 30, by + 39 + k * 50, lab, 9, RED if k == 0 else BLUE, "end", "bold")
+    for k, lab in ((0, "колектор 4"), (1, "емітер 3")):
+        s += line(bx + 150, by + 35 + k * 50, bx + 176, by + 35 + k * 50, INK, 2)
+        s += text(bx + 180, by + 39 + k * 50, lab, 9, INK, "start", "bold")
+    s += text(bx + 75, by + 150, "крапка/зріз = вивід 1 (анод)", 9, GREY, "middle", style="italic")
+    # ── розрахунок вхід ──
+    s += _frame(300, 70, 250, 320, "ВХІД (світлодіод)")
+    s += text(425, 96, "сигнал 3.3 В → засвітити LED", 9.5, INK, "middle")
+    s += text(425, 124, "U_F ≈ 1.2 В, хочемо I_F = 10 мА", 10, INK, "middle")
+    s += text(425, 156, "R1 = (3.3 − 1.2)/10мА", 11.5, GREEN, "middle", "bold")
+    s += text(425, 176, "≈ 210 Ом → беремо 220 Ом", 11.5, GREEN, "middle", "bold")
+    s += text(425, 212, "(той самий обмежувач, що", 9, GREY, "middle")
+    s += text(425, 228, "у звичайного LED, §2.5.7)", 9, GREY, "middle")
+    s += text(425, 268, "запас: реальний I_F беруть", 9.5, "#9c6a16", "middle")
+    s += text(425, 284, "БІЛЬШИМ, ніж теоретично треба", 9.5, "#9c6a16", "middle")
+    s += text(425, 300, "— бо CTR падає з роками", 9.5, "#9c6a16", "middle")
+    # ── розрахунок вихід ──
+    s += _frame(580, 70, 250, 320, "ВИХІД (фототранзистор)")
+    s += text(705, 96, "треба насичення (повне «вкл»)", 9.5, INK, "middle")
+    s += text(705, 124, "CTR_min = 80% (ранг A)", 10, INK, "middle")
+    s += text(705, 144, "I_C(дост.) ≈ 0.8·10мА = 8 мА", 10.5, RED, "middle", "bold")
+    s += text(705, 176, "R_C при вих. 5 В:", 10, INK, "middle")
+    s += text(705, 196, "R_C > 5В/8мА ≈ 620 Ом", 11.5, GREEN, "middle", "bold")
+    s += text(705, 216, "→ беремо 1 кОм (з запасом)", 11, GREEN, "middle", "bold")
+    s += text(705, 252, "на R_C падає майже все →", 9.5, GREY, "middle")
+    s += text(705, 268, "транзистор насичений → чіткий", 9.5, GREY, "middle")
+    s += text(705, 284, "логічний 0 на виході", 9.5, GREY, "middle")
+    s += text(705, 320, "інверсія: LED горить → вихід 0", 9.5, "#7a4e8a", "middle", "bold")
+    s += text(W / 2, H - 10, "Два боки рахують ОКРЕМО (різні землі!): вхід — як LED, вихід — як ключ-транзистор у насиченні.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-10c-1-pc817-calc.svg", s)
+
+
+def fig10c2_ranks_family():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 28, "Ранги CTR, сімейство й швидкі родичі", 17, INK, "middle", "bold")
+    # ── ранги CTR ──
+    s += _frame(40, 56, 380, 180, "ранг CTR — літера в назві")
+    rows = (("PC817A", "80…160 %", GREEN), ("PC817B", "130…260 %", COPP),
+            ("PC817C", "200…400 %", BLUE), ("PC817D", "300…600 %", "#7a4e8a"))
+    for i, (n, r, c) in enumerate(rows):
+        yy = 92 + i * 32
+        s += text(70, yy, n, 12, c, "start", "bold")
+        s += text(200, yy, r, 11.5, INK, "start")
+        s += rect(300, yy - 12, min(int(r.split("…")[1].rstrip(" %")) / 6, 100), 14, c, "none", 0)
+    s += text(230, 224, "без літери — увесь діапазон 50…600 %", 9, GREY, "middle", style="italic")
+    # ── сімейство ──
+    s += _frame(440, 56, 380, 180, "скільки каналів у корпусі")
+    fam = (("PC817", "1 канал"), ("PC827", "2 канали"), ("PC847", "4 канали"))
+    for i, (n, c) in enumerate(fam):
+        x = 470 + i * 120
+        s += rect(x, 96, 90, 70, LGRN, GREEN, 1.6, 8)
+        s += text(x + 45, 126, n, 12, INK, "middle", "bold")
+        s += text(x + 45, 148, c, 10, GREY, "middle")
+    s += text(630, 220, "однакова комірка, більше пар в одному корпусі", 9, GREY, "middle", style="italic")
+    # ── швидкість ──
+    s += _frame(40, 256, 780, 120, "коли фототранзистора замало — швидкі цифрові")
+    s += text(430, 284, "PC817-клас: смуга ~80 кГц (фототранзистор повільний, §2.5.10)", 11, INK, "middle")
+    s += text(430, 312, "потрібні сотні кБіт/Мбіт → 6N137 / TLP-клас:", 11, "#1f6e33", "middle", "bold")
+    s += text(430, 332, "усередині фотодіод + підсилювач-формувач, логічний вихід, мегагерци", 10, GREY, "middle")
+    s += text(430, 358, "для зв'язку (ізольований UART/SPI) беруть саме їх, а не PC817", 9.5, GREY, "middle", style="italic")
+    save("fig-10-10c-2-ranks-family.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  🔌 Вставка до §2.5.8 — TVS-діоди (Рис. 2.5.8c.3–4)
+# ═════════════════════════════════════════════════════════════════════════════
+def fig8c3_tvs_action():
+    W, H = 860, 410
+    s = header(W, H)
+    s += text(W / 2, 28, "TVS на вході: відвести удар повз чутливе коло", 17, INK, "middle", "bold")
+    # схема
+    y = 110
+    s += circle(70, y, 6, INK, INK, 0)
+    s += text(70, y - 18, "роз'єм", 10.5, INK, "middle", "bold")
+    s += line(76, y, 200, y, INK, 2.4)
+    s += circle(200, y, 4, INK, INK, 0)
+    # TVS до землі (символ — двонапрямлений Зенер, тут однонапр.)
+    s += line(200, y, 200, y + 36, INK, 2)
+    # символ Зенера (загнуті кінці катода)
+    s += f'<path d="M 186,{y+58} L 214,{y+58} L 200,{y+38} Z" fill="#dfe7f0" stroke="{INK}" stroke-width="1.6"/>\n'
+    s += line(186, y + 58, 214, y + 58, INK, 2.4)
+    s += line(186, y + 58, 182, y + 64, INK, 2.2) + line(214, y + 58, 218, y + 52, INK, 2.2)
+    s += text(228, y + 52, "TVS", 11, RED, "start", "bold")
+    s += line(200, y + 58, 200, y + 92, INK, 2)
+    s += line(176, y + 92, 224, y + 92, INK, 2.4)  # земля
+    s += line(184, y + 99, 216, y + 99, INK, 1.8) + line(192, y + 105, 208, y + 105, INK, 1.4)
+    s += line(200, y, 330, y, INK, 2.4)
+    s += rect(330, y - 28, 120, 56, "#eef6ef", GREEN, 1.8, 8)
+    s += text(390, y - 2, "чутливе", 11.5, "#1f6e33", "middle", "bold")
+    s += text(390, y + 16, "коло (MCU)", 10, "#1f6e33", "middle")
+    s += arrow(150, y - 40, 196, y - 4, "#9c6a16", 1.8)
+    s += text(150, y - 46, "удар ESD / викид", 10.5, "#9c6a16", "middle", "bold")
+    # осцилограма до/після
+    ox, oy, w = 510, 250, 320
+    s += _frame(490, 150, 360, 230, "")
+    s += line(ox, oy, ox + w, oy, INK, 1.4)
+    s += line(ox, oy, ox, oy - 120, INK, 1.4) + text(ox - 6, oy - 124, "U", 10, INK, "middle", "bold")
+    # вхідний сплеск (висока голка)
+    s += _poly([(ox, oy - 10), (ox + 90, oy - 10), (ox + 100, oy - 110), (ox + 108, oy - 10), (ox + w, oy - 10)], "#bbbbbb", 1.6, dash="4,3")
+    s += text(ox + 130, oy - 100, "без TVS: голка кВ", 9.5, GREY, "start")
+    # затиснутий рівень
+    s += line(ox, oy - 40, ox + w, oy - 40, RED, 1.4, dash="5,4")
+    s += text(ox + w - 4, oy - 46, "V_CL (затискання)", 9.5, RED, "end", "bold")
+    s += _poly([(ox, oy - 10), (ox + 90, oy - 10), (ox + 96, oy - 40), (ox + 110, oy - 40), (ox + 116, oy - 10), (ox + w, oy - 10)], GREEN, 2.6)
+    s += text(ox + 150, oy - 26, "з TVS: зрізано до безпечного", 9.5, "#1f6e33", "start", "bold")
+    s += text(W / 2, H - 12, "У нормі TVS мовчить (зворотно). Перенапруга — миттєво пробивається й зливає удар у землю.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-8c-3-tvs-action.svg", s)
+
+
+def fig8c4_tvs_params():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 28, "TVS ≠ Зенер: інша роль, інші числа", 17, INK, "middle", "bold")
+    # ── ВАХ із параметрами ──
+    ox, oy, w, h = 70, 250, 320, 200
+    s += _frame(50, 56, 380, 320, "зворотна гілка TVS")
+    s += line(ox, oy, ox + w, oy, INK, 1.4) + text(ox + w, oy + 16, "U", 10, INK, "middle", "bold")
+    s += line(ox, oy, ox, oy - h, INK, 1.4) + text(ox - 6, oy - h - 4, "I", 10, INK, "middle", "bold")
+    pts = []
+    for j in range(0, 201):
+        x = j / 200.0
+        U = x
+        I = 0.02 * math.exp((U - 0.55) * 12) + (1.6 * (U - 0.78) if U > 0.78 else 0)
+        pts.append((ox + U * w, oy - min(I, 1.0) * h))
+    s += _poly(pts, RED, 2.6)
+    for U, lab, col in ((0.45, "V_WM", GREEN), (0.62, "V_BR", COPP), (0.86, "V_CL", RED)):
+        s += line(ox + U * w, oy, ox + U * w, oy - h, FAINT, 1)
+        s += text(ox + U * w, oy + 16, lab, 10, col, "middle", "bold")
+    s += text(ox + 0.16 * w, oy - 0.7 * h, "тут\nмовчить", 9, GREEN, "middle")
+    s += text(ox + 0.45 * w, oy - 14, "робоча", 8.5, GREEN, "middle")
+    s += text(ox + 0.62 * w, oy - 14, "пробій", 8.5, COPP, "middle")
+    s += text(ox + 0.86 * w, oy - 14, "затиск", 8.5, RED, "middle")
+    # ── порівняння + типи ──
+    s += _frame(460, 56, 360, 150, "TVS проти Зенера")
+    s += text(640, 84, "Зенер: тримає напругу довго,", 10.5, INK, "middle")
+    s += text(640, 102, "малий струм (стабілізатор)", 10.5, INK, "middle")
+    s += text(640, 128, "TVS: коротко гасить ПОТУЖНИЙ удар", 10.5, RED, "middle", "bold")
+    s += text(640, 146, "(кіловати на мікросекунди, мала ємність)", 9.5, GREY, "middle")
+    s += text(640, 176, "паспорт: P_PPM 400/600 Вт, V_WM, V_CL", 10, INK, "middle", "bold")
+    s += _frame(460, 226, 360, 150, "однонапрямлений / двонапрямлений")
+    s += text(640, 254, "однонапр. — для DC-ліній (катод до +)", 10, INK, "middle")
+    s += text(640, 276, "двонапр. — для знакозмінних / сигнальних", 10, INK, "middle")
+    s += text(640, 304, "+ послідовний опір/запобіжник: TVS гасить", 10, "#9c6a16", "middle", "bold")
+    s += text(640, 322, "КОРОТКЕ; тривале мусить рвати запобіжник", 9.5, "#9c6a16", "middle")
+    s += text(640, 350, "для USB/HDMI — НИЗЬКОЄМНІСНІ TVS", 10, "#1f6e33", "middle", "bold")
+    save("fig-10-8c-4-tvs-params.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  ⚙️ Вставка до §2.5.7 — Charlieplexing (Рис. 2.5.7a.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def _led_arrow(x1, y1, x2, y2, col, lit=False):
+    """Маленький LED уздовж відрізка, вістрям до (x2,y2)."""
+    mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+    dx, dy = x2 - x1, y2 - y1
+    L = math.hypot(dx, dy)
+    ux, uy = dx / L, dy / L
+    px, py = -uy, ux
+    sz = 8
+    wire = GREEN if lit else "#aab0b6"
+    s = line(x1, y1, mx - ux * sz, my - uy * sz, wire, 3 if lit else 1.6)
+    s += line(mx + ux * sz, my + uy * sz, x2, y2, wire, 3 if lit else 1.6)
+    fill = "#ffe9a0" if lit else "#dfe7f0"
+    b1 = (mx - ux * sz + px * sz, my - uy * sz + py * sz)
+    b2 = (mx - ux * sz - px * sz, my - uy * sz - py * sz)
+    tip = (mx + ux * sz, my + uy * sz)
+    s += f'<path d="M {b1[0]:.1f},{b1[1]:.1f} L {b2[0]:.1f},{b2[1]:.1f} L {tip[0]:.1f},{tip[1]:.1f} Z" fill="{fill}" stroke="{INK}" stroke-width="1.3"/>\n'
+    s += line(tip[0] + px * sz, tip[1] + py * sz, tip[0] - px * sz, tip[1] - py * sz, INK, 2.2)
+    if lit:
+        s += arrow(mx + px * 6, my + py * 6, mx + px * 18, my + py * 18, SUN, 1.5)
+    return s
+
+
+def fig7a1_principle():
+    W, H = 860, 430
+    s = header(W, H)
+    s += text(W / 2, 28, "Charlieplexing: 3 ніжки → 6 світлодіодів", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 50, "секрети: LED світить в один бік (§2.5.7) + ніжка має ТРИ стани (HIGH / LOW / Hi-Z)",
+              11.5, GREY, "middle", style="italic")
+    # три вузли трикутником
+    A = (180, 120); B = (120, 320); C = (440, 250)
+    nodes = (("A", A, "HIGH (+)", RED), ("B", B, "LOW (0)", BLUE), ("C", C, "Hi-Z (відкл.)", GREY))
+    # пари антипаралельних LED: між кожними двома вузлами — двоє LED
+    def pair(P, Q, lit_pq):
+        # зміщення, щоб дві стрілки не злилися
+        dx, dy = Q[0] - P[0], Q[1] - P[1]
+        L = math.hypot(dx, dy); ux, uy = dx / L, dy / L; px, py = -uy, ux
+        o = 9
+        s2 = _led_arrow(P[0] + px * o, P[1] + py * o, Q[0] + px * o, Q[1] + py * o, INK, lit_pq)   # P→Q
+        s2 += _led_arrow(Q[0] - px * o, Q[1] - py * o, P[0] - px * o, P[1] - py * o, INK, False)    # Q→P
+        return s2
+    s += pair(A, B, True)    # A→B світиться
+    s += pair(B, C, False)
+    s += pair(A, C, False)
+    for lab, P, st, col in nodes:
+        s += circle(P[0], P[1], 16, "#ffffff", col, 2.4)
+        s += text(P[0], P[1] + 5, lab, 14, col, "middle", "bold")
+        s += text(P[0], P[1] - 24, st, 10.5, col, "middle", "bold")
+    s += text(300, 150, "горить лише LED A→B", 11, "#1f6e33", "start", "bold")
+    s += text(300, 168, "(A штовхає, B приймає)", 9.5, GREY, "start")
+    # пояснення праворуч
+    s += _frame(560, 70, 280, 330, "що з рештою")
+    s += text(700, 100, "A→B: відкритий, СВІТИТЬ", 10.5, "#1f6e33", "middle", "bold")
+    s += text(700, 128, "B→A (антипаралельний):", 10, INK, "middle")
+    s += text(700, 144, "зворотно зміщений — мовчить", 9.5, GREY, "middle")
+    s += text(700, 174, "усі LED до ніжки C:", 10, INK, "middle")
+    s += text(700, 190, "C у Hi-Z — шляху нема, темні", 9.5, GREY, "middle")
+    s += line(580, 214, 820, 214, "#ddd", 1)
+    s += text(700, 238, "щоб засвітити інший LED —", 10, INK, "middle")
+    s += text(700, 254, "інша трійка станів ніжок", 10, INK, "middle")
+    s += text(700, 282, "одночасно світить ОДИН", 10.5, "#9c6a16", "middle", "bold")
+    s += text(700, 298, "(або один — швидка розгортка)", 9.5, GREY, "middle")
+    s += text(700, 330, "обмежувальні резистори —", 9.5, GREY, "middle")
+    s += text(700, 346, "обов'язкові (на ніжку чи в плече)", 9.5, GREY, "middle")
+    s += text(700, 376, "ідея — Чарлі Аллен, Maxim, ~1995", 9, GREY, "middle", style="italic")
+    save("fig-10-7a-1-principle.svg", s)
+
+
+def fig7a2_scale():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 28, "Чому n·(n−1): кожна впорядкована пара ніжок — свій LED", 16.5, INK, "middle", "bold")
+    # таблиця
+    s += _frame(50, 60, 360, 250, "масштаб")
+    s += text(110, 92, "ніжки n", 11, INK, "middle", "bold")
+    s += text(250, 92, "LED = n·(n−1)", 11, INK, "middle", "bold")
+    rows = ((2, 2), (3, 6), (4, 12), (5, 20), (8, 56), (12, 132))
+    for i, (n, leds) in enumerate(rows):
+        yy = 122 + i * 28
+        s += text(110, yy, str(n), 12, BLUE, "middle", "bold")
+        s += text(250, yy, str(leds), 12, RED, "middle", "bold")
+    s += text(230, 300, "проти n виходів = n LED у «лоб»", 9.5, GREY, "middle", style="italic")
+    # розгортка в часі
+    s += _frame(440, 60, 400, 250, "як показати багато: розгортка в часі")
+    ox, oy, w = 470, 200, 340
+    s += line(ox, oy, ox + w, oy, INK, 1.3) + text(ox + w, oy + 16, "t", 10, INK, "start", "bold")
+    for k in range(6):
+        x = ox + 10 + k * 55
+        s += rect(x, oy - 50, 14, 50, "#ffe9a0" if k % 1 == 0 else "#eee", INK, 1.2)
+        s += text(x + 7, oy + 16, f"L{k+1}", 8.5, GREY, "middle")
+    s += text(640, 120, "по одному, дуже швидко —", 10.5, INK, "middle", "bold")
+    s += text(640, 138, "око зливає в суцільну картинку", 10, GREY, "middle")
+    s += text(640, 250, "платня: кожен світить лише 1/N часу", 10, "#9c6a16", "middle", "bold")
+    s += text(640, 268, "→ більший піковий струм для яскравості", 9.5, GREY, "middle")
+    s += text(640, 290, "(той самий ШІМ-принцип, що в §2.5.7)", 9.5, GREY, "middle", style="italic")
+    s += text(W / 2, H - 16, "Так десяток ніжок керує сотнею світлодіодів — годинники, брелоки, LED-кільця там, де ніжок обмаль.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-7a-2-scale.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  🔌 Вставка до §2.5.7 — Світлодіоди на практиці (Рис. 2.5.7c.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def fig7c1_rgb_white():
+    W, H = 840, 400
+    s = header(W, H)
+    s += text(W / 2, 28, "Білий і RGB: два способи дістати «не моноколір»", 17, INK, "middle", "bold")
+    # ── ліворуч: білий = синій + люмінофор ──
+    s += _frame(40, 60, 360, 300, "білий світлодіод")
+    s += rect(90, 120, 120, 90, "#1f47b5", INK, 1.6, 8)
+    s += text(150, 170, "синій", 12, "#ffffff", "middle", "bold")
+    s += text(150, 188, "кристал GaN", 9.5, "#cdd8f5", "middle")
+    s += rect(90, 110, 120, 14, "#e7c64a", "#9c6a16", 1.2, 4)
+    s += text(150, 102, "шар люмінофора (жовтий)", 9, "#7a5510", "middle")
+    s += _photon(150, 110, 150, 78, SUN, 3, 2)
+    s += text(150, 64, "= біле світло", 11, INK, "middle", "bold")
+    # шкала колірної температури
+    s += text(220, 250, "колірна температура:", 10.5, INK, "start", "bold")
+    grad = [("#ffd9a0", "теплий 2700K"), ("#fff2dd", "нейтр. 4000K"), ("#dceaff", "холодн. 6500K")]
+    for i, (c, lab) in enumerate(grad):
+        s += rect(70 + i * 100, 270, 90, 26, c, "#999", 1)
+        s += text(115 + i * 100, 287, lab.split()[0], 9, INK, "middle", "bold")
+        s += text(115 + i * 100, 314, lab.split()[1], 8.5, GREY, "middle")
+    s += text(220, 344, "CRI — наскільки чесно передає кольори", 9, GREY, "start", style="italic")
+    # ── праворуч: RGB = три кристали ──
+    s += _frame(440, 60, 360, 300, "RGB світлодіод")
+    for i, (c, lab) in enumerate((("#c0271e", "R"), ("#1f8a3b", "G"), ("#1f47b5", "B"))):
+        s += rect(490 + i * 80, 110, 56, 56, c, INK, 1.4, 6)
+        s += text(518 + i * 80, 144, lab, 16, "#ffffff", "middle", "bold")
+    s += text(620, 190, "3 кристали в одному корпусі", 10, GREY, "middle")
+    s += text(620, 208, "(спільний анод або катод)", 9.5, GREY, "middle")
+    s += text(620, 240, "ШІМ кожного → будь-який колір", 10.5, INK, "middle", "bold")
+    s += text(620, 268, "адресовані (WS2812-клас):", 10, "#7a4e8a", "middle", "bold")
+    s += text(620, 286, "драйвер усередині, один", 9.5, "#7a4e8a", "middle")
+    s += text(620, 302, "провід даних на ланцюг", 9.5, "#7a4e8a", "middle")
+    s += text(620, 340, "змішування в оці, а не в світлі", 9, GREY, "middle", style="italic")
+    save("fig-10-7c-1-rgb-white.svg", s)
+
+
+def fig7c2_resistor_vs_driver():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 28, "Резистор чи драйвер струму: чим яскравіший LED, тим важливіше", 16, INK, "middle", "bold")
+    # ── ліворуч: резистор ──
+    s += _frame(40, 56, 360, 300, "резистор-обмежувач (просто й дешево)")
+    y = 130
+    s += line(80, y, 120, y, INK, 2) + text(70, y, "+", 12, RED, "end", "bold")
+    s += rect(120, y - 9, 50, 18, "#fff", INK, 1.5) + text(145, y - 16, "R", 10, INK, "middle", "bold")
+    s += line(170, y, 210, y, INK, 2)
+    s += _diode_h(225, y, 11, True, RED)
+    s += arrow(229, y - 14, 237, y - 26, SUN, 1.5)
+    s += line(240, y, 280, y, INK, 2) + text(290, y, "−", 12, BLUE, "end", "bold")
+    s += text(220, 200, "+ копійка, годиться для індикаторів", 10, "#1f6e33", "middle")
+    s += text(220, 224, "− марнує енергію на R", 10, "#9c6a16", "middle")
+    s += text(220, 248, "− струм пливе: U_F падає з нагрівом", 10, "#9c6a16", "middle")
+    s += text(220, 268, "   (−2 мВ/°C, §2.5.5) → струм росте", 9, GREY, "middle")
+    s += text(220, 300, "робочий струм беруть НЕ максимальний:", 10, INK, "middle", "bold")
+    s += text(220, 320, "індикатор 2–10 мА, не «20 мА бо можна»", 9.5, GREY, "middle")
+    # ── праворуч: драйвер струму ──
+    s += _frame(440, 56, 360, 300, "стабілізатор струму (драйвер)")
+    s += rect(560, 110, 120, 56, "#eef6ef", GREEN, 1.8, 8)
+    s += text(620, 134, "тримає I", 12, "#1f6e33", "middle", "bold")
+    s += text(620, 152, "сталим", 11, "#1f6e33", "middle")
+    s += line(560, 138, 520, 138, INK, 2) + text(512, 138, "+", 12, RED, "end", "bold")
+    s += line(680, 138, 700, 138, INK, 2) + line(700, 138, 700, 180, INK, 2)
+    s += _diode_h(700, 195, 10, False, RED)
+    s += arrow(690, 188, 682, 176, SUN, 1.4)
+    s += line(700, 210, 700, 240, INK, 2) + text(700, 256, "LED", 9.5, INK, "middle", "bold")
+    s += text(620, 290, "+ та сама яскравість при будь-якій", 10, "#1f6e33", "middle")
+    s += text(620, 308, "   напрузі й температурі", 10, "#1f6e33", "middle")
+    s += text(620, 330, "потрібен потужним LED і освітленню", 10, INK, "middle", "bold")
+    save("fig-10-7c-2-resistor-vs-driver.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  🔌 Вставка до §2.5.6 — Діодний міст як компонент (Рис. 2.5.6c.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def _diode_diag(x1, y1, x2, y2, col=INK):
+    """Діод уздовж відрізка, вістрям до (x2,y2)."""
+    mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+    dx, dy = x2 - x1, y2 - y1
+    L = math.hypot(dx, dy)
+    ux, uy = dx / L, dy / L
+    px, py = -uy, ux
+    sz = 9
+    b1 = (mx - ux * sz + px * sz, my - uy * sz + py * sz)
+    b2 = (mx - ux * sz - px * sz, my - uy * sz - py * sz)
+    tip = (mx + ux * sz, my + uy * sz)
+    s = line(x1, y1, x2, y2, col, 1.6)
+    s += f'<path d="M {b1[0]:.1f},{b1[1]:.1f} L {b2[0]:.1f},{b2[1]:.1f} L {tip[0]:.1f},{tip[1]:.1f} Z" fill="#dfe7f0" stroke="{col}" stroke-width="1.4"/>\n'
+    s += line(tip[0] + px * sz, tip[1] + py * sz, tip[0] - px * sz, tip[1] - py * sz, col, 2.2)
+    return s
+
+
+def fig6c1_bridge_pkg():
+    W, H = 840, 400
+    s = header(W, H)
+    s += text(W / 2, 28, "Чотири діоди в одному корпусі: міст як готова деталь", 17, INK, "middle", "bold")
+    # ── ромб усередині ──
+    cx, cy, r = 230, 200, 80
+    top = (cx, cy - r); bot = (cx, cy + r); lft = (cx - r, cy); rgt = (cx + r, cy)
+    # вузли: лівий і правий — AC; верх — +, низ — −
+    s += _diode_diag(lft[0], lft[1], top[0], top[1])   # лівий-AC → +
+    s += _diode_diag(bot[0], bot[1], lft[0], lft[1])   # − → лівий-AC
+    s += _diode_diag(rgt[0], rgt[1], top[0], top[1])   # правий-AC → +
+    s += _diode_diag(bot[0], bot[1], rgt[0], rgt[1])   # − → правий-AC
+    for (px, py) in (top, bot, lft, rgt):
+        s += circle(px, py, 3.5, INK, INK)
+    s += text(top[0], top[1] - 12, "+", 16, RED, "middle", "bold")
+    s += text(bot[0], bot[1] + 22, "−", 16, BLUE, "middle", "bold")
+    s += text(lft[0] - 16, lft[1] + 5, "~", 18, INK, "middle", "bold")
+    s += text(rgt[0] + 14, rgt[1] + 5, "~", 18, INK, "middle", "bold")
+    s += text(cx, cy + r + 56, "усередині — звичний ромб із §2.5.6", 10, GREY, "middle", style="italic")
+    # ── корпус праворуч ──
+    bx, by = 480, 110
+    s += rect(bx, by, 150, 150, "#2b2b2b", INK, 2, 12)
+    s += text(bx + 75, by + 60, "BRIDGE", 13, "#dddddd", "middle", "bold")
+    s += text(bx + 75, by + 82, "KBP / GBU /", 10, "#bbbbbb", "middle")
+    s += text(bx + 75, by + 98, "DB / KBPC…", 10, "#bbbbbb", "middle")
+    s += circle(bx + 18, by + 18, 6, "none", "#888", 1.6)  # отвір під гвинт
+    for k, lab, col in ((0, "~", INK), (1, "+", RED), (2, "~", INK), (3, "−", BLUE)):
+        lx = bx + 20 + k * 37
+        s += line(lx, by + 150, lx, by + 178, INK, 2)
+        s += text(lx, by + 196, lab, 13, col, "middle", "bold")
+    s += text(bx + 75, by + 230, "4 виводи: ~ ~ + −", 10.5, INK, "middle", "bold")
+    s += text(W / 2, H - 14, "Маркування на корпусі: дві ~ — до джерела змінного, + і − — до згладжувального конденсатора.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-6c-1-bridge-pkg.svg", s)
+
+
+def fig6c2_drop_heat():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 28, "Ціна зручності: завжди ДВА діоди в дорозі", 17, INK, "middle", "bold")
+    cx, cy, r = 180, 180, 70
+    top = (cx, cy - r); bot = (cx, cy + r); lft = (cx - r, cy); rgt = (cx + r, cy)
+    # підсвітити активну пару (напр. лівий-AC → + та − → правий-AC)
+    s += line(lft[0], lft[1], top[0], top[1], GREEN, 5)
+    s += line(bot[0], bot[1], rgt[0], rgt[1], GREEN, 5)
+    s += _diode_diag(lft[0], lft[1], top[0], top[1])
+    s += _diode_diag(bot[0], bot[1], lft[0], lft[1])
+    s += _diode_diag(rgt[0], rgt[1], top[0], top[1])
+    s += _diode_diag(bot[0], bot[1], rgt[0], rgt[1])
+    for (px, py) in (top, bot, lft, rgt):
+        s += circle(px, py, 3.2, INK, INK)
+    s += text(top[0], top[1] - 10, "+", 14, RED, "middle", "bold")
+    s += text(bot[0], bot[1] + 20, "−", 14, BLUE, "middle", "bold")
+    s += text(cx, cy + r + 40, "зелене — шлях струму цієї півхвилі", 9.5, "#1f6e33", "middle", style="italic")
+    # формули
+    bx = 400
+    s += _frame(bx, 70, 400, 110, "")
+    s += text(bx + 200, 98, "падіння: 2 × U_F ≈ 1.4 В (Si)", 12.5, RED, "middle", "bold")
+    s += text(bx + 200, 124, "Шотткі-міст (§2.5.8): ≈ 0.6 В", 11, "#1f6e33", "middle")
+    s += text(bx + 200, 150, "тепло: P ≈ 2·U_F·I_сер  (§1.3.5)", 12, "#9c6a16", "middle", "bold")
+    # приклад тепла
+    s += _frame(bx, 200, 400, 150, "приклад: I_сер = 2 А")
+    s += text(bx + 200, 228, "P ≈ 1.4 В · 2 А ≈ 2.8 Вт тепла", 12.5, INK, "middle", "bold")
+    s += text(bx + 200, 254, "→ міст помітно гріється,", 11, GREY, "middle")
+    s += text(bx + 200, 272, "корпус KBPC/GBPC — на радіатор", 11, GREY, "middle")
+    s += text(bx + 200, 300, "+ кидок при ввімкненні: розряджений", 10.5, "#9c6a16", "middle")
+    s += text(bx + 200, 318, "конденсатор = коротке → пік I_FSM", 10.5, "#9c6a16", "middle")
+    s += text(W / 2, H - 10, "Два діоди замість одного: удвічі більша втрата напруги й удвічі більше тепла, ніж у однопівперіодного.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-6c-2-drop-heat.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  📜 Історія до §2.5.7 — Блакитний світлодіод (Рис. 2.5.7i.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def fig7i1_timeline():
+    W, H = 920, 270
+    s = header(W, H)
+    s += text(W / 2, 32, "Тридцять років до синього — і світло змінилося", 18, INK, "middle", "bold")
+    boxes = [
+        ("1960-ті", ["червоний і зелений", "світлодіоди готові", "(§2.5.7)"], "#fbfbfb"),
+        ("1960–80-ті", ["синій НЕ дається:", "GaN не вміють ні", "вирощувати, ні легувати"], "#fbeeee"),
+        ("1986 · Нагоя", ["Акасакі й Амано:", "якісний GaN", "на сапфірі"], LGRN),
+        ("1989 · Нагоя", ["вони ж: p-тип GaN", "(магній + промінь)", "— остання цеглина"], LGRN),
+        ("1993–94 · Nichia", ["Накамура: ЯСКРАВИЙ", "синій на InGaN —", "у виробництво"], LBLUE),
+        ("2014", ["Нобель з фізики", "трьом — за світло,", "що змінило побут"], "#f4eef6"),
+    ]
+    bw, gap, by, bh = 138, 14, 88, 116
+    for i, (lab, lines, fill) in enumerate(boxes):
+        bx = 14 + i * (bw + gap)
+        s += text(bx + bw / 2, by - 8, lab, 10.5, INK, "middle", "bold")
+        s += rect(bx, by, bw, bh, fill, "#c9d3dc", 1.6, 8)
+        for k, ln in enumerate(lines):
+            s += text(bx + bw / 2, by + 32 + k * 21, ln, 10, INK, "middle")
+        if i < len(boxes) - 1:
+            ax = bx + bw
+            s += arrow(ax + 1, by + bh / 2, ax + gap - 1, by + bh / 2, GREY, 2)
+    s += text(W / 2, H - 12, "Червоний світив із 1960-х; на синій — найенергійніший видимий фотон — пішло ще тридцять років.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-7i-6-blue-timeline.svg", s)
+
+
+def fig7i2_why_hard():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Чому синій був такий важкий — і навіщо він потрібен", 17.5, INK, "middle", "bold")
+    # дві перешкоди
+    s += _frame(40, 60, 360, 180, "дві стіни на шляху GaN")
+    s += text(220, 88, "1. Виростити якісний кристал GaN", 11, INK, "middle", "bold")
+    s += text(220, 108, "— ґратка не сідала рівно на підкладку", 9.5, GREY, "middle")
+    s += text(220, 124, "(розв'язок: буферний шар на сапфірі)", 9.5, "#1f6e33", "middle")
+    s += line(70, 142, 370, 142, "#ddd", 1)
+    s += text(220, 166, "2. Зробити p-тип GaN (дірки)", 11, INK, "middle", "bold")
+    s += text(220, 186, "— легований магнієм GaN не провадив", 9.5, GREY, "middle")
+    s += text(220, 202, "(розв'язок: промінь / відпал активує Mg)", 9.5, "#1f6e33", "middle")
+    s += text(220, 226, "обидві — у §2.5.2–2.5.3, лише для GaN", 9, GREY, "middle", style="italic")
+    # навіщо синій → білий
+    s += _frame(440, 60, 360, 180, "навіщо саме синій")
+    s += rect(490, 110, 70, 60, "#1f47b5", INK, 1.6, 6)
+    s += text(525, 145, "синій", 10.5, "#fff", "middle", "bold")
+    s += rect(490, 100, 70, 12, "#e7c64a", "#9c6a16", 1.2, 3)
+    s += text(525, 92, "+ люмінофор", 9, "#7a5510", "middle")
+    s += arrow(565, 140, 615, 140, GREEN, 2.2)
+    s += circle(660, 140, 26, "#fffbe8", SUN, 2)
+    s += text(660, 145, "БІЛЕ", 11, "#9c6a16", "middle", "bold")
+    s += text(620, 196, "синій + жовтий люмінофор = біле світло", 9.5, GREY, "middle")
+    s += text(620, 212, "(того самого трюку, що в §2.5.7)", 9, GREY, "middle", style="italic")
+    s += text(W / 2, 280, "Без синього не зібрати білий: червоний і зелений були, а третьої — найенергійнішої — фарби бракувало.",
+              11, INK, "middle", "bold")
+    s += text(W / 2, 306, "саме тому Нобель відзначив не «ще один колір», а ключ до енергоощадного освітлення.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-7i-7-why-hard.svg", s)
+
+
+def fig7i3_three():
+    W, H = 820, 320
+    s = header(W, H)
+    s += text(W / 2, 30, "Троє лауреатів: хто що зробив — чесно", 18, INK, "middle", "bold")
+    cards = [
+        (40, "Ісаму Акасакі", "Хіросі Амано", "Університет Нагої, Японія",
+         ["заклали ФУНДАМЕНТ:", "• якісний кристал GaN (1986)", "• p-тип GaN (1989)", "— без цього синього не було б"], LGRN, GREEN),
+        (430, "Сюдзі Накамура", "", "Nichia → США (UC Santa Barbara)",
+         ["довів до ЯСКРАВОГО й СЕРІЇ:", "• InGaN-структури (1993–94)", "• промислова технологія", "• згодом — гучний суд із Nichia"], LBLUE, BLUE),
+    ]
+    for x, n1, n2, aff, lines, fill, bc in cards:
+        s += rect(x, 60, 350, 220, fill, bc, 2, 12)
+        s += text(x + 175, 90, n1, 14, INK, "middle", "bold")
+        if n2:
+            s += text(x + 175, 112, "+ " + n2, 13, INK, "middle", "bold")
+        s += text(x + 175, 132 if n2 else 114, aff, 10, bc, "middle", "bold")
+        for k, ln in enumerate(lines):
+            s += text(x + 20, 158 + k * 24, ln, 10.5, INK, "start")
+    s += text(W / 2, H - 14, "Нобель 2014 — усім трьом. Тема назвала лише Накамуру; справедливо згадати й піонерів із Нагої.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-7i-8-three.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  📜 Історія до §2.5.1 — Кремній проти германію (Рис. 2.5.1i.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def fig1i1_timeline():
+    W, H = 900, 260
+    s = header(W, H)
+    s += text(W / 2, 32, "Перегони матеріалів: германій стартував, кремній переміг", 18, INK, "middle", "bold")
+    boxes = [
+        ("1947 · Bell Labs", ["перший транзистор", "— ГЕРМАНІЙ", "(Бардін, Браттейн)"], LBLUE),
+        ("поч. 1950-х", ["германій панує:", "легше очистити,", "але «тече» й гріється"], "#fbfbfb"),
+        ("січ. 1954 · Bell", ["Танненбаум:", "Si у лабораторії —", "без продажу"], "#fbfbfb"),
+        ("трав. 1954 · TI", ["Тіл: перший", "КОМЕРЦІЙНИЙ", "кремнієвий"], LGRN),
+        ("1959 · Fairchild", ["оксид SiO₂ +", "планарний процес", "→ кремній назавжди"], LGRN),
+    ]
+    bw, gap, by, bh = 156, 18, 86, 110
+    for i, (lab, lines, fill) in enumerate(boxes):
+        bx = 16 + i * (bw + gap)
+        s += text(bx + bw / 2, by - 8, lab, 11, INK, "middle", "bold")
+        border = "#9bb0c2" if fill == LGRN else "#c9d3dc"
+        s += rect(bx, by, bw, bh, fill, border, 1.6, 8)
+        for k, ln in enumerate(lines):
+            s += text(bx + bw / 2, by + 32 + k * 21, ln, 11, INK, "middle")
+        if i < len(boxes) - 1:
+            ax = bx + bw
+            s += arrow(ax + 2, by + bh / 2, ax + gap - 2, by + bh / 2, GREY, 2)
+    s += text(W / 2, H - 14, "Той самий PN-перехід — лише матеріал інший; саме матеріал і вирішив, на чому стоятиме вся електроніка.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-1i-1-timeline.svg", s)
+
+
+def fig1i2_ge_vs_si():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Германій проти кремнію: чому переміг «пісок»", 18, INK, "middle", "bold")
+    rows = [
+        ("щілина (§2.5.1)", "0.66 еВ — вузька", "1.12 еВ — ширша", False),
+        ("робоча температура", "до ~75 °C («тече»)", "до ~150–175 °C", True),
+        ("зворотний витік", "помітний", "малий", True),
+        ("рідний оксид", "GeO₂ — нестабільний", "SiO₂ — стабільний ізолятор", True),
+        ("планарний процес / ІС", "складно", "природний (маска SiO₂)", True),
+        ("поширеність", "рідкісний", "пісок — 2-й у корі", True),
+        ("пряме падіння (§2.5.5)", "~0.3 В — нижче", "~0.7 В — вище", False),
+    ]
+    x0, xg, xs, y0, dy = 60, 350, 600, 90, 42
+    s += text(x0, y0 - 12, "властивість", 11, INK, "start", "bold")
+    s += text(xg, y0 - 12, "ГЕРМАНІЙ", 12.5, COPP, "middle", "bold")
+    s += text(xs, y0 - 12, "КРЕМНІЙ", 12.5, BLUE, "middle", "bold")
+    for i, (prop, ge, si, si_win) in enumerate(rows):
+        y = y0 + 14 + i * dy
+        if i % 2 == 0:
+            s += rect(40, y - 16, 740, dy - 4, "#f6f8fb", "none", 0)
+        s += text(x0, y + 4, prop, 10.5, INK, "start")
+        s += text(xg, y + 4, ge, 10.5, INK, "middle")
+        s += text(xs, y + 4, si, 11, "#1f6e33" if si_win else INK, "middle", "bold" if si_win else "normal")
+    s += text(W / 2, H - 16, "Германій давав нижче падіння й вищі частоти — та кремній виграв стабільністю, оксидом і ціною.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-1i-2-ge-vs-si.svg", s)
+
+
+def fig1i3_dayton():
+    W, H = 820, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "Фокус Тіла в Дейтоні, 1954: гаряча олія", 18, INK, "middle", "bold")
+    s += text(W / 2, 52, "«мої колеги кажуть, що кремнієві транзистори — справа далекого майбутнього…»",
+              11.5, GREY, "middle", style="italic")
+    # дві склянки гарячої олії
+    def beaker(ox, lab, col, dead):
+        # склянка
+        s2 = _poly([(ox, 130), (ox, 250), (ox + 110, 250), (ox + 110, 130)], INK, 2)
+        s2 += rect(ox + 4, 170, 102, 78, "#f3e2b8", "none", 0)  # олія
+        s2 += text(ox + 55, 120, "гаряча олія", 10, "#9c6a16", "middle")
+        # транзистор у олії
+        s2 += rect(ox + 44, 195, 22, 30, "#3a3a3a", INK, 1.4, 3)
+        s2 += line(ox + 50, 225, ox + 50, 245, INK, 1.4)
+        s2 += line(ox + 60, 225, ox + 60, 245, INK, 1.4)
+        s2 += text(ox + 55, 280, lab, 11, col, "middle", "bold")
+        # динамік/сигнал
+        if dead:
+            s2 += text(ox + 55, 305, "✕ замовк", 12, RED, "middle", "bold")
+            s2 += _poly([(ox + 20, 100), (ox + 90, 100)], GREY, 2, dash="4,3")
+        else:
+            s2 += text(ox + 55, 305, "♪ працює далі", 12, "#1f6e33", "middle", "bold")
+            s2 += _sine(ox + 18, 100, 74, 14, 3, GREEN, 2.2)
+        return s2
+    s += beaker(150, "германієвий", COPP, True)
+    s += beaker(540, "кремнієвий", BLUE, False)
+    s += text(W / 2, 342, "«…а в мене їх кілька в кишені»: занурені в гарячу олію — германій замовк, кремній грав далі.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-1i-3-dayton.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  ⚙️ Вставка до §2.5.5 — Діод як термометр (Рис. 2.5.5a.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def fig5a1_method():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 28, "Метод: сталий струм + вимір U_F = термометр", 17, INK, "middle", "bold")
+    # ── схема ──
+    s += _frame(40, 56, 360, 320, "схема вимірювання")
+    # джерело струму
+    s += circle(120, 150, 26, "#eef6ef", GREEN, 1.8)
+    s += text(120, 146, "I", 14, "#1f6e33", "middle", "bold")
+    s += text(120, 162, "ст.", 9, "#1f6e33", "middle")
+    s += text(120, 110, "сталий струм", 9.5, "#1f6e33", "middle", "bold")
+    s += text(120, 200, "(напр. 100 мкА)", 9, GREY, "middle")
+    s += line(120, 176, 120, 230, INK, 2)
+    s += line(120, 230, 240, 230, INK, 2)
+    # діод-давач
+    s += _diode_h(240, 230, 12, False, RED)
+    s += text(240, 262, "діод-давач", 9.5, RED, "middle", "bold")
+    s += text(240, 278, "(на гарячому об'єкті)", 9, GREY, "middle")
+    s += line(240, 230, 320, 230, INK, 2)
+    s += line(320, 230, 320, 300, INK, 2)
+    s += line(120, 300, 320, 300, INK, 2)
+    s += line(180, 124, 180, 124, INK, 0)
+    # вольтметр через діод
+    s += circle(290, 150, 22, "#fff", INK, 1.6)
+    s += text(290, 155, "U", 13, INK, "middle", "bold")
+    s += line(228, 230, 228, 150, BLUE, 1.4, dash="4,3")
+    s += line(228, 150, 268, 150, BLUE, 1.4, dash="4,3")
+    s += line(312, 150, 320, 150, BLUE, 1.4, dash="4,3") + line(320, 150, 320, 230, BLUE, 1.4, dash="4,3")
+    s += text(290, 122, "вимір U_F", 9, BLUE, "middle", "bold")
+    # ── графік ──
+    ox, oy, w, h = 470, 330, 330, 240
+    s += line(ox, oy, ox + w, oy, INK, 1.4) + text(ox + w, oy + 18, "T, °C", 10, INK, "start", "bold")
+    s += line(ox, oy, ox, oy - h, INK, 1.4) + text(ox - 6, oy - h - 4, "U_F", 10, INK, "middle", "bold")
+    s += _poly([(ox + 10, oy - h + 20), (ox + w - 10, oy - 30)], RED, 2.6)
+    # дві точки калібрування
+    s += circle(ox + 50, oy - h + 32, 5, BLUE, BLUE, 0)
+    s += text(ox + 50, oy - h + 18, "0 °C (лід)", 9, BLUE, "middle", "bold")
+    s += circle(ox + w - 60, oy - 44, 5, COPP, COPP, 0)
+    s += text(ox + w - 60, oy - 58, "100 °C (окріп)", 9, COPP, "middle", "bold")
+    s += text(ox + w / 2 + 30, oy - h / 2 + 10, "нахил −2 мВ/°C", 11, RED, "middle", "bold")
+    s += text(ox + w / 2, oy + 36, "майже пряма; дві точки задають калібрування", 9.5, GREY, "middle", style="italic")
+    s += text(W / 2, H - 10, "T = T_кал − (U_F − U_кал)/(2 мВ/°C). Струм МУСИТЬ бути сталим — інакше U_F попливе й від струму.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-5a-1-method.svg", s)
+
+
+def fig5a2_dvbe():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 28, "Трюк точності ΔV_BE: різниця за двох струмів не залежить від екземпляра", 15.5, INK, "middle", "bold")
+    # дві ВАХ-точки на напівлог
+    ox, oy, w, h = 70, 300, 340, 220
+    s += _frame(50, 56, 380, 300, "два струми — дві напруги")
+    s += line(ox, oy, ox + w, oy, INK, 1.4) + text(ox + w, oy + 16, "U_F", 10, INK, "middle", "bold")
+    s += line(ox, oy, ox, oy - h, INK, 1.4) + text(ox - 6, oy - h - 4, "log I", 10, INK, "middle", "bold")
+    nUT = 0.0259
+    def Y(U):
+        return oy - (U / 0.8) * h
+    s += line(ox + 0.2 * w, Y(0.2), ox + 0.95 * w, Y(0.76), COPP, 2.6)
+    for U, I, col in ((0.55, "I₁", GREEN), (0.61, "I₂ = 10·I₁", RED)):
+        s += line(ox + (U / 0.8) * w, oy, ox + (U / 0.8) * w, Y(U), col, 1.3, dash="4,3")
+        s += line(ox, Y(U), ox + (U / 0.8) * w, Y(U), col, 1.3, dash="4,3")
+        s += text(ox + (U / 0.8) * w, oy + 16, I, 10, col, "middle", "bold")
+    xa = ox + (0.55 / 0.8) * w
+    xb = ox + (0.61 / 0.8) * w
+    s += arrow(xa, oy - h - 6, xb, oy - h - 6, INK, 2) + arrow(xb, oy - h - 6, xa, oy - h - 6, INK, 2)
+    s += text((xa + xb) / 2, oy - h - 12, "ΔU", 11, INK, "middle", "bold")
+    # формула
+    s += _frame(460, 56, 380, 300, "чому це точно")
+    s += text(650, 92, "ΔU = n·U_T·ln(I₂/I₁)", 14, RED, "middle", "bold")
+    s += text(650, 124, "U_T = kT/q  (§2.5.5.m)", 11.5, INK, "middle")
+    s += text(650, 156, "при I₂/I₁ = 10:", 11, INK, "middle")
+    s += text(650, 178, "ΔU = n·ln10·(kT/q)", 12.5, GREEN, "middle", "bold")
+    s += text(650, 210, "ΔU ПРОПОРЦІЙНА абсолютній T!", 11.5, "#1f6e33", "middle", "bold")
+    s += text(650, 238, "і НЕ залежить від Is, зміщення,", 10.5, GREY, "middle")
+    s += text(650, 254, "екземпляра — лише від відношення струмів", 10.5, GREY, "middle")
+    s += text(650, 288, "≈ 0.2 мВ/°C на пару — мало, але", 10, "#9c6a16", "middle")
+    s += text(650, 304, "ідеально передбачувано, без калібрування", 10, "#9c6a16", "middle")
+    s += text(650, 332, "так міряють T процесори й точні давачі", 10, INK, "middle", "bold")
+    s += text(W / 2, H - 10, "Звичайний U_F треба калібрувати під екземпляр; ΔU за двох струмів — абсолютний термометр із фізики.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-5a-2-dvbe.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  🧮 Вставка до §2.5.6 — Пульсації після випрямляча (Рис. 2.5.6m.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def fig6m1_ripple_derive():
+    W, H = 840, 400
+    s = header(W, H)
+    s += text(W / 2, 28, "Звідки формула: трикутна пилка розряду", 17.5, INK, "middle", "bold")
+    ox, oy, w, h = 80, 300, 660, 210
+    s += line(ox, oy, ox + w, oy, INK, 1.4) + text(ox + w + 6, oy + 4, "t", 11, INK, "start", "bold")
+    s += line(ox, oy, ox, oy - h - 10, INK, 1.4) + text(ox - 6, oy - h - 14, "U", 11, INK, "middle", "bold")
+    # горби випрямленого входу (пунктир)
+    per = 150
+    hb = []
+    for j in range(0, int(w) + 1):
+        t = j / per
+        v = abs(math.sin(math.pi * t))
+        hb.append((ox + j, oy - 40 - v * (h - 50)))
+    s += _poly(hb, GREY, 1.4, dash="4,4")
+    s += text(ox + 60, oy - h - 2, "горби з моста (пунктир)", 9.5, GREY, "start")
+    # напруга на C: швидкий заряд до піку, лінійний спад
+    top = oy - 40 - (h - 50)
+    drop = 46
+    cp = []
+    for k in range(0, 5):
+        x0 = ox + k * per + per * 0.5
+        # спад
+        cp.append((x0, top))
+        cp.append((x0 + per * 0.8, top + drop))
+        # швидкий заряд назад до піку
+        cp.append((x0 + per, top))
+    s += _poly([(ox, top)] + cp, RED, 2.8)
+    # позначка ΔU і Δt
+    xa = ox + per * 0.5
+    s += line(xa - 30, top, ox + w, top, GREEN, 1, dash="3,3")
+    s += line(xa - 30, top + drop, ox + w, top + drop, GREEN, 1, dash="3,3")
+    s += arrow(ox + 40, top, ox + 40, top + drop, GREEN, 2)
+    s += arrow(ox + 40, top + drop, ox + 40, top, GREEN, 2)
+    s += text(ox + 48, top + drop / 2 + 4, "ΔU = пульсація", 10.5, GREEN, "start", "bold")
+    x1, x2 = ox + per * 1.5, ox + per * 2.5
+    s += arrow(x1, oy - 16, x2, oy - 16, BLUE, 2) + arrow(x2, oy - 16, x1, oy - 16, BLUE, 2)
+    s += text((x1 + x2) / 2, oy - 22, "Δt ≈ 1/f_пульс", 10.5, BLUE, "middle", "bold")
+    s += _frame(470, 56, 320, 96, "")
+    s += text(630, 82, "заряд стікає струмом I за час Δt:", 11, INK, "middle")
+    s += text(630, 108, "ΔU = I·Δt/C = I /(f·C)", 13.5, RED, "middle", "bold")
+    s += text(630, 134, "(трикутне наближення розряду)", 9.5, GREY, "middle")
+    s += text(W / 2, H - 10, "Поки пульсація мала, спад майже прямий — лінійне наближення точне (бо Δt « RC).",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-6m-1-ripple-derive.svg", s)
+
+
+def fig6m2_bridge_advantage():
+    W, H = 840, 360
+    s = header(W, H)
+    s += text(W / 2, 28, "Міст удвічі кращий: подвоїв частоту — удвічі менша пульсація", 16.5, INK, "middle", "bold")
+
+    def panel(ox, fr, lab, drop, col):
+        oy, w, h = 280, 320, 150
+        out = _frame(ox - 10, 60, 340, 250, lab)
+        out += line(ox, oy, ox + w, oy, INK, 1.3)
+        per = 320 / fr
+        top = oy - h
+        cp = [(ox, top)]
+        x = ox
+        while x < ox + w - 1:
+            cp.append((x + per * 0.78, top + drop))
+            cp.append((x + per, top))
+            x += per
+        out += _poly(cp, col, 2.6)
+        # горби
+        hb = []
+        for j in range(0, int(w) + 1):
+            t = j / per
+            v = abs(math.sin(math.pi * t))
+            hb.append((ox + j, oy - 20 - v * (h - 30)))
+        out += _poly(hb, GREY, 1.2, dash="3,3")
+        out += text(ox + w / 2, oy + 24, f"{fr} горбів/період · C однакова", 9.5, GREY, "middle")
+        return out
+
+    s += panel(40, 2, "однопівперіодний: f_пульс = 50 Гц", 70, COPP)
+    s += panel(450, 4, "міст: f_пульс = 100 Гц", 35, GREEN)
+    s += text(W / 2, H - 10, "Та сама ємність і струм, але вдвічі частіші горби лишають конденсатору вдвічі менше часу просісти.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-6m-2-bridge-advantage.svg", s)
+
+
+def fig6m3_surge():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 28, "Зворотний бік: діод хапає струм вузькими піками", 16.5, INK, "middle", "bold")
+    ox, oy, w, h = 80, 250, 680, 150
+    s += line(ox, oy, ox + w, oy, INK, 1.4) + text(ox + w + 6, oy + 4, "t", 11, INK, "start", "bold")
+    s += line(ox, oy, ox, oy - h - 20, INK, 1.4) + text(ox - 6, oy - h - 24, "I", 11, INK, "middle", "bold")
+    # середній струм навантаження
+    s += line(ox, oy - 28, ox + w, oy - 28, BLUE, 2, dash="6,4")
+    s += text(ox + w - 4, oy - 34, "середній струм навантаження I", 10, BLUE, "end", "bold")
+    # вузькі піки струму діода на верхівках
+    per = 150
+    for k in range(0, 5):
+        xc = ox + k * per + per * 0.5
+        s += _poly([(xc - 18, oy), (xc - 6, oy - h), (xc + 6, oy - h), (xc + 18, oy)], RED, 2.4)
+    s += text(ox + per * 0.5 + 22, oy - h + 10, "піковий струм заряду", 10, RED, "start", "bold")
+    s += text(ox + per * 0.5 + 22, oy - h + 26, "I_пік ≈ I · (T/t_заряду)", 10.5, RED, "start", "bold")
+    s += _frame(470, 286, 320, 80, "")
+    s += text(630, 312, "до пульсації від розряду додається", 10, INK, "middle")
+    s += text(630, 334, "стрибок I_пік · ESR (§2.1.5)", 11.5, "#9c6a16", "middle", "bold")
+    s += text(W / 2, H - 8, "Заряд тече лише на верхівці горба — короткими сильними кидками; їх витримують і діоди, і трансформатор.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-6m-3-surge.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+#  🧮 Вставка до §2.5.5 — Рівняння Шоклі (Рис. 2.5.5m.k)
+# ═════════════════════════════════════════════════════════════════════════════
+def fig5m1_boltzmann():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Чому експонента: носіїв з енергією вище бар'єра — больцманівський хвіст", 16.5, INK, "middle", "bold")
+
+    def hill(ox, barrier_h, lab, tail_lo, col):
+        oy = 300
+        # бар'єр-пагорб
+        pts = []
+        for j in range(0, 161):
+            x = j / 160.0
+            y = barrier_h * math.exp(-((x - 0.5) * 4.2) ** 2)
+            pts.append((ox + j * 1.4, oy - y))
+        s2 = _poly(pts, INK, 2.2)
+        s2 += line(ox, oy, ox + 224, oy, INK, 1.4)
+        s2 += text(ox + 112, oy + 18, lab, 11.5, INK, "middle", "bold")
+        # рівень бар'єра
+        top = oy - barrier_h
+        s2 += line(ox, top, ox + 224, top, GREY, 1, dash="4,3")
+        s2 += text(ox + 228, top + 4, "бар'єр", 9.5, GREY, "start")
+        # розподіл носіїв за енергією (експ. хвіст), вертикально ліворуч
+        ex = ox - 14
+        ept = []
+        for j in range(0, 121):
+            E = j / 120.0 * (barrier_h + 40)
+            n = 70 * math.exp(-E / 30.0)
+            ept.append((ex - n, oy - E))
+        s2 += _poly(ept, col, 2)
+        # заштрихований хвіст над бар'єром
+        for j in range(0, 121):
+            E = j / 120.0 * (barrier_h + 40)
+            if E >= barrier_h:
+                n = 70 * math.exp(-E / 30.0)
+                s2 += line(ex, oy - E, ex - n, oy - E, col, 0.8)
+        s2 += text(ex - 40, top - 8, "проходять", 9.5, col, "middle", "bold")
+        return s2
+
+    s += hill(120, 150, "бар'єр високий (U=0)", 150, BLUE)
+    s += hill(470, 96, "напруга знизила на qU", 96, RED)
+    s += arrow(360, 150, 446, 150, GREEN, 2)
+    s += text(403, 138, "+U", 12, GREEN, "middle", "bold")
+    s += text(W / 2, H - 14, "Частка носіїв з енергією вище бар'єра ∝ e^(−бар'єр/kT). Напруга знижує бар'єр → струм росте ЕКСПОНЕНЦІЙНО.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-5m-1-boltzmann.svg", s)
+
+
+def fig5m2_two_scales():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 28, "Та сама ВАХ двічі: коліно — це пряма в напівлог-осях", 17, INK, "middle", "bold")
+    Is = 1e-12
+    nUT = 0.0259
+    # ліва панель — лінійна
+    ox, oy, w, h = 70, 320, 300, 230
+    s += _frame(ox - 20, 70, 340, 280, "лінійні осі: «коліно»")
+    s += line(ox, oy, ox + w, oy, INK, 1.6)
+    s += line(ox, oy, ox, oy - h, INK, 1.6)
+    s += text(ox + w, oy + 18, "U", 11, INK, "middle", "bold")
+    s += text(ox - 8, oy - h - 6, "I", 11, INK, "middle", "bold")
+    Imax = Is * math.exp(0.75 / nUT)
+    pts = []
+    for j in range(0, 201):
+        U = j / 200.0 * 0.78
+        I = Is * (math.exp(U / nUT) - 1)
+        pts.append((ox + U / 0.78 * w, oy - min(I / Imax, 1.0) * h))
+    s += _poly(pts, COPP, 2.6)
+    s += text(ox + 0.7 * w, oy - 0.1 * h, "≈0.7 В", 10.5, COPP, "middle", "bold")
+    s += text(ox + w / 2, oy + 36, "круте «коліно» — нічого до 0.6 В", 9.5, GREY, "middle")
+
+    # права панель — напівлог
+    ox2 = 510
+    s += _frame(ox2 - 20, 70, 340, 280, "напівлог (вісь I логарифмічна): ПРЯМА")
+    s += line(ox2, oy, ox2 + w, oy, INK, 1.6)
+    s += line(ox2, oy, ox2, oy - h, INK, 1.6)
+    s += text(ox2 + w, oy + 18, "U", 11, INK, "middle", "bold")
+    s += text(ox2 - 8, oy - h - 6, "log I", 11, INK, "middle", "bold")
+    # декади
+    for d in range(0, 7):
+        yy = oy - d / 6.0 * h
+        s += line(ox2, yy, ox2 + w, yy, FAINT, 1)
+        s += text(ox2 - 6, yy + 4, f"10^-{12-2*d}", 8, GREY, "end")
+    # пряма: log10 I = log10 Is + U/(nUT ln10)
+    U1, U2 = 0.2, 0.74
+    def Y(U):
+        I = Is * math.exp(U / nUT)
+        d = (math.log10(I) + 12) / 12.0
+        return oy - d * h
+    s += line(ox2 + U1 / 0.78 * w, Y(U1), ox2 + U2 / 0.78 * w, Y(U2), COPP, 2.6)
+    # нахил 60 мВ/декаду
+    s += line(ox2 + 0.5 * w, Y(0.47), ox2 + 0.5 * w, Y(0.47) + h / 6, GREEN, 1.6, dash="3,3")
+    s += line(ox2 + 0.5 * w, Y(0.47) + h / 6, ox2 + 0.5 * w + 0.06 / 0.78 * w, Y(0.47) + h / 6, GREEN, 1.6, dash="3,3")
+    s += text(ox2 + 0.5 * w + 40, Y(0.47) + h / 6 + 16, "+60 мВ", 10, GREEN, "middle", "bold")
+    s += text(ox2 + 0.5 * w + 40, Y(0.47) + h / 6 + 30, "= ×10 струму", 9.5, GREEN, "middle")
+    s += text(W / 2, H - 12, "log I росте ЛІНІЙНО з U: нахил рівно ln10·U_T ≈ 60 мВ на декаду струму (≈26 мВ на e-кратне).",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-5m-2-two-scales.svg", s)
+
+
+def fig5m3_temperature():
+    W, H = 820, 380
+    s = header(W, H)
+    s += text(W / 2, 28, "Чому падіння тане −2 мВ/°C, хоч U_T росте з температурою", 16.5, INK, "middle", "bold")
+    ox, oy, w, h = 90, 310, 560, 240
+    s += line(ox, oy, ox + w, oy, INK, 1.6) + text(ox + w, oy + 18, "U", 11, INK, "middle", "bold")
+    s += line(ox, oy, ox, oy - h, INK, 1.6) + text(ox - 8, oy - h - 6, "I", 11, INK, "middle", "bold")
+    # фіксований робочий струм
+    Ifix = 0.62
+    s += line(ox, oy - Ifix * h, ox + w, oy - Ifix * h, GREY, 1.2, dash="5,4")
+    s += text(ox + w - 4, oy - Ifix * h - 8, "робочий струм (фіксований)", 9.5, GREY, "end")
+    for Tlab, shift, col in (("25 °C", 0.70, BLUE), ("75 °C", 0.60, RED)):
+        pts = []
+        for j in range(0, 201):
+            x = j / 200.0
+            U = x * 0.95
+            # коліно зсунуте: нижча T — правіше
+            I = math.exp((U - shift) / 0.07)
+            pts.append((ox + U / 0.95 * w, oy - min(I, 1.0) * h))
+        s += _poly(pts, col, 2.6)
+        s += text(ox + shift / 0.95 * w + 30, oy - 0.9 * h + (0 if col == BLUE else 20), Tlab, 11, col, "start", "bold")
+    # стрілка між колінами на рівні робочого струму
+    xb = ox + 0.60 * w  # 75°C
+    xa = ox + 0.70 * w  # 25°C
+    s += arrow(xa, oy - Ifix * h, xb, oy - Ifix * h, GREEN, 2.4)
+    s += text((xa + xb) / 2, oy - Ifix * h - 12, "ΔU", 11, GREEN, "middle", "bold")
+    s += _frame(430, 70, 360, 120, "")
+    s += text(610, 96, "за фіксованого струму:", 11, INK, "middle", "bold")
+    s += text(610, 120, "U(T) ≈ U₀ − 2 мВ/°C · ΔT", 12.5, RED, "middle", "bold")
+    s += text(610, 146, "Is росте з T швидше, ніж U_T,", 10, GREY, "middle")
+    s += text(610, 162, "тож коліно сповзає ВЛІВО", 10, GREY, "middle")
+    s += text(W / 2, H - 10, "50° нагріву → падіння менше на ≈100 мВ. Стабільність цього дрейфу й робить діод дешевим термометром.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-10-5m-3-temperature.svg", s)
+
+
+def fig5a10_7_inout():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Два типові ввімкнення: туди й назад через стіну", 17.5, INK, "middle", "bold")
+
+    def opto(cx, cy):
+        t = rect(cx - 30, cy - 34, 60, 68, "#f4f1ea", "#b8a98a", 1.6, 6)
+        t += line(cx, cy - 40, cx, cy + 40, "#9bb0c2", 1.6, dash="3,4")
+        t += _diode_h(cx - 14, cy - 14, 9, True, RED)
+        t += _phototrans(cx + 12, cy + 12, 14, INK)
+        for k in range(2):
+            t += _photon(cx - 6, cy - 8 + k * 6, cx + 4, cy + 4 + k * 6, SUN, 2, 1)
+        return t
+
+    # ліва панель: MCU → сила
+    s += _frame(40, 70, 360, 250, "контролер ВМИКАЄ силу")
+    s += rect(70, 150, 70, 40, "#eef6ef", GREEN, 1.5, 6) + text(105, 175, "MCU", 11, INK, "middle", "bold")
+    s += text(105, 130, "вихід 3.3 В", 9.5, GREEN, "middle")
+    s += line(140, 170, 175, 170, INK, 2)
+    s += rect(175, 162, 26, 16, "#fff", INK, 1.4) + text(188, 150, "R", 9.5, INK, "middle", "bold")
+    s += line(201, 170, 215, 170, INK, 2)
+    s += opto(245, 170)
+    s += rect(300, 150, 80, 40, "#fbecec", RED, 1.5, 6) + text(340, 175, "силовий", 10, RED, "middle", "bold")
+    s += text(340, 130, "ключ / реле", 9.5, RED, "middle")
+    s += line(275, 182, 300, 182, INK, 2)
+    s += text(220, 300, "слабка логіка керує сильним колом, не торкаючись його", 9.5, GREY, "middle", style="italic")
+
+    # права панель: сила → MCU
+    s += _frame(460, 70, 360, 250, "сила ДОПОВІДАЄ контролеру")
+    s += rect(490, 150, 80, 40, "#fbecec", RED, 1.5, 6) + text(530, 175, "24 В / ~", 10, RED, "middle", "bold")
+    s += text(530, 130, "вхідний сигнал", 9.5, RED, "middle")
+    s += line(570, 170, 600, 170, INK, 2)
+    s += rect(600, 162, 24, 16, "#fff", INK, 1.4) + text(612, 150, "R", 9.5, INK, "middle", "bold")
+    s += line(624, 170, 638, 170, INK, 2)
+    s += opto(668, 170)
+    s += rect(720, 150, 70, 40, "#eef6ef", GREEN, 1.5, 6) + text(755, 175, "MCU", 11, INK, "middle", "bold")
+    s += text(755, 130, "вхід", 9.5, GREEN, "middle")
+    s += line(698, 182, 720, 182, INK, 2)
+    s += text(640, 300, "«брудний» сигнал бачать, не пускаючи його в логіку", 9.5, GREY, "middle", style="italic")
+    s += text(W / 2, H - 12, "В обидва боки світлодіод — на боці джерела сигналу, фототранзистор — на боці приймача.",
+              11, GREY, "middle", style="italic")
+    save("fig-10-10-7-inout.svg", s)
+
+
 if __name__ == "__main__":
     # Історія до Розділу 10
     fig_timeline()
@@ -2115,4 +3354,49 @@ if __name__ == "__main__":
     fig91_rev_pol_series()
     fig91_rev_pol_cases()
     fig91_clamps()
-    print("OK — Розділ 10 ПОВНІСТЮ (історія + §10.1–§10.9 + 2 історії до тем) згенеровано в", OUT)
+    # §10.10 Оптопара й гальванічна розв'язка (тема 2.5.10)
+    fig5a10_1_need()
+    fig5a10_2_inside()
+    fig5a10_3_ctr()
+    fig5a10_4_isolation()
+    fig5a10_5_speed()
+    fig5a10_6_family()
+    fig5a10_7_inout()
+    # 🧮 вставка до §2.5.5 — рівняння Шоклі
+    fig5m1_boltzmann()
+    fig5m2_two_scales()
+    fig5m3_temperature()
+    # 🧮 вставка до §2.5.6 — пульсації після випрямляча
+    fig6m1_ripple_derive()
+    fig6m2_bridge_advantage()
+    fig6m3_surge()
+    # ⚙️ вставка до §2.5.5 — діод як термометр
+    fig5a1_method()
+    fig5a2_dvbe()
+    # 📜 історія до §2.5.1 — кремній проти германію
+    fig1i1_timeline()
+    fig1i2_ge_vs_si()
+    fig1i3_dayton()
+    # 📜 історія до §2.5.7 — блакитний світлодіод
+    fig7i1_timeline()
+    fig7i2_why_hard()
+    fig7i3_three()
+    # 🔌 вставка до §2.5.6 — діодний міст як компонент
+    fig6c1_bridge_pkg()
+    fig6c2_drop_heat()
+    # 🔌 вставка до §2.5.7 — світлодіоди на практиці
+    fig7c1_rgb_white()
+    fig7c2_resistor_vs_driver()
+    # ⚙️ вставка до §2.5.7 — Charlieplexing
+    fig7a1_principle()
+    fig7a2_scale()
+    # 🔌 вставка до §2.5.8 — сімейства діодів
+    fig8c1_workhorses()
+    fig8c2_marking()
+    # 🔌 вставка до §2.5.8 — TVS-діоди
+    fig8c3_tvs_action()
+    fig8c4_tvs_params()
+    # 🔌 вставка до §2.5.10 — оптопара PC817-класу
+    fig10c1_pc817_calc()
+    fig10c2_ranks_family()
+    print("OK — Розділ 10 ПОВНІСТЮ (історія + §10.1–§10.10 + 2 історії до тем) згенеровано в", OUT)

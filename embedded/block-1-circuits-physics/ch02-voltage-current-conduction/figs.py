@@ -2199,6 +2199,519 @@ def fig213_protection():
     save("fig-2-13-4-protection.svg", s)
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# Математична вставка до теми 1.2.1 — Похідна I = dQ/dt
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_derivative():
+    W, H = 780, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "Похідна: миттєвий струм — це нахил графіка Q(t)", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "середній струм = ΔQ/Δt (хорда); стискаємо Δt до нуля — дістаємо dQ/dt (дотична)",
+              12, GREY, "middle", style="italic")
+    ox, oy = 110, 330
+    s += arrow(ox, oy, 716, oy, INK, 1.8)
+    s += arrow(ox, oy, ox, 96, INK, 1.8)
+    s += text(706, oy + 22, "час t", 12, INK, "middle", "italic")
+    s += text(ox - 6, 94, "заряд Q", 12, INK, "start", "italic")
+    X = lambda t: ox + t * 98.33
+    Y = lambda q: oy - q * 6.111
+    s += polyline([(X(t / 10.0), Y((t / 10.0) ** 2)) for t in range(0, 61)], RED, 2.8)
+    s += text(X(5.85), Y(33), "Q(t) = заряд, що пройшов", 12, RED, "end", "bold")
+    P1 = (X(2), Y(4))
+    P2 = (X(5), Y(25))
+    # секанс (хорда) + катети ΔQ, Δt
+    s += line(P1[0], P1[1], P2[0], P1[1], GREY, 1.4, "4 3")
+    s += line(P2[0], P1[1], P2[0], P2[1], GREY, 1.4, "4 3")
+    s += text((P1[0] + P2[0]) / 2, P1[1] + 18, "Δt", 12.5, GREY, "middle", "bold", "italic")
+    s += text(P2[0] + 12, (P1[1] + P2[1]) / 2, "ΔQ", 12.5, GREY, "start", "bold", "italic")
+    s += line(P1[0], P1[1], P2[0], P2[1], GREEN, 2.4)
+    s += text(454, 222, "хорда: середній I = ΔQ/Δt", 11.5, GREEN, "middle", "bold")
+    # дотична в точці P1
+    sl = -0.2486
+    s += line(P1[0] - 86, P1[1] - sl * 86, P1[0] + 152, P1[1] + sl * 152, INK, 2.4)
+    s += circle(P1[0], P1[1], 4, INK, INK, 1)
+    s += text(P1[0] + 156, P1[1] + sl * 152 + 4, "дотична: миттєвий I = dQ/dt", 11.5, INK, "start", "bold")
+    s += text((P1[0] + P2[0]) / 2, 138, "Δt → 0:  хорда лягає на дотичну", 12.5, INK, "middle", "bold")
+    s += text((P1[0] + P2[0]) / 2, 156, "де крива крутіша — там більший струм", 11, GREY, "middle", style="italic")
+    save("fig-2-1m-1-derivative.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Історія до теми 1.2.1 — Ампер і 1820 рік
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_oersted():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Дослід Ерстеда, 1820: струм відхиляє стрілку компаса", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "і то ПЕРПЕНДИКУЛЯРНО до дроту — електрика й магнетизм виявилися пов'язані",
+              12, GREY, "middle", style="italic")
+
+    def panel(cx, on, title):
+        out = rect(cx - 150, 86, 300, 252, "none", FAINT, 1.6, 12)
+        out += text(cx, 108, title, 13.5, INK, "middle", "bold")
+        wy = 168
+        out += line(cx - 120, wy, cx + 120, wy, INK, 4)
+        if on:
+            out += arrow(cx - 30, wy, cx + 70, wy, RED, 3)
+            out += text(cx, wy - 12, "струм I тече", 12, RED, "middle", "bold")
+        else:
+            out += text(cx, wy - 12, "струму нема", 12, GREY, "middle")
+        ccy = wy + 78
+        out += circle(cx, ccy, 36, "#fafafa", INK, 1.8)
+        if on:
+            out += arrow(cx, ccy + 26, cx, ccy - 26, RED, 3.2)
+            out += text(cx, ccy + 58, "стрілка ⟂ дроту", 11.5, RED, "middle", "bold")
+        else:
+            out += arrow(cx - 26, ccy, cx + 26, ccy, INK, 3.2)
+            out += text(cx, ccy + 58, "стрілка вздовж (на північ)", 11, GREY, "middle")
+        return out
+
+    s += panel(230, False, "коло розімкнене")
+    s += panel(590, True, "коло замкнене")
+    s += text(W / 2, 376, "Уперше показано: рухомий заряд (струм) породжує магнітну дію — звідси й піде вся електродинаміка.",
+              12, INK, "middle", "bold")
+    save("fig-2-1i-1-oersted.svg", s)
+
+
+def fig_parallel_wires():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Закон Ампера: два струми діють один на одного", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "паралельні струми притягуються; зустрічні — відштовхуються",
+              12, GREY, "middle", style="italic")
+
+    def pair(cx, same, title):
+        out = rect(cx - 130, 86, 260, 252, "none", FAINT, 1.6, 12)
+        out += text(cx, 108, title, 13.5, INK, "middle", "bold")
+        lx, rx = cx - 44, cx + 44
+        top, bot = 142, 300
+        out += line(lx, top, lx, bot, INK, 4)
+        out += line(rx, top, rx, bot, INK, 4)
+        out += arrow(lx, bot - 18, lx, top + 18, RED, 3)
+        out += (arrow(rx, bot - 18, rx, top + 18, RED, 3) if same else arrow(rx, top + 18, rx, bot - 18, RED, 3))
+        out += text(lx - 13, top + 4, "I", 12, RED, "end", "bold", "italic")
+        out += text(rx + 13, top + 4, "I", 12, RED, "start", "bold", "italic")
+        midy = 224
+        if same:
+            out += arrow(lx + 10, midy, lx + 40, midy, GREEN, 2.6)
+            out += arrow(rx - 10, midy, rx - 40, midy, GREEN, 2.6)
+            out += text(cx, bot + 24, "притягуються", 13, GREEN, "middle", "bold")
+        else:
+            out += arrow(lx - 10, midy, lx - 40, midy, GREEN, 2.6)
+            out += arrow(rx + 10, midy, rx + 40, midy, GREEN, 2.6)
+            out += text(cx, bot + 24, "відштовхуються", 13, GREEN, "middle", "bold")
+        return out
+
+    s += pair(230, True, "однаковий напрям")
+    s += pair(590, False, "протилежний напрям")
+    s += text(W / 2, 376, "На силі між двома такими дротами довго трималося й офіційне означення ампера (до 2019 р.).",
+              12, INK, "middle", "bold")
+    save("fig-2-1i-2-parallel-wires.svg", s)
+
+
+def fig_molecular_currents():
+    W, H = 820, 392
+    s = header(W, H)
+    s += text(W / 2, 34, "Смілива ідея Ампера: магніт — це безліч колових струмів", 19.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "усередині сусідні струми гасяться, на поверхні складаються — і ось магніт",
+              12, GREY, "middle", style="italic")
+    bx, by, bw, bh = 170, 118, 480, 150
+    s += rect(bx, by, bw, bh, "#f4f6f9", "#8a949e", 2, 8)
+    cols, rows = 8, 2
+    for r in range(rows):
+        for c in range(cols):
+            ccx = bx + (c + 0.5) * bw / cols
+            ccy = by + (r + 0.5) * bh / rows
+            s += circle(ccx, ccy, 17, "none", "#9aa7b3", 1.3)
+            s += arrow(ccx + 13, ccy - 7, ccx + 15, ccy + 7, RED, 1.3)  # обертання за год. стрілкою
+    s += text(bx + bw / 2, by + bh + 2, "крихітні «молекулярні» колові струми (усі в один бік)", 11, GREY, "middle", style="italic")
+    # сумарний поверхневий струм — зелений контур
+    m = 7
+    s += arrow(bx + 30, by - m, bx + bw - 30, by - m, GREEN, 2.6)
+    s += arrow(bx + bw + m, by + 30, bx + bw + m, by + bh - 30, GREEN, 2.6)
+    s += arrow(bx + bw - 30, by + bh + m, bx + 30, by + bh + m, GREEN, 2.6)
+    s += arrow(bx - m, by + bh - 30, bx - m, by + 30, GREEN, 2.6)
+    s += text(bx + bw / 2, by - 16, "сумарний поверхневий струм", 12, GREEN, "middle", "bold")
+    s += text(bx - 24, by + bh / 2, "S", 18, INK, "middle", "bold")
+    s += text(bx + bw + 24, by + bh / 2, "N", 18, INK, "middle", "bold")
+    s += text(W / 2, H - 16, "Так Ампер звів магнетизм до руху заряду: жодних «магнітних зарядів» — лише струми.",
+              12, INK, "middle", "bold")
+    save("fig-2-1i-3-molecular-currents.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Математична вставка до теми 1.2.3 — Оцінка швидкості дрейфу
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_drift_estimate():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Швидкість дрейфу «на серветці»: I = n·e·A·v", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "за секунду крізь переріз проходить заряд цілого стовпчика електронів завдовжки v",
+              12, GREY, "middle", style="italic")
+    wx, wy, ww, wh = 90, 150, 420, 90
+    s += rect(wx, wy, ww, wh, "#fbfbfb", "#b9b3a6", 2, 6)
+    secx = wx + 300
+    s += line(secx, wy - 14, secx, wy + wh + 14, INK, 2.4)
+    s += text(secx, wy - 22, "переріз A", 12, INK, "middle", "bold")
+    slabx = secx - 120
+    s += rect(slabx, wy, 120, wh, "#eaf2f7", GREEN, 1.6)
+    for dx, dy in [(20, 25), (55, 55), (90, 30), (35, 65), (75, 20), (100, 60), (15, 52), (60, 38)]:
+        s += minus(slabx + dx, wy + dy, 6, BLUE, 1.6)
+    s += arrow(slabx + 30, wy + wh + 28, slabx + 110, wy + wh + 28, GREEN, 2.6)
+    s += text(slabx + 70, wy + wh + 44, "v (дрейф)", 11.5, GREEN, "middle", "bold")
+    s += text(slabx + 60, wy - 10, "стовпчик довжини v·Δt", 11, GREEN, "middle", "bold")
+    tx = wx + ww + 18
+    s += text(tx, wy + 18, "За час Δt усі електрони", 11.5, INK, "start")
+    s += text(tx, wy + 36, "зсунулись на v·Δt — крізь", 11.5, INK, "start")
+    s += text(tx, wy + 54, "переріз пройшов заряд", 11.5, INK, "start")
+    s += text(tx, wy + 72, "усього стовпчика:", 11.5, INK, "start")
+    s += text(tx, wy + 96, "Q = n·(A·v·Δt)·e", 12.5, INK, "start", "bold")
+    s += text(tx, wy + 116, "I = Q/Δt = n·e·A·v", 13, GREEN, "start", "bold")
+    s += rect(70, 294, W - 140, 88, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(84, 316, "Оцінка (мідь, 1 А, дріт 1 мм²):", 12.5, INK, "start", "bold")
+    s += text(84, 340, "v = I/(n·e·A) ≈ 1 / (10²⁹ · 1.6×10⁻¹⁹ · 10⁻⁶) ≈ 6×10⁻⁵ м/с", 13, INK, "start")
+    s += text(84, 366, "≈ 0.06 мм/с — повільніше за равлика! А лампа спалахує миттєво (поле біжить, §1.2.4).",
+              12, INK, "start", "bold")
+    save("fig-2-3m-1-drift-estimate.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Історія до теми 1.2.4 — Трансатлантичний кабель 1858
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_cable_route():
+    W, H = 820, 388
+    s = header(W, H)
+    s += text(W / 2, 34, "Трансатлантичний кабель, 1858: ≈3000 км по дну океану", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "уперше Європу й Америку з'єднали «миттєвим» дротом — і виявилося, що сигнал не зовсім миттєвий",
+              12, GREY, "middle", style="italic")
+    wx, wy, ww, wh = 40, 150, 740, 168
+    s += rect(wx, wy, ww, wh, "#eaf2f7", "#bcd3df", 1.4, 6)
+    s += rect(wx, wy, 130, 64, "#e6ded0", "#b9a77e", 1.6, 0)
+    s += rect(wx + ww - 130, wy, 130, 64, "#e6ded0", "#b9a77e", 1.6, 0)
+    s += text(wx + 65, wy + 36, "Ірландія", 12.5, INK, "middle", "bold")
+    s += text(wx + 65, wy + 52, "(Валентія)", 10.5, GREY, "middle")
+    s += text(wx + ww - 65, wy + 34, "Ньюфаундленд", 11.5, INK, "middle", "bold")
+    s += text(wx + ww - 65, wy + 52, "(Канада)", 10.5, GREY, "middle")
+    floorY = wy + wh - 26
+    pts = [(wx + 130, wy + 64)]
+    for i in range(0, 25):
+        x = wx + 150 + (ww - 300) * i / 24
+        y = floorY + 5 * math.sin(i * 0.9)
+        pts.append((x, y))
+    pts.append((wx + ww - 130, wy + 64))
+    s += polyline(pts, INK, 2.6)
+    s += text(W / 2, floorY + 22, "кабель на дні Атлантики", 11.5, INK, "middle", "bold")
+    sx = W / 2
+    s += rect(sx - 52, wy - 16, 44, 16, "#cfd3d8", "#555555", 1.4, 3)
+    s += rect(sx + 8, wy - 16, 44, 16, "#cfd3d8", "#555555", 1.4, 3)
+    s += text(sx, wy - 22, "два кораблі зрощують кабель посеред океану", 10.5, GREY, "middle", style="italic")
+    s += text(W / 2, 366, "Сигнал біжить дуже швидко — але дорогою «розмазується» й відстає (див. далі).",
+              12, INK, "middle", "bold")
+    save("fig-2-4i-1-cable-route.svg", s)
+
+
+def fig_retardation():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Чому сигнал не миттєвий: кабель «розмазує» імпульс", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "різкий імпульс на вході виходить на тому кінці згладженим і запізнілим",
+              12, GREY, "middle", style="italic")
+    ax, ay = 80, 250
+    s += line(ax, ay, ax + 210, ay, INK, 1.6)
+    s += line(ax, ay, ax, ay - 130, INK, 1.6)
+    s += text(ax + 100, ay + 22, "вхід (Ірландія)", 12, INK, "middle", "bold")
+    s += polyline([(ax + 30, ay), (ax + 30, ay - 100), (ax + 90, ay - 100), (ax + 90, ay), (ax + 210, ay)], RED, 2.8)
+    s += text(ax + 60, ay - 110, "різкий", 11, RED, "middle", "bold")
+    s += arrow(ax + 218, ay - 56, ax + 332, ay - 56, INK, 2.4)
+    s += text(ax + 275, ay - 68, "≈3000 км кабелю", 11.5, INK, "middle", "bold")
+    bx, by = ax + 360, 250
+    s += line(bx, by, bx + 230, by, INK, 1.6)
+    s += line(bx, by, bx, by - 130, INK, 1.6)
+    s += text(bx + 115, by + 22, "вихід (Ньюфаундленд)", 12, INK, "middle", "bold")
+    pts = [(bx + i, by - 60 * math.exp(-((i - 125) / 46.0) ** 2)) for i in range(0, 231, 3)]
+    s += polyline(pts, GREEN, 2.8)
+    s += text(bx + 128, by - 74, "розмазаний і запізнілий", 11, GREEN, "middle", "bold")
+    s += rect(70, 312, W - 140, 66, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, 334, "Довгий кабель накопичує заряд уздовж себе й гальмує сигнал («ретардація»):",
+              12.5, INK, "middle", "bold")
+    s += text(W / 2, 356, "затримка росте як КВАДРАТ довжини — «закон квадратів» Вільяма Томсона (Кельвіна).",
+              12, INK, "middle")
+    save("fig-2-4i-2-retardation.svg", s)
+
+
+def fig_whitehouse_thomson():
+    W, H = 820, 392
+    s = header(W, H)
+    s += text(W / 2, 34, "Дві школи: груба напруга проти тонкого приладу", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "Вайтгауз тиснув кіловольтами й пробив кабель; Томсон ловив найслабший сигнал — і мав рацію",
+              12, GREY, "middle", style="italic")
+    # ЛІВО — Вайтгауз
+    s += rect(50, 86, 340, 274, "#fdf1f0", RED, 1.6, 12)
+    s += text(220, 110, "Вайтгауз: груба сила", 14, RED, "middle", "bold")
+    s += rect(110, 150, 80, 50, "#eeeeee", INK, 1.8, 4)
+    for i in range(5):
+        s += line(112, 158 + i * 9, 188, 158 + i * 9, "#b08a5a", 1.4)
+    s += text(150, 222, "індукційна котушка", 10.5, INK, "middle")
+    s += text(150, 238, "~2000 В", 11, INK, "middle", "bold")
+    s += polyline([(220, 175), (240, 165), (232, 182), (256, 172)], "#caa24a", 2.4)
+    s += line(272, 150, 272, 202, INK, 3)
+    s += text(300, 168, "пробита", 11, RED, "start", "bold")
+    s += text(300, 184, "ізоляція", 11, RED, "start", "bold")
+    s += text(220, 300, "тиснути кіловольтами,", 11.5, INK, "middle")
+    s += text(220, 318, "щоб «проштовхнути» сигнал", 11.5, INK, "middle")
+    s += text(220, 340, "→ кабель загинув за тижні", 11.5, RED, "middle", "bold")
+    # ПРАВО — Томсон
+    s += rect(430, 86, 340, 274, "#eef5ef", GREEN, 1.6, 12)
+    s += text(600, 110, "Томсон: тонкий прилад", 14, GREEN, "middle", "bold")
+    s += circle(540, 185, 26, "none", INK, 2)
+    s += line(528, 174, 552, 173, INK, 2.6)            # дзеркальце
+    s += line(468, 150, 540, 182, "#caa24a", 1.6)      # падаючий промінь
+    s += line(540, 182, 644, 150, "#caa24a", 1.6)      # відбитий промінь
+    s += circle(644, 150, 4, "#caa24a", "#caa24a", 1)  # світла пляма
+    s += line(652, 128, 652, 196, INK, 2)              # шкала
+    s += text(540, 230, "дзеркальний гальванометр", 10.5, INK, "middle", "bold")
+    s += text(600, 300, "ловити найслабший струм", 11.5, INK, "middle")
+    s += text(600, 318, "крихітним відхиленням променя", 11.5, INK, "middle")
+    s += text(600, 340, "→ підхід, що зрештою переміг", 11.5, GREEN, "middle", "bold")
+    save("fig-2-4i-3-whitehouse-thomson.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Компонентна вставка до теми 1.2.7 — Вимикачі й кнопки
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_switches():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Вимикачі: полюси (P) і напрямки (T) — SPST, SPDT, NO/NC", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "полюс = скільки незалежних кіл вимикач керує; напрямок = на скільки положень перемикає",
+              11.5, GREY, "middle", style="italic")
+    cy = 196
+
+    def panel(x, title, sub):
+        out = rect(x, 86, 180, 256, "none", FAINT, 1.6, 12)
+        out += text(x + 90, 110, title, 13.5, INK, "middle", "bold")
+        out += text(x + 90, 326, sub, 10.5, GREY, "middle", style="italic")
+        return out
+
+    x = 30
+    s += panel(x, "SPST", "1 полюс · 1 напрямок")
+    s += circle(x + 45, cy, 5, INK, INK, 1)
+    s += circle(x + 135, cy, 5, INK, INK, 1)
+    s += line(x + 45, cy, x + 122, cy - 34, INK, 3)
+    s += text(x + 90, cy + 54, "просто увімк/вимк", 11, INK, "middle", "bold")
+
+    x = 225
+    s += panel(x, "SPDT", "1 полюс · 2 напрямки")
+    s += circle(x + 40, cy, 5, INK, INK, 1)
+    s += circle(x + 135, cy - 26, 5, INK, INK, 1)
+    s += circle(x + 135, cy + 26, 5, INK, INK, 1)
+    s += line(x + 40, cy, x + 135, cy - 26, INK, 3)
+    s += text(x + 90, cy + 54, "перемикач на 2 положення", 10.5, INK, "middle", "bold")
+
+    x = 420
+    s += panel(x, "Кнопка NO", "нормально розімкнена")
+    s += circle(x + 45, cy, 5, INK, INK, 1)
+    s += circle(x + 135, cy, 5, INK, INK, 1)
+    s += line(x + 45, cy, x + 70, cy, INK, 2.4)
+    s += line(x + 110, cy, x + 135, cy, INK, 2.4)
+    s += line(x + 70, cy - 16, x + 110, cy - 16, INK, 3)
+    s += line(x + 90, cy - 16, x + 90, cy - 30, INK, 2)
+    s += arrow(x + 90, cy - 46, x + 90, cy - 33, RED, 2)
+    s += text(x + 90, cy + 54, "натиснув — ЗАМКНУВ", 10.5, GREEN, "middle", "bold")
+
+    x = 615
+    s += panel(x, "Кнопка NC", "нормально замкнена")
+    s += circle(x + 45, cy, 5, INK, INK, 1)
+    s += circle(x + 135, cy, 5, INK, INK, 1)
+    s += line(x + 45, cy, x + 135, cy, INK, 3)
+    s += line(x + 90, cy, x + 90, cy - 14, INK, 2)
+    s += arrow(x + 90, cy - 32, x + 90, cy - 17, RED, 2)
+    s += text(x + 90, cy + 54, "натиснув — РОЗІМКНУВ", 10.5, RED, "middle", "bold")
+    save("fig-2-7c-1-switches.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Компонентна вставка до теми 1.2.11 — Гальванічна корозія
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_galvanic_corrosion():
+    W, H = 820, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "Гальванічна корозія: чому не можна скручувати мідь з алюмінієм", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "два різні метали + волога = крихітна батарея; менш шляхетний метал роз'їдається",
+              11.5, GREY, "middle", style="italic")
+    # ── Панель A: стик Al–Cu ──
+    s += rect(40, 86, 440, 304, "none", FAINT, 1.6, 12)
+    s += text(260, 108, "Стик Al–Cu у вологому повітрі", 13, INK, "middle", "bold")
+    by, bw, bh = 184, 110, 70
+    al_x, cu_x = 130, 240
+    s += rect(al_x, by, bw, bh, "#d7dadd", "#9aa0a6", 2, 4)
+    s += rect(cu_x, by, bw, bh, "#e6b98a", "#b07a3e", 2, 4)
+    s += text(al_x + bw / 2, by + bh / 2 + 5, "Al", 17, INK, "middle", "bold")
+    s += text(cu_x + bw / 2, by + bh / 2 + 5, "Cu", 17, "#7a4a16", "middle", "bold")
+    s += text(al_x + bw / 2, by - 8, "алюміній (анод)", 11, RED, "middle", "bold")
+    s += text(cu_x + bw / 2, by - 8, "мідь (катод)", 11, GREEN, "middle", "bold")
+    s += rect(200, 156, 90, 16, "#cfe6f2", "#7fb3cf", 1.4, 6)
+    s += text(245, 150, "плівка вологи (електроліт)", 10, "#3a6b86", "middle", style="italic")
+    for dx in (150, 175, 200):
+        s += plus(dx, 150, 5, RED, 1.6)
+    s += arrow(al_x + 30, by + bh + 16, cu_x + 70, by + bh + 16, BLUE, 2.4)
+    s += text((al_x + cu_x + bw) / 2, by + bh + 32, "e⁻ : Al → Cu", 12, BLUE, "middle", "bold")
+    s += text(al_x + 30, by + bh + 50, "Al роз'їдається", 11, RED, "middle", "bold")
+    s += text(260, 312, "роз'їдається метал, що віддає електрони (анод) — тут Al;", 10.5, INK, "middle")
+    s += text(260, 328, "мідь захищена. Оксид Al ще й ізолює → стик гріється.", 10.5, INK, "middle")
+    s += text(260, 350, "Без вологи реакції майже нема — суха коробка безпечніша.", 10, GREY, "middle", style="italic")
+    # ── Панель B: гальванічний ряд ──
+    s += rect(500, 86, 280, 304, "none", FAINT, 1.6, 12)
+    s += text(640, 108, "Гальванічний ряд", 13, INK, "middle", "bold")
+    bx, top, bot = 562, 150, 344
+    s += line(bx, top, bx, bot, INK, 2)
+    s += text(bx, top - 8, "↑ активні — анод (роз'їдаються)", 9.5, RED, "middle", "bold")
+    s += text(bx + 4, bot + 18, "↓ шляхетні — катод (захищені)", 9.5, GREEN, "middle", "bold")
+    items = [("Mg магній", RED), ("Zn цинк", RED), ("Al алюміній", RED), ("сталь", "#aa5577"),
+             ("латунь", "#66aa66"), ("Cu мідь", GREEN), ("нержавійка", GREEN), ("золото", GREEN)]
+    ys = {}
+    for i, (name, col) in enumerate(items):
+        y = top + (bot - top) * i / (len(items) - 1)
+        ys[name] = y
+        s += circle(bx, y, 4, col, col, 1)
+        s += text(bx + 12, y + 4, name, 11.5, col, "start", "bold" if col in (RED, GREEN) else "normal")
+    s += line(bx - 16, ys["Al алюміній"], bx - 16, ys["Cu мідь"], INK, 2)
+    s += text(bx - 22, (ys["Al алюміній"] + ys["Cu мідь"]) / 2, "далеко →", 9.5, INK, "end", "bold")
+    s += text(bx - 22, (ys["Al алюміній"] + ys["Cu мідь"]) / 2 + 13, "швидка корозія", 9.5, INK, "end", "bold")
+    save("fig-2-11c-1-galvanic-corrosion.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Компонентна вставка до теми 1.2.13 — ПЗВ (RCD)
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_rcd():
+    W, H = 820, 430
+    s = header(W, H)
+    s += text(W / 2, 34, "ПЗВ (RCD): порівнює струм «туди» і «назад»", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "у справному колі вони рівні; витік у землю порушує баланс — і ПЗВ миттю розриває коло",
+              11.5, GREY, "middle", style="italic")
+
+    def panel(x, fault):
+        out = rect(x, 84, 380, 322, "none", FAINT, 1.6, 12)
+        out += text(x + 190, 108, ("ВИТІК (небезпека)" if fault else "Норма"), 13.5,
+                    (RED if fault else GREEN), "middle", "bold")
+        cy = 196
+        Ly, Ny = cy - 16, cy + 16
+        rx = x + 92
+        out += circle(rx, cy, 30, "none", "#1f8a3b", 2.6)
+        out += circle(rx, cy, 15, "none", "#1f8a3b", 1.4)
+        out += text(rx, cy + 50, "давач (кільце)", 9.5, GREY, "middle", style="italic")
+        loadx = x + 300
+        out += line(x + 30, Ly, loadx, Ly, RED, 3)
+        out += line(x + 30, Ny, loadx, Ny, BLUE, 3)
+        out += text(x + 28, Ly - 8, "L", 12, RED, "start", "bold")
+        out += text(x + 28, Ny + 18, "N", 12, BLUE, "start", "bold")
+        out += circle(loadx, cy, 16, "#fff7e0", "#caa24a", 2)
+        out += line(loadx, Ly, loadx, cy - 16, INK, 2)
+        out += line(loadx, cy + 16, loadx, Ny, INK, 2)
+        out += text(loadx, cy + 38, "наван-", 9.5, INK, "middle")
+        out += text(loadx, cy + 50, "таження", 9.5, INK, "middle")
+        out += arrow(x + 150, Ly, x + 205, Ly, RED, 2.2)
+        out += arrow(x + 205, Ny, x + 150, Ny, BLUE, 2.2)
+        if fault:
+            lk = x + 235
+            out += line(lk, Ly, lk, cy + 78, "#caa24a", 2.4)
+            out += circle(lk, cy + 90, 7, "#ffffff", INK, 1.6)
+            gy = cy + 106
+            out += line(lk - 18, gy, lk + 18, gy, INK, 2.2)
+            out += line(lk - 12, gy + 6, lk + 12, gy + 6, INK, 2.2)
+            out += line(lk - 6, gy + 12, lk + 6, gy + 12, INK, 2.2)
+            out += text(lk + 24, cy + 88, "витік ΔI", 10.5, "#a06a00", "start", "bold")
+            out += text(x + 190, 352, "I назад < I туди → дисбаланс ΔI у кільці", 11, RED, "middle", "bold")
+            out += text(x + 190, 370, "→ ПЗВ розриває коло (~30 мА, мілісекунди) ✗", 11, RED, "middle", "bold")
+        else:
+            out += text(x + 190, 352, "I туди = I назад → поле в кільці = 0", 11, GREEN, "middle", "bold")
+            out += text(x + 190, 370, "→ не спрацьовує ✓", 11, GREEN, "middle", "bold")
+        return out
+
+    s += panel(30, False)
+    s += panel(420, True)
+    save("fig-2-13c-1-rcd.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Історія до теми 1.2.13 — Чарльз Далзіел
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_shock_thresholds():
+    W, H = 800, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Що виміряв Далзіел: скільки струму небезпечно для людини", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "саме ці числа (а не «вольти») лежать в основі порогів ПЗВ і GFCI",
+              11.5, GREY, "middle", style="italic")
+    x, top, bot = 240, 100, 396
+    s += line(x, top, x, bot, INK, 2.4)
+    s += arrow(x, top + 4, x, top - 6, INK, 2.4)
+    s += text(x, bot + 22, "0", 11, INK, "middle")
+    s += text(x, top - 14, "струм крізь тіло (мА)", 11.5, INK, "middle", "bold")
+    rows = [
+        (0.10, "~1 мА", "відчуття (легке поколювання)", GREEN),
+        (0.28, "~5 мА", "поріг GFCI (США) — захищає", GREEN),
+        (0.46, "10–16 мА", "«НЕ ВІДПУСТИТИ»: м'язи зводить (Далзіел)", "#c98a00"),
+        (0.61, "~30 мА", "поріг ПЗВ (Європа); важко дихати", "#c98a00"),
+        (0.80, "~100 мА", "ФІБРИЛЯЦІЯ серця — смертельно (Далзіел)", RED),
+        (0.94, "> 1 А", "опіки, зупинка серця", RED),
+    ]
+    for frac, val, desc, col in rows:
+        y = bot - frac * (bot - top)
+        s += line(x - 8, y, x + 8, y, INK, 2)
+        s += circle(x, y, 5, col, col, 1)
+        s += text(x - 16, y + 4, val, 12, col, "end", "bold")
+        s += text(x + 22, y + 4, desc, 11.5, col, "start", "bold" if col != GREEN else "normal")
+    s += rect(60, H - 38, W - 120, 28, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 19, "Звідси головна думка §1.2.13: вбивають МІЛІАМПЕРИ через тіло, а не самі по собі вольти.",
+              11.5, INK, "middle", "bold")
+    save("fig-2-13i-1-shock-thresholds.svg", s)
+
+
+def fig_collective_rcd():
+    W, H = 800, 372
+    s = header(W, H)
+    s += text(W / 2, 34, "«Далзіел винайшов ПЗВ» — спрощення: внесок був колективний", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "принцип і сам пристрій старші за Далзіела й народилися в різних країнах",
+              11.5, GREY, "middle", style="italic")
+    y = 156
+    s += line(70, y, W - 70, y, INK, 2.4)
+    s += text(70, y - 10, "1950", 10.5, GREY, "start")
+    s += text(W - 70, y - 10, "1970", 10.5, GREY, "end")
+    marks = [
+        (0.18, True, "1955", "Анрі Рубін · ПАР", "перший практичний", "захист від витоку (копальні)", "#1f47b5"),
+        (0.44, False, "1950-ті", "Бігельмаєр · Австрія", "патенти на такі", "вимикачі (досл. на собі)", "#7a52c0"),
+        (0.70, True, "~1961", "Ч. Далзіел · США", "GFCI + наука про", "небезпечний струм", "#1f8a3b"),
+    ]
+    for frac, below, yr, who, l1, l2, col in marks:
+        mx = 70 + frac * (W - 140)
+        s += circle(mx, y, 6, col, col, 1.5)
+        if below:
+            s += text(mx, y + 24, yr, 11.5, col, "middle", "bold")
+            s += text(mx, y + 42, who, 11, INK, "middle", "bold")
+            s += text(mx, y + 58, l1, 9.5, GREY, "middle")
+            s += text(mx, y + 72, l2, 9.5, GREY, "middle")
+        else:
+            s += text(mx, y - 56, yr, 11.5, col, "middle", "bold")
+            s += text(mx, y - 38, who, 11, INK, "middle", "bold")
+            s += text(mx, y - 22, l1, 9.5, GREY, "middle")
+            s += text(mx, y - 8, l2, 9.5, GREY, "middle")
+    s += rect(60, H - 64, W - 120, 50, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 42, "Чесно розділити внески: ПРИНЦИП і пристрій — колективні, старші за Далзіела;",
+              11.5, INK, "middle", "bold")
+    s += text(W / 2, H - 22, "а НАУКУ про небезпечний струм і персональний GFCI дав саме Далзіел.",
+              11.5, INK, "middle")
+    save("fig-2-13i-2-collective-rcd.svg", s)
+
+
 if __name__ == "__main__":
     # Історія до розділу
     fig_ohm_story()
@@ -2278,4 +2791,25 @@ if __name__ == "__main__":
     fig213_ohm_skin()
     fig213_path()
     fig213_protection()
+    # §2.1 вставка — похідна I = dQ/dt
+    fig_derivative()
+    # §2.1 історія — Ампер і 1820 рік
+    fig_oersted()
+    fig_parallel_wires()
+    fig_molecular_currents()
+    # §2.3 вставка — оцінка швидкості дрейфу
+    fig_drift_estimate()
+    # §2.4 історія — трансатлантичний кабель 1858
+    fig_cable_route()
+    fig_retardation()
+    fig_whitehouse_thomson()
+    # §2.7 вставка — вимикачі й кнопки
+    fig_switches()
+    # §2.11 вставка — гальванічна корозія
+    fig_galvanic_corrosion()
+    # §2.13 вставка — ПЗВ (RCD)
+    fig_rcd()
+    # §2.13 історія — Чарльз Далзіел
+    fig_shock_thresholds()
+    fig_collective_rcd()
     print("OK — фігури розділу 2 (… + §2.13) згенеровано в", OUT)

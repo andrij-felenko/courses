@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<rect width="900" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ККД ланцюга = добуток ККД каскадів (не сума!)</text>
+<text x="70.0" y="70.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Каскад buck + LDO:</text>
+<circle cx="110.0" cy="130.0" r="26.0" fill="#ffffff" stroke="#1b1b1b" stroke-width="2.4"/>
+<text x="110.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">100%</text>
+<line x1="136.0" y1="130.0" x2="200.0" y2="130.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="200.0" y="110.0" width="90.0" height="40.0" rx="7" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="245.0" y="129.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">buck→5В</text>
+<text x="245.0" y="144.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">η=0.92</text>
+<line x1="290.0" y1="130.0" x2="360.0" y2="130.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="390.0" cy="130.0" r="26.0" fill="#ffffff" stroke="#1f8a3b" stroke-width="2.4"/>
+<text x="390.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">92%</text>
+<line x1="416.0" y1="130.0" x2="480.0" y2="130.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="480.0" y="110.0" width="90.0" height="40.0" rx="7" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="525.0" y="129.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">LDO→3.3В</text>
+<text x="525.0" y="144.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">η=0.66</text>
+<line x1="570.0" y1="130.0" x2="640.0" y2="130.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="672.0" cy="130.0" r="26.0" fill="#ffffff" stroke="#c0271e" stroke-width="2.4"/>
+<text x="672.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">61%</text>
+<line x1="245.0" y1="152.0" x2="245.0" y2="180.0" stroke="#c0271e" stroke-width="2" marker-end="url(#aRed)"/>
+<text x="245.0" y="194.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">−8% тепло</text>
+<line x1="525.0" y1="152.0" x2="525.0" y2="180.0" stroke="#c0271e" stroke-width="2" marker-end="url(#aRed)"/>
+<text x="525.0" y="194.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">−31% тепло (LDO палить різницю!)</text>
+<text x="770.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">→ 61%</text>
+<text x="770.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">0.92×0.66</text>
+<text x="70.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Один buck:</text>
+<circle cx="110.0" cy="300.0" r="26.0" fill="#ffffff" stroke="#1b1b1b" stroke-width="2.4"/>
+<text x="110.0" y="305.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">100%</text>
+<line x1="136.0" y1="300.0" x2="260.0" y2="300.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="260.0" y="280.0" width="90.0" height="40.0" rx="7" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="305.0" y="299.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">buck 12→3.3В</text>
+<text x="305.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">η=0.90</text>
+<line x1="350.0" y1="300.0" x2="640.0" y2="300.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="672.0" cy="300.0" r="26.0" fill="#ffffff" stroke="#1f8a3b" stroke-width="2.4"/>
+<text x="672.0" y="305.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">90%</text>
+<line x1="305.0" y1="322.0" x2="305.0" y2="342.0" stroke="#c0271e" stroke-width="2" marker-end="url(#aRed)"/>
+<text x="305.0" y="356.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">−10% тепло</text>
+<text x="770.0" y="305.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">→ 90%</text>
+<rect x="70.0" y="384.0" width="760.0" height="26.0" rx="8" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="450.0" y="402.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Один добрий перетворювач (90%) б'є каскад buck+LDO (61%): зайвий каскад — особливо лінійний — з'їдає десятки відсотків</text>
+</svg>

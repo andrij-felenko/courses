@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="380" viewBox="0 0 900 380">
+<rect width="900" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Модель падіння на кабелі: дві жили — туди й назад</text>
+<rect x="70.0" y="120.0" width="130.0" height="120.0" rx="10" fill="#fbe9e7" stroke="#c0271e" stroke-width="1.8"/>
+<text x="135.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">джерело</text>
+<text x="135.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">5.0 В</text>
+<rect x="700.0" y="120.0" width="130.0" height="120.0" rx="10" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="765.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">пристрій</text>
+<text x="765.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Vпр</text>
+<text x="765.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">= 5 − ΔV</text>
+<line x1="200.0" y1="145.0" x2="380.0" y2="145.0" stroke="#b5763a" stroke-width="3" stroke-linecap="round"/>
+<rect x="380.0" y="128.0" width="70.0" height="34.0" rx="4" fill="#ffffff" stroke="#b5763a" stroke-width="1.8"/>
+<text x="415.0" y="149.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#b5763a" text-anchor="middle" font-weight="bold" font-style="normal">Rжили</text>
+<line x1="450.0" y1="145.0" x2="700.0" y2="145.0" stroke="#b5763a" stroke-width="3" stroke-linecap="round"/>
+<line x1="270.0" y1="145.0" x2="330.0" y2="145.0" stroke="#c0271e" stroke-width="2" marker-end="url(#aRed)"/>
+<text x="290.0" y="137.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">I →</text>
+<text x="415.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">VBUS (туди)</text>
+<line x1="200.0" y1="215.0" x2="380.0" y2="215.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<rect x="380.0" y="198.0" width="70.0" height="34.0" rx="4" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="415.0" y="219.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Rжили</text>
+<line x1="450.0" y1="215.0" x2="700.0" y2="215.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<line x1="630.0" y1="215.0" x2="570.0" y2="215.0" stroke="#c0271e" stroke-width="2" marker-end="url(#aRed)"/>
+<text x="610.0" y="232.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">← I</text>
+<text x="415.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">GND (назад)</text>
+<rect x="150.0" y="290.0" width="600.0" height="66.0" rx="10" fill="#f6f6f6" stroke="#8a8a8a" stroke-width="1.5"/>
+<text x="450.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Rкаб = 2 · (L · ρ) + Rконтактів      ΔV = I · Rкаб</text>
+<text x="450.0" y="338.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">струм біжить туди по VBUS і назад по GND — тому опір ПОДВІЙНИЙ</text>
+</svg>

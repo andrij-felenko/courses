@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Скільки можу взяти з цього порту? — карта рішення</text>
+<rect x="370.0" y="60.0" width="160.0" height="40.0" rx="8" fill="#eef3fb" stroke="#1f47b5" stroke-width="2"/>
+<text x="450.0" y="85.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">бачу USB-порт</text>
+<line x1="450.0" y1="100.0" x2="160.0" y2="150.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<rect x="90.0" y="150.0" width="220.0" height="50.0" rx="8" fill="#ffffff" stroke="#caa24a" stroke-width="2"/>
+<text x="200.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">Старий A/micro?</text>
+<text x="200.0" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ BC1.2: тип порту по D+/D−</text>
+<text x="200.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(до 1.5 А) — тема 10.3.5</text>
+<line x1="450.0" y1="100.0" x2="440.0" y2="150.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<rect x="370.0" y="150.0" width="220.0" height="50.0" rx="8" fill="#ffffff" stroke="#1f8a3b" stroke-width="2"/>
+<text x="480.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Type-C без PD?</text>
+<text x="480.0" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ резистори CC: 5 В, 1.5/3 А</text>
+<text x="480.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(до 15 Вт) — тема 10.3.2</text>
+<line x1="450.0" y1="100.0" x2="720.0" y2="150.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<rect x="650.0" y="150.0" width="220.0" height="50.0" rx="8" fill="#ffffff" stroke="#c0271e" stroke-width="2"/>
+<text x="760.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Type-C з PD?</text>
+<text x="760.0" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ переговори: 9/15/20/48 В</text>
+<text x="760.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(до 240 Вт) — теми 10.3.3–4</text>
+<rect x="70.0" y="356.0" width="760.0" height="32.0" rx="8" fill="#fbf7ec" stroke="#caa24a" stroke-width="1.5"/>
+<text x="450.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Перш ніж брати струм, пристрій мусить ЗАПИТАТИ, скільки можна, — інакше або недобере, або перевантажить джерело.</text>
+<text x="450.0" y="388.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Три способи спитати (BC1.2 / CC / PD) — три наступні теми розділу. Тут — лише карта, куди дивитись.</text>
+</svg>

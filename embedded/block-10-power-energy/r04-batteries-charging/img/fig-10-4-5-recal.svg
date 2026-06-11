@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="400" viewBox="0 0 940 400">
+<rect width="940" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Перекалібрування: краї кривої — надійні якорі</text>
+<line x1="110.0" y1="310.0" x2="810.0" y2="310.0" stroke="#1b1b1b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="110.0" y1="310.0" x2="110.0" y2="90.0" stroke="#1b1b1b" stroke-width="1.5" stroke-linecap="round"/>
+<text x="101.0" y="88.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">V</text>
+<line x1="110.0" y1="310.0" x2="110.0" y2="315.0" stroke="#1b1b1b" stroke-width="1" stroke-linecap="round"/>
+<text x="110.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">0%</text>
+<line x1="460.0" y1="310.0" x2="460.0" y2="315.0" stroke="#1b1b1b" stroke-width="1" stroke-linecap="round"/>
+<text x="460.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">50%</text>
+<line x1="810.0" y1="310.0" x2="810.0" y2="315.0" stroke="#1b1b1b" stroke-width="1" stroke-linecap="round"/>
+<text x="810.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">100%</text>
+<text x="460.0" y="344.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">SoC</text>
+<rect x="110" y="90" width="126" height="220" fill="#1f8a3b" fill-opacity="0.12"/>
+<rect x="684" y="90" width="126" height="220" fill="#1f8a3b" fill-opacity="0.12"/>
+<polyline points="110.0,296.2 166.0,227.5 250.0,197.2 460.0,183.5 670.0,151.9 754.0,131.3 810.0,117.5" fill="none" stroke="#1f47b5" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="173.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">круто — добрий якір</text>
+<text x="747.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">круто — добрий якір</text>
+<text x="460.0" y="171.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">пласко — поганий якір</text>
+<circle cx="810.0" cy="117.5" r="6.0" fill="none" stroke="#c0271e" stroke-width="2.5"/>
+<text x="806.0" y="105.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">повний = 100%</text>
+<circle cx="110.0" cy="296.2" r="6.0" fill="none" stroke="#c0271e" stroke-width="2.5"/>
+<text x="150.0" y="300.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">відсічка = 0%</text>
+<rect x="70.0" y="356.0" width="800.0" height="32.0" rx="9" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="470.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Дрейф кулонометрії «обнуляють» на ВІДОМИХ точках: повний заряд (термінація, 10.4.3) = 100%, відсічка = 0%, де напруга крута й надійна.</text>
+<text x="470.0" y="389.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Тому кожен повний заряд заодно перекалібровує паливомір — а в пласкій середині покладаються на лічбу заряду, не на напругу.</text>
+</svg>

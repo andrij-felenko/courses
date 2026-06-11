@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" viewBox="0 0 820 300">
+<rect width="820" height="300" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="410.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Дві роботи кожного дисплея: памʼять кадру і вічне освіження</text>
+<rect x="60.0" y="118.0" width="180.0" height="92.0" rx="6" fill="#eef2f5" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="150.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">памʼять кадру</text>
+<text x="150.0" y="156.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(framebuffer)</text>
+<rect x="320.0" y="118.0" width="180.0" height="92.0" rx="6" fill="#eef2f5" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="410.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">двигун освіження</text>
+<text x="410.0" y="156.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(refresh ~60 Гц)</text>
+<rect x="580.0" y="118.0" width="180.0" height="92.0" rx="6" fill="#eaf3ff" stroke="#9bbdd6" stroke-width="1.8"/>
+<text x="670.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#5d7e93" text-anchor="middle" font-weight="bold" font-style="normal">скло</text>
+<text x="670.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(піксельна матриця)</text>
+<line x1="240.0" y1="164.0" x2="320.0" y2="164.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<line x1="500.0" y1="164.0" x2="580.0" y2="164.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="410.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">читає 60×/с</text>
+<text x="150.0" y="234.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">«що має бути на екрані зараз»</text>
+<text x="410.0" y="234.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">перечитує памʼять, засвічує рядки</text>
+<text x="670.0" y="234.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">забуває без постійного освіження</text>
+<text x="410.0" y="274.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Хтось мусить володіти обома роботами. Уся тема — про те, ХТО: панель чи мікроконтролер.</text>
+</svg>

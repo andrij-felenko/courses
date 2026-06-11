@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="420" viewBox="0 0 940 420">
+<rect width="940" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Напруга → SoC: працює на похилій, бреше на плато</text>
+<line x1="110.0" y1="330.0" x2="810.0" y2="330.0" stroke="#1b1b1b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="110.0" y1="330.0" x2="110.0" y2="80.0" stroke="#1b1b1b" stroke-width="1.5" stroke-linecap="round"/>
+<text x="101.0" y="78.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">V</text>
+<line x1="110.0" y1="330.0" x2="110.0" y2="335.0" stroke="#1b1b1b" stroke-width="1" stroke-linecap="round"/>
+<text x="110.0" y="348.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">0%</text>
+<line x1="285.0" y1="330.0" x2="285.0" y2="335.0" stroke="#1b1b1b" stroke-width="1" stroke-linecap="round"/>
+<text x="285.0" y="348.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">25%</text>
+<line x1="460.0" y1="330.0" x2="460.0" y2="335.0" stroke="#1b1b1b" stroke-width="1" stroke-linecap="round"/>
+<text x="460.0" y="348.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">50%</text>
+<line x1="635.0" y1="330.0" x2="635.0" y2="335.0" stroke="#1b1b1b" stroke-width="1" stroke-linecap="round"/>
+<text x="635.0" y="348.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">75%</text>
+<line x1="810.0" y1="330.0" x2="810.0" y2="335.0" stroke="#1b1b1b" stroke-width="1" stroke-linecap="round"/>
+<text x="810.0" y="348.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">100%</text>
+<text x="460.0" y="364.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">SoC (заряд)</text>
+<polyline points="110.0,298.8 250.0,220.6 460.0,189.4 670.0,142.5 810.0,111.3" fill="none" stroke="#c0271e" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="495.0" y="178.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Li-ion (похила)</text>
+<polyline points="110.0,330.0 194.0,275.3 285.0,264.4 635.0,255.0 726.0,248.8 810.0,228.4" fill="none" stroke="#caa24a" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="306.0" y="282.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">LiFePO4 (плато)</text>
+<rect x="250" y="247" width="385" height="23" fill="#caa24a" fill-opacity="0.16"/>
+<text x="439.0" y="257.7" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">тут 10 мВ = десятки % SoC</text>
+<rect x="70.0" y="390.0" width="800.0" height="20.0" rx="8" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="470.0" y="405.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">На похилій Li-ion напрузі SoC читається пристойно. На пласкому плато LFP дрібна похибка напруги (чи просадка I·Rвн) дає велетенську похибку SoC.</text>
+</svg>

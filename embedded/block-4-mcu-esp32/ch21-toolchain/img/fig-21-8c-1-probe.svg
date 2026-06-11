@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="380" viewBox="0 0 920 380">
+<rect width="920" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Відлагоджувальний зонд: глибокий контроль над чипом</text>
+<text x="460.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">не «друк у лог», а спинити ядро, крокувати по командах і читати пам'ять наживо</text>
+<rect x="60.0" y="150.0" width="100.0" height="72.0" rx="4" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="110.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ПК</text>
+<text x="110.0" y="199.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">GDB</text>
+<line x1="160.0" y1="186.0" x2="250.0" y2="186.0" stroke="#1f47b5" stroke-width="2.2" marker-end="url(#aBlue)"/>
+<text x="205.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="middle" font-weight="normal" font-style="normal">USB</text>
+<rect x="250.0" y="118.0" width="320.0" height="138.0" rx="12" fill="#f4f7fb" stroke="#1b1b1b" stroke-width="2.2"/>
+<text x="410.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Відлагоджувальний зонд</text>
+<text x="410.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">J-Link · ST-Link · ESP-Prog · CMSIS-DAP</text>
+<text x="410.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">усередині — GDB-сервер</text>
+<text x="410.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">говорить із чипом по JTAG/SWD</text>
+<line x1="570.0" y1="186.0" x2="660.0" y2="186.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="615.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">JTAG/SWD</text>
+<rect x="660.0" y="150.0" width="120.0" height="72.0" rx="4" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="720.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Чіп</text>
+<text x="720.0" y="199.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">порт відлагодження</text>
+<rect x="60.0" y="290.0" width="800.0" height="72.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="460.0" y="312.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Що вміє (на відміну від Serial):</text>
+<text x="460.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">спинити ядро · крок за кроком · точки зупину · читати/писати регістри й пам'ять · прошити</text>
+<text x="460.0" y="350.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">усе наживо, без жодного print у коді</text>
+</svg>

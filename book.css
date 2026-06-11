@@ -456,10 +456,15 @@ body.modal-open { overflow: hidden; }
 .lib-body { padding: 1.2rem 1.35rem 1.4rem; display: flex; flex-direction: column; flex: 1; }
 .lib-body h2 { font-size: 1.22rem; font-weight: 800; color: var(--h2-color); line-height: 1.25; margin-bottom: 0.5rem; }
 .lib-body > p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.1rem; flex: 1; }
-.lib-meta { margin-bottom: 1rem; }
-.lib-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 0.4rem; }
+.lib-stats { margin-bottom: 0.9rem; border-top: 1px solid var(--border); }
+.lib-stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.34rem 0; border-bottom: 1px solid var(--border); font-size: 0.84rem; }
+.lib-stat-k { color: var(--text-muted); }
+.lib-stat-v { color: var(--text); font-variant-numeric: tabular-nums; }
+.lib-stat-v b { color: var(--accent, #1d6fa4); font-weight: 800; }
+.lib-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 0.7rem; }
 .lib-bar span { display: block; height: 100%; background: var(--accent, #1d6fa4); border-radius: 3px; }
-.lib-stat { font-size: 0.75rem; color: var(--text-muted); }
+.lib-foot { display: flex; justify-content: space-between; align-items: center; }
+.lib-modnote { font-size: 0.74rem; color: var(--text-muted); }
 .lib-cta { font-weight: 800; color: var(--accent, #1d6fa4); font-size: 0.92rem; }
 .lib-card:hover .lib-cta { text-decoration: underline; }
 @media (max-width: 640px) {

@@ -1402,6 +1402,899 @@ def fig71_selectivity_apps():
     save("fig-9-7-7-selectivity-apps.svg", s)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+#  📜 історія до §9.6 — Такома-Нерроуз
+# ─────────────────────────────────────────────────────────────────────────────
+def fig6i1_resonance_vs_flutter():
+    W, H = 840, 560
+    s = header(W, H)
+    s += text(W / 2, 34, "Два способи розгойдати міст: вимушений резонанс і флатер", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "резонанс вимагає ритмічного поштовху точно в такт; флатеру досить рівного вітру",
+              12.5, GREY, "middle", style="italic")
+    # ліва панель: резонанс
+    s += _frame(50, 90, 360, 400, "РЕЗОНАНС: вимушені коливання")
+    cx = 230
+    s += line(cx, 120, cx, 180, INK, 2)
+    s += circle(cx + 38, 196, 14, "#d9d9dd", INK, 2)
+    s += line(cx, 120, cx + 38, 196 - 12, INK, 2)
+    for k in range(3):
+        s += arrow(140 + k * 0, 190 - k * 12, 178 + k * 0, 190 - k * 12, RED, 2)
+    s += text(120, 156, "ритмічні", 11, RED, "middle", "bold")
+    s += text(120, 172, "поштовхи", 11, RED, "middle", "bold")
+    s += text(230, 232, "сила ззовні мусить ВЛУЧИТИ в f₀", 11.5, INK, "middle", "bold")
+    # графік: амплітуда від частоти сили
+    ox, oy, w, h = 90, 450, 280, 150
+    s += _axes(ox, oy, w, h, "частота поштовхів", "розмах")
+    pts = []
+    for j in range(0, 201):
+        f = j / 200.0
+        a = 1.0 / math.sqrt(1 + ((f - 0.5) / 0.06) ** 2)
+        pts.append((ox + f * w, oy - 0.85 * h * a))
+    s += _poly(pts, RED, 2.4)
+    s += line(ox + 0.5 * w, oy, ox + 0.5 * w, oy - 0.85 * h, GREY, 1.2, dash="4,4")
+    s += text(ox + 0.5 * w, oy + 18, "f₀", 12, INK, "middle", "bold")
+    s += text(ox + w / 2, oy - h - 4, "не влучив у частоту — нічого не буде", 10.5, GREY, "middle", style="italic")
+    # права панель: флатер
+    s += _frame(430, 90, 360, 400, "ФЛАТЕР: самозбудження")
+    # рівний потік
+    for k in range(4):
+        s += arrow(450, 130 + k * 26, 510, 130 + k * 26, GREEN, 2)
+    s += text(480, 116, "РІВНИЙ вітер, без жодного ритму", 11, GREEN, "middle", "bold")
+    # профіль моста, що крутиться
+    bx, by = 640, 165
+    s += f'<g transform="rotate(-12 {bx} {by})">\n'
+    s += rect(bx - 70, by - 8, 140, 16, "#9aa0a6", "#5c6066", 2, 3)
+    s += f'</g>\n'
+    s += f'<path d="M {bx + 86},{by - 30} A 40 40 0 0 1 {bx + 86},{by + 30}" fill="none" stroke="{RED}" stroke-width="2" marker-end="url(#aRed)"/>\n'
+    # петля зворотного зв'язку
+    fy = 250
+    s += text(610, fy, "рух змінює кут атаки", 11.5, INK, "middle", "bold")
+    s += arrow(610, fy + 8, 610, fy + 30, GREY, 1.6)
+    s += text(610, fy + 46, "вітер дає силу В ТАКТ руху", 11.5, INK, "middle", "bold")
+    s += arrow(610, fy + 54, 610, fy + 76, GREY, 1.6)
+    s += text(610, fy + 92, "розмах росте → і так по колу", 11.5, "#9a2b22", "middle", "bold")
+    s += f'<path d="M 730,{fy + 88} C 770,{fy + 60} 770,{fy + 20} 730,{fy - 6}" fill="none" stroke="{RED}" stroke-width="1.8" marker-end="url(#aRed)" stroke-dasharray="5,4"/>\n'
+    # графік: амплітуда від швидкості вітру
+    ox2, oy2 = 470, 450
+    s += _axes(ox2, oy2, w, h, "швидкість вітру", "розмах")
+    vcrit = 0.55
+    pts = []
+    for j in range(0, 201):
+        v = j / 200.0
+        a = 0.04 if v < vcrit else 0.04 + 0.9 * ((v - vcrit) / (1 - vcrit)) ** 1.5
+        pts.append((ox2 + v * w, oy2 - 0.85 * h * min(a, 1.0)))
+    s += _poly(pts, RED, 2.4)
+    s += line(ox2 + vcrit * w, oy2, ox2 + vcrit * w, oy2 - 0.85 * h, GREY, 1.2, dash="4,4")
+    s += text(ox2 + vcrit * w, oy2 + 18, "критична швидкість", 10.5, INK, "middle", "bold")
+    s += text(ox2 + w / 2, oy2 - h - 4, "вище порога розмах росте з вітром монотонно", 10.5, GREY, "middle", style="italic")
+    s += text(W / 2, 534, "у Такоми вихори зривалися з частотою ~1 Гц, а міст крутився на 0.2 Гц — «резонанс» не сходиться навіть арифметично",
+              11.5, GREY, "middle", style="italic")
+    save("fig-9-6i-1-resonance-vs-flutter.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  ⚙️ вставка до §9.4 — фігури Ліссажу
+# ─────────────────────────────────────────────────────────────────────────────
+def _liss(cx, cy, r, fx, fy, phi, col, wv=2.2):
+    pts = []
+    for j in range(0, 401):
+        t = j / 400.0 * 2 * math.pi
+        pts.append((cx + r * math.sin(fx * t), cy - r * math.sin(fy * t + phi)))
+    return _poly(pts, col, wv)
+
+
+def fig4a1_liss_gallery():
+    W, H = 840, 480
+    s = header(W, H)
+    s += text(W / 2, 34, "Фаза стає формою: галерея фігур Ліссажу (однакові частоти)", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "X — перший сигнал, Y — другий; форма петлі читається з одного погляду",
+              12.5, GREY, "middle", style="italic")
+    cells = ((0, "0°: пряма"), (math.pi / 4, "45°: похилий еліпс"), (math.pi / 2, "90°: коло"),
+             (3 * math.pi / 4, "135°"), (math.pi, "180°: зворотна пряма"))
+    for i, (phi, lab) in enumerate(cells):
+        cx = 110 + i * 158
+        cy = 180
+        s += rect(cx - 62, cy - 62, 124, 124, "#fbfbfb", "#d8d8d8", 1.2, 6)
+        s += line(cx - 62, cy, cx + 62, cy, FAINT, 1)
+        s += line(cx, cy - 62, cx, cy + 62, FAINT, 1)
+        s += _liss(cx, cy, 46, 1, 1, phi, COPP)
+        s += text(cx, cy + 84, lab, 11, INK, "middle", "bold")
+    # як зчитати кут
+    cx, cy, r = 240, 380, 52
+    s += rect(cx - 66, cy - 66, 132, 132, "#fbfbfb", "#d8d8d8", 1.2, 6)
+    s += line(cx - 66, cy, cx + 66, cy, FAINT, 1)
+    s += line(cx, cy - 66, cx, cy + 66, FAINT, 1)
+    phi0 = math.radians(35)
+    s += _liss(cx, cy, r, 1, 1, phi0, COPP)
+    y0 = r * math.sin(phi0)
+    s += arrow(cx + 40, cy - y0, cx + 4, cy - y0, GREEN, 1.8)
+    s += line(cx, cy, cx, cy - y0, GREEN, 3)
+    s += text(cx + 46, cy - y0 + 4, "Y₀ (перетин осі)", 10.5, GREEN, "start", "bold")
+    s += line(cx, cy, cx, cy - r, BLUE, 1.6, dash="4,3")
+    s += text(cx + 6, cy - r - 6, "B (повний розмах)", 10.5, BLUE, "start", "bold")
+    s += text(520, 350, "кут читається без осцилографа-лінійки:", 13, INK, "start", "bold")
+    s += text(520, 380, "sin φ = Y₀ / B", 16, GREEN, "start", "bold")
+    s += text(520, 410, "напрям обходу петлі каже, ХТО випереджає:", 12, INK, "start")
+    s += text(520, 428, "проти годинникової — Y попереду (ICE/ELI з §2.3.4)", 12, INK, "start")
+    save("fig-9-4a-1-liss-gallery.svg", s)
+
+
+def fig4a2_liss_ratios():
+    W, H = 800, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Бонус: різні частоти малюють вузли — і їх можна порахувати", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "відношення частот = відношення кількості дотиків фігури до горизонтальної й вертикальної рамок",
+              12, GREY, "middle", style="italic")
+    cells = ((1, 1, "1 : 1"), (2, 1, "2 : 1"), (3, 2, "3 : 2"))
+    for i, (fx, fy, lab) in enumerate(cells):
+        cx = 160 + i * 240
+        cy = 200
+        s += rect(cx - 80, cy - 80, 160, 160, "#fbfbfb", "#d8d8d8", 1.2, 6)
+        s += _liss(cx, cy, 62, fx, fy, math.pi / 2, COPP)
+        s += text(cx, cy + 104, f"f_x : f_y = {lab}", 12.5, INK, "middle", "bold")
+    s += text(W / 2, 348, "так до епохи частотомірів звіряли генератор з еталоном: стабільна нерухома фігура = частоти кратні точно",
+              11.5, GREY, "middle", style="italic")
+    save("fig-9-4a-2-liss-ratios.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  ⚙️ вставка до §9.5 — пошук резонансу свіпом
+# ─────────────────────────────────────────────────────────────────────────────
+def fig5a1_sweep_setup():
+    W, H = 820, 540
+    s = header(W, H)
+    s += text(W / 2, 34, "Свіп: спитати в контуру, де його резонанс", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "крокуємо частотою, міряємо відгук — максимум і є f₀, ширина піка дає Q",
+              12.5, GREY, "middle", style="italic")
+    # установка
+    y = 140
+    s += circle(100, y, 22, "#fff", INK, 2)
+    pts = [(100 - 13 + 26 * t / 100, y - 8 * math.sin(2 * math.pi * 1.5 * t / 100)) for t in range(0, 101)]
+    s += _poly(pts, INK, 1.6)
+    s += text(100, y + 42, "генератор", 11, INK, "middle", "bold")
+    s += text(100, y + 58, "(частота керується)", 9.5, GREY, "middle")
+    s += line(122, y, 170, y, INK, 2.2)
+    s += rect(170, y - 9, 64, 18, "#f3f3f3", INK, 1.6)
+    s += text(202, y - 16, "R великий", 10, INK, "middle", "bold")
+    s += text(202, y + 30, "слабкий зв'язок:", 9.5, GREY, "middle")
+    s += text(202, y + 44, "не «садити» Q", 9.5, GREY, "middle")
+    s += line(234, y, 300, y, INK, 2.2)
+    s += circle(300, y, 3.5, INK, INK, 0)
+    # контур L||C
+    cs, t_, b_ = cap_sym(300, y + 52, 13, 8)
+    s += line(300, y, 300, y + 43, INK, 1.8)
+    s += cs
+    s += line(300, y + 61, 300, y + 100, INK, 1.8)
+    for k in range(3):
+        ya = y + 14 + k * 26
+        s += f'<path d="M 360,{ya} A 13 13 0 0 1 360,{ya + 26}" fill="none" stroke="{COPP}" stroke-width="2.4"/>\n'
+    s += line(360, y, 360, y + 14, INK, 1.8)
+    s += line(300, y, 360, y, INK, 1.8)
+    s += line(360, y + 92, 360, y + 100, INK, 1.8)
+    s += line(300, y + 100, 360, y + 100, INK, 1.8)
+    s += text(330, y + 122, "контур", 10.5, INK, "middle", "bold")
+    # детектор
+    s += line(360, y, 470, y, INK, 2.2)
+    s += rect(470, y - 22, 140, 44, LGRN, GREEN, 1.8, 6)
+    s += text(540, y - 2, "детектор амплітуди", 10.5, INK, "middle", "bold")
+    s += text(540, y + 14, "(АЦП / осцилограф)", 9.5, GREY, "middle")
+    s += text(700, y, "→ A[f]", 13, GREEN, "start", "bold")
+    # результат свіпу
+    ox, oy, w, h = 120, 470, 580, 200
+    s += _axes(ox, oy, w, h, "частота f", "амплітуда A")
+    f0, bw = 0.52, 0.07
+    pts = []
+    for j in range(0, 201):
+        f = j / 200.0
+        a = 1.0 / math.sqrt(1 + ((f - f0) / (bw / 2)) ** 2)
+        pts.append((ox + f * w, oy - 0.88 * h * a))
+    s += _poly(pts, COPP, 2.6)
+    for j in range(0, 21):
+        f = j / 20.0
+        a = 1.0 / math.sqrt(1 + ((f - f0) / (bw / 2)) ** 2)
+        s += circle(ox + f * w, oy - 0.88 * h * a, 3.2, GREEN, GREEN, 0)
+    s += line(ox + f0 * w, oy, ox + f0 * w, oy - 0.88 * h, GREY, 1.2, dash="4,4")
+    s += text(ox + f0 * w, oy + 20, "f₀ = argmax", 12, RED, "middle", "bold")
+    lvl = 0.88 * 0.707
+    s += line(ox, oy - lvl * h, ox + w, oy - lvl * h, GREY, 1.2, dash="6,5")
+    s += text(ox + w + 6, oy - lvl * h + 4, "0.707·A_max", 10.5, GREY, "start")
+    f1 = f0 - bw / 2
+    f2 = f0 + bw / 2
+    for fx in (f1, f2):
+        s += line(ox + fx * w, oy - lvl * h, ox + fx * w, oy - lvl * h - 16, GREY, 1.4)
+    s += text(ox + f0 * w, oy - lvl * h - 24, "Δf → Q = f₀/Δf", 11.5, INK, "middle", "bold")
+    s += text(ox + 0.13 * w, oy - 0.4 * h, "зелені точки —", 10.5, GREY, "middle")
+    s += text(ox + 0.13 * w, oy - 0.4 * h + 14, "кроки свіпу", 10.5, GREY, "middle")
+    save("fig-9-5a-1-sweep-setup.svg", s)
+
+
+def fig5a2_sweep_pitfalls():
+    W, H = 800, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Дві пастки свіпу: поспіх і меандр", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "контур розгойдується ~Q періодів — і чує не лише основну частоту генератора",
+              12.5, GREY, "middle", style="italic")
+    ox, oy, w, h = 100, 360, 600, 250
+    s += _axes(ox, oy, w, h, "частота f", "амплітуда")
+    f0, bw = 0.6, 0.06
+    # чесний пік
+    pts = []
+    for j in range(0, 201):
+        f = j / 200.0
+        a = 1.0 / math.sqrt(1 + ((f - f0) / (bw / 2)) ** 2)
+        pts.append((ox + f * w, oy - 0.85 * h * a))
+    s += _poly(pts, COPP, 2.6)
+    s += text(ox + f0 * w + 14, oy - 0.85 * h, "повільний свіп: чесний пік", 11.5, COPP, "start", "bold")
+    # розмазаний пік (швидкий свіп)
+    pts = []
+    for j in range(0, 201):
+        f = j / 200.0
+        a = 0.45 / math.sqrt(1 + ((f - (f0 + 0.05)) / (bw * 1.8)) ** 2)
+        pts.append((ox + f * w, oy - 0.85 * h * a))
+    s += _poly(pts, RED, 2.2, dash="6,4")
+    s += text(ox + (f0 + 0.10) * w, oy - 0.32 * h, "швидкий свіп: пік нижчий,", 11, "#9a2b22", "start", "bold")
+    s += text(ox + (f0 + 0.10) * w, oy - 0.32 * h + 15, "ширший і зсунутий", 11, "#9a2b22", "start", "bold")
+    # гармоніка меандра
+    pts = []
+    fg = f0 / 3
+    for j in range(0, 201):
+        f = j / 200.0
+        a = 0.3 / math.sqrt(1 + ((f - fg) / (bw / 2)) ** 2)
+        pts.append((ox + f * w, oy - 0.85 * h * a))
+    s += _poly(pts, BLUE, 2, dash="3,4")
+    s += text(ox + fg * w, oy - 0.36 * h, "«привид» на f₀/3:", 11, "#27447e", "middle", "bold")
+    s += text(ox + fg * w, oy - 0.36 * h + 15, "3-тя гармоніка меандра", 11, "#27447e", "middle")
+    s += text(W / 2, 408, "правила: затримка на крок ≥ кількох Q/f₀; синус замість меандра (або знати про гармоніки); слабкий зв'язок",
+              11.5, GREY, "middle", style="italic")
+    save("fig-9-5a-2-sweep-pitfalls.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🔌 вставка до §9.5 — RFID/NFC
+# ─────────────────────────────────────────────────────────────────────────────
+def fig5c1_card():
+    W, H = 840, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Картка без батарейки: трансформатор із повітряним осердям + резонанс", 17, INK, "middle", "bold")
+    s += text(W / 2, 56, "зчитувач створює змінне поле; контур картки, настроєний у резонанс, розгойдує його до робочих вольтів",
+              12, GREY, "middle", style="italic")
+    # котушка зчитувача
+    s += rect(70, 130, 110, 250, "#f3f3f3", INK, 1.8, 8)
+    s += text(125, 118, "зчитувач", 12.5, INK, "middle", "bold")
+    for k in range(5):
+        ya = 160 + k * 40
+        s += f'<path d="M 160,{ya} A 12 14 0 0 1 160,{ya + 40}" fill="none" stroke="{COPP}" stroke-width="2.6"/>\n'
+    s += text(125, 270, "генерує", 10.5, GREY, "middle")
+    s += text(125, 286, "13.56 МГц", 10.5, GREY, "middle")
+    # поле — дуги
+    for r in (60, 100, 140):
+        s += f'<path d="M 175,{255 - r} A {r} {r} 0 0 1 175,{255 + r}" fill="none" stroke="{GREEN}" stroke-width="1.8" stroke-dasharray="6,5"/>\n'
+    s += text(245, 130, "змінне магнітне поле", 11, GREEN, "middle", "bold")
+    s += text(245, 146, "(ближнє: дальність ~ розмір котушки)", 9.5, GREY, "middle")
+    # картка
+    s += rect(380, 150, 280, 180, "#ffffff", INK, 2, 10)
+    s += text(520, 138, "картка / мітка", 12.5, INK, "middle", "bold")
+    # периметральна антена (3 витки)
+    for m in range(3):
+        s += rect(392 + m * 7, 162 + m * 7, 256 - m * 14, 156 - m * 14, "none", COPP, 2)
+    # чип і конденсатор
+    s += rect(495, 222, 50, 36, "#3a3a3a", INK, 1.6, 4)
+    s += text(520, 245, "чип", 11, "#ffffff", "middle", "bold")
+    s += text(520, 280, "конденсатор настроювання —", 9.5, GREY, "middle")
+    s += text(520, 294, "усередині чипа", 9.5, GREY, "middle")
+    # ланцюжок праворуч
+    ax = 700
+    s += text(ax, 180, "1. наведення:", 11.5, INK, "start", "bold")
+    s += text(ax, 196, "мілівольти (§2.2.6)", 11, GREY, "start")
+    s += text(ax, 228, "2. резонанс:", 11.5, INK, "start", "bold")
+    s += text(ax, 244, "контур ×Q → вольти", 11, GREY, "start")
+    s += text(ax, 276, "3. випрямляч у чипі:", 11.5, INK, "start", "bold")
+    s += text(ax, 292, "живлення логіки", 11, GREY, "start")
+    s += text(W / 2, 380, "числа для 13.56 МГц: кілька витків по периметру (L ≈ 1.4 мкГн) + ≈100 пФ:  f₀ = 1/(2π√(LC)) ≈ 13.6 МГц",
+              12, INK, "middle", "bold")
+    s += text(W / 2, 404, "сімейство 125 кГц влаштоване так само — лише більше витків і нижча частота",
+              11.5, GREY, "middle", style="italic")
+    s += text(W / 2, 440, "без резонансу наведених мілівольтів не вистачило б: саме добротність контуру робить картку безбатарейною",
+              11.5, GREY, "middle", style="italic")
+    save("fig-9-5c-1-card.svg", s)
+
+
+def fig5c2_load_mod():
+    W, H = 800, 460
+    s = header(W, H)
+    s += text(W / 2, 34, "Як картка відповідає: смикає спільне поле навантаженням", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "чип ритмічно підмикає резистор до свого контуру — зчитувач бачить це у власному струмі",
+              12.5, GREY, "middle", style="italic")
+    # схема картки з ключем
+    s += _frame(60, 90, 280, 240, "у картці")
+    # контур
+    for m in range(2):
+        s += rect(90 + m * 6, 130 + m * 6, 110 - m * 12, 120 - m * 12, "none", COPP, 2)
+    cs, t_, b_ = cap_sym(250, 165, 12, 8)
+    s += line(200, 140, 250, 140, INK, 1.8)
+    s += line(250, 140, 250, 157, INK, 1.8)
+    s += cs
+    s += line(250, 173, 250, 240, INK, 1.8)
+    s += line(200, 240, 250, 240, INK, 1.8)
+    # ключ + резистор від чипа
+    s += rect(280, 150, 40, 24, "#3a3a3a", INK, 1.4, 3)
+    s += text(300, 166, "чип", 9.5, "#ffffff", "middle", "bold")
+    s += line(300, 174, 300, 196, INK, 1.6)
+    s += rect(290, 196, 20, 34, "#f3f3f3", INK, 1.4)
+    s += text(322, 216, "R", 11, INK, "start", "bold")
+    s += line(300, 230, 300, 252, INK, 1.6)
+    s += line(250, 252, 300, 252, INK, 1.6)
+    s += text(200, 305, "ключ у чипі вмикає R у такт бітам:", 10.5, GREY, "middle", style="italic")
+    s += text(200, 321, "контур то «важчий», то «легший»", 10.5, GREY, "middle", style="italic")
+    # осцилограма зчитувача
+    ox, oy, w, h = 420, 300, 330, 170
+    s += text(ox + w / 2, 100, "струм у котушці ЗЧИТУВАЧА:", 12, INK, "middle", "bold")
+    pts = []
+    for j in range(0, 401):
+        t = j / 400.0
+        bit = 1 if (0.25 < t < 0.45) or (0.6 < t < 0.7) or (0.8 < t < 0.95) else 0
+        amp = 0.62 - 0.16 * bit
+        pts.append((ox + t * w, oy - h / 2 - amp * (h / 2) * math.sin(2 * math.pi * 26 * t)))
+    s += _poly(pts, BLUE, 1.6)
+    s += line(ox, oy - h / 2, ox + w, oy - h / 2, GREY, 1, dash="3,4")
+    s += text(ox + w / 2, oy + 26, "просідання амплітуди = біти картки", 11.5, "#27447e", "middle", "bold")
+    s += text(W / 2, 400, "це відбитий опір у дії (§2.2.6 і вставка про n²): навантаження вторинного контуру",
+              12, GREY, "middle", style="italic")
+    s += text(W / 2, 420, "видно з первинного боку — картка нічого не передає, вона лише «тяжчає» і «легшає» в полі",
+              12, GREY, "middle", style="italic")
+    save("fig-9-5c-2-load-mod.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🔌 вставка до §9.3 — LC/π-фільтр живлення
+# ─────────────────────────────────────────────────────────────────────────────
+def fig3c1_pi_filter():
+    W, H = 840, 480
+    s = header(W, H)
+    s += text(W / 2, 34, "π-фільтр у шині живлення: брудне ліворуч, чисте праворуч", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "дросель не пускає шум уперед, конденсатори зливають його в землю з обох боків",
+              12.5, GREY, "middle", style="italic")
+    railY, gnd = 180, 340
+    # шумне джерело
+    s += rect(60, railY - 30, 130, 60, "#f3f3f3", INK, 1.8, 6)
+    s += text(125, railY - 6, "перетворювач", 11.5, INK, "middle", "bold")
+    s += text(125, railY + 12, "(шумить ~500 кГц)", 10, GREY, "middle")
+    s += line(190, railY, 280, railY, INK, 2.4)
+    # C1
+    cs1, t1, b1 = cap_sym(280, railY + 50, 14, 9)
+    s += line(280, railY, 280, railY + 41, INK, 2)
+    s += cs1
+    s += line(280, railY + 59, 280, gnd, INK, 2)
+    s += text(252, railY + 54, "C₁", 12.5, INK, "end", "bold")
+    s += circle(280, railY, 3.5, INK, INK, 0)
+    # дросель
+    s += line(280, railY, 330, railY, INK, 2.4)
+    for k in range(4):
+        xa = 330 + k * 28
+        s += f'<path d="M {xa},{railY} A 14 13 0 0 1 {xa + 28},{railY}" fill="none" stroke="{COPP}" stroke-width="2.6"/>\n'
+    s += text(386, railY - 24, "L = 10 мкГн", 12, COPP, "middle", "bold")
+    s += line(442, railY, 520, railY, INK, 2.4)
+    # C2
+    cs2, t2, b2 = cap_sym(520, railY + 50, 14, 9)
+    s += line(520, railY, 520, railY + 41, INK, 2)
+    s += cs2
+    s += line(520, railY + 59, 520, gnd, INK, 2)
+    s += text(548, railY + 54, "C₂ = 10 мкФ", 12, INK, "start", "bold")
+    s += circle(520, railY, 3.5, INK, INK, 0)
+    # споживач
+    s += line(520, railY, 620, railY, INK, 2.4)
+    s += rect(620, railY - 30, 150, 60, LGRN, GREEN, 1.8, 6)
+    s += text(695, railY - 6, "чутливий вузол", 11.5, INK, "middle", "bold")
+    s += text(695, railY + 12, "(АЦП, радіо, аналог)", 10, GREY, "middle")
+    s += line(60, gnd, 770, gnd, INK, 2.4)
+    s += line(125, railY + 30, 125, gnd, INK, 2.2)
+    s += line(695, railY + 30, 695, gnd, INK, 2.2)
+    # осцилограми
+    for x0, noisy, lab, col in ((215, True, "до: DC + шум", RED), (565, False, "після: чисте DC", GREEN)):
+        pts = []
+        for j in range(0, 61):
+            t = j / 60.0
+            n = 8 * math.sin(40 * t) if noisy else 0.6 * math.sin(40 * t)
+            pts.append((x0 + t * 50, 120 - n))
+        s += _poly(pts, col, 1.8)
+        s += text(x0 + 25, 98, lab, 10.5, col, "middle", "bold")
+    s += text(W / 2, 392, "для шуму 500 кГц: XL ≈ 31 Ом проти Xc ≈ 0.03 Ом — дільник давить у ~1000 разів;",
+              12.5, INK, "middle", "bold")
+    s += text(W / 2, 414, "для постійного струму: XL = 0 (плюс міліоми DCR), Xc = ∞ — живлення проходить недоторканим",
+              12.5, INK, "middle", "bold")
+    s += text(W / 2, 448, "π-форма: C₁ згладжує ще біля джерела, C₂ обслуговує споживача — і фільтр працює в обидва напрямки",
+              11.5, GREY, "middle", style="italic")
+    save("fig-9-3c-1-pi-filter.svg", s)
+
+
+def fig3c2_resonance_warning():
+    W, H = 780, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Тінь π-фільтра: власний резонанс LC", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "нижче робочої смуги ховається f₀ = 1/(2π√(LC)) — і там фільтр може дзвеніти",
+              12.5, GREY, "middle", style="italic")
+    ox, oy, w, h = 100, 360, 580, 250
+    s += _axes(ox, oy, w, h, "частота (лог)", "пропускання")
+    # крива: 1 на НЧ, пік на f0, спад далі
+    f0 = 0.32
+    pts = []
+    for j in range(0, 201):
+        f = j / 200.0
+        if f < f0:
+            g = 0.55 + 0.4 * math.exp(-((f - f0) ** 2) / 0.004)
+        else:
+            g = 0.55 * math.exp(-(f - f0) * 4.2) + 0.55 * math.exp(-((f - f0) ** 2) / 0.004) * 0.73
+        pts.append((ox + f * w, oy - g * h))
+    s += _poly(pts, COPP, 2.8)
+    s += line(ox + f0 * w, oy, ox + f0 * w, oy - h, GREY, 1.3, dash="5,4")
+    s += text(ox + f0 * w, oy + 20, "f₀", 13, RED, "middle", "bold")
+    s += text(ox + f0 * w + 10, oy - 0.93 * h, "пік: добротний фільтр ПІДСИЛЮЄ", 11.5, "#9a2b22", "start", "bold")
+    s += text(ox + f0 * w + 10, oy - 0.93 * h + 16, "коливання біля f₀ (стрибки навантаження!)", 11.5, "#9a2b22", "start")
+    s += text(ox + 0.12 * w, oy - 0.62 * h, "DC і повільне:", 11.5, "#1f6e33", "middle", "bold")
+    s += text(ox + 0.12 * w, oy - 0.62 * h + 16, "проходить", 11.5, "#1f6e33", "middle")
+    s += text(ox + 0.8 * w, oy - 0.3 * h, "шум перетворювача:", 11.5, "#1f6e33", "middle", "bold")
+    s += text(ox + 0.8 * w, oy - 0.3 * h + 16, "давиться", 11.5, "#1f6e33", "middle")
+    s += text(W / 2, 410, "ліки — трохи втрат: електроліт із помірним ESR паралельно C₂ чи невеликий резистор гасять пік",
+              12, GREY, "middle", style="italic")
+    save("fig-9-3c-2-resonance-warning.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🔌 вставка до §9.2 — ємнісний баласт
+# ─────────────────────────────────────────────────────────────────────────────
+def fig2c1_dropper():
+    W, H = 840, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Ємнісний баласт: реактивність замість гасильного резистора", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "конденсатор «з'їдає» зайву напругу мережі, не виділивши ані вата тепла",
+              12.5, GREY, "middle", style="italic")
+    railY, gnd = 170, 330
+    # мережа
+    s += circle(90, (railY + gnd) / 2, 26, "#fff", INK, 2)
+    pts = [(90 - 15 + 30 * t / 100, (railY + gnd) / 2 - 9 * math.sin(2 * math.pi * 1.5 * t / 100)) for t in range(0, 101)]
+    s += _poly(pts, INK, 1.8)
+    s += line(90, (railY + gnd) / 2 - 26, 90, railY, INK, 2.2)
+    s += line(90, (railY + gnd) / 2 + 26, 90, gnd, INK, 2.2)
+    s += text(90, gnd + 24, "мережа 230 В", 11.5, INK, "middle", "bold")
+    s += text(90, gnd + 42, "50 Гц", 11, GREY, "middle")
+    # X2-конденсатор послідовно + bleeder
+    s += line(90, railY, 200, railY, INK, 2.2)
+    cs, lxx, rxx = cap_sym(218, railY, 16, 10)
+    s += line(200, railY, lxx, railY, INK, 2.2)
+    s += cs
+    s += text(218, railY - 28, "C: плівка X2, 0.47 мкФ", 11.5, INK, "middle", "bold")
+    s += text(218, railY - 12, "Xc ≈ 6.8 кОм на 50 Гц", 10.5, GREY, "middle")
+    # bleeder
+    s += line(lxx - 18 + 6, railY, lxx - 12, railY, INK, 0.1)
+    s += rect(190, railY + 26, 56, 16, "#f3f3f3", INK, 1.4)
+    s += line(200, railY, 200, railY + 34, INK, 1.6)
+    s += line(246, railY + 34, 256, railY + 34, INK, 0.1)
+    s += line(236 + 10, railY + 34, 254, railY + 34, INK, 1.6)
+    s += line(254, railY + 34, 254, railY, INK, 1.6)
+    s += text(218, railY + 58, "1 МОм: розряд після вимкнення", 9.5, GREY, "middle")
+    # захисний резистор
+    s += line(rxx, railY, 300, railY, INK, 2.2)
+    s += rect(300, railY - 9, 56, 18, "#f3f3f3", INK, 1.6)
+    s += text(328, railY - 16, "47–100 Ом", 10, INK, "middle", "bold")
+    s += text(328, railY + 30, "проти кидка ввімкнення", 9.5, GREY, "middle")
+    s += line(356, railY, 420, railY, INK, 2.2)
+    # випрямляч
+    s += rect(420, railY - 24, 92, gnd - railY + 48, "#f3f3f3", INK, 1.8, 8)
+    s += text(466, (railY + gnd) / 2 - 4, "випрямляч", 11.5, INK, "middle", "bold")
+    s += text(466, (railY + gnd) / 2 + 14, "(міст, §2.5.6)", 10, GREY, "middle")
+    s += line(90, gnd, 420, gnd, INK, 2.2)
+    # LED + стабілітрон
+    s += line(512, railY, 600, railY, INK, 2.2)
+    s += rect(600, railY + 10, 36, 120, LGRN, GREEN, 1.8, 6)
+    s += text(618, railY - 6, "LED-ланцюжок", 10.5, "#1f6e33", "middle", "bold")
+    s += line(618, railY, 618, railY + 10, INK, 2)
+    s += line(618, railY + 130, 618, gnd, INK, 2)
+    s += rect(690, railY + 30, 26, 80, LRED, "#c98a8a", 1.6, 6)
+    s += text(703, railY + 16, "стабілітрон", 9.5, "#9a2b22", "middle")
+    s += line(703, railY, 703, railY + 30, INK, 1.8)
+    s += line(512, railY, 703, railY, INK, 0.1)
+    s += line(703, railY + 110, 703, gnd, INK, 1.8)
+    s += line(512, gnd, 760, gnd, INK, 2.2)
+    s += line(760, gnd, 760, gnd, INK, 0.1)
+    s += text(560, railY - 18, "I ≈ 34 мА", 11.5, GREEN, "middle", "bold")
+    # порівняння потужностей
+    s += text(W / 2, 414, "якби гасив резистор 6.8 кОм: P = I²·R ≈ 8 Вт пічки;  конденсатор: середня потужність ≈ 0 (зсув 90°, §2.3.4)",
+              12, GREY, "middle", style="italic")
+    s += rect(60, 432, 720, 40, LRED, RED, 1.8, 8)
+    s += text(W / 2, 457, "⚠ розв'язки від мережі НЕМАЄ: кожна точка цієї схеми — це дотик до розетки", 13, "#9a2b22", "middle", "bold")
+    save("fig-9-2c-1-dropper.svg", s)
+
+
+def fig2c2_no_isolation():
+    W, H = 800, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Чим баласт відрізняється від трансформатора: бар'єра немає", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "струм обмежений — але потенціал мережі нікуди не дівся",
+              12.5, GREY, "middle", style="italic")
+    # ліва панель: трансформатор
+    s += _frame(50, 90, 340, 280, "блок живлення з трансформатором")
+    s += line(80, 150, 160, 150, INK, 2.2)
+    s += line(80, 280, 160, 280, INK, 2.2)
+    s += text(95, 215, "мережа", 11, INK, "middle", "bold")
+    # трансформатор: дві котушки + осердя
+    for k in range(4):
+        ya = 160 + k * 28
+        s += f'<path d="M 170,{ya} A 11 14 0 0 1 170,{ya + 28}" fill="none" stroke="{COPP}" stroke-width="2.2"/>\n'
+        s += f'<path d="M 196,{ya} A 11 14 0 0 0 196,{ya + 28}" fill="none" stroke="{COPP}" stroke-width="2.2"/>\n'
+    s += line(180, 150, 180, 285, INK, 2.4)
+    s += line(186, 150, 186, 285, INK, 2.4)
+    s += line(160, 150, 170, 150, INK, 0.1)
+    s += line(196, 160, 280, 160, INK, 2.2)
+    s += line(196, 272, 280, 272, INK, 2.2)
+    s += rect(280, 180, 70, 70, LGRN, GREEN, 1.8, 6)
+    s += text(315, 220, "схема", 11.5, INK, "middle", "bold")
+    s += line(280, 160, 315, 160, INK, 0.1)
+    s += text(220, 330, "енергія йде через ПОЛЕ:", 11.5, "#1f6e33", "middle", "bold")
+    s += text(220, 348, "прямого шляху до мережі немає (§2.2.6)", 11, "#1f6e33", "middle")
+    # права панель: dropper
+    s += _frame(420, 90, 340, 280, "ємнісний баласт")
+    s += line(450, 150, 540, 150, INK, 2.2)
+    cs2, l2, r2 = cap_sym(560, 150, 14, 9)
+    s += line(540, 150, l2, 150, INK, 2.2)
+    s += cs2
+    s += line(r2, 150, 640, 150, INK, 2.2)
+    s += rect(640, 180, 70, 70, LRED, "#c98a8a", 1.8, 6)
+    s += text(675, 220, "схема", 11.5, INK, "middle", "bold")
+    s += line(640, 150, 675, 150, INK, 2.2)
+    s += line(675, 150, 675, 180, INK, 2.2)
+    s += line(450, 280, 675, 280, INK, 2.2)
+    s += line(675, 250, 675, 280, INK, 2.2)
+    s += text(470, 215, "мережа", 11, INK, "middle", "bold")
+    s += arrow(480, 300, 660, 235, RED, 2.4)
+    s += text(560, 318, "провідний шлях від розетки до кожної", 11.5, "#9a2b22", "middle", "bold")
+    s += text(560, 336, "точки схеми — крізь конденсатор і дроти", 11.5, "#9a2b22", "middle", "bold")
+    s += text(W / 2, 404, "тому ємнісний баласт допустимий лише в повністю закритих пристроях без жодного контакту назовні",
+              12, GREY, "middle", style="italic")
+    save("fig-9-2c-2-no-isolation.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🧮 вставка до §9.6 — добротність Q математично
+# ─────────────────────────────────────────────────────────────────────────────
+def fig6m1_energy_def():
+    W, H = 800, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Енергетичне означення Q: запас проти витоку за цикл", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "одне число каже, яку частку своєї енергії контур губить за кожне коливання",
+              12.5, GREY, "middle", style="italic")
+    # бак енергії, що гойдається між C і L
+    cx, cy = 240, 230
+    s += circle(cx, cy, 95, LGRN, GREEN, 2.4)
+    s += text(cx, cy - 14, "запасена", 13, INK, "middle", "bold")
+    s += text(cx, cy + 6, "енергія W", 13, INK, "middle", "bold")
+    s += text(cx, cy + 30, "(гойдається C ↔ L)", 10.5, GREY, "middle")
+    # стрілки циклу
+    s += f'<path d="M {cx - 60},{cy - 78} A 99 99 0 0 1 {cx + 60},{cy - 78}" fill="none" stroke="{GREEN}" stroke-width="2.2" marker-end="url(#aGreen)"/>\n'
+    s += f'<path d="M {cx + 60},{cy + 78} A 99 99 0 0 1 {cx - 60},{cy + 78}" fill="none" stroke="{GREEN}" stroke-width="2.2" marker-end="url(#aGreen)"/>\n'
+    # витік у R
+    s += arrow(cx + 95, cy, cx + 190, cy, RED, 2.6)
+    s += rect(cx + 190, cy - 22, 44, 44, LRED, RED, 1.8, 6)
+    s += text(cx + 212, cy + 6, "R", 14, INK, "middle", "bold")
+    s += text(cx + 142, cy - 14, "витік за період:", 11, "#9a2b22", "middle", "bold")
+    s += text(cx + 142, cy + 24, "W_втрат", 11.5, "#9a2b22", "middle", "bold")
+    for k in range(3):
+        xx = cx + 246 + k * 10
+        s += f'<path d="M {xx},{cy + 14} q 4,-7 0,-14 q -4,-7 0,-14" fill="none" stroke="{RED}" stroke-width="1.6"/>\n'
+    # формули праворуч
+    ax = 545
+    s += text(ax, 150, "Q = 2π · W / W_втрат", 16, INK, "start", "bold")
+    s += text(ax, 178, "за один період", 11.5, GREY, "start")
+    s += text(ax, 216, "тобто щоперіоду контур губить", 12, INK, "start")
+    s += text(ax, 236, "частку 2π/Q своєї енергії:", 12, INK, "start")
+    s += text(ax, 262, "Q = 100 → 6% за коливання", 12.5, GREEN, "start", "bold")
+    s += text(ax, 300, "для послідовного контуру звідси", 12, INK, "start")
+    s += text(ax, 320, "виходить знайоме:", 12, INK, "start")
+    s += text(ax, 348, "Q = ω₀L/R = √(L/C)/R", 14.5, INK, "start", "bold")
+    s += text(W / 2, 408, "2π у означенні — для чистоти формул (частка на радіан, а не на період); Q безрозмірна",
+              11.5, GREY, "middle", style="italic")
+    save("fig-9-6m-1-energy-def.svg", s)
+
+
+def fig6m2_ringing_q():
+    W, H = 820, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Q можна порахувати оком: скільки коливань живе дзвін", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "амплітуда тане як e^(−π·N/Q): до ~4% лишку минає приблизно Q коливань",
+              12.5, GREY, "middle", style="italic")
+
+    def ring(oy, qv, ncyc, col):
+        ox, w, amp = 90, 640, 70
+        out = line(ox, oy, ox + w, oy, GREY, 1.2)
+        pts = []
+        for j in range(0, 481):
+            t = j / 480.0
+            n = t * ncyc
+            env = math.exp(-math.pi * n / qv)
+            pts.append((ox + t * w, oy - amp * env * math.cos(2 * math.pi * n)))
+        out += _poly(pts, col, 2)
+        env_pts = [(ox + t / 100 * w, oy - amp * math.exp(-math.pi * (t / 100 * ncyc) / qv)) for t in range(0, 101)]
+        out += _poly(env_pts, GREY, 1.4, dash="5,4")
+        return out
+
+    s += text(110, 96, "Q = 10:", 13, INK, "start", "bold")
+    s += text(170, 96, "дзвін гасне за ~10 коливань", 12, GREY, "start")
+    s += ring(170, 10, 14, BLUE)
+    s += text(110, 286, "Q = 50:", 13, INK, "start", "bold")
+    s += text(170, 286, "ті самі 14 коливань — а згасання ледь почалося", 12, GREY, "start")
+    s += ring(360, 50, 14, GREEN)
+    s += text(W / 2, 442, "звідси й вимірювання: порахуй видимі коливання дзвону — дістанеш Q (і чому при малій Q дзвону «не видно»)",
+              12, GREY, "middle", style="italic")
+    save("fig-9-6m-2-ringing-q.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🧮 вставка до §9.5 — формула Томсона
+# ─────────────────────────────────────────────────────────────────────────────
+def fig5m1_derivation():
+    W, H = 820, 480
+    s = header(W, H)
+    s += text(W / 2, 34, "LC-петля без джерела: рівняння пише сама схема", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "конденсатор і котушка ділять ту саму напругу й той самий струм — це і є рівняння коливань",
+              12.5, GREY, "middle", style="italic")
+    # схема: LC-петля
+    cx = 170
+    s += line(cx - 60, 130, cx + 60, 130, INK, 2.4)
+    s += line(cx - 60, 130, cx - 60, 300, INK, 2.4)
+    s += line(cx - 60, 300, cx + 60, 300, INK, 2.4)
+    cs, _, _ = cap_sym(cx - 60, 215, 16, 10)
+    s += cs
+    s += text(cx - 86, 220, "C", 14, INK, "end", "bold")
+    s += line(cx + 60, 130, cx + 60, 175, INK, 2.4)
+    # вертикальна котушка дугами
+    for k in range(4):
+        ya = 175 + k * 25
+        s += f'<path d="M {cx + 60},{ya} A 13 12.5 0 0 1 {cx + 60},{ya + 25}" fill="none" stroke="{COPP}" stroke-width="2.4"/>\n'
+    s += line(cx + 60, 275, cx + 60, 300, INK, 2.4)
+    s += text(cx + 92, 220, "L", 14, INK, "start", "bold")
+    s += arrow(cx - 20, 315, cx + 20, 315, GREEN, 2.2)
+    s += text(cx, 336, "той самий струм i", 11, GREEN, "middle", "bold")
+    # ланцюжок виведення праворуч
+    ax = 330
+    s += text(ax, 130, "спільна напруга:  v_C = v_L = v", 13.5, INK, "start", "bold")
+    s += text(ax, 168, "котушка:       v = L · di/dt", 13.5, INK, "start")
+    s += text(ax, 200, "конденсатор:   i = −C · dv/dt   (розряджається)", 13.5, INK, "start")
+    s += line(ax, 220, ax + 420, 220, GREY, 1.2)
+    s += text(ax, 252, "підставимо одне в одне:", 12.5, GREY, "start", style="italic")
+    s += text(ax, 284, "d²v/dt² = − v / (L·C)", 16, RED, "start", "bold")
+    s += text(ax, 320, "«прискорення протилежне відхиленню» —", 12.5, INK, "start")
+    s += text(ax, 340, "це рівняння гармонічних коливань;", 12.5, INK, "start")
+    s += text(ax, 360, "розв'язок — синусоїда (дві похідні = поворот", 12.5, INK, "start")
+    s += text(ax, 380, "на 2×90° = мінус, §2.3.4m) із  ω² = 1/(L·C)", 12.5, INK, "start")
+    s += text(W / 2, 440, "f₀ = ω₀/2π = 1/(2π·√(L·C)) — формула Томсона, здобута з самої динаміки контуру",
+              13.5, GREEN, "middle", "bold")
+    save("fig-9-5m-1-derivation.svg", s)
+
+
+def fig5m2_pendulum():
+    W, H = 820, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Словник механіки й електрики: чому корінь і чому добуток LC", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "та сама математика обслуговує масу на пружині й LC-контур",
+              12.5, GREY, "middle", style="italic")
+    # ліворуч: маса на пружині
+    sx = 150
+    s += line(sx - 70, 110, sx + 70, 110, INK, 3)
+    zig = "M " + f"{sx},110 "
+    yy = 110
+    for k in range(6):
+        zig += f"L {sx + (14 if k % 2 == 0 else -14)},{yy + 12} "
+        yy += 12
+    zig += f"L {sx},{yy + 8}"
+    s += f'<path d="{zig}" fill="none" stroke="{INK}" stroke-width="2.2"/>\n'
+    s += rect(sx - 36, yy + 8, 72, 54, "#d9d9dd", INK, 2, 6)
+    s += text(sx, yy + 41, "m", 16, INK, "middle", "bold")
+    s += arrow(sx + 56, yy + 35, sx + 56, yy + 80, GREEN, 2.2)
+    s += arrow(sx + 56, yy + 35, sx + 56, yy - 10, GREEN, 2.2)
+    s += text(sx + 66, yy + 38, "x", 12.5, GREEN, "start", "bold")
+    s += text(sx, 348, "ω = √(k/m)", 15, INK, "middle", "bold")
+    s += text(sx, 372, "важча маса чи м'якша", 11, GREY, "middle")
+    s += text(sx, 388, "пружина → повільніше", 11, GREY, "middle")
+    # словник посередині
+    pairs = (("зміщення x", "заряд q"),
+             ("швидкість v", "струм i"),
+             ("сила пружини", "напруга на C"),
+             ("маса m (інерція)", "індуктивність L"),
+             ("жорсткість k", "1/C"),
+             ("½·m·v²", "½·L·i²  (§2.2.3)"),
+             ("½·k·x²", "½·q²/C  (§2.1.3)"))
+    ty = 120
+    for a, b in pairs:
+        s += text(395, ty, a, 12.5, INK, "end")
+        s += arrow(415, ty - 4, 455, ty - 4, GREY, 1.4)
+        s += arrow(455, ty - 4, 415, ty - 4, GREY, 1.4)
+        s += text(475, ty, b, 12.5, INK, "start")
+        ty += 38
+    # праворуч: LC
+    lx = 700
+    s += line(lx - 50, 130, lx + 50, 130, INK, 2.2)
+    s += line(lx - 50, 130, lx - 50, 280, INK, 2.2)
+    s += line(lx - 50, 280, lx + 50, 280, INK, 2.2)
+    cs, _, _ = cap_sym(lx - 50, 205, 14, 9)
+    s += cs
+    s += line(lx + 50, 130, lx + 50, 165, INK, 2.2)
+    for k in range(4):
+        ya = 165 + k * 22
+        s += f'<path d="M {lx + 50},{ya} A 12 11 0 0 1 {lx + 50},{ya + 22}" fill="none" stroke="{COPP}" stroke-width="2.2"/>\n'
+    s += line(lx + 50, 253, lx + 50, 280, INK, 2.2)
+    s += text(lx, 348, "ω = 1/√(L·C)", 15, INK, "middle", "bold")
+    s += text(lx, 372, "більша «маса» L чи м'якша", 11, GREY, "middle")
+    s += text(lx, 388, "«пружина» (більший C) → повільніше", 11, GREY, "middle")
+    s += text(W / 2, 440, "підставте у механічну формулу m → L і k → 1/C — і дістанете Томсона: ω = √((1/C)/L) = 1/√(LC)",
+              12.5, GREEN, "middle", "bold")
+    s += text(W / 2, 464, "корінь — бо частота задається через ω², а в ω² компоненти входять симетричним добутком",
+              11.5, GREY, "middle", style="italic")
+    save("fig-9-5m-2-pendulum.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🧮 вставка до §9.4 — похідні синуса й косинуса
+# ─────────────────────────────────────────────────────────────────────────────
+def fig4m1_slope_trace():
+    W, H = 820, 560
+    s = header(W, H)
+    s += text(W / 2, 34, "Нахил синуса в кожній точці — це косинус", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "пройдімо по чотирьох опорних точках і простежмо, що робить дотична",
+              12.5, GREY, "middle", style="italic")
+    ox, w, amp = 110, 600, 85
+    # верхній графік: sin із дотичними
+    oy1 = 190
+    s += line(ox, oy1, ox + w, oy1, GREY, 1.4)
+    s += text(ox - 8, oy1 + 4, "sin", 13, RED, "end", "bold")
+    pts = [(ox + t / 200 * w, oy1 - amp * math.sin(2 * math.pi * t / 200)) for t in range(0, 201)]
+    s += _poly(pts, RED, 2.6)
+    # дотичні в 4 точках: t=0 (нахил max+), t=кв (0), t=пів (max−), t=3кв (0)
+    tang = (0.0, 0.25, 0.5, 0.75)
+    for f in tang:
+        x = ox + f * w
+        y = oy1 - amp * math.sin(2 * math.pi * f)
+        dx = 34
+        sl = -amp * math.cos(2 * math.pi * f) * (2 * math.pi / w)
+        s += line(x - dx, y - sl * dx, x + dx, y + sl * dx, GREEN, 2.6)
+        s += circle(x, y, 4.5, RED, RED, 0)
+    # нижній графік: значення нахилів = cos
+    oy2 = 420
+    s += line(ox, oy2, ox + w, oy2, GREY, 1.4)
+    s += text(ox - 8, oy2 + 4, "нахил", 12, GREEN, "end", "bold")
+    pts2 = [(ox + t / 200 * w, oy2 - amp * math.cos(2 * math.pi * t / 200)) for t in range(0, 201)]
+    s += _poly(pts2, GREEN, 2.6)
+    for f in tang:
+        x = ox + f * w
+        s += line(x, oy1 + amp + 10, x, oy2 - amp - 10, GREY, 1, dash="3,5")
+        s += circle(x, oy2 - amp * math.cos(2 * math.pi * f), 4.5, GREEN, GREEN, 0)
+    s += text(ox + w / 2, 530, "крива нахилів — той самий синус, зсунутий на чверть періоду ВПЕРЕД: (sin)′ = cos",
+              13, INK, "middle", "bold")
+    save("fig-9-4m-1-slope-trace.svg", s)
+
+
+def fig4m2_circle_velocity():
+    W, H = 820, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Те саме з обертовою стрілкою: швидкість завжди на 90° попереду", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "і довжина вектора швидкості — ω·r: ось звідки множник ω у похідній",
+              12.5, GREY, "middle", style="italic")
+    cx, cy, r = 240, 250, 110
+    s += circle(cx, cy, r, "none", FAINT, 1.6)
+    ang = math.radians(35)
+    px_, py_ = cx + r * math.cos(ang), cy - r * math.sin(ang)
+    s += arrow(cx, cy, px_, py_, RED, 3)
+    s += text((cx + px_) / 2 + 10, (cy + py_) / 2 + 16, "положення (r)", 11.5, RED, "start", "bold")
+    # вектор швидкості: перпендикулярний, довжина ωr (намалюємо 0.8r)
+    vlen = 0.8 * r
+    vx = px_ + vlen * math.cos(ang + math.pi / 2)
+    vy = py_ - vlen * math.sin(ang + math.pi / 2)
+    s += arrow(px_, py_, vx, vy, GREEN, 3)
+    s += text(vx + 6, vy - 6, "швидкість: довжина ω·r,", 11.5, GREEN, "start", "bold")
+    s += text(vx + 6, vy + 10, "повернена на +90°", 11.5, GREEN, "start", "bold")
+    # прямий кут
+    s += rect(px_ + 10 * math.cos(ang + math.pi / 2) - 5, py_ - 10 * math.sin(ang + math.pi / 2) - 5, 10, 10, "none", GREY, 1.2)
+    # висновки праворуч
+    ax = 470
+    s += text(ax, 150, "проєкція положення → A·sin(ωt)", 13, RED, "start", "bold")
+    s += text(ax, 186, "проєкція швидкості → похідна:", 13, GREEN, "start", "bold")
+    s += text(ax, 216, "та сама синусоїда, але", 12.5, INK, "start")
+    s += text(ax, 236, "• амплітуда помножена на ω", 12.5, INK, "start")
+    s += text(ax, 256, "• фаза зсунута на +90°", 12.5, INK, "start")
+    s += text(ax, 300, "d/dt [A·sin(ωt)] = A·ω·sin(ωt + 90°)", 14, INK, "start", "bold")
+    s += text(ax, 340, "що швидше обертання (вища частота) —", 12, GREY, "start", style="italic")
+    s += text(ax, 358, "то більша швидкість: звідси ω", 12, GREY, "start", style="italic")
+    s += text(ax, 376, "у формулах Xc = 1/(ωC) і XL = ωL", 12, GREY, "start", style="italic")
+    s += text(W / 2, 436, "чотири похідні поспіль: sin → cos → −sin → −cos → sin — чотири кроки по 90°, повне коло",
+              12, GREY, "middle", style="italic")
+    save("fig-9-4m-2-circle-velocity.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🧮 вставка до §9.1 — комплексні числа й фазори
+# ─────────────────────────────────────────────────────────────────────────────
+def fig1m1_complex_plane():
+    W, H = 820, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Комплексне число — стрілка; множення на j — поворот на 90°", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "одна «стрілка» тримає одразу дві величини: довжину і кут",
+              12.5, GREY, "middle", style="italic")
+    # ліва панель: число як стрілка
+    cx, cy, sc = 210, 270, 130
+    s += arrow(cx - 160, cy, cx + 160, cy, GREY, 1.6)
+    s += arrow(cx, cy + 150, cx, cy - 150, GREY, 1.6)
+    s += text(cx + 164, cy + 4, "дійсна вісь", 11, GREY, "start")
+    s += text(cx, cy - 158, "уявна вісь (j)", 11, GREY, "middle")
+    a, b = 0.8, 0.6
+    zx, zy = cx + a * sc, cy - b * sc
+    s += line(zx, cy, zx, zy, GREY, 1.2, dash="4,4")
+    s += line(cx, zy, zx, zy, GREY, 1.2, dash="4,4")
+    s += arrow(cx, cy, zx, zy, RED, 3)
+    s += text(zx + 8, zy - 6, "z = a + j·b", 13, RED, "start", "bold")
+    s += text(zx, cy + 16, "a", 12, INK, "middle", "bold")
+    s += text(cx - 12, zy + 4, "j·b", 12, INK, "end", "bold")
+    s += f'<path d="M {cx + 44},{cy} A 44 44 0 0 0 {cx + 44 * 0.8:.0f},{cy - 44 * 0.6:.0f}" fill="none" stroke="{GREEN}" stroke-width="2"/>\n'
+    s += text(cx + 58, cy - 18, "кут φ", 11.5, GREEN, "start", "bold")
+    s += text(cx + 30, cy - 76, "довжина r", 11.5, RED, "start", style="italic")
+    s += text(210, 448, "r = √(a² + b²);  a = r·cos φ;  b = r·sin φ", 12.5, INK, "middle", "bold")
+    # права панель: множення на j
+    cx2 = 600
+    s += arrow(cx2 - 150, cy, cx2 + 150, cy, GREY, 1.6)
+    s += arrow(cx2, cy + 150, cx2, cy - 150, GREY, 1.6)
+    r2 = 110
+    for ang, col, lab in ((0, RED, "z"), (90, GREEN, "j·z"), (180, BLUE, "j²·z = −z")):
+        rad = math.radians(ang)
+        s += arrow(cx2, cy, cx2 + r2 * math.cos(rad), cy - r2 * math.sin(rad), col, 3)
+        lx = cx2 + (r2 + 26) * math.cos(rad)
+        ly = cy - (r2 + 26) * math.sin(rad)
+        s += text(lx, ly + 5, lab, 13, col, "middle", "bold")
+    s += f'<path d="M {cx2 + 60},{cy} A 60 60 0 0 0 {cx2},{cy - 60}" fill="none" stroke="{GREY}" stroke-width="1.6" stroke-dasharray="4,4"/>\n'
+    s += f'<path d="M {cx2},{cy - 60} A 60 60 0 0 0 {cx2 - 60},{cy}" fill="none" stroke="{GREY}" stroke-width="1.6" stroke-dasharray="4,4"/>\n'
+    s += text(600, 448, "j·z — той самий z, повернений на +90°;  j² = два повороти = −1", 12.5, INK, "middle", "bold")
+    save("fig-9-1m-1-complex-plane.svg", s)
+
+
+def fig1m2_phasor():
+    W, H = 820, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Фазор: синусоїда як обертова стрілка", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "проєкція стрілки на вісь — це і є сигнал; усі стрілки кола крутяться разом",
+              12.5, GREY, "middle", style="italic")
+    # обертова стрілка + розгортка
+    cx, cy, r = 170, 210, 90
+    s += circle(cx, cy, r, "none", FAINT, 1.6)
+    ang = math.radians(40)
+    px_, py_ = cx + r * math.cos(ang), cy - r * math.sin(ang)
+    s += arrow(cx, cy, px_, py_, RED, 3)
+    s += f'<path d="M {cx + 34},{cy} A 34 34 0 0 0 {cx + 34 * math.cos(ang):.0f},{cy - 34 * math.sin(ang):.0f}" fill="none" stroke="{GREEN}" stroke-width="2"/>\n'
+    s += text(cx + 44, cy - 12, "ωt + φ", 11, GREEN, "start", "bold")
+    s += arrow(cx + r * 0.55, cy - r * 1.05, cx + r * 0.2, cy - r * 1.18, GREY, 1.6)
+    s += text(cx + r * 0.6, cy - r * 1.1, "крутиться з частотою сигналу", 10.5, GREY, "start", style="italic")
+    # проєкція праворуч у синусоїду
+    ox, w = 320, 420
+    s += line(px_, py_, ox, py_, GREY, 1.2, dash="4,4")
+    s += _axes(ox, cy + r + 10, w, 2 * r + 20, "t", "")
+    pts = [(ox + t / 160 * w, cy - r * math.cos(2 * math.pi * 1.6 * t / 160 - ang)) for t in range(0, 161)]
+    s += _poly(pts, RED, 2.6)
+    s += circle(ox, py_, 5, RED, RED, 0)
+    s += text(ox + w - 6, cy - r - 8, "проєкція стрілки в часі = косинусоїда", 11, GREY, "end", style="italic")
+    # фазорна діаграма R, L, C
+    fy = 415
+    s += text(120, fy - 52, "напруги на R, L, C", 12.5, INK, "middle", "bold")
+    s += text(120, fy - 36, "за спільного струму I:", 12.5, INK, "middle", "bold")
+    bx = 320
+    s += arrow(bx, fy, bx + 120, fy, GREY, 2.4)
+    s += text(bx + 126, fy + 4, "I (опора)", 11, GREY, "start", "bold")
+    s += arrow(bx, fy, bx + 95, fy, COPP, 3)
+    s += text(bx + 50, fy + 18, "V_R: у фазі", 11, COPP, "middle", "bold")
+    s += arrow(bx, fy, bx, fy - 75, GREEN, 3)
+    s += text(bx + 6, fy - 80, "V_L: +90° (випереджає)", 11, GREEN, "start", "bold")
+    s += arrow(bx, fy, bx, fy + 58, BLUE, 3)
+    s += text(bx + 8, fy + 56, "V_C: −90° (відстає)", 11, BLUE, "start", "bold")
+    s += text(620, fy - 20, "це ті самі 90° з §2.3.4 —", 12, INK, "middle")
+    s += text(620, fy - 2, "тепер вони просто множник j", 12, INK, "middle")
+    s += text(620, fy + 16, "(або 1/j) перед опором", 12, INK, "middle")
+    save("fig-9-1m-2-phasor.svg", s)
+
+
 if __name__ == "__main__":
     # Історія до Розділу 9 — налаштований контур
     fig_timeline()
@@ -1463,4 +2356,33 @@ if __name__ == "__main__":
     fig71_notch()
     fig71_four_types()
     fig71_selectivity_apps()
-    print("OK — Розділ 9 (історія + §9.1–§9.7) згенеровано в", OUT)
+    # 🧮 вставка до §9.1 — комплексні числа й фазори
+    fig1m1_complex_plane()
+    fig1m2_phasor()
+    # 🧮 вставка до §9.4 — похідні синуса
+    fig4m1_slope_trace()
+    fig4m2_circle_velocity()
+    # 🧮 вставка до §9.5 — формула Томсона
+    fig5m1_derivation()
+    fig5m2_pendulum()
+    # 🧮 вставка до §9.6 — добротність Q
+    fig6m1_energy_def()
+    fig6m2_ringing_q()
+    # 🔌 вставка до §9.2 — ємнісний баласт
+    fig2c1_dropper()
+    fig2c2_no_isolation()
+    # 🔌 вставка до §9.3 — LC/π-фільтр живлення
+    fig3c1_pi_filter()
+    fig3c2_resonance_warning()
+    # 🔌 вставка до §9.5 — RFID/NFC
+    fig5c1_card()
+    fig5c2_load_mod()
+    # ⚙️ вставка до §9.5 — пошук резонансу свіпом
+    fig5a1_sweep_setup()
+    fig5a2_sweep_pitfalls()
+    # ⚙️ вставка до §9.4 — фігури Ліссажу
+    fig4a1_liss_gallery()
+    fig4a2_liss_ratios()
+    # 📜 історія до §9.6 — Такома-Нерроуз
+    fig6i1_resonance_vs_flutter()
+    print("OK — Розділ 9 (історія + §9.1–§9.7 + вставки) згенеровано в", OUT)

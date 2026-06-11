@@ -2005,6 +2005,362 @@ def fig68_safety_device():
     save("fig-6-8-5-safety-device.svg", s)
 
 
+# ═══ Тема 6.9 — Логічний аналізатор ═════════════════════════════════════════
+def _digwave(x0, y, bits, dx=22, hi=18, col=INK, w=2):
+    out = ""
+    px = x0
+    py = y if bits[0] == "0" else y - hi
+    for b in bits:
+        ny = y if b == "0" else y - hi
+        if ny != py:
+            out += line(px, py, px, ny, col, w)
+        out += line(px, ny, px + dx, ny, col, w)
+        px, py = px + dx, ny
+    return out
+
+
+def fig69_scope_vs_la():
+    import math
+    W, H = 900, 420
+    s = header(W, H)
+    s += text(W / 2, 30, "Осцилограф проти логічного аналізатора", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "скоп показує повну форму кількох сигналів; ЛА — лише 1/0, зате багатьох ліній і в часі",
+              10, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 72, FAINT, 1.5)
+    s += text(225, 96, "Осцилограф", 13, "#1f47b5", "middle", "bold")
+    ox, oy = 70, 200
+    s += line(ox, oy, ox + 300, oy, "#dddddd", 1)
+    s += polyline([(ox + i * 3, oy - 35 * math.sin(i / 8.0)) for i in range(0, 101)], "#1f47b5", 2.4)
+    s += text(225, 292, "1–4 канали · ПОВНА форма", 10.5, INK, "middle", "bold")
+    s += text(225, 310, "(рівні, дзвін, шум, нахили)", 9.5, GREY, "middle")
+    s += text(665, 96, "Логічний аналізатор", 13, "#1f8a3b", "middle", "bold")
+    for i, p in enumerate(["10110010", "11001100", "10101010", "11110000", "10011001", "11000011", "10100101", "11011010"]):
+        yy = 136 + i * 20
+        s += text(482, yy - 4, "D%d" % i, 7.5, GREY, "end")
+        s += _digwave(500, yy, p, dx=22, hi=12, col="#1f8a3b", w=1.6)
+    s += text(665, 302, "8–32+ каналів · лише 1/0,", 10.5, INK, "middle", "bold")
+    s += text(665, 320, "зате ВСІ разом і в часі", 9.5, GREY, "middle")
+    s += rect(120, 350, 660, 46, "#f4f7f4", GREEN, 1.5, 10)
+    s += text(450, 371, "Доповнюють одне одного: скоп — ГЛИБИНА на кількох каналах,", 10.5, INK, "middle", "bold")
+    s += text(450, 387, "логічний аналізатор — ШИРОТА на багатьох цифрових лініях.", 10.5, INK, "middle", "bold")
+    save("fig-6-9-1-scope-vs-la.svg", s)
+
+
+def fig69_threshold():
+    import math
+    W, H = 860, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "Як аналоговий вхід стає 1 чи 0: поріг", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "ЛА порівнює кожен вхід із порогом: вище → 1, нижче → 0 (саму форму відкинуто)",
+              10, GREY, "middle", style="italic")
+    ox, oy = 80, 175
+    s += text(ox, 108, "вхід (аналоговий)", 10, "#1f47b5", "start", "bold")
+    pts = []
+    for i in range(0, 141):
+        t = i / 140.0
+        v = 2.5 + 2.0 * math.tanh((t - 0.27) * 13) - 2.0 * math.tanh((t - 0.68) * 13)
+        if 70 < i < 110:
+            v += 0.5 * math.sin(i / 2.2) * math.exp(-(i - 72) / 22.0)
+        pts.append((ox + i * 4, oy - (v - 2.5) * 22))
+    s += polyline(pts, "#1f47b5", 2.2)
+    s += line(ox, oy, ox + 564, oy, "#c0271e", 1.6, "6 4")
+    s += text(ox + 570, oy + 4, "поріг", 9, "#c0271e", "start", "bold")
+    s += text(ox, 248, "вихід (1/0)", 10, "#1f8a3b", "start", "bold")
+    s += _digwave(ox, 300, "0011111100", dx=56, hi=26, col="#1f8a3b", w=2.4)
+    s += rect(110, 324, 640, 30, "#fff8ee", ORANGE, 1.4, 8)
+    s += text(430, 343, "Форму відкинуто — лишилось тільки високо/низько. Поріг підбирають під логіку (5 / 3.3 / 1.8 В).",
+              9.5, INK, "middle", "bold")
+    save("fig-6-9-2-threshold.svg", s)
+
+
+def fig69_timing_diagram():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Що показує ЛА: часова діаграма багатьох ліній", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "кожен канал — рядок 1/0; усі вирівняні в часі, тож видно, як лінії узгоджені між собою",
+              10, GREY, "middle", style="italic")
+    rows = [("CLK", "0101010101010101", "#c0271e"),
+            ("MOSI", "0011010011000110", "#1f47b5"),
+            ("CS", "1000000000000001", "#1f8a3b"),
+            ("D3", "0011001100110011", INK),
+            ("D4", "0000111100001111", INK),
+            ("D5", "0101100101011001", INK)]
+    x0 = 110
+    for i, (lab, bits, col) in enumerate(rows):
+        yy = 120 + i * 42
+        s += text(x0 - 12, yy - 6, lab, 9.5, col, "end", "bold")
+        s += _digwave(x0, yy, bits, dx=46, hi=22, col=col, w=2)
+    s += line(x0, 108, x0, 120 + 6 * 42 - 30, FAINT, 1, "3 3")
+    s += text(x0 + 46 * 8, 100, "час →", 10, INK, "middle", "italic")
+    s += rect(120, 360, 660, 30, "#f4f7f4", GREEN, 1.4, 8)
+    s += text(450, 379, "Видно фази: CS↓ відкриває обмін, дані MOSI міняються між фронтами CLK — це і є «погляд на шину».",
+              9.5, INK, "middle", "bold")
+    save("fig-6-9-3-timing-diagram.svg", s)
+
+
+def fig69_timing_vs_state():
+    W, H = 900, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Дві мови вибірки: часовий і становий режими", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "часовий — вибірка на ВЛАСНОМУ швидкому годиннику ЛА; становий — на годиннику СИСТЕМИ",
+              10, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 28, FAINT, 1.5)
+    s += text(225, 96, "Часовий (свій годинник)", 12, "#1f47b5", "middle", "bold")
+    s += _digwave(70, 150, "0011010011", dx=31, hi=20, col=INK, w=2)
+    for k in range(31):
+        x = 70 + k * 10
+        s += line(x, 170, x, 176, "#1f47b5", 1)
+    s += text(225, 210, "густі відліки → реальний час,", 9.5, INK, "middle", "bold")
+    s += text(225, 226, "видно перекоси й глюки", 9.5, GREY, "middle")
+    s += text(225, 256, "(треба вибірка ≫ сигналу)", 9, GREY, "middle", style="italic")
+    s += text(665, 96, "Становий (годинник системи)", 12, "#1f8a3b", "middle", "bold")
+    s += _digwave(510, 150, "0011010011", dx=31, hi=20, col=INK, w=2)
+    for k in range(10):
+        x = 510 + 15 + k * 31
+        s += line(x, 130, x, 178, "#1f8a3b", 1.4, "3 2")
+        s += circle(x, 140, 3, "#1f8a3b", "#1f8a3b", 1)
+    s += text(665, 210, "один відлік на такт →", 9.5, INK, "middle", "bold")
+    s += text(665, 226, "дані, як їх бачить чип", 9.5, GREY, "middle")
+    s += text(665, 256, "(менше даних, та «по суті»)", 9, GREY, "middle", style="italic")
+    save("fig-6-9-4-timing-vs-state.svg", s)
+
+
+def fig69_sample_rate():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Швидкість вибірки: чому потрібно набагато частіше", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "рідкі відліки проскакують вузький глюк; частих — досить, щоб його спіймати",
+              10, GREY, "middle", style="italic")
+    sig = "00010000100"
+    # сигнал із вузьким глюком (одиничка)
+    s += text(80, 100, "сигнал (з вузьким імпульсом-глюком):", 10, INK, "start", "bold")
+    s += _digwave(110, 140, "0001000000", dx=64, hi=24, col="#c0271e", w=2.4)
+    s += text(110 + 64 * 3 + 32, 108, "глюк", 8.5, "#c0271e", "middle", "bold")
+    # рідка вибірка
+    s += text(80, 200, "рідко:", 10, "#c0271e", "start", "bold")
+    for k in range(6):
+        x = 130 + k * 110
+        s += line(x, 215, x, 245, "#c0271e", 1.4)
+        s += circle(x, 215, 3, "#c0271e", "#c0271e", 1)
+    s += text(660, 230, "глюк між відліками — НЕ видно", 9.5, "#c0271e", "start", "bold")
+    # часта вибірка
+    s += text(80, 285, "часто:", 10, "#1f8a3b", "start", "bold")
+    for k in range(28):
+        x = 120 + k * 22
+        s += line(x, 300, x, 326, "#1f8a3b", 1.1)
+    s += text(660, 315, "відліків досить — глюк спіймано", 9.5, "#1f8a3b", "start", "bold")
+    s += rect(110, 346, 640, 26, "#f4f7f4", GREEN, 1.3, 8)
+    s += text(430, 363, "Орієнтир: вибірка ≥ 4–10× найшвидшого сигналу; глибина пам'яті × швидкість = вікно запису.",
+              9.5, INK, "middle", "bold")
+    save("fig-6-9-5-sample-rate.svg", s)
+
+
+def fig69_trigger_decode():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Запуск і декодування: від коливань до байтів", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "запуск ловить потрібну мить, а декодер перетворює сирі лінії шини на байти й повідомлення",
+              10, GREY, "middle", style="italic")
+    x0 = 130
+    for i, (lab, bits, col) in enumerate([("CS", "1000000000000001", "#1f8a3b"),
+                                          ("CLK", "0101010101010100", "#c0271e"),
+                                          ("MOSI", "0010111110010010", "#1f47b5")]):
+        yy = 130 + i * 44
+        s += text(x0 - 12, yy - 6, lab, 9.5, col, "end", "bold")
+        s += _digwave(x0, yy, bits, dx=46, hi=22, col=col, w=2)
+    # тригер-маркер на CS↓
+    s += line(x0 + 46, 96, x0 + 46, 270, "#e08030", 2, "5 3")
+    s += text(x0 + 46, 90, "запуск: CS↓", 9, "#e08030", "middle", "bold")
+    # декодований рядок
+    s += rect(x0, 290, 46 * 16, 40, "#eef7f0", GREEN, 1.6, 6)
+    s += text(x0 + 46 * 4, 314, "0x3F", 13, "#1f8a3b", "middle", "bold")
+    s += text(x0 + 46 * 11, 314, "0x12", 13, "#1f8a3b", "middle", "bold")
+    s += text(x0 + 46 * 8, 350, "декодер SPI: «записано 0x3F у регістр 0x12»", 10, INK, "middle", "bold")
+    s += text(x0 + 46 * 8, 372, "(так само I²C, UART, 1-Wire…)", 9, GREY, "middle", style="italic")
+    save("fig-6-9-6-trigger-decode.svg", s)
+
+
+# ═══ Тема 6.10 — Лабораторний блок живлення (CC/CV) ═════════════════════════
+def fig610_bench_psu():
+    W, H = 880, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Лабораторний блок живлення: задаєш напругу й струм", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "два регулятори (V і I) і два дисплеї; індикатори CV/CC кажуть, у якому режимі він зараз",
+              10, GREY, "middle", style="italic")
+    s += rect(150, 88, 580, 264, "#fafafa", "#8a8a8a", 2.5, 12)
+    s += rect(186, 116, 172, 64, "#0a0a0a", "#000000", 2, 6); s += text(272, 160, "12.00 В", 24, "#37e0a0", "middle", "bold")
+    s += rect(186, 196, 172, 64, "#0a0a0a", "#000000", 2, 6); s += text(272, 240, "0.50 А", 24, "#37e0a0", "middle", "bold")
+    s += text(272, 290, "напруга / струм (вимір)", 9, GREY, "middle")
+    for cx, cy, lab in [(452, 148, "V"), (452, 248, "I")]:
+        s += circle(cx, cy, 28, "#e8e8e8", INK, 2); s += circle(cx, cy, 4, INK, INK, 1)
+        s += line(cx, cy, cx, cy - 24, INK, 2.4)
+        s += text(cx, cy + 46, "регулятор %s" % lab, 9.5, INK, "middle", "bold")
+    s += circle(556, 130, 9, "#1f8a3b", "#1f8a3b", 1); s += text(572, 134, "CV — тримає напругу", 9.5, "#1f8a3b", "start", "bold")
+    s += circle(556, 158, 9, "#c0271e", "#c0271e", 1); s += text(572, 162, "CC — тримає струм", 9.5, "#c0271e", "start", "bold")
+    s += circle(580, 250, 9, "#c0271e", INK, 2); s += text(580, 276, "+", 11, "#c0271e", "middle", "bold")
+    s += circle(660, 250, 9, "#1b1b1b", INK, 2); s += text(660, 276, "−", 11, INK, "middle", "bold")
+    s += text(620, 304, "вихід", 9.5, GREY, "middle", "bold")
+    save("fig-6-10-1-bench-psu.svg", s)
+
+
+def fig610_cv_cc():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Два режими: стала напруга (CV) і сталий струм (CC)", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "блок дає задану напругу, поки струм не впреться в межу; тоді перемикається й тримає вже струм",
+              10, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 28, FAINT, 1.5)
+    s += text(225, 96, "CV — стала напруга", 13, "#1f8a3b", "middle", "bold")
+    s += rect(110, 120, 230, 60, "#eef7f0", "#1f8a3b", 2, 8)
+    s += text(225, 146, "V = задана (напр., 12 В)", 11, INK, "middle", "bold")
+    s += text(225, 166, "I = який бере навантаження", 10, GREY, "middle")
+    s += text(225, 210, "поводиться як ідеальне", 10, INK, "middle", "bold")
+    s += text(225, 228, "джерело напруги («жорстке»,", 9.5, GREY, "middle")
+    s += text(225, 244, "малий вихідний опір, §1.5.1)", 9.5, GREY, "middle")
+    s += text(225, 290, "звичайна робота", 10.5, "#1f8a3b", "middle", "bold")
+    s += text(675, 96, "CC — сталий струм", 13, "#c0271e", "middle", "bold")
+    s += rect(560, 120, 230, 60, "#fdecea", "#c0271e", 2, 8)
+    s += text(675, 146, "I = межа (напр., 0.5 А)", 11, INK, "middle", "bold")
+    s += text(675, 166, "V = падає, щоб утримати I", 10, GREY, "middle")
+    s += text(675, 210, "поводиться як джерело", 10, INK, "middle", "bold")
+    s += text(675, 228, "СТРУМУ (великий вихідний", 9.5, GREY, "middle")
+    s += text(675, 244, "опір) — і захищає коло", 9.5, GREY, "middle")
+    s += text(675, 290, "перевантаження / коротке", 10.5, "#c0271e", "middle", "bold")
+    save("fig-6-10-2-cv-cc.svg", s)
+
+
+def fig610_envelope():
+    W, H = 860, 420
+    s = header(W, H)
+    s += text(W / 2, 30, "Робоча область V–I: межа по напрузі й по струму", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "блок працює в куті: V ≤ заданої та I ≤ межі; який край вмикається — вирішує опір навантаження",
+              9.5, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 110, 340, 740, 100
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 22, "напруга V", 11, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8); s += text(ox - 8, ayt - 10, "струм I", 11, INK, "start", "bold")
+    Vset, Ilim = 12.0, 0.5
+
+    def X(V):
+        return ox + V / 14.0 * (axr - 30 - ox)
+
+    def Y(I):
+        return oy - I / 0.62 * (oy - ayt)
+
+    s += line(X(Vset), oy, X(Vset), Y(Ilim), "#1f8a3b", 2.6)
+    s += line(ox, Y(Ilim), X(Vset), Y(Ilim), "#c0271e", 2.6)
+    s += text(X(Vset) + 6, Y(Ilim * 0.5), "межа V (CV)", 9.5, "#1f8a3b", "start", "bold")
+    s += text(X(Vset * 0.5), Y(Ilim) - 8, "межа I (CC)", 9.5, "#c0271e", "middle", "bold")
+    s += text(X(13.5), oy + 18, "12 В", 8.5, GREY, "middle")
+    s += text(ox - 8, Y(Ilim), "0.5 А", 8.5, GREY, "end")
+    # навантаження великого опору -> CV край
+    s += line(ox, oy, X(13), Y(13 / 40.0), "#1f47b5", 2, "5 4")
+    s += circle(X(Vset), Y(Vset / 40.0), 5, "#1f8a3b", "#1f8a3b", 1)
+    s += text(X(13) + 4, Y(13 / 40.0), "велике R → CV", 9, "#1f47b5", "start", "bold")
+    # навантаження малого опору -> CC край
+    s += line(ox, oy, X(0.55 * 14), Y(0.55 * 14 / 12.0), "#e08030", 2, "5 4")
+    s += circle(X(Ilim * 12.0), Y(Ilim), 5, "#c0271e", "#c0271e", 1)
+    s += text(X(7), Y(0.58), "мале R → CC", 9, "#e08030", "middle", "bold")
+    s += rect(150, 360, 560, 48, "#f7f7f7", GREY, 1.4, 8)
+    s += text(430, 379, "Перехід при R = V_зад / I_межа: більший опір — режим CV, менший — режим CC.", 9.5, INK, "middle", "bold")
+    s += text(430, 396, "Робоча точка — перетин лінії навантаження з межею (та сама ідея, що §1.5.1).", 9, GREY, "middle", style="italic")
+    save("fig-6-10-3-envelope.svg", s)
+
+
+def fig610_protection():
+    W, H = 900, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Обмеження струму як захист від короткого", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "виставлена межа струму рятує коло: замість величезного струму блок просто падає в режим CC",
+              10, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 28, FAINT, 1.5)
+    s += text(225, 96, "Без межі струму", 12.5, "#c0271e", "middle", "bold")
+    s += rect(120, 120, 210, 56, "#fdecea", "#c0271e", 1.8, 8)
+    s += text(225, 142, "коротке → велетенський струм", 9.5, INK, "middle", "bold")
+    s += text(225, 160, "(обмежений лише джерелом)", 9, GREY, "middle")
+    s += text(225, 210, "→ доріжки горять, деталі", 10, INK, "middle", "bold")
+    s += text(225, 228, "димлять, плата мертва", 10, INK, "middle", "bold")
+    s += text(225, 268, "🔥 катастрофа", 12, "#c0271e", "middle", "bold")
+    s += text(675, 96, "З виставленою межею", 12.5, "#1f8a3b", "middle", "bold")
+    s += rect(570, 120, 210, 56, "#eef7f0", "#1f8a3b", 1.8, 8)
+    s += text(675, 142, "коротке → струм упирається", 9.5, INK, "middle", "bold")
+    s += text(675, 160, "в межу, V падає майже до 0", 9, GREY, "middle")
+    s += text(675, 210, "→ плата ціла; блок світить", 10, INK, "middle", "bold")
+    s += text(675, 228, "CC — видима тривога", 10, INK, "middle", "bold")
+    s += text(675, 268, "✓ під контролем", 12, "#1f8a3b", "middle", "bold")
+    s += rect(120, 326, 660, 34, "#fff8ee", ORANGE, 1.4, 8)
+    s += text(450, 347, "Тому межу струму виставляють трохи вище за робочий струм: вона стереже коло від власних помилок монтажу.",
+              9.5, INK, "middle", "bold")
+    save("fig-6-10-4-protection.svg", s)
+
+
+def fig610_setting():
+    W, H = 860, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "Як налаштувати: спершу межа струму, потім напруга", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "виставити струмову межу на закорочених клемах, тоді розімкнути й виставити напругу",
+              10, GREY, "middle", style="italic")
+    steps = [("1", "Напругу на 0,\nклеми ЗАКОРОТИТИ", "блок одразу в CC", "#c0271e"),
+             ("2", "Виставити МЕЖУ\nструму регулятором I", "дисплей показує\nпотрібні А", "#c0271e"),
+             ("3", "Розімкнути клеми,\nвиставити напругу", "блок у CV —\nготово", "#1f8a3b")]
+    bx = 70
+    for i, (n, t1, t2, col) in enumerate(steps):
+        x = bx + i * 260
+        s += circle(x + 30, 110, 18, col, col, 1); s += text(x + 30, 116, n, 14, "#fff", "middle", "bold")
+        for j, ln in enumerate(t1.split("\n")):
+            s += text(x + 60, 102 + j * 16, ln, 10.5, INK, "start", "bold")
+        for j, ln in enumerate(t2.split("\n")):
+            s += text(x + 60, 152 + j * 15, ln, 9.5, GREY, "start")
+        if i < 2:
+            s += arrow(x + 215, 110, x + 255, 110, INK, 2)
+    s += rect(90, 230, 680, 96, "#f7f7f7", GREY, 1.5, 10)
+    s += text(430, 256, "А далі індикатори кажуть правду про режим:", 11, INK, "middle", "bold")
+    s += circle(250, 286, 9, "#1f8a3b", "#1f8a3b", 1); s += text(268, 290, "CV горить → тримає напругу (норма)", 10, INK, "start", "bold")
+    s += circle(250, 312, 9, "#c0271e", "#c0271e", 1); s += text(268, 316, "CC горить → уперлось у струм (перевантаження чи зарядка)", 10, INK, "start", "bold")
+    save("fig-6-10-5-setting.svg", s)
+
+
+def fig610_cccv_charge():
+    W, H = 880, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "CC/CV-зарядка: обидва режими по черзі", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "акумулятор спершу беруть сталим струмом (CC), а під кінець — сталою напругою (CV)",
+              10, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 100, 320, 800, 100
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 22, "час", 11, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8)
+    xm = ox + (axr - 30 - ox) * 0.52
+    s += line(xm, ayt, xm, oy, FAINT, 1.4, "5 4")
+    s += text((ox + xm) / 2, 88, "фаза CC", 11, "#c0271e", "middle", "bold")
+    s += text((xm + axr) / 2, 88, "фаза CV", 11, "#1f8a3b", "middle", "bold")
+    # напруга: росте у CC, потім плато у CV
+    vpts = []
+    for i in range(0, 101):
+        f = i / 100.0
+        if ox + f * (axr - 30 - ox) < xm:
+            V = 0.45 + 0.4 * (f / 0.52)
+        else:
+            V = 0.85
+        vpts.append((ox + f * (axr - 30 - ox), oy - V * (oy - ayt)))
+    s += polyline(vpts, "#1f47b5", 2.6)
+    s += text(xm + 70, oy - 0.85 * (oy - ayt) - 10, "напруга", 9.5, "#1f47b5", "start", "bold")
+    # струм: плато у CC, спадає у CV
+    ipts = []
+    for i in range(0, 101):
+        f = i / 100.0
+        x = ox + f * (axr - 30 - ox)
+        if x < xm:
+            I = 0.7
+        else:
+            I = 0.7 * (2.718 ** (-(x - xm) / 90.0))
+        ipts.append((x, oy - I * (oy - ayt)))
+    s += polyline(ipts, "#c0271e", 2.6)
+    s += text(ox + 60, oy - 0.7 * (oy - ayt) - 10, "струм", 9.5, "#c0271e", "start", "bold")
+    s += rect(120, 348, 640, 40, "#f7f7f7", GREEN, 1.4, 8)
+    s += text(440, 366, "CC: струм сталий, напруга росте.   CV: напруга стала, струм спадає до нуля.", 9.5, INK, "middle", "bold")
+    s += text(440, 382, "Той самий блок робить і те, і те — автоматично перемикаючись на межі.", 9, GREY, "middle", style="italic")
+    save("fig-6-10-6-cccv-charge.svg", s)
+
+
 if __name__ == "__main__":
     fig_oersted()
     fig_galvanometer()
@@ -2068,4 +2424,18 @@ if __name__ == "__main__":
     fig68_error_types()
     fig68_safety_body()
     fig68_safety_device()
-    print("OK — фігури Розділу 6 (повна, +§6.8) згенеровано в", OUT)
+    # §6.9 Логічний аналізатор
+    fig69_scope_vs_la()
+    fig69_threshold()
+    fig69_timing_diagram()
+    fig69_timing_vs_state()
+    fig69_sample_rate()
+    fig69_trigger_decode()
+    # §6.10 Лабораторний блок живлення
+    fig610_bench_psu()
+    fig610_cv_cc()
+    fig610_envelope()
+    fig610_protection()
+    fig610_setting()
+    fig610_cccv_charge()
+    print("OK — фігури Розділу 6 (повна, +§6.10 БЖ) згенеровано в", OUT)

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="380" viewBox="0 0 860 380">
+<rect width="860" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
+</defs>
+<text x="430.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Теплова RC-модель: нагрів як заряджання конденсатора</text>
+<text x="430.0" y="51.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">тепловий потік ~ струм, температура ~ напруга, Rθ ~ опір, теплова маса Cθ ~ ємність</text>
+<line x1="430.0" y1="72.0" x2="430.0" y2="360.0" stroke="#e4e4e4" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="150.0" y="150.0" width="150.0" height="70.0" rx="8" fill="#fbe3df" stroke="#c0271e" stroke-width="2"/>
+<text x="225.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">деталь</text>
+<text x="225.0" y="203.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">T (температура)</text>
+<line x1="70.0" y1="185.0" x2="148.0" y2="185.0" stroke="#c0271e" stroke-width="2.6" marker-end="url(#aRed)"/>
+<text x="96.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">P</text>
+<text x="104.0" y="205.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">тепло</text>
+<line x1="300.0" y1="168.0" x2="388.0" y2="138.0" stroke="#e08030" stroke-width="2.4" marker-end="url(#aOrange)"/>
+<text x="360.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#a06a00" text-anchor="middle" font-weight="bold" font-style="normal">Rθ → повітря</text>
+<rect x="175.0" y="250.0" width="100.0" height="42.0" rx="6" fill="#eef2fb" stroke="#1f47b5" stroke-width="2"/>
+<text x="225.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Cθ = m·c</text>
+<text x="225.0" y="285.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">теплова маса</text>
+<line x1="225.0" y1="220.0" x2="225.0" y2="248.0" stroke="#1f47b5" stroke-width="2" marker-end="url(#aBlue)"/>
+<text x="225.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">маса вбирає тепло — T не стрибає вмить</text>
+<line x1="480.0" y1="300.0" x2="820.0" y2="300.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<text x="820.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="italic" font-style="normal">час t</text>
+<line x1="480.0" y1="300.0" x2="480.0" y2="104.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<text x="474.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">T</text>
+<line x1="480.0" y1="140.0" x2="810.0" y2="140.0" stroke="#bbbbbb" stroke-width="1.5" stroke-dasharray="5 4" stroke-linecap="round"/>
+<text x="808.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="end" font-weight="bold" font-style="normal">T_пов + P·Rθ</text>
+<polyline points="480.0,300.0 483.1,293.1 486.2,286.4 489.3,280.1 492.4,274.0 495.5,268.2 498.6,262.7 501.7,257.4 504.8,252.3 507.9,247.4 511.0,242.8 514.1,238.3 517.2,234.0 520.3,230.0 523.4,226.1 526.5,222.3 529.6,218.8 532.7,215.4 535.8,212.1 538.9,209.0 542.0,206.0 545.1,203.1 548.2,200.4 551.3,197.8 554.4,195.3 557.5,192.9 560.6,190.6 563.7,188.4 566.8,186.3 569.9,184.3 573.0,182.4 576.1,180.5 579.2,178.8 582.3,177.1 585.4,175.5 588.5,174.0 591.6,172.5 594.7,171.1 597.8,169.7 600.9,168.4 604.0,167.2 607.1,166.0 610.2,164.9 613.3,163.8 616.4,162.8 619.5,161.8 622.6,160.9 625.7,160.0 628.8,159.1 631.9,158.3 635.0,157.5 638.1,156.7 641.2,156.0 644.3,155.3 647.4,154.6 650.5,154.0 653.6,153.4 656.7,152.8 659.8,152.3 662.9,151.7 666.0,151.2 669.1,150.7 672.2,150.3 675.3,149.8 678.4,149.4 681.5,149.0 684.6,148.6 687.7,148.2 690.8,147.9 693.9,147.5 697.0,147.2 700.1,146.9 703.2,146.6 706.3,146.3 709.4,146.0 712.5,145.8 715.6,145.5 718.7,145.3 721.8,145.1 724.9,144.8 728.0,144.6 731.1,144.4 734.2,144.2 737.3,144.1 740.4,143.9 743.5,143.7 746.6,143.5 749.7,143.4 752.8,143.2 755.9,143.1 759.0,143.0 762.1,142.8 765.2,142.7 768.3,142.6 771.4,142.5 774.5,142.4 777.6,142.3 780.7,142.2 783.8,142.1 786.9,142.0 790.0,141.9" fill="none" stroke="#1f8a3b" stroke-width="2.8"/>
+<line x1="550.0" y1="300.0" x2="550.0" y2="199.2" stroke="#1f47b5" stroke-width="1.4" stroke-dasharray="3 3" stroke-linecap="round"/>
+<text x="550.0" y="316.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">τ</text>
+<text x="556.0" y="193.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">63% за τ = Rθ·Cθ</text>
+<text x="672.2" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">≈5τ — практично усталена</text>
+</svg>

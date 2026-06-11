@@ -1714,6 +1714,995 @@ def fig48_recipe():
     save("fig-4-8-5-recipe.svg", s)
 
 
+# ═══ Тема 4.9 — Міст Вітстона ═══════════════════════════════════════════════
+def _rbox(cx, cy, label, color=INK, w=50, h=22):
+    out = rect(cx - w / 2, cy - h / 2, w, h, "#ffffff", color, 2, 5)
+    out += text(cx, cy + 5, label, 12, color, "middle", "bold")
+    return out
+
+
+def _gnd(x, y, col=INK):
+    out = ""
+    for i, wd in enumerate([24, 15, 7]):
+        out += line(x - wd, y + i * 5, x + wd, y + i * 5, col, 2)
+    return out
+
+
+def fig49_anatomy():
+    W, H = 820, 450
+    s = header(W, H)
+    s += text(W / 2, 32, "Міст Вітстона: діамант із чотирьох опорів = два дільники", 18, INK, "middle", "bold")
+    s += text(W / 2, 53, "напруга подається згори донизу, а детектор порівнює середні точки двох дільників",
+              10.5, GREY, "middle", style="italic")
+    T = (400, 130); A = (250, 255); B = (550, 255); Bo = (400, 380)
+    for p, q in [(T, A), (A, Bo), (T, B), (B, Bo)]:
+        s += line(p[0], p[1], q[0], q[1], INK, 2.4)
+    s += _rbox((T[0] + A[0]) / 2 - 8, (T[1] + A[1]) / 2, "R₁", "#1f47b5")
+    s += _rbox((A[0] + Bo[0]) / 2 - 8, (A[1] + Bo[1]) / 2, "R₂", "#1f47b5")
+    s += _rbox((T[0] + B[0]) / 2 + 8, (T[1] + B[1]) / 2, "R₃", "#1f8a3b")
+    s += _rbox((B[0] + Bo[0]) / 2 + 8, (B[1] + Bo[1]) / 2, "R₄", "#1f8a3b")
+    s += line(T[0], T[1], T[0], 74, INK, 2.4)
+    s += circle(T[0], 74, 4, RED, RED, 1)
+    s += text(T[0] + 12, 70, "+V", 13, RED, "start", "bold")
+    s += line(Bo[0], Bo[1], Bo[0], 414, INK, 2.4)
+    s += _gnd(Bo[0], 414)
+    s += circle(A[0], A[1], 4, INK, INK, 1)
+    s += text(A[0] - 16, A[1] + 5, "A", 13, "#a000a0", "middle", "bold")
+    s += circle(B[0], B[1], 4, INK, INK, 1)
+    s += text(B[0] + 16, B[1] + 5, "B", 13, "#a000a0", "middle", "bold")
+    s += line(A[0] + 10, A[1], 372, A[1], INK, 2)
+    s += line(428, B[1], B[0] - 10, B[1], INK, 2)
+    s += circle(400, A[1], 26, "#fff", INK, 2.2)
+    s += text(400, A[1] + 6, "G", 16, INK, "middle", "bold")
+    s += text(400, A[1] + 46, "детектор (нуль-індикатор)", 10, GREY, "middle", style="italic")
+    s += text(170, 300, "V_A = V·R₂/(R₁+R₂)", 10, "#1f47b5", "middle", "bold")
+    s += text(630, 300, "V_B = V·R₄/(R₃+R₄)", 10, "#1f8a3b", "middle", "bold")
+    s += text(168, 185, "лівий дільник", 10.5, "#1f47b5", "middle", "bold")
+    s += text(632, 185, "правий дільник", 10.5, "#1f8a3b", "middle", "bold")
+    save("fig-4-9-1-bridge-anatomy.svg", s)
+
+
+def fig49_balance():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 32, "Умова балансу: коли детектор показує нуль", 18, INK, "middle", "bold")
+    s += text(W / 2, 53, "детектор мовчить, щойно зрівняються частки двох дільників — а не самі опори",
+              10.5, GREY, "middle", style="italic")
+    # дві вертикальні гілки
+    xL, xR = 250, 610
+    yT, yA, yB_, yG = 110, 235, 235, 235
+    for xx, r1, r2, col in [(xL, "R₁", "R₂", "#1f47b5"), (xR, "R₃", "R₄", "#1f8a3b")]:
+        s += line(xx, 90, xx, 360, INK, 2.2)
+        s += _rbox(xx, 160, r1, col)
+        s += _rbox(xx, 300, r2, col)
+        s += circle(xx, yA, 4, INK, INK, 1)
+    s += text(xL, 80, "+V", 12, RED, "middle", "bold")
+    s += text(xR, 80, "+V", 12, RED, "middle", "bold")
+    s += _gnd(xL, 366); s += _gnd(xR, 366)
+    s += text(xL - 18, yA + 5, "A", 13, "#a000a0", "end", "bold")
+    s += text(xR + 18, yA + 5, "B", 13, "#a000a0", "start", "bold")
+    # детектор
+    s += line(xL + 8, yA, 405, yA, INK, 2)
+    s += line(455, yA, xR - 8, yA, INK, 2)
+    s += circle(430, yA, 24, "#fff", INK, 2.2)
+    s += text(430, yA + 6, "G", 15, INK, "middle", "bold")
+    s += text(xL - 30, 235 + 70, "V_A = V·R₂/(R₁+R₂)", 9.5, "#1f47b5", "middle", "bold")
+    s += text(xR + 30, 235 + 70, "V_B = V·R₄/(R₃+R₄)", 9.5, "#1f8a3b", "middle", "bold")
+    s += rect(150, H - 58, W - 300, 42, "#eef7f0", GREEN, 1.8, 10)
+    s += text(W / 2, H - 38, "Баланс (G = 0):  V_A = V_B  ⟺  R₁/R₂ = R₃/R₄  ⟺  R₁·R₄ = R₂·R₃", 13, INK, "middle", "bold")
+    s += text(W / 2, H - 21, "V випадає з умови — баланс залежить лише від ВІДНОШЕНЬ плечей.", 10, GREY, "middle", style="italic")
+    save("fig-4-9-2-balance.svg", s)
+
+
+def fig49_null():
+    W, H = 840, 400
+    s = header(W, H)
+    s += text(W / 2, 32, "Нуль-метод: ловимо рівновагу, а не показ приладу", 18, INK, "middle", "bold")
+    s += text(W / 2, 53, "крути відоме плече, доки стрілка не стане рівно на 0 — тоді важать лише відношення опорів",
+              10.5, GREY, "middle", style="italic")
+    T = (330, 120); A = (200, 235); B = (460, 235); Bo = (330, 350)
+    for p, q in [(T, A), (A, Bo), (T, B), (B, Bo)]:
+        s += line(p[0], p[1], q[0], q[1], INK, 2.4)
+    s += _rbox((T[0] + A[0]) / 2 - 8, (T[1] + A[1]) / 2, "R₁", "#1f47b5")
+    s += _rbox((A[0] + Bo[0]) / 2 - 8, (A[1] + Bo[1]) / 2, "R₂", "#1f47b5")
+    s += _rbox((T[0] + B[0]) / 2 + 8, (T[1] + B[1]) / 2, "R₃", "#1f8a3b")
+    # регульоване плече R4
+    s += _rbox((B[0] + Bo[0]) / 2 + 8, (B[1] + Bo[1]) / 2, "R₄", "#c0271e")
+    s += arrow((B[0] + Bo[0]) / 2 - 14, (B[1] + Bo[1]) / 2 + 22, (B[0] + Bo[0]) / 2 + 26, (B[1] + Bo[1]) / 2 - 14, "#c0271e", 2)
+    s += text((B[0] + Bo[0]) / 2 + 40, (B[1] + Bo[1]) / 2 + 6, "крутимо", 9.5, "#c0271e", "start", "bold")
+    s += line(T[0], T[1], T[0], 84, INK, 2.2); s += text(T[0] + 12, 80, "+V", 12, RED, "start", "bold")
+    s += line(Bo[0], Bo[1], Bo[0], 380, INK, 2.2); s += _gnd(Bo[0], 380)
+    # детектор зі стрілкою на 0
+    s += line(A[0] + 10, A[1], 302, A[1], INK, 2)
+    s += line(358, A[1], B[0] - 10, A[1], INK, 2)
+    s += circle(330, A[1], 28, "#fff", INK, 2.2)
+    s += line(330, A[1], 330, A[1] - 20, "#c0271e", 2.4)  # стрілка вгору = 0
+    s += text(330, A[1] + 16, "0", 11, INK, "middle", "bold")
+    s += text(312, A[1] - 24, "−", 10, GREY, "start"); s += text(344, A[1] - 24, "+", 10, GREY, "start")
+    # пояснення
+    s += rect(560, 110, 260, 220, "#f7f7f7", GREY, 1.5, 10)
+    s += text(690, 134, "У точці нуля:", 12, INK, "middle", "bold")
+    s += text(580, 162, "• джерело V не важить", 10.5, INK, "start")
+    s += text(580, 186, "• точність приладу не важить", 10.5, INK, "start")
+    s += text(580, 210, "  (треба лише впіймати 0)", 9.5, GREY, "start")
+    s += text(580, 238, "• важать ЛИШЕ відношення", 10.5, INK, "start")
+    s += text(580, 262, "  опорів — а їх роблять", 9.5, GREY, "start")
+    s += text(580, 278, "  дуже точними", 9.5, GREY, "start")
+    s += text(690, 312, "Звідси й висока точність", 10, GREEN, "middle", "bold")
+    save("fig-4-9-3-null-method.svg", s)
+
+
+def fig49_measure():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 32, "Вимірювання невідомого опору: X = R · (P/Q)", 18, INK, "middle", "bold")
+    s += text(W / 2, 53, "два «плеча відношення» P і Q, один зразковий R — і невідоме X читається з балансу",
+              10.5, GREY, "middle", style="italic")
+    T = (300, 120); A = (180, 230); B = (420, 230); Bo = (300, 340)
+    for p, q in [(T, A), (A, Bo), (T, B), (B, Bo)]:
+        s += line(p[0], p[1], q[0], q[1], INK, 2.4)
+    s += _rbox((T[0] + A[0]) / 2 - 8, (T[1] + A[1]) / 2, "X (?)", "#c0271e")
+    s += _rbox((A[0] + Bo[0]) / 2 - 8, (A[1] + Bo[1]) / 2, "R", "#1f47b5")
+    s += _rbox((T[0] + B[0]) / 2 + 8, (T[1] + B[1]) / 2, "P", "#1f8a3b")
+    s += _rbox((B[0] + Bo[0]) / 2 + 8, (B[1] + Bo[1]) / 2, "Q", "#1f8a3b")
+    s += line(T[0], T[1], T[0], 86, INK, 2.2); s += text(T[0] + 12, 82, "+V", 12, RED, "start", "bold")
+    s += line(Bo[0], Bo[1], Bo[0], 366, INK, 2.2); s += _gnd(Bo[0], 366)
+    s += line(A[0] + 10, 230, 274, 230, INK, 2); s += line(326, 230, B[0] - 10, 230, INK, 2)
+    s += circle(300, 230, 24, "#fff", INK, 2.2); s += text(300, 236, "G", 15, INK, "middle", "bold")
+    # панель формул
+    s += rect(520, 100, 300, 230, "#f7f7f7", GREY, 1.5, 10)
+    s += text(670, 126, "У балансі X/R = P/Q:", 12.5, INK, "middle", "bold")
+    s += text(540, 158, "X = R · (P/Q)", 15, "#c0271e", "start", "bold")
+    s += line(540, 176, 800, 176, FAINT, 1.4)
+    s += text(540, 200, "Приклад (P:Q = 1:1):", 11, INK, "start", "bold")
+    s += text(556, 222, "крутимо R до балансу → R = 470 Ω", 10, GREY, "start")
+    s += text(556, 240, "X = 470 · 1 = 470 Ω", 11.5, "#1f8a3b", "start", "bold")
+    s += text(540, 270, "Зміни P:Q на 10:1 —", 11, INK, "start", "bold")
+    s += text(556, 290, "той самий R міряє вдесятеро", 10, GREY, "start")
+    s += text(556, 306, "більший діапазон (X = 10·R).", 10, GREY, "start")
+    save("fig-4-9-4-measure-unknown.svg", s)
+
+
+def fig49_sensor():
+    W, H = 860, 410
+    s = header(W, H)
+    s += text(W / 2, 32, "Міст як підсилювач різниці: крихітна ΔR → читабельний сигнал", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 53, "одне плече — датчик; у спокої міст збалансований, а зміна ΔR збиває баланс і дає вихід",
+              10.5, GREY, "middle", style="italic")
+    # ліворуч: міст із датчиком
+    T = (240, 120); A = (140, 225); B = (340, 225); Bo = (240, 330)
+    for p, q in [(T, A), (A, Bo), (T, B), (B, Bo)]:
+        s += line(p[0], p[1], q[0], q[1], INK, 2.2)
+    s += _rbox((T[0] + A[0]) / 2 - 7, (T[1] + A[1]) / 2, "R", "#8a8a8a", 42, 20)
+    s += _rbox((A[0] + Bo[0]) / 2 - 7, (A[1] + Bo[1]) / 2, "R", "#8a8a8a", 42, 20)
+    s += _rbox((T[0] + B[0]) / 2 + 7, (T[1] + B[1]) / 2, "R", "#8a8a8a", 42, 20)
+    s += _rbox((B[0] + Bo[0]) / 2 + 7, (B[1] + Bo[1]) / 2, "R+ΔR", "#c0271e", 56, 20)
+    s += text((B[0] + Bo[0]) / 2 + 64, (B[1] + Bo[1]) / 2 + 4, "датчик", 9.5, "#c0271e", "start", "bold")
+    s += line(T[0], T[1], T[0], 88, INK, 2); s += text(T[0] + 10, 84, "+V", 11, RED, "start", "bold")
+    s += line(Bo[0], Bo[1], Bo[0], 356, INK, 2); s += _gnd(Bo[0], 356)
+    s += line(A[0] + 9, 225, 214, 225, INK, 1.8); s += line(266, 225, B[0] - 9, 225, INK, 1.8)
+    s += circle(240, 225, 23, "#fff", INK, 2); s += text(240, 231, "V_out", 10.5, INK, "middle", "bold")
+    s += text(240, 372, "V_out ≈ (V/4)·(ΔR/R)", 11.5, "#c0271e", "middle", "bold")
+    # праворуч: чому не простий дільник
+    s += line(470, 86, 470, H - 24, FAINT, 1.5)
+    s += text(665, 96, "Чому міст, а не простий дільник?", 12, INK, "middle", "bold")
+    # plain divider bar: big baseline + tiny wiggle
+    s += text(560, 130, "простий дільник:", 10.5, "#8a8a8a", "middle", "bold")
+    s += rect(510, 142, 100, 90, "#eef2fb", "#1f47b5", 1.6, 4)
+    s += text(560, 192, "≈ V/2", 12, "#1f47b5", "middle", "bold")
+    s += rect(510, 138, 100, 6, "#c0271e", "none", 0)
+    s += text(560, 250, "величезна стала +", 9.5, GREY, "middle")
+    s += text(560, 264, "крихітна змінка згори", 9.5, GREY, "middle")
+    s += text(560, 282, "→ важко вирізнити", 9.5, "#c0271e", "middle", "bold")
+    # bridge: zero baseline
+    s += text(775, 130, "міст:", 10.5, GREEN, "middle", "bold")
+    s += line(720, 232, 830, 232, "#bbbbbb", 1.4, "4 3")
+    s += text(840, 232, "0", 10, GREY, "start", "bold")
+    s += rect(745, 200, 60, 32, "#c0271e", "none", 0, 2)
+    s += text(775, 256, "база віднята —", 9.5, GREY, "middle")
+    s += text(775, 270, "лишилась сама ΔR", 9.5, GREEN, "middle", "bold")
+    s += text(775, 288, "→ підсилюй та читай", 9.5, GREEN, "middle", "bold")
+    save("fig-4-9-5-sensor-bridge.svg", s)
+
+
+def fig49_apps():
+    W, H = 860, 360
+    s = header(W, H)
+    s += text(W / 2, 32, "Де живе міст: датчики, що міряють опором", 18, INK, "middle", "bold")
+    s += text(W / 2, 53, "усе, що змінює опір від впливу, вмикають у плече мосту — і дістають напругу-сигнал",
+              10.5, GREY, "middle", style="italic")
+    # тензодатчик / ваги
+    s += rect(60, 110, 220, 120, "#fafafa", GREY, 1.5, 10)
+    s += text(170, 134, "Тензодатчик (ваги)", 12, INK, "middle", "bold")
+    s += rect(95, 165, 150, 14, "#cdd5da", INK, 1.6, 3)
+    s += polyline([(120, 165), (135, 159), (150, 171), (165, 159), (180, 171), (195, 165)], "#c0271e", 1.6)
+    s += arrow(170, 150, 170, 163, INK, 2)
+    s += text(170, 205, "вага → деформація → ΔR", 9.5, GREY, "middle")
+    s += text(170, 221, "→ напруга (load cell)", 9.5, "#1f8a3b", "middle", "bold")
+    # температура
+    s += rect(320, 110, 220, 120, "#fafafa", GREY, 1.5, 10)
+    s += text(430, 134, "Температура", 12, INK, "middle", "bold")
+    s += circle(430, 178, 22, "#fff3e8", ORANGE, 2)
+    s += text(430, 184, "RTD", 11, ORANGE, "middle", "bold")
+    s += text(430, 205, "тепло → ΔR (RTD/термістор,", 9.5, GREY, "middle")
+    s += text(430, 221, "§1.3.4) → напруга", 9.5, "#1f8a3b", "middle", "bold")
+    # тиск
+    s += rect(580, 110, 220, 120, "#fafafa", GREY, 1.5, 10)
+    s += text(690, 134, "Тиск", 12, INK, "middle", "bold")
+    s += polyline([(645, 185), (665, 178), (690, 174), (715, 178), (735, 185)], "#1f47b5", 2)
+    s += line(645, 195, 735, 195, INK, 1.6)
+    s += text(690, 205, "прогин мембрани → ΔR", 9.5, GREY, "middle")
+    s += text(690, 221, "→ напруга", 9.5, "#1f8a3b", "middle", "bold")
+    s += rect(90, 262, W - 180, 70, "#eef7f0", GREEN, 1.8, 12)
+    s += text(W / 2, 286, "Чверть-, напів- і повний міст: 1, 2 чи 4 активні плеча.", 12.5, INK, "middle", "bold")
+    s += text(W / 2, 308, "Більше активних плечей → більший сигнал; протилежні пари ще й гасять вплив температури.",
+              10.5, GREY, "middle", style="italic")
+    s += text(W / 2, 324, "Тому міст — стандартний «передній край» майже кожного резистивного датчика.", 10, INK, "middle", "bold")
+    save("fig-4-9-6-applications.svg", s)
+
+
+# ═══ 🔌 Вставка до 4.1 — макетна плата зсередини ════════════════════════════
+def _bb_holes(xs, y, r=4):
+    out = ""
+    for x in xs:
+        out += circle(x, y, r, "#ffffff", "#9aa0a6", 1.3)
+    return out
+
+
+def fig_breadboard_internals():
+    W, H = 880, 470
+    s = header(W, H)
+    s += text(W / 2, 30, "Макетна плата зсередини: які гнізда вже з'єднані", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "приховані металеві смужки заздалегідь з'єднують певні гнізда — їх треба знати напам'ять",
+              10.5, GREY, "middle", style="italic")
+    cols = [230, 320, 410, 500, 590, 680]
+    railxs = list(range(210, 701, 30))
+    # верхні шини
+    s += line(200, 84, 710, 84, "#c0271e", 2)
+    s += line(200, 104, 710, 104, "#1f47b5", 2)
+    s += _bb_holes(railxs, 84); s += _bb_holes(railxs, 104)
+    s += text(192, 88, "+", 14, "#c0271e", "end", "bold")
+    s += text(192, 108, "−", 14, "#1f47b5", "end", "bold")
+    s += text(724, 84, "шина + (вся довжина)", 9.5, "#c0271e", "start", "bold")
+    s += text(724, 104, "шина − (вся довжина)", 9.5, "#1f47b5", "start", "bold")
+    # верхній блок a-e
+    for y, lab in zip([150, 170, 190, 210, 230], ["a", "b", "c", "d", "e"]):
+        s += _bb_holes(cols, y)
+        s += text(cols[0] - 34, y + 4, lab, 10, GREY, "middle")
+        s += text(cols[-1] + 34, y + 4, lab, 10, GREY, "middle")
+    hx = cols[1]
+    s += rect(hx - 16, 142, 32, 96, "none", "#1f8a3b", 2.2, 8)
+    s += line(hx, 150, hx, 230, "#1f8a3b", 2.4)
+    s += text(hx, 130, "1 вузол", 9.5, "#1f8a3b", "middle", "bold")
+    s += text(cols[3], 130, "сусідній — інший вузол", 9, GREY, "middle")
+    # канавка
+    s += line(200, 250, 710, 250, FAINT, 1.4, "6 4")
+    s += line(200, 272, 710, 272, FAINT, 1.4, "6 4")
+    s += text(W / 2, 266, "◄ центральна канавка: верх і низ НЕ з'єднані ►", 10, "#a06a00", "middle", "bold")
+    # нижній блок f-j
+    for y, lab in zip([292, 312, 332, 352, 372], ["f", "g", "h", "i", "j"]):
+        s += _bb_holes(cols, y)
+        s += text(cols[0] - 34, y + 4, lab, 10, GREY, "middle")
+        s += text(cols[-1] + 34, y + 4, lab, 10, GREY, "middle")
+    # нижні шини
+    s += line(200, 398, 710, 398, "#c0271e", 2)
+    s += line(200, 418, 710, 418, "#1f47b5", 2)
+    s += _bb_holes(railxs, 398); s += _bb_holes(railxs, 418)
+    s += text(192, 402, "+", 14, "#c0271e", "end", "bold")
+    s += text(192, 422, "−", 14, "#1f47b5", "end", "bold")
+    s += rect(120, H - 40, W - 240, 30, "#f4f7f4", GREEN, 1.4, 10)
+    s += text(W / 2, H - 20, "Стовпчик із 5 гнізд = один вузол · сусідні стовпці незалежні · шини тягнуться вздовж · канавка розділяє верх і низ.",
+              9.5, INK, "middle", "bold")
+    save("fig-4-1c-1-breadboard-internals.svg", s)
+
+
+def fig_breadboard_chip():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Мікросхема сідає верхи на канавку — і split-шина-пастка", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "канавка для того й є: ліві ніжки окремо від правих, кожна — у свій стовпець-вузол",
+              10.5, GREY, "middle", style="italic")
+    # ── ЛІВОРУЧ: чип на канавці ──
+    cols = [210, 270, 330, 390]
+    for y in [120, 140, 160, 180]:
+        s += _bb_holes(cols, y)
+    for y in [250, 270, 290, 310]:
+        s += _bb_holes(cols, y)
+    s += rect(cols[0] - 20, 192, (cols[-1] - cols[0]) + 40, 46, "#2a2a2a", "#101010", 2, 5)
+    s += circle((cols[0] + cols[-1]) / 2, 196, 5, "#2a2a2a", "#666", 1.2)
+    s += text((cols[0] + cols[-1]) / 2, 220, "DIP-чип", 11, "#f0f0f0", "middle", "bold")
+    for x in cols:
+        s += line(x, 192, x, 182, "#9a9a9a", 2)
+        s += line(x, 238, x, 248, "#9a9a9a", 2)
+    s += text(cols[0] - 28, 215, "канавка", 9, "#a06a00", "end", "bold")
+    s += text(300, 120 - 18, "кожна ніжка → свій стовпець → свій вузол", 9.5, "#1f8a3b", "middle", "bold")
+    s += text(300, 345, "ліва половина ніжок ≠ права (їх ділить канавка)", 9.5, GREY, "middle", style="italic")
+    # ── ПРАВОРУЧ: split-rail пастка ──
+    s += line(470, 80, 470, H - 24, FAINT, 1.5)
+    s += text(670, 96, "Пастка: розрив шини посередині", 12, "#c0271e", "middle", "bold")
+    s += line(520, 150, 600, 150, "#c0271e", 3)
+    s += line(620, 150, 820, 150, "#c0271e", 3)
+    s += text(610, 138, "✂", 13, "#c0271e", "middle", "bold")
+    s += _bb_holes(list(range(530, 821, 30)), 150)
+    s += text(670, 178, "на багатьох платах шина живлення", 9.5, INK, "middle")
+    s += text(670, 194, "РОЗІРВАНА посередині —", 9.5, "#c0271e", "middle", "bold")
+    s += text(670, 210, "половина плати лишається без живлення!", 9.5, INK, "middle")
+    s += rect(520, 236, 300, 70, "#eef7f0", GREEN, 1.6, 10)
+    s += text(670, 260, "Рятунок: перемичкою з'єднати", 10.5, INK, "middle", "bold")
+    s += text(670, 278, "обидві половини шини —", 10.5, INK, "middle", "bold")
+    s += text(670, 294, "або спершу продзвонити мультиметром.", 9.5, GREY, "middle", style="italic")
+    save("fig-4-1c-2-chip-and-rails.svg", s)
+
+
+# ═══ 📜 Історія до 4.9 — Крісті й Вітстон ═══════════════════════════════════
+def fig_cw_timeline():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 30, "Міст, названий не за винахідником", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "діамант Крісті (1833) став «мостом Вітстона» — і в цьому винна радше історія, ніж люди",
+              10.5, GREY, "middle", style="italic")
+    y = 150
+    s += line(70, y, 830, y, "#bbbbbb", 2.5)
+    for x, yr, l1, l2, col in [
+        (150, "1833", "Крісті: «діамантовий»", "метод (у статті про магнетизм)", "#1f47b5"),
+        (420, "1843", "Вітстон: розвинув для", "вимірювання опору; вказав Крісті", "#1f8a3b"),
+        (740, "далі", "назва прилипла до Вітстона;", "переклади викинули Крісті", "#c0271e"),
+    ]:
+        s += circle(x, y, 7, col, col, 2)
+        s += line(x, y - 7, x, y - 34, "#cccccc", 1.4)
+        s += text(x, y - 40, yr, 13, col, "middle", "bold")
+        s += text(x, y + 28, l1, 9.5, INK, "middle", "bold")
+        s += text(x, y + 42, l2, 9, GREY, "middle")
+    save("fig-4-9i-1-cw-timeline.svg", s)
+
+
+def fig_cw_two_men():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Дві заслуги різного роду", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "«мати й опублікувати ідею» — одне, «зробити корисним і знаменитим» — інше; обидва справжні",
+              10.5, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 30, FAINT, 1.5)
+    s += circle(225, 140, 40, "#eef2fb", "#1f47b5", 2.5); s += text(225, 147, "SHC", 14, "#1f47b5", "middle", "bold")
+    s += text(225, 198, "Семюел Гантер Крісті", 12, INK, "middle", "bold")
+    s += text(225, 216, "(1784–1865)", 9.5, GREY, "middle")
+    s += text(225, 244, "ВИНАЙШОВ діамантовий метод", 10, "#1f47b5", "middle", "bold")
+    s += text(225, 262, "(1833) — та сховав його в", 9.5, INK, "middle")
+    s += text(225, 276, "статті про магнетизм, тож", 9.5, INK, "middle")
+    s += text(225, 290, "метод лишився непоміченим.", 9.5, INK, "middle")
+    s += text(225, 320, "«мав і опублікував ідею»", 9.5, GREY, "middle", style="italic")
+    s += circle(635, 140, 40, "#eef7f0", "#1f8a3b", 2.5); s += text(635, 147, "CW", 14, "#1f8a3b", "middle", "bold")
+    s += text(635, 198, "Чарльз Вітстон", 12, INK, "middle", "bold")
+    s += text(635, 216, "(1802–1875)", 9.5, GREY, "middle")
+    s += text(635, 244, "РОЗВИНУВ його (1843) для", 10, "#1f8a3b", "middle", "bold")
+    s += text(635, 262, "точного вимірювання опору", 9.5, INK, "middle")
+    s += text(635, 276, "й чесно вказав на Крісті —", 9.5, INK, "middle")
+    s += text(635, 290, "та назва прилипла до нього.", 9.5, INK, "middle")
+    s += text(635, 320, "«зробив корисним і відомим»", 9.5, GREY, "middle", style="italic")
+    save("fig-4-9i-2-two-men.svg", s)
+
+
+# ═══ 🧮 Вставка до 4.9 — чутливість мосту ═══════════════════════════════════
+def fig_bridge_linearization():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Чутливість мосту: лінеаризація біля балансу", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "чверть-міст: точний вихід трохи гнеться, та біля балансу він майже прямий — (V/4)(ΔR/R)",
+              10.5, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 110, 330, 640, 90
+
+    def px(x):
+        return ox + (x / 0.3) * (axr - 30 - ox)
+
+    def py(y):
+        return oy - (y / 0.08) * (oy - ayt)
+
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 22, "ΔR/R", 11, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8); s += text(ox - 8, ayt - 10, "V_вих/V", 10, INK, "start", "bold")
+    s += line(px(0), py(0), px(0.3), py(0.075), "#1f47b5", 2.4, "5 4")
+    s += text(px(0.3), py(0.075) - 6, "лінійно: (V/4)·(ΔR/R)", 10, "#1f47b5", "end", "bold")
+    pts = [(px(i / 100.0 * 0.3), py((i / 100.0 * 0.3) / (2 * (2 + i / 100.0 * 0.3)))) for i in range(101)]
+    s += polyline(pts, "#c0271e", 2.6)
+    s += text(px(0.3) + 4, py(0.0652) + 6, "точно", 10, "#c0271e", "start", "bold")
+    for xv in [0.1, 0.2, 0.3]:
+        s += line(px(xv), oy - 4, px(xv), oy + 4, INK, 1.2)
+        s += text(px(xv), oy + 20, "%d%%" % int(xv * 100), 9, GREY, "middle")
+    s += rect(668, 108, 184, 204, "#f7f7f7", GREY, 1.4, 10)
+    s += text(760, 132, "Біля нуля", 11, INK, "middle", "bold")
+    s += text(686, 156, "точне ≈ лінійне:", 9.5, INK, "start")
+    s += text(686, 176, "|V_вих| ≈ (V/4)·(ΔR/R)", 10, "#1f8a3b", "start", "bold")
+    s += text(686, 204, "Нелінійність ~ (ΔR/R)/2:", 9.5, INK, "start")
+    s += text(700, 226, "0.1 % → 0.05 % похибки", 9.5, INK, "start", "bold")
+    s += text(700, 244, "2 %   → 1 %", 9.5, INK, "start", "bold")
+    s += text(686, 274, "Тому датчик тримають", 9, GREY, "start")
+    s += text(686, 288, "біля балансу.", 9, GREY, "start")
+    save("fig-4-9m-1-bridge-linearization.svg", s)
+
+
+def fig_bridge_configs():
+    W, H = 880, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Чверть-, напів- і повний міст: чутливість і лінійність", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "більше активних плечей — більший сигнал; протилежні пари ще й роблять вихід точно лінійним",
+              10.5, GREY, "middle", style="italic")
+    y = 108
+    for name, arms, formula, note, mult, col in [
+        ("Чверть-міст", "1 активне плече", "V_вих = (V/4)·(ΔR/R)", "нелінійність ~(ΔR/R)/2", 1, "#1f47b5"),
+        ("Напівміст", "2 плеча (протилежні)", "V_вих = (V/2)·(ΔR/R)", "×2; нелінійність гаситься", 2, "#e08030"),
+        ("Повний міст", "4 активні плеча", "V_вих = V·(ΔR/R)", "×4; ТОЧНО лінійний", 4, "#1f8a3b"),
+    ]:
+        s += rect(60, y, 760, 72, "#fafafa", "#cccccc", 1.4, 8)
+        s += text(80, y + 30, name, 13, col, "start", "bold")
+        s += text(80, y + 52, arms, 9.5, GREY, "start")
+        s += text(296, y + 30, formula, 12, INK, "start", "bold")
+        s += text(296, y + 52, note, 9.5, GREY, "start")
+        s += rect(600, y + 24, mult * 48, 24, col, col, 0, 4)
+        s += text(600 + mult * 48 + 10, y + 41, "×%d" % mult, 11, col, "start", "bold")
+        y += 86
+    save("fig-4-9m-2-bridge-configs.svg", s)
+
+
+# ═══ 📜 Історія до 4.8 — контурні струми Максвелла ══════════════════════════
+def fig_branch_vs_mesh():
+    W, H = 880, 412
+    s = header(W, H)
+    s += text(W / 2, 30, "Чому контурні струми Максвелла: менше рівнянь", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "те саме коло двома методами — гілкові струми проти контурних",
+              10.5, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 58, FAINT, 1.5)
+
+    def circuit(ox):
+        L, R, T, B = ox + 40, ox + 330, 120, 296
+        out = rect(L, T, R - L, B - T, "none", INK, 2, 0)
+        out += line((L + R) / 2, T, (L + R) / 2, B, INK, 2)
+        out += text(L - 4, 196, "V₁", 10, "#c0271e", "end", "bold")
+        out += text(R + 4, 196, "V₂", 10, "#c0271e", "start", "bold")
+        return out, L, R, T, B, (L + R) / 2
+
+    def loopcur(cx, cy, lab):
+        out = circle(cx, cy, 22, "none", "#1f8a3b", 2)
+        out += polyline([(cx - 5, cy - 26), (cx + 4, cy - 22), (cx - 5, cy - 18)], "#1f8a3b", 2)
+        out += text(cx, cy + 5, lab, 12, "#1f8a3b", "middle", "bold")
+        return out
+
+    s += text(225, 96, "Гілкові струми", 12, "#1f47b5", "middle", "bold")
+    c, L, R, T, B, mx = circuit(50)
+    s += c
+    s += text((L + mx) / 2, T - 8, "i₁", 11, "#1f47b5", "middle", "bold")
+    s += text(mx + 12, (T + B) / 2, "i₃", 11, "#1f47b5", "middle", "bold")
+    s += text((mx + R) / 2, T - 8, "i₂", 11, "#1f47b5", "middle", "bold")
+    s += rect(95, 316, 300, 58, "#eef2fb", "#1f47b5", 1.5, 8)
+    s += text(245, 339, "3 гілкові струми (i₁, i₂, i₃):", 10, INK, "middle", "bold")
+    s += text(245, 358, "1 рівняння KCL + 2 KVL = 3 рівняння", 10, INK, "middle", "bold")
+    s += text(655, 96, "Контурні струми (Максвелл)", 12, "#1f8a3b", "middle", "bold")
+    c2, L2, R2, T2, B2, mx2 = circuit(480)
+    s += c2
+    s += loopcur((L2 + mx2) / 2, (T2 + B2) / 2, "Iₐ")
+    s += loopcur((mx2 + R2) / 2, (T2 + B2) / 2, "I_b")
+    s += rect(525, 316, 300, 58, "#eef7f0", "#1f8a3b", 1.5, 8)
+    s += text(675, 339, "2 контурні струми (Iₐ, I_b):", 10, INK, "middle", "bold")
+    s += text(675, 358, "KCL — сам собою; лише 2 KVL = 2 рівняння", 10, INK, "middle", "bold")
+    s += text(W / 2, H - 16, "Менше невідомих → менше рівнянь → швидший розв'язок руками.",
+              10.5, "#1f8a3b", "middle", "bold")
+    save("fig-4-8i-1-branch-vs-mesh.svg", s)
+
+
+def fig_cyclic_kcl():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Хитрість Максвелла: контурний струм сам задовольняє KCL", 17, INK, "middle", "bold")
+    s += text(W / 2, 51, "замкнений контурний струм входить у кожен вузол і виходить із нього — тож KCL не треба писати",
+              10.5, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 30, FAINT, 1.5)
+    s += text(225, 100, "Контурний струм крізь вузол", 11, INK, "middle", "bold")
+    s += circle(225, 200, 8, INK, INK, 1)
+    s += arrow(110, 200, 210, 200, "#1f8a3b", 2.6); s += text(150, 188, "Iₐ входить", 9.5, "#1f8a3b", "middle", "bold")
+    s += arrow(240, 200, 340, 200, "#1f8a3b", 2.6); s += text(300, 188, "Iₐ виходить", 9.5, "#1f8a3b", "middle", "bold")
+    s += text(225, 234, "те саме Iₐ → втікає = витікає", 10, INK, "middle", "bold")
+    s += text(225, 256, "→ KCL виконано АВТОМАТИЧНО", 10.5, "#1f8a3b", "middle", "bold")
+    s += text(225, 290, "тому пишемо лише KVL по контурах", 9.5, GREY, "middle", style="italic")
+    s += text(655, 100, "Скільки рівнянь? Бери менше", 11, INK, "middle", "bold")
+    s += rect(520, 124, 320, 214, "#f7f7f7", GREY, 1.5, 10)
+    s += text(540, 150, "• контурний метод: L = B−N+1 рівнянь", 10, "#1f8a3b", "start", "bold")
+    s += text(540, 172, "• вузловий метод: N−1 рівнянь", 10, "#1f47b5", "start", "bold")
+    s += text(540, 198, "Бери той, де менше — для різних кіл", 10, INK, "start")
+    s += text(552, 214, "виграшним буває різний метод.", 10, GREY, "start")
+    s += text(540, 244, "Іронія часу: руками часто виграє", 10, INK, "start", "bold")
+    s += text(552, 260, "контурний (менше рівнянь), а", 10, GREY, "start")
+    s += text(540, 282, "машини беруть вузловий / MNA —", 10, INK, "start", "bold")
+    s += text(552, 298, "його легше скласти з netlist (§1.4.8).", 9.5, GREY, "start")
+    save("fig-4-8i-2-cyclic-kcl.svg", s)
+
+
+# ═══ ⚙️ Вставка до 4.8 — MNA / SPICE ════════════════════════════════════════
+def fig_mna_stamping():
+    W, H = 880, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Як SPICE будує матрицю: «штампування» елементів", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "кожен елемент незалежно додає свій фіксований внесок у матрицю провідностей G",
+              10.5, GREY, "middle", style="italic")
+    s += text(200, 96, "Резистор R між вузлами 1 і 2", 11, INK, "middle", "bold")
+    s += circle(120, 168, 18, "#eef2fb", "#1f47b5", 2); s += text(120, 173, "1", 12, INK, "middle", "bold")
+    s += circle(290, 168, 18, "#eef2fb", "#1f47b5", 2); s += text(290, 173, "2", 12, INK, "middle", "bold")
+    s += line(138, 168, 170, 168, INK, 2); s += line(240, 168, 272, 168, INK, 2)
+    s += rect(170, 156, 70, 24, "#fff", "#8a8a8a", 2, 4); s += text(205, 173, "R", 11, INK, "middle", "bold")
+    s += text(205, 208, "провідність g = 1/R", 10, GREY, "middle")
+    s += text(200, 248, "додає у G чотири внески:", 10.5, INK, "middle", "bold")
+    s += text(200, 272, "(1,1) += g    (2,2) += g", 11, "#1f8a3b", "middle", "bold")
+    s += text(200, 292, "(1,2) −= g    (2,1) −= g", 11, "#c0271e", "middle", "bold")
+    s += line(W / 2, 80, W / 2, H - 28, FAINT, 1.5)
+    s += text(675, 96, "Матриця провідностей G", 11, INK, "middle", "bold")
+    gx, gy, cw = 615, 132, 72
+    for j, l in enumerate(["1", "2"]):
+        s += text(gx + cw * j + cw / 2, gy - 8, l, 11, GREY, "middle", "bold")
+    for i, l in enumerate(["1", "2"]):
+        s += text(gx - 16, gy + cw * i + cw / 2 + 5, l, 11, GREY, "middle", "bold")
+    cells = {(0, 0): "+g", (1, 1): "+g", (0, 1): "−g", (1, 0): "−g"}
+    for i in range(2):
+        for j in range(2):
+            col = "#1f8a3b" if i == j else "#c0271e"
+            s += rect(gx + cw * j, gy + cw * i, cw, cw, "#fafafa", "#cccccc", 1.2, 0)
+            s += text(gx + cw * j + cw / 2, gy + cw * i + cw / 2 + 6, cells[(i, j)], 15, col, "middle", "bold")
+    s += text(675, gy + 2 * cw + 30, "Кожен резистор «штампує» цей хрест;", 9.5, INK, "middle", "bold")
+    s += text(675, gy + 2 * cw + 46, "уся матриця збирається з netlist сама.", 9.5, GREY, "middle", style="italic")
+    save("fig-4-8a-1-mna-stamping.svg", s)
+
+
+def fig_mna_augment():
+    W, H = 880, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "MNA: джерело напруги додає зайвий рядок і стовпець", 17, INK, "middle", "bold")
+    s += text(W / 2, 51, "ідеальне джерело задає V, але його струм невідомий — тож його роблять зайвою змінною",
+              10.5, GREY, "middle", style="italic")
+    gx, gy, cw = 120, 122, 78
+    rows = [["g₁", "−g₁", "1"], ["−g₁", "g₁+g₂", "0"], ["1", "0", "0"]]
+    for i in range(3):
+        for j in range(3):
+            border = (i == 2 or j == 2)
+            s += rect(gx + cw * j, gy + cw * i, cw, cw, "#eef2fb" if border else "#fafafa", "#cccccc", 1.2, 0)
+            s += text(gx + cw * j + cw / 2, gy + cw * i + cw / 2 + 5, rows[i][j], 12, INK, "middle", "bold")
+    s += line(gx + cw * 2, gy - 4, gx + cw * 2, gy + cw * 3 + 4, "#1f47b5", 2)
+    s += line(gx - 4, gy + cw * 2, gx + cw * 3 + 4, gy + cw * 2, "#1f47b5", 2)
+    s += text(gx + cw, gy - 24, "вузлові рівняння (KCL)", 9.5, GREY, "middle")
+    s += text(gx + cw * 2 + cw / 2, gy - 24, "джерело", 9, "#1f47b5", "middle", "bold")
+    vx = gx + cw * 3 + 34
+    for i, lab, col in [(0, "V₁", INK), (1, "V₂", INK), (2, "I_V", "#1f47b5")]:
+        s += text(vx, gy + cw * i + cw / 2 + 5, lab, 13, col, "middle", "bold")
+    s += text(vx + 34, gy + cw * 1 + cw / 2 + 5, "=", 16, INK, "middle", "bold")
+    for i, lab, col in [(0, "0", INK), (1, "0", INK), (2, "Vs", "#1f47b5")]:
+        s += text(vx + 70, gy + cw * i + cw / 2 + 5, lab, 13, col, "middle", "bold")
+    s += rect(560, 150, 300, 176, "#eef7f0", GREEN, 1.5, 10)
+    s += text(710, 176, "Збірка → [ G  B ; C  D ]", 11, INK, "middle", "bold")
+    s += text(580, 202, "• G — вузлові провідності;", 10, INK, "start")
+    s += text(580, 220, "• рядок/стовпець на кожне", 10, INK, "start")
+    s += text(592, 236, "джерело напруги (струм I_V).", 10, GREY, "start")
+    s += text(580, 262, "• «висячий» вузол → матриця", 10, "#c0271e", "start", "bold")
+    s += text(592, 278, "вироджена; SPICE додає крихітну", 9.5, INK, "start")
+    s += text(592, 292, "провідність gmin на землю.", 9.5, GREY, "start")
+    s += text(580, 316, "Далі — метод Гаусса (§1.4.8m).", 10, "#1f8a3b", "start", "bold")
+    save("fig-4-8a-2-mna-augment.svg", s)
+
+
+# ═══ 🧮 Вставка до 4.8 — метод Гаусса ═══════════════════════════════════════
+def fig_gauss_elimination():
+    W, H = 900, 420
+    s = header(W, H)
+    s += text(W / 2, 30, "Метод Гаусса: зводимо систему до трикутної", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "прямий хід виключає змінні стовпець за стовпцем; зворотний — підставляє знизу вгору",
+              10.5, GREY, "middle", style="italic")
+
+    def mat(x, y, rows):
+        cw, rh = 30, 28
+        nc = len(rows[0])
+        out = rect(x - 8, y - 8, cw * nc + 28, rh * 3 + 16, "#fff", "#bbbbbb", 1.4, 6)
+        for i, row in enumerate(rows):
+            for j, val in enumerate(row):
+                out += text(x + cw * j + cw / 2, y + rh * i + rh / 2 + 5, val, 12,
+                            INK if j < 3 else "#1f47b5", "middle", "bold")
+        out += line(x + cw * 3 + 6, y - 6, x + cw * 3 + 6, y + rh * 3 + 6, "#888", 1.4)
+        return out
+
+    s += mat(70, 108, [["1", "1", "1", "6"], ["2", "3", "−1", "5"], ["1", "−1", "2", "5"]])
+    s += mat(372, 108, [["1", "1", "1", "6"], ["0", "1", "−3", "−7"], ["0", "−2", "1", "−1"]])
+    s += mat(674, 108, [["1", "1", "1", "6"], ["0", "1", "−3", "−7"], ["0", "0", "−5", "−15"]])
+    s += arrow(222, 150, 366, 150, INK, 2)
+    s += text(294, 138, "R2−2R1", 9, "#c0271e", "middle", "bold")
+    s += text(294, 166, "R3−R1", 9, "#c0271e", "middle", "bold")
+    s += arrow(524, 150, 668, 150, INK, 2)
+    s += text(596, 138, "R3+2R2", 9, "#c0271e", "middle", "bold")
+    s += text(772, 210, "трикутна!", 10, "#1f8a3b", "middle", "bold")
+    s += rect(120, 256, 660, 126, "#eef7f0", GREEN, 1.6, 10)
+    s += text(140, 282, "Зворотний хід (знизу вгору):", 12, INK, "start", "bold")
+    s += text(152, 308, "−5z = −15   →   z = 3", 12, "#1f47b5", "start", "bold")
+    s += text(152, 332, "y − 3·3 = −7   →   y = 2", 12, "#1f47b5", "start", "bold")
+    s += text(152, 356, "x + 2 + 3 = 6   →   x = 1", 12, "#1f47b5", "start", "bold")
+    s += text(566, 326, "Розв'язок:", 11, INK, "start", "bold")
+    s += text(566, 350, "(x, y, z) = (1, 2, 3)", 13, "#1f8a3b", "start", "bold")
+    save("fig-4-8m-1-gauss.svg", s)
+
+
+def fig_gauss_pivoting():
+    W, H = 860, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "Підступ півота: нуль чи мале число на діагоналі", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "щоб ділити на діагональний елемент (півот), він має бути не нулем — і краще найбільшим",
+              10.5, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 28, FAINT, 1.5)
+    s += text(225, 96, "Нуль на діагоналі → переставити рядки", 11, "#c0271e", "middle", "bold")
+    s += rect(125, 118, 90, 68, "none", "#bbb", 1.4, 6)
+    s += text(150, 142, "0", 13, "#c0271e", "middle", "bold"); s += text(190, 142, "2", 13, INK, "middle", "bold")
+    s += text(150, 170, "3", 13, INK, "middle", "bold"); s += text(190, 170, "1", 13, INK, "middle", "bold")
+    s += text(170, 205, "на 0 не поділиш!", 9.5, "#c0271e", "middle", "bold")
+    s += arrow(232, 152, 292, 152, "#1f8a3b", 2.2)
+    s += text(262, 140, "переставити", 8.5, "#1f8a3b", "middle", "bold")
+    s += rect(335, 118, 90, 68, "none", "#bbb", 1.4, 6)
+    s += text(360, 142, "3", 13, INK, "middle", "bold"); s += text(400, 142, "1", 13, INK, "middle", "bold")
+    s += text(360, 170, "0", 13, INK, "middle", "bold"); s += text(400, 170, "2", 13, INK, "middle", "bold")
+    s += text(380, 205, "тепер півот = 3", 9.5, "#1f8a3b", "middle", "bold")
+    s += text(665, 96, "Ціна й де працює", 11, INK, "middle", "bold")
+    s += rect(500, 116, 332, 188, "#f7f7f7", GREY, 1.5, 10)
+    s += text(518, 144, "• Мале число теж зле: ділення на", 10, INK, "start")
+    s += text(530, 160, "нього роздуває похибки округлення.", 10, GREY, "start")
+    s += text(518, 184, "• Тому беруть НАЙБІЛЬШИЙ доступний", 10, INK, "start")
+    s += text(530, 200, "півот (часткове впорядкування).", 10, GREY, "start")
+    s += text(518, 228, "• Складність O(N³) — головна ціна", 10, INK, "start", "bold")
+    s += text(530, 244, "розрахунку великого кола.", 10, GREY, "start")
+    s += text(518, 272, "• Саме це робить SPICE, склавши", 10, INK, "start")
+    s += text(530, 288, "матрицю кола (§1.4.8).", 10, GREY, "start")
+    save("fig-4-8m-2-pivoting.svg", s)
+
+
+# ═══ ⚙️ Вставка до 4.6 — добір пари E24 ═════════════════════════════════════
+def fig_divider_search():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Добір пари E24 під заданий дільник", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "треба V_вих=3.3 В із 5 В: ідеальне R1/R2 ≈ 0.515, та беремо лише значення ряду E24",
+              10.5, GREY, "middle", style="italic")
+    ox, oy, axr = 100, 175, 800
+
+    def vx(v):
+        return ox + (v - 3.0) / (3.6 - 3.0) * (axr - ox)
+
+    s += line(ox, oy, axr, oy, INK, 1.8)
+    s += text(axr, oy - 12, "V_вих, В", 10, INK, "end", "italic")
+    for v in [3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6]:
+        s += line(vx(v), oy - 5, vx(v), oy + 5, INK, 1.4)
+        s += text(vx(v), oy + 22, "%.1f" % v, 9, GREY, "middle")
+    s += line(vx(3.3), oy - 42, vx(3.3), oy, "#1f8a3b", 2, "4 3")
+    s += text(vx(3.3), oy - 48, "ціль 3.3 В", 10, "#1f8a3b", "middle", "bold")
+    for vo in [3.333, 3.311, 3.235, 3.366, 3.313]:
+        col = "#c0271e" if abs(vo - 3.3) < 0.02 else "#1f47b5"
+        s += circle(vx(vo), oy - 60, 5, col, col, 1)
+    s += circle(vx(3.311), oy - 60, 8, "none", "#c0271e", 2.4)
+    s += text(vx(3.311) - 4, oy - 74, "найкраще: 5.1k/10k → 3.31 В", 9.5, "#c0271e", "middle", "bold")
+    s += rect(120, 250, 620, 124, "#f7f7f7", GREY, 1.4, 10)
+    s += text(140, 274, "Кандидати (R1 / R2 → V_вих, похибка):", 11, INK, "start", "bold")
+    y = 298
+    for r, vo, e in [("10k / 20k", "3.333 В", "+1.0 %"), ("5.1k / 10k", "3.311 В", "+0.3 %"),
+                     ("5.6k / 11k", "3.313 В", "+0.4 %"), ("3.3k / 6.8k", "3.366 В", "+2.0 %")]:
+        s += text(150, y, r, 10, INK, "start")
+        s += text(330, y, vo, 10, "#1f47b5", "start")
+        s += text(470, y, e, 10, GREY, "start")
+        y += 20
+    s += text(150, y + 2, "→ перебираємо пари ряду й беремо мінімум похибки.", 10, "#1f8a3b", "start", "bold")
+    save("fig-4-6a-1-divider-search.svg", s)
+
+
+def fig_divider_algorithm():
+    import math
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Алгоритм: для кожного R2 «прилипни» до найближчого E24", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "замість сліпого перебору N² пар — N разів знайди найближче значення ряду (двійковий пошук)",
+              10.5, GREY, "middle", style="italic")
+    ox, axr, y = 90, 800, 150
+    s += line(ox, y, axr, y, INK, 1.8)
+    vals = [10, 11, 12, 13, 15, 16, 18, 20, 22, 24, 27, 30, 33, 36, 39, 43, 47]
+
+    def lx(v):
+        return ox + (math.log10(v) - 1) / (math.log10(47) - 1) * (axr - ox)
+
+    for v in vals:
+        s += line(lx(v), y - 5, lx(v), y + 5, INK, 1.3)
+        s += text(lx(v), y + 20, str(v), 8, GREY, "middle")
+    s += line(lx(23.0), y - 44, lx(23.0), y, "#c0271e", 2, "4 3")
+    s += text(lx(23.0), y - 50, "R1_ідеал = ціль · R2 = 23.0", 9.5, "#c0271e", "middle", "bold")
+    s += circle(lx(22), y, 7, "none", "#1f8a3b", 2.4)
+    s += arrow(lx(23.0), y - 20, lx(22), y - 9, "#1f8a3b", 2)
+    s += text(lx(22) - 4, y - 28, "найближче: 22", 9.5, "#1f8a3b", "middle", "bold")
+    s += rect(120, 238, 620, 124, "#eef7f0", GREEN, 1.6, 10)
+    s += text(140, 264, "Пастка МК: без FPU не ділимо — порівнюємо ЦІЛИМИ навхрест:", 10.5, INK, "start", "bold")
+    s += text(150, 288, "замість  R1/R2 ?= R1ц/R2ц   →   R1·R2ц ?= R2·R1ц  (без ділення)", 10.5, "#1f47b5", "start", "bold")
+    s += text(150, 312, "Увага на переповнення: 1МΩ·1МΩ = 10¹² > 2³² — рахуй у 64 бітах.", 10, INK, "start")
+    s += text(150, 336, "Складність O(N log N); таблиця ряду ≈ 300 байт у флеші.", 10, GREY, "start")
+    save("fig-4-6a-2-divider-algorithm.svg", s)
+
+
+# ═══ 🔌 Вставка до 4.6 — потенціометр і тример ══════════════════════════════
+def fig_pot_modes():
+    W, H = 860, 410
+    s = header(W, H)
+    s += text(W / 2, 30, "Потенціометр: три виводи, два режими", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "доріжка опору з рухомим повзунком — або дільник (3 виводи), або змінний опір (2)",
+              10.5, GREY, "middle", style="italic")
+    tx0, tx1, ty = 280, 600, 110
+    s += rect(tx0, ty - 11, tx1 - tx0, 22, "#efe2c8", "#b8a37a", 2, 4)
+    s += circle(tx0, ty, 5, "#1f47b5", "#1f47b5", 1); s += text(tx0, ty + 28, "1", 11, INK, "middle", "bold")
+    s += circle(tx1, ty, 5, "#1f47b5", "#1f47b5", 1); s += text(tx1, ty + 28, "3", 11, INK, "middle", "bold")
+    wx = tx0 + 0.6 * (tx1 - tx0)
+    s += line(wx, ty - 12, wx, ty - 42, "#c0271e", 2.4)
+    s += polyline([(wx - 7, ty - 24), (wx, ty - 11), (wx + 7, ty - 24)], "#c0271e", 2)
+    s += circle(wx, ty - 46, 5, "#c0271e", "#c0271e", 1)
+    s += text(wx, ty - 56, "2 (повзунок)", 10, "#c0271e", "middle", "bold")
+    s += text((tx0 + tx1) / 2, ty + 52, "повний опір R між 1 і 3; повзунок 2 ділить його на дві частини",
+              9.5, GREY, "middle", style="italic")
+    s += line(W / 2, 188, W / 2, H - 18, FAINT, 1.5)
+    # ── режим дільника ──
+    s += text(228, 206, "Режим ДІЛЬНИКА (потенціометр)", 11, "#1f47b5", "middle", "bold")
+    s += text(228, 224, "задіяні всі 3 виводи", 9.5, GREY, "middle")
+    cx, cy = 210, 300
+    s += rect(cx - 16, cy - 44, 32, 88, "#efe2c8", "#b8a37a", 2, 4)
+    s += line(cx, cy - 44, cx, cy - 68, INK, 2); s += text(cx, cy - 74, "+V", 11, RED, "middle", "bold")
+    s += line(cx, cy + 44, cx, cy + 64, INK, 2); s += _gnd(cx, cy + 64)
+    s += line(cx + 16, cy, cx + 56, cy, "#c0271e", 2.4)
+    s += polyline([(cx + 8, cy - 7), (cx + 16, cy), (cx + 8, cy + 7)], "#c0271e", 2)
+    s += text(cx + 62, cy + 4, "V_вих", 11, "#c0271e", "start", "bold")
+    s += text(228, cy + 86, "кінці → V і GND, повзунок → вихід", 9, GREY, "middle", style="italic")
+    # ── режим реостата ──
+    s += text(632, 206, "Режим РЕОСТАТА (змінний опір)", 11, "#1f8a3b", "middle", "bold")
+    s += text(632, 224, "повзунок + один кінець", 9.5, GREY, "middle")
+    cx = 612
+    s += rect(cx - 16, cy - 44, 32, 88, "#efe2c8", "#b8a37a", 2, 4)
+    s += line(cx, cy + 44, cx, cy + 64, INK, 2); s += text(cx, cy + 80, "вивід A", 9.5, INK, "middle", "bold")
+    s += line(cx + 16, cy, cx + 44, cy, "#1f8a3b", 2.4)
+    s += polyline([(cx + 8, cy - 7), (cx + 16, cy), (cx + 8, cy + 7)], "#1f8a3b", 2)
+    s += line(cx + 44, cy, cx + 44, cy - 56, "#1f8a3b", 2)
+    s += line(cx, cy - 44, cx, cy - 56, INK, 2); s += line(cx, cy - 56, cx + 44, cy - 56, INK, 2, "3 3")
+    s += text(cx + 24, cy - 66, "вивід B", 9.5, INK, "middle", "bold")
+    s += text(632, cy + 86, "повзунок зведено з кінцем → змінний R", 9, GREY, "middle", style="italic")
+    save("fig-4-6c-1-pot-modes.svg", s)
+
+
+def fig_pot_tapers():
+    W, H = 860, 390
+    s = header(W, H)
+    s += text(W / 2, 30, "Характеристика доріжки й форм-фактори", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "як вихід залежить від повороту (лінійна чи логарифмічна) і в яких корпусах буває пот",
+              10.5, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 90, 300, 400, 108
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 20, "поворот", 10, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8); s += text(ox - 6, ayt - 10, "вихід", 10, INK, "start", "bold")
+    s += line(ox, oy, axr - 20, ayt, "#1f47b5", 2.6)
+    s += text(axr - 24, ayt + 6, "лінійна (B)", 10, "#1f47b5", "end", "bold")
+    pts = [(ox + (i / 100.0) * (axr - 20 - ox), oy - (oy - ayt) * ((i / 100.0) ** 2.5)) for i in range(101)]
+    s += polyline(pts, "#c0271e", 2.6)
+    s += text(ox + 46, oy - 36, "логарифмічна (A)", 10, "#c0271e", "start", "bold")
+    s += text(ox + 46, oy - 22, "для гучності", 9, GREY, "start", style="italic")
+    s += line(470, 80, 470, H - 26, FAINT, 1.5)
+    s += text(665, 100, "Форм-фактори", 12, INK, "middle", "bold")
+    s += circle(560, 158, 26, "#eef2fb", "#1f47b5", 2); s += line(560, 158, 560, 138, INK, 2.4)
+    s += text(560, 203, "панельний", 10, INK, "middle", "bold"); s += text(560, 218, "(ручка)", 9, GREY, "middle")
+    s += rect(645, 138, 40, 40, "#fafafa", GREY, 1.6, 4)
+    s += line(657, 158, 673, 158, INK, 2.4); s += line(665, 150, 665, 166, INK, 2.4)
+    s += text(665, 203, "тример", 10, INK, "middle", "bold"); s += text(665, 218, "(викруткою, раз)", 9, GREY, "middle")
+    s += rect(745, 133, 16, 55, "#eef2fb", "#1f47b5", 1.6, 3); s += rect(739, 148, 28, 12, "#cdd5da", INK, 1.4, 2)
+    s += text(753, 203, "повзунковий", 10, INK, "middle", "bold"); s += text(753, 218, "(фейдер)", 9, GREY, "middle")
+    s += rect(500, 248, 330, 112, "#f7f7f7", GREY, 1.4, 10)
+    s += text(665, 272, "Лінійна (B) — для вимірювань і керування.", 9.5, INK, "middle", "bold")
+    s += text(665, 290, "Логарифмічна (A) — для гучності (вухо", 9.5, INK, "middle")
+    s += text(665, 304, "чує наростання звуку логарифмічно).", 9.5, INK, "middle")
+    s += text(665, 330, "Матеріали: вуглець (дешево), кермет", 9, GREY, "middle")
+    s += text(665, 344, "(тримери), провідний пластик (тихо).", 9, GREY, "middle")
+    save("fig-4-6c-2-taper-types.svg", s)
+
+
+# ═══ 🧮 Вставка до 4.6 — як складаються допуски ═════════════════════════════
+def fig_tolerance_divider():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Похибка дільника з реальних резисторів", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "кожен резистор має допуск ±t — як він просочується у вихід V_вих?",
+              10.5, GREY, "middle", style="italic")
+    x = 175
+    s += line(x, 92, x, 286, INK, 2.2)
+    s += rect(x - 26, 118, 52, 46, "#eef2fb", "#1f47b5", 2, 6)
+    s += text(x, 140, "R₁", 12, "#1f47b5", "middle", "bold")
+    s += text(x, 156, "±t", 9, GREY, "middle")
+    s += circle(x, 190, 4, INK, INK, 1)
+    s += text(x + 16, 194, "V_вих", 11, INK, "start", "bold")
+    s += rect(x - 26, 216, 52, 46, "#eef2fb", "#1f47b5", 2, 6)
+    s += text(x, 238, "R₂", 12, "#1f47b5", "middle", "bold")
+    s += text(x, 254, "±t", 9, GREY, "middle")
+    s += text(x, 84, "+V", 11, RED, "middle", "bold")
+    s += _gnd(x, 286)
+    s += text(x, 318, "k = R₂/(R₁+R₂)", 11, INK, "middle", "bold")
+    s += rect(355, 90, 475, 256, "#f7f7f7", GREY, 1.5, 10)
+    s += text(592, 118, "Відносна похибка частки k:", 12, INK, "middle", "bold")
+    s += text(375, 150, "dk/k = [R₁/(R₁+R₂)] · (ε₂ − ε₁)", 13.5, "#c0271e", "start", "bold")
+    s += text(375, 174, "де ε — відносне відхилення кожного R.", 10, GREY, "start")
+    s += line(375, 190, 812, 190, FAINT, 1.4)
+    s += text(375, 212, "Головне: важить РІЗНИЦЯ ε₂ − ε₁,", 11, INK, "start", "bold")
+    s += text(375, 230, "а не сума — бо обидва R стоять у відношенні.", 10, GREY, "start")
+    s += text(375, 262, "Гірший випадок (|ε₂ − ε₁| = 2t):", 11, INK, "start", "bold")
+    s += text(392, 286, "|dV_вих / V_вих| ≈ (1 − k) · 2t", 13, "#1f8a3b", "start", "bold")
+    s += text(375, 318, "Напр., навпіл (k=0.5) із ±1% → гірше ±1 %.", 10, GREY, "start")
+    save("fig-4-6m-1-tolerance-divider.svg", s)
+
+
+def fig_worst_vs_matched():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Гірший випадок, статистика й узгоджена пара", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "приклад: дільник навпіл (k=0.5) із резисторів «±1%» — наскільки точний вихід?",
+              10.5, GREY, "middle", style="italic")
+    x0, y, scale = 80, 112, 470
+    for lab, val, frac, col in [
+        ("Гірший випадок (ε₂=+t, ε₁=−t)", "±1.0 %", 1.0, "#c0271e"),
+        ("Статистика (RSS, незалежні)", "≈ ±0.7 %", 0.71, "#e08030"),
+        ("Узгоджена пара (ε₁ ≈ ε₂)", "≈ 0 %", 0.05, "#1f8a3b"),
+    ]:
+        s += text(x0, y - 6, lab, 11, INK, "start", "bold")
+        bw = scale * frac if frac > 0.02 else 12
+        s += rect(x0, y + 4, bw, 30, col, col, 0, 4)
+        s += text(x0 + bw + 12, y + 25, val, 12.5, col, "start", "bold")
+        y += 78
+    s += rect(70, H - 84, W - 140, 60, "#eef7f0", GREEN, 1.6, 10)
+    s += text(W / 2, H - 60, "Висновок: для дільника важить не абсолютний допуск, а УЗГОДЖЕНІСТЬ резисторів.",
+              11.5, INK, "middle", "bold")
+    s += text(W / 2, H - 40, "Однакове відхилення (та сама партія / збірка-масив) і однаковий дрейф температури — скорочуються.",
+              10, GREY, "middle", style="italic")
+    save("fig-4-6m-2-worst-vs-matched.svg", s)
+
+
+# ═══ ⚙️ Вставка до 4.1 — обхід графа (DFS/BFS) ══════════════════════════════
+def fig_graph_spanning_tree():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Кістякове дерево й хорди: звідки беруться незалежні контури", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "обхід графа будує дерево без петель; кожна «зайва» гілка-хорда замикає рівно один контур",
+              10.5, GREY, "middle", style="italic")
+    n1 = (170, 150); n2 = (380, 150); n3 = (380, 330); n4 = (170, 330)
+    s += line(n1[0], n1[1], n2[0], n2[1], "#1f8a3b", 3)
+    s += line(n2[0], n2[1], n3[0], n3[1], "#1f8a3b", 3)
+    s += line(n3[0], n3[1], n4[0], n4[1], "#1f8a3b", 3)
+    s += line(n4[0], n4[1], n1[0], n1[1], "#c0271e", 2.6, "7 5")
+    s += line(n1[0], n1[1], n3[0], n3[1], "#c0271e", 2.6, "7 5")
+    s += text(275, 138, "a", 11, "#1f8a3b", "middle", "bold")
+    s += text(398, 240, "b", 11, "#1f8a3b", "middle", "bold")
+    s += text(275, 350, "c", 11, "#1f8a3b", "middle", "bold")
+    s += text(150, 240, "d", 11, "#c0271e", "middle", "bold")
+    s += text(292, 250, "e", 11, "#c0271e", "middle", "bold")
+    for n, lab in [(n1, "1"), (n2, "2"), (n3, "3"), (n4, "4")]:
+        s += circle(n[0], n[1], 19, "#eef2fb", "#1f47b5", 2.2)
+        s += text(n[0], n[1] + 5, lab, 13, INK, "middle", "bold")
+    s += line(470, 116, 510, 116, "#1f8a3b", 3)
+    s += text(520, 120, "гілка дерева (N−1 = 3): без петель", 10, INK, "start", "bold")
+    s += line(470, 146, 510, 146, "#c0271e", 2.6, "7 5")
+    s += text(520, 150, "хорда (B−N+1 = 2): замикає контур", 10, INK, "start", "bold")
+    s += rect(470, 182, 362, 156, "#f7f7f7", GREY, 1.5, 10)
+    s += text(488, 208, "Кожна хорда + шлях по дереву між її", 10, INK, "start")
+    s += text(488, 224, "кінцями = один фундаментальний контур:", 10, INK, "start")
+    s += text(488, 250, "• хорда d (4–1) → контур 1-2-3-4", 10, "#c0271e", "start", "bold")
+    s += text(488, 270, "• хорда e (1–3) → контур 1-2-3", 10, "#c0271e", "start", "bold")
+    s += text(488, 298, "Разом L = 2 незалежні контури —", 10, "#1f8a3b", "start", "bold")
+    s += text(488, 316, "рівно B − N + 1 із §1.4.1.", 10, GREY, "start")
+    save("fig-4-1a-1-spanning-tree.svg", s)
+
+
+def fig_dfs_vs_bfs():
+    W, H = 880, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Два способи обходу: вглиб (DFS) і вшир (BFS)", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "обидва відвідують усі вузли по разу за O(N+B); на МК — ітеративно, не рекурсією",
+              10.5, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 50, FAINT, 1.5)
+
+    def graph(ox):
+        a = (ox + 60, 130); b = (ox + 180, 130); c = (ox + 180, 250); d = (ox + 60, 250)
+        out = ""
+        for p, q in [(a, b), (b, c), (c, d), (d, a), (a, c)]:
+            out += line(p[0], p[1], q[0], q[1], "#cccccc", 2)
+        for n, lab in [(a, "1"), (b, "2"), (c, "3"), (d, "4")]:
+            out += circle(n[0], n[1], 16, "#eef2fb", "#1f47b5", 2)
+            out += text(n[0], n[1] + 5, lab, 11, INK, "middle", "bold")
+        return out
+
+    s += text(225, 98, "DFS — вглиб (стек, LIFO)", 12, "#1f47b5", "middle", "bold")
+    s += graph(135)
+    s += text(225, 292, "порядок: 1 → 2 → 3 → 4 (углиб, тоді назад)", 9.5, INK, "middle", "bold")
+    s += text(225, 313, "стек: кладемо сусідів, беремо з вершини", 9, GREY, "middle", style="italic")
+    s += text(655, 98, "BFS — вшир (черга, FIFO)", 12, "#1f8a3b", "middle", "bold")
+    s += graph(565)
+    s += text(655, 292, "порядок: 1 → (2, 3) → 4 (рівнями)", 9.5, INK, "middle", "bold")
+    s += text(655, 313, "черга: беремо з початку, додаємо в кінець", 9, GREY, "middle", style="italic")
+    s += rect(110, H - 44, W - 220, 30, "#fff8ee", ORANGE, 1.4, 10)
+    s += text(W / 2, H - 24, "На мікроконтролері — ЯВНИЙ стек/черга в пам'яті, а не рекурсія: глибокий граф переповнив би стек МК.",
+              10, INK, "middle", "bold")
+    save("fig-4-1a-2-dfs-vs-bfs.svg", s)
+
+
+# ═══ 🧮 Вставка до 4.1 — графи й матриця інцидентності ══════════════════════
+def fig_graphs_incidence():
+    W, H = 880, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Коло — це граф: вузли, гілки й матриця інцидентності", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "відкинь номінали — лишиться топологія: які вузли з'єднані якими гілками й у який бік",
+              10.5, GREY, "middle", style="italic")
+    # ── ЛІВОРУЧ: граф ──
+    s += text(220, 92, "граф кола (3 вузли, 3 гілки)", 11.5, INK, "middle", "bold")
+    A = (150, 185); B = (330, 185); G = (240, 310)
+    for n in (A, B, G):
+        s += circle(n[0], n[1], 20, "#eef2fb", "#1f47b5", 2.2)
+    s += text(A[0], A[1] + 5, "A", 13, INK, "middle", "bold")
+    s += text(B[0], B[1] + 5, "B", 13, INK, "middle", "bold")
+    s += text(G[0], G[1] + 5, "0", 13, INK, "middle", "bold")
+    s += arrow(G[0] - 8, G[1] - 16, A[0] - 2, A[1] + 20, "#c0271e", 2.2)
+    s += text(160, 255, "b_s", 11, "#c0271e", "middle", "bold")
+    s += arrow(A[0] + 22, A[1], B[0] - 22, B[1], "#1f8a3b", 2.2)
+    s += text(240, 172, "b₁", 11, "#1f8a3b", "middle", "bold")
+    s += arrow(B[0] - 2, B[1] + 20, G[0] + 8, G[1] - 16, "#1f47b5", 2.2)
+    s += text(320, 255, "b₂", 11, "#1f47b5", "middle", "bold")
+    s += text(240, 360, "(джерело + два резистори — один контур)", 9.5, GREY, "middle", style="italic")
+    # ── ПРАВОРУЧ: матриця інцидентності ──
+    s += text(660, 92, "матриця інцидентності A", 11.5, INK, "middle", "bold")
+    s += text(660, 109, "рядок = вузол · стовпець = гілка", 9.5, GREY, "middle", style="italic")
+    lx, ly = 545, 124
+    lcw, dcw, hh, dh = 58, 62, 28, 38
+    cols = ["b_s", "b₁", "b₂"]
+    rows = ["A", "B", "0"]
+    vals = [["−1", "+1", "0"], ["0", "−1", "+1"], ["+1", "0", "−1"]]
+    for j, c in enumerate(cols):
+        s += text(lx + lcw + dcw * j + dcw / 2, ly + 18, c, 11, INK, "middle", "bold")
+    for i, r in enumerate(rows):
+        s += text(lx + lcw / 2, ly + hh + dh * i + dh / 2 + 5, r, 11, INK, "middle", "bold")
+    for i in range(3):
+        for j in range(3):
+            cx = lx + lcw + dcw * j
+            cy = ly + hh + dh * i
+            fill = "#fff7e6" if j == 1 else "#ffffff"
+            col = "#c0271e" if vals[i][j] == "+1" else ("#1f47b5" if vals[i][j] == "−1" else GREY)
+            s += rect(cx, cy, dcw, dh, fill, "#cccccc", 1.1, 0)
+            s += text(cx + dcw / 2, cy + dh / 2 + 5, vals[i][j], 13, col, "middle", "bold")
+    s += rect(lx + lcw, ly + hh, dcw * 3, dh * 3, "none", GREY, 1.6, 0)
+    s += text(660, ly + hh + dh * 3 + 26, "стовпець b₁ (підсвічено): +1 при A, −1 при B", 9.5, "#a06a00", "middle", "bold")
+    s += text(660, ly + hh + dh * 3 + 40, "у кожному стовпці один +1 і один −1: гілка з'єднує два вузли", 9, GREY, "middle", style="italic")
+    save("fig-4-1m-1-graph-incidence.svg", s)
+
+
+def fig_graphs_kcl():
+    W, H = 880, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "KCL — це просто A·i = 0", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "добуток матриці інцидентності на вектор струмів дає закон струмів Кірхгофа в кожному вузлі",
+              10.5, GREY, "middle", style="italic")
+    s += text(230, 96, "A · i = 0   (кожен рядок — один вузол)", 12.5, INK, "middle", "bold")
+    y = 138
+    for lab, eq, note, col in [
+        ("вузол A:", "−i_s + i₁ = 0", "→ i₁ = i_s", "#c0271e"),
+        ("вузол B:", "−i₁ + i₂ = 0", "→ i₂ = i₁", "#1f8a3b"),
+        ("вузол 0:", "+i_s − i₂ = 0", "(залежний)", "#8a8a8a"),
+    ]:
+        s += text(70, y, lab, 11, INK, "start", "bold")
+        s += text(168, y, eq, 12, col, "start", "bold")
+        s += text(322, y, note, 10.5, GREY, "start")
+        y += 34
+    s += rect(60, y - 4, 388, 50, "#eef7f0", GREEN, 1.6, 8)
+    s += text(254, y + 16, "Рядків три, та незалежних лише N−1 = 2:", 10.5, INK, "middle", "bold")
+    s += text(254, y + 33, "рядок вузла 0 — сума двох інших (опорний вузол).", 9.5, GREY, "middle", style="italic")
+    s += line(478, 80, 478, H - 26, FAINT, 1.5)
+    s += text(685, 100, "А контури — це KVL: B·v = 0", 12, INK, "middle", "bold")
+    s += text(685, 126, "Скільки незалежних контурів?", 10.5, INK, "middle", "bold")
+    s += rect(575, 142, 220, 54, "#eef2fb", "#1f47b5", 1.8, 10)
+    s += text(685, 166, "L = B − N + 1", 15, "#1f47b5", "middle", "bold")
+    s += text(685, 186, "(формула Ейлера, §1.4.1)", 9.5, GREY, "middle", style="italic")
+    s += text(685, 224, "Приклад: B=3, N=3 → L = 1 контур", 10.5, "#1f8a3b", "middle", "bold")
+    s += text(685, 262, "Так і комп'ютер будує рівняння кола:", 10, INK, "middle", "bold")
+    s += text(685, 280, "A·i=0 (KCL) + B·v=0 (KVL) + закон Ома", 9.5, GREY, "middle")
+    s += text(685, 296, "→ система рівнянь, яку він розв'язує.", 9.5, GREY, "middle")
+    save("fig-4-1m-2-kcl-loops.svg", s)
+
+
 if __name__ == "__main__":
     fig_ohm_vs_network()
     fig_kcl()
@@ -1772,4 +2761,44 @@ if __name__ == "__main__":
     fig48_reduction_worked()
     fig48_two_source()
     fig48_recipe()
-    print("OK — фігури Розділу 4 (повна, +§4.8 метод) згенеровано в", OUT)
+    # §4.9 Міст Вітстона
+    fig49_anatomy()
+    fig49_balance()
+    fig49_null()
+    fig49_measure()
+    fig49_sensor()
+    fig49_apps()
+    # §4.1 вставка (🧮) — графи й матриця інцидентності
+    fig_graphs_incidence()
+    fig_graphs_kcl()
+    # §4.1 вставка (🔌) — макетна плата
+    fig_breadboard_internals()
+    fig_breadboard_chip()
+    # §4.1 вставка (⚙️) — обхід графа
+    fig_graph_spanning_tree()
+    fig_dfs_vs_bfs()
+    # §4.6 вставка (🧮) — складання допусків
+    fig_tolerance_divider()
+    fig_worst_vs_matched()
+    # §4.6 вставка (🔌) — потенціометр і тример
+    fig_pot_modes()
+    fig_pot_tapers()
+    # §4.6 вставка (⚙️) — добір пари E24
+    fig_divider_search()
+    fig_divider_algorithm()
+    # §4.8 вставка (🧮) — метод Гаусса
+    fig_gauss_elimination()
+    fig_gauss_pivoting()
+    # §4.8 вставка (⚙️) — MNA / SPICE
+    fig_mna_stamping()
+    fig_mna_augment()
+    # §4.8 історія (📜) — контурні струми Максвелла
+    fig_branch_vs_mesh()
+    fig_cyclic_kcl()
+    # §4.9 вставка (🧮) — чутливість мосту
+    fig_bridge_linearization()
+    fig_bridge_configs()
+    # §4.9 історія (📜) — Крісті й Вітстон
+    fig_cw_timeline()
+    fig_cw_two_men()
+    print("OK — фігури Розділу 4 (повна, +§4.9 міст) згенеровано в", OUT)

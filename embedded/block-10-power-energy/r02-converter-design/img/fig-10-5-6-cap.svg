@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+<rect width="900" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Підступ: вихідний конденсатор впливає на стійкість контуру</text>
+<rect x="50.0" y="70.0" width="380.0" height="210.0" rx="12" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="240.0" y="98.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Контур налаштовано під</text>
+<text x="240.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">конкретні C та ESR виходу</text>
+<text x="70.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• компенсація припускає певну</text>
+<text x="82.0" y="168.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">ємність і ESR вихідного кондера</text>
+<text x="70.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• ESR додає контуру стабільності,</text>
+<text x="82.0" y="214.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">а гола кераміка (ESR≈0) — навпаки</text>
+<text x="70.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• більше/менше C зсуває швидкість</text>
+<rect x="470.0" y="70.0" width="380.0" height="210.0" rx="12" fill="#fbe9e7" stroke="#c0271e" stroke-width="1.8"/>
+<text x="660.0" y="98.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Поміняли кондер — перевірте!</text>
+<text x="490.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Заміна електроліта на кераміку</text>
+<text x="490.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">(менший ESR) може РОЗХИТАТИ контур,</text>
+<text x="490.0" y="168.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">що був стійкий, — і навпаки.</text>
+<text x="490.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Тому після будь-якої зміни вихідного</text>
+<text x="490.0" y="218.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">конденсатора — знову тест load-step.</text>
+<text x="490.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Даташит часто задає діапазон C/ESR.</text>
+<rect x="70.0" y="330.0" width="760.0" height="22.0" rx="8" fill="#fbf7ec" stroke="#caa24a" stroke-width="1.4"/>
+<text x="450.0" y="345.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Стійкість — властивість усього контуру разом із виходом, а не лише контролера: змінив вихід — перевір стійкість</text>
+</svg>

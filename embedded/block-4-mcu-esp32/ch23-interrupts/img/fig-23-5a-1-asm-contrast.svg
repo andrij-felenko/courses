@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+<rect width="900" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">while(!flag){} — дві компіляції того самого циклу</text>
+<text x="450.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">уся різниця — де стоїть load: НАД циклом (раз) чи В циклі (щоразу)</text>
+<rect x="50.0" y="80.0" width="390.0" height="200.0" rx="10" fill="#fbecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="245.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">без volatile</text>
+<text x="76.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="start" font-weight="normal" font-style="normal">load r1, [flag]   ; читаємо ОДИН раз</text>
+<text x="76.0" y="156.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">loop:</text>
+<text x="92.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">test r1            ; крутимо РЕГІСТР</text>
+<text x="92.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">beq  loop          ; (він не зміниться)</text>
+<text x="245.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.4" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">ISR пише пам'ять — а цикл її</text>
+<text x="245.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">не перечитує → ВІЧНИЙ цикл ✗</text>
+<rect x="460.0" y="80.0" width="390.0" height="200.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="655.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">volatile</text>
+<text x="486.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">loop:</text>
+<text x="502.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="start" font-weight="normal" font-style="normal">load r1, [flag]    ; З ПАМ'ЯТІ щоразу</text>
+<text x="502.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">test r1</text>
+<text x="502.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">beq  loop</text>
+<text x="655.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.4" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">ISR пише пам'ять — цикл</text>
+<text x="655.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">перечитує й виходить ✓</text>
+<text x="450.0" y="312.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Без volatile компілятор «виносить» читання з циклу й крутить старе значення в регістрі.</text>
+<text x="450.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.4" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">volatile змушує читати змінну з пам'яті при кожному оберті — і зміну від ISR видно.</text>
+</svg>

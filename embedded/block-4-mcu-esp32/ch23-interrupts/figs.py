@@ -1572,6 +1572,465 @@ def fig76_chapter_recap():
     save("fig-23-7-6-chapter-recap.svg", s)
 
 
+# ── 🔌 вставка до 4.5.1 — ніжка INT у периферії ──────────────────────────────
+def fig1c1_int_idea():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Ніжка INT: давач сам каже «є дані»", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "замість раз у раз питати давача по шині — нехай він смикне ніжку, коли є подія",
+              10.3, GREY, "middle", style="italic")
+    # poll lane
+    s += rect(60, 84, 780, 96, LRED, RED, 1.8, 10)
+    s += text(90, 110, "Опитування (без INT)", 12, RED, "start", "bold")
+    s += rect(90, 124, 120, 40, "#fff", BLUE, 1.6, 6)
+    s += text(150, 149, "ESP32", 11, BLUE, "middle", "bold")
+    s += rect(640, 124, 120, 40, "#fff", INK, 1.6, 6)
+    s += text(700, 149, "давач", 11, INK, "middle", "bold")
+    for i, q in enumerate(["є дані?", "ще ні", "є дані?", "ще ні"]):
+        x = 240 + i * 100
+        col = BLUE if i % 2 == 0 else GREY
+        s += arrow(x, 144, x + 70, 144, col, 1.6) if i % 2 == 0 else arrow(x + 70, 144, x, 144, col, 1.6)
+        s += text(x + 35, 134, q, 8.4, col, "middle")
+    s += text(450, 174, "МК марно смикає шину знов і знов", 9, RED, "middle", "bold")
+    # int lane
+    s += rect(60, 196, 780, 96, LGRN, GREEN, 1.8, 10)
+    s += text(90, 222, "Переривання (ніжка INT)", 12, GREEN, "start", "bold")
+    s += rect(90, 236, 120, 40, "#fff", BLUE, 1.6, 6)
+    s += text(150, 261, "ESP32", 11, BLUE, "middle", "bold")
+    s += rect(640, 236, 120, 40, "#fff", INK, 1.6, 6)
+    s += text(700, 261, "давач", 11, INK, "middle", "bold")
+    s += arrow(640, 256, 212, 256, GREEN, 2.2)
+    s += text(425, 246, "INT! «є дані» — МК реагує лише коли треба", 9.2, GREEN, "middle", "bold")
+    save("fig-23-1c-1-int-idea.svg", s)
+
+
+def fig1c2_wiring():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Підключення INT давача до ESP32", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "INT — на ніжку-переривання; події й полярність задають у регістрах давача",
+              10.3, GREY, "middle", style="italic")
+    s += rect(80, 100, 150, 140, LBLUE, BLUE, 2, 12)
+    s += text(155, 128, "ESP32", 12.5, BLUE, "middle", "bold")
+    s += rect(670, 100, 150, 140, "#fbfbff", INK, 2, 12)
+    s += text(745, 128, "давач", 12.5, INK, "middle", "bold")
+    s += text(745, 148, "LIS/MPU/BME", 8.6, GREY, "middle")
+    wires = [("SDA", "шина I²C", BLUE, 130),
+             ("SCL", "шина I²C", BLUE, 152),
+             ("VCC · GND", "живлення", GREEN, 200)]
+    for lab, note, col, yy in wires:
+        s += line(230, yy, 670, yy, col, 1.6)
+        s += text(450, yy - 4, lab, 9, col, "middle", "bold")
+        s += text(450, yy + 11, note, 8, GREY, "middle")
+    # INT line with pull-up
+    s += line(230, 176, 670, 176, RED, 2)
+    s += text(450, 170, "INT → ніжка-переривання", 9.4, RED, "middle", "bold")
+    s += rect(360, 100, 14, 26, "#fff", INK, 1.2, 3)
+    s += line(367, 92, 367, 100, INK, 1.2)
+    s += line(360, 92, 374, 92, RED, 1.6)
+    s += text(367, 86, "↑3.3В", 7, GREY, "middle")
+    s += text(395, 118, "підтяжка (якщо open-drain)", 8, GREY, "start")
+    s += rect(120, 256, 660, 36, "#fbfbfb", GREY, 1.4, 8)
+    s += text(450, 278, "Налаштуй подію (data-ready, поріг, рух) і полярність; по INT — прочитай дані по шині.",
+              9.5, INK, "middle", "bold")
+    save("fig-23-1c-2-wiring.svg", s)
+
+
+# ── 🔌 вставка до 4.5.2 — контролери переривань у залізі ─────────────────────
+def fig2c1_nvic():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "NVIC: вбудований стандарт ARM Cortex-M", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "кожне джерело — свій вектор і пріоритет; вище витісняє нижче автоматично",
+              10.3, GREY, "middle", style="italic")
+    srcs = ["таймер", "GPIO", "UART", "ADC"]
+    for i, sname in enumerate(srcs):
+        y = 96 + i * 42
+        s += rect(70, y, 120, 32, "#fbfbff", INK, 1.4, 5)
+        s += text(130, y + 21, sname, 10.5, INK, "middle", "bold")
+        s += text(212, y + 21, "вектор+пріор.", 8, GREY, "middle")
+        s += arrow(285, y + 16, 360, y + 16, GREY, 1.6)
+    s += rect(360, 96, 160, 168, LBLUE, BLUE, 2, 12)
+    s += text(440, 130, "NVIC", 15, BLUE, "middle", "bold")
+    s += text(440, 156, "сортує за", 9.5, INK, "middle")
+    s += text(440, 172, "пріоритетом", 9.5, INK, "middle")
+    s += text(440, 200, "вкладеність —", 9.2, GREEN, "middle", "bold")
+    s += text(440, 216, "автоматична", 9.2, GREEN, "middle", "bold")
+    s += arrow(520, 180, 600, 180, BLUE, 2.2)
+    s += rect(600, 150, 130, 60, LGRN, GREEN, 2, 10)
+    s += text(665, 185, "ядро Cortex-M", 10.5, GREEN, "middle", "bold")
+    s += rect(120, 280, 660, 38, "#fbfbfb", GREY, 1.4, 8)
+    s += text(450, 296, "Вектороване, апаратні пріоритети, автоматична вкладеність —", 9.6, INK, "middle", "bold")
+    s += text(450, 312, "і однакове на КОЖНОМУ Cortex-M, тож код переноситься.", 9.3, GREY, "middle")
+    save("fig-23-2c-1-nvic.svg", s)
+
+
+def fig2c2_matrix():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Матриця переривань ESP32: гнучке маршрутування", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "десятки джерел розводять на небагато слотів CPU; ти обираєш ядро й рівень",
+              10.3, GREY, "middle", style="italic")
+    # many sources
+    s += rect(60, 96, 150, 170, "#fbfbff", INK, 1.6, 10)
+    s += text(135, 120, "~70 джерел", 11, INK, "middle", "bold")
+    for i in range(6):
+        s += line(80, 138 + i * 20, 200, 138 + i * 20, GREY, 1.2)
+    s += text(135, 256, "усієї периферії", 8.6, GREY, "middle")
+    s += arrow(210, 180, 300, 180, INK, 2.2)
+    s += rect(300, 110, 150, 150, LAMB, GOLD, 2, 12)
+    s += text(375, 140, "матриця", 13, "#8a6d1a", "middle", "bold")
+    s += text(375, 162, "будь-яке", 9, INK, "middle")
+    s += text(375, 178, "джерело →", 9, INK, "middle")
+    s += text(375, 194, "будь-який слот", 9, INK, "middle")
+    s += arrow(450, 180, 540, 180, GOLD, 2.2)
+    s += rect(540, 110, 150, 70, LBLUE, BLUE, 2, 10)
+    s += text(615, 140, "ядро PRO", 10.5, BLUE, "middle", "bold")
+    s += text(615, 162, "~32 слоти", 9, GREY, "middle")
+    s += rect(540, 192, 150, 70, LGRN, GREEN, 2, 10)
+    s += text(615, 222, "ядро APP", 10.5, GREEN, "middle", "bold")
+    s += text(615, 244, "~32 слоти", 9, GREY, "middle")
+    s += text(770, 150, "рівнів менше", 9, RED, "middle")
+    s += text(770, 168, "(1–7); високі —", 8.4, GREY, "middle")
+    s += text(770, 184, "асемблером", 8.4, GREY, "middle")
+    s += text(W / 2, 300, "Гнучко (будь-який маршрут, два ядра), але вручну: ти сам обираєш ядро, слот і рівень.",
+              9.8, INK, "middle", "bold")
+    save("fig-23-2c-2-matrix.svg", s)
+
+
+# ── ⚙️ вставка до 4.5.1 — SPSC-кільце «ISR пише, main читає» ─────────────────
+def fig1a1_ring():
+    import math
+    W, H = 900, 340
+    s = header(W, H)
+    s += text(W / 2, 32, "SPSC-кільце: ISR пише в голову, main читає з хвоста", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "голову чіпає лише ISR, хвіст — лише main; кожен покажчик має одного хазяїна",
+              10, GREY, "middle", style="italic")
+    cx, cy, r = 360, 185, 95
+    n = 8
+    tail, head = 1, 5
+    for k in range(n):
+        ang = -90 + k * (360 / n)
+        x = cx + r * math.cos(math.radians(ang))
+        y = cy + r * math.sin(math.radians(ang))
+        filled = (tail <= k < head)
+        s += circle(x, y, 20, (LBLUE if filled else "#fff"), (BLUE if filled else FAINT), 1.8)
+        if filled:
+            s += text(x, y + 4, "дані", 8.2, BLUE, "middle")
+    # head/tail arrows
+    for idx, col, lab, who in [(head, RED, "head", "ISR пише сюди"), (tail, GREEN, "tail", "main читає звідси")]:
+        ang = -90 + idx * (360 / n)
+        x = cx + r * math.cos(math.radians(ang))
+        y = cy + r * math.sin(math.radians(ang))
+        ox = cx + (r + 55) * math.cos(math.radians(ang))
+        oy = cy + (r + 55) * math.sin(math.radians(ang))
+        s += arrow(ox, oy, x + 22 * math.cos(math.radians(ang)), y + 22 * math.sin(math.radians(ang)), col, 2)
+        s += text(ox, oy - 10, lab, 10, col, "middle", "bold")
+        s += text(ox, oy + 5, who, 7.8, GREY, "middle")
+    s += rect(560, 110, 300, 150, "#fbfbfb", GREY, 1.4, 10)
+    s += text(710, 134, "Чому замок не потрібен:", 11, INK, "middle", "bold")
+    s += text(710, 158, "• head пише ЛИШЕ ISR", 9.6, RED, "middle")
+    s += text(710, 178, "• tail пише ЛИШЕ main", 9.6, GREEN, "middle")
+    s += text(710, 202, "кожен покажчик — один хазяїн,", 9.2, INK, "middle")
+    s += text(710, 218, "а читання чужого атомарне", 9.2, GREY, "middle")
+    s += text(710, 242, "head == tail → порожньо", 9.2, INK, "middle", "bold")
+    save("fig-23-1a-1-ring.svg", s)
+
+
+def fig1a2_order():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Правило «спершу дані, потім покажчик»", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "рухати head — означає «опублікувати»; робити це треба ОСТАННІМ",
+              10.3, GREY, "middle", style="italic")
+    # good
+    s += rect(60, 84, 380, 110, LGRN, GREEN, 1.8, 10)
+    s += text(250, 110, "Правильно ✓", 12, GREEN, "middle", "bold")
+    s += text(250, 136, "1) записати дані в слот", 10.5, INK, "middle")
+    s += text(250, 158, "2) посунути head", 10.5, INK, "middle")
+    s += text(250, 182, "main бачить head, коли дані вже там", 9.2, GREEN, "middle", "bold")
+    # bad
+    s += rect(460, 84, 380, 110, LRED, RED, 1.8, 10)
+    s += text(650, 110, "Неправильно ✗", 12, RED, "middle", "bold")
+    s += text(650, 136, "1) посунути head", 10.5, INK, "middle")
+    s += text(650, 158, "2) записати дані", 10.5, INK, "middle")
+    s += text(650, 182, "main прочитає слот ДО запису → сміття", 9.2, RED, "middle", "bold")
+    s += rect(120, 222, 660, 56, LAMB, GOLD, 1.4, 10)
+    s += text(450, 246, "Публікуй (рухай покажчик) останнім — і споживач ніколи не побачить недописаного.", 10, INK, "middle", "bold")
+    s += text(450, 266, "Той самий принцип «перемикач останнім», що рятував нас у §4.3.7.", 9.4, GREY, "middle")
+    save("fig-23-1a-2-order.svg", s)
+
+
+# ── ⚙️ вставка до 4.5.3 — відкладена робота ──────────────────────────────────
+def fig3a1_two_halves():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Дві половини обробника: коротка зверху, важка знизу", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "ISR лише відмічає, що сталося; важку роботу робимо потім, у нормальному контексті",
+              10, GREY, "middle", style="italic")
+    # top half
+    s += rect(70, 84, 360, 100, LGRN, GREEN, 2, 12)
+    s += text(250, 108, "Верхня половина (ISR) — коротка", 11.5, GREEN, "middle", "bold")
+    s += text(250, 132, "• підтвердити залізо", 9.6, INK, "middle")
+    s += text(250, 150, "• схопити критичне (час, байт)", 9.6, INK, "middle")
+    s += text(250, 168, "• відмітити «є робота» → вийти", 9.6, INK, "middle")
+    # signal arrow
+    s += arrow(250, 184, 250, 214, RED, 2.2)
+    s += text(250, 204, "сигнал: прапорець / черга / задача", 9, RED, "middle", "bold")
+    # bottom half
+    s += rect(70, 224, 360, 96, LBLUE, BLUE, 2, 12)
+    s += text(250, 248, "Нижня половина (main / задача)", 11.5, BLUE, "middle", "bold")
+    s += text(250, 272, "розбір пакета, екран, Flash, математика —", 9.4, INK, "middle")
+    s += text(250, 292, "на дозвіллі, з увімкненими перериваннями", 9.4, GREY, "middle")
+    # right note
+    s += rect(470, 110, 370, 170, "#fbfbfb", GREY, 1.4, 10)
+    s += text(655, 138, "Чому так:", 11.5, INK, "middle", "bold")
+    s += text(655, 162, "ISR блокує все, поки триває (§4.5.3).", 9.8, INK, "middle")
+    s += text(655, 184, "Тож у ній — лиш мінімум, а важке", 9.8, INK, "middle")
+    s += text(655, 202, "виносимо «вниз», де воно нікому", 9.8, INK, "middle")
+    s += text(655, 220, "не заважає й може чекати, блокуватись,", 9.8, INK, "middle")
+    s += text(655, 238, "рахувати скільки треба.", 9.8, INK, "middle")
+    s += text(655, 264, "Top half / bottom half — з ядер ОС.", 9.2, GREY, "middle", "bold")
+    save("fig-23-3a-1-two-halves.svg", s)
+
+
+def fig3a2_three_forms():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Три способи відкласти роботу — від простого до потужного", 17.5, INK, "middle", "bold")
+    forms = [(GREEN, "Прапорець", "ISR ставить прапорець,", "loop перевіряє його", "одна подія"),
+             (BLUE, "Черга подій", "ISR кладе подію в кільце,", "loop розбирає (§4.5.1a)", "потік подій"),
+             (GOLD, "Задача (RTOS)", "ISR будить окрему задачу,", "вона робить важке", "структурована робота")]
+    x = 60
+    for col, t, a, b, foot in forms:
+        fill = {GREEN: LGRN, BLUE: LBLUE, GOLD: LAMB}[col]
+        s += rect(x, 84, 260, 150, fill, col, 2, 12)
+        s += text(x + 130, 114, t, 13, col, "middle", "bold")
+        s += text(x + 130, 144, a, 9.6, INK, "middle")
+        s += text(x + 130, 164, b, 9.6, INK, "middle")
+        s += text(x + 130, 200, foot, 9.4, GREY, "middle", "bold")
+        if x < 580:
+            s += arrow(x + 262, 159, x + 278, 159, GREY, 2)
+        x += 280
+    s += text(W / 2, 268, "Що важча й об'ємніша робота — то правіше. Але суть одна: ISR лише сигналить, робота — поза нею.",
+              10, INK, "middle", "bold")
+    save("fig-23-3a-2-three-forms.svg", s)
+
+
+# ── ⚙️ вставка до 4.5.5 — дивимось асемблер: volatile ────────────────────────
+def fig5a1_asm_contrast():
+    W, H = 900, 360
+    s = header(W, H)
+    s += text(W / 2, 32, "while(!flag){} — дві компіляції того самого циклу", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "уся різниця — де стоїть load: НАД циклом (раз) чи В циклі (щоразу)",
+              10, GREY, "middle", style="italic")
+
+    def asmline(x, y, txt, col=INK, ind=0):
+        return text(x + ind, y, txt, 10.5, col, "start")
+    # left: no volatile
+    s += rect(50, 80, 390, 200, LRED, RED, 1.8, 10)
+    s += text(245, 104, "без volatile", 12.5, RED, "middle", "bold")
+    ax, ay = 76, 132
+    s += asmline(ax, ay, "load r1, [flag]   ; читаємо ОДИН раз", BLUE)
+    s += asmline(ax, ay + 24, "loop:", INK)
+    s += asmline(ax, ay + 44, "test r1            ; крутимо РЕГІСТР", INK, 16)
+    s += asmline(ax, ay + 64, "beq  loop          ; (він не зміниться)", INK, 16)
+    s += text(245, ay + 96, "ISR пише пам'ять — а цикл її", 9.4, RED, "middle")
+    s += text(245, ay + 112, "не перечитує → ВІЧНИЙ цикл ✗", 9.8, RED, "middle", "bold")
+    # right: volatile
+    s += rect(460, 80, 390, 200, LGRN, GREEN, 1.8, 10)
+    s += text(655, 104, "volatile", 12.5, GREEN, "middle", "bold")
+    bx, by = 486, 132
+    s += asmline(bx, by, "loop:", INK)
+    s += asmline(bx, by + 20, "load r1, [flag]    ; З ПАМ'ЯТІ щоразу", BLUE, 16)
+    s += asmline(bx, by + 40, "test r1", INK, 16)
+    s += asmline(bx, by + 60, "beq  loop", INK, 16)
+    s += text(655, by + 96, "ISR пише пам'ять — цикл", 9.4, GREEN, "middle")
+    s += text(655, by + 112, "перечитує й виходить ✓", 9.8, GREEN, "middle", "bold")
+    s += text(W / 2, 312, "Без volatile компілятор «виносить» читання з циклу й крутить старе значення в регістрі.",
+              9.8, INK, "middle", "bold")
+    s += text(W / 2, 332, "volatile змушує читати змінну з пам'яті при кожному оберті — і зміну від ISR видно.",
+              9.4, GREY, "middle")
+    save("fig-23-5a-1-asm-contrast.svg", s)
+
+
+def fig5a2_what_volatile():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Що volatile робить — і чого НЕ робить", 19, INK, "middle", "bold")
+    s += rect(60, 84, 380, 150, LGRN, GREEN, 2, 12)
+    s += text(250, 110, "Робить ✓", 12.5, GREEN, "middle", "bold")
+    for i, t in enumerate(["• перечитувати з пам'яті щоразу", "• не кешувати в регістрі",
+                           "• не переставляти volatile-доступи"]):
+        s += text(86, 140 + i * 26, t, 10.4, INK, "start")
+    s += rect(460, 84, 380, 150, LRED, RED, 2, 12)
+    s += text(650, 110, "НЕ робить ✗", 12.5, RED, "middle", "bold")
+    for i, t in enumerate(["• не дає атомарності", "  (багатослівне — спіймаєш рване)",
+                           "• не ставить бар'єр між ядрами"]):
+        s += text(486, 140 + i * 26, t, 10.4, INK, "start")
+    s += rect(120, 252, 660, 38, LAMB, GOLD, 1.4, 10)
+    s += text(450, 276, "volatile = «перечитуй», а НЕ «зроби неподільним». Для атомарності — §4.5.6.",
+              10.5, INK, "middle", "bold")
+    save("fig-23-5a-2-what-volatile.svg", s)
+
+
+# ── ⚙️ вставка до 4.5.6 — критичні секції на практиці ────────────────────────
+def fig6a1_keep_short():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Критична секція: зроби спільне неподільним — але НАКОРОТКО", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "поки переривання вимкнені, усі вони чекають — тож вікно має бути крихітним",
+              10, GREY, "middle", style="italic")
+    # main timeline
+    s += text(70, 110, "main:", 11, INK, "start", "bold")
+    s += line(130, 110, 820, 110, INK, 2)
+    s += rect(360, 96, 180, 28, LRED, RED, 1.8, 5)
+    s += text(450, 114, "критична секція", 10, RED, "middle", "bold")
+    s += text(360, 86, "noInterrupts()", 8.4, RED, "start")
+    s += text(540, 86, "interrupts()", 8.4, GREEN, "end")
+    # ISR wants to fire during section
+    s += text(70, 170, "ISR:", 11, INK, "start", "bold")
+    s += arrow(420, 200, 420, 126, GREY, 1.8, dash="4 3")
+    s += text(420, 214, "хоче спрацювати тут…", 8.6, GREY, "middle")
+    s += arrow(560, 160, 575, 118, GREEN, 2)
+    s += text(600, 168, "…але виконається аж тут", 8.6, GREEN, "start", "bold")
+    s += rect(120, 244, 660, 44, LAMB, GOLD, 1.4, 10)
+    s += text(450, 264, "Секція додає затримку КОЖНОМУ перериванню (§4.5.4).", 10.5, INK, "middle", "bold")
+    s += text(450, 282, "Тому всередині — лише пара інструкцій; жодних Serial, delay, Flash.", 9.4, GREY, "middle")
+    save("fig-23-6a-1-keep-short.svg", s)
+
+
+def fig6a2_which_tool():
+    W, H = 900, 310
+    s = header(W, H)
+    s += text(W / 2, 32, "Хто свариться за дані — той і обирає інструмент", 18, INK, "middle", "bold")
+    rows = [(BLUE, "ISR ↔ main (одне ядро)", "вимкнути переривання коротко", "(або атомарна операція для 1 слова)"),
+            (GREEN, "задача ↔ задача", "м'ютекс", "(може блокуватись; НЕ з ISR!)"),
+            (GOLD, "два ядра ESP32", "спінлок", "portENTER_CRITICAL: блок + вимк. переривань")]
+    y = 84
+    for col, who, tool, note in rows:
+        fill = {BLUE: LBLUE, GREEN: LGRN, GOLD: LAMB}[col]
+        s += rect(70, y, 760, 56, fill, col, 1.8, 10)
+        s += text(96, y + 25, who, 11.5, col, "start", "bold")
+        s += text(96, y + 46, note, 8.8, GREY, "start")
+        s += text(810, y + 34, "→ " + tool, 12, col, "end", "bold")
+        y += 66
+    s += text(W / 2, 296, "А одне слово часто й секції не потребує: атомарний доступ чи lock-free кільце (§4.5.1a).",
+              10, INK, "middle", "bold")
+    save("fig-23-6a-2-which-tool.svg", s)
+
+
+# ── 🧮 вставка до 4.5.4 — латентність переривання ────────────────────────────
+def fig4m1_latency_timeline():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Латентність переривання: з чого складається затримка", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "від події до першої корисної інструкції обробника — сума кількох доданків",
+              10, GREY, "middle", style="italic")
+    x0, y, h = 70, 150, 46
+    segs = [("дописати\nінструкцію", 110, GREEN), ("розпізнати\n+ вектор", 120, GREEN),
+            ("зберегти\nконтекст", 130, GREEN), ("ЧЕКАТИ: блокування", 280, RED)]
+    x = x0
+    for lab, w, col in segs:
+        fill = LGRN if col == GREEN else LRED
+        s += rect(x, y, w, h, fill, col, 1.8, 5)
+        lines = lab.split("\n")
+        for k, ln in enumerate(lines):
+            s += text(x + w / 2, y + h / 2 + 4 + (k - (len(lines) - 1) / 2) * 13, ln, 9, col, "middle", "bold")
+        x += w + 4
+    s += text(x0, y - 12, "подія (INT) →", 9.5, INK, "start", "bold")
+    s += text(x + 10, y + h / 2 + 4, "→ ISR", 11, BLUE, "start", "bold")
+    s += text(245, y + h + 22, "ФІКСОВАНЕ (передбачуване)", 9.4, GREEN, "middle", "bold")
+    s += text(x - 140, y + h + 22, "ЗМІННЕ (критичні секції + вищі ISR)", 9.4, RED, "middle", "bold")
+    s += rect(120, 240, 660, 40, "#fbfbff", INK, 1.4, 8)
+    s += text(450, 265, "L = T(дописати) + T(вектор) + T(контекст) + T(блокування)", 12, INK, "middle", "bold")
+    save("fig-23-4m-1-latency-timeline.svg", s)
+
+
+def fig4m2_jitter():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Джитер: найкращий випадок проти найгіршого", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "на 240 МГц 1 такт ≈ 4 нс; фіксована частина мала, блокування — велика й мінлива",
+              10, GREY, "middle", style="italic")
+    # best
+    s += text(80, 110, "Найкращий:", 11, GREEN, "start", "bold")
+    s += rect(230, 96, 70, 28, LGRN, GREEN, 1.8, 5)
+    s += text(265, 114, "~35", 10, GREEN, "middle", "bold")
+    s += text(320, 114, "тактів ≈ 0.15 мкс  (лише фіксоване)", 10, INK, "start")
+    # worst
+    s += text(80, 162, "Найгірший:", 11, RED, "start", "bold")
+    s += rect(230, 148, 70, 28, LGRN, GREEN, 1.8, 5)
+    s += rect(302, 148, 430, 28, LRED, RED, 1.8, 5)
+    s += text(517, 166, "+ найдовше блокування (сотні тактів)", 9.6, RED, "middle", "bold")
+    s += text(760, 166, "≈ кілька мкс", 9.6, INK, "start", "bold")
+    # jitter bracket
+    s += line(300, 200, 732, 200, GREY, 1.4)
+    s += text(516, 218, "ДЖИТЕР = найгірший − найкращий", 10.5, INK, "middle", "bold")
+    s += rect(120, 248, 660, 40, LAMB, GOLD, 1.4, 10)
+    s += text(450, 273, "Коротші критичні секції й ISR → менший джитер → твердіший real-time (§4.5.3, §4.5.6).",
+              10, INK, "middle", "bold")
+    save("fig-23-4m-2-jitter.svg", s)
+
+
+# ── 🧮 вставка до 4.5.7 — бюджет переривань ──────────────────────────────────
+def fig7m1_budget_formula():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Бюджет переривань: частка CPU = частота × тривалість ISR", 17, INK, "middle", "bold")
+    s += rect(330, 66, 240, 40, "#fbfbff", INK, 1.6, 8)
+    s += text(450, 92, "U = f · t(ISR)", 16, INK, "middle", "bold")
+    cols = ["частота f", "t(ISR)", "U = f·t", ""]
+    cx = [180, 360, 560, 760]
+    s += rect(70, 120, 760, 26, "#eef1f8", BLUE, 1.4, 6)
+    for c, x in zip(cols, cx):
+        s += text(x, 138, c, 10.5, BLUE, "middle", "bold")
+    rows = [("1 кГц", "10 мкс", "1 %", "✓", GREEN),
+            ("10 кГц", "5 мкс", "5 %", "✓", GREEN),
+            ("50 кГц", "8 мкс", "40 %", "⚠ важко", GOLD),
+            ("200 кГц", "6 мкс", "120 %", "✗ неможливо", RED)]
+    y = 164
+    for f, t, u, mark, col in rows:
+        s += text(cx[0], y, f, 11, INK, "middle")
+        s += text(cx[1], y, t, 11, INK, "middle")
+        s += text(cx[2], y, u, 11, col, "middle", "bold")
+        s += text(cx[3], y, mark, 10.5, col, "middle", "bold")
+        y += 30
+    s += rect(120, 286, 660, 28, "#fbfbfb", GREY, 1.4, 8)
+    s += text(450, 305, "Кілька джерел? Додай їхні частки: U(сума) = Σ fᵢ·tᵢ — і лиши запас на main.",
+              10, INK, "middle", "bold")
+    save("fig-23-7m-1-budget-formula.svg", s)
+
+
+def fig7m2_overrun():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Обрив: коли ISR не встигає за подіями", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "що ближче f·t до 1, то менше CPU лишається main; при f·t ≥ 1 система не встигає",
+              10, GREY, "middle", style="italic")
+    # bar 0..120%
+    x0, y, w, h = 80, 110, 700, 46
+    # green zone 0-70
+    s += rect(x0, y, w * 0.58, h, LGRN, GREEN, 1.6, 0)
+    s += text(x0 + w * 0.29, y + 28, "ISR + main уміщаються ✓", 10.5, GREEN, "middle", "bold")
+    # amber 70-100
+    s += rect(x0 + w * 0.58, y, w * 0.25, h, LAMB, GOLD, 1.6, 0)
+    s += text(x0 + w * 0.70, y + 28, "main голодує ⚠", 9.4, "#8a6d1a", "middle", "bold")
+    # red >100
+    s += rect(x0 + w * 0.83, y, w * 0.17, h, LRED, RED, 1.6, 0)
+    s += text(x0 + w * 0.915, y + 20, "f·t ≥ 1", 9, RED, "middle", "bold")
+    s += text(x0 + w * 0.915, y + 36, "обрив", 9, RED, "middle", "bold")
+    # scale
+    for frac, lab in [(0, "0%"), (0.58, "~70%"), (0.83, "100%"), (1.0, "120%")]:
+        s += text(x0 + w * frac, y + h + 18, lab, 9, GREY, "middle")
+    s += line(x0 + w * 0.83, y - 6, x0 + w * 0.83, y + h + 6, RED, 1.6, dash="4 3")
+    s += rect(120, 210, 660, 70, LAMB, GOLD, 1.4, 10)
+    s += text(450, 234, "При f·t ≥ 1 переривання наздоганяють самі себе → пропуски подій (overrun).", 10.3, INK, "middle", "bold")
+    s += text(450, 256, "Лік: дробити ISR (§4.5.3), знижувати частоту,", 9.8, GREY, "middle")
+    s += text(450, 272, "або віддати потік залізу/DMA замість переривання на кожну подію (§4.5.7).", 9.8, GREY, "middle")
+    save("fig-23-7m-2-overrun.svg", s)
+
+
 if __name__ == "__main__":
     # Історія розділу (📜)
     fig01_polling_vs_interrupt()
@@ -1628,4 +2087,28 @@ if __name__ == "__main__":
     fig74_hybrid()
     fig75_examples()
     fig76_chapter_recap()
-    print("OK - figures for Section 23 (history + 23.1..23.7, complete) generated in", OUT)
+    # 🔌 вставка до 4.5.1 — ніжка INT у периферії
+    fig1c1_int_idea()
+    fig1c2_wiring()
+    # 🔌 вставка до 4.5.2 — контролери переривань у залізі
+    fig2c1_nvic()
+    fig2c2_matrix()
+    # ⚙️ вставка до 4.5.1 — SPSC-кільце
+    fig1a1_ring()
+    fig1a2_order()
+    # ⚙️ вставка до 4.5.3 — відкладена робота
+    fig3a1_two_halves()
+    fig3a2_three_forms()
+    # ⚙️ вставка до 4.5.5 — дивимось асемблер: volatile
+    fig5a1_asm_contrast()
+    fig5a2_what_volatile()
+    # ⚙️ вставка до 4.5.6 — критичні секції на практиці
+    fig6a1_keep_short()
+    fig6a2_which_tool()
+    # 🧮 вставка до 4.5.4 — латентність переривання
+    fig4m1_latency_timeline()
+    fig4m2_jitter()
+    # 🧮 вставка до 4.5.7 — бюджет переривань
+    fig7m1_budget_formula()
+    fig7m2_overrun()
+    print("OK - figures for Section 23 (history + 23.1..23.7 + s1c s2c s1a s3a s5a s6a s4m s7m) generated in", OUT)

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Скільки коштує змінити ОДИН байт</text>
+<text x="450.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">не можна просто перезаписати — доводиться переписати цілий сектор</text>
+<circle cx="110.0" cy="114.0" r="17.0" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="110.0" y="119.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="150.0" y="92.0" width="600.0" height="46.0" rx="10" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="172.0" y="114.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Прочитати весь сектор у RAM</text>
+<text x="172.0" y="131.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">усі 4 КБ</text>
+<line x1="110.0" y1="131.0" x2="110.0" y2="158.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<circle cx="110.0" cy="180.0" r="17.0" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="110.0" y="185.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<rect x="150.0" y="158.0" width="600.0" height="46.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="172.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Змінити потрібний байт у RAM</text>
+<text x="172.0" y="197.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">1 байт</text>
+<line x1="110.0" y1="197.0" x2="110.0" y2="224.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<circle cx="110.0" cy="246.0" r="17.0" fill="#fbecec" stroke="#c0271e" stroke-width="2"/>
+<text x="110.0" y="251.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<rect x="150.0" y="224.0" width="600.0" height="46.0" rx="10" fill="#fbecec" stroke="#c0271e" stroke-width="1.6"/>
+<text x="172.0" y="246.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">СТЕРТИ сектор у Flash</text>
+<text x="172.0" y="263.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">усе → 0xFF</text>
+<line x1="110.0" y1="263.0" x2="110.0" y2="290.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<circle cx="110.0" cy="312.0" r="17.0" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="110.0" y="317.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">4</text>
+<rect x="150.0" y="290.0" width="600.0" height="46.0" rx="10" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="172.0" y="312.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Записати сектор назад</text>
+<text x="172.0" y="329.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">4 КБ із правкою</text>
+<rect x="150.0" y="360.0" width="600.0" height="34.0" rx="8" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="450.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Змінити 1 байт = переписати 4096. Ще й небезпечно: вимкнення між 3 і 4 = втрата сектора.</text>
+</svg>

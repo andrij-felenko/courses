@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="400" viewBox="0 0 940 400">
+<rect width="940" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Кулонометрія: лічимо заряд, але він дрейфує</text>
+<rect x="60.0" y="66.0" width="820.0" height="38.0" rx="8" fill="#f6f6f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="470.0" y="91.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">SoC = SoC(старт) − (∫ I·dt) / Ємність     — як лічильник витрати на «паливній» трубі</text>
+<line x1="110.0" y1="320.0" x2="810.0" y2="320.0" stroke="#1b1b1b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="110.0" y1="320.0" x2="110.0" y2="150.0" stroke="#1b1b1b" stroke-width="1.5" stroke-linecap="round"/>
+<text x="101.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">SoC</text>
+<text x="810.0" y="338.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">час →</text>
+<polyline points="110.0,167.0 810.0,286.0" fill="none" stroke="#1f8a3b" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="814.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">істина</text>
+<polyline points="110.0,167.0 810.0,262.2" fill="none" stroke="#c0271e" stroke-width="2.6" stroke-dasharray="6,4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="495.0" y="207.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">оцінка дрейфує</text>
+<line x1="712.0" y1="269.0" x2="712.0" y2="284.3" stroke="#1b1b1b" stroke-width="1.4" marker-end="url(#aInk)"/>
+<text x="718.0" y="274.1" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">помилка росте</text>
+<rect x="70.0" y="356.0" width="800.0" height="32.0" rx="9" fill="#fbf7ec" stroke="#caa24a" stroke-width="1.4"/>
+<text x="470.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Інтеграл струму точний КОРОТКО, та накопичує помилку: зсув давача струму потроху додається, а справжню ємність (що тане) лічильник</text>
+<text x="470.0" y="389.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">не знає. Тому без періодичного «обнулення» оцінка з часом розходиться з істиною.</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
+</defs>
+<text x="450.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Два режими: стала напруга (CV) і сталий струм (CC)</text>
+<text x="450.0" y="51.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">блок дає задану напругу, поки струм не впреться в межу; тоді перемикається й тримає вже струм</text>
+<line x1="450.0" y1="72.0" x2="450.0" y2="372.0" stroke="#e4e4e4" stroke-width="1.5" stroke-linecap="round"/>
+<text x="225.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">CV — стала напруга</text>
+<rect x="110.0" y="120.0" width="230.0" height="60.0" rx="8" fill="#eef7f0" stroke="#1f8a3b" stroke-width="2"/>
+<text x="225.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">V = задана (напр., 12 В)</text>
+<text x="225.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">I = який бере навантаження</text>
+<text x="225.0" y="210.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">поводиться як ідеальне</text>
+<text x="225.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">джерело напруги («жорстке»,</text>
+<text x="225.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">малий вихідний опір, §1.5.1)</text>
+<text x="225.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">звичайна робота</text>
+<text x="675.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">CC — сталий струм</text>
+<rect x="560.0" y="120.0" width="230.0" height="60.0" rx="8" fill="#fdecea" stroke="#c0271e" stroke-width="2"/>
+<text x="675.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">I = межа (напр., 0.5 А)</text>
+<text x="675.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">V = падає, щоб утримати I</text>
+<text x="675.0" y="210.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">поводиться як джерело</text>
+<text x="675.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">СТРУМУ (великий вихідний</text>
+<text x="675.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">опір) — і захищає коло</text>
+<text x="675.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">перевантаження / коротке</text>
+</svg>

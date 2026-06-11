@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="560" viewBox="0 0 940 560">
+<rect width="940" height="560" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Дерево вибору топології: п'ять питань до рішення</text>
+<rect x="400.0" y="50.0" width="140.0" height="34.0" rx="8" fill="#eef3fb" stroke="#1f47b5" stroke-width="2"/>
+<text x="470.0" y="72.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Потрібен DC-DC</text>
+<line x1="470.0" y1="84.0" x2="470.0" y2="104.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<polygon points="470.0,104.0 585.0,132.0 470.0,160.0 355.0,132.0" fill="#fbf7ec"/>
+<polyline points="470.0,104.0 585.0,132.0 470.0,160.0 355.0,132.0 470.0,104.0" fill="none" stroke="#1b1b1b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="470.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Потрібна ізоляція?</text>
+<text x="470.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(мережа / безпека)</text>
+<line x1="585.0" y1="132.0" x2="770.0" y2="132.0" stroke="#1f8a3b" stroke-width="2" marker-end="url(#aGreen)"/>
+<text x="660.0" y="122.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ТАК</text>
+<rect x="770.0" y="108.0" width="150.0" height="52.0" rx="8" fill="#eef8ef" stroke="#c0271e" stroke-width="2"/>
+<text x="845.0" y="129.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">FLYBACK</text>
+<text x="845.0" y="147.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">&lt;100 Вт; більше — forward/міст</text>
+<line x1="470.0" y1="160.0" x2="470.0" y2="192.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<text x="490.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">НІ</text>
+<rect x="360.0" y="192.0" width="220.0" height="40.0" rx="8" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="470.0" y="217.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Vвих відносно Vвх?</text>
+<line x1="470.0" y1="232.0" x2="165.0" y2="286.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="165.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">завжди нижче</text>
+<rect x="90.0" y="290.0" width="150.0" height="50.0" rx="8" fill="#eef8ef" stroke="#1f47b5" stroke-width="2"/>
+<text x="165.0" y="310.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">BUCK</text>
+<text x="165.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(синхронний — ККД)</text>
+<line x1="470.0" y1="232.0" x2="365.0" y2="286.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="365.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">завжди вище</text>
+<rect x="290.0" y="290.0" width="150.0" height="50.0" rx="8" fill="#eef8ef" stroke="#c0271e" stroke-width="2"/>
+<text x="365.0" y="310.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">BOOST</text>
+<text x="365.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(стереже КЗ!)</text>
+<line x1="470.0" y1="232.0" x2="575.0" y2="286.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="575.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">гуляє навколо</text>
+<rect x="500.0" y="290.0" width="150.0" height="50.0" rx="8" fill="#eef8ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="575.0" y="310.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">BUCK-BOOST</text>
+<text x="575.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(4-ключовий, +вихід)</text>
+<line x1="470.0" y1="232.0" x2="795.0" y2="286.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="795.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">потрібна −</text>
+<rect x="720.0" y="290.0" width="150.0" height="50.0" rx="8" fill="#eef8ef" stroke="#1f47b5" stroke-width="2"/>
+<text x="795.0" y="310.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ІНВЕРТ. b-b</text>
+<text x="795.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(від'ємний вихід)</text>
+<rect x="60.0" y="380.0" width="820.0" height="56.0" rx="10" fill="#fff7e6" stroke="#caa24a" stroke-width="1.8"/>
+<text x="110.0" y="404.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">АБО:</text>
+<text x="470.0" y="400.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">малий струм (мА) + проста кратність (×2, −1, ½) + без котушки</text>
+<text x="470.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">→ CHARGE PUMP (на конденсаторах)</text>
+<rect x="60.0" y="452.0" width="820.0" height="56.0" rx="10" fill="#fbe9e7" stroke="#c0271e" stroke-width="1.6"/>
+<text x="470.0" y="476.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">⚠ boost не захищає власний вихід від КЗ: треба захист — додай послідовний роз'єднувач</text>
+<text x="470.0" y="496.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">або візьми SEPIC (він рве постійний шлях). Для мережі ізоляція — НЕ опція, а вимога безпеки.</text>
+</svg>

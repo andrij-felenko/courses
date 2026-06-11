@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="380" viewBox="0 0 880 380">
+<rect width="880" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Дільник задає вихідну напругу</text>
+<circle cx="300.0" cy="110.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<text x="300.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Vвих = 5 В</text>
+<line x1="300.0" y1="110.0" x2="300.0" y2="150.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="278.0" y="150.0" width="44.0" height="54.0" rx="4" fill="#ffffff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="340.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Rверх</text>
+<line x1="300.0" y1="204.0" x2="300.0" y2="240.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="300.0" cy="240.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<text x="288.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">FB</text>
+<text x="314.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">тримається = Vоп (0.8 В)</text>
+<rect x="278.0" y="270.0" width="44.0" height="54.0" rx="4" fill="#ffffff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="340.0" y="300.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Rниз</text>
+<line x1="300.0" y1="324.0" x2="300.0" y2="350.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="284.0" y1="350.0" x2="316.0" y2="350.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="300.0" y1="240.0" x2="420.0" y2="240.0" stroke="#1f8a3b" stroke-width="2" stroke-linecap="round"/>
+<rect x="420.0" y="220.0" width="90.0" height="40.0" rx="6" fill="#fff7e6" stroke="#caa24a" stroke-width="1.8"/>
+<text x="465.0" y="245.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">підсил.</text>
+<rect x="560.0" y="120.0" width="290.0" height="180.0" rx="10" fill="#f6f6f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="705.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Vвих = Vоп·(1 + Rверх/Rниз)</text>
+<text x="705.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">контролер тримає FB рівним Vоп,</text>
+<text x="705.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">тож Vвих задає САМ дільник</text>
+<text x="705.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">5 В при Vоп=0.8 В:</text>
+<text x="705.0" y="260.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Rверх/Rниз = 5/0.8 − 1 = 5.25</text>
+<text x="705.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">напр. Rверх=52.5 к, Rниз=10 к</text>
+<rect x="70.0" y="350.0" width="740.0" height="22.0" rx="8" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="440.0" y="365.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Двома резисторами задають будь-яку напругу понад еталон — звідси й гнучкість регульованих перетворювачів</text>
+</svg>

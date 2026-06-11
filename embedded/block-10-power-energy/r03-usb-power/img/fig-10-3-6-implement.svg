@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+<rect width="900" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Як дати пристрою PD: три шляхи</text>
+<rect x="50.0" y="76.0" width="250.0" height="200.0" rx="12" fill="#ffffff" stroke="#1f8a3b" stroke-width="2"/>
+<text x="175.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">«Тригер»-чип</text>
+<text x="175.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">просить ОДНУ фіксовану напругу</text>
+<text x="175.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(напр. 12 В) і видає її</text>
+<text x="175.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">без коду · §10.3.4</text>
+<rect x="330.0" y="76.0" width="250.0" height="200.0" rx="12" fill="#ffffff" stroke="#1f47b5" stroke-width="2"/>
+<text x="455.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">PD-контролер</text>
+<text x="455.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">окремий чип веде всі переговори,</text>
+<text x="455.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">керується по шині від МК</text>
+<text x="455.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">гнучко, надійно</text>
+<rect x="610.0" y="76.0" width="250.0" height="200.0" rx="12" fill="#ffffff" stroke="#caa24a" stroke-width="2"/>
+<text x="735.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">МК + PD-стек</text>
+<text x="735.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">сам мікроконтролер говорить PD</text>
+<text x="735.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(потрібен PHY + програма)</text>
+<text x="735.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">найгнучкіше, найскладніше</text>
+<rect x="70.0" y="320.0" width="760.0" height="28.0" rx="8" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="450.0" y="338.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Треба стала вища напруга — найпростіше «тригер» (одна напруга, без коду). Складна політика живлення — контролер чи МК.</text>
+<text x="450.0" y="352.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Машину станів sink-політики (capabilities → request → accept) розберемо у ⚙️-вставці цього розділу.</text>
+</svg>

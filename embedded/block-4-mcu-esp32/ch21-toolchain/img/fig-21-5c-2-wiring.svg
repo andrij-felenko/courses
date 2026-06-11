@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Підключення: хрест TX/RX і збіг рівнів</text>
+<text x="450.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">передавач одного — у приймач іншого; а рівні мусять бути однакові (3.3 В!)</text>
+<rect x="70.0" y="110.0" width="250.0" height="200.0" rx="12" fill="#f4f7fb" stroke="#1f47b5" stroke-width="2"/>
+<text x="195.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">USB-UART адаптер</text>
+<rect x="580.0" y="110.0" width="250.0" height="200.0" rx="12" fill="#fbfdfb" stroke="#1f8a3b" stroke-width="2"/>
+<text x="705.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Цільовий чіп (ESP32)</text>
+<circle cx="320.0" cy="180.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<text x="308.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">TX</text>
+<circle cx="320.0" cy="235.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<text x="308.0" y="239.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">RX</text>
+<circle cx="320.0" cy="285.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<text x="308.0" y="289.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">GND</text>
+<circle cx="580.0" cy="180.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<text x="592.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">TX</text>
+<circle cx="580.0" cy="235.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<text x="592.0" y="239.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">RX</text>
+<circle cx="580.0" cy="285.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<text x="592.0" y="289.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">GND</text>
+<line x1="320.0" y1="180.0" x2="580.0" y2="235.0" stroke="#c0271e" stroke-width="2.6" stroke-linecap="round"/>
+<line x1="320.0" y1="235.0" x2="580.0" y2="180.0" stroke="#c0271e" stroke-width="2.6" stroke-linecap="round"/>
+<line x1="320.0" y1="285.0" x2="580.0" y2="285.0" stroke="#1b1b1b" stroke-width="2.2" stroke-linecap="round"/>
+<text x="450.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ХРЕСТ</text>
+<text x="450.0" y="300.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">спільна земля</text>
+<rect x="150.0" y="336.0" width="600.0" height="44.0" rx="10" fill="#fbecec" stroke="#c0271e" stroke-width="1.6"/>
+<text x="450.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Рівні мусять збігатися! 5 В у 3.3-вольтовий чіп — згорить.</text>
+<text x="450.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">На адаптері — перемичка 3.3/5 В; для ESP32 завжди 3.3 В.</text>
+</svg>

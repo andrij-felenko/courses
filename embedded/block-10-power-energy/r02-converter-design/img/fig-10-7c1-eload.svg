@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<rect width="900" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Електронне навантаження: програмований «поглинач» струму</text>
+<rect x="50.0" y="80.0" width="130.0" height="64.0" rx="8" fill="#eef3fb" stroke="#1f47b5" stroke-width="2"/>
+<text x="115.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">лаб. БЖ</text>
+<text x="115.0" y="128.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">джерело (дає)</text>
+<rect x="280.0" y="80.0" width="130.0" height="64.0" rx="8" fill="#eef3fb" stroke="#1f8a3b" stroke-width="2"/>
+<text x="345.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ПЕРЕТВОРЮВАЧ</text>
+<text x="345.0" y="128.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">DUT</text>
+<rect x="540.0" y="80.0" width="130.0" height="64.0" rx="8" fill="#eef3fb" stroke="#c0271e" stroke-width="2"/>
+<text x="605.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ЕЛ. НАВАНТ.</text>
+<text x="605.0" y="128.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">стік (бере)</text>
+<line x1="180.0" y1="112.0" x2="280.0" y2="112.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="410.0" y1="112.0" x2="540.0" y2="112.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="230.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Vвх</text>
+<text x="475.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Vвих, Iвих</text>
+<rect x="540.0" y="170.0" width="320.0" height="160.0" rx="10" fill="#fbe9e7" stroke="#c0271e" stroke-width="1.8"/>
+<text x="700.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">усередині: MOSFET у лінійному режимі</text>
+<text x="700.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">+ контур, що тримає заданий режим</text>
+<line x1="600.0" y1="230.0" x2="600.0" y2="250.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="572.0" y="250.0" width="56.0" height="30.0" rx="5" fill="#ffffff" stroke="#c0271e" stroke-width="2"/>
+<text x="600.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ключ</text>
+<line x1="600.0" y1="280.0" x2="600.0" y2="305.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="580.0" y1="305.0" x2="620.0" y2="305.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<text x="600.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">тепло (радіатор+вентилятор)</text>
+<rect x="40.0" y="180.0" width="470.0" height="150.0" rx="10" fill="#f6f6f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="275.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Режими (що тримає сталим):</text>
+<rect x="56.0" y="212.0" width="52.0" height="22.0" rx="5" fill="#fff" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="82.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">CC</text>
+<text x="120.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">сталий СТРУМ — головний для сітки ккд і ліміту</text>
+<rect x="56.0" y="238.0" width="52.0" height="22.0" rx="5" fill="#fff" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="82.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">CR</text>
+<text x="120.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">стала опірність (I∝V) — для пуску/рампи</text>
+<rect x="56.0" y="264.0" width="52.0" height="22.0" rx="5" fill="#fff" stroke="#caa24a" stroke-width="1.6"/>
+<text x="82.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">CP</text>
+<text x="120.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">стала ПОТУЖНІСТЬ (I=P/V) — імітує DC-DC-споживача</text>
+<rect x="56.0" y="290.0" width="52.0" height="22.0" rx="5" fill="#fff" stroke="#c0271e" stroke-width="1.6"/>
+<text x="82.0" y="306.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">динам.</text>
+<text x="120.0" y="306.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">швидкий стрибок струму — тест load-step (§10.2.5)</text>
+<rect x="70.0" y="390.0" width="760.0" height="22.0" rx="8" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="450.0" y="405.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">БЖ дає напругу, навантаження бере струм: разом вони проганяють перетворювач по всій сітці Vвх×Iвих (§10.2.7)</text>
+</svg>

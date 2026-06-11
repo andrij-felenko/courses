@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420">
+<rect width="760" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="380.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Звідки корінь у формулі: R та Xc складаються під прямим кутом</text>
+<text x="380.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">напруги на R і на C зсунуті на 90° (§2.3.4) — отже, додаються як катети</text>
+<line x1="180.0" y1="330.0" x2="400.0" y2="330.0" stroke="#b5732e" stroke-width="3" marker-end="url(#aInk)"/>
+<text x="290.0" y="354.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#b5732e" text-anchor="middle" font-weight="bold" font-style="normal">R (у фазі зі струмом)</text>
+<line x1="400.0" y1="330.0" x2="400.0" y2="170.0" stroke="#1f47b5" stroke-width="3" marker-end="url(#aBlue)"/>
+<text x="412.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Xc (на 90° позаду)</text>
+<line x1="180.0" y1="330.0" x2="400.0" y2="170.0" stroke="#c0271e" stroke-width="3" marker-end="url(#aRed)"/>
+<text x="272.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">|Z| = √(R² + Xc²)</text>
+<rect x="386.0" y="316.0" width="14.0" height="14.0" rx="0" fill="none" stroke="#8a8a8a" stroke-width="1.2"/>
+<text x="520.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">вихід знімаємо з C, тож:</text>
+<text x="520.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">K = Xc / |Z|</text>
+<text x="520.0" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">підставимо Xc = 1/(2πfC)</text>
+<text x="520.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">і поділимо чисельник</text>
+<text x="520.0" y="258.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">та знаменник на Xc:</text>
+<text x="520.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">K(f) = 1/√(1 + (f/f_c)²)</text>
+<text x="520.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">f_c = 1/(2π·R·C)</text>
+</svg>

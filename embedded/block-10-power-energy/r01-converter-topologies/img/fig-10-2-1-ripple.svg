@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<rect width="900" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Пульсація струму котушки: трикутник на тлі навантаження</text>
+<rect x="70.0" y="48.0" width="760.0" height="30.0" rx="8" fill="#f6f6f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="450.0" y="68.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ΔI = (Vвх − Vвих) · tвкл / L = (Vвх − Vвих) · D / (L · f)</text>
+<line x1="90.0" y1="328.0" x2="90.0" y2="100.0" stroke="#1b1b1b" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="90.0" y1="320.0" x2="830.0" y2="320.0" stroke="#1b1b1b" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="82.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">iл</text>
+<text x="832.0" y="324.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">t</text>
+<line x1="90.0" y1="232.0" x2="720.0" y2="232.0" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="6,5" stroke-linecap="round"/>
+<text x="726.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">Iнаван</text>
+<text x="726.0" y="251.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">(середнє)</text>
+<polyline points="90.0,272.0 195.8,192.0 342.0,272.0 447.8,192.0 594.0,272.0" fill="none" stroke="#b5763a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="255.8" y1="192.0" x2="255.8" y2="272.0" stroke="#1b1b1b" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="255.8" y1="272.0" x2="255.8" y2="192.0" stroke="#1b1b1b" stroke-width="1.6" marker-end="url(#aInk)"/>
+<text x="265.8" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">ΔI</text>
+<text x="120.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">+(Vвх−Vвих)/L</text>
+<text x="211.8" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">−Vвих/L</text>
+<line x1="90.0" y1="290.0" x2="195.8" y2="290.0" stroke="#1f8a3b" stroke-width="1.4" stroke-linecap="round"/>
+<text x="142.9" y="304.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">tвкл</text>
+<line x1="195.8" y1="290.0" x2="342.0" y2="290.0" stroke="#c0271e" stroke-width="1.4" stroke-linecap="round"/>
+<text x="268.9" y="304.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">tвикл</text>
+<rect x="70.0" y="380.0" width="760.0" height="28.0" rx="8" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="450.0" y="399.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Більший L або вища частота f → менша ΔI. У CCM пульсація не залежить від навантаження — вона лиш гойдається навколо середнього струму</text>
+</svg>

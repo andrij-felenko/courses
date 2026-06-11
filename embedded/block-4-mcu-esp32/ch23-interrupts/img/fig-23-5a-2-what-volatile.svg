@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300">
+<rect width="900" height="300" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Що volatile робить — і чого НЕ робить</text>
+<rect x="60.0" y="84.0" width="380.0" height="150.0" rx="12" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="250.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Робить ✓</text>
+<text x="86.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.4" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• перечитувати з пам'яті щоразу</text>
+<text x="86.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.4" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• не кешувати в регістрі</text>
+<text x="86.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.4" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• не переставляти volatile-доступи</text>
+<rect x="460.0" y="84.0" width="380.0" height="150.0" rx="12" fill="#fbecec" stroke="#c0271e" stroke-width="2"/>
+<text x="650.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">НЕ робить ✗</text>
+<text x="486.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.4" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• не дає атомарності</text>
+<text x="486.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.4" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  (багатослівне — спіймаєш рване)</text>
+<text x="486.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.4" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• не ставить бар'єр між ядрами</text>
+<rect x="120.0" y="252.0" width="660.0" height="38.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="1.4"/>
+<text x="450.0" y="276.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">volatile = «перечитуй», а НЕ «зроби неподільним». Для атомарності — §4.5.6.</text>
+</svg>

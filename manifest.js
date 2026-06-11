@@ -59,7 +59,9 @@ window.BOOK = {
             "ch01-s5-m-dimensional-analysis.md",
             "ch01-s5-c-piezo-igniter.md",
             "ch01-s5-c-alkaline-cell.md",
-            "ch01-s6-m-gradient.md"
+            "ch01-s6-m-gradient.md",
+            "ch01-s6-a-relaxation.md",
+            "ch01-s8-c-everyday-shields.md"
           ]
         },
         {
@@ -69,8 +71,18 @@ window.BOOK = {
           main: "ch02-voltage-current-conduction.md",
           histories: [
             "ch02-history-conduction.md",
+            "ch02-s1-history-ampere.md",
+            "ch02-s4-history-atlantic-cable.md",
             "ch02-s11-history-arrhenius.md",
-            "ch02-s12-history-war-of-currents.md"
+            "ch02-s12-history-war-of-currents.md",
+            "ch02-s13-history-dalziel.md"
+          ],
+          extras: [
+            "ch02-s1-m-derivative.md",
+            "ch02-s3-m-estimation.md",
+            "ch02-s7-c-switches.md",
+            "ch02-s11-c-galvanic-corrosion.md",
+            "ch02-s13-c-rcd.md"
           ]
         },
         {
@@ -80,8 +92,21 @@ window.BOOK = {
           main: "ch03-resistance-power-heat.md",
           histories: [
             "ch03-history-ohm-joule.md",
+            "ch03-s4-history-filament.md",
             "ch03-s4-history-superconductivity.md",
-            "ch03-s5-history-watt.md"
+            "ch03-s5-history-watt.md",
+            "ch03-s8-history-fuse.md"
+          ],
+          extras: [
+            "ch03-s3-c-wires.md",
+            "ch03-s4-c-inrush-ntc.md",
+            "ch03-s5-m-energy-units.md",
+            "ch03-s7-m-e-series.md",
+            "ch03-s7-c-resistor-marking.md",
+            "ch03-s7-c-shunt-kelvin.md",
+            "ch03-s8-c-fuse-types.md",
+            "ch03-s9-c-heatsinks.md",
+            "ch03-s9-m-thermal-rc.md"
           ]
         },
         {
@@ -91,7 +116,20 @@ window.BOOK = {
           main: "ch04-kirchhoff-circuit-analysis.md",
           histories: [
             "ch04-history-kirchhoff.md",
-            "ch04-s1-history-euler-graphs.md"
+            "ch04-s1-history-euler-graphs.md",
+            "ch04-s8-history-maxwell-mesh.md",
+            "ch04-s9-history-christie-wheatstone.md"
+          ],
+          extras: [
+            "ch04-s1-c-breadboard.md",
+            "ch04-s1-m-graphs.md",
+            "ch04-s1-a-graph-traversal.md",
+            "ch04-s6-m-tolerance.md",
+            "ch04-s6-a-divider-search.md",
+            "ch04-s6-c-potentiometer.md",
+            "ch04-s8-m-gauss.md",
+            "ch04-s8-a-mna-spice.md",
+            "ch04-s9-m-bridge-sensitivity.md"
           ]
         },
         {
@@ -100,7 +138,16 @@ window.BOOK = {
           dir: "block-1-circuits-physics/ch05-equivalent-circuits",
           main: "ch05-equivalent-circuits.md",
           histories: [
-            "ch05-history-thevenin-norton.md"
+            "ch05-history-thevenin-norton.md",
+            "ch05-s6-history-50-ohm.md"
+          ],
+          extras: [
+            "ch05-s1-m-load-line.md",
+            "ch05-s1-c-source-impedances.md",
+            "ch05-s2-m-linearity.md",
+            "ch05-s5-a-two-load-method.md",
+            "ch05-s6-m-derivative-max.md",
+            "ch05-s6-c-terminator.md"
           ]
         },
         {
@@ -159,10 +206,23 @@ window.BOOK = {
                    "r04-s7-m-cascading.md", "r04-s7-c-speaker-crossover.md"] },
         { n: 5, status: "done", title: "Діод і PN-перехід",
           dir: "block-2-components-analog/ch10-diode-pn-junction", main: "ch10-diode-pn-junction.md",
-          histories: ["ch10-history-diode.md", "ch10-s7-history-led.md", "ch10-s8-history-zener.md"] },
+          histories: ["ch10-history-diode.md", "ch10-s1-history-silicon-germanium.md",
+                      "ch10-s7-history-led.md", "ch10-s7-history-blue-led.md",
+                      "ch10-s8-history-zener.md"],
+          extras: ["ch10-s5-m-shockley-equation.md", "ch10-s6-m-ripple-calc.md",
+                   "ch10-s6-c-bridge-rectifier.md", "ch10-s7-c-leds-practice.md",
+                   "ch10-s8-c-diode-families.md", "ch10-s8-c-tvs-esd.md",
+                   "ch10-s10-c-optocoupler.md", "ch10-s5-a-diode-thermometer.md",
+                   "ch10-s7-a-charlieplexing.md"] },
         { n: 6, status: "done", title: "Біполярний транзистор (BJT)",
           dir: "block-2-components-analog/ch11-bjt", main: "ch11-bjt.md",
-          histories: ["ch11-history-transistor.md"] },
+          histories: ["ch11-history-transistor.md", "ch11-s1-history-traitorous-eight.md",
+                      "ch11-s8-history-tr1-sony.md"],
+          extras: ["ch11-s4-a-measure-hfe.md", "ch11-s6-m-base-resistor.md",
+                   "ch11-s6-c-darlington-uln.md", "ch11-s6-c-high-side-pnp.md",
+                   "ch11-s7-m-load-line.md", "ch11-s7-c-common-emitter.md",
+                   "ch11-s8-c-bjt-families.md", "ch11-s9-c-relay-module.md",
+                   "ch11-s9-c-relay-inside.md"] },
         { n: 7, status: "done", title: "Польовий транзистор (MOSFET)",
           dir: "block-2-components-analog/ch12-mosfet", main: "ch12-mosfet.md",
           histories: ["ch12-history-mosfet.md", "ch12-s9-history-cmos.md"] },

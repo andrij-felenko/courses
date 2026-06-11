@@ -1266,6 +1266,527 @@ def fig56_when():
     save("fig-5-6-5-when.svg", s)
 
 
+# ═══ 🔌 Вставка до 5.6 — термінатор і атенюатор ═════════════════════════════
+def _gnd3(s_x, s_y, col="#1b1b1b"):
+    out = ""
+    for i, wd in enumerate([12, 8, 4]):
+        out += line(s_x - wd, s_y + i * 4, s_x + wd, s_y + i * 4, col, 2)
+    return out
+
+
+def fig_terminator():
+    import math
+    W, H = 880, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Термінатор: узгоджене навантаження гасить відбиття", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "кінець лінії без узгодження відбиває швидкий сигнал (дзвін); 50-Ω термінатор його поглинає",
+              10, GREY, "middle", style="italic")
+    s += text(170, 92, "Без термінатора (відкритий кінець)", 11, "#c0271e", "middle", "bold")
+    yT = 142
+    s += line(70, yT, 330, yT, INK, 3)
+    s += line(330, yT - 12, 330, yT + 12, INK, 2)
+    s += arrow(120, yT - 20, 180, yT - 20, "#1f8a3b", 2); s += text(150, yT - 28, "хвиля →", 8.5, "#1f8a3b", "middle", "bold")
+    s += arrow(300, yT + 20, 240, yT + 20, "#c0271e", 2); s += text(278, yT + 32, "← відбита", 8.5, "#c0271e", "middle", "bold")
+    pts = [(370 + i * 4, yT - 26 * math.exp(-i / 18.0) * math.sin(i / 3.0)) for i in range(0, 110)]
+    s += polyline(pts, "#c0271e", 2)
+    s += text(560, yT - 40, "дзвін / спотворення", 9.5, "#c0271e", "middle", "bold")
+    s += text(170, 234, "З 50-Ω термінатором", 11, "#1f8a3b", "middle", "bold")
+    yB = 286
+    s += line(70, yB, 300, yB, INK, 3)
+    s += rect(300, yB - 14, 46, 28, "#eef7f0", "#1f8a3b", 2, 4); s += text(323, yB + 5, "50Ω", 10, "#1f8a3b", "middle", "bold")
+    s += line(323, yB + 14, 323, yB + 30, INK, 2); s += _gnd3(323, yB + 30)
+    s += arrow(120, yB - 20, 180, yB - 20, "#1f8a3b", 2); s += text(150, yB - 28, "хвиля →", 8.5, "#1f8a3b", "middle", "bold")
+    s += line(400, yB, 700, yB, "#1f8a3b", 2)
+    s += text(560, yB - 14, "поглинута → чистий сигнал", 9.5, "#1f8a3b", "middle", "bold")
+    s += rect(120, 352, 640, 34, "#f7f7f7", GREY, 1.4, 8)
+    s += text(440, 366, "Лінія має закінчуватись опором Z₀ (50 чи 75 Ω) — інакше швидкий фронт відбивається назад.",
+              9.5, INK, "middle", "bold")
+    s += text(440, 381, "Термінатор на скопі: вхід 1 МΩ доповнюють 50-Ω «прохідним» (feedthrough) під ВЧ-кабель.",
+              9, GREY, "middle", style="italic")
+    save("fig-5-6c-1-terminator.svg", s)
+
+
+def fig_attenuator():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Атенюатор: ріже рівень, зберігаючи 50 Ом з обох боків", 17, INK, "middle", "bold")
+    s += text(W / 2, 51, "це резистивний дільник (П-схема), розрахований так, щоб обидва порти лишались 50-омними",
+              10, GREY, "middle", style="italic")
+    s += line(80, 150, 250, 150, INK, 2)
+    s += line(610, 150, 780, 150, INK, 2)
+    s += line(250, 150, 330, 150, INK, 2); s += line(530, 150, 610, 150, INK, 2)
+    s += rect(330, 138, 200, 24, "#fff", "#8a8a8a", 2, 5); s += text(430, 155, "послідовний R", 9.5, INK, "middle", "bold")
+    for x in [250, 610]:
+        s += line(x, 150, x, 208, INK, 2)
+        s += rect(x - 12, 208, 24, 42, "#fff", "#8a8a8a", 1.6, 4); s += text(x, 233, "R", 9, INK, "middle", "bold")
+        s += line(x, 250, x, 264, INK, 2); s += _gnd3(x, 264)
+    s += text(165, 138, "50 Ω →", 9, "#1f47b5", "middle", "bold")
+    s += text(700, 138, "→ 50 Ω", 9, "#1f47b5", "middle", "bold")
+    s += text(430, 298, "П-схема: один послідовний + два паралельні резистори.", 9.5, GREY, "middle", style="italic")
+    s += text(430, 320, "Ріже сигнал на фіксовані дБ (×10 = −20 дБ), та з обох боків — рівно 50 Ω.", 10, INK, "middle", "bold")
+    s += rect(120, 340, 620, 28, "#fff8ee", ORANGE, 1.4, 8)
+    s += text(430, 358, "Простий дільник зіпсував би узгодження; атенюатор спеціально тримає 50 Ω.", 9.5, INK, "middle", "bold")
+    save("fig-5-6c-2-attenuator.svg", s)
+
+
+# ═══ 📜 Історія до 5.6 — звідки 50 Ом ═══════════════════════════════════════
+def fig_coax_three_optima():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Три оптимуми коаксіалу — і компроміс 50 Ом", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "для повітряного діелектрика різні «найкраще» лежать при різних опорах; 50 Ом — їхня золота середина",
+              9.5, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 90, 330, 820, 102
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 22, "хвильовий опір Z₀, Ω", 10.5, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8); s += text(ox - 6, ayt - 10, "«добре»", 9.5, INK, "start", "bold")
+
+    def X(Z):
+        return ox + (Z - 20) / 70.0 * (axr - 30 - ox)
+
+    def Y(f):
+        return oy - f * (oy - ayt)
+
+    for Z in [20, 30, 40, 50, 60, 70, 77, 90]:
+        s += line(X(Z), oy - 4, X(Z), oy + 4, INK, 1.2)
+        s += text(X(Z), oy + 18, str(Z), 8.5, GREY, "middle")
+
+    def curve(peak, col, lab):
+        pts = []
+        for i in range(0, 101):
+            Z = 20 + i / 100.0 * 70
+            f = max(0.0, 1 - ((Z - peak) / 45.0) ** 2)
+            pts.append((X(Z), Y(f)))
+        return polyline(pts, col, 2.4) + text(X(peak), Y(1) - 8, lab, 9, col, "middle", "bold")
+
+    s += curve(30, "#1f8a3b", "потужність (~30)")
+    s += curve(60, "#1f47b5", "напруга (~60)")
+    s += curve(77, "#e08030", "низькі втрати (~77)")
+    s += line(X(50), Y(1.06), X(50), oy, "#c0271e", 2, "5 4")
+    s += text(X(50), Y(1.1), "50 Ω — компроміс", 10, "#c0271e", "middle", "bold")
+    s += rect(150, 352, 600, 42, "#fff8ee", ORANGE, 1.4, 8)
+    s += text(450, 371, "Жоден опір не дає всього: 50 Ом — середина між потужністю (30) і втратами (77),", 9.5, INK, "middle", "bold")
+    s += text(450, 386, "трохи зміщена до напруги (60), бо саме пробій губить кабель.", 9, GREY, "middle", style="italic")
+    save("fig-5-6i-1-coax-three-optima.svg", s)
+
+
+def fig_coax_50_vs_75():
+    W, H = 860, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "50 Ом проти 75 Ом: два стандарти під дві потреби", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "50 Ом — баланс для ВЧ-потужності; 75 Ом — мінімум втрат для слабкого сигналу",
+              10, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 28, FAINT, 1.5)
+    s += circle(225, 128, 38, "#fff8ee", ORANGE, 2.5); s += text(225, 136, "50 Ω", 16, "#c0271e", "middle", "bold")
+    s += text(225, 188, "Передавачі, ВЧ-потужність", 11, INK, "middle", "bold")
+    s += text(225, 212, "• компроміс: потужність (30)", 9.5, INK, "middle")
+    s += text(225, 228, "  + втрати (77) + напруга (60)", 9.5, INK, "middle")
+    s += text(225, 248, "• кругле число для розрахунків", 9.5, GREY, "middle")
+    s += text(225, 264, "• стандартні труби давали ≈51.5 Ω", 9.5, GREY, "middle")
+    s += text(225, 300, "де важлива ПОТУЖНІСТЬ", 10, "#c0271e", "middle", "bold")
+    s += circle(635, 128, 38, "#eef2fb", "#1f47b5", 2.5); s += text(635, 136, "75 Ω", 16, "#1f47b5", "middle", "bold")
+    s += text(635, 188, "ТБ, відео, антени", 11, INK, "middle", "bold")
+    s += text(635, 212, "• найменші втрати (~77 Ω)", 9.5, INK, "middle")
+    s += text(635, 228, "• ≈ 73 Ω диполя — гарне", 9.5, INK, "middle")
+    s += text(635, 244, "  узгодження з антеною", 9.5, INK, "middle")
+    s += text(635, 264, "• сигнал слабкий — втрати головні", 9.5, GREY, "middle")
+    s += text(635, 300, "де важливі НИЗЬКІ ВТРАТИ", 10, "#1f47b5", "middle", "bold")
+    save("fig-5-6i-2-coax-50-vs-75.svg", s)
+
+
+# ═══ 🧮 Вставка до 5.6 — максимум через похідну ═════════════════════════════
+def fig_power_derivative():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Максимум через похідну: dP/dR = 0 при R = Rth", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "потужність у навантаженні росте, тоді спадає; її похідна перетинає нуль рівно в піку",
+              10, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 110, 290, 780, 92
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 22, "R / Rth", 11, INK, "middle", "italic")
+
+    def X(r):
+        return ox + r / 4.0 * (axr - 30 - ox)
+
+    def YP(P):
+        return oy - (P / 0.25) * (oy - 110)
+
+    pts = [(X(i / 100.0 * 4), YP((i / 100.0 * 4) / (1 + i / 100.0 * 4) ** 2)) for i in range(101)]
+    s += polyline(pts, "#1f8a3b", 2.8)
+    s += text(X(2.3), YP(0.165), "P = Vth²·R/(R+Rth)²", 10, "#1f8a3b", "start", "bold")
+    s += line(X(1), YP(0.25), X(1), oy, GREY, 1.2, "3 3")
+    s += circle(X(1), YP(0.25), 5, "#1f8a3b", "#1f8a3b", 1)
+    for r in [1, 2, 3, 4]:
+        s += line(X(r), oy - 4, X(r), oy + 4, INK, 1.2)
+        s += text(X(r), oy + 20, "Rth" if r == 1 else str(r), 9, INK if r == 1 else GREY, "middle", "bold" if r == 1 else "normal")
+    s += rect(150, 314, 560, 74, "#f7f7f7", GREY, 1.4, 10)
+    s += text(170, 336, "dP/dR = Vth²·(Rth − R)/(Rth + R)³", 12.5, "#c0271e", "start", "bold")
+    s += text(170, 358, "= 0  ⟺  Rth − R = 0  ⟺  R = Rth.   Знак: + до піка, − після → це МАКСИМУМ.", 10, INK, "start")
+    s += text(170, 380, "Підставивши R = Rth:   P_max = Vth² / (4·Rth).", 10.5, "#1f8a3b", "start", "bold")
+    save("fig-5-6m-1-power-derivative.svg", s)
+
+
+def fig_power_flat_top():
+    import math
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Пік «пласкоголовий»; і чому потужність ≠ ефективність", 17, INK, "middle", "bold")
+    s += text(W / 2, 51, "відхилившись від Rth удвічі, втрачаєш лише ~11 % потужності; зате ефективність росте далі",
+              10, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 110, 300, 780, 92
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 22, "R / Rth (лог)", 11, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8)
+
+    def X(r):
+        return ox + (math.log10(r) + 1) / 2.0 * (axr - 30 - ox)
+
+    def Y(f):
+        return oy - f * (oy - ayt)
+
+    for r in [0.1, 0.25, 0.5, 1, 2, 4, 10]:
+        s += line(X(r), oy - 4, X(r), oy + 4, INK, 1.2)
+        s += text(X(r), oy + 20, str(r), 8.5, GREY, "middle")
+    pts = [(X(10 ** (i / 100.0 * 2 - 1)), Y(4 * (10 ** (i / 100.0 * 2 - 1)) / (1 + 10 ** (i / 100.0 * 2 - 1)) ** 2)) for i in range(101)]
+    s += polyline(pts, "#1f8a3b", 2.6)
+    s += text(X(0.18), Y(0.52), "P/P_max", 9.5, "#1f8a3b", "start", "bold")
+    pts2 = [(X(10 ** (i / 100.0 * 2 - 1)), Y((10 ** (i / 100.0 * 2 - 1)) / (1 + 10 ** (i / 100.0 * 2 - 1)))) for i in range(101)]
+    s += polyline(pts2, "#1f47b5", 2.4, "6 4")
+    s += text(X(5.5), Y(0.9), "ККД η = R/(R+Rth)", 9.5, "#1f47b5", "middle", "bold")
+    s += circle(X(1), Y(1), 4, "#1f8a3b", "#1f8a3b", 1)
+    s += circle(X(2), Y(0.889), 4, "#e08030", "#e08030", 1)
+    s += circle(X(0.5), Y(0.889), 4, "#e08030", "#e08030", 1)
+    s += text(X(2), Y(0.889) - 12, "89 %", 8.5, "#e08030", "middle", "bold")
+    s += circle(X(1), Y(0.5), 4, "#1f47b5", "#1f47b5", 1)
+    s += text(X(1) + 8, Y(0.5) + 13, "ККД 50 %", 8.5, "#1f47b5", "start", "bold")
+    s += rect(150, 330, 560, 58, "#fff8ee", ORANGE, 1.4, 8)
+    s += text(430, 352, "Узгодження (R=Rth) дає МАКС. ПОТУЖНІСТЬ, але ККД лише 50 %.", 10, INK, "middle", "bold")
+    s += text(430, 370, "Для ефективності беруть R≫Rth (η→100 %, та потужність у навантаженні мала).", 9.5, GREY, "middle", style="italic")
+    save("fig-5-6m-2-flat-top.svg", s)
+
+
+# ═══ ⚙️ Вставка до 5.5 — метод двох навантажень ════════════════════════════
+def fig_two_load_method():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Метод двох навантажень: дві точки задають пряму джерела", 17, INK, "middle", "bold")
+    s += text(W / 2, 51, "два відомі навантаження, дві пари (I, V) — і з прямої V = Vth − I·Rth дістаємо обидва числа",
+              9.5, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 110, 330, 600, 90
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 22, "струм I", 11, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8); s += text(ox - 8, ayt - 10, "напруга V", 10, INK, "start", "bold")
+    Vth, Rth = 9.0, 2.0
+    Isc = Vth / Rth
+
+    def X(I):
+        return ox + I / (Isc * 1.1) * (axr - 30 - ox)
+
+    def Y(V):
+        return oy - V / (Vth * 1.1) * (oy - ayt)
+
+    s += line(X(0), Y(Vth), X(Isc), Y(0), "#c0271e", 2, "5 4")
+    for R, lab, col in [(8.0, "навант. R₁", "#1f47b5"), (3.0, "навант. R₂", "#1f8a3b")]:
+        I = Vth / (Rth + R)
+        V = I * R
+        s += line(X(I), Y(V), X(I), oy, GREY, 1, "3 3")
+        s += line(X(I), Y(V), ox, Y(V), GREY, 1, "3 3")
+        s += circle(X(I), Y(V), 6, col, col, 1)
+        s += text(X(I) + 8, Y(V) - 10, lab, 9, col, "start", "bold")
+    s += circle(X(0), Y(Vth), 5, "#c0271e", "#c0271e", 1)
+    s += text(X(0) + 8, Y(Vth) - 8, "Vth (екстрап. до I=0)", 9, "#c0271e", "start", "bold")
+    s += text(X(Isc * 0.55), Y(Vth * 0.58), "нахил = −Rth", 9.5, "#c0271e", "middle", "bold")
+    s += rect(628, 108, 214, 214, "#f7f7f7", GREY, 1.5, 10)
+    s += text(735, 132, "Дві пари (I, V):", 11, INK, "middle", "bold")
+    s += text(646, 158, "V₁ = Vth − I₁·Rth", 10, INK, "start")
+    s += text(646, 178, "V₂ = Vth − I₂·Rth", 10, INK, "start")
+    s += line(646, 192, 826, 192, FAINT, 1.4)
+    s += text(646, 216, "Rth = (V₁−V₂)/(I₂−I₁)", 11, "#1f8a3b", "start", "bold")
+    s += text(646, 240, "Vth = V₁ + I₁·Rth", 11, "#1f8a3b", "start", "bold")
+    s += line(646, 254, 826, 254, FAINT, 1.4)
+    s += text(646, 278, "Ні відкритих, ні замкнених", 9.5, GREY, "start")
+    s += text(646, 294, "клем — лише два безпечні R.", 9.5, "#1f47b5", "start", "bold")
+    save("fig-5-5a-1-two-load-method.svg", s)
+
+
+def fig_two_load_mcu():
+    W, H = 880, 384
+    s = header(W, H)
+    s += text(W / 2, 30, "Автомат на МК: два навантаження, АЦП — і еквівалент готовий", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "мікроконтролер перемикає два відомі навантаження, читає напругу АЦП і сам рахує Vth, Rth",
+              9.5, GREY, "middle", style="italic")
+    s += rect(55, 150, 110, 80, "#eef2fb", "#1f47b5", 2, 8)
+    s += text(110, 184, "невідоме", 10.5, INK, "middle", "bold")
+    s += text(110, 204, "джерело", 10.5, INK, "middle", "bold")
+    s += line(165, 190, 250, 190, INK, 2)
+    s += circle(250, 190, 4, INK, INK, 1)
+    s += text(205, 180, "клеми", 8.5, GREY, "middle")
+    s += rect(300, 122, 150, 56, "#fff", "#8a8a8a", 1.6, 6)
+    s += text(375, 145, "R₁ (легке)", 10, INK, "middle", "bold")
+    s += text(375, 165, "ключ 1", 8.5, GREY, "middle")
+    s += rect(300, 204, 150, 56, "#fff", "#8a8a8a", 1.6, 6)
+    s += text(375, 227, "R₂ (важче)", 10, INK, "middle", "bold")
+    s += text(375, 247, "ключ 2", 8.5, GREY, "middle")
+    s += line(250, 190, 300, 150, INK, 1.6)
+    s += line(250, 190, 300, 232, INK, 1.6)
+    s += rect(540, 150, 150, 80, "#eef7f0", "#1f8a3b", 2, 8)
+    s += text(615, 180, "АЦП + МК", 11, INK, "middle", "bold")
+    s += text(615, 202, "читає V, керує", 8.5, GREY, "middle")
+    s += text(615, 216, "ключами, рахує", 8.5, GREY, "middle")
+    s += arrow(452, 190, 538, 190, "#1f8a3b", 1.8)
+    s += text(495, 180, "V", 9.5, "#1f8a3b", "middle", "bold")
+    s += rect(722, 150, 138, 80, "#fff8ee", ORANGE, 1.6, 8)
+    s += text(791, 184, "Vth, Rth", 13, "#c0271e", "middle", "bold")
+    s += text(791, 206, "(+ «здоров'я»", 8.5, GREY, "middle")
+    s += text(791, 219, "батареї)", 8.5, GREY, "middle")
+    s += arrow(692, 190, 720, 190, INK, 2)
+    s += rect(55, 308, 805, 56, "#f7f7f7", GREY, 1.4, 8)
+    s += text(68, 328, "Пастки МК: навантаження мусять давати ДОСИТЬ різні струми (інакше I₂−I₁ тоне в шумі); зачекай на",
+              9, INK, "start")
+    s += text(68, 346, "встановлення перед читанням; усереднюй АЦП; не коротуй (грітимеш/садитимеш джерело); Rth — знімок (заряд, t°).",
+              9, INK, "start")
+    save("fig-5-5a-2-two-load-mcu.svg", s)
+
+
+# ═══ 🧮 Вставка до 5.2 — лінійність формально ═══════════════════════════════
+def fig_linearity_properties():
+    W, H = 880, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Лінійність: дві властивості, що дають суперпозицію", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "адитивність f(x₁+x₂)=f(x₁)+f(x₂) і однорідність f(k·x)=k·f(x) — на прикладі прямої I=V/R",
+              10, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 30, FAINT, 1.5)
+
+    def plot(ox, oy, axr, ayt):
+        out = arrow(ox, oy, axr, oy, INK, 1.6) + arrow(ox, oy, ox, ayt - 4, INK, 1.6)
+        out += text(axr, oy + 18, "V", 10, INK, "middle", "italic") + text(ox - 4, ayt - 6, "I", 10, INK, "start", "bold")
+        return out
+
+    s += text(225, 96, "Адитивність", 12, "#1f47b5", "middle", "bold")
+    ox, oy, axr, ayt = 90, 300, 400, 110
+    s += plot(ox, oy, axr, ayt)
+    s += line(ox, oy, axr - 20, ayt, "#1f8a3b", 2.4)
+
+    def X(V):
+        return ox + V / 6.0 * (axr - 30 - ox)
+
+    def Y(I):
+        return oy - I / 6.0 * (oy - ayt)
+
+    for V, lab, col in [(2, "V₁", "#c0271e"), (3, "V₂", "#e08030"), (5, "V₁+V₂", "#1f47b5")]:
+        s += line(X(V), oy, X(V), Y(V), GREY, 1, "3 3")
+        s += line(ox, Y(V), X(V), Y(V), GREY, 1, "3 3")
+        s += circle(X(V), Y(V), 4, col, col, 1)
+        s += text(X(V), oy + 16, lab, 8.5, col, "middle", "bold")
+    s += text(225, 332, "I(V₁+V₂) = I(V₁) + I(V₂)", 10, INK, "middle", "bold")
+    s += text(655, 96, "Однорідність", 12, "#1f8a3b", "middle", "bold")
+    ox2, oy2, axr2, ayt2 = 520, 300, 830, 110
+    s += plot(ox2, oy2, axr2, ayt2)
+    s += line(ox2, oy2, axr2 - 20, ayt2, "#1f8a3b", 2.4)
+
+    def X2(V):
+        return ox2 + V / 6.0 * (axr2 - 30 - ox2)
+
+    def Y2(I):
+        return oy2 - I / 6.0 * (oy2 - ayt2)
+
+    for V, lab, col in [(2, "V", "#c0271e"), (4, "2V", "#1f47b5")]:
+        s += line(X2(V), oy2, X2(V), Y2(V), GREY, 1, "3 3")
+        s += line(ox2, Y2(V), X2(V), Y2(V), GREY, 1, "3 3")
+        s += circle(X2(V), Y2(V), 4, col, col, 1)
+        s += text(X2(V), oy2 + 16, lab, 8.5, col, "middle", "bold")
+    s += text(655, 332, "I(2V) = 2·I(V) — масштаб зберігається", 10, INK, "middle", "bold")
+    save("fig-5-2m-1-linearity-properties.svg", s)
+
+
+def fig_linear_vs_nonlinear():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Що лінійне, а що ні — і чому потужність не складається", 17, INK, "middle", "bold")
+    s += text(W / 2, 51, "лінійне = пряма ЧЕРЕЗ НУЛЬ; зі зсувом — уже не строго лінійне; крива — зовсім ні",
+              10, GREY, "middle", style="italic")
+
+    def panel(ox, title, col, sub):
+        oy, axr, ayt = 318, ox + 220, 108
+        out = text(ox + 110, 90, title, 11, col, "middle", "bold")
+        out += arrow(ox, oy, axr, oy, INK, 1.5) + arrow(ox, oy, ox, ayt - 4, INK, 1.5)
+        out += text(ox + 110, 344, sub, 8.5, GREY, "middle")
+        return out, oy, axr, ayt
+
+    p, oy, axr, ayt = panel(70, "Лінійне: резистор I=V/R", "#1f8a3b", "пряма через нуль → суперпозиція працює")
+    s += p
+    s += line(70, oy, axr - 15, ayt, "#1f8a3b", 2.6)
+    s += circle(70, oy, 4, "#1f8a3b", "#1f8a3b", 1)
+    p2, oy2, axr2, ayt2 = panel(360, "Афінне: джерело V=ε−I·r", "#e08030", "зі зсувом: f(0)≠0 → не СТРОГО лінійне")
+    s += p2
+    s += line(360, ayt2 + 28, axr2 - 28, oy2, "#e08030", 2.6)
+    s += circle(360, ayt2 + 28, 4, "#e08030", "#e08030", 1)
+    p3, oy3, axr3, ayt3 = panel(650, "Нелінійне: діод, потужність", "#c0271e", "крива → суперпозиція НЕ працює")
+    s += p3
+    pts = [(650 + (i / 100.0) * 205, oy3 - (i / 100.0) ** 2 * (oy3 - ayt3)) for i in range(101)]
+    s += polyline(pts, "#c0271e", 2.6)
+    s += rect(120, 360, 660, 32, "#fff8ee", ORANGE, 1.4, 8)
+    s += text(450, 380, "Тому НАПРУГИ й СТРУМИ складаються (лінійні), а ПОТУЖНІСТЬ P=I²R — ні (квадратична).",
+              10, INK, "middle", "bold")
+    save("fig-5-2m-2-linear-vs-nonlinear.svg", s)
+
+
+# ═══ 🔌 Вставка до 5.1 — внутрішній опір у цифрах ═══════════════════════════
+def fig_source_impedances():
+    import math
+    W, H = 900, 420
+    s = header(W, H)
+    s += text(W / 2, 30, "Внутрішній опір у цифрах: від міліомів до десятків омів", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "що менший r, то «жорсткіше» джерело й більший струм воно віддасть без просідання",
+              10, GREY, "middle", style="italic")
+    ox, axr, y = 90, 810, 220
+    s += line(ox, y, axr, y, INK, 2)
+
+    def lx(r):
+        return ox + (math.log10(r) + 3) / 5.0 * (axr - ox)
+
+    for r, lab in [(0.001, "1 мΩ"), (0.01, "10 мΩ"), (0.1, "0.1 Ω"), (1, "1 Ω"), (10, "10 Ω"), (100, "100 Ω")]:
+        s += line(lx(r), y - 5, lx(r), y + 5, INK, 1.4)
+        s += text(lx(r), y + 22, lab, 9, GREY, "middle")
+    for r, name, cur, col, up in [
+        (0.01, "авто (свинц.)", "сотні А", "#1f8a3b", True),
+        (0.04, "Li-Ion, NiMH", "кілька А", "#1f8a3b", False),
+        (0.2, "AA лужна", "сотні мА", "#e08030", True),
+        (0.4, "USB-кабель", "просідає", "#e08030", False),
+        (1.5, "9В «крона»", "десятки мА", "#c0271e", True),
+        (20.0, "CR2032", "мкА–мА", "#c0271e", False),
+    ]:
+        x = lx(r)
+        s += circle(x, y, 6, col, col, 1)
+        yy = y - 58 if up else y + 50
+        s += line(x, y - 6 if up else y + 6, x, yy + (12 if up else -12), "#cccccc", 1)
+        s += text(x, yy, name, 9.5, col, "middle", "bold")
+        s += text(x, yy + 14, cur, 8.5, GREY, "middle")
+    s += text(ox, y - 92, "◄ жорсткі (великий струм)", 10, "#1f8a3b", "start", "bold")
+    s += text(axr, y - 92, "м'які (малий струм) ►", 10, "#c0271e", "end", "bold")
+    s += rect(110, H - 58, W - 220, 44, "#f4f7f4", GREY, 1.4, 10)
+    s += text(W / 2, H - 38, "r росте, коли батарея сідає й на холоді, — тому стара чи мерзла «помирає під навантаженням».",
+              10, INK, "middle", "bold")
+    s += text(W / 2, H - 22, "Імпульсному споживачеві високоомне джерело (крона, таблетка) часто треба конденсатор поряд.",
+              9.5, GREY, "middle", style="italic")
+    save("fig-5-1c-1-source-impedances.svg", s)
+
+
+def fig_source_sag():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Просідання в дії: V = ε − I·r на реальних джерелах", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "той самий струм по-різному просаджує джерела — усе вирішує внутрішній опір",
+              10, GREY, "middle", style="italic")
+    for xx, lab in [(80, "джерело"), (250, "ЕРС ε"), (350, "опір r"), (450, "струм I"),
+                    (570, "спад I·r"), (700, "на клемах")]:
+        s += text(xx, 96, lab, 9.5, GREY, "start" if xx == 80 else "middle", "bold")
+    y = 116
+    for name, eps, r, I, drop, vterm, col in [
+        ("Li-Ion 18650", "3.7 В", "r=0.05 Ω", "3 А", "0.15 В", "3.55 В", "#1f8a3b"),
+        ("AA лужна", "1.5 В", "r=0.25 Ω", "1 А", "0.25 В", "1.25 В", "#e08030"),
+        ("9В «крона»", "9.0 В", "r=1.5 Ω", "0.3 А", "0.45 В", "8.55 В", "#e08030"),
+        ("CR2032", "3.0 В", "r=20 Ω", "20 мА", "0.40 В", "2.6 В", "#c0271e"),
+    ]:
+        s += rect(70, y, 740, 48, "#fafafa", "#dddddd", 1.2, 6)
+        s += text(80, y + 29, name, 11, col, "start", "bold")
+        s += text(250, y + 29, eps, 10.5, INK, "middle")
+        s += text(350, y + 29, r, 10.5, INK, "middle")
+        s += text(450, y + 29, I, 10.5, INK, "middle")
+        s += text(570, y + 29, drop, 10.5, "#c0271e", "middle", "bold")
+        s += text(700, y + 29, vterm, 11, "#1f8a3b", "middle", "bold")
+        y += 58
+    s += text(W / 2, H - 20, "Мале r (Li-Ion) майже не просідає; велике r (крона, таблетка) втрачає помітну частку — звідси й вибір джерела.",
+              9.5, GREY, "middle", style="italic")
+    save("fig-5-1c-2-source-sag.svg", s)
+
+
+# ═══ 🧮 Вставка до 5.1 — лінія навантаження ═════════════════════════════════
+def fig_load_line():
+    W, H = 820, 420
+    s = header(W, H)
+    s += text(W / 2, 30, "Лінія навантаження: робоча точка — це перетин", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "джерело й навантаження мають спільні V та I — тож реальна точка там, де їхні характеристики перетинаються",
+              9.5, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 110, 360, 720, 90
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 22, "напруга V", 11, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8); s += text(ox - 8, ayt - 10, "струм I", 11, INK, "start", "bold")
+    Veps, r, RL = 10.0, 100.0, 200.0
+    Isc = Veps / r
+
+    def X(V):
+        return ox + (V / 11.0) * (axr - 30 - ox)
+
+    def Y(I):
+        return oy - (I / 0.12) * (oy - ayt)
+
+    s += line(X(Veps), Y(0), X(0), Y(Isc), "#c0271e", 2.8)
+    s += line(X(0), Y(0), X(9), Y(9 / RL), "#1f47b5", 2.6)
+    Vq = Isc / (1 / RL + Isc / Veps)
+    Iq = Vq / RL
+    s += line(X(Vq), Y(Iq), X(Vq), Y(0), GREY, 1.2, "3 3")
+    s += line(X(Vq), Y(Iq), X(0), Y(Iq), GREY, 1.2, "3 3")
+    s += circle(X(Vq), Y(Iq), 6, "#1f8a3b", "#1f8a3b", 1)
+    s += text(X(Vq) + 12, Y(Iq) - 12, "робоча: %.1f В, %.0f мА" % (Vq, Iq * 1000), 10, "#1f8a3b", "start", "bold")
+    s += circle(X(Veps), Y(0), 4, "#c0271e", "#c0271e", 1)
+    s += text(X(Veps), Y(0) + 20, "ε (хол. хід)", 9.5, "#c0271e", "middle", "bold")
+    s += circle(X(0), Y(Isc), 4, "#c0271e", "#c0271e", 1)
+    s += text(X(0) - 8, Y(Isc), "I_кз = ε/r", 9.5, "#c0271e", "end", "bold")
+    s += text(X(7.1), Y(0.08), "джерело: V = ε − I·r  (нахил −1/r)", 10, "#c0271e", "middle", "bold")
+    s += text(X(8.2), Y(0.03), "навантаження R: V = I·R", 10, "#1f47b5", "middle", "bold")
+    save("fig-5-1m-1-load-line.svg", s)
+
+
+def fig_load_line_nonlinear():
+    import math
+    W, H = 860, 420
+    s = header(W, H)
+    s += text(W / 2, 30, "Сила методу: нелінійне навантаження (діод, світлодіод)", 17, INK, "middle", "bold")
+    s += text(W / 2, 51, "для діода нема формули V=I·R — та перетин лінії навантаження з його кривою однаково дає робочу точку",
+              9.5, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 110, 360, 740, 90
+    s += arrow(ox, oy, axr, oy, INK, 1.8); s += text(axr, oy + 22, "напруга V", 11, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8); s += text(ox - 8, ayt - 10, "струм I", 11, INK, "start", "bold")
+
+    def X(V):
+        return ox + (V / 5.0) * (axr - 30 - ox)
+
+    def Y(I):
+        return oy - (I / 0.05) * (oy - ayt)
+
+    def diodeI(V):
+        return max(1e-3 * (math.exp((V - 1.8) / 0.12) - 1), 0)
+
+    pts = []
+    for i in range(0, 101):
+        V = i / 100.0 * 4.5
+        I = diodeI(V)
+        if I > 0.055:
+            break
+        pts.append((X(V), Y(I)))
+    s += polyline(pts, "#1f8a3b", 2.8)
+    s += text(X(2.55), Y(0.046), "крива світлодіода", 10, "#1f8a3b", "middle", "bold")
+
+    def findQ(Veps, Isc):
+        for i in range(1, 1000):
+            V = i / 1000.0 * Veps
+            if diodeI(V) >= Isc * (1 - V / Veps):
+                return V, Isc * (1 - V / Veps)
+        return Veps, 0.0
+
+    s += line(X(3.0), Y(0), X(0), Y(0.045), "#c0271e", 2.4)
+    s += text(X(0) - 8, Y(0.045), "I_кз", 8.5, "#c0271e", "end", "bold")
+    Vq, Iq = findQ(3.0, 0.045)
+    s += circle(X(Vq), Y(Iq), 6, "#c0271e", "#c0271e", 1)
+    s += text(X(Vq) + 10, Y(Iq) - 12, "робоча точка", 9.5, "#c0271e", "start", "bold")
+    s += line(X(3.0), Y(0), X(0), Y(0.022), "#e08030", 2.2, "6 4")
+    Vq2, Iq2 = findQ(3.0, 0.022)
+    s += circle(X(Vq2), Y(Iq2), 5, "#e08030", "#e08030", 1)
+    s += text(X(Vq2) - 30, Y(Iq2) + 20, "більший r → точка зсувається", 9, "#e08030", "middle", "bold")
+    s += rect(126, 104, 312, 82, "#eef7f0", GREEN, 1.5, 10)
+    s += text(282, 128, "Змінюєш ε чи r — лінія", 10, INK, "middle", "bold")
+    s += text(282, 146, "рухається, а робоча точка", 10, INK, "middle", "bold")
+    s += text(282, 164, "ковзає по кривій приладу.", 10, INK, "middle", "bold")
+    s += text(282, 180, "Так задають режим діодів і транзисторів.", 9, GREY, "middle", style="italic")
+    save("fig-5-1m-2-nonlinear-load-line.svg", s)
+
+
 if __name__ == "__main__":
     fig_blackbox()
     fig_thevenin_norton()
@@ -1307,4 +1828,25 @@ if __name__ == "__main__":
     fig56_pmax()
     fig56_efficiency()
     fig56_when()
+    # §5.1 вставка (🧮) — лінія навантаження
+    fig_load_line()
+    fig_load_line_nonlinear()
+    # §5.1 вставка (🔌) — внутрішній опір у цифрах
+    fig_source_impedances()
+    fig_source_sag()
+    # §5.2 вставка (🧮) — лінійність формально
+    fig_linearity_properties()
+    fig_linear_vs_nonlinear()
+    # §5.5 вставка (⚙️) — метод двох навантажень
+    fig_two_load_method()
+    fig_two_load_mcu()
+    # §5.6 вставка (🧮) — максимум через похідну
+    fig_power_derivative()
+    fig_power_flat_top()
+    # §5.6 історія (📜) — звідки 50 Ом
+    fig_coax_three_optima()
+    fig_coax_50_vs_75()
+    # §5.6 вставка (🔌) — термінатор і атенюатор
+    fig_terminator()
+    fig_attenuator()
     print("OK — фігури Розділу 5 (повна, +§5.6 узгодження) згенеровано в", OUT)

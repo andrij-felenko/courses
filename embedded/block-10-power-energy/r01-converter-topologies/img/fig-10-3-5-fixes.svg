@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="400" viewBox="0 0 920 400">
+<rect width="920" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="460.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Що з цим робити: захист додають ЗЗОВНІ</text>
+<rect x="20.0" y="64.0" width="270.0" height="200.0" rx="12" fill="#f6f9fc" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="155.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="24" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">⎓→| |</text>
+<text x="155.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Послідовний роз'єднувач</text>
+<text x="155.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">окремий MOSFET-ключ</text>
+<text x="155.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">після виходу — фізично</text>
+<text x="155.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">рве шлях на КЗ і в спокої</text>
+<rect x="325.0" y="64.0" width="270.0" height="200.0" rx="12" fill="#f6f9fc" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="460.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="24" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">⏚</text>
+<text x="460.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Запобіжник / ліміт</text>
+<text x="460.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">запобіжник чи eFuse</text>
+<text x="460.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">на вході обмежує струм</text>
+<text x="460.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">коли все інше не встигло</text>
+<rect x="630.0" y="64.0" width="270.0" height="200.0" rx="12" fill="#f6f9fc" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="765.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="24" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">╱</text>
+<text x="765.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">М'який старт</text>
+<text x="765.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">плавно піднімати вихід</text>
+<text x="765.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(ramp / NTC) проти</text>
+<text x="765.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">інрашу при увімкненні</text>
+<rect x="70.0" y="344.0" width="780.0" height="40.0" rx="8" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="460.0" y="362.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Boost сам по собі вихід не захистить. Багато boost-мікросхем мають вбудований роз'єднувальний MOSFET і захист від КЗ —</text>
+<text x="460.0" y="378.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">якщо його нема, послідовний ключ, запобіжник і м'який старт доводиться ставити самотужки.</text>
+</svg>

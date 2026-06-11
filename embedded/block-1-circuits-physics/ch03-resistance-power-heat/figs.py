@@ -1543,6 +1543,1213 @@ def fig37_led_example():
     save("fig-3-7-5-led-example.svg", s)
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# Тема 1.3.8 — Запобіжники й самовідновні PTC
+# ═════════════════════════════════════════════════════════════════════════════
+HEAT = "#e0792a"
+AMBR = "#caa24a"
+
+
+def fig38_overcurrent():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Надструм — тиха пожежа: коротке замикання й тепло I²R", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "замкнеш накоротко — опір падає, струм злітає, а тепло росте як квадрат струму",
+              11.5, GREY, "middle", style="italic")
+
+    def panel(x, short):
+        out = rect(x, 86, 360, 268, "none", FAINT, 1.6, 12)
+        out += text(x + 180, 110, ("КОРОТКЕ ЗАМИКАННЯ" if short else "Норма"),
+                    13.5, (RED if short else GREEN), "middle", "bold")
+        bx, by = x + 50, 220
+        out += text(bx, by - 34, "5 В", 12, INK, "middle", "bold")
+        out += line(bx - 11, by - 22, bx + 11, by - 22, RED, 3)
+        out += line(bx - 7, by - 8, bx + 7, by - 8, BLUE, 4)
+        wy = by - 50
+        out += line(bx, wy, x + 300, wy, INK, 3)
+        out += line(x + 300, wy, x + 300, by + 6, INK, 3)
+        out += line(bx, by + 6, x + 300, by + 6, INK, 3)
+        out += line(bx, by - 22, bx, wy, INK, 3)
+        out += line(bx, by - 8, bx, by + 6, INK, 3)
+        if short:
+            out += line(bx + 18, wy, x + 296, wy, HEAT, 5)
+            out += text(x + 300 + 6, wy - 16, "перемичка", 10.5, RED, "middle", "bold")
+            out += text(x + 180, by + 40, "I ≈ 10 А (велетенський)", 12, RED, "middle", "bold")
+            out += text(x + 180, by + 60, "P = I²R → дріт розжарюється, плавиться", 11, RED, "middle", "bold")
+        else:
+            out += rect(x + 288, wy + 8, 24, 38, "#fff7e0", AMBR, 2, 4)
+            out += text(x + 180, by + 40, "I = 0.5 А (за призначенням)", 12, GREEN, "middle", "bold")
+            out += text(x + 180, by + 60, "тепло помірне, усе ціле", 11, GREEN, "middle")
+        return out
+
+    s += panel(40, False)
+    s += panel(420, True)
+    s += text(W / 2, 378, "Захист має відчути цей надструм і обірвати чи обмежити його, перш ніж щось загориться.",
+              11.5, INK, "middle", "bold")
+    save("fig-3-8-1-overcurrent.svg", s)
+
+
+def fig38_fuse_anatomy():
+    W, H = 820, 360
+    s = header(W, H)
+    s += text(W / 2, 34, "Запобіжник: навмисно найслабша ланка, що перегорає першою", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "тонкий легкоплавкий дротик у корпусі: надструм його плавить — і коло рветься",
+              11.5, GREY, "middle", style="italic")
+
+    def fuse(x, y, blown):
+        out = rect(x, y - 16, 24, 32, "#cfd3d8", "#888888", 2, 3)
+        out += rect(x + 200, y - 16, 24, 32, "#cfd3d8", "#888888", 2, 3)
+        out += rect(x + 24, y - 18, 176, 36, "none", "#9bbcd0", 2, 6)
+        if blown:
+            out += line(x + 24, y, x + 100, y, "#7a5a3a", 2.4)
+            out += line(x + 148, y, x + 200, y, "#7a5a3a", 2.4)
+            out += polyline([(x + 100, y), (x + 108, y - 9), (x + 116, y + 7), (x + 124, y)], HEAT, 2)
+            out += text(x + 112, y - 18, "розрив", 10.5, RED, "middle", "bold")
+        else:
+            out += line(x + 24, y, x + 200, y, "#b06a2a", 2.8)
+        return out
+
+    s += text(200, 108, "ЦІЛИЙ (проводить)", 12.5, GREEN, "middle", "bold")
+    s += fuse(88, 158, False)
+    s += text(200, 196, "дротик-елемент тонкий і легкоплавкий", 10.5, GREY, "middle", style="italic")
+    s += text(600, 108, "ПЕРЕГОРІВ (розрив)", 12.5, RED, "middle", "bold")
+    s += fuse(488, 158, True)
+    s += text(600, 196, "надструм розплавив його → коло розімкнене", 10.5, GREY, "middle", style="italic")
+    s += rect(60, 244, W - 120, 76, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, 268, "Запобіжник — найслабша, найгарячіша точка кола. За норми він холодний;", 11.5, INK, "middle", "bold")
+    s += text(W / 2, 288, "за надструму його I²R-тепло (§1.3.6) плавить дротик — і коло рветься, перш ніж згорить щось дорожче.",
+              11.5, INK, "middle")
+    s += text(W / 2, 308, "Перегорів — міняють на новий тієї самої марки (одноразовий).", 10.5, GREY, "middle", style="italic")
+    save("fig-3-8-2-fuse-anatomy.svg", s)
+
+
+def fig38_time_current():
+    W, H = 780, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "Часострумова характеристика: що більший надструм, то швидше рве", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "невелике перевантаження тримається довго; велике коротке замикання — майже миттєво",
+              11.5, GREY, "middle", style="italic")
+    ox, oy, ax1, ayt = 110, 340, 720, 100
+    s += arrow(ox, oy, ax1, oy, INK, 2)
+    s += arrow(ox, oy, ox, ayt - 6, INK, 2)
+    s += text(ax1, oy + 24, "струм (× номінал)", 12, INK, "middle", "bold")
+    s += text(ox - 8, ayt - 10, "час до перегоряння", 11.5, INK, "start", "bold")
+    pts = []
+    for i in range(0, 101):
+        xf = 1.0 + i / 100.0 * 8.0
+        t = 1.0 / ((xf - 0.9) ** 2.2)
+        px = ox + (xf - 1.0) / 8.0 * (ax1 - ox)
+        py = oy - min(t, 6.0) / 6.0 * (oy - ayt)
+        pts.append((px, py))
+    s += polyline(pts, RED, 2.8)
+    for xf, lab in ((1, "1×"), (2, "2×"), (5, "5×"), (8, "8×")):
+        px = ox + (xf - 1) / 8.0 * (ax1 - ox)
+        s += line(px, oy, px, oy + 5, INK, 1.5)
+        s += text(px, oy + 22, lab, 11, GREY, "middle")
+    s += text(ox + 60, ayt + 24, "номінал: тримає вічно", 10.5, GREEN, "start", "bold")
+    s += text(ax1 - 30, oy - 48, "коротке: рве за мс", 10.5, RED, "end", "bold")
+    s += rect(60, H - 42, W - 120, 28, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 23, "Тому запобіжник не «спрацьовує рівно на номіналі»: терпить короткі кидки, але рве сталий надструм.",
+              11, INK, "middle", "bold")
+    save("fig-3-8-3-time-current.svg", s)
+
+
+def fig38_fast_slow():
+    W, H = 780, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Швидкі (F) і повільні (T): і чому винен пусковий кидок", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "багато навантажень дають короткий кидок струму при ввімкненні — він безпечний",
+              11.5, GREY, "middle", style="italic")
+    ox, oy, ax1 = 90, 300, 700
+    s += arrow(ox, oy, ax1, oy, INK, 2)
+    s += arrow(ox, oy, ox, 150, INK, 2)
+    s += text(ax1, oy + 22, "час", 12, INK, "middle", "bold")
+    s += text(ox - 6, 144, "струм", 12, INK, "start", "bold")
+    rated = oy - 70
+    s += line(ox, rated, ax1, rated, GREY, 1.4, "5 4")
+    s += text(ax1 - 4, rated - 6, "номінал", 10.5, GREY, "end")
+    s += polyline([(ox + 10, oy), (ox + 30, oy - 150), (ox + 70, oy - 150),
+                   (ox + 95, rated + 6), (ax1 - 10, rated + 6)], BLUE, 2.6)
+    s += text(ox + 70, oy - 162, "пусковий кидок (коротко)", 10.5, BLUE, "middle", "bold")
+    s += text(ax1 - 60, rated - 14, "робочий струм", 10.5, BLUE, "end")
+    s += text(120, 116, "Швидкий (F): зреагував би на кидок → хибно перегорить", 11, RED, "start", "bold")
+    s += text(120, 134, "Повільний (T): перечекає кидок, але рве СТАЛИЙ надструм", 11, GREEN, "start", "bold")
+    s += rect(60, H - 42, W - 120, 28, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 23, "F — для чутливої електроніки без кидків; T (літера «Т») — для моторів, БЖ та інших із пусковим струмом.",
+              11, INK, "middle", "bold")
+    save("fig-3-8-4-fast-slow.svg", s)
+
+
+def fig38_ptc_mechanism():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Самовідновний PTC: провідні ланцюжки в полімері, що рвуться від тепла", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "холодний — частинки торкаються (малий опір); нагрівся — полімер розбух, ланцюжки розірвалися",
+              11, GREY, "middle", style="italic")
+
+    def block(x, hot):
+        out = rect(x, 100, 210, 120, ("#fbece9" if hot else "#eef5ef"), (RED if hot else GREEN), 2, 8)
+        out += text(x + 105, 90, ("ГАРЯЧИЙ → високий опір" if hot else "Холодний → малий опір"),
+                    11.5, (RED if hot else GREEN), "middle", "bold")
+        for r in range(3):
+            cyy = 128 + r * 28
+            for c in range(5):
+                cx = (x + 24 + c * 42 + (4 if r % 2 else -4)) if hot else (x + 26 + c * 38)
+                if (not hot) and c < 4:
+                    out += line(cx + 6, cyy, cx + 32, cyy, INK, 1.8)
+                out += circle(cx, cyy, 6, "#555555", "#222222", 1.2)
+        out += text(x + 105, 238, ("ланцюжки розірвані → струм майже спинено" if hot else "ланцюжки зімкнені → струм тече"),
+                    9.5, (RED if hot else GREEN), "middle")
+        return out
+
+    s += block(60, False)
+    s += block(320, True)
+    s += arrow(276, 160, 314, 160, HEAT, 2.6)
+    s += text(295, 150, "тепло", 9.5, HEAT, "middle", "bold")
+    gx0, gy0, gx1, gyt = 580, 210, 770, 108
+    s += arrow(gx0, gy0, gx1, gy0, INK, 2)
+    s += arrow(gx0, gy0, gx0, gyt - 6, INK, 2)
+    s += text(gx1, gy0 + 20, "темп.", 11, INK, "middle", "italic")
+    s += text(gx0 - 6, gyt - 8, "опір R", 11, INK, "start", "bold")
+    s += polyline([(gx0 + 5, gy0 - 10), (gx0 + 90, gy0 - 16), (gx0 + 115, gy0 - 28),
+                   (gx0 + 126, gyt + 10), (gx1 - 5, gyt + 6)], RED, 2.6)
+    s += text(gx0 + 120, gyt + 30, "стрибок R", 9.5, RED, "start", "bold")
+    s += text((gx0 + gx1) / 2, gy0 + 40, "PTC: опір стрибає вгору при нагріві", 9.5, GREY, "middle", style="italic")
+    save("fig-3-8-5-ptc-mechanism.svg", s)
+
+
+def fig38_ptc_cycle():
+    W, H = 780, 380
+    s = header(W, H)
+    s += text(W / 2, 34, "Цикл PTC: спрацював — тримає — зняли живлення — сам скинувся", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "на відміну від запобіжника, PTC не міняють: охолов — і знову проводить",
+              11.5, GREY, "middle", style="italic")
+    ox, oy, ax1 = 80, 250, 700
+    s += arrow(ox, oy, ax1, oy, INK, 2)
+    s += arrow(ox, oy, ox, 110, INK, 2)
+    s += text(ax1, oy + 22, "час", 12, INK, "middle", "bold")
+    s += text(ox - 6, 104, "струм", 12, INK, "start", "bold")
+    s += polyline([(ox + 10, oy - 40), (ox + 130, oy - 40), (ox + 150, oy - 150), (ox + 175, oy - 150),
+                   (ox + 200, oy - 18), (ox + 360, oy - 18), (ox + 380, oy), (ox + 470, oy),
+                   (ox + 490, oy - 40), (ax1 - 10, oy - 40)], RED, 2.6)
+    s += text(ox + 70, oy - 50, "норма", 10, GREEN, "middle", "bold")
+    s += text(ox + 162, oy - 160, "коротке: кидок", 9.5, RED, "middle", "bold")
+    s += text(ox + 280, oy - 26, "спрацював: лише цівка («тримає»)", 9.5, "#c98a00", "middle", "bold")
+    s += text(ox + 425, oy - 28, "зняли живлення", 9.5, GREY, "middle")
+    s += text(ax1 - 60, oy - 50, "охолов → знову проводить", 9.5, GREEN, "end", "bold")
+    s += rect(60, H - 42, W - 120, 28, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 23, "Поки тримає, PTC сам себе гріє цівкою струму (засувка); знімеш напругу — він остигне й відновиться.",
+              11, INK, "middle", "bold")
+    save("fig-3-8-6-ptc-cycle.svg", s)
+
+
+def fig38_fuse_vs_ptc():
+    W, H = 780, 360
+    s = header(W, H)
+    s += text(W / 2, 34, "Запобіжник чи PTC — що коли обрати", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "одноразова точність проти багаторазового самовідновлення", 11.5, GREY, "middle", style="italic")
+
+    def colm(x, title, c, rows):
+        out = rect(x, 86, 340, 232, "#fafafa", c, 1.8, 12)
+        out += text(x + 170, 112, title, 14, c, "middle", "bold")
+        yy = 146
+        for r in rows:
+            out += text(x + 18, yy, "•  " + r, 11.5, INK, "start")
+            yy += 28
+        return out
+
+    s += colm(40, "Запобіжник (одноразовий)", RED, [
+        "повністю РОЗМИКАЄ коло",
+        "точний, велика відключна здатність",
+        "перегорів → заміна вручну",
+        "мережа, авто, потужні кола, великі КЗ"])
+    s += colm(400, "Самовідновний PTC", GREEN, [
+        "ОБМЕЖУЄ струм до цівки (не рве вщент)",
+        "сам скидається, коли остигне",
+        "повільніший, менш точний, менші струми",
+        "USB, акумулятори, мотори, часті збої"])
+    s += text(W / 2, 342, "А ще є автомат (circuit breaker) — багаторазовий механічний вимикач для щитків.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-3-8-7-fuse-vs-ptc.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Тема 1.3.9 — Тепловий опір і радіатор
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig39_heat_must_go():
+    W, H = 800, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Куди подіти ват: тепло мусить кудись текти, інакше деталь згорить", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "спожита потужність стає теплом (§1.3.6); воно гріє кристал, аж поки той не гине (~150 °C)",
+              11, GREY, "middle", style="italic")
+    cx, cy = 230, 220
+    s += rect(cx - 60, cy - 40, 120, 80, "#2b2b2b", INK, 2, 6)
+    s += text(cx, cy + 5, "кристал", 13, "#ffffff", "middle", "bold")
+    s += arrow(cx - 130, cy, cx - 62, cy, RED, 3)
+    s += text(cx - 95, cy - 12, "P (ват)", 12, RED, "middle", "bold")
+    for ddx in (-20, 0, 20):
+        s += arrow(cx + ddx, cy - 42, cx + ddx, cy - 66, HEAT, 2)
+    s += text(cx, cy - 76, "тепло", 11, HEAT, "middle", "bold")
+    tx = 540
+    s += rect(tx - 12, 120, 24, 190, "#ffffff", INK, 2, 12)
+    s += circle(tx, 318, 20, "#ffffff", INK, 2)
+    s += rect(tx - 6, 150, 12, 168, RED, "none", 0)
+    s += circle(tx, 318, 14, RED, "none", 0)
+    s += line(tx - 30, 140, tx - 12, 140, RED, 2)
+    s += text(tx - 36, 144, "150 °C — кристал гине", 10.5, RED, "end", "bold")
+    s += line(tx - 30, 280, tx - 12, 280, GREEN, 2)
+    s += text(tx - 36, 284, "робоча зона", 10.5, GREEN, "end")
+    s += text(tx, 112, "T росте", 11, RED, "middle", "bold")
+    s += rect(60, H - 42, W - 120, 28, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 23, "Питання теми: наскільки нагріється деталь за даної потужності — і як це тепло відвести?",
+              11, INK, "middle", "bold")
+    save("fig-3-9-1-heat-must-go.svg", s)
+
+
+def fig39_thermal_ohm():
+    W, H = 820, 360
+    s = header(W, H)
+    s += text(W / 2, 34, "Тепловий опір — як електричний: ΔT = P·Rθ", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "перепад температур ↔ напруга; потік тепла (ват) ↔ струм; °C/Вт ↔ оми",
+              11.5, GREY, "middle", style="italic")
+    s += rect(50, 90, 340, 210, "#fafafa", GREY, 1.6, 12)
+    s += text(220, 114, "Електричне", 13.5, BLUE, "middle", "bold")
+    s += text(220, 152, "V = I · R", 19, INK, "middle", "bold")
+    s += text(220, 184, "струм I тече крізь опір R,", 11.5, INK, "middle")
+    s += text(220, 202, "на ньому падає напруга V", 11.5, INK, "middle")
+    s += rect(170, 226, 100, 28, "none", INK, 2, 4)
+    s += arrow(118, 240, 168, 240, BLUE, 2.4)
+    s += text(140, 230, "I", 12, BLUE, "middle", "bold")
+    s += text(220, 276, "V — різниця потенціалів", 10.5, GREY, "middle", style="italic")
+    s += rect(430, 90, 340, 210, "#fbece9", RED, 1.6, 12)
+    s += text(600, 114, "Теплове", 13.5, RED, "middle", "bold")
+    s += text(600, 152, "ΔT = P · Rθ", 19, INK, "middle", "bold")
+    s += text(600, 184, "тепло P тече крізь опір Rθ,", 11.5, INK, "middle")
+    s += text(600, 202, "на ньому падає температура ΔT", 11.5, INK, "middle")
+    s += rect(550, 226, 100, 28, "none", INK, 2, 4)
+    s += arrow(498, 240, 548, 240, HEAT, 2.4)
+    s += text(520, 230, "P", 12, HEAT, "middle", "bold")
+    s += text(600, 276, "ΔT — різниця температур (°C)", 10.5, GREY, "middle", style="italic")
+    s += text(410, 180, "↔", 22, INK, "middle", "bold")
+    save("fig-3-9-2-thermal-ohm.svg", s)
+
+
+def fig39_thermal_chain():
+    W, H = 820, 380
+    s = header(W, H)
+    s += text(W / 2, 34, "Тепловий шлях — це опори послідовно: від кристала до повітря", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "Rθ(j→a) = Rθ(j→корпус) + Rθ(корпус→радіатор) + Rθ(радіатор→повітря)",
+              11.5, GREY, "middle", style="italic")
+    y = 190
+    s += line(80, y, 740, y, INK, 2)
+    nodes = [(120, "кристал", "T_j (гарячий)", RED), (320, "корпус", "", INK),
+             (520, "радіатор", "", INK), (720, "повітря", "T_a", GREEN)]
+    for nx, lab, t2, col in nodes:
+        s += circle(nx, y, 6, col, col, 1.5)
+        s += text(nx, y - 16, lab, 11.5, col, "middle", "bold")
+        if t2:
+            s += text(nx, y - 32, t2, 10.5, col, "middle", "bold")
+    res = [(220, "Rθ j-c", "корпус"), (420, "Rθ c-s", "паста/прокладка"), (620, "Rθ s-a", "→ повітря")]
+    for rx, lab, sub in res:
+        s += rect(rx - 30, y - 12, 60, 24, "#ffffff", INK, 2, 3)
+        s += text(rx, y + 30, lab, 11, INK, "middle", "bold")
+        s += text(rx, y + 46, sub, 9.5, GREY, "middle")
+    s += arrow(80, y - 52, 740, y - 52, HEAT, 2.4)
+    s += text(410, y - 62, "потік тепла P (ват) — однаковий уздовж шляху", 11, HEAT, "middle", "bold")
+    s += rect(60, H - 58, W - 120, 44, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 36, "T_j = T_a + P·Rθ(j→a). Опори додаються — тож кожна ланка (надто погана паста!) додає градусів.",
+              11, INK, "middle", "bold")
+    s += text(W / 2, H - 18, "Хочеш холодніший кристал — зменшуй сумарний Rθ: краща паста, більший радіатор, обдув.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-3-9-3-thermal-chain.svg", s)
+
+
+def fig39_heatsink_rescue():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Радіатор рятує: той самий ват, а кристал — холодний", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "5 Вт, повітря 25 °C: без радіатора 125 °C (на межі), з радіатором — безпечно",
+              11.5, GREY, "middle", style="italic")
+
+    def panel(x, sink):
+        out = rect(x, 90, 360, 270, "none", FAINT, 1.6, 12)
+        out += text(x + 180, 114, ("З радіатором" if sink else "Без радіатора"),
+                    13.5, (GREEN if sink else RED), "middle", "bold")
+        cx, cy = x + 110, 210
+        if sink:
+            for i in range(7):
+                out += line(cx - 42 + i * 14, cy - 26, cx - 42 + i * 14, cy - 70, "#8a949e", 3)
+            out += line(cx - 44, cy - 26, cx + 44, cy - 26, "#8a949e", 4)
+            out += text(cx, cy - 80, "ребра радіатора", 9.5, GREY, "middle")
+        out += rect(cx - 40, cy - 26, 80, 52, "#2b2b2b", INK, 2, 5)
+        out += text(cx, cy + 4, "5 Вт", 12, "#ffffff", "middle", "bold")
+        if sink:
+            out += text(x + 180, cy + 70, "Rθ ≈ 8 °C/Вт", 12.5, INK, "middle", "bold")
+            out += text(x + 180, cy + 92, "T = 25 + 5×8 = 65 °C ✓", 13, GREEN, "middle", "bold")
+        else:
+            out += text(x + 180, cy + 70, "Rθ ≈ 20 °C/Вт", 12.5, INK, "middle", "bold")
+            out += text(x + 180, cy + 92, "T = 25 + 5×20 = 125 °C ✗", 13, RED, "middle", "bold")
+        return out
+
+    s += panel(40, False)
+    s += panel(420, True)
+    s += text(W / 2, 384, "Радіатор не «холодить» магічно — він зменшує Rθ(радіатор→повітря), і той самий ват дає менший перепад.",
+              11, INK, "middle", "bold")
+    save("fig-3-9-4-heatsink-rescue.svg", s)
+
+
+def fig39_tim():
+    W, H = 800, 360
+    s = header(W, H)
+    s += text(W / 2, 34, "Термопаста: вигнати повітря зі стику (повітря — поганий провідник тепла)", 17, INK, "middle", "bold")
+    s += text(W / 2, 56, "мікрозазори між корпусом і радіатором повні повітря; паста їх заповнює й різко знижує Rθ",
+              11, GREY, "middle", style="italic")
+
+    def panel(x, paste):
+        out = rect(x, 90, 340, 230, "none", FAINT, 1.6, 12)
+        out += text(x + 170, 114, ("З пастою — добре" if paste else "Сухий стик — погано"),
+                    13, (GREEN if paste else RED), "middle", "bold")
+        out += rect(x + 40, 140, 260, 28, "#2b2b2b", INK, 1.6, 3)
+        out += text(x + 170, 158, "корпус деталі", 10, "#ffffff", "middle")
+        out += rect(x + 40, 210, 260, 28, "#8a949e", INK, 1.6, 3)
+        out += text(x + 170, 228, "радіатор", 10, "#ffffff", "middle")
+        if paste:
+            out += rect(x + 40, 168, 260, 42, "#cdb89a", "#a07a3a", 1.2, 0)
+            out += text(x + 170, 193, "паста заповнила зазори → тепло йде", 9.5, GREEN, "middle", "bold")
+        else:
+            out += rect(x + 40, 168, 260, 42, "#eef3f7", "#bbccdd", 1, 0)
+            for i in range(6):
+                out += polyline([(x + 50 + i * 42, 168), (x + 62 + i * 42, 189), (x + 74 + i * 42, 168)], "#99bbcc", 1.4)
+            out += text(x + 170, 193, "повітряні кишені → тепло застрягає", 9.5, RED, "middle", "bold")
+        return out
+
+    s += panel(40, False)
+    s += panel(420, True)
+    s += text(W / 2, 344, "Паста не «проводить краще за метал» — вона лише виганяє повітря; тому її кладуть ТОНКО.",
+              11, INK, "middle", "bold")
+    save("fig-3-9-5-tim.svg", s)
+
+
+def fig39_modes():
+    W, H = 800, 360
+    s = header(W, H)
+    s += text(W / 2, 34, "Три шляхи тепла: теплопровідність, конвекція, випромінювання", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "до радіатора тепло йде провідністю; від ребер — конвекцією; трохи — випромінюванням",
+              11, GREY, "middle", style="italic")
+    cx, cy = 400, 240
+    s += rect(cx - 180, cy, 360, 16, "#8a949e", INK, 2, 0)
+    for i in range(11):
+        s += line(cx - 170 + i * 34, cy, cx - 170 + i * 34, cy - 44, "#8a949e", 3)
+    s += rect(cx - 30, cy + 16, 60, 24, "#2b2b2b", INK, 2, 3)
+    s += text(cx, cy + 33, "деталь", 9.5, "#ffffff", "middle")
+    s += arrow(cx, cy + 16, cx, cy + 2, HEAT, 2.4)
+    s += text(cx + 72, cy + 28, "1. теплопровідність", 11, INK, "start", "bold")
+    s += text(cx + 72, cy + 42, "(крізь метал у радіатор)", 9.5, GREY, "start")
+    for xx in (cx - 120, cx - 50, cx + 40, cx + 120):
+        s += arrow(xx, cy - 46, xx, cy - 78, GREEN, 2)
+    s += text(cx, cy - 92, "2. конвекція (нагріте повітря тікає вгору)", 11, GREEN, "middle", "bold")
+    s += text(cx - 250, cy - 26, "3. випромінювання", 10.5, "#a06a00", "start", "bold")
+    s += text(cx - 250, cy - 12, "(ІЧ; мале за низьких T)", 9.5, GREY, "start")
+    s += rect(60, H - 40, W - 120, 26, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 22, "Радіатор б'є саме по конвекції: ребра дають велику площу, а вентилятор підсилює відведення.",
+              11, INK, "middle", "bold")
+    save("fig-3-9-6-modes.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Компонентна вставка до теми 1.3.3 — Дроти
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_wires():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Дроти як деталь: переріз, AWG, допустимий струм", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "товщина задає і опір (R=ρL/A, §1.3.3), і допустимий струм; багатожильний — гнучкіший",
+              11, GREY, "middle", style="italic")
+    # ── Панель A: суцільний vs багатожильний ──
+    s += rect(40, 86, 360, 290, "none", FAINT, 1.6, 12)
+    s += text(220, 110, "Суцільний vs багатожильний", 13, INK, "middle", "bold")
+    s += circle(140, 188, 36, "#d9a066", "#a06a2a", 2)
+    s += text(140, 240, "суцільний", 12, INK, "middle", "bold")
+    s += text(140, 256, "тримає форму, дешевий", 9.5, GREY, "middle")
+    s += text(140, 270, "ламається від частих згинів", 9.5, RED, "middle")
+    bx, by = 300, 188
+    s += circle(bx, by, 38, "none", "#a06a2a", 2)
+    for a in range(0, 360, 60):
+        s += circle(bx + 18 * math.cos(math.radians(a)), by + 18 * math.sin(math.radians(a)), 8, "#d9a066", "#a06a2a", 1.2)
+    s += circle(bx, by, 8, "#d9a066", "#a06a2a", 1.2)
+    s += text(bx, 240, "багатожильний", 12, INK, "middle", "bold")
+    s += text(bx, 256, "гнучкий, стійкий до вібрації", 9.5, GREEN, "middle")
+    s += text(220, 300, "Чому гнучкіший: тонка жилка гнеться легко (напруга згину ∝ товщині),", 9, INK, "middle")
+    s += text(220, 314, "а жилки в пучку ще й ковзають одна повз одну.", 9, INK, "middle")
+    s += text(220, 338, "(для гвинтових клем багатожильний обтискають у наконечник-ферулу)", 8.5, GREY, "middle", style="italic")
+    # ── Панель B: AWG / струм ──
+    s += rect(420, 86, 360, 290, "none", FAINT, 1.6, 12)
+    s += text(600, 110, "Калібр (AWG) і застосування", 13, INK, "middle", "bold")
+    s += text(600, 130, "менший номер AWG = товщий дріт = більший струм", 9.5, GREY, "middle", style="italic")
+    rows = [("AWG 22", "0.33 мм²", "сигнали, дрібне живлення", 8),
+            ("AWG 18", "0.82 мм²", "живлення приладів", 12),
+            ("AWG 14", "2.1 мм²", "побутова розетка (~15 А)", 18),
+            ("AWG 10", "5.3 мм²", "потужні лінії (~30 А)", 26)]
+    yy = 158
+    for name, area, use, d in rows:
+        s += circle(472, yy, d / 2, "#d9a066", "#a06a2a", 1.4)
+        s += text(500, yy - 4, name, 11.5, INK, "start", "bold")
+        s += text(500, yy + 11, area + "  ·  " + use, 9.5, GREY, "start")
+        yy += 46
+    s += text(600, 348, "Допустимий струм залежить ще й від ізоляції, обдуву й пучкування;", 8.5, GREY, "middle", style="italic")
+    s += text(600, 360, "тонший дріт — іще й більший опір і просадка напруги (R=ρL/A).", 8.5, GREY, "middle", style="italic")
+    save("fig-3-3c-1-wires.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Історія до теми 1.3.4 — Полювання на нитку
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_filament_timeline():
+    W, H = 820, 380
+    s = header(W, H)
+    s += text(W / 2, 34, "Полювання на нитку: не «один геній», а ланцюг рук у різних країнах", 17, INK, "middle", "bold")
+    s += text(W / 2, 56, "практичну лампу зробили колективно — і вугільну, і вольфрамову нитку шукали роками",
+              11, GREY, "middle", style="italic")
+    y = 156
+    s += line(70, y, W - 70, y, INK, 2.4)
+    s += text(70, y - 10, "1870", 10.5, GREY, "start")
+    s += text(W - 70, y - 10, "1915", 10.5, GREY, "end")
+
+    def X(yr):
+        return 70 + (yr - 1870) / (1915 - 1870) * (W - 140)
+
+    marks = [(1872, True, "1872", "Лодигін · Росія", "рання лампа (вугільні", "стрижні; ще не практична)", "#1f47b5"),
+             (1880, False, "1879–80", "Едісон (США) + Свон (Брит.)", "практична ВУГІЛЬНА лампа", "(бамбук / целюлоза), паралельно", "#1f8a3b"),
+             (1904, True, "1904", "Юст і Ганаман · Австро-Уг.", "перша ВОЛЬФРАМОВА нитка", "(але крихка)", "#7a52c0"),
+             (1910, False, "1910", "Кулидж · GE, США", "ПЛАСТИЧНИЙ вольфрам →", "сучасна лампа", "#c98a00")]
+    for yr, below, lab, who, l1, l2, col in marks:
+        mx = X(yr)
+        s += circle(mx, y, 6, col, col, 1.5)
+        if below:
+            s += text(mx, y + 22, lab, 11, col, "middle", "bold")
+            s += text(mx, y + 40, who, 10.5, INK, "middle", "bold")
+            s += text(mx, y + 55, l1, 9, GREY, "middle")
+            s += text(mx, y + 68, l2, 9, GREY, "middle")
+        else:
+            s += text(mx, y - 56, lab, 11, col, "middle", "bold")
+            s += text(mx, y - 40, who, 10.5, INK, "middle", "bold")
+            s += text(mx, y - 25, l1, 9, GREY, "middle")
+            s += text(mx, y - 12, l2, 9, GREY, "middle")
+    s += rect(60, H - 46, W - 120, 32, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 26, "Едісонів геній — не сама нитка, а ціла СИСТЕМА під неї; вольфрам же став практичним аж у Кулиджа.",
+              10.5, INK, "middle", "bold")
+    save("fig-3-4i-1-filament-timeline.svg", s)
+
+
+def fig_carbon_vs_tungsten():
+    W, H = 800, 380
+    s = header(W, H)
+    s += text(W / 2, 34, "Чому переміг вольфрам: найвища температура плавлення", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "нитка світить тим яскравіше, чим гарячіша; вольфрам терпить найбільший жар, не випаровуючись",
+              11, GREY, "middle", style="italic")
+
+    def colm(x, title, c, rows, t_lab):
+        out = rect(x, 90, 340, 240, "#fafafa", c, 1.8, 12)
+        out += text(x + 170, 114, title, 13.5, c, "middle", "bold")
+        yy = 148
+        for r in rows:
+            out += text(x + 20, yy, "•  " + r, 10.5, INK, "start")
+            yy += 26
+        out += text(x + 170, 302, t_lab, 11.5, c, "middle", "bold")
+        return out
+
+    s += colm(40, "Вугільна нитка (рання)", "#7a5a3a", [
+        "дешева, перша в історії",
+        "випаровується → чорнить колбу",
+        "коротке життя, тьмяне жовте світло",
+        "не дає розжаритись надто сильно"], "робоча ~1800 °C")
+    s += colm(420, "Вольфрамова нитка (сучасна)", "#1f8a3b", [
+        "найвища серед металів т. плавлення",
+        "терпить більший жар, повільно випаровується",
+        "яскравіше, біліше світло, довше життя",
+        "тонкий міцний дріт (після Кулиджа)"], "плавиться ~3422 °C")
+    s += text(W / 2, 360, "Розжарена нитка — це опір під струмом (§1.3.6), що працює майже на межі плавлення.",
+              10.5, INK, "middle", "bold")
+    save("fig-3-4i-2-carbon-vs-tungsten.svg", s)
+
+
+def fig_brittle_vs_ductile():
+    W, H = 800, 360
+    s = header(W, H)
+    s += text(W / 2, 34, "Прорив Кулиджа: крихкий вольфрам став пластичним дротом", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "Юст і Ганаман дали вольфрам, та крихкий; Кулидж навчився тягти його в тонку гнучку нитку",
+              11, GREY, "middle", style="italic")
+    s += rect(40, 90, 360, 230, "#fbece9", RED, 1.6, 12)
+    s += text(220, 114, "Крихкий (1904)", 13.5, RED, "middle", "bold")
+    s += line(90, 182, 200, 182, "#888888", 5)
+    s += polyline([(200, 182), (210, 168), (218, 196)], "#888888", 4)
+    s += line(232, 182, 350, 182, "#888888", 5)
+    s += text(220, 158, "ламається при згинанні", 10.5, RED, "middle", "bold")
+    s += text(220, 252, "крихкий вольфрам не витягнеш", 10, INK, "middle")
+    s += text(220, 268, "у тонку нитку — лампа недовговічна", 10, INK, "middle")
+    s += rect(420, 90, 360, 230, "#eef5ef", GREEN, 1.6, 12)
+    s += text(600, 114, "Пластичний (Кулидж, 1910)", 13, GREEN, "middle", "bold")
+    s += line(460, 182, 560, 182, "#888888", 8)
+    s += rect(560, 168, 20, 28, "#cfe0ef", "#5b87a6", 2, 3)
+    s += text(575, 158, "алмазна фільєра", 9, "#3a6b86", "middle", "bold")
+    s += line(580, 182, 736, 182, "#888888", 2)
+    s += arrow(700, 182, 740, 182, INK, 2)
+    s += text(660, 204, "тягнуть у тонесенький дріт", 10.5, GREEN, "middle", "bold")
+    s += text(600, 252, "гнучкий вольфрам → тонка спіраль,", 10, INK, "middle")
+    s += text(600, 268, "яскрава й довговічна лампа", 10, INK, "middle")
+    s += text(W / 2, 344, "Саме ця «пластична» технологія (тягнути крізь алмаз) і зробила вольфрамову лампу масовою.",
+              10.5, INK, "middle", "bold")
+    save("fig-3-4i-3-brittle-vs-ductile.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Компонентна вставка до теми 1.3.4 — NTC проти кидка струму
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_ntc_inrush():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "NTC проти кидка струму: холодний опір гасить старт", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "термістор NTC холодним має великий опір (на відміну від металів §1.3.4) — і вгамовує пусковий кидок",
+              10.5, GREY, "middle", style="italic")
+    # ── Панель A: R(T) NTC ──
+    s += rect(40, 86, 360, 290, "none", FAINT, 1.6, 12)
+    s += text(220, 110, "Опір NTC падає з нагрівом", 13, INK, "middle", "bold")
+    ox, oy, ax1, ayt = 90, 330, 372, 140
+    s += arrow(ox, oy, ax1, oy, INK, 1.8)
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8)
+    s += text(ax1, oy + 20, "темп.", 11, INK, "middle", "italic")
+    s += text(ox - 6, ayt - 8, "опір R", 11, INK, "start", "bold")
+    pts = []
+    for i in range(0, 61):
+        xf = i / 60.0
+        r = math.exp(-3.2 * xf)
+        pts.append((ox + xf * (ax1 - ox), oy - r * (oy - ayt)))
+    s += polyline(pts, "#1f47b5", 2.8)
+    s += text(ox + 30, ayt + 22, "холодний:", 10, "#1f47b5", "start", "bold")
+    s += text(ox + 30, ayt + 36, "великий R", 10, "#1f47b5", "start", "bold")
+    s += text(ax1 - 14, oy - 22, "гарячий: малий R", 10, "#1f47b5", "end", "bold")
+    s += text(220, 356, "(метал і PTC — навпаки: R росте з T, §1.3.4)", 9.5, GREY, "middle", style="italic")
+    # ── Панель B: кидок струму ──
+    s += rect(420, 86, 360, 290, "none", FAINT, 1.6, 12)
+    s += text(600, 110, "Кидок струму при ввімкненні", 13, INK, "middle", "bold")
+    bx, by, bx1, byt = 470, 330, 752, 140
+    s += arrow(bx, by, bx1, by, INK, 1.8)
+    s += arrow(bx, by, bx, byt - 6, INK, 1.8)
+    s += text(bx1, by + 20, "час", 11, INK, "middle", "italic")
+    s += text(bx - 6, byt - 8, "струм", 11, INK, "start", "bold")
+    s += polyline([(bx + 8, by), (bx + 14, byt + 4), (bx + 42, by - 30), (bx1 - 10, by - 30)], RED, 2.6)
+    s += text(bx + 56, byt + 22, "без NTC: велетенський кидок", 9.5, RED, "start", "bold")
+    s += polyline([(bx + 8, by), (bx + 22, by - 60), (bx + 64, by - 34), (bx1 - 10, by - 30)], GREEN, 2.6)
+    s += text(bx1 - 10, by - 46, "з NTC: кидок приборкано", 9.5, GREEN, "end", "bold")
+    s += text(600, 356, "Нагрівшись, NTC втрачає опір і майже не заважає роботі.", 9.5, INK, "middle", "bold")
+    save("fig-3-4c-1-ntc-inrush.svg", s)
+
+
+# ── Рис. 3.7m.1 — геометричні сходи рядів E ──────────────────────────────────
+def fig_eseries_ladder():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Чому номінали ростуть геометрично: ряди E", 19, INK, "middle", "bold")
+    s += text(W / 2, 51, "на логарифмічній осі рівні відношення = рівні проміжки; тісніший допуск — більше значень",
+              11, GREY, "middle", style="italic")
+    xl, xr = 110, 800
+
+    def px(v):
+        return xl + (math.log10(v) - 1) * (xr - xl)
+
+    E6 = [10, 15, 22, 33, 47, 68, 100]
+    E12 = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82, 100]
+    E24 = [10, 11, 12, 13, 15, 16, 18, 20, 22, 24, 27, 30, 33, 36, 39,
+           43, 47, 51, 56, 62, 68, 75, 82, 91, 100]
+    for name, series, y, lab in [("E6 (±20%)", E6, 120, True),
+                                 ("E12 (±10%)", E12, 200, True),
+                                 ("E24 (±5%)", E24, 280, False)]:
+        s += line(xl, y, xr, y, "#bbbbbb", 1.6)
+        s += text(xl - 14, y + 4, name, 11, INK, "end", "bold")
+        for v in series:
+            x = px(v)
+            h = 16 if lab else 10
+            s += line(x, y, x, y - h, GREEN, 2)
+            if lab:
+                s += text(x, y - 22, str(v), 9.5, INK, "middle", "bold")
+    s += text(px(10), 318, "10", 11, GREY, "middle", "bold")
+    s += text(px(100), 318, "100", 11, GREY, "middle", "bold")
+    s += text(W / 2, 318, "одна декада (×10)", 10.5, GREY, "middle", style="italic")
+    s += rect(120, 336, W - 240, 30, "#f4f7f4", GREEN, 1.4, 10)
+    s += text(W / 2, 356, "Крок = ×10^(1/n):   E6 ×1.47   ·   E12 ×1.21   ·   E24 ×1.10   ·   E96 ×1.024",
+              12, INK, "middle", "bold")
+    save("fig-3-7m-1-eseries-ladder.svg", s)
+
+
+# ── Рис. 3.7m.2 — крок підігнано під допуск (смуги стуляються) ────────────────
+def fig_eseries_tiling():
+    W, H = 820, 350
+    s = header(W, H)
+    s += text(W / 2, 30, "Крок підігнано під допуск: сусідні смуги стуляються", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "смуга ±допуск кожного номіналу накриває ділянку осі; разом вони покривають усе",
+              11, GREY, "middle", style="italic")
+    xl, xr = 80, 780
+    vlo, vhi = 9.0, 20.0
+
+    def px(v):
+        return xl + (v - vlo) / (vhi - vlo) * (xr - xl)
+
+    def band_row(y, vals, tol, color, fill, label):
+        out = text(xl - 8, y + 4, label, 11, INK, "end", "bold")
+        for v in vals:
+            x0, x1 = px(v * (1 - tol)), px(v * (1 + tol))
+            out += rect(x0, y - 18, x1 - x0, 36, fill, color, 1.4, 4)
+            out += line(px(v), y - 18, px(v), y + 18, color, 1.8)
+            out += text(px(v), y - 26, str(v), 10, INK, "middle", "bold")
+        return out
+
+    s += band_row(135, [10, 12, 15, 18], 0.10, "#1f8a3b", "#e7f3ea", "E12  ±10%")
+    s += band_row(245, [10, 11, 12, 13, 15, 16, 18], 0.05, "#1f47b5", "#e9eefb", "E24  ±5%")
+    s += rect(70, H - 56, W - 140, 42, "#fff8ee", "#c9a227", 1.5, 10)
+    s += text(W / 2, H - 38, "Відношення сусідів 10^(1/n) ≈ (1+допуск)/(1−допуск): для ±10% це 1.22 ≈ E12, для ±5% — 1.10 ≈ E24.",
+              11, INK, "middle", "bold")
+    s += text(W / 2, H - 20, "Тісніший допуск → вужчі смуги → потрібно більше значень, щоб накрити вісь без діри.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-3-7m-2-eseries-tiling.svg", s)
+
+
+# ── Рис. 3.9m.1 — теплова RC-модель і крива нагріву ──────────────────────────
+def fig_thermal_rc():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Теплова RC-модель: нагрів як заряджання конденсатора", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "тепловий потік ~ струм, температура ~ напруга, Rθ ~ опір, теплова маса Cθ ~ ємність",
+              10.5, GREY, "middle", style="italic")
+    s += line(430, 72, 430, H - 20, FAINT, 1.5)
+    s += rect(150, 150, 150, 70, "#fbe3df", "#c0271e", 2, 8)
+    s += text(225, 182, "деталь", 12, INK, "middle", "bold")
+    s += text(225, 203, "T (температура)", 10, GREY, "middle")
+    s += arrow(70, 185, 148, 185, RED, 2.6)
+    s += text(96, 172, "P", 13, RED, "middle", "bold")
+    s += text(104, 205, "тепло", 9.5, GREY, "middle")
+    s += arrow(300, 168, 388, 138, ORANGE, 2.4)
+    s += text(360, 126, "Rθ → повітря", 10, "#a06a00", "middle", "bold")
+    s += rect(175, 250, 100, 42, "#eef2fb", "#1f47b5", 2, 6)
+    s += text(225, 270, "Cθ = m·c", 11, "#1f47b5", "middle", "bold")
+    s += text(225, 285, "теплова маса", 8.5, GREY, "middle")
+    s += arrow(225, 220, 225, 248, "#1f47b5", 2)
+    s += text(225, 320, "маса вбирає тепло — T не стрибає вмить", 9.5, INK, "middle", "bold")
+    ox, oy, axr, ayt = 480, 300, 820, 110
+    s += arrow(ox, oy, axr, oy, INK, 1.8)
+    s += text(axr, oy + 20, "час t", 11, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8)
+    s += text(ox - 6, ayt - 10, "T", 12, INK, "start", "bold")
+    Tss = 140
+    s += line(ox, Tss, axr - 10, Tss, "#bbbbbb", 1.5, "5 4")
+    s += text(axr - 12, Tss - 8, "T_пов + P·Rθ", 9.5, GREY, "end", "bold")
+    span = axr - 30 - ox
+    tau = 70.0
+    pts = [(ox + i / 100.0 * span, oy - (oy - Tss) * (1 - math.exp(-(i / 100.0 * span) / tau))) for i in range(101)]
+    s += polyline(pts, GREEN, 2.8)
+    s += line(ox + tau, oy, ox + tau, oy - (oy - Tss) * 0.63, "#1f47b5", 1.4, "3 3")
+    s += text(ox + tau, oy + 16, "τ", 12, "#1f47b5", "middle", "bold")
+    s += text(ox + tau + 6, oy - (oy - Tss) * 0.63 - 6, "63% за τ = Rθ·Cθ", 9, "#1f47b5", "start", "bold")
+    s += text(ox + span * 0.62, Tss + 24, "≈5τ — практично усталена", 9.5, GREEN, "middle", "bold")
+    save("fig-3-9m-1-thermal-rc.svg", s)
+
+
+# ── Рис. 3.9m.2 — короткий імпульс проти тривалої потужності ──────────────────
+def fig_pulse_vs_steady():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Чому короткий імпульс не страшний", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "за t « τ теплова маса не встигає нагрітися: важить ЕНЕРГІЯ P·t, а не потужність",
+              10.5, GREY, "middle", style="italic")
+    ox, oy, axr, ayt = 90, 300, 820, 110
+    s += arrow(ox, oy, axr, oy, INK, 1.8)
+    s += text(axr, oy + 20, "час t", 11, INK, "middle", "italic")
+    s += arrow(ox, oy, ox, ayt - 6, INK, 1.8)
+    s += text(ox - 6, ayt - 10, "T", 12, INK, "start", "bold")
+    Tss = 140
+    s += line(ox, Tss, axr - 10, Tss, "#bbbbbb", 1.4, "5 4")
+    s += text(axr - 12, Tss - 8, "ΔT = P·Rθ (повна, усталена)", 9.5, GREY, "end", "bold")
+    span = axr - 30 - ox
+    tau = 80.0
+    sus = [(ox + i / 100.0 * span, oy - (oy - Tss) * (1 - math.exp(-(i / 100.0 * span) / tau))) for i in range(101)]
+    s += polyline(sus, GREEN, 2.6)
+    s += text(ox + span * 0.6, Tss + 22, "тривала P → повний нагрів", 10, GREEN, "middle", "bold")
+    pw = 0.18 * tau
+    pulse = [(ox, oy)]
+    for i in range(1, 101):
+        tt = i / 100.0 * span
+        if tt < pw:
+            T = oy - (oy - Tss) * (1 - math.exp(-tt / tau))
+        else:
+            T = oy - (oy - Tss) * (1 - math.exp(-pw / tau)) * math.exp(-(tt - pw) / (tau * 1.4))
+        pulse.append((ox + tt, T))
+    s += polyline(pulse, "#1f47b5", 2.6)
+    s += line(ox + pw, oy, ox + pw, oy - 7, "#1f47b5", 1.5)
+    s += text(ox + 150, oy - 24, "короткий імпульс t « τ →", 9.5, "#1f47b5", "start", "bold")
+    s += text(ox + 150, oy - 11, "ΔT ≈ P·t / Cθ (ледь тепло)", 9.5, "#1f47b5", "start", "bold")
+    s += rect(90, H - 44, W - 180, 32, "#f4f7f4", GREEN, 1.5, 10)
+    s += text(W / 2, H - 23, "Тому деталь терпить кидок у рази понад норму на мить: це I²t запобіжника (§1.3.8) і пусковий кидок (§1.3.4).",
+              10.5, INK, "middle", "bold")
+    save("fig-3-9m-2-pulse-vs-steady.svg", s)
+
+
+# ── Рис. 3.9c.1 — тепловий шлях як стос Rθ-деталей ───────────────────────────
+def fig_thermal_stack():
+    W, H = 820, 430
+    s = header(W, H)
+    s += text(W / 2, 30, "Тепловий шлях як стос деталей: від кристала до повітря", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "кожна ланка має свій тепловий опір Rθ; вони стоять послідовно (§1.3.9), і кожну «купуєш» окремо",
+              10.5, GREY, "middle", style="italic")
+    cx = 300
+    w = 300
+    x = cx - w / 2
+    for label, y, h, fill, col in [
+        ("Кристал (junction)", 72, 44, "#fbe3df", "#c0271e"),
+        ("Корпус деталі (case)", 140, 40, "#eef2fb", "#1f47b5"),
+        ("Термоінтерфейс — паста чи прокладка", 200, 26, "#fff3e0", ORANGE),
+        ("Радіатор (heat sink)", 252, 60, "#eef5ef", GREEN),
+        ("Повітря (ambient)", 340, 40, "#eaf3f7", "#5b87a6"),
+    ]:
+        s += rect(x, y, w, h, fill, col, 2, 6)
+        s += text(cx, y + h / 2 + 5, label, 11.5 if h > 30 else 10, INK, "middle", "bold")
+    rx = cx + w / 2 + 20
+    for yy, sym, what, src in [
+        (128, "Rθ jc", "кристал→корпус", "з даташита деталі"),
+        (213, "Rθ cs", "корпус→радіатор", "визначає термоінтерфейс"),
+        (326, "Rθ sa", "радіатор→повітря", "з даташита радіатора; ↓ з обдувом"),
+    ]:
+        s += text(rx, yy + 2, sym, 12, "#c0271e", "start", "bold")
+        s += text(rx + 56, yy - 2, what, 10, INK, "start", "bold")
+        s += text(rx + 56, yy + 11, src, 9, GREY, "start", style="italic")
+    s += arrow(x - 26, 80, x - 26, 372, "#c0271e", 3)
+    s += text(x - 40, 226, "тепло", 10.5, "#c0271e", "middle", "bold")
+    s += rect(120, H - 44, W - 240, 32, "#f4f7f4", GREEN, 1.5, 10)
+    s += text(W / 2, H - 23, "Rθ(заг.) = Rθjc + Rθcs + Rθsa (послідовно);  перегрів ΔT = P · Rθ(заг.)  (§1.3.9).",
+              11.5, INK, "middle", "bold")
+    save("fig-3-9c-1-thermal-stack.svg", s)
+
+
+# ── Рис. 3.9c.2 — електрична ізоляція кріплення (TO-220) ──────────────────────
+def fig_isolation_mount():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Електрична ізоляція: підступ корпуса TO-220", 18, INK, "middle", "bold")
+    s += text(W / 2, 51, "металева пластина деталі часто з'єднана з виводом (колектор/сток), а радіатор спільний — тож потрібна ізоляція",
+              10, GREY, "middle", style="italic")
+    cx = 470
+    s += rect(cx - 150, 300, 300, 50, "#eef5ef", GREEN, 2, 6)
+    s += text(cx, 330, "радіатор (часто заземлений / спільний)", 11, INK, "middle", "bold")
+    s += rect(cx - 130, 282, 260, 16, "#fff3e0", ORANGE, 2, 3)
+    s += text(cx, 294, "ізолювальна прокладка (слюда/кераміка/силікон) + паста", 8.5, INK, "middle", "bold")
+    s += rect(cx - 90, 250, 180, 32, "#cdd5da", INK, 2, 4)
+    s += text(cx, 270, "пластина деталі (TO-220)", 10, INK, "middle", "bold")
+    s += rect(cx - 70, 200, 140, 50, "#2a2a2a", "#101010", 2, 6)
+    s += text(cx, 230, "корпус деталі", 11, "#f0f0f0", "middle", "bold")
+    s += rect(cx - 8, 150, 16, 150, "#9a9a9a", INK, 1.6, 2)
+    s += rect(cx - 14, 250, 28, 50, "#fff3e0", ORANGE, 1.6, 2)
+    s += text(cx, 142, "гвинт", 10, INK, "middle", "bold")
+    s += text(cx + 150, 252, "ізолювальна втулка", 9.5, "#a06a00", "start", "bold")
+    s += text(cx + 150, 266, "довкола гвинта", 9, GREY, "start")
+    s += rect(70, 150, 150, 96, "#fafafa", GREY, 1.4, 8)
+    s += text(145, 176, "крізь прокладку:", 11, INK, "middle", "bold")
+    s += text(145, 204, "тепло ✓", 14, GREEN, "middle", "bold")
+    s += text(145, 230, "струм ✗", 14, "#c0271e", "middle", "bold")
+    s += rect(110, H - 40, W - 220, 28, "#fff8ee", ORANGE, 1.4, 10)
+    s += text(W / 2, H - 21, "Прокладка пропускає тепло, але не струм; втулка ізолює гвинт. Забудеш — радіатор замкне вивід.",
+              11, INK, "middle", "bold")
+    save("fig-3-9c-2-isolation-mount.svg", s)
+
+
+# ── Рис. 3.8і.1 — таймлайн народження запобіжника ────────────────────────────
+def fig_fuse_timeline():
+    W, H = 940, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Народження запобіжника: від телеграфу до Едісона й далі", 19, INK, "middle", "bold")
+    s += text(W / 2, 53, "ідея «найслабшої ланки» визрівала десятиліттями й у різних руках",
+              11, GREY, "middle", style="italic")
+    y = 150
+    s += line(60, y, 900, y, "#bbbbbb", 2.5)
+    for x, yr, l1, l2, col in [
+        (95, "1864", "телеграф: запобіжний", "дротик від блискавки (Бреге)", "#1f47b5"),
+        (300, "1882", "система Едісона (Pearl St):", "запобіжники в складі", "#1f8a3b"),
+        (490, "1890", "патент Едісона на", "запобіжний блок (US 438 305)", "#1f8a3b"),
+        (670, "~1900", "гвинтовий «пробковий»", "запобіжник (цоколь Едісона)", INK),
+        (855, "1940", "NEC забороняє цоколь", "Едісона → Type S", "#c0271e"),
+    ]:
+        s += circle(x, y, 7, col, col, 2)
+        s += line(x, y - 7, x, y - 32, "#cccccc", 1.4)
+        s += text(x, y - 38, yr, 13, col, "middle", "bold")
+        s += text(x, y + 28, l1, 9.5, INK, "middle", "bold")
+        s += text(x, y + 42, l2, 9, GREY, "middle")
+    save("fig-3-8i-1-fuse-timeline.svg", s)
+
+
+# ── Рис. 3.8і.2 — ідея найслабшої ланки ──────────────────────────────────────
+def fig_fuse_weak_link():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 32, "Ідея: навмисно найслабша ланка, що гине першою", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 53, "тонкий запобіжний дротик розплавиться раніше, ніж постраждає цінне — апаратура чи проводка",
+              10.5, GREY, "middle", style="italic")
+    y = 200
+    s += rect(70, y - 30, 90, 60, "#eef2fb", "#1f47b5", 2, 8)
+    s += text(115, y - 2, "джерело", 11, INK, "middle", "bold")
+    s += text(115, y + 16, "/ лінія", 10, GREY, "middle")
+    s += line(160, y, 300, y, INK, 3)
+    s += rect(300, y - 14, 150, 28, "#fff", "#8a8a8a", 1.6, 5)
+    s += polyline([(308, y), (330, y - 6), (352, y + 6), (374, y - 6), (396, y + 6), (442, y)], "#c0271e", 1.6)
+    s += text(375, y - 26, "тонкий запобіжний дротик", 9.5, "#c0271e", "middle", "bold")
+    s += text(375, y + 30, "(найслабша ланка)", 9.5, GREY, "middle", style="italic")
+    s += line(450, y, 600, y, INK, 3)
+    s += rect(600, y - 34, 160, 68, "#eef5ef", GREEN, 2, 8)
+    s += text(680, y - 8, "цінне:", 11, INK, "middle", "bold")
+    s += text(680, y + 10, "апаратура,", 10, GREY, "middle")
+    s += text(680, y + 26, "проводка, дім", 10, GREY, "middle")
+    s += text(375, y - 70, "надструм / блискавка / коротке", 11, "#c0271e", "middle", "bold")
+    s += arrow(375, y - 58, 375, y - 30, RED, 2.4)
+    s += rect(110, y + 70, W - 220, 58, "#fff8ee", ORANGE, 1.5, 10)
+    s += text(W / 2, y + 92, "Дротик плавиться й РОЗМИКАЄ коло — перш ніж жар устигне зіпсувати решту.", 11.5, INK, "middle", "bold")
+    s += text(W / 2, y + 112, "Так у телеграфі рятували апаратуру від блискавки, а в освітленні — будинок від пожежі.",
+              10, GREY, "middle", style="italic")
+    save("fig-3-8i-2-weak-link.svg", s)
+
+
+# ── Рис. 3.8і.3 — монетка за запобіжником і відповідь Type S ──────────────────
+def fig_fuse_penny_tamper():
+    W, H = 880, 380
+    s = header(W, H)
+    s += text(W / 2, 32, "Як людська кмітливість перемагала захист — і відповідь Type S", 18, INK, "middle", "bold")
+    s += text(W / 2, 53, "цоколь Едісона брав запобіжник будь-якого номіналу — тож «вічно перегорає» лікували монеткою",
+              10.5, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 26, FAINT, 1.5)
+    # ЛІВОРУЧ: монетка → пожежа
+    s += text(225, 96, "Стара халепа: «монетка за запобіжником»", 12, "#c0271e", "middle", "bold")
+    s += circle(225, 168, 40, "#f0e2c0", "#a98a00", 2.5)
+    s += circle(225, 168, 27, "#d9b24a", "#a98a00", 1.8)
+    s += text(225, 173, "1¢", 14, "#7a5e12", "middle", "bold")
+    s += text(225, 228, "мідна монета замикає коло", 10, INK, "middle", "bold")
+    s += text(225, 244, "замість перегорілого запобіжника", 9.5, GREY, "middle", style="italic")
+    s += text(225, 286, "→ захисту НЕМА", 12, "#c0271e", "middle", "bold")
+    s += text(225, 312, "перевантаження → пожежа", 11, "#c0271e", "middle", "bold")
+    # ПРАВОРУЧ: Type S
+    s += text(655, 96, "Відповідь: цоколь Type S", 12, "#1f8a3b", "middle", "bold")
+    s += circle(655, 168, 40, "#e7f3ea", GREEN, 2.5)
+    s += circle(655, 168, 22, "#fff", GREEN, 1.8)
+    s += text(655, 173, "2A", 12, "#1f8a3b", "middle", "bold")
+    s += text(655, 228, "різьба під ОДИН номінал", 10, INK, "middle", "bold")
+    s += text(655, 244, "більший не вкрутиш; перехідник не вийняти", 9, GREY, "middle", style="italic")
+    s += text(655, 286, "→ пере-«жирнити» не можна", 12, "#1f8a3b", "middle", "bold")
+    s += text(655, 312, "(NEC забороняє старий цоколь, 1940)", 9.5, GREY, "middle", style="italic")
+    save("fig-3-8i-3-penny-tamper.svg", s)
+
+
+# ── Рис. 3.8c.1 — форм-фактори запобіжників ──────────────────────────────────
+def fig_fuse_formfactors():
+    W, H = 860, 360
+    s = header(W, H)
+    s += text(W / 2, 30, "Запобіжники: основні форм-фактори", 19, INK, "middle", "bold")
+    s += text(W / 2, 51, "та сама ідея «найслабшої ланки» — у різних корпусах під різні задачі",
+              11, GREY, "middle", style="italic")
+    cyt = 130
+    # 1) скляний картридж 5×20
+    cx = 150
+    s += rect(cx - 60, cyt - 16, 120, 32, "#eaf3f7", "#7fa8bd", 2, 6)
+    s += rect(cx - 70, cyt - 16, 11, 32, "#c7c7c7", INK, 1.5, 2)
+    s += rect(cx + 59, cyt - 16, 11, 32, "#c7c7c7", INK, 1.5, 2)
+    s += polyline([(cx - 56, cyt), (cx - 30, cyt - 7), (cx - 8, cyt + 7),
+                   (cx + 14, cyt - 7), (cx + 36, cyt + 7), (cx + 56, cyt)], "#c0271e", 1.8)
+    s += text(cx, cyt + 44, "скляний 5×20 мм", 12, INK, "middle", "bold")
+    s += text(cx, cyt + 61, "видно нитку; мала відкл. здатність", 9, GREY, "middle", style="italic")
+    # 2) керамічний
+    cx = 380
+    s += rect(cx - 60, cyt - 16, 120, 32, "#efe6d6", "#b59b6a", 2, 6)
+    s += rect(cx - 70, cyt - 16, 11, 32, "#c7c7c7", INK, 1.5, 2)
+    s += rect(cx + 59, cyt - 16, 11, 32, "#c7c7c7", INK, 1.5, 2)
+    s += text(cx, cyt + 4, "пісок", 9, "#9a8050", "middle", style="italic")
+    s += text(cx, cyt + 44, "керамічний (з піском)", 12, INK, "middle", "bold")
+    s += text(cx, cyt + 61, "велика відкл. здатність (мережа)", 9, GREY, "middle", style="italic")
+    # 3) ножовий авто
+    cx = 600
+    s += rect(cx - 34, cyt - 30, 68, 40, "#e6b800", "#a98a00", 2, 5)
+    s += line(cx - 20, cyt + 10, cx - 20, cyt + 40, "#9a9a9a", 5)
+    s += line(cx + 20, cyt + 10, cx + 20, cyt + 40, "#9a9a9a", 5)
+    s += text(cx, cyt - 6, "ATO", 10, INK, "middle", "bold")
+    s += text(cx, cyt + 61, "ножовий (авто)", 12, INK, "middle", "bold")
+    s += text(cx, cyt + 78, "колір = номінал; 12 В", 9, GREY, "middle", style="italic")
+    # 4) SMD
+    cx = 775
+    s += rect(cx - 30, cyt - 12, 60, 26, "#2a2a2a", "#101010", 2, 4)
+    s += text(cx, cyt + 6, "2A", 10, "#f0f0f0", "middle", "bold")
+    s += text(cx, cyt + 44, "SMD (на плату)", 12, INK, "middle", "bold")
+    s += text(cx, cyt + 61, "крихітний, для друк. плат", 9, GREY, "middle", style="italic")
+    s += rect(70, 282, W - 140, 48, "#f4f7f4", GREEN, 1.5, 10)
+    s += text(W / 2, 302, "Корпус добирають під струм, напругу, місце монтажу — і під потрібну відключну здатність:",
+              11, INK, "middle", "bold")
+    s += text(W / 2, 320, "скло показує нитку, та гасить лише мале коротке; кераміка з піском приборкує велике.",
+              10, GREY, "middle", style="italic")
+    save("fig-3-8c-1-fuse-formfactors.svg", s)
+
+
+# ── Рис. 3.8c.2 — маркування й шкала швидкості ───────────────────────────────
+def fig_fuse_markings():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Що написано на корпусі — і шкала швидкості", 19, INK, "middle", "bold")
+    s += text(W / 2, 51, "номінальний струм ≠ струм спрацювання; плюс напруга, відключна здатність і літера швидкості",
+              10.5, GREY, "middle", style="italic")
+    cx, cyt = 200, 120
+    s += text(cx, cyt - 34, "маркування на корпусі", 10.5, INK, "middle", "bold")
+    s += rect(cx - 72, cyt - 18, 144, 36, "#eaf3f7", "#7fa8bd", 2, 6)
+    s += rect(cx - 83, cyt - 18, 12, 36, "#c7c7c7", INK, 1.5, 2)
+    s += rect(cx + 71, cyt - 18, 12, 36, "#c7c7c7", INK, 1.5, 2)
+    s += text(cx, cyt + 5, "T 2A 250V", 15, INK, "middle", "bold")
+    bx, bw = 372, 458
+    yb = 90
+    for title, desc, col in [
+        ("Номінальний струм (2A)", "несе вічно; рве при ~2× і вище (крива §1.3.8)", "#1f47b5"),
+        ("Номінальна напруга (250V)", "максимум, який безпечно розірве; ≥ напруги кола", "#1f8a3b"),
+        ("Відключна здатність", "найбільше коротке, яке згасить без вибуху", "#c0271e"),
+    ]:
+        s += rect(bx, yb, bw, 46, "#fafafa", col, 1.5, 8)
+        s += text(bx + 12, yb + 20, title, 12, col, "start", "bold")
+        s += text(bx + 12, yb + 38, desc, 10, INK, "start")
+        yb += 56
+    sy = 312
+    s += text(W / 2, sy - 22, "Літера швидкості (та сама крива §1.3.8, різна стрімкість):", 12, INK, "middle", "bold")
+    x0, step = 200, 115
+    s += line(x0 - 24, sy, x0 + 4 * step + 24, sy, "#bbbbbb", 2)
+    for i, l in enumerate(["FF", "F", "M", "T", "TT"]):
+        x = x0 + i * step
+        s += circle(x, sy, 16, "#fff", INK, 2)
+        s += text(x, sy + 5, l, 12, INK, "middle", "bold")
+    s += text(x0 - 24, sy + 36, "швидкі → напівпровідники", 10.5, "#1f47b5", "middle", "bold")
+    s += text(x0 + 4 * step + 24, sy + 36, "повільні → пускові кидки (мотори, БЖ)", 10.5, "#c0271e", "middle", "bold")
+    save("fig-3-8c-2-fuse-markings.svg", s)
+
+
+# ── Рис. 3.7c.1 (shunt) — шунт міряє струм за спадом напруги ──────────────────
+def fig_shunt_sense():
+    W, H = 820, 330
+    s = header(W, H)
+    s += text(W / 2, 30, "Шунт: міряємо струм за крихітним спадом напруги", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "малий відомий опір у розрив кола; спад на ньому V = I·R, звідси струм I = V/R",
+              11, GREY, "middle", style="italic")
+    y = 170
+    s += line(70, y, 330, y, INK, 3)
+    s += line(490, y, 760, y, INK, 3)
+    s += rect(330, y - 16, 160, 32, "#eef2fb", "#1f47b5", 2.2, 6)
+    s += text(410, y + 5, "R_шунт = 1 мΩ", 12.5, "#1f47b5", "middle", "bold")
+    s += arrow(150, y, 250, y, RED, 3)
+    s += text(200, y - 12, "I = 10 А", 13, RED, "middle", "bold")
+    s += arrow(560, y, 660, y, RED, 3)
+    # вольтметр над шунтом
+    vx, vy = 410, y - 78
+    s += circle(vx, vy, 24, "#fff", INK, 2.2)
+    s += text(vx, vy + 5, "V", 15, INK, "middle", "bold")
+    s += text(vx + 34, vy + 4, "= 10 мВ", 12.5, INK, "start", "bold")
+    s += line(vx - 17, vy + 17, 350, y - 16, INK, 1.8)
+    s += line(vx + 17, vy + 17, 470, y - 16, INK, 1.8)
+    s += rect(205, y + 50, W - 410, 58, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, y + 73, "I = V / R = 10 мВ / 1 мΩ = 10 А", 14, INK, "middle", "bold")
+    s += text(W / 2, y + 95, "малий опір → майже не заважає колу (мала вставна R і втрата I²R)",
+              10.5, GREY, "middle", style="italic")
+    save("fig-3-7c-1-shunt-sense.svg", s)
+
+
+# ── Рис. 3.7c.2 (shunt) — 4-провідне підключення Кельвіна ─────────────────────
+def fig_kelvin_4wire():
+    W, H = 880, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "Чому в шунта 4 проводи: підключення Кельвіна", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "розділяємо шлях струму й шлях вимірювання — і опір проводів та контактів випадає з результату",
+              10.5, GREY, "middle", style="italic")
+    s += line(W / 2, 70, W / 2, H - 84, FAINT, 1.5)
+    # ===== ЛІВОРУЧ: 2 проводи (з помилкою) =====
+    s += text(240, 92, "2 проводи — з помилкою", 13, RED, "middle", "bold")
+    yl = 210
+    s += line(60, yl, 150, yl, INK, 3)
+    s += rect(150, yl - 10, 36, 20, "#fdecea", RED, 1.6, 3)
+    s += text(168, yl - 16, "R_лід", 8.5, RED, "middle", "bold")
+    s += rect(206, yl - 14, 118, 28, "#eef2fb", "#1f47b5", 2, 5)
+    s += text(265, yl + 4, "R_шунт", 11, "#1f47b5", "middle", "bold")
+    s += rect(324, yl - 10, 36, 20, "#fdecea", RED, 1.6, 3)
+    s += text(342, yl - 16, "R_лід", 8.5, RED, "middle", "bold")
+    s += line(360, yl, 430, yl, INK, 3)
+    s += arrow(95, yl, 132, yl, RED, 2.6)
+    s += text(110, yl - 12, "I", 12, RED, "middle", "bold")
+    vy = 128
+    s += circle(255, vy, 22, "#fff", INK, 2)
+    s += text(255, vy + 5, "V", 14, INK, "middle", "bold")
+    s += line(150, yl - 14, 150, vy, INK, 1.8)
+    s += line(150, vy, 233, vy, INK, 1.8)
+    s += line(360, yl - 14, 360, vy, INK, 1.8)
+    s += line(360, vy, 277, vy, INK, 1.8)
+    # ===== ПРАВОРУЧ: 4 проводи (Кельвін) =====
+    s += text(650, 92, "4 проводи (Кельвін) — точно", 13, GREEN, "middle", "bold")
+    yr = 210
+    xc = 650
+    s += line(486, yr, 588, yr, INK, 3)
+    s += rect(588, yr - 14, 124, 28, "#eef2fb", "#1f47b5", 2, 5)
+    s += text(650, yr + 4, "R_шунт", 11, "#1f47b5", "middle", "bold")
+    s += line(712, yr, 818, yr, INK, 3)
+    s += arrow(520, yr, 558, yr, RED, 2.6)
+    s += text(536, yr - 12, "I", 12, RED, "middle", "bold")
+    s += arrow(742, yr, 800, yr, RED, 2.6)
+    s += text(650, yr + 32, "сила (force): несе струм", 9.5, RED, "middle", "bold")
+    s += circle(xc, vy, 22, "#fff", INK, 2)
+    s += text(xc, vy + 5, "V", 14, INK, "middle", "bold")
+    s += line(606, yr - 14, 606, vy, "#1f8a3b", 1.8)
+    s += line(606, vy, xc - 22, vy, "#1f8a3b", 1.8)
+    s += line(694, yr - 14, 694, vy, "#1f8a3b", 1.8)
+    s += line(694, vy, xc + 22, vy, "#1f8a3b", 1.8)
+    s += text(xc, 170, "сенс (sense): майже без струму", 9.5, GREEN, "middle", "bold")
+    # ===== пояснення внизу =====
+    s += rect(40, 312, 398, 66, "#fdecea", RED, 1.4, 8)
+    s += text(239, 334, "Вольтметр бачить спад на проводах І шунті —", 10.5, INK, "middle", "bold")
+    s += text(239, 352, "завищує. При 1 мΩ навіть 0.3 мΩ контактів = +30 %.", 10.5, INK, "middle", "bold")
+    s += rect(442, 312, 398, 66, "#e7f3ea", GREEN, 1.4, 8)
+    s += text(641, 334, "Сенсорні проводи майже без струму → без спаду", 10.5, INK, "middle", "bold")
+    s += text(641, 352, "в них. Вольтметр бачить ЛИШЕ опір шунта.", 10.5, INK, "middle", "bold")
+    save("fig-3-7c-2-kelvin-4wire.svg", s)
+
+
+# ── Рис. 3.7c.1 — кольоровий код резистора (4 кільця) ─────────────────────────
+def fig_color_bands():
+    W, H = 860, 470
+    s = header(W, H)
+    s += text(W / 2, 32, "Як прочитати резистор: кольорові кільця", 19, INK, "middle", "bold")
+    s += text(W / 2, 53, "4 кільця: цифра · цифра · множник · допуск (кільце допуску стоїть скраю, трохи окремо)",
+              11, GREY, "middle", style="italic")
+    # ── резистор ──
+    cy = 112
+    s += line(180, cy, 322, cy, "#9a9a9a", 6)
+    s += line(558, cy, 700, cy, "#9a9a9a", 6)
+    s += rect(320, cy - 32, 240, 64, "#efe2c8", "#b8a37a", 2, 16)
+    for bx, col in [(360, "#7a4a1e"), (404, "#1b1b1b"), (448, "#c0271e")]:
+        s += rect(bx - 9, cy - 31, 18, 62, col, "none", 0)
+    s += rect(521, cy - 31, 18, 62, "#c9a227", "none", 0)
+    # ролі над кільцями
+    s += text(360, cy - 44, "цифра 1", 10, INK, "middle", "bold")
+    s += text(404, cy - 58, "цифра 2", 10, INK, "middle", "bold")
+    s += text(448, cy - 44, "множник", 10, INK, "middle", "bold")
+    s += text(530, cy - 58, "допуск", 10, INK, "middle", "bold")
+    s += line(404, cy - 52, 404, cy - 33, GREY, 1)
+    s += line(530, cy - 52, 530, cy - 33, GREY, 1)
+    # значення під кільцями
+    s += text(360, cy + 56, "1", 14, "#7a4a1e", "middle", "bold")
+    s += text(404, cy + 56, "0", 14, INK, "middle", "bold")
+    s += text(448, cy + 56, "×100", 12, "#c0271e", "middle", "bold")
+    s += text(530, cy + 56, "±5%", 12, "#9a7d1a", "middle", "bold")
+    # приклад
+    s += rect(150, 188, W - 300, 40, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, 213, "коричневий·чорний·червоний·золотий → 1 0 ×100 = 1000 Ω = 1 кΩ, ±5%",
+              13, INK, "middle", "bold")
+    # ── легенда кольорів ──
+    s += text(W / 2, 260, "Колір → цифра (той самий колір як множник 10^цифра)", 12, INK, "middle", "bold")
+    leg = [("0", "#1b1b1b", "#fff", "чорн."), ("1", "#7a4a1e", "#fff", "кор."),
+           ("2", "#c0271e", "#fff", "черв."), ("3", "#e08030", "#000", "оранж."),
+           ("4", "#e6c100", "#000", "жовт."), ("5", "#1f8a3b", "#fff", "зел."),
+           ("6", "#1f47b5", "#fff", "син."), ("7", "#7a3fb0", "#fff", "фіол."),
+           ("8", "#8a8a8a", "#000", "сір."), ("9", "#f2f2f2", "#000", "біл.")]
+    x0, w, gap = 64, 44, 28
+    for i, (d, col, tc, nm) in enumerate(leg):
+        x = x0 + i * (w + gap)
+        s += rect(x, 277, w, 28, col, "#c9c9c9", 1.2, 4)
+        s += text(x + w / 2, 297, d, 15, tc, "middle", "bold")
+        s += text(x + w / 2, 320, nm, 9.5, GREY, "middle")
+    # золото/срібло + примітки
+    s += rect(80, 342, W - 160, 34, "#fff8ee", "#c9a227", 1.6, 10)
+    s += text(W / 2, 364, "Золоте кільце: множник ×0.1 або допуск ±5%.   Срібне: ×0.01 або ±10%.",
+              12, INK, "middle", "bold")
+    s += text(W / 2, 400, "5 кілець (точні резистори): цифра · цифра · цифра · множник · допуск.",
+              11.5, INK, "middle", "bold")
+    s += text(W / 2, 422, "Напрям читання: кільце допуску — скраю; читають від протилежного краю.",
+              10.5, GREY, "middle", style="italic")
+    s += text(W / 2, 448, "Якщо кольори стерлися чи сумнівні (кор./черв./оранж. при поганому світлі) — виміряй омметром (§1.6).",
+              10.5, GREY, "middle", style="italic")
+    save("fig-3-7c-1-color-bands.svg", s)
+
+
+# ── Рис. 3.7c.2 — SMD-коди резисторів ────────────────────────────────────────
+def fig_smd_codes():
+    W, H = 820, 430
+    s = header(W, H)
+    s += text(W / 2, 32, "SMD-резистори: цифрові коди", 19, INK, "middle", "bold")
+    s += text(W / 2, 53, "На крихітних SMD немає кілець — номінал друкують числовим кодом", 11, GREY, "middle", style="italic")
+
+    def chip(cx, cy, code, title, decode, result):
+        out = text(cx, cy - 44, title, 11, GREEN, "middle", "bold")
+        out += rect(cx - 58, cy - 30, 116, 60, "#2a2a2a", "#101010", 2, 8)
+        out += text(cx, cy + 9, code, 22, "#f4f4f4", "middle", "bold")
+        out += text(cx, cy + 58, decode, 12, INK, "middle", "bold")
+        out += text(cx, cy + 80, result, 12.5, "#c0271e", "middle", "bold")
+        return out
+
+    s += chip(210, 132, "472", "3 цифри: 2 цифри + нулі-множник",
+              "47 × 10² (два нулі)", "= 4700 Ω = 4.7 кΩ")
+    s += chip(610, 132, "4701", "4 цифри (точні): 3 цифри + множник",
+              "470 × 10¹ (один нуль)", "= 4700 Ω = 4.7 кΩ")
+    s += chip(210, 288, "4R7", "літера R = десяткова кома",
+              "4R7 → 4.7 Ω    ·    R47 → 0.47 Ω", "(R стоїть на місці коми)")
+    s += chip(610, 288, "000", "нуль = перемичка",
+              "000 або 0 → перемичка", "= 0 Ω (просто дротик)")
+    s += line(W / 2, 82, W / 2, H - 52, FAINT, 1.4)
+    s += rect(70, H - 46, W - 140, 32, "#f4f7f4", GREEN, 1.4, 10)
+    s += text(W / 2, H - 25, "Код дає НОМІНАЛ; справжнє значення — у межах допуску, а напевне скаже лише омметр (§1.6).",
+              11.5, INK, "middle", "bold")
+    save("fig-3-7c-2-smd-codes.svg", s)
+
+
+# ── Рис. 3.5m.1 — мапа одиниць: Дж / Вт·год / кВт·год / мА·год ────────────────
+def fig_energy_units():
+    W, H = 840, 430
+    s = header(W, H)
+    s += text(W / 2, 34, "Арифметика енергії: джоуль, ват-година, мА·год", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "енергія = потужність × час; а мА·год — це заряд (струм×час), не енергія",
+              11.5, GREY, "middle", style="italic")
+
+    def box(x, y, w, h, title, sub, fill, stroke):
+        out = rect(x, y, w, h, fill, stroke, 2, 10)
+        out += text(x + w / 2, y + 27, title, 14.5, INK, "middle", "bold")
+        if sub:
+            out += text(x + w / 2, y + 47, sub, 11, GREY, "middle")
+        return out
+
+    # ── ЕНЕРГІЯ: рядок одиниць ──
+    s += text(W / 2, 96, "ЕНЕРГІЯ  (потужність × час)", 13, GREEN, "middle", "bold")
+    y1 = 112
+    s += box(60, y1, 170, 66, "Джоуль (Дж)", "= Вт·с — одиниця СІ", "#eef5ef", GREEN)
+    s += box(335, y1, 170, 66, "Ват-год (Вт·год)", "= 3600 Дж", "#eef5ef", GREEN)
+    s += box(610, y1, 170, 66, "кіловат-год", "= 1000 Вт·год = 3.6 МДж", "#eef5ef", GREEN)
+    s += arrow(232, y1 + 33, 333, y1 + 33, INK, 2.2)
+    s += text(282, y1 + 22, "×3600", 11, INK, "middle", "bold")
+    s += arrow(507, y1 + 33, 608, y1 + 33, INK, 2.2)
+    s += text(558, y1 + 22, "×1000", 11, INK, "middle", "bold")
+
+    # ── ЗАРЯД (не енергія!) ──
+    y2 = 250
+    s += box(60, y2, 196, 66, "мА·год / А·год", "заряд = струм × час", "#fbece9", RED)
+    s += text(158, y2 - 10, "ЦЕ ЗАРЯД — не енергія!", 12, RED, "middle", "bold")
+    # міст: заряд × напругу → енергія (Вт·год)
+    s += arrow(258, y2 + 6, 392, y1 + 62, INK, 2.4)
+    s += text(300, 232, "× напругу V", 12, "#b06a00", "start", "bold")
+    s += text(300, 300, "А·год × В = Вт·год", 11, INK, "start", "bold")
+
+    # ── середня потужність ──
+    s += rect(486, y2, 294, 66, "#f3f7f3", GREEN, 1.8, 12)
+    s += text(633, y2 + 26, "Середня потужність", 12.5, INK, "middle", "bold")
+    s += text(633, y2 + 48, "P_сер = енергія ÷ час", 13.5, INK, "middle", "bold")
+
+    # ── підсумковий рядок ──
+    s += rect(60, H - 56, W - 120, 34, "#fff8ee", ORANGE, 1.6, 10)
+    s += text(W / 2, H - 35, "Час роботи від батареї = (її енергія, Вт·год) ÷ (середня потужність споживача, Вт).",
+              12, INK, "middle", "bold")
+    save("fig-3-5m-1-energy-units.svg", s)
+
+
 if __name__ == "__main__":
     # Історія
     fig_joule_paddle()
@@ -1594,4 +2801,51 @@ if __name__ == "__main__":
     fig37_sizes()
     fig37_select_flow()
     fig37_led_example()
+    # §3.8 Запобіжники й самовідновні PTC
+    fig38_overcurrent()
+    fig38_fuse_anatomy()
+    fig38_time_current()
+    fig38_fast_slow()
+    fig38_ptc_mechanism()
+    fig38_ptc_cycle()
+    fig38_fuse_vs_ptc()
+    # §3.9 Тепловий опір і радіатор
+    fig39_heat_must_go()
+    fig39_thermal_ohm()
+    fig39_thermal_chain()
+    fig39_heatsink_rescue()
+    fig39_tim()
+    fig39_modes()
+    # §3.3 вставка — дроти
+    fig_wires()
+    # §3.4 історія — полювання на нитку
+    fig_filament_timeline()
+    fig_carbon_vs_tungsten()
+    fig_brittle_vs_ductile()
+    # §3.4 вставка — NTC проти кидка струму
+    fig_ntc_inrush()
+    # §3.5 вставка (🧮) — одиниці енергії
+    fig_energy_units()
+    # §3.7 вставка (🔌) — маркування резисторів
+    fig_color_bands()
+    fig_smd_codes()
+    # §3.7 вставка (🧮) — ряди E
+    fig_eseries_ladder()
+    fig_eseries_tiling()
+    # §3.7 вставка (🔌) — шунти й Кельвін
+    fig_shunt_sense()
+    fig_kelvin_4wire()
+    # §3.8 вставка (🔌) — запобіжник як компонент
+    fig_fuse_formfactors()
+    fig_fuse_markings()
+    # §3.8 історія (📜) — народження запобіжника
+    fig_fuse_timeline()
+    fig_fuse_weak_link()
+    fig_fuse_penny_tamper()
+    # §3.9 вставка (🔌) — тепловий шлях
+    fig_thermal_stack()
+    fig_isolation_mount()
+    # §3.9 вставка (🧮) — теплова RC-модель
+    fig_thermal_rc()
+    fig_pulse_vs_steady()
     print("OK — фігури розділу 3 (повна, +§3.7 резистор) згенеровано в", OUT)

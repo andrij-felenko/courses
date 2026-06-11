@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" viewBox="0 0 820 320">
+<rect width="820" height="320" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="410.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Альфа: прозорість для накладання</text>
+<rect x="70.0" y="80.0" width="110.0" height="110.0" rx="0" fill="#cfe0ee" stroke="#1b1b1b" stroke-width="1.4"/>
+<text x="125.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">тло (dst)</text>
+<rect x="110.0" y="110.0" width="110.0" height="110.0" rx="0" fill="#cf4040" stroke="#1b1b1b" stroke-width="1.4"/>
+<rect x="110.0" y="110.0" width="110.0" height="110.0" rx="0" fill="#cf4040" stroke="none" stroke-width="0"/>
+<text x="165.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">напівпрозоре (src, α=0.5)</text>
+<line x1="245.0" y1="150.0" x2="305.0" y2="150.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="320.0" y="80.0" width="110.0" height="110.0" rx="0" fill="#cfe0ee" stroke="#1b1b1b" stroke-width="1.4"/>
+<rect x="360.0" y="110.0" width="110.0" height="110.0" rx="0" fill="#9f7090" stroke="#1b1b1b" stroke-width="1.4"/>
+<text x="415.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">результат накладання</text>
+<rect x="520.0" y="96.0" width="250.0" height="56.0" rx="6" fill="#eef4f8" stroke="#1b1b1b" stroke-width="1.4"/>
+<text x="645.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">out = src·α + dst·(1−α)</text>
+<text x="645.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">α=1 непрозоро · α=0 невидимо</text>
+<rect x="520.0" y="176.0" width="250.0" height="70.0" rx="6" fill="#fff8e8" stroke="#b07d18" stroke-width="1.4"/>
+<text x="645.0" y="198.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">дешева заміна — колірний ключ:</text>
+<text x="645.0" y="218.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">один колір (напр. пурпур) = прозорий,</text>
+<text x="645.0" y="234.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">решта малюється; без альфа-каналу</text>
+<text x="410.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Альфу беруть під час малювання (накладання шарів), а на екран іде вже змішаний колір — сам екран прозорости не має.</text>
+</svg>

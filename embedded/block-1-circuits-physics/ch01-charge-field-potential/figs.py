@@ -2127,6 +2127,996 @@ def fig17_bridge_to_current():
     save("fig-1-7-3-bridge-to-current.svg", s)
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# Тема 1.1.8 — Клітка Фарадея й екранування
+# ═════════════════════════════════════════════════════════════════════════════
+
+STEEL = "#7a8a99"   # метал/оболонка
+STEELF = "#e9edf0"  # заливка металу
+PALEG = "#bfe0c8"   # бліде поле (просочування)
+
+
+def _shell_round(x, y, w, h, t, fill=STEELF, stroke=STEEL, sw=2.4, rx=18):
+    """Порожнистий провідник: зовнішня рамка (метал) + біла порожнина всередині."""
+    out = rect(x, y, w, h, fill, stroke, sw, rx)
+    out += rect(x + t, y + t, w - 2 * t, h - 2 * t, "#ffffff", stroke, sw, max(2, rx - t))
+    return out
+
+
+# ── Рис. 1.1.8.1 — екранована порожнина в зовнішньому полі ────────────────────
+def fig18_shielded_cavity():
+    W, H = 820, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Клітка Фарадея: у замкнутому провіднику поля немає", 21, INK, "middle", "bold")
+    s += text(W / 2, 56, "зовнішнє поле наводить заряди на поверхні, а ті повністю гасять його в порожнині",
+              12.5, GREY, "middle", style="italic")
+    bx, by, bw, bh, t = 300, 150, 230, 210, 34
+    # незбурене поле далеко від провідника (повні лінії згори й знизу)
+    for yy in (122, 388):
+        s += arrow(70, yy, W - 60, yy, GREEN, 2.0)
+    # лінії, що впираються в лівий бік і знову виходять із правого
+    for yy in (170, 210, 250, 290, 330):
+        s += arrow(70, yy, bx - 4, yy, GREEN, 2.2)
+        s += arrow(bx + bw + 4, yy, W - 60, yy, GREEN, 2.2)
+    s += text(96, 104, "E зовнішнє →", 14, GREEN, "start", "bold")
+    s += _shell_round(bx, by, bw, bh, t)
+    # наведені заряди: − на лівому боці, + на правому (зовнішня поверхня)
+    for yy in range(by + 28, by + bh - 18, 34):
+        s += minus(bx + 15, yy, 8, BLUE, 2)
+        s += plus(bx + bw - 15, yy, 8, RED, 2)
+    s += text(bx + 4, by - 10, "наведені −", 12.5, BLUE, "start", "bold")
+    s += text(bx + bw - 4, by - 10, "наведені +", 12.5, RED, "end", "bold")
+    s += text(bx + bw / 2, by + bh / 2 - 4, "E = 0", 27, GREEN, "middle", "bold")
+    s += text(bx + bw / 2, by + bh / 2 + 22, "порожнина екранована", 12, GREY, "middle", style="italic")
+    s += text(bx + bw / 2, by + bh + 24, "суцільний метал (провідник)", 12.5, STEEL, "middle", "bold")
+    s += rect(80, H - 46, W - 160, 34, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 24, "Лінії поля впираються в метал перпендикулярно (§1.1.3) і не проходять усередину: екранує вже тонка оболонка.",
+              12, INK, "middle", "bold")
+    save("fig-1-8-1-shielded-cavity.svg", s)
+
+
+# ── Рис. 1.1.8.2 — механізм: електрони рухаються, доки не згасне поле ─────────
+def fig18_induced_mechanism():
+    W, H = 840, 430
+    s = header(W, H)
+    s += text(W / 2, 34, "Механізм: вільні електрони рухаються, доки не вб'ють поле в металі", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "рівновага означає E = 0 в металі — інакше заряди ще рухалися б (§1.1.6)",
+              12.5, GREY, "middle", style="italic")
+
+    def panel(x0, title, settled):
+        out = ""
+        bx, by, bw, bh, t = x0, 108, 250, 190, 30
+        for yy in (140, 180, 220, 260):
+            out += arrow(x0 - 58, yy, x0 - 6, yy, GREEN, 2.0)
+        out += _shell_round(bx, by, bw, bh, t)
+        if settled:
+            for yy in range(by + 26, by + bh - 14, 30):
+                out += minus(bx + 14, yy, 7, BLUE, 1.8)
+                out += plus(bx + bw - 14, yy, 7, RED, 1.8)
+            out += text(bx + bw / 2, by + bh / 2 + 4, "E = 0", 20, GREEN, "middle", "bold")
+            out += text(bx + bw / 2, by + bh + 32, "рівновага: поле згасло", 12.5, GREEN, "middle", "bold")
+        else:
+            for yy in (140, 180, 220, 260):  # поле ще проникає (бліде, без вістря)
+                out += line(bx + 18, yy, bx + bw - 18, yy, PALEG, 2.2)
+            for (ex, ey) in ((bx + 80, 150), (bx + 150, 180), (bx + 100, 215), (bx + 165, 248), (bx + 70, 270)):
+                out += minus(ex, ey, 7, BLUE, 1.8)
+                out += arrow(ex - 8, ey, ex - 32, ey, BLUE, 1.6)
+            out += text(bx + bw / 2, by + bh + 32, "перша мить: e⁻ рушили ліворуч", 12.5, INK, "middle", "bold")
+        out += text(bx + bw / 2, by - 14, title, 13.5, INK, "middle", "bold")
+        return out
+
+    s += panel(120, "1. поле щойно ввімкнули", False)
+    s += panel(470, "2. за коротку мить — рівновага", True)
+    s += arrow(392, 203, 462, 203, INK, 2.8)
+    s += rect(110, H - 40, W - 220, 30, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 19, "Заряди рухаються, доки їхнє власне поле не зрівноважить зовнішнє — і лише тоді все завмирає.",
+              12, INK, "middle", "bold")
+    save("fig-1-8-2-induced-charges.svg", s)
+
+
+# ── Рис. 1.1.8.3 — суперпозиція: зовнішнє + наведене = 0 всередині ────────────
+def fig18_superposition():
+    W, H = 860, 380
+    s = header(W, H)
+    s += text(W / 2, 34, "Чому саме НУЛЬ: суперпозиція двох полів", 21, INK, "middle", "bold")
+    s += text(W / 2, 56, "наведені заряди дають поле, точно протилежне зовнішньому, — і в порожнині вони гасяться",
+              12.5, GREY, "middle", style="italic")
+
+    def box(x, title):
+        return rect(x, 110, 200, 150, "#fafafa", GREY, 1.8, 12) + text(x + 100, 100, title, 13, INK, "middle", "bold")
+
+    x1 = 60
+    s += box(x1, "зовнішнє  E_зовн →")
+    for yy in range(132, 241, 27):
+        s += arrow(x1 + 16, yy, x1 + 184, yy, GREEN, 2.2)
+    x2 = 330
+    s += box(x2, "← наведене  E_навед")
+    s += minus(x2 + 16, 185, 9, BLUE, 2)
+    s += plus(x2 + 184, 185, 9, RED, 2)
+    for yy in range(132, 241, 27):
+        s += arrow(x2 + 178, yy, x2 + 22, yy, GREEN, 2.2)
+    x3 = 600
+    s += box(x3, "сума в порожнині")
+    s += text(x3 + 100, 196, "0", 36, GREEN, "middle", "bold")
+    s += text(x3 + 100, 236, "E = 0", 14, GREEN, "middle", "bold")
+    s += text(283, 194, "+", 26, INK, "middle", "bold")
+    s += text(553, 194, "=", 26, INK, "middle", "bold")
+    s += rect(60, 298, W - 120, 58, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, 322, "Це та сама суперпозиція, що й у §1.1.2–1.1.3: заряди на поверхні самі добирають таке поле,",
+              12.5, INK, "middle", "bold")
+    s += text(W / 2, 342, "що скрізь у порожнині дорівнює зовнішньому за модулем і протилежне за напрямком.",
+              12.5, INK, "middle")
+    save("fig-1-8-3-superposition-cancel.svg", s)
+
+
+# ── Рис. 1.1.8.4 — порожнина-еквіпотенціаль; порожнистий = суцільний ──────────
+def fig18_equipotential():
+    W, H = 840, 410
+    s = header(W, H)
+    s += text(W / 2, 34, "Наслідки: порожнина — одна еквіпотенціаль, а товщина не важить", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "якщо E = 0, то V не змінюється (§1.1.6): уся порожнина й метал — на одному потенціалі",
+              12.5, GREY, "middle", style="italic")
+    bx, by, bw, bh, t = 70, 108, 250, 196, 26
+    for yy in (130, 170, 210, 250, 286):
+        s += arrow(bx - 54, yy, bx - 6, yy, GREEN, 2.0)
+    s += _shell_round(bx, by, bw, bh, t)
+    s += rect(bx + t, by + t, bw - 2 * t, bh - 2 * t, "#f3eefb", VIOLET, 1.6, 6)
+    s += text(bx + bw / 2, by + bh / 2 - 6, "V = const", 19, VIOLET, "middle", "bold")
+    s += text(bx + bw / 2, by + bh / 2 + 16, "ΔV = 0 у всій порожнині", 11.5, GREY, "middle", style="italic")
+    s += text(bx + bw / 2, by + bh + 22, "зовні 10 кВ/м × 0.2 м = 2 кВ перепаду →  всередині 0 В", 11.5, INK, "middle", "bold")
+    rx = 470
+    s += text(rx + 150, 100, "Екранує оболонка, а не товщина", 14, INK, "middle", "bold")
+    s += rect(rx, 128, 118, 108, STEELF, STEEL, 2.4, 12)
+    s += text(rx + 59, 252, "суцільний", 12.5, INK, "middle", "bold")
+    s += _shell_round(rx + 182, 128, 118, 108, 11)
+    s += text(rx + 241, 252, "порожнистий (фольга)", 12, INK, "middle", "bold")
+    s += text(rx + 150, 282, "зовні й у порожнині — однаково;", 12, GREY, "middle", style="italic")
+    s += text(rx + 150, 300, "навіть тонка замкнута фольга екранує", 12, GREY, "middle", style="italic")
+    s += rect(70, H - 40, W - 140, 30, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 19, "Важлива тільки ЗАМКНУТІСТЬ провідної оболонки — не її товщина й не те, суцільна вона чи порожня.",
+              12, INK, "middle", "bold")
+    save("fig-1-8-4-equipotential-interior.svg", s)
+
+
+# ── Рис. 1.1.8.5 — навіть сітка екранує ──────────────────────────────────────
+def fig18_mesh():
+    W, H = 820, 410
+    s = header(W, H)
+    s += text(W / 2, 34, "Чому годиться навіть сітка: клітка Фарадея була сітчаста", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "лінії впираються в прутики; крізь отвори поле трохи просочується й швидко згасає",
+              12.5, GREY, "middle", style="italic")
+    bx, by, bw, bh = 240, 96, 320, 250
+    for yy in range(116, 331, 30):
+        s += arrow(70, yy, bx - 8, yy, GREEN, 2.0)
+    step = 32
+    pts = []
+    x = bx
+    while x <= bx + bw + 1:
+        pts.append((x, by)); pts.append((x, by + bh)); x += step
+    y = by
+    while y <= by + bh + 1:
+        pts.append((bx, y)); pts.append((bx + bw, y)); y += step
+    for (px, py) in pts:
+        s += circle(px, py, 4.5, "#9aa7b3", STEEL, 1.4)
+    for yy in range(by + 26, by + bh - 10, 52):
+        s += minus(bx, yy, 6, BLUE, 1.6)
+        s += plus(bx + bw, yy, 6, RED, 1.6)
+    for yy in (130, 178, 226, 300):  # просочування біля отворів — коротке, бліде
+        s += line(bx + 6, yy, bx + 36, yy, PALEG, 2.2)
+    s += text(bx + bw / 2, by + bh / 2 - 4, "E ≈ 0", 22, GREEN, "middle", "bold")
+    s += text(bx + bw / 2, by + bh / 2 + 18, "глибоко всередині — практично нуль", 11.5, GREY, "middle", style="italic")
+    s += text(bx + bw / 2, by - 12, "сітчастий провідник", 12.5, STEEL, "middle", "bold")
+    s += rect(606, 110, 184, 150, "#fafafa", GREY, 1.6, 10)
+    s += text(698, 136, "Отвір пропускає поле", 12, INK, "middle", "bold")
+    s += text(698, 156, "на глибину ≈ свого", 12, INK, "middle")
+    s += text(698, 176, "розміру — і там воно", 12, INK, "middle")
+    s += text(698, 196, "вже згасає.", 12, INK, "middle")
+    s += text(698, 224, "Дрібніша комірка →", 12, GREEN, "middle", "bold")
+    s += text(698, 244, "краще екранування.", 12, GREEN, "middle", "bold")
+    s += rect(70, H - 40, W - 140, 30, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 19, "Тому екранують і сітка, і перфорований корпус, і обплетення кабелю — аби комірка була дрібна.",
+              12, INK, "middle", "bold")
+    save("fig-1-8-5-mesh-cage.svg", s)
+
+
+# ── Рис. 1.1.8.6 — зворотний бік: заряд усередині (дослід із цеберком) ────────
+def fig18_charge_inside():
+    W, H = 840, 430
+    s = header(W, H)
+    s += text(W / 2, 34, "Зворотний бік: заряд УСЕРЕДИНІ порожнини", 21, INK, "middle", "bold")
+    s += text(W / 2, 56, "він наводить −q на внутрішній стінці й +q на зовнішній (заряд зберігається, §1.1.1)",
+              12.5, GREY, "middle", style="italic")
+
+    def panel(x0, grounded):
+        out = ""
+        bx, by, bw, bh, t = x0, 100, 250, 206, 24
+        out += _shell_round(bx, by, bw, bh, t)
+        cx, cy = bx + bw / 2, by + bh / 2
+        rxw, ryw = bw / 2 - t - 8, bh / 2 - t - 8
+        # лінії від +q до внутрішньої стінки + наведені −
+        for a in range(0, 360, 45):
+            ix = cx + rxw * math.cos(math.radians(a))
+            iy = cy + ryw * math.sin(math.radians(a))
+            out += line(cx + 13 * math.cos(math.radians(a)), cy + 13 * math.sin(math.radians(a)), ix, iy, PALEG, 1.6)
+            out += minus(ix, iy, 6, BLUE, 1.6)
+        out += _src_plus(cx, cy, 15)
+        out += text(cx, cy - 24, "+q", 12.5, RED, "middle", "bold")
+        if grounded:
+            gx, gy = bx + bw, by + bh - 24
+            out += line(gx, gy, gx + 34, gy, INK, 2.2)
+            out += line(gx + 34, gy, gx + 34, gy + 14, INK, 2.2)
+            out += line(gx + 22, gy + 14, gx + 46, gy + 14, INK, 2.4)
+            out += line(gx + 27, gy + 21, gx + 41, gy + 21, INK, 2.4)
+            out += line(gx + 31, gy + 28, gx + 37, gy + 28, INK, 2.4)
+            out += text(cx, by + bh + 30, "заземлено: зовні поля НЕМАЄ", 12.5, GREEN, "middle", "bold")
+            out += text(cx, by + bh + 48, "(зовнішній +q стік у землю)", 11.5, GREY, "middle", style="italic")
+        else:
+            for a in range(0, 360, 45):
+                ox = cx + (bw / 2) * math.cos(math.radians(a))
+                oy = cy + (bh / 2) * math.sin(math.radians(a))
+                out += plus(ox, oy, 6, RED, 1.6)
+            for a in (-35, 0, 35, 180 - 35, 180, 180 + 35):
+                ux, uy = math.cos(math.radians(a)), math.sin(math.radians(a))
+                out += arrow(cx + (bw / 2) * ux, cy + (bh / 2) * uy,
+                             cx + (bw / 2 + 34) * ux, cy + (bh / 2 + 34) * uy, GREEN, 1.8)
+            out += text(cx, by + bh + 30, "не заземлено: зовні є поле", 12.5, INK, "middle", "bold")
+            out += text(cx, by + bh + 48, "(але лише від СУМАРНОГО +q)", 11.5, GREY, "middle", style="italic")
+        return out
+
+    s += panel(70, False)
+    s += panel(470, True)
+    s += rect(70, H - 34, W - 140, 26, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 16, "Оболонка ховає від світу РОЗТАШУВАННЯ внутрішніх зарядів; заземлення ховає їх повністю.",
+              12, INK, "middle", "bold")
+    save("fig-1-8-6-charge-inside.svg", s)
+
+
+# ── Рис. 1.1.8.7 — клітки Фарадея довкола нас ────────────────────────────────
+def fig18_everyday():
+    W, H = 860, 430
+    s = header(W, H)
+    s += text(W / 2, 34, "Клітки Фарадея довкола нас", 21, INK, "middle", "bold")
+    s += text(W / 2, 56, "той самий принцип — від блискавки над авто до пакета для мікросхеми",
+              12.5, GREY, "middle", style="italic")
+    pw, ph = 190, 156
+    xs = [40, 250, 460, 670]
+    yT = 88
+
+    def cell(x, title):
+        return rect(x, yT, pw, ph, "#fafafa", GREY, 1.8, 12) + text(x + pw / 2, yT + 22, title, 13, INK, "middle", "bold")
+
+    # 1) авто й блискавка
+    s += cell(xs[0], "авто й блискавка")
+    cx = xs[0] + pw / 2
+    s += rect(cx - 58, yT + 84, 116, 36, STEELF, STEEL, 2.2, 10)
+    s += circle(cx - 34, yT + 124, 9, "#444", INK, 2)
+    s += circle(cx + 34, yT + 124, 9, "#444", INK, 2)
+    s += circle(cx, yT + 100, 6, "#fff", INK, 1.6)  # людина (голова)
+    s += polyline([(cx - 6, yT + 38), (cx + 5, yT + 56), (cx - 4, yT + 60), (cx + 8, yT + 80)], AMBER, 3)
+    s += arrow(cx - 56, yT + 86, cx - 56, yT + 116, GREEN, 1.8)
+    s += arrow(cx + 56, yT + 86, cx + 56, yT + 116, GREEN, 1.8)
+    s += text(cx, yT + ph - 9, "струм — по кузову, повз людину", 10, GREY, "middle", style="italic")
+    # 2) сітка дверцят НВЧ
+    s += cell(xs[1], "сітка дверцят НВЧ")
+    gx0, gy0 = xs[1] + 38, yT + 46
+    for i in range(6):
+        s += line(gx0 + i * 22, gy0, gx0 + i * 22, gy0 + 66, STEEL, 1.4)
+    for j in range(4):
+        s += line(gx0, gy0 + j * 22, gx0 + 110, gy0 + j * 22, STEEL, 1.4)
+    s += text(xs[1] + pw / 2, yT + ph - 9, "комірки дрібніші за хвилю", 10, GREY, "middle", style="italic")
+    # 3) екран кабелю (коаксіал)
+    s += cell(xs[2], "екран кабелю")
+    ccx, ccy = xs[2] + pw / 2, yT + 84
+    s += circle(ccx, ccy, 44, "none", STEEL, 2.4)
+    s += circle(ccx, ccy, 29, "#fff", "#b9986a", 1.6)
+    s += circle(ccx, ccy, 8, RED, RED, 1.2)
+    s += text(ccx, ccy + 36, "екран ловить наводки", 10, GREY, "middle", style="italic")
+    # 4) антистатичний пакет
+    s += cell(xs[3], "антистатичний пакет")
+    s += rect(xs[3] + 56, yT + 52, 80, 58, "#cfd8de", STEEL, 2.2, 6)
+    s += rect(xs[3] + 73, yT + 68, 46, 26, "#222", INK, 1.6, 2)
+    s += text(xs[3] + 96, yT + 85, "чип", 10, "#fff", "middle", "bold")
+    for yy in (yT + 60, yT + 80, yT + 100):
+        s += arrow(xs[3] + 22, yy, xs[3] + 52, yy, GREEN, 1.6)
+    s += text(xs[3] + pw / 2, yT + ph - 9, "екран не пускає ESD до чипа", 10, GREY, "middle", style="italic")
+    s += rect(40, H - 44, W - 80, 34, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 22, "Скрізь одне: замкнута провідна оболонка бере поле на себе й лишає захищений простір усередині.",
+              12, INK, "middle", "bold")
+    save("fig-1-8-7-everyday-cages.svg", s)
+
+
+# ── Рис. 1.1.8.8 — місток до Розділу 1.2 ─────────────────────────────────────
+def fig18_bridge_to_current():
+    W, H = 840, 380
+    s = header(W, H)
+    s += text(W / 2, 34, "Місток до Розділу 1.2: напруга — це готовність штовхати", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "поки заряди стоять — це статика; дай їм провідний шлях — вони потечуть (струм)",
+              12, GREY, "middle", style="italic")
+
+    def loop(x0, closed, label, note):
+        out = ""
+        L, R, T, B = x0, x0 + 230, 110, 270
+        out += line(L, T, L, B, INK, 2.4)
+        out += line(L - 14, 175, L + 14, 175, RED, 3)
+        out += line(L - 9, 192, L + 9, 192, BLUE, 4)
+        out += text(L - 28, 180, "+", 14, RED, "middle", "bold")
+        out += text(L - 28, 205, "−", 14, BLUE, "middle", "bold")
+        out += line(L, T, x0 + 95, T, INK, 2.4)
+        if closed:
+            out += line(x0 + 95, T, x0 + 135, T, INK, 2.4)
+        else:
+            out += line(x0 + 95, T, x0 + 130, T - 22, INK, 2.4)
+        out += line(x0 + 135, T, R, T, INK, 2.4)
+        out += text(x0 + 115, T - 30, "ключ", 10.5, INK, "middle", "bold")
+        out += rect(R - 16, 165, 32, 44, "#fff7ef", "#c89b5a", 2, 5)
+        out += line(R, T, R, 165, INK, 2.4)
+        out += line(R, 209, R, B, INK, 2.4)
+        out += line(L, B, R, B, INK, 2.4)
+        if closed:
+            for px in (x0 + 60, x0 + 165):
+                out += arrow(px, T, px + 24, T, GREEN, 2.2)
+            out += arrow(R, 235, R, 200, GREEN, 2.2)
+            out += minus(x0 + 120, B, 7, BLUE, 1.6)
+            out += minus(x0 + 90, T, 7, BLUE, 1.6)
+        out += text(x0 + 115, B + 26, label, 12.5, (GREEN if closed else INK), "middle", "bold")
+        out += text(x0 + 115, B + 44, note, 11, GREY, "middle", style="italic")
+        return out
+
+    s += loop(120, False, "розімкнено: напруга є, струму нема", "заряди «готові», але стоять")
+    s += loop(490, True, "замкнено: заряд ТЕЧЕ — це струм", "→ Розділ 1.2")
+    s += arrow(372, 200, 476, 200, INK, 3)
+    s += text(424, 188, "дай шлях", 11, INK, "middle", "bold")
+    save("fig-1-8-8-bridge-to-current.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Історія до теми 1.1.1 — Мілікен і краплі олії
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_millikan_apparatus():
+    W, H = 820, 480
+    s = header(W, H)
+    s += text(W / 2, 34, "Краплинні терези Мілікена: як зважили заряд електрона", 21, INK, "middle", "bold")
+    s += text(W / 2, 56, "крапля олії висить нерухомо, коли електрична сила вгору врівноважує тяжіння вниз",
+              12.5, GREY, "middle", style="italic")
+    chx, chy, chw, chh = 235, 154, 350, 178
+    s += rect(chx, chy, chw, chh, "#f7f7f4", "#b9b3a6", 2, 8)
+    px0, px1 = chx + 28, chx + chw - 28
+    topy, boty = chy + 34, chy + chh - 34
+    s += rect(px0, topy - 6, px1 - px0, 12, STEELF, STEEL, 2, 3)
+    s += rect(px0, boty - 6, px1 - px0, 12, STEELF, STEEL, 2, 3)
+    s += text((px0 + px1) / 2, topy - 13, "верхня пластина  +", 12.5, RED, "middle", "bold")
+    s += text((px0 + px1) / 2, boty + 24, "нижня пластина  −", 12.5, BLUE, "middle", "bold")
+    for xx in range(int(px0) + 30, int(px1) - 10, 48):
+        s += line(xx, topy + 10, xx, boty - 10, "#e7d9b0", 1.4)
+    dx, dy = (px0 + px1) / 2, (topy + boty) / 2
+    s += circle(dx, dy, 9, "#caa24a", "#7a5a12", 2)
+    s += minus(dx + 17, dy - 14, 6, BLUE, 1.6)
+    s += text(dx + 78, dy - 13, "заряджена", 11.5, INK, "start", "bold")
+    s += text(dx + 78, dy + 3, "крапля олії", 11.5, INK, "start", "bold")
+    s += arrow(dx, dy + 11, dx, boty - 14, INK, 2.6)
+    s += text(dx - 12, dy + 33, "mg", 13, INK, "end", "bold", "italic")
+    s += text(dx - 12, dy + 48, "тяжіння", 10.5, GREY, "end")
+    s += arrow(dx, dy - 11, dx, topy + 14, GREEN, 2.6)
+    s += text(dx - 12, dy - 28, "qE", 13, GREEN, "end", "bold", "italic")
+    s += text(dx - 12, dy - 42, "електр. сила", 10.5, GREY, "end")
+    # розпилювач згори
+    s += text(dx, chy - 36, "розпилювач (атомайзер)", 12, INK, "middle", "bold")
+    s += rect(dx - 26, chy - 30, 52, 15, "#eeeeee", GREY, 1.6, 4)
+    for k in range(-2, 3):
+        s += circle(dx + k * 6, chy - 8, 1.8, "#caa24a", "#caa24a", 0.6)
+    # батарея зліва + дроти до пластин
+    s += line(px0, topy, 150, topy, INK, 2)
+    s += line(150, topy, 150, 212, INK, 2)
+    s += line(px0, boty, 150, boty, INK, 2)
+    s += line(150, boty, 150, 226, INK, 2)
+    s += line(134, 212, 166, 212, INK, 2.4)   # + (довга риска)
+    s += line(142, 226, 158, 226, INK, 5)      # − (коротка товста)
+    s += text(176, 214, "U", 14, INK, "start", "bold", "italic")
+    s += text(150, 256, "висока напруга", 11, GREY, "middle")
+    # мікроскоп справа
+    s += rect(648, dy - 14, 70, 28, "#eeeef5", "#555566", 2, 6)
+    s += circle(648, dy, 12, "#ffffff", "#555566", 2)
+    s += line(716, dy, 600, dy, GREY, 1.3, "5 4")
+    s += text(683, dy - 22, "мікроскоп", 12, "#555566", "middle", "bold")
+    s += text(683, dy + 30, "(дивимось збоку)", 10.5, GREY, "middle", style="italic")
+    s += rect(60, H - 52, W - 120, 40, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 33, "Без поля крапля падає рівномірно (в'язкість повітря, закон Стокса) → її радіус і маса.",
+              12, INK, "middle", "bold")
+    s += text(W / 2, H - 16, "Увімкнули поле, врівноважили — і з напруги U дістаємо заряд q. Він завжди кратний e.",
+              12, INK, "middle")
+    save("fig-1-1i-1-apparatus.svg", s)
+
+
+def fig_millikan_quantization():
+    W, H = 820, 430
+    s = header(W, H)
+    s += text(W / 2, 34, "Головний висновок: заряд іде порціями", 21, INK, "middle", "bold")
+    s += text(W / 2, 56, "виміряні заряди крапель лягають ТІЛЬКИ на цілі кратні e — між ними порожньо",
+              12.5, GREY, "middle", style="italic")
+    x0, x1 = 92, 760
+    axisY = 312
+    s += arrow(x0 - 6, axisY, x1 + 8, axisY, INK, 2)
+    s += text(x1 + 10, axisY + 22, "q", 14, INK, "start", "bold", "italic")
+    s += text(x0 - 6, axisY + 22, "0", 12.5, INK, "middle")
+    unit = (x1 - x0) / 6.3
+    offsets = {1: [-7, 4, -2, 9], 2: [3, -5, 8, -1, -9], 3: [-4, 6, 0, -8],
+               4: [5, -3, 9, -7], 5: [-2, 7, -6], 6: [4, -5]}
+    for n in range(1, 7):
+        tx = x0 + n * unit
+        s += line(tx, axisY - 6, tx, axisY + 6, INK, 1.8)
+        s += line(tx, axisY - 6, tx, 98, FAINT, 1.2, "4 4")
+        s += text(tx, axisY + 24, ("e" if n == 1 else f"{n}e"), 13, INK, "middle", "bold")
+        for j, off in enumerate(offsets[n]):
+            yy = axisY - 28 - j * 17
+            s += circle(tx + off, yy, 5, "#caa24a", "#7a5a12", 1.4)
+    s += text(x0 + unit, axisY + 42, "≈ 1.6×10⁻¹⁹ Кл", 11, GREY, "middle", style="italic")
+    s += line(x0 + 3 * unit, 112, x0 + 4 * unit, 112, GREEN, 2)
+    s += line(x0 + 3 * unit, 107, x0 + 3 * unit, 117, GREEN, 2)
+    s += line(x0 + 4 * unit, 107, x0 + 4 * unit, 117, GREEN, 2)
+    s += text(x0 + 3.5 * unit, 102, "крок = e", 12.5, GREEN, "middle", "bold")
+    s += rect(70, H - 52, W - 140, 40, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 33, "Кожна крапля несе кілька зайвих електронів — але завжди ціле їх число.",
+              12, INK, "middle", "bold")
+    s += text(W / 2, H - 16, "Найбільший спільний дільник усіх виміряних зарядів і є елементарний заряд e.",
+              12, INK, "middle")
+    save("fig-1-1i-2-quantization.svg", s)
+
+
+def fig_millikan_creep():
+    W, H = 820, 430
+    s = header(W, H)
+    s += text(W / 2, 34, "Як вимір повз до істини (за Фейнманом)", 21, INK, "middle", "bold")
+    s += text(W / 2, 56, "схематично: кожен наступний результат трохи більший — відкидали значення, далекі від Мілікенового",
+              12, GREY, "middle", style="italic")
+    gx0, gx1 = 120, 740
+    gy0, gy1 = 110, 330
+    s += arrow(gx0, gy1, gx0, gy0 - 6, INK, 2)
+    s += arrow(gx0, gy1, gx1 + 6, gy1, INK, 2)
+    s += text(gx0 - 8, gy0 - 12, "e (×10⁻¹⁹ Кл)", 12, INK, "start", "bold")
+    s += text(gx1 + 6, gy1 + 22, "рік", 13, INK, "start", "bold", "italic")
+    emin, emax = 1.588, 1.604
+    ymin, ymax = 1913, 1951
+    ey = lambda e: gy1 - (e - emin) / (emax - emin) * (gy1 - gy0)
+    ex = lambda yr: gx0 + (yr - ymin) / (ymax - ymin) * (gx1 - gx0)
+    for e in (1.590, 1.594, 1.598, 1.602):
+        yy = ey(e)
+        s += line(gx0 - 4, yy, gx0, yy, INK, 1.5)
+        s += text(gx0 - 8, yy + 4, f"{e:.3f}", 11, GREY, "end")
+    yt = ey(1.602)
+    s += line(gx0, yt, gx1, yt, GREEN, 2, "7 5")
+    s += text(gx1, yt - 8, "сучасне значення  1.602", 12, GREEN, "end", "bold")
+    pts = [(1913, 1.591), (1917, 1.592), (1923, 1.594), (1929, 1.596),
+           (1935, 1.598), (1941, 1.600), (1947, 1.6013)]
+    s += polyline([(ex(yr), ey(e)) for yr, e in pts], "#caa24a", 2.2)
+    for i, (yr, e) in enumerate(pts):
+        s += circle(ex(yr), ey(e), 4.5, (RED if i == 0 else "#caa24a"), "#7a5a12", 1.4)
+    s += text(ex(1913) + 8, ey(1.591) + 4, "Мілікен, 1913 (занизько: хибна в'язкість повітря)", 11, RED, "start", "bold")
+    s += rect(70, H - 40, W - 140, 30, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 19, "Урок: дані відкидають за чесним наперед заданим критерієм, а не за «несхожістю на очікуване».",
+              12, INK, "middle", "bold")
+    save("fig-1-1i-3-creep.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Математична вставка до теми 1.1.2 — Вектори
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_vec_components():
+    W, H = 720, 430
+    s = header(W, H)
+    s += text(W / 2, 34, "Вектор: довжина + напрямок = пара координат", 21, INK, "middle", "bold")
+    s += text(W / 2, 56, "силу-стрілку розкладають на складові Fx і Fy — і збирають назад",
+              12.5, GREY, "middle", style="italic")
+    ox, oy = 140, 340
+    s += arrow(ox, oy, ox + 360, oy, INK, 1.8)
+    s += arrow(ox, oy, ox, oy - 250, INK, 1.8)
+    s += text(ox + 360, oy + 22, "x", 13, INK, "start", "italic")
+    s += text(ox - 16, oy - 246, "y", 13, INK, "start", "italic")
+    Px, Py = ox + 250, oy - 188
+    # складові (спершу — щоб вектор лежав згори)
+    s += line(Px, Py, Px, oy, GREY, 1.5, "5 4")
+    s += line(Px, Py, ox, Py, GREY, 1.5, "5 4")
+    s += arrow(ox, oy, Px, oy, INK, 2.4)
+    s += text((ox + Px) / 2, oy + 24, "Fx = F·cos θ", 13, INK, "middle", "bold")
+    s += arrow(ox, oy, ox, Py, INK, 2.4)
+    s += text(ox - 14, (oy + Py) / 2, "Fy = F·sin θ", 13, INK, "end", "bold")
+    # прямий кут біля основи
+    s += rect(Px - 12, oy - 12, 12, 12, "none", GREY, 1.2)
+    # вектор
+    s += arrow(ox, oy, Px, Py, RED, 3.2)
+    s += text((ox + Px) / 2 - 16, (oy + Py) / 2 - 10, "F", 17, RED, "middle", "bold", "italic")
+    s += circle(Px, Py, 3.5, RED, RED, 1)
+    s += text(ox + 42, oy - 14, "θ", 13, INK, "middle", "bold", "italic")
+    # формули
+    s += rect(430, 112, 252, 124, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(556, 138, "Зі стрілки → координати:", 12.5, INK, "middle", "bold")
+    s += text(446, 164, "Fx = F·cos θ,   Fy = F·sin θ", 12.5, INK, "start")
+    s += text(556, 192, "З координат → стрілка:", 12.5, INK, "middle", "bold")
+    s += text(446, 216, "|F| = √(Fx² + Fy²)", 13, INK, "start", "bold")
+    s += text(446, 234, "θ = arctg(Fy / Fx)", 12.5, INK, "start")
+    save("fig-1-2m-1-vector-components.svg", s)
+
+
+def fig_vec_addition():
+    W, H = 780, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Додавання сил: «голова до хвоста» = скласти координати", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "рівнодійна R = F₁ + F₂; на практиці окремо складають Fx і Fy",
+              12.5, GREY, "middle", style="italic")
+    q0 = (170, 330)
+    s += _src_plus(q0[0], q0[1], 14)
+    s += text(q0[0], q0[1] + 32, "заряд q₀", 12.5, INK, "middle", "bold")
+    F1 = (q0[0] + 150, q0[1] - 60)
+    F2 = (q0[0] + 90, q0[1] - 170)
+    s += arrow(q0[0], q0[1], F1[0], F1[1], BLUE, 3)
+    s += text(F1[0] + 14, F1[1] + 4, "F₁", 14, BLUE, "start", "bold", "italic")
+    s += arrow(q0[0], q0[1], F2[0], F2[1], BLUE, 3)
+    s += text(F2[0] - 4, F2[1] - 8, "F₂", 14, BLUE, "start", "bold", "italic")
+    Rx = (F1[0] - q0[0]) + (F2[0] - q0[0])
+    Ry = (F1[1] - q0[1]) + (F2[1] - q0[1])
+    R = (q0[0] + Rx, q0[1] + Ry)
+    s += line(F1[0], F1[1], R[0], R[1], GREY, 1.5, "5 4")
+    s += line(F2[0], F2[1], R[0], R[1], GREY, 1.5, "5 4")
+    s += arrow(q0[0], q0[1], R[0], R[1], GREEN, 3.4)
+    s += text(R[0] + 12, R[1], "R = F₁+F₂", 14, GREEN, "start", "bold")
+    s += rect(500, 110, 262, 152, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(631, 136, "У координатах — просто:", 12.5, INK, "middle", "bold")
+    s += text(516, 164, "Rx = F₁x + F₂x", 13.5, INK, "start", "bold")
+    s += text(516, 188, "Ry = F₁y + F₂y", 13.5, INK, "start", "bold")
+    s += text(516, 216, "|R| = √(Rx² + Ry²)", 13, INK, "start")
+    s += text(516, 238, "θ = arctg(Ry / Rx)", 12.5, INK, "start")
+    s += rect(40, H - 40, W - 80, 30, "#fafafa", GREY, 1.4, 10)
+    s += text(W / 2, H - 19, "Складати координати можна для будь-якого числа сил — і це тривіально в коді (сума масивів).",
+              12, INK, "middle", "bold")
+    save("fig-1-2m-2-vector-addition.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Компонентна вставка до теми 1.1.2 — Генератор Ван де Граафа
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_van_de_graaff():
+    W, H = 720, 540
+    s = header(W, H)
+    s += text(W / 2, 34, "Генератор Ван де Граафа: стрічка носить заряд на купол", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "унизу стрічка набирає заряд, угорі гребінець скидає його на металеву кулю",
+              12.5, GREY, "middle", style="italic")
+    colx = 330
+    domeCy, domeR = 152, 80
+    # колона-ізолятор і двигун
+    s += rect(colx - 16, 212, 32, 240, "#eef0f2", "#c9cdd2", 1.6, 6)
+    s += rect(colx - 80, 452, 160, 60, "#e9edf0", STEEL, 2, 8)
+    s += text(colx, 487, "двигун", 13, INK, "middle", "bold")
+    s += line(colx - 64, 514, colx + 64, 514, INK, 2)
+    for gx in range(int(colx) - 64, int(colx) + 65, 16):
+        s += line(gx, 514, gx - 8, 524, INK, 1.2)
+    # купол
+    s += circle(colx, domeCy, domeR, "#eef3f7", STEEL, 2.6)
+    for a in range(0, 360, 30):
+        ex = colx + (domeR + 2) * math.cos(math.radians(a))
+        ey = domeCy + (domeR + 2) * math.sin(math.radians(a))
+        s += plus(ex, ey, 6, RED, 1.6)
+    s += text(colx, domeCy - 4, "купол", 13, STEEL, "middle", "bold")
+    s += text(colx, domeCy + 13, "(метал. куля)", 10.5, GREY, "middle", style="italic")
+    # ролики й стрічка
+    lx, rx = colx - 22, colx + 22
+    upY, loY = domeCy + 38, 446
+    s += circle(colx, upY, 11, "#fff", INK, 2)
+    s += circle(colx, loY, 11, "#fff", INK, 2)
+    s += line(lx, upY, lx, loY, "#7a5a3a", 4)
+    s += line(rx, upY, rx, loY, "#7a5a3a", 4)
+    s += text(lx - 8, 318, "стрічка", 11.5, "#7a5a3a", "end", "bold")
+    s += arrow(lx, 364, lx, 326, GREEN, 2)      # висхідна
+    s += arrow(rx, 326, rx, 364, INK, 1.6)       # спадна
+    for yy in (414, 384, 352):
+        s += plus(lx, yy, 6, RED, 1.6)
+    # нижній гребінець
+    s += line(colx - 66, 432, lx - 6, 432, INK, 2)
+    for k in range(4):
+        s += line(lx - 6 - k * 5, 428, lx - 12 - k * 5, 437, INK, 1.4)
+    s += text(colx - 70, 428, "нижній", 10.5, INK, "end", "bold")
+    s += text(colx - 70, 442, "гребінець", 10.5, INK, "end", "bold")
+    # верхній гребінець (усередині купола)
+    s += line(colx + 66, domeCy + 58, rx + 6, domeCy + 58, INK, 2)
+    for k in range(4):
+        s += line(rx + 6 + k * 5, domeCy + 54, rx + 12 + k * 5, domeCy + 63, INK, 1.4)
+    s += text(colx + 70, domeCy + 54, "верхній", 10.5, INK, "start", "bold")
+    s += text(colx + 70, domeCy + 68, "гребінець", 10.5, INK, "start", "bold")
+    # розрядна куля + іскра
+    gsx = 520
+    s += circle(gsx, domeCy, 24, "#eef0f2", STEEL, 2)
+    s += line(gsx, domeCy + 24, gsx, domeCy + 40, INK, 2)
+    s += line(gsx - 14, domeCy + 40, gsx + 14, domeCy + 40, INK, 2)
+    s += line(gsx - 9, domeCy + 46, gsx + 9, domeCy + 46, INK, 2)
+    s += line(gsx - 4, domeCy + 52, gsx + 4, domeCy + 52, INK, 2)
+    s += polyline([(colx + domeR, domeCy), (colx + domeR + 22, domeCy - 11),
+                   (colx + domeR + 40, domeCy + 9), (gsx - 24, domeCy)], AMBER, 2.4)
+    s += text((colx + domeR + gsx) / 2, domeCy - 24, "іскра", 11, AMBER, "middle", "bold")
+    # пояснення
+    s += rect(34, 96, 196, 104, "#f4f7f4", GREEN, 1.4, 8)
+    s += text(42, 116, "Унизу стрічка треться,", 11, INK, "start", "bold")
+    s += text(42, 132, "а корона з вістрів гребінця", 11, INK, "start")
+    s += text(42, 148, "напорскує на неї заряд", 11, INK, "start")
+    s += text(42, 166, "(трибоелектрика §1.1.1,", 10.5, GREY, "start", style="italic")
+    s += text(42, 181, "корона на вістрях §1.1.3).", 10.5, GREY, "start", style="italic")
+    s += rect(468, 392, 238, 120, "#f4f7f4", GREEN, 1.4, 8)
+    s += text(476, 412, "Угорі гребінець скидає заряд", 11, INK, "start")
+    s += text(476, 428, "усередину купола. Та заряд", 11, INK, "start")
+    s += text(476, 444, "провідника йде на ЗОВНІШНЮ", 11, INK, "start", "bold")
+    s += text(476, 460, "поверхню (§1.1.8) — усередині", 11, INK, "start")
+    s += text(476, 476, "знов «порожньо», і купол бере", 11, INK, "start")
+    s += text(476, 492, "заряд далі: до сотень кВ.", 11, INK, "start", "bold")
+    save("fig-1-2c-1-van-de-graaff.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Математична вставка до теми 1.1.4 — Робота як інтеграл
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_work_area():
+    W, H = 840, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Робота — це площа під кривою сили", 21, INK, "middle", "bold")
+    s += text(W / 2, 56, "стала сила дає прямокутник F·d; змінна — площу під графіком F(x)",
+              12.5, GREY, "middle", style="italic")
+    # ── ЛІВО: стала сила ──
+    ox, oy = 90, 320
+    s += arrow(ox, oy, ox + 290, oy, INK, 1.8)
+    s += arrow(ox, oy, ox, oy - 215, INK, 1.8)
+    s += text(ox + 200, oy + 22, "відстань", 12, INK, "middle", "italic")
+    s += text(ox - 6, oy - 220, "F", 12, INK, "start", "italic")
+    Fy = oy - 150
+    dX = ox + 200
+    s += rect(ox, Fy, dX - ox, oy - Fy, "#dfeee5", "none", 0)
+    s += line(ox, Fy, dX, Fy, RED, 2.6)
+    s += line(dX, oy, dX, Fy, GREY, 1.5, "4 3")
+    s += text(ox - 8, Fy + 4, "F", 13, RED, "end", "bold", "italic")
+    s += text(dX, oy + 22, "d", 13, INK, "middle", "bold", "italic")
+    s += text((ox + dX) / 2, (oy + Fy) / 2, "W = F·d", 15, INK, "middle", "bold")
+    s += text((ox + dX) / 2, (oy + Fy) / 2 + 20, "площа прямокутника", 11, GREY, "middle", style="italic")
+    s += text((ox + dX) / 2, 92, "стала сила", 13, INK, "middle", "bold")
+    # ── ПРАВО: змінна сила ──
+    bx, by = 480, 320
+    s += arrow(bx, by, bx + 310, by, INK, 1.8)
+    s += arrow(bx, by, bx, by - 215, INK, 1.8)
+    s += text(bx + 200, by + 22, "відстань", 12, INK, "middle", "italic")
+    s += text(bx - 6, by - 220, "F", 12, INK, "start", "italic")
+
+    def cy(t):  # спадна крива, t∈0..1
+        return 1.0 / (0.62 + 1.7 * t)
+    x0p, x1p = bx + 12, bx + 252
+    N = 8
+    for i in range(N):
+        xa = x0p + (x1p - x0p) * i / N
+        xb = x0p + (x1p - x0p) * (i + 1) / N
+        h = cy((i + 0.5) / N) * 90
+        s += rect(xa, by - h, xb - xa, h, "#eaf5ee", GREEN, 1)
+    pts = [(x0p + (x1p - x0p) * k / 60, by - cy(k / 60) * 90) for k in range(61)]
+    s += polyline(pts, RED, 2.6)
+    s += text(x1p, by + 22, "x", 13, INK, "middle", "bold", "italic")
+    s += text((x0p + x1p) / 2 + 10, by - 56, "W = ∫ F dx", 16, INK, "middle", "bold")
+    s += text((x0p + x1p) / 2 + 10, by - 36, "площа під кривою", 11, GREY, "middle", style="italic")
+    s += text((bx + x1p) / 2, 92, "змінна сила", 13, INK, "middle", "bold")
+    save("fig-1-4m-1-area-under-curve.svg", s)
+
+
+def fig_work_coulomb():
+    W, H = 780, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "Звідки енергія kQq/r: площа під кулонівською силою", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "робота перенести заряд із нескінченності до r — це площа під кривою F = kQq/r²",
+              12, GREY, "middle", style="italic")
+    ox, oy = 110, 332
+    s += arrow(ox, oy, ox + 560, oy, INK, 1.8)
+    s += arrow(ox, oy, ox, oy - 250, INK, 1.8)
+    s += text(ox + 470, oy + 22, "відстань r", 12, INK, "middle", "italic")
+    s += text(ox - 6, oy - 254, "F = kQq/r²", 12, INK, "start", "italic")
+    r0, rmax = 1.0, 6.0
+    sx0, sx1 = ox + 56, ox + 540
+    X = lambda r: sx0 + (r - r0) / (rmax - r0) * (sx1 - sx0)
+    Y = lambda r: oy - (r0 * r0) / (r * r) * 212
+    N = 60
+    for i in range(N):
+        ra = r0 + (rmax - r0) * i / N
+        rb = r0 + (rmax - r0) * (i + 1) / N
+        s += rect(X(ra), Y((ra + rb) / 2), X(rb) - X(ra) + 0.8, oy - Y((ra + rb) / 2), "#eaf5ee", "none", 0)
+    s += polyline([(X(r0 + (rmax - r0) * k / 120), Y(r0 + (rmax - r0) * k / 120)) for k in range(121)], RED, 2.8)
+    s += line(X(r0), oy, X(r0), Y(r0), INK, 1.6, "4 3")
+    s += text(X(r0), oy + 22, "r", 12.5, INK, "middle", "bold", "italic")
+    s += text(X(r0) + 6, Y(r0) - 6, "F = kQq/r²", 12, RED, "start", "bold")
+    s += arrow(sx1 - 6, oy - 34, X(r0) + 46, oy - 34, INK, 2)
+    s += text(sx1 - 10, oy - 44, "несемо заряд із ∞", 11.5, INK, "end", "bold")
+    s += text(440, 150, "зафарбована площа = робота =", 12.5, INK, "middle", "bold")
+    s += text(440, 171, "потенціальна енергія  U = kQq/r", 14, GREEN, "middle", "bold")
+    s += line(388, 176, 268, 268, GREY, 1.2)
+    s += rect(60, H - 38, W - 120, 28, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 19, "Інтеграл 1/r² від r до ∞ дає 1/r — тому потенціал спадає як 1/r, а поле як 1/r² (§1.1.4).",
+              12, INK, "middle", "bold")
+    save("fig-1-4m-2-coulomb-work.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Математична вставка до теми 1.1.5 — Аналіз розмірностей
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_units_check():
+    W, H = 820, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "Аналіз розмірностей: одиниці скорочуються, як числа", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "формулу можна перевірити, не підставивши жодного числа — лише її одиниці",
+              12.5, GREY, "middle", style="italic")
+
+    def card(y, ok, formula, units, note):
+        col = GREEN if ok else RED
+        fill = "#f4f7f4" if ok else "#fdf1f0"
+        out = rect(60, y, W - 120, 86, fill, col, 1.8, 12)
+        out += text(82, y + 34, formula, 16, INK, "start", "bold")
+        out += text(82, y + 62, units, 14, INK, "start")
+        out += text(W - 88, y + 50, ("✓" if ok else "✗"), 30, col, "middle", "bold")
+        out += text(W - 116, y + 34, note, 11.5, col, "end", "bold")
+        return out
+
+    s += card(96, True, "W = q · V", "[Дж]  =  [Кл] · [Дж/Кл]  =  Дж", "сходиться")
+    s += card(198, False, "W = q / V   (помилка!)", "[Кл] / [Дж/Кл]  =  Кл²/Дж   ≠  Дж", "не сходиться")
+    s += card(300, True, "перевірка сталої k:", "(Н·м²/Кл²) · Кл²/м²  =  Н", "сходиться")
+    save("fig-1-5m-1-units-check.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Компонентна вставка до теми 1.1.5 — П'єзозапальничка
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_piezo_igniter():
+    W, H = 760, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "П'єзозапальничка: удар по кристалу → кіловольти → іскра", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "різкий тиск розсуває заряди в кристалі й дає короткий високовольтний імпульс",
+              12, GREY, "middle", style="italic")
+    midY = 230
+    # опора + пружина
+    s += line(40, midY - 24, 40, midY + 24, INK, 3)
+    sx0, sx1, n = 44, 150, 6
+    pts = [(sx0, midY)]
+    for i in range(n):
+        x = sx0 + (sx1 - sx0) * (i + 0.5) / n
+        pts.append((x, midY - 14 if i % 2 == 0 else midY + 14))
+    pts.append((sx1, midY))
+    s += polyline(pts, GREY, 2.2)
+    s += text(97, midY - 30, "пружина", 11, GREY, "middle", style="italic")
+    # молоточок
+    s += rect(150, midY - 20, 34, 40, "#d9dde2", STEEL, 2, 4)
+    s += arrow(186, midY, 214, midY, INK, 2.6)
+    s += text(200, midY - 13, "удар", 11, INK, "middle", "bold")
+    # кристал
+    cx0, cy0, cw, ch = 222, midY - 42, 70, 84
+    s += rect(cx0, cy0, cw, ch, "#efe7d6", "#b9a06a", 2.4, 4)
+    s += text(cx0 + cw / 2, midY + 1, "п'єзо-", 11.5, INK, "middle", "bold")
+    s += text(cx0 + cw / 2, midY + 16, "кристал", 11.5, INK, "middle", "bold")
+    s += text(cx0 + cw / 2, cy0 - 32, "PZT / кварц", 10.5, GREY, "middle", style="italic")
+    # електроди верх/низ + заряди
+    s += rect(cx0, cy0 - 8, cw, 6, "#bbbbbb", STEEL, 1)
+    s += rect(cx0, cy0 + ch + 2, cw, 6, "#bbbbbb", STEEL, 1)
+    for k in range(3):
+        s += plus(cx0 + 17 + k * 18, cy0 - 5, 5, RED, 1.5)
+        s += minus(cx0 + 17 + k * 18, cy0 + ch + 5, 5, BLUE, 1.5)
+    # дроти до іскрового проміжку
+    topwy, botwy = cy0 - 5, cy0 + ch + 5
+    s += line(cx0 + cw, topwy, 540, topwy, RED, 2)
+    s += line(540, topwy, 540, midY - 18, RED, 2)
+    s += line(cx0 + cw, botwy, 560, botwy, BLUE, 2)
+    s += line(560, botwy, 560, midY + 18, BLUE, 2)
+    # іскровий проміжок
+    s += line(540, midY - 18, 540, midY - 4, INK, 2.5)
+    s += line(560, midY + 18, 560, midY + 4, INK, 2.5)
+    s += polyline([(540, midY - 4), (552, midY - 10), (548, midY + 2), (560, midY + 4)], AMBER, 2.4)
+    s += text(550, midY - 26, "іскра", 10.5, AMBER, "middle", "bold")
+    s += text(550, midY + 34, "(пробій ~кВ)", 10, GREY, "middle", style="italic")
+    s += text(640, midY, "→ підпалює газ", 11.5, INK, "start", "bold")
+    # пояснення
+    s += rect(60, H - 76, W - 120, 54, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 54, "Удар різко стискає кристал → на його гранях розділяються заряди (+/−).",
+              12, INK, "middle", "bold")
+    s += text(W / 2, H - 34, "Заряду мало, тож напруга на ньому стрибає до кількох кВ — і пробиває повітря (§1.1.4).",
+              12, INK, "middle")
+    save("fig-1-5c-1-piezo-igniter.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Компонентна вставка до теми 1.1.5 — Лужна батарейка AA
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_alkaline_cell():
+    W, H = 780, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "Лужна батарейка AA зсередини: цинк, MnO₂ і 1.5 В", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "напругу задає пара цинк–діоксид мангану; розмір дає лише ємність і струм",
+              12, GREY, "middle", style="italic")
+    bx, by, bw, bh = 168, 150, 420, 150
+    midY = by + bh / 2
+    # корпус (сталь)
+    s += rect(bx, by, bw, bh, "#dfe3e7", "#8a949e", 2.4, 10)
+    # катод MnO2 (смуги під стінкою)
+    s += rect(bx + 10, by + 10, bw - 20, 28, "#5b5048", "none", 0)
+    s += rect(bx + 10, by + bh - 38, bw - 20, 28, "#5b5048", "none", 0)
+    # сепаратор
+    s += line(bx + 12, by + 42, bx + bw - 12, by + 42, "#cfc8bd", 1.6)
+    s += line(bx + 12, by + bh - 42, bx + bw - 12, by + bh - 42, "#cfc8bd", 1.6)
+    # анод цинк-гель
+    s += rect(bx + 12, by + 44, bw - 24, bh - 88, "#cdd6dc", "none", 0)
+    # колектор по осі
+    s += line(bx - 10, midY, bx + bw - 70, midY, "#b8860b", 4)
+    # + нуб справа
+    s += rect(bx + bw, midY - 22, 18, 44, "#cfd3d8", "#8a949e", 2, 3)
+    s += text(bx + bw + 9, midY - 28, "+", 17, RED, "middle", "bold")
+    # − ковпачок зліва
+    s += rect(bx - 22, by, 22, bh, "#cfd3d8", "#8a949e", 2, 3)
+    s += text(bx - 11, by - 8, "−", 17, BLUE, "middle", "bold")
+    # підписи шарів
+    s += text(bx + bw / 2, by + 28, "катод: MnO₂ + вуглець  (+)", 12, "#ffffff", "middle", "bold")
+    s += text(bx + bw / 2, midY + 4, "анод: цинк-гель + KOH  (−)", 12.5, INK, "middle", "bold")
+    s += text(bx + bw / 2, by + bh - 20, "катод: MnO₂ + вуглець  (+)", 12, "#ffffff", "middle", "bold")
+    s += text(bx + 86, midY - 24, "колектор", 10.5, "#8a6508", "middle", "bold")
+    s += text(bx + bw / 2, by - 10, "сталевий корпус = катодний контакт (+)", 11, GREY, "middle", style="italic")
+    # потік електронів зовні
+    s += arrow(bx - 22, midY + 36, bx - 60, midY + 36, BLUE, 2.2)
+    s += text(bx - 64, midY + 40, "e⁻", 12, BLUE, "end", "bold")
+    s += arrow(bx + bw + 60, midY + 36, bx + bw + 18, midY + 36, BLUE, 2.2)
+    s += text(bx + bw + 64, midY + 40, "e⁻", 12, BLUE, "start", "bold")
+    s += text(W / 2, midY + 92, "e⁻ виходять з −, повертаються в + через навантаження; усередині заряд несуть іони OH⁻",
+              11, BLUE, "middle", "bold")
+    # реакції / 1.5 В
+    s += rect(70, H - 56, W - 140, 44, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, H - 36, "Zn → ZnO (віддає e⁻) на аноді;  2MnO₂ → Mn₂O₃ (бере e⁻) на катоді.",
+              12, INK, "middle", "bold")
+    s += text(W / 2, H - 17, "Різниця їхніх «хімічних висот» = ≈1.5 Дж на кожен кулон = 1.5 В (§1.1.5). Розмір тут ні до чого.",
+              12, INK, "middle")
+    save("fig-1-5c-2-alkaline-cell.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Математична вставка до теми 1.1.6 — Градієнт
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_gradient():
+    W, H = 780, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Градієнт: від карти потенціалу до вектора поля", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "поле = найкрутіший спуск по карті V: ⊥ до ізоліній, у бік меншого V",
+              12, GREY, "middle", style="italic")
+    cx, cy = 290, 252
+    radii = [38, 74, 112, 152, 196]
+    vals = [5, 4, 3, 2, 1]
+    for r, v in zip(radii, vals):
+        s += dcircle(cx, cy, r, VIOLET, 1.6, "5 4")
+        lx = cx + r * math.cos(math.radians(-25))
+        ly = cy + r * math.sin(math.radians(-25))
+        s += text(lx, ly + 4, f"V={v}", 10.5, VIOLET, "middle", "bold")
+    s += _src_plus(cx, cy, 14)
+    # E-стрілки радіально назовні (з гори вниз), ⊥ колам; довші там, де густіше
+    for a in range(0, 360, 45):
+        rad = math.radians(a)
+        s += arrow(cx + 50 * math.cos(rad), cy + 50 * math.sin(rad),
+                   cx + 94 * math.cos(rad), cy + 94 * math.sin(rad), GREEN, 2.4)
+        s += arrow(cx + 168 * math.cos(rad), cy + 168 * math.sin(rad),
+                   cx + 192 * math.cos(rad), cy + 192 * math.sin(rad), GREEN, 1.8)
+    s += text(cx, cy + 222, "ізолінії однакового V (еквіпотенціалі)", 11.5, VIOLET, "middle", "bold")
+    s += text(cx + 150, cy - 156, "E = −∇V", 15, GREEN, "middle", "bold")
+    # пояснення
+    s += rect(556, 104, 206, 252, "#f4f7f4", GREEN, 1.4, 10)
+    s += text(659, 128, "Як читати карту:", 12.5, INK, "middle", "bold")
+    s += text(568, 154, "∇V — вектор у бік", 11.5, INK, "start")
+    s += text(568, 172, "найкрутішого ЗРОСТАННЯ V.", 11.5, INK, "start")
+    s += text(568, 198, "Поле E = −∇V дивиться", 11.5, INK, "start", "bold")
+    s += text(568, 216, "протилежно (з гори вниз)", 11.5, INK, "start")
+    s += text(568, 234, "і завжди ⊥ до ізоліній.", 11.5, INK, "start", "bold")
+    s += text(568, 262, "Густіші ізолінії →", 11.5, INK, "start")
+    s += text(568, 280, "крутіше → більше |E|.", 11.5, INK, "start", "bold")
+    s += text(568, 310, "Так із однієї скалярної", 11, GREY, "start", style="italic")
+    s += text(568, 326, "карти V постає все", 11, GREY, "start", style="italic")
+    s += text(568, 342, "векторне поле E.", 11, GREY, "start", style="italic")
+    save("fig-1-6m-1-gradient.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Алгоритмічна вставка до теми 1.1.6 — Метод релаксації
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_relaxation():
+    W, H = 820, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "Потенціал на сітці: метод релаксації", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "кожна внутрішня клітина = середнє 4 сусідів; повторюй, доки картина не «застигне»",
+              12, GREY, "middle", style="italic")
+    # ── ЛІВО: сітка ──
+    n, cs, gx, gy = 8, 30, 70, 104
+    for r in range(n):
+        for c in range(n):
+            x, y = gx + c * cs, gy + r * cs
+            if r == 0:
+                fill = "#f3c9c4"
+            elif r == n - 1:
+                fill = "#cdd8f2"
+            elif c == 0 or c == n - 1:
+                fill = "#e7ecf6"
+            else:
+                fill = "#fbfbfb"
+            s += rect(x, y, cs, cs, fill, "#d6d6d6", 1)
+    s += text(gx + n * cs / 2, gy - 8, "межа: V = 100 (задано)", 11, RED, "middle", "bold")
+    s += text(gx + n * cs / 2, gy + n * cs + 16, "межа: V = 0 (задано)", 11, BLUE, "middle", "bold")
+    cc, rr = 3, 4
+    cxp, cyp = gx + cc * cs + cs / 2, gy + rr * cs + cs / 2
+    s += rect(gx + cc * cs, gy + rr * cs, cs, cs, "#f6e2b0", "#caa24a", 2)
+    for dc, dr in ((0, -1), (0, 1), (-1, 0), (1, 0)):
+        nx, ny = gx + (cc + dc) * cs + cs / 2, gy + (rr + dr) * cs + cs / 2
+        s += rect(gx + (cc + dc) * cs, gy + (rr + dr) * cs, cs, cs, "#eef5ef", GREEN, 1.6)
+        s += arrow(nx, ny, cxp - (cxp - nx) * 0.38, cyp - (cyp - ny) * 0.38, GREEN, 1.6)
+    s += text(gx + n * cs / 2, gy + n * cs + 44, "V = (Vпівн + Vпівд + Vсх + Vзах) / 4", 12.5, INK, "middle", "bold")
+    # ── ПРАВО: результат ──
+    rx, ry, rw, rh = 500, 104, 256, 240
+    bands = 10
+    for i in range(bands):
+        t = i / (bands - 1)
+        cr = int(243 + (205 - 243) * t)
+        cg = int(201 + (216 - 201) * t)
+        cb = int(196 + (242 - 196) * t)
+        s += rect(rx, ry + i * rh / bands, rw, rh / bands + 0.6, f"rgb({cr},{cg},{cb})", "none", 0)
+    s += rect(rx, ry, rw, rh, "none", "#d6d6d6", 1.5)
+    for fy in (ry + rh * 0.33, ry + rh * 0.66):
+        s += line(rx, fy, rx + rw, fy, VIOLET, 1.4, "5 4")
+    s += text(rx + rw / 2, ry - 8, "після релаксації:", 11.5, INK, "middle", "bold")
+    s += text(rx + rw / 2, ry + rh + 16, "гладкий потенціал V; далі E = −∇V", 11.5, INK, "middle", "bold")
+    s += text(rx + rw / 2, ry + rh + 34, "(ізолінії — фіолетові)", 10.5, GREY, "middle", style="italic")
+    save("fig-1-6a-1-relaxation.svg", s)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Компонентна вставка до теми 1.1.8 — Екран навколо нас
+# ═════════════════════════════════════════════════════════════════════════════
+
+def fig_shield_bonding():
+    W, H = 780, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Екран працює лише добре з'єднаний: корпус, прокладка, кабель", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "провідна оболонка має бути суцільною й заземленою; стики й кабелі — головні діри",
+              12, GREY, "middle", style="italic")
+    ex, ey, ew, eh = 110, 118, 430, 252
+    s += rect(ex, ey, ew, eh, "#e9edf0", STEEL, 2.6, 8)
+    s += rect(ex + 10, ey + 10, ew - 20, eh - 20, "#ffffff", STEEL, 1.4, 6)
+    # шов кришки з прокладкою
+    s += line(ex, ey + 26, ex + ew, ey + 26, STEEL, 1.4, "3 3")
+    for gxx in range(int(ex) + 26, int(ex + ew) - 10, 26):
+        s += circle(gxx, ey + 26, 3, GREEN, GREEN, 0.8)
+    s += text(ex + ew / 2, ey + 20, "провідна прокладка ущільнює стик кришки", 10.5, GREEN, "middle", "bold")
+    # PCB + екранна бляшанка
+    s += rect(ex + 40, ey + eh - 54, 150, 14, "#2b6b3f", "#1d4a2c", 1.4, 2)
+    s += rect(ex + 70, ey + eh - 86, 64, 30, "none", STEEL, 2, 3)
+    s += text(ex + 102, ey + eh - 67, "чип", 10, INK, "middle", "bold")
+    s += text(ex + 102, ey + eh - 92, "екранна бляшанка", 10, STEEL, "middle", "bold")
+    # добрий кабель (360°)
+    gy1 = ey + 82
+    s += line(ex + ew, gy1, ex + ew + 96, gy1, INK, 3)
+    s += circle(ex + ew, gy1, 9, "none", GREEN, 3)
+    s += text(ex + ew + 100, gy1 - 11, "360° оплетення", 11, GREEN, "start", "bold")
+    s += text(ex + ew + 100, gy1 + 6, "на корпус — ДОБРЕ ✓", 11, GREEN, "start", "bold")
+    # поганий кабель (pigtail)
+    gy2 = ey + 172
+    s += line(ex + ew, gy2, ex + ew + 96, gy2, INK, 3)
+    s += circle(ex + ew, gy2, 9, "none", RED, 1.6)
+    s += line(ex + ew + 20, gy2, ex + ew + 20, gy2 + 38, RED, 1.4)
+    s += line(ex + ew + 10, gy2 + 38, ex + ew + 30, gy2 + 38, RED, 2)
+    s += text(ex + ew + 100, gy2 - 11, "«поросячий хвіст»", 11, RED, "start", "bold")
+    s += text(ex + ew + 100, gy2 + 6, "— погано на ВЧ ✗", 11, RED, "start", "bold")
+    # заземлення корпусу
+    cgx = ex + ew / 2
+    s += line(cgx, ey + eh, cgx, ey + eh + 22, INK, 2.4)
+    s += line(cgx - 16, ey + eh + 22, cgx + 16, ey + eh + 22, INK, 2.6)
+    s += line(cgx - 10, ey + eh + 28, cgx + 10, ey + eh + 28, INK, 2.6)
+    s += line(cgx - 5, ey + eh + 34, cgx + 5, ey + eh + 34, INK, 2.6)
+    s += text(cgx, ey + eh + 52, "корпус — на спільну землю (§1.1.8)", 11, INK, "middle", "bold")
+    save("fig-1-8c-1-shield-bonding.svg", s)
+
+
 if __name__ == "__main__":
     # Історія до розділу
     fig_timeline()
@@ -2193,4 +3183,48 @@ if __name__ == "__main__":
     fig17_concept_map()
     fig17_causal_chain()
     fig17_bridge_to_current()
+
+    # Тема 1.1.8 — клітка Фарадея й екранування
+    fig18_shielded_cavity()
+    fig18_induced_mechanism()
+    fig18_superposition()
+    fig18_equipotential()
+    fig18_mesh()
+    fig18_charge_inside()
+    fig18_everyday()
+    fig18_bridge_to_current()
+
+    # Історія до теми 1.1.1 — Мілікен і краплі олії
+    fig_millikan_apparatus()
+    fig_millikan_quantization()
+    fig_millikan_creep()
+
+    # Математична вставка до теми 1.1.2 — вектори
+    fig_vec_components()
+    fig_vec_addition()
+
+    # Компонентна вставка до теми 1.1.2 — Ван де Грааф
+    fig_van_de_graaff()
+
+    # Математична вставка до теми 1.1.4 — робота як інтеграл
+    fig_work_area()
+    fig_work_coulomb()
+
+    # Математична вставка до теми 1.1.5 — аналіз розмірностей
+    fig_units_check()
+
+    # Компонентна вставка до теми 1.1.5 — п'єзозапальничка
+    fig_piezo_igniter()
+
+    # Компонентна вставка до теми 1.1.5 — лужна батарейка
+    fig_alkaline_cell()
+
+    # Математична вставка до теми 1.1.6 — градієнт
+    fig_gradient()
+
+    # Алгоритмічна вставка до теми 1.1.6 — метод релаксації
+    fig_relaxation()
+
+    # Компонентна вставка до теми 1.1.8 — екран навколо нас
+    fig_shield_bonding()
     print("OK — фігури розділу 1 (… + §1.7) згенеровано в", OUT)

@@ -2492,6 +2492,1328 @@ def fig71_applications():
     save("fig-7-7-8-applications.svg", s)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+#  §7.8 — Суперконденсатор: між конденсатором і акумулятором
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.8.1 — карта Рагоне: енергія проти потужності ──────────────────────
+def fig81_ragone():
+    W, H = 800, 540
+    s = header(W, H)
+    s += text(W / 2, 34, "Карта запасників: скільки тримає — і як швидко віддає", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "питома енергія проти питомої потужності; обидві осі логарифмічні",
+              12.5, GREY, "middle", style="italic")
+    ox, oy, w, h = 120, 460, 580, 340
+
+    def px(p):   # питома потужність, Вт/кг: 10¹..10⁵
+        return ox + (math.log10(p) - 1) / 4.0 * w
+
+    def py(e):   # питома енергія, Вт·год/кг: 10⁻²..10³
+        return oy - (math.log10(e) + 2) / 5.0 * h
+
+    sup = "¹²³⁴⁵"
+    for k in range(1, 6):
+        x = px(10.0 ** k)
+        s += line(x, oy, x, oy - h, FAINT, 1)
+        s += text(x, oy + 20, "10" + sup[k - 1], 12.5, GREY, "middle")
+    ylab = {-2: "10⁻²", -1: "10⁻¹", 0: "1", 1: "10¹", 2: "10²", 3: "10³"}
+    for k in range(-2, 4):
+        y = py(10.0 ** k)
+        s += line(ox, y, ox + w, y, FAINT, 1)
+        s += text(ox - 8, y + 4, ylab[k], 12.5, GREY, "end")
+    s += _axes(ox, oy, w, h, "", "")
+    s += text(ox - 50, oy - h - 26, "питома енергія, Вт·год/кг", 13, INK, "start", "bold")
+    s += text(ox + w / 2, oy + 46, "питома потужність, Вт/кг", 13, INK, "middle", "bold")
+
+    def tline(t_h, lab):
+        pts = []
+        for j in range(0, 121):
+            p = 10.0 ** (1 + 4 * j / 120)
+            e = p * t_h
+            if 1e-2 <= e <= 1e3:
+                pts.append((px(p), py(e)))
+        if len(pts) < 2:
+            return ""
+        d = "M " + " L ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+        out = f'<path d="{d}" fill="none" stroke="{GREY}" stroke-width="1.3" stroke-dasharray="5,5"/>\n'
+        lx, ly = pts[-1]
+        out += text(lx - 6, ly - 8, lab, 11, GREY, "end", style="italic")
+        return out
+
+    s += tline(1.0, "віддає запас за години")
+    s += tline(10.0 / 3600, "за секунди")
+    s += tline(0.01 / 3600, "за мілісекунди")
+
+    def blob(p1, p2, e1, e2, fill, stroke, name, name2=""):
+        x1, x2 = px(p1), px(p2)
+        y1, y2 = py(e2), py(e1)
+        cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
+        rx, ry = (x2 - x1) / 2, (y2 - y1) / 2
+        out = (f'<ellipse cx="{cx:.1f}" cy="{cy:.1f}" rx="{rx:.1f}" ry="{ry:.1f}" '
+               f'fill="{fill}" stroke="{stroke}" stroke-width="2"/>\n')
+        out += text(cx, cy - 1, name, 13, INK, "middle", "bold")
+        if name2:
+            out += text(cx, cy + 15, name2, 11, INK, "middle")
+        return out
+
+    s += blob(100, 2000, 40, 300, LBLUE, BLUE, "акумулятор", "(літієвий)")
+    s += blob(600, 2e4, 1, 12, LGRN, GREEN, "суперконденсатор")
+    s += blob(7e3, 1e5, 0.01, 0.12, LRED, "#c98a8a", "звичайні", "конденсатори")
+    s += text(px(900), py(0.2), "прогалину між хімією і полем", 11.5, GREEN, "middle", "bold")
+    s += text(px(900), py(0.2) + 15, "закриває подвійний шар", 11.5, GREEN, "middle", "bold")
+    save("fig-7-8-1-ragone.svg", s)
+
+
+# ── Рис. 7.8.2 — площа активованого вугілля ──────────────────────────────────
+def fig82_carbon_area():
+    W, H = 820, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Активоване вугілля: тенісні корти поверхні в одному грамі", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "що глибше дивимось, то більше поверхні — і вся вона працює «обкладкою»",
+              12.5, GREY, "middle", style="italic")
+    c1 = (130, 190, 52)
+    c2 = (360, 190, 72)
+    c3 = (640, 190, 88)
+    for (xa, ya, ra), (xb, yb, rb) in [(c1, c2), (c2, c3)]:
+        s += line(xa + ra * 0.7, ya - ra * 0.7, xb - rb * 0.7, yb - rb * 0.7, GREY, 1.2, dash="4,4")
+        s += line(xa + ra * 0.7, ya + ra * 0.7, xb - rb * 0.7, yb + rb * 0.7, GREY, 1.2, dash="4,4")
+    # 1) гранула
+    s += circle(c1[0], c1[1], c1[2], "#3a3a3a", INK, 2)
+    s += text(c1[0], c1[1] + c1[2] + 22, "гранула вугілля", 12.5, INK, "middle", "bold")
+    s += text(c1[0], c1[1] + c1[2] + 38, "(частки міліметра)", 11, GREY, "middle")
+    # 2) губка з пор
+    s += circle(c2[0], c2[1], c2[2], "#4a4a4a", INK, 2)
+    holes = [(-30, -28, 11), (8, -38, 9), (34, -10, 12), (-40, 6, 9), (-6, 2, 13),
+             (24, 26, 10), (-22, 36, 11), (40, -38, 6), (6, 44, 7), (-48, -20, 6)]
+    for dx, dy, r in holes:
+        s += circle(c2[0] + dx, c2[1] + dy, r, "#ffffff", "#9a9a9a", 1)
+    s += text(c2[0], c2[1] + c2[2] + 22, "губка з пор", 12.5, INK, "middle", "bold")
+    s += text(c2[0], c2[1] + c2[2] + 38, "канали аж до нанометрових", 11, GREY, "middle")
+    # 3) стінка пори з подвійним шаром
+    x3, y3, r3 = c3
+    s += circle(x3, y3, r3, "#eef4fb", INK, 2)
+    s += line(x3 - 34, y3 - 56, x3 - 34, y3 + 56, "#4a4a4a", 26)
+    for k in range(4):
+        yy = y3 - 42 + k * 28
+        s += plus(x3 - 16, yy, 6, RED, 1.6)
+        s += minus(x3 + 14, yy, 6, BLUE, 1.6)
+        s += circle(x3 - 1, yy, 3.2, FAINT, GREY, 1)
+    s += text(x3, y3 + r3 + 22, "стінка пори: подвійний шар", 12.5, INK, "middle", "bold")
+    s += text(x3, y3 + r3 + 38, "заряд стінки ↔ іони впритул", 11, GREY, "middle")
+    # підсумкова смуга
+    yb = 360
+    s += rect(60, yb - 24, 700, 92, "#fbfbfb", "#d8d8d8", 1.2, 8)
+    s += rect(100, yb + 6, 14, 14, "#3a3a3a", INK, 1.4)
+    s += text(123, yb + 18, "1 г", 13, INK, "start", "bold")
+    s += arrow(160, yb + 13, 220, yb + 13, INK, 2)
+    for k in range(6):
+        s += rect(232 + k * 40, yb - 2, 34, 30, LGRN, GREEN, 1.4)
+    s += text(352, yb - 10, "≈ 1000–2000 м² поверхні — як 6 тенісних кортів", 12.5, INK, "middle", "bold")
+    s += text(410, yb + 52, "C = ε₀ · εr · A / d:   A — величезна, d — нанометр  →  десятки фарад із грама",
+              13, INK, "middle", "bold")
+    save("fig-7-8-2-carbon-area.svg", s)
+
+
+# ── Рис. 7.8.3 — подвійний електричний шар ───────────────────────────────────
+def fig83_double_layer():
+    W, H = 820, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Подвійний електричний шар: конденсатор завтовшки з молекулу", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "одна «обкладка» — заряд в електроді, друга — шар іонів у рідині впритул до нього",
+              12.5, GREY, "middle", style="italic")
+    top, bot = 110, 420
+    # електрод
+    s += rect(70, top, 130, bot - top, LRED, RED, 2)
+    s += text(135, bot + 24, "електрод (вугілля)", 13, INK, "middle", "bold")
+    # електроліт
+    s += rect(200, top, 540, bot - top, "#eef4fb", "#b9cde2", 1.2)
+    s += text(470, bot + 24, "електроліт: рідина з вільними іонами (§1.2.11)", 13, INK, "middle", "bold")
+    # заряд електрода (+) уздовж поверхні
+    for k in range(6):
+        yy = top + 30 + k * 52
+        s += plus(183, yy, 9, RED, 2)
+    # шар розчинника
+    for k in range(15):
+        yy = top + 18 + k * 20
+        s += circle(213, yy, 5.5, "#f6f6f6", GREY, 1)
+    # шар іонів (−)
+    for k in range(6):
+        yy = top + 30 + k * 52
+        s += minus(243, yy, 10, BLUE, 2)
+    # поле в зазорі
+    for yy in (top + 82, top + 186, top + 290):
+        s += arrow(196, yy, 230, yy, GREEN, 2)
+    # розмір зазору
+    s += dim_h(200, 232, top + 10, "d < 1 нм")
+    # підписи
+    s += text(258, 90, "шар іонів — друга «обкладка»", 12, BLUE, "start", "bold")
+    s += line(252, 96, 245, 118, GREY, 1.2)
+    # легенда
+    lx = 500
+    s += plus(lx, 140, 7, RED, 1.6)
+    s += text(lx + 16, 145, "заряд, підведений до електрода", 12, INK)
+    s += circle(lx, 172, 5.5, "#f6f6f6", GREY, 1)
+    s += text(lx + 16, 177, "молекула розчинника (нейтральна)", 12, INK)
+    s += minus(lx, 204, 7, BLUE, 1.6)
+    s += text(lx + 16, 209, "іон, притягнутий полем до поверхні", 12, INK)
+    # товща електроліту
+    bulk = [(340, 280, 1), (395, 330, -1), (455, 290, -1), (520, 345, 1), (585, 300, 1),
+            (650, 350, -1), (700, 285, 1), (370, 385, -1), (560, 390, -1), (640, 395, 1)]
+    for x, y, q in bulk:
+        s += (plus(x, y, 7, "#d98c86", 1.4) if q > 0 else minus(x, y, 7, "#8ba0d6", 1.4))
+    s += text(520, 250, "у товщі — іони обох знаків упереміш (рідина загалом нейтральна)", 12, GREY, "middle", style="italic")
+    s += text(243, bot + 44, "↑ шар Гельмгольца (Helmholtz)", 11.5, GREEN, "middle", "bold")
+    s += text(W / 2, 486, "поки напруга нижча за поріг розкладу електроліту, заряд межі не перетинає — іони лише шикуються біля поверхні",
+              12.5, INK, "middle", style="italic")
+    save("fig-7-8-3-double-layer.svg", s)
+
+
+# ── Рис. 7.8.4 — будова комірки ──────────────────────────────────────────────
+def fig84_cell():
+    W, H = 820, 560
+    s = header(W, H)
+    s += text(W / 2, 34, "Комірка зсередини: два подвійні шари — два конденсатори послідовно", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "увесь «бутерброд» просочений електролітом; сепаратор не дає електродам торкнутися",
+              12.5, GREY, "middle", style="italic")
+    top, hh = 120, 230
+    x0 = 200
+    s += rect(x0, top, 16, hh, METAL, "#7c7c82", 1.4)
+    s += rect(x0 + 16, top, 130, hh, LRED, RED, 1.8)
+    s += rect(x0 + 146, top, 26, hh, "#ffffff", GREY, 1.4)
+    for k in range(8):
+        s += line(x0 + 146, top + 12 + k * 28, x0 + 172, top + 26 + k * 28, GREY, 1, dash="2,3")
+    s += rect(x0 + 172, top, 130, hh, LBLUE, BLUE, 1.8)
+    s += rect(x0 + 302, top, 16, hh, METAL, "#7c7c82", 1.4)
+    # пори в обох електродах
+    pores = [(30, 40), (84, 66), (44, 120), (96, 158), (36, 196), (88, 26)]
+    for dx, dy in pores:
+        s += circle(x0 + 16 + dx, top + dy, 11, "#ffffff", "#9a9a9a", 1)
+        s += circle(x0 + 172 + dx, top + dy, 11, "#ffffff", "#9a9a9a", 1)
+    # виводи
+    s += line(x0 + 8, top, x0 + 8, top - 34, INK, 2.6)
+    s += plus(x0 + 8, top - 48, 10, RED, 2)
+    s += line(x0 + 310, top, x0 + 310, top - 34, INK, 2.6)
+    s += minus(x0 + 310, top - 48, 10, BLUE, 2)
+    # підписи шарів
+    s += text(x0 - 16, top + 40, "C₁: подвійний шар", 12, GREEN, "end", "bold")
+    s += text(x0 - 16, top + 56, "на стінках усіх пор", 11, GREEN, "end")
+    s += arrow(x0 - 12, top + 64, x0 + 60, top + 96, GREEN, 1.6)
+    s += text(x0 + 334, top + 40, "C₂: дзеркальний шар", 12, GREEN, "start", "bold")
+    s += text(x0 + 334, top + 56, "на другому електроді", 11, GREEN, "start")
+    s += arrow(x0 + 330, top + 64, x0 + 250, top + 96, GREEN, 1.6)
+    s += text(x0 - 16, top + hh - 10, "струмознімач (фольга)", 11, GREY, "end")
+    s += arrow(x0 - 12, top + hh - 14, x0 + 8, top + hh - 30, GREY, 1.4)
+    s += text(x0 + 159, top + hh + 22, "сепаратор", 12, INK, "middle", "bold")
+    s += text(x0 + 159, top + hh + 38, "іони — так, електрони — ні", 11, GREY, "middle")
+    s += text(W / 2, top + hh + 64, "електроліт заповнює пори обох електродів і сепаратор — він провідник, і його опір у порах — левова частка ESR",
+              12, GREY, "middle", style="italic")
+    # еквівалентна схема
+    cy = 470
+    s += text(W / 2, cy - 38, "еквівалентна схема: C₁ і C₂ послідовно через опір електроліту (§2.1.7)", 13, INK, "middle", "bold")
+    s += circle(150, cy, 4, INK, INK, 0)
+    c1s, l1, r1 = cap_sym(265, cy, 18, 10)
+    s += line(150, cy, l1, cy, INK, 2.2)
+    s += c1s
+    s += line(r1, cy, 330, cy, INK, 2.2)
+    s += resistor_h(330, 440, cy, "R електроліту")
+    c2s, l2, r2 = cap_sym(520, cy, 18, 10)
+    s += line(440, cy, l2, cy, INK, 2.2)
+    s += c2s
+    s += line(r2, cy, 640, cy, INK, 2.2)
+    s += circle(640, cy, 4, INK, INK, 0)
+    s += text(265, cy + 36, "C₁", 13, INK, "middle", "bold")
+    s += text(520, cy + 36, "C₂", 13, INK, "middle", "bold")
+    s += text(W / 2, cy + 64, "два однакові шари послідовно: C_комірки = C/2", 12.5, GREY, "middle", style="italic")
+    save("fig-7-8-4-cell.svg", s)
+
+
+# ── Рис. 7.8.5 — стеля напруги ───────────────────────────────────────────────
+def fig85_voltage_window():
+    W, H = 800, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Стеля напруги комірки: хімічна межа, а не пробій", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "вище певної напруги електроліт починає розкладатися — «діелектрик» тут рідкий",
+              12.5, GREY, "middle", style="italic")
+    oy, hpx = 400, 290
+
+    def vy(v):
+        return oy - v / 3.5 * hpx
+
+    s += line(110, oy, 110, vy(3.5) - 8, INK, 2)
+    for v in (0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5):
+        s += line(104, vy(v), 110, vy(v), INK, 1.4)
+        s += text(98, vy(v) + 4, f"{v:g}", 11.5, GREY, "end")
+    s += text(70, vy(3.5) - 16, "В", 12.5, INK, "middle", "bold")
+
+    def bar(x, vlim, vred, name, note):
+        out = rect(x, vy(3.5), 110, oy - vy(3.5), "#ffffff", "#c9c9c9", 1.2)
+        out += rect(x, vy(vlim), 110, oy - vy(vlim), LGRN, GREEN, 1.4)
+        out += rect(x, vy(3.5), 110, vy(vred) - vy(3.5), LRED, "#c98a8a", 1.4)
+        out += line(x - 6, vy(vlim), x + 116, vy(vlim), GREEN, 2, dash="5,4")
+        out += text(x + 55, oy + 22, name, 12.5, INK, "middle", "bold")
+        out += text(x + 55, oy + 38, note, 11, GREY, "middle")
+        return out
+
+    s += bar(170, 1.0, 1.2, "водний електроліт", "дешево й безпечно, але ~1 В")
+    s += bar(330, 2.7, 3.0, "органічний електроліт", "типовий номінал 2.7 В")
+    s += text(225, vy(1.2) - 8, "≈1.2 В: вода → H₂ + O₂", 11, "#9a2b22", "middle", "bold")
+    s += text(385, vy(3.0) - 8, "розклад розчинника, газ", 11, "#9a2b22", "middle", "bold")
+    ax = 530
+    s += text(ax, 150, "Це не пробій із §2.1.5:", 13, INK, "start", "bold")
+    s += text(ax, 172, "поле не проколює ізолятор —", 12.5, INK)
+    s += text(ax, 190, "напруга запускає електроліз,", 12.5, INK)
+    s += text(ax, 208, "газ і деградацію комірки.", 12.5, INK)
+    s += text(ax, 248, "W = ½·C·V² — стеля", 13, INK, "start", "bold")
+    s += text(ax, 266, "б'є у квадраті: на 2.7 В", 12.5, INK)
+    s += text(ax, 284, "комірка тримає вчетверо менше,", 12.5, INK)
+    s += text(ax, 302, "ніж тримала б на 5.4 В.", 12.5, INK)
+    s += text(ax, 340, "Вихід — послідовні збірки (§2.1.7)", 12.5, GREEN, "start", "bold")
+    save("fig-7-8-5-voltage-window.svg", s)
+
+
+# ── Рис. 7.8.6 — розряд: «полиця» проти прямої ───────────────────────────────
+def fig86_discharge():
+    W, H = 780, 460
+    s = header(W, H)
+    s += text(W / 2, 34, "Розряд сталим струмом: «полиця» акумулятора проти прямої", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "у конденсатора напруга — чесний лічильник залишку: V = Q/C",
+              12.5, GREY, "middle", style="italic")
+    ox, oy, w, h = 110, 380, 560, 250
+    s += _axes(ox, oy, w, h, "", "напруга")
+    s += text(ox + w, oy + 22, "відданий заряд", 12.5, INK, "end", "bold")
+    # конденсатор: пряма
+    s += line(ox, oy - 0.95 * h, ox + w, oy, RED, 2.8)
+    s += text(ox + 0.45 * w, oy - 0.62 * h, "конденсатор: V = Q/C", 12.5, RED, "middle", "bold")
+    # акумулятор: полиця + обрив
+    pts = []
+    for j in range(0, 101):
+        f = j / 100.0
+        v = 0.9 - 0.05 * f
+        if f > 0.84:
+            v -= 0.85 * ((f - 0.84) / 0.16) ** 2
+        pts.append((ox + f * w, oy - max(v, 0.02) * h))
+    s += _poly(pts, BLUE, 2.8)
+    s += text(ox + 0.3 * w, oy - 0.97 * h, "акумулятор: «полиця»", 12.5, BLUE, "middle", "bold")
+    # поріг схеми
+    vmin = 0.45
+    s += line(ox, oy - vmin * h, ox + w, oy - vmin * h, GREY, 1.4, dash="6,5")
+    s += text(ox + 8, oy - vmin * h - 8, "мінімум, потрібний схемі", 11.5, GREY, "start", "bold")
+    xc = ox + (1 - vmin / 0.95) * w
+    s += line(xc, oy - vmin * h, xc, oy, GREY, 1.2, dash="4,4")
+    s += circle(xc, oy - vmin * h, 4.5, RED, RED, 0)
+    s += text(xc, oy + 22, "≈53% заряду…", 11.5, "#9a2b22", "middle", "bold")
+    s += text(xc, oy + 38, "…але вже ≈78% енергії віддано", 11.5, "#9a2b22", "middle", "bold")
+    xb = ox + 0.95 * w
+    s += line(xb, oy - vmin * h, xb, oy, GREY, 1.2, dash="4,4")
+    s += circle(xb, oy - vmin * h, 4.5, BLUE, BLUE, 0)
+    s += text(xb - 8, oy - vmin * h - 26, "акумулятор тримає рівень", 11.5, "#27447e", "end", "bold")
+    s += text(xb - 8, oy - vmin * h - 12, "майже до самого кінця", 11.5, "#27447e", "end", "bold")
+    save("fig-7-8-6-discharge.svg", s)
+
+
+# ── Рис. 7.8.7 — кожному буферу свій час ─────────────────────────────────────
+def fig87_niche():
+    W, H = 820, 400
+    s = header(W, H)
+    s += text(W / 2, 34, "Кожному буферу — свій час: від мікросекунд до діб", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "як довго запас здатен живити навантаження (масштаб логарифмічний)",
+              12.5, GREY, "middle", style="italic")
+    ax, aw, ay = 80, 680, 320
+
+    def px(t):
+        return ax + (math.log10(t) + 6) / 11.0 * aw
+
+    s += arrow(ax - 6, ay, ax + aw + 18, ay, INK, 2)
+    for t, lab in [(1e-6, "мкс"), (1e-3, "мс"), (1, "с"), (60, "хв"), (3600, "год"), (86400, "доба")]:
+        x = px(t)
+        s += line(x, ay, x, ay + 7, INK, 1.6)
+        s += text(x, ay + 24, lab, 12.5, GREY, "middle", "bold")
+
+    def band(t1, t2, y, fill, stroke, name, note):
+        x1, x2 = px(t1), px(t2)
+        out = rect(x1, y, x2 - x1, 44, fill, stroke, 1.8, 8)
+        out += text((x1 + x2) / 2, y + 19, name, 12.5, INK, "middle", "bold")
+        out += text((x1 + x2) / 2, y + 35, note, 10.5, GREY, "middle")
+        out += line(x1, y + 44, x1, ay, stroke, 1, dash="3,4")
+        out += line(x2, y + 44, x2, ay, stroke, 1, dash="3,4")
+        return out
+
+    s += band(1e-6, 1e-2, 100, LRED, "#c98a8a", "кераміка й електроліти", "розв'язка, згладжування пульсацій (§2.1.6)")
+    s += band(0.1, 3600, 160, LGRN, GREEN, "суперконденсатор", "пережити провал, віддати ривок, резерв годинника")
+    s += band(60, 1e5, 220, LBLUE, BLUE, "акумулятор", "години й доби автономної роботи")
+    s += text(W / 2, 372, "що правіше — то більший запас енергії; що лівіше — то швидша віддача (та сама карта, що на Рис. 2.1.8.1)",
+              12, GREY, "middle", style="italic")
+    save("fig-7-8-7-niche.svg", s)
+
+
+# ── Рис. 7.8.8 — тандем з акумулятором ───────────────────────────────────────
+def fig88_hybrid():
+    W, H = 820, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Тандем: акумулятор дає середній струм, конденсатор — піки", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "буфер біля імпульсного споживача розвантажує слабке джерело — розв'язка з §2.1.6 у більшому масштабі",
+              12, GREY, "middle", style="italic")
+    rail, gnd = 150, 330
+    bat, bt, bb = battery(110, 240)
+    s += bat
+    s += line(bt[0], bt[1], 110, rail, INK, 2.4)
+    s += line(110, rail, 390, rail, INK, 2.4)
+    s += line(bb[0], bb[1], 110, gnd, INK, 2.4)
+    s += line(110, gnd, 390, gnd, INK, 2.4)
+    cs, ct, cb = cap_sym_v(240, 240, 20, 11)
+    s += line(240, rail, 240, ct, INK, 2.2)
+    s += line(240, cb, 240, gnd, INK, 2.2)
+    s += cs
+    s += plus(212, ct - 6, 5, RED, 1.6)
+    s += circle(240, rail, 3.5, INK, INK, 0)
+    s += circle(240, gnd, 3.5, INK, INK, 0)
+    s += rect(335, 195, 110, 90, "#f3f3f3", INK, 1.8, 6)
+    s += text(390, 232, "передавач", 12.5, INK, "middle", "bold")
+    s += text(390, 250, "(імпульси)", 11.5, GREY, "middle")
+    s += line(390, rail, 390, 195, INK, 2.4)
+    s += line(390, 285, 390, gnd, INK, 2.4)
+    s += text(110, 354, "акумулятор", 11.5, INK, "middle", "bold")
+    s += text(240, 354, "суперконденсатор", 11.5, GREEN, "middle", "bold")
+    s += text(250, 395, "конденсатор просто висить на шині поруч зі споживачем", 11.5, GREY, "middle", style="italic")
+    # графіки струмів
+    gx, gw, gh = 510, 240, 90
+    oy1 = 190
+    s += _axes(gx, oy1, gw, gh, "t", "I спож.")
+    base = 0.12
+    pts = [(gx, oy1 - base * gh)]
+    for fc in (0.18, 0.5, 0.82):
+        x0 = gx + (fc - 0.035) * gw
+        x1 = gx + (fc + 0.035) * gw
+        pts += [(x0, oy1 - base * gh), (x0, oy1 - 0.92 * gh), (x1, oy1 - 0.92 * gh), (x1, oy1 - base * gh)]
+    pts.append((gx + gw, oy1 - base * gh))
+    s += _poly(pts, RED, 2.4)
+    s += line(gx, oy1 - 0.3 * gh, gx + gw, oy1 - 0.3 * gh, GREY, 1.3, dash="5,4")
+    s += text(gx + gw + 6, oy1 - 0.3 * gh + 4, "середнє", 10.5, GREY, "start")
+    s += text(gx + gw / 2, 222, "різницю в кожному піку віддає конденсатор,", 11.5, GREEN, "middle", "bold")
+    s += text(gx + gw / 2, 238, "а між піками тихенько добирає назад", 11.5, GREEN, "middle", "bold")
+    oy2 = 375
+    s += _axes(gx, oy2, gw, gh, "t", "I бат.")
+    s += line(gx, oy2 - 0.3 * gh, gx + gw, oy2 - 0.3 * gh, BLUE, 2.6)
+    s += text(gx + gw - 4, oy2 - 0.3 * gh - 8, "рівний малий струм", 11, "#27447e", "end", "bold")
+    save("fig-7-8-8-hybrid.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🧮 вставка до §7.4 — експонента й диференціальне рівняння RC
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.4m.1 — поле напрямків dV/dt = −V/τ ────────────────────────────────
+def fig4m_slope_field():
+    W, H = 760, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Поле напрямків dV/dt = −V/τ: рівняння саме малює криву", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "у кожній точці рівняння задає нахил; розв'язок — крива, що всюди йде за нахилами",
+              12.5, GREY, "middle", style="italic")
+    ox, oy, w, h = 100, 400, 590, 290
+    for k in range(1, 6):
+        x = ox + k / 5 * w
+        s += line(x, oy, x, oy + 6, INK, 1.4)
+        s += text(x, oy + 22, f"{k}τ", 12, GREY, "middle", "bold")
+    s += _axes(ox, oy, w, h, "час t", "напруга V")
+    # сегменти поля напрямків: нахил у точці (t, V) дорівнює −V/τ
+    for i in range(10):
+        t0 = 0.25 + i * 0.5
+        for j in range(9):
+            v0 = 0.1 + j * 0.1
+            x = ox + t0 / 5 * w
+            y = oy - v0 * h
+            dx, dy = w / 5.0, v0 * h
+            nrm = math.hypot(dx, dy)
+            ux, uy = dx / nrm * 9, dy / nrm * 9
+            s += line(x - ux, y - uy, x + ux, y + uy, "#79b08a", 1.6)
+    # три розв'язки з різних стартів
+    for v0, col, wd in ((1.0, RED, 2.8), (0.6, "#d98c86", 2.0), (0.3, "#e3b5b1", 2.0)):
+        pts = []
+        for j in range(0, 101):
+            t = 5 * j / 100
+            pts.append((ox + t / 5 * w, oy - v0 * math.exp(-t) * h))
+        s += _poly(pts, col, wd)
+        s += circle(ox, oy - v0 * h, 4.5, col, col, 0)
+    s += text(ox + 14, oy - 0.97 * h, "V₀ — лише точка старту", 12, RED, "start", "bold")
+    s += rect(ox + 0.5 * w, oy - 0.62 * h - 16, 218, 46, "#ffffff", "#d8d8d8", 1, 6)
+    s += text(ox + 0.5 * w + 12, oy - 0.62 * h + 2, "звідки не стартуй —", 12, INK, "start", "bold")
+    s += text(ox + 0.5 * w + 12, oy - 0.62 * h + 20, "форма кривої та сама", 12, INK, "start", "bold")
+    save("fig-7-4m-1-slope-field.svg", s)
+
+
+# ── Рис. 7.4m.2 — метод Ейлера ───────────────────────────────────────────────
+def fig4m_euler():
+    W, H = 760, 450
+    s = header(W, H)
+    s += text(W / 2, 34, "Рівняння як рецепт: крок за кроком (метод Ейлера)", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "на кожному кроці V зменшується на ту саму частку: V ← V − V·(Δt/τ)",
+              12.5, GREY, "middle", style="italic")
+    ox, oy, w, h = 100, 380, 580, 260
+    for k in range(1, 4):
+        x = ox + k / 3 * w
+        s += line(x, oy, x, oy + 6, INK, 1.4)
+        s += text(x, oy + 22, f"{k}τ", 12, GREY, "middle", "bold")
+    s += _axes(ox, oy, w, h, "час t", "напруга V")
+    # точна експонента
+    pts = [(ox + j / 100 * w, oy - math.exp(-3 * j / 100) * h) for j in range(0, 101)]
+    s += _poly(pts, RED, 2.8)
+    # Ейлер: грубий і дрібний кроки
+    for dt, col, wd, dots in ((0.5, BLUE, 2.2, True), (0.1, GREEN, 1.6, False)):
+        t, v = 0.0, 1.0
+        epts = [(ox, oy - v * h)]
+        while t < 3 - 1e-9:
+            v = v - v * dt
+            t += dt
+            epts.append((ox + t / 3 * w, oy - v * h))
+        s += _poly(epts, col, wd)
+        if dots:
+            for x, y in epts:
+                s += circle(x, y, 3.5, col, col, 0)
+    # легенда
+    bx = ox + 0.52 * w
+    s += line(bx, 96, bx + 36, 96, RED, 2.8)
+    s += text(bx + 44, 100, "точний розв'язок e^(−t/τ)", 12, INK)
+    s += line(bx, 120, bx + 36, 120, BLUE, 2.2)
+    s += circle(bx + 18, 120, 3.5, BLUE, BLUE, 0)
+    s += text(bx + 44, 124, "Ейлер, грубий крок Δt = 0.5τ", 12, INK)
+    s += line(bx, 144, bx + 36, 144, GREEN, 1.6)
+    s += text(bx + 44, 148, "Ейлер, крок Δt = 0.1τ", 12, INK)
+    s += text(ox + w / 2, oy + 44, "у коді: V -= V * dt/(R*C); — і експонента з'являється сама",
+              12, GREY, "middle", style="italic")
+    save("fig-7-4m-2-euler.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🧮 вставка до §7.2 — I = C·dV/dt: струм як швидкість зміни напруги
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.2m.1 — три режими ─────────────────────────────────────────────────
+def fig2m_regimes():
+    W, H = 820, 480
+    s = header(W, H)
+    s += text(W / 2, 34, "I = C·dV/dt: струм відповідає не напрузі, а її зміні", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "той самий конденсатор у трьох режимах: напруга вгорі, струм унизу",
+              12.5, GREY, "middle", style="italic")
+    gw, gh = 180, 92
+    cols = (70, 330, 590)
+    oyV, oyI = 210, 380
+
+    def vcurve(kind, ox):
+        pts = []
+        for j in range(0, 101):
+            f = j / 100.0
+            if kind == "flat":
+                v = 0.62
+            elif kind == "ramp":
+                v = 0.12 + 0.72 * f
+            else:
+                if f < 0.45:
+                    v = 0.15
+                elif f < 0.55:
+                    v = 0.15 + 0.62 * (f - 0.45) / 0.10
+                else:
+                    v = 0.77
+            pts.append((ox + f * gw, oyV - v * gh))
+        return pts
+
+    def icurve(kind, ox):
+        pts = []
+        for j in range(0, 101):
+            f = j / 100.0
+            if kind == "flat":
+                i = 0.04
+            elif kind == "ramp":
+                i = 0.45
+            else:
+                i = 0.04 + (0.88 if 0.45 <= f < 0.55 else 0.0)
+            pts.append((ox + f * gw, oyI - i * gh))
+        return pts
+
+    titles = (("напруга стоїть", "струму немає (розрив)"),
+              ("рівномірний підйом", "сталий струм"),
+              ("крутий фронт", "«голка» струму"))
+    kinds = ("flat", "ramp", "step")
+    for ox, kind, (t1, t2) in zip(cols, kinds, titles):
+        s += _axes(ox, oyV, gw, gh, "t", "V")
+        s += _poly(vcurve(kind, ox), RED, 2.6)
+        s += text(ox + gw / 2, oyV + 36, t1, 12.5, INK, "middle", "bold")
+        s += _axes(ox, oyI, gw, gh, "t", "I")
+        s += _poly(icurve(kind, ox), BLUE, 2.6)
+        s += text(ox + gw / 2, oyI + 36, t2, 12.5, INK, "middle", "bold")
+    s += text(W / 2, oyI + 64, "dV/dt = 0 → I = 0      dV/dt = const → I = const      великий dV/dt → великий I",
+              13, INK, "middle", "bold")
+    save("fig-7-2m-1-three-regimes.svg", s)
+
+
+# ── Рис. 7.2m.2 — конденсатор-інтегратор ─────────────────────────────────────
+def fig2m_integrator():
+    W, H = 780, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Конденсатор — інтегратор: напруга пам'ятає історію струму", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "перенесений заряд — площа під кривою струму; саме на нього піднялася напруга",
+              12.5, GREY, "middle", style="italic")
+    ox, w = 110, 560
+    # верхній графік: імпульс струму
+    oyT, hT = 200, 100
+    x1, x2 = ox + 0.25 * w, ox + 0.55 * w
+    s += rect(x1, oyT - 0.75 * hT, x2 - x1, 0.75 * hT, LGRN, GREEN, 1.2)
+    s += _axes(ox, oyT, w, hT, "t", "I")
+    pulse = [(ox, oyT - 2), (x1, oyT - 2), (x1, oyT - 0.75 * hT),
+             (x2, oyT - 0.75 * hT), (x2, oyT - 2), (ox + w, oyT - 2)]
+    s += _poly(pulse, BLUE, 2.6)
+    s += text(ox + 0.63 * w, oyT - 0.52 * hT, "площа = ∫I dt = заряд Q", 12.5, GREEN, "start", "bold")
+    s += arrow(ox + 0.62 * w, oyT - 0.48 * hT, ox + 0.48 * w, oyT - 0.4 * hT, GREEN, 1.6)
+    # нижній графік: напруга-інтеграл
+    oyB, hB = 410, 130
+    s += _axes(ox, oyB, w, hB, "t", "V")
+    v0, v1 = 0.15, 0.77
+    vpts = [(ox, oyB - v0 * hB), (x1, oyB - v0 * hB), (x2, oyB - v1 * hB), (ox + w, oyB - v1 * hB)]
+    s += _poly(vpts, RED, 2.8)
+    s += text(x1 - 8, oyB - v0 * hB - 8, "V₀", 12.5, RED, "end", "bold")
+    s += line(x2, oyB - v1 * hB, ox + 0.66 * w, oyB - v1 * hB, GREY, 1.2, dash="4,4")
+    s += line(x2, oyB - v0 * hB, ox + 0.66 * w, oyB - v0 * hB, GREY, 1.2, dash="4,4")
+    s += dim_v(ox + 0.64 * w, oyB - v1 * hB, oyB - v0 * hB, "ΔV = Q/C")
+    s += line(x1, oyT, x1, oyB - v0 * hB, GREY, 1, dash="3,5")
+    s += line(x2, oyT, x2, oyB - v1 * hB, GREY, 1, dash="3,5")
+    s += text(W / 2, oyB + 44, "поки тече струм — напруга росте; струм зник — напруга лишилася (та сама «пам'ять» із §2.1.1)",
+              12, GREY, "middle", style="italic")
+    save("fig-7-2m-2-integrator.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🔌 вставка до §7.5 — керамічні MLCC
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.5c.1 — будова MLCC ────────────────────────────────────────────────
+def fig5c_structure():
+    W, H = 820, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "MLCC у розрізі: сотні конденсаторів паралельно в одному чипі", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "електроди-гребінка через один з'єднані з протилежними торцями",
+              12.5, GREY, "middle", style="italic")
+    bx, by, bw, bh = 140, 120, 280, 210
+    s += rect(bx, by, bw, bh, "#f1e9d8", "#b9a97f", 2)
+    s += rect(bx - 22, by, 30, bh, METAL, "#7c7c82", 1.6)
+    s += rect(bx + bw - 8, by, 30, bh, METAL, "#7c7c82", 1.6)
+    for i in range(11):
+        y = by + 22 + i * 17
+        if i % 2 == 0:
+            s += rect(bx + 6, y, bw - 56, 6, "#8a8a8a", "#6a6a6a", 0.8)
+        else:
+            s += rect(bx + 50, y, bw - 56, 6, "#8a8a8a", "#6a6a6a", 0.8)
+    s += text(bx - 7, by - 12, "лівий торець", 11.5, INK, "middle", "bold")
+    s += text(bx + bw + 7, by - 12, "правий торець", 11.5, INK, "middle", "bold")
+    s += text(bx + bw / 2, by + bh + 24, "кераміка — діелектрик між кожною парою електродів", 12, GREY, "middle")
+    # анотації праворуч
+    ax = 530
+    s += text(ax, 140, "десятки–сотні електродів,", 12.5, INK)
+    s += text(ax, 158, "через один — до різних торців;", 12.5, INK)
+    s += text(ax, 176, "кожна пара сусідів — конденсатор", 12.5, INK)
+    s += text(ax, 214, "усі пари ввімкнені паралельно (§2.1.7):", 12.5, INK, "start", "bold")
+    s += text(ax, 236, "C = N · C однієї пари", 13.5, GREEN, "start", "bold")
+    s += text(ax, 274, "шар кераміки — одиниці мікрометрів:", 12.5, INK)
+    s += text(ax, 292, "величезне A і крихітне d", 12.5, INK)
+    s += text(ax, 310, "у корпусі від 0.4 мм завдовжки", 12.5, INK)
+    s += arrow(ax - 12, 150, bx + bw - 30, 160, GREY, 1.4)
+    s += text(W / 2, 408, "торці металізовані під паяння; полярності немає — будь-яким боком",
+              12, GREY, "middle", style="italic")
+    s += text(W / 2, 432, "клас 1 — стабільний параелектрик (малі номінали); клас 2 — титанат барію з εr у тисячі (великі номінали, але «пливе»)",
+              12, GREY, "middle", style="italic")
+    save("fig-7-5c-1-mlcc-structure.svg", s)
+
+
+# ── Рис. 7.5c.2 — DC bias ────────────────────────────────────────────────────
+def fig5c_dcbias():
+    W, H = 800, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "DC bias: скільки ємності лишається під постійною напругою", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "сегнетоелектрична кераміка класу 2 «насичується» полем — ємність провалюється",
+              12.5, GREY, "middle", style="italic")
+    ox, oy, w, h = 120, 390, 540, 270
+    for k in range(0, 5):
+        x = ox + k / 4 * w
+        s += line(x, oy, x, oy + 6, INK, 1.4)
+        s += text(x, oy + 22, f"{k * 25}%", 11.5, GREY, "middle")
+    for pct in (25, 50, 75, 100):
+        y = oy - pct / 110 * h
+        s += line(ox, y, ox + w, y, FAINT, 1)
+        s += text(ox - 8, y + 4, f"{pct}%", 11.5, GREY, "end")
+    s += _axes(ox, oy, w, h, "", "")
+    s += text(ox + w / 2, oy + 44, "постійна напруга, % від номінальної", 12.5, INK, "middle", "bold")
+    s += text(ox - 60, oy - h - 24, "ємність, % від заявленої", 12.5, INK, "start", "bold")
+    curves = (("C0G (клас 1)", GREEN, lambda f: 100.0),
+              ("X7R", BLUE, lambda f: 100 * (1 - 0.35 * f ** 1.6)),
+              ("X5R, дрібний корпус", AMBER, lambda f: 100 * (1 - 0.60 * f ** 1.4)),
+              ("Y5V", RED, lambda f: 100 * (1 - 0.85 * f ** 1.2)))
+    for name, col, fn in curves:
+        pts = [(ox + fr / 100 * w, oy - fn(fr / 100) / 110 * h) for fr in range(0, 101)]
+        s += _poly(pts, col, 2.6)
+        s += text(ox + w + 8, oy - fn(1.0) / 110 * h + 4, name, 11.5, col, "start", "bold")
+    s += line(ox, oy - 100 / 110 * h, ox + w, oy - 100 / 110 * h, GREY, 1.2, dash="6,5")
+    s += text(ox + 0.30 * w, oy - 0.30 * h, "менший корпус того самого номіналу =", 12, INK, "start", "bold")
+    s += text(ox + 0.30 * w, oy - 0.30 * h + 17, "тонші шари = сильніше поле = глибший провал", 12, INK, "start", "bold")
+    save("fig-7-5c-2-dc-bias.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🔌 вставка до §7.5 — електролітичні й танталові
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.5c.3 — будова обох ────────────────────────────────────────────────
+def fig5c3_elcap_structure():
+    W, H = 820, 520
+    s = header(W, H)
+    s += text(W / 2, 34, "Діелектрик, вирощений струмом: алюмінієвий і танталовий у розрізі", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "в обох ізолятор — тонкий оксид на аноді; друга «обкладка» — електроліт чи MnO₂",
+              12.5, GREY, "middle", style="italic")
+    # ліва панель — алюмінієвий
+    s += _frame(50, 96, 350, 340, "алюмінієвий електролітичний")
+    layers = (("анодна фольга Al (+), травлена", 22, "#d9d9dd", METAL),
+              ("оксид Al₂O₃ — діелектрик (нм!)", 7, LRED, RED),
+              ("папір з рідким електролітом — катод", 22, LBLUE, BLUE),
+              ("катодна фольга (підвід струму)", 14, "#d9d9dd", METAL))
+    y = 122
+    for name, hgt, fill, st in layers:
+        s += rect(80, y, 180, hgt, fill, st, 1.4)
+        s += text(270, y + hgt / 2 + 4, name, 10.5, INK, "start")
+        y += hgt + 6
+    # рулон-спіраль
+    cx, cy = 150, 350
+    pts = []
+    for i in range(0, 271):
+        th = i / 270.0 * 3 * 2 * math.pi
+        r = 6 + 40 * i / 270.0
+        pts.append((cx + r * math.cos(th), cy + 0.8 * r * math.sin(th)))
+    s += _poly(pts, "#8a8a8a", 2)
+    s += text(255, 345, "стрічку згорнуто", 11.5, INK, "start")
+    s += text(255, 361, "в рулон → у «банку»", 11.5, INK, "start")
+    s += text(255, 381, "травлення фольги множить", 10.5, GREY, "start")
+    s += text(255, 395, "площу в десятки разів", 10.5, GREY, "start")
+    # права панель — танталовий
+    s += _frame(430, 96, 350, 340, "танталовий (SMD)")
+    gx, gy, gr = 560, 250, 72
+    s += circle(gx, gy, gr + 12, "#3f3f3f", "#2a2a2a", 2)
+    s += circle(gx, gy, gr, "#e8e2d4", "#9a8f78", 1.6)
+    grains = [(-40, -30), (-12, -44), (18, -34), (44, -14), (-48, 2), (-20, -8),
+              (10, -2), (40, 16), (-36, 30), (-6, 26), (24, 38), (-16, 50), (48, 42)]
+    for dx, dy in grains:
+        s += circle(gx + dx, gy + dy, 8, "#c9b994", "#9a8f78", 1.2)
+        s += circle(gx + dx, gy + dy, 10.5, "none", RED, 1)
+    s += line(gx, gy - gr - 12, gx, 130, INK, 2.6)
+    s += plus(gx, 120, 8, RED, 1.8)
+    s += text(660, 180, "спечена губка з порошку", 11, INK, "start")
+    s += text(660, 194, "танталу — анод", 11, INK, "start")
+    s += arrow(656, 188, gx + 36, gy - 36, GREY, 1.2)
+    s += text(660, 250, "на кожному зерні — оксид", 11, INK, "start")
+    s += text(660, 264, "Ta₂O₅ (червоні обідки)", 11, INK, "start")
+    s += text(660, 318, "довкола — твердий катод:", 11, INK, "start")
+    s += text(660, 332, "MnO₂ або полімер (−)", 11, INK, "start")
+    s += arrow(656, 326, gx + gr + 6, gy + 30, GREY, 1.2)
+    s += text(W / 2, 470, "оксид «формують» напругою на виробництві: товщина — нанометри на кожен вольт номіналу;",
+              12, GREY, "middle", style="italic")
+    s += text(W / 2, 490, "він тримає поле лише в ОДИН бік — звідси полярність обох родин",
+              12, GREY, "middle", style="italic")
+    save("fig-7-5c-3-elcap-structure.svg", s)
+
+
+# ── Рис. 7.5c.4 — режими відмови ─────────────────────────────────────────────
+def fig5c4_failures():
+    W, H = 820, 460
+    s = header(W, H)
+    s += text(W / 2, 34, "Як вони вмирають: поступово проти раптово", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "у алюмінієвого деградацію видно заздалегідь; тантал відмовляє миттєво й накоротко",
+              12.5, GREY, "middle", style="italic")
+    gw, gh = 280, 170
+    # алюмінієвий: повільний дрейф
+    ox1, oy1 = 80, 330
+    s += _axes(ox1, oy1, gw, gh, "роки", "")
+    esr = [(ox1 + f / 100 * gw, oy1 - (0.18 + 0.6 * (f / 100) ** 2.2) * gh) for f in range(0, 101)]
+    s += _poly(esr, RED, 2.6)
+    cap = [(ox1 + f / 100 * gw, oy1 - (0.72 - 0.3 * (f / 100) ** 1.6) * gh) for f in range(0, 101)]
+    s += _poly(cap, BLUE, 2.6)
+    s += text(ox1 + gw - 6, oy1 - 0.74 * gh, "ESR ↑", 12, RED, "end", "bold")
+    s += text(ox1 + gw - 6, oy1 - 0.34 * gh, "C ↓", 12, BLUE, "end", "bold")
+    s += text(ox1 + gw / 2, oy1 + 28, "алюмінієвий: висихання", 13, INK, "middle", "bold")
+    s += text(ox1 + gw / 2, oy1 + 46, "+10 °C ≈ удвічі коротший ресурс (видно: здуття, ESR)", 10.5, GREY, "middle")
+    # тантал: раптове КЗ
+    ox2, oy2 = 470, 330
+    s += _axes(ox2, oy2, gw, gh, "роки", "")
+    flat = [(ox2, oy2 - 0.66 * gh), (ox2 + 0.7 * gw, oy2 - 0.66 * gh),
+            (ox2 + 0.72 * gw, oy2 - 0.03 * gh), (ox2 + gw, oy2 - 0.03 * gh)]
+    s += _poly(flat, GREEN, 2.6)
+    s += boom(ox2 + 0.71 * gw, oy2 - 0.36 * gh, 22)
+    s += text(ox2 + 0.3 * gw, oy2 - 0.78 * gh, "стабільний роками…", 12, GREEN, "middle", "bold")
+    s += text(ox2 + gw - 4, oy2 - 0.14 * gh, "…і раптом коротке замикання", 11, "#9a2b22", "end", "bold")
+    s += text(ox2 + gw / 2, oy2 + 28, "танталовий: пробій оксиду", 13, INK, "middle", "bold")
+    s += text(ox2 + gw / 2, oy2 + 46, "боїться зворотної полярності й перенапруги → дерейтинг ×2", 10.5, GREY, "middle")
+    save("fig-7-5c-4-failures.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🔌 вставка до §7.5 — маркування й типорозміри
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.5c.5 — код «104» ──────────────────────────────────────────────────
+def fig5c5_code():
+    W, H = 820, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Код «104»: три цифри, що кодують ємність у пікофарадах", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "перші дві цифри — число, третя — скільки нулів дописати; базова одиниця завжди пФ",
+              12.5, GREY, "middle", style="italic")
+    # дисковий конденсатор з написом
+    cx, cy = 170, 210
+    s += line(cx - 22, cy + 60, cx - 22, cy + 130, INK, 2.6)
+    s += line(cx + 22, cy + 60, cx + 22, cy + 130, INK, 2.6)
+    s += circle(cx, cy, 74, "#d8a05a", "#a87838", 2.4)
+    s += text(cx, cy - 4, "104", 30, INK, "middle", "bold")
+    s += text(cx, cy + 26, "K", 18, INK, "middle", "bold")
+    # розшифровка стрілками
+    s += arrow(cx + 80, cy - 26, 320, 150, GREY, 1.6)
+    s += text(330, 146, "«10» — мантиса", 13, INK, "start", "bold")
+    s += arrow(cx + 84, cy - 2, 320, 196, GREY, 1.6)
+    s += text(330, 192, "«4» — кількість нулів (×10⁴)", 13, INK, "start", "bold")
+    s += arrow(cx + 78, cy + 26, 320, 242, GREY, 1.6)
+    s += text(330, 238, "літера — допуск: J ±5%, K ±10%, M ±20%", 13, INK, "start", "bold")
+    s += text(330, 286, "10 × 10⁴ пФ = 100 000 пФ = 100 нФ = 0.1 мкФ", 14.5, GREEN, "start", "bold")
+    # таблиця прикладів
+    s += _frame(80, 340, 380, 120, "приклади")
+    rows = (("101 → 100 пФ", "473 → 47 нФ"),
+            ("222 → 2.2 нФ", "104 → 100 нФ"),
+            ("330 → 33 пФ (не нФ!)", "105 → 1 мкФ"))
+    for i, (a, b) in enumerate(rows):
+        y = 372 + i * 28
+        s += text(110, y, a, 13.5, INK, "start")
+        s += text(290, y, b, 13.5, INK, "start")
+    # європейський стиль
+    s += _frame(500, 340, 270, 120, "європейський стиль")
+    s += text(520, 372, "буква-приставка стоїть", 12.5, INK, "start")
+    s += text(520, 390, "на місці коми:", 12.5, INK, "start")
+    s += text(520, 418, "4n7 = 4.7 нФ", 13.5, GREEN, "start", "bold")
+    s += text(520, 440, "2u2 = 2.2 мкФ   n47 = 0.47 нФ", 13.5, GREEN, "start", "bold")
+    save("fig-7-5c-5-code-104.svg", s)
+
+
+# ── Рис. 7.5c.6 — типорозміри корпусів ───────────────────────────────────────
+def fig5c6_sizes():
+    W, H = 820, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Типорозміри SMD: код — це довжина × ширина в сотих дюйма", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "усі корпуси нижче — в одному масштабі; 0805 = 0.08″ × 0.05″ ≈ 2.0 × 1.25 мм",
+              12.5, GREY, "middle", style="italic")
+    SC = 56.0   # пікселів на міліметр
+    # шкала-еталон 3 мм
+    rx, ry = 560, 120
+    s += line(rx, ry, rx + 3 * SC, ry, INK, 2)
+    for k in range(0, 4):
+        s += line(rx + k * SC, ry - 6, rx + k * SC, ry + 6, INK, 1.6)
+        s += text(rx + k * SC, ry + 22, f"{k}", 11.5, GREY, "middle")
+    s += text(rx + 1.5 * SC, ry - 14, "міліметри", 11.5, GREY, "middle", "bold")
+    # ряд корпусів
+    sizes = (("0201", 0.6, 0.3, "0603 метричний!"),
+             ("0402", 1.0, 0.5, "1005M"),
+             ("0603", 1.6, 0.8, "1608M"),
+             ("0805", 2.0, 1.25, "2012M"),
+             ("1206", 3.2, 1.6, "3216M"))
+    x = 80
+    base = 280
+    for code, lmm, wmm, metric in sizes:
+        wpx, hpx = lmm * SC, wmm * SC
+        y = base - hpx
+        s += rect(x, y, wpx, hpx, "#caa86f", "#8f7848", 1.6)
+        tw = max(6.0, wpx * 0.16)
+        s += rect(x, y, tw, hpx, METAL, "#7c7c82", 1)
+        s += rect(x + wpx - tw, y, tw, hpx, METAL, "#7c7c82", 1)
+        s += text(x + wpx / 2, base + 26, code, 13.5, INK, "middle", "bold")
+        s += text(x + wpx / 2, base + 44, f"{lmm}×{wmm} мм", 11, GREY, "middle")
+        s += text(x + wpx / 2, base + 60, f"метр. {metric}" if "!" not in metric else metric, 10, "#9a2b22", "middle")
+        x += wpx + 56
+    # дужки придатності
+    s += line(80, 360, 80 + 0.6 * SC + 56 + 1.0 * SC, 360, BLUE, 2)
+    s += text(80 + (0.6 * SC + 56 + 1.0 * SC) / 2, 380, "пінцет, лупа, досвід", 11.5, BLUE, "middle", "bold")
+    x0603 = 80 + 0.6 * SC + 56 + 1.0 * SC + 56
+    s += line(x0603, 360, x - 56, 360, GREEN, 2)
+    s += text((x0603 + x - 56) / 2, 380, "комфортно паяти вручну", 11.5, GREEN, "middle", "bold")
+    s += text(W / 2, 424, "пастка: існує й метричний код (мм) — «0603 метричний» = 0201 імперський; у каталогах перевіряйте позначку",
+              12, GREY, "middle", style="italic")
+    save("fig-7-5c-6-sizes.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🔌 вставка до §7.6 — розв'язувальні конденсатори
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.6c.1 — площа петлі струму ─────────────────────────────────────────
+def fig6c1_loop():
+    W, H = 820, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Чому «впритул»: рахується площа петлі струму", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "ривок струму біжить петлею «конденсатор → ніжка → чип → земля → конденсатор»",
+              12.5, GREY, "middle", style="italic")
+
+    def panel(x0, far, fill, title):
+        out = _frame(x0, 96, 350, 330, title)
+        cx_cap = x0 + (300 if far else 160)
+        pin_x = x0 + 125
+        # чип
+        out += rect(x0 + 25, 160, 100, 90, "#f3f3f3", INK, 1.8, 6)
+        out += text(x0 + 75, 200, "чип", 13, INK, "middle", "bold")
+        out += text(pin_x + 8, 152, "VDD", 10.5, INK, "start")
+        out += text(pin_x + 8, 332, "GND", 10.5, INK, "start")
+        # площа петлі
+        out += rect(pin_x, 170, cx_cap - pin_x, 150, fill, "none", 0)
+        # траси
+        out += line(pin_x, 170, cx_cap, 170, INK, 2.4)
+        out += line(pin_x, 320, cx_cap, 320, INK, 2.4)
+        out += line(pin_x, 170, pin_x, 250 - 80 + 80, INK, 0.1)
+        # конденсатор
+        csvg, ct, cb = cap_sym_v(cx_cap, 245, 18, 10)
+        out += line(cx_cap, 170, cx_cap, ct, INK, 2.2)
+        out += line(cx_cap, cb, cx_cap, 320, INK, 2.2)
+        out += csvg
+        out += text(cx_cap + 26, 250, "100 нФ", 11.5, INK, "start", "bold")
+        # стрілки струму по петлі
+        col = RED if far else GREEN
+        my = 170
+        out += arrow(cx_cap - 20, my, pin_x + 24, my, col, 2)
+        out += arrow(pin_x + 24, 320, cx_cap - 20, 320, col, 2)
+        return out
+
+    s += panel(50, True, LRED, "погано: конденсатор «десь на платі»")
+    s += text(225, 390, "велика петля = великий «опір» швидкій", 11.5, "#9a2b22", "middle", "bold")
+    s += text(225, 406, "зміні струму — викид на кожному фронті", 11.5, "#9a2b22", "middle", "bold")
+    s += panel(430, False, LGRN, "добре: впритул до ніжки")
+    s += text(605, 390, "крихітна петля: запас доходить", 11.5, "#1f6e33", "middle", "bold")
+    s += text(605, 406, "за наносекунди, без викидів", 11.5, "#1f6e33", "middle", "bold")
+    s += text(W / 2, 452, "довгий провідник опирається швидкій зміні струму (це індуктивність — Розділ 2.2);",
+              12, GREY, "middle", style="italic")
+    s += text(W / 2, 470, "тому важлива не відстань сама собою, а замкнена ПЛОЩА шляху струму",
+              12, GREY, "middle", style="italic")
+    save("fig-7-6c-1-loop.svg", s)
+
+
+# ── Рис. 7.6c.2 — три рубежі живлення ────────────────────────────────────────
+def fig6c2_hierarchy():
+    W, H = 820, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Три рубежі живлення: кожен запас закриває свій масштаб часу", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "ближчий до чипа — менший, але швидший; дальній — більший, але повільніший",
+              12.5, GREY, "middle", style="italic")
+    stations = ((90, "електроліт на вході", "100–1000 мкФ", "мілісекунди:", "провали джерела", 26),
+                (350, "кераміка на групу", "1–10 мкФ", "мікросекунди:", "перемикання вузлів", 18),
+                (560, "100 нФ біля ніжки", "кожному виводу", "наносекунди:", "фронти логіки", 12))
+    railY = 160
+    s += line(70, railY, 700, railY, INK, 2.6)
+    s += text(72, railY - 10, "шина живлення", 11.5, GREY, "start")
+    for x, name, val, t1, t2, half in stations:
+        csvg, ct, cb = cap_sym_v(x, 230, half, 10)
+        s += line(x, railY, x, ct, INK, 2.2)
+        s += csvg
+        s += line(x, cb, x, 290, INK, 2.2)
+        s += ground(x, 290)
+        s += text(x, 340, name, 12.5, INK, "middle", "bold")
+        s += text(x, 358, val, 11.5, GREY, "middle")
+        s += text(x, 384, t1, 11.5, GREEN, "middle", "bold")
+        s += text(x, 400, t2, 11.5, GREEN, "middle", "bold")
+    # чип праворуч
+    s += rect(700, 130, 90, 60, "#f3f3f3", INK, 1.8, 6)
+    s += text(745, 165, "чип", 13, INK, "middle", "bold")
+    s += arrow(640, 120, 700, 145, GREY, 1.4)
+    s += text(636, 112, "ривки струму гасяться спершу найближчим запасом", 11, GREY, "end")
+    s += arrow(170, 200, 280, 200, GREY, 1.6)
+    s += arrow(430, 200, 490, 200, GREY, 1.6)
+    s += text(330, 192, "повільніший доряджає швидший", 10.5, GREY, "middle", style="italic")
+    save("fig-7-6c-2-hierarchy.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  🔌 вставка до §7.8 — іоністор як резервне живлення
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.8c.1 — схема підхоплення ──────────────────────────────────────────
+def fig8c1_backup_circuit():
+    W, H = 820, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Схема підхоплення: діодне «АБО» плюс зарядний резистор", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "поки мережа є — вона живить схему й доряджає іоністор; зникла — іоністор підхоплює",
+              12.5, GREY, "middle", style="italic")
+
+    def diode(x, y, lab):
+        o = f'<path d="M {x:.0f},{y - 12:.0f} L {x:.0f},{y + 12:.0f} L {x + 20:.0f},{y:.0f} Z" fill="{INK}"/>\n'
+        o += line(x + 20, y - 12, x + 20, y + 12, INK, 2.6)
+        o += text(x + 10, y - 20, lab, 11.5, INK, "middle", "bold")
+        return o
+
+    railY, capY = 150, 280
+    # джерело
+    s += circle(90, railY, 5, INK, INK, 0)
+    s += text(90, railY - 16, "основне живлення 5 В", 12.5, INK, "start", "bold")
+    # верхня гілка: D1 → навантаження
+    s += line(90, railY, 300, railY, INK, 2.4)
+    s += diode(300, railY, "D1 (Шотткі)")
+    s += line(320, railY, 560, railY, INK, 2.4)
+    s += circle(520, railY, 4, INK, INK, 0)
+    s += rect(560, railY - 32, 150, 64, "#f3f3f3", INK, 1.8, 6)
+    s += text(635, railY - 6, "схема", 12.5, INK, "middle", "bold")
+    s += text(635, railY + 12, "(годинник, логіка)", 11, GREY, "middle")
+    s += line(635, railY + 32, 635, railY + 60, INK, 2.2)
+    s += ground(635, railY + 60)
+    # нижня гілка: R заряду → іоністор → D2
+    s += circle(160, railY, 4, INK, INK, 0)
+    s += line(160, railY, 160, capY, INK, 2.2)
+    s += resistor_h(160, 280, capY, "R заряду")
+    s += line(280, capY, 330, capY, INK, 2.2)
+    s += circle(330, capY, 4, INK, INK, 0)
+    csvg, ct, cb = cap_sym_v(330, capY + 46, 20, 11)
+    s += line(330, capY, 330, ct, INK, 2.2)
+    s += csvg
+    s += plus(302, ct - 6, 5, RED, 1.6)
+    s += line(330, cb, 330, capY + 84, INK, 2.2)
+    s += ground(330, capY + 84)
+    s += text(360, capY + 52, "іоністор", 12, GREEN, "start", "bold")
+    s += line(330, capY, 430, capY, INK, 2.2)
+    s += diode(430, capY, "D2 (Шотткі)")
+    s += line(450, capY, 520, capY, INK, 2.2)
+    s += line(520, capY, 520, railY, INK, 2.2)
+    # режими
+    s += arrow(120, railY + 14, 270, railY + 14, GREEN, 2)
+    s += text(195, railY + 32, "мережа є: живить через D1,", 11, "#1f6e33", "middle", "bold")
+    s += text(195, railY + 48, "іоністор доряджається через R", 11, "#1f6e33", "middle", "bold")
+    s += arrow(360, capY - 14, 500, capY - 14, RED, 2)
+    s += text(430, capY - 26, "мережі нема: підхоплення через D2", 11, "#9a2b22", "middle", "bold")
+    s += text(W / 2, 448, "R обмежує кидок струму в розряджений іоністор (порожній конденсатор — «коротке», §2.1.4);",
+              12, GREY, "middle", style="italic")
+    s += text(W / 2, 468, "D1 не пускає запас назад у вимкнене джерело; D2 оминає R при розряді",
+              12, GREY, "middle", style="italic")
+    save("fig-7-8c-1-backup-circuit.svg", s)
+
+
+# ── Рис. 7.8c.2 — два режими розряду ─────────────────────────────────────────
+def fig8c2_two_modes():
+    W, H = 820, 440
+    s = header(W, H)
+    s += text(W / 2, 34, "Та сама комірка — два різні режими розряду", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "мікроампери годинника тягнуться добами; сотні міліампер «подиху» — лічені секунди",
+              12.5, GREY, "middle", style="italic")
+    gw, gh = 290, 200
+    vmin = 0.42
+
+    def graph(ox, oy, xlab):
+        out = _axes(ox, oy, gw, gh, xlab, "V")
+        out += line(ox, oy - vmin * gh, ox + gw, oy - vmin * gh, GREY, 1.4, dash="6,5")
+        return out
+
+    # лівий: мкА
+    ox1, oy1 = 80, 340
+    s += graph(ox1, oy1, "доби")
+    s += line(ox1, oy1 - 0.88 * gh, ox1 + gw, oy1 - vmin * gh, GREEN, 2.8)
+    s += text(ox1 + 0.5 * gw, oy1 - 0.8 * gh, "годинник: I = мікроампери", 12, "#1f6e33", "middle", "bold")
+    s += text(ox1 + 0.5 * gw, oy1 - 0.8 * gh + 17, "пологий спад, дні-тижні", 11.5, GREY, "middle")
+    s += text(ox1 + 4, oy1 - vmin * gh - 8, "мінімум схеми", 10.5, GREY, "start")
+    # правий: сотні мА
+    ox2, oy2 = 470, 340
+    s += graph(ox2, oy2, "секунди")
+    s += line(ox2, oy2 - 0.88 * gh, ox2 + 0.02 * gw, oy2 - 0.74 * gh, RED, 2.8)
+    s += line(ox2 + 0.02 * gw, oy2 - 0.74 * gh, ox2 + 0.62 * gw, oy2 - vmin * gh, RED, 2.8)
+    s += line(ox2 + 0.62 * gw, oy2 - vmin * gh, ox2 + 0.62 * gw, oy2, GREY, 1.2, dash="4,4")
+    s += arrow(ox2 + 0.2 * gw, oy2 - 0.95 * gh, ox2 + 0.03 * gw, oy2 - 0.8 * gh, GREY, 1.4)
+    s += text(ox2 + 0.21 * gw, oy2 - 0.97 * gh, "сходинка ESR·I у мить підхоплення", 11, "#9a2b22", "start", "bold")
+    s += text(ox2 + 0.52 * gw, oy2 - 0.28 * gh, "«останній подих»:", 12, "#9a2b22", "middle", "bold")
+    s += text(ox2 + 0.52 * gw, oy2 - 0.28 * gh + 17, "I = сотні мА, лічені секунди", 11.5, GREY, "middle")
+    s += text(W / 2, 412, "для великих струмів дивіться ESR серії: «монетка» з ESR у десятки ом сотень міліампер не віддасть",
+              12, GREY, "middle", style="italic")
+    save("fig-7-8c-2-two-modes.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  ⚙️ вставка до §7.4 — RC-метр
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.4a.1 — цикл вимірювання ───────────────────────────────────────────
+def fig4a1_cycle():
+    W, H = 820, 540
+    s = header(W, H)
+    s += text(W / 2, 34, "Один цикл RC-метра: розрядити → зарядити → засікти час до порога", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "при порозі V₀/2 виміряний час — це рівно 0.693·R·C",
+              12.5, GREY, "middle", style="italic")
+    x0, xw = 110, 630
+
+    def X(f):
+        return x0 + f * xw
+
+    t1, tc = 0.20, 0.547
+    tauv = 0.5
+    # доріжка 1: вивід МК
+    y1, h1 = 150, 50
+    s += text(x0 - 8, y1 - h1 / 2, "вивід МК", 12, INK, "end", "bold")
+    s += text(x0 - 8, y1 - h1 / 2 + 16, "(заряд через R)", 10.5, GREY, "end")
+    s += _poly([(X(0), y1), (X(t1), y1), (X(t1), y1 - h1), (X(1), y1 - h1)], BLUE, 2.6)
+    s += text(X(0.1), y1 + 18, "низько: розряд", 10.5, "#27447e", "middle")
+    s += text(X(0.6), y1 - h1 - 8, "високо: заряджаємо", 10.5, "#27447e", "middle")
+    # доріжка 2: напруга конденсатора
+    y2, h2 = 330, 120
+    s += text(x0 - 8, y2 - h2 / 2, "V на C", 12, INK, "end", "bold")
+    s += line(X(0), y2 - 0.5 * h2, X(1), y2 - 0.5 * h2, GREY, 1.3, dash="6,5")
+    s += text(X(1) + 4, y2 - 0.5 * h2 + 4, "поріг V₀/2", 11, GREY, "start")
+    pts = [(X(0), y2), (X(t1), y2)]
+    for j in range(0, 81):
+        f = t1 + (1 - t1) * j / 80
+        v = 1 - math.exp(-(f - t1) / tauv)
+        pts.append((X(f), y2 - v * h2))
+    s += _poly(pts, RED, 2.8)
+    s += circle(X(tc), y2 - 0.5 * h2, 5, RED, RED, 0)
+    s += line(X(tc), y2 - 0.5 * h2, X(tc), y2 + 60, GREY, 1.2, dash="4,4")
+    s += line(X(t1), y2, X(t1), y2 + 60, GREY, 1.2, dash="4,4")
+    # доріжка 3: таймер
+    y3 = y2 + 75
+    s += text(x0 - 8, y3 + 4, "таймер", 12, INK, "end", "bold")
+    s += rect(X(t1), y3 - 12, X(tc) - X(t1), 24, LGRN, GREEN, 1.6, 4)
+    s += text((X(t1) + X(tc)) / 2, y3 + 4, "рахує", 11.5, "#1f6e33", "middle", "bold")
+    s += text(X(t1), y3 + 36, "старт", 11, INK, "middle", "bold")
+    s += text(X(tc), y3 + 36, "стоп", 11, INK, "middle", "bold")
+    s += dim_h(X(t1), X(tc), y3 - 24, "t_th = 0.693·R·C")
+    s += text(W / 2, 510, "далі: C = t_th / (0.693·R) — і новий цикл; перед стартом конденсатор розряджають повністю (≈5τ)",
+              12, GREY, "middle", style="italic")
+    save("fig-7-4a-1-cycle.svg", s)
+
+
+# ── Рис. 7.4a.2 — авто-діапазон ──────────────────────────────────────────────
+def fig4a2_ranges():
+    W, H = 800, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "Один таймер — багато декад: резистор обирає діапазон", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "мета: щоб час 0.693·R·C потрапив у зручне вікно ~50 мкс…100 мс",
+              12.5, GREY, "middle", style="italic")
+    ax, aw, ay = 90, 640, 310
+
+    def px(c):
+        return ax + (math.log10(c) + 11) / 8.0 * aw
+
+    s += arrow(ax - 6, ay, ax + aw + 18, ay, INK, 2)
+    ticks = ((1e-11, "10 пФ"), (1e-10, "100 пФ"), (1e-9, "1 нФ"), (1e-8, "10 нФ"),
+             (1e-7, "100 нФ"), (1e-6, "1 мкФ"), (1e-5, "10 мкФ"), (1e-4, "100 мкФ"), (1e-3, "1 мФ"))
+    for c, lab in ticks:
+        x = px(c)
+        s += line(x, ay, x, ay + 7, INK, 1.6)
+        s += text(x, ay + 24, lab, 10.5, GREY, "middle", "bold")
+
+    def band(c1, c2, y, fill, stroke, name, note):
+        x1, x2 = px(c1), px(c2)
+        out = rect(x1, y, x2 - x1, 46, fill, stroke, 1.8, 8)
+        out += text((x1 + x2) / 2, y + 20, name, 12.5, INK, "middle", "bold")
+        out += text((x1 + x2) / 2, y + 36, note, 10.5, GREY, "middle")
+        return out
+
+    s += band(1e-11, 1e-7, 100, LGRN, GREEN, "R = 1 МОм", "6.9 мкс … 69 мс (+калібрування нуля!)")
+    s += band(1e-9, 1e-5, 160, LBLUE, BLUE, "R = 10 кОм", "6.9 мкс … 69 мс")
+    s += band(1e-7, 1e-3, 220, LRED, "#c98a8a", "R = 100 Ом", "6.9 мкс … 69 мс")
+    s += text(W / 2, 380, "алгоритм авто-діапазону: почати з великого R; якщо поріг настав миттєво — перемкнутися на менший",
+              12, GREY, "middle", style="italic")
+    save("fig-7-4a-2-ranges.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  ⚙️ вставка до §7.2 — ємнісна сенсорна кнопка
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Рис. 7.2a.1 — палець додає пікофаради ────────────────────────────────────
+def fig2a1_finger():
+    W, H = 820, 500
+    s = header(W, H)
+    s += text(W / 2, 34, "Сенсорний майданчик у розрізі: палець — друга «обкладка»", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "дотику до металу немає — поле проходить крізь пластик панелі",
+              12.5, GREY, "middle", style="italic")
+    # плата, мідь, пластик
+    s += rect(80, 330, 460, 44, "#dcd3b8", "#b3a87f", 1.6)
+    s += text(310, 392, "плата", 12, GREY, "middle", "bold")
+    s += rect(80, 318, 110, 12, "#c98a3a", "#9a6a26", 1.2)
+    s += rect(430, 318, 110, 12, "#c98a3a", "#9a6a26", 1.2)
+    s += text(135, 308, "земля", 10.5, GREY, "middle")
+    s += text(485, 308, "земля", 10.5, GREY, "middle")
+    s += rect(240, 318, 140, 12, "#d8a05a", "#a87838", 1.6)
+    s += text(310, 296, "сенсорний майданчик", 11.5, INK, "middle", "bold")
+    s += rect(80, 256, 460, 16, "#e9eefb", "#b9cde2", 1.2)
+    s += text(86, 250, "пластик панелі (ізолятор)", 10.5, "#27447e", "start")
+    # палець
+    s += f'<ellipse cx="310" cy="170" rx="78" ry="62" fill="{SKIN}" stroke="#b88c64" stroke-width="2"/>\n'
+    s += text(310, 150, "палець", 12.5, INK, "middle", "bold")
+    s += text(310, 168, "(провідник!)", 11, GREY, "middle")
+    # лінії поля: майданчик → палець (крізь пластик)
+    for dx in (-40, 0, 40):
+        s += (f'<path d="M {310 + dx},316 Q {310 + dx * 1.3},262 {310 + dx * 0.8},226" fill="none" '
+              f'stroke="{GREEN}" stroke-width="1.8" marker-end="url(#aGreen)"/>\n')
+    # лінії поля: майданчик → земля з боків
+    s += f'<path d="M 248,322 Q 210,300 196,318" fill="none" stroke="{GREY}" stroke-width="1.6" marker-end="url(#aGrey)"/>\n'
+    s += f'<path d="M 372,322 Q 410,300 424,318" fill="none" stroke="{GREY}" stroke-width="1.6" marker-end="url(#aGrey)"/>\n'
+    s += text(196, 286, "C₀", 12, GREY, "middle", "bold")
+    s += text(424, 286, "C₀", 12, GREY, "middle", "bold")
+    s += text(352, 240, "ΔC", 13, GREEN, "start", "bold")
+    # еквівалентна схема праворуч
+    ex = 640
+    s += text(ex + 30, 130, "еквівалент:", 12.5, INK, "middle", "bold")
+    s += circle(ex + 30, 160, 4, INK, INK, 0)
+    s += text(ex + 44, 164, "майданчик", 11, GREY, "start")
+    s += line(ex + 30, 160, ex + 30, 190, INK, 2)
+    s += line(ex - 20, 190, ex + 80, 190, INK, 2)
+    c0s, t0, b0 = cap_sym_v(ex - 20, 220, 14, 9)
+    s += line(ex - 20, 190, ex - 20, t0, INK, 2)
+    s += c0s
+    s += line(ex - 20, b0, ex - 20, 252, INK, 2)
+    s += ground(ex - 20, 252)
+    s += text(ex - 44, 224, "C₀", 12, INK, "end", "bold")
+    cds, td, bd = cap_sym_v(ex + 80, 220, 14, 9)
+    s += line(ex + 80, 190, ex + 80, td, INK, 2)
+    s += cds
+    s += line(ex + 80, bd, ex + 80, 252, GREY, 2, dash="4,4")
+    s += ground(ex + 80, 252)
+    s += text(ex + 96, 224, "ΔC (палець,", 11, GREEN, "start", "bold")
+    s += text(ex + 96, 240, "через тіло)", 11, GREEN, "start", "bold")
+    s += text(ex + 30, 320, "C₀ ≈ 10–30 пФ", 12.5, INK, "middle", "bold")
+    s += text(ex + 30, 340, "ΔC ≈ 1–10 пФ", 12.5, GREEN, "middle", "bold")
+    s += text(W / 2, 440, "дотик додає до власної ємності майданчика лише кілька пікофарад — одиниці-десятки відсотків;",
+              12, GREY, "middle", style="italic")
+    s += text(W / 2, 460, "завдання алгоритму — надійно помітити цю крихту на тлі шуму й дрейфу",
+              12, GREY, "middle", style="italic")
+    save("fig-7-2a-1-finger-cap.svg", s)
+
+
+# ── Рис. 7.2a.2 — базова лінія і гістерезис ──────────────────────────────────
+def fig2a2_baseline():
+    W, H = 820, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Сирий відлік, базова лінія і два пороги", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "рішення ухвалюється не за абсолютом, а за відхиленням від повільної базової лінії",
+              12.5, GREY, "middle", style="italic")
+    ox, oy, w, h = 90, 380, 640, 280
+    s += _axes(ox, oy, w, h, "час", "відлік ∝ C")
+
+    def base(f):
+        return 0.26 + 0.06 * f
+
+    def touch(f):
+        if f < 0.45 or f > 0.78:
+            return 0.0
+        if f < 0.47:
+            return 0.30 * (f - 0.45) / 0.02
+        if f > 0.76:
+            return 0.30 * (0.78 - f) / 0.02
+        return 0.30
+
+    # пороги-гістерезис відносно базової
+    for off, lab in ((0.20, "поріг «натиснуто»"), (0.10, "поріг «відпущено»")):
+        pts = [(ox + f * w, oy - (base(f) + off) * h) for f in (0, 1)]
+        s += line(pts[0][0], pts[0][1], pts[1][0], pts[1][1], GREY, 1.3, dash="6,5")
+        s += text(ox + w + 6, oy - (base(1) + off) * h + 4, lab, 10.5, GREY, "start")
+    # сирий сигнал
+    pts = []
+    for j in range(0, 321):
+        f = j / 320.0
+        v = base(f) + touch(f) + 0.016 * math.sin(57 * f) + 0.011 * math.sin(91 * f + 1.2)
+        pts.append((ox + f * w, oy - v * h))
+    s += _poly(pts, RED, 2.2)
+    # базова лінія
+    bpts = [(ox + f / 100 * w, oy - base(f / 100) * h) for f in range(0, 101)]
+    s += _poly(bpts, BLUE, 2.2)
+    s += text(ox + 0.18 * w, oy - 0.22 * h, "базова лінія: повільне середнє,", 11.5, "#27447e", "middle", "bold")
+    s += text(ox + 0.18 * w, oy - 0.22 * h + 16, "оновлюється лише без дотику", 11.5, "#27447e", "middle", "bold")
+    s += text(ox + 0.61 * w, oy - 0.75 * h, "дотик: відлік стрибає на ΔC", 11.5, "#9a2b22", "middle", "bold")
+    # події
+    s += line(ox + 0.465 * w, oy, ox + 0.465 * w, oy - h, GREEN, 1.2, dash="4,4")
+    s += text(ox + 0.465 * w, oy - h - 8, "натиснуто", 11, "#1f6e33", "middle", "bold")
+    s += line(ox + 0.775 * w, oy, ox + 0.775 * w, oy - h, GREY, 1.2, dash="4,4")
+    s += text(ox + 0.775 * w, oy - h - 8, "відпущено", 11, GREY, "middle", "bold")
+    s += text(W / 2, 440, "два пороги (гістерезис) + кілька збігів поспіль — і кнопка не «брязкає» на межі спрацювання",
+              12, GREY, "middle", style="italic")
+    save("fig-7-2a-2-baseline.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  📜 історія до §7.5 — «конденсаторна чума»
+# ─────────────────────────────────────────────────────────────────────────────
+def fig5i1_plague_timeline():
+    W, H = 840, 520
+    s = header(W, H)
+    s += text(W / 2, 34, "«Конденсаторна чума»: задокументовані факти і переказувана легенда", 18, INK, "middle", "bold")
+    s += text(W / 2, 56, "верхня доріжка — те, що підтверджено; нижня — версія, якої не довів жоден суд",
+              12.5, GREY, "middle", style="italic")
+    ax, aw, ay = 70, 700, 220
+
+    def px(yr):
+        return ax + (yr - 1997) / 13.0 * aw
+
+    s += arrow(ax - 6, ay, ax + aw + 24, ay, INK, 2)
+    for yr in range(1998, 2011, 2):
+        x = px(yr)
+        s += line(x, ay, x, ay + 6, INK, 1.4)
+        s += text(x, ay + 22, str(yr), 11, GREY, "middle")
+    events = ((1998, "водні low-ESR", "електроліти (Японія)"),
+              (1999.8, "перші передчасні", "відмови"),
+              (2002, "вал здутих", "материнок"),
+              (2003.4, "галузева преса", "б'є на сполох"),
+              (2004.6, "Dell бачить ~97%", "відмов OptiPlex"),
+              (2006, "Dell списує", "понад $300 млн"),
+              (2007.6, "перехід на", "полімерні; спад"),
+              (2009.9, "суд оприлюднює", "листи Dell"))
+    for i, (yr, l1, l2) in enumerate(events):
+        x = px(yr)
+        hgt = 46 if i % 2 == 0 else 110
+        s += line(x, ay - 8, x, ay - hgt + 30, GREY, 1.2)
+        s += circle(x, ay - 8, 4, INK, INK, 0)
+        s += text(x, ay - hgt + 22, l1, 11, INK, "middle", "bold")
+        s += text(x, ay - hgt + 36, l2, 11, INK, "middle", "bold")
+    # доріжка легенди
+    ly = 280
+    s += rect(ax, ly, aw + 20, 150, "#fcfcfc", GREY, 1.4, 10)
+    s += text(ax + 14, ly + 26, "ЛЕГЕНДА (широко переказувана, документально не доведена):", 12, "#9a2b22", "start", "bold")
+    steps = ("хімік іде з Rubycon (Японія)\nдо Китаю з водною формулою",
+             "частина команди тікає на Тайвань\nіз НЕПОВНОЮ копією формули",
+             "дешевий нестабільний електроліт —\nу мільйонах банок без інгібіторів")
+    bx = ax + 14
+    for k, st in enumerate(steps):
+        bw = 212
+        s += rect(bx, ly + 44, bw, 84, "#ffffff", GREY, 1.2, 8)
+        for j, ln in enumerate(st.split("\n")):
+            s += text(bx + bw / 2, ly + 72 + j * 17, ln, 10.3, INK, "middle")
+        if k < 2:
+            s += arrow(bx + bw + 4, ly + 86, bx + bw + 22, ly + 86, GREY, 1.6)
+        bx += bw + 26
+    s += text(W / 2, 470, "жодних судових процесів; Rubycon стверджує, що повна формула не витекла — а відмови Nichicon HM",
+              11.5, GREY, "middle", style="italic")
+    s += text(W / 2, 488, "у Dell ця легенда взагалі не пояснює: криза була ширшою за один украдений рецепт",
+              11.5, GREY, "middle", style="italic")
+    save("fig-7-5i-1-plague-timeline.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  📜 історія до §7.8 — іоністор
+# ─────────────────────────────────────────────────────────────────────────────
+def fig8i1_supercap_timeline():
+    W, H = 800, 580
+    s = header(W, H)
+    s += text(W / 2, 34, "Іоністор: від лабораторної дивини до фарад у кожній шухляді", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "ідея чекала застосування понад століття — а ім'я отримала від відділу маркетингу",
+              12.5, GREY, "middle", style="italic")
+    lx = 150
+    events = (("1853", "Гельмгольц описує подвійний шар на межі електрод–рідина", "ніхто не бачить у ньому накопичувача енергії"),
+              ("1957", "Бекер (General Electric): патент на «низьковольтний конденсатор»", "пористе вугілля; механізм у патенті чесно «невідомий»; без комерції"),
+              ("1962–66", "Райтмаєр (SOHIO): патент на сучасний формат комірки", "нафтова компанія шукала нові накопичувачі — і знайшла"),
+              ("1970", "Бус (SOHIO): електроди з пасти активованого вугілля", "та сама конструкція, що працює донині"),
+              ("1971", "SOHIO ліцензує технологію NEC", "звідти й торгове ім'я «Supercapacitor»"),
+              ("1978", "Panasonic Goldcap: резерв живлення пам'яті", "перша масова ніша — мікроампери на дні (замість капризних батарейок)"),
+              ("1980-ті", "«іоністори» в радянській літературі; ultracapacitor у США", "терміни множаться — компонент стає звичним"),
+              ("1990-ті+", "тисячі фарад: транспорт, рекуперація, «останній подих»", "комірки великого формату виходять із годинників у силову техніку"))
+    y0, dy = 116, 56
+    s += line(lx, y0 - 14, lx, y0 + dy * (len(events) - 1) + 14, GREY, 2)
+    for i, (yr, l1, l2) in enumerate(events):
+        y = y0 + i * dy
+        s += circle(lx, y, 5, GREEN if i in (2, 5) else INK, INK, 0)
+        s += text(lx - 16, y + 5, yr, 13.5, INK, "end", "bold")
+        s += text(lx + 18, y - 2, l1, 12, INK, "start", "bold")
+        s += text(lx + 18, y + 15, l2, 10.5, GREY, "start")
+    s += text(56, y0 + dy * 0.5 + 5, "104 роки", 10.5, "#9a2b22", "middle", "bold")
+    s += text(56, y0 + dy * 0.5 + 19, "очікування", 10.5, "#9a2b22", "middle")
+    save("fig-7-8i-1-supercap-timeline.svg", s)
+
+
 if __name__ == "__main__":
     # Історія до Розділу 7 — лейденська банка
     fig_timeline()
@@ -2562,4 +3884,44 @@ if __name__ == "__main__":
     fig71_voltage_sharing()
     fig71_distribution()
     fig71_applications()
-    print("OK — фігури Розділу 7 (історія + §7.1–§7.7) згенеровано в", OUT)
+    # §7.8 Суперконденсатор
+    fig81_ragone()
+    fig82_carbon_area()
+    fig83_double_layer()
+    fig84_cell()
+    fig85_voltage_window()
+    fig86_discharge()
+    fig87_niche()
+    fig88_hybrid()
+    # 🧮 вставка до §7.4 — експонента й диференціальне рівняння RC
+    fig4m_slope_field()
+    fig4m_euler()
+    # 🧮 вставка до §7.2 — I = C·dV/dt
+    fig2m_regimes()
+    fig2m_integrator()
+    # 🔌 вставка до §7.5 — керамічні MLCC
+    fig5c_structure()
+    fig5c_dcbias()
+    # 🔌 вставка до §7.5 — електролітичні й танталові
+    fig5c3_elcap_structure()
+    fig5c4_failures()
+    # 🔌 вставка до §7.5 — маркування й типорозміри
+    fig5c5_code()
+    fig5c6_sizes()
+    # 🔌 вставка до §7.6 — розв'язувальні конденсатори
+    fig6c1_loop()
+    fig6c2_hierarchy()
+    # 🔌 вставка до §7.8 — іоністор як резервне живлення
+    fig8c1_backup_circuit()
+    fig8c2_two_modes()
+    # ⚙️ вставка до §7.4 — RC-метр
+    fig4a1_cycle()
+    fig4a2_ranges()
+    # ⚙️ вставка до §7.2 — ємнісна сенсорна кнопка
+    fig2a1_finger()
+    fig2a2_baseline()
+    # 📜 історія до §7.5 — «конденсаторна чума»
+    fig5i1_plague_timeline()
+    # 📜 історія до §7.8 — іоністор
+    fig8i1_supercap_timeline()
+    print("OK — фігури Розділу 7 (історія + §7.1–§7.8 + вставки) згенеровано в", OUT)

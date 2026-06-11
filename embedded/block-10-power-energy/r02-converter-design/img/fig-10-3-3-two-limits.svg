@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Дві РІЗНІ струмові межі: Isat (магнітна) і Irms (теплова)</text>
+<rect x="50.0" y="70.0" width="800.0" height="120.0" rx="10" fill="#fbe9e7" stroke="#c0271e" stroke-width="1.8"/>
+<text x="70.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Isat — магнітна, миттєва:</text>
+<text x="70.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">обмежує ПІКОВЕ значення струму (Iнаван + ΔI/2).</text>
+<text x="70.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Перевищив на мить — осердя насичується, L зникає.</text>
+<text x="70.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Перевірка:  Iпік &lt; Isat  (із запасом ~20–30 %)</text>
+<rect x="50.0" y="210.0" width="800.0" height="120.0" rx="10" fill="#fbf7ec" stroke="#caa24a" stroke-width="1.8"/>
+<text x="70.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">Irms — теплова, тривала:</text>
+<text x="70.0" y="260.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">обмежує СЕРЕДНІЙ (RMS) струм через нагрів на DCR.</text>
+<text x="70.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Перевищив надовго — котушка перегрівається.</text>
+<text x="70.0" y="304.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">Перевірка:  Iнаван(rms) &lt; Irms  (із запасом)</text>
+<rect x="70.0" y="366.0" width="760.0" height="24.0" rx="8" fill="#eef8ef" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="450.0" y="383.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Обидві мусять виконуватись — і їх легко сплутати: одна про миттєвий пік (магнетизм), друга про тривалий нагрів (тепло)</text>
+</svg>

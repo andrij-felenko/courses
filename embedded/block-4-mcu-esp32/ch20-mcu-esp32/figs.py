@@ -2094,6 +2094,1157 @@ def fig76_picks():
     save("fig-20-7-6-picks.svg", s)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.8 — Причини reset: POR, brownout, watchdog, вихід із deep-sleep
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _bolt(cx, cy, s=1.0, col=RED):
+    """Маленька «блискавка» — символ скидання (вершина у cx,cy, спрямована вниз)."""
+    pts = [(0, 0), (7, 0), (3, 8), (9, 8), (-3, 24), (1, 11), (-6, 11)]
+    d = "M " + " ".join(f"{cx + px * s:.1f},{cy + py * s:.1f}" for px, py in pts) + " Z"
+    return f'<path d="{d}" fill="{col}" stroke="none"/>\n'
+
+
+# ── Рис. 20.8.1 — звідки береться reset ──────────────────────────────────────
+def fig81_reset_overview():
+    W, H = 940, 540
+    s = header(W, H)
+    s += text(W / 2, 34, "Звідки береться reset і як чіп запам'ятовує причину", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "кілька джерел сходяться на одну лінію скидання — а причину засувка зберігає до старту програми",
+              12, GREY, "middle", style="italic")
+    # колір: синій — нормальне, червоний — симптом біди, зелений — навмисне
+    sources = [
+        ("Power-on (POR)", "перше живлення — норма", BLUE, 96),
+        ("Кнопка / пін EN", "зовнішнє скидання", BLUE, 154),
+        ("Brownout (BOR)", "напруга просіла", RED, 212),
+        ("Watchdog", "програма зависла", RED, 270),
+        ("Panic / виняток", "крах коду", RED, 328),
+        ("esp_restart()", "навмисний перезапуск", GREEN, 386),
+        ("Вихід з deep-sleep", "прокидання зі сну", GREEN, 444),
+    ]
+    bx, bw, bh = 56, 250, 44
+    busx = 466
+    for nm, desc, col, y in sources:
+        s += rect(bx, y - bh / 2, bw, bh, _tint(col), col, 1.8, 8)
+        s += text(bx + 14, y - 2, nm, 12.5, col, "start", "bold")
+        s += text(bx + 14, y + 15, desc, 9.8, GREY, "start")
+        s += arrow(bx + bw, y, busx, y, col, 2)
+    # шина скидання
+    s += line(busx, 74, busx, 466, INK, 5)
+    s += text(busx, 64, "лінія RESET", 11.5, INK, "middle", "bold")
+    s += _bolt(busx - 4, 250, 1.5, RED)
+    # ядро рестартує
+    cx = 558
+    s += blk2(cx, 150, 326, 92, "Ядро рестартує",
+              ["PC → вектор скидання", "регістри — у стан за умовчанням", "виконання з початку програми"],
+              fill=LRED, stroke=RED, lcol=RED)
+    s += arrow(busx, 178, cx, 178, INK, 2.4)
+    # регістр причини
+    s += blk2(cx, 300, 326, 96, "Регістр причини (засувка)",
+              ["зберігає, ХТО викликав скидання", "переживає сам reset", "прошивка читає esp_reset_reason()"],
+              fill=LBLUE, stroke=BLUE, lcol=BLUE)
+    s += arrow(busx, 346, cx, 346, INK, 2.4)
+    # висновок
+    s += rect(558, 430, 326, 74, LAMB, GOLD, 1.6, 10)
+    s += text(721, 454, "Майже кожна причина, крім POR і", 11.5, INK, "middle", "bold")
+    s += text(721, 472, "навмисного перезапуску, —", 11, INK, "middle")
+    s += text(721, 492, "симптом, який варто залогувати.", 11, RED, "middle", "bold")
+    save("fig-20-8-1-reset-overview.svg", s)
+
+
+# ── Рис. 20.8.2 — power-on reset у часі ──────────────────────────────────────
+def fig82_por():
+    import math
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 32, "Power-on reset: тримати чіп у скиданні, поки живлення не стане надійним",
+              17, INK, "middle", "bold")
+    s += text(W / 2, 54, "доки напруга нижча за поріг, логіка невизначена — стартувати ще не можна",
+              12, GREY, "middle", style="italic")
+    x0, x1 = 92, 850
+    yb, yt = 212, 88                       # 0 В ... 3.3 В
+    ythr = yb - 0.70 * (yb - yt)           # поріг ~2.3 В = 0.70 від 3.3
+    # зона невизначеності
+    s += rect(x0, ythr, x1 - x0, yb - ythr, LRED, "none", 0)
+    s += text(x0 + 14, yb - 10, "логіка невизначена · Flash не читається", 10, RED, "start", style="italic")
+    # осі
+    s += arrow(x0, yb, x0, 78, INK, 2)
+    s += text(x0 - 8, 86, "Vdd", 11, INK, "end", "bold")
+    s += arrow(x0, yb, 870, yb, INK, 2)
+    s += text(862, yb + 16, "час", 11, INK, "start")
+    # поріг
+    s += line(x0, ythr, x1, ythr, RED, 1.6, dash="6,4")
+    s += text(x1, ythr - 6, "поріг роботи (~2.3 В)", 10.5, RED, "end", "bold")
+    # крива Vdd (RC-подібне наростання до плато)
+    xr = 300
+    d = f"M {x0:.1f},{yb:.1f}"
+    xcross = None
+    for i in range(1, 161):
+        xx = x0 + (x1 - x0) * i / 160.0
+        frac = 1 - math.exp(-4.0 * (xx - x0) / (xr - x0))
+        if frac > 1:
+            frac = 1.0
+        yy = yb - frac * (yb - yt)
+        if xcross is None and yy <= ythr:
+            xcross = xx
+        d += f" L {xx:.1f},{yy:.1f}"
+    s += f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="2.6"/>\n'
+    s += text(x1, yt + 2, "3.3 В", 10.5, INK, "end", "bold")
+    # доріжка RESET (активний-low)
+    rh, rl = 300, 342
+    s += text(x0 - 8, (rh + rl) / 2 + 4, "RESET", 11, INK, "end", "bold")
+    xrelease = xcross + 96                  # затримка на стабілізацію такту
+    s += _sqwave(x0, rh, rl, [xrelease - x0, x1 - xrelease], INK, start_hi=False, sw=2.6)
+    s += text((x0 + xrelease) / 2, rl + 18, "утримується (low)", 10, BLUE, "middle", "bold")
+    s += text((xrelease + x1) / 2, rh - 8, "відпущено (high)", 10, GREEN, "middle", "bold")
+    # вертикалі-орієнтири
+    s += line(xcross, ythr, xcross, rl, GREY, 1.2, dash="3,3")
+    s += text(xcross, yb + 30, "Vdd стала", 9.5, GREY, "middle")
+    s += line(xrelease, yt, xrelease, rh, GREEN, 1.4, dash="4,3")
+    s += text(xrelease + 6, 104, "тут стартує програма", 11, GREEN, "start", "bold")
+    # позначка затримки
+    s += arrow((xcross + xrelease) / 2, yb + 44, xcross, yb + 44, GREY, 1.4)
+    s += arrow((xcross + xrelease) / 2, yb + 44, xrelease, yb + 44, GREY, 1.4)
+    s += text((xcross + xrelease) / 2, yb + 58, "затримка на такт", 9, INK, "middle")
+    save("fig-20-8-2-por.svg", s)
+
+
+# ── Рис. 20.8.3 — brownout у часі ────────────────────────────────────────────
+def fig83_brownout():
+    import math
+    W, H = 920, 410
+    s = header(W, H)
+    s += text(W / 2, 32, "Brownout: напруга просідає під час роботи", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "глибокий провал нижче порога → контрольоване скидання, краще за зіпсовану поведінку",
+              12, GREY, "middle", style="italic")
+    x0, x1 = 92, 858
+    yb, yt = 252, 92                       # 0 В ... 3.6 В
+
+    def V(v):
+        return yb - (v / 3.6) * (yb - yt)
+
+    s += arrow(x0, yb, x0, 80, INK, 2)
+    s += text(x0 - 8, 90, "Vdd", 11, INK, "end", "bold")
+    s += arrow(x0, yb, 878, yb, INK, 2)
+    s += text(870, yb + 16, "час", 11, INK, "start")
+    # небезпечна зона під порогом BOR
+    s += rect(x0, V(2.6), x1 - x0, yb - V(2.6), LRED, "none", 0)
+    s += text(x1 - 10, yb - 10, "тут логіка вже ненадійна", 9.5, RED, "end", style="italic")
+    # рівні
+    s += line(x0, V(3.3), x1, V(3.3), FAINT, 1.4, dash="4,3")
+    s += text(x1, V(3.3) - 6, "3.3 В номінал", 9.5, GREY, "end")
+    s += line(x0, V(2.6), x1, V(2.6), RED, 1.6, dash="6,4")
+    s += text(x0 + 6, V(2.6) - 6, "поріг BOR (~2.6 В)", 10.5, RED, "start", "bold")
+    # крива Vdd із двома провалами
+    d = f"M {x0:.1f},{V(3.3):.1f}"
+    for i in range(1, 201):
+        xx = x0 + (x1 - x0) * i / 200.0
+        v = 3.3
+        v -= 1.10 * math.exp(-((xx - 320) / 42.0) ** 2)   # глибокий → ~2.2 (нижче порога)
+        v -= 0.42 * math.exp(-((xx - 650) / 40.0) ** 2)   # дрібний → ~2.88 (вище порога)
+        d += f" L {xx:.1f},{V(v):.1f}"
+    s += f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="2.6"/>\n'
+    # анотації провалів
+    s += _bolt(320, V(2.6) + 4, 1.3, RED)
+    s += text(338, V(2.6) + 36, "BOR спрацював → скидання", 10.5, RED, "start", "bold")
+    s += text(338, V(2.6) + 52, "(сплеск радіо / пуск мотора)", 9.5, GREY, "start")
+    s += text(650, V(2.88) - 12, "провал, але вище порога", 10, GREEN, "middle", "bold")
+    s += text(650, V(2.88) + 4, "→ працюємо далі", 10, GREEN, "middle")
+    # доріжка RESET (активний-low): провал лише на першому
+    rh, rl = 322, 360
+    s += text(x0 - 8, (rh + rl) / 2 + 4, "RESET", 10.5, INK, "end", "bold")
+    xa, xb = 320, 352
+    s += _sqwave(x0, rh, rl, [xa - x0, xb - xa, x1 - xb], INK, start_hi=True, sw=2.4)
+    s += text((xa + xb) / 2, rl + 16, "reset", 9.5, BLUE, "middle", "bold")
+    save("fig-20-8-3-brownout.svg", s)
+
+
+# ── Рис. 20.8.4 — watchdog: годувати vs зависнути ────────────────────────────
+def fig84_watchdog():
+    W, H = 920, 440
+    s = header(W, H)
+    s += text(W / 2, 32, "Watchdog: таймер, який перезавантажує завислий чіп", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "програма мусить періодично «годувати» лічильник; перестала — він переповнюється і б'є reset",
+              11.5, GREY, "middle", style="italic")
+    x0, x1 = 132, 852
+
+    # ── здорова доріжка
+    ya0, ya1 = 196, 108                    # нуль ... межа
+    s += text(x0, 90, "Здорова програма: годує вчасно", 12, GREEN, "start", "bold")
+    s += line(x0, ya0, x1, ya0, INK, 1.6)
+    s += line(x0, ya1, x1, ya1, RED, 1.4, dash="6,4")
+    s += text(x1, ya1 - 6, "межа watchdog", 9.5, RED, "end", "bold")
+    feedsA = [248, 366, 484, 602, 720]
+    riseTop = ya0 + 0.72 * (ya1 - ya0)
+    dA = f"M {x0:.0f},{ya0:.0f}"
+    for f in feedsA:
+        dA += f" L {f:.0f},{riseTop:.0f} L {f:.0f},{ya0:.0f}"
+    dA += f" L {x1:.0f},{ya0 + 0.50 * (ya1 - ya0):.0f}"
+    s += f'<path d="{dA}" fill="none" stroke="{GREEN}" stroke-width="2.6"/>\n'
+    for f in feedsA:
+        s += arrow(f, ya0 + 30, f, ya0 + 4, GREEN, 1.6)
+        s += text(f, ya0 + 42, "feed", 8.5, GREEN, "middle", "bold")
+
+    # ── зависла доріжка
+    yb0, yb1 = 388, 300
+    s += text(x0, 252, "Зависла програма: feed припинився", 12, RED, "start", "bold")
+    s += line(x0, yb0, x1, yb0, INK, 1.6)
+    s += line(x0, yb1, x1, yb1, RED, 1.4, dash="6,4")
+    s += text(x1, yb1 - 6, "межа watchdog", 9.5, RED, "end", "bold")
+    feedsB = [248, 366]
+    riseTopB = yb0 + 0.72 * (yb1 - yb0)
+    hangx = 706
+    dB = f"M {x0:.0f},{yb0:.0f}"
+    for f in feedsB:
+        dB += f" L {f:.0f},{riseTopB:.0f} L {f:.0f},{yb0:.0f}"
+    dB += f" L {hangx:.0f},{yb1:.0f}"
+    s += f'<path d="{dB}" fill="none" stroke="{RED}" stroke-width="2.6"/>\n'
+    for f in feedsB:
+        s += arrow(f, yb0 + 30, f, yb0 + 4, GREEN, 1.6)
+        s += text(f, yb0 + 42, "feed", 8.5, GREEN, "middle", "bold")
+    s += text((feedsB[1] + hangx) / 2, riseTopB + 6, "програма зависла — годувати нема кому",
+              10, RED, "middle", "bold")
+    s += _bolt(hangx, yb1, 1.4, RED)
+    s += line(hangx, yb1, hangx, yb0, RED, 1.4, dash="3,3")
+    s += text(hangx + 14, yb1 + 8, "переповнення → RESET", 11, RED, "start", "bold")
+    save("fig-20-8-4-watchdog.svg", s)
+
+
+# ── Рис. 20.8.5 — холодний старт vs прокидання з deep-sleep ───────────────────
+def fig85_deepsleep_wake():
+    W, H = 940, 452
+    s = header(W, H)
+    s += text(W / 2, 32, "Прокидання з deep-sleep — це теж reset, а не «продовжити»", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "обидва шляхи йдуть через вектор скидання; різниця — що пережило паузу і яку причину видно",
+              12, GREY, "middle", style="italic")
+    cold = ["живлення з нуля → POR", "вся RAM порожня — нічого не лишилось",
+            "повна ініціалізація з нуля", "під'єднатися, відкалібрувати, прогрітися", "показати привітання"]
+    warm = ["таймер чи пін будить RTC-домен", "SRAM теж втрачено, але RTC-память жива",
+            "та сама точка входу — програма з початку", "esp_reset_reason() = DEEPSLEEP",
+            "відновити лічильник із RTC-памʼяті й працювати"]
+
+    def column(x, w, title, sub, col, steps):
+        o = rect(x, 78, w, 296, "#fbfcff", col, 2, 12)
+        o += text(x + w / 2, 104, title, 14, col, "middle", "bold")
+        o += text(x + w / 2, 122, sub, 10.5, GREY, "middle", style="italic")
+        for i, st in enumerate(steps):
+            yy = 146 + i * 44
+            o += circle(x + 24, yy + 8, 11, _tint(col), col, 1.6)
+            o += text(x + 24, yy + 12, str(i + 1), 11, col, "middle", "bold")
+            o += text(x + 44, yy + 12, st, 10.6, INK, "start")
+        return o
+
+    s += column(58, 392, "Холодний старт", "причина: POWERON", BLUE, cold)
+    s += column(490, 392, "Прокидання з deep-sleep", "причина: DEEPSLEEP", GREEN, warm)
+    # спільна смуга
+    s += rect(58, 388, 824, 48, LAMB, GOLD, 1.6, 10)
+    s += text(470, 408, "Спільне: обидва стартують із вектора скидання — виконання завжди з початку.",
+              12, INK, "middle", "bold")
+    s += text(470, 427, "Що пережило сон — лише RTC-домен (режими сну — §4.1.4); решта RAM чиста, як після вмикання.",
+              10.5, GREY, "middle")
+    save("fig-20-8-5-deepsleep-wake.svg", s)
+
+
+# ── Рис. 20.8.6 — засувка → esp_reset_reason() → гілка ───────────────────────
+def fig86_reason_register():
+    W, H = 940, 470
+    s = header(W, H)
+    s += text(W / 2, 32, "Як прошивка дізнається причину: засувка → esp_reset_reason() → гілка коду",
+              16.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "один виклик на старті повертає, чому чіп стартував цього разу", 12, GREY, "middle", style="italic")
+    # потік угорі
+    flow = [("причина скидання", "", INK), ("засувка в регістрі", "переживає reset", BLUE),
+            ("esp_reset_reason()", "рано в boot", GREEN), ("switch → гілка", "", INK)]
+    bx, bw, gap, y, bh = 58, 192, 46, 84, 56
+    ends = []
+    for i, (lab, sub, col) in enumerate(flow):
+        x = bx + i * (bw + gap)
+        ends.append((x, x + bw))
+        s += rect(x, y, bw, bh, _tint(col), col, 1.6, 8)
+        if sub:
+            s += text(x + bw / 2, y + bh / 2 - 3, lab, 11.5, col, "middle", "bold")
+            s += text(x + bw / 2, y + bh / 2 + 14, sub, 9.2, GREY, "middle")
+        else:
+            s += text(x + bw / 2, y + bh / 2 + 4, lab, 11.5, col, "middle", "bold")
+        if i > 0:
+            s += arrow(ends[i - 1][1], y + bh / 2, x, y + bh / 2, INK, 2)
+    # таблиця enum
+    rows = [
+        ("ESP_RST_POWERON", "перше живлення / пін EN", "норма — стартуй", BLUE),
+        ("ESP_RST_BROWNOUT", "напруга просіла", "перевір живлення", RED),
+        ("ESP_RST_TASK_WDT", "задача зависла", "шукай блокування", RED),
+        ("ESP_RST_INT_WDT", "перерване / ISR зависло надовго", "крит. секція тримає CPU", RED),
+        ("ESP_RST_PANIC", "виняток / крах коду", "дивись backtrace", RED),
+        ("ESP_RST_SW", "esp_restart()", "очікувано (напр. OTA)", GREEN),
+        ("ESP_RST_DEEPSLEEP", "прокинувся зі сну", "віднови контекст", GREEN),
+    ]
+    tx, ty, tw = 58, 176, 824
+    cols = [("значення (enum)", tx + 10), ("що сталося", tx + 252), ("типова реакція", tx + 560)]
+    for nm, cxx in cols:
+        s += text(cxx, ty + 12, nm, 10.5, INK, "start", "bold")
+    s += line(tx, ty + 20, tx + tw, ty + 20, FAINT, 1.4)
+    for i, (en, what, act, col) in enumerate(rows):
+        ry = ty + 28 + i * 37
+        s += rect(tx, ry, tw, 33, "#fcfcfc" if i % 2 == 0 else "#f5f7fb", FAINT, 1, 6)
+        s += text(tx + 10, ry + 22, en, 11, col, "start", "bold")
+        s += text(tx + 252, ry + 22, what, 10.5, INK, "start")
+        s += text(tx + 560, ry + 22, act, 10.5, GREY, "start")
+    save("fig-20-8-6-reason-register.svg", s)
+
+
+# ── Рис. 20.8.7 — триаж: несподіваний перезапуск ─────────────────────────────
+def fig87_decision():
+    W, H = 940, 432
+    s = header(W, H)
+    s += text(W / 2, 32, "Пристрій сам перезавантажується — як знайти причину", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "замість здогадів: прочитай причину reset і йди прямо до джерела", 12, GREY, "middle", style="italic")
+    # корінь
+    s += rect(330, 74, 280, 50, LAMB, GOLD, 1.8, 10)
+    s += text(470, 96, "несподіваний перезапуск", 12.5, INK, "middle", "bold")
+    s += text(470, 113, "→ читаємо esp_reset_reason()", 10, GREY, "middle")
+    branches = [
+        ("BROWNOUT", ["слабке живлення:", "кабель, БЖ,", "сплеск радіо/мотора"],
+         ["конденсатор побільше,", "товщий кабель,", "окреме живлення"], RED, 40),
+        ("TASK_WDT", ["задача заблокувалась:", "довгий цикл,", "очікування без виходу"],
+         ["розбити роботу,", "не блокувати надовго,", "перевірити взаємоблок."], RED, 272),
+        ("PANIC", ["баг у коді:", "хибний вказівник,", "переповнення стека"],
+         ["декодувати backtrace,", "шукати дефект,", "перевірити межі"], RED, 504),
+        ("POWERON (не чекали)", ["контакт живлення / EN,", "дребезг кнопки,", "просадка при старті"],
+         ["перевірити роз'єм,", "пін EN і його", "підтяжку"], BLUE, 736),
+    ]
+    for en, cause, fix, col, x in branches:
+        cxn = x + 84
+        s += arrow(470, 124, cxn, 168, col, 1.8)
+        s += rect(x, 170, 168, 40, _tint(col), col, 1.8, 8)
+        s += text(cxn, 195, en, 11.5, col, "middle", "bold")
+        for i, ln in enumerate(cause):
+            s += text(cxn, 230 + i * 16, ln, 9.6, INK, "middle")
+        s += rect(x, 296, 168, 76, "#fbfbfb", col, 1.4, 8)
+        s += text(cxn, 314, "що робити:", 9.5, col, "middle", "bold")
+        for i, ln in enumerate(fix):
+            s += text(cxn, 332 + i * 15, ln, 9.4, INK, "middle")
+    save("fig-20-8-7-decision.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.5c (вставка до 4.1.5) — DevKit-плата ESP32 зсередини
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig5c1_devkit_block():
+    W, H = 940, 510
+    s = header(W, H)
+    s += text(W / 2, 32, "DevKit-плата зсередини: що додано навколо модуля ESP32", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "плата перетворює «голий» модуль на щось, що вмикається в USB і прошивається само",
+              12, GREY, "middle", style="italic")
+    # контур плати
+    s += rect(36, 74, 868, 416, "#fcfdff", INK, 2, 14)
+    s += text(54, 96, "Плата DevKit", 11.5, GREY, "start", "bold")
+    # USB-роз'єм
+    s += rect(54, 250, 64, 64, "#eceff4", INK, 1.8, 6)
+    s += text(86, 286, "USB", 12, INK, "middle", "bold")
+    s += text(86, 334, "5 В + дані", 8.8, GREY, "middle")
+    # міст (верхня смуга — дані)
+    s += blk2(168, 150, 196, 72, "USB-UART міст", ["CP210x / CH340-клас"], fill=LBLUE, stroke=BLUE, lcol=BLUE)
+    # LDO (нижня смуга — живлення)
+    s += blk2(168, 322, 196, 72, "LDO 3.3 В", ["AMS1117-клас"], fill=LRED, stroke=RED, lcol=RED)
+    # модуль
+    s += rect(450, 148, 212, 210, "#eef3fb", INK, 2.4, 10)
+    s += text(556, 176, "Модуль ESP32", 13, INK, "middle", "bold")
+    s += text(556, 194, "WROOM-клас", 9.5, GREY, "middle")
+    s += text(556, 210, "чип + кварц + Flash + антена", 8.6, GREY, "middle")
+    s += line(470, 222, 642, 222, FAINT, 1.2)
+    s += text(556, 244, "TX / RX", 10.5, BLUE, "middle", "bold")
+    s += text(556, 266, "VDD 3.3 В", 10.5, RED, "middle", "bold")
+    s += text(556, 288, "EN · IO0", 10.5, GREEN, "middle", "bold")
+    # авто-скидання
+    s += rect(150, 402, 230, 54, LGRN, GREEN, 1.6, 8)
+    s += text(265, 423, "схема авто-скидання", 10.5, GREEN, "middle", "bold")
+    s += text(265, 441, "DTR/RTS → 2 транзистори", 8.8, INK, "middle")
+    # кнопки
+    s += circle(488, 420, 15, "#e8e8e8", INK, 1.8)
+    s += text(488, 424, "EN", 9, INK, "middle", "bold")
+    s += text(488, 448, "скидання", 8.3, GREY, "middle")
+    s += circle(560, 420, 15, "#e8e8e8", INK, 1.8)
+    s += text(560, 424, "BOOT", 7.6, INK, "middle", "bold")
+    s += text(560, 448, "IO0", 8.3, GREY, "middle")
+    # гребінки GPIO
+    for hx in (700, 744):
+        s += rect(hx, 148, 26, 210, "#fbf7e3", GOLD, 1.4, 4)
+    for i in range(9):
+        yy = 164 + i * 22
+        s += circle(713, yy, 4, "#d8c98a", GOLD, 1)
+        s += circle(757, yy, 4, "#d8c98a", GOLD, 1)
+    s += text(735, 374, "гребінки GPIO", 9.5, INK, "middle", "bold")
+    # зв'язки
+    s += arrow(118, 268, 168, 190, BLUE, 2)
+    s += text(132, 212, "D+/D−", 8.8, BLUE, "start")
+    s += arrow(118, 298, 168, 352, RED, 2)
+    s += text(132, 338, "5 В", 8.8, RED, "start")
+    s += arrow(364, 186, 450, 224, BLUE, 2)
+    s += text(404, 198, "TX/RX", 9, BLUE, "middle")
+    s += arrow(364, 358, 450, 296, RED, 2)
+    s += text(404, 348, "3.3 В", 9, RED, "middle")
+    s += arrow(380, 416, 450, 306, GREEN, 1.8, dash="4,3")
+    s += arrow(488, 404, 488, 360, INK, 1.4)
+    s += arrow(560, 404, 560, 360, INK, 1.4)
+    s += arrow(662, 250, 700, 250, INK, 1.6)
+    s += text(681, 242, "GPIO", 8.8, INK, "middle")
+    save("fig-20-5c-1-devkit-block.svg", s)
+
+
+def fig5c2_flash_flow():
+    W, H = 940, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Що діється, коли тиснеш «Прошити»: роль плати", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "плата сама вводить чіп у режим завантаження — не треба чіпати перемички вручну",
+              12, GREY, "middle", style="italic")
+    steps = [
+        ("1. Втикаєш USB", "кабель до плати", INK),
+        ("2. ОС бачить порт", "потрібен драйвер моста", INK),
+        ("3. DTR/RTS — пульс", "авто-скидання в bootloader", GREEN),
+        ("4. Запис у Flash", "блоками, з перевіркою", BLUE),
+        ("5. EN — старт", "програма пішла", GREEN),
+    ]
+    bw, gap, y, bh = 150, 26, 108, 84
+    xs = []
+    for i, (t, sub, col) in enumerate(steps):
+        xx = 40 + i * (bw + gap)
+        xs.append(xx)
+        s += rect(xx, y, bw, bh, _tint(col) if col != INK else "#f4f5f7", col, 1.8, 8)
+        s += text(xx + bw / 2, y + 34, t, 12, col, "middle", "bold")
+        s += text(xx + bw / 2, y + 56, sub, 9.2, GREY, "middle")
+        if i > 0:
+            s += arrow(xs[i - 1] + bw, y + bh / 2, xx, y + bh / 2, INK, 2.2)
+    cx = xs[2] + bw / 2
+    s += arrow(cx, y + bh, cx, 232, GREEN, 1.8)
+    s += rect(xs[2] - 34, 234, bw + 68, 70, LGRN, GREEN, 1.4, 8)
+    s += text(cx, 256, "при скиданні чіп дивиться на IO0:", 9.8, INK, "middle", "bold")
+    s += text(cx, 275, "IO0 = 0 → завантажувач (приймає прошивку)", 9, INK, "middle")
+    s += text(cx, 291, "IO0 = 1 → твоя програма", 9, INK, "middle")
+    save("fig-20-5c-2-flash-flow.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.2c (вставка до 4.1.2) — Модуль WROOM/WROVER-класу
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig2c1_module_anatomy():
+    W, H = 920, 480
+    s = header(W, H)
+    s += text(W / 2, 32, "Що ховається під металевим екраном модуля", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "голий чіп не працює сам — модуль додає кварц, Flash, антену й узгодження, та ще й екранує радіо",
+              11.5, GREY, "middle", style="italic")
+    # плата модуля
+    s += rect(110, 110, 700, 300, "#f6f4ee", INK, 2.2, 10)
+    s += text(120, 100, "модуль (WROOM / WROVER-клас)", 10.5, GREY, "start", "bold")
+    # зона антени (правий торець)
+    s += rect(650, 110, 160, 300, "#eef6ef", GREEN, 1.6, 0)
+    s += text(730, 134, "зона антени", 10.5, GREEN, "middle", "bold")
+    s += text(730, 150, "(без міді під нею)", 8.8, GREEN, "middle")
+    mx, my, seg = 668, 206, 18
+    d = f"M {mx},{my}"
+    up = True
+    for i in range(7):
+        d += f" v {-38 if up else 38} h {seg}"
+        up = not up
+    s += f'<path d="{d}" fill="none" stroke="{GREEN}" stroke-width="2.4"/>\n'
+    s += text(730, 372, "PCB-антена", 9.5, GREEN, "middle")
+    # екран над лівою частиною (напівпрозоро — крізь нього видно компоненти)
+    s += rect(110, 110, 540, 300, "#e9ebf0", METAL, 1.6, 10)
+    s += text(130, 134, "металевий екран (RF shield)", 11, INK, "start", "bold")
+    s += text(130, 150, "тримає випромінювання всередині", 8.8, GREY, "start")
+    # компоненти під екраном
+    s += rect(178, 222, 120, 118, "#2b2b2b", "#000000", 1.2, 6)
+    s += text(238, 286, "ESP32", 11.5, "#ffffff", "middle", "bold")
+    s += text(238, 303, "кристал у QFN", 8.5, "#cfd6e6", "middle")
+    s += blk(338, 222, 116, 54, "Flash (SPI)", "код", fill="#fdf0e6", stroke="#c07a2e", lcol="#9a5a1e")
+    s += blk(338, 298, 116, 42, "кварц 40 МГц", "", fill=LBLUE, stroke=BLUE, lcol=BLUE)
+    s += blk(486, 222, 140, 54, "RF-узгодження", "до антени", fill=LGRN, stroke=GREEN, lcol=GREEN)
+    s += blk(486, 298, 140, 42, "розв'язка живлення", "", fill=FAINT, stroke=GREY, lcol=INK)
+    # castellated-площадки по краю
+    for i in range(12):
+        px = 144 + i * 46
+        if px > 628:
+            break
+        s += rect(px, 104, 16, 12, METAL, "#666666", 0.8, 2)
+        s += rect(px, 404, 16, 12, METAL, "#666666", 0.8, 2)
+    s += text(400, 444, "напівотвори по краю (castellated) — ними модуль паяють на твою плату",
+              9.5, GREY, "middle", style="italic")
+    save("fig-20-2c-1-module-anatomy.svg", s)
+
+
+def fig2c2_certification():
+    W, H = 900, 430
+    s = header(W, H)
+    s += text(W / 2, 32, "Головна причина модуля: готова сертифікація радіо", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "будь-який радіопередавач треба сертифікувати — питання лише, хто це робить і за чиї гроші",
+              11.5, GREY, "middle", style="italic")
+    # ліва колонка — готовий модуль
+    s += rect(60, 88, 360, 280, "#fbfdfb", GREEN, 2, 12)
+    s += text(240, 116, "Береш готовий модуль", 13.5, GREEN, "middle", "bold")
+    greens = ["модуль уже має FCC / CE / IC", "виробник пройшов випроби радіо",
+              "твій виріб успадковує дозвіл", "на ринок — швидко й дешево"]
+    for i, t in enumerate(greens):
+        y = 152 + i * 42
+        s += _dot(88, y, "on")
+        s += text(108, y + 4, t, 11, INK, "start")
+    s += rect(86, 330, 308, 30, LGRN, GREEN, 1.4, 6)
+    s += text(240, 350, "FCC ID на корпусі = квиток на ринок", 10.5, GREEN, "middle", "bold")
+    # права колонка — голий чіп
+    s += rect(480, 88, 360, 280, "#fffafa", RED, 2, 12)
+    s += text(660, 116, "Береш голий чіп + свою антену", 12.5, RED, "middle", "bold")
+    reds = ["сам проєктуєш ВЧ-тракт і антену", "сам ідеш на повну сертифікацію",
+            "лабораторія, місяці, чималі гроші", "ризик не пройти з першого разу"]
+    for i, t in enumerate(reds):
+        y = 152 + i * 42
+        s += circle(88 + 420, y, 6, LRED, RED, 1.6)
+        s += text(108 + 420, y + 4, t, 11, INK, "start")
+    s += rect(506, 330, 308, 30, LRED, RED, 1.4, 6)
+    s += text(660, 350, "виправдано лише на великому масштабі", 10.5, RED, "middle", "bold")
+    save("fig-20-2c-2-certification.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.2c (друга вставка до 4.1.2) — Антена: PCB / керамічна / IPEX
+#  (нумерація фігур продовжує c-серію теми 4.1.2: c.3, c.4)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig2c3_antenna_types():
+    W, H = 940, 430
+    s = header(W, H)
+    s += text(W / 2, 32, "Три типи антен на модулі — і коли який", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "усі випромінюють ту саму хвилю 2.4 ГГц; різняться розміром, дальністю й ціною",
+              11.5, GREY, "middle", style="italic")
+    cards = [
+        (36, "PCB-доріжка", "(trace antenna)", GREEN),
+        (342, "Керамічна", "(chip antenna)", BLUE),
+        (648, "IPEX / U.FL", "+ зовнішня антена", GOLD),
+    ]
+    traits = {
+        36: ["витравлена прямо на платі", "майже безкоштовна", "добра дальність + відступ", "типова для WROOM"],
+        342: ["крихітний SMD-компонент", "компактна, коли тісно", "трохи гірша й дорожча", "де нема місця на доріжку"],
+        648: ["роз'єм під зовнішню антену", "найбільша дальність", "для металевих корпусів", "треба роз'єм і кабель"],
+    }
+    for x, title, sub, col in cards:
+        s += rect(x, 92, 270, 300, "#fcfcfc", col, 2, 12)
+        s += text(x + 135, 120, title, 14, col, "middle", "bold")
+        s += text(x + 135, 138, sub, 9.5, GREY, "middle", style="italic")
+        icx, icy = x + 135, 192
+        if col == GREEN:
+            seg, mx, my = 14, icx - 49, icy
+            d = f"M {mx},{my}"
+            up = True
+            for i in range(7):
+                d += f" v {-26 if up else 26} h {seg}"
+                up = not up
+            s += f'<path d="{d}" fill="none" stroke="{GREEN}" stroke-width="2.6"/>\n'
+        elif col == BLUE:
+            s += rect(icx - 34, icy - 20, 68, 40, "#dfe7f5", BLUE, 2, 4)
+            s += text(icx, icy + 4, "кераміка", 9, BLUE, "middle", "bold")
+        else:
+            s += circle(icx - 20, icy + 6, 12, "#fbf7e3", GOLD, 2)
+            s += circle(icx - 20, icy + 6, 4, GOLD, GOLD, 0)
+            s += line(icx + 6, icy + 18, icx + 30, icy - 22, INK, 2.4)
+            s += text(icx + 4, icy + 34, "роз'єм + кабель", 8.2, GREY, "middle")
+        for i, tr in enumerate(traits[x]):
+            yy = 250 + i * 34
+            s += text(x + 22, yy, "•", 13, col, "start", "bold")
+            s += text(x + 36, yy, tr, 10.2, INK, "start")
+    save("fig-20-2c-3-antenna-types.svg", s)
+
+
+def fig2c4_detune():
+    W, H = 900, 440
+    s = header(W, H)
+    s += text(W / 2, 32, "Чому корпус і рука «садять» зв'язок", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "антені потрібен вільний простір; метал, земля, вода й рука поглинають і розладнують її",
+              11.5, GREY, "middle", style="italic")
+    # ліва панель — вільна антена
+    s += rect(44, 86, 390, 312, "#fbfdfb", GREEN, 2, 12)
+    s += text(239, 112, "Вільна антена", 13, GREEN, "middle", "bold")
+    s += _antenna(150, 300, 64, INK)
+    s += _waves(168, 256, n=4, col=GREEN, r0=26, dr=22)
+    s += text(239, 336, "сигнал іде вільно", 11, INK, "middle")
+    s += rect(120, 352, 240, 16, "none", GREEN, 1.4)
+    s += rect(120, 352, 240, 16, LGRN, GREEN, 0)
+    s += rect(120, 352, 240, 16, "none", GREEN, 1.4)
+    s += text(239, 388, "повна дальність", 9.5, GREEN, "middle", "bold")
+    # права панель — заблокована антена
+    s += rect(466, 86, 390, 312, "#fffafa", RED, 2, 12)
+    s += text(661, 112, "Поруч рука / метал / земля", 12, RED, "middle", "bold")
+    s += _antenna(560, 300, 64, INK)
+    s += _waves(578, 256, n=2, col=RED, r0=22, dr=16)
+    s += f'<ellipse cx="642" cy="244" rx="56" ry="78" fill="#d9d9de" stroke="{GREY}" stroke-width="1.6"/>\n'
+    s += text(642, 240, "рука /", 10, INK, "middle", "bold")
+    s += text(642, 256, "метал", 10, INK, "middle", "bold")
+    s += text(661, 336, "поглинається, розладнується", 10.5, INK, "middle")
+    s += rect(541, 352, 240, 16, "none", RED, 1.4)
+    s += rect(541, 352, 78, 16, LRED, RED, 0)
+    s += rect(541, 352, 240, 16, "none", RED, 1.4)
+    s += text(661, 388, "дальність падає", 9.5, RED, "middle", "bold")
+    save("fig-20-2c-4-detune.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.4c (вставка до 4.1.4) — Кварц на платі
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig4c1_crystal_circuit():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 32, "Як кварц під'єднано: дві ніжки й дві навантажувальні ємності", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "осцилятор у чипі розгойдує кварц; навантажувальні C задають точну частоту",
+              11.5, GREY, "middle", style="italic")
+    # чіп
+    s += rect(70, 138, 200, 172, "#f4f7fb", INK, 2.2, 10)
+    s += text(170, 172, "ESP32", 13.5, INK, "middle", "bold")
+    s += text(170, 192, "осцилятор Пірса", 10, GREY, "middle")
+    s += text(170, 208, "(підсилювач)", 9, GREY, "middle")
+    s += text(262, 176, "XTAL_P", 9, BLUE, "end", "bold")
+    s += text(262, 254, "XTAL_N", 9, BLUE, "end", "bold")
+    yA, yB = 180, 258
+    s += line(270, yA, 540, yA, INK, 2)
+    s += line(270, yB, 540, yB, INK, 2)
+    # кварц між вузлами (вертикальний символ)
+    cx = 540
+    s += line(cx, yA, cx, 202, INK, 2)
+    s += line(cx, yB, cx, 236, INK, 2)
+    s += line(cx - 22, 202, cx + 22, 202, INK, 2.4)
+    s += line(cx - 22, 236, cx + 22, 236, INK, 2.4)
+    s += rect(cx - 15, 207, 30, 24, "#eef0f5", INK, 2, 2)
+    s += text(cx + 32, 214, "кварц", 11, INK, "start", "bold")
+    s += text(cx + 32, 230, "40 МГц", 11, INK, "start", "bold")
+    # навантажувальні C до спільної шини землі
+    grail = 348
+    def cap_drop(xx, ytop):
+        cmid = ytop + 32
+        o = line(xx, ytop, xx, cmid, INK, 2)
+        o += line(xx - 17, cmid, xx + 17, cmid, INK, 2.4)
+        o += line(xx - 17, cmid + 8, xx + 17, cmid + 8, INK, 2.4)
+        o += line(xx, cmid + 8, xx, grail, INK, 2)
+        return o
+    s += cap_drop(400, yA)
+    s += cap_drop(470, yB)
+    s += circle(400, yA, 3.2, INK, INK, 0)
+    s += circle(470, yB, 3.2, INK, INK, 0)
+    s += text(384, yA - 10, "C", 11, GREEN, "middle", "bold")
+    s += text(486, 222, "C", 11, GREEN, "start", "bold")
+    # спільна земля
+    s += line(384, grail, 486, grail, INK, 2.4)
+    gx = 435
+    s += line(gx - 16, grail + 6, gx + 16, grail + 6, INK, 2.2)
+    s += line(gx - 10, grail + 12, gx + 10, grail + 12, INK, 2)
+    s += line(gx - 4, grail + 18, gx + 4, grail + 18, INK, 1.8)
+    # підказка праворуч (вільне місце)
+    s += rect(620, 150, 258, 150, "#fbfdfb", GREEN, 1.6, 10)
+    s += text(749, 176, "Пам'ятай", 11.5, GREEN, "middle", "bold")
+    s += text(636, 204, "• навантажувальні C ≈ 10 пФ", 10, INK, "start")
+    s += text(636, 222, "  (точно — за CL кварцу)", 9, GREY, "start")
+    s += text(636, 246, "• хибне C → частота «пливе»,", 10, INK, "start")
+    s += text(636, 264, "  Wi-Fi не під'єднується", 10, RED, "start")
+    s += text(636, 288, "• кварц і C — впритул до чипа", 10, INK, "start")
+    save("fig-20-4c-1-crystal-circuit.svg", s)
+
+
+def fig4c2_ppm_accuracy():
+    W, H = 920, 400
+    s = header(W, H)
+    s += text(W / 2, 32, "Що таке ppm і чому радіо потребує саме кварц", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "точність задає дрейф часу — і чи зможе чіп узагалі під'єднатися до Wi-Fi",
+              11.5, GREY, "middle", style="italic")
+    cols = [("джерело такту", 70), ("точність", 410), ("дрейф за добу", 590), ("радіо?", 800)]
+    for nm, x in cols:
+        s += text(x, 104, nm, 11, INK, "middle" if x != 70 else "start", "bold")
+    s += line(50, 116, 870, 116, FAINT, 1.4)
+    rows = [
+        ("Внутрішній RC", "±1–2 % (~10 000 ppm)", "хвилини / день", "✗ неможливе", RED),
+        ("Кварц (crystal)", "±10–20 ppm", "≈ 1 с / день", "✓ працює", GREEN),
+        ("TCXO (з компенсацією)", "±1–2 ppm", "≈ 0.1 с / день", "✓ найкраще", BLUE),
+    ]
+    for i, (nm, acc, drift, rad, col) in enumerate(rows):
+        y = 140 + i * 58
+        s += rect(50, y, 820, 48, _tint(col), col, 1.6, 8)
+        s += text(70, y + 30, nm, 12, col, "start", "bold")
+        s += text(410, y + 30, acc, 11, INK, "middle")
+        s += text(590, y + 30, drift, 11, INK, "middle")
+        s += text(800, y + 30, rad, 11, col, "middle", "bold")
+    s += rect(120, 330, 680, 48, LAMB, GOLD, 1.4, 10)
+    s += text(460, 351, "Wi-Fi/BT вимагають ≈ ±25 ppm і кращої — тому RC не годиться, потрібен кварц.",
+              11, INK, "middle", "bold")
+    s += text(460, 369, "Саме радіо й диктує 40 МГц як опорну частоту (CPU 240 МГц робить PLL із неї).",
+              10, GREY, "middle")
+    save("fig-20-4c-2-ppm-accuracy.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.8c (вставка до 4.1.8) — Супервізор живлення і brownout-детектор
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig8c1_glitch_zone():
+    W, H = 900, 440
+    s = header(W, H)
+    s += text(W / 2, 32, "Сіра зона: чому слабке живлення «дивно глючить»", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "цифрова логіка не падає чисто — на просілій напрузі вона починає поводитися хаотично",
+              11.5, GREY, "middle", style="italic")
+    barx, barw = 150, 96
+    ytop, ybot = 96, 392
+
+    def Vy(v):
+        return ybot - (v / 3.6) * (ybot - ytop)
+
+    s += rect(barx, Vy(3.6), barw, Vy(2.7) - Vy(3.6), LGRN, GREEN, 1.2)
+    s += rect(barx, Vy(2.7), barw, Vy(1.8) - Vy(2.7), LAMB, GOLD, 1.2)
+    s += rect(barx, Vy(1.8), barw, Vy(0.0) - Vy(1.8), LRED, RED, 1.2)
+    s += text(barx + barw / 2, Vy(3.15), "надійно", 11, GREEN, "middle", "bold")
+    s += text(barx + barw / 2, Vy(2.25) - 6, "СІРА ЗОНА", 11, "#8a6d1a", "middle", "bold")
+    s += text(barx + barw / 2, Vy(2.25) + 10, "працює, але глючить", 8.5, "#8a6d1a", "middle")
+    s += text(barx + barw / 2, Vy(0.9), "мертво", 11, RED, "middle", "bold")
+    for v in [0, 1, 2, 3, 3.6]:
+        s += line(barx - 6, Vy(v), barx, Vy(v), INK, 1.4)
+        s += text(barx - 10, Vy(v) + 4, f"{v} В", 9, INK, "end")
+    s += line(barx, Vy(2.6), barx + barw + 18, Vy(2.6), RED, 1.6, dash="6,4")
+    s += text(barx + barw + 24, Vy(2.6) - 4, "поріг BOD —", 10, RED, "start", "bold")
+    s += text(barx + barw + 24, Vy(2.6) + 12, "скидає до входу в зону", 9, GREY, "start")
+    # симптоми
+    sx, sy = 470, 150
+    s += text(sx, sy - 22, "Що коїться в сірій зоні:", 12, INK, "start", "bold")
+    syms = ["читання Flash з помилками", "шини I2C/SPI зависають", "АЦП показує дурню",
+            "випадкові біти й перезаписи", "напіввиконані інструкції"]
+    for i, t in enumerate(syms):
+        y = sy + i * 34
+        s += circle(sx + 8, y - 4, 6, LRED, RED, 1.6)
+        s += text(sx + 24, y, t, 11, INK, "start")
+    s += rect(456, 348, 410, 46, LGRN, GREEN, 1.4, 8)
+    s += text(661, 369, "Робота BOD — скинути чисто, перш ніж чіп", 10.5, INK, "middle", "bold")
+    s += text(661, 385, "увійде в сіру зону. Тому його не вимикають.", 10, GREY, "middle")
+    save("fig-20-8c-1-glitch-zone.svg", s)
+
+
+def fig8c2_decoupling():
+    import math
+    W, H = 920, 430
+    s = header(W, H)
+    s += text(W / 2, 32, "Лік від просідання: конденсатори, що переживають сплеск", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "локальна розв'язка й накопичувальний C віддають струм у мить кидка — Vdd не встигає впасти",
+              11, GREY, "middle", style="italic")
+    # інсет-схема ліворуч
+    s += rect(40, 150, 212, 210, "#fbfdff", INK, 2, 10)
+    s += text(146, 176, "Розв'язка живлення", 10.5, INK, "middle", "bold")
+    s += rect(58, 252, 72, 84, "#eef3fb", INK, 1.8, 6)
+    s += text(94, 290, "ESP32", 10, INK, "middle", "bold")
+    s += text(94, 305, "VDD", 9, RED, "middle", "bold")
+    raily = 214
+    s += line(94, 252, 94, raily, RED, 2)
+    s += line(94, raily, 226, raily, RED, 2)
+
+    def vcap(xx, ytop, ybot):
+        mid = (ytop + ybot) / 2
+        o = line(xx, ytop, xx, mid - 4, INK, 2)
+        o += line(xx - 12, mid - 4, xx + 12, mid - 4, INK, 2.4)
+        o += line(xx - 12, mid + 4, xx + 12, mid + 4, INK, 2.4)
+        o += line(xx, mid + 4, xx, ybot, INK, 2)
+        o += line(xx - 12, ybot, xx + 12, ybot, INK, 2)
+        o += line(xx - 7, ybot + 5, xx + 7, ybot + 5, INK, 1.8)
+        return o
+    s += vcap(166, raily, 330)
+    s += vcap(214, raily, 330)
+    s += text(166, 348, "10–100 мкФ", 8, INK, "middle")
+    s += text(214, 348, "100 нФ", 8, INK, "middle")
+    s += text(166, 206, "накопич.", 8, GREY, "middle")
+    s += text(214, 206, "локальні", 8, GREY, "middle")
+    # часовий графік праворуч
+    x0, x1 = 320, 868
+    yb, yt = 250, 96
+
+    def V(v):
+        return yb - (v / 3.6) * (yb - yt)
+
+    s += arrow(x0, yb, x0, 84, INK, 2)
+    s += text(x0 - 8, 94, "Vdd", 11, INK, "end", "bold")
+    s += arrow(x0, yb, 888, yb, INK, 2)
+    s += text(880, yb + 16, "час", 11, INK, "start")
+    s += line(x0, V(2.6), x1, V(2.6), RED, 1.6, dash="6,4")
+    s += text(x1, V(2.6) - 6, "поріг BOD", 9.5, RED, "end", "bold")
+    s += line(x0, V(3.3), x1, V(3.3), FAINT, 1.4, dash="4,3")
+    s += text(x0 + 4, V(3.3) - 6, "3.3 В", 9, GREY, "start")
+    s += line(495, 90, 495, V(2.0), GREY, 1, dash="3,3")
+    s += text(495, 82, "сплеск радіо (TX)", 9.5, GREY, "middle")
+    d = f"M {x0},{V(3.3):.1f}"
+    for i in range(1, 141):
+        xx = x0 + (x1 - x0) * i / 140
+        v = 3.3 - 1.25 * math.exp(-((xx - 495) / 30.0) ** 2)
+        d += f" L {xx:.1f},{V(v):.1f}"
+    s += f'<path d="{d}" fill="none" stroke="{RED}" stroke-width="2.4"/>\n'
+    s += text(640, V(1.85) + 4, "без C → нижче порога → brownout", 10, RED, "start", "bold")
+    d = f"M {x0},{V(3.3):.1f}"
+    for i in range(1, 141):
+        xx = x0 + (x1 - x0) * i / 140
+        v = 3.3 - 0.35 * math.exp(-((xx - 495) / 30.0) ** 2)
+        d += f" L {xx:.1f},{V(v):.1f}"
+    s += f'<path d="{d}" fill="none" stroke="{GREEN}" stroke-width="2.6"/>\n'
+    s += text(640, V(3.02) - 8, "з C → лишається вище порога", 10, GREEN, "start", "bold")
+    save("fig-20-8c-2-decoupling.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.4m (вставка до 4.1.4) — Дерево тактування: PLL і дільники
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig4m1_clock_tree():
+    W, H = 920, 420
+    s = header(W, H)
+    s += text(W / 2, 32, "Дерево тактування: один кварц — багато частот", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "PLL множить опорну частоту, а дільники ділять її під кожен домен",
+              11.5, GREY, "middle", style="italic")
+    s += blk2(50, 180, 150, 64, "Кварц", ["40 МГц"], fill=LBLUE, stroke=BLUE, lcol=BLUE)
+    s += arrow(200, 212, 248, 212, INK, 2.2)
+    s += blk2(250, 180, 140, 64, "PLL", ["× 12"], fill=LRED, stroke=RED, lcol=RED)
+    s += arrow(390, 212, 452, 212, INK, 2.2)
+    s += circle(470, 212, 5, INK, INK, 0)
+    s += text(470, 196, "480 МГц", 11, INK, "middle", "bold")
+    s += line(470, 180, 470, 255, GREEN, 4)
+    # гілка CPU
+    s += arrow(470, 180, 540, 180, RED, 2)
+    s += rect(540, 160, 64, 40, "#ffffff", RED, 1.6, 6)
+    s += text(572, 184, "÷ 2", 12, RED, "middle", "bold")
+    s += arrow(604, 180, 664, 180, RED, 2)
+    s += blk2(666, 154, 200, 52, "CPU", ["240 МГц"], fill=LRED, stroke=RED, lcol=RED)
+    # гілка APB
+    s += arrow(470, 255, 540, 255, BLUE, 2)
+    s += rect(540, 235, 64, 40, "#ffffff", BLUE, 1.6, 6)
+    s += text(572, 259, "÷ 6", 12, BLUE, "middle", "bold")
+    s += arrow(604, 255, 664, 255, BLUE, 2)
+    s += blk2(666, 229, 200, 52, "APB / шина", ["80 МГц"], fill=LBLUE, stroke=BLUE, lcol=BLUE)
+    # периферія від APB
+    s += arrow(766, 281, 766, 330, GREEN, 2)
+    s += blk2(620, 330, 292, 54, "Периферія: UART, таймери…", ["свої дільники від 80 МГц"],
+              fill=LGRN, stroke=GREEN, lcol=GREEN)
+    save("fig-20-4m-1-clock-tree.svg", s)
+
+
+def fig4m2_derive():
+    W, H = 900, 366
+    s = header(W, H)
+    s += text(W / 2, 32, "Порахуймо: з 40 МГц — у 240 МГц ядра", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "множення в PLL, потім ділення під кожен домен — усе цілими числами",
+              11.5, GREY, "middle", style="italic")
+    s += rect(250, 78, 400, 44, LAMB, GOLD, 1.4, 10)
+    s += text(450, 106, "f(домену) = f(кварцу) × N ÷ M", 13, INK, "middle", "bold")
+    rows = [
+        ("PLL множить", "40 МГц × 12", "= 480 МГц", RED),
+        ("CPU-дільник", "480 МГц ÷ 2", "= 240 МГц", RED),
+        ("APB-дільник", "480 МГц ÷ 6", "= 80 МГц", BLUE),
+    ]
+    for i, (lbl, calc, res, col) in enumerate(rows):
+        y = 156 + i * 52
+        s += text(118, y + 6, lbl, 11.5, GREY, "start")
+        s += rect(250, y - 18, 400, 40, _tint(col), col, 1.4, 8)
+        s += text(300, y + 6, calc, 12.5, INK, "start", "bold")
+        s += text(622, y + 6, res, 12.5, col, "end", "bold")
+    s += rect(140, 322, 620, 32, FAINT, GREY, 1.2, 8)
+    s += text(450, 343, "Дільники цілі — точно дістати можна не будь-яку частоту; беруть найближчу.",
+              10.5, INK, "middle", "bold")
+    save("fig-20-4m-2-derive.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.6m (вставка до 4.1.6) — Мегагерци проти DMIPS
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig6m1_mhz_myth():
+    W, H = 900, 420
+    s = header(W, H)
+    s += text(W / 2, 32, "Міф мегагерців: однакові МГц — різна швидкість", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "ядро, що робить більше за такт, обганяє «швидше» ядро з тією ж частотою",
+              11.5, GREY, "middle", style="italic")
+    base = 350
+    s += line(120, base, 790, base, INK, 1.6)
+    s += line(455, 90, 455, 360, FAINT, 1.2, dash="4,4")
+    # група 1: МГц (рівні)
+    g1 = 250
+    s += text(g1, 386, "Тактова частота (МГц)", 12, INK, "middle", "bold")
+    h1 = 16 * 7
+    for dx, lab, col, tint in [(-72, "ядро A", BLUE, LBLUE), (22, "ядро B", GREEN, LGRN)]:
+        s += rect(g1 + dx, base - h1, 50, h1, tint, col, 1.6)
+        s += text(g1 + dx + 25, base - h1 - 8, "16", 11, col, "middle", "bold")
+        s += text(g1 + dx + 25, base + 16, lab, 9.5, col, "middle")
+    s += text(g1, base - h1 - 28, "однакові!", 11, INK, "middle", "bold")
+    # група 2: DMIPS (різні)
+    g2 = 645
+    s += text(g2, 386, "Корисна робота (DMIPS)", 12, INK, "middle", "bold")
+    sc = 5.5
+    for dx, val, lab, col, tint in [(-72, 16, "ядро A", BLUE, LBLUE), (22, 40, "ядро B", GREEN, LGRN)]:
+        hh = val * sc
+        s += rect(g2 + dx, base - hh, 50, hh, tint, col, 1.6)
+        s += text(g2 + dx + 25, base - hh - 8, str(val), 11, col, "middle", "bold")
+        s += text(g2 + dx + 25, base + 16, lab, 9.5, col, "middle")
+    s += text(g2, base - 40 * sc - 28, "× 2.5 різниця!", 11, RED, "middle", "bold")
+    s += rect(170, 92, 560, 40, LAMB, GOLD, 1.4, 8)
+    s += text(450, 117, "B робить 2.5× за такт (DMIPS/МГц) — ось де ховається правда", 11, INK, "middle", "bold")
+    save("fig-20-6m-1-mhz-myth.svg", s)
+
+
+def fig6m2_honesty_ladder():
+    W, H = 900, 440
+    s = header(W, H)
+    s += text(W / 2, 32, "Драбина чесного порівняння ядер", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "що вище — то ближче до правди про швидкість на ТВОЇХ задачах",
+              11.5, GREY, "middle", style="italic")
+    rungs = [
+        ("Виміряти СВОЇ задачі", "твій код, твоя пам'ять — найчесніше", GREEN),
+        ("Профільний бенчмарк (CoreMark)", "ближче до реальних задач, ніж Dhrystone", BLUE),
+        ("DMIPS / МГц", "враховує корисну роботу за такт", GOLD),
+        ("Лише МГц", "оманливо: ігнорує архітектуру", RED),
+    ]
+    for i, (t, d, col) in enumerate(rungs):
+        y = 96 + i * 70
+        s += rect(166, y, 574, 56, _tint(col), col, 2, 10)
+        s += text(186, y + 24, t, 12.5, col, "start", "bold")
+        s += text(186, y + 43, d, 9.6, INK, "start")
+    # вертикальна вісь «чесніше»
+    s += arrow(126, 410, 126, 86, GREEN, 3)
+    s += text(126, 80, "чесніше", 10.5, GREEN, "middle", "bold")
+    s += text(126, 426, "наївно", 10.5, RED, "middle", "bold")
+    s += rect(166, 388, 574, 40, FAINT, GREY, 1.2, 8)
+    s += text(453, 413, "робота ≈ МГц × DMIPS/МГц — але жоден бенчмарк не замінить заміру власного коду",
+              10, INK, "middle", "bold")
+    save("fig-20-6m-2-honesty-ladder.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.3a (вставка до 4.1.3) — Доступ до регістрів: RMW, set/clear, бітові поля
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig3a1_rmw_race():
+    W, H = 920, 430
+    s = header(W, H)
+    s += text(W / 2, 32, "Чому read-modify-write небезпечний, а SET-регістр — ні", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "якщо переривання встрягне між читанням і записом — твій запис затре його зміну",
+              11.5, GREY, "middle", style="italic")
+    # ліва панель — RMW
+    s += rect(40, 84, 420, 312, "#fffafa", RED, 2, 12)
+    s += text(250, 110, "RMW:  reg |= (1<<0)  — НЕ атомарно", 12, RED, "middle", "bold")
+    steps = [
+        ("1. main ЧИТАЄ reg → 0000", 0b0000, set(), INK),
+        ("2. ISR встряє: SET bit3", 0b1000, {3}, RED),
+        ("3. main ПИШЕ (старе | bit0)", 0b0001, {0}, INK),
+    ]
+    for i, (lab, val, hi, hc) in enumerate(steps):
+        y = 134 + i * 76
+        s += text(60, y, lab, 10.5, INK, "start", "bold")
+        s += _bitword(150, y + 12, val, nbits=4, hi=hi, hicol=hc, cw=30, ch=26)
+    s += text(250, 378, "❌ біт3 від ISR — затерто", 11, RED, "middle", "bold")
+    # права панель — atomic
+    s += rect(480, 84, 400, 312, "#fbfdfb", GREEN, 2, 12)
+    s += text(680, 110, "SET-регістр:  W1S = (1<<n)  — атомарно", 11, GREEN, "middle", "bold")
+    steps2 = [
+        ("main: SET = bit0  → 0001", 0b0001, {0}),
+        ("ISR:  SET = bit3  → 1001", 0b1001, {0, 3}),
+    ]
+    for i, (lab, val, hi) in enumerate(steps2):
+        y = 148 + i * 92
+        s += text(500, y, lab, 10.5, INK, "start", "bold")
+        s += _bitword(580, y + 12, val, nbits=4, hi=hi, hicol=GREEN, cw=30, ch=26)
+    s += text(680, 378, "✓ обидва біти збережено", 11, GREEN, "middle", "bold")
+    save("fig-20-3a-1-rmw-race.svg", s)
+
+
+def fig3a2_methods():
+    W, H = 900, 430
+    s = header(W, H)
+    s += text(W / 2, 32, "Способи дотягтися до бітів регістра", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "RMW зручний, але стережися гонки; SET/CLR-регістри атомарні",
+              11.5, GREY, "middle", style="italic")
+    s += text(70, 102, "дія", 11, INK, "start", "bold")
+    s += text(322, 102, "ідіома C", 11, INK, "start", "bold")
+    s += text(700, 102, "тип", 11, INK, "start", "bold")
+    s += line(50, 112, 850, 112, FAINT, 1.4)
+    rows = [
+        ("встановити біт", "reg |= (1<<n)", "RMW", GOLD),
+        ("скинути біт", "reg &= ~(1<<n)", "RMW", GOLD),
+        ("перемкнути біт", "reg ^= (1<<n)", "RMW", GOLD),
+        ("записати поле", "reg = (reg & ~mask) | (val<<shift)", "RMW", GOLD),
+        ("атомарно встановити", "SET_REG = (1<<n)", "без читання", GREEN),
+        ("атомарно скинути", "CLR_REG = (1<<n)", "без читання", GREEN),
+        ("скинути прапорець статусу", "STATUS = (1<<n)", "write-1-to-clear", BLUE),
+    ]
+    for i, (act, idiom, typ, col) in enumerate(rows):
+        y = 124 + i * 41
+        s += rect(50, y, 800, 35, _tint(col), col, 1.2, 6)
+        s += text(70, y + 23, act, 10.8, INK, "start")
+        s += text(322, y + 23, idiom, 11, col, "start", "bold")
+        s += text(700, y + 23, typ, 10, col, "start", "bold")
+    save("fig-20-3a-2-methods.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.6i (історія до 4.1.6) — Intel 8051
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig6i1_timeline():
+    W, H = 940, 340
+    s = header(W, H)
+    s += text(W / 2, 32, "8051: лінія життя, що не уривається", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "архітектура 1980 року, яку досі виробляють десятки компаній",
+              11.5, GREY, "middle", style="italic")
+    y = 168
+    s += line(70, y, 872, y, INK, 2.5)
+    miles = [
+        (118, "1976", "Intel 8048", "попередник (MCS-48)", BLUE, "up"),
+        (305, "1980", "Intel 8051", "родина MCS-51", RED, "down"),
+        (492, "1980-ті", "Друге джерело", "Siemens·AMD·Philips", GOLD, "up"),
+        (670, "1990–2000-ті", "Похідні", "Atmel·Dallas·SiLabs", GREEN, "down"),
+        (845, "сьогодні", "IP-ядра", "у Bluetooth·USB·давачах", GREEN, "up"),
+    ]
+    for x, yr, t, d, col, side in miles:
+        s += circle(x, y, 6, col, col, 0)
+        if side == "up":
+            s += line(x, y - 6, x, y - 40, col, 1.6)
+            by = y - 94
+        else:
+            s += line(x, y + 6, x, y + 40, col, 1.6)
+            by = y + 42
+        s += rect(x - 80, by, 160, 52, _tint(col), col, 1.6, 8)
+        s += text(x, by + 19, yr, 11, col, "middle", "bold")
+        s += text(x, by + 35, t, 11, INK, "middle", "bold")
+        s += text(x, by + 48, d, 8.2, GREY, "middle")
+    save("fig-20-6i-1-timeline.svg", s)
+
+
+def fig6i2_architecture():
+    W, H = 920, 470
+    s = header(W, H)
+    s += text(W / 2, 32, "Що нового було в 8051: булів процесор і банки регістрів", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "гарвардський поділ, бітові операції та швидкі банки — усе під керування, а не лічбу",
+              11, GREY, "middle", style="italic")
+    s += rect(60, 84, 800, 360, "#fbfcff", INK, 2.2, 12)
+    s += text(80, 104, "Intel 8051 (1980)", 10.5, GREY, "start", "bold")
+    s += blk2(120, 140, 200, 90, "Ядро 8-біт", ["+ БУЛІВ ПРОЦЕСОР", "17 бітових інструкцій"],
+              fill=LGRN, stroke=GREEN, lcol=GREEN)
+    s += blk2(120, 258, 200, 82, "4 банки регістрів", ["× 8 — швидке", "перемикання контексту"],
+              fill=LRED, stroke=RED, lcol=RED)
+    s += blk2(360, 140, 200, 72, "Program ROM", ["4 КБ (Гарвард)"], fill=LBLUE, stroke=BLUE, lcol=BLUE)
+    s += blk2(360, 230, 200, 72, "Data RAM 128 Б", ["є бітово-адресовна зона"], fill=LGRN, stroke=GREEN, lcol=GREEN)
+    s += blk(360, 322, 200, 56, "2× таймери 16-біт", fill="#ffffff")
+    s += blk2(600, 140, 200, 72, "UART", ["послідовний порт"], fill="#ffffff", stroke=INK, lcol=INK)
+    s += blk(600, 230, 200, 72, "Контролер переривань", fill="#ffffff")
+    s += blk(600, 322, 200, 56, "Порти вводу-виводу", fill="#ffffff")
+    s += rect(120, 392, 680, 40, LGRN, GREEN, 1.4, 8)
+    s += text(460, 416, "Зелене — родзинка 8051: керувати окремими бітами так само легко, як байтами.",
+              10, INK, "middle", "bold")
+    save("fig-20-6i-2-architecture.svg", s)
+
+
+def fig6i3_everywhere():
+    W, H = 920, 430
+    s = header(W, H)
+    s += text(W / 2, 32, "Безсмертя ядром: 8051 ховається в сучасних чипах", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "найчастіше його не видно — він працює IP-ядром усередині інших мікросхем",
+              11, GREY, "middle", style="italic")
+    cx, cy = 460, 196
+    prods = [("Bluetooth-чип", 195, 116), ("USB-контролер", 725, 116),
+             ("Комп'ютерна миша", 195, 286), ("Давач, смарт-картка", 725, 286)]
+    # зʼєднувачі (під сподом)
+    for t, x, y in prods:
+        s += line(cx, cy, x, y, GREEN, 1.2, dash="3,4")
+    # продукти
+    for t, x, y in prods:
+        s += rect(x - 96, y - 32, 192, 64, "#fbfcff", INK, 1.8, 10)
+        s += text(x, y - 6, t, 11, INK, "middle", "bold")
+        s += text(x, y + 13, "усередині — 8051", 8.8, GREEN, "middle")
+    # ядро (зверху)
+    s += circle(cx, cy, 50, LGRN, GREEN, 2.4)
+    s += text(cx, cy - 3, "8051", 15, GREEN, "middle", "bold")
+    s += text(cx, cy + 15, "IP-ядро", 9.5, INK, "middle")
+    # числа
+    s += rect(326, 350, 268, 70, LAMB, GOLD, 1.4, 10)
+    s += text(460, 373, "≈100 млн — за перше десятиліття", 10.5, INK, "middle", "bold")
+    s += text(460, 391, "мільярди штук на рік", 10.5, INK, "middle", "bold")
+    s += text(460, 409, "10+ млрд сукупно (і це применшено)", 9.6, GREY, "middle")
+    save("fig-20-6i-3-everywhere.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §20.7i (історія до 4.1.7) — Чому виробники мігрують на RISC-V
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig7i1_three_ways():
+    W, H = 940, 430
+    s = header(W, H)
+    s += text(W / 2, 32, "Три способи дістати ядро для свого чипа", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "кожен виробник МК щось із цього обирає — і дедалі частіше це RISC-V",
+              11.5, GREY, "middle", style="italic")
+    cards = [
+        (40, "Спроєктувати СВОЄ", RED, [("+", "повний контроль"), ("–", "роки роботи, ризик"), ("!", "майже ніхто з нуля")]),
+        (332, "Ліцензувати", BLUE, [("+", "готове (ARM, Xtensa)"), ("–", "ліцензія + роялті/чип"), ("!", "залежність від власника")]),
+        (624, "Взяти ВІДКРИТЕ", GREEN, [("+", "безкоштовно (RISC-V)"), ("+", "вільно кроїти ISA"), ("!", "молодша екосистема")]),
+    ]
+    for x, title, col, items in cards:
+        s += rect(x, 90, 276, 300, "#fcfcfc", col, 2, 12)
+        s += text(x + 138, 122, title, 13.5, col, "middle", "bold")
+        s += line(x + 24, 136, x + 252, 136, col, 1.4)
+        for i, (sym, t) in enumerate(items):
+            y = 182 + i * 60
+            sc = GREEN if sym == "+" else (RED if sym == "–" else GOLD)
+            s += circle(x + 40, y - 4, 11, _tint(sc), sc, 1.6)
+            s += text(x + 40, y, sym, 13, sc, "middle", "bold")
+            s += text(x + 62, y, t, 10.6, INK, "start")
+    save("fig-20-7i-1-three-ways.svg", s)
+
+
+def fig7i2_espressif_split():
+    W, H = 920, 420
+    s = header(W, H)
+    s += text(W / 2, 32, "Родина ESP32 переходить на RISC-V", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "старші чипи — на ліцензованому Xtensa; усі нові — на відкритому RISC-V",
+              11.5, GREY, "middle", style="italic")
+    s += rect(60, 90, 380, 150, LBLUE, BLUE, 2, 12)
+    s += text(250, 116, "Xtensa (ліцензоване ядро)", 12, BLUE, "middle", "bold")
+    for i, nm in enumerate(["ESP32", "ESP32-S2", "ESP32-S3"]):
+        x = 108 + i * 110
+        s += rect(x, 140, 96, 40, "#ffffff", BLUE, 1.6, 8)
+        s += text(x + 48, 165, nm, 10, BLUE, "middle", "bold")
+    s += text(250, 214, "S3 — останній великий на Xtensa", 9.5, GREY, "middle", style="italic")
+    s += rect(480, 90, 380, 150, LGRN, GREEN, 2, 12)
+    s += text(670, 116, "RISC-V (відкрита ISA)", 12, GREEN, "middle", "bold")
+    for i, nm in enumerate(["C3", "C6", "H2", "P4"]):
+        x = 508 + i * 88
+        s += rect(x, 140, 76, 40, "#ffffff", GREEN, 1.6, 8)
+        s += text(x + 38, 165, "ESP32-" + nm, 8.6, GREEN, "middle", "bold")
+    s += text(670, 214, "усі нові сімейства", 9.5, GREY, "middle", style="italic")
+    s += arrow(250, 272, 668, 272, INK, 3)
+    s += text(460, 262, "з ~2019 — курс на RISC-V", 11, INK, "middle", "bold")
+    s += rect(150, 318, 620, 66, LAMB, GOLD, 1.4, 10)
+    s += text(460, 343, "Для коду різниця майже непомітна: IDF і GCC компілюють під обидві.", 10.5, INK, "middle", "bold")
+    s += text(460, 364, "Змінюється ISA всередині — не спосіб, у який ви пишете програму.", 10, GREY, "middle")
+    save("fig-20-7i-2-espressif-split.svg", s)
+
+
+def fig7i3_why_migrate():
+    W, H = 920, 420
+    s = header(W, H)
+    s += text(W / 2, 32, "Що жене виробників до RISC-V", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "чотири сили тягнуть в один бік — і одна осторога", 11.5, GREY, "middle", style="italic")
+    drivers = [
+        ("Ціна", "нуль роялті × мільярди штук", GREEN, 80),
+        ("Контроль", "кроїти й розширювати ISA під себе", BLUE, 162),
+        ("Незалежність", "не залежати від одного власника", GOLD, 244),
+        ("Імпульс", ">25% нових чипів, росте екосистема", GREEN, 326),
+    ]
+    tcx, tcy = 800, 200
+    for t, d, col, y in drivers:
+        s += rect(70, y, 540, 70, _tint(col), col, 1.8, 10)
+        s += text(98, y + 30, t, 13, col, "start", "bold")
+        s += text(98, y + 52, d, 10.5, INK, "start")
+        s += arrow(610, y + 35, tcx - 64, tcy, col, 2)
+    s += circle(tcx, tcy, 64, LGRN, GREEN, 2.6)
+    s += text(tcx, tcy - 4, "RISC-V", 14, GREEN, "middle", "bold")
+    s += text(tcx, tcy + 15, "відкрита ISA", 9, INK, "middle")
+    s += text(tcx, tcy + 96, "⚠ екосистема молодша", 9.5, RED, "middle", "bold")
+    s += text(tcx, tcy + 112, "за ARM — поки що", 9.5, RED, "middle")
+    save("fig-20-7i-3-why-migrate.svg", s)
+
+
 if __name__ == "__main__":
     # Історія до Розділу 20 — перший мікроконтролер
     fig_timeline()
@@ -2158,4 +3309,44 @@ if __name__ == "__main__":
     fig74_connectivity()
     fig75_chooser()
     fig76_picks()
-    print("OK - figures for Section 20 (history + 20.1..20.7 — ПОВНИЙ розділ) generated in", OUT)
+    # §20.8 Причини reset: POR, brownout, watchdog, вихід із deep-sleep
+    fig81_reset_overview()
+    fig82_por()
+    fig83_brownout()
+    fig84_watchdog()
+    fig85_deepsleep_wake()
+    fig86_reason_register()
+    fig87_decision()
+    # §20.5c (вставка до 4.1.5) — DevKit-плата ESP32 зсередини
+    fig5c1_devkit_block()
+    fig5c2_flash_flow()
+    # §20.2c (вставка до 4.1.2) — Модуль WROOM/WROVER-класу
+    fig2c1_module_anatomy()
+    fig2c2_certification()
+    # §20.2c (друга вставка до 4.1.2) — Антена
+    fig2c3_antenna_types()
+    fig2c4_detune()
+    # §20.4c (вставка до 4.1.4) — Кварц на платі
+    fig4c1_crystal_circuit()
+    fig4c2_ppm_accuracy()
+    # §20.8c (вставка до 4.1.8) — Супервізор живлення і brownout-детектор
+    fig8c1_glitch_zone()
+    fig8c2_decoupling()
+    # §20.4m (вставка до 4.1.4) — Дерево тактування
+    fig4m1_clock_tree()
+    fig4m2_derive()
+    # §20.6m (вставка до 4.1.6) — Мегагерци проти DMIPS
+    fig6m1_mhz_myth()
+    fig6m2_honesty_ladder()
+    # §20.3a (вставка до 4.1.3) — Доступ до регістрів
+    fig3a1_rmw_race()
+    fig3a2_methods()
+    # §20.6i (історія до 4.1.6) — Intel 8051
+    fig6i1_timeline()
+    fig6i2_architecture()
+    fig6i3_everywhere()
+    # §20.7i (історія до 4.1.7) — RISC-V міграція
+    fig7i1_three_ways()
+    fig7i2_espressif_split()
+    fig7i3_why_migrate()
+    print("OK - figures for Section 20 (history + 20.1..20.8 + вставки — ПОВНИЙ розділ) generated in", OUT)
