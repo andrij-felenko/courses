@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="330" viewBox="0 0 820 330">
+<rect width="820" height="330" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="410.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Подвійна буферизація: малюй у тіньовий, показуй готовий</text>
+<rect x="90.0" y="110.0" width="170.0" height="110.0" rx="6" fill="#fff8e8" stroke="#b07d18" stroke-width="1.8"/>
+<text x="175.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#9a7d2e" text-anchor="middle" font-weight="bold" font-style="normal">ЗАДНІЙ буфер</text>
+<text x="175.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">малюємо тут</text>
+<text x="175.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(глядач не бачить)</text>
+<rect x="560.0" y="110.0" width="170.0" height="110.0" rx="6" fill="#e7f5ea" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="645.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ПЕРЕДНІЙ буфер</text>
+<text x="645.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">показуємо на екран</text>
+<text x="645.0" y="172.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(панель читає)</text>
+<rect x="360.0" y="116.0" width="100.0" height="60.0" rx="4" fill="#eaf3ff" stroke="#9bbdd6" stroke-width="1.4"/>
+<text x="410.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#5d7e93" text-anchor="middle" font-weight="bold" font-style="normal">панель</text>
+<line x1="560.0" y1="196.0" x2="460.0" y2="196.0" stroke="#1f8a3b" stroke-width="2" marker-end="url(#aGreen)"/>
+<line x1="360.0" y1="196.0" x2="268.0" y2="196.0" stroke="#8a8a8a" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#aGrey)"/>
+<line x1="262.0" y1="250.0" x2="558.0" y2="250.0" stroke="#1b1b1b" stroke-width="2.4" marker-end="url(#aInk)"/>
+<text x="410.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">коли задній готовий — МІНЯЄМО буфери місцями (swap)</text>
+<text x="410.0" y="300.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Глядач завжди бачить лише завершений кадр. Ціна — ДВА кадрові буфери в пам'яті замість одного.</text>
+</svg>

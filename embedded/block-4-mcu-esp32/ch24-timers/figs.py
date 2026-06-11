@@ -1411,6 +1411,615 @@ def fig76_esp32_watchdog():
     save("fig-24-7-6-esp32-watchdog.svg", s)
 
 
+# ── ⚙️ вставка до 4.6.5 — кооперативний планувальник ─────────────────────────
+def fig5a1_task_table():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Кооперативний планувальник: таблиця задач із періодами", 17, INK, "middle", "bold")
+    s += text(W / 2, 54, "замість розкиданих millis-перевірок — один охайний цикл по таблиці",
+              10.3, GREY, "middle", style="italic")
+    cols = ["задача", "період", "останній запуск"]
+    cx = [200, 430, 640]
+    s += rect(70, 76, 700, 26, "#eef1f8", BLUE, 1.4, 6)
+    for c, x in zip(cols, cx):
+        s += text(x, 94, c, 10.5, BLUE, "middle", "bold")
+    rows = [("блимати LED", "500 мс", "t = 12000"),
+            ("читати давач", "1000 мс", "t = 12000"),
+            ("слати дані", "10000 мс", "t = 10000"),
+            ("оновити екран", "100 мс", "t = 12100")]
+    y = 120
+    for a, b, c in rows:
+        s += text(cx[0], y, a, 10.5, INK, "middle")
+        s += text(cx[1], y, b, 10.5, INK, "middle", "bold")
+        s += text(cx[2], y, c, 9.6, GREY, "middle")
+        y += 28
+    s += rect(120, 244, 660, 64, "#fbfbfb", GREY, 1.4, 10)
+    s += text(450, 268, "loop пробігає таблицю: настав час задачі (now − last ≥ період)?", 10.3, INK, "middle", "bold")
+    s += text(450, 290, "→ виконати її й оновити «останній запуск». Один цикл керує всіма.", 9.8, GREY, "middle")
+    save("fig-24-5a-1-task-table.svg", s)
+
+
+def fig5a2_cooperative():
+    W, H = 900, 310
+    s = header(W, H)
+    s += text(W / 2, 32, "«Кооперативний» — кожна задача працює до кінця сама", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "витіснення немає: задачі діляться часом, лише поки кожна куца й швидко вертає",
+              9.8, GREY, "middle", style="italic")
+    # good
+    s += rect(60, 84, 780, 76, LGRN, GREEN, 1.8, 10)
+    s += text(80, 108, "Куці задачі ✓", 11.5, GREEN, "start", "bold")
+    for i, x in enumerate([180, 320, 460, 600, 720]):
+        s += rect(x, 122, 28, 22, "#fff", GREEN, 1.4, 3)
+    s += text(450, 152, "кожна швидко відпрацювала й вернула — усі тримають свій ритм", 9.4, INK, "middle")
+    # bad
+    s += rect(60, 178, 780, 88, LRED, RED, 1.8, 10)
+    s += text(80, 202, "Одна довга задача ✗", 11.5, RED, "start", "bold")
+    s += rect(180, 216, 360, 22, "#fff", RED, 1.6, 3)
+    s += text(360, 231, "довга задача тримає цикл", 9, RED, "middle", "bold")
+    for i, x in enumerate([580, 660, 740]):
+        s += rect(x, 216, 28, 22, "#fff", GREY, 1.2, 3, )
+    s += text(450, 256, "поки вона працює, цикл стоїть → ВСІ інші задачі спізнюються", 9.4, RED, "middle", "bold")
+    s += text(W / 2, 296, "Не виходить тримати задачу куцою — це сигнал переходити на витісняльний RTOS.",
+              10, INK, "middle", "bold")
+    save("fig-24-5a-2-cooperative.svg", s)
+
+
+# ── §4.6.8 RTC і реальний час ────────────────────────────────────────────────
+def fig81_two_clocks():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Дві різні «годинники»: від старту й справжній", 19, INK, "middle", "bold")
+    s += rect(60, 80, 370, 200, LBLUE, BLUE, 2, 12)
+    s += text(245, 106, "millis() — секундомір", 12.5, BLUE, "middle", "bold")
+    s += text(245, 132, "рахує від увімкнення:", 10, INK, "middle")
+    s += text(245, 156, "0 → 1 → 2 … мс", 12, INK, "middle", "bold")
+    s += text(245, 188, "вимкнули живлення →", 10, RED, "middle")
+    s += text(245, 208, "скид у 0, історію стерто", 10.5, RED, "middle", "bold")
+    s += text(245, 248, "«скільки минуло від старту»", 9.5, GREY, "middle", style="italic")
+    s += rect(470, 80, 370, 200, LGRN, GREEN, 2, 12)
+    s += text(655, 106, "RTC — справжній годинник", 12.5, GREEN, "middle", "bold")
+    s += text(655, 132, "знає календарну дату й час:", 10, INK, "middle")
+    s += text(655, 158, "2026-06-11  14:30:00", 13, INK, "middle", "bold")
+    s += text(655, 190, "йде далі навіть уві сні", 10.5, GREEN, "middle", "bold")
+    s += text(655, 210, "й переживає вимкнення", 10, INK, "middle")
+    s += text(655, 248, "«котра зараз година у світі»", 9.5, GREY, "middle", style="italic")
+    s += text(W / 2, 306, "millis відповідає «скільки часу працюю»; RTC — «який зараз момент насправді».",
+              10.5, INK, "middle", "bold")
+    save("fig-24-8-1-two-clocks.svg", s)
+
+
+def fig82_epoch():
+    W, H = 900, 290
+    s = header(W, H)
+    s += text(W / 2, 32, "Як машина зберігає час: один великий лічильник (epoch)", 17, INK, "middle", "bold")
+    s += rect(90, 96, 320, 80, LAMB, GOLD, 2, 12)
+    s += text(250, 130, "1 749 645 000", 22, "#8a6d1a", "middle", "bold")
+    s += text(250, 158, "секунд від 1970-01-01 (UTC)", 9.5, GREY, "middle")
+    s += arrow(420, 136, 500, 136, INK, 2.4)
+    s += text(460, 124, "переклад", 8.5, INK, "middle")
+    s += arrow(500, 150, 420, 150, GREY, 2)
+    s += rect(500, 96, 320, 80, LBLUE, BLUE, 2, 12)
+    s += text(660, 128, "2026-06-11", 16, BLUE, "middle", "bold")
+    s += text(660, 152, "14:30:00", 14, INK, "middle", "bold")
+    s += rect(120, 206, 660, 64, "#fbfbfb", GREY, 1.4, 10)
+    s += text(450, 230, "Одне число легко зберігати, порівнювати й віднімати (скільки минуло).", 10.5, INK, "middle", "bold")
+    s += text(450, 252, "У людський вигляд — дату й годинник — його переводять лише для показу.", 9.8, GREY, "middle")
+    save("fig-24-8-2-epoch.svg", s)
+
+
+def fig83_sleeps():
+    W, H = 900, 290
+    s = header(W, H)
+    s += text(W / 2, 32, "Годинник, що йде уві сні", 19, INK, "middle", "bold")
+    s += rect(80, 90, 300, 150, "#f0f0f0", GREY, 2, 12)
+    s += text(230, 124, "ESP32", 14, GREY, "middle", "bold")
+    s += text(230, 150, "спить / вимкнено", 11, GREY, "middle")
+    s += text(230, 186, "(zzz)", 13, GREY, "middle")
+    s += circle(560, 150, 44, LGRN, GREEN, 2.4)
+    s += line(560, 150, 560, 122, GREEN, 2.4)
+    s += line(560, 150, 580, 160, GREEN, 2.4)
+    s += text(560, 214, "RTC цок-цок…", 10.5, GREEN, "middle", "bold")
+    s += rect(660, 128, 90, 44, LAMB, GOLD, 1.8, 8)
+    s += text(705, 155, "батарейка", 9.5, "#8a6d1a", "middle", "bold")
+    s += line(604, 150, 660, 150, GOLD, 2)
+    s += text(W / 2, 262, "Крихітна батарейка живить лише годинник — і час іде, поки решта спить чи знеструмлена.",
+              10.5, INK, "middle", "bold")
+    save("fig-24-8-3-sleeps.svg", s)
+
+
+def fig84_internal_external():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Внутрішній RTC ESP32 проти зовнішнього модуля", 18, INK, "middle", "bold")
+    s += rect(60, 80, 370, 200, LAMB, GOLD, 2, 12)
+    s += text(245, 106, "Внутрішній RTC ESP32", 12.5, "#8a6d1a", "middle", "bold")
+    for i, (t, ok) in enumerate([("йде в глибокому сні ✓", True),
+                                 ("без батарейки → втрачає час", False),
+                                 ("   при повному вимкненні", False),
+                                 ("помітний дрейф ✗", False)]):
+        s += text(86, 138 + i * 28, t, 10.4, GREEN if ok else RED, "start", "bold" if ok else "normal")
+    s += rect(470, 80, 370, 200, LGRN, GREEN, 2, 12)
+    s += text(655, 106, "Зовнішній модуль (DS3231-клас)", 11.5, GREEN, "middle", "bold")
+    for i, t in enumerate(["власна батарейка → час живе роками ✓", "термокомпенсація → малий дрейф ✓",
+                           "є alarm-вихід (будить за розкладом)", "трохи деталей і місця — ціна точності"]):
+        s += text(496, 138 + i * 28, t, 10, INK, "start")
+    s += text(W / 2, 308, "Потрібен точний, тривкий час — бери зовнішній DS3231; досить пережити сон — вистачить внутрішнього.",
+              10, INK, "middle", "bold")
+    save("fig-24-8-4-internal-external.svg", s)
+
+
+def fig85_drift():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Дрейф: кожен годинник бреше потроху", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "невелика похибка ходу накопичується — і час поволі «розходиться» зі справжнім",
+              10, GREY, "middle", style="italic")
+    s += line(90, 150, 810, 150, GREEN, 2)
+    s += text(70, 154, "істина", 9, GREEN, "end", "bold")
+    s += poly([(90, 150), (810, 110)], RED, 2)
+    s += text(824, 110, "дрейф", 9, RED, "start", "bold")
+    s += text(450, 196, "дешевий RTC ~20 ppm ≈ 1.7 с/добу ≈ ~1 хв/місяць", 10.5, INK, "middle")
+    s += text(450, 218, "DS3231 ~2 ppm ≈ кілька секунд/місяць", 10.5, GREEN, "middle", "bold")
+    s += rect(150, 244, 600, 36, LAMB, GOLD, 1.4, 8)
+    s += text(450, 267, "Похибка накопичується з часом — тому годинник час від часу треба звіряти.", 10, INK, "middle", "bold")
+    save("fig-24-8-5-drift.svg", s)
+
+
+def fig86_sync():
+    W, H = 900, 290
+    s = header(W, H)
+    s += text(W / 2, 32, "Синхронізація: звіряти з еталоном", 19, INK, "middle", "bold")
+    s += rect(70, 100, 150, 70, LBLUE, BLUE, 2, 10)
+    s += text(145, 130, "ESP32", 12, BLUE, "middle", "bold")
+    s += text(145, 150, "годинник дрейфнув", 8.4, RED, "middle")
+    s += arrow(220, 135, 360, 135, GREEN, 2.4)
+    s += text(290, 122, "Wi-Fi", 9, GREEN, "middle", "bold")
+    s += rect(360, 100, 200, 70, LGRN, GREEN, 2, 10)
+    s += text(460, 128, "NTP-сервер", 12, GREEN, "middle", "bold")
+    s += text(460, 150, "еталонний точний час (UTC)", 8.6, GREY, "middle")
+    s += arrow(560, 150, 220, 150, INK, 2)
+    s += text(390, 188, "↑ повертає точний UTC — і дрейф обнуляється", 9.4, INK, "middle", "bold")
+    s += text(700, 120, "так само вміють", 9, GREY, "middle")
+    s += text(700, 138, "GPS і радіосигнал", 9.5, INK, "middle", "bold")
+    s += text(700, 156, "точного часу", 9, GREY, "middle")
+    s += rect(120, 234, 660, 40, "#fbfbfb", GREY, 1.4, 8)
+    s += text(450, 258, "Періодично беремо точний час із мережі (NTP) — і виставляємо годинник наново.", 10, INK, "middle", "bold")
+    save("fig-24-8-6-sync.svg", s)
+
+
+# ── 🔌 вставка до 4.6.8 — RTC-модуль DS3231-класу ────────────────────────────
+def fig8c1_anatomy():
+    W, H = 880, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Що на платі RTC-модуля (DS3231-клас)", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "годинник + батарейка + термокомпенсація на одній платі",
+              11, GREY, "middle", style="italic")
+    s += rect(70, 84, 540, 150, "#fbfbff", INK, 1.8, 12)
+    s += text(340, 106, "модуль RTC", 10.5, GREY, "middle", "bold")
+    s += rect(90, 120, 200, 90, LGRN, GREEN, 1.8, 8)
+    s += text(190, 146, "чип DS3231", 11.5, GREEN, "middle", "bold")
+    s += text(190, 168, "кварц усередині", 9, INK, "middle")
+    s += text(190, 186, "+ термокомпенсація", 9, INK, "middle")
+    s += circle(380, 165, 36, LAMB, GOLD, 2)
+    s += text(380, 162, "CR2032", 9.5, "#8a6d1a", "middle", "bold")
+    s += text(380, 178, "батарейка", 8.4, GREY, "middle")
+    s += rect(470, 130, 120, 70, LBLUE, BLUE, 1.6, 8)
+    s += text(530, 156, "I²C +", 10, BLUE, "middle", "bold")
+    s += text(530, 174, "alarm-вихід", 9.5, BLUE, "middle", "bold")
+    # pins out
+    s += text(700, 130, "виводи:", 10, INK, "middle", "bold")
+    for i, p in enumerate(["VCC · GND", "SDA · SCL", "SQW/INT", "(32K)"]):
+        s += text(700, 152 + i * 18, p, 9.3, GREY, "middle")
+    s += text(W / 2, 268, "Кварц і термокомпенсація — всередині чипа, тож зовнішнього резонатора не треба.",
+              10, INK, "middle", "bold")
+    s += text(W / 2, 290, "Батарейка на платі живить годинник, поки ESP32 вимкнено (§4.6.8).", 9.6, GREY, "middle")
+    save("fig-24-8c-1-anatomy.svg", s)
+
+
+def fig8c2_wiring():
+    W, H = 880, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Підключення RTC-модуля до ESP32", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "дві лінії I²C; за бажання — alarm-вихід на ніжку-переривання, щоб будити за часом",
+              9.8, GREY, "middle", style="italic")
+    s += rect(80, 100, 150, 130, LBLUE, BLUE, 2, 12)
+    s += text(155, 130, "ESP32", 12.5, BLUE, "middle", "bold")
+    s += rect(660, 100, 150, 130, LGRN, GREEN, 2, 12)
+    s += text(735, 128, "RTC DS3231", 11.5, GREEN, "middle", "bold")
+    wires = [("SDA", "шина I²C", BLUE, 128),
+             ("SCL", "шина I²C", BLUE, 150),
+             ("VCC · GND", "живлення", GREEN, 178)]
+    for lab, note, col, yy in wires:
+        s += line(230, yy, 660, yy, col, 1.6)
+        s += text(445, yy - 4, lab, 9, col, "middle", "bold")
+        s += text(445, yy + 11, note, 8, GREY, "middle")
+    s += line(230, 206, 660, 206, RED, 1.8, dash="5 4")
+    s += text(445, 200, "SQW/INT → ніжка-переривання (необов'язково)", 8.8, RED, "middle", "bold")
+    s += rect(120, 250, 640, 40, "#fbfbfb", GREY, 1.4, 8)
+    s += text(440, 274, "Адреса I²C стала (0x68); alarm-вихід уміє будити пристрій точно в заданий час.", 9.6, INK, "middle", "bold")
+    save("fig-24-8c-2-wiring.svg", s)
+
+
+# ── ⚙️ вставка до 4.6.3 — input capture на практиці ──────────────────────────
+def fig3a1_capture():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Input capture: залізо ставить мітку часу точно на фронті", 17, INK, "middle", "bold")
+    s += text(W / 2, 54, "програма не «ловить» фронт із затримкою — лічильник фіксується апаратно, у мить фронту",
+              9.8, GREY, "middle", style="italic")
+    # signal with two edges
+    sy = 110
+    s += text(70, sy + 4, "сигнал:", 10, INK, "end", "bold")
+    s += line(90, sy + 20, 250, sy + 20, INK, 2)
+    s += line(250, sy + 20, 250, sy - 12, INK, 2)
+    s += line(250, sy - 12, 560, sy - 12, INK, 2)
+    s += line(560, sy - 12, 560, sy + 20, INK, 2)
+    s += line(560, sy + 20, 760, sy + 20, INK, 2)
+    s += arrow(250, sy + 46, 250, sy + 24, RED, 2)
+    s += text(250, sy + 60, "фронт → захоплення t1", 8.6, RED, "middle", "bold")
+    s += arrow(560, sy + 46, 560, sy + 24, RED, 2)
+    s += text(560, sy + 60, "фронт → захоплення t2", 8.6, RED, "middle", "bold")
+    # counter ramp
+    s += text(70, 210, "лічильник:", 10, INK, "end", "bold")
+    s += poly([(90, 240), (760, 200)], BLUE, 2)
+    s += text(250, 196, "t1 = 1200", 9, BLUE, "middle", "bold")
+    s += text(560, 188, "t2 = 4800", 9, BLUE, "middle", "bold")
+    s += rect(120, 256, 660, 50, LAMB, GOLD, 1.4, 10)
+    s += text(450, 278, "Інтервал = t2 − t1 = 3600 тіків → переводимо в час за темпом таймера (§4.6.1).", 10, INK, "middle", "bold")
+    s += text(450, 298, "Залізо знімає мітку в саму мить фронту — джитера програми тут нема.", 9.4, GREY, "middle")
+    save("fig-24-3a-1-capture.svg", s)
+
+
+def fig3a2_uses():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Що цим міряють: ширину імпульсу й частоту", 18, INK, "middle", "bold")
+    s += rect(60, 80, 780, 86, LBLUE, BLUE, 1.8, 10)
+    s += text(80, 106, "Ширина імпульсу:", 11, BLUE, "start", "bold")
+    s += text(250, 106, "фронт↑ (t1) → фронт↓ (t2), ширина = t2 − t1", 10, INK, "start")
+    s += text(80, 140, "приклад:", 9.5, GREY, "start", "bold")
+    s += text(250, 140, "тривалість луни HC-SR04 → відстань", 9.8, INK, "start")
+    s += rect(60, 180, 780, 86, LGRN, GREEN, 1.8, 10)
+    s += text(80, 206, "Період / частота:", 11, GREEN, "start", "bold")
+    s += text(250, 206, "фронт↑ (t1) → наступний фронт↑ (t2), період = t2 − t1", 10, INK, "start")
+    s += text(80, 240, "приклад:", 9.5, GREY, "start", "bold")
+    s += text(250, 240, "тахометр: оберти за хвилину з імпульсів", 9.8, INK, "start")
+    s += text(W / 2, 288, "Відняв дві мітки — маєш точний інтервал; частота = 1 / період. Решта — арифметика.",
+              10, INK, "middle", "bold")
+    save("fig-24-3a-2-uses.svg", s)
+
+
+# ── ⚙️ вставка до 4.6.6 — колесо таймерів ────────────────────────────────────
+def fig6a1_wheel():
+    import math
+    W, H = 900, 360
+    s = header(W, H)
+    s += text(W / 2, 32, "Колесо таймерів: циферблат зі слотами", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "стрілка йде по одному слоту за тік і запускає все, чий час настав саме тут",
+              9.8, GREY, "middle", style="italic")
+    cx, cy, r = 300, 195, 110
+    n = 8
+    nowk = 1
+    s += circle(cx, cy, r + 22, "none", FAINT, 1.4)
+    for k in range(n):
+        ang = -90 + k * (360 / n)
+        x = cx + r * math.cos(math.radians(ang))
+        y = cy + r * math.sin(math.radians(ang))
+        cur = (k == nowk)
+        s += circle(x, y, 20, (LGRN if cur else "#fff"), (GREEN if cur else GREY), 1.8)
+        s += text(x, y + 4, str(k), 10, GREEN if cur else GREY, "middle", "bold")
+        if k == 3:
+            s += text(x + 30, y + 4, "•• таймери", 8, INK, "start")
+        if k == 6:
+            s += text(x + 30, y + 4, "• таймер", 8, INK, "start")
+    # hand
+    ang = -90 + nowk * (360 / n)
+    s += arrow(cx, cy, cx + (r - 24) * math.cos(math.radians(ang)), cy + (r - 24) * math.sin(math.radians(ang)), RED, 2.4)
+    s += text(cx, cy + 6, "зараз", 9.5, RED, "middle", "bold")
+    s += rect(470, 110, 380, 170, "#fbfbfb", GREY, 1.4, 10)
+    s += text(660, 136, "Як це працює:", 11.5, INK, "middle", "bold")
+    s += text(490, 162, "• планую подію через Δ →", 10, INK, "start")
+    s += text(508, 180, "кладу в слот (зараз + Δ)", 10, BLUE, "start", "bold")
+    s += text(490, 208, "• кожен тік — стрілка на 1 слот", 10, INK, "start")
+    s += text(490, 226, "  уперед і запускає ВЕСЬ цей слот", 10, INK, "start")
+    s += text(490, 254, "Торкаємось лише таймерів «на зараз»,", 9.4, GREEN, "start", "bold")
+    s += text(490, 270, "а не всіх щотіку.", 9.4, GREEN, "start", "bold")
+    save("fig-24-6a-1-wheel.svg", s)
+
+
+def fig6a2_compare():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Лінійний список проти колеса", 19, INK, "middle", "bold")
+    s += rect(60, 80, 370, 150, LAMB, GOLD, 2, 12)
+    s += text(245, 106, "Лінійний список", 12.5, "#8a6d1a", "middle", "bold")
+    s += text(245, 136, "щотіку перебрати ВСІ N таймерів", 10, INK, "middle")
+    s += text(245, 162, "O(N)", 16, "#8a6d1a", "middle", "bold")
+    s += text(245, 196, "добре, коли таймерів жменя (§4.6.5a)", 9.2, GREY, "middle")
+    s += rect(470, 80, 370, 150, LGRN, GREEN, 2, 12)
+    s += text(655, 106, "Колесо таймерів", 12.5, GREEN, "middle", "bold")
+    s += text(655, 136, "щотіку — лише поточний слот", 10, INK, "middle")
+    s += text(655, 162, "O(1)", 16, GREEN, "middle", "bold")
+    s += text(655, 196, "тримає тисячі таймерів дешево", 9.2, GREY, "middle")
+    s += text(W / 2, 258, "Затримка довша за колесо → лічильник обертів або ярусні колеса (як стрілки годинника).",
+              9.8, INK, "middle", "bold")
+    s += text(W / 2, 280, "Жменя таймерів — лінійний список; тисячі — колесо.", 10, INK, "middle", "bold")
+    save("fig-24-6a-2-compare.svg", s)
+
+
+# ── ⚙️ вставка до 4.6.7 — як «годувати» watchdog правильно ───────────────────
+def fig7a1_blind_vs_checkpoint():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Як годувати watchdog: сліпо проти чекпойнтів", 18, INK, "middle", "bold")
+    s += rect(60, 78, 370, 200, LRED, RED, 2, 12)
+    s += text(245, 104, "Сліпо: feed() щоразу на початку loop()", 10.3, RED, "middle", "bold")
+    s += text(245, 134, "годуємо БЕЗУМОВНО,", 10, INK, "middle")
+    s += text(245, 154, "навіть коли справжня робота стала", 10, INK, "middle")
+    s += text(245, 188, "пес мовчить, хоча пристрій зламано", 10, RED, "middle", "bold")
+    s += text(245, 208, "✗ марна сторожа", 11.5, RED, "middle", "bold")
+    s += text(245, 244, "feed нічого не доводить про поступ", 9, GREY, "middle", style="italic")
+    s += rect(470, 78, 370, 200, LGRN, GREEN, 2, 12)
+    s += text(655, 104, "Чекпойнти: feed лише коли всі живі", 10.3, GREEN, "middle", "bold")
+    s += text(655, 134, "годуємо, ЛИШЕ коли всі задачі", 10, INK, "middle")
+    s += text(655, 154, "відмітились «я жива» нещодавно", 10, INK, "middle")
+    s += text(655, 188, "зависла задача → не годуємо → скид", 10, GREEN, "middle", "bold")
+    s += text(655, 208, "✓ чесна сторожа", 11.5, GREEN, "middle", "bold")
+    s += text(655, 244, "feed доводить поступ КОЖНОЇ задачі", 9, GREY, "middle", style="italic")
+    s += text(W / 2, 304, "Годувати — означає підтвердити, що робота справді рухається, а не просто крутиться loop().",
+              10, INK, "middle", "bold")
+    save("fig-24-7a-1-blind-vs-checkpoint.svg", s)
+
+
+def fig7a2_checkpoints():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Чекпойнти: годуй, лише коли ВСІ живі", 19, INK, "middle", "bold")
+    tasks = [("задача A", "✓ свіжа", GREEN), ("задача B", "✓ свіжа", GREEN), ("задача C", "✗ зависла", RED)]
+    x = 90
+    for name, st, col in tasks:
+        fill = LGRN if col == GREEN else LRED
+        s += rect(x, 86, 180, 70, fill, col, 1.8, 10)
+        s += text(x + 90, 114, name, 11.5, INK, "middle", "bold")
+        s += text(x + 90, 136, st, 10.5, col, "middle", "bold")
+        x += 200
+    s += text(700, 110, "збирач:", 10.5, INK, "middle", "bold")
+    s += text(700, 132, "усі свіжі?", 10, INK, "middle")
+    # AND -> result
+    for cx in (180, 380, 580):
+        s += arrow(cx, 158, 450, 196, GREY, 1.6)
+    s += rect(300, 198, 300, 56, LRED, RED, 1.8, 10)
+    s += text(450, 222, "одна стара → НЕ годувати", 11, RED, "middle", "bold")
+    s += text(450, 242, "→ watchdog скидає пристрій", 10, INK, "middle")
+    s += text(W / 2, 286, "Сторожа стереже, що поступ робить КОЖНА задача, а не лише що крутиться головний цикл.",
+              10, INK, "middle", "bold")
+    save("fig-24-7a-2-checkpoints.svg", s)
+
+
+# ── 🧮 вставка до 4.6.1 — прескалер і дільники ───────────────────────────────
+def fig1m1_chain():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Прескалер і лічба: дві ручки з 80 МГц", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "груба ручка ділить тактову, тонка — рахує тіки до події",
+              10.3, GREY, "middle", style="italic")
+    boxes = [("80 МГц", "тактова", LBLUE, BLUE), ("÷ P", "прескалер", LAMB, GOLD),
+             ("f(тік)", "темп тіка", LBLUE, BLUE), ("лічити N", "тіків", LGRN, GREEN),
+             ("подія", "", LGRN, GREEN)]
+    x = 60
+    for lab, sub, fill, col in boxes:
+        s += rect(x, 100, 140, 60, fill, col, 1.8, 8)
+        s += text(x + 70, 126, lab, 12, col, "middle", "bold")
+        if sub:
+            s += text(x + 70, 146, sub, 9, GREY, "middle")
+        if x < 660:
+            s += arrow(x + 140, 130, x + 168, 130, INK, 2)
+        x += 168
+    s += rect(120, 200, 660, 80, LAMB, GOLD, 1.4, 10)
+    s += text(450, 224, "Приклад — рівно 1 кГц:  P = 80 → f(тік) = 80 МГц / 80 = 1 МГц (тік = 1 мкс),", 10.3, INK, "middle", "bold")
+    s += text(450, 246, "далі N = 1000 тіків → період 1000 мкс = 1 мс → 1000 Гц. Точно, без похибки.", 10, GREY, "middle")
+    s += text(450, 270, "Загалом: період = N · P / f(такт);   N · P = f(такт) / f(ціль).", 9.8, INK, "middle", "bold")
+    save("fig-24-1m-1-chain.svg", s)
+
+
+def fig1m2_error():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Коли не ділиться рівно — похибка накопичується", 18, INK, "middle", "bold")
+    s += rect(60, 80, 370, 150, LGRN, GREEN, 2, 12)
+    s += text(245, 106, "Ціль 1 кГц — ділиться рівно", 11, GREEN, "middle", "bold")
+    s += text(245, 134, "N·P = 80 000 000 / 1000 = 80 000", 9.6, INK, "middle")
+    s += text(245, 156, "= 80 × 1000  (ціле!)", 9.6, INK, "middle")
+    s += text(245, 190, "похибка = 0 ✓", 12, GREEN, "middle", "bold")
+    s += text(245, 212, "ідеально для точних частот", 8.8, GREY, "middle")
+    s += rect(470, 80, 370, 150, LRED, RED, 2, 12)
+    s += text(655, 106, "Ціль 3 Гц — НЕ ділиться рівно", 11, RED, "middle", "bold")
+    s += text(655, 134, "N·P = 80 000 000 / 3 = 26 666 666.7", 9.4, INK, "middle")
+    s += text(655, 156, "не ціле → беремо найближче", 9.4, INK, "middle")
+    s += text(655, 190, "залишок → дрейф ✗", 12, RED, "middle", "bold")
+    s += text(655, 212, "крихітна похибка × мільйони періодів", 8.8, GREY, "middle")
+    s += text(W / 2, 262, "Добирай тактову й дільники так, щоб ціль ділилася рівно, коли потрібна точність;", 10, INK, "middle", "bold")
+    s += text(W / 2, 282, "не ділиться — лишається залишок, що накопичується (періодична поправка чи терпіти).", 9.4, GREY, "middle")
+    save("fig-24-1m-2-error.svg", s)
+
+
+# ── 🧮 вставка до 4.6.2 — модульна арифметика беззнакових ────────────────────
+def fig2m1_clock():
+    import math
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Беззнакове віднімання — як на циферблаті", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "уся арифметика беззнакових іде за модулем 2³²: різниця «обертається» з лічильником",
+              9.8, GREY, "middle", style="italic")
+    cx, cy, r = 250, 185, 95
+    s += circle(cx, cy, r, "none", GREY, 1.8)
+    s += text(cx, cy - r - 10, "0 / 2³²", 9.5, INK, "middle", "bold")
+    # last near max (just before top, ccw side), now just past 0 (cw side)
+    a_last = -90 - 18
+    a_now = -90 + 12
+    for ang, lab, col in [(a_last, "last ≈ MAX", RED), (a_now, "now (обернувся) = 4", GREEN)]:
+        x = cx + r * math.cos(math.radians(ang))
+        y = cy + r * math.sin(math.radians(ang))
+        s += circle(x, y, 6, col, col, 1)
+        ox = cx + (r + 30) * math.cos(math.radians(ang))
+        oy = cy + (r + 30) * math.sin(math.radians(ang))
+        s += text(ox + (-40 if col == RED else 40), oy, lab, 9, col, "middle" if False else ("end" if col == RED else "start"), "bold")
+    # arc elapsed
+    s += text(cx, cy + 6, "проміжок", 9, INK, "middle", "bold")
+    s += text(cx, cy + 22, "= 10 мс", 9.5, INK, "middle")
+    s += rect(440, 120, 410, 130, "#fbfbfb", GREY, 1.4, 10)
+    s += text(645, 146, "Через переповнення:", 11, INK, "middle", "bold")
+    s += text(460, 172, "last = 4 294 967 290   (близько до MAX)", 9.6, INK, "start")
+    s += text(460, 194, "за 10 мс now = 4   (обернувся через 0)", 9.6, INK, "start")
+    s += text(460, 220, "now − last = (4 − 4 294 967 290) mod 2³²", 9.6, BLUE, "start", "bold")
+    s += text(460, 240, "= 10  ✓  (правильний проміжок!)", 10.5, GREEN, "start", "bold")
+    s += text(W / 2, 300, "Як на 12-годинному циферблаті: «2 − 10» дає 4 години, а не −8. Лічильник теж «по колу».",
+              9.8, INK, "middle", "bold")
+    save("fig-24-2m-1-clock.svg", s)
+
+
+def fig2m2_right_vs_wrong():
+    W, H = 900, 290
+    s = header(W, H)
+    s += text(W / 2, 32, "Правильна форма проти хибної", 19, INK, "middle", "bold")
+    s += rect(60, 80, 370, 150, LGRN, GREEN, 2, 12)
+    s += text(245, 108, "Правильно ✓", 12.5, GREEN, "middle", "bold")
+    s += text(245, 140, "if (now − last >= interval)", 12, INK, "middle", "bold")
+    s += text(245, 172, "віднімання працює навіть", 10, INK, "middle")
+    s += text(245, 190, "через переповнення", 10, GREEN, "middle", "bold")
+    s += rect(470, 80, 370, 150, LRED, RED, 2, 12)
+    s += text(655, 108, "Хибно ✗", 12.5, RED, "middle", "bold")
+    s += text(655, 140, "if (now >= last + interval)", 12, INK, "middle", "bold")
+    s += text(655, 172, "на переповненні зривається:", 10, INK, "middle")
+    s += text(655, 190, "таймер «застрягає» до ~49.7 дня", 10, RED, "middle", "bold")
+    s += text(W / 2, 262, "Завжди ВІДНІМАЙ (now − last), не порівнюй (now >= last + …); тип — той самий беззнаковий (unsigned long).",
+              9.8, INK, "middle", "bold")
+    save("fig-24-2m-2-right-vs-wrong.svg", s)
+
+
+# ── 🧮 вставка до 4.6.8 — Unix-час і календар ────────────────────────────────
+def fig8m1_peel():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Як з epoch дістати дату: «знімаємо шари»", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "одне число секунд розкручують у дату, знімаючи шар за шаром",
+              10.3, GREY, "middle", style="italic")
+    s += rect(60, 86, 200, 48, LAMB, GOLD, 1.8, 8)
+    s += text(160, 115, "epoch (секунди)", 11, "#8a6d1a", "middle", "bold")
+    s += arrow(260, 110, 300, 110, INK, 2.2)
+    s += text(280, 98, "÷86400", 8, INK, "middle")
+    s += rect(300, 86, 230, 48, LBLUE, BLUE, 1.8, 8)
+    s += text(415, 108, "дні від 1970", 10.5, BLUE, "middle", "bold")
+    s += text(415, 126, "+ залишок: секунди в добі", 8.4, GREY, "middle")
+    # day -> hms
+    s += arrow(415, 134, 415, 168, GREY, 2)
+    s += rect(300, 170, 230, 44, LGRN, GREEN, 1.6, 8)
+    s += text(415, 190, "секунди в добі →", 9.4, INK, "middle")
+    s += text(415, 206, "години : хвилини : секунди", 9.4, GREEN, "middle", "bold")
+    # days -> y/m/d
+    s += arrow(530, 110, 580, 110, GREY, 2.2)
+    s += rect(580, 86, 270, 128, "#fbfbfb", GREY, 1.4, 10)
+    s += text(715, 110, "дні від 1970 →", 10, INK, "middle", "bold")
+    s += text(715, 134, "− роки (365 або 366)", 9.4, INK, "middle")
+    s += text(715, 156, "− місяці (28/29/30/31)", 9.4, INK, "middle")
+    s += text(715, 178, "= рік · місяць · день", 10, BLUE, "middle", "bold")
+    s += text(715, 200, "(високосні — складність!)", 8.4, RED, "middle")
+    s += text(W / 2, 256, "Секунди → доби й час доби; доби → роки → місяці → день. Зворотне переведення — так само, у зворотний бік.",
+              9.6, INK, "middle", "bold")
+    s += text(W / 2, 286, "Тому-то всередині тримають просте число, а в дату переводять лише для показу (§4.6.8).",
+              9.4, GREY, "middle")
+    save("fig-24-8m-1-peel.svg", s)
+
+
+def fig8m2_leap():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Високосний рік: правило ÷4, ÷100, ÷400", 19, INK, "middle", "bold")
+    s += rect(70, 78, 760, 96, "#fbfbff", INK, 1.6, 10)
+    s += text(450, 104, "рік ділиться на 4  →  високосний (29 днів у лютому)…", 11, GREEN, "middle", "bold")
+    s += text(450, 128, "…АЛЕ ділиться на 100  →  НЕ високосний…", 11, RED, "middle", "bold")
+    s += text(450, 152, "…АЛЕ ділиться на 400  →  таки високосний.", 11, GREEN, "middle", "bold")
+    ex = [("2024", "÷4", "✓ високосний", GREEN), ("1900", "÷100, не ÷400", "✗ звичайний", RED),
+          ("2000", "÷400", "✓ високосний", GREEN)]
+    x = 90
+    for yr, why, res, col in ex:
+        s += rect(x, 196, 240, 64, ("#eef6ef" if col == GREEN else "#fbecec"), col, 1.8, 10)
+        s += text(x + 120, 220, yr + "  (" + why + ")", 11, INK, "middle", "bold")
+        s += text(x + 120, 242, res, 11, col, "middle", "bold")
+        x += 250
+    s += text(W / 2, 290, "Лютий має 29 днів лише у високосний — через це конвертація й заплутана. Зберігаємо UTC, бо пояси й літній час іще гірші.",
+              9.4, INK, "middle", "bold")
+    save("fig-24-8m-2-leap.svg", s)
+
+
+# ── 📜 історія до 4.6.8 — Y2K і 2038 ─────────────────────────────────────────
+def fig8i1_y2k():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Y2K: дві цифри, що заощадили — і бабахнули", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "рік зберігали двома цифрами заради дорогоцінної пам'яті",
+              10.3, GREY, "middle", style="italic")
+    s += rect(70, 90, 200, 70, LBLUE, BLUE, 1.8, 10)
+    s += text(170, 122, "рік = «99»", 14, BLUE, "middle", "bold")
+    s += text(170, 144, "(тобто 1999)", 9, GREY, "middle")
+    s += arrow(270, 125, 330, 125, INK, 2.4)
+    s += text(300, 113, "2000", 8.5, INK, "middle")
+    s += rect(330, 90, 200, 70, LRED, RED, 1.8, 10)
+    s += text(430, 118, "рік = «00»", 14, RED, "middle", "bold")
+    s += text(430, 140, "комп'ютер читає 1900!", 9, RED, "middle", "bold")
+    s += arrow(530, 125, 590, 125, RED, 2.2)
+    s += rect(590, 90, 250, 70, "#fbfbfb", RED, 1.6, 10)
+    s += text(715, 116, "арифметика дат ламається", 9.8, INK, "middle", "bold")
+    s += text(715, 138, "(вік, тривалості, рахунки)", 9, GREY, "middle")
+    s += text(W / 2, 210, "Скорочення «викинути 19» заощаджувало байти на мільярдах записів —", 10.5, INK, "middle", "bold")
+    s += text(W / 2, 232, "і клало бомбу сповільненої дії під 2000-й рік.", 10.5, GREY, "middle")
+    s += text(W / 2, 268, "Пам'ять колись була такою дорогою, що дві цифри здавалися розумною ощадливістю.",
+              9.6, INK, "middle")
+    save("fig-24-8i-1-y2k.svg", s)
+
+
+def fig8i2_y2038():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "2038: годинник самих машин переповнюється", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "знаковий 32-бітний відлік секунд від 1970 дійде до межі",
+              10.3, GREY, "middle", style="italic")
+    s += rect(70, 90, 250, 70, LGRN, GREEN, 1.8, 10)
+    s += text(195, 116, "2 147 483 647", 13, GREEN, "middle", "bold")
+    s += text(195, 138, "макс. знакового 32-біт", 8.6, GREY, "middle")
+    s += arrow(320, 125, 380, 125, RED, 2.4)
+    s += text(350, 113, "+1 с", 8, RED, "middle")
+    s += rect(380, 90, 250, 70, LRED, RED, 1.8, 10)
+    s += text(505, 116, "→ від'ємне число", 12, RED, "middle", "bold")
+    s += text(505, 138, "стрибок у 13 грудня 1901", 9, INK, "middle")
+    s += text(W / 2, 196, "Настане це 19 січня 2038, о 03:14:07 UTC. Лік: перейти на 64-бітний time_t —", 10.3, INK, "middle", "bold")
+    s += text(W / 2, 218, "тоді переповнення відсувається на ~292 мільярди років.", 10, GREY, "middle")
+    s += rect(150, 246, 600, 38, LAMB, GOLD, 1.4, 10)
+    s += text(450, 270, "Найважче полагодити вбудовані й застарілі 32-бітні системи — саме такі, як у цьому курсі.",
+              9.6, INK, "middle", "bold")
+    save("fig-24-8i-2-y2038.svg", s)
+
+
+def fig8i3_same_bug():
+    W, H = 900, 290
+    s = header(W, H)
+    s += text(W / 2, 32, "Той самий баг — різний масштаб", 19, INK, "middle", "bold")
+    rows = [("millis()", "32-біт мілісекунди", "переповнення за 49.7 дня (§4.6.2)"),
+            ("Y2K", "рік двома цифрами", "«переповнення» 2000-го року"),
+            ("Y2038", "знаковий 32-біт секунд", "переповнення 2038 року")]
+    y = 80
+    for a, b, c in rows:
+        s += rect(70, y, 760, 46, "#fbfbff", INK, 1.4, 8)
+        s += text(96, y + 28, a, 12, BLUE, "start", "bold")
+        s += text(300, y + 28, b, 10.5, INK, "start")
+        s += text(810, y + 28, c, 9.6, GREY, "end")
+        y += 58
+    s += rect(150, 258, 600, 0, FAINT, FAINT, 0)
+    s += text(W / 2, 272, "Лічильник завжди скінченний. Ліки скрізь одні: достатньо широкий тип і пам'ять про оберт.",
+              10.5, INK, "middle", "bold")
+    save("fig-24-8i-3-same-bug.svg", s)
+
+
 if __name__ == "__main__":
     # Історія розділу (📜)
     fig01_what_is_tick()
@@ -1467,4 +2076,39 @@ if __name__ == "__main__":
     fig74_feed_correctly()
     fig75_interrupt_then_reset()
     fig76_esp32_watchdog()
-    print("OK - figures for Section 24 (history + 24.1..24.7, complete) generated in", OUT)
+    # §4.6.8 RTC і реальний час
+    fig81_two_clocks()
+    fig82_epoch()
+    fig83_sleeps()
+    fig84_internal_external()
+    fig85_drift()
+    fig86_sync()
+    # ⚙️ вставка до 4.6.5 — кооперативний планувальник
+    fig5a1_task_table()
+    fig5a2_cooperative()
+    # 🔌 вставка до 4.6.8 — RTC-модуль DS3231-класу
+    fig8c1_anatomy()
+    fig8c2_wiring()
+    # ⚙️ вставка до 4.6.3 — input capture
+    fig3a1_capture()
+    fig3a2_uses()
+    # ⚙️ вставка до 4.6.6 — колесо таймерів
+    fig6a1_wheel()
+    fig6a2_compare()
+    # ⚙️ вставка до 4.6.7 — як годувати watchdog
+    fig7a1_blind_vs_checkpoint()
+    fig7a2_checkpoints()
+    # 🧮 вставка до 4.6.1 — прескалер і дільники
+    fig1m1_chain()
+    fig1m2_error()
+    # 🧮 вставка до 4.6.2 — модульна арифметика беззнакових
+    fig2m1_clock()
+    fig2m2_right_vs_wrong()
+    # 🧮 вставка до 4.6.8 — Unix-час і календар
+    fig8m1_peel()
+    fig8m2_leap()
+    # 📜 історія до 4.6.8 — Y2K і 2038
+    fig8i1_y2k()
+    fig8i2_y2038()
+    fig8i3_same_bug()
+    print("OK - figures for Section 24 (complete: history + 24.1..24.8 + усі вставки) generated in", OUT)

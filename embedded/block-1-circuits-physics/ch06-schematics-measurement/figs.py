@@ -2361,6 +2361,837 @@ def fig610_cccv_charge():
     save("fig-6-10-6-cccv-charge.svg", s)
 
 
+# ═══ 📜 Історія до 6.4 — телеграф із поверненням через ґрунт ════════════════
+def _gnd_stake(x, y, col="#1b1b1b", w=2):
+    out = ""
+    for i, wd in enumerate([14, 9, 4]):
+        out += line(x - wd, y + i * 4, x + wd, y + i * 4, col, w)
+    return out
+
+
+def fig64i_earth_return():
+    W, H = 880, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Телеграф із поверненням через ґрунт: половина дроту", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "спершу тягли два дроти (повна петля); потім зрозуміли, що зворотним провідником може бути сама земля",
+              9.5, GREY, "middle", style="italic")
+
+    def station(x, y, lab):
+        return rect(x - 26, y - 22, 52, 44, "#eef2fb", "#1f47b5", 2, 6) + text(x, y + 4, lab, 11, INK, "middle", "bold")
+
+    s += text(160, 92, "Два дроти — повна металева петля", 10.5, "#c0271e", "middle", "bold")
+    s += station(140, 140, "A"); s += station(560, 140, "B")
+    s += line(166, 128, 534, 128, INK, 2.4); s += arrow(330, 128, 362, 128, "#1f8a3b", 2)
+    s += line(166, 152, 534, 152, INK, 2.4); s += arrow(362, 152, 330, 152, "#c0271e", 2)
+    s += text(350, 116, "туди", 8.5, "#1f8a3b", "middle", "bold")
+    s += text(360, 170, "назад (другий дріт)", 8.5, "#c0271e", "middle", "bold")
+    s += text(710, 140, "2 дроти", 11, "#c0271e", "middle", "bold")
+    s += text(160, 230, "Один дріт + земля за зворотний провідник", 10.5, "#1f8a3b", "middle", "bold")
+    s += station(140, 278, "A"); s += station(560, 278, "B")
+    s += line(166, 270, 534, 270, INK, 2.4); s += arrow(330, 270, 362, 270, "#1f8a3b", 2)
+    s += text(350, 258, "туди (один дріт)", 8.5, "#1f8a3b", "middle", "bold")
+    for x in [140, 560]:
+        s += line(x, 300, x, 322, INK, 2); s += _gnd_stake(x, 322)
+    s += text(360, 320, "↩ струм вертається крізь ҐРУНТ", 9.5, "#c0271e", "middle", "bold")
+    s += text(710, 278, "1 дріт!", 11, "#1f8a3b", "middle", "bold")
+    save("fig-6-4i-1-earth-return.svg", s)
+
+
+def fig64i_name_legacy():
+    W, H = 880, 380
+    s = header(W, H)
+    s += text(W / 2, 30, "Від справжнього ґрунту — до «опорного нуля»", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "назва лишилась, хоч сучасна «земля» — це зазвичай просто опорний 0 В кола, а не з'єднання з ґрунтом",
+              9.5, GREY, "middle", style="italic")
+    s += line(W / 2, 72, W / 2, H - 28, FAINT, 1.5)
+    s += text(225, 96, "Тоді (1838): земля = провідник", 12, "#1f47b5", "middle", "bold")
+    s += text(225, 134, "один дріт", 8.5, GREY, "middle")
+    s += line(120, 150, 330, 150, INK, 2.4)
+    for x in [120, 330]:
+        s += line(x, 150, x, 180, INK, 2); s += _gnd_stake(x, 180)
+    s += text(225, 214, "струм справді тече крізь ҐРУНТ", 9.5, "#c0271e", "middle", "bold")
+    s += text(225, 232, "— звідси й назва «земля» / earth", 9, GREY, "middle")
+    s += text(225, 274, "Карл Август фон Штайнгайль,", 9.5, INK, "middle", "bold")
+    s += text(225, 290, "Нюрнберг–Фюрт, 1838", 9.5, GREY, "middle")
+    s += text(655, 96, "Тепер: «земля» = опорний 0 В", 12, "#1f8a3b", "middle", "bold")
+    s += rect(600, 128, 110, 64, "#eef7f0", "#1f8a3b", 2, 8); s += text(655, 165, "коло", 12, INK, "middle", "bold")
+    s += line(655, 192, 655, 212, INK, 2); s += _gnd_stake(655, 212, "#1f8a3b", 2.4)
+    s += text(655, 246, "GND — опорний 0 В", 10, "#1f8a3b", "middle", "bold")
+    s += text(655, 268, "зазвичай НЕ з'єднаний із ґрунтом;", 9, INK, "middle")
+    s += text(655, 283, "це просто спільний нуль кола.", 9, GREY, "middle")
+    s += text(655, 308, "(справжнє заземлення лишилось —", 8.5, GREY, "middle", style="italic")
+    s += text(655, 321, "для безпеки мережі)", 8.5, GREY, "middle", style="italic")
+    save("fig-6-4i-2-name-legacy.svg", s)
+
+
+# ═══ ⚙️ Вставка до 6.3 — нетлист і ERC ══════════════════════════════════════
+def fig63a_netlist():
+    W, H = 900, 420
+    s = header(W, H)
+    s += text(W / 2, 30, "Нетлист: як редактор «зафарбовує» вузли сам", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "редактор будує граф пінів і дротів і шукає зв'язні компоненти — кожна стає одним ланцюгом (вузлом)",
+              9.5, GREY, "middle", style="italic")
+
+    def pin(x, y, lab, col):
+        return circle(x, y, 4, col, col, 1) + text(x, y - 9, lab, 8, col, "middle", "bold")
+
+    s += line(120, 140, 260, 140, "#1f8a3b", 2.5)
+    s += line(200, 140, 200, 210, "#1f8a3b", 2.5)
+    s += circle(200, 140, 4, "#1f8a3b", "#1f8a3b", 1)
+    s += pin(120, 140, "R1.1", "#1f8a3b"); s += pin(264, 140, "U1.in", "#1f8a3b"); s += pin(200, 214, "+5В", "#1f8a3b")
+    s += text(200, 126, "крапка з'єднує", 7.5, GREY, "middle")
+    s += line(120, 262, 260, 262, "#1f47b5", 2.5)
+    s += pin(120, 262, "R1.2", "#1f47b5"); s += pin(264, 262, "U1.out", "#1f47b5")
+    s += text(190, 304, "схема (піни + дроти)", 9, INK, "middle", "bold")
+    s += arrow(330, 210, 400, 210, INK, 2.4); s += text(365, 198, "граф →", 8.5, GREY, "middle")
+    s += rect(420, 120, 200, 180, "#fafafa", GREY, 1.5, 10)
+    s += text(520, 144, "зв'язні компоненти", 10.5, INK, "middle", "bold")
+    s += text(438, 172, "• union(R1.1, +5В) [дріт]", 9, "#1f8a3b", "start")
+    s += text(438, 190, "• union(…, U1.in) [крапка]", 9, "#1f8a3b", "start")
+    s += text(438, 216, "• union(R1.2, U1.out) [дріт]", 9, "#1f47b5", "start")
+    s += text(438, 244, "кожен набір = 1 ланцюг", 9.5, INK, "start", "bold")
+    s += text(438, 262, "(той самий вузол §1.4.1)", 8.5, GREY, "start")
+    s += arrow(640, 210, 710, 210, INK, 2.4)
+    s += rect(720, 120, 160, 180, "#eef7f0", GREEN, 1.6, 10)
+    s += text(800, 144, "НЕТЛИСТ", 11, "#1f8a3b", "middle", "bold")
+    s += text(736, 172, "Net1 (+5В):", 9.5, INK, "start", "bold")
+    s += text(746, 188, "R1.1, U1.in", 9, GREY, "start")
+    s += text(736, 216, "Net2:", 9.5, INK, "start", "bold")
+    s += text(746, 232, "R1.2, U1.out", 9, GREY, "start")
+    s += text(736, 264, "+ мітки за іменем", 8.5, GREY, "start")
+    s += text(736, 278, "зливаються в один", 8.5, GREY, "start")
+    s += rect(120, 348, 660, 42, "#f7f7f7", GREY, 1.4, 8)
+    s += text(450, 367, "Це пошук зв'язних компонент графа (§1.4.1a): дроти й крапки «зливають» піни в набори;", 9, INK, "middle", "bold")
+    s += text(450, 383, "однакові мітки-імена (+5В, GND) теж зливаються — навіть без намальованого дроту.", 9, GREY, "middle", style="italic")
+    save("fig-6-3a-1-netlist.svg", s)
+
+
+def fig63a_erc():
+    W, H = 880, 400
+    s = header(W, H)
+    s += text(W / 2, 30, "ERC: автоматична перевірка електричних правил", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 51, "маючи нетлист, редактор перевіряє кожен ланцюг і пін на типові помилки — та не на «правильність задуму»",
+              9.5, GREY, "middle", style="italic")
+    s += text(180, 96, "Два виходи на ланцюг", 10.5, "#c0271e", "middle", "bold")
+    s += rect(108, 116, 42, 30, "#fff", "#1f47b5", 1.6, 4); s += text(129, 135, "OUT", 8, INK, "middle", "bold")
+    s += rect(210, 116, 42, 30, "#fff", "#1f47b5", 1.6, 4); s += text(231, 135, "OUT", 8, INK, "middle", "bold")
+    s += line(150, 131, 210, 131, INK, 2)
+    s += text(180, 164, "⚠ конфлікт (закоротка)", 9, "#c0271e", "middle", "bold")
+    s += text(450, 96, "Висячий вхід", 10.5, "#e08030", "middle", "bold")
+    s += rect(432, 116, 42, 30, "#fff", "#1f8a3b", 1.6, 4); s += text(453, 135, "IN", 8, INK, "middle", "bold")
+    s += line(432, 131, 400, 131, INK, 2); s += circle(400, 131, 3, "none", "#e08030", 1.5)
+    s += text(450, 164, "⚠ нічим не керований", 9, "#e08030", "middle", "bold")
+    s += text(712, 96, "Живлення без джерела", 10.5, "#c0271e", "middle", "bold")
+    s += rect(690, 116, 44, 30, "#fff", "#c0271e", 1.6, 4); s += text(712, 135, "VCC", 8, INK, "middle", "bold")
+    s += text(712, 164, "⚠ пін живлення «висить»", 9, "#c0271e", "middle", "bold")
+    s += rect(110, 206, 660, 84, "#fff8ee", ORANGE, 1.5, 10)
+    s += text(440, 230, "Підступ, який ERC НЕ ловить: дроти, що ЛЕДЬ не торкаються", 10.5, INK, "middle", "bold")
+    s += line(300, 260, 400, 260, INK, 2.5); s += line(406, 260, 520, 260, INK, 2.5)
+    s += text(403, 248, "зазор", 8, "#c0271e", "middle", "bold")
+    s += text(440, 282, "виглядає з'єднано, а насправді — два різні ланцюги (бо кінці не зійшлися)", 9, GREY, "middle", style="italic")
+    s += rect(110, 308, 660, 40, "#f7f7f7", GREY, 1.4, 8)
+    s += text(440, 326, "ERC — це перевірка ПРАВИЛ (конфлікти пінів, висячі входи), а не правильності задуму.", 9.5, INK, "middle", "bold")
+    s += text(440, 342, "Він ловить «два виходи б'ються», та не «ти поставив не той резистор».", 9, GREY, "middle", style="italic")
+    save("fig-6-3a-2-erc.svg", s)
+
+
+# ───────────────────────── §6.6 вставка (🔌) — мультиметр як компонент ──────────────────────────
+def fig66c_blockdiagram():
+    W, H = 900, 440
+    s = header(W, H)
+    s += text(W / 2, 27, "Що всередині мультиметра: будь-яку величину звести до напруги і злічити", 17, INK, "middle", "bold")
+    s += text(W / 2, 47, "вхідний каскад залежить від режиму; далі тракт спільний для всіх", 10, GREY, "middle", style="italic")
+
+    # гнізда
+    jx = 60
+    s += text(jx, 90, "Гнізда", 10.5, INK, "middle", "bold")
+    s += circle(jx, 121, 9, "#fff", RED, 2.4); s += text(jx + 16, 125, "VΩmA", 9.5, RED, "start", "bold")
+    s += circle(jx, 191, 9, "#fff", ORANGE, 2.4); s += text(jx + 16, 195, "10A", 9.5, ORANGE, "start", "bold")
+    s += circle(jx, 300, 9, "#fff", INK, 2.4); s += text(jx + 16, 304, "COM", 9.5, INK, "start", "bold")
+    s += text(jx, 326, "опорна точка", 8, GREY, "middle")
+
+    # каскади обробки
+    bx, bw = 175, 175
+    s += text(bx + bw / 2, 84, "вибирає перемикач режиму", 8.5, GREY, "middle", style="italic")
+    blocks = [
+        (95, BLUE, "#eef3fb", "Режим V — дільник", "вхід ≈ 10 МОм"),
+        (165, RED, "#fdeeee", "Режим A — шунт", "малий опір, спад напруги"),
+        (235, GREEN, "#eef7f0", "Режим Ω — джерело I", "пускає струм, міряє спад"),
+    ]
+    for (yy, col, fillc, t1, t2) in blocks:
+        s += rect(bx, yy, bw, 52, fillc, col, 1.6, 8)
+        s += text(bx + bw / 2, yy + 22, t1, 10.2, col, "middle", "bold")
+        s += text(bx + bw / 2, yy + 39, t2, 8.3, GREY, "middle")
+    s += line(jx + 9, 121, bx, 121, RED, 2)
+    s += line(jx + 9, 191, bx, 191, ORANGE, 2)
+
+    # АЦП + опорна напруга
+    mx = 420
+    s += arrow(bx + bw, 121, mx, 175, INK, 1.8)
+    s += arrow(bx + bw, 191, mx, 185, INK, 1.8)
+    s += arrow(bx + bw, 261, mx, 196, INK, 1.8)
+    s += rect(mx, 90, 150, 40, "#f7f7f7", GREY, 1.4, 6)
+    s += text(mx + 75, 108, "Опорна напруга", 9.5, INK, "middle", "bold")
+    s += text(mx + 75, 123, "еталон для порівняння", 8, GREY, "middle")
+    s += arrow(mx + 75, 130, mx + 75, 150, GREY, 1.6)
+    s += rect(mx, 150, 150, 70, "#fff", INK, 2, 8)
+    s += text(mx + 75, 178, "АЦП", 13, INK, "middle", "bold")
+    s += text(mx + 75, 197, "напруга → число", 8.5, GREY, "middle")
+    s += text(mx + 75, 240, "інтегрувальний (dual-slope)", 8, GREY, "middle")
+    s += text(mx + 75, 254, "або сигма-дельта", 8, GREY, "middle")
+
+    # табло
+    dx = 630
+    s += arrow(mx + 150, 185, dx, 185, INK, 2)
+    s += rect(dx, 150, 150, 80, "#101814", "#101814", 2, 8)
+    s += text(dx + 75, 200, "4.236", 30, "#5dff9b", "middle", "bold")
+    s += text(dx + 75, 250, "Табло (лічильник + дисплей)", 8.5, GREY, "middle")
+
+    s += rect(120, 372, 660, 48, "#f3f6fb", BLUE, 1.4, 8)
+    s += text(450, 392, "Головна ідея: цифрувати прилад уміє лише НАПРУГУ.", 10.5, INK, "middle", "bold")
+    s += text(450, 409, "Струм і опір він спершу обертає на напругу (шунтом чи джерелом струму) — і вже її злічує.", 9, GREY, "middle", style="italic")
+    save("fig-6-6c-1-blockdiagram.svg", s)
+
+
+def fig66c_impedance():
+    W, H = 900, 452
+    s = header(W, H)
+    s += text(W / 2, 26, "Прилад не «безкоштовний»: вхідний опір вольтметра і спад на амперметрі", 15, INK, "middle", "bold")
+    s += line(455, 50, 455, H - 18, FAINT, 2)
+
+    # ── ЛІВОРУЧ: вольтметр 10 МОм паралельно ──
+    s += text(230, 66, "Вольтметр — 10 МОм у паралель", 12.5, BLUE, "middle", "bold")
+    s += rect(40, 130, 40, 44, "#fff", RED, 1.8, 4); s += text(60, 157, "Uвх", 9.5, RED, "middle", "bold")
+    s += line(80, 152, 150, 152, INK, 2)
+    s += _resistor(150, 152, 70, 22, "Rдж")
+    s += line(220, 152, 300, 152, INK, 2)
+    s += circle(300, 152, 3.2, INK, INK, 1); s += text(300, 142, "вузол", 8, GREY, "middle")
+    s += line(300, 152, 300, 230, INK, 2)
+    s += circle(300, 252, 22, "#fff", BLUE, 2); s += text(300, 250, "V", 14, BLUE, "middle", "bold"); s += text(300, 265, "10МОм", 7.5, GREY, "middle")
+    s += line(300, 274, 300, 312, INK, 2)
+    s += line(282, 312, 318, 312, INK, 2); s += line(288, 318, 312, 318, INK, 2); s += line(294, 324, 306, 324, INK, 2)
+    s += rect(36, 350, 392, 84, "#f3f6fb", BLUE, 1.4, 8)
+    s += text(232, 371, "10 МОм майже не відбирають струму — АЛЕ:", 9.6, INK, "middle", "bold")
+    s += text(58, 392, "• Rдж = 1 кОм → похибка ≈ 0.01%   ✓", 9.3, GREEN, "start", "bold")
+    s += text(58, 411, "• Rдж = 1 МОм → показ занижений на ~9%   ✗", 9.3, RED, "start", "bold")
+    s += text(58, 428, "(на високоомних вузлах див. «навантаження» §1.6.8)", 8.3, GREY, "start", style="italic")
+
+    # ── ПРАВОРУЧ: амперметр — шунт послідовно ──
+    s += text(682, 66, "Амперметр — шунт послідовно", 12.5, RED, "middle", "bold")
+    s += rect(490, 180, 40, 44, "#fff", RED, 1.8, 4); s += text(510, 207, "3.3В", 9, RED, "middle", "bold")
+    s += line(510, 180, 510, 152, INK, 2); s += line(510, 152, 560, 152, INK, 2)
+    s += circle(585, 152, 22, "#fff", RED, 2); s += text(585, 158, "A", 14, RED, "middle", "bold")
+    s += text(585, 122, "шунт усередині", 8, GREY, "middle")
+    s += text(585, 198, "спад Uнав ≈ 0.2 В", 9, RED, "middle", "bold")
+    s += line(607, 152, 680, 152, INK, 2)
+    s += _resistor(680, 152, 80, 22, "Rнав")
+    s += line(760, 152, 820, 152, INK, 2); s += line(820, 152, 820, 272, INK, 2)
+    s += line(820, 272, 510, 272, INK, 2); s += line(510, 272, 510, 224, INK, 2)
+    s += rect(492, 350, 376, 84, "#fdeeee", RED, 1.4, 8)
+    s += text(680, 371, "Амперметр «краде» трохи напруги (burden voltage):", 9.4, INK, "middle", "bold")
+    s += text(512, 392, "• на A-діапазоні — десятки мВ (дрібниця)   ✓", 9.3, GREY, "start")
+    s += text(512, 411, "• на µA/mA — сотні мВ: коло 3.3 В це відчує   ✗", 9.3, RED, "start", "bold")
+    s += text(512, 428, "тому в розрив надовго амперметр не лишають", 8.3, GREY, "start", style="italic")
+    save("fig-6-6c-2-impedance.svg", s)
+
+
+def fig66c_counts():
+    W, H = 900, 392
+    s = header(W, H)
+    s += text(W / 2, 26, "«Розрядність»: counts і цифри вирішують, скільки знаків ви бачите", 16, INK, "middle", "bold")
+    s += text(W / 2, 46, "та сама напруга ≈ 4.2361 В на табло різної роздільності", 10, GREY, "middle", style="italic")
+    cards = [
+        (60, "Кишеньковий", "2000 counts · 3½ цифри", "4.23", "крок 10 мВ", GREY),
+        (330, "Польовий", "6000 counts · 3¾ цифри", "4.236", "крок 1 мВ", BLUE),
+        (600, "Лабораторний", "6½ цифри (1 199 999)", "4.23612", "крок 10 мкВ", GREEN),
+    ]
+    for (x, title, spec, val, step, col) in cards:
+        s += rect(x, 76, 240, 152, "#fafafa", col, 1.6, 10)
+        s += text(x + 120, 100, title, 12.5, col, "middle", "bold")
+        s += text(x + 120, 118, spec, 9, GREY, "middle")
+        s += rect(x + 30, 134, 180, 50, "#101814", "#101814", 2, 6)
+        s += text(x + 120, 170, val, 26, "#5dff9b", "middle", "bold")
+        s += text(x + 120, 205, step + "  (В)", 10, INK, "middle", "bold")
+    s += rect(120, 252, 660, 112, "#f7f7f7", GREY, 1.4, 10)
+    s += text(450, 275, "Counts — найбільше число, що влазить на табло (2000 → до 1999).", 10.5, INK, "middle", "bold")
+    s += text(450, 295, "Більше counts / цифр = дрібніший крок = більше значущих знаків.", 9.5, GREY, "middle")
+    s += text(450, 320, "Автодіапазон сам обирає найменший діапазон, де число влазить —", 9.5, INK, "middle")
+    s += text(450, 336, "так на табло лишається найбільше корисних цифр (4.236, а не 04.23).", 9.5, GREY, "middle", style="italic")
+    s += text(450, 357, "«Точність» (±%) — це інше: межа правдивості показу (§1.6.8), не його дрібність.", 9, RED, "middle", "bold")
+    save("fig-6-6c-3-counts.svg", s)
+
+
+# ───────────────────────── §6.7 вставка (🔌) — осцилограф зблизька ──────────────────────────
+def fig67c_panel():
+    W, H = 900, 450
+    s = header(W, H)
+    s += text(W / 2, 27, "Осцилограф зблизька: три системи приладу + входи", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "вертикаль (що по висоті), горизонталь (розгортка в часі) і тригер; сигнал заходить крізь BNC", 9.6, GREY, "middle", style="italic")
+    # екран + входи
+    s += _screen(45, 80, 300, 210, 8)
+    s += _sine(55, 335, 185, 55, 2.5)
+    s += text(195, 305, "екран: V по вертикалі, t по горизонталі", 9, GREY, "middle", style="italic")
+    s += text(45, 332, "Входи (BNC):", 10.5, INK, "start", "bold")
+    for (cx, lab, col) in [(85, "CH1", ORANGE), (165, "CH2", BLUE), (255, "EXT", GREY)]:
+        s += circle(cx, 360, 12, "#fff", col, 2.4); s += circle(cx, 360, 4, col, col, 1)
+        s += text(cx, 388, lab, 9.5, col, "middle", "bold")
+    s += text(45, 414, "спільна земля всіх каналів — на корпусі приладу (§1.6.8)", 8.6, GREY, "start", style="italic")
+    # вертикаль
+    vx = 372
+    s += rect(vx, 74, 250, 120, "#eef3fb", BLUE, 1.7, 9)
+    s += text(vx + 125, 95, "ВЕРТИКАЛЬ — кожен канал окремо", 10, BLUE, "middle", "bold")
+    for i, t in enumerate(["• В/поділка — масштаб напруги", "• ↕ зсув лінії (position)", "• зв'язок входу: AC / DC / GND", "• обмеження смуги (BW limit)"]):
+        s += text(vx + 16, 116 + i * 18, t, 9.2, INK, "start")
+    # горизонталь
+    s += rect(vx, 202, 250, 96, "#eef7f0", GREEN, 1.7, 9)
+    s += text(vx + 125, 223, "ГОРИЗОНТАЛЬ — розгортка", 10, GREEN, "middle", "bold")
+    for i, t in enumerate(["• час/поділка — масштаб часу", "• ↔ зсув у часі", "• частота дискретизації (у цифрових)"]):
+        s += text(vx + 16, 244 + i * 18, t, 9.2, INK, "start")
+    # тригер
+    s += rect(vx, 306, 250, 86, "#fff5ea", ORANGE, 1.7, 9)
+    s += text(vx + 125, 327, "ТРИГЕР — синхронізація", 10, ORANGE, "middle", "bold")
+    s += text(vx + 16, 349, "• джерело · рівень · фронт", 9.2, INK, "start")
+    s += text(vx + 16, 367, "робить хвилю нерухомою (§1.6.7);", 9.2, INK, "start")
+    s += text(vx + 16, 383, "як саме — окрема вставка далі", 8.7, GREY, "start", style="italic")
+    # порядок дій
+    tx = 648
+    s += rect(tx, 74, 230, 318, "#f7f7f7", GREY, 1.5, 10)
+    s += text(tx + 115, 97, "Налаштувати з нуля", 11, INK, "middle", "bold")
+    for i, t in enumerate(["1. обрати канал, виставити", "    В/поділка під розмах", "2. час/поділка під період", "3. зв'язок DC (рівні) або", "    AC (тільки пульсація)", "4. тригер на цей канал —", "    і хвиля завмре"]):
+        s += text(tx + 16, 126 + i * 23, t, 9.6, INK, "start", "bold" if t[0].isdigit() else "normal")
+    s += line(tx + 16, 300, tx + 214, 300, FAINT, 1.5)
+    s += text(tx + 115, 322, "далі числа читають", 9, GREY, "middle", style="italic")
+    s += text(tx + 115, 338, "у поділках × масштаб", 9, GREY, "middle", style="italic")
+    s += text(tx + 115, 362, "(§1.6.7)", 8.5, GREY, "middle")
+    save("fig-6-7c-1-panel.svg", s)
+
+
+def fig67c_coupling():
+    W, H = 900, 372
+    s = header(W, H)
+    s += text(W / 2, 26, "Вхідний зв'язок каналу: DC / AC / GND — як прилад «впускає» сигнал", 16, INK, "middle", "bold")
+    s += text(W / 2, 46, "той самий сигнал — пульсація ±0.5 В на сталих +3 В — у трьох режимах входу", 9.8, GREY, "middle", style="italic")
+    panels = [
+        (40, "Зв'язок DC", ORANGE, "видно і рівень +3 В,", "і пульсацію — як є"),
+        (330, "Зв'язок AC", BLUE, "сталу +3 В відрізано,", "лишилась сама пульсація"),
+        (620, "Зв'язок GND", GREEN, "вхід замкнено на 0:", "видно, де опорна лінія"),
+    ]
+    for (x, title, col, l1, l2) in panels:
+        s += text(x + 120, 74, title, 12.5, col, "middle", "bold")
+        s += _screen(x, 84, 240, 170, 8)
+        if title.endswith("DC"):
+            s += line(x, 230, x + 240, 230, "#88aa88", 1.4, "5,4")
+            s += text(x + 6, 225, "0 В", 8, "#9fdf9f", "start")
+            s += _sine(x + 10, x + 230, 120, 9, 3)
+            s += text(x + 196, 106, "+3 В", 8.5, "#9fdf9f", "middle", "bold")
+        elif title.endswith("AC"):
+            s += line(x, 169, x + 240, 169, "#88aa88", 1.4, "5,4")
+            s += text(x + 6, 164, "0 В", 8, "#9fdf9f", "start")
+            s += _sine(x + 10, x + 230, 169, 30, 3)
+        else:
+            s += line(x + 10, 169, x + 230, 169, TRACE, 2.6)
+            s += text(x + 6, 162, "0 В", 8, "#9fdf9f", "start")
+        s += text(x + 120, 276, l1, 9.3, INK, "middle", "bold")
+        s += text(x + 120, 293, l2, 9, GREY, "middle")
+    s += rect(60, 312, 780, 48, "#fff5ea", ORANGE, 1.4, 8)
+    s += text(450, 332, "AC-зв'язок — це конденсатор на вході: він прибирає сталу складову, та водночас «завалює» повільні сигнали", 9.3, INK, "middle", "bold")
+    s += text(450, 349, "й робить «горб» на меандрі. Рівні живлення міряйте в DC; AC лишіть для дрібної пульсації на великій сталій.", 9, GREY, "middle", style="italic")
+    save("fig-6-7c-2-coupling.svg", s)
+
+
+def fig67c_ground():
+    W, H = 900, 412
+    s = header(W, H)
+    s += text(W / 2, 26, "Дві речі з паспорта входу — і найнебезпечніша звичка", 16.5, INK, "middle", "bold")
+    s += line(470, 50, 470, H - 18, FAINT, 2)
+    # ЛІВОРУЧ — «крокодил» = земля мережі
+    s += text(235, 66, "«Крокодил» щупа = земля мережі", 12.5, RED, "middle", "bold")
+    s += rect(60, 110, 150, 80, "#eef3fb", INK, 1.8, 8)
+    s += text(135, 148, "Осцилограф", 11, INK, "middle", "bold"); s += text(135, 166, "(живиться з розетки)", 8.2, GREY, "middle")
+    s += line(135, 190, 135, 230, GREEN, 2.4)
+    s += _gnd_stake(135, 230, GREEN, 2)
+    s += text(135, 262, "захисна земля розетки", 8.3, GREEN, "middle")
+    s += line(210, 132, 300, 132, INK, 2)
+    s += polygon([(300, 126), (318, 132), (300, 138)], INK)
+    s += text(326, 130, "вістря → сигнал", 8.5, INK, "start")
+    s += line(210, 166, 300, 166, GREEN, 2.4)
+    s += circle(306, 166, 5, "none", GREEN, 2)
+    s += text(326, 170, "«крокодил» → земля", 8.5, GREEN, "start")
+    s += text(326, 184, "(те саме коло, що й земля розетки)", 7.6, GREEN, "start", style="italic")
+    s += rect(40, 286, 390, 104, "#fdeeee", RED, 1.5, 9)
+    s += text(235, 307, "Земля щупа з'єднана з корпусом — і з", 9.6, INK, "middle", "bold")
+    s += text(235, 323, "захисною землею розетки (§1.6.8).", 9.6, INK, "middle", "bold")
+    s += text(58, 345, "✓ «крокодил» — ЛИШЕ на землю свого кола", 9.3, GREEN, "start", "bold")
+    s += text(58, 365, "✗ на інший вузол — коротке через мережеву", 9.3, RED, "start", "bold")
+    s += text(72, 382, "землю (іскри, удар, згорілий слід)", 8.8, RED, "start")
+    # ПРАВОРУЧ — паспорт входу + смуга
+    s += text(682, 66, "Вхід каналу — паспорт", 12.5, BLUE, "middle", "bold")
+    s += rect(500, 86, 360, 122, "#eef3fb", BLUE, 1.5, 9)
+    s += text(518, 110, "• 1 МОм ‖ ~15 пФ (типовий вхід)", 9.6, INK, "start", "bold")
+    s += text(518, 132, "• або 50 Ом — на ВЧ-осцилографах", 9.4, INK, "start")
+    s += text(518, 154, "• макс. вхід ~300 В CAT — не більше!", 9.4, RED, "start", "bold")
+    s += text(518, 176, "• смуга (BW) обмежена: круті фронти", 9.4, INK, "start")
+    s += text(532, 192, "округляються (нижче)", 9.0, GREY, "start", style="italic")
+    s += text(600, 236, "ідеальний фронт", 8.3, GREY, "middle")
+    s += polyline([(522, 300), (566, 300), (566, 250), (610, 250)], GREY, 2, "4,3")
+    s += text(772, 236, "крізь смугу приладу", 8.3, GREY, "middle")
+    s += polyline([(680, 300), (716, 300), (724, 286), (734, 268), (748, 256), (770, 251), (800, 250)], BLUE, 2.6)
+    s += rect(500, 330, 360, 60, "#f7f7f7", GREY, 1.4, 8)
+    s += text(680, 351, "Міряти НЕ відносно землі (верхній ключ) —", 9.0, INK, "middle", "bold")
+    s += text(680, 369, "диференційний щуп чи розв'язка, не «крокодил».", 9.0, GREY, "middle", style="italic")
+    save("fig-6-7c-3-ground.svg", s)
+
+
+# ───────────────────────── §6.7 вставка (🔌) — щуп 1×/10× ──────────────────────────
+def fig67c_why_probe():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 27, "Чому щуп — не просто дріт", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "голий провідник навантажує коло ємністю кабелю; щуп ×10 її прибирає коштом амплітуди", 9.5, GREY, "middle", style="italic")
+    s += line(455, 60, 455, H - 18, FAINT, 2)
+    # ЛІВОРУЧ — голий дріт
+    s += text(235, 78, "Голий дріт до входу", 12.5, RED, "middle", "bold")
+    s += rect(40, 110, 80, 60, "#eef3fb", INK, 1.6, 6); s += text(80, 145, "Коло", 10, INK, "middle", "bold")
+    s += line(120, 140, 250, 140, INK, 2)
+    s += rect(250, 110, 150, 60, "#eef7f0", INK, 1.6, 6); s += text(325, 135, "Осцилограф", 9.5, INK, "middle", "bold"); s += text(325, 153, "1 МОм ‖ 15 пФ", 8.3, GREY, "middle")
+    s += line(185, 140, 185, 196, INK, 2)
+    s += line(170, 196, 200, 196, INK, 2.4); s += line(174, 202, 196, 202, INK, 2.4)
+    s += _gnd_stake(185, 210, INK, 2)
+    s += text(185, 232, "~100 пФ кабелю", 8.3, RED, "middle", "bold")
+    s += text(235, 256, "швидкий фронт «дзвенить»:", 8.5, GREY, "middle")
+    ring = [(150, 300), (210, 300)]
+    for k in range(0, 60):
+        ring.append((210 + k * 2.0, 285 - 18 * math.exp(-k / 14.0) * math.cos(k / 2.2)))
+    s += polyline(ring, RED, 2.2)
+    s += text(235, 332, "✗ важке навантаження, дзвін, вузька смуга", 9, RED, "middle", "bold")
+    # ПРАВОРУЧ — щуп ×10
+    s += text(682, 78, "Щуп ×10", 12.5, GREEN, "middle", "bold")
+    s += rect(490, 110, 70, 60, "#eef3fb", INK, 1.6, 6); s += text(525, 145, "Коло", 10, INK, "middle", "bold")
+    s += line(560, 140, 600, 140, INK, 2)
+    s += rect(600, 116, 90, 48, "#fff5ea", ORANGE, 1.7, 6); s += text(645, 136, "×10", 11, ORANGE, "middle", "bold"); s += text(645, 153, "9МОм+C_к", 8, GREY, "middle")
+    s += line(690, 140, 760, 140, INK, 2)
+    s += rect(760, 110, 110, 60, "#eef7f0", INK, 1.6, 6); s += text(815, 135, "Осцилограф", 9, INK, "middle", "bold"); s += text(815, 153, "1 МОм", 8.3, GREY, "middle")
+    s += text(630, 196, "вузол «бачить» лише ~12 пФ", 8.6, GREEN, "middle", "bold")
+    s += text(682, 256, "фронт чистий:", 8.5, GREY, "middle")
+    s += polyline([(600, 300), (680, 300), (680, 282), (820, 282)], GREEN, 2.4)
+    s += text(682, 332, "✓ ÷10 амплітуди, зате легко й широкосмужно", 9, GREEN, "middle", "bold")
+    save("fig-6-7c-4-why-probe.svg", s)
+
+
+def fig67c_divider():
+    W, H = 900, 380
+    s = header(W, H)
+    s += text(W / 2, 27, "Компенсований дільник ×10: навіщо в щупі підлаштовний конденсатор", 16, INK, "middle", "bold")
+    s += text(W / 2, 47, "щоб поділ був однаковий на всіх частотах, сталі часу верхнього й нижнього плеча мусять збігтися", 9.4, GREY, "middle", style="italic")
+    # вхід
+    s += circle(110, 150, 4, INK, INK, 1); s += text(110, 135, "вхід (×1)", 9, INK, "middle", "bold")
+    s += line(110, 150, 180, 150, INK, 2)
+    # верхнє плече: R1 ‖ Cкомп
+    s += _resistor(200, 150, 90, 22, "R₁ = 9 МОм")
+    s += line(200, 150, 200, 108, INK, 2); s += line(290, 150, 290, 108, INK, 2); s += line(200, 108, 290, 108, INK, 2)
+    s += line(232, 100, 232, 116, ORANGE, 2.4); s += line(258, 100, 258, 116, ORANGE, 2.4)
+    s += text(245, 92, "C₁ = C_комп (підлаштовна)", 8.4, ORANGE, "middle", "bold")
+    s += line(290, 150, 430, 150, INK, 2)
+    # середній вузол → АЦП
+    s += circle(430, 150, 4, INK, INK, 1); s += text(430, 137, "до АЦП (÷10)", 9, GREEN, "middle", "bold")
+    s += line(430, 150, 520, 150, INK, 2); s += polygon([(520, 144), (536, 150), (520, 156)], GREEN)
+    # нижнє плече: R2 ‖ C2 до землі
+    s += line(430, 150, 430, 210, INK, 2); s += line(400, 210, 470, 210, INK, 2)
+    s += rect(388, 222, 24, 60, "#fff", INK, 2, 3); s += line(400, 210, 400, 222, INK, 2); s += line(400, 282, 400, 300, INK, 2)
+    s += text(380, 250, "R₂", 10, INK, "end", "bold", "italic"); s += text(380, 266, "1 МОм", 8, GREY, "end")
+    s += line(470, 210, 470, 244, INK, 2); s += line(452, 244, 488, 244, INK, 2.4); s += line(458, 250, 482, 250, INK, 2.4); s += line(470, 250, 470, 300, INK, 2)
+    s += text(498, 250, "C₂ = C_вх+C_каб", 8.2, BLUE, "start", "bold"); s += text(498, 264, "≈ 100 пФ", 8, GREY, "start")
+    s += line(400, 300, 470, 300, INK, 2); s += _gnd_stake(435, 300, INK, 2)
+    # умова
+    s += rect(560, 146, 320, 156, "#f3f6fb", BLUE, 1.5, 10)
+    s += text(720, 172, "Коли АЧХ пласка?", 11, INK, "middle", "bold")
+    s += text(580, 200, "умова:  R₁·C₁ = R₂·C₂", 10.5, INK, "start", "bold")
+    s += text(580, 224, "опірний поділ:  R₂/(R₁+R₂) = 1/10", 9.3, GREY, "start")
+    s += text(580, 244, "ємнісний поділ:  C₁/(C₁+C₂) = 1/10", 9.3, GREY, "start")
+    s += text(580, 272, "збіглися → кожну частоту", 9.3, GREEN, "start", "bold")
+    s += text(580, 288, "ділить на 10 однаково (пласко)", 9.3, GREEN, "start", "bold")
+    save("fig-6-7c-5-divider.svg", s)
+
+
+def fig67c_compensation():
+    W, H = 900, 372
+    s = header(W, H)
+    s += text(W / 2, 26, "Калібрування щупа: меандр «CAL» каже, чи добра компенсація", 15.5, INK, "middle", "bold")
+    s += text(W / 2, 46, "щуп чіпляють до ~1 кГц меандра приладу й крутять триммер, поки кути не стануть прямі", 9.5, GREY, "middle", style="italic")
+
+    def rounded(x0, x1, yhi, ylo, cyc):
+        n = cyc * 2; seg = (x1 - x0) / n; pts = []
+        for i in range(n):
+            target = yhi if i % 2 == 0 else ylo
+            start = ylo if i % 2 == 0 else yhi
+            for k in range(13):
+                t = k / 12.0
+                pts.append((x0 + (i + t) * seg, target + (start - target) * math.exp(-3.0 * t)))
+        return pts
+
+    def overshoot(x0, x1, yhi, ylo, cyc):
+        n = cyc * 2; seg = (x1 - x0) / n; pts = []
+        for i in range(n):
+            target = yhi if i % 2 == 0 else ylo
+            over = target - 16 if i % 2 == 0 else target + 16
+            pts.append((x0 + i * seg, over))
+            for k in range(1, 13):
+                t = k / 12.0
+                pts.append((x0 + (i + t) * seg, target + (over - target) * math.exp(-4.0 * t)))
+        return pts
+
+    panels = [
+        (40, "Недокомпенсовано", RED, "завалені кути", "Cкомп замала → крути +", rounded),
+        (330, "Правильно", GREEN, "пласкі кути", "еталон", None),
+        (620, "Перекомпенсовано", RED, "викиди на кутах", "Cкомп завелика → крути −", overshoot),
+    ]
+    for (x, title, col, l1, l2, fn) in panels:
+        s += text(x + 120, 72, title, 12, col, "middle", "bold")
+        s += _screen(x, 84, 240, 150, 8)
+        if fn is None:
+            s += _square(x + 15, x + 225, 110, 200, 2, TRACE, 2.6)
+        else:
+            s += polyline(fn(x + 15, x + 225, 110, 200, 2), TRACE, 2.6)
+        s += text(x + 120, 256, l1, 9.4, INK, "middle", "bold")
+        s += text(x + 120, 273, l2, 8.8, GREY, "middle")
+    s += rect(120, 300, 660, 52, "#f7f7f7", GREY, 1.4, 8)
+    s += text(450, 321, "Робіть це щоразу, міняючи щуп чи канал: входи трохи різні, і компенсація збивається.", 9.3, INK, "middle", "bold")
+    s += text(450, 339, "Плаский меандр = щуп каже правду на всіх частотах; завали чи викиди = АЧХ перекошена.", 9, GREY, "middle", style="italic")
+    save("fig-6-7c-6-compensation.svg", s)
+
+
+# ───────────────────────── §6.7 вставка (⚙️) — тригер: алгоритм ──────────────────────────
+def fig67a_edge():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 27, "Умова тригера: рівень + фронт", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "тригер «спрацьовує», коли сигнал перетинає обраний рівень у обраний бік", 9.6, GREY, "middle", style="italic")
+    # ── панель A: умова перетину ──
+    s += rect(40, 66, 410, 308, "#fcfcff", FAINT, 1.4, 8)
+    s += text(245, 88, "Перетин рівня (висхідний)", 12, BLUE, "middle", "bold")
+    s += arrow(72, 352, 72, 108, INK, 1.8); s += text(66, 112, "V", 10, INK, "end", "bold")
+    s += arrow(72, 352, 440, 352, INK, 1.8); s += text(438, 348, "t", 10, INK, "start", "bold")
+    s += line(82, 180, 432, 180, ORANGE, 1.6, "5,4"); s += text(428, 173, "рівень L", 9, ORANGE, "end", "bold")
+    s += polyline([(92, 330), (172, 330), (300, 140), (422, 140)], INK, 2.6)
+    s += line(272, 110, 272, 352, GREY, 1.5, "4,4"); s += text(276, 124, "t=0 (тригер)", 8.6, GREY, "start", "bold")
+    s += circle(240, 228, 4.5, BLUE, BLUE, 1); s += text(232, 246, "prev<L", 8.4, BLUE, "middle", "bold")
+    s += circle(280, 169, 4.5, RED, RED, 1); s += text(300, 160, "cur≥L", 8.4, RED, "middle", "bold")
+    s += text(245, 366, "prev < L   і   cur ≥ L   →   ТРИГЕР", 10.5, INK, "middle", "bold")
+    # ── панель B: вибір фронту ──
+    s += rect(470, 66, 410, 308, "#fcfcff", FAINT, 1.4, 8)
+    s += text(675, 88, "Який фронт ловити", 12, GREEN, "middle", "bold")
+    s += line(500, 230, 860, 230, ORANGE, 1.6, "5,4"); s += text(856, 223, "L", 9, ORANGE, "end", "bold")
+    s += polyline([(500, 300), (560, 300), (610, 160), (720, 160), (770, 300), (850, 300)], INK, 2.6)
+    s += line(585, 120, 585, 352, GREEN, 1.5, "4,4"); s += circle(585, 230, 5, "none", GREEN, 2.4)
+    s += text(585, 135, "фронт ↑  ✓", 9, GREEN, "middle", "bold")
+    s += line(745, 150, 745, 352, GREY, 1.5, "4,4"); s += circle(745, 230, 5, "none", GREY, 2.2)
+    s += text(745, 142, "фронт ↓ — ігнор", 8.6, GREY, "middle", "bold")
+    s += text(675, 366, "Обираєте фронт (↑ чи ↓) — і ловиться лише він", 10, INK, "middle", "bold")
+    save("fig-6-7a-1-edge.svg", s)
+
+
+def fig67a_hysteresis():
+    W, H = 900, 420
+    s = header(W, H)
+    s += text(W / 2, 26, "Чистий тригер: гістерезис проти шуму + голдофф", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 45, "шум біля рівня дає купу хибних спрацювань; смуга L±h і пауза-голдофф це лікують", 9.5, GREY, "middle", style="italic")
+    s += line(455, 64, 455, 300, FAINT, 2)
+
+    def noisy(x0, x1, cy, amp, base):
+        pts = []
+        for k in range(0, 121):
+            t = k / 120.0
+            x = x0 + t * (x1 - x0)
+            y = cy - amp * math.sin(2 * math.pi * 1.15 * t) - base * math.sin(2 * math.pi * 13 * t) - 0.5 * base * math.sin(2 * math.pi * 27 * t)
+            pts.append((x, y))
+        return pts
+    # ── без гістерезису ──
+    s += text(235, 80, "Без гістерезису", 12, RED, "middle", "bold")
+    s += line(60, 150, 410, 150, ORANGE, 1.6, "5,4"); s += text(406, 143, "L", 9, ORANGE, "end", "bold")
+    s += polyline(noisy(70, 410, 175, 55, 9), INK, 2.2)
+    for fx in (150, 168, 184, 206):
+        s += line(fx, 96, fx, 150, RED, 1.4, "3,3"); s += polygon([(fx - 4, 100), (fx + 4, 100), (fx, 92)], RED)
+    s += text(235, 286, "шум коло L → купа хибних тригерів  ✗", 9.6, RED, "middle", "bold")
+    # ── з гістерезисом (смугу малюємо першою, лінії — поверх) ──
+    s += text(675, 80, "З гістерезисом (смуга L±h)", 12, GREEN, "middle", "bold")
+    s += rect(500, 138, 350, 60, "#eaf6ee", "none", 0, 0)
+    s += line(500, 138, 850, 138, GREY, 1.4, "5,4"); s += text(854, 134, "L+h", 8.2, GREY, "start")
+    s += line(500, 168, 850, 168, ORANGE, 1.6, "5,4"); s += text(854, 168, "L", 8.6, ORANGE, "start", "bold")
+    s += line(500, 198, 850, 198, GREY, 1.4, "5,4"); s += text(854, 202, "L−h", 8.2, GREY, "start")
+    s += polyline(noisy(510, 850, 175, 55, 9), INK, 2.2)
+    s += line(690, 96, 690, 198, GREEN, 1.6); s += polygon([(685, 100), (695, 100), (690, 92)], GREEN)
+    s += text(690, 86, "1 тригер ✓", 9, GREEN, "middle", "bold")
+    s += text(675, 286, "мусиш упасти нижче L−h, тоді тригер на L+h — дрижання згладжено", 9, GREEN, "middle", "bold")
+    # ── голдофф (зону малюємо до хвилі) ──
+    s += rect(60, 314, 790, 92, "#f7f7f7", GREY, 1.4, 9)
+    s += text(455, 334, "Голдофф: після тригера деякий час НЕ тригеримо", 11, INK, "middle", "bold")
+    s += rect(150, 356, 280, 44, "#fdecea", "none", 0, 0)
+    s += polyline([(90, 392), (120, 392), (130, 360), (150, 360), (160, 392), (250, 392), (260, 360), (280, 360), (290, 392),
+                   (430, 392), (440, 360), (460, 360), (470, 392), (560, 392), (570, 360), (590, 360), (600, 392), (820, 392)], INK, 2.2)
+    s += line(130, 352, 130, 402, GREEN, 1.6); s += text(130, 350, "тригер", 7.6, GREEN, "middle", "bold")
+    s += text(290, 382, "зона голдоффа — фронти ігноруються", 8.4, RED, "middle", "bold")
+    s += line(440, 352, 440, 402, GREEN, 1.6); s += text(470, 350, "наступний тригер", 7.6, GREEN, "middle", "bold")
+    save("fig-6-7a-2-hysteresis.svg", s)
+
+
+def fig67a_buffer():
+    W, H = 900, 392
+    s = header(W, H)
+    s += text(W / 2, 27, "Цифровий осцилограф: кільцевий буфер, pre- і post-trigger", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "відліки пишуться безперервно; на подію тригера лишають частину ДО неї і дописують ПІСЛЯ", 9.4, GREY, "middle", style="italic")
+    n = 30
+    x0, cw = 70, 25
+    ytop = 96
+    trig = 17
+    for i in range(n):
+        x = x0 + i * cw
+        if i < trig:
+            fillc = "#eef3fb"
+        elif i == trig:
+            fillc = "#fff5ea"
+        else:
+            fillc = "#eef7f0"
+        s += rect(x, ytop, cw - 3, 40, fillc, GREY, 1.2, 2)
+    s += arrow(x0 - 2, 78, x0 + 40, 78, INK, 1.6); s += text(x0 + 46, 74, "відліки течуть у буфер →", 8.6, GREY, "start")
+    tx = x0 + trig * cw + (cw - 3) / 2
+    s += line(tx, 84, tx, 168, ORANGE, 2); s += polygon([(tx - 5, 168), (tx + 5, 168), (tx, 176)], ORANGE)
+    s += text(tx, 76, "подія тригера (t=0)", 8.8, ORANGE, "middle", "bold")
+    # дужки pre/post
+    s += line(x0, 150, tx - 4, 150, BLUE, 2); s += line(x0, 146, x0, 154, BLUE, 2); s += line(tx - 4, 146, tx - 4, 154, BLUE, 2)
+    s += text((x0 + tx) / 2, 144, "PRE — вже в буфері", 9, BLUE, "middle", "bold")
+    s += line(tx + 4, 150, x0 + n * cw - 3, 150, GREEN, 2); s += line(tx + 4, 146, tx + 4, 154, GREEN, 2); s += line(x0 + n * cw - 3, 146, x0 + n * cw - 3, 154, GREEN, 2)
+    s += text((tx + x0 + n * cw) / 2, 144, "POST — дописати", 9, GREEN, "middle", "bold")
+    # вікно показу
+    s += rect(x0 + (trig - 9) * cw, 210, 18 * cw, 70, "#0d1f0d", "#2a4a2a", 2, 6)
+    s += polyline([(x0 + (trig - 9) * cw + 12, 250), (tx - 30, 250), (tx, 224), (tx + 30, 250), (x0 + (trig + 9) * cw - 12, 250)], TRACE, 2.6)
+    s += line(tx, 214, tx, 282, ORANGE, 1.6, "4,4")
+    s += text(tx, 300, "на екрані: PRE | тригер | POST — видно, що БУЛО перед подією", 9.4, INK, "middle", "bold")
+    s += rect(70, 330, 760, 46, "#f3f6fb", BLUE, 1.4, 8)
+    s += text(450, 350, "Буфер кільцевий: новий відлік затирає найстаріший; саме тому в DSO є pre-trigger,", 9.2, INK, "middle", "bold")
+    s += text(450, 367, "якого аналоговий осцилограф не має — він починає малювати ЛИШЕ після тригера.", 9, GREY, "middle", style="italic")
+    save("fig-6-7a-3-buffer.svg", s)
+
+
+# ───────────────────────── §6.7 історія (📜) — Tektronix і тригерна розгортка ──────────────────────────
+def fig67i5_timeline():
+    W, H = 900, 372
+    s = header(W, H)
+    s += text(W / 2, 28, "Тригерна розгортка: пріоритет колективний і контестований", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 48, "«першість» розмита — driven sweep був до Tek; документована заслуга Tek інша", 9.6, GREY, "middle", style="italic")
+    s += line(70, 150, 830, 150, INK, 2.4)
+    marks = [
+        (120, "~1943", "Радарні осцилографи:", "driven sweep (воєнні)", GREY, 188),
+        (300, "1945", "DuMont 248:", "driven sweep, тиратрон", BLUE, 232),
+        (460, "1946", "Засновано Tektronix", "(Портланд): Воллум і ко.", GREEN, 188),
+        (620, "1947", "Tektronix 511:", "доступний тригерний ($795)", RED, 232),
+        (780, "1950-ті+", "Стандарт галузі:", "калібрований часозбіг", INK, 188),
+    ]
+    for (x, yr, t1, t2, col, yy) in marks:
+        s += circle(x, 150, 6, col, col, 1)
+        s += line(x, 150, x, 110, col, 1.4, "3,3")
+        s += text(x, 102, yr, 10, col, "middle", "bold")
+        s += line(x, 150, x, yy - 14, col, 1, "2,3")
+        s += text(x, yy, t1, 9, col, "middle", "bold")
+        s += text(x, yy + 15, t2, 8.2, GREY, "middle")
+    s += rect(90, 272, 720, 82, "#f3f6fb", BLUE, 1.4, 9)
+    s += text(450, 296, "Пріоритет «першого тригерного» — контестований: driven sweep був раніше (радар, далі DuMont).", 9.4, INK, "middle", "bold")
+    s += text(450, 316, "Документована заслуга Tektronix — зробити тригерний осцилограф практичним, дешевим", 9.2, GREY, "middle")
+    s += text(450, 334, "і всюдисущим, а згодом — задати калібрований часозбіг як стандарт усієї галузі.", 9.2, GREY, "middle")
+    save("fig-6-7i-5-timeline.svg", s)
+
+
+def fig67i6_practical():
+    W, H = 900, 360
+    s = header(W, H)
+    s += text(W / 2, 28, "Чому переміг саме 511: тригер + ціна + одна коробка", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 48, "не «перший тригер», а перший доступний і зручний — тому опинився на кожному столі", 9.6, GREY, "middle", style="italic")
+    # DuMont
+    s += rect(70, 80, 300, 150, "#fbfbff", GREY, 1.6, 10)
+    s += text(220, 104, "Типовий DuMont", 12, BLUE, "middle", "bold")
+    s += rect(100, 120, 110, 78, "#eef3fb", BLUE, 1.4, 5); s += rect(230, 120, 110, 78, "#eef3fb", BLUE, 1.4, 5)
+    s += text(155, 163, "блок 1", 9, GREY, "middle"); s += text(285, 163, "блок 2", 9, GREY, "middle")
+    s += text(220, 220, "дві коробки · ~$1800", 9.5, INK, "middle", "bold")
+    s += arrow(388, 155, 470, 155, INK, 2.4); s += text(430, 142, "і дешевше,", 8.4, GREY, "middle"); s += text(430, 176, "і простіше", 8.4, GREY, "middle")
+    # Tek 511
+    s += rect(490, 80, 330, 150, "#eef7f0", GREEN, 1.8, 10)
+    s += text(655, 104, "Tektronix 511 (1947)", 12, GREEN, "middle", "bold")
+    s += rect(540, 120, 230, 78, "#dff0e4", GREEN, 1.5, 6)
+    s += circle(600, 159, 26, "#0d1f0d", "#2a4a2a", 2)
+    s += polyline([(580, 159), (592, 159), (600, 145), (608, 173), (616, 159), (626, 159)], TRACE, 2.2)
+    s += text(712, 150, "тригерна", 9.5, INK, "middle", "bold"); s += text(712, 166, "розгортка", 9.5, INK, "middle", "bold")
+    s += text(655, 220, "одна коробка · $795", 9.5, INK, "middle", "bold")
+    # чесна примітка
+    s += rect(70, 250, 750, 98, "#fff5ea", ORANGE, 1.4, 9)
+    s += text(445, 272, "Чесна примітка: «калібратор» у 511-му був скромний — 60-герцова синусоїда", 9.3, INK, "middle", "bold")
+    s += text(445, 290, "з мережевого трансформатора (за спогадами інженера Дж. Аддіса), а не точний еталон.", 9, GREY, "middle", style="italic")
+    s += text(445, 314, "Справжній калібрований часозбіг — заслуга вже пізніших моделей Tektronix,", 9, GREY, "middle")
+    s += text(445, 330, "що остаточно зробили осцилограф вимірювальним приладом, а не «глядачем хвиль».", 9, GREY, "middle")
+    save("fig-6-7i-6-practical.svg", s)
+
+
+# ───────────────────────── §6.8 вставка (🧮) — арифметика похибок мультиметра ──────────────────────────
+def fig68m1_band():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 27, "Дві частини похибки: відсоток показу + «одиниці» (counts)", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "Δ = a%·X + b·LSD: відсоток росте з показом, «одиниці» — стала підлога", 9.6, GREY, "middle", style="italic")
+    # ── ліворуч: абсолютна похибка ──
+    s += text(255, 78, "Абсолютна похибка Δ", 11.5, BLUE, "middle", "bold")
+    s += arrow(95, 332, 95, 92, INK, 1.8); s += text(89, 96, "Δ", 10, INK, "end", "bold")
+    s += arrow(95, 332, 440, 332, INK, 1.8); s += text(440, 348, "показ X →", 9, INK, "end")
+    s += polygon([(95, 332), (95, 288), (430, 150), (430, 332)], "#eef3fb", "none", 0)
+    s += line(95, 288, 430, 288, GREY, 1.4, "5,4"); s += text(100, 281, "b·LSD (підлога «одиниць»)", 8.4, GREY, "start", "bold")
+    s += line(95, 288, 430, 150, BLUE, 2.6)
+    s += text(300, 200, "Δ = a%·X + b·LSD", 9.6, BLUE, "middle", "bold")
+    s += text(360, 168, "нахил = a%", 8.2, GREY, "middle", style="italic")
+    # ── праворуч: відносна похибка ──
+    s += text(680, 78, "Відносна похибка Δ/X", 11.5, RED, "middle", "bold")
+    s += arrow(520, 332, 520, 92, INK, 1.8); s += text(514, 96, "Δ/X", 10, INK, "end", "bold")
+    s += arrow(520, 332, 865, 332, INK, 1.8); s += text(865, 348, "показ X →", 9, INK, "end")
+    s += line(520, 300, 860, 300, GREEN, 1.6, "5,4"); s += text(856, 293, "a% (межа на великому показі)", 8.2, GREEN, "end", "bold")
+    s += polyline([(545, 110), (560, 140), (582, 175), (612, 208), (655, 238), (715, 268), (785, 288), (858, 300)], RED, 2.8)
+    s += text(690, 150, "малий показ →", 8.8, RED, "middle", "bold"); s += text(690, 166, "велика відносна похибка!", 8.8, RED, "middle", "bold")
+    s += rect(120, 360, 660, 32, "#f3f6fb", BLUE, 1.4, 7)
+    s += text(450, 380, "Правило: показ має ЗАПОВНЮВАТИ діапазон — тоді частка «одиниць» мала, а відносна похибка — близька до a%.", 9, INK, "middle", "bold")
+    save("fig-6-8m-1-band.svg", s)
+
+
+def fig68m2_range():
+    W, H = 900, 360
+    s = header(W, H)
+    s += text(W / 2, 27, "Чому діапазон важливий: той самий 0.20 В на двох діапазонах", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "прилад ±(0.5% показу + 2 одиниці); нижчий діапазон → менша підлога «одиниць»", 9.6, GREY, "middle", style="italic")
+
+    def card(x, title, disp, line1, line2, rel, col, barw):
+        o = rect(x, 76, 330, 196, "#fbfbff", col, 1.7, 10)
+        o += text(x + 165, 100, title, 12, col, "middle", "bold")
+        o += rect(x + 95, 112, 140, 46, "#101814", "#101814", 2, 6)
+        o += text(x + 165, 144, disp, 22, "#5dff9b", "middle", "bold")
+        o += text(x + 18, 184, line1, 9.2, INK, "start")
+        o += text(x + 18, 202, line2, 9.2, INK, "start", "bold")
+        o += rect(x + 18, 218, 294, 16, "#f3f3f3", GREY, 1, 4)
+        o += rect(x + 18, 218, barw, 16, col, "none", 0, 4)
+        o += text(x + 165, 256, rel, 11, col, "middle", "bold")
+        return o
+    s += card(40, "Діапазон 2 В (1 од. = 1 мВ)", "0.200", "± (0.5%·0.2 + 2·1 мВ)", "= ±(1 + 2) = ±3 мВ", "→ ±1.5 %", RED, 220)
+    s += card(530, "Діапазон 200 мВ (1 од. = 0.1 мВ)", "200.0", "± (0.5%·0.2 + 2·0.1 мВ)", "= ±(1 + 0.2) = ±1.2 мВ", "→ ±0.6 %", GREEN, 90)
+    s += arrow(378, 174, 522, 174, INK, 2.4); s += text(450, 160, "нижчий діапазон,", 8.4, GREY, "middle"); s += text(450, 192, "менша «підлога»", 8.4, GREY, "middle")
+    s += rect(90, 296, 720, 50, "#eef7f0", GREEN, 1.4, 8)
+    s += text(450, 316, "Відсоткова частина однакова (1 мВ), а частка «одиниць» упала з 2 мВ до 0.2 мВ — бо «одиниця» дрібніша.", 9, INK, "middle", "bold")
+    s += text(450, 334, "Тому автодіапазон сам тисне показ у найменший діапазон, що вміщає значення (вставка до §1.6.6).", 8.8, GREY, "middle", style="italic")
+    save("fig-6-8m-2-range.svg", s)
+
+
+def fig68m3_propagation():
+    W, H = 900, 336
+    s = header(W, H)
+    s += text(W / 2, 27, "Похибка через обчислення: R = V / I", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "коли результат рахують із двох вимірів, відносні похибки додаються", 9.6, GREY, "middle", style="italic")
+    s += rect(70, 90, 200, 70, "#eef3fb", BLUE, 1.7, 9)
+    s += text(170, 118, "V = 5.00 В", 12, INK, "middle", "bold"); s += text(170, 140, "± 1 %", 10, BLUE, "middle", "bold")
+    s += text(305, 132, "÷", 26, INK, "middle", "bold")
+    s += rect(340, 90, 200, 70, "#fdeeee", RED, 1.7, 9)
+    s += text(440, 118, "I = 2.00 мА", 12, INK, "middle", "bold"); s += text(440, 140, "± 1.5 %", 10, RED, "middle", "bold")
+    s += arrow(545, 125, 612, 125, INK, 2.4); s += text(578, 113, "=", 13, INK, "middle", "bold")
+    s += rect(620, 86, 210, 78, "#eef7f0", GREEN, 1.9, 9)
+    s += text(725, 114, "R = 2.50 кОм", 12.5, INK, "middle", "bold"); s += text(725, 138, "± 2.5 %  (±0.06 кОм)", 10.5, GREEN, "middle", "bold")
+    s += rect(80, 196, 740, 54, "#f3f6fb", BLUE, 1.4, 8)
+    s += text(450, 217, "ΔR/R ≈ ΔV/V + ΔI/I = 1% + 1.5% = 2.5%  (для множення й ділення складають ВІДНОСНІ похибки)", 9.4, INK, "middle", "bold")
+    s += text(450, 236, "А для додавання й віднімання — складають АБСОЛЮТНІ (бо відсотки там не «множаться»).", 9, GREY, "middle", style="italic")
+    s += rect(80, 264, 740, 44, "#fff5ea", ORANGE, 1.4, 8)
+    s += text(450, 290, "Висновок: похибка результату ЗАВЖДИ більша за похибку кожного виміру — не забувайте її переносити.", 9.2, INK, "middle", "bold")
+    save("fig-6-8m-3-propagation.svg", s)
+
+
+# ───────────────────────── §6.8 вставка (🔌) — категорії CAT I–IV ──────────────────────────
+def fig68c1_ladder():
+    W, H = 900, 420
+    s = header(W, H)
+    s += text(W / 2, 27, "Категорії CAT: що ближче до джерела, то лютіші стрибки напруги", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "CAT — не про робочу напругу, а про здатність витримати ТРАНЗІЄНТИ (імпульсні перенапруги)", 9.5, GREY, "middle", style="italic")
+    s += text(70, 92, "джерело", 9, GREY, "middle", "bold"); s += text(70, 106, "(транзієнти)", 7.6, GREY, "middle")
+    s += text(835, 99, "навантаження", 9, GREY, "middle", "bold")
+    s += arrow(120, 99, 770, 99, GREY, 1.6)
+    zones = [
+        (90, "CAT IV", "Ввід · лічильник", "служба, ПЛ, ввід у дім", RED, 62),
+        (270, "CAT III", "Щиток · розподіл", "автомати, шини, двигуни", ORANGE, 44),
+        (450, "CAT II", "Розетка · прилади", "штепсельні навантаження", BLUE, 28),
+        (630, "CAT I", "Захищена електроніка", "не з'єднана прямо з мережею", GREEN, 13),
+    ]
+    for (x, cat, t1, t2, col, h) in zones:
+        cx = x + 75
+        s += polygon([(cx - 13, 196), (cx, 196 - h), (cx + 13, 196)], col)
+        s += line(cx, 196, cx, 212, col, 1.4)
+        s += rect(x, 212, 150, 66, "#fbfbff", col, 1.8, 9)
+        s += text(cx, 236, cat, 13, col, "middle", "bold")
+        s += text(cx, 256, t1, 8.6, INK, "middle", "bold")
+        s += text(cx, 272, t2, 7.6, GREY, "middle")
+    s += rect(90, 300, 690, 96, "#fff5ea", ORANGE, 1.4, 9)
+    s += text(435, 322, "Що ближче до вводу (CAT IV), то БІЛЬШІ імпульсні перенапруги — і МЕНШИЙ опір джерела,", 9.3, INK, "middle", "bold")
+    s += text(435, 340, "тобто більший струм короткого. Що далі вглиб (до CAT I), то дужче опір проводів гасить стрибки.", 9.1, GREY, "middle")
+    s += text(435, 364, "Тому категорія приладу має відповідати МІСЦЮ виміру: у щиток — CAT III, на ввід — CAT IV.", 9.3, INK, "middle", "bold")
+    s += text(435, 382, "А «робочі вольти» — окреме число: CAT і напругу читають РАЗОМ (далі).", 8.8, GREY, "middle", style="italic")
+    save("fig-6-8c-1-ladder.svg", s)
+
+
+def fig68c2_impedance():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 27, "Чому категорія важить більше за вольти: опір джерела", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "той самий транзієнт, але нижчий опір джерела → у рази більший струм (і енергія дуги)", 9.5, GREY, "middle", style="italic")
+    s += line(455, 64, 455, 256, FAINT, 2)
+    # CAT II 1000 В
+    s += text(232, 84, "CAT II — 1000 В", 12.5, BLUE, "middle", "bold")
+    s += text(232, 104, "розетка; випроба 6 кВ, джерело 12 Ом", 8.4, GREY, "middle")
+    s += text(232, 150, "I = 6000 В / 12 Ом", 10.5, INK, "middle", "bold")
+    s += text(232, 174, "≈ 500 А", 16, BLUE, "middle", "bold")
+    s += rect(112, 198, 240, 26, "#eef3fb", BLUE, 1.2, 4); s += rect(112, 198, 40, 26, BLUE, "none", 0, 4)
+    s += text(232, 244, "менший струм транзієнта", 9, GREY, "middle")
+    # CAT III 600 В
+    s += text(680, 84, "CAT III — 600 В", 12.5, GREEN, "middle", "bold")
+    s += text(680, 104, "щиток; випроба 6 кВ, джерело 2 Ом", 8.4, GREY, "middle")
+    s += text(680, 150, "I = 6000 В / 2 Ом", 10.5, INK, "middle", "bold")
+    s += text(680, 174, "≈ 3000 А", 16, GREEN, "middle", "bold")
+    s += rect(560, 198, 240, 26, "#eef7f0", GREEN, 1.2, 4); s += rect(560, 198, 240, 26, GREEN, "none", 0, 4)
+    s += text(680, 244, "той самий транзієнт — ушестеро більший струм!", 8.6, RED, "middle", "bold")
+    s += rect(90, 270, 720, 112, "#f3f6fb", BLUE, 1.4, 9)
+    s += text(450, 294, "Опір джерела CAT III (2 Ом) у шість разів нижчий за CAT II (12 Ом) — тож при однаковій", 9.3, INK, "middle", "bold")
+    s += text(450, 312, "напрузі транзієнта струм (а отже, енергія можливої дуги) у рази більший.", 9.1, GREY, "middle")
+    s += text(450, 338, "ВИСНОВОК: CAT III-600 В «жорсткіший» за CAT II-1000 В, хоч вольтів менше.", 9.6, RED, "middle", "bold")
+    s += text(450, 362, "Тому читають ОБИДВА числа — категорію і напругу — разом, а не лише вольти.", 9, INK, "middle", "bold")
+    save("fig-6-8c-2-impedance.svg", s)
+
+
+def fig68c3_danger():
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 27, "Чому дешевим мультиметром не лізуть у щиток", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 47, "недостатня категорія + лютий транзієнт = дуга всередині приладу в тебе в руці", 9.5, GREY, "middle", style="italic")
+    s += line(455, 64, 455, 276, FAINT, 2)
+    # ліворуч — дешевий прилад спалахує
+    s += text(232, 84, "Дешевий CAT II у щитку (CAT III)", 11.5, RED, "middle", "bold")
+    s += rect(147, 108, 170, 116, "#fbfbff", RED, 1.8, 10); s += text(232, 130, "дешевий прилад", 9.5, INK, "middle", "bold")
+    s += polyline([(192, 150), (216, 176), (201, 181), (228, 208)], ORANGE, 3)
+    s += polyline([(252, 148), (236, 174), (256, 178), (241, 204)], ORANGE, 3)
+    s += text(232, 244, "транзієнт пробиває ізоляцію →", 8.8, RED, "middle", "bold")
+    s += text(232, 262, "дуга, спалах, опіки", 10.5, RED, "middle", "bold")
+    # праворуч — захист правильного приладу
+    s += text(680, 84, "Правильний CAT III/IV", 11.5, GREEN, "middle", "bold")
+    s += text(518, 116, "• більші зазори (creepage/clearance)", 9, INK, "start")
+    s += text(518, 140, "• посилена ізоляція й вхідний захист", 9, INK, "start")
+    s += text(518, 164, "• HRC-запобіжник (піщаний), що гасить дугу", 9, INK, "start")
+    s += text(530, 180, "— а не скляний, що бризкає", 8.2, GREY, "start", style="italic")
+    s += text(518, 204, "• щупи теж із CAT-рейтингом", 9, INK, "start")
+    s += rect(540, 228, 116, 30, "#eef7f0", GREEN, 1.4, 5); s += text(598, 247, "HRC + пісок", 8.6, GREEN, "middle", "bold")
+    s += rect(672, 228, 116, 30, "#fdeeee", RED, 1.4, 5); s += text(730, 247, "скляний ✗", 8.6, RED, "middle", "bold")
+    s += rect(90, 286, 720, 98, "#fff5ea", ORANGE, 1.4, 9)
+    s += text(450, 308, "У щитку (CAT III) і на вводі (CAT IV) опір джерела малий — транзієнт несе величезну енергію.", 9.3, INK, "middle", "bold")
+    s += text(450, 326, "Прилад нижчої категорії не витримує: усередині спалахує дуга — і вибухає в руці.", 9.1, GREY, "middle")
+    s += text(450, 350, "Для щитка — лише CAT III, для вводу — CAT IV від відомого бренду. Стережіться ФАЛЬШИВИХ «CAT».", 9.3, RED, "middle", "bold")
+    s += text(450, 370, "Для плати, USB чи батарейки CAT I–II цілком досить — там лютих транзієнтів нема.", 8.9, INK, "middle", style="italic")
+    save("fig-6-8c-3-danger.svg", s)
+
+
 if __name__ == "__main__":
     fig_oersted()
     fig_galvanometer()
@@ -2438,4 +3269,37 @@ if __name__ == "__main__":
     fig610_protection()
     fig610_setting()
     fig610_cccv_charge()
+    # §6.3 вставка (⚙️) — нетлист і ERC
+    fig63a_netlist()
+    fig63a_erc()
+    # §6.4 історія (📜) — телеграф із поверненням через ґрунт
+    fig64i_earth_return()
+    fig64i_name_legacy()
+    # §6.6 вставка (🔌) — мультиметр як компонент
+    fig66c_blockdiagram()
+    fig66c_impedance()
+    fig66c_counts()
+    # §6.7 вставка (🔌) — осцилограф зблизька
+    fig67c_panel()
+    fig67c_coupling()
+    fig67c_ground()
+    # §6.7 вставка (🔌) — щуп 1×/10×
+    fig67c_why_probe()
+    fig67c_divider()
+    fig67c_compensation()
+    # §6.7 вставка (⚙️) — тригер: алгоритм
+    fig67a_edge()
+    fig67a_hysteresis()
+    fig67a_buffer()
+    # §6.7 історія (📜) — Tektronix і тригерна розгортка
+    fig67i5_timeline()
+    fig67i6_practical()
+    # §6.8 вставка (🧮) — арифметика похибок
+    fig68m1_band()
+    fig68m2_range()
+    fig68m3_propagation()
+    # §6.8 вставка (🔌) — категорії CAT I–IV
+    fig68c1_ladder()
+    fig68c2_impedance()
+    fig68c3_danger()
     print("OK — фігури Розділу 6 (повна, +§6.10 БЖ) згенеровано в", OUT)

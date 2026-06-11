@@ -706,6 +706,345 @@ def fig_alias_clip():
     save("fig-13-2-3-6-alias-clip.svg", s)
 
 
+_GLYPH_A = ["..X..", ".X.X.", "X...X", "X...X", "XXXXX", "X...X", "X...X"]
+
+
+def _vec_A(cx, top, half, h, color=INK, w=2.5, dots=True):
+    out = line(cx, top, cx - half, top + h, color, w)
+    out += line(cx, top, cx + half, top + h, color, w)
+    out += line(cx - half * 0.6, top + h * 0.62, cx + half * 0.6, top + h * 0.62, color, w)
+    if dots:
+        for (px, py) in [(cx, top), (cx - half, top + h), (cx + half, top + h),
+                         (cx - half * 0.6, top + h * 0.62), (cx + half * 0.6, top + h * 0.62)]:
+            out += circle(px, py, 4, "#ffffff", GREEN, 1.8)
+    return out
+
+
+# ── Рис. 13.2.4.1 — гліф двома способами ─────────────────────────────────────
+def fig_glyph_two_ways():
+    W, H = 820, 340
+    s = header(W, H)
+    s += text(W / 2, 32, "Гліф: дві філософії зберігання — пікселі чи контур", 18, INK, "middle", "bold")
+    cs, bx, by = 24, 120, 88
+    for r in range(7):
+        for c in range(5):
+            s += rect(bx + c * cs, by + r * cs, cs, cs, "none", FAINT, 1)
+    s += minibits(bx, by, cs, _GLYPH_A, "#2b2f33")
+    s += text(bx + 2.5 * cs, 74, "БІТМАП", 12.5, INK, "middle", "bold")
+    s += text(bx + 2.5 * cs, by + 7 * cs + 22, "готова сітка пікселів", 10.5, GREY, "middle")
+    s += text(bx + 2.5 * cs, by + 7 * cs + 38, "(один розмір)", 10, GREY, "middle")
+    s += text(560, 74, "ВЕКТОР", 12.5, INK, "middle", "bold")
+    s += _vec_A(560, 92, 70, 160)
+    s += text(560, 278, "контур із точок і кривих", 10.5, GREY, "middle")
+    s += text(560, 294, "(будь-який розмір)", 10, GREEN, "middle", "bold")
+    s += text(W / 2, 326, "Бітмап зберігає вже намальовані пікселі; вектор — геометрію форми, яку малюють під потрібний розмір.",
+              11.5, GREY, "middle", style="italic")
+    save("fig-13-2-4-1-glyph.svg", s)
+
+
+# ── Рис. 13.2.4.2 — бітмап: кожен розмір окремо ──────────────────────────────
+def fig_bitmap_sizes():
+    W, H = 820, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Бітмапний шрифт: кожен розмір — окремий набір у Flash", 18, INK, "middle", "bold")
+    for i, (cs, lab) in enumerate([(8, "малий"), (14, "середній"), (22, "великий")]):
+        x = 90 + i * 150
+        s += minibits(x, 96, cs, _GLYPH_A, "#2b2f33")
+        s += text(x + 2.5 * cs, 86, lab, 11, INK, "middle", "bold")
+        s += text(x + 2.5 * cs, 96 + 7 * cs + 16, "свій блок", 10, GREY, "middle")
+    s += text(220, 250, "кожен розмір зберігають окремо → Flash множиться", 11, INK, "middle")
+    # масштаб малого = блочно
+    bx = 600
+    s += text(bx + 60, 86, "малий × масштаб", 10.5, RED, "middle", "bold")
+    big = []
+    for row in _GLYPH_A:
+        dbl = "".join(ch * 2 for ch in row)
+        big.append(dbl)
+        big.append(dbl)
+    s += minibits(bx, 96, 12, big, "#9aa0a4")
+    s += text(bx + 60, 96 + 14 * 12 + 6, "= блочно, погано", 10, RED, "middle")
+    s += text(W / 2, 300, "Бітмап тривіально малювати (просто бліт), та один розмір ≠ інший: масштабувати гладко не виходить.",
+              11.5, GREY, "middle", style="italic")
+    save("fig-13-2-4-2-bitmap-sizes.svg", s)
+
+
+# ── Рис. 13.2.4.3 — вектор: один контур, будь-який розмір ────────────────────
+def fig_vector_scale():
+    W, H = 820, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Векторний шрифт: один контур — будь-який розмір", 18, INK, "middle", "bold")
+    s += _vec_A(140, 86, 60, 150)
+    s += text(140, 256, "один опис контуру", 10.5, INK, "middle", "bold")
+    s += arrow(220, 160, 290, 160, INK, 2.2)
+    s += text(255, 150, "растеризувати", 9.5, GREEN, "middle")
+    for i, (half, h, lab) in enumerate([(28, 70, "16 px"), (42, 105, "24 px"), (58, 145, "32 px")]):
+        x = 360 + i * 150
+        base = 96 + (150 - h)
+        s += _vec_A(x, base, half, h, INK, 2.2, dots=False)
+        s += text(x, 262, lab, 10.5, GREEN, "middle", "bold")
+    s += text(W / 2, 296, "З однієї геометрії малюють будь-який кегль — і всі виходять гладкими. Ціна — потрібен растеризатор (CPU, код, RAM).",
+              11.5, GREY, "middle", style="italic")
+    save("fig-13-2-4-3-vector-scale.svg", s)
+
+
+# ── Рис. 13.2.4.4 — 1 біт проти згладжування ─────────────────────────────────
+def fig_aa_glyph():
+    W, H = 800, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Гладкі літери: 1 біт проти згладжування (АА)", 18, INK, "middle", "bold")
+    diag = [(0, 6), (1, 5), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1), (7, 0)]
+    gx, gy, gc = 90, 88, 26
+    s += text(gx + 3.5 * gc, 78, "1 біт (різко)", 11.5, INK, "middle", "bold")
+    s += _grid(gx, gy, gc, 8, 7)
+    for (c, r) in diag:
+        s += _cell(gx, gy, gc, c, r, "#2b2f33")
+    s += text(gx + 3.5 * gc, gy + 7 * gc + 20, "сходинки видно", 10, RED, "middle")
+    ax = 470
+    s += text(ax + 3.5 * gc, 78, "4 біти АА (гладко)", 11.5, INK, "middle", "bold")
+    s += _grid(ax, gy, gc, 8, 7)
+    for (c, r) in diag:
+        s += _cell(ax, gy, gc, c, r, "#2b2f33")
+    soft = [(1, 6), (0, 5), (3, 5), (2, 4), (4, 4), (3, 3), (5, 3), (4, 2), (6, 2), (5, 1), (7, 1), (6, 0)]
+    for (c, r) in soft:
+        s += _cell(ax, gy, gc, c, r, "#b4b8bc")
+    s += text(ax + 3.5 * gc, gy + 7 * gc + 20, "сірі краї обманюють око", 10, GREEN, "middle")
+    s += text(W / 2, 300, "Зберігаючи піксель не одним бітом, а кількома (тут 4 — 16 рівнів сірого), краї роблять плавними. Ціна — більше байтів на гліф.",
+              11.5, GREY, "middle", style="italic")
+    save("fig-13-2-4-4-aa.svg", s)
+
+
+# ── Рис. 13.2.4.5 — кернінг ──────────────────────────────────────────────────
+def fig_kerning():
+    W, H = 760, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Кернінг: підгін відстані між парами літер", 18, INK, "middle", "bold")
+
+    def AV(x, y, gap, color=INK):
+        out = line(x, y + 70, x + 26, y, color, 3) + line(x + 26, y, x + 52, y + 70, color, 3)
+        out += line(x + 13, y + 44, x + 39, y + 44, color, 3)
+        vx = x + 52 + gap
+        out += line(vx, y, vx + 26, y + 70, color, 3) + line(vx + 26, y + 70, vx + 52, y, color, 3)
+        return out
+
+    s += text(150, 82, "без кернінгу", 11.5, INK, "middle", "bold")
+    s += AV(96, 100, 30, INK)
+    s += text(150, 200, "велика дірка між A і V", 10, RED, "middle")
+    s += text(530, 82, "з кернінгом", 11.5, INK, "middle", "bold")
+    s += AV(470, 100, -12, INK)
+    s += text(540, 200, "V «підтикають» під A", 10, GREEN, "middle")
+    s += text(W / 2, 250, "Окрім ширини кожної літери, гарний шрифт має таблицю поправок для конкретних ПАР (AV, To) —",
+              11.5, INK, "middle")
+    s += text(W / 2, 272, "інакше деякі сполуки виглядають розхристано. У дрібних embedded-шрифтах кернінг часто пропускають.",
+              11, GREY, "middle", style="italic")
+    save("fig-13-2-4-5-kerning.svg", s)
+
+
+# ── Рис. 13.2.4.6 — вага шрифту у Flash ──────────────────────────────────────
+def fig_flash_weight():
+    W, H = 824, 310
+    s = header(W, H)
+    s += text(W / 2, 32, "Вага шрифту у Flash = символів × байтів на гліф", 18, INK, "middle", "bold")
+    cols = ["конфіг", "байт/гліф", "латиниця ~100", "+кирилиця ~200"]
+    rows = [
+        ("16 px · 1 біт", "32", "3.2 КБ", "6.4 КБ", "g"),
+        ("16 px · 4 біти АА", "128", "12.8 КБ", "25.6 КБ", "n"),
+        ("48 px · 1 біт", "288", "28 КБ", "56 КБ", "n"),
+        ("48 px · 4 біти АА", "1152", "113 КБ", "225 КБ", "b"),
+    ]
+    colw = [180, 130, 160, 170]
+    tf = {"g": "#e7f5ea", "n": "#fff8e8", "b": "#fdeceb"}
+    te = {"g": GREEN, "n": "#b07d18", "b": RED}
+    x0, y0, rh = 70, 64, 46
+    cx = x0
+    for j, h in enumerate(cols):
+        s += rect(cx, y0, colw[j], 34, "#eef0f2", GREY, 1.2)
+        s += text(cx + colw[j] / 2, y0 + 22, h, 12, INK, "middle", "bold")
+        cx += colw[j]
+    for row in rows:
+        ry = y0 + 34 + rows.index(row) * rh
+        cx = x0
+        tone = row[4]
+        for j in range(4):
+            s += rect(cx, ry, colw[j], rh, tf[tone] if j >= 2 else ("#f6f7f8" if j == 0 else "#ffffff"), GREY, 1.1)
+            col = te[tone] if j >= 2 else INK
+            s += text(cx + colw[j] / 2, ry + rh / 2 + 5, row[j], 12, col, "middle", "bold" if j == 0 else "normal")
+            cx += colw[j]
+    s += text(W / 2, 292, "Великий кегль + згладжування + повний набір символів = сотні КБ. Звідси: бери лише потрібні символи й розміри.",
+              11.5, GREY, "middle", style="italic")
+    save("fig-13-2-4-6-flash.svg", s)
+
+
+# ── Рис. 13.2.5.1 — розрив картинки (tearing) ────────────────────────────────
+def fig_tearing():
+    W, H = 820, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Чому картинка рветься: запис під час читання панелі", 18, INK, "middle", "bold")
+    s += text(160, 78, "панель сканує згори вниз", 11, GREY, "middle")
+    px, py, pw, ph = 90, 90, 150, 160
+    s += rect(px, py, pw, ph, "#ffffff", INK, 1.6)
+    s += rect(px, py, pw, ph * 0.45, "#eaf3ff", "none", 0)
+    s += circle(px + 50, py + 36, 16, "#cf4040", INK, 1.5)
+    s += circle(px + 100, py + 122, 16, "#cf4040", INK, 1.5)
+    s += line(px, py + ph * 0.45, px + pw, py + ph * 0.45, RED, 2, "5 3")
+    s += text(px + pw + 8, py + ph * 0.45 + 4, "лінія розриву", 10, RED, "start", "bold")
+    s += arrow(px - 14, py + 6, px - 14, py + ph - 6, GREY, 1.8)
+    s += text(px + pw / 2, py + ph + 20, "верх — новий кадр, низ — старий", 10, INK, "middle")
+    s += text(px + pw / 2, py + ph + 36, "об'єкт «розколовся»", 10, RED, "middle", "bold")
+    s += text(470, 110, "Ми пишемо кадр у ту саму пам'ять,", 12, INK, "start")
+    s += text(470, 130, "звідки панель 60 разів/с її читає.", 12, INK, "start")
+    s += text(470, 156, "Якщо запис застав читання на пів-", 12, INK, "start")
+    s += text(470, 176, "дорозі — показаний кадр виходить", 12, INK, "start")
+    s += text(470, 196, "склеєним зі старого й нового.", 12, INK, "start")
+    s += text(470, 224, "Один спільний буфер на малювання", 11, RED, "start", "bold")
+    s += text(470, 242, "й показ — і розриви неминучі.", 11, RED, "start", "bold")
+    save("fig-13-2-5-1-tearing.svg", s)
+
+
+# ── Рис. 13.2.5.2 — подвійна буферизація ─────────────────────────────────────
+def fig_double_buffer():
+    W, H = 820, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Подвійна буферизація: малюй у тіньовий, показуй готовий", 18, INK, "middle", "bold")
+    s += rect(90, 110, 170, 110, "#fff8e8", "#b07d18", 1.8, 6)
+    s += text(175, 96, "ЗАДНІЙ буфер", 11.5, "#9a7d2e", "middle", "bold")
+    s += text(175, 150, "малюємо тут", 11, INK, "middle", "bold")
+    s += text(175, 172, "(глядач не бачить)", 9.5, GREY, "middle")
+    s += rect(560, 110, 170, 110, "#e7f5ea", GREEN, 1.8, 6)
+    s += text(645, 96, "ПЕРЕДНІЙ буфер", 11.5, GREEN, "middle", "bold")
+    s += text(645, 150, "показуємо на екран", 11, INK, "middle", "bold")
+    s += text(645, 172, "(панель читає)", 9.5, GREY, "middle")
+    s += rect(360, 116, 100, 60, "#eaf3ff", "#9bbdd6", 1.4, 4)
+    s += text(410, 150, "панель", 11, "#5d7e93", "middle", "bold")
+    s += arrow(560, 196, 460, 196, GREEN, 2)
+    s += arrow(360, 196, 268, 196, GREY, 1.6, "4 3")
+    s += arrow(262, 250, 558, 250, INK, 2.4)
+    s += text(410, 244, "коли задній готовий — МІНЯЄМО буфери місцями (swap)", 11, INK, "middle", "bold")
+    s += text(W / 2, 300, "Глядач завжди бачить лише завершений кадр. Ціна — ДВА кадрові буфери в пам'яті замість одного.",
+              11.5, GREY, "middle", style="italic")
+    save("fig-13-2-5-2-double-buffer.svg", s)
+
+
+# ── Рис. 13.2.5.3 — спосіб обміну ────────────────────────────────────────────
+def fig_swap_methods():
+    W, H = 820, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Обмін буферів: перекинути вказівник чи скопіювати", 18, INK, "middle", "bold")
+    s += text(200, 78, "ВКАЗІВНИК (миттєво)", 12, INK, "middle", "bold")
+    s += rect(80, 96, 90, 50, "#fff8e8", "#b07d18", 1.4, 4)
+    s += text(125, 126, "буфер A", 10.5, INK, "middle")
+    s += rect(80, 166, 90, 50, "#e7f5ea", GREEN, 1.4, 4)
+    s += text(125, 196, "буфер B", 10.5, INK, "middle")
+    s += rect(250, 130, 60, 52, "#eef2f5", INK, 1.6, 5)
+    s += text(280, 152, "панель", 10, INK, "middle")
+    s += text(280, 168, "читає →", 9, GREY, "middle")
+    s += arrow(250, 150, 172, 121, INK, 1.8, "4 3")
+    s += arrow(250, 162, 172, 191, INK, 2)
+    s += text(200, 240, "панель просто читає інший буфер —", 10, GREY, "middle")
+    s += text(200, 256, "нуль копіювання (треба підтримка контролера)", 10, GREEN, "middle", "bold")
+    s += text(620, 78, "КОПІЯ (працює завжди)", 12, INK, "middle", "bold")
+    s += rect(470, 110, 90, 50, "#fff8e8", "#b07d18", 1.4, 4)
+    s += text(515, 140, "задній", 10.5, INK, "middle")
+    s += arrow(565, 135, 645, 135, GREEN, 2.4)
+    s += text(605, 124, "копіювати", 9.5, GREEN, "middle")
+    s += rect(650, 110, 90, 50, "#e7f5ea", GREEN, 1.4, 4)
+    s += text(695, 140, "передній", 10.5, INK, "middle")
+    s += text(620, 240, "блітимо весь задній у передній —", 10, GREY, "middle")
+    s += text(620, 256, "просто, та коштує копії на кожен кадр", 10, "#b07d18", "middle", "bold")
+    save("fig-13-2-5-3-swap.svg", s)
+
+
+# ── Рис. 13.2.5.4 — vsync ────────────────────────────────────────────────────
+def fig_vsync():
+    W, H = 820, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Vsync: міняти буфери у щілині між кадрами", 18, INK, "middle", "bold")
+    ax0, ay = 70, 150
+    s += line(ax0, ay, 760, ay, INK, 1.6)
+    s += text(70, ay + 40, "час →", 11, INK, "start")
+    # active scan blocks separated by vblank gaps
+    x = 90
+    for k in range(3):
+        s += rect(x, ay - 36, 160, 36, "#eaf3ff", "#9bbdd6", 1.2)
+        s += text(x + 80, ay - 14, "сканування кадру", 10, "#5d7e93", "middle")
+        gx = x + 160
+        s += rect(gx, ay - 36, 40, 36, "#e7f5ea", GREEN, 1.2)
+        s += text(gx + 20, ay + 16, "vblank", 8.5, GREEN, "middle", "bold")
+        x += 200
+    s += arrow(290, ay - 70, 290, ay - 38, GREEN, 2)
+    s += text(290, ay - 78, "swap ТУТ — без розриву", 10, GREEN, "middle", "bold")
+    s += arrow(170, ay + 78, 170, ay - 4, RED, 2)
+    s += text(170, ay + 92, "swap посеред сканування → розрив", 10, RED, "middle", "bold")
+    s += text(W / 2, 292, "Між кадрами панель має коротку паузу (vertical blanking). Перемкнути буфери саме в ній — і око не вловить шва.",
+              11.5, GREY, "middle", style="italic")
+    save("fig-13-2-5-4-vsync.svg", s)
+
+
+# ── Рис. 13.2.5.5 — синхронізація: TE проти LTDC ─────────────────────────────
+def fig_te_sync():
+    W, H = 820, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Як синхронізують: розумна панель по TE, LTDC сам", 18, INK, "middle", "bold")
+    s += text(200, 80, "РОЗУМНА панель (GRAM, SPI)", 11.5, INK, "middle", "bold")
+    s += rect(80, 100, 110, 56, "#eef2f5", INK, 1.6, 6)
+    s += text(135, 132, "МК", 12, INK, "middle", "bold")
+    s += rect(300, 100, 120, 56, "#eaf3ff", "#9bbdd6", 1.6, 6)
+    s += text(360, 126, "панель", 11, "#5d7e93", "middle", "bold")
+    s += text(360, 144, "+ GRAM", 9.5, GREY, "middle")
+    s += arrow(190, 122, 300, 122, INK, 2)
+    s += text(245, 112, "кадр", 9, GREY, "middle")
+    s += arrow(300, 144, 190, 144, RED, 1.8)
+    s += text(245, 158, "TE (готова мить)", 9, RED, "middle", "bold")
+    s += text(250, 188, "МК чекає сигналу TE, тоді шле кадр —", 10, GREY, "middle")
+    s += text(250, 204, "потрапляє в паузу між освіженнями", 10, GREEN, "middle", "bold")
+    s += text(620, 80, "RGB-панель + LTDC", 11.5, INK, "middle", "bold")
+    s += rect(500, 100, 150, 70, "#eef2f5", INK, 1.6, 6)
+    s += text(575, 124, "LTDC у МК", 11.5, INK, "middle", "bold")
+    s += text(575, 144, "перед + задній", 9.5, GREY, "middle")
+    s += text(575, 160, "сам гортає на vsync", 9.5, GREEN, "middle")
+    s += arrow(650, 135, 740, 135, INK, 2)
+    s += rect(740, 110, 60, 50, "#eaf3ff", "#9bbdd6", 1.4, 4)
+    s += text(770, 140, "скло", 9.5, "#5d7e93", "middle")
+    s += text(620, 200, "контролер сам тримає два буфери", 10, GREY, "middle")
+    s += text(620, 216, "й міняє їх у vblank — без участи коду", 10, GREEN, "middle", "bold")
+    s += text(W / 2, 300, "Розумна панель дає ніжку TE — момент, коли писати безпечно; вбудований LTDC робить подвійний буфер і vsync сам.",
+              11, GREY, "middle", style="italic")
+    save("fig-13-2-5-5-te-sync.svg", s)
+
+
+# ── Рис. 13.2.5.6 — компроміс буферів ────────────────────────────────────────
+def fig_buffer_tradeoff():
+    W, H = 824, 290
+    s = header(W, H)
+    s += text(W / 2, 32, "Один буфер, два, чи синхронний запис — компроміс", 18, INK, "middle", "bold")
+    cols = ["спосіб", "пам'ять", "розрив", "плавність", "коли"]
+    rows = [
+        ("один буфер", "×1", "буває", "так собі", "статика, мало RAM", "n"),
+        ("подвійний буфер", "×2", "нема", "найкраща", "є RAM, анімація", "g"),
+        ("1 буфер + sync у vblank", "×1", "нема*", "добра", "встигаєш у паузу", "n"),
+    ]
+    colw = [200, 100, 110, 130, 180]
+    tf = {"g": "#e7f5ea", "n": "#fff8e8", "b": "#fdeceb"}
+    te = {"g": GREEN, "n": "#b07d18", "b": RED}
+    x0, y0, rh = 28, 64, 52
+    cx = x0
+    for j, h in enumerate(cols):
+        s += rect(cx, y0, colw[j], 34, "#eef0f2", GREY, 1.2)
+        s += text(cx + colw[j] / 2, y0 + 22, h, 12, INK, "middle", "bold")
+        cx += colw[j]
+    for row in rows:
+        ry = y0 + 34 + rows.index(row) * rh
+        cx = x0
+        tone = row[5]
+        for j in range(5):
+            s += rect(cx, ry, colw[j], rh, tf[tone] if j > 0 else "#f6f7f8", GREY, 1.1)
+            col = te[tone] if 0 < j < 4 else INK
+            s += text(cx + colw[j] / 2, ry + rh / 2 + 5, row[j], 11.5, col, "middle", "bold" if j == 0 else "normal")
+            cx += colw[j]
+    s += text(W / 2, 276, "* без розриву, лише якщо встигаєш намалювати весь кадр у коротку паузу — на повний екран це нелегко.",
+              10.5, GREY, "middle", style="italic")
+    save("fig-13-2-5-6-tradeoff.svg", s)
+
+
 if __name__ == "__main__":
     fig_fb_memory_screen()
     fig_fb_addressing()
@@ -730,4 +1069,18 @@ if __name__ == "__main__":
     fig_circle_symmetry()
     fig_text_glyphs()
     fig_alias_clip()
+    # Тема 13.2.4 — шрифти
+    fig_glyph_two_ways()
+    fig_bitmap_sizes()
+    fig_vector_scale()
+    fig_aa_glyph()
+    fig_kerning()
+    fig_flash_weight()
+    # Тема 13.2.5 — подвійна буферизація
+    fig_tearing()
+    fig_double_buffer()
+    fig_swap_methods()
+    fig_vsync()
+    fig_te_sync()
+    fig_buffer_tradeoff()
     print("done.")

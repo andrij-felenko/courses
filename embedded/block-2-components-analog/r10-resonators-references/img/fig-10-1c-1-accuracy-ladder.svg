@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="430" viewBox="0 0 760 430">
+<rect width="760" height="430" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="380.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Похибка джерела частоти проти бюджету UART</text>
+<rect x="582.0" y="70.0" width="108.0" height="290.0" rx="0" fill="#fbecec" stroke="none" stroke-width="2"/>
+<line x1="582.0" y1="70.0" x2="582.0" y2="360.0" stroke="#c0271e" stroke-width="2" stroke-dasharray="5,4" stroke-linecap="round"/>
+<text x="684.0" y="88.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">тут UART уже сипле помилки</text>
+<text x="684.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="end" font-weight="normal" font-style="normal">(&gt;1 % на бік)</text>
+<line x1="136.0" y1="360.0" x2="708.0" y2="360.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="712.0" y="364.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">ppm</text>
+<text x="136.0" y="386.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">точніше →</text>
+<text x="696.0" y="386.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#c0271e" text-anchor="end" font-weight="normal" font-style="normal">← грубіше</text>
+<line x1="150.0" y1="360.0" x2="150.0" y2="366.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<text x="150.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">1</text>
+<line x1="258.0" y1="360.0" x2="258.0" y2="366.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<text x="258.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">10</text>
+<line x1="366.0" y1="360.0" x2="366.0" y2="366.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<text x="366.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">100</text>
+<line x1="474.0" y1="360.0" x2="474.0" y2="366.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<text x="474.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">1 000</text>
+<line x1="582.0" y1="360.0" x2="582.0" y2="366.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<text x="582.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">10 000</text>
+<line x1="690.0" y1="360.0" x2="690.0" y2="366.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<text x="690.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">100 000</text>
+<line x1="582.0" y1="130.0" x2="657.5" y2="130.0" stroke="#c0271e" stroke-width="7" stroke-linecap="round"/>
+<circle cx="582.0" cy="130.0" r="4.0" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
+<circle cx="657.5" cy="130.0" r="4.0" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
+<text x="128.0" y="125.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">Внутрішній RC, без калібрування</text>
+<text x="128.0" y="141.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">±1…5 % — гуляє з температурою й живленням</text>
+<line x1="549.5" y1="178.0" x2="614.5" y2="178.0" stroke="#e0a32e" stroke-width="7" stroke-linecap="round"/>
+<circle cx="549.5" cy="178.0" r="4.0" fill="#e0a32e" stroke="#e0a32e" stroke-width="1"/>
+<circle cx="614.5" cy="178.0" r="4.0" fill="#e0a32e" stroke="#e0a32e" stroke-width="1"/>
+<text x="128.0" y="173.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">Внутрішній RC, заводське калібр.</text>
+<text x="128.0" y="189.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">±0.5…2 % при 25 °C, далі повзе</text>
+<line x1="525.5" y1="226.0" x2="549.5" y2="226.0" stroke="#e0a32e" stroke-width="7" stroke-linecap="round"/>
+<circle cx="525.5" cy="226.0" r="4.0" fill="#e0a32e" stroke="#e0a32e" stroke-width="1"/>
+<circle cx="549.5" cy="226.0" r="4.0" fill="#e0a32e" stroke="#e0a32e" stroke-width="1"/>
+<text x="128.0" y="221.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">Керамічний резонатор</text>
+<text x="128.0" y="237.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">±0.3…0.5 %</text>
+<line x1="258.0" y1="274.0" x2="333.5" y2="274.0" stroke="#1f8a3b" stroke-width="7" stroke-linecap="round"/>
+<circle cx="258.0" cy="274.0" r="4.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
+<circle cx="333.5" cy="274.0" r="4.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
+<text x="128.0" y="269.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">Кварц, типовий</text>
+<text x="128.0" y="285.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">±10…50 ppm = 0.001…0.005 %</text>
+<line x1="150.0" y1="322.0" x2="225.5" y2="322.0" stroke="#1f8a3b" stroke-width="7" stroke-linecap="round"/>
+<circle cx="150.0" cy="322.0" r="4.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
+<circle cx="225.5" cy="322.0" r="4.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
+<text x="128.0" y="317.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">Кварц із компенсацією (клас TCXO)</text>
+<text x="128.0" y="333.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">часи й радіо</text>
+<text x="420.0" y="422.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">логарифмічна шкала: кожна поділка — у 10 разів менша похибка</text>
+</svg>

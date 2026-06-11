@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300">
+<rect width="900" height="300" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Коли не ділиться рівно — похибка накопичується</text>
+<rect x="60.0" y="80.0" width="370.0" height="150.0" rx="12" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="245.0" y="106.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Ціль 1 кГц — ділиться рівно</text>
+<text x="245.0" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">N·P = 80 000 000 / 1000 = 80 000</text>
+<text x="245.0" y="156.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">= 80 × 1000  (ціле!)</text>
+<text x="245.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">похибка = 0 ✓</text>
+<text x="245.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.8" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">ідеально для точних частот</text>
+<rect x="470.0" y="80.0" width="370.0" height="150.0" rx="12" fill="#fbecec" stroke="#c0271e" stroke-width="2"/>
+<text x="655.0" y="106.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Ціль 3 Гц — НЕ ділиться рівно</text>
+<text x="655.0" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.4" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">N·P = 80 000 000 / 3 = 26 666 666.7</text>
+<text x="655.0" y="156.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.4" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">не ціле → беремо найближче</text>
+<text x="655.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">залишок → дрейф ✗</text>
+<text x="655.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.8" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">крихітна похибка × мільйони періодів</text>
+<text x="450.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Добирай тактову й дільники так, щоб ціль ділилася рівно, коли потрібна точність;</text>
+<text x="450.0" y="282.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.4" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">не ділиться — лишається залишок, що накопичується (періодична поправка чи терпіти).</text>
+</svg>

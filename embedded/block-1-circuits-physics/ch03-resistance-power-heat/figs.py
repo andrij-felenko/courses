@@ -2750,6 +2750,288 @@ def fig_energy_units():
     save("fig-3-5m-1-energy-units.svg", s)
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# Тема 1.3.10 — Три шляхи тепла: кондукція, конвекція, випромінювання
+# (Рис. 3.10.k)
+# ═════════════════════════════════════════════════════════════════════════════
+
+def _arc_wave(x, y, color, n=3, dx=11, amp=15):
+    """Хвилі ІЧ-випромінювання: кілька дуг, що розходяться."""
+    out = ""
+    for i in range(n):
+        xx = x + i * dx
+        out += f'<path d="M {xx},{y-amp} Q {xx+8},{y} {xx},{y+amp}" fill="none" stroke="{color}" stroke-width="1.8"/>\n'
+    return out
+
+
+# ── Рис. 3.10.1 — три механізми як три фізичні картини ───────────────────────
+def fig310_three_mechanisms():
+    W, H = 860, 410
+    s = header(W, H)
+    s += text(W / 2, 32, "Три — і тільки три — способи перенести тепло", 21, INK, "middle", "bold")
+    s += text(W / 2, 54, "у кожного свій носій і свій закон; усе тепло у Всесвіті йде однією з цих трьох доріг",
+              12, GREY, "middle", style="italic")
+    colW = (W - 80) / 3
+    x0 = 40
+    # 1. КОНДУКЦІЯ — естафета коливань у твердому тілі
+    cx = x0 + colW * 0.5
+    s += rect(x0 + 10, 80, colW - 20, 300, "#fff6ef", HEAT, 1.8, 12)
+    s += text(cx, 106, "КОНДУКЦІЯ", 14.5, HEAT, "middle", "bold")
+    s += text(cx, 124, "conduction · крізь речовину", 10.5, GREY, "middle", style="italic")
+    for i in range(5):
+        ax = x0 + 40 + i * 38
+        col = RED if i == 0 else (ORANGE if i <= 2 else BLUE)
+        s += circle(ax, 180, 12, "#fde0d6" if i <= 2 else "#eef2fb", col, 1.8)
+        s += text(ax, 184, "+", 9, col, "middle", "bold")
+        for a in range(0, 360, 90):
+            rr = (10 - i * 1.8)
+            rr = max(rr, 2)
+            s += line(ax, 180, ax + rr * math.cos(math.radians(a)), 180 + rr * math.sin(math.radians(a)), col, 1.2)
+        if i < 4:
+            s += arrow(ax + 13, 180, ax + 25, 180, INK, 1.3)
+    s += text(cx, 212, "гаряче →→→ холодне", 10.5, INK, "middle", "bold")
+    s += text(cx, 230, "атоми «штовхають» сусідів", 10, GREY, "middle", style="italic")
+    s += rect(x0 + 30, 252, colW - 60, 40, "#fff", HEAT, 1.4, 8)
+    s += text(cx, 270, "Q/t = k · A · ΔT / L", 14, INK, "middle", "bold")
+    s += text(cx, 286, "(закон Фур'є)", 9.5, GREY, "middle", style="italic")
+    s += text(cx, 320, "тверде тіло, що не рухається:", 10, INK, "middle")
+    s += text(cx, 336, "кристал деталі, корпус,", 10, INK, "middle")
+    s += text(cx, 352, "паста, тіло радіатора", 10, INK, "middle")
+    # 2. КОНВЕКЦІЯ — рідина/газ виносить тепло
+    cx = x0 + colW * 1.5
+    s += rect(x0 + 10 + colW, 80, colW - 20, 300, "#eef7f0", GREEN, 1.8, 12)
+    s += text(cx, 106, "КОНВЕКЦІЯ", 14.5, GREEN, "middle", "bold")
+    s += text(cx, 124, "convection · потоком плину", 10.5, GREY, "middle", style="italic")
+    s += rect(cx - 26, 196, 52, 22, "#cdd5da", INK, 1.6, 3)
+    s += text(cx, 211, "гаряче", 9, INK, "middle")
+    for dxp in (-40, -14, 14, 40):
+        s += arrow(cx + dxp, 192, cx + dxp, 150, GREEN, 2)
+        s += circle(cx + dxp, 150, 5, "#cfeccd", GREEN, 1.4)
+    s += text(cx, 140, "нагріте легшає → тікає вгору", 10, GREEN, "middle", "bold")
+    for dxp in (-52, 52):
+        s += arrow(cx + dxp, 226, cx + dxp, 250, BLUE, 1.6, "3 3")
+    s += text(cx, 268, "холодне підтікає знизу", 10, BLUE, "middle")
+    s += rect(x0 + 30 + colW, 282, colW - 60, 40, "#fff", GREEN, 1.4, 8)
+    s += text(cx, 300, "Q/t = h · A · ΔT", 14, INK, "middle", "bold")
+    s += text(cx, 316, "(закон Ньютона; h залежить від обдуву)", 9, GREY, "middle", style="italic")
+    s += text(cx, 348, "ребра радіатора → повітря;", 10, INK, "middle")
+    s += text(cx, 364, "вентилятор підсилює h у рази", 10, INK, "middle")
+    # 3. ВИПРОМІНЮВАННЯ — ІЧ-світло крізь порожнечу
+    cx = x0 + colW * 2.5
+    s += rect(x0 + 10 + 2 * colW, 80, colW - 20, 300, "#fdf3e0", "#a06a00", 1.8, 12)
+    s += text(cx, 106, "ВИПРОМІНЮВАННЯ", 13.5, "#a06a00", "middle", "bold")
+    s += text(cx, 124, "radiation · ІЧ-світлом", 10.5, GREY, "middle", style="italic")
+    s += circle(cx, 185, 26, "#fde6c2", "#a06a00", 2)
+    s += text(cx, 190, "T", 15, "#a06a00", "middle", "bold", "italic")
+    for a in range(0, 360, 45):
+        bx = cx + 30 * math.cos(math.radians(a))
+        by = 185 + 30 * math.sin(math.radians(a))
+        s += _arc_wave(bx, by - 6, "#d08a1e", 2, 8, 9)
+    s += text(cx, 250, "будь-яке тіло світить в ІЧ", 10, INK, "middle", "bold")
+    s += text(cx, 266, "(не треба ні дотику, ні повітря)", 10, GREY, "middle", style="italic")
+    s += rect(x0 + 30 + 2 * colW, 282, colW - 60, 40, "#fff", "#a06a00", 1.4, 8)
+    s += text(cx, 300, "Q/t = ε · σ · A · T⁴", 13.5, INK, "middle", "bold")
+    s += text(cx, 316, "(Стефан—Больцман; круто росте з T)", 9, GREY, "middle", style="italic")
+    s += text(cx, 348, "за низьких T електроніки — мало;", 10, INK, "middle")
+    s += text(cx, 364, "нитка, Сонце, жар — головний шлях", 10, INK, "middle")
+    save("fig-3-10-1-three-mechanisms.svg", s)
+
+
+# ── Рис. 3.10.2 — кондукція: закон Фур'є й тепло-електрична аналогія ──────────
+def fig310_conduction():
+    W, H = 860, 430
+    s = header(W, H)
+    s += text(W / 2, 32, "Кондукція: закон Фур'є — точний близнюк R = ρ·L/A", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "тепловий потік крізь брусок тим більший, чим коротший і товщий шлях і чим «гладший» матеріал",
+              12, GREY, "middle", style="italic")
+    # брусок із градієнтом
+    bx, by, bw, bh = 120, 110, 360, 70
+    # заливка-градієнт від гарячого (червоний) до холодного (синій) смугами
+    nseg = 18
+    for i in range(nseg):
+        t = i / (nseg - 1)
+        r = int(0xc0 + (0x1f - 0xc0) * t)
+        g = int(0x27 + (0x47 - 0x27) * t)
+        b = int(0x1e + (0xb5 - 0x1e) * t)
+        col = f"#{r:02x}{g:02x}{b:02x}"
+        s += rect(bx + i * bw / nseg, by, bw / nseg + 1, bh, col, "none", 0)
+    s += rect(bx, by, bw, bh, "none", INK, 2, 4)
+    s += text(bx - 10, by + 30, "T_гар", 12, RED, "end", "bold")
+    s += text(bx - 10, by + 46, "(гаряче)", 9.5, GREY, "end")
+    s += text(bx + bw + 10, by + 30, "T_хол", 12, BLUE, "start", "bold")
+    s += text(bx + bw + 10, by + 46, "(холодне)", 9.5, GREY, "start")
+    s += arrow(bx + 40, by - 16, bx + bw - 40, by - 16, HEAT, 2.6)
+    s += text(bx + bw / 2, by - 24, "потік тепла Q/t", 11.5, HEAT, "middle", "bold")
+    # розміри
+    s += line(bx, by + bh + 14, bx + bw, by + bh + 14, INK, 1.4)
+    s += line(bx, by + bh + 9, bx, by + bh + 19, INK, 1.4)
+    s += line(bx + bw, by + bh + 9, bx + bw, by + bh + 19, INK, 1.4)
+    s += text(bx + bw / 2, by + bh + 30, "довжина шляху L", 11, INK, "middle", "bold")
+    s += text(bx + bw + 70, by + bh / 2 + 4, "переріз A", 10.5, INK, "start")
+    # формула
+    s += rect(560, 100, 270, 90, "#fff6ef", HEAT, 1.8, 12)
+    s += text(695, 130, "Q/t = k · A · ΔT / L", 17, INK, "middle", "bold")
+    s += text(695, 158, "k — теплопровідність матеріалу", 10.5, GREY, "middle")
+    s += text(695, 176, "(Вт/(м·°C)); ΔT = T_гар − T_хол", 10, GREY, "middle")
+    # аналогія
+    s += rect(60, 230, W - 120, 70, "#f4f7f4", GREEN, 1.8, 12)
+    s += text(W / 2, 256, "Та сама геометрія, що в електриці — лише величини інші:", 13, INK, "middle", "bold")
+    s += text(245, 284, "ел. опір:   R = ρ · L / A", 13, BLUE, "middle", "bold")
+    s += text(W / 2, 284, "↔", 18, INK, "middle", "bold")
+    s += text(625, 284, "тепловий опір:   Rθ = L / (k · A)", 13, HEAT, "middle", "bold")
+    # таблиця k
+    s += text(W / 2, 332, "Теплопровідність k (більше — краще проводить тепло):", 12, INK, "middle", "bold")
+    items = [("мідь", "≈400", GREEN), ("алюміній", "≈200", GREEN), ("сталь", "≈50", INK),
+             ("термопаста", "1–10", ORANGE), ("пластик", "≈0.2", RED), ("повітря", "≈0.025", RED)]
+    bw2 = (W - 120) / len(items)
+    for i, (nm, kv, col) in enumerate(items):
+        x = 60 + i * bw2
+        s += rect(x + 4, 348, bw2 - 8, 50, "#fff", col, 1.5, 8)
+        s += text(x + bw2 / 2, 368, nm, 11, INK, "middle", "bold")
+        s += text(x + bw2 / 2, 388, kv, 12, col, "middle", "bold")
+    save("fig-3-10-2-conduction.svg", s)
+
+
+# ── Рис. 3.10.3 — конвекція: природна проти примусової ───────────────────────
+def fig310_convection():
+    W, H = 860, 410
+    s = header(W, H)
+    s += text(W / 2, 32, "Конвекція: рухоме повітря виносить тепло (а вентилятор — швидше)", 17.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "коефіцієнт h каже, наскільки бадьоро плин забирає тепло з поверхні; обдув піднімає його в рази",
+              12, GREY, "middle", style="italic")
+    s += line(W / 2, 76, W / 2, H - 60, FAINT, 1.5)
+
+    def _finned(cx, base_y):
+        out = rect(cx - 70, base_y, 140, 16, "#8a949e", INK, 2, 0)
+        for i in range(9):
+            out += line(cx - 64 + i * 16, base_y, cx - 64 + i * 16, base_y - 50, "#8a949e", 4)
+        out += rect(cx - 26, base_y + 16, 52, 20, "#2b2b2b", INK, 1.8, 3)
+        out += text(cx, base_y + 31, "деталь", 9, "#ffffff", "middle")
+        return out
+
+    # природна
+    s += text(215, 100, "ПРИРОДНА КОНВЕКЦІЯ", 13, GREEN, "middle", "bold")
+    s += text(215, 118, "повітря саме тікає вгору (повільно)", 10, GREY, "middle", style="italic")
+    s += _finned(215, 250)
+    for dxp in (-50, -18, 18, 50):
+        s += arrow(215 + dxp, 196, 215 + dxp, 150, GREEN, 1.8)
+    s += text(215, 138, "теплий струмінь угору", 9.5, GREEN, "middle")
+    s += rect(120, 296, 200, 56, "#eef7f0", GREEN, 1.5, 8)
+    s += text(215, 318, "h ≈ 5–25 Вт/(м²·°C)", 12.5, INK, "middle", "bold")
+    s += text(215, 338, "тихо, але слабко", 10, GREY, "middle", style="italic")
+    # примусова
+    s += text(645, 100, "ПРИМУСОВА КОНВЕКЦІЯ", 13, RED, "middle", "bold")
+    s += text(645, 118, "вентилятор жене повітря силоміць", 10, GREY, "middle", style="italic")
+    s += _finned(645, 250)
+    # вентилятор
+    s += circle(560, 200, 22, "#eef2fb", BLUE, 2)
+    for a in range(0, 360, 60):
+        s += line(560, 200, 560 + 18 * math.cos(math.radians(a)), 200 + 18 * math.sin(math.radians(a)), BLUE, 2)
+    s += text(560, 240, "вентилятор", 9.5, BLUE, "middle", "bold")
+    for yy in (185, 200, 215):
+        s += arrow(584, yy, 690, yy, RED, 2.2)
+    s += text(645, 165, "потужний потік крізь ребра", 9.5, RED, "middle", "bold")
+    s += rect(545, 296, 200, 56, "#fdeeee", RED, 1.5, 8)
+    s += text(645, 318, "h ≈ 50–250 Вт/(м²·°C)", 12.5, INK, "middle", "bold")
+    s += text(645, 338, "у рази більше → Rθ менший", 10, GREY, "middle", style="italic")
+    s += text(W / 2, H - 22, "Q/t = h · A · ΔT  →  ребра дають велику A, вентилятор піднімає h: обидва множники працюють на відведення.",
+              11, INK, "middle", "bold")
+    save("fig-3-10-3-convection.svg", s)
+
+
+# ── Рис. 3.10.4 — випромінювання: чому крива T⁴ така крута ────────────────────
+def fig310_radiation():
+    W, H = 860, 420
+    s = header(W, H)
+    s += text(W / 2, 32, "Випромінювання ∝ T⁴: мовчазне при кімнатній T, шалене при розжаренні", 16.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "подвоїти абсолютну температуру — означає випромінювати у 16 разів більше (2⁴); тому росте лавиною",
+              12, GREY, "middle", style="italic")
+    gx0, gy0, gx1, gy1 = 110, 340, 700, 96
+    s += arrow(gx0, gy0, gx1 + 10, gy0, INK, 2)
+    s += arrow(gx0, gy0, gx0, gy1 - 6, INK, 2)
+    s += text(gx1 + 14, gy0 + 4, "T (К)", 12, INK, "start", "bold")
+    s += text(gx0 - 10, gy1 - 2, "потужність випромінювання", 11, INK, "end", "bold")
+    # крива T^4 (нормуємо на T=1000K → майже верх)
+    Tmax = 1100.0
+    span = gx1 - gx0 - 20
+    h = gy0 - gy1 - 10
+    pts = []
+    for i in range(0, 101):
+        T = i / 100.0 * Tmax
+        val = (T / 1000.0) ** 4
+        val = min(val, 1.25)
+        pts.append((gx0 + (T / Tmax) * span, gy0 - val / 1.25 * h))
+    s += polyline(pts, "#a06a00", 3.0)
+
+    def mark(T, lab, col, dyl=0):
+        x = gx0 + (T / Tmax) * span
+        val = min((T / 1000.0) ** 4, 1.25)
+        y = gy0 - val / 1.25 * h
+        out = line(x, gy0, x, gy0 + 5, INK, 1.4)
+        out += text(x, gy0 + 19, f"{T:.0f}", 10, GREY, "middle")
+        out += circle(x, y, 4.5, col, col, 1)
+        out += text(x + 6, y - 8 + dyl, lab, 10.5, col, "start", "bold")
+        return out
+
+    s += mark(300, "≈25 °C: плата, радіатор (майже нічого)", BLUE, 0)
+    s += mark(600, "≈325 °C: дуже гаряча деталь", ORANGE, 0)
+    s += mark(1000, "≈730 °C: жар, тен почервонів", RED, 0)
+    # пояснення абсолютної T
+    s += rect(150, 96, 300, 70, "#fdf3e0", "#a06a00", 1.6, 10)
+    s += text(300, 120, "T — АБСОЛЮТНА (кельвіни):", 11.5, "#a06a00", "middle", "bold")
+    s += text(300, 140, "К = °C + 273", 12, INK, "middle", "bold")
+    s += text(300, 158, "нитка лампи ~2500 °C ≈ 2800 К → 2800⁴ — велетенська", 9, GREY, "middle", style="italic")
+    s += rect(60, 360, W - 120, 44, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, 382, "Висновок для електроніки: при ~25–80 °C радіатор віддає теплом-провідністю й конвекцією, а не світлом.",
+              11.5, INK, "middle", "bold")
+    s += text(W / 2, 398, "Чорне анодування трохи додає (ε ближче до 1), та головні гравці — кондукція до радіатора й конвекція від нього.",
+              10, GREY, "middle", style="italic")
+    save("fig-3-10-4-radiation.svg", s)
+
+
+# ── Рис. 3.10.5 — повний тепловий шлях деталі: де яка дорога ──────────────────
+def fig310_full_path():
+    W, H = 860, 400
+    s = header(W, H)
+    s += text(W / 2, 32, "Чому працює радіатор: ланцюг із кондукції, тоді конвекції", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "тепло від кристала йде твердими тілами (кондукція), а з ребер зривається в повітря (конвекція + трохи ІЧ)",
+              11.5, GREY, "middle", style="italic")
+    y = 150
+    # ланцюг вузлів
+    nodes = [("кристал", "junction", RED, 95),
+             ("корпус", "case", ORANGE, 235),
+             ("паста", "TIM", "#a06a00", 370),
+             ("радіатор", "heat sink", GREEN, 510),
+             ("повітря", "ambient", BLUE, 690)]
+    for nm, en, col, x in nodes:
+        w = 92 if nm != "повітря" else 110
+        s += rect(x - w / 2, y - 26, w, 52, "#fff", col, 2, 8)
+        s += text(x, y - 4, nm, 12.5, col, "middle", "bold")
+        s += text(x, y + 14, en, 9, GREY, "middle", style="italic")
+    # стрілки + механізм між вузлами
+    segs = [(95, 235, "кондукція", HEAT, "крізь кремній і метал"),
+            (235, 370, "кондукція", HEAT, "крізь пасту (виганяє повітря)"),
+            (370, 510, "кондукція", HEAT, "у тіло радіатора"),
+            (510, 690, "конвекція + ІЧ", GREEN, "ребра → рухоме повітря")]
+    for x1, x2, mech, col, note in segs:
+        mid = (x1 + x2) / 2
+        s += arrow(x1 + 50, y, x2 - 56, y, col, 2.4)
+        s += text(mid, y - 36, mech, 10.5, col, "middle", "bold")
+        s += text(mid, y + 38, note, 8.8, GREY, "middle", style="italic")
+    # випромінювання збоку від радіатора
+    s += _arc_wave(560, y + 54, "#d08a1e", 3, 10, 10)
+    s += text(600, y + 70, "трохи ІЧ-випромінювання (мале за низьких T)", 9.5, "#a06a00", "start", style="italic")
+    # підсумок-аналогія з §3.9
+    s += rect(60, 250, W - 120, 110, "#f4f7f4", GREEN, 1.8, 12)
+    s += text(W / 2, 276, "Кожна ланка — це тепловий опір Rθ (§1.3.9), і всі вони стоять ПОСЛІДОВНО:", 12.5, INK, "middle", "bold")
+    s += text(W / 2, 302, "Rθ(j→корпус) + Rθ(паста) + Rθ(радіатор→повітря)  →  ΔT = P · Rθ_сум", 13, INK, "middle", "bold")
+    s += text(W / 2, 330, "«Поліпшити охолодження» = зменшити котрусь ланку: кращий контакт і паста (кондукція),",
+              11, GREY, "middle", style="italic")
+    s += text(W / 2, 348, "більша площа ребер і обдув (конвекція). Радіатор б'є саме по найслабшій ланці — віддачі в повітря.",
+              11, GREY, "middle", style="italic")
+    save("fig-3-10-5-full-path.svg", s)
+
+
 if __name__ == "__main__":
     # Історія
     fig_joule_paddle()
@@ -2848,4 +3130,10 @@ if __name__ == "__main__":
     # §3.9 вставка (🧮) — теплова RC-модель
     fig_thermal_rc()
     fig_pulse_vs_steady()
+
+    fig310_three_mechanisms()
+    fig310_conduction()
+    fig310_convection()
+    fig310_radiation()
+    fig310_full_path()
     print("OK — фігури розділу 3 (повна, +§3.7 резистор) згенеровано в", OUT)

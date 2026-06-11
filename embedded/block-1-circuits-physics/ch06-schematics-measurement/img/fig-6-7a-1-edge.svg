@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
+</defs>
+<text x="450.0" y="27.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Умова тригера: рівень + фронт</text>
+<text x="450.0" y="47.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">тригер «спрацьовує», коли сигнал перетинає обраний рівень у обраний бік</text>
+<rect x="40.0" y="66.0" width="410.0" height="308.0" rx="8" fill="#fcfcff" stroke="#e4e4e4" stroke-width="1.4"/>
+<text x="245.0" y="88.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Перетин рівня (висхідний)</text>
+<line x1="72.0" y1="352.0" x2="72.0" y2="108.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<text x="66.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">V</text>
+<line x1="72.0" y1="352.0" x2="440.0" y2="352.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<text x="438.0" y="348.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">t</text>
+<line x1="82.0" y1="180.0" x2="432.0" y2="180.0" stroke="#e08030" stroke-width="1.6" stroke-dasharray="5,4" stroke-linecap="round"/>
+<text x="428.0" y="173.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#e08030" text-anchor="end" font-weight="bold" font-style="normal">рівень L</text>
+<polyline points="92.0,330.0 172.0,330.0 300.0,140.0 422.0,140.0" fill="none" stroke="#1b1b1b" stroke-width="2.6"/>
+<line x1="272.0" y1="110.0" x2="272.0" y2="352.0" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="4,4" stroke-linecap="round"/>
+<text x="276.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.6" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">t=0 (тригер)</text>
+<circle cx="240.0" cy="228.0" r="4.5" fill="#1f47b5" stroke="#1f47b5" stroke-width="1"/>
+<text x="232.0" y="246.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.4" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">prev&lt;L</text>
+<circle cx="280.0" cy="169.0" r="4.5" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
+<text x="300.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.4" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">cur≥L</text>
+<text x="245.0" y="366.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">prev &lt; L   і   cur ≥ L   →   ТРИГЕР</text>
+<rect x="470.0" y="66.0" width="410.0" height="308.0" rx="8" fill="#fcfcff" stroke="#e4e4e4" stroke-width="1.4"/>
+<text x="675.0" y="88.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Який фронт ловити</text>
+<line x1="500.0" y1="230.0" x2="860.0" y2="230.0" stroke="#e08030" stroke-width="1.6" stroke-dasharray="5,4" stroke-linecap="round"/>
+<text x="856.0" y="223.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#e08030" text-anchor="end" font-weight="bold" font-style="normal">L</text>
+<polyline points="500.0,300.0 560.0,300.0 610.0,160.0 720.0,160.0 770.0,300.0 850.0,300.0" fill="none" stroke="#1b1b1b" stroke-width="2.6"/>
+<line x1="585.0" y1="120.0" x2="585.0" y2="352.0" stroke="#1f8a3b" stroke-width="1.5" stroke-dasharray="4,4" stroke-linecap="round"/>
+<circle cx="585.0" cy="230.0" r="5.0" fill="none" stroke="#1f8a3b" stroke-width="2.4"/>
+<text x="585.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">фронт ↑  ✓</text>
+<line x1="745.0" y1="150.0" x2="745.0" y2="352.0" stroke="#8a8a8a" stroke-width="1.5" stroke-dasharray="4,4" stroke-linecap="round"/>
+<circle cx="745.0" cy="230.0" r="5.0" fill="none" stroke="#8a8a8a" stroke-width="2.2"/>
+<text x="745.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.6" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">фронт ↓ — ігнор</text>
+<text x="675.0" y="366.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Обираєте фронт (↑ чи ↓) — і ловиться лише він</text>
+</svg>

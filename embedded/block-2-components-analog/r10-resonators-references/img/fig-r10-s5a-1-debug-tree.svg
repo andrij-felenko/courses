@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="720" viewBox="0 0 980 720">
+<rect width="980" height="720" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="490.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Генератор мовчить: дерево діагностики крок за кроком</text>
+<text x="490.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">не міняй усе одразу — спускайся по гілці, на кожному кроці одна перевірка й одна дія</text>
+<rect x="340.0" y="78.0" width="300.0" height="52.0" rx="9" fill="#fbf6e3" stroke="#b5732e" stroke-width="2.2"/>
+<text x="490.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Подати живлення, дати ~10 мс на старт</text>
+<text x="490.0" y="118.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">пробник осцилографа — на вивід XTAL_OUT (через 10×)</text>
+<line x1="490.0" y1="130.0" x2="490.0" y2="156.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<rect x="325.0" y="156.0" width="330.0" height="52.0" rx="9" fill="#fff" stroke="#1b1b1b" stroke-width="2.2"/>
+<text x="490.0" y="178.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чи є синусоїда на XTAL_OUT?</text>
+<text x="490.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">амплітуда хоча б ~0.5 В розмаху</text>
+<line x1="325.0" y1="182.0" x2="325.0" y2="182.0" stroke="#c0271e" stroke-width="2.2" marker-end="url(#aRed)"/>
+<text x="315.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">НІ — тиша</text>
+<rect x="175.0" y="232.0" width="300.0" height="88.0" rx="9" fill="#fbecec" stroke="#c0271e" stroke-width="2.2"/>
+<text x="325.0" y="281.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Перевір амплітуду й підсилення</text>
+<text x="325.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Чи правильний інвертор / режим піна?</text>
+<text x="325.0" y="282.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Чи не завелика сумарна CL?</text>
+<text x="325.0" y="302.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Чи правильний номінал Rext (якщо є)?</text>
+<line x1="325.0" y1="320.0" x2="325.0" y2="360.0" stroke="#c0271e" stroke-width="2" marker-end="url(#aRed)"/>
+<rect x="40.0" y="360.0" width="250.0" height="96.0" rx="9" fill="#fff" stroke="#c0271e" stroke-width="2.2"/>
+<text x="165.0" y="413.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Слабкий інвертор</text>
+<text x="165.0" y="390.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">gm замалий для цього кварцу</text>
+<text x="165.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ увімкнути «high-gain»/</text>
+<text x="165.0" y="426.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">high-drive режим осцилятора</text>
+<text x="165.0" y="444.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ або менший Rext</text>
+<rect x="310.0" y="360.0" width="250.0" height="96.0" rx="9" fill="#fff" stroke="#c0271e" stroke-width="2.2"/>
+<text x="435.0" y="413.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Завелика CL</text>
+<text x="435.0" y="390.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">C1, C2 більші за норму даташита</text>
+<text x="435.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ зменшити C1=C2 до</text>
+<text x="435.0" y="426.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">CL_потр (− Cstray)</text>
+<text x="435.0" y="444.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.0" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ перевірити вхідну ємність піна</text>
+<line x1="655.0" y1="182.0" x2="850.0" y2="182.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<text x="665.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">ТАК</text>
+<rect x="850.0" y="156.0" width="0.0" height="0.0" rx="9" fill="#fff" stroke="#fff" stroke-width="2.2"/>
+<text x="850.0" y="161.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal"></text>
+<rect x="700.0" y="232.0" width="250.0" height="88.0" rx="9" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2.2"/>
+<text x="825.0" y="281.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Стартує, та частота «гуляє» / зриви</text>
+<text x="825.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Чи довгі/звивисті доріжки?</text>
+<text x="825.0" y="282.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Чи близько кварц до чипа?</text>
+<text x="825.0" y="302.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Чи є охоронне заземлення?</text>
+<line x1="825.0" y1="320.0" x2="825.0" y2="360.0" stroke="#1f8a3b" stroke-width="2" marker-end="url(#aGreen)"/>
+<rect x="640.0" y="360.0" width="300.0" height="96.0" rx="9" fill="#fff" stroke="#1f8a3b" stroke-width="2.2"/>
+<text x="790.0" y="413.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Довгі доріжки / погана земля</text>
+<text x="790.0" y="390.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">паразитна C і наводки на петлі</text>
+<text x="790.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ кварц упритул до піна XTAL</text>
+<text x="790.0" y="426.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.0" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ короткі доріжки, охоронна земля</text>
+<text x="790.0" y="444.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ перерахувати CL з урахуванням Cstray</text>
+<line x1="165.0" y1="456.0" x2="480.0" y2="500.0" stroke="#c0271e" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#aRed)"/>
+<line x1="435.0" y1="456.0" x2="484.0" y2="500.0" stroke="#c0271e" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#aRed)"/>
+<line x1="790.0" y1="456.0" x2="500.0" y2="500.0" stroke="#1f8a3b" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#aGreen)"/>
+<rect x="240.0" y="500.0" width="500.0" height="70.0" rx="9" fill="#fbf6e3" stroke="#b5732e" stroke-width="2.2"/>
+<text x="490.0" y="540.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Зміна спрацювала? Перевір ЗАПАС, не сам факт старту</text>
+<text x="490.0" y="544.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">робочий генератор має стартувати з 3–5× запасом за підсиленням (gain margin)</text>
+<line x1="490.0" y1="570.0" x2="490.0" y2="596.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<rect x="290.0" y="596.0" width="400.0" height="52.0" rx="9" fill="#fff" stroke="#1b1b1b" stroke-width="2.2"/>
+<text x="490.0" y="618.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Заміряй частоту й час старту в холоді й теплі</text>
+<text x="490.0" y="636.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">−40 °C і +85 °C — найгірші кути для старту</text>
+<text x="490.0" y="704.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Золоте правило: міняй ОДИН чинник за раз і дивись на запас, а не на «хоч якось завелося»</text>
+</svg>

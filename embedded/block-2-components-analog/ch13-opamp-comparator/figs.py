@@ -1679,6 +1679,915 @@ def fig139_choosing():
     save("fig-13-9-6-choosing.svg", s)
 
 
+# ── §13.10 Що всередині ОП: диференційна пара (Рис. 2.8.10.k) ────────────────
+def _isrc(cx, cy, r=15, lab="I"):
+    t = circle(cx, cy, r, "#ffffff", INK, 2)
+    t += arrow(cx, cy + r - 3, cx, cy - r + 3, INK, 2)
+    t += text(cx + r + 8, cy + 4, lab, 11, INK, "start", "bold")
+    return t
+
+
+def fig1310_open_box():
+    W, H = 720, 296
+    s = header(W, H)
+    s += text(W / 2, 30, "Відкриваємо «чорну скриньку»: усередині — три каскади", 15.5, INK, "middle", "bold")
+    s += _opamp_sym(150, 150, 90, 80)
+    s += text(150, 232, "ідеальна модель", 10, GREY, "middle")
+    s += line(100, 130, 122, 130, BLUE, 2) + line(100, 170, 122, 170, RED, 2)
+    s += line(195, 150, 226, 150, INK, 2)
+    s += arrow(248, 150, 322, 150, GREY, 2.4) + text(285, 138, "відкриємо", 9, GREY, "middle", "bold")
+    stages = [("вхідний", ["диф. пара", "(2 транзистори)"], LBLUE),
+              ("підсилення", ["велике", "підсилення"], "#fff3e0"),
+              ("вихідний", ["буфер", "(сильний струм)"], LGRN)]
+    x0, bw, gap = 350, 112, 12
+    for i, (t1, lines, col) in enumerate(stages):
+        bx = x0 + i * (bw + gap)
+        s += rect(bx, 110, bw, 84, col, "#9bb0c2", 1.5, 8)
+        s += text(bx + bw / 2, 134, t1, 11, INK, "middle", "bold")
+        for k, ln in enumerate(lines):
+            s += text(bx + bw / 2, 156 + k * 17, ln, 9.5, INK, "middle")
+        if i < 2:
+            s += arrow(bx + bw, 152, bx + bw + gap, 152, INK, 2)
+    s += text(W / 2, 232, "ті самі транзистори цього модуля, лише зібрані з розумом", 9.5, GREY, "middle", style="italic")
+    save("fig-13-10-1-open-box.svg", s)
+
+
+def fig1310_diff_pair():
+    W, H = 560, 404
+    s = header(W, H)
+    s += text(W / 2, 28, "Серце ОП: диференційна пара", 16, INK, "middle", "bold")
+    vY, gY, cy = 70, 344, 200
+    s += line(120, vY, 440, vY, RED, 2) + text(116, vY + 4, "+V", 10, RED, "end", "bold")
+    s += line(120, gY, 440, gY, INK, 1.6) + text(116, gY + 4, "−V", 10, INK, "end", "bold")
+    q1x, q2x = 235, 360
+    s += _bjt_sym(q1x, cy) + _bjt_sym(q2x, cy)
+    for x in (q1x + 30, q2x + 30):
+        s += line(x, cy - 56, x, cy - 80, INK, 2)
+        s += rect(x - 12, cy - 112, 24, 32, "#fff", INK, 1.5, 3) + text(x, cy - 92, "R", 9, INK, "middle", "bold")
+        s += line(x, cy - 112, x, vY, INK, 2)
+    s += circle(q2x + 30, cy - 70, 3, GREEN, GREEN) + text(q2x + 46, cy - 66, "вихід", 9.5, GREEN, "start", "bold")
+    s += line(q1x + 30, cy + 56, q1x + 30, cy + 86, INK, 2) + line(q2x + 30, cy + 56, q2x + 30, cy + 86, INK, 2)
+    s += line(q1x + 30, cy + 86, q2x + 30, cy + 86, INK, 2)
+    tx = (q1x + 30 + q2x + 30) / 2
+    s += line(tx, cy + 86, tx, cy + 102, INK, 2) + _isrc(tx, cy + 120, 16, "хвіст")
+    s += line(tx, cy + 136, tx, gY, INK, 2)
+    s += text(tx + 4, cy + 156, "сталий струм", 8.5, INK, "middle")
+    s += circle(q1x - 44, cy, 3, BLUE, BLUE) + text(q1x - 52, cy + 4, "− вхід", 9.5, BLUE, "end", "bold")
+    s += circle(q2x - 44, cy, 3, RED, RED) + text(q2x - 52, cy + 4, "+ вхід", 9.5, RED, "end", "bold")
+    s += text(W / 2, H - 10, "Два однакові транзистори ділять між собою сталий струм «хвоста»; хто з входів вищий — той бере більше.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-10-2-diff-pair.svg", s)
+
+
+def fig1310_steering():
+    W, H = 700, 300
+    s = header(W, H)
+    s += text(W / 2, 28, "Як пара «віднімає»: вищий вхід забирає більше хвоста", 14.5, INK, "middle", "bold")
+
+    def panel(ox, title, leftbig):
+        t = _frame(ox, 52, 300, 218, title)
+        midx = ox + 150
+        t += _isrc(midx, 232, 14, "I")
+        t += line(midx, 218, midx, 200, INK, 2) + circle(midx, 200, 3, INK, INK)
+        lx, rx = ox + 78, ox + 222
+        t += line(midx, 200, lx, 200, INK, 2) + line(lx, 200, lx, 150, INK, 2)
+        t += line(midx, 200, rx, 200, INK, 2) + line(rx, 200, rx, 150, INK, 2)
+        t += rect(lx - 22, 110, 44, 40, "#eef2f7", "#9bb0c2", 1.4, 5) + text(lx, 134, "Q1", 10, INK, "middle", "bold")
+        t += rect(rx - 22, 110, 44, 40, "#eef2f7", "#9bb0c2", 1.4, 5) + text(rx, 134, "Q2", 10, INK, "middle", "bold")
+        if leftbig:
+            t += arrow(lx, 110, lx, 78, GREEN, 4.5) + arrow(rx, 110, rx, 94, GREY, 1.6)
+            t += text(lx, 70, "більше", 9, GREEN, "middle", "bold") + text(rx, 86, "менше", 8.5, GREY, "middle")
+            t += text(midx, 256, "вхід Q1 вищий → перекіс", 10, INK, "middle", "bold")
+        else:
+            t += arrow(lx, 110, lx, 90, GREY, 2.2) + arrow(rx, 110, rx, 90, GREY, 2.2)
+            t += text(midx, 256, "входи рівні → порівну", 10, INK, "middle", "bold")
+        return t
+    s += panel(24, "рівновага", False)
+    s += panel(372, "перекіс", True)
+    s += text(W / 2, H - 8, "Сталий хвіст не змінюється — змінюється лише, кому з двох дістанеться більша частка струму.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-10-3-steering.svg", s)
+
+
+def fig1310_cmrr():
+    W, H = 700, 300
+    s = header(W, H)
+    s += text(W / 2, 28, "Чому «диференційна»: спільне відкидає, різницю підсилює", 14, INK, "middle", "bold")
+
+    def panel(ox, title, common):
+        t = _frame(ox, 52, 300, 218, title)
+        midx = ox + 150
+        if common:
+            t += arrow(ox + 72, 196, ox + 72, 120, SUN, 3) + arrow(ox + 228, 196, ox + 228, 120, SUN, 3)
+            t += text(ox + 72, 210, "↑ обидва", 8.5, SUN, "middle", "bold") + text(ox + 228, 210, "↑ обидва", 8.5, SUN, "middle", "bold")
+            t += text(midx, 102, "поділ хвоста НЕ змінився", 9.5, INK, "middle", "bold")
+            t += rect(midx - 46, 130, 92, 32, LGRN, GREEN, 1.5, 6) + text(midx, 151, "вихід = 0", 12, GREEN, "middle", "bold")
+            t += text(midx, 250, "синфазна завада — відкинута", 9.5, GREEN, "middle", "bold")
+        else:
+            t += arrow(ox + 72, 196, ox + 72, 120, RED, 3) + arrow(ox + 228, 120, ox + 228, 196, BLUE, 3)
+            t += text(ox + 72, 210, "↑ один", 8.5, RED, "middle", "bold") + text(ox + 228, 110, "↓ інший", 8.5, BLUE, "middle", "bold")
+            t += rect(midx - 46, 138, 92, 32, LRED, RED, 1.5, 6) + text(midx, 159, "вихід ↑↑", 12, RED, "middle", "bold")
+            t += text(midx, 250, "різницю — підсилює", 9.5, RED, "middle", "bold")
+        return t
+    s += panel(24, "синфазно (обидва разом)", True)
+    s += panel(372, "різниця", False)
+    s += text(W / 2, H - 8, "Шум, наведений на обидва входи однаково, не зрушує поділ струму — і зникає. Лишається сама різниця.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-10-4-cmrr.svg", s)
+
+
+def fig1310_three_stages():
+    W, H = 740, 300
+    s = header(W, H)
+    s += text(W / 2, 28, "Три каскади — три ідеальні риси ОП", 16, INK, "middle", "bold")
+    stages = [
+        ("вхід: диф. пара", ["високий вхідний опір", "+ реагує на різницю"], LBLUE),
+        ("підсилення", ["величезне", "підсилення A"], "#fff3e0"),
+        ("вихід: буфер", ["низький", "вихідний опір"], LGRN),
+    ]
+    x0, bw, gap = 40, 210, 20
+    for i, (t1, props, col) in enumerate(stages):
+        bx = x0 + i * (bw + gap)
+        s += rect(bx, 80, bw, 58, col, "#9bb0c2", 1.6, 8)
+        s += text(bx + bw / 2, 115, t1, 13, INK, "middle", "bold")
+        if i < 2:
+            s += arrow(bx + bw, 109, bx + bw + gap, 109, INK, 2.2)
+        s += arrow(bx + bw / 2, 140, bx + bw / 2, 174, GREY, 1.8)
+        s += rect(bx + 10, 176, bw - 20, 68, "#f6f8fb", "#c9d3dc", 1.2, 6)
+        for k, ln in enumerate(props):
+            s += text(bx + bw / 2, 204 + k * 20, ln, 10.5, INK, "middle", "bold")
+    s += text(W / 2, H - 12, "«Ідеальний ОП» з §2.8.1 — це і є ці три каскади: вхід нічого не вантажить, середина шалено підсилює, вихід тягне струм.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-10-5-three-stages.svg", s)
+
+
+def fig1310_limits():
+    W, H = 720, 332
+    s = header(W, H)
+    s += text(W / 2, 28, "Звідки беруться вади реального ОП (§2.8.9)", 15, INK, "middle", "bold")
+    s += rect(40, 92, 150, 150, "#eef2f7", "#7f93a8", 1.6, 8)
+    s += text(115, 150, "реальні", 12, INK, "middle", "bold")
+    s += text(115, 170, "транзистори", 12, INK, "middle", "bold")
+    s += text(115, 190, "всередині", 11, GREY, "middle")
+    causes = [
+        ("неідеальна пара транзисторів", "→ напруга зсуву (offset)", 86),
+        ("входи беруть трохи струму", "→ вхідний струм зсуву", 140),
+        ("хвіст заряджає ємність не миттєво", "→ швидкість наростання (SR)", 194),
+        ("ємність навмисне зрізає підсилення", "→ скінченна смуга", 248),
+    ]
+    for cause, eff, y in causes:
+        s += arrow(190, 167, 268, y + 8, GREY, 1.6)
+        s += rect(270, y - 10, 424, 36, "#f6f8fb", "#c9d3dc", 1.2, 6)
+        s += text(284, y + 4, cause, 10, INK, "start", "bold")
+        s += text(284, y + 19, eff, 9.5, RED, "start")
+    s += text(W / 2, H - 10, "Кожна «вада» з §2.8.9 — це слід реального транзистора всередині. Магії нема — є інженерія.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-10-6-limits.svg", s)
+
+
+# ── §13.11 LDO зсередини (Рис. 2.8.11.k) ────────────────────────────────────
+def fig1311_architecture():
+    W, H = 720, 350
+    s = header(W, H)
+    s += text(W / 2, 28, "LDO зсередини: клапан-транзистор під наглядом ОП", 15.5, INK, "middle", "bold")
+    y = 92
+    s += text(40, y + 5, "Vin", 11, RED, "end", "bold") + line(44, y, 110, y, RED, 2)
+    s += rect(110, y - 28, 150, 56, "#fff3e0", COPP, 1.8, 8)
+    s += text(185, y - 4, "транзистор-клапан", 9.5, INK, "middle", "bold") + text(185, y + 13, "(прохідний)", 8.5, GREY, "middle")
+    s += arrow(260, y, 462, y, INK, 2.4)
+    s += circle(470, y, 3, INK, INK) + text(470, y - 12, "Vout", 11, GREEN, "middle", "bold")
+    s += line(470, y, 540, y, INK, 2) + rect(540, y - 20, 46, 40, "#fff", INK, 1.5, 4) + text(563, y + 4, "наван.", 8.5, INK, "middle")
+    s += line(470, y, 470, 152, INK, 1.6)
+    s += rect(430, 152, 80, 54, "#eef2f7", "#9bb0c2", 1.5, 6) + text(470, 173, "дільник", 9.5, INK, "middle", "bold") + text(470, 190, "R1 / R2", 9, INK, "middle")
+    s += line(470, 206, 470, 300, INK, 1.6)
+    s += rect(250, 232, 150, 68, LBLUE, BLUE, 1.6, 8) + text(325, 260, "ОП — звіряє", 11, INK, "middle", "bold") + text(325, 280, "відвід із Vref", 9.5, INK, "middle")
+    s += arrow(430, 266, 400, 266, INK, 2)
+    s += rect(60, 248, 80, 40, "#e9f3e9", GREEN, 1.5, 6) + text(100, 272, "Vref", 11, GREEN, "middle", "bold")
+    s += arrow(140, 268, 250, 268, GREEN, 2) + text(195, 258, "еталон", 8, GREEN, "middle")
+    s += line(325, 232, 325, 132, INK, 2) + line(325, 132, 185, 132, INK, 2) + arrow(185, 132, 185, 122, INK, 2)
+    s += text(345, 175, "керує клапаном", 8.5, GREEN, "start", "bold")
+    s += text(W / 2, H - 12, "Петля: ОП порівнює частку Vout із еталоном Vref і підкручує клапан так, щоб вони збіглися.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-11-1-architecture.svg", s)
+
+
+def _box2(cx, cy, w, h, l1, l2, fill, col):
+    t = rect(cx - w / 2, cy - h / 2, w, h, fill, col, 1.6, 8)
+    t += text(cx, cy - 3, l1, 10, INK, "middle", "bold")
+    t += text(cx, cy + 13, l2, 9.5, INK, "middle")
+    return t
+
+
+def fig1311_feedback():
+    W, H = 700, 340
+    s = header(W, H)
+    s += text(W / 2, 28, "Від'ємний зв'язок тримає Vout: самовиправлення", 15, INK, "middle", "bold")
+    nodes = [
+        (350, 80, "Vout просів", "(зросло навант.)", LRED, RED),
+        (548, 180, "відвід < Vref", "ОП це бачить", LBLUE, BLUE),
+        (350, 282, "ОП дужче", "відкрив клапан", LGRN, GREEN),
+        (152, 180, "Vout повернувся", "до норми", "#fff3e0", COPP),
+    ]
+    for cx, cy, l1, l2, fill, col in nodes:
+        s += _box2(cx, cy, 168, 52, l1, l2, fill, col)
+    s += arrow(420, 96, 500, 156, GREY, 2.2)
+    s += arrow(520, 214, 420, 262, GREY, 2.2)
+    s += arrow(280, 262, 190, 214, GREY, 2.2)
+    s += arrow(184, 152, 286, 100, GREY, 2.2)
+    s += text(350, 182, "та сама петля,", 10, INK, "middle", "bold")
+    s += text(350, 200, "що термостат §2.8.2", 9.5, GREY, "middle")
+    s += text(W / 2, H - 12, "Будь-яке відхилення Vout сама схема й гасить — точно як від'ємний зв'язок у підсилювачі.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-11-2-feedback.svg", s)
+
+
+def fig1311_noninv_disguise():
+    W, H = 680, 320
+    s = header(W, H)
+    s += text(W / 2, 28, "LDO — це неінвертуючий підсилювач, лише вхід = Vref", 14.5, INK, "middle", "bold")
+    s += _opamp_sym(250, 150, 84, 70)
+    s += rect(70, 168, 70, 36, "#e9f3e9", GREEN, 1.5, 6) + text(105, 190, "Vref", 11, GREEN, "middle", "bold")
+    s += line(140, 186, 208, 168, GREEN, 1.8)
+    s += text(196, 134, "+", 12, RED, "middle", "bold")
+    s += text(196, 176, "−", 12, BLUE, "middle", "bold")
+    # вихід -> прохідний транзистор -> Vout
+    s += line(292, 150, 330, 150, INK, 2)
+    s += _mosfet_sym(366, 150, pch=True)
+    s += line(390, 106, 390, 80, RED, 2) + text(390, 72, "Vin", 9.5, RED, "middle", "bold")
+    s += line(390, 194, 390, 230, INK, 2) + circle(390, 230, 3, INK, INK) + text(404, 226, "Vout", 11, GREEN, "start", "bold")
+    # дільник
+    s += line(390, 230, 470, 230, INK, 1.6) + line(470, 230, 470, 150, INK, 1.6)
+    s += rect(458, 110, 24, 28, "#fff", INK, 1.4, 3) + text(490, 126, "R1", 9, INK, "start", "bold")
+    s += line(470, 110, 470, 86, INK, 1.6)
+    s += rect(458, 168, 24, 28, "#fff", INK, 1.4, 3) + text(490, 186, "R2", 9, INK, "start", "bold")
+    s += line(470, 196, 470, 250, INK, 1.6) + line(420, 250, 520, 250, INK, 1.4) + text(524, 254, "GND", 8.5, INK, "start")
+    # відвід -> «−»
+    s += circle(470, 150, 3, INK, INK)
+    s += line(470, 150, 208, 168, BLUE, 1.4, "4 3")
+    s += rect(230, 268, 300, 36, "#f6f8fb", "#c9d3dc", 1.2, 6)
+    s += text(380, 290, "Vout = Vref · (1 + R1/R2)", 13, INK, "middle", "bold")
+    save("fig-13-11-3-noninv-disguise.svg", s)
+
+
+def fig1311_heat():
+    W, H = 700, 330
+    s = header(W, H)
+    s += text(W / 2, 28, "«Лінійний» = клапан гасить надлишок у тепло", 15.5, INK, "middle", "bold")
+    bx, by, bw = 150, 70, 90
+    full = 210
+    s += rect(bx, by, bw, full, "#eef2f7", "#9bb0c2", 1.4, 4)
+    vout_h = 120
+    s += rect(bx, by + (full - vout_h), bw, vout_h, LGRN, GREEN, 1.6, 0)
+    s += text(bx + bw / 2, by + full - vout_h / 2, "Vout", 12, GREEN, "middle", "bold")
+    s += rect(bx, by, bw, full - vout_h, LRED, RED, 1.6, 0)
+    s += text(bx + bw / 2, by + (full - vout_h) / 2 - 8, "Vin − Vout", 10, RED, "middle", "bold")
+    s += text(bx + bw / 2, by + (full - vout_h) / 2 + 8, "падає на клапані", 8.5, RED, "middle")
+    s += text(bx + bw / 2, by - 8, "Vin", 11, RED, "middle", "bold")
+    s += rect(330, 96, 330, 70, LRED, "#d8a0a0", 1.3, 6)
+    s += text(495, 120, "втрати = (Vin − Vout) · I → тепло", 11, RED, "middle", "bold")
+    s += text(495, 144, "ККД ≈ Vout / Vin — менший за більшої різниці", 10, INK, "middle")
+    s += rect(330, 182, 330, 76, "#eef6ef", GREEN, 1.3, 6)
+    s += text(495, 204, "«dropout» — найменша різниця Vin−Vout,", 10, INK, "middle", "bold")
+    s += text(495, 224, "за якої LDO ще тримає вихід", 10, INK, "middle")
+    s += text(495, 244, "(LDO = Low DropOut — мала)", 9, GREY, "middle")
+    s += text(W / 2, H - 12, "Простий і тихий, але гарячий: усю різницю напруг помножену на струм LDO віддає теплом.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-11-4-heat.svg", s)
+
+
+def fig1311_reference():
+    W, H = 640, 312
+    s = header(W, H)
+    s += text(W / 2, 28, "Опорна напруга: незмінний еталон, з яким усе звіряють", 14, INK, "middle", "bold")
+    ox, oy, pw, ph = 90, 250, 430, 180
+    s += _axes(ox, oy, pw, ph, "температура", "Vref")
+    yb = oy - ph * 0.5
+    s += line(ox, yb, ox + pw, yb, GREEN, 2.8)
+    s += text(ox + pw - 6, yb - 10, "бандгап ≈ 1.2 В (рівно)", 10, GREEN, "end", "bold")
+    s += _poly([(ox, oy - ph * 0.78), (ox + pw, oy - ph * 0.22)], GREY, 2.2, "5 4")
+    s += text(ox + pw - 6, oy - ph * 0.22 + 14, "наївне джерело — пливе", 9.5, GREY, "end")
+    s += text(W / 2, H - 26, "«Бандгап» хитро складає два протилежні температурні нахили в один рівний — стала напруга.",
+              9.5, INK, "middle")
+    s += text(W / 2, H - 10, "Без сталого еталона нічого було б тримати: уся точність LDO міряється від нього.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-11-5-reference.svg", s)
+
+
+def fig1311_known_blocks():
+    W, H = 700, 320
+    s = header(W, H)
+    s += text(W / 2, 28, "Ти вже знаєш усі деталі LDO", 16, INK, "middle", "bold")
+    parts = [
+        ("прохідний транзистор", "§2.6 / §2.7", LBLUE),
+        ("операційний підсилювач", "§2.8.1–2.8.4", "#fff3e0"),
+        ("від'ємний зв'язок", "§2.8.2", LGRN),
+        ("опорна напруга (зенер/бандгап)", "§2.5", "#f3e9f3"),
+        ("дільник напруги", "§1.3", "#e9f3f3"),
+    ]
+    y0 = 78
+    for i, (name, ref, col) in enumerate(parts):
+        y = y0 + i * 44
+        s += rect(120, y, 300, 36, col, "#9bb0c2", 1.4, 6) + text(270, y + 22, name, 10.5, INK, "middle", "bold")
+        s += text(440, y + 22, ref, 10, GREEN, "start", "bold")
+    s += text(W / 2, H - 14, "Стабілізатор — не новий прилад, а знайомі цеглинки в одній петлі зворотного зв'язку.",
+              9.5, GREY, "middle", style="italic")
+    save("fig-13-11-6-known-blocks.svg", s)
+
+
+# ── 🔌 вставка до 2.8.11: модуль стабілізатора (Рис. 2.8.11c.k) ──────────────
+def fig1311c_module():
+    W, H = 700, 338
+    s = header(W, H)
+    s += text(W / 2, 28, "Плата стабілізатора: чип + два конденсатори", 15, INK, "middle", "bold")
+    gndY = 274
+    s += rect(286, 106, 128, 98, "#f4dcc4", COPP, 1.3, 8)
+    s += text(350, 198, "мідь — тепловідвід", 8, COPP, "middle")
+    s += rect(300, 120, 100, 60, "#eef2f7", "#7f93a8", 1.8, 6)
+    s += text(350, 144, "LDO-чип", 11, INK, "middle", "bold") + text(350, 162, "(увесь §2.8.11)", 8.5, GREY, "middle")
+    s += line(210, 150, 300, 150, RED, 2) + text(204, 154, "Vin", 10, RED, "end", "bold") + text(296, 140, "IN", 8, RED, "end")
+    s += line(400, 150, 540, 150, GREEN, 2) + text(548, 154, "Vout", 10, GREEN, "start", "bold") + text(404, 140, "OUT", 8, GREEN, "start")
+    s += line(350, 180, 350, gndY, INK, 1.6)
+    s += line(180, gndY, 560, gndY, INK, 1.6) + text(174, gndY + 4, "GND", 9, INK, "end")
+    # вхідний конденсатор
+    s += circle(250, 150, 3, INK, INK) + line(250, 150, 250, 214, INK, 1.6)
+    s += line(238, 214, 262, 214, INK, 2.6) + line(238, 222, 262, 222, INK, 2.6) + line(250, 222, 250, gndY, INK, 1.6)
+    s += text(232, 202, "Cвх", 8.5, INK, "end", "bold")
+    # вихідний конденсатор
+    s += circle(470, 150, 3, INK, INK) + line(470, 150, 470, 214, INK, 1.6)
+    s += line(458, 214, 482, 214, INK, 2.6) + line(458, 222, 482, 222, INK, 2.6) + line(470, 222, 470, gndY, INK, 1.6)
+    s += text(488, 204, "Cвих", 8.5, RED, "start", "bold") + text(488, 218, "(стійкість!)", 7.5, RED, "start", "bold")
+    s += text(W / 2, H - 12, "Усередині — повний LDO з теми. Зовні лишаються вхідний і вихідний конденсатори та мідь під чипом.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-11c-1-module.svg", s)
+
+
+def fig1311c_fixed_vs_adj():
+    W, H = 720, 300
+    s = header(W, H)
+    s += text(W / 2, 26, "Два класи: фіксований і регульований", 15, INK, "middle", "bold")
+    s += _frame(30, 50, 320, 214, "фіксований (AMS1117-клас)")
+    s += rect(110, 104, 160, 64, "#eef2f7", "#7f93a8", 1.6, 6)
+    s += text(190, 130, "вихід 3.3 чи 5 В", 10.5, INK, "middle", "bold") + text(190, 150, "дільник — усередині", 9, GREY, "middle")
+    s += text(190, 196, "3 ноги: IN · GND · OUT", 10, INK, "middle", "bold")
+    s += text(190, 218, "увімкнув — і працює", 9, GREY, "middle")
+    s += text(190, 244, "та dropout ~1.1 В, споживає ~5 мА", 8.5, RED, "middle")
+    s += _frame(370, 50, 320, 214, "регульований (LM317-клас)")
+    s += rect(420, 100, 130, 52, "#eef2f7", "#7f93a8", 1.6, 6) + text(485, 130, "ADJ-чип", 10.5, INK, "middle", "bold")
+    s += line(550, 126, 590, 126, GREEN, 2) + text(596, 130, "Vout", 9, GREEN, "start", "bold")
+    s += line(590, 126, 590, 150, INK, 1.5) + rect(578, 150, 24, 24, "#fff", INK, 1.4, 3) + text(610, 166, "R1", 8.5, INK, "start", "bold")
+    s += line(590, 174, 590, 188, INK, 1.5) + circle(590, 188, 3, INK, INK) + line(485, 188, 590, 188, INK, 1.4) + line(485, 152, 485, 188, INK, 1.4)
+    s += text(520, 184, "ADJ", 8, INK, "middle")
+    s += rect(578, 192, 24, 24, "#fff", INK, 1.4, 3) + text(610, 208, "R2", 8.5, INK, "start", "bold")
+    s += line(590, 216, 590, 236, INK, 1.5) + text(590, 250, "GND", 8, INK, "middle")
+    s += text(500, 234, "Vout задають два резистори", 9.5, INK, "middle", "bold")
+    save("fig-13-11c-2-fixed-vs-adj.svg", s)
+
+
+# ── 🧮 вставка до 2.8.2: формула зворотного зв'язку (Рис. 2.8.2m.k) ──────────
+def fig132m_loop():
+    W, H = 700, 322
+    s = header(W, H)
+    s += text(W / 2, 28, "Формула зворотного зв'язку: G = A / (1 + A·β)", 15.5, INK, "middle", "bold")
+    s += text(60, 124, "Vin", 11, INK, "end", "bold") + arrow(64, 120, 118, 120, INK, 2)
+    s += circle(140, 120, 20, "#fff", INK, 2) + text(140, 126, "Σ", 14, INK, "middle", "bold")
+    s += text(126, 102, "+", 11, RED, "middle", "bold") + text(126, 150, "−", 11, BLUE, "middle", "bold")
+    s += arrow(160, 120, 230, 120, INK, 2)
+    s += rect(230, 96, 90, 48, LBLUE, BLUE, 1.6, 6) + text(275, 126, "A", 16, INK, "middle", "bold")
+    s += text(275, 86, "сире підсилення", 8.5, GREY, "middle")
+    s += arrow(320, 120, 470, 120, INK, 2) + circle(420, 120, 3, INK, INK) + text(478, 124, "Vout", 11, GREEN, "start", "bold")
+    s += line(420, 120, 420, 220, INK, 1.6) + arrow(420, 220, 322, 220, INK, 2)
+    s += rect(230, 196, 90, 48, "#fff3e0", COPP, 1.6, 6) + text(275, 226, "β", 16, INK, "middle", "bold")
+    s += text(275, 258, "частка звороту", 8.5, GREY, "middle")
+    s += line(230, 220, 140, 220, INK, 1.6) + arrow(140, 220, 140, 142, INK, 2)
+    s += rect(478, 168, 204, 98, "#f6f8fb", "#c9d3dc", 1.3, 8)
+    s += text(580, 196, "G = A / (1 + A·β)", 14, INK, "middle", "bold")
+    s += text(580, 226, "коли A·β ≫ 1:", 10, INK, "middle")
+    s += text(580, 250, "G ≈ 1 / β", 15, GREEN, "middle", "bold")
+    s += text(W / 2, H - 10, "Велетенське A зникає з результату — лишається 1/β, задане самим зворотним зв'язком.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-2m-1-loop.svg", s)
+
+
+def fig132m_desens():
+    W, H = 660, 358
+    s = header(W, H)
+    s += text(W / 2, 28, "Чому точно: велике A на «полиці» майже не впливає", 14.5, INK, "middle", "bold")
+    ox, oy, pw, ph = 92, 298, 470, 244
+    s += _axes(ox, oy, pw, ph, "A (сире підсилення)", "G")
+    beta, Amax = 0.1, 1000.0
+    target = 1 / beta
+    pts = []
+    for j in range(0, 201):
+        A = Amax * j / 200.0
+        G = A / (1 + A * beta)
+        pts.append((ox + pw * (A / Amax), oy - ph * 0.9 * (G / target)))
+    s += _poly(pts, BLUE, 2.8)
+    ya = oy - ph * 0.9
+    s += line(ox, ya, ox + pw, ya, GREEN, 1.6, "6 4") + text(ox + pw - 6, ya - 8, "G = 1/β (ціль)", 10, GREEN, "end", "bold")
+    for A in (500, 1000):
+        G = A / (1 + A * beta)
+        s += circle(ox + pw * (A / Amax), oy - ph * 0.9 * (G / target), 3.5, RED, RED)
+    s += text(ox + pw * 0.66, oy - ph * 0.56, "A удвічі більше —", 9.5, INK, "middle")
+    s += text(ox + pw * 0.66, oy - ph * 0.56 + 15, "G майже те саме", 9.5, RED, "middle", "bold")
+    s += text(W / 2, H - 12, "На «полиці» (велике A·β) подвоєння чи провал A зрушують G на частки відсотка. Звідси й точність.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-2m-2-desens.svg", s)
+
+
+# ── 🧮 вставка до 2.8.8: розрахунок порогів гістерезису (Рис. 2.8.8m.k) ──────
+def fig138m_schmitt():
+    W, H = 700, 358
+    s = header(W, H)
+    s += text(W / 2, 26, "Неінвертуючий тригер Шмітта: два пороги з двох резисторів", 14, INK, "middle", "bold")
+    s += _opamp_sym(330, 170, 90, 74)
+    s += text(38, 196, "Vin", 10, INK, "end", "bold") + line(42, 192, 96, 192, INK, 2)
+    s += rect(96, 180, 44, 24, "#fff", INK, 1.5, 3) + text(118, 196, "R1", 9, INK, "middle", "bold")
+    s += line(140, 192, 250, 192, INK, 2) + circle(250, 192, 3, INK, INK)
+    s += line(250, 192, 285, 189, INK, 2) + text(250, 210, "вузол «+»", 8.5, INK, "middle")
+    s += line(375, 170, 470, 170, INK, 2) + circle(470, 170, 3, INK, INK) + text(478, 174, "Vout", 11, GREEN, "start", "bold")
+    s += line(470, 170, 470, 252, INK, 1.6) + line(250, 252, 470, 252, INK, 1.6) + line(250, 192, 250, 252, INK, 1.6)
+    s += rect(338, 240, 44, 24, "#fff", INK, 1.5, 3) + text(360, 256, "R2", 9, INK, "middle", "bold")
+    s += line(285, 151, 238, 151, BLUE, 2) + text(232, 155, "Vref", 10, BLUE, "end", "bold")
+    s += rect(478, 206, 204, 122, "#f6f8fb", "#c9d3dc", 1.3, 8)
+    s += text(580, 230, "ширина зазору:", 10, INK, "middle", "bold")
+    s += text(580, 254, "ΔV = (Voh−Vol)·R1/R2", 11.5, RED, "middle", "bold")
+    s += text(580, 284, "центр задає Vref", 10, INK, "middle")
+    s += text(580, 306, "(опора на «−»)", 9, GREY, "middle")
+    s += text(W / 2, H - 10, "Частку виходу повертають на «+» крізь R2, а R1 веде туди сигнал. Відношення R1/R2 і задає зазор.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-8m-1-schmitt.svg", s)
+
+
+def fig138m_band():
+    W, H = 680, 326
+    s = header(W, H)
+    s += text(W / 2, 26, "Зазор і центр на прикладі: VL = 2 В, VH = 3 В", 15, INK, "middle", "bold")
+    ax = 150
+
+    def yV(v):
+        return 250 - 36 * v
+    s += line(ax, 258, ax, 56, INK, 2) + text(ax, 48, "Vin", 10, INK, "middle", "bold")
+    for v in range(0, 6):
+        s += line(ax - 5, yV(v), ax + 5, yV(v), INK, 1.4) + text(ax - 12, yV(v) + 4, f"{v}", 9, INK, "end")
+    s += rect(ax + 10, yV(3), 250, yV(2) - yV(3), "#eef6ef", GREEN, 1.4, 4)
+    s += line(ax, yV(3), ax + 270, yV(3), RED, 1.6, "5 4") + text(ax + 276, yV(3) + 4, "VH = 3 В (угору)", 9.5, RED, "start", "bold")
+    s += line(ax, yV(2), ax + 270, yV(2), BLUE, 1.6, "5 4") + text(ax + 276, yV(2) + 4, "VL = 2 В (униз)", 9.5, BLUE, "start", "bold")
+    s += line(ax, yV(2.5), ax + 150, yV(2.5), GREY, 1.2, "2 3") + text(ax + 156, yV(2.5) + 3, "центр 2.5 = Vref", 8.5, GREY, "start")
+    s += text(ax + 135, (yV(2) + yV(3)) / 2 + 4, "ΔV = 1 В", 9.5, GREEN, "middle", "bold")
+    s += rect(300, 214, 360, 96, "#f6f8fb", "#c9d3dc", 1.2, 8)
+    s += text(480, 236, "як дібрати резистори:", 10, INK, "middle", "bold")
+    s += text(480, 258, "1) ΔV > шуму (тут 1 В)", 9.5, INK, "middle")
+    s += text(480, 278, "2) R1/R2 = ΔV/(Voh−Vol) = 1/5 = 0.2", 9.5, INK, "middle")
+    s += text(480, 298, "3) Vref = центр = 2.5 В", 9.5, INK, "middle")
+    save("fig-13-8m-2-band.svg", s)
+
+
+# ── 🧮 вставка до 2.8.9: GBW і slew rate (Рис. 2.8.9m.k) ─────────────────────
+def fig139m_gbw():
+    W, H = 700, 380
+    s = header(W, H)
+    s += text(W / 2, 28, "GBW: смуга меншає з підсиленням (GBW = G·f)", 15, INK, "middle", "bold")
+    ox, oy, pw, ph = 92, 320, 536, 252
+    s += arrow(ox, oy, ox, oy - ph - 12, INK, 2) + arrow(ox, oy, ox + pw + 12, oy, INK, 2)
+    s += text(ox + pw + 16, oy + 4, "частота (лог)", 10.5, INK, "start", "bold")
+    s += text(ox + 2, oy - ph - 20, "підсилення (лог)", 10.5, INK, "middle", "bold")
+    decs = ["1", "10", "100", "1к", "10к", "100к", "1М"]
+    for i, lab in enumerate(decs):
+        x = ox + pw * i / 6
+        s += line(x, oy, x, oy + 5, INK, 1.2) + text(x, oy + 18, lab, 8.5, INK, "middle")
+    A_top, A_bot = 0.92, 0.08
+
+    def Afrac(d):
+        return A_top - (d / 6.0) * (A_top - A_bot)
+    s += _poly([(ox, oy - ph * A_top), (ox + pw, oy - ph * A_bot)], GREY, 2.4)
+    s += text(ox + pw * 0.30, oy - ph * 0.74, "розімкнене A (−20 дБ/дек)", 9, GREY, "start", style="italic")
+    for dec, lab in [(3, "×1000"), (4, "×100"), (5, "×10")]:
+        y = oy - ph * Afrac(dec)
+        xc = ox + pw * dec / 6
+        s += _poly([(ox, y), (xc, y)], BLUE, 2.6)
+        s += circle(xc, y, 3.5, RED, RED) + text(ox + 8, y - 6, lab, 9.5, BLUE, "start", "bold")
+        s += line(xc, y, xc, oy, RED, 1.1, "3 3")
+    s += text(ox + pw * 5 / 6, oy - ph * Afrac(5) - 14, "смуга = GBW/G", 9, RED, "middle", "bold")
+    s += text(W / 2, H - 12, "Що більше підсилення, то нижча частота зламу: смуга = GBW/G. Добуток підсилення на смугу сталий.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-9m-1-gbw.svg", s)
+
+
+def fig139m_slew():
+    W, H = 700, 318
+    s = header(W, H)
+    s += text(W / 2, 26, "Швидкість наростання: великий швидкий сигнал стає трикутником", 13.5, INK, "middle", "bold")
+    ox, pw, midY, amp = 60, 470, 168, 78
+    s += line(ox, midY, ox + pw, midY, FAINT, 1.2)
+    s += _sine(ox, midY, pw, amp, 2, GREY, 1.8)
+    pts, period = [], pw / 2
+    for c in range(2):
+        base = ox + c * period
+        pts += [(base, midY), (base + period * 0.25, midY - amp), (base + period * 0.75, midY + amp)]
+    pts.append((ox + pw, midY))
+    s += _poly(pts, RED, 2.8)
+    s += text(ox + pw * 0.5, 70, "хочемо синус (нахил 2π·f·A)", 9.5, GREY, "middle", "bold")
+    s += text(ox + pw * 0.5, 262, "виходить трикутник (нахил = SR)", 9.5, RED, "middle", "bold")
+    s += rect(548, 110, 138, 110, "#f6f8fb", "#c9d3dc", 1.2, 8)
+    s += text(617, 134, "межа повної", 9.5, INK, "middle", "bold")
+    s += text(617, 150, "потужності:", 9.5, INK, "middle", "bold")
+    s += text(617, 176, "f_max =", 10.5, INK, "middle")
+    s += text(617, 196, "SR / (2π·A)", 11, RED, "middle", "bold")
+    s += text(W / 2, H - 10, "Коли крутість сигналу 2π·f·A переростає SR, вихід не встигає й рампить прямими — синус ламається в трикутник.",
+              8.8, GREY, "middle", style="italic")
+    save("fig-13-9m-2-slew.svg", s)
+
+
+# ── 🧮 вставка до 2.8.11: розсіювання LDO (Рис. 2.8.11m.k) ───────────────────
+def fig1311m_efficiency():
+    W, H = 660, 350
+    s = header(W, H)
+    s += text(W / 2, 28, "ККД лінійного: η ≈ Vout/Vin падає з різницею", 15, INK, "middle", "bold")
+    ox, oy, pw, ph = 92, 292, 476, 232
+    s += _axes(ox, oy, pw, ph, "Vin (В), Vout = 3.3 В", "ККД")
+    Vout, Vmin, Vmax = 3.3, 3.3, 15.0
+    pts = []
+    for j in range(0, 201):
+        Vin = Vmin + (Vmax - Vmin) * j / 200
+        pts.append((ox + pw * (Vin - Vmin) / (Vmax - Vmin), oy - ph * 0.9 * (Vout / Vin)))
+    s += _poly(pts, BLUE, 2.8)
+    s += line(ox, oy - ph * 0.9, ox + pw, oy - ph * 0.9, FAINT, 1.2) + text(ox - 6, oy - ph * 0.9 + 4, "100%", 8, GREY, "end")
+    for Vin, lab in [(3.6, "92%"), (5, "66%"), (12, "27%")]:
+        x = ox + pw * (Vin - Vmin) / (Vmax - Vmin)
+        y = oy - ph * 0.9 * (Vout / Vin)
+        s += circle(x, y, 3.5, RED, RED) + text(x, y - 11, f"{Vin} В → {lab}", 8.5, RED, "middle", "bold")
+    s += text(W / 2, H - 12, "Корисно лише Vout, решта (Vin−Vout) — у тепло. Що більший вхід, то гірший ККД.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-11m-1-efficiency.svg", s)
+
+
+def fig1311m_when():
+    W, H = 660, 350
+    s = header(W, H)
+    s += text(W / 2, 28, "Скільки тепла — і коли лінійний недоцільний", 15, INK, "middle", "bold")
+    ox, oy, pw, ph = 92, 292, 476, 232
+    s += _axes(ox, oy, pw, ph, "Vin (В) · Vout=3.3 · I=0.5 А", "P (Вт)")
+    Vout, I, Vmin, Vmax, Pax = 3.3, 0.5, 3.3, 15.0, 6.0
+    pts = []
+    for j in range(0, 201):
+        Vin = Vmin + (Vmax - Vmin) * j / 200
+        P = (Vin - Vout) * I
+        pts.append((ox + pw * (Vin - Vmin) / (Vmax - Vmin), oy - ph * 0.9 * min(P, Pax) / Pax))
+    s += _poly(pts, RED, 2.8)
+    Plim = 1.0
+    ylim = oy - ph * 0.9 * Plim / Pax
+    s += line(ox, ylim, ox + pw, ylim, GREEN, 1.6, "6 4") + text(ox + pw - 6, ylim - 8, "межа корпусу без радіатора ≈1 Вт", 9, GREEN, "end", "bold")
+    Vcross = Vout + Plim / I
+    xc = ox + pw * (Vcross - Vmin) / (Vmax - Vmin)
+    s += line(xc, oy, xc, ylim, GREY, 1.2, "3 3") + circle(xc, ylim, 3.5, RED, RED)
+    s += text(xc, oy + 18, f"~{Vcross:.0f} В", 9, RED, "middle", "bold")
+    s += text(ox + pw * 0.16, oy - ph * 0.62, "лінійний ОК", 10, GREEN, "middle", "bold")
+    s += text(ox + pw * 0.74, oy - ph * 0.5, "треба радіатор", 10, RED, "middle", "bold")
+    s += text(ox + pw * 0.74, oy - ph * 0.5 + 16, "або імпульсний", 10, RED, "middle", "bold")
+    s += text(W / 2, H - 12, "Вище за межу корпусу лінійний пече: або великий радіатор, або перехід на імпульсний стабілізатор.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-11m-2-when.svg", s)
+
+
+# ── 🔌 вставка до 2.8.5: буфер для високоомного джерела (Рис. 2.8.5c.k) ──────
+def fig135c_problem():
+    W, H = 700, 350
+    s = header(W, H)
+    s += text(W / 2, 28, "Високоомне джерело й АЦП: дільник не встигає зарядити", 14, INK, "middle", "bold")
+    vx = 130
+    s += line(vx, 70, vx, 100, RED, 2) + text(vx, 62, "+Vbat", 10, RED, "middle", "bold")
+    s += rect(vx - 13, 100, 26, 34, "#fff", INK, 1.5, 3) + text(vx + 26, 120, "R1 1М", 9, INK, "start", "bold")
+    s += line(vx, 134, vx, 160, INK, 2) + circle(vx, 160, 3, INK, INK)
+    s += rect(vx - 13, 160, 26, 34, "#fff", INK, 1.5, 3) + text(vx + 26, 180, "R2 1М", 9, INK, "start", "bold")
+    s += line(vx, 194, vx, 226, INK, 1.6) + line(vx - 26, 226, vx + 26, 226, INK, 1.4) + text(vx, 242, "GND", 8.5, INK, "middle")
+    s += text(vx, 274, "опір джерела ≈ 500 кОм", 9, RED, "middle", "bold")
+    s += arrow(vx, 160, 358, 160, INK, 2)
+    s += _frame(360, 92, 300, 168, "вхід АЦП")
+    s += line(378, 160, 426, 160, INK, 2)
+    s += circle(426, 160, 3, INK, INK) + line(426, 160, 458, 144, INK, 2) + circle(464, 160, 3, INK, INK) + text(446, 132, "вибірка", 8, INK, "middle")
+    s += line(464, 160, 512, 160, INK, 2)
+    s += line(512, 160, 512, 188, INK, 1.6)
+    s += line(500, 188, 524, 188, INK, 2.4) + line(500, 196, 524, 196, INK, 2.4) + text(532, 196, "Cвиб", 8.5, INK, "start", "bold")
+    s += line(512, 196, 512, 226, INK, 1.6) + text(512, 242, "GND", 8, INK, "middle")
+    s += text(512, 120, "зарядити за мить", 8.5, INK, "middle")
+    s += text(W / 2, H - 14, "Через 500 кОм конденсатор вибірки заряджається надто повільно — АЦП зчитує ЗАНИЖЕНЕ число.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-5c-1-problem.svg", s)
+
+
+def fig135c_buffer_fix():
+    W, H = 700, 342
+    s = header(W, H)
+    s += text(W / 2, 28, "Буфер між дільником і АЦП: міряємо без просідання", 14, INK, "middle", "bold")
+    vx = 110
+    s += line(vx, 64, vx, 92, RED, 2) + text(vx, 56, "+Vbat", 9.5, RED, "middle", "bold")
+    s += rect(vx - 12, 92, 24, 30, "#fff", INK, 1.4, 3) + text(vx + 24, 110, "1М", 8.5, INK, "start", "bold")
+    s += line(vx, 122, vx, 150, INK, 2) + circle(vx, 150, 3, INK, INK)
+    s += rect(vx - 12, 150, 24, 30, "#fff", INK, 1.4, 3) + text(vx + 24, 168, "1М", 8.5, INK, "start", "bold")
+    s += line(vx, 180, vx, 208, INK, 1.6) + line(vx - 22, 208, vx + 22, 208, INK, 1.4) + text(vx, 224, "GND", 8, INK, "middle")
+    s += line(vx, 150, 250, 150, INK, 2) + line(250, 150, 260, 166, INK, 2)
+    s += _opamp_sym(300, 150, 80, 66)
+    s += line(340, 150, 362, 150, INK, 2) + circle(362, 150, 3, INK, INK)
+    s += line(362, 150, 362, 110, INK, 1.6) + line(362, 110, 262, 110, INK, 1.6) + line(262, 110, 262, 134, INK, 1.6)
+    s += arrow(362, 150, 470, 150, GREEN, 2.2) + text(416, 138, "жорсткий вихід", 8.5, GREEN, "middle", "bold")
+    s += rect(470, 122, 156, 58, "#eef2f7", "#9bb0c2", 1.5, 6) + text(548, 147, "вхід АЦП", 10, INK, "middle", "bold") + text(548, 165, "Cвиб — миттєво", 8, GREY, "middle")
+    s += rect(60, 252, 600, 74, "#fff7e6", COPP, 1.3, 6)
+    s += text(360, 274, "граблі: вхідний струм буфера Ib на опорі джерела дає похибку Verr = Ib · Rдж", 9.5, INK, "middle", "bold")
+    s += text(360, 294, "для дуже високого опору (давачі, гігаоми) бери ОП із ПОЛЬОВИМИ входами — Ib мізерний", 9.5, INK, "middle")
+    s += text(360, 313, "(той самий TL072-клас із §2.8.9)", 8.5, GREY, "middle")
+    save("fig-13-5c-2-buffer-fix.svg", s)
+
+
+# ── 🔌 вставка до 2.8.7: компаратори-мікросхеми (Рис. 2.8.7c.k) ──────────────
+def fig137c_opencoll():
+    W, H = 700, 340
+    s = header(W, H)
+    s += text(W / 2, 28, "Відкритий колектор: сам тягне лише до 0, «1» дає підтяжка", 14, INK, "middle", "bold")
+    s += _opamp_sym(190, 172, 88, 74)
+    s += line(146, 154, 110, 154, BLUE, 2) + text(104, 158, "−", 11, BLUE, "end", "bold")
+    s += line(146, 190, 110, 190, RED, 2) + text(104, 194, "+", 11, RED, "end", "bold")
+    s += text(160, 132, "компаратор", 9, GREY, "middle")
+    s += line(234, 172, 330, 172, INK, 2) + circle(330, 172, 3, INK, INK) + text(330, 154, "вихід", 9, INK, "middle", "bold")
+    s += line(330, 172, 330, 118, INK, 1.6)
+    s += rect(317, 86, 26, 32, "#fff", INK, 1.5, 3) + text(352, 106, "Rпідт", 9.5, INK, "start", "bold")
+    s += line(330, 86, 330, 62, RED, 2) + text(330, 54, "Vpull — обираєш сам (3.3 / 5 В)", 9.5, RED, "middle", "bold")
+    s += arrow(330, 190, 330, 250, BLUE, 2.4) + text(345, 222, "тягне до 0", 9, BLUE, "start", "bold")
+    s += line(310, 250, 350, 250, INK, 1.4) + text(330, 266, "GND", 8.5, INK, "middle")
+    s += line(330, 172, 432, 172, INK, 2) + arrow(432, 172, 468, 172, GREEN, 2)
+    s += rect(468, 148, 132, 48, LBLUE, "#9bb0c2", 1.4, 6) + text(534, 176, "МК (вхід)", 10, INK, "middle", "bold")
+    s += text(W / 2, H - 12, "Вихід лише ПРИТЯГУЄ лінію до нуля; «1» дає підтяжний резистор до обраної напруги — звідси й зсув рівня.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-7c-1-opencoll.svg", s)
+
+
+def fig137c_patterns():
+    W, H = 720, 320
+    s = header(W, H)
+    s += text(W / 2, 26, "Два дарунки відкритого колектора", 15, INK, "middle", "bold")
+    s += _frame(28, 50, 320, 240, "зсув рівня")
+    s += _opamp_sym(108, 152, 60, 52)
+    s += text(108, 112, "живлення 5 В", 8.5, GREY, "middle")
+    s += line(138, 152, 190, 152, INK, 2) + circle(190, 152, 3, INK, INK)
+    s += line(190, 152, 190, 112, INK, 1.4) + rect(178, 86, 24, 26, "#fff", INK, 1.4, 3) + text(208, 102, "Rпідт", 8.5, INK, "start", "bold")
+    s += line(190, 86, 190, 68, RED, 2) + text(190, 62, "до 3.3 В", 9, RED, "middle", "bold")
+    s += arrow(190, 152, 288, 152, GREEN, 2) + rect(288, 132, 52, 40, LBLUE, "#9bb0c2", 1.3, 5) + text(314, 156, "МК 3.3В", 8.5, INK, "middle", "bold")
+    s += text(186, 220, "компаратор на 5 В, а вихід — 0…3.3 В", 8.5, INK, "middle")
+    s += text(186, 238, "→ безпечно для 3.3-В входу", 8.5, GREEN, "middle", "bold")
+    s += _frame(372, 50, 320, 240, "монтажне-АБО (wired-OR)")
+    railx = 600
+    s += line(railx, 80, railx, 244, INK, 1.8)
+    s += rect(railx - 13, 80, 26, 26, "#fff", INK, 1.4, 3) + text(railx + 30, 96, "Rпідт", 8.5, INK, "start", "bold")
+    s += line(railx, 62, railx, 80, RED, 2) + text(railx, 56, "Vpull", 8.5, RED, "middle", "bold")
+    for i, y in enumerate((124, 172, 220)):
+        s += _opamp_sym(444, y, 44, 36)
+        s += line(466, y, railx, y, INK, 1.6) + circle(railx, y, 2.5, INK, INK)
+        s += text(416, y + 4, f"к{i + 1}", 8, GREY, "end")
+    s += text(534, 262, "хоч один тягне до 0 → лінія = 0", 8.8, INK, "middle", "bold")
+    save("fig-13-7c-2-patterns.svg", s)
+
+
+# ── 🔌 вставка до 2.8.9: rail-to-rail і single-supply (Рис. 2.8.9c.k) ────────
+def fig139c_swing():
+    W, H = 700, 352
+    s = header(W, H)
+    s += text(W / 2, 28, "На 3.3 В кожен вольт на вагу: корисний розмах виходу", 14.5, INK, "middle", "bold")
+    y0, top = 300, 72
+
+    def yV(v):
+        return y0 - (y0 - top) * v / 3.3
+    s += line(96, y0, 640, y0, INK, 1.4) + text(90, y0 + 4, "0 (GND)", 8.5, INK, "end")
+    s += line(96, top, 640, top, RED, 1.4, "5 4") + text(90, top + 4, "3.3 (Vcc)", 8.5, RED, "end")
+    bars = [
+        ("звичайний", "(втрачає краї)", 210, 1.2, 2.0, "#fdeeee", RED),
+        ("LM358-клас", "(дістає низ)", 370, 0.02, 1.8, "#fff3e0", SUN),
+        ("RRIO", "(майже все)", 530, 0.05, 3.25, "#eef6ef", GREEN),
+    ]
+    for lab, sub, x, lo, hi, fill, col in bars:
+        s += rect(x - 42, yV(hi), 84, yV(lo) - yV(hi), fill, col, 1.8, 4)
+        s += text(x, yV(hi) - 7, f"{hi:.2f} В", 8.5, col, "middle", "bold")
+        s += text(x, yV(lo) + 14, f"{lo:.2f} В", 8.5, col, "middle")
+        s += text(x, y0 + 22, lab, 9.5, INK, "middle", "bold") + text(x, y0 + 37, sub, 8.5, GREY, "middle")
+    s += text(W / 2, H - 12, "Звичайний ОП губить по вольту з кожного краю — на 3.3 В лишається кволенька смужка. RRIO дає майже всі 3.3 В.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-9c-1-swing.svg", s)
+
+
+def fig139c_single_supply():
+    W, H = 700, 330
+    s = header(W, H)
+    s += text(W / 2, 28, "Однополярне живлення: змінний сигнал зміщують у середину", 14, INK, "middle", "bold")
+    s += _frame(28, 52, 320, 226, "напряму — нижні півхвилі зрізано")
+    baseY = 168
+    s += line(60, baseY, 322, baseY, FAINT, 1.2) + text(54, baseY + 4, "0", 8, INK, "end")
+    s += _clip_sine(60, baseY, 262, 66, 2, RED, lo=0.0, hi=1.0)
+    s += text(190, 248, "нижче нуля ОП не може — зріз", 9, RED, "middle", "bold")
+    s += _frame(372, 52, 320, 226, "зсув у Vcc/2 — уся хвиля вміщається")
+    midR = 158
+    s += line(404, midR, 666, midR, FAINT, 1.2) + text(398, midR + 4, "Vcc/2", 8, GREY, "end")
+    s += _sine(404, midR, 258, 56, 2, GREEN, 2.4)
+    s += text(534, 248, "сигнал гойдається довкола 1.65 В", 9, GREEN, "middle", "bold")
+    s += text(W / 2, H - 12, "Без мінусової шини сигнал зміщують до середини живлення (дільник + буфер) — тоді влазить уся хвиля.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-9c-2-single-supply.svg", s)
+
+
+# ── ⚙️ вставка до 2.8.6: зміщення й масштабування (Рис. 2.8.6a.k) ────────────
+def fig136a_line():
+    W, H = 640, 382
+    s = header(W, H)
+    s += text(W / 2, 28, "Будь-яке перетворення — пряма: Vout = m·Vin + b", 15, INK, "middle", "bold")
+    ox, oy, pw, ph = 112, 322, 436, 252
+
+    def xV(v):
+        return ox + pw * (v + 5) / 10
+
+    def yV(v):
+        return oy - ph * 0.86 * v / 3.3
+    s += arrow(ox, oy, ox, oy - ph - 12, INK, 2) + text(ox + 4, oy - ph - 16, "Vout (В)", 10.5, INK, "start", "bold")
+    s += arrow(ox, oy, ox + pw + 12, oy, INK, 2) + text(ox + pw + 16, oy + 4, "Vin (В)", 10.5, INK, "start", "bold")
+    for v in (-5, 0, 5):
+        lab = "0" if v == 0 else f"{v:+d}"
+        s += line(xV(v), oy, xV(v), oy + 5, INK, 1.2) + text(xV(v), oy + 18, lab, 9, INK, "middle")
+    for v in (3.3, 1.65):
+        s += line(ox - 5, yV(v), ox + 5, yV(v), INK, 1.2) + text(ox - 10, yV(v) + 4, f"{v}", 9, INK, "end")
+    s += _poly([(xV(-5), yV(0)), (xV(5), yV(3.3))], BLUE, 3)
+    s += circle(xV(-5), yV(0), 4, RED, RED) + text(xV(-5) + 4, yV(0) + 20, "−5 → 0", 8.5, RED, "start", "bold")
+    s += circle(xV(5), yV(3.3), 4, RED, RED) + text(xV(5) - 6, yV(3.3) - 10, "+5 → 3.3", 8.5, RED, "end", "bold")
+    s += circle(xV(0), yV(1.65), 3, GREEN, GREEN) + line(ox, yV(1.65), xV(0), yV(1.65), GREEN, 1.2, "3 3")
+    s += text(xV(0) + 8, yV(1.65) - 6, "зсув b = 1.65 В", 8.5, GREEN, "start", "bold")
+    s += rect(xV(-4.6), yV(3.05), 156, 28, "#f6f8fb", "#c9d3dc", 1.2, 6) + text(xV(-4.6) + 78, yV(3.05) + 18, "Vout = 0.33·Vin + 1.65", 10.5, INK, "middle", "bold")
+    s += text(W / 2, H - 12, "Два кінці задають пряму: її нахил — це масштаб m, а зсув по вертикалі — b.",
+              9, GREY, "middle", style="italic")
+    save("fig-13-6a-1-line.svg", s)
+
+
+def fig136a_circuit():
+    W, H = 680, 330
+    s = header(W, H)
+    s += text(W / 2, 28, "Один ОП: масштаб задають резистори, зсув — опора", 14.5, INK, "middle", "bold")
+    s += _opamp_sym(346, 168, 92, 78)
+    # «−» вузол (опора Vref + зворотний зв'язок)
+    s += line(300, 150, 250, 150, INK, 2) + circle(250, 150, 3, INK, INK)
+    s += rect(190, 138, 38, 24, "#fff", INK, 1.4, 3) + text(209, 154, "R3", 8.5, INK, "middle", "bold")
+    s += line(168, 150, 190, 150, INK, 2) + line(228, 150, 250, 150, INK, 2)
+    s += line(110, 150, 168, 150, GREEN, 2) + text(106, 154, "Vref", 9, GREEN, "end", "bold") + text(110, 138, "1.65 В (опора)", 8, GREEN, "end")
+    s += line(250, 150, 250, 104, INK, 1.4) + line(250, 104, 432, 104, INK, 1.4)
+    s += rect(322, 92, 38, 24, "#fff", INK, 1.4, 3) + text(341, 108, "Rf", 8.5, INK, "middle", "bold")
+    # вихід
+    s += line(392, 168, 432, 168, INK, 2) + circle(432, 168, 3, INK, INK) + line(432, 104, 432, 168, INK, 1.4) + text(442, 150, "Vout", 10, INK, "start", "bold")
+    # «+» вузол (сигнал через дільник)
+    s += line(300, 186, 250, 186, INK, 2) + circle(250, 186, 3, INK, INK)
+    s += rect(190, 174, 38, 24, "#fff", INK, 1.4, 3) + text(209, 190, "R1", 8.5, INK, "middle", "bold")
+    s += line(168, 186, 190, 186, INK, 2) + line(228, 186, 250, 186, INK, 2)
+    s += line(110, 186, 168, 186, INK, 2) + text(106, 190, "±5 В", 9, INK, "end", "bold")
+    s += line(250, 186, 250, 224, INK, 1.4) + rect(231, 224, 38, 24, "#fff", INK, 1.4, 3) + text(250, 240, "R2", 8.5, INK, "middle", "bold")
+    s += line(250, 248, 250, 272, INK, 1.4) + text(250, 286, "GND", 8, INK, "middle")
+    # вихід -> АЦП
+    s += arrow(432, 168, 516, 168, GREEN, 2) + rect(516, 148, 134, 40, LBLUE, "#9bb0c2", 1.4, 6) + text(583, 172, "АЦП 0…3.3 В", 9, INK, "middle", "bold")
+    s += text(341, 66, "відношення резисторів → масштаб 0.33", 8.5, RED, "middle", "bold")
+    s += text(583, 202, "(вихід має дістати 0 і 3.3 — RRO)", 7.5, GREY, "middle")
+    save("fig-13-6a-2-circuit.svg", s)
+
+
+# ── ⚙️ вставка до 2.8.8: нічник на фоторезисторі (Рис. 2.8.8a.k) ────────────
+def fig138a_circuit():
+    W, H = 700, 356
+    s = header(W, H)
+    s += text(W / 2, 28, "Нічник: фоторезистор + тригер Шмітта + ключ", 15, INK, "middle", "bold")
+    vY, gY = 64, 318
+    s += line(80, vY, 620, vY, RED, 2) + text(74, vY + 4, "+V", 10, RED, "end", "bold")
+    s += line(80, gY, 620, gY, INK, 1.6) + text(74, gY + 4, "GND", 9, INK, "end")
+    dx = 150
+    s += rect(dx - 16, 92, 32, 44, "#fff7e6", COPP, 1.6, 4) + text(dx, 118, "LDR", 9, INK, "middle", "bold")
+    s += line(dx, vY, dx, 92, INK, 2)
+    s += line(dx, 136, dx, 180, INK, 2) + circle(dx, 180, 3, INK, INK) + text(dx - 9, 176, "N", 9, INK, "end", "bold")
+    s += rect(dx - 14, 212, 28, 44, "#fff", INK, 1.5, 3) + text(dx + 24, 236, "R", 9, INK, "start", "bold")
+    s += line(dx, 180, dx, 212, INK, 2) + line(dx, 256, dx, gY, INK, 1.6)
+    s += text(dx, 290, "темно → N падає", 8.5, GREY, "middle")
+    s += line(dx, 180, 252, 180, INK, 2)
+    s += _opamp_sym(302, 180, 82, 66)
+    s += text(302, 140, "тригер Шмітта", 8.5, GREY, "middle")
+    s += _mosfet_sym(448, 184)
+    s += line(344, 180, 404, 184, INK, 2)
+    s += line(472, 140, 472, 108, INK, 2) + circle(472, 92, 16, "#fff", INK, 2)
+    s += line(461, 81, 483, 103, INK, 1.6) + line(461, 103, 483, 81, INK, 1.6)
+    s += line(472, 76, 472, vY, INK, 2) + text(494, 92, "лампа", 9, INK, "start", "bold")
+    s += line(472, 228, 472, gY, INK, 2)
+    s += text(W / 2, H - 12, "Темно → опір LDR великий → вузол N падає → тригер кидає вихід → ключ умикає лампу. Гістерезис не дає миготіти.",
+              8.6, GREY, "middle", style="italic")
+    save("fig-13-8a-1-circuit.svg", s)
+
+
+def fig138a_behavior():
+    W, H = 700, 356
+    s = header(W, H)
+    s += text(W / 2, 28, "Цілий день: гістерезис тримає лампу без миготіння", 14.5, INK, "middle", "bold")
+    ox, oy, pw, ph = 84, 232, 556, 150
+    s += _axes(ox, oy, pw, ph, "час доби →", "сигнал світла")
+    pts = []
+    for j in range(0, 281):
+        t = j / 280.0
+        v = 0.5 + 0.44 * math.cos(2 * math.pi * t) + 0.05 * math.sin(22 * math.pi * t)
+        pts.append((ox + pw * t, oy - ph * 0.92 * max(0.0, min(1.0, v))))
+    s += _poly(pts, SUN, 2.4)
+    VH, VL = 0.5, 0.34
+
+    def yf(v):
+        return oy - ph * 0.92 * v
+    s += line(ox, yf(VH), ox + pw, yf(VH), RED, 1.4, "5 4") + text(ox + pw + 4, yf(VH) + 4, "VH (вимк)", 8.5, RED, "start", "bold")
+    s += line(ox, yf(VL), ox + pw, yf(VL), BLUE, 1.4, "5 4") + text(ox + pw + 4, yf(VL) + 4, "VL (вмик)", 8.5, BLUE, "start", "bold")
+    # стан лампи (ON у темну середину)
+    barY = oy + 40
+    s += text(ox - 8, barY + 4, "лампа", 8.5, INK, "end")
+    t1, t2 = 0.305, 0.695
+    s += line(ox, barY, ox + pw * t1, barY, GREY, 4)
+    s += line(ox + pw * t1, barY, ox + pw * t2, barY, GREEN, 6)
+    s += line(ox + pw * t2, barY, ox + pw, barY, GREY, 4)
+    s += text(ox + pw * 0.5, barY + 16, "УВІМК (ніч)", 8.5, GREEN, "middle", "bold")
+    s += text(ox + pw * 0.12, barY + 16, "вимк", 8, GREY, "middle") + text(ox + pw * 0.88, barY + 16, "вимк", 8, GREY, "middle")
+    s += text(ox + pw * 0.5, yf(0.95) + 4, "удень — ясно", 8.5, GREY, "middle")
+    s += text(ox + pw * 0.5, yf(0.04) - 4, "брижі (хмари, фари) між порогами не вмикають", 8, INK, "middle")
+    s += text(W / 2, H - 10, "Світло падає на сутінках, перетинає VL — лампа вмикається; вранці росте через VH — гасне. Між ними тримає.",
+              8.6, GREY, "middle", style="italic")
+    save("fig-13-8a-2-behavior.svg", s)
+
+
+# ── 📜 історія до §2.8.2: Гарольд Блек (Рис. 2.8.2і.k) ───────────────────────
+def fig132i_timeline():
+    W, H = 968, 252
+    s = header(W, H)
+    s += text(W / 2, 30, "Дев'ять років недовіри: від ідеї (1927) до патенту (1937)", 16.5, INK, "middle", "bold")
+    items = [
+        (18, "1923", ["прямий зв'язок", "(feedforward) —", "надто капризний"], "#fdf1dc"),
+        (190, "1927", ["пором через Гудзон:", "від'ємний", "зворотний зв'язок"], LGRN),
+        (362, "1928", ["заявка на патент;", "бюро не вірить,", "що працює"], LBLUE),
+        (534, "1932", ["Найквіст:", "теорія", "стійкості"], LBLUE),
+        (706, "1937", ["патент видано —", "по дев'яти", "роках"], LGRN),
+    ]
+    bw, by, bh = 162, 88, 112
+    for bx, yr, lines, fill in items:
+        s += text(bx + bw / 2, by - 8, yr, 12.5, INK, "middle", "bold")
+        s += rect(bx, by, bw, bh, fill, "#9bb0c2", 1.5, 8)
+        for k, ln in enumerate(lines):
+            s += text(bx + bw / 2, by + 30 + k * 23, ln, 10.5, INK, "middle")
+    for i in range(len(items) - 1):
+        s += arrow(items[i][0] + bw + 1, by + bh / 2, items[i + 1][0] - 1, by + bh / 2, GREY, 2)
+    s += text(W / 2, H - 14, "Ідея була така зухвала, що патентне бюро дев'ять років вважало її неможливою — як вічний двигун.",
+              10, GREY, "middle", style="italic")
+    save("fig-13-2i-1-timeline.svg", s)
+
+
+def fig132i_two_ideas():
+    W, H = 720, 320
+    s = header(W, H)
+    s += text(W / 2, 26, "Дві спроби Блека: прямий зв'язок і зворотний", 15, INK, "middle", "bold")
+    # ліворуч: feedforward
+    s += _frame(28, 50, 320, 240, "прямий зв'язок (1923)")
+    s += rect(60, 110, 80, 40, LBLUE, BLUE, 1.4, 6) + text(100, 134, "підсил.", 9.5, INK, "middle", "bold")
+    s += arrow(48, 130, 60, 130, INK, 2) + text(44, 134, "вх", 8.5, INK, "end")
+    s += arrow(140, 130, 230, 130, INK, 2)
+    s += rect(230, 110, 84, 40, "#fff3e0", COPP, 1.4, 6) + text(272, 130, "+ поправка", 9, INK, "middle", "bold")
+    s += arrow(314, 130, 330, 130, INK, 2) + text(336, 134, "вих", 8.5, INK, "start")
+    s += line(100, 150, 100, 190, INK, 1.4) + line(100, 190, 272, 190, INK, 1.4) + arrow(272, 190, 272, 150, INK, 1.4)
+    s += text(186, 204, "виміряти спотворення → додати зворотне", 8.5, INK, "middle")
+    s += text(186, 226, "працювало, та весь час «плило»:", 8.5, RED, "middle", "bold")
+    s += text(186, 244, "треба було без кінця підстроювати", 8.5, RED, "middle")
+    # праворуч: feedback
+    s += _frame(372, 50, 320, 240, "зворотний зв'язок (1927)")
+    s += circle(440, 130, 16, "#fff", INK, 2) + text(440, 136, "Σ", 13, INK, "middle", "bold")
+    s += text(426, 112, "−", 10, BLUE, "middle", "bold")
+    s += arrow(404, 130, 424, 130, INK, 2) + text(400, 134, "вх", 8.5, INK, "end")
+    s += arrow(456, 130, 520, 130, INK, 2)
+    s += rect(520, 110, 80, 40, LGRN, GREEN, 1.4, 6) + text(560, 134, "підсил.", 9.5, INK, "middle", "bold")
+    s += arrow(600, 130, 632, 130, INK, 2) + text(638, 134, "вих", 8.5, INK, "start")
+    s += line(620, 130, 620, 200, INK, 1.4) + line(620, 200, 440, 200, INK, 1.4) + arrow(440, 200, 440, 146, INK, 1.4)
+    s += text(532, 216, "вихід повертають проти входу", 8.5, INK, "middle")
+    s += text(532, 238, "сам себе виправляє — просто й твердо", 8.5, GREEN, "middle", "bold")
+    save("fig-13-2i-2-two-ideas.svg", s)
+
+
+def fig132i_trio():
+    W, H = 720, 270
+    s = header(W, H)
+    s += text(W / 2, 30, "Винахід — колективний: троє з Bell Labs", 16, INK, "middle", "bold")
+    people = [
+        (40, "Гарольд Блек", ["1927:", "підсилювач зі", "зворотним зв'язком"], LGRN),
+        (268, "Гаррі Найквіст", ["1932:", "коли він стійкий", "(теорія регенерації)"], LBLUE),
+        (496, "Гендрік Боде", ["як його", "проєктувати", "(діаграми Боде)"], "#fff3e0"),
+    ]
+    bw, by, bh = 184, 78, 120
+    for bx, name, lines, fill in people:
+        s += rect(bx, by, bw, bh, fill, "#9bb0c2", 1.6, 8)
+        s += text(bx + bw / 2, by + 26, name, 12, INK, "middle", "bold")
+        for k, ln in enumerate(lines):
+            s += text(bx + bw / 2, by + 52 + k * 20, ln, 10, INK, "middle")
+    for i in range(len(people) - 1):
+        s += arrow(people[i][0] + bw + 2, by + bh / 2, people[i + 1][0] - 2, by + bh / 2, GREY, 2)
+    s += text(W / 2, H - 14, "Блек дав підсилювач, Найквіст — коли він не зірветься в генерацію, Боде — як його розрахувати.",
+              10, GREY, "middle", style="italic")
+    save("fig-13-2i-3-trio.svg", s)
+
+
 if __name__ == "__main__":
     fig13_t1_timeline()
     fig13_t2_born_to_compute()
@@ -1749,4 +2658,52 @@ if __name__ == "__main__":
     fig139_slew_rate()
     fig139_when_matters()
     fig139_choosing()
-    print("OK — Розділ 13 (історія + §13.1–§13.9) згенеровано в", OUT)
+    # §13.10 що всередині ОП: диференційна пара
+    fig1310_open_box()
+    fig1310_diff_pair()
+    fig1310_steering()
+    fig1310_cmrr()
+    fig1310_three_stages()
+    fig1310_limits()
+    # §13.11 LDO зсередини
+    fig1311_architecture()
+    fig1311_feedback()
+    fig1311_noninv_disguise()
+    fig1311_heat()
+    fig1311_reference()
+    fig1311_known_blocks()
+    # 🔌 вставка до 2.8.11 — модуль стабілізатора
+    fig1311c_module()
+    fig1311c_fixed_vs_adj()
+    # 🧮 вставка до 2.8.2 — формула зворотного зв'язку
+    fig132m_loop()
+    fig132m_desens()
+    # 🧮 вставка до 2.8.8 — пороги гістерезису
+    fig138m_schmitt()
+    fig138m_band()
+    # 🧮 вставка до 2.8.9 — GBW і slew rate
+    fig139m_gbw()
+    fig139m_slew()
+    # 🧮 вставка до 2.8.11 — розсіювання LDO
+    fig1311m_efficiency()
+    fig1311m_when()
+    # 🔌 вставка до 2.8.5 — буфер для високоомного джерела
+    fig135c_problem()
+    fig135c_buffer_fix()
+    # 🔌 вставка до 2.8.7 — компаратори-мікросхеми
+    fig137c_opencoll()
+    fig137c_patterns()
+    # 🔌 вставка до 2.8.9 — rail-to-rail і single-supply
+    fig139c_swing()
+    fig139c_single_supply()
+    # ⚙️ вставка до 2.8.6 — зміщення й масштабування
+    fig136a_line()
+    fig136a_circuit()
+    # ⚙️ вставка до 2.8.8 — нічник на фоторезисторі
+    fig138a_circuit()
+    fig138a_behavior()
+    # 📜 історія до §2.8.2 — Гарольд Блек
+    fig132i_timeline()
+    fig132i_two_ideas()
+    fig132i_trio()
+    print("OK — Розділ 13 (історія + §13.1–§13.11 + вставки) згенеровано в", OUT)

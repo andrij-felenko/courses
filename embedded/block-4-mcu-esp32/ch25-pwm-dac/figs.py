@@ -1253,6 +1253,137 @@ def fig66_dac_vs_pwm_map():
     save("fig-25-6-6-dac-vs-pwm-map.svg", s)
 
 
+# ── §4.7.7 Адресні світлодіоди ───────────────────────────────────────────────
+def fig71_problem():
+    W, H = 900, 330
+    s = header(W, H)
+    s += text(W / 2, 32, "Адресні світлодіоди: кожен піксель — свого кольору", 18, INK, "middle", "bold")
+    s += rect(60, 80, 370, 200, LRED, RED, 2, 12)
+    s += text(245, 106, "«У лоб»", 12, RED, "middle", "bold")
+    s += text(245, 136, "кожному RGB-світлодіоду —", 10, INK, "middle")
+    s += text(245, 156, "3 канали ШІМ", 11, INK, "middle", "bold")
+    s += text(245, 190, "100 пікселів → 300 каналів", 10.5, RED, "middle", "bold")
+    s += text(245, 212, "✗ неможливо", 12, RED, "middle", "bold")
+    s += rect(470, 80, 370, 200, LGRN, GREEN, 2, 12)
+    s += text(655, 106, "Адресні (WS2812-клас)", 12, GREEN, "middle", "bold")
+    s += text(655, 136, "кожен піксель має власний", 10, INK, "middle")
+    s += text(655, 156, "контролер і сам ШІМить R/G/B", 10, INK, "middle")
+    s += text(655, 190, "усі — на ОДНОМУ дроті даних", 10.5, GREEN, "middle", "bold")
+    s += text(655, 212, "✓ хоч тисяча пікселів", 12, GREEN, "middle", "bold")
+    s += text(W / 2, 308, "МК більше не ШІМить кожен колір — він лише шле дані, а ШІМ робить сам піксель.",
+              10.5, INK, "middle", "bold")
+    save("fig-25-7-1-problem.svg", s)
+
+
+def fig72_pixel_pwm():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "ШІМ усередині кожного пікселя", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "піксель отримує 24 біти кольору й сам крутить ШІМ на трьох світлодіодах (§4.7.1)",
+              9.8, GREY, "middle", style="italic")
+    s += rect(60, 84, 220, 70, LBLUE, BLUE, 1.8, 10)
+    s += text(170, 114, "24 біти кольору", 12, BLUE, "middle", "bold")
+    s += text(170, 136, "R=200  G=50  B=255", 10, INK, "middle")
+    s += arrow(280, 119, 330, 119, INK, 2.2)
+    s += rect(330, 80, 510, 200, "#fbfbff", INK, 1.8, 12)
+    s += text(585, 104, "піксель: контролер + 3 світлодіоди", 11, INK, "middle", "bold")
+    chans = [("R", 0.78, RED, 130), ("G", 0.20, GREEN, 180), ("B", 1.0, BLUE, 230)]
+    for lab, duty, col, yy in chans:
+        s += text(360, yy + 4, lab, 11, col, "middle", "bold")
+        s += pwm(385, yy - 12, yy + 8, 60, duty, 6, col)
+        s += text(820, yy + 4, f"яскравість {int(duty*255)}", 9, GREY, "end")
+    s += text(W / 2, 304, "Контролер пікселя ШІМить кожен субсвітлодіод до заданої яскравості — рівно як у §4.7.1, лише вбудовано.",
+              9.8, INK, "middle", "bold")
+    save("fig-25-7-2-pixel-pwm.svg", s)
+
+
+def fig73_daisy_chain():
+    W, H = 900, 290
+    s = header(W, H)
+    s += text(W / 2, 32, "Ланцюжок: дані течуть від пікселя до пікселя", 18, INK, "middle", "bold")
+    s += rect(60, 110, 110, 60, LBLUE, BLUE, 1.8, 10)
+    s += text(115, 145, "МК", 13, BLUE, "middle", "bold")
+    x = 200
+    for i in range(3):
+        s += rect(x, 110, 150, 60, LGRN, GREEN, 1.8, 10)
+        s += text(x + 75, 138, "піксель " + str(i + 1), 10.5, GREEN, "middle", "bold")
+        s += text(x + 20, 162, "DIN", 8, GREY, "start")
+        s += text(x + 130, 162, "DOUT", 8, GREY, "end")
+        s += arrow(x - 30, 140, x, 140, INK, 2)
+        x += 180
+    s += arrow(x - 30, 140, x, 140, INK, 2)
+    s += text(x + 6, 144, "…далі", 10, GREY, "start")
+    s += rect(120, 196, 660, 78, "#fbfbfb", GREY, 1.4, 10)
+    s += text(450, 220, "Перший піксель забирає СВОЇ перші 24 біти, а решту штовхає сусідові.", 10.3, INK, "middle", "bold")
+    s += text(450, 242, "На N пікселів шлемо N×24 біти поспіль; наприкінці довгий LOW — «защіпка» —", 9.8, GREY, "middle")
+    s += text(450, 260, "вмикає всі кольори одночасно.", 9.8, GREY, "middle")
+    save("fig-25-7-3-daisy-chain.svg", s)
+
+
+def fig74_bit_encoding():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Біти — шириною імпульсу (один дріт, без такту)", 18, INK, "middle", "bold")
+    bits = [1, 0, 1, 1, 0]
+    x0, w, hi, lo = 120, 130, 110, 150
+    pts = [(x0, lo)]
+    cx = x0
+    for b in bits:
+        h = 0.7 if b else 0.32
+        pts += [(cx, hi), (cx + w * h, hi), (cx + w * h, lo), (cx + w, lo)]
+        s += text(cx + w / 2, hi - 8, str(b), 12, (GREEN if b else RED), "middle", "bold")
+        cx += w
+    s += poly(pts, BLUE, 2.6)
+    s += text(80, (hi + lo) / 2, "DATA", 10, BLUE, "end", "bold")
+    s += text(x0 + 65, lo + 22, "довгий HIGH = 1", 8.6, GREEN, "middle")
+    s += text(x0 + 1.5 * w + 65, lo + 22, "короткий HIGH = 0", 8.6, RED, "middle")
+    s += rect(120, 232, 660, 46, LAMB, GOLD, 1.4, 10)
+    s += text(450, 254, "Такту нема — біт розрізняють за шириною імпульсу (сотні нс), тому таймінг критичний.", 9.8, INK, "middle", "bold")
+    s += text(450, 272, "Точні часи, скидання й кадр — у ⚙️-вставці про протокол одного дроту.", 9, GREY, "middle")
+    save("fig-25-7-4-bit-encoding.svg", s)
+
+
+def fig75_why_hardware():
+    W, H = 900, 290
+    s = header(W, H)
+    s += text(W / 2, 32, "Чому таймінг роблять залізом, а не «руками»", 18, INK, "middle", "bold")
+    s += rect(60, 80, 370, 150, LRED, RED, 2, 12)
+    s += text(245, 106, "Біт-бенгінг у коді ✗", 11.5, RED, "middle", "bold")
+    s += text(245, 136, "смикаємо ніжку — а переривання", 9.8, INK, "middle")
+    s += text(245, 154, "збиває точний таймінг", 9.8, INK, "middle")
+    s += text(245, 188, "піксель прочитає не той біт →", 9.8, RED, "middle")
+    s += text(245, 206, "глюки кольору", 11, RED, "middle", "bold")
+    s += rect(470, 80, 370, 150, LGRN, GREEN, 2, 12)
+    s += text(655, 106, "Спеціальний блок ✓", 11.5, GREEN, "middle", "bold")
+    s += text(655, 136, "RMT (ESP32) чи DMA жене біти", 9.8, INK, "middle")
+    s += text(655, 154, "з точним таймінгом сам,", 9.8, INK, "middle")
+    s += text(655, 188, "не залежачи від коду й переривань", 9.8, GREEN, "middle")
+    s += text(655, 206, "→ кольори чисті", 11, GREEN, "middle", "bold")
+    s += text(W / 2, 262, "Жорсткий таймінг без такту — робота для заліза; біт-бенгінг (§4.4.7) тут хіба з вимкненими перериваннями.",
+              9.6, INK, "middle", "bold")
+    save("fig-25-7-5-why-hardware.svg", s)
+
+
+def fig76_power():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Живлення: стрічка — це не іграшка", 19, INK, "middle", "bold")
+    s += rect(70, 84, 350, 96, LAMB, GOLD, 1.8, 12)
+    s += text(245, 112, "Скільки їсть струму", 11.5, "#8a6d1a", "middle", "bold")
+    s += text(245, 138, "піксель на повну білизну ≈ 60 мА", 10, INK, "middle")
+    s += text(245, 160, "(3 × 20 мА)", 9, GREY, "middle")
+    s += rect(470, 84, 370, 96, LRED, RED, 1.8, 12)
+    s += text(655, 112, "100 пікселів ≈ 6 А !", 13, RED, "middle", "bold")
+    s += text(655, 140, "із ніжки МК такого не взяти", 10, INK, "middle")
+    s += text(655, 162, "(§4.4.6) — треба окреме живлення", 9.6, GREY, "middle")
+    s += text(W / 2, 214, "Тому: окремий блок 5 В, спільна земля, зсув рівнів даних, конденсатор і резистор на даних.",
+              10, INK, "middle", "bold")
+    s += text(W / 2, 240, "Усі тонкощі підключення (інжекція живлення по довжині, номінали) — у 🔌-вставці про стрічку.",
+              9.4, GREY, "middle")
+    s += rect(150, 262, 600, 0, FAINT, FAINT, 0)
+    save("fig-25-7-6-power.svg", s)
+
+
 if __name__ == "__main__":
     # §25.1 ШІМ: «вдавати» аналог
     fig11_only_on_off()
@@ -1296,4 +1427,11 @@ if __name__ == "__main__":
     fig64_esp32_dac()
     fig65_dac_waveform()
     fig66_dac_vs_pwm_map()
-    print("OK - figures for Section 25 (25.1..25.6) generated in", OUT)
+    # §4.7.7 Адресні світлодіоди
+    fig71_problem()
+    fig72_pixel_pwm()
+    fig73_daisy_chain()
+    fig74_bit_encoding()
+    fig75_why_hardware()
+    fig76_power()
+    print("OK - figures for Section 25 (25.1..25.7) generated in", OUT)

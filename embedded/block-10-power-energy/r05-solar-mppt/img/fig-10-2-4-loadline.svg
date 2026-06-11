@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="420" viewBox="0 0 940 420">
+<rect width="940" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Навантаження вирішує, де на кривій ти сидиш</text>
+<line x1="110.0" y1="340.0" x2="810.0" y2="340.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="110.0" y1="340.0" x2="110.0" y2="70.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<text x="810.0" y="360.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">V →</text>
+<text x="101.0" y="68.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">I</text>
+<polyline points="110.0,94.5 285.0,95.5 460.0,99.5 576.7,104.4 670.0,119.1 728.3,153.5 775.0,232.0 798.3,300.7 810.0,340.0" fill="none" stroke="#1f8a3b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="296.7" y="86.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">ВАХ панелі</text>
+<circle cx="670.0" cy="119.1" r="5.0" fill="#c0271e" stroke="#c0271e" stroke-width="0"/>
+<text x="678.0" y="111.1" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">MPP (ціль)</text>
+<line x1="541.7" y1="340.0" x2="541.7" y2="70.0" stroke="#1f47b5" stroke-width="2" stroke-dasharray="5,4" stroke-linecap="round"/>
+<text x="541.7" y="68.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">батарея 3.7 В</text>
+<circle cx="541.7" cy="101.9" r="5.0" fill="#1f47b5" stroke="#1f47b5" stroke-width="0"/>
+<text x="533.7" y="117.9" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1f47b5" text-anchor="end" font-weight="normal" font-style="normal">робоча точка</text>
+<line x1="110.0" y1="340.0" x2="693.3" y2="133.8" stroke="#caa24a" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round"/>
+<text x="697.3" y="133.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">резистор (V=IR)</text>
+<rect x="70.0" y="362.0" width="800.0" height="46.0" rx="9" fill="#fbf7ec" stroke="#caa24a" stroke-width="1.4"/>
+<text x="470.0" y="380.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Панель — джерело, а навантаження накладає свою умову: резистор — пряма крізь нуль (V=IR), батарея — майже вертикаль на своїй напрузі.</text>
+<text x="470.0" y="395.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Робоча точка — там, де ця умова перетинає ВАХ. Якщо батарея 3.7 В, панель ЗМУШЕНА сидіти на 3.7 В — ЛІВІШЕ за MPP (4.8 В),</text>
+<text x="470.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">а отже, віддає менше, ніж могла б. Прибрати цей розрив — і є задача MPPT (теми 10.5.4–5).</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="452" viewBox="0 0 900 452">
+<rect width="900" height="452" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
+</defs>
+<text x="450.0" y="26.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Прилад не «безкоштовний»: вхідний опір вольтметра і спад на амперметрі</text>
+<line x1="455.0" y1="50.0" x2="455.0" y2="434.0" stroke="#e4e4e4" stroke-width="2" stroke-linecap="round"/>
+<text x="230.0" y="66.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Вольтметр — 10 МОм у паралель</text>
+<rect x="40.0" y="130.0" width="40.0" height="44.0" rx="4" fill="#fff" stroke="#c0271e" stroke-width="1.8"/>
+<text x="60.0" y="157.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Uвх</text>
+<line x1="80.0" y1="152.0" x2="150.0" y2="152.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="150.0" y="141.0" width="70.0" height="22.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="185.0" y="133.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="italic">Rдж</text>
+<line x1="220.0" y1="152.0" x2="300.0" y2="152.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="300.0" cy="152.0" r="3.2" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1"/>
+<text x="300.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">вузол</text>
+<line x1="300.0" y1="152.0" x2="300.0" y2="230.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="300.0" cy="252.0" r="22.0" fill="#fff" stroke="#1f47b5" stroke-width="2"/>
+<text x="300.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">V</text>
+<text x="300.0" y="265.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">10МОм</text>
+<line x1="300.0" y1="274.0" x2="300.0" y2="312.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="282.0" y1="312.0" x2="318.0" y2="312.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="288.0" y1="318.0" x2="312.0" y2="318.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="294.0" y1="324.0" x2="306.0" y2="324.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="36.0" y="350.0" width="392.0" height="84.0" rx="8" fill="#f3f6fb" stroke="#1f47b5" stroke-width="1.4"/>
+<text x="232.0" y="371.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">10 МОм майже не відбирають струму — АЛЕ:</text>
+<text x="58.0" y="392.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">• Rдж = 1 кОм → похибка ≈ 0.01%   ✓</text>
+<text x="58.0" y="411.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">• Rдж = 1 МОм → показ занижений на ~9%   ✗</text>
+<text x="58.0" y="428.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">(на високоомних вузлах див. «навантаження» §1.6.8)</text>
+<text x="682.0" y="66.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Амперметр — шунт послідовно</text>
+<rect x="490.0" y="180.0" width="40.0" height="44.0" rx="4" fill="#fff" stroke="#c0271e" stroke-width="1.8"/>
+<text x="510.0" y="207.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">3.3В</text>
+<line x1="510.0" y1="180.0" x2="510.0" y2="152.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="510.0" y1="152.0" x2="560.0" y2="152.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="585.0" cy="152.0" r="22.0" fill="#fff" stroke="#c0271e" stroke-width="2"/>
+<text x="585.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">A</text>
+<text x="585.0" y="122.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">шунт усередині</text>
+<text x="585.0" y="198.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">спад Uнав ≈ 0.2 В</text>
+<line x1="607.0" y1="152.0" x2="680.0" y2="152.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="680.0" y="141.0" width="80.0" height="22.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="720.0" y="133.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="italic">Rнав</text>
+<line x1="760.0" y1="152.0" x2="820.0" y2="152.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="820.0" y1="152.0" x2="820.0" y2="272.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="820.0" y1="272.0" x2="510.0" y2="272.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="510.0" y1="272.0" x2="510.0" y2="224.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="492.0" y="350.0" width="376.0" height="84.0" rx="8" fill="#fdeeee" stroke="#c0271e" stroke-width="1.4"/>
+<text x="680.0" y="371.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.4" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Амперметр «краде» трохи напруги (burden voltage):</text>
+<text x="512.0" y="392.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">• на A-діапазоні — десятки мВ (дрібниця)   ✓</text>
+<text x="512.0" y="411.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.3" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">• на µA/mA — сотні мВ: коло 3.3 В це відчує   ✗</text>
+<text x="512.0" y="428.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.3" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">тому в розрив надовго амперметр не лишають</text>
+</svg>

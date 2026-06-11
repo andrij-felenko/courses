@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300">
+<rect width="900" height="300" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Лінійний список проти колеса</text>
+<rect x="60.0" y="80.0" width="370.0" height="150.0" rx="12" fill="#fff6e0" stroke="#caa24a" stroke-width="2"/>
+<text x="245.0" y="106.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a6d1a" text-anchor="middle" font-weight="bold" font-style="normal">Лінійний список</text>
+<text x="245.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">щотіку перебрати ВСІ N таймерів</text>
+<text x="245.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#8a6d1a" text-anchor="middle" font-weight="bold" font-style="normal">O(N)</text>
+<text x="245.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">добре, коли таймерів жменя (§4.6.5a)</text>
+<rect x="470.0" y="80.0" width="370.0" height="150.0" rx="12" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="655.0" y="106.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Колесо таймерів</text>
+<text x="655.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">щотіку — лише поточний слот</text>
+<text x="655.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">O(1)</text>
+<text x="655.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">тримає тисячі таймерів дешево</text>
+<text x="450.0" y="258.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Затримка довша за колесо → лічильник обертів або ярусні колеса (як стрілки годинника).</text>
+<text x="450.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Жменя таймерів — лінійний список; тисячі — колесо.</text>
+</svg>

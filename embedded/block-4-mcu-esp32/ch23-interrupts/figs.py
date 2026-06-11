@@ -2031,6 +2031,124 @@ def fig7m2_overrun():
     save("fig-23-7m-2-overrun.svg", s)
 
 
+# ── 📜 історія до 4.5.4 — Apollo 11, аларми 1201/1202 ────────────────────────
+def fig4i1_overload():
+    W, H = 900, 310
+    s = header(W, H)
+    s += text(W / 2, 32, "Чому кричав комп'ютер: перевантаження", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "зайвий потік від радара спалив ту мить, якої бракувало, — і навантаження перейшло 100%",
+              10, GREY, "middle", style="italic")
+    # load bar
+    x0, y, w, h = 90, 110, 620, 50
+    s += line(x0 + w * 0.82, y - 10, x0 + w * 0.82, y + h + 16, RED, 1.6, dash="4 3")
+    s += text(x0 + w * 0.82, y - 16, "100% часу", 9, RED, "middle", "bold")
+    segs = [("наведення", 0.22, LBLUE, BLUE), ("навігація", 0.20, LBLUE, BLUE),
+            ("керування", 0.20, LBLUE, BLUE), ("дисплеї", 0.20, LGRN, GREEN),
+            ("радар (зайве!)", 0.18, LRED, RED)]
+    x = x0
+    for lab, frac, fill, col in segs:
+        s += rect(x, y, w * frac, h, fill, col, 1.6, 0)
+        s += text(x + w * frac / 2, y + h / 2 + 4, lab, 8.6, col, "middle", "bold")
+        x += w * frac
+    s += text(x0 + w * 0.91, y + h / 2 + 4, "→ за межу", 8.6, RED, "middle", "bold")
+    s += rect(150, 196, 600, 96, "#fbfbfb", GREY, 1.4, 10)
+    s += text(450, 220, "Радар зустрічі лишився в положенні, що слало AGC безперервний потік —", 10, INK, "middle")
+    s += text(450, 240, "і той з'їдав ~13% часу (за переказами), якого вже й так бракувало.", 10, GREY, "middle")
+    s += text(450, 264, "Виконавець не міг розкласти всі задачі → аларми 1201 / 1202", 11, RED, "middle", "bold")
+    s += text(450, 282, "(«немає вільних областей» / «немає наборів» — тобто переповнення).", 9, GREY, "middle")
+    save("fig-23-4i-1-overload.svg", s)
+
+
+def fig4i2_priority_shed():
+    W, H = 900, 300
+    s = header(W, H)
+    s += text(W / 2, 32, "Що врятувало посадку: пріоритет", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "перевантажений комп'ютер не падав — він перезапускався й тримав головне, скидаючи другорядне",
+              9.6, GREY, "middle", style="italic")
+    s += rect(80, 88, 350, 170, LGRN, GREEN, 2, 12)
+    s += text(255, 114, "ЛИШИТИ (критичне)", 12, GREEN, "middle", "bold")
+    for i, t in enumerate(["• наведення", "• навігація", "• керування посадкою"]):
+        s += text(110, 146 + i * 30, t, 11, INK, "start")
+    s += rect(470, 88, 350, 170, LRED, RED, 2, 12)
+    s += text(645, 114, "СКИНУТИ (другорядне)", 12, RED, "middle", "bold")
+    for i, t in enumerate(["• частина дисплеїв", "• менш важливі задачі", "• усе, що може зачекати"]):
+        s += text(500, 146 + i * 30, t, 11, INK, "start")
+    s += text(W / 2, 284, "Пріоритетний виконавець перезапускався й відновлював лише найважливіше — і посадка тривала.",
+              10, INK, "middle", "bold")
+    save("fig-23-4i-2-priority-shed.svg", s)
+
+
+def fig4i3_ground_call():
+    W, H = 900, 270
+    s = header(W, H)
+    s += text(W / 2, 32, "Рішення за секунди: «GO на цей аларм»", 19, INK, "middle", "bold")
+    chain = [("аларм 1201/1202", "на дисплеї екіпажу", RED),
+             ("Дж. Гарман", "мав список безпечних кодів", BLUE),
+             ("С. Бейлз", "керівник наведення: «GO»", GREEN),
+             ("екіпаж", "посадка триває", GOLD)]
+    x = 70
+    for i, (a, b, col) in enumerate(chain):
+        fill = {RED: LRED, BLUE: LBLUE, GREEN: LGRN, GOLD: LAMB}[col]
+        s += rect(x, 96, 180, 70, fill, col, 1.8, 10)
+        s += text(x + 90, 124, a, 11, col, "middle", "bold")
+        s += text(x + 90, 146, b, 8.4, GREY, "middle")
+        if i < 3:
+            s += arrow(x + 180, 131, x + 196, 131, INK, 2)
+        x += 196
+    s += text(W / 2, 206, "А за лаштунками — команда MIT (Гемілтон, Лейнінг та інші), що НАПЕРЕД зробила", 10, INK, "middle", "bold")
+    s += text(W / 2, 226, "виконавець стійким до перевантаження. Спрацювали залізо, люди й завбачлива інженерія.", 9.6, GREY, "middle")
+    save("fig-23-4i-3-ground-call.svg", s)
+
+
+# ── 📜 історія до 4.5.6 — Therac-25 ──────────────────────────────────────────
+def fig6i1_race():
+    W, H = 900, 320
+    s = header(W, H)
+    s += text(W / 2, 32, "Гонка даних, що коштувала життів", 19, INK, "middle", "bold")
+    s += text(W / 2, 54, "швидке редагування призначення розсинхронізувало програму й механіку",
+              10.3, GREY, "middle", style="italic")
+    # two tasks
+    s += rect(70, 86, 340, 60, LBLUE, BLUE, 1.8, 10)
+    s += text(240, 110, "задача: введення призначення", 10.5, BLUE, "middle", "bold")
+    s += text(240, 130, "оператор швидко правив (за ~8 с)", 9, GREY, "middle")
+    s += rect(490, 86, 340, 60, LBLUE, BLUE, 1.8, 10)
+    s += text(660, 110, "задача: налаштування променя", 10.5, BLUE, "middle", "bold")
+    s += text(660, 130, "рухала мішень / магніти", 9, GREY, "middle")
+    # shared state mismatch
+    s += arrow(240, 146, 320, 176, GREY, 1.8)
+    s += arrow(660, 146, 580, 176, GREY, 1.8)
+    s += rect(300, 178, 300, 58, LRED, RED, 1.8, 10)
+    s += text(450, 200, "неузгодженість стану", 11, RED, "middle", "bold")
+    s += text(450, 222, "програма: «слабкий пучок» · механіка: без мішені", 9, INK, "middle")
+    # outcome
+    s += arrow(450, 236, 450, 264, RED, 2.2)
+    s += rect(180, 266, 540, 42, "#fbfbfb", RED, 1.6, 10)
+    s += text(450, 290, "потужний промінь спрацьовував напряму → багаторазове передозування", 10.3, RED, "middle", "bold")
+    save("fig-23-6i-1-race.svg", s)
+
+
+def fig6i2_no_interlock():
+    W, H = 900, 290
+    s = header(W, H)
+    s += text(W / 2, 32, "Зниклий запобіжник: довіра самій лише програмі", 18, INK, "middle", "bold")
+    # earlier models
+    s += rect(70, 78, 350, 150, LGRN, GREEN, 2, 12)
+    s += text(245, 104, "Ранні моделі", 12.5, GREEN, "middle", "bold")
+    s += text(245, 134, "програма", 10.5, INK, "middle")
+    s += text(245, 156, "+ НЕЗАЛЕЖНИЙ апаратний", 10.5, INK, "middle", "bold")
+    s += text(245, 174, "блокувальник", 10.5, INK, "middle", "bold")
+    s += text(245, 204, "софт помилявся → залізо не пускало ✓", 9, GREEN, "middle", "bold")
+    # therac-25
+    s += rect(470, 78, 350, 150, LRED, RED, 2, 12)
+    s += text(645, 104, "Therac-25", 12.5, RED, "middle", "bold")
+    s += text(645, 138, "лише програма", 11.5, INK, "middle", "bold")
+    s += text(645, 160, "(апаратні блокування прибрали)", 9.2, GREY, "middle")
+    s += text(645, 204, "помилка софту нічим не страхована ✗", 9, RED, "middle", "bold")
+    s += text(W / 2, 264, "Прибрати незалежний апаратний запобіжник — означало лишити систему без останньої сітки.",
+              10, INK, "middle", "bold")
+    save("fig-23-6i-2-no-interlock.svg", s)
+
+
 if __name__ == "__main__":
     # Історія розділу (📜)
     fig01_polling_vs_interrupt()
@@ -2111,4 +2229,11 @@ if __name__ == "__main__":
     # 🧮 вставка до 4.5.7 — бюджет переривань
     fig7m1_budget_formula()
     fig7m2_overrun()
-    print("OK - figures for Section 23 (history + 23.1..23.7 + s1c s2c s1a s3a s5a s6a s4m s7m) generated in", OUT)
+    # 📜 історія до 4.5.4 — Apollo 11
+    fig4i1_overload()
+    fig4i2_priority_shed()
+    fig4i3_ground_call()
+    # 📜 історія до 4.5.6 — Therac-25
+    fig6i1_race()
+    fig6i2_no_interlock()
+    print("OK - figures for Section 23 (history + 23.1..23.7 + s1c s2c s1a s3a s5a s6a s4m s7m s4i s6i) generated in", OUT)
