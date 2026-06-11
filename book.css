@@ -360,7 +360,7 @@ body.modal-open { overflow: hidden; }
   font-weight: 800; font-size: 0.92rem;
   background: var(--accent-light); color: var(--accent);
 }
-.ch-card .c-body { flex: 1; min-width: 0; }
+.ch-card .c-body { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
 .ch-card .c-ttl { font-size: 0.92rem; font-weight: 600; line-height: 1.35; color: var(--text); }
 .ch-card .c-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.25rem; }
 
@@ -371,6 +371,39 @@ body.modal-open { overflow: hidden; }
 
 .ch-card.done .c-badge { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.66rem; font-weight: 700; color: #15803d; }
 .ch-card.done .c-meta { color: var(--accent); }
+
+/* ─── Зміст: список розділів із клікабельними темами, що розгортаються ───── */
+.ch-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.ch-item { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg); }
+.ch-item.done:hover { border-color: var(--accent); }
+.ch-item.pending { background: var(--bg-alt); border-style: dashed; }
+.ch-row { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0.85rem; }
+.ch-item .c-num {
+  flex-shrink: 0; min-width: 2.7rem; height: 1.7rem; padding: 0 0.45rem; border-radius: 7px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.8rem; background: var(--accent-light); color: var(--accent);
+}
+.ch-open { display: flex; align-items: center; gap: 0.7rem; flex: 1; min-width: 0; text-decoration: none; color: inherit; }
+.ch-open .c-ttl { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+.ch-open .c-go { margin-left: auto; flex-shrink: 0; font-size: 0.76rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
+.ch-open:hover .c-ttl { color: var(--accent); }
+.ch-exp {
+  flex-shrink: 0; background: var(--bg-alt); color: var(--text-muted); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.28rem 0.55rem; font-size: 0.73rem; font-weight: 700; cursor: pointer; white-space: nowrap;
+}
+.ch-exp::after { content: "▾"; margin-left: 0.3rem; display: inline-block; transition: transform 0.15s; }
+.ch-exp.open::after { transform: rotate(180deg); }
+.ch-exp:hover { border-color: var(--accent); color: var(--accent); }
+.ch-topics { list-style: none; margin: 0; padding: 0.15rem 0.9rem 0.6rem 3.55rem; border-top: 1px solid var(--border); }
+.ch-topics li { margin: 0; }
+.ch-topics a { display: flex; gap: 0.55rem; padding: 0.34rem 0; font-size: 0.86rem; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--bg-alt); line-height: 1.4; }
+.ch-topics li:last-child a { border-bottom: none; }
+.ch-topics a:hover { color: var(--accent); }
+.ch-topics .t-num { flex-shrink: 0; min-width: 3.1em; color: var(--text-muted); font-variant-numeric: tabular-nums; font-size: 0.82rem; }
+.ch-topics li.t-pending a { color: var(--text-muted); }
+.ch-item.pending .c-num { background: #eef0f3; color: #aab2bd; }
+.ch-item.pending .c-ttl { flex: 1; font-size: 0.92rem; font-weight: 600; color: #9aa3ae; }
+.ch-item.pending .c-badge { flex-shrink: 0; font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #aab2bd; white-space: nowrap; }
 
 /* ─── Loading / error states ────────────────────────────────────────────── */
 .state { max-width: 860px; margin: 0 auto; padding: 5rem 4rem; text-align: center; color: var(--text-muted); }
@@ -461,6 +494,9 @@ body.modal-open { overflow: hidden; }
 .lib-stat-k { color: var(--text-muted); }
 .lib-stat-v { color: var(--text); font-variant-numeric: tabular-nums; }
 .lib-stat-v b { color: var(--accent, #1d6fa4); font-weight: 800; }
+.lib-stat-head { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); padding: 0.55rem 0 0.15rem; }
+.lib-stat-row.lib-stat-sub { padding-left: 0.85rem; }
+.lib-stat-row.lib-stat-sub .lib-stat-k { font-size: 0.81rem; }
 .lib-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 0.7rem; }
 .lib-bar span { display: block; height: 100%; background: var(--accent, #1d6fa4); border-radius: 3px; }
 .lib-foot { display: flex; justify-content: space-between; align-items: center; }

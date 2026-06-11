@@ -455,14 +455,42 @@
   /* ════════════════════════════════════════════════════════════════════
      7) ОБКЛАДИНКА / МАПА КУРСУ
      ════════════════════════════════════════════════════════════════════ */
+  // теми розділів для змісту: з _status.md → { "2.1": [{num,title,done}], ... }
+  function parseCoverTopics(text, map) {
+    var cur = null, lines = String(text).split(/\r?\n/);
+    for (var i = 0; i < lines.length; i++) {
+      var hm = lines[i].match(/^##\s+Розділ\s+([\d.]+)/u);
+      if (hm) { cur = hm[1]; if (!map[cur]) map[cur] = []; continue; }
+      var tm = lines[i].match(/^\s*-\s*(🟢|🔄|🟡|⬜)\s+(\d+(?:\.\d+)+)\s+(.*)$/u);
+      if (tm && cur) map[cur].push({ num: tm[2], title: tm[3].replace(/\s*<!--.*$/, "").trim(), done: tm[1] === "🟢" });
+    }
+  }
+  function plTopics(n) {
+    var a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return n + " тема";
+    if (a >= 2 && a <= 4 && (b < 10 || b >= 20)) return n + " теми";
+    return n + " тем";
+  }
+
   function renderCover() {
+    setContent('<div class="state"><div class="spinner"></div>Готуємо зміст…</div>');
+    var urls = BOOK.modules.map(function (m) { return BASE + m.slug + "/_status.md"; });
+    Promise.all(urls.map(function (u) {
+      return fetch(u, { cache: "no-cache" }).then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; });
+    })).then(function (texts) {
+      var topics = {};
+      texts.forEach(function (tx) { parseCoverTopics(tx, topics); });
+      setContent(coverHtml(topics));
+      buildCoverSidebar();
+    });
+  }
+
+  function coverHtml(topics) {
     var doneCount = FLAT.filter(function (c) { return c.status === "done"; }).length;
     var h = '<header class="cover-hero"><div class="kicker">Курс · ' + BOOK.modules.length + " модулів</div>" +
       "<h1>" + escapeHtml(BOOK.title) + "</h1><p>" + escapeHtml(BOOK.subtitle) + "</p>" +
       '<div class="cover-stats">' +
-      stat(BOOK.modules.length, "модулів") +
-      stat(FLAT.length, "розділів") +
-      stat(doneCount, "готових зараз") +
+      stat(BOOK.modules.length, "модулів") + stat(FLAT.length, "розділів") + stat(doneCount, "готових зараз") +
       "</div></header>";
 
     h += '<div class="toc">';
@@ -470,24 +498,36 @@
       var done = m.chapters.filter(function (c) { return c.status === "done"; }).length;
       h += '<div class="module-block"><div class="module-head"><span class="m-num">Модуль ' + m.n + "</span>" +
         '<span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
-        '<span class="m-prog">' + done + " / " + m.chapters.length + ' готово</span></div><div class="ch-grid">';
+        '<span class="m-prog">' + done + " / " + m.chapters.length + ' готово</span></div><div class="ch-list">';
       m.chapters.forEach(function (c) {
+        var mr = m.n + "." + c.n;
         if (c.status === "done") {
-          var hc = (c.histories || []).length;
-          h += '<a class="ch-card done" href="#ch=' + c.slug + '"><span class="c-num">' + m.n + "." + c.n + "</span>" +
-            '<span class="c-body"><span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
-            '<span class="c-meta">' + (hc ? hc + " історич. вставок · " : "") + "читати →</span></span></a>";
+          var tops = topics[mr] || [];
+          var tid = "tp-" + mr.replace(/\./g, "-");
+          h += '<div class="ch-item done"><div class="ch-row">' +
+            '<a class="ch-open" href="#ch=' + c.slug + '"><span class="c-num">' + mr + "</span>" +
+            '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
+            '<span class="c-go">читати →</span></a>';
+          if (tops.length) h += '<button class="ch-exp" type="button" data-exp="' + tid + '" aria-expanded="false">' + plTopics(tops.length) + "</button>";
+          h += "</div>";
+          if (tops.length) {
+            h += '<ul class="ch-topics" id="' + tid + '" hidden>';
+            tops.forEach(function (tp) {
+              h += '<li class="' + (tp.done ? "t-done" : "t-pending") + '"><a href="#ch=' + c.slug + "&at=sec-" + tp.num.split(".").join("-") + '">' +
+                '<span class="t-num">' + tp.num + "</span>" + escapeHtml(tp.title) + "</a></li>";
+            });
+            h += "</ul>";
+          }
+          h += "</div>";
         } else {
-          h += '<div class="ch-card pending"><span class="c-num">' + m.n + "." + c.n + "</span>" +
-            '<span class="c-body"><span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
-            '<span class="c-badge">незабаром</span></span></div>';
+          h += '<div class="ch-item pending"><div class="ch-row">' +
+            '<span class="c-num">' + mr + '</span><span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
+            '<span class="c-badge">незабаром</span></div></div>';
         }
       });
       h += "</div></div>";
     });
-    h += "</div>";
-    setContent(h);
-    buildCoverSidebar();
+    return h + "</div>";
   }
   function stat(num, lbl) { return '<div class="stat"><div class="num">' + num + '</div><div class="lbl">' + lbl + "</div></div>"; }
 
@@ -615,7 +655,13 @@
       var op = e.target.closest && e.target.closest("[data-hist]");
       if (op) { e.preventDefault(); openHist(op.getAttribute("data-hist")); return; }
       var cl = e.target.closest && e.target.closest("[data-close]");
-      if (cl) { e.preventDefault(); closeAllModals(); }
+      if (cl) { e.preventDefault(); closeAllModals(); return; }
+      var ex = e.target.closest && e.target.closest("[data-exp]");   // розгорнути/згорнути теми розділу в змісті
+      if (ex) {
+        e.preventDefault();
+        var ul = document.getElementById(ex.getAttribute("data-exp"));
+        if (ul) { var op = ul.hidden; ul.hidden = !op; ex.classList.toggle("open", op); ex.setAttribute("aria-expanded", String(op)); }
+      }
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeAllModals(); });
   }
