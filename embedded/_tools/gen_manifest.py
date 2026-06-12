@@ -25,21 +25,26 @@ for ln in plan.split("\n"):
         if mods[cur]["slug"] is None: mods[cur]["slug"] = slug
         mods[cur]["chapters"].append((R, title, d, main))
 
+def status_order(block):
+    """rank базових імен вставок за порядком появи в _status.md блоку (порядок читання).
+    Після slug-міграції імена не містять -sNN-, тож порядок беремо з _status.md."""
+    p = os.path.join(ROOT, block, "_status.md")
+    if not os.path.isfile(p): return {}
+    txt = io.open(p, encoding="utf-8").read()
+    rank = {}
+    for i, m in enumerate(re.finditer(r"`([^`]+\.md)`", txt)):
+        rank.setdefault(m.group(1).split("/")[-1], i)
+    return rank
+
 def scan(d):
-    """повертає (histories[], extras[]) у порядку читання"""
-    full = os.path.join(r"E:\develop\courses\embedded", d.replace("/", os.sep))
+    """повертає (histories[], extras[]) у порядку читання (slug-схема: hist-/comp-/math-/proj-)."""
+    full = os.path.join(ROOT, d.replace("/", os.sep))
     if not os.path.isdir(full): return [], []
     files = [f for f in os.listdir(full) if f.endswith(".md")]
-    def sec(f):
-        m = re.search(r"-s(\d+)-", f)
-        return int(m.group(1)) if m else 0
-    def trank(f):
-        for i, t in enumerate(["-c-", "-m-", "-a-"]):
-            if t in f: return i
-        return 9
-    hist = sorted([f for f in files if "history" in f], key=lambda f: (sec(f), f))
-    extra = sorted([f for f in files if re.search(r"-(c|m|a)-", f) and "history" not in f],
-                   key=lambda f: (sec(f), trank(f), f))
+    rank = status_order(d.split("/")[0])
+    keyf = lambda f: (rank.get(f, 10**6), f)
+    hist = sorted([f for f in files if f.startswith("hist-")], key=keyf)
+    extra = sorted([f for f in files if re.match(r"^(comp|math|proj)-", f)], key=keyf)
     return hist, extra
 
 def jstr(s): return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
