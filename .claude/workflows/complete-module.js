@@ -1,11 +1,11 @@
 export const meta = {
   name: 'complete-module',
-  description: 'Завершити модуль курсу embedded: Opus поглиблює скелет → веб-перевірка фактів → Sonnet пише фінальну прозу (без окремої вичитки). args = номер модуля (1–14).',
+  description: 'Завершити модуль курсу embedded: Opus поглиблює скелет → веб-перевірка фактів → Sonnet пише фінальну прозу (🧮-математику — Opus; без окремої вичитки). args = номер модуля (1–14).',
   phases: [
     { title: 'Скаут', detail: 'розбити чергу модуля на файли-одиниці (Sonnet)' },
     { title: 'Каркас', detail: 'Opus планує і ПОГЛИБЛЮЄ скелет; важкі — двопрохідно (draft → критик)' },
     { title: 'Факти', detail: 'веб-перевірка дат/імен/атрибуцій (Opus — історії/першість, Sonnet — решта; лише за наявності claims)' },
-    { title: 'Проза', detail: 'Sonnet пише фінальну якість одразу; фігури звіряє svgcheck, без LLM-переогляду SVG' },
+    { title: 'Проза', detail: 'Sonnet пише фінальну якість одразу (🧮-вставки — Opus, Фейнман-глибоко); фігури звіряє svgcheck, без LLM-переогляду SVG' },
   ],
 }
 
@@ -32,6 +32,9 @@ const CANON = `КАНОН (стисло; повне — ${ROOT}\\AUTHORING.md, �
 • Двомовні терміни: «провідність (conductivity, σ)». Не забігати вперед (лише цей і попередні розділи); назад — «§М.Р.Т».
 • ФАКТИ: будь-яке історичне/фактичне твердження (дата, ім'я, «хто перший», винахід, патент, національність/походження) — ЛИШЕ за підтвердженими даними зі стадії «Факти». Якщо вони дали корекцію — пиши скориговано й познач статус доказовості (усталено / спірно / імперсько-національне обрамлення / міф). Не клей ярлик «російське», коли джерела дають точніше (українець, поляк, серб, єврей, грузин, вірменин, балт…); розрізняй ідею / теорію / робочу реалізацію / систему / патент.
 • ФІГУРИ — чистий Python → ./img/*.svg, кожна несе вагу. Спільний kit імпортуй, НЕ переписуй: на початку figs.py «import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '_tools')); from svgkit import *». Рамки з текстом — ЛИШЕ через textbox()/fitbox() (вони ГАРАНТУЮТЬ вкладання — ширина/шрифт рахуються від напису). НЕ перечитуй SVG поодинці: після генерації звіряй геометрію скриптом «python ${ROOT}\\_tools\\svgcheck.py <тека-розділу> --min-font 8» і виправляй лише позначене (out-of-bounds / дрібний шрифт), доки не буде «із зауваженнями: 0».
+• НЕЙМИНГ — slug-only: тека розділу <slug>/, головний <slug>.md, вставки <kind>-<name>.md (kind: hist/comp/math/proj). Номери М.Р.Т — лише в manifest/_status/PLAN, не в іменах.
+• МАТЕМАТИКА — Фейнман-глибоко (§5/§16): 🧮-вставки й будь-яке матпояснення дають ЧОМУ від першопричини (чому вектор розкладається на незалежні складові, звідки |R|=√(Rx²+Ry²), чому паралелограм = додавання) — не констатацію формул.
+• КРОС-ЛІНКИ (§18): де треба глибше поняття з ІНШОЇ книги — коротка згадка (1–2 речення) + лінк [текст](book:math/<slug>) або [текст](book:components/<slug>); повний матеріал inline НЕ дублюй. Якщо цілі ще нема — однаково лінкуй (рушій покаже стаб «в розробці»): slug бери з _status.md тієї книги (math/<section>/_status.md, components/<sector>/_status.md), а якщо потрібного поняття там нема — ДОДАЙ рядок-стаб «## Розділ M.R — Назва · \`<section>/<slug>/\`» (з наступним вільним M.R) у відповідний _status.md.
 • МОВА — ФІНАЛЬНА З ПЕРШОГО РАЗУ: окремої вичитки не буде. Плавність (§5/§17): кожен абзац і підрозділ — місток від попереднього; наскрізна нитка; перед поверненням перечитай суцільно й виправ сам.`
 
 /* ── Схеми ── */
@@ -66,6 +69,7 @@ const RET = { type:'object', additionalProperties:false, required:['ok','statusL
   ok:{type:'boolean'}, statusLines:{type:'array',items:{type:'string'}}, files:{type:'array',items:{type:'string'}}, note:{type:'string'} } }
 
 const isHistory = (u) => /history/i.test(u.file) || /📜/.test(u.brief || '')
+const isMath = (u) => /^math-/.test(u.file || '') || /🧮/.test(u.brief || '')   // 🧮-вставки пишемо Opus-глибоко
 
 /* ── Стійкість до недоступності сервера ──────────────────────────────────────
    agent() сам кілька разів ретраїть тимчасові помилки й повертає null лише як
@@ -111,7 +115,10 @@ function prosePrompt(u, st, facts){
   const factBlock = facts
     ? `\n\nПЕРЕВІРЕНІ ФАКТИ (вживай ЛИШЕ їх для дат/імен/першостей; де status=corrected/myth/national-or-imperial-framing — пиши за correctedText і познач статус; unverifiable — обережне формулювання або пропуск):\n${JSON.stringify(facts.findings)}\nВКАЗІВКИ: ${facts.guidanceForProse}`
     : `\n\n(Фактичних тверджень на перевірку не було — пиши технічно точно.)`
-  const base = `${CANON}\n\nТи SONNET — пишеш ПОВНУ, ФІНАЛЬНУ прозу за готовим скелетом від архітектора. Окремої вичитки НЕ БУДЕ: мова, плавність і єдиний термін — одразу, фінальної якості. Дотримуйся скелета й обсягів канону.\n\nСКЕЛЕТ:\n${st.outline}\n\nФІГУРИ (реалізуй усі): ${JSON.stringify(st.figures)}${factBlock}`
+  const role = isMath(u)
+    ? 'Ти OPUS — пишеш ПОВНУ, ФІНАЛЬНУ прозу 🧮-математичної вставки Фейнман-глибоко (ЧОМУ від першопричини, не констатація формул), за скелетом від архітектора.'
+    : 'Ти SONNET — пишеш ПОВНУ, ФІНАЛЬНУ прозу за готовим скелетом від архітектора.'
+  const base = `${CANON}\n\n${role} Окремої вичитки НЕ БУДЕ: мова, плавність і єдиний термін — одразу, фінальної якості. Дотримуйся скелета й обсягів канону.\n\nСКЕЛЕТ:\n${st.outline}\n\nФІГУРИ (реалізуй усі): ${JSON.stringify(st.figures)}${factBlock}`
   const fig = `\nФігури: ${figDir} — на початку імпортуй спільний kit (import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '_tools')); from svgkit import *), рамки з текстом лише через textbox()/fitbox(). УНІКАЛЬНІ імена svg у ./img/, ЗАПУСТИ скрипт (python …), тоді звір геометрію: «python ${ROOT}\\_tools\\svgcheck.py ${ROOT}\\${u.dir} --min-font 8» — якщо є зауваження, підправ figs.py (viewBox/координати/шрифт) і перегенеруй, доки «із зауваженнями: 0». НЕ перечитуй SVG поодинці. Підключи в текст «![підпис](img/fig-….svg)» + «*Рис. М.Р.Т.k. …*».`
   if (u.kind==='chapter-main-append')
     return `${base}${fig}\nДОПИШИ нові теми у наявний ${ROOT}\\${u.dir}\\${u.file} ПЕРЕД фінальним «> ▶️ Далі …» (він лишається останнім); решту файлу НЕ чіпай. Перед поверненням перечитай дописане суцільно.\nПоверни ok, statusLines=${JSON.stringify(u.statusLines)}, files.`
@@ -167,7 +174,7 @@ async function factStage(st, u){
 /* Стадія 3: проза (фінальна якість, без окремої вичитки). */
 async function proseStage(sf, u){
   if (!sf || !sf.st) return { ok:false, statusLines:u.statusLines, note:'каркас не вдався' }
-  const pr = await callAgent(prosePrompt(u, sf.st, sf.facts), { label:`проза:${u.file}`, phase:'Проза', model:'sonnet', schema:RET })
+  const pr = await callAgent(prosePrompt(u, sf.st, sf.facts), { label:`проза:${u.file}`, phase:'Проза', model:isMath(u) ? 'opus' : 'sonnet', schema:RET })
   if (pr && pr.ok) return { ok:true, statusLines:u.statusLines, files:pr.files }
   return { ok:false, statusLines:u.statusLines, note:(pr && pr.note) || 'проза не вдалася' }
 }

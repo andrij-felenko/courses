@@ -19,7 +19,19 @@ LINK_RE = re.compile(r'\]\(([^)]+?)\)')
 missing_md = []
 bad_book = []
 missing_img = []
+queued_md = []
 checked = 0
+
+# базові імена вставок/тем, що стоять у чергах _status.md — це легітимний стаб «в розробці»
+QUEUED = set()
+for dp, dn, fns in os.walk(ROOT):
+    if '_status.md' in fns:
+        try:
+            t = io.open(os.path.join(dp, '_status.md'), encoding='utf-8').read()
+        except Exception:
+            t = ''
+        for m in re.finditer(r'`([^`]+\.md)`', t):
+            QUEUED.add(m.group(1).split('/')[-1])
 
 for dp, dn, fns in os.walk(ROOT):
     for fn in fns:
@@ -52,7 +64,10 @@ for dp, dn, fns in os.walk(ROOT):
                 checked += 1
                 tgt = posixpath.normpath(posixpath.join(base, core))
                 if not os.path.isfile(os.path.join(ROOT, tgt.replace('/', os.sep))):
-                    missing_md.append('%s  ->  %s' % (rel, href))
+                    if posixpath.basename(core) in QUEUED:
+                        queued_md.append('%s  ->  %s' % (rel, href))   # ціль у черзі _status.md
+                    else:
+                        missing_md.append('%s  ->  %s' % (rel, href))
             elif re.search(r'\.(svg|png|jpg|jpeg|gif|webp)$', core, re.I):
                 checked += 1
                 tgt = posixpath.normpath(posixpath.join(base, core))
@@ -68,6 +83,10 @@ print("linkcheck: перевірено посилань:", checked)
 dump("MISSING .md TARGETS (потрібен стаб або правка)", missing_md)
 dump("UNKNOWN book: id", bad_book)
 dump("MISSING IMAGE TARGETS", missing_img)
+if queued_md:
+    print("\n=== У ЧЕРЗІ — ціль ще не написана, але стоїть у _status.md (OK) (%d) ===" % len(queued_md))
+    for x in queued_md:
+        print("  ", x)
 
 fail = len(missing_md) + len(bad_book) + len(missing_img)
 if fail:
