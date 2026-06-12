@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="480" viewBox="0 0 980 480">
+<rect width="980" height="480" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#d06c00"/></marker>
+</defs>
+<text x="490.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Метод 1 vs Метод 2: як FreeRTOS перевіряє стек при перемиканні контексту</text>
+<text x="490.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.2" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">обидва спрацьовують лише в момент перемикання (§4.10.4); різниця — що саме перевіряється</text>
+<text x="235.0" y="68.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.8" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">configCHECK_FOR_STACK_OVERFLOW = 1</text>
+<rect x="35.0" y="72.0" width="400.0" height="52.0" rx="10" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="235.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Метод 1: перевіряє лише SP</text>
+<text x="235.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.6" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">при перемиканні: чи SP ≥ межі стека?</text>
+<rect x="79.0" y="144.0" width="360.0" height="226.0" rx="4" fill="#f4f8f4" stroke="#8a8a8a" stroke-width="1.2"/>
+<text x="73.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">межа</text>
+<text x="73.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">стека</text>
+<text x="73.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">дно</text>
+<rect x="79.0" y="310.0" width="360.0" height="60.0" rx="0" fill="#eef6ef" stroke="#1f8a3b" stroke-width="0.8"/>
+<text x="259.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">0xA5 (зона патерну)</text>
+<text x="259.0" y="346.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">перевіряє метод 2</text>
+<line x1="79.0" y1="245.7" x2="439.0" y2="245.7" stroke="#1f47b5" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round"/>
+<text x="445.0" y="249.7" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f47b5" text-anchor="start" font-weight="normal" font-style="normal">SP норма</text>
+<line x1="158.2" y1="144.0" x2="158.2" y2="370.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="244.6" y1="144.0" x2="244.6" y2="370.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="327.4" y1="144.0" x2="327.4" y2="370.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="406.6" y1="144.0" x2="406.6" y2="370.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="100.6" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">час →</text>
+<text x="158.2" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">перем.</text>
+<text x="158.2" y="396.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">контексту</text>
+<polyline points="79.0,245.7 244.6,245.7 269.4,245.7 269.4,122.0 302.6,122.0 302.6,245.7 439.0,245.7" fill="none" stroke="#c0271e" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="286.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">вистрибок</text>
+<text x="286.0" y="125.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">(переповнення)</text>
+<text x="259.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">0xA5 (зона патерну)</text>
+<text x="259.0" y="346.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">НЕ перевіряє метод 1</text>
+<text x="327.4" y="418.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">SP у нормі →</text>
+<text x="327.4" y="432.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">пропускає ✗</text>
+<line x1="490.0" y1="64.0" x2="490.0" y2="440.0" stroke="#e4e4e4" stroke-width="2" stroke-linecap="round"/>
+<text x="490.0" y="456.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">vs</text>
+<text x="730.0" y="68.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.8" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">configCHECK_FOR_STACK_OVERFLOW = 2</text>
+<rect x="530.0" y="72.0" width="400.0" height="52.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="730.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Метод 2: SP + перевірка патерну</text>
+<text x="730.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.6" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">+ перевіряє, чи зона 0xA5 у межі ціла</text>
+<rect x="574.0" y="144.0" width="360.0" height="226.0" rx="4" fill="#f4f8f4" stroke="#8a8a8a" stroke-width="1.2"/>
+<text x="568.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">межа</text>
+<text x="568.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">стека</text>
+<text x="568.0" y="374.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">дно</text>
+<rect x="574.0" y="310.0" width="360.0" height="60.0" rx="0" fill="#eef6ef" stroke="#1f8a3b" stroke-width="0.8"/>
+<text x="754.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">0xA5 (зона патерну)</text>
+<text x="754.0" y="346.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">перевіряє метод 2</text>
+<line x1="574.0" y1="245.7" x2="934.0" y2="245.7" stroke="#1f47b5" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round"/>
+<text x="940.0" y="249.7" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f47b5" text-anchor="start" font-weight="normal" font-style="normal">SP норма</text>
+<line x1="653.2" y1="144.0" x2="653.2" y2="370.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="739.6" y1="144.0" x2="739.6" y2="370.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="822.4" y1="144.0" x2="822.4" y2="370.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="901.6" y1="144.0" x2="901.6" y2="370.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="595.6" y="134.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">час →</text>
+<text x="653.2" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">перем.</text>
+<text x="653.2" y="396.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">контексту</text>
+<polyline points="574.0,245.7 739.6,245.7 764.4,245.7 764.4,122.0 797.6,122.0 797.6,245.7 934.0,245.7" fill="none" stroke="#c0271e" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="781.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">вистрибок</text>
+<text x="781.0" y="125.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">(переповнення)</text>
+<rect x="574.0" y="310.0" width="360.0" height="60.0" rx="0" fill="#fbecec" stroke="#c0271e" stroke-width="1.6"/>
+<text x="754.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5 ЗАТЕРТО!</text>
+<text x="754.0" y="346.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">хук спрацьовує ✓</text>
+<line x1="822.4" y1="418.0" x2="822.4" y2="372.0" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#aGreen)"/>
+<text x="822.4" y="432.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ловить!</text>
+<rect x="60.0" y="418.0" width="860.0" height="50.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/>
+<text x="490.0" y="438.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.4" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Метод 1: дешевий, але пропускає «миттєвий вистрибок» між двома перемиканнями.</text>
+<text x="490.0" y="456.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Метод 2: перевіряє слід у патерні — ловить навіть короткочасний прокол. На час налагодження лишайте метод 2.</text>
+</svg>

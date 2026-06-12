@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Варіант А: зовнішній зонд (ESP32, ESP32-S2)</text>
+<rect x="20.0" y="50.0" width="90.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="65.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Хост (USB)</text>
+<rect x="145.0" y="50.0" width="110.0" height="50.0" rx="6" fill="#fff8e1" stroke="#e67e22" stroke-width="2.0"/>
+<text x="200.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">Зонд</text>
+<text x="200.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ESP-Prog / JLink</text>
+<line x1="110.0" y1="75.0" x2="145.0" y2="75.0" stroke="#e67e22" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="255.0" y1="55.0" x2="380.0" y2="55.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="318.0" y="51.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">MTCK</text>
+<line x1="255.0" y1="67.0" x2="380.0" y2="67.0" stroke="#e67e22" stroke-width="1.8"/>
+<text x="318.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e67e22" text-anchor="middle">MTDI</text>
+<line x1="255.0" y1="79.0" x2="380.0" y2="79.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="318.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">MTDO</text>
+<line x1="255.0" y1="91.0" x2="380.0" y2="91.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="318.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">MTMS</text>
+<line x1="255.0" y1="103.0" x2="380.0" y2="103.0" stroke="#6b7280" stroke-width="1.8"/>
+<text x="318.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">GND</text>
+<rect x="380.0" y="45.0" width="130.0" height="70.0" rx="6" fill="#e8edf5" stroke="#2457d6" stroke-width="2.0"/>
+<text x="445.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ESP32</text>
+<text x="445.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">JTAG-піни</text>
+<text x="445.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">(займають GPIO)</text>
+<text x="410.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Варіант Б: USB-Serial-JTAG (ESP32-S3 / C3 / C6 — без зовнішнього зонда)</text>
+<rect x="20.0" y="185.0" width="90.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="65.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Хост (USB)</text>
+<rect x="380.0" y="180.0" width="160.0" height="60.0" rx="6" fill="#d5e8d4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="460.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ESP32-S3/C3/C6</text>
+<text x="460.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">USB-Serial-JTAG</text>
+<text x="460.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(вбудований JTAG)</text>
+<line x1="110.0" y1="210.0" x2="380.0" y2="210.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="184.8" y="212.5" width="120.3" height="31.0" rx="6" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.2"/><text x="245.0" y="231.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="245.0" dy="0.0">USB (без зонда!)</tspan></text>
+<rect x="600.0" y="183.0" width="130.0" height="54.0" rx="6" fill="#f9f9f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="665.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зонд</text>
+<text x="665.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">не потрібен</text>
+<line x1="600.0" y1="183.0" x2="730.0" y2="237.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="347.2" y="260.2" width="195.6" height="59.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="445.0" y="279.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="445.0" dy="0.0">Лінії JTAG зайняті — ці GPIO</tspan><tspan x="445.0" dy="14.3">не можна використовувати для</tspan><tspan x="445.0" dy="14.3">іншої периферії одночасно.</tspan></text>
+<text x="410.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Рис. 4.14.2.4. Відлагодження коштує конкретних ніжок; на нових чипах JTAG іде прямо по USB.</text>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві топології опори і шкала точності</text>
+<text x="460.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">shunt потребує баластного резистора; series — як LDO, мкА спокою; tempco і початкова точність визначають стелю АЦП</text>
+<text x="120.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7b1fa2" text-anchor="middle" font-weight="700">SHUNT (TL431, LM4040)</text>
+<text x="120.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">— потребує баластного Rs</text>
+<text x="120.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Vsupply</text>
+<line x1="120.0" y1="140.0" x2="120.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="87.9" y="180.3" width="64.2" height="39.3" rx="6" fill="#ede7f6" stroke="#7b1fa2" stroke-width="1.5"/><text x="120.0" y="196.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Rs</tspan><tspan x="120.0" dy="14.3">(баласт)</tspan></text>
+<line x1="120.0" y1="220.0" x2="120.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="120.0" cy="250.0" r="4.0" fill="#7b1fa2" stroke="#7b1fa2" stroke-width="1.0"/>
+<text x="130.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7b1fa2" text-anchor="start" font-weight="700">Vout</text>
+<text x="130.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(до навантаження)</text>
+<rect x="86.1" y="286.2" width="67.9" height="47.6" rx="6" fill="#ede7f6" stroke="#7b1fa2" stroke-width="1.8"/><text x="120.0" y="306.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Опора</tspan><tspan x="120.0" dy="15.6">(shunt)</tspan></text>
+<line x1="120.0" y1="250.0" x2="120.0" y2="286.2" stroke="#7b1fa2" stroke-width="1.8"/>
+<line x1="120.0" y1="333.8" x2="120.0" y2="363.8" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="106.0" y1="363.8" x2="134.0" y2="363.8" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="111.0" y1="370.8" x2="129.0" y2="370.8" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="116.0" y1="377.8" x2="124.0" y2="377.8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="120.0" y="393.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Постійно тече струм
+через Rs → тепло</text>
+<text x="310.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#00695c" text-anchor="middle" font-weight="700">SERIES (REF30xx, ADR)</text>
+<text x="310.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">— як LDO: вхід–вихід–земля</text>
+<text x="310.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Vin</text>
+<line x1="310.0" y1="140.0" x2="310.0" y2="170.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="265.8" y="178.4" width="88.4" height="63.2" rx="6" fill="#e0f2f1" stroke="#00695c" stroke-width="1.8"/><text x="310.0" y="198.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Series</tspan><tspan x="310.0" dy="15.6">REF</tspan><tspan x="310.0" dy="15.6">(3 виводи)</tspan></text>
+<line x1="310.0" y1="170.0" x2="310.0" y2="178.4" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="354.2" y1="210.0" x2="404.2" y2="210.0" stroke="#00695c" stroke-width="1.8"/>
+<text x="409.2" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#00695c" text-anchor="start" font-weight="700">Vout</text>
+<line x1="310.0" y1="241.6" x2="310.0" y2="271.6" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="296.0" y1="271.6" x2="324.0" y2="271.6" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="301.0" y1="278.6" x2="319.0" y2="278.6" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="306.0" y1="285.6" x2="314.0" y2="285.6" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="310.0" y="301.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#00695c" text-anchor="middle">Мікроампери спокою →
+ідеально для батарей</text>
+<text x="675.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шкала точності опор</text>
+<line x1="510.0" y1="78.0" x2="510.0" y2="450.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="510.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">кращі ↑</text>
+<text x="510.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">простіші ↓</text>
+<rect x="530.0" y="371.0" width="310.0" height="70.0" rx="8" fill="#ede7f6" stroke="#7b1fa2" stroke-width="1.8"/>
+<text x="540.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7b1fa2" text-anchor="start" font-weight="700">TL431</text>
+<text x="540.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0.5–2 %   |   десятки ppm/°C</text>
+<text x="540.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">дешево, масово (БЖ, зарядки)</text>
+<text x="840.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">точніше →</text>
+<rect x="530.0" y="255.0" width="310.0" height="70.0" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.8"/>
+<text x="540.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1565c0" text-anchor="start" font-weight="700">LM4040 / REF30</text>
+<text x="540.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">~0.2 %   |   ~50–100 ppm/°C</text>
+<text x="540.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">шум ~35 мкВ rms, ~50 мкА</text>
+<text x="840.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">точніше →</text>
+<rect x="530.0" y="145.0" width="310.0" height="70.0" rx="8" fill="#e0f2f1" stroke="#00695c" stroke-width="1.8"/>
+<text x="540.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#00695c" text-anchor="start" font-weight="700">REF5xxx / ADR4xxx</text>
+<text x="540.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">~0.05–0.1 %   |   ~10–25 ppm/°C</text>
+<text x="540.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">низький шум, прецизійні задачі</text>
+<text x="840.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">точніше →</text>
+<rect x="530.0" y="47.0" width="310.0" height="70.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="540.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">ADR/AD586-клас</text>
+<text x="540.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">~0.05 %   |   ~5 ppm/°C</text>
+<text x="540.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">лабораторна метрологія, дорого</text>
+<rect x="30.0" y="450.5" width="860.0" height="31.0" rx="6" fill="#fffde7" stroke="#bbb" stroke-width="1.2"/><text x="460.0" y="469.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Менший tempco і шум опори = вища стеля точності АЦП (§4.8.4). Вибір: скільки ppm реально треба — не переплачуй за зайве.</tspan></text>
+</svg>

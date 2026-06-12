@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рис. 4.12.8.3. Найчастіші ролі МК-хоста: флешка (MSC) і клавіатура (HID)</text>
+<rect x="320.0" y="135.0" width="180.0" height="100.0" rx="12" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+<text x="410.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">ESP32-S3</text>
+<text x="410.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">(USB HOST)</text>
+<text x="410.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Native OTG · Full-Speed</text>
+<rect x="40.0" y="139.0" width="180.0" height="92.0" rx="10" fill="#fef9ec" stroke="#e67e22" stroke-width="2.0"/>
+<text x="130.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#e67e22" text-anchor="middle" font-weight="700">USB-флешка</text>
+<text x="130.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Клас MSC (→§4.12.5)</text>
+<text x="130.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle">лог / оновлення</text>
+<line x1="224.0" y1="185.0" x2="316.0" y2="185.0" stroke="#e67e22" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="270.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">bulk-IN/OUT</text>
+<rect x="590.0" y="139.0" width="180.0" height="92.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="680.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">USB-клавіатура</text>
+<text x="680.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Клас HID (→§4.12.5)</text>
+<text x="680.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">ввід без матриці (→§4.4.8)</text>
+<line x1="586.0" y1="185.0" x2="504.0" y2="185.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">interrupt-IN</text>
+<text x="410.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">ESP32 подає VBUS 5 В ↕ (потрібне зовнішнє 5 В джерело, →§4.12.7)</text>
+<rect x="146.9" y="340.0" width="526.2" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/><text x="410.0" y="360.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Обмеження host-режиму: Full-Speed, обмежені класи, немає повного хаб-стеку</tspan></text>
+</svg>

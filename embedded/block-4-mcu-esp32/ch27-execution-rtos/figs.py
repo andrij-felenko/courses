@@ -1647,6 +1647,349 @@ def fig86_convergence():
     save("fig-27-8-6-convergence.svg", s)
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# §27.9 Профілювання: куди йдуть такти і байти — fig-27-9-k
+# Використовує svgkit для рамок з текстом (textbox / fitbox)
+# ═════════════════════════════════════════════════════════════════════════════
+import sys as _sys
+_sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '_tools'))
+from svgkit import (
+    render as sk_render, textbox, fitbox, text as sk_text, rect as sk_rect,
+    arrow as sk_arrow, line as sk_line, mtext as sk_mtext,
+    INK as SK_INK, MUTED, LINE, FILL, FONT as SK_FONT,
+    POS, NEG, FIELD, BG,
+)
+
+# Локальна палітра для §27.9 (сумісна зі стилем розділу)
+_RED   = "#c0271e"
+_BLUE  = "#1f47b5"
+_GREEN = "#1f8a3b"
+_GOLD  = "#caa24a"
+_GREY  = "#8a8a8a"
+_FAINT = "#e8e8e8"
+_LBLUE = "#e9eefb"
+_LGRN  = "#eef6ef"
+_LRED  = "#fbecec"
+_LAMB  = "#fff6e0"
+_LPURP = "#efe9f7"
+_PURP  = "#7a4fb0"
+
+
+# ── Рис. 4.10.9.1 — Два бюджети чипа: такти і байти RAM ──────────────────────
+def fig91_two_budgets():
+    W, H = 960, 420
+    OUT_PATH = os.path.join(OUT, "fig-27-9-1-two-budgets.svg")
+    frags = []
+
+    # Заголовок
+    frags.append(sk_text(W / 2, 38, "Два бюджети ESP32: процесорні такти і байти RAM", 18, SK_INK, bold=True))
+    frags.append(sk_text(W / 2, 62, "усе, що робить пристрій, витрачає одне, друге або обидва", 12, MUTED, italic=True))
+
+    # Ліва скарбничка — CPU
+    cpu_x, cpu_y = 90, 90
+    frags.append(sk_rect(cpu_x, cpu_y, 380, 270, fill=_LBLUE, stroke=_BLUE, sw=2.5, rx=14))
+    frags.append(sk_text(cpu_x + 190, cpu_y + 34, "Процесорний час", 15, _BLUE, bold=True))
+    frags.append(sk_text(cpu_x + 190, cpu_y + 56, "(такти за секунду)", 11, MUTED, italic=True))
+    # "монети" — ядра
+    for i, (lbl, col) in enumerate([("Ядро 0", _BLUE), ("Ядро 1", _PURP)]):
+        bx = cpu_x + 30 + i * 180
+        frags.append(sk_rect(bx, cpu_y + 72, 150, 80, fill="#dce8fb", stroke=col, sw=2, rx=10))
+        frags.append(sk_text(bx + 75, cpu_y + 102, lbl, 13, col, bold=True))
+        frags.append(sk_text(bx + 75, cpu_y + 126, "240 МГц", 11, MUTED))
+    frags.append(sk_text(cpu_x + 190, cpu_y + 185, "= 240 000 000 тактів/с × 2 ядра", 11, _BLUE))
+    frags.append(sk_text(cpu_x + 190, cpu_y + 205, "Профіль CPU — «куди йдуть такти»", 11, SK_INK))
+    frags.append(sk_text(cpu_x + 190, cpu_y + 225, "Закон Амдала: ~10% коду їсть ~90%", 10, _RED, italic=True))
+    frags.append(sk_text(cpu_x + 190, cpu_y + 243, "часу — знайди цей 1% → оптимізуй", 10, _RED, italic=True))
+
+    # Права скарбничка — RAM
+    ram_x, ram_y = 490, 90
+    frags.append(sk_rect(ram_x, ram_y, 380, 270, fill=_LGRN, stroke=_GREEN, sw=2.5, rx=14))
+    frags.append(sk_text(ram_x + 190, ram_y + 34, "Пам'ять (RAM)", 15, _GREEN, bold=True))
+    frags.append(sk_text(ram_x + 190, ram_y + 56, "(байти у SRAM)", 11, MUTED, italic=True))
+    # сегменти RAM
+    segs = [("Глобальні змінні", 52, _GREEN), ("Стеки задач", 76, _BLUE), ("Купа (heap)", 60, _GOLD)]
+    sy = ram_y + 75
+    for lbl, hh, col in segs:
+        frags.append(sk_rect(ram_x + 30, sy, 320, hh - 6, fill="#e0f4e7", stroke=col, sw=1.5, rx=6))
+        frags.append(sk_text(ram_x + 190, sy + (hh - 6) / 2 + 5, lbl, 11, col, bold=True))
+        sy += hh
+    frags.append(sk_text(ram_x + 190, ram_y + 225, "Профіль RAM — «куди йдуть байти»", 11, SK_INK))
+    frags.append(sk_text(ram_x + 190, ram_y + 243, "Ціна: сотні КБ SRAM, не гігабайти", 10, _GREEN, italic=True))
+
+    # Нижня рамка-підсумок
+    tb, tw, th = textbox(W / 2, 390, "Профілювання = облік обох бюджетів: спершу виміряй, потім оптимізуй.",
+                         size=13, pad=12, fill=_LAMB, stroke=_GOLD, sw=2, rx=10, bold=True)
+    frags.append(tb)
+
+    sk_render(OUT_PATH, W, 430, *frags)
+
+
+# ── Рис. 4.10.9.2 — Семплування проти інструментації ─────────────────────────
+def fig92_sampling_vs_instrumentation():
+    W, H = 960, 440
+    OUT_PATH = os.path.join(OUT, "fig-27-9-2-sampling-vs-instrumentation.svg")
+    frags = []
+
+    frags.append(sk_text(W / 2, 36, "Дві оптики на CPU: семплування проти інструментації", 18, SK_INK, bold=True))
+    frags.append(sk_text(W / 2, 58, "семплування — знайти підозрюваного; інструментація — точно зміряти", 12, MUTED, italic=True))
+
+    # --- Верхня половина: семплування ---
+    frags.append(sk_text(60, 88, "Семплування (sampling):", 13, _BLUE, bold=True))
+    frags.append(sk_text(60, 108, "таймер-переривання «фотографує» поточну функцію тисячу разів/с", 11, MUTED, italic=True))
+
+    # фотографії-знімки
+    funcs = [("funcA", 6), ("funcB", 2), ("funcA", 5), ("funcA", 4), ("funcC", 1), ("funcA", 3), ("funcB", 2)]
+    fx = 60
+    for lbl, _ in funcs:
+        col = {"funcA": _BLUE, "funcB": _GREEN, "funcC": _RED}.get(lbl, SK_INK)
+        frags.append(sk_rect(fx, 118, 56, 36, fill=_LBLUE if lbl == "funcA" else (_LGRN if lbl == "funcB" else _LRED),
+                             stroke=col, sw=1.5, rx=6))
+        frags.append(sk_text(fx + 28, 141, lbl, 10, col, bold=True))
+        fx += 66
+
+    frags.append(sk_text(fx + 10, 141, "→ статистика:", 11, SK_INK))
+
+    # Стовпчики статистики
+    stats = [("funcA", 0.62, _BLUE), ("funcB", 0.22, _GREEN), ("funcC", 0.08, _RED)]
+    bx = 660
+    max_h = 90
+    for lbl, frac, col in stats:
+        bh = int(frac * max_h)
+        frags.append(sk_rect(bx, 118 + (max_h - bh), 55, bh, fill=col + "33", stroke=col, sw=1.5, rx=4))
+        frags.append(sk_text(bx + 27, 118 + (max_h - bh) - 6, f"{int(frac * 100)}%", 10, col, bold=True))
+        frags.append(sk_text(bx + 27, 222, lbl, 9, col))
+        bx += 70
+
+    frags.append(sk_text(60, 240, "Дешево, не заважає. Але рідкісна подія може проґавитися.", 11, MUTED, italic=True))
+
+    # Роздільник
+    frags.append(sk_line(40, 258, W - 40, 258, color=LINE, sw=1, dash="6,4"))
+
+    # --- Нижня половина: інструментація ---
+    frags.append(sk_text(60, 284, "Інструментація (instrumentation):", 13, _GREEN, bold=True))
+    frags.append(sk_text(60, 304, "мітки часу на вході/виході ділянки → різниця = точна тривалість", 11, MUTED, italic=True))
+
+    # Часова лінія з мітками
+    tl_x, tl_y = 80, 340
+    frags.append(sk_line(tl_x, tl_y, tl_x + 700, tl_y, color=LINE, sw=2))
+    # початок ділянки
+    frags.append(sk_line(tl_x + 100, tl_y - 20, tl_x + 100, tl_y + 20, color=_GREEN, sw=2.5))
+    frags.append(sk_text(tl_x + 100, tl_y - 26, "t₀ (старт)", 10, _GREEN, bold=True))
+    # кінець ділянки
+    frags.append(sk_line(tl_x + 420, tl_y - 20, tl_x + 420, tl_y + 20, color=_RED, sw=2.5))
+    frags.append(sk_text(tl_x + 420, tl_y - 26, "t₁ (фініш)", 10, _RED, bold=True))
+    # заповнена ділянка
+    frags.append(sk_rect(tl_x + 100, tl_y - 12, 320, 24, fill="#fff0b3", stroke=_GOLD, sw=1.5, rx=4))
+    frags.append(sk_text(tl_x + 260, tl_y + 6, "ділянка: Δt = t₁ − t₀ = 12 000 тактів ≈ 50 мкс", 11, SK_INK, bold=True))
+    frags.append(sk_text(tl_x + 260, tl_y + 26, "(лічильник циклів CPU — esp_cpu_get_cycle_count())", 10, MUTED, italic=True))
+    frags.append(sk_text(60, 390, "Точно. Але: коштує такти, захаращує код; видно лише те, що обвісив мітками.", 11, MUTED, italic=True))
+
+    # Підсумок
+    tb, _, _ = textbox(W / 2, 424, "Семплування → ЗНАЙТИ гарячу точку по всій програмі.  Інструментація → ТОЧНО зміряти вже відому ділянку.",
+                       size=12, pad=10, fill=_LAMB, stroke=_GOLD, sw=2, rx=8, bold=True)
+    frags.append(tb)
+
+    sk_render(OUT_PATH, W, 444, *frags)
+
+
+# ── Рис. 4.10.9.3 — Завантаженість CPU: поядрово ─────────────────────────────
+def fig93_cpu_load_idle():
+    W, H = 960, 400
+    OUT_PATH = os.path.join(OUT, "fig-27-9-3-cpu-load-idle.svg")
+    frags = []
+
+    frags.append(sk_text(W / 2, 36, "Завантаженість CPU: корисна робота проти простою, поядрово", 18, SK_INK, bold=True))
+    frags.append(sk_text(W / 2, 58, "idle — датчик запасу; середнє по чипу бреше, дивись поядрово", 12, MUTED, italic=True))
+
+    cores = [
+        ("Ядро 0  (радіо / Wi-Fi)", 0.97, _RED, "idle ≈ 0 % — на межі!", "Ядро на межі: нова задача зірве дедлайни (§4.10.8)"),
+        ("Ядро 1  (прикладний код)", 0.45, _GREEN, "idle = 55 % — є запас", "Можна додати задачі або перемістити роботу з Ядра 0"),
+    ]
+    bar_x, bar_w, bar_h = 70, 700, 70
+    by = 100
+
+    for lbl, load, col, idle_txt, note in cores:
+        # Зовнішня рамка
+        frags.append(sk_rect(bar_x, by, bar_w, bar_h, fill=FILL, stroke=LINE, sw=1.5, rx=8))
+        # Заповнена частина (завантаження)
+        filled_w = int(bar_w * load)
+        frags.append(sk_rect(bar_x, by, filled_w, bar_h, fill=col + "44", stroke=col, sw=2, rx=8))
+        # Idle частина
+        idle_w = bar_w - filled_w
+        if idle_w > 4:
+            frags.append(sk_rect(bar_x + filled_w, by, idle_w, bar_h, fill="#e8e8e8", stroke=_GREY, sw=1, rx=0))
+            frags.append(sk_text(bar_x + filled_w + idle_w / 2, by + bar_h / 2 + 5, "idle", 11, _GREY))
+
+        frags.append(sk_text(bar_x + 10, by + 24, lbl, 13, col, bold=True))
+        frags.append(sk_text(bar_x + filled_w / 2, by + bar_h / 2 + 6, f"{int(load * 100)}% корисна робота", 12, col, bold=True))
+        frags.append(sk_text(bar_x + bar_w + 14, by + bar_h / 2 + 5, idle_txt, 12, col, bold=True))
+        frags.append(sk_text(bar_x, by + bar_h + 18, note, 10, MUTED, italic=True))
+        by += 148
+
+    # Загальне підсумок
+    tb, _, _ = textbox(W / 2, 372,
+                       "Idle-задача — датчик вільного запасу. Ядро 0 задихається — балансуй навантаження між ядрами (§4.10.5).",
+                       size=12, pad=11, fill=_LAMB, stroke=_GOLD, sw=2, rx=8, bold=True)
+    frags.append(tb)
+
+    sk_render(OUT_PATH, W, 396, *frags)
+
+
+# ── Рис. 4.10.9.4 — Профіль пам'яті в часі: витік і watermark ───────────────
+def fig94_memory_over_time():
+    W, H = 960, 400
+    OUT_PATH = os.path.join(OUT, "fig-27-9-4-memory-over-time.svg")
+    frags = []
+
+    frags.append(sk_text(W / 2, 36, "Профіль пам'яті в часі: витік і водяний знак купи", 18, SK_INK, bold=True))
+    frags.append(sk_text(W / 2, 58, "витік і фрагментацію видно лише в часі, не з миттєвого знімка", 12, MUTED, italic=True))
+
+    # Графік: осі
+    gx, gy, gw, gh = 80, 80, 700, 220
+    frags.append(sk_line(gx, gy, gx, gy + gh, color=LINE, sw=2))         # Y-ось
+    frags.append(sk_line(gx, gy + gh, gx + gw, gy + gh, color=LINE, sw=2))  # X-ось
+    frags.append(sk_text(gx + gw + 8, gy + gh + 4, "час (год)", 11, MUTED))
+    frags.append(sk_text(gx - 14, gy - 10, "вільна купа (КБ)", 11, MUTED))
+
+    # Y-мітки
+    for i, (yv, lbl) in enumerate([(0, "0"), (70, "50"), (140, "100"), (210, "150")]):
+        yp = gy + gh - yv
+        frags.append(sk_line(gx - 6, yp, gx, yp, color=LINE, sw=1.5))
+        frags.append(sk_text(gx - 10, yp + 4, lbl, 10, MUTED, anchor="end"))
+
+    # X-мітки (год 0..8)
+    for i in range(9):
+        xp = gx + i * gw / 8
+        frags.append(sk_line(xp, gy + gh, xp, gy + gh + 6, color=LINE, sw=1.5))
+        frags.append(sk_text(xp, gy + gh + 18, str(i), 10, MUTED))
+
+    # Здорова система — рівна лінія
+    pts_healthy = [(gx + i * gw / 8, gy + gh - 175) for i in range(9)]
+    for j in range(len(pts_healthy) - 1):
+        x1, y1 = pts_healthy[j]
+        x2, y2 = pts_healthy[j + 1]
+        frags.append(sk_line(x1, y1, x2, y2, color=FIELD, sw=2.5, dash="8,5"))
+    frags.append(sk_text(gx + gw - 10, gy + gh - 175 - 12, "здорова система", 10, FIELD, anchor="end"))
+
+    # Витік — спадна лінія
+    leak_pts = [(gx + i * gw / 8, gy + gh - 180 + i * 22) for i in range(9)]
+    for j in range(len(leak_pts) - 1):
+        x1, y1 = leak_pts[j]
+        x2, y2 = leak_pts[j + 1]
+        frags.append(sk_line(x1, y1, x2, y2, color=_RED, sw=2.5))
+    # Позначка watermark
+    wm_y = gy + gh - 180 + 8 * 22
+    frags.append(sk_line(gx, wm_y, gx + gw, wm_y, color=_RED, sw=1.2, dash="4,4"))
+    frags.append(sk_text(gx + gw + 8, wm_y + 4, "watermark купи", 10, _RED))
+    frags.append(sk_text(gx + 60, gy + gh - 180 + 4 * 22 + 14, "витік пам'яті (memory leak)", 11, _RED, bold=True, italic=True))
+    frags.append(sk_text(gx + 60, gy + gh - 180 + 4 * 22 + 28, "→ колись упреться в нуль → крах", 10, _RED, italic=True))
+
+    # Рамка-підсумок
+    tb, _, _ = textbox(W / 2, 370,
+                       "Витік видно лише в часі. Миттєвий знімок — ні. Стеж за watermark купи і стеком кожної задачі (§4.10.7).",
+                       size=12, pad=10, fill=_LAMB, stroke=_GOLD, sw=2, rx=8, bold=True)
+    frags.append(tb)
+
+    sk_render(OUT_PATH, W, 392, *frags)
+
+
+# ── Рис. 4.10.9.5 — Ефект спостерігача: важкий вимір спотворює систему ────────
+def fig95_observer_effect():
+    W, H = 960, 400
+    OUT_PATH = os.path.join(OUT, "fig-27-9-5-observer-effect.svg")
+    frags = []
+
+    frags.append(sk_text(W / 2, 36, "Ефект спостерігача: важкий вимір сам спотворює систему", 18, SK_INK, bold=True))
+    frags.append(sk_text(W / 2, 58, "міряй легко і поза критичним шляхом — інакше профіль бреше", 12, MUTED, italic=True))
+
+    panel_w = 400
+    panels = [
+        (50, "Легкий вимір", _GREEN, [
+            "esp_cpu_get_cycle_count()  — дешево",
+            "Δt = t1 − t0  (2 такти накладних)",
+            "Друк РІДКО: раз на 1000 ітерацій",
+            "→ тайминг ділянки НЕ змінено",
+        ], "Правильно: бачимо реальні цифри"),
+        (510, "Важкий вимір", _RED, [
+            "Serial.print() на кожній ітерації",
+            "UART ~1 мс → БЛОКУЄ задачу",
+            "Виміряний Δt роздутий у 20×",
+            "→ профіль бреше, рішення хибне",
+        ], "Небезпечно: вимір псує те, що мірить"),
+    ]
+
+    for px, title, col, lines, note in panels:
+        frags.append(sk_rect(px, 76, panel_w, 260, fill=col + "11", stroke=col, sw=2, rx=12))
+        frags.append(sk_text(px + panel_w / 2, 102, title, 15, col, bold=True))
+        for i, ln in enumerate(lines):
+            frags.append(sk_text(px + 20, 130 + i * 28, ln, 11, SK_INK))
+        frags.append(sk_text(px + panel_w / 2, 360, note, 12, col, bold=True))
+
+    # Стрілка між панелями
+    frags.append(sk_text(W / 2, 210, "vs", 20, MUTED, bold=True))
+
+    tb, _, _ = textbox(W / 2, 390,
+                       "Бери дешевий лічильник циклів. Друкуй зведення рідко й поза критичним шляхом. Дивись на МАКСИМУМ.",
+                       size=12, pad=11, fill=_LAMB, stroke=_GOLD, sw=2, rx=8, bold=True)
+    frags.append(tb)
+
+    sk_render(OUT_PATH, W, 406, *frags)
+
+
+# ── Рис. 4.10.9.6 — Цикл оптимізації: виміряй → знайди → виправ → переміряй ──
+def fig96_optimize_loop():
+    W, H = 960, 420
+    OUT_PATH = os.path.join(OUT, "fig-27-9-6-optimize-loop.svg")
+    frags = []
+
+    frags.append(sk_text(W / 2, 36, "Цикл оптимізації: виміряй → знайди → виправ → переміряй", 18, SK_INK, bold=True))
+    frags.append(sk_text(W / 2, 58, "повторюй, доки бюджети не зійдуться; не чіпай того, що й так у бюджеті", 12, MUTED, italic=True))
+
+    # Чотири кроки петлі
+    steps = [
+        (240, 150, "1. Виміряй", "Профіль CPU + пам'яті:\nзавантаженість, watermark", _BLUE),
+        (710, 150, "2. Знайди", "Одну найгарячішу точку /\nнайбільшу витрату", _RED),
+        (710, 310, "3. Виправ", "Лише цю одну точку;\nнічого більше не чіпай", _GREEN),
+        (240, 310, "4. Переміряй", "Краще? Не зламалось\nінше? → крок 1", _GOLD),
+    ]
+
+    # Рамки кроків
+    for cx, cy, title, desc, col in steps:
+        tb_body, bw, bh = textbox(cx, cy, f"{title}\n{desc}", size=13, pad=14,
+                                  fill=col + "22", stroke=col, sw=2.5, rx=12, bold=False)
+        frags.append(tb_body)
+
+    # Стрілки по колу (між центрами)
+    positions = [(240, 150), (710, 150), (710, 310), (240, 310)]
+    offsets = [
+        (80, 0, 160, 0),   # 1 → 2 (вправо)
+        (0, 70, 0, -70),   # 2 → 3 (вниз): від (710,150+bh/2) до (710,310-bh/2)
+        (-80, 0, -160, 0), # 3 → 4 (вліво)
+        (0, -70, 0, 70),   # 4 → 1 (вгору)
+    ]
+    arrows_coords = [
+        (positions[0][0] + 90, positions[0][1], positions[1][0] - 90, positions[1][1]),
+        (positions[1][0], positions[1][1] + 50, positions[2][0], positions[2][1] - 50),
+        (positions[2][0] - 90, positions[2][1], positions[3][0] + 90, positions[3][1]),
+        (positions[3][0], positions[3][1] - 50, positions[0][0], positions[0][1] + 50),
+    ]
+    for x1, y1, x2, y2 in arrows_coords:
+        frags.append(sk_arrow(x1, y1, x2, y2, color=LINE, sw=2.2))
+
+    # Застереження справа
+    warn_tb, _, _ = textbox(W - 120, 230, "Не чіпай того,\nщо й так у бюджеті!\n(передчасна оптимізація\nпсує код — §4.10.7)",
+                            size=11, pad=10, fill=_LRED, stroke=_RED, sw=1.5, rx=8)
+    frags.append(warn_tb)
+
+    # Підсумок
+    tb, _, _ = textbox(W / 2, 392,
+                       "Профілювання — спільний «вимірювальний прилад» усього розділу: такти, байти, дедлайни стають числами.",
+                       size=12, pad=11, fill=_LAMB, stroke=_GOLD, sw=2, rx=8, bold=True)
+    frags.append(tb)
+
+    sk_render(OUT_PATH, W, 412, *frags)
+
+
 if __name__ == "__main__":
     # 📜 Історія до розділу — поділ часу (CTSS, 1961)
     figh1_the_question()
@@ -1710,4 +2053,11 @@ if __name__ == "__main__":
     fig84_priorities()
     fig85_enemies()
     fig86_convergence()
+    # §27.9 Профілювання: куди йдуть такти і байти
+    fig91_two_budgets()
+    fig92_sampling_vs_instrumentation()
+    fig93_cpu_load_idle()
+    fig94_memory_over_time()
+    fig95_observer_effect()
+    fig96_optimize_loop()
     print("OK - figures for Section 27 (27.0.x..27.8.x) generated in", OUT)

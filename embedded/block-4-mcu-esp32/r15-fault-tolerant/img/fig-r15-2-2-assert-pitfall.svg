@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="680" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="340.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка assert: побічний ефект зникає у релізі (NDEBUG)</text>
+<text x="245.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">DEBUG</text>
+<text x="575.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">RELEASE (NDEBUG)</text>
+<line x1="340.0" y1="55.0" x2="340.0" y2="310.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 4"/>
+<rect x="110.0" y="86.0" width="270.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="245.0" y="112.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">assert( init() == OK )</tspan></text>
+<rect x="440.0" y="86.0" width="270.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="575.0" y="104.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">рядок ВИРІЗАНО</tspan><tspan x="575.0" dy="15.6">препроцесором ✗</tspan></text>
+<line x1="245.0" y1="130.0" x2="245.0" y2="151.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="130.0" x2="575.0" y2="151.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="110.0" y="151.0" width="270.0" height="44.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.8"/><text x="245.0" y="177.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">init() ВИКЛИКАНО ✓</tspan></text>
+<rect x="440.0" y="151.0" width="270.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="575.0" y="177.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">init() НЕ ВИКЛИКАНО ✗</tspan></text>
+<line x1="245.0" y1="195.0" x2="245.0" y2="216.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="195.0" x2="575.0" y2="216.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="110.0" y="216.0" width="270.0" height="44.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.8"/><text x="245.0" y="242.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">перевірка є ✓</tspan></text>
+<rect x="440.0" y="216.0" width="270.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="575.0" y="234.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="575.0" dy="0.0">система стартує</tspan><tspan x="575.0" dy="15.6">неініціалізованою ✗</tspan></text>
+<line x1="553.0" y1="80.0" x2="597.0" y2="120.0" stroke="#c0392b" stroke-width="3.5"/>
+<line x1="597.0" y1="80.0" x2="553.0" y2="120.0" stroke="#c0392b" stroke-width="3.5"/>
+<rect x="123.7" y="320.0" width="432.6" height="28.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="340.0" y="338.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">Правило: в assert — лише чиста перевірка. Жодної роботи!</tspan></text>
+</svg>

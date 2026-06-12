@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif">
+<rect width="1000" height="500" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1a1a1a"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGold" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="500.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Живлення WS2812-стрічки з інжекцією</text>
+<text x="500.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle">окремий БЖ 5 В, товсті дроти до кожної інжекційної точки, спільна земля з МК</text>
+<rect x="38.0" y="185.0" width="90.0" height="70.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="2"/>
+<text x="83.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1f47b5" text-anchor="middle" font-weight="700">БЖ</text>
+<text x="83.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle">5 В</text>
+<text x="83.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle">окремий</text>
+<rect x="38.0" y="350.0" width="90.0" height="60.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="83.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="700">ESP32</text>
+<text x="83.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle">GPIO 3.3 В</text>
+<rect x="175.0" y="345.0" width="88.0" height="52.0" rx="8" fill="#fff6e0" stroke="#caa24a" stroke-width="2"/>
+<text x="219.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a6d1a" text-anchor="middle" font-weight="700">LS</text>
+<text x="219.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9.5" fill="#8a6d1a" text-anchor="middle">3.3→5 В</text>
+<line x1="128.0" y1="380.0" x2="175.0" y2="371.0" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#aGreen)" stroke-linecap="round"/>
+<text x="157.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1f8a3b" text-anchor="end">DIN 3.3V</text>
+<rect x="280.0" y="354.0" width="52.0" height="26.0" rx="4" fill="#fff" stroke="#caa24a" stroke-width="1.8"/>
+<text x="306.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6d1a" text-anchor="middle" font-weight="700">330 Ω</text>
+<text x="306.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="middle">серійно DIN</text>
+<line x1="263.0" y1="371.0" x2="280.0" y2="367.0" stroke="#caa24a" stroke-width="1.8" marker-end="url(#aGold)" stroke-linecap="round"/>
+<rect x="180.0" y="190.0" width="115.0" height="60.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="237.5" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="700">піксель 1</text>
+<text x="237.5" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle">RGB ШІМ</text>
+<rect x="315.0" y="190.0" width="115.0" height="60.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="372.5" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="700">піксель 2</text>
+<text x="372.5" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle">RGB ШІМ</text>
+<rect x="450.0" y="190.0" width="115.0" height="60.0" rx="8" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2"/>
+<text x="507.5" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="700">піксель 3</text>
+<text x="507.5" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle">RGB ШІМ</text>
+<rect x="585.0" y="190.0" width="115.0" height="60.0" rx="8" fill="#e4e4e4" stroke="#8a8a8a" stroke-width="2"/>
+<text x="642.5" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle">… далі</text>
+<text x="642.5" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle">(продовження)</text>
+<line x1="295.0" y1="220.0" x2="315.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#aInk)" stroke-linecap="round"/>
+<line x1="430.0" y1="220.0" x2="450.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#aInk)" stroke-linecap="round"/>
+<line x1="565.0" y1="220.0" x2="585.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#aInk)" stroke-linecap="round"/>
+<line x1="332.0" y1="367.0" x2="180.0" y2="220.0" stroke="#caa24a" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="180.0" y1="367.0" x2="180.0" y2="220.0" stroke="#caa24a" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="128.0" y1="200.0" x2="720.0" y2="152.0" stroke="#c0271e" stroke-width="3" stroke-linecap="round"/>
+<text x="105.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="start" font-weight="700">+5 В (товстий дріт)</text>
+<line x1="237.5" y1="152.0" x2="237.5" y2="190.0" stroke="#c0271e" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="205.5" y="130.0" width="64.0" height="18.0" rx="4" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="237.5" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="middle" font-weight="700">ПОЧАТОК</text>
+<line x1="372.5" y1="152.0" x2="372.5" y2="190.0" stroke="#c0271e" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="340.5" y="130.0" width="64.0" height="18.0" rx="4" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="372.5" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="middle" font-weight="700">СЕРЕДИНА</text>
+<line x1="642.5" y1="152.0" x2="642.5" y2="190.0" stroke="#c0271e" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="610.5" y="130.0" width="64.0" height="18.0" rx="4" fill="#fbecec" stroke="#c0271e" stroke-width="1.4"/>
+<text x="642.5" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="middle" font-weight="700">КІНЕЦЬ</text>
+<line x1="128.0" y1="240.0" x2="720.0" y2="290.0" stroke="#1f47b5" stroke-width="2.5" stroke-linecap="round"/>
+<text x="105.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9.5" fill="#1f47b5" text-anchor="start" font-weight="700">GND (товстий дріт)</text>
+<line x1="237.5" y1="250.0" x2="237.5" y2="290.0" stroke="#1f47b5" stroke-width="2" stroke-linecap="round"/>
+<line x1="372.5" y1="250.0" x2="372.5" y2="290.0" stroke="#1f47b5" stroke-width="2" stroke-linecap="round"/>
+<line x1="642.5" y1="250.0" x2="642.5" y2="290.0" stroke="#1f47b5" stroke-width="2" stroke-linecap="round"/>
+<line x1="83.0" y1="410.0" x2="83.0" y2="300.0" stroke="#1f47b5" stroke-width="2" stroke-linecap="round"/>
+<line x1="83.0" y1="300.0" x2="83.0" y2="310.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="71.0" y1="310.0" x2="95.0" y2="310.0" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="75.0" y1="316.0" x2="91.0" y2="316.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="79.0" y1="322.0" x2="87.0" y2="322.0" stroke="#1a1a1a" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="219.0" y1="397.0" x2="219.0" y2="300.0" stroke="#1f47b5" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="219.0" y1="300.0" x2="219.0" y2="310.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="207.0" y1="310.0" x2="231.0" y2="310.0" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="211.0" y1="316.0" x2="227.0" y2="316.0" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="215.0" y1="322.0" x2="223.0" y2="322.0" stroke="#1a1a1a" stroke-width="1.4" stroke-linecap="round"/>
+<rect x="134.0" y="176.0" width="36.0" height="48.0" rx="4" fill="#fff" stroke="#caa24a" stroke-width="2"/>
+<text x="152.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a6d1a" text-anchor="middle" font-weight="700">1000</text>
+<text x="152.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#8a6d1a" text-anchor="middle">мкФ</text>
+<text x="152.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="7.5" fill="#8a8a8a" text-anchor="middle">+  10В</text>
+<line x1="128.0" y1="200.0" x2="170.0" y2="176.0" stroke="#c0271e" stroke-width="1.5" stroke-dasharray="3,2" stroke-linecap="round"/>
+<line x1="128.0" y1="240.0" x2="170.0" y2="224.0" stroke="#1f47b5" stroke-width="1.5" stroke-dasharray="3,2" stroke-linecap="round"/>
+<rect x="720.0" y="60.0" width="250.0" height="110.0" rx="8" fill="#f9f9fb" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="845.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10.5" fill="#1a1a1a" text-anchor="middle" font-weight="700">Напруга вздовж стрічки</text>
+<line x1="738.0" y1="98.0" x2="952.0" y2="148.0" stroke="#c0271e" stroke-width="2.5" stroke-linecap="round"/>
+<text x="863.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="middle" font-weight="700">без інжекції: 5.0→3.6 В ⚠</text>
+<text x="734.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#c0271e" text-anchor="end">5.0 В</text>
+<text x="956.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#c0271e" text-anchor="start">3.6 В</text>
+<line x1="738.0" y1="117.0" x2="952.0" y2="117.0" stroke="#1f8a3b" stroke-width="2.5" stroke-linecap="round"/>
+<text x="845.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8.5" fill="#1f8a3b" text-anchor="middle" font-weight="700">з інжекцією: рівне ~5 В ✓</text>
+<text x="500.0" y="486.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle">Рис. 4.7.7c.1. Топологія живлення з інжекцією: БЖ 5 В, інжекція на початку/середині/кінці, рівнезсувач і обв'язка.</text>
+</svg>

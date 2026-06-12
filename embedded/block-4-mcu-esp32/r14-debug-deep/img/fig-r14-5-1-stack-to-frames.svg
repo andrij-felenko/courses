@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="175.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Стек у RAM (зростає донизу ↓)</text>
+<rect x="30.0" y="60.0" width="290.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="175.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">leaf()</text>
+<text x="175.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">local x=7</text>
+<text x="175.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">збер. LR=0x2010</text>
+<text x="175.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">збер. r4</text>
+<rect x="30.0" y="164.0" width="290.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#e67e22" stroke-width="2.0"/>
+<text x="175.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">mid(int n)</text>
+<text x="175.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">local buf[]</text>
+<text x="175.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">збер. LR=0x200C</text>
+<text x="175.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">збер. r4,r5</text>
+<rect x="30.0" y="268.0" width="290.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.0"/>
+<text x="175.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">app_main()</text>
+<text x="175.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">local cfg</text>
+<text x="175.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">збер. LR=0xFFFF</text>
+<text x="175.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">...</text>
+<text x="175.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SP →</text>
+<text x="620.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">GDB: backtrace</text>
+<rect x="450.0" y="55.0" width="330.0" height="220.0" rx="8" fill="#1e2030" stroke="#27ae60" stroke-width="2.0"/>
+<text x="465.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">#0  leaf () at main.c:45</text>
+<text x="465.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#aaaaaa" text-anchor="start">    x = 7</text>
+<text x="465.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="start">#1  mid (n=3) at main.c:30</text>
+<text x="465.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#aaaaaa" text-anchor="start">    n = 3</text>
+<text x="465.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">#2  app_main () at main.c:12</text>
+<text x="465.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#aaaaaa" text-anchor="start">    ...</text>
+<line x1="320.0" y1="108.0" x2="450.0" y2="90.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="212.0" x2="450.0" y2="150.0" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="316.0" x2="450.0" y2="210.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="190.0" y="394.5" width="440.1" height="31.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/><text x="410.0" y="413.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="410.0" dy="0.0">backtrace відновлює ланцюг «хто кого викликав» із завмерлого стека.</tspan></text>
+<text x="410.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Рис. 4.14.5.1. Від стека в пам'яті до списку фреймів backtrace.</text>
+</svg>

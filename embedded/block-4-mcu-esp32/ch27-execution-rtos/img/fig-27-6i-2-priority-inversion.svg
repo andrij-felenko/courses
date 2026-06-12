@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="20.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пріоритетна інверсія на Pathfinder: три доріжки, один замок</text>
+<rect x="7.0" y="43.3" width="96.0" height="37.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="55.0" y="58.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="55.0" dy="0.0">ВИСОКА</tspan><tspan x="55.0" dy="14.3">(шина)</tspan></text>
+<rect x="7.0" y="109.3" width="96.0" height="37.3" rx="6" fill="#fff8e1" stroke="#e08b00" stroke-width="1.6"/><text x="55.0" y="124.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e08b00" text-anchor="middle" font-weight="700"><tspan x="55.0" dy="0.0">СЕРЕДНЯ</tspan><tspan x="55.0" dy="14.3">(зв'язок)</tspan></text>
+<rect x="7.0" y="175.3" width="96.0" height="37.3" rx="6" fill="#e8eef9" stroke="#2457d6" stroke-width="1.6"/><text x="55.0" y="190.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="55.0" dy="0.0">НИЗЬКА</tspan><tspan x="55.0" dy="14.3">(метео)</tspan></text>
+<line x1="124.0" y1="194.0" x2="124.0" y2="194.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="124.0" y="176.0" width="183.5" height="36.0" rx="4" fill="#c5d9f8" stroke="#2457d6" stroke-width="1.6"/>
+<text x="215.7" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Н: крит. секція 🔒</text>
+<rect x="307.5" y="180.0" width="383.6" height="28.0" rx="3" fill="#ecf0f1" stroke="#aaa" stroke-width="1.2"/>
+<text x="499.3" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle" font-style="italic">Н: зупинена (витіснена С)</text>
+<rect x="691.1" y="176.0" width="66.7" height="36.0" rx="4" fill="#d5eef6" stroke="#2457d6" stroke-width="1.6"/>
+<text x="724.5" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Н: дає замок 🔓</text>
+<line x1="757.8" y1="194.0" x2="958.0" y2="194.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="124.0" y1="128.0" x2="307.5" y2="128.0" stroke="#e08b00" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="307.5" y="110.0" width="383.6" height="36.0" rx="4" fill="#fff8e1" stroke="#e08b00" stroke-width="1.6"/>
+<text x="499.3" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e08b00" text-anchor="middle" font-weight="700">С: виконується (замок не бере, їсть CPU)</text>
+<line x1="691.1" y1="128.0" x2="958.0" y2="128.0" stroke="#e08b00" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="124.0" y1="62.0" x2="240.8" y2="62.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="240.8" y="46.0" width="517.1" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="499.3" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">В: чекає замку... (блокована)</text>
+<rect x="757.8" y="44.0" width="58.4" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="787.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">В: щойно взяла замок</text>
+<rect x="814.2" y="32.0" width="44.0" height="294.0" rx="3" fill="#fdedec" stroke="#922b21" stroke-width="2.2"/>
+<text x="836.2" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#922b21" text-anchor="middle">⚠</text>
+<text x="836.2" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="middle" font-weight="700"><tspan x="836.2" dy="0.0">WATCH-</tspan><tspan x="836.2" dy="11.7">DOG</tspan><tspan x="836.2" dy="11.7">RESET</tspan></text>
+<rect x="412.9" y="242.2" width="172.8" height="55.6" rx="7" fill="#fef0f0" stroke="#c0392b" stroke-width="1.8"/><text x="499.3" y="259.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="499.3" dy="0.0">В фактично чекає на С</tspan><tspan x="499.3" dy="14.3">(інверсія пріоритетів!)</tspan><tspan x="499.3" dy="14.3">Висока &lt; Середня фактично</tspan></text>
+<line x1="499.3" y1="96.0" x2="499.3" y2="240.2" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="124.0" y1="36.0" x2="124.0" y2="320.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="124.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="124.0" dy="0.0">Н бере</tspan><tspan x="124.0" dy="11.7">замок</tspan></text>
+<line x1="240.8" y1="36.0" x2="240.8" y2="320.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="240.8" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="240.8" dy="0.0">В проки-</tspan><tspan x="240.8" dy="11.7">дається,</tspan><tspan x="240.8" dy="11.7">блокується</tspan></text>
+<line x1="307.5" y1="36.0" x2="307.5" y2="320.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="307.5" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="307.5" dy="0.0">С вит-</tspan><tspan x="307.5" dy="11.7">існяє Н</tspan></text>
+<line x1="691.1" y1="36.0" x2="691.1" y2="320.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="691.1" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="691.1" dy="0.0">С зав-</tspan><tspan x="691.1" dy="11.7">ершила</tspan></text>
+<line x1="757.8" y1="36.0" x2="757.8" y2="320.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="757.8" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="757.8" dy="0.0">Н дає</tspan><tspan x="757.8" dy="11.7">замок</tspan></text>
+<line x1="816.2" y1="36.0" x2="816.2" y2="320.0" stroke="#922b21" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="816.2" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="middle"><tspan x="816.2" dy="0.0">Watchdog</tspan><tspan x="816.2" dy="11.7">RESET</tspan></text>
+<line x1="124.0" y1="326.0" x2="958.0" y2="326.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="942.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">час →</text>
+</svg>

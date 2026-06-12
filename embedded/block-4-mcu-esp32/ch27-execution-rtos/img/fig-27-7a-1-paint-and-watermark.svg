@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500">
+<rect width="960" height="500" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#d06c00"/></marker>
+</defs>
+<text x="480.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Фарбування патерном 0xA5 і водяний знак (high-water mark)</text>
+<text x="480.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.4" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">уцілілий хвіст візерунка від дна = стек, якого ніколи не торкались; його й рахує uxTaskGetStackHighWaterMark</text>
+<rect x="135.0" y="90.0" width="170.0" height="330.0" rx="4" fill="#f8f8f8" stroke="#1f47b5" stroke-width="2"/>
+<rect x="135.0" y="90.0" width="170.0" height="181.5" rx="0" fill="#1f47b5" stroke="#1f47b5" stroke-width="0"/>
+<text x="220.0" y="172.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="normal" font-style="normal">кадри викликів,</text>
+<text x="220.0" y="188.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="normal" font-style="normal">локальні змінні</text>
+<rect x="135.0" y="271.5" width="170.0" height="148.5" rx="0" fill="#eef6ef" stroke="#1f47b5" stroke-width="0"/>
+<text x="220.0" y="279.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">0xA5</text>
+<text x="220.0" y="302.9" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">0xA5</text>
+<text x="220.0" y="326.3" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">0xA5</text>
+<text x="220.0" y="349.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">0xA5</text>
+<text x="220.0" y="373.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">0xA5</text>
+<text x="220.0" y="396.6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">0xA5</text>
+<text x="220.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">0xA5</text>
+<text x="123.0" y="98.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">межа стека</text>
+<text x="123.0" y="428.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">дно (перший push)</text>
+<line x1="111.0" y1="90.0" x2="135.0" y2="90.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="111.0" y1="420.0" x2="135.0" y2="420.0" stroke="#8a8a8a" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="125.0" y1="271.5" x2="385.0" y2="271.5" stroke="#c0271e" stroke-width="2.2" stroke-dasharray="6,3" stroke-linecap="round"/>
+<text x="391.0" y="275.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">watermark</text>
+<line x1="341.0" y1="420.0" x2="341.0" y2="277.5" stroke="#1f8a3b" stroke-width="1.6" marker-end="url(#aGreen)"/>
+<line x1="341.0" y1="271.5" x2="341.0" y2="414.0" stroke="#1f8a3b" stroke-width="1.6" marker-end="url(#aGreen)"/>
+<text x="351.0" y="345.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">вільний</text>
+<text x="351.0" y="359.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">запас</text>
+<text x="220.0" y="448.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">нормальний запас</text>
+<text x="220.0" y="464.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.2" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">watermark далеко від межі</text>
+<rect x="485.0" y="90.0" width="170.0" height="330.0" rx="4" fill="#f8f8f8" stroke="#c0271e" stroke-width="2"/>
+<rect x="485.0" y="90.0" width="170.0" height="313.5" rx="0" fill="#c0271e" stroke="#c0271e" stroke-width="0"/>
+<text x="570.0" y="238.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="normal" font-style="normal">кадри викликів,</text>
+<text x="570.0" y="254.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="normal" font-style="normal">локальні змінні</text>
+<rect x="485.0" y="403.5" width="170.0" height="16.5" rx="0" fill="#eef6ef" stroke="#c0271e" stroke-width="0"/>
+<text x="570.0" y="411.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">0xA5</text>
+<text x="570.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="7.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">0xA5</text>
+<line x1="475.0" y1="403.5" x2="735.0" y2="403.5" stroke="#c0271e" stroke-width="2.2" stroke-dasharray="6,3" stroke-linecap="round"/>
+<text x="741.0" y="407.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">watermark ≈ 0</text>
+<line x1="570.0" y1="160.0" x2="570.0" y2="106.0" stroke="#c0271e" stroke-width="2.2" marker-end="url(#aRed)"/>
+<text x="570.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">межа поряд!</text>
+<text x="570.0" y="448.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">mayже переповнення</text>
+<text x="570.0" y="464.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.2" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">патерну майже не лишилось</text>
+<rect x="100.0" y="480.0" width="760.0" height="50.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="480.0" y="502.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">uxTaskGetStackHighWaterMark сканує хвіст 0xA5 від дна:</text>
+<text x="480.0" y="518.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">скільки байтів поспіль незаймані — такий і watermark (запас у словах на Xtensa/ARM).</text>
+<rect x="760.0" y="90.0" width="175.0" height="82.0" rx="8" fill="#fbfcff" stroke="#8a8a8a" stroke-width="1.2"/>
+<text x="848.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">Легенда</text>
+<rect x="772.0" y="118.0" width="18.0" height="14.0" rx="0" fill="#1f47b5" stroke="#1f47b5" stroke-width="0"/>
+<text x="796.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">= затертий стек</text>
+<rect x="772.0" y="138.0" width="18.0" height="14.0" rx="0" fill="#eef6ef" stroke="#1f8a3b" stroke-width="0"/>
+<text x="796.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">= незайманий 0xA5</text>
+<line x1="772.0" y1="164.0" x2="790.0" y2="164.0" stroke="#c0271e" stroke-width="2" stroke-dasharray="6,3" stroke-linecap="round"/>
+<text x="796.0" y="168.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">= watermark</text>
+</svg>

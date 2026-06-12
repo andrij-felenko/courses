@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="90.0" width="560.0" height="220.0" rx="14" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/>
+<text x="310.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a5c00" text-anchor="middle" font-weight="700">INIT: один раз у setup() — float, повільно, але лише раз</text>
+<rect x="600.0" y="90.0" width="330.0" height="220.0" rx="14" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="765.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="700">LOOP: щокадру — тільки індексація</text>
+<rect x="35.0" y="170.0" width="130.0" height="60.0" rx="8" fill="#e4e4e4" stroke="#333333" stroke-width="2.0"/>
+<text x="100.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">level</text>
+<text x="100.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle">0 … 255</text>
+<rect x="165.5" y="170.0" width="209.0" height="60.0" rx="8" fill="#e4e4e4" stroke="#333333" stroke-width="2.0"/>
+<text x="270.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">powf(x/255,γ)·maxDuty</text>
+<text x="270.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle">рантайм-формула</text>
+<rect x="401.5" y="170.0" width="137.0" height="60.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="2.0"/>
+<text x="470.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">gammaLUT[256]</text>
+<text x="470.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle">uint16_t, 512 байт</text>
+<rect x="595.0" y="170.0" width="130.0" height="60.0" rx="8" fill="#e4e4e4" stroke="#333333" stroke-width="2.0"/>
+<text x="660.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">lut[level]</text>
+<text x="660.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle">O(1), без float</text>
+<rect x="765.0" y="170.0" width="130.0" height="60.0" rx="8" fill="#e4e4e4" stroke="#333333" stroke-width="2.0"/>
+<text x="830.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ledcWrite</text>
+<text x="830.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle">→ LEDC</text>
+<line x1="165.0" y1="200.0" x2="155.5" y2="200.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="155.5" y1="200" x2="165.5" y2="200" stroke="#333333" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="374.5" y1="200.0" x2="391.5" y2="200.0" stroke="#1f47b5" stroke-width="2.0"/>
+<line x1="391.5" y1="200" x2="401.5" y2="200" stroke="#1f47b5" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="538.5" y1="200.0" x2="585.0" y2="200.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="585.0" y1="200" x2="595.0" y2="200" stroke="#333333" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="725.0" y1="200.0" x2="755.0" y2="200.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="755.0" y1="200" x2="765.0" y2="200" stroke="#333333" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="185.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="700">через цикл</text>
+<text x="185.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#8a8a8a" text-anchor="middle">i=0..255</text>
+<text x="370.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1f47b5" text-anchor="middle" font-weight="700">duty = round(…)</text>
+<text x="370.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1f47b5" text-anchor="middle">(x/255)^γ · 4095</text>
+<text x="565.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="700">lut[level]</text>
+<text x="565.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1f8a3b" text-anchor="middle">O(1)</text>
+<text x="745.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="700">uint16_t</text>
+<text x="745.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#8a8a8a" text-anchor="middle">0 … 4095</text>
+<circle cx="900.0" cy="200.0" r="18.0" fill="#fffacc" stroke="#caa24a" stroke-width="2.0"/>
+<text x="900.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">LED</text>
+<line x1="914.1" y1="185.9" x2="919.8" y2="180.2" stroke="#caa24a" stroke-width="2.0"/>
+<line x1="920.0" y1="200.0" x2="928.0" y2="200.0" stroke="#caa24a" stroke-width="2.0"/>
+<line x1="914.1" y1="214.1" x2="919.8" y2="219.8" stroke="#caa24a" stroke-width="2.0"/>
+<line x1="900.0" y1="180.0" x2="900.0" y2="172.0" stroke="#caa24a" stroke-width="2.0"/>
+<text x="310.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle">⟵ вартість powf сплачується наперед, лише під час ініціалізації</text>
+<text x="765.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle">⟵ рантайм безкоштовний: один доступ до масиву</text>
+<text x="480.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр гамма-корекції: де платимо float, де отримуємо O(1)</text>
+</svg>

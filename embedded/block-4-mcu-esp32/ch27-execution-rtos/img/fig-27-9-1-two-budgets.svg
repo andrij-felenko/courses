@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два бюджети ESP32: процесорні такти і байти RAM</text>
+<text x="480.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">усе, що робить пристрій, витрачає одне, друге або обидва</text>
+<rect x="90.0" y="90.0" width="380.0" height="270.0" rx="14" fill="#e9eefb" stroke="#1f47b5" stroke-width="2.5"/>
+<text x="280.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="700">Процесорний час</text>
+<text x="280.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(такти за секунду)</text>
+<rect x="120.0" y="162.0" width="150.0" height="80.0" rx="10" fill="#dce8fb" stroke="#1f47b5" stroke-width="2.0"/>
+<text x="195.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="700">Ядро 0</text>
+<text x="195.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">240 МГц</text>
+<rect x="300.0" y="162.0" width="150.0" height="80.0" rx="10" fill="#dce8fb" stroke="#7a4fb0" stroke-width="2.0"/>
+<text x="375.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7a4fb0" text-anchor="middle" font-weight="700">Ядро 1</text>
+<text x="375.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">240 МГц</text>
+<text x="280.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle">= 240 000 000 тактів/с × 2 ядра</text>
+<text x="280.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Профіль CPU — «куди йдуть такти»</text>
+<text x="280.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-style="italic">Закон Амдала: ~10% коду їсть ~90%</text>
+<text x="280.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-style="italic">часу — знайди цей 1% → оптимізуй</text>
+<rect x="490.0" y="90.0" width="380.0" height="270.0" rx="14" fill="#eef6ef" stroke="#1f8a3b" stroke-width="2.5"/>
+<text x="680.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1f8a3b" text-anchor="middle" font-weight="700">Пам'ять (RAM)</text>
+<text x="680.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(байти у SRAM)</text>
+<rect x="520.0" y="165.0" width="320.0" height="46.0" rx="6" fill="#e0f4e7" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="680.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="700">Глобальні змінні</text>
+<rect x="520.0" y="217.0" width="320.0" height="70.0" rx="6" fill="#e0f4e7" stroke="#1f47b5" stroke-width="1.5"/>
+<text x="680.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="700">Стеки задач</text>
+<rect x="520.0" y="293.0" width="320.0" height="54.0" rx="6" fill="#e0f4e7" stroke="#caa24a" stroke-width="1.5"/>
+<text x="680.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#caa24a" text-anchor="middle" font-weight="700">Купа (heap)</text>
+<text x="680.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Профіль RAM — «куди йдуть байти»</text>
+<text x="680.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-style="italic">Ціна: сотні КБ SRAM, не гігабайти</text>
+<rect x="194.0" y="371.5" width="572.1" height="37.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="2.0"/><text x="480.0" y="394.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Профілювання = облік обох бюджетів: спершу виміряй, потім оптимізуй.</tspan></text>
+</svg>

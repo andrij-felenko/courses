@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="270.0" y="33.0" width="280.0" height="34.0" rx="6" fill="#2d3e50" stroke="#333333" stroke-width="2.0"/><text x="410.0" y="54.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Пристрій спинився / впав</tspan></text>
+<rect x="319.4" y="95.0" width="181.2" height="49.9" rx="6" fill="#f4f6f8" stroke="#e67e22" stroke-width="2.0"/><text x="410.0" y="116.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e67e22" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Зонд підключений?</tspan><tspan x="410.0" dy="16.9">Момент збою «живий»?</tspan></text>
+<line x1="410.0" y1="68.0" x2="410.0" y2="100.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="140.0" x2="410.0" y2="155.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="155.0" x2="215.0" y2="155.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="410.0" y1="155.0" x2="605.0" y2="155.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="215.0" y1="155.0" x2="215.0" y2="185.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="155.0" x2="605.0" y2="185.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="170.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ТАК</text>
+<text x="620.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">НІ</text>
+<rect x="50.0" y="185.0" width="325.0" height="230.0" rx="10" fill="#d5e8d4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="213.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Гілка А: Живе налагодження</text>
+<text x="70.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ halt + зонд (4.14.2)</text>
+<text x="70.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ брейк/вотч (4.14.3)</text>
+<text x="70.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ OpenOCD + GDB (4.14.4)</text>
+<text x="70.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ backtrace + фрейми (4.14.5)</text>
+<text x="70.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ розбір HardFault (4.14.6)</text>
+<rect x="445.0" y="185.0" width="325.0" height="230.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="607.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Гілка Б: Посмертний аналіз</text>
+<text x="465.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ причина reset (§4.1.8)</text>
+<text x="465.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ core dump у Flash (4.14.7)</text>
+<text x="465.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ idf.py coredump-info</text>
+<text x="465.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ офлайн-backtrace + .elf</text>
+<text x="465.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">▸ fault-регістри з дампа</text>
+<rect x="177.4" y="446.5" width="465.2" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/><text x="410.0" y="465.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Вибір шляху диктують доступність зонда і те, чи момент збою ще «живий».</tspan></text>
+<text x="410.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Рис. 4.14.7.3. Зведення розділу: два шляхи розслідування — живий зонд або посмертний дамп.</text>
+</svg>

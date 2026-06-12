@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рис. 4.11.5.1  PIO як 'DMA для протоколів': міні-автомати смикають ніжки, ядро вільне</text>
+<text x="200.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Біт-бенгінг ядром</text>
+<rect x="50.0" y="80.0" width="300.0" height="80.0" rx="8" fill="#fce8e8" stroke="#c0392b" stroke-width="2.5"/>
+<text x="200.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Ядро CPU</text>
+<text x="200.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">(займається протоколом)</text>
+<line x1="200.0" y1="160.0" x2="200.0" y2="210.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="215.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">смикає ніжку вручну
+(такт за тактом)</text>
+<rect x="140.0" y="210.0" width="120.0" height="40.0" rx="5" fill="#fce8e8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="200.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">GPIO-ніжка</text>
+<text x="200.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">сигнал (джитер)</text>
+<rect x="80.0" y="290.0" width="26.0" height="16.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="108.0" y="290.0" width="31.0" height="16.0" rx="0" fill="#fff" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="141.0" y="290.0" width="36.0" height="16.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="179.0" y="290.0" width="26.0" height="16.0" rx="0" fill="#fff" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="207.0" y="290.0" width="31.0" height="16.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="240.0" y="290.0" width="36.0" height="16.0" rx="0" fill="#fff" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="278.0" y="290.0" width="26.0" height="16.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="306.0" y="290.0" width="31.0" height="16.0" rx="0" fill="#fff" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="141.8" y="319.4" width="116.3" height="41.3" rx="6" fill="#fce8e8" stroke="#c0392b" stroke-width="2.0"/><text x="200.0" y="336.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">ядро ЗАБЛОКОВАНЕ</tspan><tspan x="200.0" dy="14.3">на час протоколу</tspan></text>
+<line x1="420.0" y1="55.0" x2="420.0" y2="380.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5 4"/>
+<text x="600.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e8449" text-anchor="middle" font-weight="700">PIO (RP2040)</text>
+<rect x="450.0" y="80.0" width="300.0" height="80.0" rx="8" fill="#d5f5e3" stroke="#1e8449" stroke-width="2.5"/>
+<text x="600.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e8449" text-anchor="middle" font-weight="700">Ядро CPU</text>
+<text x="600.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle">(виконує корисну роботу)</text>
+<rect x="530.0" y="185.0" width="140.0" height="44.0" rx="6" fill="#c8f7e0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="600.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">PIO state machine</text>
+<line x1="600.0" y1="160.0" x2="600.0" y2="185.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="655.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">програма
+(один раз)</text>
+<line x1="600.0" y1="229.0" x2="600.0" y2="255.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="540.0" y="255.0" width="120.0" height="40.0" rx="5" fill="#d5f5e3" stroke="#1e8449" stroke-width="2.0"/>
+<text x="600.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">GPIO-ніжка</text>
+<text x="600.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="middle">сигнал (точний)</text>
+<rect x="480.0" y="333.0" width="30.0" height="16.0" rx="0" fill="#1e8449" stroke="#1e8449" stroke-width="1.0"/>
+<rect x="512.0" y="333.0" width="30.0" height="16.0" rx="0" fill="#fff" stroke="#1e8449" stroke-width="1.0"/>
+<rect x="544.0" y="333.0" width="30.0" height="16.0" rx="0" fill="#1e8449" stroke="#1e8449" stroke-width="1.0"/>
+<rect x="576.0" y="333.0" width="30.0" height="16.0" rx="0" fill="#fff" stroke="#1e8449" stroke-width="1.0"/>
+<rect x="608.0" y="333.0" width="30.0" height="16.0" rx="0" fill="#1e8449" stroke="#1e8449" stroke-width="1.0"/>
+<rect x="640.0" y="333.0" width="30.0" height="16.0" rx="0" fill="#fff" stroke="#1e8449" stroke-width="1.0"/>
+<rect x="672.0" y="333.0" width="30.0" height="16.0" rx="0" fill="#1e8449" stroke="#1e8449" stroke-width="1.0"/>
+<rect x="704.0" y="333.0" width="30.0" height="16.0" rx="0" fill="#fff" stroke="#1e8449" stroke-width="1.0"/>
+<rect x="545.0" y="339.4" width="110.0" height="41.3" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="2.0"/><text x="600.0" y="356.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">ядро ВІЛЬНЕ</tspan><tspan x="600.0" dy="14.3">≈0 навантаження</tspan></text>
+</svg>

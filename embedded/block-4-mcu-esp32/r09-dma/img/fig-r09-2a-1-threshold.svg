@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рис. 4.9.2a.1. Час копії проти розміру блоку: CPU vs DMA (M2M)</text>
+<line x1="80.0" y1="350.0" x2="660.0" y2="350.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="350.0" x2="80.0" y2="60.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="670.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Розмір блоку N (байти)</text>
+<text x="72.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">Час
+(такти)</text>
+<polygon points="80.0,270.0 660.0,38.0 660.0,118.0 80.0,350.0" fill="#eef6ef" fill-opacity="0.75" stroke="none"/>
+<line x1="138.0" y1="246.8" x2="138.0" y2="326.8" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="196.0" y1="223.6" x2="196.0" y2="303.6" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="254.0" y1="200.4" x2="254.0" y2="280.4" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="312.0" y1="177.2" x2="312.0" y2="257.2" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="370.0" y1="154.0" x2="370.0" y2="234.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="428.0" y1="130.8" x2="428.0" y2="210.8" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="486.0" y1="107.6" x2="486.0" y2="187.6" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="544.0" y1="84.4" x2="544.0" y2="164.4" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="602.0" y1="61.2" x2="602.0" y2="141.2" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="80.0" y1="350.0" x2="660.0" y2="118.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="80.0" y1="270.0" x2="660.0" y2="38.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="72.0" y1="270.0" x2="88.0" y2="270.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="68.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">O_dma</text>
+<rect x="665.2" y="99.3" width="101.5" height="45.3" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="716.0" y="118.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="716.0" dy="0.0">CPU memcpy</tspan><tspan x="716.0" dy="14.3">(оверхед ≈ 0)</tspan></text>
+<line x1="666.0" y1="122.0" x2="665.2" y2="122.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="4,3"/>
+<rect x="648.3" y="19.3" width="145.4" height="45.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="721.0" y="38.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="721.0" dy="0.0">DMA (M2M)</tspan><tspan x="721.0" dy="14.3">(старт коштує O_dma)</tspan></text>
+<line x1="666.0" y1="42.0" x2="648.3" y2="42.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4,3"/>
+<rect x="281.9" y="160.2" width="176.2" height="47.6" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="370.0" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">Вивільнені такти ядра</tspan><tspan x="370.0" dy="15.6">(= виграш DMA)</tspan></text>
+<text x="341.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Нахили рівні: та сама шина / пам'ять → однакова пропускна</text>
+<line x1="100.0" y1="90.0" x2="130.0" y2="90.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="136.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">CPU memcpy</text>
+<line x1="100.0" y1="108.0" x2="130.0" y2="108.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="136.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">DMA (M2M)</text>
+<rect x="100" y="122" width="30" height="10" fill="#eef6ef" fill-opacity="0.85" stroke="#27ae60" stroke-width="1.0"/>
+<text x="136.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">Вивільнені такти ядра</text>
+</svg>

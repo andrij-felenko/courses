@@ -2404,6 +2404,403 @@ def fig7i3_credit():
     save("fig-21-7i-3-credit.svg", s)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+#  §21.10 — Ворнінги й статичний аналіз: небезпечні кути C
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig10_1_error_vs_warning():
+    """Рис. 4.2.10.1 — Error vs warning на стадії компілятора."""
+    W, H = 900, 380
+    s = header(W, H)
+    s += text(W / 2, 32, "Error проти warning: та сама стадія — різна ціна", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "обидва народжує компілятор під час розбору коду, але дія — геть різна",
+              11, GREY, "middle", style="italic")
+    # Стадія компілятора
+    s += rect(340, 80, 220, 56, LAMB, GOLD, 2, 10)
+    s += text(450, 107, "Компілятор — стадія розбору", 11, "#8a6d1a", "middle", "bold")
+    s += text(450, 124, "(§4.2.2: перевірка граматики і типів)", 9, GREY, "middle")
+    # Ліво — error
+    s += rect(50, 160, 330, 170, LRED, RED, 2.2, 12)
+    s += text(215, 188, "ERROR — стоп-знак", 14, RED, "middle", "bold")
+    s += text(215, 212, "«Не можу зрозуміти/перекласти»", 10.5, INK, "middle")
+    s += text(215, 232, "Збірка ЗУПИНЕНА", 11.5, RED, "middle", "bold")
+    s += text(215, 254, "Прошивки немає", 10, INK, "middle")
+    s += text(215, 276, "Приклад: забута ; або {", 9.5, GREY, "middle", style="italic")
+    s += text(215, 296, "→ неможливо дістатися чипа", 9.5, RED, "middle")
+    # Право — warning
+    s += rect(520, 160, 330, 170, LAMB, GOLD, 2.2, 12)
+    s += text(685, 188, "WARNING — жовтий знак", 14, GOLD, "middle", "bold")
+    s += text(685, 212, "«Зрозумів і переклав, але підозріло»", 10.5, INK, "middle")
+    s += text(685, 232, "Збірка ПРОДОВЖУЄТЬСЯ", 11.5, GREEN, "middle", "bold")
+    s += text(685, 254, "Прошивка є — але з прихованим багом", 10, INK, "middle")
+    s += text(685, 276, "Приклад: = замість == у if", 9.5, GREY, "middle", style="italic")
+    s += text(685, 296, "→ тихо заливається, дивно поводиться", 9.5, RED, "middle")
+    # Стрілки від стадії
+    s += arrow(380, 136, 270, 160, RED, 2.2)
+    s += arrow(520, 136, 620, 160, GOLD, 2.2)
+    # Висновок
+    s += rect(60, 346, 780, 24, "#f9f9f9", FAINT, 1, 8)
+    s += text(450, 362, "Ворнінг НЕ зупиняє збірку — і тому небезпечніший: баг є, але ніщо не кричить.", 9.5, INK, "middle", "bold")
+    save("fig-21-10-1-error-vs-warning.svg", s)
+
+
+def fig10_2_sharp_corners():
+    """Рис. 4.2.10.2 — Галерея «гострих кутів» C."""
+    W, H = 940, 420
+    s = header(W, H)
+    s += text(W / 2, 32, "Галерея «гострих кутів» C: легальні конструкції, що майже завжди помилкові", 17, INK, "middle", "bold")
+    s += text(W / 2, 54, "усі вони проходять компіляцію — ворнінг (-Wall) ловить безкоштовно", 11, GREY, "middle", style="italic")
+    corners = [
+        ("= замість ==", "if (flag = read())", "присвоєння,\nне порівняння", "завжди «істина»", RED),
+        ("Неініціалізована\nзмінна", "int val;\nuse(val);", "читаєш сміття\nзі стека", "непередбачувана\nповедінка", GOLD),
+        ("Звуження типу\nuint8_t mask=1<<9", "uint8_t m=1<<9;\n// m = 0!", "переповнення при\nприсвоєнні", "маска нульова,\nбіт не встав", BLUE),
+        ("Висячий\nпокажчик", "int *p=local();\n*p = 1;", "адреса локальної\nзмінної після return", "стек\nзатерли", RED),
+    ]
+    cols_x = [30, 262, 494, 726]
+    for i, (title, code, danger, result, col) in enumerate(corners):
+        x = cols_x[i]
+        s += rect(x, 82, 210, 300, _tint(col), col, 1.8, 10)
+        s += text(x + 105, 108, title, 11, col, "middle", "bold")
+        # code block area
+        s += rect(x + 10, 124, 190, 72, "#1e1e2e", "#333344", 1, 6)
+        code_lines = code.split("\n")
+        for j, cl in enumerate(code_lines):
+            s += text(x + 20, 148 + j * 22, cl, 9.5, "#7fb8a0", "start")
+        s += text(x + 105, 216, "Небезпека:", 9.5, GREY, "middle", "bold")
+        danger_lines = danger.split("\n")
+        for j, dl in enumerate(danger_lines):
+            s += text(x + 105, 234 + j * 16, dl, 9.5, col, "middle")
+        s += text(x + 105, 286, "Результат:", 9.5, GREY, "middle", "bold")
+        result_lines = result.split("\n")
+        for j, rl in enumerate(result_lines):
+            s += text(x + 105, 304 + j * 16, rl, 9.5, INK, "middle")
+    s += rect(60, 396, 820, 16, LGRN, GREEN, 1, 6)
+    s += text(470, 408, "Усе це легальний C, який компілятор з -Wall відзначить ще до запуску.", 9, GREEN, "middle", "bold")
+    save("fig-21-10-2-sharp-corners.svg", s)
+
+
+def fig10_3_static_vs_dynamic():
+    """Рис. 4.2.10.3 — Статична vs динамічна перевірка якості."""
+    W, H = 900, 380
+    s = header(W, H)
+    s += text(W / 2, 32, "Дві осі перевірки якості: статична й динамічна", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "вони бачать різне — і тому доповнюють одна одну", 11, GREY, "middle", style="italic")
+    # Статична — ліво
+    s += rect(40, 80, 370, 220, _tint(GREEN), GREEN, 2, 12)
+    s += text(225, 108, "СТАТИЧНА (без запуску)", 13.5, GREEN, "middle", "bold")
+    s += text(225, 130, "ворнінги · статичний аналіз", 10, INK, "middle")
+    s += line(60, 142, 390, 142, GREEN, 1, dash="4,3")
+    items_s = ["✓ бачить ВЕСЬ код", "✓ не потребує виконання", "✓ дешево і швидко", "✗ не знає реальних даних", "✗ можливі хибні тривоги"]
+    for i, t in enumerate(items_s):
+        col = GREEN if t.startswith("✓") else RED
+        s += text(65, 166 + i * 25, t, 10, col, "start")
+    # Динамічна — право
+    s += rect(490, 80, 370, 220, _tint(BLUE), BLUE, 2, 12)
+    s += text(675, 108, "ДИНАМІЧНА (із запуском)", 13.5, BLUE, "middle", "bold")
+    s += text(675, 130, "тести · відлагоджувач · санітайзери", 10, INK, "middle")
+    s += line(510, 142, 840, 142, BLUE, 1, dash="4,3")
+    items_d = ["✓ бачить РЕАЛЬНІ дані", "✓ ловить рантайм-баги", "✓ перевіряє фізичну поведінку", "✗ лише пройдені шляхи", "✗ потрібне залізо або симулятор"]
+    for i, t in enumerate(items_d):
+        col = GREEN if t.startswith("✓") else RED
+        s += text(515, 166 + i * 25, t, 10, col, "start")
+    # VS центр
+    s += circle(450, 190, 26, "#ffffff", GREY, 2)
+    s += text(450, 195, "vs", 14, GREY, "middle", "bold")
+    # Висновок
+    s += rect(80, 316, 740, 52, "#f8f8f8", FAINT, 1, 8)
+    s += text(450, 338, "Статична ловить «структурні» баги в коді; динамічна — «поведінкові» з реальними даними.", 9.5, INK, "middle", "bold")
+    s += text(450, 356, "Разом — повна сітка. Порізно — сліпа пляма.", 9.5, GREY, "middle")
+    save("fig-21-10-3-static-vs-dynamic.svg", s)
+
+
+def fig10_4_quality_nets():
+    """Рис. 4.2.10.4 — Три сітки якості як каскадні фільтри."""
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 32, "Три сітки якості: що раніше зловиш — то дешевше", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "баг падає крізь фільтри зверху вниз — перша сітка коштує нічого, остання — найдорожче",
+              11, GREY, "middle", style="italic")
+    nets = [
+        ("Статика (до запуску)", "ворнінги + аналіз", "безкоштовно, миттєво, на ПК", GREEN, 90),
+        ("Тести §4.2.9", "юніт-тести + моки на хості", "хвилини на ПК, автоматично", GOLD, 196),
+        ("Відлагодження §4.2.8", "живий чіп + JTAG / serial", "повільно, потрібне залізо", BLUE, 302),
+    ]
+    for nm, sub, note, col, y in nets:
+        s += rect(80, y, 740, 82, _tint(col), col, 2, 10)
+        s += text(450, y + 28, nm, 13.5, col, "middle", "bold")
+        s += text(450, y + 50, sub, 10.5, INK, "middle")
+        s += text(450, y + 70, note, 9.5, GREY, "middle", style="italic")
+    # Стрілка «баг» зверху
+    s += arrow(820, 75, 820, 90, INK, 2.4)
+    s += text(834, 84, "баг", 10, INK, "start", "bold")
+    # Стрілки між сітками
+    s += arrow(820, 172, 820, 196, GREY, 1.8)
+    s += arrow(820, 278, 820, 302, GREY, 1.8)
+    # Ціна підписи
+    s += text(46, 131, "дешево", 9, GREEN, "end", "bold")
+    s += text(46, 237, "дорожче", 9, GOLD, "end", "bold")
+    s += text(46, 343, "найдорожче", 9, BLUE, "end", "bold")
+    save("fig-21-10-4-quality-nets.svg", s)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  §21.11 — C-рантайм на голому залізі: що виконується до main(), newlib
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fig11_1_language_runtime():
+    """Рис. 4.2.11.1 — Піраміда «рантайм мови»."""
+    W, H = 900, 380
+    s = header(W, H)
+    s += text(W / 2, 32, "Рантайм мови: невидимий фундамент під вашим кодом", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "«гола» програма стоїть на трьох шарах — і без нижніх верхній не існує",
+              11, GREY, "middle", style="italic")
+
+    def layer(x, y, w, h, label, sub, col):
+        s2  = rect(x, y, w, h, _tint(col), col, 2, 8)
+        s2 += text(x + w / 2, y + h / 2 - 5, label, 13, col, "middle", "bold")
+        s2 += text(x + w / 2, y + h / 2 + 13, sub, 9.5, GREY, "middle")
+        return s2
+
+    mx = W / 2
+    # Верхній шар (ваш код)
+    s += layer(mx - 170, 78, 340, 56, "ВАШ КОД", "setup() / loop() / main()", INK)
+    # Стандартна бібліотека
+    s += layer(mx - 220, 146, 440, 56, "Стандартна бібліотека (newlib/libc)", "printf · malloc · memcpy · math", GREEN)
+    # Опора середовища (дві колонки)
+    s += layer(mx - 330, 214, 280, 56, "ОС / glibc (ПК)", "системні виклики — є", BLUE)
+    s += layer(mx + 60, 214, 280, 56, "Порт/фреймворк (МК)", "_write · _sbrk — хтось мусить", RED)
+    # Залізо внизу
+    s += rect(mx - 330, 282, 660, 44, FAINT, GREY, 1.5, 8)
+    s += text(mx, 308, "Залізо (процесор, Flash, RAM, UART…)", 11, GREY, "middle", "bold")
+    # Стрілки вниз
+    s += arrow(mx, 134, mx, 146, INK, 1.8)
+    s += arrow(mx - 180, 202, mx - 180, 214, INK, 1.8)
+    s += arrow(mx + 200, 202, mx + 200, 214, INK, 1.8)
+    # Підписи колонок
+    s += text(mx - 180, 286, "ПК: ОС дає опору", 8.5, BLUE, "middle")
+    s += text(mx + 200, 286, "МК: опору дописує порт", 8.5, RED, "middle")
+    # Висновок
+    s += rect(80, 338, 740, 32, "#f8f8f8", FAINT, 1, 8)
+    s += text(mx, 358, "На МК ОС нема — «нижній шар» мусить принести порт або фреймворк. Без нього printf мовчить.", 9.5, INK, "middle", "bold")
+    save("fig-21-11-1-language-runtime.svg", s)
+
+
+def fig11_2_crt0_deep():
+    """Рис. 4.2.11.2 — Крт0 зблизька: три дії + що зламається без кожної."""
+    W, H = 900, 380
+    s = header(W, H)
+    s += text(W / 2, 32, "Крт0 зблизька: три дії, кожна — передумова наступного", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "поглиблення §4.2.6: не ритуал, а набір обов'язкових кроків",
+              11, GREY, "middle", style="italic")
+    steps = [
+        ("1. Копія .data Flash → RAM",
+         "ініціалізовані глобали фізично у Flash,",
+         "мінятись мусять у RAM",
+         "int baud = 115200  →  недосяжний/сміття",
+         GREEN),
+        ("2. Обнулення .bss",
+         "стандарт C: неінітований глобал = 0;",
+         "крт0 виконує цю гарантію",
+         "int count;  →  непередбачуване сміття",
+         BLUE),
+        ("3. Ініціалізація вказівника стека",
+         "без стека неможливий жоден виклик,",
+         "навіть сам крт0 не може далі піти",
+         "будь-який виклик  →  валить машину",
+         GOLD),
+    ]
+    for i, (title, sub1, sub2, broken, col) in enumerate(steps):
+        y = 86 + i * 88
+        s += rect(50, y, 800, 72, _tint(col), col, 1.8, 10)
+        s += text(70, y + 24, title, 12.5, col, "start", "bold")
+        s += text(70, y + 44, sub1, 9.5, INK, "start")
+        s += text(70, y + 60, sub2, 9.5, INK, "start")
+        s += text(780, y + 24, "Без цього:", 8.5, RED, "end", "bold")
+        s += text(780, y + 44, broken, 8.5, RED, "end")
+        if i < 2:
+            s += arrow(450, y + 72, 450, y + 88, INK, 1.8)
+    s += rect(80, 354, 740, 20, LGRN, GREEN, 1, 6)
+    s += text(450, 368, "Лише після всіх трьох кроків → main() / setup() може безпечно стартувати.", 9.5, GREEN, "middle", "bold")
+    save("fig-21-11-2-crt0-deep.svg", s)
+
+
+def fig11_3_init_array():
+    """Рис. 4.2.11.3 — init_array і конструктори глобальних C++-об'єктів."""
+    W, H = 900, 400
+    s = header(W, H)
+    s += text(W / 2, 32, "init_array: конструктори глобальних об'єктів до main()", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "компілятор збирає «передстартовий» код у таблицю; крт0 обходить і викликає кожен",
+              11, GREY, "middle", style="italic")
+    # Компілятор збирає таблицю
+    s += rect(50, 80, 260, 200, _tint(GREEN), GREEN, 2, 10)
+    s += text(180, 106, "Компілятор збирає", 11, GREEN, "middle", "bold")
+    s += text(180, 124, "секцію .init_array", 11, GREEN, "middle", "bold")
+    entries = ["&ctor_Sensor_g_sensor", "&ctor_Logger_g_log", "&ctor_EEPROM_g_eep", "… (усі глобальні C++-об'єкти)"]
+    for i, e in enumerate(entries):
+        s += rect(60, 142 + i * 32, 240, 26, "#ffffff", GREEN, 1, 4)
+        s += text(180, 160 + i * 32, e, 9, GREY, "middle")
+    # Стрілка до крт0
+    s += arrow(310, 180, 390, 180, INK, 2.4)
+    s += text(350, 168, "крт0 обходить", 9, GREY, "middle", "bold")
+    s += text(350, 198, "і кличе кожен", 9, GREY, "middle")
+    # Крт0 викликає
+    s += rect(390, 100, 220, 160, _tint(GOLD), GOLD, 2, 10)
+    s += text(500, 128, "крт0:", 12, GOLD, "middle", "bold")
+    s += text(500, 148, "для кожного запису:", 9.5, INK, "middle")
+    s += rect(404, 160, 192, 32, "#ffffff", GOLD, 1, 4)
+    s += text(500, 181, "(*init_array[i])();", 9.5, "#8a6d1a", "middle", "bold")
+    s += text(500, 218, "→ ctor_Sensor викликано", 9.5, INK, "middle")
+    s += text(500, 236, "→ ctor_Logger викликано", 9.5, INK, "middle")
+    s += text(500, 254, "→ g_sensor сконструйовано", 9.5, GREEN, "middle", "bold")
+    # Результат
+    s += arrow(610, 180, 680, 180, INK, 2.4)
+    s += rect(680, 100, 190, 160, _tint(BLUE), BLUE, 2, 10)
+    s += text(775, 128, "ДО main():", 12, BLUE, "middle", "bold")
+    s += text(775, 152, "g_sensor ✓", 10.5, GREEN, "middle", "bold")
+    s += text(775, 172, "g_log ✓", 10.5, GREEN, "middle", "bold")
+    s += text(775, 192, "g_eep ✓", 10.5, GREEN, "middle", "bold")
+    s += text(775, 216, "setup() може", 9, INK, "middle")
+    s += text(775, 232, "їх вже юзати", 9, INK, "middle")
+    s += rect(80, 276, 740, 50, LRED, RED, 1.4, 8)
+    s += text(450, 298, "Пастка: порядок конструкторів між файлами НЕ визначений.", 10, RED, "middle", "bold")
+    s += text(450, 316, "«Static initialization order fiasco» — не покладайся на глобал іншого файлу в конструкторі.", 9.5, INK, "middle")
+    s += rect(80, 338, 740, 32, LGRN, GREEN, 1, 8)
+    s += text(450, 358, "Висновок: навіть конструктори глобалів — робота стартового коду, а не ваша.", 9.5, GREEN, "middle", "bold")
+    save("fig-21-11-3-init-array.svg", s)
+
+
+def fig11_4_syscall_stubs():
+    """Рис. 4.2.11.4 — newlib syscall stubs: printf→_write→UART, malloc→_sbrk→RAM."""
+    W, H = 920, 420
+    s = header(W, H)
+    s += text(W / 2, 32, "Syscall stubs: половину libc дописує порт під залізо", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "printf вміє форматувати, але не знає куди слати; _write — це «дірка», яку заповнює фреймворк",
+              11, GREY, "middle", style="italic")
+
+    def chain(items, y, col):
+        """items = [(label, sub), …] — рядок блоків зі стрілками."""
+        xpos = [80 + i * 230 for i in range(len(items))]
+        for i, ((lbl, sub), x) in enumerate(zip(items, xpos)):
+            s2  = rect(x, y, 200, 64, _tint(col) if i % 2 == 0 else "#f8f8f8", col, 1.8, 10)
+            s2 += text(x + 100, y + 26, lbl, 11.5, col, "middle", "bold")
+            s2 += text(x + 100, y + 46, sub, 9, GREY, "middle")
+            if i < len(items) - 1:
+                s2 += arrow(x + 200, y + 32, x + 230, y + 32, col, 2.2)
+            yield s2
+
+    # Ланцюг 1: printf → _write → UART
+    chain1 = [("printf(…)", "форматує текст"), ("_write()", "слабка «дірка» в newlib"), ("UART / Serial", "фреймворк вписав: слати в порт")]
+    y1 = 108
+    s += text(46, y1 + 32, "printf:", 11, GREEN, "end", "bold")
+    for frag in chain(chain1, y1, GREEN):
+        s += frag
+
+    # Ланцюг 2: malloc → _sbrk → RAM
+    chain2 = [("malloc(n)", "просить n байт"), ("_sbrk(n)", "слабка «дірка» в newlib"), ("Вільна RAM", ".bss ↑ ↓ Стек")]
+    y2 = 210
+    s += text(46, y2 + 32, "malloc:", 11, BLUE, "end", "bold")
+    for frag in chain(chain2, y2, BLUE):
+        s += frag
+
+    # Пояснення _write
+    s += rect(80, 298, 200, 56, LGRN, GREEN, 1.6, 8)
+    s += text(180, 320, "Фреймворк вписав:", 9, GREEN, "middle", "bold")
+    s += text(180, 338, "_write → uart_send()", 9, INK, "middle")
+    s += text(180, 352, "⟹ printf видно в Serial", 9, GREEN, "middle")
+    # Пояснення _sbrk
+    s += rect(310, 298, 200, 56, LBLUE, BLUE, 1.6, 8)
+    s += text(410, 320, "Купа і стек", 9, BLUE, "middle", "bold")
+    s += text(410, 338, "ростуть назустріч!", 9, RED, "middle", "bold")
+    s += text(410, 352, "_sbrk → NULL = купа вперлась у стек", 9, GREY, "middle")
+
+    s += rect(80, 366, 760, 44, LAMB, GOLD, 1.4, 8)
+    s += text(460, 386, "«Слабкий» символ у newlib = навмисна дірка. Хтось мусить заповнити — на ESP32 це вже зробив фреймворк.", 9.5, INK, "middle", "bold")
+    s += text(460, 404, "На голому залізі без порту: printf мовчить, malloc повертає NULL.", 9.5, RED, "middle")
+    save("fig-21-11-4-syscall-stubs.svg", s)
+
+
+def fig11_5_data_life():
+    """Рис. 4.2.11.5 — Доля глобальних даних крізь старт (до main())."""
+    W, H = 940, 440
+    s = header(W, H)
+    s += text(W / 2, 32, "Доля глобальних даних від reset до main()", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 54, "що і коли готово — від сміття до повністю сконструйованих об'єктів",
+              11, GREY, "middle", style="italic")
+    # Колонки: змінна | reset | .data скоп. | .bss обн. | init_array | main()
+    headers = ["Змінна", "reset\n(сміття)", "копія\n.data", "обн.\n.bss", "init_\narray", "main()\n/ setup()"]
+    col_x = [20, 180, 310, 430, 550, 680]
+    col_w = [160, 120, 110, 110, 120, 220]
+    stage_colors = [INK, RED, GOLD, GREEN, BLUE, GREEN]
+    # Заголовок таблиці
+    for i, (hdr, cx, cw, col) in enumerate(zip(headers, col_x, col_w, stage_colors)):
+        lines_h = hdr.split("\n")
+        s += rect(cx, 80, cw - 4, 48, _tint(col) if i > 0 else "#f0f0f0", col if i > 0 else GREY, 1.5, 6)
+        for j, hl in enumerate(lines_h):
+            s += text(cx + (cw - 4) / 2, 100 + j * 16 - (len(lines_h) - 1) * 8, hl, 9.5, col if i > 0 else INK, "middle", "bold" if i == 0 else False)
+    # Дані рядків
+    rows = [
+        ("int g_baud = 115200;", ["сміття", "115200 ✓", "—", "—", "115200 ✓"]),
+        ("int g_count;", ["сміття", "—", "0 ✓", "—", "0 ✓"]),
+        ("Sensor g_sensor(0x40);", ["сміття", "сміття", "—", "ctor() ✓", "готовий ✓"]),
+        ("char g_buf[256];", ["сміття", "—", "нулі ✓", "—", "нулі ✓"]),
+    ]
+    val_colors = [RED, RED, RED, RED, GOLD, GREEN, BLUE, GREEN]
+    cell_ok = {"✓": GREEN, "—": GREY}
+    for ri, (varname, vals) in enumerate(rows):
+        y = 140 + ri * 64
+        s += rect(col_x[0], y, col_w[0] - 4, 56, "#f8f8f8", GREY, 1, 6)
+        s += text(col_x[0] + 4, y + 24, varname, 8.5, INK, "start", "bold")
+        for ci, val in enumerate(vals):
+            col2 = RED if "сміття" in val else (GREEN if "✓" in val else (GOLD if "ctor" in val else GREY))
+            s += rect(col_x[ci + 1], y, col_w[ci + 1] - 4, 56, _tint(col2) if col2 != GREY else "#f8f8f8", col2, 1, 4)
+            s += text(col_x[ci + 1] + (col_w[ci + 1] - 4) / 2, y + 32, val, 8.5, col2, "middle", "bold" if "✓" in val or "сміття" in val else False)
+    s += rect(20, 400, 900, 32, LGRN, GREEN, 1, 8)
+    s += text(470, 420, "Лише після init_array → setup() / main() бачить повністю готові дані. Покладатись на глобал ДО — небезпечно.", 9.5, GREEN, "middle", "bold")
+    save("fig-21-11-5-data-life.svg", s)
+
+
+def fig11_6_freestanding():
+    """Рис. 4.2.11.6 — Hosted vs freestanding: два фундаменти під тим самим C."""
+    W, H = 900, 380
+    s = header(W, H)
+    s += text(W / 2, 32, "Hosted vs freestanding: той самий C — два різних фундаменти", 18, INK, "middle", "bold")
+    s += text(W / 2, 54, "МК завжди freestanding: гарантовано лише мова, решту приносиш сам",
+              11, GREY, "middle", style="italic")
+
+    def side(x, w, title, col, layers):
+        o  = rect(x, 78, w, 246, _tint(col), col, 2.2, 14)
+        o += text(x + w / 2, 106, title, 13.5, col, "middle", "bold")
+        ly_h = 186 / len(layers)
+        for i, (lbl, sub, lc) in enumerate(layers):
+            ly = 124 + i * ly_h
+            o += rect(x + 14, ly, w - 28, ly_h - 8, "#ffffff", lc, 1.2, 6)
+            o += text(x + w / 2, ly + ly_h / 2 - 4, lbl, 10.5, lc, "middle", "bold")
+            o += text(x + w / 2, ly + ly_h / 2 + 12, sub, 8.5, GREY, "middle")
+        return o
+
+    # ПК — hosted
+    s += side(60, 360, "Hosted (ПК)", BLUE, [
+        ("Ваш код", "main(), бізнес-логіка", BLUE),
+        ("glibc / повна libc", "printf, malloc, pthreads…", GREEN),
+        ("Ядро ОС (syscalls)", "write(), brk(), read()…", INK),
+        ("Залізо", "x86 / ARM64", GREY),
+    ])
+    # МК — freestanding
+    s += side(480, 360, "Freestanding (МК)", RED, [
+        ("Ваш код", "setup(), loop(), ISR…", RED),
+        ("newlib (портована libc)", "урізана, потребує стабів", GREEN),
+        ("Порт / фреймворк", "_write→UART · _sbrk→RAM", GOLD),
+        ("Голе залізо", "Xtensa / RISC-V + периферія", GREY),
+    ])
+    # Vs у центрі
+    s += circle(450, 200, 28, "#ffffff", GREY, 2)
+    s += text(450, 206, "vs", 14, GREY, "middle", "bold")
+    # Висновок
+    s += rect(60, 336, 780, 36, "#f8f8f8", FAINT, 1, 8)
+    s += text(450, 358, "Той самий C-код — два різних фундаменти. МК: усе, що між мовою й залізом, — ваша відповідальність.", 9.5, INK, "middle", "bold")
+    save("fig-21-11-6-freestanding.svg", s)
+
+
 if __name__ == "__main__":
     # Історія до Розділу 21 — Грейс Гоппер
     fig01_timeline()
@@ -2506,4 +2903,16 @@ if __name__ == "__main__":
     fig7i1_lineage()
     fig7i2_wiring_vs_arduino()
     fig7i3_credit()
-    print("OK - figures for Section 21 (history + 21.1..21.9 + вставки — ПОВНИЙ розділ) generated in", OUT)
+    # §21.10 — Ворнінги й статичний аналіз
+    fig10_1_error_vs_warning()
+    fig10_2_sharp_corners()
+    fig10_3_static_vs_dynamic()
+    fig10_4_quality_nets()
+    # §21.11 — C-рантайм на голому залізі
+    fig11_1_language_runtime()
+    fig11_2_crt0_deep()
+    fig11_3_init_array()
+    fig11_4_syscall_stubs()
+    fig11_5_data_life()
+    fig11_6_freestanding()
+    print("OK - figures for Section 21 (history + 21.1..21.11 + вставки — ПОВНИЙ розділ) generated in", OUT)

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три зовнішні помічники сну ESP32</text>
+<rect x="40.0" y="160.0" width="100.0" height="180.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+<text x="90.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Батарея</text>
+<circle cx="90.0" cy="214.0" r="11.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="90.0" y="218.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<circle cx="90.0" cy="286.0" r="11.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="90.0" y="290.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<line x1="140.0" y1="120.0" x2="750.0" y2="120.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="160.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">+VCC</text>
+<line x1="140.0" y1="380.0" x2="750.0" y2="380.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="160.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">GND (спільна)</text>
+<line x1="90.0" y1="160.0" x2="90.0" y2="120.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="140.0" y1="120.0" x2="90.0" y2="120.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="90.0" y1="340.0" x2="90.0" y2="380.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="140.0" y1="380.0" x2="90.0" y2="380.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="620.0" y="185.0" width="160.0" height="130.0" rx="10" fill="#eaf3fb" stroke="#2457d6" stroke-width="2.5"/>
+<rect x="633.2" y="227.9" width="133.5" height="44.2" rx="6" fill="#eaf3fb" stroke="#eaf3fb" stroke-width="1.5"/><text x="700.0" y="245.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">ESP32</tspan><tspan x="700.0" dy="18.2">(навантаження)</tspan></text>
+<line x1="700.0" y1="120.0" x2="700.0" y2="185.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="700.0" y1="315.0" x2="700.0" y2="380.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="215.3" y="48.4" width="129.4" height="63.2" rx="6" fill="#fdf2e9" stroke="#e67e22" stroke-width="2.0"/><text x="280.0" y="68.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">RTC</tspan><tspan x="280.0" dy="15.6">(DS3231/PCF8563)</tspan><tspan x="280.0" dy="15.6">~1–2 мкА</tspan></text>
+<line x1="280.0" y1="113.0" x2="280.0" y2="120.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+<text x="288.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">VCC (тонкий)</text>
+<line x1="344.0" y1="80.0" x2="620.0" y2="220.0" stroke="#e67e22" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="482.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">INT/alarm → wake GPIO</text>
+<text x="482.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">«розбуди о 06:00»</text>
+<rect x="447.7" y="136.2" width="64.6" height="47.6" rx="6" fill="#f0f8e8" stroke="#27ae60" stroke-width="2.0"/><text x="480.0" y="156.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Load</tspan><tspan x="480.0" dy="15.6">Switch</tspan></text>
+<line x1="480.0" y1="120.0" x2="480.0" y2="137.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="434.4" y="299.4" width="91.2" height="41.3" rx="6" fill="#f0f0f0" stroke="#555555" stroke-width="1.5"/><text x="480.0" y="316.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Давач / SD /</tspan><tspan x="480.0" dy="14.3">радіо-модуль</tspan></text>
+<line x1="480.0" y1="183.0" x2="480.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="480.0" y1="340.0" x2="480.0" y2="380.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="640.0" y1="320.0" x2="516.0" y2="160.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="635.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">EN</text>
+<rect x="145.4" y="96.2" width="109.3" height="47.6" rx="6" fill="#f5eef8" stroke="#7d3c98" stroke-width="2.0"/><text x="200.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">P-MOSFET</tspan><tspan x="200.0" dy="15.6">(soft-latch)</tspan></text>
+<rect x="129.2" y="187.5" width="51.6" height="25.0" rx="6" fill="#f9ecff" stroke="#7d3c98" stroke-width="1.5"/><text x="155.0" y="203.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">Кнопка</tspan></text>
+<line x1="180.0" y1="200.0" x2="146.0" y2="120.0" stroke="#7d3c98" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="200.0" x2="254.0" y2="120.0" stroke="#7d3c98" stroke-width="1.5" stroke-dasharray="6,3"/>
+<text x="625.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d3c98" text-anchor="start">HOLD</text>
+<text x="430.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Земля (GND) спільна для всіх трьох — керують лише плюсовою шиною.</text>
+<rect x="30.0" y="381.0" width="14.0" height="14.0" rx="3" fill="#e67e22" stroke="#e67e22" stroke-width="0.0"/>
+<text x="50.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="start">RTC: будить за розкладом (alarm INT → wake GPIO)</text>
+<rect x="30.0" y="403.0" width="14.0" height="14.0" rx="3" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="50.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">Load switch: відрізає живлення вузла (EN від GPIO)</text>
+<rect x="30.0" y="425.0" width="14.0" height="14.0" rx="3" fill="#7d3c98" stroke="#7d3c98" stroke-width="0.0"/>
+<text x="50.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="start">Soft-latch: P-MOSFET + кнопка = пристрій вимикає себе</text>
+</svg>

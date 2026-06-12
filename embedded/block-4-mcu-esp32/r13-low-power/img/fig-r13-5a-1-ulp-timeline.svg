@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ULP + велике ядро: хто коли активний</text>
+<text x="62.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan x="62.0" dy="0.0">RTC-таймер</tspan><tspan x="62.0" dy="15.6">(тіки 20 мс)</tspan></text>
+<line x1="70.0" y1="117.0" x2="855.0" y2="117.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="62.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan x="62.0" dy="0.0">ULP</tspan><tspan x="62.0" dy="15.6">(вимір АЦП)</tspan></text>
+<line x1="70.0" y1="193.0" x2="855.0" y2="193.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="62.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan x="62.0" dy="0.0">Рішення</tspan><tspan x="62.0" dy="15.6">v &gt; поріг?</tspan></text>
+<line x1="70.0" y1="269.0" x2="855.0" y2="269.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="62.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan x="62.0" dy="0.0">Великі ядра</tspan><tspan x="62.0" dy="15.6">(струм, мА/мкА)</tspan></text>
+<line x1="70.0" y1="345.0" x2="855.0" y2="345.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<line x1="70.0" y1="367.0" x2="865.0" y2="367.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="873.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-style="italic">t</text>
+<text x="70.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="100.0" y1="363.0" x2="100.0" y2="371.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="100.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"></text>
+<line x1="248.0" y1="363.0" x2="248.0" y2="371.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="248.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1·Δt</text>
+<line x1="396.0" y1="363.0" x2="396.0" y2="371.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="396.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">2·Δt</text>
+<line x1="544.0" y1="363.0" x2="544.0" y2="371.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="544.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">3·Δt</text>
+<line x1="692.0" y1="363.0" x2="692.0" y2="371.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="692.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4·Δt</text>
+<text x="78.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="70.0" y1="109.0" x2="855.0" y2="109.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="100.0" y1="109.0" x2="100.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="100.0" y1="69.0" x2="108.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="108.0" y1="69.0" x2="108.0" y2="109.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="248.0" y1="109.0" x2="248.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="248.0" y1="69.0" x2="256.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="256.0" y1="69.0" x2="256.0" y2="109.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="396.0" y1="109.0" x2="396.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="396.0" y1="69.0" x2="404.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="404.0" y1="69.0" x2="404.0" y2="109.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="544.0" y1="109.0" x2="544.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="544.0" y1="69.0" x2="552.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="552.0" y1="69.0" x2="552.0" y2="109.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="692.0" y1="109.0" x2="692.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="692.0" y1="69.0" x2="700.0" y2="69.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="700.0" y1="69.0" x2="700.0" y2="109.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="108.0" y1="53.0" x2="248.0" y2="53.0" stroke="#e67e22" stroke-width="1.0"/>
+<text x="174.0" y="47.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle">~20 мс</text>
+<line x1="70.0" y1="185.0" x2="855.0" y2="185.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,3"/>
+<rect x="100.0" y="147.0" width="18.0" height="38.0" rx="2" fill="#e8f8f7" stroke="#1a7a73" stroke-width="1.5"/>
+<rect x="248.0" y="147.0" width="18.0" height="38.0" rx="2" fill="#e8f8f7" stroke="#1a7a73" stroke-width="1.5"/>
+<rect x="396.0" y="147.0" width="18.0" height="38.0" rx="2" fill="#e8f8f7" stroke="#1a7a73" stroke-width="1.5"/>
+<rect x="544.0" y="147.0" width="18.0" height="38.0" rx="2" fill="#e8f8f7" stroke="#1a7a73" stroke-width="1.5"/>
+<rect x="692.0" y="147.0" width="18.0" height="38.0" rx="2" fill="#e8f8f7" stroke="#1a7a73" stroke-width="1.5"/>
+<text x="109.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a7a73" text-anchor="middle">~мкс</text>
+<rect x="72.7" y="222.5" width="72.7" height="33.0" rx="6" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.2"/><text x="109.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="109.0" dy="0.0">ні</tspan><tspan x="109.0" dy="13.0">(v ≤ поріг)</tspan></text>
+<rect x="220.7" y="222.5" width="72.7" height="33.0" rx="6" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.2"/><text x="257.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="257.0" dy="0.0">ні</tspan><tspan x="257.0" dy="13.0">(v ≤ поріг)</tspan></text>
+<rect x="368.6" y="222.5" width="72.7" height="33.0" rx="6" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.2"/><text x="405.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="405.0" dy="0.0">ні</tspan><tspan x="405.0" dy="13.0">(v ≤ поріг)</tspan></text>
+<rect x="516.6" y="222.5" width="72.7" height="33.0" rx="6" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.2"/><text x="553.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="553.0" dy="0.0">ні</tspan><tspan x="553.0" dy="13.0">(v ≤ поріг)</tspan></text>
+<rect x="668.1" y="222.5" width="65.8" height="33.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/><text x="701.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="701.0" dy="0.0">так!</tspan><tspan x="701.0" dy="13.0">v &gt; поріг</tspan></text>
+<line x1="701.0" y1="259.0" x2="701.0" y2="293.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="707.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">wakeup_result</text>
+<rect x="70.0" y="323.0" width="622.0" height="14.0" rx="0" fill="#dfe6e9" stroke="#b2bec3" stroke-width="1.0"/>
+<text x="381.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#555555" text-anchor="middle">deep-sleep  (~5 мкА)</text>
+<rect x="688.0" y="297.0" width="157.0" height="40.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="766.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">пробудження (~45 мА)</text>
+<text x="766.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#555555" text-anchor="middle">читає wakeup_result → знову засинає</text>
+<rect x="673.1" y="329.2" width="103.8" height="55.6" rx="6" fill="#e8f8f7" stroke="#1a7a73" stroke-width="1.5"/><text x="725.0" y="346.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a7a73" text-anchor="middle"><tspan x="725.0" dy="0.0">Iсер ≈ мкА</tspan><tspan x="725.0" dy="14.3">(4 тіки × мкс)</tspan><tspan x="725.0" dy="14.3">не мА</tspan></text>
+<rect x="70.0" y="395.0" width="12.0" height="12.0" rx="2" fill="#e67e22" stroke="#e67e22" stroke-width="0.0"/>
+<text x="88.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="start">RTC-таймер: тік кожні 20 мс</text>
+<rect x="70.0" y="414.0" width="12.0" height="12.0" rx="2" fill="#1a7a73" stroke="#1a7a73" stroke-width="0.0"/>
+<text x="88.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a7a73" text-anchor="start">ULP: вимір АЦП (~мкс, потім halt)</text>
+<rect x="70.0" y="433.0" width="12.0" height="12.0" rx="2" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="88.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">ULP вирішує — будити чи ні</text>
+<rect x="70.0" y="452.0" width="12.0" height="12.0" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<text x="88.0" y="461.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">Великі ядра прокидаються тільки на «так»</text>
+</svg>

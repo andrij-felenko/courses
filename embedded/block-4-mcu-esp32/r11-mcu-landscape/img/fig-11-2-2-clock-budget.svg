@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рис. 4.11.2.2  Затримка на AVR рахується до такту; під RTOS/кешем — ні</text>
+<text x="80.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d68910" text-anchor="start" font-weight="700">AVR @ 16 МГц</text>
+<rect x="80.0" y="90.0" width="48.0" height="36.0" rx="3" fill="#d68910" stroke="#d68910" stroke-width="1.5"/>
+<text x="104.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">DEC</text>
+<rect x="130.0" y="90.0" width="48.0" height="36.0" rx="3" fill="#fef9e7" stroke="#d68910" stroke-width="1.5"/>
+<text x="154.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d68910" text-anchor="middle">BRNE</text>
+<rect x="180.0" y="90.0" width="48.0" height="36.0" rx="3" fill="#d68910" stroke="#d68910" stroke-width="1.5"/>
+<text x="204.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">DEC</text>
+<rect x="230.0" y="90.0" width="48.0" height="36.0" rx="3" fill="#fef9e7" stroke="#d68910" stroke-width="1.5"/>
+<text x="254.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d68910" text-anchor="middle">BRNE</text>
+<rect x="280.0" y="90.0" width="48.0" height="36.0" rx="3" fill="#d68910" stroke="#d68910" stroke-width="1.5"/>
+<text x="304.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">DEC</text>
+<rect x="330.0" y="90.0" width="48.0" height="36.0" rx="3" fill="#fef9e7" stroke="#d68910" stroke-width="1.5"/>
+<text x="354.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d68910" text-anchor="middle">BRNE</text>
+<rect x="380.0" y="90.0" width="48.0" height="36.0" rx="3" fill="#d68910" stroke="#d68910" stroke-width="1.5"/>
+<text x="404.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">DEC</text>
+<rect x="430.0" y="90.0" width="48.0" height="36.0" rx="3" fill="#fef9e7" stroke="#d68910" stroke-width="1.5"/>
+<text x="454.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d68910" text-anchor="middle">BRNE</text>
+<line x1="80.0" y1="142.0" x2="478.0" y2="142.0" stroke="#d68910" stroke-width="1.5"/>
+<line x1="80.0" y1="142.0" x2="79.0" y2="142.0" stroke="#d68910" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="478.0" y1="142.0" x2="479.0" y2="142.0" stroke="#d68910" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="279.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d68910" text-anchor="middle">8 ітерацій × 2 такти = 16 тактів = 1.0 мкс (рівно)</text>
+<text x="80.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d68910" text-anchor="start">1 такт = 62.5 нс → 16 тактів = 1000 нс = 1 мкс  ✓</text>
+<text x="80.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2471a3" text-anchor="start" font-weight="700">ESP32 @ 240 МГц + RTOS + кеш-промахи</text>
+<rect x="80.0" y="220.0" width="17.0" height="36.0" rx="2" fill="#d2e4f5" stroke="#2471a3" stroke-width="1.0"/>
+<rect x="98.0" y="220.0" width="21.0" height="36.0" rx="2" fill="#c3d9ef" stroke="#2471a3" stroke-width="1.0"/>
+<rect x="120.0" y="220.0" width="13.0" height="36.0" rx="2" fill="#d2e4f5" stroke="#2471a3" stroke-width="1.0"/>
+<rect x="134.0" y="220.0" width="34.0" height="36.0" rx="2" fill="#a8c7e5" stroke="#2471a3" stroke-width="1.0"/>
+<rect x="169.0" y="220.0" width="15.0" height="36.0" rx="2" fill="#d2e4f5" stroke="#2471a3" stroke-width="1.0"/>
+<rect x="185.0" y="220.0" width="27.0" height="36.0" rx="2" fill="#c3d9ef" stroke="#2471a3" stroke-width="1.0"/>
+<rect x="213.0" y="220.0" width="11.0" height="36.0" rx="2" fill="#d2e4f5" stroke="#2471a3" stroke-width="1.0"/>
+<rect x="225.0" y="220.0" width="39.0" height="36.0" rx="2" fill="#a8c7e5" stroke="#2471a3" stroke-width="1.0"/>
+<rect x="265.0" y="220.0" width="18.0" height="36.0" rx="2" fill="#d2e4f5" stroke="#2471a3" stroke-width="1.0"/>
+<rect x="284.0" y="220.0" width="10.0" height="36.0" rx="2" fill="#d2e4f5" stroke="#2471a3" stroke-width="1.0"/>
+<line x1="80.0" y1="272.0" x2="295.0" y2="272.0" stroke="#2471a3" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="187.5" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2471a3" text-anchor="middle">той самий цикл: ~1–5 мкс залежно від кешу і планувальника</text>
+<rect x="293.5" y="218.3" width="83.0" height="39.3" rx="6" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/><text x="335.0" y="234.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">джитер</tspan><tspan x="335.0" dy="14.3">±кілька мкс</tspan></text>
+<text x="400.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">На 8-бітнику такти рахуються і дають точний час. На потужному МК під RTOS — лише межі.</text>
+</svg>
