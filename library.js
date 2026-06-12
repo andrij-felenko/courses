@@ -92,7 +92,7 @@
         "<p>" + esc(b.subtitle) + "</p>" +
         '<div class="lib-stats">' + rows + "</div>" +
         '<div class="lib-bar" title="' + pct + '% тем готово"><span style="width:' + pct + '%"></span></div>' +
-        '<div class="lib-foot"><span class="lib-modnote">' + c.mods + " модулів</span>" +
+        '<div class="lib-foot"><span class="lib-modnote">' + c.mods + " модулів" + (c.done === 0 ? " · в розробці" : "") + "</span>" +
         '<span class="lib-cta">Читати →</span></div>' +
       "</div></a>";
   }

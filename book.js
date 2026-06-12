@@ -12,6 +12,15 @@
   var BOOK = window.BOOK;
   var BASE = BOOK.basePath || "";   // префікс до контенту (embedded/) відносно index.html
 
+  // Реєстр книг для крос-книжкових лінків [текст](book:<id>/<slug>[/<file>][#<topic>]).
+  // Маніфест іншої книги тягнемо ліниво (при першому кліку) і кешуємо в _book.
+  var XBOOK = {
+    electronics: { manifest: "manifest.js",      basePath: "embedded/",   entry: "electronics.html", icon: "⚡",  label: "Вбудована електроніка" },
+    chem:        { manifest: "manifest-chem.js", basePath: "chemistry/",  entry: "chem.html",        icon: "⚗️", label: "Хімія" },
+    math:        { manifest: "manifest-math.js", basePath: "math/",       entry: "math.html",        icon: "🧮", label: "Математика" },
+    components:  { manifest: "manifest-comp.js", basePath: "components/", entry: "comp.html",        icon: "🔌", label: "Компоненти" }
+  };
+
   // типи спец-вставок (підтем): історія / математика / компонент / практика
   var SPEC_META = {
     hist: { emoji: "📜", label: "Історія", modal: "Історична вставка" },
@@ -20,11 +29,12 @@
     proj: { emoji: "⚙️", label: "Практика", modal: "Практична вставка" }
   };
   var SPEC_ORDER = ["hist", "math", "comp", "proj"];
-  function specType(name) {                 // тип за іменем файла extra/history
-    if (/history/i.test(name)) return "hist";
-    if (/-m-/.test(name)) return "math";
-    if (/-c-/.test(name)) return "comp";
-    if (/-a-/.test(name)) return "proj";
+  function specType(name) {                 // тип за іменем файла вставки
+    var b = String(name).replace(/^.*\//, "");
+    if (/^hist[-.]/i.test(b) || /history/i.test(b)) return "hist";   // нове hist-… / старе …history…
+    if (/^math[-.]/i.test(b) || /-m-/.test(b)) return "math";        // нове math-… / старе -m-
+    if (/^comp[-.]/i.test(b) || /-c-/.test(b)) return "comp";        // нове comp-… / старе -c-
+    if (/^proj[-.]/i.test(b) || /-a-/.test(b)) return "proj";        // нове proj-… / старе -a-
     return "hist";
   }
   function emojiType(e) {                    // тип за emoji в _status.md
@@ -79,6 +89,7 @@
     s = s.replace(/`([^`]+)`/g, function (m, c) { codes.push(c); return "@C" + (codes.length - 1) + "@"; });
     s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (m, txt, href) {
       var r = resolveHref(href.trim(), txt, ctx);
+      if (r.cross) return '<a class="xbook-link" href="#" data-xbook="' + escapeAttr(r.cross) + '">' + txt + "</a>";
       var ext = r.external ? ' target="_blank" rel="noopener"' : "";
       return '<a href="' + escapeAttr(r.href) + '"' + ext + ">" + txt + "</a>";
     });
@@ -90,10 +101,23 @@
     return s;
   }
 
+  /* Крос-книжкове посилання book:<id>/<slug>[/<file>][#<topic>] → дескриптор для popup */
+  function resolveCrossBook(href) {
+    var rest = href.replace(/^book:/i, "");
+    var frag = ""; var hi = rest.indexOf("#");
+    if (hi >= 0) { frag = rest.slice(hi + 1); rest = rest.slice(0, hi); }
+    var segs = rest.split("/").filter(Boolean);
+    var book = segs.shift() || "";
+    var slug = segs.shift() || "";
+    var file = segs.join("/");                 // порожнє → головний файл розділу
+    return { href: "#", external: false, cross: [book, slug, file, frag].join("|") };
+  }
+
   /* Перетворення .md-лінків на маршрути книги (#ch=…&at=…) */
   function resolveHref(href, text, ctx) {
     if (/^(https?:|mailto:|tel:)/i.test(href)) return { href: href, external: true };
     if (href.charAt(0) === "#") return { href: href, external: false };
+    if (/^book:/i.test(href)) return resolveCrossBook(href);
     var frag = ""; var hi = href.indexOf("#");
     if (hi >= 0) { frag = href.slice(hi + 1); href = href.slice(0, hi); }
     if (!/\.md$/i.test(href)) return { href: href, external: false };
@@ -101,7 +125,11 @@
     var parts = href.split("/");
     var file = parts.pop();
     var folder = null;
-    for (var k = parts.length - 1; k >= 0; k--) { if (/^(?:ch|r)\d+-/.test(parts[k])) { folder = parts[k]; break; } }
+    for (var k = parts.length - 1; k >= 0; k--) {
+      var seg = parts[k];
+      if (!seg || seg === "." || seg === "..") continue;
+      folder = seg; break;                    // останній значущий сегмент шляху = slug розділу (працює і для chNN-…, і для slug-only)
+    }
     var slug = folder || ctx.currentSlug;
     var base = baseOf(file);
     var chap = findChapterBySlug(slug);
@@ -244,7 +272,7 @@
 
   function renderFigure(t, ctx) {
     var src = t.src.trim();
-    if (!/^https?:|^\//.test(src)) src = BASE + ctx.dir + "/" + src;
+    if (!/^https?:|^\//.test(src)) src = (ctx.base != null ? ctx.base : BASE) + ctx.dir + "/" + src;
     var h = '<figure><img src="' + escapeAttr(src) + '" alt="' + escapeAttr(t.alt) + '" loading="lazy">';
     if (t.caption) h += "<figcaption>" + renderInline(t.caption, ctx) + "</figcaption>";
     return h + "</figure>";
@@ -665,6 +693,80 @@
     document.body.classList.remove("modal-open");
   }
 
+  /* ── Крос-книжковий popup: матеріал з ІНШОЇ книги (book:<id>/<slug>…) ──── */
+  function loadXBook(id) {
+    var reg = XBOOK[id];
+    if (!reg) return Promise.reject(new Error("Невідома книга: " + id));
+    if (reg._book) return Promise.resolve(reg._book);
+    if (reg.basePath === BASE) { reg._book = BOOK; return Promise.resolve(BOOK); }
+    return fetchText(reg.manifest).then(function (src) {
+      var book = null;
+      try { book = new Function("window", src + "\n;return window.BOOK;")({}); } catch (e) { book = null; }
+      reg._book = book;
+      return book;
+    });
+  }
+  function chapInBook(book, slug) {
+    var found = null;
+    ((book && book.modules) || []).forEach(function (m) {
+      (m.chapters || []).forEach(function (c) {
+        if (c.status === "done" && c.dir && c.dir.split("/").pop() === slug) { c.module = c.module || m; found = c; }
+      });
+    });
+    return found;
+  }
+  function xbookHost() {
+    var h = document.getElementById("xbook-host");
+    if (!h) { h = document.createElement("div"); h.id = "xbook-host"; document.body.appendChild(h); }
+    return h;
+  }
+  function showXbookModal(html) {
+    var host = xbookHost();
+    host.innerHTML = html;
+    document.body.classList.add("modal-open");
+    var sc = host.querySelector(".hist-modal-scroll"); if (sc) sc.scrollTop = 0;
+    var cl = host.querySelector(".hist-modal-close"); if (cl) cl.focus();
+  }
+  function xbookShell(reg, slug, frag, headHtml, innerHtml) {
+    var openHref = reg ? reg.entry + "#ch=" + encodeURIComponent(slug) + (frag ? "&at=" + encodeURIComponent(frag) : "") : "#";
+    var lbl = reg ? reg.icon + " Інша книга · " + escapeHtml(reg.label) : "Інша книга";
+    var btn = '<a href="' + escapeAttr(openHref) + '" style="display:inline-block;margin-top:1.1rem;padding:.5rem .9rem;background:#1d6fa4;color:#fff;border-radius:7px;text-decoration:none">' +
+      (reg ? "Відкрити книгу «" + escapeHtml(reg.label) + "» →" : "Відкрити книгу →") + "</a>";
+    return '<div class="hist-modal spec-comp xbook-modal" role="dialog" aria-modal="true">' +
+      '<div class="hist-modal-backdrop" data-close></div>' +
+      '<div class="hist-modal-dialog"><button class="hist-modal-close" type="button" data-close aria-label="Закрити">✕</button>' +
+      '<div class="hist-modal-scroll"><div class="hist-modal-head"><div class="hist-art-label">' + lbl + "</div>" + headHtml + "</div>" +
+      '<div class="content-body">' + innerHtml + btn + "</div></div></div></div>";
+  }
+  function openCrossBook(book, slug, file, frag) {
+    closeAllModals();
+    var reg = XBOOK[book];
+    if (!reg) { showXbookModal(xbookShell(null, slug, frag, "<h1>" + escapeHtml(slug || "Розділ") + "</h1>", "<p>Невідома книга <code>" + escapeHtml(book) + "</code>.</p>")); return; }
+    loadXBook(book).then(function (bk) {
+      var chap = bk && chapInBook(bk, slug);
+      if (!chap) {
+        var title = slug ? slug.replace(/-/g, " ") : ((bk && bk.title) || reg.label);
+        showXbookModal(xbookShell(reg, slug, frag, "<h1>" + escapeHtml(title) + "</h1>",
+          '<p>📝 Ця тема ще <strong>в розробці</strong>. Її напишуть за першим посиланням сюди. ' +
+          "Поки що відкрий книгу — там видно загальну мапу й сусідні теми.</p>"));
+        return;
+      }
+      var fname = file || chap.main;
+      fetchText(reg.basePath + chap.dir + "/" + fname).then(function (text) {
+        var ctx = { currentSlug: slug, dir: chap.dir, base: reg.basePath, histBases: new Set(), attach: [] };
+        var a = parseHistory(text, fname, ctx);
+        showXbookModal(xbookShell(reg, slug, frag, "<h1>" + escapeHtml(a.title) + "</h1>",
+          (a.introHtml ? '<div class="hist-intro">' + a.introHtml + "</div>" : "") + a.bodyHtml));
+      }).catch(function (e) {
+        showXbookModal(xbookShell(reg, slug, frag, "<h1>" + escapeHtml(chap.title || slug) + "</h1>",
+          "<p>Не вдалося завантажити матеріал (<code>" + escapeHtml(e.message) + "</code>).</p>"));
+      });
+    }).catch(function () {
+      showXbookModal(xbookShell(reg, slug, frag, "<h1>" + escapeHtml(slug) + "</h1>",
+        '<p>Не вдалося завантажити маніфест книги «' + escapeHtml(reg.label) + "».</p>"));
+    });
+  }
+
   var spy = null;
   function setupScrollSpy() {
     if (spy) spy.disconnect();
@@ -706,6 +808,13 @@
     document.addEventListener("click", function (e) {
       var op = e.target.closest && e.target.closest("[data-hist]");
       if (op) { e.preventDefault(); openHist(op.getAttribute("data-hist")); return; }
+      var xb = e.target.closest && e.target.closest("[data-xbook]");
+      if (xb) {
+        e.preventDefault();
+        var pp = (xb.getAttribute("data-xbook") || "").split("|");
+        openCrossBook(pp[0] || "", pp[1] || "", pp[2] || "", pp[3] || "");
+        return;
+      }
       var cl = e.target.closest && e.target.closest("[data-close]");
       if (cl) { e.preventDefault(); closeAllModals(); return; }
       var ex = e.target.closest && e.target.closest("[data-exp]");   // розгорнути/згорнути теми розділу в змісті

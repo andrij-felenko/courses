@@ -256,7 +256,8 @@ window.BOOK = {
       chapters: [
         { n: 1, status: "done", title: "Фізика давачів",
           dir: "block-5-sensors-control/ch28-sensor-physics", main: "ch28-sensor-physics.md",
-          histories: ["ch28-history-seebeck.md"] },
+          histories: ["ch28-history-seebeck.md"],
+          extras: ["ch28-s9-history-strain-gauge.md"] },
         { n: 2, status: "done", title: "Вимірювання відстані й оточення",
           dir: "block-5-sensors-control/ch29-distance-environment", main: "ch29-distance-environment.md",
           histories: ["ch29-history-sonar.md"] },
