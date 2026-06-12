@@ -11,6 +11,25 @@
 
   var BOOK = window.BOOK;
   var BASE = BOOK.basePath || "";   // префікс до контенту (embedded/) відносно index.html
+
+  // типи спец-вставок (підтем): історія / математика / компонент / практика
+  var SPEC_META = {
+    hist: { emoji: "📜", label: "Історія", modal: "Історична вставка" },
+    math: { emoji: "🧮", label: "Математика", modal: "Математична вставка" },
+    comp: { emoji: "🔌", label: "Компоненти", modal: "Компонентна вставка" },
+    proj: { emoji: "⚙️", label: "Практика", modal: "Практична вставка" }
+  };
+  var SPEC_ORDER = ["hist", "math", "comp", "proj"];
+  function specType(name) {                 // тип за іменем файла extra/history
+    if (/history/i.test(name)) return "hist";
+    if (/-m-/.test(name)) return "math";
+    if (/-c-/.test(name)) return "comp";
+    if (/-a-/.test(name)) return "proj";
+    return "hist";
+  }
+  function emojiType(e) {                    // тип за emoji в _status.md
+    return e === "🧮" ? "math" : e === "🔌" ? "comp" : (e === "⚙️" || e === "⚙") ? "proj" : "hist";
+  }
   var $content = document.getElementById("content");
   var $sidebar = document.getElementById("sidebar");
 
@@ -303,7 +322,7 @@
   function parseHistory(text, filename, baseCtx) {
     var blocks = mdBlocks(text), idx = 0, title = filename;
     if (blocks[0] && blocks[0].type === "heading" && blocks[0].level === 1) {
-      title = blocks[0].text.replace(/^📜\s*/, "").trim(); idx = 1;
+      title = blocks[0].text.replace(/^(📜|🧮|🔌|⚙️|⚙)\s*/, "").trim(); idx = 1;
     }
     var introHtml = "";
     if (blocks[idx] && blocks[idx].type === "quote") {
@@ -329,18 +348,18 @@
     setContent('<div class="state"><div class="spinner"></div>Завантаження розділу…</div>');
     var dir = chap.dir;
     var histFiles = chap.histories || [];
-    Promise.all([fetchText(BASE + dir + "/" + chap.main)].concat(histFiles.map(function (h) { return fetchText(BASE + dir + "/" + h); })))
+    var allFiles = histFiles.concat(chap.extras || []);   // історії + extras — усі як відкривні модалки
+    Promise.all([fetchText(BASE + dir + "/" + chap.main)].concat(allFiles.map(function (f) { return fetchText(BASE + dir + "/" + f); })))
       .then(function (texts) {
-        var mainText = texts[0], histTexts = texts.slice(1);
+        var mainText = texts[0], specTexts = texts.slice(1);
         var ctx = {
           currentSlug: chap.slug, dir: dir,
-          histBases: new Set(histFiles.map(baseOf)), attach: []
+          histBases: new Set(allFiles.map(baseOf)), attach: []
         };
         var pm = parseMain(mainText, ctx);
-        var arts = histFiles.map(function (h, k) { return parseHistory(histTexts[k], h, ctx); });
+        var arts = allFiles.map(function (f, k) { var a = parseHistory(specTexts[k], f, ctx); a.type = specType(f); return a; });
 
-        // історії, на які в тексті НЕМАЄ 📜-callout-тизера (їх згадують лише інлайн або ніяк),
-        // виносимо картками вгору розділу — щоб усюди було як у блоці 1
+        // банер угорі розділу — лише ІСТОРІЇ, на які в тексті немає 📜-тизера (як було)
         var attached = {}; ctx.attach.forEach(function (a) { attached[a.base] = true; });
         var titleByBase = {}; arts.forEach(function (a) { titleByBase[a.base] = a.title; });
         var leftover = histFiles.map(baseOf).filter(function (b) { return !attached[b]; });
@@ -353,7 +372,7 @@
         var html = '<span id="top" class="anc"></span>';
         html += chapterHeader(chap, pm.introHtml);
         html += '<div class="sec content-body">' + banner + pm.bodyHtml + "</div>";
-        arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна
+        arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна (історії + extras)
         setContent(html);
 
         buildChapterSidebar(chap, pm.sections, ctx.attach, arts);
@@ -378,10 +397,11 @@
   }
 
   function histModal(a) {
-    var h = '<div class="hist-modal" id="histmodal-' + a.base + '" role="dialog" aria-modal="true" aria-label="' +
+    var t = SPEC_META[a.type] || SPEC_META.hist;
+    var h = '<div class="hist-modal spec-' + (a.type || "hist") + '" id="histmodal-' + a.base + '" role="dialog" aria-modal="true" aria-label="' +
       escapeAttr(a.title) + '" hidden><div class="hist-modal-backdrop" data-close></div>' +
       '<div class="hist-modal-dialog"><button class="hist-modal-close" type="button" data-close aria-label="Закрити">✕</button>' +
-      '<div class="hist-modal-scroll"><div class="hist-modal-head"><div class="hist-art-label">📜 Історична вставка</div><h1>' +
+      '<div class="hist-modal-scroll"><div class="hist-modal-head"><div class="hist-art-label">' + t.emoji + " " + t.modal + "</div><h1>" +
       escapeHtml(a.title) + "</h1>";
     if (a.introHtml) h += '<div class="hist-intro">' + a.introHtml + "</div>";
     h += '</div><div class="content-body">' + a.bodyHtml + "</div></div></div></div>";
@@ -430,6 +450,18 @@
       leftovers.forEach(function (b) { s += subLink(b); });
     }
 
+    // інші спец-вставки (математика / компоненти / практика) — згруповано за типом, клікабельні
+    var extraTypes = ["math", "comp", "proj"];
+    if (arts.some(function (a) { return extraTypes.indexOf(a.type) >= 0; })) {
+      s += '<hr class="sb-divider"><div class="sb-group-label">Вставки до тем</div>';
+      extraTypes.forEach(function (type) {
+        var items = arts.filter(function (a) { return a.type === type; });
+        if (!items.length) return;
+        s += '<div class="sb-spec-type">' + SPEC_META[type].emoji + " " + SPEC_META[type].label + " · " + items.length + "</div>";
+        items.forEach(function (a) { s += '<a class="sb-sub" data-hist="' + a.base + '" href="#">' + escapeHtml(a.title) + "</a>"; });
+      });
+    }
+
     s += chapterPager(chap);
     setSidebar(s);
   }
@@ -460,9 +492,18 @@
     var cur = null, lines = String(text).split(/\r?\n/);
     for (var i = 0; i < lines.length; i++) {
       var hm = lines[i].match(/^##\s+Розділ\s+([\d.]+)/u);
-      if (hm) { cur = hm[1]; if (!map[cur]) map[cur] = []; continue; }
+      if (hm) { cur = hm[1]; if (!map[cur]) map[cur] = { topics: [], specs: [] }; continue; }
+      if (!cur) continue;
       var tm = lines[i].match(/^\s*-\s*(🟢|🔄|🟡|⬜)\s+(\d+(?:\.\d+)+)\s+(.*)$/u);
-      if (tm && cur) map[cur].push({ num: tm[2], title: tm[3].replace(/\s*<!--.*$/, "").trim(), done: tm[1] === "🟢" });
+      if (tm) { map[cur].topics.push({ num: tm[2], title: tm[3].replace(/\s*<!--.*$/, "").trim(), done: tm[1] === "🟢" }); continue; }
+      var sm = lines[i].match(/^\s*-\s*(🟢|🔄|🟡|⬜)\s+(📜|🧮|🔌|⚙️|⚙)\s+(.*)$/u);
+      if (sm) {
+        var fm = sm[3].match(/`([^`]+\.md)`/);
+        if (!fm) continue;
+        var am = sm[3].match(/^\(до\s+(?:теми|розділу)\s*([\d.]*)\)/);
+        var title = sm[3].replace(/`[^`]+`\s*$/, "").replace(/\s*—\s*$/, "").replace(/^\([^)]*\)\s*/, "").replace(/\s*<!--.*$/, "").trim();
+        map[cur].specs.push({ type: emojiType(sm[2]), title: title, base: baseOf(fm[1].split("/").pop()), attach: am ? am[1] : "", done: sm[1] === "🟢" });
+      }
     }
   }
   function plTopics(n) {
@@ -502,19 +543,30 @@
       m.chapters.forEach(function (c) {
         var mr = m.n + "." + c.n;
         if (c.status === "done") {
-          var tops = topics[mr] || [];
+          var entry = topics[mr] || { topics: [], specs: [] };
+          var tops = entry.topics || [], specs = entry.specs || [];
           var tid = "tp-" + mr.replace(/\./g, "-");
+          var btnLabel = plTopics(tops.length) + (specs.length ? " · " + specs.length + " вставок" : "");
           h += '<div class="ch-item done"><div class="ch-row">' +
             '<a class="ch-open" href="#ch=' + c.slug + '"><span class="c-num">' + mr + "</span>" +
             '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
             '<span class="c-go">читати →</span></a>';
-          if (tops.length) h += '<button class="ch-exp" type="button" data-exp="' + tid + '" aria-expanded="false">' + plTopics(tops.length) + "</button>";
+          if (tops.length || specs.length) h += '<button class="ch-exp" type="button" data-exp="' + tid + '" aria-expanded="false">' + btnLabel + "</button>";
           h += "</div>";
-          if (tops.length) {
+          if (tops.length || specs.length) {
             h += '<ul class="ch-topics" id="' + tid + '" hidden>';
             tops.forEach(function (tp) {
               h += '<li class="' + (tp.done ? "t-done" : "t-pending") + '"><a href="#ch=' + c.slug + "&at=sec-" + tp.num.split(".").join("-") + '">' +
                 '<span class="t-num">' + tp.num + "</span>" + escapeHtml(tp.title) + "</a></li>";
+            });
+            SPEC_ORDER.forEach(function (type) {
+              var items = specs.filter(function (s) { return s.type === type; });
+              if (!items.length) return;
+              h += '<li class="t-spec-head">' + SPEC_META[type].emoji + " " + SPEC_META[type].label + "</li>";
+              items.forEach(function (s) {
+                h += '<li class="t-spec ' + (s.done ? "t-done" : "t-pending") + '"><a href="#ch=' + c.slug + "&at=hist-" + s.base + '">' +
+                  '<span class="t-num">' + (s.attach || "") + "</span>" + escapeHtml(s.title) + "</a></li>";
+              });
             });
             h += "</ul>";
           }

@@ -405,6 +405,20 @@ body.modal-open { overflow: hidden; }
 .ch-item.pending .c-ttl { flex: 1; font-size: 0.92rem; font-weight: 600; color: #9aa3ae; }
 .ch-item.pending .c-badge { flex-shrink: 0; font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #aab2bd; white-space: nowrap; }
 
+/* спец-вставки в змісті (підзаголовки типів і пункти-вставки) */
+.ch-topics li.t-spec-head { padding: 0.55rem 0 0.15rem; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+.ch-topics li.t-spec a { color: var(--text); }
+.ch-topics li.t-spec.t-pending a { color: var(--text-muted); }
+/* підзаголовок типу вставок у сайдбарі розділу */
+.sb-spec-type { padding: 0.5rem 1.25rem 0.15rem 1.5rem; font-size: 0.64rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: #6e93ad; }
+/* колір модалки за типом вставки (історія лишається фіолетовою) */
+.hist-modal.spec-math .hist-modal-dialog { border-top-color: #2563eb; }
+.hist-modal.spec-comp .hist-modal-dialog { border-top-color: #0891b2; }
+.hist-modal.spec-proj .hist-modal-dialog { border-top-color: #16a34a; }
+.hist-modal.spec-math .hist-modal-close, .hist-modal.spec-math .hist-art-label { color: #2563eb; }
+.hist-modal.spec-comp .hist-modal-close, .hist-modal.spec-comp .hist-art-label { color: #0891b2; }
+.hist-modal.spec-proj .hist-modal-close, .hist-modal.spec-proj .hist-art-label { color: #16a34a; }
+
 /* ─── Loading / error states ────────────────────────────────────────────── */
 .state { max-width: 860px; margin: 0 auto; padding: 5rem 4rem; text-align: center; color: var(--text-muted); }
 .state.error { color: #b91c1c; }
