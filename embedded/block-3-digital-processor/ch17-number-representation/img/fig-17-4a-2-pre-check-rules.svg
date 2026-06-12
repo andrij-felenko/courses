@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="430" viewBox="0 0 880 430">
+<rect width="880" height="430" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Перевірка переповнення ДО додавання a + b</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">переставляємо нерівність так, щоб ризикованої суми взагалі не виникало</text>
+<rect x="50.0" y="84.0" width="390.0" height="300.0" rx="12" fill="none" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="245.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Беззнаковий (uint)</text>
+<text x="245.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">wrap визначений (mod 2ᴺ), та все одно хибний</text>
+<text x="70.0" y="162.0" font-family="Consolas, 'Courier New', monospace" font-size="12.5" fill="#8a8a8a" text-anchor="start" font-weight="normal">// межа — UINT_MAX</text>
+<text x="70.0" y="188.0" font-family="Consolas, 'Courier New', monospace" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">if (a &gt; UINT_MAX - b)</text>
+<text x="86.0" y="210.0" font-family="Consolas, 'Courier New', monospace" font-size="13.5" fill="#1f47b5" text-anchor="start" font-weight="normal">/* переповниться */;</text>
+<text x="70.0" y="248.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Чому так:</text>
+<text x="70.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">a + b вилізе ⇔ a + b &gt; UINT_MAX.</text>
+<text x="70.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Переносимо b праворуч (різниця безпечна,</text>
+<text x="70.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">бо b ≤ UINT_MAX): a &gt; UINT_MAX − b.</text>
+<text x="70.0" y="336.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Дешева перевірка, що НЕ переповнюється</text>
+<text x="70.0" y="354.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">сама — лише одне віднімання й порівняння.</text>
+<rect x="460.0" y="84.0" width="390.0" height="300.0" rx="12" fill="none" stroke="#c0271e" stroke-width="1.8"/>
+<text x="655.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Знаковий (int)</text>
+<text x="655.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">переповнення — UB; треба ловити ОБИДВІ межі</text>
+<text x="480.0" y="162.0" font-family="Consolas, 'Courier New', monospace" font-size="12.8" fill="#1b1b1b" text-anchor="start" font-weight="normal">if (b &gt; 0 &amp;&amp; a &gt; INT_MAX - b)</text>
+<text x="496.0" y="184.0" font-family="Consolas, 'Courier New', monospace" font-size="12.8" fill="#c0271e" text-anchor="start" font-weight="normal">/* верхня межа */;</text>
+<text x="480.0" y="206.0" font-family="Consolas, 'Courier New', monospace" font-size="12.8" fill="#1b1b1b" text-anchor="start" font-weight="normal">if (b &lt; 0 &amp;&amp; a &lt; INT_MIN - b)</text>
+<text x="496.0" y="228.0" font-family="Consolas, 'Courier New', monospace" font-size="12.8" fill="#c0271e" text-anchor="start" font-weight="normal">/* нижня межа */;</text>
+<text x="480.0" y="266.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Дві перевірки, бо знакове вилазить</text>
+<text x="480.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">у ДВА боки: + переб'є INT_MAX,</text>
+<text x="480.0" y="304.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">− провалиться під INT_MIN.</text>
+<text x="480.0" y="332.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Знак b каже, яку межу перевіряти —</text>
+<text x="480.0" y="350.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">інша різниця сама була б UB.</text>
+<text x="440.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Той самий прийом для × (ділення межі) і для −b: спершу перевір, тоді дій.</text>
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="460" viewBox="0 0 920 460">
+<rect width="920" height="460" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Тестбенч: перевіряємо модуль у симуляторі — ще до прошивання плати</text>
+<rect x="28.0" y="52.0" width="600.0" height="300.0" rx="10" fill="#fafbff" stroke="#1f47b5" stroke-width="2"/>
+<text x="44.0" y="76.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">СИМУЛЯТОР  (комп'ютер, не плата)</text>
+<rect x="52.0" y="100.0" width="200.0" height="96.0" rx="7" fill="#eef7f0" stroke="#1b1b1b" stroke-width="2"/>
+<text x="152.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">тестбенч (stimulus)</text>
+<text x="66.0" y="142.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">clk = ~clk #5;</text>
+<text x="66.0" y="159.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">data = 8'h41;</text>
+<text x="66.0" y="176.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">start = 1;</text>
+<text x="66.0" y="193.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">#... перевір TX</text>
+<text x="152.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">несправжній світ:</text>
+<text x="152.0" y="227.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">сам даєш такт і вхід</text>
+<rect x="322.0" y="100.0" width="190.0" height="96.0" rx="7" fill="#f4f6fb" stroke="#1b1b1b" stroke-width="2"/>
+<text x="417.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">DUT</text>
+<text x="417.0" y="144.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">uart_tx.v</text>
+<text x="417.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">модуль, який</text>
+<text x="417.0" y="179.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">перевіряємо</text>
+<text x="417.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">device under test</text>
+<line x1="252.0" y1="140.0" x2="322.0" y2="140.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<text x="287.0" y="132.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">clk, start, data</text>
+<line x1="512.0" y1="156.0" x2="530.0" y2="156.0" stroke="#c0271e" stroke-width="2.4" marker-end="url(#aRed)"/>
+<text x="322.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">вихід TX — як хвиля:</text>
+<line x1="322.0" y1="242.0" x2="322.0" y2="242.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="322.0" y1="242.0" x2="340.0" y2="242.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="340.0" y1="242.0" x2="340.0" y2="276.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="340.0" y1="276.0" x2="358.0" y2="276.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="358.0" y1="276.0" x2="358.0" y2="242.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="358.0" y1="242.0" x2="376.0" y2="242.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="376.0" y1="242.0" x2="376.0" y2="276.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="376.0" y1="276.0" x2="394.0" y2="276.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="394.0" y1="276.0" x2="412.0" y2="276.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="412.0" y1="276.0" x2="430.0" y2="276.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="430.0" y1="276.0" x2="448.0" y2="276.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="448.0" y1="276.0" x2="448.0" y2="242.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="448.0" y1="242.0" x2="466.0" y2="242.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="466.0" y1="242.0" x2="466.0" y2="276.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="466.0" y1="276.0" x2="484.0" y2="276.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="484.0" y1="276.0" x2="484.0" y2="242.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="484.0" y1="242.0" x2="502.0" y2="242.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="502.0" y1="242.0" x2="520.0" y2="242.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="628.0" y1="222.0" x2="698.0" y2="222.0" stroke="#1b1b1b" stroke-width="3" marker-end="url(#aInk)"/>
+<text x="678.0" y="210.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">аж тепер</text>
+<text x="678.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">прошивка</text>
+<rect x="722.0" y="80.0" width="176.0" height="260.0" rx="10" fill="#eef7f0" stroke="#1f8a3b" stroke-width="2"/>
+<text x="810.0" y="106.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ПЛАТА FPGA</text>
+<rect x="776.0" y="130.0" width="68.0" height="68.0" rx="4" fill="#cfe9d6" stroke="#1b1b1b" stroke-width="2"/>
+<text x="810.0" y="168.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">iCE40</text>
+<text x="810.0" y="218.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">TX → у термінал</text>
+<circle cx="810.0" cy="258.0" r="20.0" fill="none" stroke="#f3b0aa" stroke-width="3"/>
+<circle cx="810.0" cy="258.0" r="13.0" fill="#c0271e" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="789.0" y1="258.0" x2="797.0" y2="258.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<text x="810.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">працює як у хвилях</text>
+<text x="460.0" y="448.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Помилку в кадрі видно на хвилях за секунди — а не паянням і осцилографом. Тестбенч — твій перший і найдешевший прилад.</text>
+</svg>

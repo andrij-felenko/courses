@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470">
+<rect width="900" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Орієнтовне дерево рішень: МК, FPGA чи обидва разом</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кілька запитань, що зазвичай вирішують справу (не догма, а здоровий глузд)</text>
+<rect x="290.0" y="84.0" width="320.0" height="46.0" rx="8" fill="#eef0f4" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="450.0" y="103.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Потрібна жорстка паралельність</text>
+<text x="450.0" y="119.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">або реакція за наносекунди?</text>
+<line x1="310.0" y1="107.0" x2="200.0" y2="150.0" stroke="#1f47b5" stroke-width="2" marker-end="url(#aBlue)"/>
+<text x="230.0" y="128.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">ні</text>
+<rect x="50.0" y="150.0" width="260.0" height="46.0" rx="8" fill="#eef0f4" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="180.0" y="169.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">потік даних поміщається</text>
+<text x="180.0" y="185.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">в одне ядро по тактах?</text>
+<line x1="180.0" y1="196.0" x2="180.0" y2="240.0" stroke="#1f8a3b" stroke-width="2" marker-end="url(#aGreen)"/>
+<text x="196.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">так</text>
+<rect x="70.0" y="240.0" width="220.0" height="46.0" rx="8" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="180.0" y="266.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">МІКРОКОНТРОЛЕР</text>
+<text x="180.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">дешево, швидко в розробці</text>
+<line x1="590.0" y1="107.0" x2="700.0" y2="150.0" stroke="#1f8a3b" stroke-width="2" marker-end="url(#aGreen)"/>
+<text x="670.0" y="128.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">так</text>
+<rect x="580.0" y="150.0" width="280.0" height="46.0" rx="8" fill="#eef0f4" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="720.0" y="169.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">багато складної ПОСЛІДОВНОЇ</text>
+<text x="720.0" y="185.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">логіки / меню / мережі теж?</text>
+<line x1="720.0" y1="196.0" x2="720.0" y2="240.0" stroke="#caa24a" stroke-width="2" marker-end="url(#aAmber)"/>
+<text x="736.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#9a7322" text-anchor="start" font-weight="bold" font-style="normal">так</text>
+<rect x="595.0" y="240.0" width="250.0" height="46.0" rx="8" fill="#fff8e8" stroke="#caa24a" stroke-width="1.8"/>
+<text x="720.0" y="266.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">FPGA + м'яке/тверде ядро</text>
+<text x="720.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">softcore поряд зі схемою (§3.7.9)</text>
+<line x1="620.0" y1="173.0" x2="360.0" y2="240.0" stroke="#1f8a3b" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#aGreen)"/>
+<text x="470.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ні → чиста FPGA</text>
+<rect x="260.0" y="330.0" width="200.0" height="46.0" rx="8" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="360.0" y="356.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">FPGA</text>
+<text x="360.0" y="386.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">паралельність і таймінг у залізі</text>
+<rect x="60.0" y="410.0" width="780.0" height="66.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.7"/>
+<text x="450.0" y="436.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Грубо: немає жорсткої паралельності й реакція не критична — беріть МК. Потрібні наносекунди й багато каналів — FPGA.</text>
+<text x="450.0" y="460.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">А коли поряд із швидкою схемою треба ще й «звичайне» керування — кладуть процесор УСЕРЕДИНІ FPGA (softcore, §3.7.9).</text>
+</svg>

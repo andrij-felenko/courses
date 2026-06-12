@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="560" viewBox="0 0 920 560">
+<rect width="920" height="560" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="460.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Асиметрія зернистості: читаєш і пишеш дрібно, а стираєш — крупно</text>
+<text x="460.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">приклад організації W25Q128: 16 МБ = 256 блоків по 64 КБ = 4096 секторів по 4 КБ = 65 536 сторінок по 256 Б</text>
+<rect x="40.0" y="86.0" width="380.0" height="250.0" rx="10" fill="#fbfbfb" stroke="#1b1b1b" stroke-width="2"/>
+<text x="52.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">ЧІП — 16 МБ (W25Q128)</text>
+<text x="408.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="italic">Chip Erase — усе одразу</text>
+<rect x="58.0" y="122.0" width="344.0" height="168.0" rx="8" fill="#f4f7f9" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="68.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">БЛОК — 64 КБ  (×256)</text>
+<text x="392.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="italic">Block Erase 64K</text>
+<rect x="74.0" y="154.0" width="312.0" height="104.0" rx="8" fill="#fdf6ee" stroke="#caa24a" stroke-width="1.8"/>
+<text x="84.0" y="173.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a6a18" text-anchor="start" font-weight="bold" font-style="normal">СЕКТОР — 4 КБ  (×16 у блоці)</text>
+<text x="376.0" y="173.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a6a18" text-anchor="end" font-weight="normal" font-style="italic">Sector Erase 4K — найдрібніше стирання</text>
+<rect x="86.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.3"/>
+<rect x="121.2" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.3"/>
+<rect x="156.4" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.3"/>
+<rect x="191.6" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.3"/>
+<rect x="226.8" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.3"/>
+<rect x="262.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.3"/>
+<rect x="297.2" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.3"/>
+<rect x="332.4" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.3"/>
+<text x="230.0" y="246.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">16 сторінок по 256 Б — найдрібніший ЗАПИС (Page Program)</text>
+<text x="230.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">читання — будь-який байт усередині · запис — сторінка · стирання — сектор/блок/чіп</text>
+<rect x="470.0" y="86.0" width="410.0" height="250.0" rx="12" fill="#ffffff" stroke="#1f8a3b" stroke-width="2"/>
+<text x="675.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Щоб змінити навіть один байт:</text>
+<circle cx="498.0" cy="142.0" r="13.0" fill="#ffffff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="498.0" y="147.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<text x="520.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">ВВЕСТИ дозвіл на запис</text>
+<text x="520.0" y="155.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Write Enable — інакше чіп мовчки відмовить</text>
+<line x1="498.0" y1="158.0" x2="498.0" y2="174.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<circle cx="498.0" cy="190.0" r="13.0" fill="#ffffff" stroke="#1f47b5" stroke-width="2"/>
+<text x="498.0" y="195.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<text x="520.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">СТЕРТИ цілий сектор 4 КБ</text>
+<text x="520.0" y="203.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">усі біти сектора → 1 (десятки мс)</text>
+<line x1="498.0" y1="206.0" x2="498.0" y2="222.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<circle cx="498.0" cy="238.0" r="13.0" fill="#ffffff" stroke="#c0271e" stroke-width="2"/>
+<text x="498.0" y="243.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<text x="520.0" y="234.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">ЗАПИСАТИ потрібні сторінки</text>
+<text x="520.0" y="251.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">опускаємо біти 1→0, по ≤256 Б за раз</text>
+<line x1="498.0" y1="254.0" x2="498.0" y2="270.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<circle cx="498.0" cy="286.0" r="13.0" fill="#ffffff" stroke="#caa24a" stroke-width="2"/>
+<text x="498.0" y="291.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">4</text>
+<text x="520.0" y="282.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">ЧЕКАТИ, поки чіп зайнятий</text>
+<text x="520.0" y="299.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">опитуємо біт Busy; нову команду — лише по його скиданню</text>
+<rect x="60.0" y="352.0" width="800.0" height="86.0" rx="10" fill="#fff8e8" stroke="#caa24a" stroke-width="1.8"/>
+<text x="460.0" y="376.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Граблі read-modify-write: апаратного «змінити один байт на місці» НЕМАЄ.</text>
+<text x="460.0" y="398.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Хочеш переписати 1 байт у вже записаному секторі — доводиться: вичитати сектор у RAM → змінити байт →</text>
+<text x="460.0" y="416.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">стерти весь сектор 4 КБ у флеші → записати сектор назад. Один байт коштує стирання й перезапису тисяч байтів.</text>
+<text x="460.0" y="432.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a6a18" text-anchor="middle" font-weight="bold" font-style="normal">Саме тому під часті дрібні зміни (лічильники, журнали) такий чіп підходить погано — краще EEPROM/FRAM (§3.8.8).</text>
+<rect x="60.0" y="452.0" width="800.0" height="72.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="460.0" y="476.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">І ще наслідок: кожне стирання потроху ЗНОШУЄ комірки (§3.6.8 — тунелювання крізь ізолятор).</text>
+<text x="460.0" y="498.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Ресурс — типово близько 100 000 циклів стирання на сектор (перевірити за даташитом), потім сектор «втомлюється».</text>
+<text x="460.0" y="516.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Тому реальні файлові системи й бутлоадери стирають по черзі різні сектори, щоб не виробити один.</text>
+</svg>

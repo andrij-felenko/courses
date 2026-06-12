@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
+<rect width="900" height="560" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чим повільніша за вбудовану SRAM — і коли її варто вмикати</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.0" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">що далі від ядра живе байт, то довша дорога до нього: вбудована SRAM — поряд, PSRAM — за повільною шиною через кеш</text>
+<text x="250.0" y="82.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">час доступу (умовно, що довша смуга — то довше чекати)</text>
+<text x="238.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">регістр у ядрі</text>
+<rect x="250.0" y="92.0" width="8.0" height="30.0" rx="5" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
+<text x="268.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">0 тактів — вже в ядрі (§3.5.2)</text>
+<text x="238.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">вбудована SRAM</text>
+<rect x="250.0" y="140.0" width="26.0" height="30.0" rx="5" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
+<text x="286.0" y="160.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">≈1–2 такти — поряд, на кристалі</text>
+<text x="238.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">PSRAM: влучання в кеш</text>
+<rect x="250.0" y="188.0" width="70.0" height="30.0" rx="5" fill="#caa24a" stroke="#caa24a" stroke-width="1"/>
+<text x="330.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">як SRAM — копія вже у швидкому кеші</text>
+<text x="238.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">PSRAM: промах (по шині)</text>
+<rect x="250.0" y="236.0" width="300.0" height="30.0" rx="5" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
+<text x="560.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">десятки тактів — їхати по SPI/QSPI</text>
+<text x="250.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">(шкала стиснена — реальний розрив «промах vs SRAM» ще більший)</text>
+<text x="450.0" y="300.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Коли вмикати PSRAM — і що в ній НЕ тримати</text>
+<rect x="60.0" y="316.0" width="380.0" height="150.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="250.0" y="338.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">✓ годиться для PSRAM</text>
+<text x="250.0" y="356.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">велике й нечасте — повільність губиться</text>
+<text x="84.0" y="378.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">•</text>
+<text x="100.0" y="378.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">кадр дисплея (десятки–сотні КіБ)</text>
+<text x="84.0" y="399.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">•</text>
+<text x="100.0" y="399.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">буфер звуку чи запису</text>
+<text x="84.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">•</text>
+<text x="100.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">великий рядок JSON / HTML</text>
+<text x="84.0" y="441.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">•</text>
+<text x="100.0" y="441.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">кеш зображень, таблиці, історія логів</text>
+<rect x="460.0" y="316.0" width="380.0" height="150.0" rx="10" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.8"/>
+<text x="650.0" y="338.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">✗ лишати у вбудованій SRAM</text>
+<text x="650.0" y="356.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">гаряче й критичне за часом — кожен такт важить</text>
+<text x="484.0" y="378.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">•</text>
+<text x="500.0" y="378.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">змінні в гарячих циклах</text>
+<text x="484.0" y="399.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">•</text>
+<text x="500.0" y="399.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">обробники переривань (мають бути швидкі)</text>
+<text x="484.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">•</text>
+<text x="500.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">буфери, які смикає периферія напряму</text>
+<text x="484.0" y="441.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">•</text>
+<text x="500.0" y="441.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">стек задач реального часу</text>
+<rect x="60.0" y="478.0" width="780.0" height="56.0" rx="10" fill="#f7f9fc" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="450.0" y="500.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Правило те саме, що для будь-якої повільної пам'яті: тримай поряд лише гаряче, а велике й рідкісне відправ далі.</text>
+<text x="450.0" y="520.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.3" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">PSRAM не «прискорює» МК — вона дає МІСЦЕ під те, що інакше просто не влізло б у вбудовану SRAM.</text>
+</svg>

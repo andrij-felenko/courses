@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="540" viewBox="0 0 920 540">
+<rect width="920" height="540" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="460.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чому NOR читається побайтово (і годиться для XIP), а NAND — ні</text>
+<text x="460.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">різниця — у тому, ЯК комірки під'єднані до розрядної лінії: паралельно (NOR) чи довгим ланцюжком (NAND)</text>
+<text x="120.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">NOR</text>
+<text x="120.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">комірки ПАРАЛЕЛЬНО</text>
+<line x1="120.0" y1="128.0" x2="120.0" y2="300.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
+<text x="128.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">bit line</text>
+<line x1="120.0" y1="148.0" x2="166.0" y2="148.0" stroke="#1f8a3b" stroke-width="2" stroke-linecap="round"/>
+<rect x="166.0" y="135.0" width="40.0" height="26.0" rx="4" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="186.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">комір.</text>
+<line x1="206.0" y1="148.0" x2="240.0" y2="148.0" stroke="#8a8a8a" stroke-width="1.4" stroke-linecap="round"/>
+<text x="244.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">WL0</text>
+<line x1="120.0" y1="200.0" x2="166.0" y2="200.0" stroke="#1f8a3b" stroke-width="2" stroke-linecap="round"/>
+<rect x="166.0" y="187.0" width="40.0" height="26.0" rx="4" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="186.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">комір.</text>
+<line x1="206.0" y1="200.0" x2="240.0" y2="200.0" stroke="#8a8a8a" stroke-width="1.4" stroke-linecap="round"/>
+<text x="244.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">WL1</text>
+<line x1="120.0" y1="252.0" x2="166.0" y2="252.0" stroke="#1f8a3b" stroke-width="2" stroke-linecap="round"/>
+<rect x="166.0" y="239.0" width="40.0" height="26.0" rx="4" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="186.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">комір.</text>
+<line x1="206.0" y1="252.0" x2="240.0" y2="252.0" stroke="#8a8a8a" stroke-width="1.4" stroke-linecap="round"/>
+<text x="244.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">WL2</text>
+<text x="120.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">кожна комірка має ПРЯМИЙ доступ до лінії</text>
+<text x="120.0" y="338.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">→ читаємо будь-яку поодинці, за наносекунди</text>
+<text x="600.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">NAND</text>
+<text x="600.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">комірки в ЛАНЦЮЖКУ</text>
+<line x1="600.0" y1="128.0" x2="600.0" y2="150.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
+<text x="608.0" y="132.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">bit line</text>
+<rect x="580.0" y="150.0" width="40.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.6"/>
+<text x="600.0" y="169.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">к0</text>
+<line x1="600.0" y1="180.0" x2="600.0" y2="196.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
+<rect x="580.0" y="196.0" width="40.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.6"/>
+<text x="600.0" y="215.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">к1</text>
+<line x1="600.0" y1="226.0" x2="600.0" y2="242.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
+<rect x="580.0" y="242.0" width="40.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.6"/>
+<text x="600.0" y="261.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">к2</text>
+<line x1="600.0" y1="272.0" x2="600.0" y2="288.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
+<rect x="580.0" y="288.0" width="40.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.6"/>
+<text x="600.0" y="307.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">к3</text>
+<line x1="600.0" y1="318.0" x2="600.0" y2="336.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
+<text x="628.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">усі ввімкнені</text>
+<text x="628.0" y="183.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">послідовно</text>
+<text x="600.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">щоб дотягтись до однієї — струм іде КРІЗЬ сусідів</text>
+<text x="600.0" y="338.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">→ читати можна лише цілою сторінкою, не байтом</text>
+<line x1="460.0" y1="120.0" x2="460.0" y2="348.0" stroke="#e4e4e4" stroke-width="1.4" stroke-dasharray="4,5" stroke-linecap="round"/>
+<rect x="60.0" y="366.0" width="800.0" height="96.0" rx="10" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/>
+<line x1="370.0" y1="374.0" x2="370.0" y2="454.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
+<line x1="645.0" y1="374.0" x2="645.0" y2="454.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
+<text x="215.0" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">властивість</text>
+<text x="507.0" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">NOR (наш W25Q)</text>
+<text x="782.0" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">NAND</text>
+<text x="72.0" y="404.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Випадкове читання байта</text>
+<text x="507.0" y="404.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">так — будь-де</text>
+<text x="782.0" y="404.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ні — лише сторінками</text>
+<text x="72.0" y="420.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">XIP (код виконується «на місці»)</text>
+<text x="507.0" y="420.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">так</text>
+<text x="782.0" y="420.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ні (потрібна копія в RAM)</text>
+<text x="72.0" y="437.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Щільність / ціна за байт</text>
+<text x="507.0" y="437.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">нижча, дорожча</text>
+<text x="782.0" y="437.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">вища, дешевша</text>
+<text x="72.0" y="453.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Де доречна</text>
+<text x="507.0" y="453.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">код, малі прошивки</text>
+<text x="782.0" y="453.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">масові дані: SD, eMMC, SSD</text>
+<rect x="60.0" y="476.0" width="800.0" height="50.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="460.0" y="500.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Підсумок: W25Q-клас — це NOR. Її козир — читати будь-який байт, тож код виконують прямо з неї (XIP).</text>
+<text x="460.0" y="518.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Платня за це — менший об'єм; коли байтів треба дуже багато, беруть NAND і миряться з посторінковим доступом.</text>
+</svg>

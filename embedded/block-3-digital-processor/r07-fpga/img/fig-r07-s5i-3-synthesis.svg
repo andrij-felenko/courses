@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="470" viewBox="0 0 920 470">
+<rect width="920" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="460.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Що насправді винайшли: текст, з якого РОСТЕ схема</text>
+<text x="460.0" y="55.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">те саме, що §3.7.5 зве «синтез ≠ виконання» — ось звідки ця ідея взялася історично</text>
+<text x="40.0" y="98.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">ПРОГРАМА (звичний код, §3.5):</text>
+<rect x="40.0" y="120.0" width="150.0" height="46.0" rx="8" fill="#f2f2f2" stroke="#8a8a8a" stroke-width="2"/>
+<text x="115.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">текст коду</text>
+<line x1="196.0" y1="143.0" x2="268.0" y2="143.0" stroke="#8a8a8a" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="274.0" y="120.0" width="150.0" height="46.0" rx="8" fill="#f2f2f2" stroke="#8a8a8a" stroke-width="2"/>
+<text x="349.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">інструкції</text>
+<line x1="430.0" y1="143.0" x2="502.0" y2="143.0" stroke="#8a8a8a" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="508.0" y="120.0" width="200.0" height="46.0" rx="8" fill="#f2f2f2" stroke="#8a8a8a" stroke-width="2"/>
+<text x="608.0" y="141.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">процесор виконує</text>
+<text x="608.0" y="157.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">ПО ЧЕРЗІ, такт за тактом</text>
+<text x="728.0" y="148.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">→ дії в часі</text>
+<text x="40.0" y="248.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">ОПИС ЗАЛІЗА (HDL: VHDL / Verilog):</text>
+<rect x="40.0" y="270.0" width="150.0" height="46.0" rx="8" fill="#eafaee" stroke="#1f8a3b" stroke-width="2.4"/>
+<text x="115.0" y="291.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">текст ОПИСУ</text>
+<text x="115.0" y="307.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(що з чим з'єднано)</text>
+<line x1="196.0" y1="293.0" x2="268.0" y2="293.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<text x="232.0" y="266.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">СИНТЕЗ</text>
+<rect x="274.0" y="270.0" width="150.0" height="46.0" rx="8" fill="#eafaee" stroke="#1f8a3b" stroke-width="2.4"/>
+<text x="349.0" y="291.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">схема вентилів</text>
+<text x="349.0" y="307.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">і тригерів (§3.2–3.3)</text>
+<line x1="430.0" y1="293.0" x2="502.0" y2="293.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<rect x="508.0" y="270.0" width="200.0" height="46.0" rx="8" fill="#eafaee" stroke="#1f8a3b" stroke-width="2.4"/>
+<text x="608.0" y="291.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">усе працює РАЗОМ</text>
+<text x="608.0" y="307.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">одночасно, у залізі</text>
+<text x="728.0" y="298.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">→ схема в просторі</text>
+<rect x="60.0" y="372.0" width="800.0" height="72.0" rx="10" fill="#fff" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="80.0" y="396.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Ключ історії: спершу обидві мови вміли лише ОПИСАТИ й ПРОСИМУЛЮВАТИ схему (перевірити її на екрані).</text>
+<text x="80.0" y="416.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Пізніше додався СИНТЕЗ — і той самий текст почав не лише описувати, а й БУДУВАТИ реальне залізо.</text>
+<text x="80.0" y="434.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Тому «написати на Verilog» — це не «написати програму», а накреслити схему словами.</text>
+</svg>

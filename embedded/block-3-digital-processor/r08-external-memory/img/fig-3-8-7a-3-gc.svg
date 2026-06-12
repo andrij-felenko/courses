@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="500" viewBox="0 0 940 500">
+<rect width="940" height="500" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Garbage collection: зібрати чинне, стерти блок, повернути вільне місце</text>
+<text x="470.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">стерти можна лише ЦІЛИЙ блок (§3.8.5) — тож спершу рятуємо живі сторінки в інший блок, аж тоді стираємо джерело начисто</text>
+<text x="128.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Блок-жертва (victim)</text>
+<text x="128.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">багато застарілого, мало живого</text>
+<text x="128.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">блок 7</text>
+<rect x="80.0" y="132.0" width="96.0" height="30.0" rx="4" fill="#eef1fb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="86.0" y="145.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s0</text>
+<text x="86.0" y="157.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">застаріла</text>
+<rect x="80.0" y="166.0" width="96.0" height="30.0" rx="4" fill="#fdecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="86.0" y="179.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s1</text>
+<text x="86.0" y="191.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">чинна</text>
+<rect x="80.0" y="200.0" width="96.0" height="30.0" rx="4" fill="#eef1fb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="86.0" y="213.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s2</text>
+<text x="86.0" y="225.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">застаріла</text>
+<rect x="80.0" y="234.0" width="96.0" height="30.0" rx="4" fill="#eef1fb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="86.0" y="247.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s3</text>
+<text x="86.0" y="259.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">застаріла</text>
+<rect x="80.0" y="268.0" width="96.0" height="30.0" rx="4" fill="#fdecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="86.0" y="281.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s4</text>
+<text x="86.0" y="293.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">чинна</text>
+<rect x="80.0" y="302.0" width="96.0" height="30.0" rx="4" fill="#eef1fb" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="86.0" y="315.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s5</text>
+<text x="86.0" y="327.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">застаріла</text>
+<text x="468.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Вільний блок (приймач)</text>
+<text x="468.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">сюди копіюємо лише ЖИВЕ</text>
+<text x="468.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">блок 9</text>
+<rect x="420.0" y="132.0" width="96.0" height="30.0" rx="4" fill="#fdecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="426.0" y="145.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s0</text>
+<text x="426.0" y="157.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">чинна (копія)</text>
+<rect x="420.0" y="166.0" width="96.0" height="30.0" rx="4" fill="#fdecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="426.0" y="179.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s1</text>
+<text x="426.0" y="191.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">чинна (копія)</text>
+<rect x="420.0" y="200.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="426.0" y="213.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s2</text>
+<text x="426.0" y="225.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">вільна</text>
+<rect x="420.0" y="234.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="426.0" y="247.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s3</text>
+<text x="426.0" y="259.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">вільна</text>
+<rect x="420.0" y="268.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="426.0" y="281.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s4</text>
+<text x="426.0" y="293.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">вільна</text>
+<rect x="420.0" y="302.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="426.0" y="315.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s5</text>
+<text x="426.0" y="327.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">вільна</text>
+<path d="M178.0,181.0 Q298.0,148.0 418.0,147.0" fill="none" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<path d="M178.0,283.0 Q298.0,242.0 418.0,181.0" fill="none" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="304.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1. копіюємо живе</text>
+<text x="304.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#9a7322" text-anchor="middle" font-weight="bold" font-style="normal">+ правимо таблицю</text>
+<text x="808.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Стертий блок-жертва</text>
+<text x="808.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">цілий блок — назад у запас</text>
+<text x="808.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">блок 7</text>
+<rect x="760.0" y="132.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="766.0" y="145.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s0</text>
+<text x="766.0" y="157.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">вільна</text>
+<rect x="760.0" y="166.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="766.0" y="179.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s1</text>
+<text x="766.0" y="191.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">вільна</text>
+<rect x="760.0" y="200.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="766.0" y="213.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s2</text>
+<text x="766.0" y="225.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">вільна</text>
+<rect x="760.0" y="234.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="766.0" y="247.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s3</text>
+<text x="766.0" y="259.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">вільна</text>
+<rect x="760.0" y="268.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="766.0" y="281.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s4</text>
+<text x="766.0" y="293.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">вільна</text>
+<rect x="760.0" y="302.0" width="96.0" height="30.0" rx="4" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="766.0" y="315.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s5</text>
+<text x="766.0" y="327.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">вільна</text>
+<line x1="518.0" y1="234.0" x2="758.0" y2="234.0" stroke="#1f8a3b" stroke-width="2.4" marker-end="url(#aGreen)"/>
+<text x="642.0" y="224.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">2. стерти</text>
+<text x="642.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">весь блок</text>
+<rect x="60.0" y="448.0" width="820.0" height="44.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="470.0" y="470.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Було: 4 застарілі + 2 живі сторінки в зайнятому блоці. Стало: 2 живі переїхали, цілий блок 7 — порожній і готовий приймати.</text>
+<text x="470.0" y="488.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Ціна — «зайвий» запис 2 живих сторінок (write amplification): прибирання НЕ безкоштовне, але без нього вільне місце скінчиться.</text>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="470" viewBox="0 0 1000 470">
+<rect width="1000" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aPurple" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#6a3fb5"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="500.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">NOR vs NAND: коротка таблиця рішення</text>
+<text x="500.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Жодна не «краща» — вони для різного: одна виконує код, друга зберігає гори даних</text>
+<rect x="80.0" y="90.0" width="330.0" height="50.0" rx="0" fill="#eef0f4" stroke="#8a8a8a" stroke-width="1.6"/>
+<text x="245.0" y="121.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Властивість</text>
+<rect x="410.0" y="90.0" width="260.0" height="50.0" rx="0" fill="#eef0f4" stroke="#8a8a8a" stroke-width="1.6"/>
+<text x="540.0" y="121.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">NOR</text>
+<rect x="670.0" y="90.0" width="280.0" height="50.0" rx="0" fill="#eef0f4" stroke="#8a8a8a" stroke-width="1.6"/>
+<text x="810.0" y="121.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">NAND</text>
+<rect x="80.0" y="140.0" width="330.0" height="50.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="410.0" y="140.0" width="260.0" height="50.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="670.0" y="140.0" width="280.0" height="50.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="96.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Випадкове читання слова</text>
+<text x="540.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">швидке, напряму</text>
+<text x="810.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ні — лише сторінками</text>
+<rect x="80.0" y="190.0" width="330.0" height="50.0" rx="0" fill="#fafafa" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="410.0" y="190.0" width="260.0" height="50.0" rx="0" fill="#fafafa" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="670.0" y="190.0" width="280.0" height="50.0" rx="0" fill="#fafafa" stroke="#e4e4e4" stroke-width="1"/>
+<text x="96.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Виконання коду (XIP)</text>
+<text x="540.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">так</text>
+<text x="810.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ні (копія в RAM)</text>
+<rect x="80.0" y="240.0" width="330.0" height="50.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="410.0" y="240.0" width="260.0" height="50.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="670.0" y="240.0" width="280.0" height="50.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="96.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Ємність за ту саму ціну</text>
+<text x="540.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">менша</text>
+<text x="810.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">велика</text>
+<rect x="80.0" y="290.0" width="330.0" height="50.0" rx="0" fill="#fafafa" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="410.0" y="290.0" width="260.0" height="50.0" rx="0" fill="#fafafa" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="670.0" y="290.0" width="280.0" height="50.0" rx="0" fill="#fafafa" stroke="#e4e4e4" stroke-width="1"/>
+<text x="96.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Швидкість запису/стирання</text>
+<text x="540.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">повільніша</text>
+<text x="810.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">швидша, блоками</text>
+<rect x="80.0" y="340.0" width="330.0" height="50.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="410.0" y="340.0" width="260.0" height="50.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="670.0" y="340.0" width="280.0" height="50.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="96.0" y="370.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Дефектні комірки</text>
+<text x="540.0" y="370.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">практично немає</text>
+<text x="810.0" y="370.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">є завжди (треба ECC)</text>
+<rect x="80.0" y="390.0" width="330.0" height="50.0" rx="0" fill="#fafafa" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="410.0" y="390.0" width="260.0" height="50.0" rx="0" fill="#fafafa" stroke="#e4e4e4" stroke-width="1"/>
+<rect x="670.0" y="390.0" width="280.0" height="50.0" rx="0" fill="#fafafa" stroke="#e4e4e4" stroke-width="1"/>
+<text x="96.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Типове застосування</text>
+<text x="540.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">прошивка, код</text>
+<text x="810.0" y="420.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">файли, медіа, SSD/SD</text>
+<rect x="80.0" y="90.0" width="870.0" height="350.0" rx="0" fill="none" stroke="#8a8a8a" stroke-width="1.6"/>
+<text x="500.0" y="450.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Запам'ятайте різницю одним рядком: NOR — щоб ВИКОНУВАТИ, NAND — щоб ЗБЕРІГАТИ.</text>
+</svg>

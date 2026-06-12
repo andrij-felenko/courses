@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="526" viewBox="0 0 900 526">
+<rect width="900" height="526" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Пастка watermark: непрочитаний буфер лишає 0xA5 — і метод його «не бачить»</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">патерн стирається лише там, де реально ПИСАЛИ; виділене, але незаписане місце метод порахує вільним</text>
+<rect x="250.0" y="88.0" width="150.0" height="22.0" rx="3" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="325.0" y="103.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">0x3F</text>
+<rect x="250.0" y="110.0" width="150.0" height="22.0" rx="3" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="325.0" y="125.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">0x00</text>
+<rect x="250.0" y="132.0" width="150.0" height="22.0" rx="3" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="325.0" y="147.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">0x12</text>
+<rect x="250.0" y="154.0" width="150.0" height="22.0" rx="3" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="325.0" y="169.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">0xE4</text>
+<rect x="250.0" y="176.0" width="150.0" height="22.0" rx="3" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="325.0" y="191.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">0x44</text>
+<rect x="250.0" y="198.0" width="150.0" height="22.0" rx="3" fill="#fdeef0" stroke="#c0271e" stroke-width="1.3"/>
+<text x="325.0" y="213.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5</text>
+<rect x="250.0" y="220.0" width="150.0" height="22.0" rx="3" fill="#fdeef0" stroke="#c0271e" stroke-width="1.3"/>
+<text x="325.0" y="235.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5</text>
+<rect x="250.0" y="242.0" width="150.0" height="22.0" rx="3" fill="#fdeef0" stroke="#c0271e" stroke-width="1.3"/>
+<text x="325.0" y="257.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5</text>
+<rect x="250.0" y="264.0" width="150.0" height="22.0" rx="3" fill="#fdeef0" stroke="#c0271e" stroke-width="1.3"/>
+<text x="325.0" y="279.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5</text>
+<rect x="250.0" y="286.0" width="150.0" height="22.0" rx="3" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="325.0" y="301.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">0x7A</text>
+<rect x="250.0" y="308.0" width="150.0" height="22.0" rx="3" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="325.0" y="323.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">0xC8</text>
+<rect x="250.0" y="330.0" width="150.0" height="22.0" rx="3" fill="#fff4f4" stroke="#c0271e" stroke-width="1.3"/>
+<text x="325.0" y="345.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5</text>
+<rect x="250.0" y="352.0" width="150.0" height="22.0" rx="3" fill="#fff4f4" stroke="#c0271e" stroke-width="1.3"/>
+<text x="325.0" y="367.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5</text>
+<rect x="250.0" y="374.0" width="150.0" height="22.0" rx="3" fill="#fff4f4" stroke="#c0271e" stroke-width="1.3"/>
+<text x="325.0" y="389.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5</text>
+<rect x="250.0" y="396.0" width="150.0" height="22.0" rx="3" fill="#fff4f4" stroke="#c0271e" stroke-width="1.3"/>
+<text x="325.0" y="411.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5</text>
+<rect x="250.0" y="418.0" width="150.0" height="22.0" rx="3" fill="#fff4f4" stroke="#c0271e" stroke-width="1.3"/>
+<text x="325.0" y="433.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">0xA5</text>
+<line x1="242.0" y1="88.0" x2="408.0" y2="88.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="242.0" y1="440.0" x2="408.0" y2="440.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<text x="238.0" y="102.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="bold" font-style="normal">вершина</text>
+<text x="238.0" y="434.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="bold" font-style="normal">дно</text>
+<line x1="416.0" y1="198.0" x2="416.0" y2="286.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<text x="424.0" y="246.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">виділений буфер,</text>
+<text x="424.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">але НЕ ввесь записаний</text>
+<text x="424.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">→ тут уцілів 0xA5</text>
+<line x1="220.0" y1="330.0" x2="620.0" y2="330.0" stroke="#caa24a" stroke-width="2.2" stroke-dasharray="6 4" stroke-linecap="round"/>
+<text x="626.0" y="334.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#9a7322" text-anchor="start" font-weight="bold" font-style="normal">сюди метод ставить межу</text>
+<text x="626.0" y="351.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">(перший 0xA5 від дна)</text>
+<rect x="60.0" y="452.0" width="780.0" height="66.0" rx="10" fill="#f6f8f6" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="450.0" y="476.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Метод чесний лише знизу: він знаходить ПЕРШИЙ 0xA5 від дна. «Діра» 0xA5 у вже використаному буфері його не бентежить —</text>
+<text x="450.0" y="498.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">та якби сплеск стека торкнувся стека ЛИШЕ раз і коротко, межа могла б недооцінити пік. Тому залишають ЗАПАС (×1.5–2), а не «впритул».</text>
+</svg>

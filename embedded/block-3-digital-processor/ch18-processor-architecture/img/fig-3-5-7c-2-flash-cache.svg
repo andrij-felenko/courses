@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560">
+<rect width="980" height="560" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="490.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Кеш Flash: як повільна пам'ять вдає швидку шину команд</text>
+<text x="490.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">ядро просить команду за адресою; кеш або вже має її (влучення, швидко), або біжить по неї у Flash (промах, пауза)</text>
+<rect x="40.0" y="235.0" width="150.0" height="96.0" rx="8" fill="#f3f6ff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="115.0" y="279.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ядро CPU</text>
+<text x="115.0" y="297.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">потрібна команда</text>
+<rect x="360.0" y="210.0" width="220.0" height="150.0" rx="8" fill="#eaf6ee" stroke="#1f8a3b" stroke-width="2"/>
+<text x="470.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Кеш + MMU</text>
+<text x="470.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">тримає копії гарячих</text>
+<text x="470.0" y="278.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">шматків коду у швидкій RAM</text>
+<rect x="384.0" y="300.0" width="172.0" height="14.0" rx="3" fill="#cdeccd" stroke="#1f8a3b" stroke-width="1.5"/>
+<rect x="384.0" y="318.0" width="172.0" height="14.0" rx="3" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.5"/>
+<rect x="384.0" y="336.0" width="172.0" height="14.0" rx="3" fill="#cdeccd" stroke="#1f8a3b" stroke-width="1.5"/>
+<rect x="770.0" y="235.0" width="170.0" height="96.0" rx="8" fill="#fbf3e0" stroke="#caa24a" stroke-width="2"/>
+<text x="855.0" y="279.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#8a6a1e" text-anchor="middle" font-weight="bold" font-style="normal">Flash</text>
+<text x="855.0" y="297.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">увесь код, зовні</text>
+<text x="855.0" y="223.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a6a1e" text-anchor="middle" font-weight="normal" font-style="italic">велика, але повільна, по SPI</text>
+<line x1="190.0" y1="283.0" x2="360.0" y2="285.0" stroke="#1b1b1b" stroke-width="2.6" marker-end="url(#aInk)"/>
+<text x="275.0" y="273.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">адреса</text>
+<line x1="360.0" y1="306.0" x2="190.0" y2="265.0" stroke="#1f8a3b" stroke-width="2.8" marker-end="url(#aGreen)"/>
+<text x="275.0" y="251.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ВЛУЧЕННЯ → команда вмить</text>
+<text x="275.0" y="313.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">як зі звичайної RAM</text>
+<line x1="580.0" y1="285.0" x2="770.0" y2="283.0" stroke="#caa24a" stroke-width="2.8" marker-end="url(#aAmber)"/>
+<line x1="770.0" y1="315.0" x2="580.0" y2="344.0" stroke="#caa24a" stroke-width="2.8" stroke-dasharray="6 5" marker-end="url(#aAmber)"/>
+<text x="675.0" y="273.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a6a1e" text-anchor="middle" font-weight="bold" font-style="normal">ПРОМАХ:</text>
+<text x="675.0" y="291.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a6a1e" text-anchor="middle" font-weight="normal" font-style="normal">по шматок</text>
+<text x="675.0" y="349.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ядро ЧЕКАЄ сотні тактів</text>
+<rect x="40.0" y="470.0" width="900.0" height="70.0" rx="8" fill="#fafafa" stroke="#e4e4e4" stroke-width="1.5"/>
+<text x="60.0" y="496.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Чому це важить:</text>
+<text x="190.0" y="496.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">поки код у кеші — він летить; перший дотик до «холодного» шматка коштує паузи на читання з Flash.</text>
+<text x="190.0" y="520.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">А якщо кеш на мить ВИМКНЕНО (про це — наступна фігура), код у Flash стає геть недосяжним.</text>
+</svg>

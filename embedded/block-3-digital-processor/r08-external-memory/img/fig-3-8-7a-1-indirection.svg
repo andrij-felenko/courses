@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="470" viewBox="0 0 940 470">
+<rect width="940" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">FTL — це один рівень непрямості: «диск» нагорі, NAND унизу</text>
+<text x="470.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">контролер вдає рівні нумеровані сектори (LBA), а таблиця відображення переводить кожен у РЕАЛЬНУ фізичну сторінку флеші</text>
+<text x="140.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Що бачить хост (host):</text>
+<text x="140.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">рівні «сектори диска» з номерами LBA</text>
+<rect x="70.0" y="124.0" width="140.0" height="42.0" rx="6" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="140.0" y="149.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">LBA 0</text>
+<rect x="70.0" y="176.0" width="140.0" height="42.0" rx="6" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="140.0" y="201.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">LBA 1</text>
+<rect x="70.0" y="228.0" width="140.0" height="42.0" rx="6" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="140.0" y="253.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">LBA 2</text>
+<rect x="70.0" y="280.0" width="140.0" height="42.0" rx="6" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="140.0" y="305.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">LBA 3</text>
+<text x="140.0" y="338.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">… (нумерація суцільна, як у HDD)</text>
+<text x="450.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Таблиця відображення (mapping table)</text>
+<text x="450.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">у RAM контролера: LBA → фізична сторінка</text>
+<rect x="360.0" y="124.0" width="180.0" height="42.0" rx="6" fill="#fdfbf2" stroke="#caa24a" stroke-width="1.8"/>
+<text x="372.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">LBA 0</text>
+<line x1="430.0" y1="132.0" x2="430.0" y2="158.0" stroke="#e4e4e4" stroke-width="1.2" stroke-linecap="round"/>
+<text x="438.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#9a7322" text-anchor="start" font-weight="bold" font-style="normal">→ блок 7, стор. 2</text>
+<line x1="212.0" y1="145.0" x2="358.0" y2="145.0" stroke="#1f47b5" stroke-width="1.6" marker-end="url(#aBlue)"/>
+<rect x="360.0" y="176.0" width="180.0" height="42.0" rx="6" fill="#fdfbf2" stroke="#caa24a" stroke-width="1.8"/>
+<text x="372.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">LBA 1</text>
+<line x1="430.0" y1="184.0" x2="430.0" y2="210.0" stroke="#e4e4e4" stroke-width="1.2" stroke-linecap="round"/>
+<text x="438.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#9a7322" text-anchor="start" font-weight="bold" font-style="normal">→ блок 2, стор. 0</text>
+<line x1="212.0" y1="197.0" x2="358.0" y2="197.0" stroke="#1f47b5" stroke-width="1.6" marker-end="url(#aBlue)"/>
+<rect x="360.0" y="228.0" width="180.0" height="42.0" rx="6" fill="#fdfbf2" stroke="#caa24a" stroke-width="1.8"/>
+<text x="372.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">LBA 2</text>
+<line x1="430.0" y1="236.0" x2="430.0" y2="262.0" stroke="#e4e4e4" stroke-width="1.2" stroke-linecap="round"/>
+<text x="438.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#9a7322" text-anchor="start" font-weight="bold" font-style="normal">→ блок 7, стор. 5</text>
+<line x1="212.0" y1="249.0" x2="358.0" y2="249.0" stroke="#1f47b5" stroke-width="1.6" marker-end="url(#aBlue)"/>
+<rect x="360.0" y="280.0" width="180.0" height="42.0" rx="6" fill="#fdfbf2" stroke="#caa24a" stroke-width="1.8"/>
+<text x="372.0" y="306.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">LBA 3</text>
+<line x1="430.0" y1="288.0" x2="430.0" y2="314.0" stroke="#e4e4e4" stroke-width="1.2" stroke-linecap="round"/>
+<text x="438.0" y="306.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#9a7322" text-anchor="start" font-weight="bold" font-style="normal">→ блок 4, стор. 1</text>
+<line x1="212.0" y1="301.0" x2="358.0" y2="301.0" stroke="#1f47b5" stroke-width="1.6" marker-end="url(#aBlue)"/>
+<text x="795.0" y="92.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Реальна NAND-флеш</text>
+<text x="795.0" y="108.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">блоки з фіксованих сторінок (§3.8.5)</text>
+<text x="730.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">блок 2</text>
+<rect x="700.0" y="124.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="705.0" y="141.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s0</text>
+<rect x="700.0" y="153.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="705.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s1</text>
+<rect x="700.0" y="182.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="705.0" y="199.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s2</text>
+<rect x="700.0" y="211.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="705.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s3</text>
+<rect x="700.0" y="240.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="705.0" y="257.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s4</text>
+<rect x="700.0" y="269.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="705.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s5</text>
+<text x="796.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">блок 4</text>
+<rect x="766.0" y="124.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="771.0" y="141.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s0</text>
+<rect x="766.0" y="153.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="771.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s1</text>
+<rect x="766.0" y="182.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="771.0" y="199.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s2</text>
+<rect x="766.0" y="211.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="771.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s3</text>
+<rect x="766.0" y="240.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="771.0" y="257.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s4</text>
+<rect x="766.0" y="269.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="771.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s5</text>
+<text x="862.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">блок 7</text>
+<rect x="832.0" y="124.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="837.0" y="141.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s0</text>
+<rect x="832.0" y="153.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="837.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s1</text>
+<rect x="832.0" y="182.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="837.0" y="199.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s2</text>
+<rect x="832.0" y="211.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="837.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s3</text>
+<rect x="832.0" y="240.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="837.0" y="257.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s4</text>
+<rect x="832.0" y="269.0" width="60.0" height="26.0" rx="3" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="837.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">s5</text>
+<rect x="832.0" y="182.0" width="60.0" height="26.0" rx="3" fill="#fdecec" stroke="#c0271e" stroke-width="2.2"/>
+<text x="868.0" y="199.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">★</text>
+<path d="M542.0,145.0 Q674.0,166.0 830.0,195.0" fill="none" stroke="#caa24a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#aAmber)"/>
+<rect x="700.0" y="124.0" width="60.0" height="26.0" rx="3" fill="#fdecec" stroke="#c0271e" stroke-width="2.2"/>
+<text x="736.0" y="141.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">★</text>
+<path d="M542.0,197.0 Q674.0,108.0 698.0,137.0" fill="none" stroke="#caa24a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#aAmber)"/>
+<rect x="832.0" y="269.0" width="60.0" height="26.0" rx="3" fill="#fdecec" stroke="#c0271e" stroke-width="2.2"/>
+<text x="868.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">★</text>
+<path d="M542.0,249.0 Q674.0,253.0 830.0,282.0" fill="none" stroke="#caa24a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#aAmber)"/>
+<rect x="766.0" y="153.0" width="60.0" height="26.0" rx="3" fill="#fdecec" stroke="#c0271e" stroke-width="2.2"/>
+<text x="802.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">★</text>
+<path d="M542.0,301.0 Q674.0,137.0 764.0,166.0" fill="none" stroke="#caa24a" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#aAmber)"/>
+<rect x="60.0" y="408.0" width="820.0" height="50.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="470.0" y="430.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Хост каже «читай LBA 2» — FTL миттю дивиться в таблицю й бачить: це блок 7, сторінка 5. Та сама адреса завтра може жити деінде.</text>
+<text x="470.0" y="449.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Логічний номер відв'язаний від фізичного місця — у цьому й увесь фокус «контролер вдає диск».</text>
+</svg>

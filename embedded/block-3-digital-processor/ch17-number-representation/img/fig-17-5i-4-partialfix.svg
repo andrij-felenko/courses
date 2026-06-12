@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470">
+<rect width="900" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="36.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="21" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чому навіть «частина виправлень» не врятувала</text>
+<text x="450.0" y="58.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">однакова похибка в ОБОХ місцях скоротилась би при відніманні часів; виправили ж її лише в одному — і вони перестали гаситись</text>
+<rect x="40.0" y="92.0" width="410.0" height="320.0" rx="10" fill="#f3faf4" stroke="#1f8a3b" stroke-width="2"/>
+<text x="245.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Якби похибка була ОДНАКОВА скрізь</text>
+<text x="245.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">(стара версія коду в усіх викликах)</text>
+<rect x="70.0" y="162.0" width="350.0" height="40.0" rx="6" fill="#fff" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="245.0" y="187.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">t₁ = (крива 0.1) × n₁</text>
+<rect x="70.0" y="212.0" width="350.0" height="40.0" rx="6" fill="#fff" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="245.0" y="237.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">t₂ = (крива 0.1) × n₂</text>
+<text x="245.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Δt = t₂ − t₁</text>
+<rect x="70.0" y="298.0" width="350.0" height="56.0" rx="8" fill="#eefaf0" stroke="#1f8a3b" stroke-width="2"/>
+<text x="245.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">однакова «кривизна» зникає при відніманні</text>
+<text x="245.0" y="342.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">→ інтервал Δt вийшов би майже точним</text>
+<rect x="470.0" y="92.0" width="410.0" height="320.0" rx="10" fill="#fff5f5" stroke="#c0271e" stroke-width="2"/>
+<text x="675.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Що сталося НАСПРАВДІ</text>
+<text x="675.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">оновлення внесли в одну частину коду, не в усі</text>
+<rect x="500.0" y="162.0" width="350.0" height="40.0" rx="6" fill="#fff" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="675.0" y="187.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">t₁ = (точна 0.1) × n₁</text>
+<rect x="500.0" y="212.0" width="350.0" height="40.0" rx="6" fill="#fff" stroke="#c0271e" stroke-width="1.8"/>
+<text x="675.0" y="237.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">t₂ = (крива 0.1) × n₂</text>
+<text x="675.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Δt = t₂ − t₁</text>
+<rect x="500.0" y="298.0" width="350.0" height="56.0" rx="8" fill="#fdecec" stroke="#c0271e" stroke-width="2"/>
+<text x="675.0" y="322.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">різні «кривизни» вже не гасять одна одну</text>
+<text x="675.0" y="342.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">→ повний зсув ≈ 0.34 с лишився</text>
+<text x="450.0" y="446.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Урок: половинчасте виправлення буває гіршим за жодного — воно ламає симетрію, що досі рятувала.</text>
+</svg>

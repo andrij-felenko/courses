@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="410" viewBox="0 0 880 410">
+<rect width="880" height="410" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чому порядок ASCII зручний: три трюки, що працюють щодня</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">оскільки цифри й букви йдуть поспіль, перетворення стають простим відніманням чи зміною одного біта</text>
+<rect x="60.0" y="84.0" width="250.0" height="300.0" rx="10" fill="none" stroke="#1f8a3b" stroke-width="1.7"/>
+<text x="185.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">1. Цифра → число</text>
+<text x="78.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">символ '7' = код 55</text>
+<text x="78.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">значення = '7' − '0'</text>
+<text x="78.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">        = 55 − 48 = 7</text>
+<text x="78.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">у коді C:</text>
+<text x="78.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">int d = c - '0';</text>
+<text x="78.0" y="274.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">так із рядка «текстових»</text>
+<text x="78.0" y="292.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">цифр складають число</text>
+<text x="78.0" y="318.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">(а назад: d + '0' → символ)</text>
+<rect x="320.0" y="84.0" width="250.0" height="300.0" rx="10" fill="none" stroke="#1f47b5" stroke-width="1.7"/>
+<text x="445.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">2. Регістр = один біт</text>
+<text x="338.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">'A' = 65 = 0100 0001</text>
+<text x="338.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">'a' = 97 = 0110 0001</text>
+<text x="338.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">різниця — лише біт 5 (вага 32):</text>
+<rect x="338.0" y="206.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="351.0" y="223.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="365.0" y="206.0" width="26.0" height="26.0" rx="5" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.8"/>
+<text x="378.0" y="223.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="392.0" y="206.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="405.0" y="223.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="419.0" y="206.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="432.0" y="223.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="446.0" y="206.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="459.0" y="223.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="473.0" y="206.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="486.0" y="223.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="500.0" y="206.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="513.0" y="223.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="527.0" y="206.0" width="26.0" height="26.0" rx="5" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.8"/>
+<text x="540.0" y="223.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="338.0" y="240.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="351.0" y="257.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="365.0" y="240.0" width="26.0" height="26.0" rx="5" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.8"/>
+<text x="378.0" y="257.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="392.0" y="240.0" width="26.0" height="26.0" rx="5" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.8"/>
+<text x="405.0" y="257.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="419.0" y="240.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="432.0" y="257.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="446.0" y="240.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="459.0" y="257.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="473.0" y="240.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="486.0" y="257.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="500.0" y="240.0" width="26.0" height="26.0" rx="5" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="513.0" y="257.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="527.0" y="240.0" width="26.0" height="26.0" rx="5" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.8"/>
+<text x="540.0" y="257.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="391.0" y="204.0" width="28.0" height="66.0" rx="4" fill="none" stroke="#c0271e" stroke-width="2"/>
+<text x="405.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">↑ цей біт</text>
+<text x="338.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">велику → малу: code | 32</text>
+<text x="338.0" y="342.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">малу → велику: code &amp; ~32</text>
+<text x="338.0" y="366.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">(перемкнути: code ^ 32)</text>
+<rect x="580.0" y="84.0" width="250.0" height="300.0" rx="10" fill="none" stroke="#caa24a" stroke-width="1.7"/>
+<text x="705.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#9a7322" text-anchor="middle" font-weight="bold" font-style="normal">3. i-та буква</text>
+<text x="598.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">буква №i абетки:</text>
+<text x="598.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#9a7322" text-anchor="start" font-weight="bold" font-style="normal">'A' + i</text>
+<text x="598.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">'A' + 0 = 65 = 'A'</text>
+<text x="598.0" y="214.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">'A' + 1 = 66 = 'B'</text>
+<text x="598.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">'A' + 25 = 90 = 'Z'</text>
+<text x="598.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">так перебирають абетку</text>
+<text x="598.0" y="286.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">циклом, без таблиці:</text>
+<text x="598.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">for (c='A'; c&lt;='Z'; c++)</text>
+<text x="598.0" y="342.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">те саме для '0'+i, 'a'+i —</text>
+<text x="598.0" y="360.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">бо коди йдуть поспіль</text>
+</svg>

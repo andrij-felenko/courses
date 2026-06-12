@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500">
+<rect width="880" height="500" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Контрольна сума Флетчера: друга сума «запам'ятовує» позицію</text>
+<text x="440.0" y="55.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">sum1 накопичує байти; sum2 накопичує sum1 — тож вага байта залежить від місця</text>
+<text x="110.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">крок</text>
+<text x="220.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">байт</text>
+<text x="340.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">sum1 += байт</text>
+<text x="540.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">sum2 += sum1</text>
+<line x1="110.0" y1="108.0" x2="710.0" y2="108.0" stroke="#8a8a8a" stroke-width="1.4" stroke-linecap="round"/>
+<text x="110.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">1</text>
+<text x="220.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">0x12</text>
+<text x="340.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">18</text>
+<text x="540.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">18</text>
+<text x="110.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">2</text>
+<text x="220.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">0x34</text>
+<text x="340.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">70</text>
+<text x="540.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">88</text>
+<text x="110.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">3</text>
+<text x="220.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">0x56</text>
+<text x="340.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">156</text>
+<text x="540.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">244</text>
+<text x="110.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">4</text>
+<text x="220.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">0x78</text>
+<text x="340.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">21</text>
+<text x="540.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">10</text>
+<line x1="110.0" y1="276.0" x2="710.0" y2="276.0" stroke="#e4e4e4" stroke-width="1.2" stroke-linecap="round"/>
+<text x="220.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Контрольна сума:</text>
+<text x="340.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">sum1 = 21</text>
+<text x="540.0" y="296.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">sum2 = 10</text>
+<line x1="60.0" y1="366.0" x2="820.0" y2="366.0" stroke="#e4e4e4" stroke-width="1.4" stroke-linecap="round"/>
+<text x="60.0" y="386.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Чому Флетчер ловить те, що проста сума пропускає:</text>
+<text x="80.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• байт на позиції 1 додається до sum1 чотири рази (на кожному наступному кроці теж),</text>
+<text x="80.0" y="430.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  а байт на позиції 4 — лише раз. Тож переставлені байти дають ІНШУ sum2.</text>
+<text x="80.0" y="452.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">Ціна — вдвічі ширша контрольна сума й трохи більше обчислень. Виявлення майже як у CRC, дешевше.</text>
+</svg>

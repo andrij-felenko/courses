@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" viewBox="0 0 900 440">
+<rect width="900" height="440" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Бітстрім: один великий файл, що налаштовує КОЖНУ комірку конфігурації</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">результат потоку — потік бітів; він заповнює всі SRAM-комірки LUT і всі перемикачі маршрутизації</text>
+<rect x="70.0" y="100.0" width="200.0" height="80.0" rx="10" fill="#f0f0f0" stroke="#1b1b1b" stroke-width="1.7"/>
+<text x="170.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">бітстрім</text>
+<text x="170.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">010110100…</text>
+<text x="170.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(сотні кбіт–десятки Мбіт)</text>
+<line x1="270.0" y1="140.0" x2="360.0" y2="140.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="315.0" y="128.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">заливаємо</text>
+<rect x="360.0" y="92.0" width="470.0" height="230.0" rx="12" fill="#fbfbfb" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="595.0" y="114.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">FPGA: усі комірки конфігурації</text>
+<rect x="390.0" y="130.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="412.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="442.0" y="130.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="464.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="494.0" y="130.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="516.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="546.0" y="130.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="568.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="598.0" y="130.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="620.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="650.0" y="130.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="672.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="702.0" y="130.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="724.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="754.0" y="130.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="776.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="390.0" y="170.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="412.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="442.0" y="170.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="464.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="494.0" y="170.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="516.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="546.0" y="170.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="568.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="598.0" y="170.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="620.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="650.0" y="170.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="672.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="702.0" y="170.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="724.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="754.0" y="170.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="776.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="390.0" y="210.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="412.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="442.0" y="210.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="464.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="494.0" y="210.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="516.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="546.0" y="210.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="568.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="598.0" y="210.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="620.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="650.0" y="210.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="672.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="702.0" y="210.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="724.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="754.0" y="210.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="776.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="390.0" y="250.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="412.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="442.0" y="250.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="464.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="494.0" y="250.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="516.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="546.0" y="250.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="568.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="598.0" y="250.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="620.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="650.0" y="250.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="672.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="702.0" y="250.0" width="44.0" height="30.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="724.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="754.0" y="250.0" width="44.0" height="30.0" rx="4" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="776.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<text x="595.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кожен біт = стан однієї LUT-комірки або одного перемикача</text>
+<rect x="60.0" y="366.0" width="780.0" height="66.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.7"/>
+<text x="450.0" y="392.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Бітстрім — це остаточний «образ» схеми: послідовність бітів, що задає вміст усіх LUT і положення всіх перемикачів.</text>
+<text x="450.0" y="416.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Оскільки тканина FPGA на SRAM ЛЕТКА (§3.6.3), бітстрім зазвичай тримають у зовнішній флеші й заливають при кожному старті.</text>
+</svg>

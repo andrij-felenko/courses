@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="660" viewBox="0 0 980 660">
+<rect width="980" height="660" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+  <marker id="aViol" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#7a3ea8"/></marker>
+</defs>
+<text x="490.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чому кількох ніжок досить на мільярд транзисторів</text>
+<text x="490.0" y="50.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Дві проблеми тестування — дістатися до вузла й побачити вузол — scan вирішує зсувом по ланцюгу.</text>
+<rect x="50.0" y="80.0" width="430.0" height="150.0" rx="10" fill="#eef3ff" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="66.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Контрольованість (controllability)</text>
+<text x="66.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">щоб перевірити вузол усередині, треба вміти</text>
+<text x="66.0" y="144.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">ЗАДАТИ йому потрібне 0/1. Без scan глибокий</text>
+<text x="66.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">вузол керується лише довгою послідовністю</text>
+<text x="66.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">входів — комбінаторний жах.</text>
+<text x="66.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Scan: засовуємо потрібний стан прямо в тригери.</text>
+<rect x="50.0" y="244.0" width="430.0" height="150.0" rx="10" fill="#fdecea" stroke="#c0271e" stroke-width="1.6"/>
+<text x="66.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Спостережуваність (observability)</text>
+<text x="66.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">і треба ще ПОБАЧИТИ, що вузол видав. Без scan</text>
+<text x="66.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">внутрішній результат тоне в наступній логіці й</text>
+<text x="66.0" y="326.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">ніколи не доходить до жодної ніжки.</text>
+<text x="66.0" y="350.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Scan: тригер ловить результат, далі його</text>
+<text x="66.0" y="368.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">виштовхуємо назовні й читаємо.</text>
+<rect x="520.0" y="90.0" width="410.0" height="300.0" rx="14" fill="#fafafa" stroke="#1b1b1b" stroke-width="2"/>
+<text x="725.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Кристал: мільярди вузлів усередині</text>
+<rect x="550.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="578.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="606.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="634.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="662.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="690.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="718.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="746.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="774.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="802.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="830.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="858.0" y="134.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="550.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="578.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="606.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="634.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="662.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="690.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="718.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="746.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="774.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="802.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="830.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="858.0" y="158.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="550.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="578.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="606.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="634.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="662.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="690.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="718.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="746.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="774.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="802.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="830.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="858.0" y="182.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="550.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="578.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="606.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="634.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="662.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="690.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="718.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="746.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="774.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="802.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="830.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="858.0" y="206.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="550.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="578.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="606.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="634.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="662.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="690.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="718.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="746.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<rect x="774.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="802.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="830.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#c0271e" stroke-width="1.2"/>
+<rect x="858.0" y="230.0" width="16.0" height="14.0" rx="3" fill="#fff" stroke="#1f47b5" stroke-width="1.2"/>
+<text x="725.0" y="272.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">ланцюг проходить крізь усі тригери (точки доступу)</text>
+<rect x="540.0" y="332.0" width="83.5" height="40.0" rx="6" fill="#fff" stroke="#8a8a8a" stroke-width="2"/>
+<text x="581.8" y="350.0" font-family="Consolas, 'Courier New', monospace" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="bold">TCK</text>
+<text x="581.8" y="365.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">такт тесту</text>
+<rect x="637.5" y="332.0" width="83.5" height="40.0" rx="6" fill="#fff" stroke="#caa24a" stroke-width="2"/>
+<text x="679.2" y="350.0" font-family="Consolas, 'Courier New', monospace" font-size="12.5" fill="#caa24a" text-anchor="middle" font-weight="bold">TMS</text>
+<text x="679.2" y="365.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">режим</text>
+<rect x="735.0" y="332.0" width="83.5" height="40.0" rx="6" fill="#fff" stroke="#c0271e" stroke-width="2"/>
+<text x="776.8" y="350.0" font-family="Consolas, 'Courier New', monospace" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold">TDI</text>
+<text x="776.8" y="365.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">вхід даних</text>
+<rect x="832.5" y="332.0" width="83.5" height="40.0" rx="6" fill="#fff" stroke="#1f47b5" stroke-width="2"/>
+<text x="874.2" y="350.0" font-family="Consolas, 'Courier New', monospace" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold">TDO</text>
+<text x="874.2" y="365.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">вихід даних</text>
+<text x="725.0" y="388.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">4 ніжки (+опц. TRST) = стандартний порт JTAG / IEEE 1149.1</text>
+<text x="500.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="26" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">≡</text>
+<rect x="50.0" y="420.0" width="880.0" height="170.0" rx="12" fill="#f0fff2" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="72.0" y="448.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Розмін, що робить тестування можливим:</text>
+<text x="72.0" y="476.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• Прямих ніжок-«щупів» на кожен вузол не вистачить ніколи: вузлів мільярди, ніжок — сотні.</text>
+<text x="72.0" y="502.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• Scan перетворює ПРОСТІР (мільярди вузлів) на ЧАС (стільки тактів зсуву, скільки тригерів).</text>
+<text x="72.0" y="528.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• Платимо тактами на засування/виштовхування — а доступ дістаємо через ті самі 4 виводи.</text>
+<text x="72.0" y="554.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• Той самий порт потім служить і для внутрішньосхемної налагодки (debug), не лише для заводського тесту.</text>
+<text x="908.0" y="582.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="end" font-weight="normal" font-style="italic">простір → час: ось чому «кількох ніжок досить»</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470">
+<rect width="900" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Дві моделі однієї й тієї самої речі — мови процесора (ISA)</text>
+<rect x="40.0" y="70.0" width="380.0" height="360.0" rx="10" fill="#fbeceb" stroke="#c0271e" stroke-width="2.4"/>
+<text x="230.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ЗАКРИТА (пропрієтарна) ISA</text>
+<text x="230.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">власник тримає мову й бере плату</text>
+<text x="64.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• належить одній фірмі (напр. ARM, x86)</text>
+<text x="64.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• щоб робити чипи — купуєш ліцензію</text>
+<text x="64.0" y="210.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• роялті: невеликий платіж із кожного</text>
+<text x="78.0" y="228.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">проданого чипа (перевірити суми)</text>
+<text x="64.0" y="254.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• не можна вільно додати свою команду</text>
+<text x="64.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• порядок узгоджуєш із власником мови</text>
+<rect x="204.0" y="322.0" width="52.0" height="44.0" rx="6" fill="#fff" stroke="#c0271e" stroke-width="2.6"/>
+<path d="M214.0,322 v-14 a16,16 0 0 1 32,0 v14" fill="none" stroke="#c0271e" stroke-width="2.6"/>
+<circle cx="230.0" cy="344.0" r="6.0" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
+<text x="230.0" y="396.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">вхід — за гроші й дозволом</text>
+<rect x="480.0" y="70.0" width="380.0" height="360.0" rx="10" fill="#eafaee" stroke="#1f8a3b" stroke-width="2.4"/>
+<text x="670.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">ВІДКРИТА ISA (RISC-V)</text>
+<text x="670.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">мова — спільне надбання, без роялті</text>
+<text x="504.0" y="158.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• специфікація вільна (ліцензія BSD-типу)</text>
+<text x="504.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• робити чипи може будь-хто — без плати</text>
+<text x="504.0" y="210.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• базовий набір «заморожено» — стабільний</text>
+<text x="504.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• решта — модульні розширення (M, A, C, F…)</text>
+<text x="504.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• стандарт веде незалежна спільнота</text>
+<text x="504.0" y="288.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• можна додати власні команди під задачу</text>
+<rect x="644.0" y="322.0" width="52.0" height="44.0" rx="6" fill="#fff" stroke="#1f8a3b" stroke-width="2.6"/>
+<path d="M654.0,322 v-14 a16,16 0 0 1 32,0" fill="none" stroke="#1f8a3b" stroke-width="2.6"/>
+<circle cx="670.0" cy="344.0" r="6.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
+<text x="670.0" y="396.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">вхід вільний для всіх</text>
+</svg>

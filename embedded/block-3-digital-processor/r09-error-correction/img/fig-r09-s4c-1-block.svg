@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="600" viewBox="0 0 920 600">
+<rect width="920" height="600" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+  <marker id="aViol" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#7a3ea8"/></marker>
+  <marker id="aTeal" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a8a"/></marker>
+</defs>
+<text x="460.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Апаратний CRC у мікроконтролері (STM32-клас): бітовий цикл §3.9.4 зашитий у залізо</text>
+<text x="460.0" y="50.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Процесор лише пише слова в регістр і читає готову остачу — усі такти зсуву й XOR блок робить сам</text>
+<line x1="60.0" y1="150.0" x2="860.0" y2="150.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<text x="70.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">внутрішня шина МК (AHB/APB)</text>
+<rect x="70.0" y="92.0" width="150.0" height="100.0" rx="10" fill="#f4f7ff" stroke="#1f47b5" stroke-width="2"/>
+<text x="145.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Ядро (CPU)</text>
+<text x="145.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">пише слово →</text>
+<text x="145.0" y="154.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">← читає остачу</text>
+<text x="145.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">звільнене для іншого</text>
+<line x1="145.0" y1="192.0" x2="145.0" y2="148.0" stroke="#1f47b5" stroke-width="2" marker-end="url(#aBlue)"/>
+<rect x="300.0" y="210.0" width="540.0" height="270.0" rx="12" fill="#fffdf6" stroke="#caa24a" stroke-width="2.4"/>
+<text x="570.0" y="234.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">Периферійний блок CRC</text>
+<line x1="560.0" y1="152.0" x2="560.0" y2="208.0" stroke="#caa24a" stroke-width="2" marker-end="url(#aAmber)"/>
+<text x="575.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">адресується як регістри</text>
+<rect x="330.0" y="260.0" width="200.0" height="54.0" rx="8" fill="#fff" stroke="#1f47b5" stroke-width="2"/>
+<text x="430.0" y="280.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">DR — регістр даних</text>
+<text x="430.0" y="300.0" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal">CRC-&gt;DR = word;</text>
+<text x="430.0" y="330.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">сюди процесор кладе</text>
+<text x="430.0" y="344.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">32-бітне слово (чи байт)</text>
+<rect x="330.0" y="360.0" width="200.0" height="86.0" rx="8" fill="#fdeeee" stroke="#c0271e" stroke-width="2"/>
+<text x="430.0" y="380.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">зсувний регістр + XOR</text>
+<rect x="358.0" y="390.0" width="15.0" height="18.0" rx="2" fill="#fff" stroke="#c0271e" stroke-width="1.4"/>
+<rect x="376.0" y="390.0" width="15.0" height="18.0" rx="2" fill="#fff" stroke="#8a8a8a" stroke-width="1.4"/>
+<rect x="394.0" y="390.0" width="15.0" height="18.0" rx="2" fill="#fff" stroke="#8a8a8a" stroke-width="1.4"/>
+<rect x="412.0" y="390.0" width="15.0" height="18.0" rx="2" fill="#fff" stroke="#8a8a8a" stroke-width="1.4"/>
+<rect x="430.0" y="390.0" width="15.0" height="18.0" rx="2" fill="#fff" stroke="#8a8a8a" stroke-width="1.4"/>
+<rect x="448.0" y="390.0" width="15.0" height="18.0" rx="2" fill="#fff" stroke="#c0271e" stroke-width="1.4"/>
+<rect x="466.0" y="390.0" width="15.0" height="18.0" rx="2" fill="#fff" stroke="#c0271e" stroke-width="1.4"/>
+<rect x="484.0" y="390.0" width="15.0" height="18.0" rx="2" fill="#fff" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="430.0" y="424.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">відводи = поліном (§3.9.4)</text>
+<text x="430.0" y="438.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">за такт — один зсув і XOR</text>
+<line x1="430.0" y1="314.0" x2="430.0" y2="358.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="540.0" y="346.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">8 чи 32 такти</text>
+<text x="540.0" y="360.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">за одне записане слово</text>
+<rect x="620.0" y="306.0" width="190.0" height="54.0" rx="8" fill="#f0fff2" stroke="#1f8a3b" stroke-width="2"/>
+<text x="715.0" y="326.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">акумулятор остачі</text>
+<text x="715.0" y="346.0" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="normal">crc = CRC-&gt;DR;</text>
+<line x1="530.0" y1="370.0" x2="715.0" y2="360.0" stroke="#1f8a3b" stroke-width="2.2" marker-end="url(#aGreen)"/>
+<text x="715.0" y="376.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">тримає поточну остачу;</text>
+<text x="715.0" y="390.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">читання = готовий CRC</text>
+<rect x="620.0" y="385.0" width="190.0" height="70.0" rx="8" fill="#fff" stroke="#7a3ea8" stroke-width="1.8"/>
+<text x="715.0" y="403.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#7a3ea8" text-anchor="middle" font-weight="bold" font-style="normal">що фіксоване в залізі</text>
+<text x="634.0" y="421.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• поліном (часто 0x04C11DB7)</text>
+<text x="634.0" y="435.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• init (часто 0xFFFFFFFF)</text>
+<text x="634.0" y="449.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.0" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">• деякі блоки — рефлексії, init настроювані</text>
+<rect x="60.0" y="506.0" width="800.0" height="66.0" rx="9" fill="#f0fff2" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="80.0" y="530.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Суть:</text>
+<text x="128.0" y="530.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">апаратний CRC — це той самий бітовий цикл §3.9.4a, але виконаний електронікою за частку такту на біт.</text>
+<text x="80.0" y="552.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Процесор не крутить цикл — він лише годує блок словами й наприкінці читає остачу. Розвантажує ядро на великих блоках.</text>
+</svg>

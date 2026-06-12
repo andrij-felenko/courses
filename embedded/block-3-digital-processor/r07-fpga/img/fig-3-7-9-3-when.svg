@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="410" viewBox="0 0 900 410">
+<rect width="900" height="410" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Коли м'яке ядро доречне, а коли краще окремий мікроконтролер</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">softcore коштує клітинок і тактів — тож має сенс лише за певних умов</text>
+<rect x="70.0" y="88.0" width="370.0" height="230.0" rx="12" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="255.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">✓ доречно</text>
+<text x="90.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• FPGA вже в системі з іншої причини</text>
+<text x="90.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• потрібна гнучка послідовна логіка ПОРЯД</text>
+<text x="90.0" y="206.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• хочемо власні інструкції/периферію</text>
+<text x="90.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• зручно тримати все на одному чипі</text>
+<text x="90.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• потрібна переносимість між FPGA</text>
+<rect x="460.0" y="88.0" width="370.0" height="230.0" rx="12" fill="#fdf6f6" stroke="#c0271e" stroke-width="1.8"/>
+<text x="645.0" y="112.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">✗ зайве</text>
+<text x="480.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• потрібен лише процесор (без логіки)</text>
+<text x="480.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• критичні максимальна частота / ціна</text>
+<text x="480.0" y="206.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• вистачає дешевого готового МК</text>
+<text x="480.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• немає потреби в паралельних блоках</text>
+<text x="480.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• тверде ядро в цій FPGA вже є</text>
+<rect x="60.0" y="326.0" width="780.0" height="66.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.7"/>
+<text x="450.0" y="352.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Правило просте: softcore виправданий, коли FPGA вже потрібна заради паралельного заліза, а поряд зручно мати «звичайний» CPU.</text>
+<text x="450.0" y="376.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Якщо ж треба ЛИШЕ процесор — окремий мікроконтролер майже завжди дешевший, швидший і простіший (§3.7.8).</text>
+</svg>

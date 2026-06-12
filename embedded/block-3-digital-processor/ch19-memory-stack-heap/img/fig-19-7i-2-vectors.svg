@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="470" viewBox="0 0 920 470">
+<rect width="920" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="460.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Хробак не мав «одного трюка»: він пробував три двері одночасно</text>
+<text x="460.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">тому атрибуція «це баг gets()» — неповна; переповнення було лише одним із трьох незалежних шляхів</text>
+<rect x="30.0" y="86.0" width="280.0" height="250.0" rx="10" fill="#fdf4f4" stroke="#c0271e" stroke-width="1.8"/>
+<rect x="30.0" y="86.0" width="280.0" height="38.0" rx="10" fill="#c0271e" stroke="#c0271e" stroke-width="0"/>
+<text x="170.0" y="111.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">1. fingerd — переповнення буфера</text>
+<text x="46.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">сервіс finger показував, хто залогінений;</text>
+<text x="46.0" y="169.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">у ньому 512-байтовий буфер читали через</text>
+<text x="46.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">gets() без меж. Хробак слав 536 байтів —</text>
+<text x="46.0" y="207.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">і перехоплював керування (Рис. 3.6.7i.1).</text>
+<text x="46.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal"></text>
+<text x="46.0" y="245.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Це — герой нашої теми §3.6.7.</text>
+<rect x="320.0" y="86.0" width="280.0" height="250.0" rx="10" fill="#fffaf0" stroke="#caa24a" stroke-width="1.8"/>
+<rect x="320.0" y="86.0" width="280.0" height="38.0" rx="10" fill="#caa24a" stroke="#caa24a" stroke-width="0"/>
+<text x="460.0" y="111.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">2. sendmail — режим DEBUG</text>
+<text x="336.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">поштовий сервер sendmail часто лишали</text>
+<text x="336.0" y="169.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">з увімкненим debug-режимом, що дозволяв</text>
+<text x="336.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">слати команди прямо в систему.</text>
+<text x="336.0" y="207.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Не переповнення — а відчинені «службові</text>
+<text x="336.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">двері», які забули замкнути в продакшені.</text>
+<text x="336.0" y="245.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal"></text>
+<rect x="610.0" y="86.0" width="280.0" height="250.0" rx="10" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.8"/>
+<rect x="610.0" y="86.0" width="280.0" height="38.0" rx="10" fill="#1f47b5" stroke="#1f47b5" stroke-width="0"/>
+<text x="750.0" y="111.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#ffffff" text-anchor="middle" font-weight="bold" font-style="normal">3. rsh / rexec — слабкі паролі</text>
+<text x="626.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">довірчі зв'язки між машинами (rsh) +</text>
+<text x="626.0" y="169.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">перебір паролів за словником на ~900 слів</text>
+<text x="626.0" y="188.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">і за іменами користувачів.</text>
+<text x="626.0" y="207.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">Жодної «діри» в коді — лише людська звичка</text>
+<text x="626.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">ставити слабкі паролі й довіряти сусідам.</text>
+<text x="626.0" y="245.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.7" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal"></text>
+<rect x="30.0" y="360.0" width="860.0" height="64.0" rx="9" fill="#f1f7f2" stroke="#1f8a3b" stroke-width="1.7"/>
+<text x="460.0" y="385.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Пробивши будь-які з трьох дверей, хробак копіював себе на нову машину — і повторював усе звідти.</text>
+<text x="460.0" y="407.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="italic">Самопоширення без участі людини — ось чому це «хробак» (worm), а не «вірус», що чекає запуску.</text>
+</svg>

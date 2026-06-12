@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<rect width="960" height="540" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aPurple" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#7a3fb0"/></marker>
+</defs>
+<text x="480.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Один цикл на C — і що з нього зробив компілятор двома мовами процесора</text>
+<text x="480.0" y="51.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">та сама сума масиву; кожен рядок C розгортається в кілька машинних команд — і вони РІЗНІ для різних ISA</text>
+<rect x="24.0" y="78.0" width="250.0" height="200.0" rx="12" fill="#fbfbff" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="149.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">вихідний код (C)</text>
+<text x="40.0" y="130.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">int sum = 0;</text>
+<text x="40.0" y="156.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">for (int i = 0; i &lt; n; i++)</text>
+<text x="40.0" y="182.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">    sum += a[i];</text>
+<text x="40.0" y="208.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">return sum;</text>
+<rect x="38.0" y="142.0" width="222.0" height="20.0" rx="5" fill="none" stroke="#1f8a3b" stroke-width="1.3"/>
+<rect x="38.0" y="168.0" width="222.0" height="20.0" rx="5" fill="none" stroke="#c0271e" stroke-width="1.3"/>
+<text x="149.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">4 короткі рядки людською мовою</text>
+<line x1="280.0" y1="150.0" x2="314.0" y2="150.0" stroke="#1b1b1b" stroke-width="2.4" marker-end="url(#aInk)"/>
+<text x="297.0" y="142.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">gcc</text>
+<line x1="280.0" y1="360.0" x2="314.0" y2="360.0" stroke="#1b1b1b" stroke-width="2.4" marker-end="url(#aInk)"/>
+<text x="297.0" y="352.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">gcc</text>
+<rect x="322.0" y="78.0" width="632.0" height="198.0" rx="12" fill="#f6fbf6" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="338.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Xtensa  (ядро ESP32)</text>
+<text x="940.0" y="100.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">objdump -d</text>
+<text x="336.0" y="124.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">  movi   a8, 0</text>
+<text x="612.0" y="124.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; sum = 0  (поклади 0 у регістр)</text>
+<text x="336.0" y="143.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#7a3fb0" text-anchor="start" font-weight="bold" font-style="normal">  blti   a3, 1, .Lend</text>
+<text x="612.0" y="143.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; якщо n&lt;1 — одразу в кінець</text>
+<text x="336.0" y="162.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">.Lloop:</text>
+<text x="612.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; — початок тіла циклу —</text>
+<text x="336.0" y="181.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">  l32i   a9, a2, 0</text>
+<text x="612.0" y="181.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; завантаж a[i] з пам'яті</text>
+<text x="336.0" y="200.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">  add.n  a8, a8, a9</text>
+<text x="612.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; sum += a[i]</text>
+<text x="336.0" y="219.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">  addi   a2, a2, 4</text>
+<text x="612.0" y="219.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; крок покажчика на наступне слово</text>
+<text x="336.0" y="238.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">  addi   a3, a3, -1</text>
+<text x="612.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; лічильник n-- </text>
+<text x="336.0" y="257.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#7a3fb0" text-anchor="start" font-weight="bold" font-style="normal">  bnez   a3, .Lloop</text>
+<text x="612.0" y="257.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; ще лишилось? — назад у .Lloop</text>
+<rect x="322.0" y="288.0" width="632.0" height="198.0" rx="12" fill="#fff8f0" stroke="#e08030" stroke-width="1.8"/>
+<text x="338.0" y="310.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#e08030" text-anchor="start" font-weight="bold" font-style="normal">RISC-V  (новіші ESP32-C, Pico 2…)</text>
+<text x="940.0" y="310.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">objdump -d</text>
+<text x="336.0" y="334.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">  li     a5, 0</text>
+<text x="612.0" y="334.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; sum = 0</text>
+<text x="336.0" y="353.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#7a3fb0" text-anchor="start" font-weight="normal" font-style="normal">  blez   a1, .Lend</text>
+<text x="612.0" y="353.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; якщо n&lt;=0 — у кінець</text>
+<text x="336.0" y="372.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">.Lloop:</text>
+<text x="612.0" y="372.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; — початок тіла циклу —</text>
+<text x="336.0" y="391.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  lw     a4, 0(a0)</text>
+<text x="612.0" y="391.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; завантаж a[i]</text>
+<text x="336.0" y="410.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#c0271e" text-anchor="start" font-weight="normal" font-style="normal">  add    a5, a5, a4</text>
+<text x="612.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; sum += a[i]</text>
+<text x="336.0" y="429.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  addi   a0, a0, 4</text>
+<text x="612.0" y="429.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; покажчик += 4 байти</text>
+<text x="336.0" y="448.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  addi   a1, a1, -1</text>
+<text x="612.0" y="448.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; n--</text>
+<text x="336.0" y="467.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#7a3fb0" text-anchor="start" font-weight="normal" font-style="normal">  bnez   a1, .Lloop</text>
+<text x="612.0" y="467.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">; ще є — назад</text>
+<rect x="24.0" y="296.0" width="250.0" height="150.0" rx="10" fill="#fafafa" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="149.0" y="318.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">що видно одразу</text>
+<text x="36.0" y="338.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• кожен рядок C → кілька команд</text>
+<text x="36.0" y="352.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• ідеї ті самі: load, add,</text>
+<text x="36.0" y="366.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">   крок покажчика, лічильник,</text>
+<text x="36.0" y="380.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">   умовний стрибок назад = ЦИКЛ</text>
+<text x="36.0" y="394.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• мнемоніки й імена регістрів</text>
+<text x="36.0" y="408.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">   різні (a8 проти a5, l32i/lw)</text>
+<text x="36.0" y="422.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• «sum += a[i]» — це 3 команди,</text>
+<text x="36.0" y="436.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.6" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">   а не одна</text>
+</svg>

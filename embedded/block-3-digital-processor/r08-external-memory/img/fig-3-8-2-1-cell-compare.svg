@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520">
+<rect width="1000" height="520" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+  <marker id="aPurple" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#6a3fb5"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="500.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чому DRAM дешевша: одна комірка проти шести транзисторів</text>
+<text x="500.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">SRAM тримає біт на засувці з 6 транзисторів; DRAM — як заряд на одному крихітному конденсаторі</text>
+<rect x="90.0" y="110.0" width="360.0" height="350.0" rx="14" fill="#eef2fb" stroke="#1f47b5" stroke-width="2.2"/>
+<text x="270.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">SRAM — комірка з 6 транзисторів</text>
+<rect x="170.0" y="230.0" width="60.0" height="60.0" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.8"/>
+<rect x="310.0" y="230.0" width="60.0" height="60.0" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="200.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">INV</text>
+<text x="340.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">INV</text>
+<line x1="230.0" y1="248.0" x2="310.0" y2="248.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<line x1="310.0" y1="272.0" x2="230.0" y2="272.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
+<text x="270.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">тримають одне одного</text>
+<circle cx="170.0" cy="330.0" r="14.0" fill="#ffffff" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="170.0" y="334.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">T</text>
+<circle cx="370.0" cy="330.0" r="14.0" fill="#ffffff" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="370.0" y="334.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">T</text>
+<text x="270.0" y="378.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">4 транзистори тримають біт + 2 на доступ</text>
+<text x="270.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">СТАТИЧНА: поки є живлення — біт стоїть,</text>
+<text x="270.0" y="430.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">регенерація НЕ потрібна. Зате велика й дорога.</text>
+<rect x="550.0" y="110.0" width="360.0" height="350.0" rx="14" fill="#fdeef0" stroke="#c0271e" stroke-width="2.2"/>
+<text x="730.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">DRAM — 1 транзистор + 1 конденсатор</text>
+<circle cx="660.0" cy="260.0" r="22.0" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.8"/>
+<text x="660.0" y="265.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">T</text>
+<text x="660.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">ключ</text>
+<line x1="682.0" y1="260.0" x2="790.0" y2="260.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="790.0" y1="232.0" x2="790.0" y2="288.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<line x1="800.0" y1="232.0" x2="800.0" y2="288.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<line x1="800.0" y1="260.0" x2="830.0" y2="260.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="830.0" y1="280.0" x2="830.0" y2="240.0" stroke="#8a8a8a" stroke-width="2" stroke-linecap="round"/>
+<text x="795.0" y="222.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">конденсатор</text>
+<text x="795.0" y="310.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="normal" font-style="normal">заряд = біт</text>
+<line x1="590.0" y1="260.0" x2="638.0" y2="260.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<text x="590.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">лінія біта</text>
+<line x1="660.0" y1="360.0" x2="660.0" y2="282.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aGrey)"/>
+<text x="666.0" y="356.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">лінія слова</text>
+<text x="730.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ДИНАМІЧНА: заряд стікає за мілісекунди —</text>
+<text x="730.0" y="430.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">треба регенерація. Зате крихітна й дешева.</text>
+<text x="500.0" y="502.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Менше деталей на біт → більше бітів на тій самій пластині → нижча ціна за мегабайт. Платня — конденсатор тече.</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470">
+<rect width="900" height="470" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Рішення — ієрархія пам'яті: кілька рівнів між ядром і головною пам'яттю</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">що ближче до ядра — то швидше, дрібніше й дорожче; кеш — це проміжні рівні, що ловлять найгарячіші дані</text>
+<path d="M220,96 L460,96 L540,152 L140,152 Z" fill="#fdf4f4" stroke="#c0271e" stroke-width="2"/>
+<text x="340.0" y="120.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Регістри</text>
+<text x="340.0" y="139.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">≈ 0 тактів  ·  десятки байтів</text>
+<path d="M140,160 L540,160 L640,216 L40,216 Z" fill="#fff8e8" stroke="#caa24a" stroke-width="2"/>
+<text x="340.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#caa24a" text-anchor="middle" font-weight="bold" font-style="normal">Кеш L1</text>
+<text x="340.0" y="203.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">≈ 1–4 такти  ·  десятки КіБ</text>
+<path d="M40,224 L640,224 L750,280 L-70,280 Z" fill="#fbf3e0" stroke="#9a7322" stroke-width="2"/>
+<text x="340.0" y="248.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#9a7322" text-anchor="middle" font-weight="bold" font-style="normal">Кеш L2</text>
+<text x="340.0" y="267.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">≈ 10 тактів  ·  сотні КіБ</text>
+<path d="M-70,288 L750,288 L880,344 L-200,344 Z" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2"/>
+<text x="340.0" y="312.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Кеш L3</text>
+<text x="340.0" y="331.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">≈ 30–40 тактів  ·  одиниці МіБ</text>
+<path d="M-200,352 L880,352 L950,408 L-270,408 Z" fill="#f3f5fd" stroke="#1f47b5" stroke-width="2"/>
+<text x="340.0" y="376.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">Головна пам'ять (RAM)</text>
+<text x="340.0" y="395.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">≈ 100+ тактів  ·  гігабайти</text>
+<line x1="706.0" y1="104.0" x2="706.0" y2="400.0" stroke="#1f47b5" stroke-width="2" marker-end="url(#aBlue)"/>
+<text x="720.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">більше,</text>
+<text x="720.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">дешевше,</text>
+<text x="720.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">повільніше</text>
+<line x1="706.0" y1="400.0" x2="706.0" y2="104.0" stroke="#c0271e" stroke-width="2" marker-end="url(#aRed)"/>
+<text x="720.0" y="368.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">швидше,</text>
+<text x="720.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">дрібніше,</text>
+<text x="720.0" y="396.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">дорожче</text>
+<text x="450.0" y="444.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Ядро спершу шукає дані на найшвидшому рівні; нема там — спускається нижче. Більшість звернень ловить L1 — і ядро не чекає.</text>
+<text x="450.0" y="464.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Регістри (§3.5.2) — вершина цієї піраміди; кеш L1–L3 — нові для нас проміжні рівні; RAM — велика повільна основа.</text>
+</svg>

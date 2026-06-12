@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" viewBox="0 0 900 440">
+<rect width="900" height="440" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Два роди опису: комбінаційний (без такту) і реєстровий (по такту)</text>
+<text x="450.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">assign описує чисту логіку, що міняється миттєво; always @(posedge clk) описує тригери, що ловлять фронт (§3.3.4)</text>
+<rect x="70.0" y="90.0" width="360.0" height="250.0" rx="12" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.9"/>
+<text x="250.0" y="114.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">КОМБІНАЦІЙНИЙ</text>
+<text x="250.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">assign y = a &amp; b;</text>
+<rect x="150.0" y="156.0" width="200.0" height="60.0" rx="8" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="250.0" y="192.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">вентиль AND</text>
+<text x="250.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">виходить ЛИШЕ з входів,</text>
+<text x="250.0" y="258.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">міняється МИТТЄВО за ними</text>
+<text x="250.0" y="282.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">→ дроти й вентилі (§3.2)</text>
+<text x="250.0" y="302.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">немає пам'яті, немає такту</text>
+<rect x="470.0" y="90.0" width="360.0" height="250.0" rx="12" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.9"/>
+<text x="650.0" y="114.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">РЕЄСТРОВИЙ (по такту)</text>
+<text x="650.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">always @(posedge clk)</text>
+<text x="650.0" y="154.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">  q &lt;= d;</text>
+<rect x="590.0" y="174.0" width="120.0" height="60.0" rx="4" fill="#f3f5fd" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="650.0" y="208.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">D    Q</text>
+<polyline points="594.0,228.0 599.0,222.0 599.0,228.0" fill="none" stroke="#1f47b5" stroke-width="1.4"/>
+<text x="650.0" y="252.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">значення ОНОВЛЮЄТЬСЯ лише</text>
+<text x="650.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">на фронті такту (§3.3.4)</text>
+<text x="650.0" y="294.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">→ тригери, регістри (§3.3.5)</text>
+<text x="650.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">має пам'ять стану</text>
+<rect x="60.0" y="360.0" width="780.0" height="66.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.7"/>
+<text x="450.0" y="386.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Це не «стилі коду», а два різні роди заліза: assign дає комбінаційну логіку (§3.2), always @(posedge clk) — тригери (§3.3).</text>
+<text x="450.0" y="410.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Розрізняти їх критично: написане під такт стане регістром, а решта — мережею вентилів, що відгукується миттєво.</text>
+</svg>

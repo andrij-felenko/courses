@@ -1775,6 +1775,215 @@ def fig168_synchronizer():
     save("fig-16-8-5-synchronizer.svg", s)
 
 
+# ═══════════════════════ §16.9 — Скінченні автомати (Мур / Мілі) ════════════
+def _state(cx, cy, r, label, sub=None, fill="#eef4ff", stroke=INK, accent=False):
+    """Стан-кружок діаграми станів. accent — подвійне кільце (поточний/початковий)."""
+    out = circle(cx, cy, r, fill, stroke, 2.4 if not accent else 2.8)
+    if accent:
+        out += circle(cx, cy, r - 5, "none", stroke, 1.6)
+    out += text(cx, cy + (4 if not sub else -3), label, 13, INK, "middle", "bold")
+    if sub:
+        out += text(cx, cy + 14, sub, 10, GREY, "middle")
+    return out
+
+
+def _arc(x1, y1, x2, y2, bend=0.0, color=INK, w=2.0, dash=None):
+    """Дуга-перехід зі стрілкою. bend — кривина (±)."""
+    mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+    dx, dy = x2 - x1, y2 - y1
+    L = math.hypot(dx, dy) or 1
+    nx, ny = -dy / L, dx / L
+    cx, cy = mx + nx * bend, my + ny * bend
+    d = f' stroke-dasharray="{dash}"' if dash else ""
+    m = _MARK.get(color, "aInk")
+    return (f'<path d="M {x1:.1f},{y1:.1f} Q {cx:.1f},{cy:.1f} {x2:.1f},{y2:.1f}" '
+            f'fill="none" stroke="{color}" stroke-width="{w}"{d} marker-end="url(#{m})"/>\n')
+
+
+def _self_loop(cx, cy, r, color=INK, w=1.8, side="top"):
+    """Петля «лишитись у стані» над/під кружком."""
+    if side == "top":
+        x1, y1 = cx - 12, cy - r
+        x2, y2 = cx + 12, cy - r
+        cpy = cy - r - 40
+    else:
+        x1, y1 = cx - 12, cy + r
+        x2, y2 = cx + 12, cy + r
+        cpy = cy + r + 40
+    m = _MARK.get(color, "aInk")
+    return (f'<path d="M {x1:.1f},{y1:.1f} C {x1-14:.1f},{cpy:.1f} {x2+14:.1f},{cpy:.1f} {x2:.1f},{y2:.1f}" '
+            f'fill="none" stroke="{color}" stroke-width="{w}" marker-end="url(#{m})"/>\n')
+
+
+# ── Рис. 16.9.1 — від лічильника до автомата ───────────────────────────────
+def fig169_counter_to_fsm():
+    W, H = 880, 430
+    s = header(W, H)
+    s += text(W / 2, 34, "Узагальнення: лічильник — це автомат, у якого наступний стан завжди «+1»", 18.5, INK, "middle", "bold")
+    s += text(W / 2, 56, "відв'яжемо перехід від жорсткого «+1» — і той самий апарат (регістр стану) почне ходити будь-яким маршрутом",
+              11.5, GREY, "middle", style="italic")
+    # ЛІВО: лічильник — кільце 0→1→2→3→0
+    s += rect(40, 84, 380, 300, "none", FAINT, 1.5, 10)
+    s += text(230, 110, "Лічильник: маршрут зашитий («+1»)", 12.5, INK, "middle", "bold")
+    cyc = [(150, 180, "0"), (310, 180, "1"), (310, 320, "2"), (150, 320, "3")]
+    for (cx, cy, lab) in cyc:
+        s += _state(cx, cy, 24, lab, fill="#eef4ff")
+    s += _arc(174, 180, 286, 180, 0, INK, 1.8)
+    s += _arc(310, 204, 310, 296, 0, INK, 1.8)
+    s += _arc(286, 320, 174, 320, 0, INK, 1.8)
+    s += _arc(150, 296, 150, 204, 0, INK, 1.8)
+    s += text(230, 168, "+1", 10.5, GREY, "middle")
+    s += text(230, 344, "+1", 10.5, GREY, "middle")
+    s += text(230, 372, "стан іде по колу, завжди однаково", 10.5, GREY, "middle", style="italic")
+    # ПРАВО: автомат — той самий регістр, але переходи залежать від ВХОДУ
+    s += rect(460, 84, 380, 300, "none", FAINT, 1.5, 10)
+    s += text(650, 110, "Автомат: наступний стан = f(стан, ВХІД)", 12, INK, "middle", "bold")
+    st = [(560, 180, "A"), (740, 180, "B"), (650, 330, "C")]
+    for (cx, cy, lab) in st:
+        s += _state(cx, cy, 24, lab, fill="#eef7ee", stroke=GREEN)
+    s += _arc(584, 180, 716, 180, 0, GREEN, 1.8)
+    s += text(650, 168, "вхід=1", 10, INK, "middle", "bold")
+    s += _arc(730, 204, 668, 308, 30, GREEN, 1.8)
+    s += _arc(632, 308, 572, 204, 30, GREEN, 1.8)
+    s += _self_loop(560, 180, 24, GREY, 1.6, "top")
+    s += text(560, 128, "вхід=0", 9.5, GREY, "middle")
+    s += text(650, 372, "маршрут обирає вхід — це вже КЕРУВАННЯ", 10.5, GREEN, "middle", "bold")
+    s += text(W / 2, 410, "Та сама пам'ять стану (§16.7) + інша логіка переходу = з «лічби» виходить машина, що приймає рішення.",
+              11.5, INK, "middle", "bold")
+    save("fig-16-9-1-counter-to-fsm.svg", s)
+
+
+# ── Рис. 16.9.2 — діаграма станів контролера протоколу ─────────────────────
+def fig169_state_diagram():
+    W, H = 900, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Діаграма станів: контролер приймача послідовного байта", 20, INK, "middle", "bold")
+    s += text(W / 2, 56, "кружок = стан, стрілка = перехід (підпис «умова входу»); машина «йде» діаграмою такт за тактом",
+              12, GREY, "middle", style="italic")
+    # стартова стрілка
+    s += arrow(70, 150, 110, 150, INK, 2)
+    s += text(70, 138, "старт", 10, GREY, "start")
+    IDLE = (170, 150); START = (380, 150); DATA = (590, 150); STOP = (760, 300)
+    s += _state(*IDLE, 40, "IDLE", "чекає", fill="#eef4ff", accent=True)
+    s += _state(*START, 40, "START", "старт-біт", fill="#eef7ee", stroke=GREEN)
+    s += _state(*DATA, 40, "DATA", "8 бітів", fill="#eef7ee", stroke=GREEN)
+    s += _state(*STOP, 40, "STOP", "стоп-біт", fill="#fbf6ec", stroke=AMBER)
+    # переходи
+    s += _arc(IDLE[0] + 40, 150, START[0] - 40, 150, 0, INK, 2)
+    s += text((IDLE[0] + START[0]) / 2, 138, "лінія впала (0)", 10, INK, "middle", "bold")
+    s += _self_loop(IDLE[0], IDLE[1], 40, GREY, 1.6, "top")
+    s += text(IDLE[0], 92, "лінія=1 (тиша)", 9.5, GREY, "middle")
+    s += _arc(START[0] + 40, 150, DATA[0] - 40, 150, 0, INK, 2)
+    s += text((START[0] + DATA[0]) / 2, 138, "пів-біта минуло", 10, INK, "middle", "bold")
+    s += _self_loop(DATA[0], DATA[1], 40, GREY, 1.6, "top")
+    s += text(DATA[0], 92, "лічу біти < 8", 9.5, GREY, "middle")
+    s += _arc(DATA[0] + 20, 188, STOP[0] - 20, STOP[1] - 30, 30, INK, 2)
+    s += text(720, 215, "8 бітів зібрано", 10, INK, "middle", "bold")
+    s += _arc(STOP[0] - 30, STOP[1] - 20, IDLE[0] + 18, IDLE[1] + 36, -120, BLUE, 2)
+    s += text(420, 380, "стоп-біт перевірено → готово, у IDLE", 10.5, BLUE, "middle", "bold")
+    # легенда
+    s += rect(60, 410, W - 120, 48, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, 432, "Кожен такт машина дивиться на вхід (рівень лінії, лічильник бітів) і вирішує: лишитись чи перейти.",
+              12, INK, "middle", "bold")
+    s += text(W / 2, 450, "Це той самий приймач, що в §16.5 «складав» байт зсувним регістром, — тепер ним КЕРУЄ автомат.",
+              11, GREY, "middle", style="italic")
+    save("fig-16-9-2-state-diagram.svg", s)
+
+
+# ── Рис. 16.9.3 — Мур проти Мілі ───────────────────────────────────────────
+def fig169_moore_mealy():
+    W, H = 900, 470
+    s = header(W, H)
+    s += text(W / 2, 34, "Дві школи: вихід на СТАНІ (Мур) проти виходу на ПЕРЕХОДІ (Мілі)", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "Мур: вихід пишемо в кружку (залежить лише від стану). Мілі: вихід пишемо на стрілці (стан + вхід)",
+              11.5, GREY, "middle", style="italic")
+    # ЛІВО: Мур
+    s += rect(40, 84, 410, 250, "none", FAINT, 1.5, 10)
+    s += text(245, 110, "Автомат МУРА: вихід = f(стан)", 12.5, INK, "middle", "bold")
+    s += _state(150, 200, 42, "S0", "вих=0", fill="#eef4ff", accent=True)
+    s += _state(340, 200, 42, "S1", "вих=1", fill="#eef7ee", stroke=GREEN)
+    s += _arc(192, 200, 298, 200, 0, INK, 2)
+    s += text(245, 188, "вх=1", 10, INK, "middle", "bold")
+    s += _arc(298, 222, 192, 222, -34, INK, 2)
+    s += text(245, 270, "вх=0", 10, INK, "middle", "bold")
+    s += text(245, 320, "вихід «приписаний» стану, тримається весь такт", 10, GREY, "middle", style="italic")
+    # ПРАВО: Мілі
+    s += rect(460, 84, 400, 250, "none", FAINT, 1.5, 10)
+    s += text(660, 110, "Автомат МІЛІ: вихід = f(стан, вхід)", 12.5, INK, "middle", "bold")
+    s += _state(560, 200, 42, "T0", fill="#eef4ff", accent=True)
+    s += _state(760, 200, 42, "T1", fill="#eef7ee", stroke=GREEN)
+    s += _arc(602, 200, 718, 200, 0, GREEN, 2)
+    s += text(660, 182, "вх=1 / вих=1", 10, GREEN, "middle", "bold")
+    s += _arc(718, 222, 602, 222, -34, INK, 2)
+    s += text(660, 270, "вх=0 / вих=0", 10, INK, "middle", "bold")
+    s += text(660, 320, "вихід «висить» на переході — реагує того ж такту", 10, GREY, "middle", style="italic")
+    # порівняння внизу
+    s += rect(60, 350, W - 120, 108, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, 374, "Той самий обов'язок — різний почерк:", 12.5, INK, "middle", "bold")
+    rows = [
+        ("Мур", "вихід залежить лише від стану", "на такт ПІЗНІШЕ, зате стабільний і легше таймити", BLUE),
+        ("Мілі", "вихід залежить і від входу", "реагує ОДРАЗУ, та може «мигати» разом із входом", AMBER),
+    ]
+    for i, (nm, a, b, col) in enumerate(rows):
+        yy = 402 + i * 26
+        s += text(96, yy, nm + ":", 12, col, "start", "bold")
+        s += text(160, yy, a, 11, INK, "start")
+        s += text(470, yy, "→ " + b, 11, GREY, "start")
+    save("fig-16-9-3-moore-mealy.svg", s)
+
+
+# ── Рис. 16.9.4 — канонічна реалізація автомата ────────────────────────────
+def fig169_implementation():
+    W, H = 880, 420
+    s = header(W, H)
+    s += text(W / 2, 34, "Як його будують: регістр стану + логіка переходу + логіка виходу", 19, INK, "middle", "bold")
+    s += text(W / 2, 56, "це знайома модель §16.1 у конкретній формі; повний код-приклад — окремо (⚙️ далі), тут лише кістяк",
+              11.5, GREY, "middle", style="italic")
+    # входи
+    s += _pin(70, 150, 150, 150)
+    s += text(64, 154, "входи", 12, INK, "end", "bold")
+    # логіка наступного стану
+    s += rect(150, 110, 170, 90, "#eef4ff", INK, 2, 10)
+    s += text(235, 148, "логіка", 12, INK, "middle", "bold")
+    s += text(235, 166, "наступного стану", 11, INK, "middle", "bold")
+    s += text(235, 184, "(комбінаційна)", 9.5, GREY, "middle")
+    s += arrow(320, 150, 400, 150, INK, 2)
+    s += text(360, 140, "наст. стан", 9.5, GREY, "middle")
+    # регістр стану
+    s += rect(400, 110, 150, 90, "#eef7ee", GREEN, 2.2, 10)
+    s += text(475, 144, "РЕГІСТР", 12.5, INK, "middle", "bold")
+    s += text(475, 162, "стану", 12.5, INK, "middle", "bold")
+    s += _clk(400, 188)
+    s += text(414, 192, "такт", 9.5, INK, "start")
+    s += arrow(550, 150, 640, 150, GREEN, 2.2)
+    s += text(595, 140, "поточ. стан", 9.5, GREEN, "middle")
+    # логіка виходу
+    s += rect(640, 110, 150, 90, "#fbf6ec", AMBER, 2, 10)
+    s += text(715, 148, "логіка", 12, INK, "middle", "bold")
+    s += text(715, 166, "виходу", 12, INK, "middle", "bold")
+    s += _pin(790, 150, 850, 150)
+    s += text(852, 154, "виходи", 12, GREEN, "start", "bold")
+    # зворотний зв'язок: поточний стан → логіка наступного стану
+    s += circle(600, 150, 3, INK, INK, 1)
+    s += line(600, 150, 600, 260, INK, 1.6)
+    s += line(600, 260, 235, 260, INK, 1.6)
+    s += line(235, 260, 235, 200, INK, 1.6)
+    s += arrow(235, 240, 235, 200, INK, 1.6)
+    s += text(417, 252, "поточний стан вертається в логіку переходу", 10, GREY, "middle", style="italic")
+    # пунктир для Мілі: вхід також у логіку виходу
+    s += line(110, 150, 110, 330, BLUE, 1.4, "4 3")
+    s += line(110, 330, 715, 330, BLUE, 1.4, "4 3")
+    s += line(715, 330, 715, 200, BLUE, 1.4, "4 3")
+    s += arrow(715, 300, 715, 200, BLUE, 1.4)
+    s += text(420, 322, "лише для МІЛІ: вхід заходить і в логіку виходу", 10, BLUE, "middle", "bold")
+    s += rect(70, 356, W - 140, 50, "#f4f7f4", GREEN, 1.6, 10)
+    s += text(W / 2, 380, "Регістр на фронті робить «наступний стан» поточним; уся машина крокує в ногу зі своїм тактом.",
+              12, INK, "middle", "bold")
+    s += text(W / 2, 398, "Логіка переходу й виходу — звичайні вентилі (Розділ 3.2); пам'ять — тригери (цей розділ).",
+              11, GREY, "middle", style="italic")
+    save("fig-16-9-4-implementation.svg", s)
+
+
 if __name__ == "__main__":
     # історія розділу (§16.0)
     fig_timeline()
@@ -1829,4 +2038,9 @@ if __name__ == "__main__":
     fig168_sync_safe()
     fig168_boundary()
     fig168_synchronizer()
+    # §16.9
+    fig169_counter_to_fsm()
+    fig169_state_diagram()
+    fig169_moore_mealy()
+    fig169_implementation()
     print("ch16 figures done.")

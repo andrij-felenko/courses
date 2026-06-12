@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500">
+<rect width="960" height="500" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aPurple" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#7a3fb0"/></marker>
+</defs>
+<text x="480.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Сюрприз дизасемблера: компілятор НЕ перекладає рядок-у-рядок</text>
+<text x="480.0" y="51.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">той самий цикл суми з -O0 і з -O2 — оптимізатор перебудовує код до невпізнанності</text>
+<rect x="280.0" y="70.0" width="400.0" height="64.0" rx="10" fill="#fbfbff" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="480.0" y="90.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">вихідний C (однаковий для обох):</text>
+<text x="480.0" y="116.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">for (i=0;i&lt;n;i++) sum += a[i];</text>
+<line x1="330.0" y1="140.0" x2="260.0" y2="178.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="330.0" y="162.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">-O0</text>
+<line x1="630.0" y1="140.0" x2="700.0" y2="178.0" stroke="#1b1b1b" stroke-width="2.2" marker-end="url(#aInk)"/>
+<text x="630.0" y="162.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">-O2</text>
+<rect x="30.0" y="184.0" width="440.0" height="286.0" rx="12" fill="#fff6f6" stroke="#c0271e" stroke-width="1.8"/>
+<text x="46.0" y="206.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">-O0  (без оптимізації)</text>
+<text x="46.0" y="224.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">буквально, через пам'ять — довго, але «як написано»</text>
+<text x="44.0" y="244.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  sw    zero, sum(sp)      ; sum=0 у стек</text>
+<text x="44.0" y="258.7" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">.L2:</text>
+<text x="44.0" y="273.4" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  lw    t0, i(sp)          ; узяти i зі стека</text>
+<text x="44.0" y="288.1" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  bge   t0, n, .Lend       ; i&lt;n ?</text>
+<text x="44.0" y="302.8" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  lw    t0, i(sp)          ; i знову</text>
+<text x="44.0" y="317.5" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  slli  t1, t0, 2          ; i*4 (зсув)</text>
+<text x="44.0" y="332.2" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  add   t1, base, t1       ; &amp;a[i]</text>
+<text x="44.0" y="346.9" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  lw    t1, 0(t1)          ; a[i]</text>
+<text x="44.0" y="361.6" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  lw    t2, sum(sp)        ; sum зі стека</text>
+<text x="44.0" y="376.3" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  add   t2, t2, t1         ; sum + a[i]</text>
+<text x="44.0" y="391.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  sw    t2, sum(sp)        ; назад у стек</text>
+<text x="44.0" y="405.7" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  lw    t0, i(sp)          ; i++ ...</text>
+<text x="44.0" y="420.4" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  addi  t0, t0, 1</text>
+<text x="44.0" y="435.1" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  sw    t0, i(sp)</text>
+<text x="44.0" y="449.8" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  j     .L2                ; знову</text>
+<text x="250.0" y="466.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">≈ 15 команд у тілі · усе ганяє через стек</text>
+<rect x="490.0" y="184.0" width="440.0" height="286.0" rx="12" fill="#f6fbf6" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="506.0" y="206.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">-O2  (оптимізовано)</text>
+<text x="506.0" y="224.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">усе в регістрах, тіло стиснуте — те саме за змістом</text>
+<text x="504.0" y="250.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  li    a5, 0             ; sum=0 (регістр)</text>
+<text x="504.0" y="268.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  blez  a1, .Lend         ; n&lt;=0 ? вийти</text>
+<text x="504.0" y="286.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">.L3:</text>
+<text x="504.0" y="304.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  lw    a4, 0(a0)         ; a[i]</text>
+<text x="504.0" y="322.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  addi  a0, a0, 4         ; покажчик далі</text>
+<text x="504.0" y="340.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  add   a5, a5, a4        ; sum += a[i]</text>
+<text x="504.0" y="358.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  bne   a0, a3, .L3       ; не кінець? — назад</text>
+<text x="504.0" y="376.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">  ...</text>
+<text x="504.0" y="394.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  mv    a0, a5            ; повернути sum</text>
+<text x="504.0" y="412.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">  ret</text>
+<text x="710.0" y="466.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">≈ 4 команди у тілі · жодного звертання в стек</text>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="500" viewBox="0 0 920 500">
+<rect width="920" height="500" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="460.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Регіон = шматок адрес + права доступу до нього</text>
+<text x="460.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">MPU не сторожить кожну комірку окремо — лише кілька грубих діапазонів, кожному приписано, що з ним вільно робити</text>
+<rect x="60.0" y="74.0" width="800.0" height="30.0" rx="6" fill="#eef1f6" stroke="#1b1b1b" stroke-width="1.4"/>
+<text x="68.0" y="94.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">регіон (де лежить)</text>
+<text x="310.0" y="94.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">діапазон: база … межа</text>
+<text x="530.0" y="94.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">читати / писати</text>
+<text x="660.0" y="94.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">викон.</text>
+<text x="760.0" y="94.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">режим</text>
+<rect x="60.0" y="112.0" width="800.0" height="38.0" rx="5" fill="#fbfcfd" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="60.0" y="112.0" width="6.0" height="38.0" rx="0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="0"/>
+<text x="68.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">.text — код</text>
+<text x="310.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">0x0000_0000 … +код</text>
+<text x="530.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">R — лише читати</text>
+<text x="660.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">так (X)</text>
+<text x="760.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">усі</text>
+<rect x="60.0" y="156.0" width="800.0" height="38.0" rx="5" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="60.0" y="156.0" width="6.0" height="38.0" rx="0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="0"/>
+<text x="68.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">.rodata — сталі</text>
+<text x="310.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">далі за кодом</text>
+<text x="530.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">R — лише читати</text>
+<text x="660.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">ні</text>
+<text x="760.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">усі</text>
+<rect x="60.0" y="200.0" width="800.0" height="38.0" rx="5" fill="#fbfcfd" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="60.0" y="200.0" width="6.0" height="38.0" rx="0" fill="#1f47b5" stroke="#1f47b5" stroke-width="0"/>
+<text x="68.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">.data/.bss — глоб.</text>
+<text x="310.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">у RAM</text>
+<text x="530.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">RW</text>
+<text x="660.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">ні</text>
+<text x="760.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">усі</text>
+<rect x="60.0" y="244.0" width="800.0" height="38.0" rx="5" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="60.0" y="244.0" width="6.0" height="38.0" rx="0" fill="#1f47b5" stroke="#1f47b5" stroke-width="0"/>
+<text x="68.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">купа (§3.6.6)</text>
+<text x="310.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">у RAM, росте вгору</text>
+<text x="530.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">RW</text>
+<text x="660.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">ні</text>
+<text x="760.0" y="270.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">усі</text>
+<rect x="60.0" y="288.0" width="800.0" height="38.0" rx="5" fill="#fbfcfd" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="60.0" y="288.0" width="6.0" height="38.0" rx="0" fill="#1f47b5" stroke="#1f47b5" stroke-width="0"/>
+<text x="68.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">стек (§3.6.5)</text>
+<text x="310.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">у RAM, росте вниз</text>
+<text x="530.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">RW</text>
+<text x="660.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">ні</text>
+<text x="760.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">своя задача</text>
+<rect x="60.0" y="332.0" width="800.0" height="38.0" rx="5" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="60.0" y="332.0" width="6.0" height="38.0" rx="0" fill="#c0271e" stroke="#c0271e" stroke-width="0"/>
+<text x="68.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">MMIO — периферія</text>
+<text x="310.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">діапазон регістрів</text>
+<text x="530.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">RW</text>
+<text x="660.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="bold" font-style="normal">ні</text>
+<text x="760.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="start" font-weight="normal" font-style="normal">лише привіл.</text>
+<rect x="60.0" y="382.0" width="800.0" height="64.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="460.0" y="406.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.3" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Два правила гасять цілі класи бід §3.6.7: код позначено «лише читати», дані — «не виконувати» (NX, no-execute),</text>
+<text x="460.0" y="428.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">а регістри периферії (§3.6.2) доступні «лише з привілейованого режиму» — звичайна задача їх навіть не торкнеться.</text>
+</svg>
