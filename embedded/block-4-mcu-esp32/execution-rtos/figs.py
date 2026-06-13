@@ -1652,7 +1652,7 @@ def fig86_convergence():
 # Використовує svgkit для рамок з текстом (textbox / fitbox)
 # ═════════════════════════════════════════════════════════════════════════════
 import sys as _sys
-_sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '_tools'))
+_sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'scripts'))
 from svgkit import (
     render as sk_render, textbox, fitbox, text as sk_text, rect as sk_rect,
     arrow as sk_arrow, line as sk_line, mtext as sk_mtext,

@@ -5,7 +5,7 @@ figs.py — Розділ 4.12 USB на мікроконтролері
 НЕ перевизначає примітиви svgkit — лише генерує специфічні для теми SVG.
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '_tools'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'scripts'))
 from svgkit import *
 
 OUT = os.path.join(os.path.dirname(__file__), 'img')

@@ -7,7 +7,7 @@
 НЕ переписувати примітиви svgkit — тільки імпортувати.
 """
 import sys, os, math
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '_tools'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'scripts'))
 from svgkit import *
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "img")

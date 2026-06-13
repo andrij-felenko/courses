@@ -23,7 +23,7 @@ fig-r13-9-1-what-survives-deepsleep — карта пам'яті уві сні
 fig-r13-9-2-wake-flow            — блок-схема старту після сну
 """
 import sys, os, math
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '_tools'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'scripts'))
 from svgkit import *
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'img')

@@ -1,467 +1,365 @@
-/* ──────────────────────────────────────────────────────────────────────────
-   manifest.js — структура книги (повна мапа курсу: 7 модулів · 60 розділів)
-   Єдине джерело правди для навігації. Редагується вручну.
-
-   Нумерація — М.Р.Т (модуль.розділ.тема): «4.3.2» = модуль 4, розділ 3,
-   тема 2. n у розділі — номер РОЗДІЛУ ВСЕРЕДИНІ модуля (Р).
-
-   Як додати новий готовий розділ:
-     1) знайди його в потрібному модулі нижче;
-     2) додай йому поля: dir, main, histories і постав status:'done'.
-        • dir       — шлях до папки розділу ВІД embedded/ (тобто з block-…);
-                      префікс embedded/ додає basePath нижче.
-                      Старі папки звуться chNN-… (історичні наскрізні номери),
-                      нові розділи — rРР-… (внутрімодульний номер Р)
-        • main      — головний .md розділу (теми)
-        • histories — історичні вставки В ПОРЯДКУ ЧИТАННЯ (спершу історія
-                      до розділу, далі — історії до тем). Заголовки тягнуться
-                      з самих файлів автоматично, тож тут лише імена.
-     Усе інше (сайдбар, якорі, перехресні лінки) збереться саме.
-   ────────────────────────────────────────────────────────────────────────── */
-window.BOOK = {
-  title: "Вбудована електроніка й автономні системи",
-  subtitle: "Глибокий курс — від заряду в атомі до машинного бачення на борту. " +
-            "Сім модулів, шістдесят розділів, побудованих від першопричин.",
-  // короткий підпис у шапці сайдбару
-  shortTitle: "Вбудована електроніка",
-
-  // посилання «← Бібліотека» у сайдбарі (стартова сторінка зі списком книг)
-  libraryHref: "index.html",
-
-  // Префікс до контенту відносно index.html. Обгортка лежить у корені репо,
-  // а самі .md/.svg — у embedded/. Так Pages «from root» і локальний сервер
-  // у корені працюють однаково. Хочеш покласти обгортку в /docs поряд із
-  // контентом — постав "" і перемісти embedded/ туди.
-  basePath: "embedded/",
-
-  modules: [
-    {
-      n: 1,
-      title: "Фізика електрики й кіл",
-      slug: "block-1-circuits-physics",
-      chapters: [
-        { n: 1, status: "done", title: "Заряд, електричне поле й потенціал",
-          dir: "block-1-circuits-physics/charge-field-potential", main: "charge-field-potential.md",
-          histories: ["hist-electricity.md", "hist-millikan.md", "hist-coulomb.md", "hist-faraday.md", "hist-volta.md"],
-          extras: ["comp-van-de-graaff.md", "math-vectors.md", "math-work-integral.md", "comp-alkaline-cell.md", "comp-piezo-igniter.md", "../../../math/number-systems/dimensional-analysis/dimensional-analysis.md", "../../../math/number-systems/si-prefixes/si-prefixes.md", "math-gradient.md", "proj-relaxation.md", "comp-everyday-shields.md"] },
-        { n: 2, status: "done", title: "Напруга, струм і провідність",
-          dir: "block-1-circuits-physics/voltage-current-conduction", main: "voltage-current-conduction.md",
-          histories: ["hist-conduction.md", "hist-ampere.md", "hist-atlantic-cable.md", "hist-arrhenius.md", "hist-war-of-currents.md", "hist-dalziel.md"],
-          extras: ["math-derivative.md", "math-estimation.md", "comp-switches.md", "comp-galvanic-corrosion.md", "comp-rcd.md"] },
-        { n: 3, status: "done", title: "Опір, потужність і тепло",
-          dir: "block-1-circuits-physics/resistance-power-heat", main: "resistance-power-heat.md",
-          histories: ["hist-ohm-joule.md", "hist-filament.md", "hist-superconductivity.md", "hist-watt.md", "hist-fuse.md"],
-          extras: ["../../../components/passive/wire-gauge/wire-gauge.md", "../../../components/protection/inrush-ntc/inrush-ntc.md", "../../../math/number-systems/energy-units/energy-units.md", "../../../components/passive/resistor-marking/resistor-marking.md", "../../../components/passive/kelvin-shunt/kelvin-shunt.md", "../../../math/number-systems/e-series/e-series.md", "../../../components/protection/fuse-types/fuse-types.md", "../../../components/passive/heatsink/heatsink.md", "math-thermal-rc.md", "../../../components/passive/peltier/peltier.md"] },
-        { n: 4, status: "done", title: "Закони Кірхгофа й аналіз кіл",
-          dir: "block-1-circuits-physics/kirchhoff-circuit-analysis", main: "kirchhoff-circuit-analysis.md",
-          histories: ["hist-kirchhoff.md", "hist-euler-graphs.md", "hist-maxwell-mesh.md", "hist-christie-wheatstone.md"],
-          extras: ["comp-breadboard.md", "../../../math/discrete-logic/graph-theory/graph-theory.md", "proj-graph-traversal.md", "../../../components/passive/potentiometer/potentiometer.md", "math-tolerance.md", "proj-divider-search.md", "../../../math/linear-algebra/gauss-elimination/gauss-elimination.md", "../../../math/linear-algebra/matrices-as-operations/matrices-as-operations.md", "proj-circuit-sim.md", "proj-mna-spice.md", "math-bridge-sensitivity.md"] },
-        { n: 5, status: "done", title: "Еквівалентні схеми: Тевенін, Нортон, суперпозиція",
-          dir: "block-1-circuits-physics/equivalent-circuits", main: "equivalent-circuits.md",
-          histories: ["hist-thevenin-norton.md", "hist-50-ohm.md"],
-          extras: ["comp-source-impedances.md", "math-load-line.md", "../../../math/discrete-logic/superposition/superposition.md", "proj-two-load-method.md", "comp-terminator.md", "math-derivative-max.md"] },
-        { n: 6, status: "done", title: "Мова схем і вимірювання",
-          dir: "block-1-circuits-physics/schematics-measurement", main: "schematics-measurement.md",
-          histories: ["hist-instruments.md", "hist-earth-return.md", "hist-weston.md", "hist-crt.md", "hist-tektronix.md"],
-          extras: ["comp-workbench.md", "proj-netlist-erc.md", "comp-multimeter.md", "comp-oscilloscope.md", "comp-probe.md", "proj-trigger.md", "comp-cat-ratings.md", "comp-probe-ground.md", "math-accuracy.md"] },
-        { n: 7, status: "done", title: "Змінний струм: синусоїда, фаза й RMS",
-          dir: "block-1-circuits-physics/ac-signals", main: "ac-signals.md",
-          histories: ["hist-steinmetz.md", "hist-50-60-hz.md"],
-          extras: ["math-trigonometry.md", "proj-phase-accumulator.md", "comp-signal-generator.md", "math-phasor.md", "math-rms-derivation.md", "proj-true-rms.md", "comp-mains-socket.md"] },
-        { n: 8, status: "done", title: "Магнетизм і електромагніти",
-          dir: "block-1-circuits-physics/magnetism", main: "magnetism.md",
-          histories: ["hist-lodestone-oersted.md", "hist-neodymium.md", "hist-hall.md"],
-          extras: ["../../../components/passive/magnet-grades/magnet-grades.md", "proj-biot-savart.md", "../../../components/interfaces/solenoid-relay/solenoid-relay.md", "math-ampere-turns.md", "../../../components/passive/ferrite-bead/ferrite-bead.md", "math-hysteresis-loop.md", "math-cross-product.md", "../../../components/sensors/clamp-meter/clamp-meter.md"] },
-        { n: 9, status: "done", title: "Шум і завади: фізичні джерела",
-          dir: "block-1-circuits-physics/noise-interference", main: "noise-interference.md",
-          histories: ["hist-johnson-nyquist.md", "hist-induction-coordination.md", "hist-twisted-pair.md"],
-          extras: ["math-clt.md", "math-random-variables.md", "proj-noise-generator.md", "math-kt-scale.md", "math-noise-density.md", "comp-resistor-noise.md", "comp-star-ground.md", "../../../components/comms/shielded-cable/shielded-cable.md", "../../../components/comms/utp-cable/utp-cable.md", "math-averaging.md"] },
-        { n: 10, status: "done", title: "Електростатика на практиці: іскри, блискавка й ESD",
-          dir: "block-1-circuits-physics/esd-static", main: "esd-static.md",
-          histories: ["hist-franklin-richmann.md", "hist-dust-explosions.md"],
-          extras: ["math-hbm.md", "../../../components/protection/gas-discharge-tube/gas-discharge-tube.md", "math-paschen.md", "comp-esd-gun.md", "math-spark-energy.md", "comp-wrist-strap.md", "comp-ionizer.md"] }
-      ]
-    },
-    {
-      n: 2,
-      title: "Компоненти й аналогова електроніка",
-      slug: "block-2-components-analog",
-      chapters: [
-        { n: 1, status: "done", title: "Конденсатор",
-          dir: "block-2-components-analog/capacitor", main: "capacitor.md",
-          histories: ["hist-leyden-jar.md", "hist-capacitor-plague.md", "hist-supercap.md"],
-          extras: ["math-derivative-current.md", "proj-touch-sensing.md", "math-exponential-ode.md", "proj-capacitance-meter.md", "../../../components/passive/electrolytic/electrolytic.md", "../../../components/passive/capacitor-marking/capacitor-marking.md", "../../../components/passive/mlcc/mlcc.md", "../../../components/passive/bleeder/bleeder.md", "../../../components/passive/decoupling/decoupling.md", "../../../components/passive/supercap/supercap.md"] },
-        { n: 2, status: "done", title: "Котушка та індуктивність",
-          dir: "block-2-components-analog/inductor", main: "inductor.md",
-          histories: ["hist-induction.md", "hist-oersted-ampere.md", "hist-transformer.md"],
-          extras: ["math-rl-ode.md", "proj-inductance-meter.md", "comp-rc-snubber.md", "../../../components/passive/transformer/transformer.md", "math-turns-ratio.md", "../../../components/passive/power-inductor/power-inductor.md", "../../../components/passive/ferrite-clamp/ferrite-clamp.md"] },
-        { n: 3, status: "done", title: "Реактивність, фази й резонанс",
-          dir: "block-2-components-analog/reactance-resonance", main: "reactance-resonance.md",
-          histories: ["hist-tuned-circuit.md", "hist-tacoma.md"],
-          extras: ["math-complex-phasors.md", "comp-capacitive-dropper.md", "comp-lc-supply-filter.md", "math-impedance.md", "math-power-triangle.md", "math-sine-derivative.md", "proj-lissajous.md", "../../../components/comms/nfc-rfid/nfc-rfid.md", "math-thomson-formula.md", "proj-resonance-sweep.md", "math-damping.md", "math-q-factor.md"] },
-        { n: 4, status: "done", title: "АЧХ, децибели й фільтри",
-          dir: "block-2-components-analog/frequency-response", main: "frequency-response.md",
-          histories: ["hist-bode.md", "hist-decibel.md"],
-          extras: ["comp-breadboard-parasitics.md", "comp-scope-probe.md", "comp-input-rc.md", "math-transfer-function.md", "comp-coupling-cap.md", "math-logarithms.md", "proj-bode-measurement.md", "math-half-power.md", "math-risetime-bandwidth.md", "comp-speaker-crossover.md", "math-cascading.md"] },
-        { n: 5, status: "done", title: "Діод і PN-перехід",
-          dir: "block-2-components-analog/diode-pn-junction", main: "diode-pn-junction.md",
-          histories: ["hist-diode.md", "hist-silicon-germanium.md", "hist-blue-led.md", "hist-led.md", "hist-zener.md"],
-          extras: ["math-shockley-equation.md", "proj-diode-thermometer.md", "../../../components/active/bridge-rectifier/bridge-rectifier.md", "math-ripple-calc.md", "../../../components/active/led-practice/led-practice.md", "math-photon-energy.md", "proj-charlieplexing.md", "../../../components/active/diode-families/diode-families.md", "../../../components/active/tvs-diode/tvs-diode.md", "math-reverse-recovery.md", "../../../components/active/optocoupler/optocoupler.md"] },
-        { n: 6, status: "done", title: "Біполярний транзистор (BJT)",
-          dir: "block-2-components-analog/bjt", main: "bjt.md",
-          histories: ["hist-transistor.md", "hist-traitorous-eight.md", "hist-tr1-sony.md"],
-          extras: ["proj-measure-hfe.md", "../../../components/active/darlington-uln/darlington-uln.md", "comp-high-side-pnp.md", "math-base-resistor.md", "comp-common-emitter.md", "math-load-line.md", "../../../components/active/bjt-families/bjt-families.md", "comp-relay-inside.md", "comp-relay-module.md"] },
-        { n: 7, status: "done", title: "Польовий транзистор (MOSFET)",
-          dir: "block-2-components-analog/mosfet", main: "mosfet.md",
-          histories: ["hist-mosfet.md", "hist-hexfet.md", "hist-cmos.md"],
-          extras: ["../../../components/active/mosfet-body-diode/mosfet-body-diode.md", "math-square-law.md", "../../../components/active/pmos-load-switch/pmos-load-switch.md", "../../../components/active/ideal-diode-ic/ideal-diode-ic.md", "../../../components/active/logic-level-mosfet/logic-level-mosfet.md", "proj-thermal-calc.md", "../../../components/active/gate-driver/gate-driver.md", "math-gate-charge.md", "comp-h-bridge-board.md", "proj-shoot-through.md"] },
-        { n: 8, status: "done", title: "Операційний підсилювач і компаратор",
-          dir: "block-2-components-analog/opamp-comparator", main: "opamp-comparator.md",
-          histories: ["hist-opamp.md", "hist-harold-black.md"],
-          extras: ["math-feedback-formula.md", "comp-buffer-divider.md", "math-cap-load.md", "proj-signal-scaling.md", "../../../components/active/comparator-ics/comparator-ics.md", "math-hysteresis-calc.md", "proj-light-threshold.md", "../../../components/active/rail-to-rail-opamp/rail-to-rail-opamp.md", "math-gbw-slew.md", "math-noise-budget.md", "math-current-mirror.md", "../../../components/active/ldo-module/ldo-module.md", "math-ldo-dissipation.md"] },
-        { n: 9, status: "done", title: "Як читати даташит",
-          dir: "block-2-components-analog/reading-datasheets", main: "reading-datasheets.md",
-          histories: ["hist-databooks.md", "hist-pentium-fdiv.md"],
-          extras: ["comp-abs-max-failures.md", "math-tolerance-statistics.md", "math-derating.md", "math-thermal-resistance.md", "proj-log-graph-reading.md", "../../../components/passive/packages/packages.md", "../../../components/passive/smd-marking/smd-marking.md", "comp-component-tester.md", "proj-selection-checklist.md"] },
-        { n: 10, status: "done", title: "Резонатори й опорні частоти",
-          dir: "block-2-components-analog/resonators-references", main: "resonators-references.md",
-          histories: ["hist-pierce-ft243.md", "hist-quartz-crisis.md"],
-          extras: ["comp-internal-rc.md", "math-q-stability.md", "comp-crystal-layout.md", "proj-oscillator-debug.md", "math-ppm-math.md", "proj-measure-drift.md", "../../../components/passive/watch-crystal/watch-crystal.md", "comp-mems-vs-quartz.md", "comp-tcxo.md"] },
-        { n: 11, status: "done", title: "Силова комутація змінного струму",
-          dir: "block-2-components-analog/ac-power-switching", main: "ac-power-switching.md",
-          histories: ["hist-thyristor.md", "hist-ssr.md", "hist-igbt-baliga.md"],
-          extras: ["../../../components/protection/crowbar/crowbar.md", "comp-triac-driver.md", "math-phase-power.md", "proj-dimmer-algorithm.md", "comp-zero-cross-module.md", "proj-burst-control.md", "../../../components/active/ssr/ssr.md", "math-snubber-calc.md", "../../../components/protection/mov-varistor/mov-varistor.md"] },
-        { n: 12, status: "done", title: "Легендарні аналогові ІМС",
-          dir: "block-2-components-analog/legendary-analog-ics", main: "legendary-analog-ics.md",
-          histories: ["hist-camenzind-555.md", "hist-bandgap.md"],
-          extras: ["comp-ic-naming.md", "comp-555-versions.md", "math-astable-formulas.md", "proj-monostable.md", "../../../components/active/tl431/tl431.md", "math-bandgap-math.md", "../../../components/active/analog-mux/analog-mux.md", "proj-mux-scanning.md", "comp-inamp-bridge.md", "math-inamp-cmrr.md"] }
-      ]
-    },
-    {
-      n: 3,
-      title: "Цифрова електроніка й процесор",
-      slug: "block-3-digital-processor",
-      chapters: [
-        { n: 1, status: "done", title: "Логічні рівні: від аналога до цифри",
-          dir: "block-3-digital-processor/logic-levels", main: "logic-levels.md",
-          histories: ["hist-shannon.md", "hist-5-volts.md"],
-          extras: ["math-noise-margin.md", "../../../components/active/logic-74-families/logic-74-families.md", "comp-series-termination.md", "math-rise-time.md", "../../../components/active/schmitt-74hc14/schmitt-74hc14.md", "proj-software-hysteresis.md"] },
-        { n: 2, status: "done", title: "Логічні вентилі й комбінаційні схеми",
-          dir: "block-3-digital-processor/logic-gates", main: "logic-gates.md",
-          histories: ["hist-boole.md", "hist-apollo-nor.md"],
-          extras: ["../../../math/discrete-logic/boolean-algebra/boolean-algebra.md", "comp-74hc-breadboard.md", "proj-bitwise-c.md", "proj-xor-tricks.md", "../../../components/interfaces/74hc138-decoder/74hc138-decoder.md", "../../../math/discrete-logic/karnaugh-maps/karnaugh-maps.md", "proj-gate-simulator.md"] },
-        { n: 3, status: "done", title: "Тригери, регістри й тактування",
-          dir: "block-3-digital-processor/flip-flops-registers", main: "flip-flops-registers.md",
-          histories: ["hist-flip-flop.md", "hist-shift-register-ics.md", "hist-cmos-counters.md", "hist-metastability.md"],
-          extras: ["../../../components/interfaces/74hc165-piso/74hc165-piso.md", "../../../components/interfaces/74hc595-sipo/74hc595-sipo.md", "comp-clock-sources.md", "comp-counter-ics.md", "math-timing-budget.md", "proj-two-ff-synchronizer.md", "../../../math/discrete-logic/fsm-formal/fsm-formal.md", "proj-fsm-in-code.md"] },
-        { n: 4, status: "done", title: "Представлення чисел",
-          dir: "block-3-digital-processor/number-representation", main: "number-representation.md",
-          histories: ["hist-leibniz.md", "hist-modular-arithmetic.md", "hist-ariane5.md", "hist-patriot.md", "hist-ieee754.md", "hist-utf8-diner.md"],
-          extras: ["../../../math/number-systems/modular-arithmetic/modular-arithmetic.md", "proj-overflow-checks.md", "proj-cordic.md", "proj-fixed-point.md", "../../../math/number-systems/ieee754/ieee754.md", "proj-float-compare.md", "comp-sensor-byte-order.md", "proj-serialization.md", "proj-utf8-decoder.md"] },
-        { n: 5, status: "done", title: "Архітектура процесора",
-          dir: "block-3-digital-processor/processor-architecture", main: "processor-architecture.md",
-          histories: ["hist-von-neumann.md", "hist-babbage-lovelace.md", "hist-riscv.md", "hist-megahertz-myth.md", "hist-harvard-architecture.md"],
-          extras: ["proj-toy-cpu-emulator.md", "comp-isa-in-boards.md", "proj-reading-disassembly.md", "math-performance-math.md", "math-pipeline-hazards.md", "comp-esp32-buses.md", "proj-cache-friendly-code.md"] },
-        { n: 6, status: "done", title: "Пам'ять, адресація, стек і купа",
-          dir: "block-3-digital-processor/memory-stack-heap", main: "memory-stack-heap.md",
-          histories: ["hist-core-memory.md", "hist-heartbleed.md", "hist-stack-painting.md", "comp-history-mpu.md", "hist-morris-worm.md", "hist-frohman-eprom.md"],
-          extras: ["../../../math/number-systems/address-space/address-space.md", "comp-real-memory-map.md", "comp-spi-flash-xip.md", "proj-pointer-arithmetic.md", "proj-stack-watermark.md", "math-fragmentation.md", "proj-block-pools.md", "proj-toy-allocator.md", "comp-mpu.md", "../../../components/memory/psram/psram.md", "math-tunneling.md"] },
-        { n: 7, status: "done", title: "Програмована логіка: ПЛІС/FPGA",
-          dir: "block-3-digital-processor/fpga", main: "fpga.md",
-          histories: ["hist-xilinx.md", "hist-hdl.md"],
-          extras: ["comp-fpga-in-the-wild.md", "comp-greenpak.md", "math-lut-math.md", "comp-hobby-fpga-boards.md", "proj-verilog-first-projects.md", "proj-open-toolchain.md", "math-critical-path.md"] },
-        { n: 8, status: "done", title: "Зовнішня пам'ять",
-          dir: "block-3-digital-processor/external-memory", main: "external-memory.md",
-          histories: ["hist-dennard-dram.md", "hist-sd-card-wars.md"],
-          extras: ["math-dram-refresh.md", "comp-ddr-labels.md", "math-bandwidth.md", "comp-w25q-raw-commands.md", "proj-toy-ftl.md"] },
-        { n: 9, status: "done", title: "Коди виявлення й корекції помилок",
-          dir: "block-3-digital-processor/error-correction", main: "error-correction.md",
-          histories: ["hist-hamming.md", "hist-bit-flip-election.md", "hist-voyager-codes.md"],
-          extras: ["math-seu-sel.md", "proj-checksums-in-code.md", "comp-hardware-crc.md", "../../../math/linear-algebra/crc-cyclic-redundancy/crc-cyclic-redundancy.md", "proj-crc-implementation.md", "../../../math/linear-algebra/hamming-distance/hamming-distance.md", "proj-hamming-codec.md", "comp-ecc-hardware.md"] },
-        { n: 10, status: "done", title: "Як народжується чіп: від піску до корпуса",
-          dir: "block-3-digital-processor/chip-fabrication", main: "chip-fabrication.md",
-          histories: ["hist-kilby-noyce.md", "hist-asml-euv.md", "hist-tsmc.md"],
-          extras: ["proj-place-and-route.md", "math-yield-math.md", "comp-chip-markings.md", "proj-scan-chain.md", "comp-package-guide.md", "math-moore-dennard.md"] }
-      ]
-    },
-    {
-      n: 4,
-      title: "Мікроконтролер і прошивка: ESP32",
-      slug: "block-4-mcu-esp32",
-      chapters: [
-        { n: 1, status: "done", title: "Анатомія мікроконтролера й архітектура ESP32",
-          dir: "block-4-mcu-esp32/mcu-esp32", main: "mcu-esp32.md",
-          histories: ["hist-first-mcu.md", "hist-esp.md", "hist-8051.md", "hist-riscv.md"],
-          extras: ["../../../components/comms/esp32-antenna/esp32-antenna.md", "../../../components/comms/wroom-module/wroom-module.md", "proj-reg-access.md", "comp-crystal.md", "math-clock-tree.md", "comp-devkit.md", "math-benchmarks.md", "comp-brownout.md"] },
-        { n: 2, status: "done", title: "Тулчейн: як код стає прошивкою",
-          dir: "block-4-mcu-esp32/toolchain", main: "toolchain.md",
-          histories: ["hist-grace-hopper.md", "hist-gcc.md", "hist-arduino.md"],
-          extras: ["proj-optimizer.md", "math-image-checksums.md", "proj-firmware-version.md", "proj-map-file.md", "proj-size-opt.md", "../../../components/interfaces/usb-uart-bridge/usb-uart-bridge.md", "proj-flash-protocol.md", "comp-strapping.md", "comp-debug-probes.md", "proj-binary-logging.md", "proj-logging.md", "proj-emulators.md"] },
-        { n: 3, status: "done", title: "Постійні дані: Flash-розділи, NVS і файлові системи",
-          dir: "block-4-mcu-esp32/persistent-storage", main: "persistent-storage.md",
-          histories: ["hist-flash.md", "hist-fat.md"],
-          extras: ["proj-flash-ring-log.md", "../../../components/memory/fram/fram.md", "math-endurance.md", "proj-partition-table.md", "proj-nvs-internals.md", "../../../components/memory/sd-card-module/sd-card-module.md", "proj-atomic-config.md", "math-hash-signature.md"] },
-        { n: 4, status: "done", title: "GPIO глибоко",
-          dir: "block-4-mcu-esp32/gpio", main: "gpio.md",
-          histories: ["hist-relay-bounce.md"],
-          extras: ["math-pullup-value.md", "comp-tact-button.md", "proj-debounce.md", "math-pin-budget.md", "proj-bitbang.md", "../../../components/interfaces/gpio-expander/gpio-expander.md", "proj-key-matrix.md"] },
-        { n: 5, status: "done", title: "Переривання",
-          dir: "block-4-mcu-esp32/interrupts", main: "interrupts.md",
-          histories: ["hist-interrupt.md", "hist-apollo.md", "hist-therac25.md"],
-          extras: ["comp-int-pin.md", "proj-spsc-ring.md", "comp-int-controllers.md", "proj-deferred-work.md", "proj-reentrancy.md", "math-latency.md", "proj-volatile-asm.md", "proj-atomics-barriers.md", "proj-critical-sections.md", "math-isr-budget.md"] },
-        { n: 6, status: "done", title: "Таймери й керування часом",
-          dir: "block-4-mcu-esp32/timers", main: "timers.md",
-          histories: ["hist-quartz.md", "hist-y2k-2038.md"],
-          extras: ["math-prescaler.md", "math-unsigned-wrap.md", "proj-input-capture.md", "proj-coop-scheduler.md", "proj-timer-wheel.md", "comp-esp32-watchdogs.md", "proj-watchdog-feed.md", "../../../components/interfaces/rtc-module/rtc-module.md", "math-calendar-math.md"] },
-        { n: 7, status: "done", title: "PWM і ЦАП",
-          dir: "block-4-mcu-esp32/pwm-dac", main: "pwm-dac.md",
-          histories: ["hist-dimmer.md"],
-          extras: ["comp-buzzer.md", "math-pwm-spectrum.md", "proj-pwm-alignment.md", "math-freq-resolution.md", "math-rc-design.md", "comp-mosfet-module.md", "proj-gamma.md", "comp-external-dac.md", "comp-ws2812-strip.md", "proj-ws2812-timing.md"] },
-        { n: 8, status: "done", title: "Аналого-цифрове перетворення (АЦП)",
-          dir: "block-4-mcu-esp32/adc", main: "adc.md",
-          histories: ["hist-sampling.md", "hist-delta-sigma.md"],
-          extras: ["../../../components/passive/potentiometer/potentiometer.md", "math-quantization-noise.md", "math-dithering.md", "math-enob.md", "comp-voltage-reference.md", "math-alias-folding.md", "comp-ads1115.md", "proj-two-point-cal.md", "comp-opamp-buffer.md", "math-sample-hold.md", "proj-sar-search.md"] },
-        { n: 9, status: "done", title: "DMA: дані без участі ядра",
-          dir: "block-4-mcu-esp32/dma", main: "dma.md",
-          histories: ["hist-dma-channels.md", "hist-soundblaster.md"],
-          extras: ["math-throughput.md", "proj-memcpy-vs-dma.md", "proj-descriptors.md", "math-buffer-sizing.md", "proj-ring-buffer.md", "comp-i2s-mic.md", "comp-spi-display.md", "proj-cache-dma.md"] },
-        { n: 10, status: "done", title: "Модель виконання й RTOS",
-          dir: "block-4-mcu-esp32/execution-rtos", main: "execution-rtos.md",
-          histories: ["hist-time-sharing.md", "hist-freertos.md", "hist-pathfinder.md"],
-          extras: ["proj-fsm-instead.md", "math-tick-latency.md", "proj-clz-bitmap.md", "proj-context-switch.md", "comp-dual-core.md", "proj-deadlock.md", "proj-priority-inheritance.md", "proj-queue-pattern.md", "proj-no-free.md", "proj-stack-overflow.md", "math-rate-monotonic.md"] },
-        { n: 11, status: "done", title: "Пейзаж мікроконтролерів",
-          dir: "block-4-mcu-esp32/mcu-landscape", main: "mcu-landscape.md",
-          histories: ["hist-arm.md", "hist-avr.md", "hist-rp2040.md"],
-          extras: ["comp-uno-nano.md", "comp-stm32-boards.md", "comp-pico-board.md", "proj-pio.md", "comp-nrf-modules.md", "proj-portability.md", "../../../components/passive/packages/packages.md", "math-decision-matrix.md"] },
-        { n: 12, status: "done", title: "USB на мікроконтролері",
-          dir: "block-4-mcu-esp32/usb-mcu", main: "usb-mcu.md",
-          histories: ["hist-usb-birth.md", "hist-badusb.md"],
-          extras: ["../../../components/interfaces/usb-c-connector/usb-c-connector.md", "math-nrzi.md", "proj-descriptors.md", "proj-frames.md", "proj-hid-reports.md", "comp-otg.md"] },
-        { n: 13, status: "done", title: "Енергоощадність глибоко",
-          dir: "block-4-mcu-esp32/low-power", main: "low-power.md",
-          histories: ["hist-pacemaker.md", "hist-voyager.md"],
-          extras: ["math-battery-math.md", "comp-sensor-standby.md", "comp-wake-hw.md", "proj-ulp-program.md", "comp-current-profiler.md", "math-dynamic-range.md", "comp-ldo-vs-buck.md"] },
-        { n: 14, status: "done", title: "Налагодження глибоко: JTAG/SWD, GDB і посмертний аналіз",
-          dir: "block-4-mcu-esp32/debug-deep", main: "debug-deep.md",
-          histories: ["hist-jtag.md"] },
-        { n: 15, status: "done", title: "Відмовостійка прошивка: помилки, паніка, відновлення",
-          dir: "block-4-mcu-esp32/fault-tolerant", main: "fault-tolerant.md",
-          histories: ["hist-ariane5.md"] }
-      ]
-    },
-    {
-      n: 5,
-      title: "Давачі, сигнали й керування",
-      slug: "block-5-sensors-control",
-      chapters: [
-        { n: 1, status: "done", title: "Фізика давачів",
-          dir: "block-5-sensors-control/sensor-physics", main: "sensor-physics.md",
-          histories: ["hist-seebeck.md"],
-          extras: ["hist-strain-gauge.md"] },
-        { n: 2, status: "done", title: "Вимірювання відстані й оточення",
-          dir: "block-5-sensors-control/distance-environment", main: "distance-environment.md",
-          histories: ["hist-sonar.md"] },
-        { n: 3, status: "pending", title: "Давачі обертання й положення: енкодери" },
-        { n: 4, status: "done", title: "Цифрова фільтрація сигналів",
-          dir: "block-5-sensors-control/digital-filtering", main: "digital-filtering.md",
-          histories: [] },
-        { n: 5, status: "done", title: "Спектр і перетворення Фур'є",
-          dir: "block-5-sensors-control/spectrum-fourier", main: "spectrum-fourier.md",
-          histories: ["hist-fourier.md", "hist-fft.md"] },
-        { n: 6, status: "done", title: "Цифрові фільтри в мікроконтролері",
-          dir: "block-5-sensors-control/digital-filters-mcu", main: "digital-filters-mcu.md",
-          histories: [] },
-        { n: 7, status: "done", title: "Інерціальні давачі: MEMS",
-          dir: "block-5-sensors-control/imu-mems", main: "imu-mems.md",
-          histories: ["hist-mems-airbag.md"] },
-        { n: 8, status: "done", title: "Орієнтація й керування зі зворотним зв'язком (ПІД)",
-          dir: "block-5-sensors-control/orientation-pid", main: "orientation-pid.md",
-          histories: ["hist-governor-pid.md", "hist-kalman.md"] },
-        { n: 9, status: "pending", title: "Виконавчі механізми: мотори й рух" },
-        { n: 10, status: "pending", title: "Давачі середовища глибше" },
-        { n: 11, status: "pending", title: "Час і синхронізація вимірювань" }
-      ]
-    },
-    {
-      n: 6,
-      title: "Зв'язок: дротовий і радіо",
-      slug: "block-6-comms-radio",
-      chapters: [
-        { n: 1, status: "done", title: "UART і протоколи поверх нього",
-          dir: "block-6-comms-radio/uart", main: "uart.md",
-          histories: ["hist-baudot.md"] },
-        { n: 2, status: "done", title: "Шина I2C",
-          dir: "block-6-comms-radio/i2c", main: "i2c.md",
-          histories: ["hist-i2c.md"] },
-        { n: 3, status: "done", title: "Шина SPI",
-          dir: "block-6-comms-radio/spi", main: "spi.md",
-          histories: [] },
-        { n: 4, status: "pending", title: "Диференційні шини: RS-485 і CAN" },
-        { n: 5, status: "done", title: "Бездротовий зв'язок на чіпі: Wi-Fi і Bluetooth",
-          dir: "block-6-comms-radio/wifi-bluetooth", main: "wifi-bluetooth.md",
-          histories: ["hist-bluetooth-name.md"] },
-        { n: 6, status: "done", title: "Радіо: фізика електромагнітних хвиль",
-          dir: "block-6-comms-radio/radio-em-waves", main: "radio-em-waves.md",
-          histories: ["hist-hertz.md"] },
-        { n: 7, status: "done", title: "Радіо: модуляція й бюджет лінії",
-          dir: "block-6-comms-radio/modulation-link-budget", main: "modulation-link-budget.md",
-          histories: ["hist-armstrong.md", "hist-hedy-lamarr.md"] },
-        { n: 8, status: "done", title: "Антени й лінії передачі",
-          dir: "block-6-comms-radio/antennas", main: "antennas.md",
-          histories: ["hist-marconi.md"] },
-        { n: 9, status: "done", title: "Радіозв'язок системи: керування, телеметрія, MAVLink",
-          dir: "block-6-comms-radio/telemetry-mavlink", main: "telemetry-mavlink.md",
-          histories: ["hist-mavlink.md"] },
-        { n: 10, status: "pending", title: "Мережі: Ethernet, IP і як пакет знаходить дорогу" },
-        { n: 11, status: "pending", title: "MAVLink у роботі: словник даних і керування" },
-        { n: 12, status: "pending", title: "Приєднання модулів: розпіновки, рівні, конектори, надійність" }
-      ]
-    },
-    {
-      n: 7,
-      title: "Системи: ArduPilot, відео, машинне бачення",
-      slug: "block-7-systems",
-      chapters: [
-        { n: 1, status: "done", title: "Архітектура автономної системи й політний контролер",
-          dir: "block-7-systems/architecture-flight-controller", main: "architecture-flight-controller.md",
-          histories: ["hist-ardupilot.md"] },
-        { n: 2, status: "pending", title: "Як літає мультиротор" },
-        { n: 3, status: "done", title: "Компоненти польотної системи",
-          dir: "block-7-systems/flight-components", main: "flight-components.md",
-          histories: ["hist-gps.md"] },
-        { n: 4, status: "done", title: "Живлення складних систем",
-          dir: "block-7-systems/power-systems", main: "power-systems.md",
-          histories: ["hist-lithium.md"] },
-        { n: 5, status: "done", title: "Оцінювання стану й сенсорний фьюжн",
-          dir: "block-7-systems/state-estimation-fusion", main: "state-estimation-fusion.md",
-          histories: ["hist-draper.md"] },
-        { n: 6, status: "pending", title: "Польотні режими, місії та failsafe" },
-        { n: 7, status: "done", title: "Відеосигнали I: від світла до кадру",
-          dir: "block-7-systems/video-signals-1", main: "video-signals-1.md",
-          histories: ["hist-farnsworth.md", "hist-ccd.md"] },
-        { n: 8, status: "done", title: "Відеосигнали II: стиснення й передача",
-          dir: "block-7-systems/video-signals-2", main: "video-signals-2.md",
-          histories: ["hist-dct.md"] },
-        { n: 9, status: "done", title: "Машинне бачення: основи",
-          dir: "block-7-systems/computer-vision", main: "computer-vision.md",
-          histories: ["hist-summer-vision.md", "hist-neural-nets.md"] },
-        { n: 10, status: "done", title: "Машинне навчання й нейромережі на пристрої",
-          dir: "block-7-systems/machine-learning", main: "machine-learning.md",
-          histories: ["hist-ai-winters.md", "hist-lecun-cnn.md"] },
-        { n: 11, status: "pending", title: "Бортовий комп'ютер: «політ» + «розум» разом" },
-        { n: 12, status: "pending", title: "Інші автономні платформи: ровер, човен, літак" },
-        { n: 13, status: "pending", title: "Наземна станція й оператор" },
-        { n: 14, status: "pending", title: "Зібрати систему від батареї до місії" }
-      ]
-    },
-    {
-      n: 8,
-      title: "Схемотехніка власних плат",
-      slug: "block-8-circuit-design",
-      chapters: [
-        { n: 1, status: "pending", title: "Від ідеї до структурної схеми" },
-        { n: 2, status: "pending", title: "Вибір компонентів і розрахунок обв'язки" },
-        { n: 3, status: "pending", title: "Вузол живлення на схемі" },
-        { n: 4, status: "pending", title: "Скидання, тактування, прошивання: обв'язка мікроконтролера" },
-        { n: 5, status: "pending", title: "Інтерфейси назовні й захист виводів" },
-        { n: 6, status: "pending", title: "SPICE: схема в симуляторі" },
-        { n: 7, status: "pending", title: "САПР: бібліотеки, символи, нетліст" },
-        { n: 8, status: "pending", title: "Рев'ю схеми і підготовка до розведення" }
-      ]
-    },
-    {
-      n: 9,
-      title: "Плати фізично: розведення, виготовлення, монтаж",
-      slug: "block-9-pcb-layout-assembly",
-      chapters: [
-        { n: 1, status: "pending", title: "Плата зсередини: шари, стек, матеріали" },
-        { n: 2, status: "pending", title: "Трасування сигналів" },
-        { n: 3, status: "pending", title: "Земля, полігони і EMI плати" },
-        { n: 4, status: "pending", title: "DFM і DFT: спроєктовано для фабрики" },
-        { n: 5, status: "pending", title: "Замовлення: файли, фабрика, компоненти" },
-        { n: 6, status: "pending", title: "Паяння і монтаж" },
-        { n: 7, status: "pending", title: "Бріг-ап нової плати" },
-        { n: 8, status: "pending", title: "Ревізії і життя плати" },
-        { n: 9, status: "pending", title: "Пристрій у корпусі: механіка саморобки" }
-      ]
-    },
-    {
-      n: 10,
-      title: "Живлення і енергія",
-      slug: "block-10-power-energy",
-      chapters: [
-        { n: 1, status: "pending", title: "Топології перетворювачів" },
-        { n: 2, status: "pending", title: "Спроєктувати і виміряти перетворювач" },
-        { n: 3, status: "pending", title: "USB-живлення і розумна зарядка" },
-        { n: 4, status: "pending", title: "Батареї і заряд" },
-        { n: 5, status: "pending", title: "Сонячна енергія і MPPT" },
-        { n: 6, status: "pending", title: "Енергоощадна архітектура" },
-        { n: 7, status: "pending", title: "Захисти живлення" }
-      ]
-    },
-    {
-      n: 11,
-      title: "Автономія і робототехніка",
-      slug: "block-11-autonomy-robotics",
-      chapters: [
-        { n: 1, status: "pending", title: "Бортовий Linux і одноплатники" },
-        { n: 2, status: "pending", title: "ROS2: нервова система робота" },
-        { n: 3, status: "pending", title: "Сприйняття: лідар, камера, карта" },
-        { n: 4, status: "pending", title: "Локалізація і ймовірність" },
-        { n: 5, status: "pending", title: "Планування шляху" },
-        { n: 6, status: "pending", title: "Локальне керування і обхід перешкод" },
-        { n: 7, status: "pending", title: "Платформи: ровер, маніпулятор, коптер" },
-        { n: 8, status: "pending", title: "Симуляція робота" }
-      ]
-    },
-    {
-      n: 12,
-      title: "Глибокий ШІ на краю",
-      slug: "block-12-edge-ai",
-      chapters: [
-        { n: 1, status: "pending", title: "Навчання по-справжньому: бекпроп і оптимізатори" },
-        { n: 2, status: "pending", title: "Від CNN до трансформерів" },
-        { n: 3, status: "pending", title: "Дані і розмітка" },
-        { n: 4, status: "pending", title: "Стиснення моделей: квантування, прунінг, дистиляція" },
-        { n: 5, status: "pending", title: "NPU і акселератори" },
-        { n: 6, status: "pending", title: "MLOps парку пристроїв" },
-        { n: 7, status: "pending", title: "Надійність ML на краю" }
-      ]
-    },
-    {
-      n: 13,
-      title: "UI та HMI на залізі",
-      slug: "block-13-ui-hmi",
-      chapters: [
-        { n: 1, status: "done", title: "Дисплеї і дотик як компоненти",
-          dir: "block-13-ui-hmi/displays-touch", main: "displays-touch.md",
-          histories: ["hist-lcd.md", "hist-eink.md"],
-          extras: ["../../../components/displays/ssd1306-oled/ssd1306-oled.md", "math-bandwidth-budget.md", "../../../components/displays/spi-tft/spi-tft.md", "../../../components/displays/backlight-driver/backlight-driver.md", "../../../components/displays/touch-controller/touch-controller.md", "../../../components/displays/eink-module/eink-module.md"] },
-        { n: 2, status: "done", title: "Графічний конвеєр",
-          dir: "block-13-ui-hmi/graphics-pipeline", main: "graphics-pipeline.md",
-          histories: ["hist-alto.md"] },
-        { n: 3, status: "pending", title: "Архітектура UI-застосунку" },
-        { n: 4, status: "pending", title: "Qt: від десктопа до MCU" },
-        { n: 5, status: "pending", title: "LVGL і TouchGFX" },
-        { n: 6, status: "pending", title: "Slint, Embedded Wizard і вибір фреймворку" },
-        { n: 7, status: "pending", title: "Практичні патерни UI на залізі" }
-      ]
-    },
-    {
-      n: 14,
-      title: "Продукт: від прототипа до серії",
-      slug: "block-14-product",
-      chapters: [
-        { n: 1, status: "pending", title: "Вимоги і архітектура виробу" },
-        { n: 2, status: "pending", title: "DFM і вартість BOM" },
-        { n: 3, status: "pending", title: "EMC і сертифікація" },
-        { n: 4, status: "pending", title: "Тестування: від юнітів до HIL і фабрики" },
-        { n: 5, status: "pending", title: "Надійність і аналіз відмов" },
-        { n: 6, status: "pending", title: "OTA-флот і версіонування" },
-        { n: 7, status: "pending", title: "Безпека продукту" },
-        { n: 8, status: "pending", title: "Документація, постачання, підтримка" },
-        { n: 9, status: "pending", title: "Пристрій в екосистемі: стільниковий IoT, Matter і хмара" }
-      ]
-    }
-  ]
+/* manifest.js — кореневий ІНДЕКС книги (генерується трансформом index-from-manifest.js).
+   Мета книги + список модулів. Зовнішній модуль — рядок-URL "<slug>/manifest.js"
+   (власний per-module файл, що робить window.__MODREG__.push({…})); ще не
+   винесені модулі лишаються inline-обʼєктами. Складанням опікується
+   scripts/bookbuild.js (assembleBook). Нумерація — М.Р.Т. */
+window.BOOK_META = {
+  "title": "Вбудована електроніка й автономні системи",
+  "subtitle": "Глибокий курс — від заряду в атомі до машинного бачення на борту. Сім модулів, шістдесят розділів, побудованих від першопричин.",
+  "shortTitle": "Вбудована електроніка",
+  "libraryHref": "index.html",
+  "basePath": "embedded/"
 };
+
+window.BOOK_MODULES = [
+  "block-1-circuits-physics/manifest.js",
+  "block-2-components-analog/manifest.js",
+  "block-3-digital-processor/manifest.js",
+  "block-4-mcu-esp32/manifest.js",
+  "block-5-sensors-control/manifest.js",
+  "block-6-comms-radio/manifest.js",
+  "block-7-systems/manifest.js",
+  {
+    "n": 8,
+    "title": "Схемотехніка власних плат",
+    "slug": "block-8-circuit-design",
+    "chapters": [
+      {
+        "n": 1,
+        "status": "pending",
+        "title": "Від ідеї до структурної схеми"
+      },
+      {
+        "n": 2,
+        "status": "pending",
+        "title": "Вибір компонентів і розрахунок обв'язки"
+      },
+      {
+        "n": 3,
+        "status": "pending",
+        "title": "Вузол живлення на схемі"
+      },
+      {
+        "n": 4,
+        "status": "pending",
+        "title": "Скидання, тактування, прошивання: обв'язка мікроконтролера"
+      },
+      {
+        "n": 5,
+        "status": "pending",
+        "title": "Інтерфейси назовні й захист виводів"
+      },
+      {
+        "n": 6,
+        "status": "pending",
+        "title": "SPICE: схема в симуляторі"
+      },
+      {
+        "n": 7,
+        "status": "pending",
+        "title": "САПР: бібліотеки, символи, нетліст"
+      },
+      {
+        "n": 8,
+        "status": "pending",
+        "title": "Рев'ю схеми і підготовка до розведення"
+      }
+    ]
+  },
+  {
+    "n": 9,
+    "title": "Плати фізично: розведення, виготовлення, монтаж",
+    "slug": "block-9-pcb-layout-assembly",
+    "chapters": [
+      {
+        "n": 1,
+        "status": "pending",
+        "title": "Плата зсередини: шари, стек, матеріали"
+      },
+      {
+        "n": 2,
+        "status": "pending",
+        "title": "Трасування сигналів"
+      },
+      {
+        "n": 3,
+        "status": "pending",
+        "title": "Земля, полігони і EMI плати"
+      },
+      {
+        "n": 4,
+        "status": "pending",
+        "title": "DFM і DFT: спроєктовано для фабрики"
+      },
+      {
+        "n": 5,
+        "status": "pending",
+        "title": "Замовлення: файли, фабрика, компоненти"
+      },
+      {
+        "n": 6,
+        "status": "pending",
+        "title": "Паяння і монтаж"
+      },
+      {
+        "n": 7,
+        "status": "pending",
+        "title": "Бріг-ап нової плати"
+      },
+      {
+        "n": 8,
+        "status": "pending",
+        "title": "Ревізії і життя плати"
+      },
+      {
+        "n": 9,
+        "status": "pending",
+        "title": "Пристрій у корпусі: механіка саморобки"
+      }
+    ]
+  },
+  {
+    "n": 10,
+    "title": "Живлення і енергія",
+    "slug": "block-10-power-energy",
+    "chapters": [
+      {
+        "n": 1,
+        "status": "pending",
+        "title": "Топології перетворювачів"
+      },
+      {
+        "n": 2,
+        "status": "pending",
+        "title": "Спроєктувати і виміряти перетворювач"
+      },
+      {
+        "n": 3,
+        "status": "pending",
+        "title": "USB-живлення і розумна зарядка"
+      },
+      {
+        "n": 4,
+        "status": "pending",
+        "title": "Батареї і заряд"
+      },
+      {
+        "n": 5,
+        "status": "pending",
+        "title": "Сонячна енергія і MPPT"
+      },
+      {
+        "n": 6,
+        "status": "pending",
+        "title": "Енергоощадна архітектура"
+      },
+      {
+        "n": 7,
+        "status": "pending",
+        "title": "Захисти живлення"
+      }
+    ]
+  },
+  {
+    "n": 11,
+    "title": "Автономія і робототехніка",
+    "slug": "block-11-autonomy-robotics",
+    "chapters": [
+      {
+        "n": 1,
+        "status": "pending",
+        "title": "Бортовий Linux і одноплатники"
+      },
+      {
+        "n": 2,
+        "status": "pending",
+        "title": "ROS2: нервова система робота"
+      },
+      {
+        "n": 3,
+        "status": "pending",
+        "title": "Сприйняття: лідар, камера, карта"
+      },
+      {
+        "n": 4,
+        "status": "pending",
+        "title": "Локалізація і ймовірність"
+      },
+      {
+        "n": 5,
+        "status": "pending",
+        "title": "Планування шляху"
+      },
+      {
+        "n": 6,
+        "status": "pending",
+        "title": "Локальне керування і обхід перешкод"
+      },
+      {
+        "n": 7,
+        "status": "pending",
+        "title": "Платформи: ровер, маніпулятор, коптер"
+      },
+      {
+        "n": 8,
+        "status": "pending",
+        "title": "Симуляція робота"
+      }
+    ]
+  },
+  {
+    "n": 12,
+    "title": "Глибокий ШІ на краю",
+    "slug": "block-12-edge-ai",
+    "chapters": [
+      {
+        "n": 1,
+        "status": "pending",
+        "title": "Навчання по-справжньому: бекпроп і оптимізатори"
+      },
+      {
+        "n": 2,
+        "status": "pending",
+        "title": "Від CNN до трансформерів"
+      },
+      {
+        "n": 3,
+        "status": "pending",
+        "title": "Дані і розмітка"
+      },
+      {
+        "n": 4,
+        "status": "pending",
+        "title": "Стиснення моделей: квантування, прунінг, дистиляція"
+      },
+      {
+        "n": 5,
+        "status": "pending",
+        "title": "NPU і акселератори"
+      },
+      {
+        "n": 6,
+        "status": "pending",
+        "title": "MLOps парку пристроїв"
+      },
+      {
+        "n": 7,
+        "status": "pending",
+        "title": "Надійність ML на краю"
+      }
+    ]
+  },
+  {
+    "n": 13,
+    "title": "UI та HMI на залізі",
+    "slug": "block-13-ui-hmi",
+    "chapters": [
+      {
+        "n": 1,
+        "status": "done",
+        "title": "Дисплеї і дотик як компоненти",
+        "dir": "block-13-ui-hmi/displays-touch",
+        "main": "displays-touch.md",
+        "histories": [
+          "hist-lcd.md",
+          "hist-eink.md"
+        ],
+        "extras": [
+          "../../../components/displays/ssd1306-oled/ssd1306-oled.md",
+          "math-bandwidth-budget.md",
+          "../../../components/displays/spi-tft/spi-tft.md",
+          "../../../components/displays/backlight-driver/backlight-driver.md",
+          "../../../components/displays/touch-controller/touch-controller.md",
+          "../../../components/displays/eink-module/eink-module.md"
+        ]
+      },
+      {
+        "n": 2,
+        "status": "done",
+        "title": "Графічний конвеєр",
+        "dir": "block-13-ui-hmi/graphics-pipeline",
+        "main": "graphics-pipeline.md",
+        "histories": [
+          "hist-alto.md"
+        ]
+      },
+      {
+        "n": 3,
+        "status": "pending",
+        "title": "Архітектура UI-застосунку"
+      },
+      {
+        "n": 4,
+        "status": "pending",
+        "title": "Qt: від десктопа до MCU"
+      },
+      {
+        "n": 5,
+        "status": "pending",
+        "title": "LVGL і TouchGFX"
+      },
+      {
+        "n": 6,
+        "status": "pending",
+        "title": "Slint, Embedded Wizard і вибір фреймворку"
+      },
+      {
+        "n": 7,
+        "status": "pending",
+        "title": "Практичні патерни UI на залізі"
+      }
+    ]
+  },
+  {
+    "n": 14,
+    "title": "Продукт: від прототипа до серії",
+    "slug": "block-14-product",
+    "chapters": [
+      {
+        "n": 1,
+        "status": "pending",
+        "title": "Вимоги і архітектура виробу"
+      },
+      {
+        "n": 2,
+        "status": "pending",
+        "title": "DFM і вартість BOM"
+      },
+      {
+        "n": 3,
+        "status": "pending",
+        "title": "EMC і сертифікація"
+      },
+      {
+        "n": 4,
+        "status": "pending",
+        "title": "Тестування: від юнітів до HIL і фабрики"
+      },
+      {
+        "n": 5,
+        "status": "pending",
+        "title": "Надійність і аналіз відмов"
+      },
+      {
+        "n": 6,
+        "status": "pending",
+        "title": "OTA-флот і версіонування"
+      },
+      {
+        "n": 7,
+        "status": "pending",
+        "title": "Безпека продукту"
+      },
+      {
+        "n": 8,
+        "status": "pending",
+        "title": "Документація, постачання, підтримка"
+      },
+      {
+        "n": 9,
+        "status": "pending",
+        "title": "Пристрій в екосистемі: стільниковий IoT, Matter і хмара"
+      }
+    ]
+  }
+];

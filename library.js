@@ -56,15 +56,24 @@
     return fetch(url, { cache: "no-cache" }).then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; });
   }
 
+  // Лічба тем/спец-тем — з manifest (chapter.topics[]); розділ книги-довідника = тема.
   function loadBookStats(item) {
     var b = item.book || {};
     item.chap = chapterCounts(b);
-    var urls = (b.modules || []).map(function (m) { return (b.basePath || "") + m.slug + "/_status.md"; });
-    return Promise.all(urls.map(fetchText)).then(function (texts) {
-      var s = emptyStats();
-      texts.forEach(function (t) { parseStatus(t, s); });
-      item.topics = s;
+    var s = emptyStats();
+    (b.modules || []).forEach(function (m) {
+      (m.chapters || []).forEach(function (c) {
+        if (c.topics && c.topics.length) {
+          c.topics.forEach(function (t) {
+            var done = t.status === "done";
+            if (!t.kind) { s.topics++; if (done) s.topicsDone++; }
+            else { var k = (t.kind === "proj" ? "proj" : t.kind); if (s[k]) { s[k].t++; if (done) s[k].d++; } }
+          });
+        } else { s.topics++; if (c.status === "done") s.topicsDone++; }
+      });
     });
+    item.topics = s;
+    return Promise.resolve();
   }
 
   /* ── рендер ─────────────────────────────────────────────────────────── */
@@ -115,6 +124,19 @@
       "(чи підключені manifest-файли перед <code>library.js</code>) і запусти через веб-сервер.</p></div>";
     return;
   }
-  LIB.forEach(function (it) { it.chap = chapterCounts(it.book || {}); });
-  Promise.all(LIB.map(loadBookStats)).then(render).catch(render);
+  // Книга нового формату приходить як meta+modules — складаємо її через bookbuild.js;
+  // legacy-книга вже має готовий it.book.
+  function ensureBook(it) {
+    if (it.book) return Promise.resolve(it.book);
+    if (it.modules && window.assembleBook) {
+      return assembleBook(it.meta, it.modules, it.meta && it.meta.basePath)
+        .then(function (b) { it.book = b; return b; })
+        .catch(function () { it.book = {}; return it.book; });
+    }
+    it.book = {}; return Promise.resolve(it.book);
+  }
+  Promise.all(LIB.map(ensureBook)).then(function () {
+    LIB.forEach(function (it) { it.chap = chapterCounts(it.book || {}); });
+    return Promise.all(LIB.map(loadBookStats));
+  }).then(render).catch(render);
 })();

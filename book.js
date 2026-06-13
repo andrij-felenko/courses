@@ -515,24 +515,22 @@
   /* ════════════════════════════════════════════════════════════════════
      7) ОБКЛАДИНКА / МАПА КУРСУ
      ════════════════════════════════════════════════════════════════════ */
-  // теми розділів для змісту: з _status.md → { "2.1": [{num,title,done}], ... }
-  function parseCoverTopics(text, map) {
-    var cur = null, lines = String(text).split(/\r?\n/);
-    for (var i = 0; i < lines.length; i++) {
-      var hm = lines[i].match(/^##\s+Розділ\s+([\d.]+)/u);
-      if (hm) { cur = hm[1]; if (!map[cur]) map[cur] = { topics: [], specs: [] }; continue; }
-      if (!cur) continue;
-      var tm = lines[i].match(/^\s*-\s*(🟢|🔄|🟡|⬜)\s+(\d+(?:\.\d+)+)\s+(.*)$/u);
-      if (tm) { map[cur].topics.push({ num: tm[2], title: tm[3].replace(/\s*<!--.*$/, "").trim(), done: tm[1] === "🟢" }); continue; }
-      var sm = lines[i].match(/^\s*-\s*(🟢|🔄|🟡|⬜)\s+(📜|🧮|🔌|⚙️|⚙)\s+(.*)$/u);
-      if (sm) {
-        var fm = sm[3].match(/`([^`]+\.md)`/);
-        if (!fm) continue;
-        var am = sm[3].match(/^\(до\s+(?:теми|розділу)\s*([\d.]*)\)/);
-        var title = sm[3].replace(/`[^`]+`\s*$/, "").replace(/\s*—\s*$/, "").replace(/^\([^)]*\)\s*/, "").replace(/\s*<!--.*$/, "").trim();
-        map[cur].specs.push({ type: emojiType(sm[2]), title: title, base: baseOf(fm[1].split("/").pop()), attach: am ? am[1] : "", done: sm[1] === "🟢" });
-      }
-    }
+  // теми/вставки розділів для змісту — з manifest (chapter.topics[]).
+  // Розділ книги-довідника без topics[] лишається без під-тем у списку.
+  function coverMapFromManifest() {
+    var map = {};
+    BOOK.modules.forEach(function (m) {
+      m.chapters.forEach(function (c) {
+        var mr = m.n + "." + c.n, tps = [], sps = [];
+        (c.topics || []).forEach(function (t) {
+          if (!t.kind) tps.push({ num: t.mrt || mr, title: (t.title || "").replace(/\s*<!--.*$/, "").trim(), done: t.status === "done" });
+          else sps.push({ type: (t.kind === "proj" ? "proj" : t.kind), title: (t.title || "").trim(),
+            base: baseOf(String(t.file || "").split("/").pop()), attach: (t.at && t.at !== "chapter") ? t.at : "", done: t.status === "done" });
+        });
+        map[mr] = { topics: tps, specs: sps };
+      });
+    });
+    return map;
   }
   function plTopics(n) {
     var a = n % 10, b = n % 100;
@@ -542,16 +540,8 @@
   }
 
   function renderCover() {
-    setContent('<div class="state"><div class="spinner"></div>Готуємо зміст…</div>');
-    var urls = BOOK.modules.map(function (m) { return BASE + m.slug + "/_status.md"; });
-    Promise.all(urls.map(function (u) {
-      return fetch(u, { cache: "no-cache" }).then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; });
-    })).then(function (texts) {
-      var topics = {};
-      texts.forEach(function (tx) { parseCoverTopics(tx, topics); });
-      setContent(coverHtml(topics));
-      buildCoverSidebar();
-    });
+    setContent(coverHtml(coverMapFromManifest()));
+    buildCoverSidebar();
   }
 
   function coverHtml(topics) {
@@ -700,10 +690,12 @@
     if (reg._book) return Promise.resolve(reg._book);
     if (reg.basePath === BASE) { reg._book = BOOK; return Promise.resolve(BOOK); }
     return fetchText(reg.manifest).then(function (src) {
-      var book = null;
-      try { book = new Function("window", src + "\n;return window.BOOK;")({}); } catch (e) { book = null; }
-      reg._book = book;
-      return book;
+      // Новий формат індексу (BOOK_META+BOOK_MODULES) збираємо через bookbuild.js;
+      // legacy (window.BOOK у самому файлі) — як раніше.
+      var p = window.bookFromIndexSrc
+        ? window.bookFromIndexSrc(src, reg.basePath)
+        : Promise.resolve((function () { try { return new Function("window", src + "\n;return window.BOOK;")({}); } catch (e) { return null; } })());
+      return Promise.resolve(p).then(function (book) { reg._book = book; return book; });
     });
   }
   function chapInBook(book, slug) {

@@ -24,28 +24,27 @@
 
 <!-- Реєстр книг: підключаємо manifest кожної книги й одразу фіксуємо посилання на неї.
      Щоб додати книгу — додай пару рядків (manifest + LIBRARY.push) за зразком. -->
-<script>window.LIBRARY = [];</script>
+<script>
+  window.LIBRARY = [];
+  // Захопити те, що задав щойно підвантажений manifest: новий формат — META+MODULES
+  // (книга збереться у library.js); legacy — готовий BOOK. Глобали скидаємо, щоб не текли в наступну книгу.
+  function __cap(o){ o.book = window.BOOK || null; o.meta = window.BOOK_META || null; o.modules = window.BOOK_MODULES || null;
+    window.BOOK = window.BOOK_META = window.BOOK_MODULES = undefined; window.LIBRARY.push(o); }
+</script>
+<script src="scripts/bookbuild.js?v=1"></script>
 
 <script src="manifest.js"></script>
-<script>
-  window.LIBRARY.push({ id: "electronics", entry: "electronics.html", accent: "#1d6fa4", icon: "⚡", book: window.BOOK });
-</script>
+<script>__cap({ id: "electronics", entry: "electronics.html", accent: "#1d6fa4", icon: "⚡" });</script>
 
 <script src="manifest-chem.js"></script>
-<script>
-  window.LIBRARY.push({ id: "chem", entry: "chem.html", accent: "#16a34a", icon: "⚗️", book: window.BOOK });
-</script>
+<script>__cap({ id: "chem", entry: "chem.html", accent: "#16a34a", icon: "⚗️" });</script>
 
 <script src="manifest-math.js"></script>
-<script>
-  window.LIBRARY.push({ id: "math", entry: "math.html", accent: "#7c3aed", icon: "🧮", book: window.BOOK });
-</script>
+<script>__cap({ id: "math", entry: "math.html", accent: "#7c3aed", icon: "🧮" });</script>
 
 <script src="manifest-comp.js"></script>
-<script>
-  window.LIBRARY.push({ id: "components", entry: "comp.html", accent: "#ea580c", icon: "🔌", book: window.BOOK });
-</script>
+<script>__cap({ id: "components", entry: "comp.html", accent: "#ea580c", icon: "🔌" });</script>
 
-<script src="library.js"></script>
+<script src="library.js?v=1"></script>
 </body>
 </html>
