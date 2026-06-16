@@ -1,142 +1,79 @@
 /* ============================================================================
-   library.js — стартова сторінка-«бібліотека» зі списком книг.
-   Читає window.LIBRARY (масив {id, entry, accent, icon, book}), де book —
-   це той самий об'єкт window.BOOK із відповідного manifest.
-
-   Статистику тем/спец-тем рахуємо ЖИВЦЕМ із _status.md кожного модуля
-   (basePath + module.slug + "/_status.md") — їх веде /loop, тож завжди актуально.
-     • тема         — рядок «- <статус> 2.1.3 Назва» (номер М.Р.Т)
-     • спец-тема    — «- <статус> 📜/🧮/🔌/⚙️ …», рахуємо ОКРЕМО по типах:
-                       📜 історія · 🧮 математика · 🔌 компоненти · ⚙️ проєкти
-     • готова       — статус 🟢 (🔄 «написано, в редактурі» НЕ рахуємо як готову)
+   library.js — стартова сторінка-«бібліотека» з ДВОМА підвкладками:
+   📚 Книги — предметні книги book/<subject> (теорія за галузями);
+   🎓 Курси — guide/<course> (доріжки-посилання крізь книги).
+   Реєстр — window.SUBJECT_BOOKS / window.GUIDE_COURSES (books-index.js).
    ========================================================================== */
 (function () {
   "use strict";
-  var LIB = window.LIBRARY || [];
   var root = document.getElementById("library-root");
   if (!root) return;
-
   function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function fetchText(u) { return fetch(u, { cache: "no-cache" }).then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; }); }
+  function manifestObj(src, key) { var sb = {}; try { new Function("window", src)(sb); } catch (e) {} return (sb[key] || [])[0] || null; }
 
-  // emoji → ключ типу спец-теми (⚙ і ⚙️ → той самий proj)
-  var SPEC = [
-    { e: "📜", key: "hist" }, { e: "🧮", key: "math" },
-    { e: "🔌", key: "comp" }, { e: "⚙️", key: "proj" }, { e: "⚙", key: "proj" }
-  ];
-  // порядок і підписи рядків спец-тем у картці
-  var SPEC_ROWS = [
-    { key: "hist", label: "📜 Історія" }, { key: "math", label: "🧮 Математика" },
-    { key: "comp", label: "🔌 Компоненти" }, { key: "proj", label: "⚙️ Проєкти" }
-  ];
-  function emptyStats() {
-    return { topics: 0, topicsDone: 0, hist: { t: 0, d: 0 }, math: { t: 0, d: 0 }, comp: { t: 0, d: 0 }, proj: { t: 0, d: 0 } };
-  }
-  function parseStatus(text, s) {
-    var lines = String(text).split(/\r?\n/);
-    for (var i = 0; i < lines.length; i++) {
-      var m = lines[i].match(/^\s*-\s*(🟢|🔄|🟡|⬜)\s+(.*)$/u);
-      if (!m) continue;
-      var done = m[1] === "🟢", c = m[2], type = null;
-      for (var k = 0; k < SPEC.length; k++) { if (c.indexOf(SPEC[k].e) === 0) { type = SPEC[k].key; break; } }
-      if (type) { s[type].t++; if (done) s[type].d++; }
-      else if (/^\d+(\.\d+)+/.test(c)) { s.topics++; if (done) s.topicsDone++; }
-    }
-    return s;
-  }
+  var BOOKS = window.SUBJECT_BOOKS || [];
+  var GUIDES = window.GUIDE_COURSES || [];
+  var ICON = { physics: "⚛️", math: "🧮", chemistry: "⚗️", electronics: "🔌", programming: "💻", communications: "📡", algorithms: "🧠", philosophy: "📜" };
 
-  function chapterCounts(book) {
-    var done = 0, total = 0;
-    (book.modules || []).forEach(function (m) {
-      (m.chapters || []).forEach(function (c) { total++; if (c.status === "done") done++; });
+  function loadBook(slug) {
+    return fetchText("book/" + slug + "/manifest.js").then(function (src) {
+      var b = manifestObj(src, "__BOOKS__");
+      var topics = 0, done = 0;
+      ((b && b.sections) || []).forEach(function (sec) { (sec.topics || []).forEach(function (t) { topics++; if (t.status === "done") done++; }); });
+      return { slug: slug, title: (b && b.title) || slug, branches: ((b && b.sections) || []).length, topics: topics, done: done };
     });
-    return { done: done, total: total, mods: (book.modules || []).length };
   }
-
-  function fetchText(url) {
-    return fetch(url, { cache: "no-cache" }).then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; });
-  }
-
-  // Лічба тем/спец-тем — з manifest (chapter.topics[]); розділ книги-довідника = тема.
-  function loadBookStats(item) {
-    var b = item.book || {};
-    item.chap = chapterCounts(b);
-    var s = emptyStats();
-    (b.modules || []).forEach(function (m) {
-      (m.chapters || []).forEach(function (c) {
-        if (c.topics && c.topics.length) {
-          c.topics.forEach(function (t) {
-            var done = t.status === "done";
-            if (!t.kind) { s.topics++; if (done) s.topicsDone++; }
-            else { var k = (t.kind === "proj" ? "proj" : t.kind); if (s[k]) { s[k].t++; if (done) s[k].d++; } }
-          });
-        } else { s.topics++; if (c.status === "done") s.topicsDone++; }
-      });
+  function loadGuide(slug) {
+    return fetchText("guide/" + slug + "/manifest.js").then(function (src) {
+      var g = manifestObj(src, "__GUIDES__");
+      var steps = 0;
+      ((g && g.modules) || []).forEach(function (m) { (m.chapters || []).forEach(function (c) { steps += (c.steps || []).length; }); });
+      return { slug: slug, title: (g && g.title) || slug, modules: ((g && g.modules) || []).length, steps: steps };
     });
-    item.topics = s;
-    return Promise.resolve();
   }
 
-  /* ── рендер ─────────────────────────────────────────────────────────── */
-  function statRow(label, done, total, sub) {
-    return '<div class="lib-stat-row' + (sub ? " lib-stat-sub" : "") + '"><span class="lib-stat-k">' + label + "</span>" +
-      '<span class="lib-stat-v"><b>' + done + "</b> / " + total + "</span></div>";
+  function bookCard(b) {
+    var pct = b.topics ? Math.round(b.done / b.topics * 100) : 0;
+    return '<a class="lib-card" href="read.html?book=' + esc(b.slug) + '" style="--accent:#1d6fa4">' +
+      '<div class="lib-cover"><span class="lib-ico">' + (ICON[b.slug] || "📘") + '</span><span class="lib-short">' + esc(b.title) + '</span></div>' +
+      '<div class="lib-body"><h2>' + esc(b.title) + '</h2>' +
+      '<div class="lib-stats"><div class="lib-stat-row"><span class="lib-stat-k">Галузі</span><span class="lib-stat-v">' + b.branches + '</span></div>' +
+      '<div class="lib-stat-row"><span class="lib-stat-k">Теми</span><span class="lib-stat-v"><b>' + b.done + '</b> / ' + b.topics + '</span></div></div>' +
+      '<div class="lib-bar" title="' + pct + '% написано"><span style="width:' + pct + '%"></span></div>' +
+      '<div class="lib-foot"><span class="lib-modnote">' + b.branches + ' галузей' + (b.done === 0 ? " · порожня" : "") + '</span>' +
+      '<span class="lib-cta">Читати →</span></div></div></a>';
+  }
+  function guideCard(g) {
+    return '<a class="lib-card" href="read.html?guide=' + esc(g.slug) + '" style="--accent:#16a34a">' +
+      '<div class="lib-cover"><span class="lib-ico">🎓</span><span class="lib-short">' + esc(g.title) + '</span></div>' +
+      '<div class="lib-body"><h2>' + esc(g.title) + '</h2><p>Курс — доріжка крізь предметні книги.</p>' +
+      '<div class="lib-stats"><div class="lib-stat-row"><span class="lib-stat-k">Кроків</span><span class="lib-stat-v">' + g.steps + '</span></div></div>' +
+      '<div class="lib-foot"><span class="lib-modnote">' + g.modules + ' модулів</span><span class="lib-cta">Пройти →</span></div></div></a>';
   }
 
-  function card(item) {
-    var b = item.book || {};
-    var c = item.chap || { done: 0, total: 0, mods: 0 };
-    var t = item.topics || emptyStats();
-    var pct = t.topics ? Math.round(t.topicsDone / t.topics * 100) : (c.total ? Math.round(c.done / c.total * 100) : 0);
-    var rows = statRow("Розділи", c.done, c.total) + statRow("Теми", t.topicsDone, t.topics);
-    var specTotal = t.hist.t + t.math.t + t.comp.t + t.proj.t;
-    if (specTotal > 0) {
-      rows += '<div class="lib-stat-head">Спец-теми за типом</div>';
-      SPEC_ROWS.forEach(function (r) { if (t[r.key].t > 0) rows += statRow(r.label, t[r.key].d, t[r.key].t, true); });
-    }
-    return '<a class="lib-card" href="' + esc(item.entry) + '" style="--accent:' + esc(item.accent || "#1d6fa4") + '">' +
-      '<div class="lib-cover"><span class="lib-ico">' + (item.icon || "📘") + "</span>" +
-      '<span class="lib-short">' + esc(b.shortTitle || b.title) + "</span></div>" +
-      '<div class="lib-body">' +
-        "<h2>" + esc(b.title) + "</h2>" +
-        "<p>" + esc(b.subtitle) + "</p>" +
-        '<div class="lib-stats">' + rows + "</div>" +
-        '<div class="lib-bar" title="' + pct + '% тем готово"><span style="width:' + pct + '%"></span></div>' +
-        '<div class="lib-foot"><span class="lib-modnote">' + c.mods + " модулів" + (c.done === 0 ? " · в розробці" : "") + "</span>" +
-        '<span class="lib-cta">Читати →</span></div>' +
-      "</div></a>";
-  }
-
-  function render() {
-    var h = '<header class="lib-hero">' +
-      '<div class="kicker">Бібліотека</div>' +
-      "<h1>Мої книги</h1>" +
-      "<p>Книги, написані під мене й зібрані просто в браузері з Markdown. " +
-      "Обери книгу — і читай її повноцінно, з навігацією, фігурами й історіями.</p>" +
-      "</header>";
-    h += '<div class="lib-shelf">' + LIB.map(card).join("") + "</div>";
+  function render(books, guides) {
+    var h = '<header class="lib-hero"><div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
+      '<p>Предметні <b>книги</b> — теорія за галузями науки; <b>курси</b> — доріжки, що сплітають теми в навчання.</p>' +
+      '<div class="lib-tabs"><button class="lib-tab active" data-tab="books">📚 Книги (' + books.length + ')</button>' +
+      '<button class="lib-tab" data-tab="guides">🎓 Курси (' + guides.length + ')</button></div></header>';
+    h += '<div class="lib-shelf" id="tab-books">' + books.map(bookCard).join("") + '</div>';
+    h += '<div class="lib-shelf" id="tab-guides" hidden>' + guides.map(guideCard).join("") + '</div>';
     root.innerHTML = h;
     document.title = "Бібліотека — мої книги";
+    var tabs = [].slice.call(root.querySelectorAll(".lib-tab"));
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        tabs.forEach(function (x) { x.classList.remove("active"); });
+        t.classList.add("active");
+        var which = t.getAttribute("data-tab");
+        root.querySelector("#tab-books").hidden = (which !== "books");
+        root.querySelector("#tab-guides").hidden = (which !== "guides");
+      });
+    });
   }
 
-  if (!LIB.length) {
-    root.innerHTML = '<div class="state error"><h2>Бібліотека порожня</h2>' +
-      "<p>Жоден <code>manifest</code> не завантажився. Перевір <code>index.html</code> " +
-      "(чи підключені manifest-файли перед <code>library.js</code>) і запусти через веб-сервер.</p></div>";
-    return;
-  }
-  // Книга нового формату приходить як meta+modules — складаємо її через bookbuild.js;
-  // legacy-книга вже має готовий it.book.
-  function ensureBook(it) {
-    if (it.book) return Promise.resolve(it.book);
-    if (it.modules && window.assembleBook) {
-      return assembleBook(it.meta, it.modules, it.meta && it.meta.basePath)
-        .then(function (b) { it.book = b; return b; })
-        .catch(function () { it.book = {}; return it.book; });
-    }
-    it.book = {}; return Promise.resolve(it.book);
-  }
-  Promise.all(LIB.map(ensureBook)).then(function () {
-    LIB.forEach(function (it) { it.chap = chapterCounts(it.book || {}); });
-    return Promise.all(LIB.map(loadBookStats));
-  }).then(render).catch(render);
+  Promise.all([Promise.all(BOOKS.map(loadBook)), Promise.all(GUIDES.map(loadGuide))])
+    .then(function (r) { render(r[0], r[1]); })
+    .catch(function (e) { root.innerHTML = '<div class="state error"><h2>Помилка</h2><p><code>' + esc(e && e.message) + '</code></p></div>'; });
 })();

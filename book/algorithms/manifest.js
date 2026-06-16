@@ -1,0 +1,98 @@
+/* book/algorithms/manifest.js — книга-предмет «Алгоритми» (тип "book").
+   Галузі → теми (плейсхолдери: status:"empty", origin = старе розташування для кроку 5).
+   Схема: { type, slug, title, sections:[ {slug,title,scope, topics:[ {slug,title,status,origin} ]} ] } */
+(window.__BOOKS__ = window.__BOOKS__ || []).push({
+  type: "book",
+  slug: "algorithms",
+  title: "Алгоритми",
+  sections: [
+    { slug: "complexity-computability", title: "Складність", scope: "Теорія обчислюваності та складності: межі обчислюваного, класи задач, нижні оцінки.", topics: [] },
+    { slug: "design-paradigms", title: "Парадигми", scope: "Загальні методи побудови алгоритмів — каркаси розв'язків для широких класів задач.", topics: [] },
+    { slug: "data-structures", title: "Структури", scope: "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком.",
+      topics: [
+      { slug: "bit-flips", title: "Перевернуті біти", status: "empty", origin: "embedded/block-3-digital-processor/error-correction#3.9.1" }
+      ] },
+    { slug: "graph-algorithms", title: "Графові", scope: "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.", topics: [] },
+    { slug: "string-geometry-streaming", title: "Дискретні", scope: "Алгоритми над текстом, геометрією та потоками: пошук і вирівнювання рядків, оболонки й перетини фігур, онлайн-рішення та один прохід над масивними даними.", topics: [] },
+    { slug: "numerical-algorithms", title: "Числові", scope: "Арифметика великих чисел, лінійна алгебра, чисельні методи, точні та наближені обчислення.", topics: [] },
+    { slug: "combinatorial-optimization", title: "Оптимізація", scope: "Пошук найкращого розв'язку в дискретних і неперервних просторах: лінійне, цілочисельне програмування, евристики.", topics: [] },
+    { slug: "cryptographic-algorithms", title: "Криптографія", scope: "Шифрування, хеш-функції, цифрові підписи, протоколи обміну ключами.", topics: [] },
+    { slug: "data-compression", title: "Стиснення", scope: "Скорочення даних без втрат і з втратами: ентропійне, словникове, трансформаційне кодування.",
+      topics: [
+      { slug: "why-compress", title: "Навіщо стискати", status: "empty", origin: "embedded/block-7-systems/video-signals-2#7.8.1" },
+      { slug: "jpeg-intra", title: "JPEG", status: "empty", origin: "embedded/block-7-systems/video-signals-2#7.8.2" },
+      { slug: "inter-frame", title: "Міжкадрове стиснення", status: "empty", origin: "embedded/block-7-systems/video-signals-2#7.8.3" },
+      { slug: "mjpeg-vs-h264", title: "MJPEG vs H.264", status: "empty", origin: "embedded/block-7-systems/video-signals-2#7.8.4" },
+      { slug: "quality-bitrate", title: "Якість і бітрейт", status: "empty", origin: "embedded/block-7-systems/video-signals-2#7.8.5" },
+      { slug: "lossless-huffman-lz", title: "Стиснення без втрат", status: "empty", origin: "embedded/block-7-systems/video-signals-2#7.8.8" }
+      ] },
+    { slug: "machine-learning", title: "Машинне навчання", scope: "Алгоритми, що будують моделі з даних: навчання з учителем і без, ансамблі, нейромережі, навчання з підкріпленням.",
+      topics: [
+      { slug: "what-is-ml", title: "Що таке ML", status: "empty", origin: "embedded/block-7-systems/machine-learning#7.10.1" },
+      { slug: "train-vs-inference", title: "Навчання vs вивід", status: "empty", origin: "embedded/block-7-systems/machine-learning#7.10.2" },
+      { slug: "neuron-layer", title: "Нейрон і шар", status: "empty", origin: "embedded/block-7-systems/machine-learning#7.10.3" },
+      { slug: "gradient-descent", title: "Градієнтний спуск", status: "empty", origin: "embedded/block-7-systems/machine-learning#7.10.4" },
+      { slug: "cnn", title: "Згорткові мережі", status: "empty", origin: "embedded/block-7-systems/machine-learning#7.10.5" },
+      { slug: "overfitting", title: "Перенавчання", status: "empty", origin: "embedded/block-7-systems/machine-learning#7.10.6" },
+      { slug: "tinyml", title: "TinyML", status: "empty", origin: "embedded/block-7-systems/machine-learning#7.10.7" },
+      { slug: "where-to-compute", title: "Де рахувати", status: "empty", origin: "embedded/block-7-systems/machine-learning#7.10.8" },
+      { slug: "ml-limits-ethics", title: "Межі й етика", status: "empty", origin: "embedded/block-7-systems/machine-learning#7.10.9" }
+      ] },
+    { slug: "computer-vision", title: "Зір", scope: "Аналіз зображень і відео: фільтрація, ознаки, сегментація, відновлення геометрії сцени.",
+      topics: [
+      { slug: "bayer-demosaic", title: "Демозаїка", status: "empty", origin: "embedded/block-7-systems/video-signals-1#7.7.3" },
+      { slug: "image-as-data", title: "Зображення як дані", status: "empty", origin: "embedded/block-7-systems/computer-vision#7.9.1" },
+      { slug: "histogram", title: "Гістограма", status: "empty", origin: "embedded/block-7-systems/computer-vision#7.9.2" },
+      { slug: "convolution-filters", title: "Згортки й фільтри", status: "empty", origin: "embedded/block-7-systems/computer-vision#7.9.3" },
+      { slug: "edge-detection", title: "Виділення меж", status: "empty", origin: "embedded/block-7-systems/computer-vision#7.9.4" },
+      { slug: "threshold-morphology", title: "Пороги й морфологія", status: "empty", origin: "embedded/block-7-systems/computer-vision#7.9.5" },
+      { slug: "object-detection", title: "Виявлення об'єктів", status: "empty", origin: "embedded/block-7-systems/computer-vision#7.9.6" },
+      { slug: "nn-detectors", title: "Нейродетектори", status: "empty", origin: "embedded/block-7-systems/computer-vision#7.9.7" },
+      { slug: "tracking", title: "Трекінг", status: "empty", origin: "embedded/block-7-systems/computer-vision#7.9.8" },
+      { slug: "compute-cost", title: "Вартість обчислень", status: "empty", origin: "embedded/block-7-systems/computer-vision#7.9.9" }
+      ] },
+    { slug: "signal-robotics", title: "Сигнали", scope: "Цифрова обробка сигналів (спектр, фільтрація, дискретизація) разом із плануванням руху, локалізацією та керуванням автономних агентів.",
+      topics: [
+      { slug: "signal-noise", title: "Шум у сигналі", status: "empty", origin: "embedded/block-5-sensors-control/digital-filtering#5.4.1" },
+      { slug: "moving-average", title: "Ковзне середнє", status: "empty", origin: "embedded/block-5-sensors-control/digital-filtering#5.4.2" },
+      { slug: "median-filter", title: "Медіанний фільтр", status: "empty", origin: "embedded/block-5-sensors-control/digital-filtering#5.4.3" },
+      { slug: "ema", title: "EMA", status: "empty", origin: "embedded/block-5-sensors-control/digital-filtering#5.4.4" },
+      { slug: "smoothing-vs-lag", title: "Згладжування й затримка", status: "empty", origin: "embedded/block-5-sensors-control/digital-filtering#5.4.5" },
+      { slug: "choosing-a-filter", title: "Вибір фільтра", status: "empty", origin: "embedded/block-5-sensors-control/digital-filtering#5.4.6" },
+      { slug: "fft", title: "ШПФ", status: "empty", origin: "embedded/block-5-sensors-control/spectrum-fourier#5.5.5" },
+      { slug: "filter-as-spectrum-shaper", title: "Формувач спектра", status: "empty", origin: "embedded/block-5-sensors-control/digital-filters-mcu#5.6.1" },
+      { slug: "fir-filter", title: "КІХ-фільтр", status: "empty", origin: "embedded/block-5-sensors-control/digital-filters-mcu#5.6.2" },
+      { slug: "iir-filter", title: "БІХ-фільтр", status: "empty", origin: "embedded/block-5-sensors-control/digital-filters-mcu#5.6.3" },
+      { slug: "band-filters", title: "Смугові фільтри", status: "empty", origin: "embedded/block-5-sensors-control/digital-filters-mcu#5.6.4" },
+      { slug: "fixed-point-implementation", title: "Реалізація fixed-point", status: "empty", origin: "embedded/block-5-sensors-control/digital-filters-mcu#5.6.5" },
+      { slug: "fir-vs-iir", title: "КІХ проти БІХ", status: "empty", origin: "embedded/block-5-sensors-control/digital-filters-mcu#5.6.6" },
+      { slug: "sensor-fusion", title: "Фьюжн", status: "empty", origin: "embedded/block-5-sensors-control/imu-mems#5.7.6" },
+      { slug: "complementary-filter", title: "Комплементарний фільтр", status: "empty", origin: "embedded/block-5-sensors-control/orientation-pid#5.8.3" },
+      { slug: "kalman-filter", title: "Фільтр Калмана", status: "empty", origin: "embedded/block-5-sensors-control/orientation-pid#5.8.4" },
+      { slug: "discrete-pid", title: "Дискретний ПІД", status: "empty", origin: "embedded/block-5-sensors-control/orientation-pid#5.8.9" },
+      { slug: "sensor-insufficiency", title: "Недостатність давача", status: "empty", origin: "embedded/block-7-systems/state-estimation-fusion#7.5.1" },
+      { slug: "motion-model", title: "Модель руху", status: "empty", origin: "embedded/block-7-systems/state-estimation-fusion#7.5.2" },
+      { slug: "predict-vs-measure", title: "Передбачення vs вимір", status: "empty", origin: "embedded/block-7-systems/state-estimation-fusion#7.5.3" },
+      { slug: "kalman-ekf", title: "Фільтр Калмана", status: "empty", origin: "embedded/block-7-systems/state-estimation-fusion#7.5.4" },
+      { slug: "sensor-fusion-2", title: "Сенсорний фьюжн", status: "empty", origin: "embedded/block-7-systems/state-estimation-fusion#7.5.5" },
+      { slug: "latency-sync", title: "Затримки й синхро", status: "empty", origin: "embedded/block-7-systems/state-estimation-fusion#7.5.6" },
+      { slug: "odometry", title: "Одометрія", status: "empty", origin: "embedded/undefined#5.3.7" },
+      { slug: "motion-profiles", title: "Профілі руху", status: "empty", origin: "embedded/undefined#5.9.9" },
+      { slug: "roll-pitch-yaw-control", title: "Керування roll/pitch/yaw", status: "empty", origin: "embedded/undefined#7.2.3" },
+      { slug: "motor-mixer", title: "Мікшер", status: "empty", origin: "embedded/undefined#7.2.4" },
+      { slug: "instability-stabilization", title: "Потреба стабілізації", status: "empty", origin: "embedded/undefined#7.2.5" },
+      { slug: "stabilization-cascade", title: "Каскад стабілізації", status: "empty", origin: "embedded/undefined#7.2.8" },
+      { slug: "missions-waypoints", title: "Місії й точки", status: "empty", origin: "embedded/undefined#7.6.4" },
+      { slug: "sense-decide-act-loop", title: "Контур offboard", status: "empty", origin: "embedded/undefined#7.11.4" },
+      { slug: "one-stack-many-bodies", title: "Один стек", status: "empty", origin: "embedded/undefined#7.12.1" },
+      { slug: "rover-steering", title: "Ровер", status: "empty", origin: "embedded/undefined#7.12.2" },
+      { slug: "boat-underwater", title: "Човен і підводний", status: "empty", origin: "embedded/undefined#7.12.5" },
+      { slug: "pure-pursuit-navigation", title: "Навігація pure pursuit", status: "empty", origin: "embedded/undefined#7.12.7" },
+      { slug: "platform-selection", title: "Вибір платформи", status: "empty", origin: "embedded/undefined#7.12.8" },
+      { slug: "mission-planning-map", title: "Планування на карті", status: "empty", origin: "embedded/undefined#7.13.4" },
+      { slug: "closing-the-loop", title: "Замкнути контур", status: "empty", origin: "embedded/undefined#7.14.5" },
+      { slug: "where-next", title: "Куди далі", status: "empty", origin: "embedded/undefined#7.14.8" }
+      ] },
+    { slug: "parallel-distributed", title: "Паралельні", scope: "Одночасне виконання на багатьох процесорах зі спільною пам'яттю та системи незалежних вузлів з обміном повідомленнями: примітиви, синхронізація, консенсус, відмовостійкість.", topics: [] }
+  ]
+});

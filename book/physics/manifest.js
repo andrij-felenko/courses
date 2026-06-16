@@ -1,0 +1,97 @@
+/* book/physics/manifest.js — книга-предмет «Фізика» (тип "book").
+   Галузі → теми (плейсхолдери: status:"empty", origin = старе розташування для кроку 5).
+   Схема: { type, slug, title, sections:[ {slug,title,scope, topics:[ {slug,title,status,origin} ]} ] } */
+(window.__BOOKS__ = window.__BOOKS__ || []).push({
+  type: "book",
+  slug: "physics",
+  title: "Фізика",
+  sections: [
+    { slug: "mechanics", title: "Механіка", scope: "Рух точок, систем і твердого тіла під дією сил із законами збереження; лагранжів і гамільтонів формалізми та зв'язок симетрій зі збереженнями; нелінійна й дисипативна динаміка (стійкість, біфуркації, хаос, атрактори); деформації пружних тіл і плинність рідин та газів як суцільних середовищ.",
+      topics: [
+      { slug: "thrust-vs-weight", title: "Тяга проти ваги", status: "empty", origin: "embedded/undefined#7.2.1" },
+      { slug: "reaction-torque", title: "Реактивний момент", status: "empty", origin: "embedded/undefined#7.2.2" },
+      { slug: "frame-configurations", title: "Рами й конфігурації", status: "empty", origin: "embedded/undefined#7.2.6" },
+      { slug: "propeller-geometry", title: "Гвинт", status: "empty", origin: "embedded/undefined#7.2.7" },
+      { slug: "fixed-wing-lift", title: "Літак", status: "empty", origin: "embedded/undefined#7.12.3" },
+      { slug: "vtol-transition", title: "VTOL-гібриди", status: "empty", origin: "embedded/undefined#7.12.4" }
+      ] },
+    { slug: "oscillations-waves", title: "Хвилі", scope: "Періодичний рух біля рівноваги та поширення механічних збурень: коливання, резонанс, дисперсія, інтерференція, звук.",
+      topics: [
+      { slug: "sine-wave", title: "Синусоїда", status: "empty", origin: "embedded/block-1-circuits-physics/ac-signals#1.7.1" },
+      { slug: "amplitude-frequency", title: "Амплітуда й частота", status: "empty", origin: "embedded/block-1-circuits-physics/ac-signals#1.7.2" },
+      { slug: "phase", title: "Фаза", status: "empty", origin: "embedded/block-1-circuits-physics/ac-signals#1.7.3" }
+      ] },
+    { slug: "thermal-statistical", title: "Термодинаміка", scope: "Макроскопічні закони теплоти, роботи, температури й ентропії, цикли та фазові переходи разом із їх мікроскопічним виведенням зі статистичних ансамблів: розподіли, флуктуації, критичні явища.",
+      topics: [
+      { slug: "thermal-resistance", title: "Тепловий опір", status: "empty", origin: "embedded/block-1-circuits-physics/resistance-power-heat#1.3.9" },
+      { slug: "heat-transfer", title: "Передача тепла", status: "empty", origin: "embedded/block-1-circuits-physics/resistance-power-heat#1.3.10" },
+      { slug: "thermal-noise", title: "Тепловий шум", status: "empty", origin: "embedded/block-1-circuits-physics/noise-interference#1.9.2" }
+      ] },
+    { slug: "electromagnetism", title: "Електромагнетизм", scope: "Заряди й поля, струм і провідність, магнетизм та індукція, зведені в рівняння Максвелла.",
+      topics: [
+      { slug: "electric-charge", title: "Заряд", status: "empty", origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.1" },
+      { slug: "coulomb-law", title: "Закон Кулона", status: "empty", origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.2" },
+      { slug: "electric-field", title: "Електричне поле", status: "empty", origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.3" },
+      { slug: "electric-potential", title: "Потенціал", status: "empty", origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.4" },
+      { slug: "volt", title: "Вольт", status: "empty", origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.5" },
+      { slug: "field-and-potential", title: "Поле й потенціал", status: "empty", origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.6" },
+      { slug: "electrostatics-summary", title: "Зведення електростатики", status: "empty", origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.7" },
+      { slug: "faraday-cage", title: "Клітка Фарадея", status: "empty", origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.8" },
+      { slug: "electric-current", title: "Струм", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.1" },
+      { slug: "current-direction", title: "Напрямок струму", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.2" },
+      { slug: "signal-speed", title: "Швидкість сигналу", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.4" },
+      { slug: "current-continuity", title: "Неперервність струму", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.5" },
+      { slug: "voltage", title: "Напруга", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.6" },
+      { slug: "closed-circuit", title: "Замкнене коло", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.7" },
+      { slug: "ionic-conduction", title: "Іонна провідність", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.11" },
+      { slug: "dc-vs-ac", title: "DC і AC", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.12" },
+      { slug: "current-safety", title: "Електробезпека", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.13" },
+      { slug: "electric-power", title: "Потужність", status: "empty", origin: "embedded/block-1-circuits-physics/resistance-power-heat#1.3.5" },
+      { slug: "joule-heating", title: "Джоулеве тепло", status: "empty", origin: "embedded/block-1-circuits-physics/resistance-power-heat#1.3.6" },
+      { slug: "rms-value", title: "Діюче значення", status: "empty", origin: "embedded/block-1-circuits-physics/ac-signals#1.7.4" },
+      { slug: "ac-power-grid", title: "Змінна мережа", status: "empty", origin: "embedded/block-1-circuits-physics/ac-signals#1.7.6" },
+      { slug: "magnetic-field", title: "Магнітне поле", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.1" },
+      { slug: "oersted-experiment", title: "Дослід Ерстеда", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.4" },
+      { slug: "electromagnet", title: "Електромагніт", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.5" },
+      { slug: "ampere-force", title: "Сила Ампера", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.7" },
+      { slug: "hall-effect", title: "Ефект Холла", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.8" },
+      { slug: "earth-magnetic-field", title: "Поле Землі", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.9" },
+      { slug: "electromagnetic-induction", title: "Електромагнітна індукція", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.10" },
+      { slug: "noise-interference", title: "Шум і завади", status: "empty", origin: "embedded/block-1-circuits-physics/noise-interference#1.9.1" },
+      { slug: "capacitive-coupling", title: "Ємнісна наводка", status: "empty", origin: "embedded/block-1-circuits-physics/noise-interference#1.9.4" },
+      { slug: "inductive-coupling", title: "Індуктивна наводка", status: "empty", origin: "embedded/block-1-circuits-physics/noise-interference#1.9.5" },
+      { slug: "triboelectricity", title: "Трибоелектрика", status: "empty", origin: "embedded/block-1-circuits-physics/esd-static#1.10.1" },
+      { slug: "body-charge", title: "Заряд тіла", status: "empty", origin: "embedded/block-1-circuits-physics/esd-static#1.10.2" },
+      { slug: "lightning", title: "Блискавка", status: "empty", origin: "embedded/block-1-circuits-physics/esd-static#1.10.4" },
+      { slug: "humidity-static-control", title: "Вологість і статика", status: "empty", origin: "embedded/block-1-circuits-physics/esd-static#1.10.8" },
+      { slug: "em-wave", title: "Електромагнітна хвиля", status: "empty", origin: "embedded/block-6-comms-radio/radio-em-waves#6.6.1" },
+      { slug: "frequency-wavelength", title: "Частота й довжина", status: "empty", origin: "embedded/block-6-comms-radio/radio-em-waves#6.6.2" }
+      ] },
+    { slug: "optics", title: "Оптика", scope: "Поширення електромагнітних хвиль і поведінка світла як променя й хвилі: відбиття, заломлення, дифракція, поляризація.", topics: [] },
+    { slug: "relativity", title: "Відносність", scope: "Фізика великих швидкостей і викривленого простору-часу: спеціальна та загальна теорія відносності й гравітація як геометрія.", topics: [] },
+    { slug: "quantum-mechanics", title: "Квантова механіка", scope: "Дискретність, дуалізм і ймовірнісний опис мікросвіту (рівняння Шредінгера, оператори, заплутаність) разом із будовою, спектрами та світловими переходами атомів і молекул і квантовою природою хімічного зв'язку.", topics: [] },
+    { slug: "condensed-matter-physics", title: "Конденсована речовина", scope: "Колективні квантові ефекти у твердих тілах і рідинах (кристали, зонна структура, напівпровідники, надпровідність, магнетизм) та іонізований стан речовини з динамікою заряджених частинок у полях: розряди, утримання, хвилі в плазмі.",
+      topics: [
+      { slug: "electron-drift", title: "Дрейф електронів", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.3" },
+      { slug: "conductors-insulators", title: "Провідники й діелектрики", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.8" },
+      { slug: "resistance-origin", title: "Природа опору", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.9" },
+      { slug: "conductivity", title: "Провідність", status: "empty", origin: "embedded/block-1-circuits-physics/voltage-current-conduction#1.2.10" },
+      { slug: "resistance", title: "Опір", status: "empty", origin: "embedded/block-1-circuits-physics/resistance-power-heat#1.3.1" },
+      { slug: "resistivity", title: "Питомий опір", status: "empty", origin: "embedded/block-1-circuits-physics/resistance-power-heat#1.3.3" },
+      { slug: "resistance-temperature", title: "Опір і температура", status: "empty", origin: "embedded/block-1-circuits-physics/resistance-power-heat#1.3.4" },
+      { slug: "ferromagnetism", title: "Феромагнетизм", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.2" },
+      { slug: "permanent-magnets", title: "Постійні магніти", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.3" },
+      { slug: "saturation-hysteresis", title: "Насичення й гістерезис", status: "empty", origin: "embedded/block-1-circuits-physics/magnetism#1.8.6" },
+      { slug: "shot-flicker-noise", title: "Дробовий шум", status: "empty", origin: "embedded/block-1-circuits-physics/noise-interference#1.9.3" },
+      { slug: "air-breakdown", title: "Пробій повітря", status: "empty", origin: "embedded/block-1-circuits-physics/esd-static#1.10.3" },
+      { slug: "semiconductor", title: "Напівпровідник", status: "empty", origin: "embedded/block-2-components-analog/diode-pn-junction#2.5.1" },
+      { slug: "doping", title: "Легування", status: "empty", origin: "embedded/block-2-components-analog/diode-pn-junction#2.5.2" },
+      { slug: "pn-junction", title: "PN-перехід", status: "empty", origin: "embedded/block-2-components-analog/diode-pn-junction#2.5.3" },
+      { slug: "piezoelectric-effect", title: "П'єзоефект", status: "empty", origin: "embedded/block-2-components-analog/resonators-references#2.10.2" },
+      { slug: "memory-cell-physics", title: "Фізика комірок", status: "empty", origin: "embedded/block-3-digital-processor/memory-stack-heap#3.6.8" }
+      ] },
+    { slug: "nuclear-particle", title: "Ядерна фізика", scope: "Будова, стійкість і перетворення ядра (радіоактивність, поділ, синтез, ядерні моделі) та елементарні частинки й фундаментальні взаємодії: Стандартна модель, кварки, калібрувальні поля, симетрії, механізм Хіггса.", topics: [] },
+    { slug: "astrophysics-cosmology", title: "Астрофізика", scope: "Будова й еволюція зір, галактик і компактних об'єктів (акреція, нейтронні зорі) разом із походженням і еволюцією Всесвіту як цілого: розширення, реліктове випромінювання, темна матерія й темна енергія.", topics: [] },
+    { slug: "biophysics", title: "Біофізика", scope: "Фізичні принципи живих систем: мембрани, молекулярні мотори, дифузія в клітині, ентропійна пружність, низькорейнольдсова гідродинаміка.", topics: [] }
+  ]
+});

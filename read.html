@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Читач</title>
+<link rel="stylesheet" href="book.css">
+</head>
+<body>
+
+<button id="menu-btn" aria-label="Меню">☰</button>
+<nav id="sidebar" aria-label="Навігація"></nav>
+<div id="scrim"></div>
+<main id="content"><div class="state"><div class="spinner"></div>Готуємо…</div></main>
+<button id="back-top" aria-label="Догори" title="Догори">↑</button>
+
+<noscript><div style="max-width:700px;margin:3rem auto;padding:0 1.5rem">Потрібен JavaScript.</div></noscript>
+
+<!-- Універсальний читач: ?book=<subject> (предметна книга) або ?guide=<course> (курс) -->
+<script src="scripts/bookbuild.js?v=2"></script>
+<script>
+(function () {
+  var p = new URLSearchParams(location.search);
+  var content = document.getElementById("content");
+  if (p.get("book")) {
+    loadSubjectBook(p.get("book")).then(function (b) {
+      if (!b) { content.innerHTML = '<div class="state error">Книгу не знайдено</div>'; return; }
+      window.BOOK = b;
+      var s = document.createElement("script"); s.src = "book.js?v=2"; document.body.appendChild(s);
+    });
+  } else if (p.get("guide")) {
+    loadGuide(p.get("guide")).then(function (g) { renderGuide(g); });
+  } else {
+    content.innerHTML = '<div class="state">Вкажи <code>?book=…</code> або <code>?guide=…</code></div>';
+  }
+})();
+</script>
+</body>
+</html>
