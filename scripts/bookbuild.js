@@ -134,15 +134,18 @@
   function loadOne(path, key) { return fetchText(path).then(function (src) { var sb = {}; try { new Function("window", src)(sb); } catch (e) {} return (sb[key] || [])[0] || null; }); }
 
   // book/<subject>/manifest.js (sections→topics) → формат рушія BOOK (sections=modules, topics=chapters)
+  var SUBJECT_ACCENT = { physics: "#6b5b95", math: "#3a6b9c", chemistry: "#3a8f80", electronics: "#b06a5a", programming: "#5a5f9c", communications: "#4a8296", algorithms: "#a5648a", philosophy: "#9a7b4f" };
   function adaptSubjectBook(b) {
     if (!b) return null;
     return {
       title: b.title, shortTitle: b.title, subtitle: b.subtitle || "", libraryHref: "index.html",
-      basePath: "book/" + b.slug + "/", type: "book", bookSlug: b.slug,
+      basePath: "book/" + b.slug + "/", type: "book", bookSlug: b.slug, accent: SUBJECT_ACCENT[b.slug] || "#1d6fa4",
       modules: (b.sections || []).map(function (sec, i) {
         return { n: i + 1, slug: sec.slug, title: sec.title,
           chapters: (sec.topics || []).map(function (t, j) {
-            return { n: j + 1, title: t.title, status: t.status || "empty", dir: sec.slug + "/" + t.slug, main: t.slug + ".md" };
+            return { n: j + 1, title: t.title, status: t.status || "empty", dir: sec.slug + "/" + t.slug, main: t.slug + ".md",
+              full: !!(t.levels && t.levels.indexOf("detailed") >= 0),   // існує повна -d.md версія
+              histories: t.histories || [], extras: t.extras || [] };    // вставки -h/-m/-c → попапи (як у embedded)
           }) };
       })
     };
@@ -150,27 +153,39 @@
   function loadSubjectBook(slug) { return loadOne("book/" + slug + "/manifest.js", "__BOOKS__").then(adaptSubjectBook); }
   function loadGuide(slug) { return loadOne("guide/" + slug + "/manifest.js", "__GUIDES__"); }
 
-  // Курс guide/<course>: доріжка-посилання (ref → тема book/, bridge → власний крок)
+  // Курс guide/<course>: ВПОРЯДКОВАНА доріжка з нумерацією (Модуль М · крок М.Р · посилання М.Р.К).
+  // ref → крок-посилання на тему предметної книги; bridge → власний місток (синтез взаємодії тем).
   function renderGuide(g) {
     var host = document.getElementById("content"), sb = document.getElementById("sidebar");
     if (!g) { if (host) host.innerHTML = '<div class="state error">Курс не знайдено</div>'; return; }
     document.title = g.title + " — курс";
-    var h = '<header class="cover-hero"><div class="kicker">Курс</div><h1>' + _esc(g.title) +
-      '</h1><p>Доріжка крізь предметні книги: кожен крок — посилання на тему.</p></header><div class="toc">';
-    (g.modules || []).forEach(function (m) {
-      h += '<div class="module-block"><div class="module-head"><span class="m-num">Модуль ' + _esc(String(m.n)) +
+    var mods = g.modules || [], nStep = 0;
+    mods.forEach(function (m) { (m.chapters || []).forEach(function (c) { nStep += (c.steps || []).length; }); });
+    var h = '<header class="cover-hero"><div class="kicker">Курс · доріжка крізь книги</div><h1>' + _esc(g.title) + '</h1>' +
+      '<p>' + _esc(g.subtitle || "Кожен крок — посилання на тему предметної книги; містки сплітають теми разом.") + '</p>' +
+      '<div class="cover-stats"><div class="stat"><div class="num">' + mods.length + '</div><div class="lbl">модулів</div></div>' +
+      '<div class="stat"><div class="num">' + nStep + '</div><div class="lbl">кроків</div></div></div></header><div class="toc guide-toc">';
+    mods.forEach(function (m, mi) {
+      var mn = m.n || (mi + 1);
+      h += '<div class="module-block" id="gm-' + mn + '"><div class="module-head"><span class="m-num">Модуль ' + mn +
         '</span><span class="m-ttl">' + _esc(m.title) + '</span></div><div class="ch-list">';
-      (m.chapters || []).forEach(function (c) {
-        h += '<div class="ch-item done"><div style="font-weight:600;margin:.4rem 0 .2rem">' + _esc(c.title) + '</div>';
-        (c.steps || []).forEach(function (s) {
+      (m.chapters || []).forEach(function (c, ci) {
+        var cn = mn + "." + (ci + 1);
+        h += '<div class="guide-chap" id="gc-' + mn + "-" + (ci + 1) + '"><div class="guide-chap-head">' +
+          '<span class="gc-num">' + cn + '</span><span class="gc-ttl">' + _esc(c.title) + '</span></div><ol class="guide-steps">';
+        (c.steps || []).forEach(function (s, si) {
+          var kn = cn + "." + (si + 1);
           if (s.ref) {
             var pr = String(s.ref).split("/"), subj = pr[0], top = pr[pr.length - 1];
-            h += '<a class="ch-open" href="read.html?book=' + encodeURIComponent(subj) + '#ch=' + encodeURIComponent(top) +
-              '" style="display:flex;gap:.5rem;align-items:baseline;padding:.3rem .6rem"><span class="c-num">📖</span>' +
-              '<span class="c-ttl">' + _esc(s.title || top) + '</span><span class="lib-modnote" style="margin-left:auto">' + _esc(subj) + '</span></a>';
-          } else { h += '<div style="padding:.3rem .6rem;opacity:.85">🔗 ' + _esc(s.title || "місток") + '</div>'; }
+            h += '<li class="guide-step"><a href="read.html?course=' + encodeURIComponent(g.slug) + '&book=' + encodeURIComponent(subj) + '#ch=' + encodeURIComponent(top) + '">' +
+              '<span class="gs-num">' + kn + '</span><span class="gs-ico">📖</span><span class="gs-ttl">' + _esc(s.title || top) +
+              '</span><span class="gs-subj">' + _esc(subj) + '</span></a></li>';
+          } else {
+            h += '<li class="guide-step bridge"><span class="gs-num">' + kn + '</span><span class="gs-ico">🔗</span>' +
+              '<span class="gs-ttl">' + _esc(s.title || "місток") + '</span><span class="gs-subj">місток</span></li>';
+          }
         });
-        h += '</div>';
+        h += '</ol></div>';
       });
       h += '</div></div>';
     });
@@ -178,7 +193,13 @@
     if (sb) {
       var s = '<a class="sb-home" href="index.html">← Бібліотека (усі книги)</a>' +
         '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Курс</span><span class="sb-logo-title">' + _esc(g.title) + '</span></a>';
-      (g.modules || []).forEach(function (m) { s += '<div class="sb-group-label">Модуль ' + _esc(String(m.n)) + ' · ' + _esc(m.title) + '</div>'; });
+      mods.forEach(function (m, mi) {
+        var mn = m.n || (mi + 1);
+        s += '<a class="sb-link sb-mod" href="#gm-' + mn + '">Модуль ' + mn + ' · ' + _esc(m.title) + '</a>';
+        (m.chapters || []).forEach(function (c, ci) {
+          s += '<a class="sb-link sb-subchap" href="#gc-' + mn + "-" + (ci + 1) + '">' + mn + "." + (ci + 1) + ' · ' + _esc(c.title) + '</a>';
+        });
+      });
       sb.innerHTML = s;
     }
   }

@@ -14,7 +14,18 @@
 
   var BOOKS = window.SUBJECT_BOOKS || [];
   var GUIDES = window.GUIDE_COURSES || [];
-  var ICON = { physics: "⚛️", math: "🧮", chemistry: "⚗️", electronics: "🔌", programming: "💻", communications: "📡", algorithms: "🧠", philosophy: "📜" };
+  var ICON = { physics: "⚛️", math: "🧮", chemistry: "⚗️", electronics: "🔌", programming: "💻", communications: "📡", algorithms: "🧠", philosophy: "🦉" };
+  var ACCENT = { physics: "#6b5b95", math: "#3a6b9c", chemistry: "#3a8f80", electronics: "#b06a5a", programming: "#5a5f9c", communications: "#4a8296", algorithms: "#a5648a", philosophy: "#9a7b4f" };
+  var DESC = {
+    physics: "Як влаштований світ: рух, енергія, поля, кванти.",
+    math: "Мова науки: числа, форми, функції, логіка міркувань.",
+    chemistry: "Речовини, атоми й перетворення — з чого все зроблено.",
+    electronics: "Струм, сигнали, схеми, сенсори — як працює залізо.",
+    programming: "Архітектура, мови, ОС, мережі — як думає машина.",
+    communications: "Хвилі, кодування, протоколи — як передаються дані.",
+    algorithms: "Структури даних, складність, пошук, навчання машин.",
+    philosophy: "Знання, буття, розум і добро — великі питання."
+  };
 
   function loadBook(slug) {
     return fetchText("book/" + slug + "/manifest.js").then(function (src) {
@@ -35,21 +46,29 @@
 
   function bookCard(b) {
     var pct = b.topics ? Math.round(b.done / b.topics * 100) : 0;
-    return '<a class="lib-card" href="read.html?book=' + esc(b.slug) + '" style="--accent:#1d6fa4">' +
-      '<div class="lib-cover"><span class="lib-ico">' + (ICON[b.slug] || "📘") + '</span><span class="lib-short">' + esc(b.title) + '</span></div>' +
-      '<div class="lib-body"><h2>' + esc(b.title) + '</h2>' +
-      '<div class="lib-stats"><div class="lib-stat-row"><span class="lib-stat-k">Галузі</span><span class="lib-stat-v">' + b.branches + '</span></div>' +
-      '<div class="lib-stat-row"><span class="lib-stat-k">Теми</span><span class="lib-stat-v"><b>' + b.done + '</b> / ' + b.topics + '</span></div></div>' +
-      '<div class="lib-bar" title="' + pct + '% написано"><span style="width:' + pct + '%"></span></div>' +
-      '<div class="lib-foot"><span class="lib-modnote">' + b.branches + ' галузей' + (b.done === 0 ? " · порожня" : "") + '</span>' +
-      '<span class="lib-cta">Читати →</span></div></div></a>';
+    var partial = b.done > 0 && b.done < b.topics;
+    var complete = b.topics > 0 && b.done === b.topics;
+    var topicsVal = complete ? String(b.topics)                          // усе готово — лише всього, без галочки
+      : ('<b>' + b.done + '</b> / ' + b.topics);                          // інакше — готово / всього (напр. 60 / 72)
+    return '<a class="lib-card" href="read.html?book=' + esc(b.slug) + '" style="--accent:' + (ACCENT[b.slug] || "#1d6fa4") + '">' +
+      '<div class="lib-cover"><span class="lib-ico">' + (ICON[b.slug] || "📘") + '</span>' +
+      '<span class="lib-cover-ttl">' + esc(b.title) + '</span></div>' +
+      '<div class="lib-body"><p class="lib-desc">' + esc(DESC[b.slug] || "") + '</p>' +
+      '<div class="lib-stats">' +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Галузі</span><span class="lib-stat-v">' + b.branches + '</span></div>' +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Теми</span><span class="lib-stat-v">' + topicsVal + '</span></div>' +
+      '</div>' +
+      (partial ? '<div class="lib-bar" title="' + pct + '% готово"><span style="width:' + pct + '%"></span></div>' : '') +
+      '<div class="lib-foot"><span class="lib-modnote">' + (b.done ? (partial ? pct + '% готово' : 'готова') : 'у роботі') + '</span>' +
+      '<span class="lib-cta">Читати →</span></div>' +
+      '</div></a>';
   }
   function guideCard(g) {
-    return '<a class="lib-card" href="read.html?guide=' + esc(g.slug) + '" style="--accent:#16a34a">' +
-      '<div class="lib-cover"><span class="lib-ico">🎓</span><span class="lib-short">' + esc(g.title) + '</span></div>' +
-      '<div class="lib-body"><h2>' + esc(g.title) + '</h2><p>Курс — доріжка крізь предметні книги.</p>' +
-      '<div class="lib-stats"><div class="lib-stat-row"><span class="lib-stat-k">Кроків</span><span class="lib-stat-v">' + g.steps + '</span></div></div>' +
-      '<div class="lib-foot"><span class="lib-modnote">' + g.modules + ' модулів</span><span class="lib-cta">Пройти →</span></div></div></a>';
+    return '<a class="lib-card lib-card-guide" href="read.html?guide=' + esc(g.slug) + '" style="--accent:#16a34a">' +
+      '<div class="lib-cover"><span class="lib-ico">🎓</span><span class="lib-cover-ttl">' + esc(g.title) + '</span></div>' +
+      '<div class="lib-body"><p class="lib-desc">Курс — доріжка крізь предметні книги, що веде темами по черзі й сплітає їх у навчання.</p>' +
+      '<div class="lib-foot"><span class="lib-modnote">' + g.modules + ' модулів · ' + g.steps + ' кроків</span>' +
+      '<span class="lib-cta">Пройти →</span></div></div></a>';
   }
 
   function render(books, guides) {

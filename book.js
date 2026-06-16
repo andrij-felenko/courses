@@ -31,7 +31,7 @@
   var SPEC_ORDER = ["hist", "math", "comp", "proj"];
   function specType(name) {                 // тип за іменем файла вставки
     var b = String(name).replace(/^.*\//, "");
-    if (/^hist[-.]/i.test(b) || /history/i.test(b)) return "hist";   // нове hist-… / старе …history…
+    if (/^hist[-.]/i.test(b) || /history/i.test(b) || /-h-/.test(b)) return "hist";   // hist-… / …history… / нове <тема>-h-…
     if (/^math[-.]/i.test(b) || /-m-/.test(b)) return "math";        // нове math-… / старе -m-
     if (/^comp[-.]/i.test(b) || /-c-/.test(b)) return "comp";        // нове comp-… / старе -c-
     if (/^proj[-.]/i.test(b) || /-a-/.test(b)) return "proj";        // нове proj-… / старе -a-
@@ -49,8 +49,9 @@
   BOOK.modules.forEach(function (m) {
     m.chapters.forEach(function (c) {
       c.module = m;
-      if (c.status === "done" && c.dir) {
+      if (c.dir && c.status && c.status !== "empty") {   // done/deeper/update — текст Є, отже читабельне
         c.slug = c.dir.split("/").pop();
+        c.draft = c.status !== "done";                   // deeper/update — чернетка (читається, але позначена)
         CH_BY_SLUG[c.slug] = c;
       }
       FLAT.push(c);
@@ -315,15 +316,16 @@
     }
     var body = text.replace(/^(🔧|🏠|🧪|💡|📜|▶️|▶)\s*/, "");
 
-    // 📜-вставка цього розділу → клікабельний тизер, що відкриває popup (а не лінк у кінець)
+    // 📜-вставка → УСЯ картка клікабельна → popup. Лінк лише вказує файл (його прибираємо з тексту),
+    // а замість «відкрити вставку» — кнопка-розгортання під 📜.
     if (kind === "hist" && primary) {
-      var flat = body.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (m, tx, href) {
+      var flat = body.replace(/\s*\[([^\]]+)\]\(([^)]+)\)/g, function (m, tx, href) {
         var b = baseOf(href.split("/").pop());
-        return (ctx.histBases && ctx.histBases.has(b)) ? "**" + tx + "**" : tx;   // прибрати анкери: вся картка клікабельна
-      });
-      return '<a class="callout callout-hist hist-teaser" href="#" data-hist="' + primary + '">' +
-        '<span class="callout-ico">📜</span><div class="callout-body">' + renderInline(flat.replace(/\n/g, " "), ctx) +
-        '<span class="hist-open">📖 Відкрити вставку →</span></div></a>';
+        return (ctx.histBases && ctx.histBases.has(b)) ? "" : tx;   // маркер історії прибрати; сторонній лінк → текст
+      }).trim();
+      return '<a class="callout callout-hist hist-teaser" href="#" data-hist="' + primary + '" title="Розгорнути повну вставку">' +
+        '<span class="callout-ico">📜<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
+        '<div class="callout-body">' + renderInline(flat.replace(/\n/g, " "), ctx) + "</div></a>";
     }
 
     var paras = body.split(/\n\s*\n/);
@@ -340,9 +342,12 @@
   function parseMain(text, ctx) {
     var blocks = mdBlocks(text), idx = 0;
     if (blocks[0] && blocks[0].type === "heading" && blocks[0].level === 1) idx = 1;
-    var intro = [];
-    while (idx < blocks.length && blocks[idx].type === "para") { intro.push(blocks[idx]); idx++; }
-    var introHtml = intro.map(function (t) { return renderInline(t.text, ctx); }).join("<br><br>");
+    var introHtml = "";
+    if (BOOK.type !== "book") {   // окремий «вступ» лише у старих embedded-розділах (перед ## секціями);
+      var intro = [];            // book-тема — це суцільна стаття, увесь текст іде в тіло
+      while (idx < blocks.length && blocks[idx].type === "para") { intro.push(blocks[idx]); idx++; }
+      introHtml = intro.map(function (t) { return renderInline(t.text, ctx); }).join("<br><br>");
+    }
     var r = renderTokens(blocks.slice(idx), ctx);
     return { introHtml: introHtml, bodyHtml: r.html, sections: r.sections };
   }
@@ -367,9 +372,9 @@
      ════════════════════════════════════════════════════════════════════ */
   // картка-тизер історичної вставки (для авто-банера зверху розділу)
   function histTeaserCard(base, label) {
-    return '<a class="callout callout-hist hist-teaser" href="#" data-hist="' + base + '">' +
-      '<span class="callout-ico">📜</span><div class="callout-body"><strong>' + escapeHtml(label) +
-      '</strong> <span class="hist-open">📖 Відкрити вставку →</span></div></a>';
+    return '<a class="callout callout-hist hist-teaser" href="#" data-hist="' + base + '" title="Розгорнути повну вставку">' +
+      '<span class="callout-ico">📜<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
+      '<div class="callout-body">' + escapeHtml(label) + "</div></a>";
   }
 
   function renderChapter(chap) {
@@ -399,9 +404,10 @@
 
         var html = '<span id="top" class="anc"></span>';
         html += chapterHeader(chap, pm.introHtml);
-        html += '<div class="sec content-body">' + banner + pm.bodyHtml + "</div>";
+        html += '<div class="sec content-body">' + courseTopNav(chap) + versionLink(chap) + banner + pm.bodyHtml + courseBottomNav(chap) + "</div>";
         arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна (історії + extras)
         setContent(html);
+        document.body.classList.add("reading");
 
         buildChapterSidebar(chap, pm.sections, ctx.attach, arts);
         setupScrollSpy();
@@ -417,6 +423,10 @@
   }
 
   function chapterHeader(chap, introHtml) {
+    if (BOOK.type === "book") {   // стаття книги: компактна sticky-панель, галузь + назва, відтінок книги
+      return '<header class="ch-header ch-header-book" style="--book-accent:' + (BOOK.accent || "") + '"><div class="ch-label">' +
+        escapeHtml((chap.module && chap.module.title) || "") + "</div><h1>" + escapeHtml(chap.title) + "</h1></header>";
+    }
     var m = chap.module;
     var h = '<header class="ch-header"><div class="ch-label">Модуль ' + m.n + " · " + escapeHtml(m.title) +
       " &nbsp;/&nbsp; Розділ " + m.n + "." + chap.n + "</div><h1>" + escapeHtml(chap.title) + "</h1>";
@@ -440,6 +450,8 @@
      6) САЙДБАР РОЗДІЛУ
      ════════════════════════════════════════════════════════════════════ */
   function buildChapterSidebar(chap, sections, attach, arts) {
+    if (BOOK.course) { return buildCourseChapterSidebar(chap); }
+    if (BOOK.type === "book") { return buildBookChapterSidebar(chap); }
     var titleByBase = {}; arts.forEach(function (a) { titleByBase[a.base] = a.title; });
     var attachedAfter = {}; var attachedSet = {};
     attach.forEach(function (a) {
@@ -497,19 +509,134 @@
   function chapterPager(chap) {
     var i = FLAT.indexOf(chap), prev = FLAT[i - 1], next = FLAT[i + 1];
     function cell(c, dir) {
-      var label = dir === "prev" ? "← Попередній розділ" : "Наступний розділ →";
+      var label = BOOK.type === "book"
+        ? (dir === "prev" ? "← Попередня тема" : "Наступна тема →")
+        : (dir === "prev" ? "← Попередній розділ" : "Наступний розділ →");
       if (!c) {
         if (dir === "prev") return '<a href="#"><span class="pg-dir">↑ Назад</span><span class="pg-ttl">Зміст книги</span></a>';
         return "";
       }
+      var ttl = BOOK.type === "book" ? escapeHtml(c.title) : (c.module.n + "." + c.n + " — " + escapeHtml(c.title));
       if (c.status === "done") {
-        return '<a href="#ch=' + c.slug + '"><span class="pg-dir">' + label + '</span><span class="pg-ttl">' +
-          c.module.n + "." + c.n + " — " + escapeHtml(c.title) + "</span></a>";
+        return '<a href="#ch=' + c.slug + '"><span class="pg-dir">' + label + '</span><span class="pg-ttl">' + ttl + "</span></a>";
       }
       return '<div style="display:block;background:#16242f;border:1px solid #28404f;border-radius:7px;padding:.55rem .75rem;opacity:.6">' +
-        '<span class="pg-dir">' + label + '</span><span class="pg-ttl">' + c.module.n + "." + c.n + " — " + escapeHtml(c.title) + " · незабаром</span></div>";
+        '<span class="pg-dir">' + label + '</span><span class="pg-ttl">' + ttl + " · незабаром</span></div>";
     }
     return '<div class="sb-pager">' + cell(prev, "prev") + cell(next, "next") + "</div>";
+  }
+
+  // Сайдбар відкритої статті книги: галузі → теми (без номерів), поточна підсвічена, + пейджер.
+  function buildBookChapterSidebar(chap) {
+    var s = (BOOK.libraryHref ? '<a class="sb-home" href="' + BOOK.libraryHref + '">← Бібліотека (усі книги)</a>' : "") +
+      '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Книга</span>' +
+      '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>" +
+      '<a class="sb-back" href="#">← Усі галузі</a>';
+    BOOK.modules.forEach(function (m) {
+      if (!m.chapters.length) return;
+      s += '<div class="sb-group-label">' + escapeHtml(m.title) + "</div>";
+      m.chapters.forEach(function (c) {
+        if (c.slug) {
+          s += '<a class="sb-link' + (c.slug === chap.slug ? " active" : "") + '" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
+        } else {
+          s += '<span class="sb-link" style="opacity:.4;cursor:default">' + escapeHtml(c.title) + "</span>";
+        }
+      });
+    });
+    s += chapterPager(chap);
+    setSidebar(s);
+  }
+
+  /* ── Курс-режим: тема книги читається В КОНТЕКСТІ курсу (BOOK.course) ────
+     Сайдбар, пейджер і нижня кнопка беруться зі структури курсу, а не книги —
+     тема формально лежить у book/, але «виглядає» частиною курсу. ──────── */
+  function courseSteps() {
+    var out = [];
+    (BOOK.course.modules || []).forEach(function (m, mi) {
+      var mn = m.n || (mi + 1);
+      (m.chapters || []).forEach(function (c, ci) {
+        var cn = mn + "." + (ci + 1);
+        (c.steps || []).forEach(function (st, si) {
+          var base = { kn: cn + "." + (si + 1), title: st.title, mTitle: m.title, cTitle: c.title };
+          if (!st.ref) { base.bridge = true; out.push(base); return; }
+          var pr = String(st.ref).split("/");
+          base.subject = pr[0]; base.top = pr[pr.length - 1];
+          out.push(base);
+        });
+      });
+    });
+    return out;
+  }
+  function courseNavList() { return courseSteps().filter(function (s) { return !s.bridge; }); }
+  function courseCurrentIndex(chap) {
+    var list = courseNavList();
+    for (var i = 0; i < list.length; i++) if (list[i].subject === BOOK.bookSlug && list[i].top === chap.slug) return i;
+    return -1;
+  }
+  function courseStepHref(s) {
+    return "read.html?course=" + encodeURIComponent(BOOK.course.slug) + "&book=" + encodeURIComponent(s.subject) + "#ch=" + encodeURIComponent(s.top);
+  }
+  function courseHome() { return "read.html?guide=" + encodeURIComponent(BOOK.course.slug); }
+
+  function buildCourseChapterSidebar(chap) {
+    var s = '<a class="sb-home" href="' + (BOOK.libraryHref || "index.html") + '">← Бібліотека</a>' +
+      '<a class="sb-logo" href="' + courseHome() + '"><span class="sb-logo-kicker">Курс</span>' +
+      '<span class="sb-logo-title">' + escapeHtml(BOOK.course.title) + "</span></a>" +
+      '<a class="sb-back" href="' + courseHome() + '">← Огляд курсу</a>';
+    (BOOK.course.modules || []).forEach(function (m, mi) {
+      var mn = m.n || (mi + 1);
+      s += '<div class="sb-group-label">Модуль ' + mn + " · " + escapeHtml(m.title) + "</div>";
+      (m.chapters || []).forEach(function (c, ci) {
+        var cn = mn + "." + (ci + 1);
+        s += '<div class="sb-chap">' + cn + " · " + escapeHtml(c.title) + "</div>";
+        (c.steps || []).forEach(function (st, si) {
+          var kn = cn + "." + (si + 1);
+          if (!st.ref) { s += '<span class="sb-link sb-bridge"><span class="sb-kn">' + kn + "</span>🔗 " + escapeHtml(st.title || "місток") + "</span>"; return; }
+          var pr = String(st.ref).split("/"), subj = pr[0], top = pr[pr.length - 1];
+          var cur = (subj === BOOK.bookSlug && top === chap.slug) ? " active" : "";
+          s += '<a class="sb-link' + cur + '" href="read.html?course=' + encodeURIComponent(BOOK.course.slug) + "&book=" +
+            encodeURIComponent(subj) + "#ch=" + encodeURIComponent(top) + '"><span class="sb-kn">' + kn + "</span>" + escapeHtml(st.title || top) + "</a>";
+        });
+      });
+    });
+    s += coursePager(chap);
+    setSidebar(s);
+  }
+  function coursePager(chap) {
+    var list = courseNavList(), i = courseCurrentIndex(chap);
+    var prev = i > 0 ? list[i - 1] : null, next = (i >= 0 && i < list.length - 1) ? list[i + 1] : null;
+    function cell(st, dir) {
+      if (!st) {
+        if (dir === "prev") return '<a href="' + courseHome() + '"><span class="pg-dir">↑ Курс</span><span class="pg-ttl">Огляд курсу</span></a>';
+        return "";
+      }
+      var label = dir === "prev" ? "← Попередній крок" : "Наступний крок →";
+      return '<a href="' + courseStepHref(st) + '"><span class="pg-dir">' + label + '</span><span class="pg-ttl">' +
+        st.kn + " · " + escapeHtml(st.title || st.top) + "</span></a>";
+    }
+    return '<div class="sb-pager">' + cell(prev, "prev") + cell(next, "next") + "</div>";
+  }
+  // Угорі статті (курс-режим): невеличке посилання на ПОПЕРЕДНІЙ крок.
+  function courseTopNav(chap) {
+    if (!BOOK.course) return "";
+    var list = courseNavList(), i = courseCurrentIndex(chap);
+    var prev = i > 0 ? list[i - 1] : null;
+    if (prev) return '<a class="course-top" href="' + courseStepHref(prev) + '"><span class="ct-dir">← Попередній крок</span><span class="ct-ttl">' + escapeHtml(prev.title || prev.top) + "</span></a>";
+    return '<a class="course-top" href="' + courseHome() + '"><span class="ct-dir">↑ Курс</span><span class="ct-ttl">' + escapeHtml(BOOK.course.title) + "</span></a>";
+  }
+  // Унизу статті (курс-режим): кнопка до НАСТУПНОГО кроку.
+  function courseBottomNav(chap) {
+    if (!BOOK.course) return "";
+    var list = courseNavList(), i = courseCurrentIndex(chap);
+    var next = (i >= 0 && i < list.length - 1) ? list[i + 1] : null;
+    if (next) return '<nav class="course-bottom"><a class="cb-btn cb-next" href="' + courseStepHref(next) + '"><span class="cb-dir">Наступний крок →</span><span class="cb-ttl">' + escapeHtml(next.title || next.top) + "</span></a></nav>";
+    return '<nav class="course-bottom"><a class="cb-btn cb-next cb-done" href="' + courseHome() + '"><span class="cb-dir">Курс пройдено ✓</span><span class="cb-ttl">До огляду курсу</span></a></nav>';
+  }
+  // Компактне посилання між короткою (<slug>.md) і повною (<slug>-d.md) версіями статті.
+  // Показуємо лише коли повна версія існує (chap.full); інакше — нічого (стаття просто коротка).
+  function versionLink(chap) {
+    if (!chap.full) return "";
+    return '<a class="ver-link" href="#ch=' + chap.slug + '&v=d"><span class="vl-ico">📖</span>Повна версія цієї теми →</a>';
   }
 
   /* ════════════════════════════════════════════════════════════════════
@@ -540,8 +667,52 @@
   }
 
   function renderCover() {
+    document.body.classList.remove("reading");
+    if (BOOK.type === "book") { setContent(bookCoverHtml()); buildBookSidebar(); return; }
     setContent(coverHtml(coverMapFromManifest()));
     buildCoverSidebar();
+  }
+
+  // Обкладинка предметної книги: галузі (БЕЗ номерів) → теми-статті. Книга = набір статей без порядку.
+  function bookCoverHtml() {
+    var readable = FLAT.filter(function (c) { return c.slug; }).length;
+    var fullCount = FLAT.filter(function (c) { return c.full; }).length;
+    var live = BOOK.modules.filter(function (m) { return m.chapters.length; });
+    var h = '<header class="cover-hero"><div class="kicker">Книга · теорія за галузями</div>' +
+      "<h1>" + escapeHtml(BOOK.title) + "</h1>" + (BOOK.subtitle ? "<p>" + escapeHtml(BOOK.subtitle) + "</p>" : "") +
+      '<div class="cover-stats">' + stat(live.length, "галузей") + stat(readable, "статей") + (fullCount ? stat(fullCount, "повних") : "") +
+      "</div></header><div class=\"toc\">";
+    live.forEach(function (m) {
+      var d = m.chapters.filter(function (c) { return c.slug; }).length;
+      h += '<div class="module-block"><div class="module-head"><span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
+        '<span class="m-prog">' + d + " / " + m.chapters.length + "</span></div><div class=\"ch-list\">";
+      m.chapters.forEach(function (c) {
+        if (c.slug) {   // є текст → читабельне (коротка або повна версія)
+          h += '<div class="ch-item done"><div class="ch-row"><a class="ch-open" href="#ch=' + c.slug + '">' +
+            '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
+            '<span class="c-go">' + (c.full ? "читати →" : "коротко →") + "</span></a></div></div>";
+        } else {
+          h += '<div class="ch-item pending"><div class="ch-row"><span class="c-ttl">' + escapeHtml(c.title) +
+            '</span><span class="c-badge">незабаром</span></div></div>';
+        }
+      });
+      h += "</div></div>";
+    });
+    return h + "</div>";
+  }
+  function buildBookSidebar() {
+    var s = (BOOK.libraryHref ? '<a class="sb-home" href="' + BOOK.libraryHref + '">← Бібліотека (усі книги)</a>' : "") +
+      '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Книга</span>' +
+      '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>";
+    BOOK.modules.forEach(function (m) {
+      if (!m.chapters.length) return;
+      s += '<div class="sb-group-label">' + escapeHtml(m.title) + "</div>";
+      m.chapters.forEach(function (c) {
+        if (c.slug) s += '<a class="sb-link" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
+        else s += '<span class="sb-link" style="opacity:.4;cursor:default">' + escapeHtml(c.title) + "</span>";
+      });
+    });
+    setSidebar(s);
   }
 
   function coverHtml(topics) {
@@ -619,6 +790,7 @@
   }
 
   function renderComingSoon(chap) {
+    document.body.classList.remove("reading");
     setContent('<div class="state"><h2>Розділ ' + chap.module.n + "." + chap.n + " — " + escapeHtml(chap.title) + "</h2>" +
       "<p>Цей розділ ще пишеться. Заходь трохи згодом 🙂</p><p><a href=\"#\">← До змісту книги</a></p></div>");
     buildCoverSidebar();
@@ -649,7 +821,6 @@
       if (any) renderComingSoon(any); else renderCover();
       return;
     }
-    if (chap.status !== "done") { currentSlug = null; renderComingSoon(chap); return; }
     if (r.slug === currentSlug) { scrollToAnchor(r.at); markActive(r.at); return; }
     currentSlug = r.slug; pendingTarget = r.at || null; renderChapter(chap);
   }
@@ -787,6 +958,8 @@
 
   /* ── Глобальні елементи UI ──────────────────────────────────────────── */
   function initChrome() {
+    if (BOOK.type === "book") document.body.classList.add("book-mode");   // CSS-гачок: лагідні вставки без фону
+    if (BOOK.course) document.body.classList.add("course-mode");
     var menu = document.getElementById("menu-btn");
     var scrim = document.getElementById("scrim");
     var top = document.getElementById("back-top");
