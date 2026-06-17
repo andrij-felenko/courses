@@ -8,11 +8,11 @@
   sections: [
     { slug: "inorganic-chemistry", title: "Неорганічна хімія", scope: "Будова, властивості й реакції елементів та сполук без вуглець-водневого скелета — від солей до координаційних комплексів.",
       topics: [
-      { slug: "element", title: "Елемент", status: "deeper", levels: ["basic"], origin: "chemistry/m1-atoms/r2-atom#1.2.3" },
+      { slug: "element", title: "Елемент", status: "done", levels: ["basic"], origin: "chemistry/m1-atoms/r2-atom#1.2.3" },
       { slug: "periodic-table", title: "Періодична таблиця", status: "done", levels: ["basic"], origin: "chemistry/m1-atoms/r3-table#1.3.1", histories: ["periodic-table-h-mendeleev.md"] },
       { slug: "element-families", title: "Родини елементів", status: "done", levels: ["basic"], origin: "chemistry/m1-atoms/r3-table#1.3.2" },
-      { slug: "formulas", title: "Формули", status: "deeper", levels: ["basic"], origin: "chemistry/m2-bonds/r2-formulas#2.2.1" },
-      { slug: "valence", title: "Валентність", status: "deeper", levels: ["basic"], origin: "chemistry/m2-bonds/r2-formulas#2.2.2" },
+      { slug: "formulas", title: "Формули", status: "done", levels: ["basic"], origin: "chemistry/m2-bonds/r2-formulas#2.2.1" },
+      { slug: "valence", title: "Валентність", status: "done", levels: ["basic"], origin: "chemistry/m2-bonds/r2-formulas#2.2.2" },
       { slug: "acids", title: "Кислоти", status: "deeper", levels: ["basic"], origin: "chemistry/m4-inorganic/r2-acids-bases#4.2.1" },
       { slug: "bases", title: "Основи", status: "deeper", levels: ["basic"], origin: "chemistry/m4-inorganic/r2-acids-bases#4.2.2" },
       { slug: "oxides", title: "Оксиди", status: "deeper", levels: ["basic"], origin: "chemistry/m4-inorganic/r3-salt-families#4.3.1" },
@@ -24,25 +24,25 @@
     { slug: "organic-chemistry", title: "Органічна хімія", scope: "Хімія сполук вуглецю: класи, функційні групи, механізми та методи синтезу молекул.",
       topics: [
       { slug: "carbon", title: "Карбон", status: "deeper", levels: ["basic"], origin: "chemistry/m5-organic/r1-carbon#5.1.1" },
-      { slug: "hydrocarbons", title: "Вуглеводні", status: "deeper", levels: ["basic"], origin: "chemistry/m5-organic/r1-carbon#5.1.2" },
+      { slug: "hydrocarbons", title: "Вуглеводні", status: "done", levels: ["basic"], origin: "chemistry/m5-organic/r1-carbon#5.1.2" },
       { slug: "alcohols-acids", title: "Спирти і кислоти", status: "deeper", levels: ["basic"], origin: "chemistry/m5-organic/r2-oxygen-compounds#5.2.1" },
       { slug: "esters-fats", title: "Естери і жири", status: "deeper", levels: ["basic"], origin: "chemistry/m5-organic/r2-oxygen-compounds#5.2.2" }
       ] },
     { slug: "physical-chemistry", title: "Фізична хімія", scope: "Фізичні закони, що керують речовиною й перетвореннями: термодинаміка, кінетика, рівновага та електрохімія.",
       topics: [
-      { slug: "substances", title: "Речовини", status: "deeper", levels: ["basic"], origin: "chemistry/m1-atoms/r1-substances#1.1.1" },
-      { slug: "mole", title: "Моль", status: "deeper", levels: ["basic"], origin: "chemistry/m2-bonds/r2-formulas#2.2.3" },
+      { slug: "substances", title: "Речовини", status: "done", levels: ["basic"], origin: "chemistry/m1-atoms/r1-substances#1.1.1" },
+      { slug: "mole", title: "Моль", status: "done", levels: ["basic"], origin: "chemistry/m2-bonds/r2-formulas#2.2.3" },
       { slug: "reaction", title: "Реакція", status: "deeper", levels: ["basic"], origin: "chemistry/m3-reactions/r1-essence#3.1.1" },
-      { slug: "equations", title: "Рівняння", status: "deeper", levels: ["basic"], origin: "chemistry/m3-reactions/r1-essence#3.1.2" },
+      { slug: "equations", title: "Рівняння", status: "done", levels: ["basic"], origin: "chemistry/m3-reactions/r1-essence#3.1.2" },
       { slug: "reaction-types", title: "Типи реакцій", status: "deeper", levels: ["basic"], origin: "chemistry/m3-reactions/r1-essence#3.1.3" },
-      { slug: "reaction-energy", title: "Енергія реакцій", status: "deeper", levels: ["basic"], origin: "chemistry/m3-reactions/r2-energy#3.2.1" },
+      { slug: "reaction-energy", title: "Енергія реакцій", status: "done", levels: ["basic"], origin: "chemistry/m3-reactions/r2-energy#3.2.1" },
       { slug: "combustion", title: "Горіння", status: "deeper", levels: ["basic"], origin: "chemistry/m3-reactions/r2-energy#3.2.2" },
       { slug: "reaction-rate", title: "Швидкість реакції", status: "deeper", levels: ["basic"], origin: "chemistry/m3-reactions/r3-rate-equilibrium#3.3.1" },
       { slug: "catalysts", title: "Каталізатори", status: "deeper", levels: ["basic"], origin: "chemistry/m3-reactions/r3-rate-equilibrium#3.3.2" },
-      { slug: "equilibrium", title: "Рівновага", status: "deeper", levels: ["basic"], origin: "chemistry/m3-reactions/r3-rate-equilibrium#3.3.3" },
+      { slug: "equilibrium", title: "Рівновага", status: "done", levels: ["basic"], origin: "chemistry/m3-reactions/r3-rate-equilibrium#3.3.3" },
       { slug: "dissolution", title: "Розчинення", status: "deeper", levels: ["basic"], origin: "chemistry/m4-inorganic/r1-solutions#4.1.1" },
       { slug: "solubility", title: "Розчинність", status: "deeper", levels: ["basic"], origin: "chemistry/m4-inorganic/r1-solutions#4.1.2" },
-      { slug: "ions-solution", title: "Іони в розчині", status: "deeper", levels: ["basic"], origin: "chemistry/m4-inorganic/r1-solutions#4.1.3" },
+      { slug: "ions-solution", title: "Іони в розчині", status: "done", levels: ["basic"], origin: "chemistry/m4-inorganic/r1-solutions#4.1.3" },
       { slug: "fixed-ratios", title: "Сталі відношення", status: "deeper", levels: ["basic"], origin: "chemistry/m6-counting/r1-why-numbers#6.1.1" },
       { slug: "mole-formulas", title: "Формули моля", status: "deeper", levels: ["basic"], origin: "chemistry/m6-counting/r1-why-numbers#6.1.2" },
       { slug: "mole-proportion", title: "Пропорція в молях", status: "deeper", levels: ["basic"], origin: "chemistry/m6-counting/r3-by-equation#6.3.1" },
@@ -55,8 +55,8 @@
       topics: [
       { slug: "atoms-molecules", title: "Атоми й молекули", status: "done", levels: ["basic"], origin: "chemistry/m1-atoms/r2-atom#1.2.1" },
       { slug: "inside-atom", title: "Будова атома", status: "done", levels: ["basic"], origin: "chemistry/m1-atoms/r2-atom#1.2.2" },
-      { slug: "why-bond", title: "Хімічний зв'язок", status: "deeper", levels: ["basic"], origin: "chemistry/m2-bonds/r1-bonding#2.1.1" },
-      { slug: "ionic-covalent", title: "Іонний і ковалентний", status: "deeper", levels: ["basic"], origin: "chemistry/m2-bonds/r1-bonding#2.1.2" },
+      { slug: "why-bond", title: "Хімічний зв'язок", status: "done", levels: ["basic"], origin: "chemistry/m2-bonds/r1-bonding#2.1.1" },
+      { slug: "ionic-covalent", title: "Іонний і ковалентний", status: "done", levels: ["basic"], origin: "chemistry/m2-bonds/r1-bonding#2.1.2" },
       { slug: "metallic-bond", title: "Металічний зв'язок", status: "deeper", levels: ["basic"], origin: "chemistry/m2-bonds/r1-bonding#2.1.3" }
       ] },
     { slug: "analytical-chemistry", title: "Аналітична хімія", scope: "Методи виявлення, ідентифікації та вимірювання кількості речовин у зразках.",
@@ -71,7 +71,7 @@
       { slug: "carbohydrates", title: "Вуглеводи", status: "deeper", levels: ["basic"], origin: "chemistry/m5-organic/r3-life-molecules#5.3.1" },
       { slug: "fats-proteins", title: "Жири і білки", status: "deeper", levels: ["basic"], origin: "chemistry/m5-organic/r3-life-molecules#5.3.2" },
       { slug: "kitchen-chemistry", title: "Кухонна хімія", status: "deeper", levels: ["basic"], origin: "chemistry/m5-organic/r3-life-molecules#5.3.3" },
-      { slug: "epilogue", title: "Куди далі", status: "deeper", levels: ["basic"], origin: "chemistry/m5-organic/r3-life-molecules#5.3.4" }
+      { slug: "epilogue", title: "Куди далі", status: "done", levels: ["basic"], origin: "chemistry/m5-organic/r3-life-molecules#5.3.4" }
       ] },
     { slug: "polymer-chemistry", title: "Полімери", scope: "Синтез, структура та властивості макромолекул і пластиків, побудованих із повторюваних ланок.",
       topics: [
@@ -80,7 +80,7 @@
     { slug: "solid-state-chemistry", title: "Твердотільна хімія", scope: "Хімія протяжних твердих тіл: структура кристалів, дефекти та функційні неорганічні матеріали.",
       topics: [
       { slug: "molecules-lattice", title: "Молекули чи ґратка", status: "deeper", levels: ["basic"], origin: "chemistry/m2-bonds/r3-structure#2.3.1" },
-      { slug: "structure-properties", title: "Структура і властивості", status: "deeper", levels: ["basic"], origin: "chemistry/m2-bonds/r3-structure#2.3.2" }
+      { slug: "structure-properties", title: "Структура і властивості", status: "done", levels: ["basic"], origin: "chemistry/m2-bonds/r3-structure#2.3.2" }
       ] },
     { slug: "supramolecular-chemistry", title: "Супрамолекулярна хімія", scope: "Нековалентні взаємодії та самозбірка, що утримують молекули разом у більші ансамблі.", topics: [] },
     { slug: "radiochemistry", title: "Радіохімія", scope: "Хімія радіоактивних елементів, ядерних перетворень та поведінки ізотопів.", topics: [] },

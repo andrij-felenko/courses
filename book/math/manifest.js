@@ -23,6 +23,7 @@
       ] },
     { slug: "algebra", title: "Алгебра", scope: "Абстрактні алгебраїчні структури — групи, кільця, поля, модулі — та поліноміальні рівняння.",
       topics: [
+      { slug: "rearranging-formulas", title: "Перестановка формул", status: "empty", origin: "xref:chemistry/mass-fraction" },
       { slug: "crc", title: "Циклічна надмірність", status: "empty", origin: "math/crc-cyclic-redundancy/" }
       ] },
     { slug: "linear-algebra", title: "Лінійна алгебра", scope: "Векторні простори, лінійні відображення, матриці та спектральна теорія.",
