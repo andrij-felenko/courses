@@ -1,11 +1,8 @@
 /* book/philosophy/manifest.js — книга-предмет «Філософія» (тип "book").
-   Галузі → теми (плейсхолдери: status:"empty", origin = старе розташування для кроку 5).
-   Схема: { type, slug, title, sections:[ {slug,title,scope, topics:[ {slug,title,status,origin} ]} ] } */
+   Схема — AUTHORING.md §2: { type, slug, title, sections:[ {slug,title,scope, topics:[ {slug,title,status,levels,origin, hist/comp/math/proj:[{file,status}]} ]} ] }
+   Статуси: done | empty | update | deeper | recheck. */
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
-  type: "book",
-  slug: "philosophy",
-  title: "Філософія",
+  type: "book", slug: "philosophy", title: "Філософія",
   sections: [
-
   ]
 });

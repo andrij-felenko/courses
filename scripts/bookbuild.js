@@ -135,22 +135,31 @@
 
   // book/<subject>/manifest.js (sections→topics) → формат рушія BOOK (sections=modules, topics=chapters)
   var SUBJECT_ACCENT = { physics: "#6b5b95", math: "#3a6b9c", chemistry: "#3a8f80", electronics: "#b06a5a", programming: "#5a5f9c", communications: "#4a8296", algorithms: "#a5648a", philosophy: "#9a7b4f" };
-  function adaptSubjectBook(b) {
+  function adaptSubjectBook(b, dir) {
     if (!b) return null;
+    dir = dir || "book/";
     return {
       title: b.title, shortTitle: b.title, subtitle: b.subtitle || "", libraryHref: "index.html",
-      basePath: "book/" + b.slug + "/", type: "book", bookSlug: b.slug, accent: SUBJECT_ACCENT[b.slug] || "#1d6fa4",
+      basePath: dir + b.slug + "/", type: b.type || "book", bookSlug: b.slug, accent: SUBJECT_ACCENT[b.slug] || "#1d6fa4",
       modules: (b.sections || []).map(function (sec, i) {
         return { n: i + 1, slug: sec.slug, title: sec.title,
           chapters: (sec.topics || []).map(function (t, j) {
+            // нова схема AUTHORING §2: вставки — масиви {file,status} за типом (hist/comp/math/proj).
+            var files = function (a) { return (a || []).map(function (o) { return typeof o === "string" ? o : o.file; }); };
             return { n: j + 1, title: t.title, status: t.status || "empty", dir: sec.slug + "/" + t.slug, main: t.slug + ".md",
               full: !!(t.levels && t.levels.indexOf("detailed") >= 0),   // існує повна -d.md версія
-              histories: t.histories || [], extras: t.extras || [] };    // вставки -h/-m/-c → попапи (як у embedded)
+              histories: files(t.hist),                                  // 📜 → попапи
+              extras: files(t.comp).concat(files(t.math), files(t.proj)) }; // 🔌🧮⚙️ → попапи
           }) };
       })
     };
   }
-  function loadSubjectBook(slug) { return loadOne("book/" + slug + "/manifest.js", "__BOOKS__").then(adaptSubjectBook); }
+  function loadSubjectBook(slug) {
+    return loadOne("book/" + slug + "/manifest.js", "__BOOKS__")
+      .then(function (b) { return adaptSubjectBook(b, "book/"); })
+      .catch(function () { return loadOne("catalog/" + slug + "/manifest.js", "__BOOKS__").then(function (b) { return adaptSubjectBook(b, "catalog/"); }); })
+      .catch(function () { return null; });
+  }
   function loadGuide(slug) { return loadOne("guide/" + slug + "/manifest.js", "__GUIDES__"); }
 
   // Курс guide/<course>: ВПОРЯДКОВАНА доріжка з нумерацією (Модуль М · крок М.Р · посилання М.Р.К).

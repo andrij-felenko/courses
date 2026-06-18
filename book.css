@@ -260,11 +260,19 @@ h2.hist-h {
 .callout-nav { background: var(--nav-bg); border-left: 4px solid var(--nav-border); }
 .callout-nav .callout-body > strong:first-child,
 .callout-nav .callout-body > p:first-child > strong:first-child { color: var(--nav-color); }
+/* вставки за типом — кольори як у модалок (🧮 синій · 🔌 бірюзовий · ⚙️ зелений) */
+.callout-math { background: color-mix(in srgb, #2563eb 7%, transparent); border-left: 4px solid #2563eb; }
+.callout-comp { background: color-mix(in srgb, #0891b2 7%, transparent); border-left: 4px solid #0891b2; }
+.callout-proj { background: color-mix(in srgb, #16a34a 7%, transparent); border-left: 4px solid #16a34a; }
+.callout-math .callout-body > strong:first-child, .callout-math .callout-body > p:first-child > strong:first-child { color: #2563eb; }
+.callout-comp .callout-body > strong:first-child, .callout-comp .callout-body > p:first-child > strong:first-child { color: #0891b2; }
+.callout-proj .callout-body > strong:first-child, .callout-proj .callout-body > p:first-child > strong:first-child { color: #16a34a; }
 
 /* ── Лагідна книга (book/): вставки 📜/🏠/🧪/💡 вплетені в текст — без суцільної заливки
       і без CAPS-ярлика з першого жирного слова; лишається тонка лінія зліва + іконка ── */
 .book-mode .callout { border-radius: 0 9px 9px 0; padding: 0.7rem 1.1rem 0.7rem 1.15rem; margin: 1.5rem 0; }
-.book-mode .callout-eng, .book-mode .callout-hist, .book-mode .callout-nav { border-left-width: 4px; }
+.book-mode .callout-eng, .book-mode .callout-hist, .book-mode .callout-nav,
+.book-mode .callout-math, .book-mode .callout-comp, .book-mode .callout-proj { border-left-width: 4px; }
 .book-mode .callout-body > strong:first-child,
 .book-mode .callout-body > p:first-child > strong:first-child {
   display: inline; margin-bottom: 0; font-size: inherit; font-weight: 800;

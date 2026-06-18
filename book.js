@@ -25,7 +25,8 @@
     physics:        { icon: "⚛️", label: "Фізика" },        math:           { icon: "🧮", label: "Математика" },
     chemistry:      { icon: "⚗️", label: "Хімія" },         electronics:    { icon: "🔌", label: "Електроніка" },
     programming:    { icon: "💻", label: "Програмування" }, communications: { icon: "📡", label: "Зв'язок" },
-    algorithms:     { icon: "🧠", label: "Алгоритми" },     philosophy:     { icon: "🦉", label: "Філософія" }
+    algorithms:     { icon: "🧠", label: "Алгоритми" },     philosophy:     { icon: "🦉", label: "Філософія" },
+    "sensor-board": { icon: "🧩", label: "Сенсори-плати" }, "pcb-board":    { icon: "🔋", label: "Плати живлення й захисту" }
   };
   var _subjCache = {};
 
@@ -306,6 +307,9 @@
     else if (/^🧪/.test(text)) { kind = "eng"; icon = "🧪"; }   // «спробуй сам»
     else if (/^💡/.test(text)) { kind = "nav"; icon = "💡"; }   // «одним реченням»
     else if (/^📜/.test(text)) { kind = "hist"; icon = "📜"; }
+    else if (/^🧮/.test(text)) { kind = "math"; icon = "🧮"; }   // математична вставка
+    else if (/^(⚙️|⚙)/.test(text)) { kind = "proj"; icon = "⚙️"; }  // алгоритм/проєкт
+    else if (/^🔌/.test(text)) { kind = "comp"; icon = "🔌"; }   // компонентна вставка
     else if (/^🔗/.test(text)) { kind = "xref"; icon = "🔗"; }   // міст на іншу тему/предмет → крос-попап
     else if (/^(▶️|▶)/.test(text)) { kind = "nav"; icon = "▶️"; }
 
@@ -323,7 +327,7 @@
         if (ctx.histBases.has(b)) { if (!primary) primary = b; ctx.attach.push({ base: b, after: sections.length - 1 }); }
       });
     }
-    var body = text.replace(/^(🔧|🏠|🧪|💡|📜|🔗|▶️|▶)\s*/, "");
+    var body = text.replace(/^(🔧|🏠|🧪|💡|📜|🧮|⚙️|⚙|🔌|🔗|▶️|▶)\s*/, "");
 
     // 🔗-вставка з book:-лінком → УСЯ картка клікабельна → крос-попап на іншу тему/предмет
     if (kind === "xref") {
@@ -337,16 +341,20 @@
       }
     }
 
-    // 📜-вставка → УСЯ картка клікабельна → popup. Лінк лише вказує файл (його прибираємо з тексту),
-    // а замість «відкрити вставку» — кнопка-розгортання під 📜.
-    if (kind === "hist" && primary) {
-      var flat = body.replace(/\s*\[([^\]]+)\]\(([^)]+)\)/g, function (m, tx, href) {
-        var b = baseOf(href.split("/").pop());
-        return (ctx.histBases && ctx.histBases.has(b)) ? "" : tx;   // маркер історії прибрати; сторонній лінк → текст
-      }).trim();
-      return '<a class="callout callout-hist hist-teaser" href="#" data-hist="' + primary + '" title="Розгорнути повну вставку">' +
-        '<span class="callout-ico">📜<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
-        '<div class="callout-body">' + renderInline(flat.replace(/\n/g, " "), ctx) + "</div></a>";
+    // вставка-картка (📜 hist · 🧮 math · 🔌 comp · ⚙️ proj) → УСЯ клікабельна → popup.
+    // base беремо з лінка (primary); якщо тизер без лінка — наступна вставка цього типу за порядком.
+    if (kind === "hist" || kind === "math" || kind === "comp" || kind === "proj") {
+      var ibase = primary;
+      if (!ibase && ctx.insQueue && ctx.insQueue[kind] && ctx.insQueue[kind].length) { ibase = ctx.insQueue[kind].shift(); if (ibase) ctx.attach.push({ base: ibase, after: sections.length - 1 }); }
+      if (ibase) {
+        var flat = body.replace(/\s*\[([^\]]+)\]\(([^)]+)\)/g, function (m, tx, href) {
+          var b = baseOf(href.split("/").pop());
+          return (ctx.histBases && ctx.histBases.has(b)) ? "" : tx;   // маркер вставки прибрати; сторонній лінк → текст
+        }).trim();
+        return '<a class="callout callout-' + kind + ' hist-teaser" href="#" data-hist="' + ibase + '" title="Розгорнути вставку">' +
+          '<span class="callout-ico">' + icon + '<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
+          '<div class="callout-body">' + renderInline(flat.replace(/\n/g, " "), ctx) + "</div></a>";
+      }
     }
 
     var paras = body.split(/\n\s*\n/);
@@ -393,8 +401,10 @@
      ════════════════════════════════════════════════════════════════════ */
   // картка-тизер історичної вставки (для авто-банера зверху розділу)
   function histTeaserCard(base, label) {
-    return '<a class="callout callout-hist hist-teaser" href="#" data-hist="' + base + '" title="Розгорнути повну вставку">' +
-      '<span class="callout-ico">📜<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
+    var k = (base.match(/^(hist|math|comp|proj)-/) || [])[1] || "hist";
+    var ic = { hist: "📜", math: "🧮", comp: "🔌", proj: "⚙️" }[k];
+    return '<a class="callout callout-' + k + ' hist-teaser" href="#" data-hist="' + base + '" title="Розгорнути вставку">' +
+      '<span class="callout-ico">' + ic + '<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
       '<div class="callout-body">' + escapeHtml(label) + "</div></a>";
   }
 
@@ -408,7 +418,8 @@
         var mainText = texts[0], specTexts = texts.slice(1);
         var ctx = {
           currentSlug: chap.slug, dir: dir,
-          histBases: new Set(allFiles.map(baseOf)), attach: []
+          histBases: new Set(allFiles.map(baseOf)), attach: [],
+          insQueue: (function () { var q = { hist: [], math: [], comp: [], proj: [] }; allFiles.forEach(function (f) { var b = baseOf(f); var k = (b.match(/^(hist|math|comp|proj)-/) || [])[1]; if (k && q[k]) q[k].push(b); }); return q; })()
         };
         var pm = parseMain(mainText, ctx);
         var arts = allFiles.map(function (f, k) { var a = parseHistory(specTexts[k], f, ctx); a.type = specType(f); return a; });
@@ -416,10 +427,10 @@
         // банер угорі розділу — лише ІСТОРІЇ, на які в тексті немає 📜-тизера (як було)
         var attached = {}; ctx.attach.forEach(function (a) { attached[a.base] = true; });
         var titleByBase = {}; arts.forEach(function (a) { titleByBase[a.base] = a.title; });
-        var leftover = histFiles.map(baseOf).filter(function (b) { return !attached[b]; });
+        var leftover = allFiles.map(baseOf).filter(function (b) { return !attached[b]; });
         var banner = "";
         if (leftover.length) {
-          banner = '<div class="hist-banner"><div class="hist-banner-label">📜 Історичні вставки до розділу</div>' +
+          banner = '<div class="hist-banner"><div class="hist-banner-label">Вставки до теми</div>' +
             leftover.map(function (b) { return histTeaserCard(b, titleByBase[b] || b); }).join("") + "</div>";
         }
 
@@ -711,7 +722,7 @@
         if (c.slug) {   // є текст → читабельне (коротка або повна версія)
           h += '<div class="ch-item done"><div class="ch-row"><a class="ch-open" href="#ch=' + c.slug + '">' +
             '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
-            '<span class="c-go">' + (c.full ? "читати →" : "коротко →") + "</span></a></div></div>";
+            '<span class="c-go">' + (c.status === "done" ? "читати →" : "коротко →") + "</span></a></div></div>";
         } else {
           h += '<div class="ch-item pending"><div class="ch-row"><span class="c-ttl">' + escapeHtml(c.title) +
             '</span><span class="c-badge">незабаром</span></div></div>';
@@ -948,7 +959,7 @@
           '<p>📝 Ця тема ще <strong>в розробці</strong> — її напишуть за першим посиланням сюди.</p>');
         return;
       }
-      var base = "book/" + subject + "/";
+      var base = bk.basePath || ("book/" + subject + "/");
       fetchText(base + chap.dir + "/" + chap.main).then(function (text) {
         var ctx = { currentSlug: slug, dir: chap.dir, base: base, histBases: new Set(), attach: [] };
         var pm = parseMain(text, ctx);

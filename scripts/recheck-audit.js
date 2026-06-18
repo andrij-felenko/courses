@@ -1,0 +1,120 @@
+export const meta = {
+  name: 'recheck-audit',
+  description: 'Аудит статей зі статусом recheck: привести до канону AUTHORING.md, перевірити крос-лінки, перейменувати фігури на slug-only. Контент теми не міняє.',
+  phases: [
+    { title: 'Audit', detail: 'один під-агент на тему (+її вставки): конформність §5/§6, фігури, лінки' },
+  ],
+}
+
+/*__EMBED__*/
+
+/* args = {
+     book:    "algorithms",
+     topics:  [ { section, slug, title, levels, inserts:{hist?:[{file,status}], comp?, math?, proj?} }, ... ],  // батч (<=5)
+     index:   { <book>: [<slug>,...], ... },   // усі наявні topic-slug-и (валідація book:-лінків)
+     titles:  { "<book>/<slug>": "<title>" },
+   }
+   Кожен під-агент РЕДАГУЄ файли теми напряму (стаття, вставки, git mv фігур) — вони ізольовані по темі.
+   Жоден під-агент НЕ чіпає manifest.js (спільний файл). Стаби й статуси ставить головна сесія за звітами. */
+
+const A = (typeof EMBED !== 'undefined' && EMBED) ? EMBED
+        : (typeof args === 'string') ? JSON.parse(args) : (args || {})
+log(`payload source=${(typeof EMBED !== 'undefined' && EMBED) ? 'EMBED' : 'args'}; book=${A.book}; topics=${(A.topics || []).length}`)
+const book = A.book
+const topics = A.topics || []
+const index = A.index || {}
+
+const REPORT_SCHEMA = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['slug', 'levelsActual', 'fixes', 'figuresRenamed', 'linksFound', 'linksAdded', 'missingTargets', 'deeperTargets', 'insertsAudited', 'proposedStatus', 'notes'],
+  properties: {
+    slug: { type: 'string' },
+    levelsActual: {
+      type: 'object', additionalProperties: false,
+      required: ['basicExists', 'detailedExists', 'basicWords', 'manifestLevels', 'levelsMatch'],
+      properties: {
+        basicExists: { type: 'boolean' },
+        detailedExists: { type: 'boolean' },
+        basicWords: { type: 'integer' },
+        manifestLevels: { type: ['array', 'null'], items: { type: 'string' } },
+        levelsMatch: { type: 'boolean' },
+      },
+    },
+    fixes: { type: 'array', items: { type: 'string' }, description: 'Застосовані правки канону (що саме й де).' },
+    figuresRenamed: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['from', 'to'], properties: { from: { type: 'string' }, to: { type: 'string' } } } },
+    linksFound: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['target', 'valid', 'detailed'], properties: { target: { type: 'string' }, valid: { type: 'boolean' }, detailed: { type: 'boolean', description: 'true якщо лінк на детальну версію <slug>-d.md' } } } },
+    deeperTargets: { type: 'array', description: 'Цілі, на які посилаються як на детальну (-d.md) версію — головна сесія перевірить наявність і за потреби поставить deeper.', items: { type: 'object', additionalProperties: false, required: ['book', 'slug'], properties: { book: { type: 'string' }, slug: { type: 'string' } } } },
+    linksAdded: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['target', 'where'], properties: { target: { type: 'string' }, where: { type: 'string' } } } },
+    missingTargets: {
+      type: 'array',
+      items: {
+        type: 'object', additionalProperties: false,
+        required: ['book', 'slug', 'suggestedSection', 'title', 'reason'],
+        properties: {
+          book: { type: 'string' }, slug: { type: 'string' },
+          suggestedSection: { type: 'string' }, title: { type: 'string' }, reason: { type: 'string' },
+        },
+      },
+    },
+    insertsAudited: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['file', 'fixes', 'proposedStatus'], properties: { file: { type: 'string' }, fixes: { type: 'array', items: { type: 'string' } }, proposedStatus: { type: 'string', enum: ['done', 'update', 'deeper', 'empty', 'recheck'] } } } },
+    proposedStatus: { type: 'string', enum: ['done', 'update', 'deeper', 'recheck'] },
+    notes: { type: 'string' },
+  },
+}
+
+function buildPrompt(t) {
+  const tb = t.book || book
+  const dir = `book/${tb}/${t.section}/${t.slug}`
+  const insertList = Object.entries(t.inserts || {}).flatMap(([k, arr]) => (arr || []).map(x => `${dir}/${x.file} (${k})`))
+  return `Ти проводиш АУДИТ "recheck" однієї статті проєкту courses та її вставок. Статус recheck (AUTHORING.md §9) = «передивитися за чинними правилами й привести у відповідність». Зміст/пояснення теми НЕ переписуй — лише приводь у відповідність до канону й лагодь крос-лінки.
+
+ПЕРЕД роботою прочитай канон: AUTHORING.md (особливо §1 структура, §4 голос, §5 формули/фігури, §6 крос-посилання). Він у корені репо.
+
+ТЕМА: ${tb}/${t.section}/${t.slug} — «${t.title}»
+Тека: ${dir}
+Базова стаття:   ${dir}/${t.slug}.md
+Детальна (якщо є): ${dir}/${t.slug}-d.md
+Вставки за маніфестом: ${insertList.length ? insertList.join('; ') : '(немає)'}
+Маніфестні levels: ${JSON.stringify(t.levels)}
+Фігури — у ${dir}/img/ . Один img/ ділять стаття + її вставки.
+
+ЩО ЗРОБИТИ (правки роби напряму через Edit; фігури перейменовуй через git mv у Bash; manifest.js НЕ ЧІПАЙ):
+
+A. КОНФОРМНІСТЬ КАНОНУ (зміст не міняти, лише форму):
+   1. §5 підписи фігур: ПРИБРАТИ префікс «Рис.»/«Рисунок»/«Fig.» і будь-які номери. Підпис = звичайний опис курсивом наступним рядком після картинки, без номера.
+   2. §5 посилання на фігуру: шлях ВІД КОРЕНЯ репо з ведучим «/»: «/${dir}/img/<file>». Виправ відносні «img/...» та «./img/...».
+   3. §5+§2 імена файлів фігур: перейменуй НУМЕРОВАНІ (напр. fig-49-3-1-pipeline.svg, fig-3-9-1-1-sources.svg, fig-r09-0-2-weekend.svg) на slug-only без номерів — узявши описовий «хвіст» імені (pipeline.svg, sources.svg, weekend.svg). Перейменовуй через «git mv». ОНОВИ КОЖНЕ посилання ![..](/${dir}/img/<old>) на нове ім'я — у статті ТА в усіх вставках цієї теми (img/ спільний). Колізії імен — мінімальний кваліфікатор (напр. blur-box.svg). Якщо figs.py у теці теми існує — онови й у ньому імена; якщо ні (фігури статичні) — генератор не потрібен.
+   4. §5 формули: ЖОДНОГО LaTeX ($...$, \\frac, \\(, \\[, \\times). Якщо є — переклади на Unicode (× · ² ₀ ε Δ σ ω → ≈ ≤ ≥) у тексті, а покрокові обчислення — у моноширинний код-блок, вирівняний по «=». Роздільник дробу — крапка.
+   5. §1 фрази послідовності: у book/ ПОРЯДКУ НЕМАЄ. Прибери/переформулюй «попередній/наступний розділ», «як ми (вже) бачили», «далі/нижче побачимо», «пригадаймо», «ми це проходили», «раніше ми…», «у наступному розділі». Зроби формулювання самодостатнім, зміст збережи.
+   6. §4 першоджерело назв: уводячи НОВЕ поняття вперше, дай у дужках мову-джерело й корінь (лат./гр./англ.): «атом (гр. átomos — неподільний)». Додавай лише там, де поняття справді ВВОДИТЬСЯ і етимології бракує; не засмічуй.
+   7. §4 жива українська: один термін на поняття; прибери явні русизми/кальки/канцелярит. Дотик легкий — НЕ переписуй пояснення.
+   8. §3 зворотні картки: у ВСТАВКАХ видали навігаційні футери-повернення до батьківської теми — блок-цитати на кшталт «> 🔗 Тема, до якої належить…», «> ▶️ До теми», «> ↩️ Назад до…», що лише ведуть назад на тему. Інлайн-лінки на теми В ТІЛІ тексту лишай. Якщо повернення несе реальний зміст — то лишай як звичайний абзац/вставку, але не як картку-навігацію.
+
+B. ВЕРСІЇ (basic vs detailed): встанови, які файли РЕАЛЬНО є (${t.slug}.md / ${t.slug}-d.md), порахуй слова базової (без код-блоків). Звірся з маніфестними levels ${JSON.stringify(t.levels)} і познач, чи збігається (levelsMatch). НЕ вигадуй відсутню версію.
+
+C. КРОС-ЛІНКИ (§6 — головне):
+   • Знайди в статті ТА вставках усі лінки виду book:<предмет>/<slug> (і book:<предмет>/<slug>/<file>.md).
+   • Валідуй кожен за наявним індексом (нижче). Якщо <slug> Є в index[<предмет>] → valid. Якщо НЕМАЄ → це missingTarget: НЕ створюй стаб (його зробить головна сесія), лінк ЛИШИ на місці, додай запис у missingTargets з полями {book:<предмет>, slug, suggestedSection (галузь тієї книги, куди логічно лягає), title (людяна укр. назва), reason}.
+   • Справжні ЗАЛЕЖНОСТІ без лінка: якщо стаття СПИРАЄТЬСЯ на інше поняття (читач без нього не зрозуміє), а лінка нема — додай ІНЛАЙН-лінк [слова](book:<предмет>/<slug>) (НЕ картку-міст — у book/ лише інлайн-попап). Якщо ціль існує в індексі — лінкуй на неї. Якщо НЕ існує — обери коректний slug, додай інлайн-лінк на нього І додай missingTarget (щоб головна сесія створила стаб). Лінкуй ЛИШЕ справжні залежності, не кожну згадку (§6 — не ліс лінків).
+   • Версія в лінку: якщо лінк указує на ДЕТАЛЬНУ версію (book:<предмет>/<slug>/<slug>-d.md) — у linksFound постав detailed=true і додай ціль у deeperTargets {book,slug}; для базових статей і лінків на вставки detailed=false. Чи існує та детальна версія — НЕ перевіряй сам; рішення про статус deeper ухвалить головна сесія (§6/§9).
+   • Наявні коректні інлайн-лінки НЕ перетворюй на картки.
+
+ІНДЕКС наявних topic-slug-ів (для валідації book:-цілей):
+${JSON.stringify(index)}
+
+D. ВСТАВКИ: пройди ту саму конформність (A) по кожній вставці теми. Признач кожній proposedStatus (зазвичай done; deeper/update якщо є реальна змістова діра — лише познач, не дописуй контент).
+
+ПОВЕРНИ структурований звіт (StructuredOutput) рівно за схемою: slug, levelsActual, fixes[], figuresRenamed[], linksFound[] (з полем detailed), linksAdded[], missingTargets[], deeperTargets[], insertsAudited[], proposedStatus (для теми: done якщо все приведено; deeper/update якщо побачив реальну змістову проблему — лише сигнал), notes (стисло: що лишилось спірним). Сам текст редагуй у файлах; у звіт клади ОПИС, не вміст.`
+}
+
+phase('Audit')
+log(`recheck-аудит: книга «${book}», батч ${topics.length} тем`)
+
+const reports = await parallel(
+  topics.map(t => () =>
+    agent(buildPrompt(t), { label: `recheck:${(t.book || book)}/${t.slug}`, phase: 'Audit', schema: REPORT_SCHEMA })
+  )
+)
+
+return { book, count: topics.length, reports: reports.filter(Boolean) }
