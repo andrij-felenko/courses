@@ -48,7 +48,7 @@
     { slug: "antennas", title: "Антени", scope: "Випромінювання й приймання хвиль: діаграми спрямованості, підсилення, апертури, решітки.",
       topics: [
         { slug: "esp32-antenna", title: "Антена ESP32", status: "recheck", origin: "components/comms/esp32-antenna/" },
-        { slug: "antenna", title: "Антена", status: "recheck", origin: "embedded/block-6-comms-radio/antennas#6.8.1", hist: [{ file: "hist-marconi.md", status: "recheck" }] },
+        { slug: "antenna", title: "Антена", status: "done", levels: ["basic"], origin: "embedded/block-6-comms-radio/antennas#6.8.1", hist: [{ file: "hist-marconi.md", status: "done" }] },
         { slug: "resonance-dipole", title: "Резонанс і диполь", status: "recheck", origin: "embedded/block-6-comms-radio/antennas#6.8.2" },
         { slug: "antenna-gain", title: "Підсилення антени", status: "recheck", origin: "embedded/block-6-comms-radio/antennas#6.8.3" },
         { slug: "antenna-polarization", title: "Поляризація антени", status: "recheck", origin: "embedded/block-6-comms-radio/antennas#6.8.4" },

@@ -18,6 +18,7 @@ const KIND = (_a && _a.kind) || 'book'           // book | catalog
 const SECTION = (_a && _a.section) || ''          // фільтр за галуззю (slug)
 const LEVEL = (_a && _a.level) || 'basic'         // basic → <slug>.md ; detailed → <slug>-d.md
 const STATUSES = (_a && Array.isArray(_a.status) && _a.status.length) ? _a.status : ['empty', 'update', 'recheck', 'deeper']
+const ONLY = (_a && Array.isArray(_a.only)) ? _a.only : []   // явний фронтир-список ["section/slug", …] (драйв з обходу залежностей)
 const LIMIT = Number(_a && _a.limit) || 0
 if (!BOOK) throw new Error('Передай args = {book:"electronics"[, kind, section, level, status, limit]}')
 
@@ -79,6 +80,7 @@ const scout = await callAgent(
 let work = (scout && scout.units) || []
 if (SECTION) work = work.filter((u) => u.section === SECTION)
 work = work.filter((u) => STATUSES.includes(u.status))
+if (ONLY.length) work = work.filter((u) => ONLY.includes(u.section + '/' + u.slug))   // лише теми з фронтиру
 if (LIMIT) work = work.slice(0, LIMIT)
 if (!work.length) return { book: BOOK, total: 0, note: 'черга порожня' }
 log(`У роботі: ${work.length} тем (${LEVEL})`)

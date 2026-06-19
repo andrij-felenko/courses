@@ -25,10 +25,10 @@
       ] },
     { slug: "linear-algebra", title: "Лінійна алгебра", scope: "Векторні простори, лінійні відображення, матриці та спектральна теорія.",
       topics: [
-        { slug: "superposition", title: "Суперпозиція", status: "recheck", origin: "math/superposition/" },
+        { slug: "superposition", title: "Суперпозиція", status: "done", levels: ["basic"], origin: "math/superposition/" },
         { slug: "linear-systems", title: "Лінійні системи", status: "empty", origin: "math/linear-algebra/undefined" },
-        { slug: "gauss-elimination", title: "Метод Гаусса", status: "recheck", origin: "math/gauss-elimination/" },
-        { slug: "matrices-as-operations", title: "Матриці як дії", status: "recheck", origin: "math/matrices-as-operations/" },
+        { slug: "gauss-elimination", title: "Метод Гаусса", status: "deeper", levels: ["basic"], origin: "math/gauss-elimination/" },
+        { slug: "matrices-as-operations", title: "Матриці як дії", status: "deeper", levels: ["basic"], origin: "math/matrices-as-operations/" },
         { slug: "rotation-matrices", title: "Матриці повороту", status: "empty", origin: "math/linear-algebra/undefined" },
         { slug: "vector-components", title: "Складові вектора", status: "empty", origin: "math/vector-components/" },
         { slug: "vector-addition", title: "Додавання векторів", status: "empty", origin: "math/vector-analysis/undefined" },
@@ -37,7 +37,7 @@
       ] },
     { slug: "combinatorics", title: "Комбінаторика", scope: "Підрахунок, перелік і структура скінченних та дискретних конфігурацій, графи.",
       topics: [
-        { slug: "graph-theory", title: "Теорія графів", status: "recheck", origin: "math/graph-theory/" },
+        { slug: "graph-theory", title: "Теорія графів", status: "update", levels: ["basic"], origin: "math/graph-theory/" },
       ] },
     { slug: "geometry", title: "Геометрія", scope: "Фігури, простори, відстані й симетрії — від евклідової до проєктивної та алгебраїчної геометрії; включає диференціальну геометрію: гладкі многовиди, кривизну, зв'язності.",
       topics: [
@@ -132,10 +132,10 @@
     { slug: "numerical-analysis", title: "Числові методи", scope: "Алгоритми наближеного розв'язання математичних задач і аналіз їхньої похибки та збіжності.",
       topics: [
         { slug: "ieee754", title: "IEEE 754", status: "recheck", origin: "math/ieee754/" },
-        { slug: "si-prefixes", title: "Префікси СІ", status: "recheck", origin: "math/si-prefixes/" },
-        { slug: "dimensional-analysis", title: "Розмірний аналіз", status: "recheck", origin: "math/dimensional-analysis/" },
-        { slug: "e-series", title: "Ряди E", status: "recheck", origin: "math/e-series/" },
-        { slug: "energy-units", title: "Одиниці енергії", status: "recheck", origin: "math/energy-units/" },
+        { slug: "si-prefixes", title: "Префікси СІ", status: "done", levels: ["basic"], origin: "math/si-prefixes/" },
+        { slug: "dimensional-analysis", title: "Розмірний аналіз", status: "done", levels: ["basic"], origin: "math/dimensional-analysis/" },
+        { slug: "e-series", title: "Ряди E", status: "done", levels: ["basic"], origin: "math/e-series/" },
+        { slug: "energy-units", title: "Одиниці енергії", status: "done", levels: ["basic"], origin: "math/energy-units/" },
         { slug: "ppm", title: "PPM", status: "empty", origin: "math/ppm-math/" },
         { slug: "thermal-resistance", title: "Тепловий опір", status: "empty", origin: "math/thermal-resistance/" },
         { slug: "error-budget", title: "Бюджет похибок", status: "empty" },
