@@ -1,4 +1,4 @@
-/* book/communications/manifest.js — книга-предмет «Зв'язок» (тип "book"). Схема — AUTHORING.md §2. */
+/* manifest — «Зв'язок» (тип "book"). Схема — AUTHORING.md §2. */
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
   type: "book", slug: "communications", title: "Зв'язок",
   sections: [
@@ -10,7 +10,7 @@
       topics: [
         { slug: "parity-bit", title: "Біт парності", status: "recheck", origin: "embedded/block-3-digital-processor/error-correction#3.9.2" },
         { slug: "checksums", title: "Контрольні суми", status: "recheck", origin: "embedded/block-3-digital-processor/error-correction#3.9.3", proj: [{ file: "proj-checksums-in-code.md", status: "recheck" }] },
-        { slug: "crc", title: "CRC", status: "recheck", origin: "embedded/block-3-digital-processor/error-correction#3.9.4", comp: [{ file: "comp-hardware-crc.md", status: "recheck" }], math: [{ file: "math-gf2-polynomials.md", status: "empty" }], proj: [{ file: "proj-crc-implementation.md", status: "recheck" }] },
+        { slug: "crc", title: "CRC", status: "recheck", origin: "embedded/block-3-digital-processor/error-correction#3.9.4", comp: [{ file: "comp-hardware-crc.md", status: "recheck" }], math: [{ file: "math-gf2-polynomials.md", status: "done" }], proj: [{ file: "proj-crc-implementation.md", status: "recheck" }] },
         { slug: "hamming-distance", title: "Відстань Геммінга", status: "recheck", origin: "embedded/block-3-digital-processor/error-correction#3.9.5" },
         { slug: "hamming-code", title: "Код Геммінга", status: "recheck", origin: "embedded/block-3-digital-processor/error-correction#3.9.6", proj: [{ file: "proj-hamming-codec.md", status: "recheck" }] },
         { slug: "ecc-ram-flash", title: "ECC у пам'яті", status: "recheck", origin: "embedded/block-3-digital-processor/error-correction#3.9.7", comp: [{ file: "comp-ecc-hardware.md", status: "recheck" }] },
@@ -70,7 +70,7 @@
       ] },
     { slug: "networks", title: "Мережі", scope: "Топологія, комутація й маршрутизація потоків між вузлами в локальних і глобальних структурах.",
       topics: [
-        { slug: "utp-cable", title: "UTP-кабель", status: "recheck", origin: "components/comms/utp-cable/" },
+        { slug: "utp-cable", title: "UTP-кабель", status: "done", origin: "components/comms/utp-cable/" },
         { slug: "on-chip-radio", title: "Радіо на чіпі", status: "recheck", origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.1", hist: [{ file: "hist-bluetooth-name.md", status: "recheck" }] },
         { slug: "channel-band-packet", title: "Канал і пакет", status: "recheck", origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.2" },
         { slug: "wifi", title: "Wi-Fi", status: "recheck", origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.3" },
@@ -82,7 +82,7 @@
         { slug: "ethernet-frame", title: "Кадр Ethernet", status: "empty", origin: "embedded/undefined#6.10.1" },
         { slug: "ethernet-link-phy", title: "Фізика лінка", status: "empty", origin: "embedded/undefined#6.10.2" },
         { slug: "mac-ip-arp", title: "MAC, IP і ARP", status: "done", levels: ["basic"], origin: "embedded/undefined#6.10.3" },
-        { slug: "ip-routing", title: "Маршрутизація", status: "empty", origin: "embedded/undefined#6.10.4" },
+        { slug: "ip-routing", title: "Маршрутизація", status: "done", levels: ["basic"], origin: "embedded/undefined#6.10.4" },
         { slug: "dhcp-dns", title: "DHCP і DNS", status: "empty", origin: "embedded/undefined#6.10.5" },
         { slug: "nat", title: "NAT", status: "empty", origin: "embedded/undefined#6.10.6" },
       ] },
@@ -151,7 +151,7 @@
         { slug: "can-arbitration", title: "Арбітраж CAN", status: "empty", origin: "embedded/undefined#6.4.4" },
         { slug: "can-frame-errors", title: "Кадр CAN", status: "empty", origin: "embedded/undefined#6.4.5" },
         { slug: "dronecan", title: "DroneCAN", status: "empty", origin: "embedded/undefined#6.4.6" },
-        { slug: "usb-ethernet-differential", title: "USB та Ethernet пари", status: "empty", origin: "embedded/undefined#6.4.7" },
+        { slug: "usb-ethernet-differential", title: "USB та Ethernet пари", status: "done", levels: ["basic"], origin: "embedded/undefined#6.4.7" },
         { slug: "bus-resource-conflicts", title: "Конфлікти шин", status: "empty", origin: "embedded/undefined#6.12.5" },
       ] },
   ]

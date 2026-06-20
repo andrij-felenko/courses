@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому окремий чип: один малий кристал не вміщає все</text>
+<rect x="70.0" y="80.0" width="230.0" height="230.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="2.0"/>
+<text x="185.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікроконтролер</text>
+<rect x="109.5" y="118.4" width="61.0" height="63.2" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="140.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">ядро</tspan><tspan x="140.0" dy="15.6">+ SRAM</tspan><tspan x="140.0" dy="15.6">(кБ)</tspan></text>
+<rect x="209.9" y="120.2" width="70.2" height="59.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="245.0" y="139.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">вбуд.</tspan><tspan x="245.0" dy="14.3">флеш</tspan><tspan x="245.0" dy="14.3">сотні кБ</tspan></text>
+<text x="185.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">усе на одному кристалі</text>
+<text x="185.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">дорогий процес логіки</text>
+<text x="185.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">місця під дані — обмаль</text>
+<line x1="300.0" y1="175.0" x2="470.0" y2="175.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="205.0" x2="300.0" y2="205.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="385.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">SPI</text>
+<text x="385.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">4 проводи</text>
+<rect x="470.0" y="110.0" width="220.0" height="170.0" rx="6" fill="#fef7e9" stroke="#c0392b" stroke-width="2.0"/>
+<text x="580.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Окремий чип флеші</text>
+<rect x="508.4" y="153.4" width="143.1" height="63.2" rx="6" fill="#fdf0d5" stroke="#caa53d" stroke-width="1.5"/><text x="580.0" y="173.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">масив комірок</tspan><tspan x="580.0" dy="15.6">плаваючого затвора</tspan><tspan x="580.0" dy="15.6">МіБ за копійки</tspan></text>
+<text x="580.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">дешевий «оптовий» процес</text>
+<text x="580.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ємність на порядки більша</text>
+<rect x="24.6" y="328.0" width="710.8" height="32.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="348.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Логіку й пам'ять роблять різні процеси → дешевше тримати їх двома кристалами, з'єднаними тонкою шиною</tspan></text>
+</svg>

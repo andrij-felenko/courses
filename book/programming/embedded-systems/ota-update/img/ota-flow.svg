@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Образ тече з сервера шматками крізь крихітний буфер у Flash</text>
+<rect x="40.0" y="95.0" width="150.0" height="110.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.5"/><text x="115.0" y="121.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">СЕРВЕР</tspan><tspan x="115.0" dy="16.2"></tspan><tspan x="115.0" dy="16.2">образ</tspan><tspan x="115.0" dy="16.2">+ сума</tspan><tspan x="115.0" dy="16.2">+ підпис</tspan></text>
+<text x="115.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">хмара</text>
+<line x1="192.0" y1="150.0" x2="300.0" y2="150.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="246.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">«чи є новіше?»</text>
+<text x="246.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">шматок за шматком</text>
+<rect x="302.0" y="120.0" width="110.0" height="60.0" rx="6" fill="#fff7e6" stroke="#e67e22" stroke-width="1.8"/>
+<text x="357.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">буфер RAM</text>
+<text x="357.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">крихітний (1 КБ)</text>
+<text x="357.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">весь образ НЕ влазить</text>
+<line x1="416.0" y1="150.0" x2="470.0" y2="150.0" stroke="#e67e22" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="445.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle">пишемо</text>
+<text x="549.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Flash</text>
+<rect x="474.0" y="88.0" width="150.0" height="56.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="549.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">слот A — робочий</text>
+<rect x="474.0" y="158.0" width="150.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="549.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">слот B ← новий образ</text>
+<line x1="470.0" y1="150.0" x2="470.0" y2="184.0" stroke="#e67e22" stroke-width="1.6"/>
+<line x1="470.0" y1="184.0" x2="472.0" y2="184.0" stroke="#e67e22" stroke-width="1.6"/>
+<rect x="468.0" y="246.0" width="162.0" height="64.0" rx="6" fill="#fff7e6" stroke="#e67e22" stroke-width="1.5"/><text x="549.0" y="267.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="549.0" dy="0.0">наприкінці:</tspan><tspan x="549.0" dy="15.0">сума + підпис →</tspan><tspan x="549.0" dy="15.0">перемкнути слот</tspan></text>
+<line x1="549.0" y1="214.0" x2="549.0" y2="244.0" stroke="#e67e22" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="70.0" y="360.0" width="660.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="376.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Образ прошивки — сотні кілобайтів чи мегабайти, а RAM мікроконтролера — лічені</tspan><tspan x="400.0" dy="16.2">десятки кілобайтів: увесь образ у пам'ять не влазить. Тому OTA йде потоком —</tspan><tspan x="400.0" dy="16.2">кожен кусень проходить крізь крихітний буфер RAM прямо в запасний слот Flash,</tspan><tspan x="400.0" dy="16.2">буфер звільняється, і так увесь образ. Перевірка цілості й підпису — ПЕРЕД</tspan><tspan x="400.0" dy="16.2">перемиканням, тож робочий слот лишається цілим до самого кінця.</tspan></text>
+</svg>

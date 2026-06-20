@@ -1,29 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="330" viewBox="0 0 820 330">
-<rect width="820" height="330" fill="#ffffff"/>
-<defs>
-  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
-  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
-  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
-  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
-  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
-</defs>
-<text x="410.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Три послідовні резистори = один еквівалентний</text>
-<text x="410.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">для джерела немає різниці — важить лише сума опорів</text>
-<line x1="70.0" y1="150.0" x2="100.0" y2="150.0" stroke="#cf8b5e" stroke-width="2.4" stroke-linecap="round"/>
-<rect x="100.0" y="141.0" width="50.0" height="18.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
-<text x="125.0" y="133.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="italic">R₁</text>
-<rect x="165.0" y="141.0" width="50.0" height="18.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
-<text x="190.0" y="133.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="italic">R₂</text>
-<rect x="230.0" y="141.0" width="50.0" height="18.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
-<text x="255.0" y="133.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="italic">R₃</text>
-<line x1="280.0" y1="150.0" x2="320.0" y2="150.0" stroke="#cf8b5e" stroke-width="2.4" stroke-linecap="round"/>
-<text x="195.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">100 + 220 + 330 Ω</text>
-<text x="410.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="36" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">≡</text>
-<line x1="500.0" y1="150.0" x2="560.0" y2="150.0" stroke="#cf8b5e" stroke-width="2.4" stroke-linecap="round"/>
-<rect x="560.0" y="135.0" width="120.0" height="30.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
-<text x="620.0" y="154.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">R_екв = 650 Ω</text>
-<line x1="680.0" y1="150.0" x2="740.0" y2="150.0" stroke="#cf8b5e" stroke-width="2.4" stroke-linecap="round"/>
-<rect x="150.0" y="250.0" width="520.0" height="50.0" rx="10" fill="#fff3e8" stroke="#e08030" stroke-width="1.6"/>
-<text x="410.0" y="272.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Послідовне з'єднання ЗАВЖДИ збільшує опір:</text>
-<text x="410.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">R_екв більший за будь-який окремий резистор у ланцюжку.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три послідовні резистори = один еквівалентний</text>
+<text x="400.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">для джерела немає різниці — важить лише сума опорів</text>
+<line x1="70.0" y1="150.0" x2="100.0" y2="150.0" stroke="#cf8b5e" stroke-width="2.4"/>
+<rect x="100.0" y="141.0" width="50.0" height="18.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="125.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">R1</text>
+<rect x="165.0" y="141.0" width="50.0" height="18.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="190.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">R2</text>
+<rect x="230.0" y="141.0" width="50.0" height="18.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="255.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">R3</text>
+<line x1="280.0" y1="150.0" x2="320.0" y2="150.0" stroke="#cf8b5e" stroke-width="2.4"/>
+<text x="190.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">100 + 220 + 330 Ω</text>
+<text x="410.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="36" fill="#1a1a1a" text-anchor="middle" font-weight="700">≡</text>
+<line x1="500.0" y1="150.0" x2="560.0" y2="150.0" stroke="#cf8b5e" stroke-width="2.4"/>
+<rect x="560.0" y="134.0" width="120.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="154.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">R_екв = 650 Ω</tspan></text>
+<line x1="680.0" y1="150.0" x2="740.0" y2="150.0" stroke="#cf8b5e" stroke-width="2.4"/>
+<rect x="150.0" y="250.0" width="500.0" height="50.0" rx="6" fill="#fff3e8" stroke="#e08030" stroke-width="1.5"/><text x="400.0" y="271.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Послідовне з'єднання ЗАВЖДИ збільшує опір:</tspan><tspan x="400.0" dy="16.2">R_екв більший за будь-який окремий у ланцюжку</tspan></text>
 </svg>

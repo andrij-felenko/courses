@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Захист boost додають ЗЗОВНІ</text>
+<rect x="20.0" y="64.0" width="270.0" height="200.0" rx="12" fill="#f6f9fc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="155.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Послідовний роз'єднувач</text>
+<text x="155.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">окремий MOSFET-ключ</text>
+<text x="155.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">після виходу — фізично</text>
+<text x="155.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">рве шлях на КЗ і в спокої</text>
+<rect x="325.0" y="64.0" width="270.0" height="200.0" rx="12" fill="#f6f9fc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="460.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Запобіжник / ліміт</text>
+<text x="460.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">запобіжник чи eFuse</text>
+<text x="460.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">на вході обмежує струм,</text>
+<text x="460.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">коли все інше не встигло</text>
+<rect x="630.0" y="64.0" width="270.0" height="200.0" rx="12" fill="#f6f9fc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="765.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">М'який старт</text>
+<text x="765.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">плавно піднімати вихід</text>
+<text x="765.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">(ramp / NTC) проти</text>
+<text x="765.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">інрашу при увімкненні</text>
+<rect x="70.0" y="320.0" width="780.0" height="26.0" rx="6" fill="#eef8ef" stroke="#27ae60" stroke-width="1.5"/><text x="460.0" y="336.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Boost сам по собі вихід не захистить — багато boost-мікросхем мають вбудований роз'єднувач і захист від КЗ; нема його — ставлять самотужки</tspan></text>
+</svg>

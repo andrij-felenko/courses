@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхід boost завжди з'єднаний із виходом</text>
+<circle cx="90.0" cy="180.0" r="10.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.2"/><line x1="85.0" y1="180.0" x2="95.0" y2="180.0" stroke="#c0392b" stroke-width="2.2"/><line x1="90.0" y1="175.0" x2="90.0" y2="185.0" stroke="#c0392b" stroke-width="2.2"/><text x="90.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Vвх</text>
+<line x1="90.0" y1="190.0" x2="90.0" y2="320.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="90.0" y1="180.0" x2="120.0" y2="180.0" stroke="#c0392b" stroke-width="3.0"/>
+<path d="M 120.0 180.0 A 16.2 10.0 0 0 1 152.5 180.0 A 16.2 10.0 0 0 1 185.0 180.0 A 16.2 10.0 0 0 1 217.5 180.0 A 16.2 10.0 0 0 1 250.0 180.0 " fill="none" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="250.0" y1="180.0" x2="300.0" y2="180.0" stroke="#c0392b" stroke-width="3.0"/>
+<circle cx="300.0" cy="180.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.0"/>
+<line x1="300.0" y1="180.0" x2="300.0" y2="206.0" stroke="#6b7280" stroke-width="2.0"/><line x1="300.0" y1="206.0" x2="318.0" y2="192.0" stroke="#6b7280" stroke-width="2.4"/><line x1="300.0" y1="224.0" x2="300.0" y2="270.0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="300.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">ключ ВИМКНЕНО</text>
+<line x1="300.0" y1="180.0" x2="330.0" y2="180.0" stroke="#c0392b" stroke-width="2.0"/>
+<path d="M 330.0 169.0 L 330.0 191.0 L 352.0 180.0 Z" fill="none" stroke="#c0392b" stroke-width="2.0"/><line x1="352.0" y1="169.0" x2="352.0" y2="191.0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="341.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">діод</text>
+<line x1="352.0" y1="180.0" x2="490.0" y2="180.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="490.0" y1="180.0" x2="490.0" y2="320.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="490.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">КЗ!</text>
+<path d="M 478 210 L 496 230 L 484 230 L 502 254" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<line x1="90.0" y1="320.0" x2="490.0" y2="320.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="160" y1="150" x2="230" y2="150" stroke="#c0392b" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="250.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">струм тече Vвх → котушка → діод → КЗ, попри вимкнений ключ</text>
+<rect x="70.0" y="366.0" width="780.0" height="24.0" rx="6" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.5"/><text x="460.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="460.0" dy="0.0">Шлях Vвх → котушка → діод → вихід існує ЗАВЖДИ — його не розриває жоден ключ контролера</tspan></text>
+<text x="460.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Тому boost: не вміє Vвих &lt; Vвх · не гасить КЗ вимиканням ключа · б'є інрашем при старті</text>
+<text x="460.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Контролер тут безсилий — захист має стояти ОКРЕМО</text>
+</svg>

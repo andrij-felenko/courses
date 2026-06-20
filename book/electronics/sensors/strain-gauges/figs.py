@@ -189,9 +189,138 @@ def fig_temp_comp():
     render(os.path.join(IMG, 'temp-compensation.svg'), W, H, *f)
 
 
+# ── 5. Вивід: міст = два дільники; різниця → точна формула з нелінійністю ──────
+def fig_bridge_derivation():
+    W, H = 780, 430
+    f = [text(W / 2, 26, "Вивід V_вих: різниця двох дільників", size=16, bold=True)]
+
+    # ромб моста з підписаними плечами R1..R4
+    cx, cy, s = 210, 200, 110
+    top = (cx, cy - s); bot = (cx, cy + s); lft = (cx - s, cy); rgt = (cx + s, cy)
+    for a, b in [(top, rgt), (rgt, bot), (bot, lft), (lft, top)]:
+        f.append(line(a[0], a[1], b[0], b[1], color=LINE, sw=2))
+
+    def arm(p, q, label, active=False):
+        mx, my = (p[0] + q[0]) / 2, (p[1] + q[1]) / 2
+        col = POS if active else LINE
+        fill = "#fdecea" if active else "#eef3f9"
+        return (rect(mx - 22, my - 12, 44, 24, fill=fill, stroke=col, sw=1.8) +
+                text(mx, my + 5, label, size=12, bold=True, color=col))
+
+    # ліва пара R1(верх)/R2(низ); права пара R3(верх)/R4(низ)
+    f.append(arm(top, lft, "R₁", False))
+    f.append(arm(lft, bot, "R₂", False))
+    f.append(arm(top, rgt, "R₃", False))
+    f.append(arm(rgt, bot, "R₄", False))
+
+    # живлення зверху, земля знизу
+    f.append(plus(cx, top[1] - 4, 8))
+    f.append(text(cx, top[1] - 20, "V_зб", size=12, bold=True, color=POS))
+    f.append(text(cx, bot[1] + 24, "GND", size=11, color=MUTED))
+    # вузли A та B
+    f.append(circle(lft[0], lft[1], 4, fill=NEG, stroke=NEG))
+    f.append(text(lft[0] - 16, lft[1] + 4, "A", size=13, bold=True, color=NEG))
+    f.append(circle(rgt[0], rgt[1], 4, fill=NEG, stroke=NEG))
+    f.append(text(rgt[0] + 16, rgt[1] + 4, "B", size=13, bold=True, color=NEG))
+    f.append(text(cx, cy + 4, "V_вих = V_A − V_B", size=12, bold=True, color=NEG))
+    f.append(text(cx, cy + 22, "(різниця)", size=10, color=MUTED))
+
+    # права колонка: два дільники → загальна формула
+    bx = 420
+    f.append(text(bx + 165, 70, "кожна половина — дільник напруги", size=12, bold=True))
+    f.append(fitbox(bx, 84, 330, 34, "V_A = V_зб · R₂ / (R₁ + R₂)",
+                    size=13, fill="#eaf0fd", stroke=NEG))
+    f.append(fitbox(bx, 124, 330, 34, "V_B = V_зб · R₄ / (R₃ + R₄)",
+                    size=13, fill="#eaf0fd", stroke=NEG))
+    f.append(text(bx + 165, 184, "віднімаємо — точна формула моста:", size=12, bold=True))
+    f.append(fitbox(bx, 198, 330, 56,
+                    "V_вих     R₂·R₃ − R₁·R₄\n──── = ──────────────\nV_зб    (R₁+R₂)(R₃+R₄)",
+                    size=13, fill="#f4f6f8", stroke=LINE))
+    f.append(text(bx + 165, 280, "у спокої R₁·R₄ = R₂·R₃ → V_вих = 0", size=11, color=MUTED))
+
+    # нижня смуга: чвертьміст → лінійна частина + нелінійний доважок
+    f.append(rect(40, 320, W - 80, 92, fill="#fffaf0", stroke="#b8860b", sw=1.4, rx=8))
+    f.append(text(W / 2, 342, "чвертьміст (активне лише R₁ = R+ΔR, решта = R):",
+                  size=12, bold=True))
+    f.append(text(W / 2, 372, "V_вих / V_зб =  (1/4)·(ΔR/R)  ·  1 / (1 + ½·ΔR/R)",
+                  size=14, bold=True))
+    f.append(text(255, 398, "лінійний відгук", size=11, color=FIELD, bold=True))
+    f.append(text(560, 398, "нелінійний доважок (звідси похибка)", size=11, color=POS, bold=True))
+
+    render(os.path.join(IMG, 'bridge-derivation.svg'), W, H, *f)
+
+
+# ── 6. Чверть / напів / повний міст: множник ×1 / ×2 / ×4 і лінійність ─────────
+def fig_bridge_configs():
+    W, H = 800, 430
+    f = [text(W / 2, 26, "Скільки плечей активні: множник ×1 / ×2 / ×4", size=16, bold=True)]
+
+    def small_bridge(cx, cy, s, arms, caption, mult, linear, note):
+        """arms = (a1,a2,a3,a4) для R1,R2,R3,R4: '+' розтяг, '-' стиск, '0' сталий."""
+        out = []
+        top = (cx, cy - s); bot = (cx, cy + s); lft = (cx - s, cy); rgt = (cx + s, cy)
+        for a, b in [(top, rgt), (rgt, bot), (bot, lft), (lft, top)]:
+            out.append(line(a[0], a[1], b[0], b[1], color=LINE, sw=1.8))
+        sides = [(top, lft), (lft, bot), (top, rgt), (rgt, bot)]  # R1,R2,R3,R4
+        for (p, q), tag in zip(sides, arms):
+            mx, my = (p[0] + q[0]) / 2, (p[1] + q[1]) / 2
+            if tag == "+":
+                col, fill, lab = POS, "#fdecea", "+"
+            elif tag == "-":
+                col, fill, lab = NEG, "#eaf0fd", "−"
+            else:
+                col, fill, lab = LINE, "#eef3f9", "R"
+            out.append(rect(mx - 13, my - 10, 26, 20, fill=fill, stroke=col, sw=1.6))
+            out.append(text(mx, my + 5, lab, size=12, bold=True, color=col))
+        out.append(plus(cx, top[1] - 2, 6))
+        out.append(text(cx, bot[1] + 16, "GND", size=9, color=MUTED))
+        out.append(text(cx - s - 10, cy + 4, "○", size=11, color=NEG))
+        out.append(text(cx + s + 10, cy + 4, "○", size=11, color=NEG))
+        # підписи під мостом
+        out.append(text(cx, cy + s + 40, caption, size=13, bold=True))
+        out.append(text(cx, cy + s + 62, mult, size=15, bold=True, color=POS))
+        lc = FIELD if linear else "#b8860b"
+        out.append(text(cx, cy + s + 84, linear, size=11, bold=True, color=lc) if False else
+                   text(cx, cy + s + 84, "лінійність: " + note, size=10, color=lc))
+        return out
+
+    s = 58
+    y = 150
+    # чвертьміст: одне активне плече
+    f += small_bridge(150, y, s, ("+", "0", "0", "0"),
+                      "чвертьміст", "×1",
+                      None, "нелінійний")
+    # напівміст: два плеча назустріч (+ і −)
+    f += small_bridge(400, y, s, ("+", "-", "0", "0"),
+                      "напівміст", "×2",
+                      None, "лінійний*")
+    # повний міст: усі чотири, парами назустріч
+    f += small_bridge(650, y, s, ("+", "-", "-", "+"),
+                      "повний міст", "×4",
+                      None, "лінійний")
+
+    # легенда
+    ly = 360
+    f.append(rect(40, ly, W - 80, 56, fill="#f4f6f8", stroke=LINE, sw=1.2, rx=8))
+    f.append(text(110, ly + 22, "+ розтяг (R↑)", size=11, bold=True, color=POS))
+    f.append(text(110, ly + 42, "− стиск (R↓)", size=11, bold=True, color=NEG))
+    f.append(text(330, ly + 22, "R сталий опір (компенсаційне / «німе» плече)",
+                  size=11, color=MUTED))
+    f.append(text(330, ly + 42, "* напівміст лінійний, лише коли пара змінюється строго +ΔR / −ΔR",
+                  size=10, color="#b8860b"))
+    f.append(text(640, ly + 32, "більше активних плечей →\nсильніший і чесніший сигнал",
+                  size=10, color=INK) if False else
+             mtext(660, ly + 22, ["більше активних плечей →", "сильніший і чесніший сигнал"],
+                   size=10, color=INK))
+
+    render(os.path.join(IMG, 'bridge-configs.svg'), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_principle()
     fig_gauge_factor()
     fig_bridge()
     fig_temp_comp()
-    print("OK: 4 фігури у", IMG)
+    fig_bridge_derivation()
+    fig_bridge_configs()
+    print("OK: 6 фігур у", IMG)

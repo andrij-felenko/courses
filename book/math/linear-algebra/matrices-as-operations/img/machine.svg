@@ -1,57 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360">
-<rect width="760" height="360" fill="#ffffff"/>
-<defs>
-  <marker id="mInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
-  <marker id="mRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
-  <marker id="mBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
-  <marker id="mGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
-  <marker id="mPurple" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#7a3ea8"/></marker>
-  <marker id="mGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
-</defs>
-<text x="380.0" y="26.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Матриця M — це машина: бере вектор, повертає вектор</text>
-<line x1="70.0" y1="300.0" x2="70.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="70.0" y1="300.0" x2="174.0" y2="300.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="96.0" y1="300.0" x2="96.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="70.0" y1="274.0" x2="174.0" y2="274.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="122.0" y1="300.0" x2="122.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="70.0" y1="248.0" x2="174.0" y2="248.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="148.0" y1="300.0" x2="148.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="70.0" y1="222.0" x2="174.0" y2="222.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="174.0" y1="300.0" x2="174.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="70.0" y1="196.0" x2="174.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="70.0" y1="300.0" x2="184.4" y2="300.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#mGrey)"/>
-<line x1="70.0" y1="300.0" x2="70.0" y2="185.6" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#mGrey)"/>
-<line x1="70.0" y1="300.0" x2="96.0" y2="300.0" stroke="#c0271e" stroke-width="3" marker-end="url(#mRed)"/>
-<line x1="70.0" y1="300.0" x2="70.0" y2="274.0" stroke="#1f47b5" stroke-width="3" marker-end="url(#mBlue)"/>
-<text x="97.3" y="292.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">e₁</text>
-<text x="73.1" y="269.3" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">e₂</text>
-<line x1="70.0" y1="300.0" x2="122.0" y2="274.0" stroke="#7a3ea8" stroke-width="3.4" marker-end="url(#mPurple)"/>
-<text x="123.3" y="269.3" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#7a3ea8" text-anchor="start" font-weight="bold" font-style="normal">v = (2, 1)</text>
-<text x="122.0" y="326.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">вхідна площина</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця M — це машина: бере вектор, повертає вектор</text>
+<line x1="70.0" y1="300.0" x2="174.0" y2="300.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="70.0" y1="300.0" x2="70.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="70.0" y1="274.0" x2="174.0" y2="274.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="96.0" y1="300.0" x2="96.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="70.0" y1="248.0" x2="174.0" y2="248.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="122.0" y1="300.0" x2="122.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="70.0" y1="222.0" x2="174.0" y2="222.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="148.0" y1="300.0" x2="148.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="70.0" y1="196.0" x2="174.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="174.0" y1="300.0" x2="174.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="70.0" y1="300.0" x2="96.0" y2="300.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<line x1="70.0" y1="300.0" x2="70.0" y2="274.0" stroke="#2457d6" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="100.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">e₁</text>
+<text x="74.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">e₂</text>
+<line x1="70.0" y1="300.0" x2="122.0" y2="274.0" stroke="#7a3ea8" stroke-width="3.4" marker-end="url(#arrow)"/>
+<text x="126.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7a3ea8" text-anchor="start" font-weight="700">v = (2, 1)</text>
+<text x="122.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">вхідна площина</text>
 <rect x="320.0" y="150.0" width="120.0" height="70.0" rx="10" fill="#f3eefb" stroke="#7a3ea8" stroke-width="2.2"/>
-<text x="380.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">M =</text>
-<text x="380.0" y="198.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">[1  1]</text>
-<text x="380.0" y="214.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">[0  1]</text>
-<line x1="255.0" y1="150.0" x2="314.0" y2="175.0" stroke="#1b1b1b" stroke-width="2.4" marker-end="url(#mInk)"/>
-<line x1="446.0" y1="175.0" x2="525.0" y2="150.0" stroke="#1b1b1b" stroke-width="2.4" marker-end="url(#mInk)"/>
-<text x="380.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#7a3ea8" text-anchor="middle" font-weight="normal" font-style="italic">«зсув» (shear)</text>
-<line x1="545.0" y1="300.0" x2="649.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="545.0" y1="300.0" x2="649.0" y2="300.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="571.0" y1="300.0" x2="675.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="571.0" y1="274.0" x2="675.0" y2="274.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="597.0" y1="300.0" x2="701.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="597.0" y1="248.0" x2="701.0" y2="248.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="623.0" y1="300.0" x2="727.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="623.0" y1="222.0" x2="727.0" y2="222.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="649.0" y1="300.0" x2="753.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="649.0" y1="196.0" x2="753.0" y2="196.0" stroke="#e4e4e4" stroke-width="1" stroke-linecap="round"/>
-<line x1="545.0" y1="300.0" x2="659.4" y2="300.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#mGrey)"/>
-<line x1="545.0" y1="300.0" x2="659.4" y2="185.6" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#mGrey)"/>
-<line x1="545.0" y1="300.0" x2="571.0" y2="300.0" stroke="#c0271e" stroke-width="3" marker-end="url(#mRed)"/>
-<line x1="545.0" y1="300.0" x2="571.0" y2="274.0" stroke="#1f47b5" stroke-width="3" marker-end="url(#mBlue)"/>
-<text x="564.5" y="307.8" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="normal" font-style="normal">M·e₁ = стовпець 1</text>
-<text x="581.4" y="266.2" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="normal" font-style="normal">M·e₂ = стовпець 2</text>
-<line x1="545.0" y1="300.0" x2="623.0" y2="274.0" stroke="#7a3ea8" stroke-width="3.4" marker-end="url(#mPurple)"/>
-<text x="632.1" y="264.9" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#7a3ea8" text-anchor="start" font-weight="bold" font-style="normal">Mv = (3, 1)</text>
-<text x="597.0" y="326.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">вихідна площина</text>
+<text x="380.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">M =</text>
+<text x="380.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">[1  1]</text>
+<text x="380.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">[0  1]</text>
+<text x="380.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7a3ea8" text-anchor="middle" font-style="italic">«зсув» (shear)</text>
+<line x1="255.0" y1="150.0" x2="314.0" y2="175.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="446.0" y1="175.0" x2="525.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="545.0" y1="300.0" x2="649.0" y2="300.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="545.0" y1="300.0" x2="649.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="571.0" y1="274.0" x2="675.0" y2="274.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="571.0" y1="300.0" x2="675.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="597.0" y1="248.0" x2="701.0" y2="248.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="597.0" y1="300.0" x2="701.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="623.0" y1="222.0" x2="727.0" y2="222.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="623.0" y1="300.0" x2="727.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="649.0" y1="196.0" x2="753.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="649.0" y1="300.0" x2="753.0" y2="196.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<line x1="545.0" y1="300.0" x2="571.0" y2="300.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<line x1="545.0" y1="300.0" x2="571.0" y2="274.0" stroke="#2457d6" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="551.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">M·e₁ = стовпець 1</text>
+<text x="577.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">M·e₂ = стовпець 2</text>
+<line x1="545.0" y1="300.0" x2="623.0" y2="274.0" stroke="#7a3ea8" stroke-width="3.4" marker-end="url(#arrow)"/>
+<text x="627.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7a3ea8" text-anchor="start" font-weight="700">Mv = (3, 1)</text>
+<text x="597.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">вихідна площина</text>
 </svg>

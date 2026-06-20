@@ -1,5 +1,4 @@
-/* book/programming/manifest.js — книга-предмет «Програмування» (тип "book").
-   Схема — AUTHORING.md §2. Статуси: done | empty | update | deeper | recheck. */
+/* manifest — «Програмування» (тип "book"). Схема — AUTHORING.md §2. */
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
   type: "book", slug: "programming", title: "Програмування",
   sections: [
@@ -54,7 +53,7 @@
       ] },
     { slug: "peripherals", title: "Периферія", scope: "Порти, шини й контролери материнської плати та підключення зовнішніх пристроїв: PCIe, USB, BIOS/UEFI, ввід-вивід.",
       topics: [
-        { slug: "spi-flash", title: "SPI-флеш", status: "empty", origin: "components/memory/undefined" },
+        { slug: "spi-flash", title: "SPI-флеш", status: "done", levels: ["basic"], origin: "components/memory/undefined" },
         { slug: "eeprom", title: "EEPROM", status: "empty", origin: "components/memory/undefined" },
         { slug: "microsd", title: "microSD", status: "empty", origin: "components/memory/undefined" },
         { slug: "psram", title: "PSRAM", status: "recheck", origin: "components/memory/psram/" },
@@ -155,7 +154,7 @@
         { slug: "mcu-checklist", title: "Чеклист вибору МК", status: "recheck", origin: "embedded/block-4-mcu-esp32/mcu-landscape#4.11.8", math: [{ file: "math-decision-matrix.md", status: "recheck" }] },
         { slug: "battery-budget", title: "Бюджет батареї", status: "recheck", origin: "embedded/block-4-mcu-esp32/low-power#4.13.1", hist: [{ file: "hist-pacemaker.md", status: "recheck" }], math: [{ file: "math-battery-math.md", status: "recheck" }] },
         { slug: "current-paths", title: "Куди тече струм", status: "recheck", origin: "embedded/block-4-mcu-esp32/low-power#4.13.2", hist: [{ file: "hist-voyager.md", status: "recheck" }], comp: [{ file: "comp-sensor-standby.md", status: "recheck" }] },
-        { slug: "sleep-modes", title: "Режими сну", status: "update", levels: ["basic"], origin: "embedded/block-4-mcu-esp32/low-power#4.13.3" },
+        { slug: "sleep-modes", title: "Режими сну", status: "done", levels: ["basic"], origin: "embedded/block-4-mcu-esp32/low-power#4.13.3" },
         { slug: "wakeup-sources", title: "Джерела пробудження", status: "recheck", origin: "embedded/block-4-mcu-esp32/low-power#4.13.4", comp: [{ file: "comp-wake-hw.md", status: "recheck" }] },
         { slug: "ulp-coprocessor", title: "ULP-співпроцесор", status: "recheck", origin: "embedded/block-4-mcu-esp32/low-power#4.13.5", proj: [{ file: "proj-ulp-program.md", status: "recheck" }] },
         { slug: "duty-cycle-current", title: "Цикл і середній струм", status: "recheck", origin: "embedded/block-4-mcu-esp32/low-power#4.13.6" },
@@ -173,7 +172,7 @@
         { slug: "brownout", title: "Brown-out", status: "recheck", origin: "embedded/block-4-mcu-esp32/fault-tolerant#4.15.7" },
         { slug: "graceful-degradation", title: "Деградація з гідністю", status: "recheck", origin: "embedded/block-4-mcu-esp32/fault-tolerant#4.15.8" },
         { slug: "stream-parser", title: "Розбір потоку", status: "recheck", origin: "embedded/block-6-comms-radio/uart#6.1.7" },
-        { slug: "ota-update", title: "OTA-оновлення", status: "empty", origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.9" },
+        { slug: "ota-update", title: "OTA-оновлення", status: "done", levels: ["basic"], origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.9" },
         { slug: "ble-gatt-practice", title: "BLE-практика", status: "empty", origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.12" },
         { slug: "mavlink-commands", title: "Команди MAVLink", status: "recheck", origin: "embedded/block-6-comms-radio/telemetry-mavlink#6.9.6" },
         { slug: "autonomous-system", title: "Автономна система", status: "recheck", origin: "embedded/block-7-systems/architecture-flight-controller#7.1.1", hist: [{ file: "hist-ardupilot.md", status: "recheck" }] },
@@ -187,7 +186,7 @@
         { slug: "manual-stabilized-modes", title: "Ручні режими", status: "empty", origin: "embedded/undefined#7.6.1" },
         { slug: "position-modes", title: "Режими з позицією", status: "empty", origin: "embedded/undefined#7.6.2" },
         { slug: "arming-checks", title: "Arming-перевірки", status: "empty", origin: "embedded/undefined#7.6.3" },
-        { slug: "failsafe", title: "Failsafe", status: "empty", origin: "embedded/undefined#7.6.5" },
+        { slug: "failsafe", title: "Failsafe", status: "done", levels: ["basic"], origin: "embedded/undefined#7.6.5" },
         { slug: "failure-priorities", title: "Пріоритети відмов", status: "empty", origin: "embedded/undefined#7.6.6" },
         { slug: "mode-state-machine", title: "Автомат режимів", status: "empty", origin: "embedded/undefined#7.6.7" },
         { slug: "first-bringup", title: "Перший запуск", status: "empty", origin: "embedded/undefined#7.6.8" },

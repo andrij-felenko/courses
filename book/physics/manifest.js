@@ -1,4 +1,4 @@
-/* book/physics/manifest.js — книга-предмет «Фізика» (тип "book"). Схема — AUTHORING.md §2. */
+/* manifest — «Фізика» (тип "book"). Схема — AUTHORING.md §2. */
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
   type: "book", slug: "physics", title: "Фізика",
   sections: [
@@ -60,14 +60,14 @@
         { slug: "inductive-coupling", title: "Індуктивна наводка", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/noise-interference#1.9.5" },
         { slug: "triboelectricity", title: "Трибоелектрика", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/esd-static#1.10.1", hist: [{ file: "hist-franklin-richmann.md", status: "done" }] },
         { slug: "body-charge", title: "Заряд тіла", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/esd-static#1.10.2", math: [{ file: "math-hbm.md", status: "done" }] },
-        { slug: "lightning", title: "Блискавка", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/esd-static#1.10.4", comp: [{ file: "comp-spark-gap-gdt.md", status: "empty" }] },
+        { slug: "lightning", title: "Блискавка", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/esd-static#1.10.4", comp: [{ file: "comp-spark-gap-gdt.md", status: "done" }] },
         { slug: "humidity-static-control", title: "Вологість і статика", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/esd-static#1.10.8" },
         { slug: "em-wave", title: "Електромагнітна хвиля", status: "done", levels: ["basic"], origin: "embedded/block-6-comms-radio/radio-em-waves#6.6.1", hist: [{ file: "hist-hertz.md", status: "done" }] },
         { slug: "frequency-wavelength", title: "Частота й довжина", status: "done", levels: ["basic"], origin: "embedded/block-6-comms-radio/radio-em-waves#6.6.2" },
       ] },
     { slug: "optics", title: "Оптика", scope: "Поширення електромагнітних хвиль і поведінка світла як променя й хвилі: відбиття, заломлення, дифракція, поляризація.",
       topics: [
-        { slug: "total-internal-reflection", title: "Повне внутрішнє відбиття", status: "empty" },
+        { slug: "total-internal-reflection", title: "Повне внутрішнє відбиття", status: "done", levels: ["basic"] },
       ] },
     { slug: "relativity", title: "Відносність", scope: "Фізика великих швидкостей і викривленого простору-часу: спеціальна та загальна теорія відносності й гравітація як геометрія.",
       topics: [

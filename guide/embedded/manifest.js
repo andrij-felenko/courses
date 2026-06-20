@@ -2177,9 +2177,8 @@
               "status": "empty"
             },
             {
-              "slug": "marshrutyzatsiia",
-              "title": "Маршрутизація",
-              "status": "empty"
+              "ref": "communications/networks/ip-routing",
+              "title": "Маршрутизація"
             },
             {
               "slug": "nadiina-dostavka-i-pidtverdzhennia",

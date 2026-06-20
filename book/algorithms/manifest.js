@@ -1,6 +1,4 @@
-/* book/algorithms/manifest.js — книга-предмет «Алгоритми» (тип "book").
-   Схема — AUTHORING.md §2: { type, slug, title, sections:[ {slug,title,scope, topics:[ {slug,title,status,levels,origin, hist/comp/math/proj:[{file,status}]} ]} ] }
-   Статуси: done | empty | update | deeper | recheck. */
+/* manifest — «Алгоритми» (тип "book"). Схема — AUTHORING.md §2. */
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
   type: "book", slug: "algorithms", title: "Алгоритми",
   sections: [
@@ -88,12 +86,12 @@
         { slug: "kalman-ekf", title: "Фільтр Калмана", status: "recheck", origin: "embedded/block-7-systems/state-estimation-fusion#7.5.4" },
         { slug: "sensor-fusion-2", title: "Поєднання давачів у польоті", status: "recheck", origin: "embedded/block-7-systems/state-estimation-fusion#7.5.5" },
         { slug: "latency-sync", title: "Затримки й синхро", status: "recheck", origin: "embedded/block-7-systems/state-estimation-fusion#7.5.6" },
-        { slug: "odometry", title: "Одометрія", status: "empty", origin: "embedded/undefined#5.3.7" },
+        { slug: "odometry", title: "Одометрія", status: "done", levels: ["basic"], origin: "embedded/undefined#5.3.7" },
         { slug: "motion-profiles", title: "Профілі руху", status: "empty", origin: "embedded/undefined#5.9.9" },
-        { slug: "roll-pitch-yaw-control", title: "Керування roll/pitch/yaw", status: "empty", origin: "embedded/undefined#7.2.3" },
-        { slug: "motor-mixer", title: "Мікшер", status: "empty", origin: "embedded/undefined#7.2.4" },
-        { slug: "instability-stabilization", title: "Потреба стабілізації", status: "empty", origin: "embedded/undefined#7.2.5" },
-        { slug: "stabilization-cascade", title: "Каскад стабілізації", status: "empty", origin: "embedded/undefined#7.2.8" },
+        { slug: "roll-pitch-yaw-control", title: "Керування roll/pitch/yaw", status: "done", levels: ["basic"], origin: "embedded/undefined#7.2.3" },
+        { slug: "motor-mixer", title: "Мікшер", status: "done", levels: ["basic"], origin: "embedded/undefined#7.2.4" },
+        { slug: "instability-stabilization", title: "Потреба стабілізації", status: "done", levels: ["basic"], origin: "embedded/undefined#7.2.5" },
+        { slug: "stabilization-cascade", title: "Каскад стабілізації", status: "done", levels: ["basic"], origin: "embedded/undefined#7.2.8" },
         { slug: "missions-waypoints", title: "Місії й точки", status: "empty", origin: "embedded/undefined#7.6.4" },
         { slug: "sense-decide-act-loop", title: "Контур offboard", status: "empty", origin: "embedded/undefined#7.11.4" },
         { slug: "one-stack-many-bodies", title: "Один стек", status: "empty", origin: "embedded/undefined#7.12.1" },

@@ -1,4 +1,4 @@
-/* book/math/manifest.js — книга-предмет «Математика» (тип "book"). Схема — AUTHORING.md §2. */
+/* manifest — «Математика» (тип "book"). Схема — AUTHORING.md §2. */
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
   type: "book", slug: "math", title: "Математика",
   sections: [
@@ -13,7 +13,7 @@
       topics: [
         { slug: "why-binary", title: "Чому двійкова", status: "done", levels: ["basic"], origin: "embedded/block-3-digital-processor/number-representation#3.4.1", hist: [{ file: "hist-leibniz.md", status: "done" }] },
         { slug: "positional-systems", title: "Позиційні системи", status: "recheck", origin: "embedded/block-3-digital-processor/number-representation#3.4.2" },
-        { slug: "twos-complement", title: "Доповняльний код", status: "recheck", origin: "embedded/block-3-digital-processor/number-representation#3.4.3", hist: [{ file: "hist-modular-arithmetic.md", status: "recheck" }], math: [{ file: "math-modular-arithmetic.md", status: "empty" }] },
+        { slug: "twos-complement", title: "Доповняльний код", status: "recheck", origin: "embedded/block-3-digital-processor/number-representation#3.4.3", hist: [{ file: "hist-modular-arithmetic.md", status: "recheck" }], math: [{ file: "math-modular-arithmetic.md", status: "done" }] },
         { slug: "modular-arithmetic", title: "Модульна арифметика", status: "recheck", origin: "math/modular-arithmetic/" },
         { slug: "address-space", title: "Адресний простір", status: "recheck", origin: "math/address-space/" },
       ] },
@@ -26,17 +26,17 @@
       topics: [
         { slug: "superposition", title: "Суперпозиція", status: "done", levels: ["basic"], origin: "math/superposition/" },
         { slug: "linear-systems", title: "Лінійні системи", status: "done", levels: ["basic"], origin: "math/linear-algebra/undefined" },
-        { slug: "gauss-elimination", title: "Метод Гаусса", status: "deeper", levels: ["basic"], origin: "math/gauss-elimination/" },
-        { slug: "matrices-as-operations", title: "Матриці як дії", status: "deeper", levels: ["basic"], origin: "math/matrices-as-operations/" },
+        { slug: "gauss-elimination", title: "Метод Гаусса", status: "done", levels: ["basic"], origin: "math/gauss-elimination/" },
+        { slug: "matrices-as-operations", title: "Матриці як дії", status: "done", levels: ["basic"], origin: "math/matrices-as-operations/" },
         { slug: "rotation-matrices", title: "Матриці повороту", status: "done", levels: ["basic"], origin: "math/linear-algebra/undefined" },
-        { slug: "vector-components", title: "Складові вектора", status: "done", levels: ["basic"], origin: "math/vector-components/", hist: [{ file: "hist-vector-concept.md", status: "empty" }] },
+        { slug: "vector-components", title: "Складові вектора", status: "done", levels: ["basic"], origin: "math/vector-components/", hist: [{ file: "hist-vector-concept.md", status: "done" }] },
         { slug: "vector-addition", title: "Додавання векторів", status: "done", levels: ["basic"], origin: "math/vector-analysis/undefined" },
         { slug: "dot-product", title: "Скалярний добуток", status: "done", levels: ["basic"], origin: "math/gradient/" },
         { slug: "cross-product", title: "Векторний добуток", status: "done", levels: ["basic"], origin: "math/cross-product/" },
       ] },
     { slug: "combinatorics", title: "Комбінаторика", scope: "Підрахунок, перелік і структура скінченних та дискретних конфігурацій, графи.",
       topics: [
-        { slug: "graph-theory", title: "Теорія графів", status: "update", levels: ["basic"], origin: "math/graph-theory/" },
+        { slug: "graph-theory", title: "Теорія графів", status: "done", levels: ["basic"], origin: "math/graph-theory/" },
       ] },
     { slug: "geometry", title: "Геометрія", scope: "Фігури, простори, відстані й симетрії — від евклідової до проєктивної та алгебраїчної геометрії; включає диференціальну геометрію: гладкі многовиди, кривизну, зв'язності.",
       topics: [
@@ -44,7 +44,7 @@
         { slug: "quaternions", title: "Кватерніони", status: "done", levels: ["basic"], origin: "embedded/block-5-sensors-control/orientation-pid#5.8.2" },
         { slug: "sine-cosine", title: "Синус і косинус", status: "done", levels: ["basic"], origin: "math/sine-cosine/" },
         { slug: "phase-shift", title: "Фаза й зсув", status: "done", levels: ["basic"], origin: "math/phasors/" },
-        { slug: "power-triangle", title: "Трикутник потужності", status: "empty", origin: "math/power-triangle/" },
+        { slug: "power-triangle", title: "Трикутник потужності", status: "done", levels: ["basic"], origin: "math/power-triangle/" },
       ] },
     { slug: "topology", title: "Топологія", scope: "Властивості просторів, інваріантні щодо неперервних деформацій, та їхні алгебраїчні інваріанти.",
       topics: [
@@ -55,7 +55,7 @@
         { slug: "fourier-idea", title: "Ідея Фур'є", status: "done", levels: ["basic"], origin: "embedded/block-5-sensors-control/spectrum-fourier#5.5.2" },
         { slug: "spectrum", title: "Спектр", status: "done", levels: ["basic"], origin: "embedded/block-5-sensors-control/spectrum-fourier#5.5.3" },
         { slug: "dft", title: "ДПФ", status: "done", levels: ["basic"], origin: "embedded/block-5-sensors-control/spectrum-fourier#5.5.4" },
-        { slug: "windowing-leakage", title: "Вікно й витік", status: "recheck", origin: "embedded/block-5-sensors-control/spectrum-fourier#5.5.6" },
+        { slug: "windowing-leakage", title: "Вікно й витік", status: "done", origin: "embedded/block-5-sensors-control/spectrum-fourier#5.5.6" },
         { slug: "why-frequency-domain", title: "Навіщо частота", status: "recheck", origin: "embedded/block-5-sensors-control/spectrum-fourier#5.5.7" },
         { slug: "derivative", title: "Похідна", status: "done", levels: ["basic"], origin: "math/derivative/" },
         { slug: "integral", title: "Інтеграл", status: "done", levels: ["basic"], origin: "math/calculus/undefined" },
@@ -93,12 +93,12 @@
     { slug: "probability", title: "Імовірність", scope: "Математична теорія випадковості — випадкові величини, процеси та граничні теореми.",
       topics: [
         { slug: "mean-variance", title: "Середнє й дисперсія", status: "done", levels: ["basic"], origin: "math/random-variables/" },
-        { slug: "central-limit", title: "Центральна гранична теорема", status: "empty", origin: "math/central-limit/" },
-        { slug: "thermal-fluctuations", title: "Теплові флуктуації", status: "empty", origin: "math/kt-thermal/" },
+        { slug: "central-limit", title: "Центральна гранична теорема", status: "done", levels: ["basic"], origin: "math/central-limit/" },
+        { slug: "thermal-fluctuations", title: "Теплові флуктуації", status: "done", levels: ["basic"], origin: "math/kt-thermal/" },
       ] },
     { slug: "statistics", title: "Статистика", scope: "Висновки з даних — оцінювання, перевірка гіпотез, регресія та байєсів підхід.",
       topics: [
-        { slug: "averaging", title: "Усереднення", status: "empty", origin: "math/averaging/" },
+        { slug: "averaging", title: "Усереднення", status: "done", levels: ["basic"], origin: "math/averaging/" },
         { slug: "noise-density", title: "Густина шуму", status: "empty", origin: "math/noise-density/" },
         { slug: "accuracy", title: "Точність і похибка", status: "empty", origin: "math/accuracy/" },
         { slug: "tolerance", title: "Допуски", status: "empty", origin: "math/tolerance/" },
