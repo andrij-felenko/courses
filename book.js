@@ -11,6 +11,11 @@
 
   var BOOK = window.BOOK;
   var BASE = BOOK.basePath || "";   // префікс до контенту (embedded/) відносно index.html
+  // Префікс розгортання — тека, де лежить read.html/index.html (корінь репо в URL).
+  // На GitHub Pages це «/courses/», локально — шлях до файлу. Шляхи «від кореня репо»
+  // (/book/…, /guide/…, /catalog/…) у Markdown резолвимо саме сюди, інакше на Pages
+  // «/book/…» пішло б на домен-корінь повз підтеку «/courses/».
+  var SITE_ROOT = location.pathname.replace(/[^/]*$/, "");
 
   // Реєстр книг для крос-книжкових лінків [текст](book:<id>/<slug>[/<file>][#<topic>]).
   // Маніфест іншої книги тягнемо ліниво (при першому кліку) і кешуємо в _book.
@@ -284,7 +289,8 @@
 
   function renderFigure(t, ctx) {
     var src = t.src.trim();
-    if (!/^https?:|^\//.test(src)) src = (ctx.base != null ? ctx.base : BASE) + ctx.dir + "/" + src;
+    if (/^\/(?:book|guide|catalog)\//.test(src)) src = SITE_ROOT + src.slice(1);  // від кореня репо → префікс розгортання
+    else if (!/^https?:|^\//.test(src)) src = (ctx.base != null ? ctx.base : BASE) + ctx.dir + "/" + src;
     var h = '<figure><img src="' + escapeAttr(src) + '" alt="' + escapeAttr(t.alt) + '" loading="lazy">';
     if (t.caption) h += "<figcaption>" + renderInline(t.caption, ctx) + "</figcaption>";
     return h + "</figure>";
