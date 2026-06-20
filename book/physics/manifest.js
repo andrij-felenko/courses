@@ -1,5 +1,4 @@
-/* book/physics/manifest.js — книга-предмет «Фізика» (тип "book").
-   Схема — AUTHORING.md §2. Статуси: done | empty | update | deeper | recheck. */
+/* book/physics/manifest.js — книга-предмет «Фізика» (тип "book"). Схема — AUTHORING.md §2. */
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
   type: "book", slug: "physics", title: "Фізика",
   sections: [
@@ -27,6 +26,8 @@
     { slug: "electromagnetism", title: "Електромагнетизм", scope: "Заряди й поля, струм і провідність, магнетизм та індукція, зведені в рівняння Максвелла.",
       topics: [
         { slug: "electric-charge", title: "Заряд", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.1", hist: [{ file: "hist-millikan.md", status: "done" }, { file: "hist-electricity.md", status: "done" }] },
+        { slug: "charge-conservation", title: "Закон збереження заряду", status: "done", levels: ["basic"] },
+        { slug: "elementary-charge", title: "Елементарний заряд і квантування", status: "done", levels: ["basic"] },
         { slug: "coulomb-law", title: "Закон Кулона", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.2", hist: [{ file: "hist-coulomb.md", status: "done" }], comp: [{ file: "comp-van-de-graaff.md", status: "done" }], math: [{ file: "math-vectors.md", status: "done" }] },
         { slug: "electric-field", title: "Електричне поле", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.3", hist: [{ file: "hist-faraday.md", status: "done" }] },
         { slug: "electric-potential", title: "Потенціал", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/charge-field-potential#1.1.4", math: [{ file: "math-work-integral.md", status: "done" }] },
@@ -61,11 +62,12 @@
         { slug: "body-charge", title: "Заряд тіла", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/esd-static#1.10.2", math: [{ file: "math-hbm.md", status: "done" }] },
         { slug: "lightning", title: "Блискавка", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/esd-static#1.10.4", comp: [{ file: "comp-spark-gap-gdt.md", status: "empty" }] },
         { slug: "humidity-static-control", title: "Вологість і статика", status: "done", levels: ["basic"], origin: "embedded/block-1-circuits-physics/esd-static#1.10.8" },
-        { slug: "em-wave", title: "Електромагнітна хвиля", status: "recheck", origin: "embedded/block-6-comms-radio/radio-em-waves#6.6.1", hist: [{ file: "hist-hertz.md", status: "recheck" }] },
-        { slug: "frequency-wavelength", title: "Частота й довжина", status: "recheck", origin: "embedded/block-6-comms-radio/radio-em-waves#6.6.2" },
+        { slug: "em-wave", title: "Електромагнітна хвиля", status: "done", levels: ["basic"], origin: "embedded/block-6-comms-radio/radio-em-waves#6.6.1", hist: [{ file: "hist-hertz.md", status: "done" }] },
+        { slug: "frequency-wavelength", title: "Частота й довжина", status: "done", levels: ["basic"], origin: "embedded/block-6-comms-radio/radio-em-waves#6.6.2" },
       ] },
     { slug: "optics", title: "Оптика", scope: "Поширення електромагнітних хвиль і поведінка світла як променя й хвилі: відбиття, заломлення, дифракція, поляризація.",
       topics: [
+        { slug: "total-internal-reflection", title: "Повне внутрішнє відбиття", status: "empty" },
       ] },
     { slug: "relativity", title: "Відносність", scope: "Фізика великих швидкостей і викривленого простору-часу: спеціальна та загальна теорія відносності й гравітація як геометрія.",
       topics: [

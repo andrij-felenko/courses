@@ -3,7 +3,7 @@
 Книги збираються прямо в браузері з Markdown. Три теки верхнього рівня:
 
 - **`book/`** — предметні книги: самодостатні статті в галузях предмета, **без порядку й нумерації**. 8 книг: `electronics`, `physics`, `math`, `programming`, `algorithms`, `communications`, `chemistry`, `philosophy`.
-- **`guide/`** — навчальні книги (курси): **послідовні** доріжки з кроків-посилань (`ref`) на статті `book/` + власні теми-містки (`bridge`). Курси: `embedded`, `basic-chemistry`.
+- **`guide/`** — навчальні книги (курси): **послідовні** доріжки. Крок — або `ref` на готову `book/`-статтю (коли вона вже покриває крок), або **власна стаття курсу** (тема під кутом курсу, з book-матеріалом як вставка). Курси: `embedded`, `basic-chemistry`.
 - **`catalog/`** — книги-каталоги: описи конкретних об'єктів (плати, модулі). Поводиться як `book/`. Заплановано: `pcb-board`, `sensor-board`.
 
 Обгортка — корінь репо: `index.html` (бібліотека), `read.html` (універсальний читач `?book=` / `?guide=`), рушій `book.js`, адаптер `scripts/bookbuild.js`.
@@ -16,7 +16,7 @@
 
 - **Один маніфест на книгу/курс/каталог:** `book/<book>/manifest.js` реєструє `window.__BOOKS__.push({…})`; `guide/<course>/manifest.js` → `window.__GUIDES__`. Схема — в `AUTHORING.md §2`.
 - **book/catalog:** `{ type, slug, title, sections:[ {slug,title,scope, topics:[ {slug,title,status,levels, hist/comp/math/proj:[{file,status}], origin} ]} ] }`. `section` = галузь; `topic` = стаття; вставки — масив на тип, елемент `{file,status}`.
-- **guide:** `{ type:"guide", slug, title, modules:[ {n,slug,title, chapters:[ {title, steps:[ {ref:"<книга>/<галузь>/<slug>",title} | {bridge,slug,title} ]} ]} ] }`. `ref` має галузь (3 сегменти) — на відміну від `book:`-лінка.
+- **guide:** `{ type:"guide", slug, title, modules:[ {n,slug,title, chapters:[ {title, steps:[ {ref:"<книга>/<галузь>/<slug>",title} | {slug,title} ]} ]} ] }`. Крок `{ref}` — посилання на book-статтю (`ref` має галузь, 3 сегменти); крок `{slug}` — власна стаття курсу (файл `guide/<course>/<module>/<slug>.md`).
 - **Статуси (enum):** `done` · `empty` (не почато) · `update` (переписати) · `deeper` (поглибити) · `recheck` (передивитися за чинними правилами). Міняй ПРЯМО в маніфесті одразу після правки. Статус є в кожної статті й кожної вставки.
 - **Нейминг slug-only** (без номерів): `book/<book>/<галузь>/<slug>/<slug>.md`, детальна `<slug>-d.md`, вставки `<type>-<name>.md` (type ∈ hist/comp/math/proj). Номерів немає ні в book/, ні в catalog/; guide нумерується (Модуль·Розділ·Крок) у маніфесті.
 

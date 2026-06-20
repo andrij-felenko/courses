@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="380" viewBox="0 0 880 380">
+<rect width="880" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Кружок = інверсія: буфер, інвертор і «бульбашка» на будь-якій ніжці</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">трикутник сам по собі лише ПЕРЕДАЄ сигнал; маленький кружок у точці означає «тут перевернути»</text>
+<line x1="110.0" y1="170.0" x2="160.0" y2="170.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="104.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">A</text>
+<path d="M 160,149.0 L 160,191.0 L 200,170 Z" fill="#fafafa" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="200.0" y1="170.0" x2="240.0" y2="170.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="246.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Y</text>
+<text x="180.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">БУФЕР</text>
+<text x="180.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Y = A</text>
+<text x="180.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">не змінює логіку —</text>
+<text x="180.0" y="252.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">лише підсилює / відновлює</text>
+<line x1="430.0" y1="170.0" x2="480.0" y2="170.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="424.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">A</text>
+<path d="M 480,149.0 L 480,191.0 L 520,170 Z" fill="#fafafa" stroke="#1b1b1b" stroke-width="2"/>
+<circle cx="526.0" cy="170.0" r="6.0" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="532.0" y1="170.0" x2="568.0" y2="170.0" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/>
+<text x="574.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Y</text>
+<circle cx="526.0" cy="170.0" r="6.0" fill="#fff" stroke="#c0271e" stroke-width="2.4"/>
+<text x="504.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ІНВЕРТОР</text>
+<text x="504.0" y="216.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Y = Ā</text>
+<text x="504.0" y="236.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">той самий трикутник +</text>
+<text x="504.0" y="252.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кружок-інверсія на виході</text>
+<rect x="700.0" y="110.0" width="160.0" height="150.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="780.0" y="136.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Правило кружка:</text>
+<text x="780.0" y="162.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">кружок на ніжці</text>
+<text x="780.0" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">= інверсія в цій</text>
+<text x="780.0" y="198.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">точці.</text>
+<text x="780.0" y="224.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Звідси NAND, NOR</text>
+<text x="780.0" y="240.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">(AND/OR + кружок,</text>
+<text x="780.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">а далі — NAND, NOR).</text>
+</svg>

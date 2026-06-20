@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Глибока вісь: відносні (швидкі, дрейфують) проти абсолютних (стабільні, повільні)</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">поєднання бере швидкість одних і стабільність інших</text>
+<rect x="50" y="88" width="540" height="300" rx="10" fill="white" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<line x1="70" y1="380" x2="575" y2="380" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="575" y="374" font-size="10" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">час</text>
+<line x1="70" y1="250" x2="568" y2="250" stroke="#0a8f3c" stroke-width="1.3" stroke-dasharray="6,4" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="74" y="244" font-size="10" fill="#0a8f3c" text-anchor="start" font-weight="normal" font-style="normal">істинне значення</text>
+<polyline points="76,250 150,245 220,234 300,214 380,186 460,154 566,120" fill="none" fill-opacity="1.0" stroke="#cc0000" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="500" y="110" font-size="10.5" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">відносний → дрейф</text>
+<circle cx="90" cy="247.52373678251058" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="120" cy="253.1081640761858" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="150" cy="272.0589503692339" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="180" cy="248.21380364518822" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="210" cy="250.4077461992381" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="240" cy="254.54401110019464" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="270" cy="233.60233788045358" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="300" cy="250.6192492301739" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="330" cy="256.7539014512737" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="360" cy="265.23479737103753" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="390" cy="228.89441972391936" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="420" cy="239.77686565647534" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="450" cy="228.71486794957565" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="480" cy="266.10151578709326" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="510" cy="260.05880109214445" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<circle cx="540" cy="226.177777491232" r="3" fill="#1f4ed8" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="140" y="330" font-size="10.5" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">абсолютний → шум, але без дрейфу</text>
+<polyline points="76,250 160,249 260,251 360,249 460,250 566,250" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="300" y="238" font-size="10.5" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">поєднання → і швидко, і без дрейфу</text>
+<rect x="620" y="100" width="300" height="84" rx="11" fill="#fff0f0" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.6"/>
+<text x="770" y="126" font-size="13" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">ВІДНОСНІ</text>
+<text x="770" y="148" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">швидкі, але дрейфують</text>
+<text x="770" y="170" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal" font-family="Consolas, monospace">IMU · барометр</text>
+<rect x="620" y="200" width="300" height="84" rx="11" fill="#eff4ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.6"/>
+<text x="770" y="226" font-size="13" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">АБСОЛЮТНІ</text>
+<text x="770" y="248" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">стабільні, але повільні/шумні</text>
+<text x="770" y="270" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal" font-family="Consolas, monospace">GNSS · магнітометр</text>
+<rect x="620" y="300" width="300" height="70" rx="11" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.7"/>
+<text x="770" y="326" font-size="12.5" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">ПОЄДНАННЯ (Розділ 43/46)</text>
+<text x="770" y="348" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">найкраще з обох світів</text>
+<text x="480.0" y="458" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Це — головний принцип усього бортового відчуття: швидке, що пливе, тримають повільним, що не пливе.</text>
+</svg>

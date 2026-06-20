@@ -80,7 +80,9 @@ if (target.startsWith("guide:")) {
   // Від кожного крока курсу — черга (FIFO) рівень-за-рівнем: тема → її лінк-цілі → їхні → … (кільцями).
   // Кожну тему ВІДВІДУЄМО раз (done/empty — роутери; recheck ЩЕ Й збираємо в порядку BFS).
   // Піддерево вичерпали → наступний крок курсу. empty — лист. Відсутні цілі — в unresolved.
-  const gslug = target.slice("course:".length);
+  const _ct = target.slice("course:".length).split("@");      // course:<guide>[@status1,status2]
+  const gslug = _ct[0];
+  const COLLECT = _ct[1] ? _ct[1].split(",") : null;           // фільтр збору (null=усі non-done); обхід проходить усе одно
   const gmf = path.join(ROOT, "guide", gslug, "manifest.js");
   if (!fs.existsSync(gmf)) { console.error(`Курс не знайдено: ${gmf}`); process.exit(2); }
   const gsb = { window: {} }; vm.createContext(gsb); vm.runInContext(fs.readFileSync(gmf, "utf8"), gsb, { filename: gmf });
@@ -108,7 +110,7 @@ if (target.startsWith("guide:")) {
       const key = q.shift();                                  // FIFO → BFS рівнями
       if (visited.has(key)) continue; visited.add(key);
       const rec = d.lookup[key]; if (!rec) continue;
-      if (rec.status !== "done") fullQueue.push(rec);         // ВСІ non-done у роботу: recheck/update/deeper/empty
+      if (rec.status !== "done" && (!COLLECT || COLLECT.includes(rec.status))) fullQueue.push(rec);
       else skipped[rec.status] = (skipped[rec.status] || 0) + 1;
       if (rec.status === "empty") continue;                   // empty — ще нема файлу, лінків не читаємо (підхопимо після написання)
       for (const [bk, sl] of outRefs(rec)) {
@@ -128,7 +130,8 @@ if (target.startsWith("guide:")) {
 const topics = fullQueue.slice(start, start + count);
 if (!topics.length) { console.error(`Немає recheck-тем для "${target}" з offset ${start} (черга ${fullQueue.length}).`); process.exit(2); }
 
-const EMBED = { book: label, topics, index: d.index };
+const CANON_TXT = fs.readFileSync(path.join(ROOT, "AUTHORING.md"), "utf8");   // читаю канон САМ, передаю агентам зібраним
+const EMBED = { book: label, topics, index: d.index, canon: CANON_TXT };
 const tmpl = fs.readFileSync(path.join(__dirname, "recheck-audit.js"), "utf8");
 if (!tmpl.includes("/*__EMBED__*/")) { console.error("У шаблоні recheck-audit.js немає маркера /*__EMBED__*/"); process.exit(3); }
 fs.writeFileSync(path.join(__dirname, "recheck-run.js"), tmpl.replace("/*__EMBED__*/", "const EMBED = " + JSON.stringify(EMBED) + ";"));

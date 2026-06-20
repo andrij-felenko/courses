@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="430" viewBox="0 0 920 430">
+<rect width="920" height="430" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="460.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Мертвий час: чому два ключі ніколи не відкривають разом</text>
+<text x="136.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="end" font-weight="bold" font-style="normal">верхній ключ</text>
+<line x1="150.0" y1="118.0" x2="820.0" y2="118.0" stroke="#8a8a8a" stroke-width="1.2" stroke-linecap="round"/>
+<polyline points="158.0,118.0 158.0,86.0 234.0,86.0 234.0,118.0" fill="none" stroke="#1f47b5" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="358.0,118.0 358.0,86.0 434.0,86.0 434.0,118.0" fill="none" stroke="#1f47b5" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="136.0" y="194.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">нижній ключ</text>
+<line x1="150.0" y1="208.0" x2="820.0" y2="208.0" stroke="#8a8a8a" stroke-width="1.2" stroke-linecap="round"/>
+<polyline points="250.0,208.0 250.0,176.0 342.0,176.0 342.0,208.0" fill="none" stroke="#1f8a3b" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="450.0,208.0 450.0,176.0 542.0,176.0 542.0,208.0" fill="none" stroke="#1f8a3b" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="234.0,82.0 250.0,82.0 250.0,226.0 234.0,226.0" fill="#f1c4c0" fill-opacity="0.5"/>
+<polygon points="342.0,82.0 358.0,82.0 358.0,226.0 342.0,226.0" fill="#f1c4c0" fill-opacity="0.5"/>
+<polygon points="234.0,82.0 250.0,82.0 250.0,226.0 234.0,226.0" fill="#f1c4c0" fill-opacity="0.5"/>
+<polygon points="342.0,82.0 358.0,82.0 358.0,226.0 342.0,226.0" fill="#f1c4c0" fill-opacity="0.5"/>
+<text x="242.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">мертвий час</text>
+<line x1="242.0" y1="244.0" x2="242.0" y2="228.0" stroke="#c0271e" stroke-width="1.4" marker-end="url(#aRed)"/>
+<text x="150.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">У мертвий час струм котушки несе вбудований діод нижнього MOSFET</text>
+<text x="150.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">(короткочасно — тому надовго лишати його не можна: гріється).</text>
+<rect x="70.0" y="360.0" width="780.0" height="54.0" rx="8" fill="#fbe9e7" stroke="#c0271e" stroke-width="1.6"/>
+<text x="460.0" y="380.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">⚠ Перекриття = наскрізний струм (shoot-through):</text>
+<text x="460.0" y="397.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">якщо обидва ключі відкриються водночас — це коротке замикання входу на землю крізь них.</text>
+<text x="460.0" y="412.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">Замалий мертвий час → вигорання; завеликий → зайві втрати на діоді. Драйвер тримає баланс.</text>
+</svg>

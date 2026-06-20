@@ -26,7 +26,9 @@
     chemistry:      { icon: "⚗️", label: "Хімія" },         electronics:    { icon: "🔌", label: "Електроніка" },
     programming:    { icon: "💻", label: "Програмування" }, communications: { icon: "📡", label: "Зв'язок" },
     algorithms:     { icon: "🧠", label: "Алгоритми" },     philosophy:     { icon: "🦉", label: "Філософія" },
-    "sensor-board": { icon: "🧩", label: "Сенсори-плати" }, "pcb-board":    { icon: "🔋", label: "Плати живлення й захисту" }
+    sensors:        { icon: "🌡️", label: "Сенсори" },       power:          { icon: "🔋", label: "Живлення" },
+    connect:        { icon: "📡", label: "Зв'язок" },        boards:         { icon: "🧰", label: "Плати" },
+    instruments:    { icon: "🔬", label: "Прилади" }
   };
   var _subjCache = {};
 

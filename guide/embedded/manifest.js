@@ -1,3240 +1,3199 @@
-/* guide/embedded/manifest.js — КУРС (тип "guide").
-   Доріжка-надбудова: впорядковані кроки-посилання (ref) на теми книг book/<книга>/<галузь>/<slug>,
-   плюс згодом власні теми-містки (kind:"bridge"). Зібрано з кроку 4 (origin→ref).
-   Схема: { type:"guide", slug, title, modules:[ {n,slug,title, chapters:[ {title, steps:[ {ref,title} | {bridge,slug,title} ]} ]} ] } */
-(window.__GUIDES__ = window.__GUIDES__ || []).push({
-  type: "guide",
-  slug: "embedded",
-  title: "Вбудована електроніка й автономні системи",
-  modules: [
-  {
-    "n": 1,
-    "slug": "block-1-circuits-physics",
-    "title": "Фізика електрики й кіл",
-    "chapters": [
-      {
-        "title": "Заряд, електричне поле й потенціал",
-        "steps": [
-          {
-            "ref": "physics/electromagnetism/electric-charge",
-            "title": "Заряд"
-          },
-          {
-            "ref": "physics/electromagnetism/coulomb-law",
-            "title": "Закон Кулона"
-          },
-          {
-            "ref": "physics/electromagnetism/electric-field",
-            "title": "Електричне поле"
-          },
-          {
-            "ref": "physics/electromagnetism/electric-potential",
-            "title": "Потенціал"
-          },
-          {
-            "ref": "physics/electromagnetism/volt",
-            "title": "Вольт"
-          },
-          {
-            "ref": "physics/electromagnetism/field-and-potential",
-            "title": "Поле й потенціал"
-          },
-          {
-            "ref": "physics/electromagnetism/electrostatics-summary",
-            "title": "Зведення електростатики"
-          },
-          {
-            "ref": "physics/electromagnetism/faraday-cage",
-            "title": "Клітка Фарадея"
-          }
-        ]
-      },
-      {
-        "title": "Напруга, струм і провідність",
-        "steps": [
-          {
-            "ref": "physics/electromagnetism/electric-current",
-            "title": "Струм"
-          },
-          {
-            "ref": "physics/electromagnetism/current-direction",
-            "title": "Напрямок струму"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/electron-drift",
-            "title": "Дрейф електронів"
-          },
-          {
-            "ref": "physics/electromagnetism/signal-speed",
-            "title": "Швидкість сигналу"
-          },
-          {
-            "ref": "physics/electromagnetism/current-continuity",
-            "title": "Неперервність струму"
-          },
-          {
-            "ref": "physics/electromagnetism/voltage",
-            "title": "Напруга"
-          },
-          {
-            "ref": "physics/electromagnetism/closed-circuit",
-            "title": "Замкнене коло"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/conductors-insulators",
-            "title": "Провідники й діелектрики"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/resistance-origin",
-            "title": "Природа опору"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/conductivity",
-            "title": "Провідність"
-          },
-          {
-            "ref": "physics/electromagnetism/ionic-conduction",
-            "title": "Іонна провідність"
-          },
-          {
-            "ref": "physics/electromagnetism/dc-vs-ac",
-            "title": "DC і AC"
-          },
-          {
-            "ref": "physics/electromagnetism/current-safety",
-            "title": "Електробезпека"
-          }
-        ]
-      },
-      {
-        "title": "Опір, потужність і тепло",
-        "steps": [
-          {
-            "ref": "physics/condensed-matter-physics/resistance",
-            "title": "Опір"
-          },
-          {
-            "ref": "electronics/analog/ohms-law",
-            "title": "Закон Ома"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/resistivity",
-            "title": "Питомий опір"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/resistance-temperature",
-            "title": "Опір і температура"
-          },
-          {
-            "ref": "physics/electromagnetism/electric-power",
-            "title": "Потужність"
-          },
-          {
-            "ref": "physics/electromagnetism/joule-heating",
-            "title": "Джоулеве тепло"
-          },
-          {
-            "ref": "electronics/components/resistor",
-            "title": "Резистор"
-          },
-          {
-            "ref": "electronics/components/fuses-ptc",
-            "title": "Запобіжники"
-          },
-          {
-            "ref": "physics/thermal-statistical/thermal-resistance",
-            "title": "Тепловий опір"
-          },
-          {
-            "ref": "physics/thermal-statistical/heat-transfer",
-            "title": "Передача тепла"
-          }
-        ]
-      },
-      {
-        "title": "Закони Кірхгофа й аналіз кіл",
-        "steps": [
-          {
-            "ref": "electronics/analog/nodes-branches-loops",
-            "title": "Вузли й контури"
-          },
-          {
-            "ref": "electronics/analog/kcl",
-            "title": "Закон струмів Кірхгофа"
-          },
-          {
-            "ref": "electronics/analog/kvl",
-            "title": "Закон напруг Кірхгофа"
-          },
-          {
-            "ref": "electronics/analog/series-connection",
-            "title": "Послідовне з'єднання"
-          },
-          {
-            "ref": "electronics/analog/parallel-connection",
-            "title": "Паралельне з'єднання"
-          },
-          {
-            "ref": "electronics/analog/voltage-divider",
-            "title": "Дільник напруги"
-          },
-          {
-            "ref": "electronics/analog/current-divider",
-            "title": "Дільник струму"
-          },
-          {
-            "ref": "electronics/analog/circuit-analysis",
-            "title": "Аналіз кіл"
-          },
-          {
-            "ref": "electronics/analog/wheatstone-bridge",
-            "title": "Міст Вітстона"
-          }
-        ]
-      },
-      {
-        "title": "Еквівалентні схеми: Тевенін, Нортон, суперпозиція",
-        "steps": [
-          {
-            "ref": "electronics/analog/internal-resistance",
-            "title": "Внутрішній опір"
-          },
-          {
-            "ref": "electronics/analog/superposition",
-            "title": "Суперпозиція"
-          },
-          {
-            "ref": "electronics/analog/thevenin",
-            "title": "Теорема Тевеніна"
-          },
-          {
-            "ref": "electronics/analog/norton",
-            "title": "Теорема Нортона"
-          },
-          {
-            "ref": "electronics/analog/thevenin-equivalent",
-            "title": "Пошук еквівалента"
-          },
-          {
-            "ref": "electronics/analog/power-matching",
-            "title": "Узгодження потужності"
-          }
-        ]
-      },
-      {
-        "title": "Мова схем і вимірювання",
-        "steps": [
-          {
-            "ref": "electronics/analog/schematic-purpose",
-            "title": "Принципова схема"
-          },
-          {
-            "ref": "electronics/analog/component-symbols",
-            "title": "Умовні позначення"
-          },
-          {
-            "ref": "electronics/analog/nodes-connections",
-            "title": "Вузли й з'єднання"
-          },
-          {
-            "ref": "electronics/analog/ground-power-rails",
-            "title": "Земля й шини"
-          },
-          {
-            "ref": "electronics/analog/reading-schematics",
-            "title": "Читання схем"
-          },
-          {
-            "ref": "electronics/metrology/multimeter",
-            "title": "Мультиметр"
-          },
-          {
-            "ref": "electronics/metrology/oscilloscope",
-            "title": "Осцилограф"
-          },
-          {
-            "ref": "electronics/metrology/measurement-errors",
-            "title": "Похибки вимірювань"
-          },
-          {
-            "ref": "electronics/metrology/logic-analyzer",
-            "title": "Логічний аналізатор"
-          },
-          {
-            "ref": "electronics/metrology/lab-power-supply",
-            "title": "Блок живлення"
-          }
-        ]
-      },
-      {
-        "title": "Змінний струм: синусоїда, фаза й RMS",
-        "steps": [
-          {
-            "ref": "physics/oscillations-waves/sine-wave",
-            "title": "Синусоїда"
-          },
-          {
-            "ref": "physics/oscillations-waves/amplitude-frequency",
-            "title": "Амплітуда й частота"
-          },
-          {
-            "ref": "physics/oscillations-waves/phase",
-            "title": "Фаза"
-          },
-          {
-            "ref": "physics/electromagnetism/rms-value",
-            "title": "Діюче значення"
-          },
-          {
-            "ref": "electronics/metrology/sine-on-scope",
-            "title": "Синусоїда на осцилографі"
-          },
-          {
-            "ref": "physics/electromagnetism/ac-power-grid",
-            "title": "Змінна мережа"
-          }
-        ]
-      },
-      {
-        "title": "Магнетизм і електромагніти",
-        "steps": [
-          {
-            "ref": "physics/electromagnetism/magnetic-field",
-            "title": "Магнітне поле"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/ferromagnetism",
-            "title": "Феромагнетизм"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/permanent-magnets",
-            "title": "Постійні магніти"
-          },
-          {
-            "ref": "physics/electromagnetism/oersted-experiment",
-            "title": "Дослід Ерстеда"
-          },
-          {
-            "ref": "physics/electromagnetism/electromagnet",
-            "title": "Електромагніт"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/saturation-hysteresis",
-            "title": "Насичення й гістерезис"
-          },
-          {
-            "ref": "physics/electromagnetism/ampere-force",
-            "title": "Сила Ампера"
-          },
-          {
-            "ref": "physics/electromagnetism/hall-effect",
-            "title": "Ефект Холла"
-          },
-          {
-            "ref": "physics/electromagnetism/earth-magnetic-field",
-            "title": "Поле Землі"
-          },
-          {
-            "ref": "physics/electromagnetism/electromagnetic-induction",
-            "title": "Електромагнітна індукція"
-          }
-        ]
-      },
-      {
-        "title": "Шум і завади: фізичні джерела",
-        "steps": [
-          {
-            "ref": "physics/electromagnetism/noise-interference",
-            "title": "Шум і завади"
-          },
-          {
-            "ref": "physics/thermal-statistical/thermal-noise",
-            "title": "Тепловий шум"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/shot-flicker-noise",
-            "title": "Дробовий шум"
-          },
-          {
-            "ref": "physics/electromagnetism/capacitive-coupling",
-            "title": "Ємнісна наводка"
-          },
-          {
-            "ref": "physics/electromagnetism/inductive-coupling",
-            "title": "Індуктивна наводка"
-          },
-          {
-            "ref": "electronics/pcb/ground-loops",
-            "title": "Земляні петлі"
-          },
-          {
-            "ref": "electronics/pcb/shielding",
-            "title": "Екранування"
-          },
-          {
-            "ref": "electronics/pcb/twisted-pair",
-            "title": "Вита пара"
-          },
-          {
-            "ref": "electronics/metrology/noise-hunting",
-            "title": "Полювання на заваду"
-          }
-        ]
-      },
-      {
-        "title": "Електростатика на практиці: іскри, блискавка й ESD",
-        "steps": [
-          {
-            "ref": "physics/electromagnetism/triboelectricity",
-            "title": "Трибоелектрика"
-          },
-          {
-            "ref": "physics/electromagnetism/body-charge",
-            "title": "Заряд тіла"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/air-breakdown",
-            "title": "Пробій повітря"
-          },
-          {
-            "ref": "physics/electromagnetism/lightning",
-            "title": "Блискавка"
-          },
-          {
-            "ref": "electronics/microelectronics/esd-damage",
-            "title": "ESD-пошкодження"
-          },
-          {
-            "ref": "electronics/pcb/antistatic-workplace",
-            "title": "Антистатичне місце"
-          },
-          {
-            "ref": "electronics/pcb/esd-packaging",
-            "title": "ESD-пакування"
-          },
-          {
-            "ref": "physics/electromagnetism/humidity-static-control",
-            "title": "Вологість і статика"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "n": 2,
-    "slug": "block-2-components-analog",
-    "title": "Компоненти й аналогова електроніка",
-    "chapters": [
-      {
-        "title": "Конденсатор",
-        "steps": [
-          {
-            "ref": "electronics/components/capacitor",
-            "title": "Конденсатор"
-          },
-          {
-            "ref": "electronics/components/capacitance",
-            "title": "Ємність"
-          },
-          {
-            "ref": "electronics/components/capacitor-energy",
-            "title": "Енергія конденсатора"
-          },
-          {
-            "ref": "electronics/analog/rc-time-constant",
-            "title": "Стала RC"
-          },
-          {
-            "ref": "electronics/components/capacitor-parasitics",
-            "title": "Паразити конденсатора"
-          },
-          {
-            "ref": "electronics/components/capacitor-uses",
-            "title": "Застосування конденсаторів"
-          },
-          {
-            "ref": "electronics/components/capacitors-series-parallel",
-            "title": "Конденсатори: з'єднання"
-          },
-          {
-            "ref": "electronics/components/supercapacitor",
-            "title": "Суперконденсатор"
-          }
-        ]
-      },
-      {
-        "title": "Котушка та індуктивність",
-        "steps": [
-          {
-            "ref": "electronics/components/inductor-coil",
-            "title": "Котушка"
-          },
-          {
-            "ref": "electronics/components/inductance",
-            "title": "Індуктивність"
-          },
-          {
-            "ref": "electronics/components/inductor-energy",
-            "title": "Енергія котушки"
-          },
-          {
-            "ref": "electronics/analog/rl-time-constant",
-            "title": "Стала RL"
-          },
-          {
-            "ref": "electronics/components/inductor-kickback",
-            "title": "Брикання котушки"
-          },
-          {
-            "ref": "electronics/components/mutual-inductance",
-            "title": "Взаємоіндукція"
-          },
-          {
-            "ref": "electronics/components/inductor-types",
-            "title": "Типи котушок"
-          },
-          {
-            "ref": "electronics/components/ferrite-beads",
-            "title": "Ферити"
-          }
-        ]
-      },
-      {
-        "title": "Реактивність, фази й резонанс",
-        "steps": [
-          {
-            "ref": "electronics/analog/reactance",
-            "title": "Реактивність"
-          },
-          {
-            "ref": "electronics/analog/capacitive-reactance",
-            "title": "Опір конденсатора"
-          },
-          {
-            "ref": "electronics/analog/inductive-reactance",
-            "title": "Опір котушки"
-          },
-          {
-            "ref": "electronics/analog/phase-shift",
-            "title": "Зсув фаз"
-          },
-          {
-            "ref": "electronics/analog/lc-resonance",
-            "title": "LC-резонанс"
-          },
-          {
-            "ref": "electronics/analog/quality-factor",
-            "title": "Добротність Q"
-          },
-          {
-            "ref": "electronics/analog/rlc-selectivity",
-            "title": "RLC-вибірковість"
-          }
-        ]
-      },
-      {
-        "title": "АЧХ, децибели й фільтри",
-        "steps": [
-          {
-            "ref": "electronics/analog/frequency-response",
-            "title": "Частотна характеристика"
-          },
-          {
-            "ref": "electronics/analog/rc-low-pass",
-            "title": "RC-ФНЧ"
-          },
-          {
-            "ref": "electronics/analog/rc-high-pass",
-            "title": "RC-ФВЧ"
-          },
-          {
-            "ref": "electronics/analog/decibels",
-            "title": "Децибели"
-          },
-          {
-            "ref": "electronics/analog/bode-plot",
-            "title": "Діаграма Боде"
-          },
-          {
-            "ref": "electronics/analog/bandwidth-3db",
-            "title": "Смуга −3 дБ"
-          },
-          {
-            "ref": "electronics/analog/lc-rlc-filters",
-            "title": "LC-фільтри"
-          }
-        ]
-      },
-      {
-        "title": "Діод і PN-перехід",
-        "steps": [
-          {
-            "ref": "physics/condensed-matter-physics/semiconductor",
-            "title": "Напівпровідник"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/doping",
-            "title": "Легування"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/pn-junction",
-            "title": "PN-перехід"
-          },
-          {
-            "ref": "electronics/components/diode-bias",
-            "title": "Зміщення діода"
-          },
-          {
-            "ref": "electronics/components/diode-iv-curve",
-            "title": "ВАХ діода"
-          },
-          {
-            "ref": "electronics/power-electronics/rectification",
-            "title": "Випрямлення"
-          },
-          {
-            "ref": "electronics/optoelectronics/led-photodiode",
-            "title": "Світлодіод"
-          },
-          {
-            "ref": "electronics/components/zener-schottky",
-            "title": "Діоди Зенера"
-          },
-          {
-            "ref": "electronics/components/flyback-protection",
-            "title": "Захист flyback"
-          },
-          {
-            "ref": "electronics/optoelectronics/optocoupler-2",
-            "title": "Оптопара"
-          }
-        ]
-      },
-      {
-        "title": "Біполярний транзистор (BJT)",
-        "steps": [
-          {
-            "ref": "electronics/analog/transistor-idea",
-            "title": "Транзистор"
-          },
-          {
-            "ref": "electronics/microelectronics/bjt-structure",
-            "title": "Будова BJT"
-          },
-          {
-            "ref": "electronics/analog/bjt-operation",
-            "title": "Робота BJT"
-          },
-          {
-            "ref": "electronics/analog/bjt-gain",
-            "title": "Підсилення β"
-          },
-          {
-            "ref": "electronics/analog/bjt-regions",
-            "title": "Режими BJT"
-          },
-          {
-            "ref": "electronics/analog/bjt-switch",
-            "title": "BJT-ключ"
-          },
-          {
-            "ref": "electronics/analog/bjt-amplifier",
-            "title": "BJT-підсилювач"
-          },
-          {
-            "ref": "electronics/analog/bjt-load-driving",
-            "title": "BJT: навантаження"
-          },
-          {
-            "ref": "electronics/electromechanics/relay-driver",
-            "title": "Реле і драйвер"
-          }
-        ]
-      },
-      {
-        "title": "Польовий транзистор (MOSFET)",
-        "steps": [
-          {
-            "ref": "electronics/analog/field-control",
-            "title": "Керування полем"
-          },
-          {
-            "ref": "electronics/microelectronics/mosfet-structure",
-            "title": "Будова MOSFET"
-          },
-          {
-            "ref": "electronics/microelectronics/mosfet-threshold",
-            "title": "Поріг MOSFET"
-          },
-          {
-            "ref": "electronics/microelectronics/nmos-pmos",
-            "title": "NMOS/PMOS"
-          },
-          {
-            "ref": "electronics/components/rds-on",
-            "title": "Опір Rds(on)"
-          },
-          {
-            "ref": "electronics/power-electronics/mosfet-power-switch",
-            "title": "Силовий ключ"
-          },
-          {
-            "ref": "electronics/power-electronics/gate-capacitance",
-            "title": "Ємність затвора"
-          },
-          {
-            "ref": "electronics/analog/bjt-vs-mosfet",
-            "title": "BJT проти MOSFET"
-          },
-          {
-            "ref": "electronics/microelectronics/cmos",
-            "title": "CMOS"
-          },
-          {
-            "ref": "electronics/power-electronics/h-bridge",
-            "title": "H-міст"
-          },
-          {
-            "ref": "electronics/power-electronics/high-side-switch",
-            "title": "Верхній ключ"
-          }
-        ]
-      },
-      {
-        "title": "Операційний підсилювач і компаратор",
-        "steps": [
-          {
-            "ref": "electronics/analog/ideal-opamp",
-            "title": "Ідеальний ОП"
-          },
-          {
-            "ref": "electronics/analog/negative-feedback",
-            "title": "Від'ємний ЗЗ"
-          },
-          {
-            "ref": "electronics/analog/virtual-short",
-            "title": "Віртуальне коротке"
-          },
-          {
-            "ref": "electronics/analog/inverting-noninverting",
-            "title": "Інвертуючий підсилювач"
-          },
-          {
-            "ref": "electronics/analog/voltage-follower",
-            "title": "Повторювач"
-          },
-          {
-            "ref": "electronics/analog/summing-difference-amp",
-            "title": "Суматор"
-          },
-          {
-            "ref": "electronics/analog/comparator-2",
-            "title": "Компаратор"
-          },
-          {
-            "ref": "electronics/analog/schmitt-trigger",
-            "title": "Тригер Шмітта"
-          },
-          {
-            "ref": "electronics/analog/real-opamp-limits",
-            "title": "Реальний ОП"
-          },
-          {
-            "ref": "electronics/analog/differential-pair",
-            "title": "Диференційна пара"
-          },
-          {
-            "ref": "electronics/power-electronics/ldo-internals",
-            "title": "LDO зсередини"
-          }
-        ]
-      },
-      {
-        "title": "Як читати даташит",
-        "steps": [
-          {
-            "ref": "electronics/components/datasheet-structure",
-            "title": "Структура даташита"
-          },
-          {
-            "ref": "electronics/components/abs-max-ratings",
-            "title": "Граничні режими"
-          },
-          {
-            "ref": "electronics/metrology/min-typ-max",
-            "title": "Min/typ/max"
-          },
-          {
-            "ref": "electronics/components/datasheet-graphs",
-            "title": "Графіки даташита"
-          },
-          {
-            "ref": "electronics/components/packages-pinout",
-            "title": "Корпуси й розпіновка"
-          },
-          {
-            "ref": "electronics/components/datasheet-fine-print",
-            "title": "Дрібний шрифт"
-          },
-          {
-            "ref": "electronics/components/datasheet-practice",
-            "title": "Практикум даташитів"
-          }
-        ]
-      },
-      {
-        "title": "Резонатори й опорні частоти",
-        "steps": [
-          {
-            "ref": "electronics/analog/reference-frequency",
-            "title": "Опорна частота"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/piezoelectric-effect",
-            "title": "П'єзоефект"
-          },
-          {
-            "ref": "electronics/components/quartz-resonator",
-            "title": "Кварцовий резонатор"
-          },
-          {
-            "ref": "electronics/components/quartz-rlc-model",
-            "title": "RLC-модель кварцу"
-          },
-          {
-            "ref": "electronics/analog/pierce-oscillator",
-            "title": "Генератор П'єрса"
-          },
-          {
-            "ref": "electronics/components/frequency-accuracy-ppm",
-            "title": "Точність ppm"
-          },
-          {
-            "ref": "electronics/components/watch-crystal-rtc",
-            "title": "Годинниковий кварц"
-          },
-          {
-            "ref": "electronics/components/ceramic-mems-resonators",
-            "title": "Керамічні резонатори"
-          },
-          {
-            "ref": "electronics/components/tcxo-ocxo",
-            "title": "TCXO та OCXO"
-          }
-        ]
-      },
-      {
-        "title": "Силова комутація змінного струму",
-        "steps": [
-          {
-            "ref": "electronics/power-electronics/ac-switch-need",
-            "title": "Ключі для мережі"
-          },
-          {
-            "ref": "electronics/power-electronics/thyristor-scr",
-            "title": "Тиристор"
-          },
-          {
-            "ref": "electronics/power-electronics/triac",
-            "title": "Симістор"
-          },
-          {
-            "ref": "electronics/power-electronics/phase-control-dimmer",
-            "title": "Фазове керування"
-          },
-          {
-            "ref": "electronics/power-electronics/zero-cross-switching",
-            "title": "Перехід через нуль"
-          },
-          {
-            "ref": "electronics/power-electronics/solid-state-relay",
-            "title": "Твердотільне реле"
-          },
-          {
-            "ref": "electronics/power-electronics/igbt",
-            "title": "IGBT"
-          },
-          {
-            "ref": "electronics/power-electronics/snubbers-dvdt",
-            "title": "Снабери"
-          },
-          {
-            "ref": "electronics/power-electronics/mains-safety",
-            "title": "Безпека з мережею"
-          }
-        ]
-      },
-      {
-        "title": "Легендарні аналогові ІМС",
-        "steps": [
-          {
-            "ref": "electronics/analog/legendary-ics",
-            "title": "Легендарні ІМС"
-          },
-          {
-            "ref": "electronics/analog/555-internals",
-            "title": "Таймер 555"
-          },
-          {
-            "ref": "electronics/analog/555-astable",
-            "title": "555 астабільний"
-          },
-          {
-            "ref": "electronics/analog/555-monostable",
-            "title": "555 моностабільний"
-          },
-          {
-            "ref": "electronics/analog/voltage-reference",
-            "title": "Опорна напруга"
-          },
-          {
-            "ref": "electronics/analog/analog-switches-mux",
-            "title": "Аналогові ключі"
-          },
-          {
-            "ref": "electronics/analog/instrumentation-amp-2",
-            "title": "Інструментальний підсилювач"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "n": 3,
-    "slug": "block-3-digital-processor",
-    "title": "Цифрова електроніка й процесор",
-    "chapters": [
-      {
-        "title": "Логічні рівні: від аналога до цифри",
-        "steps": [
-          {
-            "ref": "electronics/digital/why-digital",
-            "title": "Навіщо цифра"
-          },
-          {
-            "ref": "electronics/digital/logic-levels-as-ranges",
-            "title": "Рівні «0» і «1»"
-          },
-          {
-            "ref": "electronics/digital/noise-margin",
-            "title": "Запас завадостійкості"
-          },
-          {
-            "ref": "electronics/digital/logic-families",
-            "title": "Логічні сімейства"
-          },
-          {
-            "ref": "electronics/digital/edges-rise-time",
-            "title": "Фронти й час наростання"
-          },
-          {
-            "ref": "electronics/digital/threshold-schmitt",
-            "title": "Поріг і Шмітт"
-          }
-        ]
-      },
-      {
-        "title": "Логічні вентилі й комбінаційні схеми",
-        "steps": [
-          {
-            "ref": "math/logic-foundations/boolean-algebra",
-            "title": "Булева алгебра"
-          },
-          {
-            "ref": "electronics/digital/basic-gates",
-            "title": "Базові вентилі"
-          },
-          {
-            "ref": "electronics/digital/nand-nor",
-            "title": "NAND і NOR"
-          },
-          {
-            "ref": "electronics/digital/xor-comparison",
-            "title": "XOR"
-          },
-          {
-            "ref": "electronics/digital/cmos-gate",
-            "title": "CMOS-вентиль"
-          },
-          {
-            "ref": "electronics/digital/combinational-circuits",
-            "title": "Комбінаційні схеми"
-          },
-          {
-            "ref": "electronics/digital/gates-to-functions",
-            "title": "Складні функції"
-          }
-        ]
-      },
-      {
-        "title": "Тригери, регістри й тактування",
-        "steps": [
-          {
-            "ref": "electronics/digital/state-memory",
-            "title": "Пам'ять стану"
-          },
-          {
-            "ref": "electronics/digital/sr-latch",
-            "title": "SR-засувка"
-          },
-          {
-            "ref": "electronics/digital/d-flip-flop",
-            "title": "D-тригер"
-          },
-          {
-            "ref": "electronics/digital/edge-vs-level",
-            "title": "Фронт і рівень"
-          },
-          {
-            "ref": "electronics/digital/register",
-            "title": "Регістр"
-          },
-          {
-            "ref": "electronics/digital/clock-signal",
-            "title": "Тактовий сигнал"
-          },
-          {
-            "ref": "electronics/digital/counters",
-            "title": "Лічильники"
-          },
-          {
-            "ref": "electronics/digital/metastability-timing",
-            "title": "Метастабільність"
-          },
-          {
-            "ref": "electronics/digital/finite-state-machines",
-            "title": "Скінченні автомати"
-          }
-        ]
-      },
-      {
-        "title": "Представлення чисел",
-        "steps": [
-          {
-            "ref": "math/number-theory/why-binary",
-            "title": "Чому двійкова"
-          },
-          {
-            "ref": "math/number-theory/positional-systems",
-            "title": "Позиційні системи"
-          },
-          {
-            "ref": "math/number-theory/twos-complement",
-            "title": "Доповняльний код"
-          },
-          {
-            "ref": "programming/computer-architecture/overflow-wraparound",
-            "title": "Переповнення"
-          },
-          {
-            "ref": "programming/computer-architecture/fixed-point",
-            "title": "Фіксована кома"
-          },
-          {
-            "ref": "programming/computer-architecture/floating-point",
-            "title": "Плаваюча кома"
-          },
-          {
-            "ref": "programming/computer-architecture/bits-bytes-endianness",
-            "title": "Біти й порядок байтів"
-          },
-          {
-            "ref": "programming/computer-architecture/ascii-utf8",
-            "title": "ASCII і UTF-8"
-          }
-        ]
-      },
-      {
-        "title": "Архітектура процесора",
-        "steps": [
-          {
-            "ref": "programming/computer-architecture/what-is-processor",
-            "title": "Що таке процесор"
-          },
-          {
-            "ref": "programming/computer-architecture/processor-parts",
-            "title": "Складові процесора"
-          },
-          {
-            "ref": "programming/computer-architecture/fetch-decode-execute",
-            "title": "Цикл виконання"
-          },
-          {
-            "ref": "programming/computer-architecture/isa",
-            "title": "Набір інструкцій"
-          },
-          {
-            "ref": "programming/computer-architecture/clock-frequency",
-            "title": "Частота процесора"
-          },
-          {
-            "ref": "programming/computer-architecture/pipeline",
-            "title": "Конвеєр"
-          },
-          {
-            "ref": "programming/computer-architecture/von-neumann-harvard",
-            "title": "Фон Нейман і Гарвард"
-          },
-          {
-            "ref": "programming/computer-architecture/risc-cisc",
-            "title": "RISC і CISC"
-          },
-          {
-            "ref": "programming/computer-architecture/cache",
-            "title": "Кеш"
-          }
-        ]
-      },
-      {
-        "title": "Пам'ять, адресація, стек і купа",
-        "steps": [
-          {
-            "ref": "programming/systems/memory-as-array",
-            "title": "Пам'ять як масив"
-          },
-          {
-            "ref": "programming/systems/memory-map",
-            "title": "Карта пам'яті"
-          },
-          {
-            "ref": "programming/systems/flash-vs-ram",
-            "title": "Flash і RAM"
-          },
-          {
-            "ref": "programming/systems/addresses-pointers",
-            "title": "Адреси й покажчики"
-          },
-          {
-            "ref": "programming/systems/stack-lifo",
-            "title": "Стек"
-          },
-          {
-            "ref": "programming/systems/heap-dynamic-memory",
-            "title": "Купа"
-          },
-          {
-            "ref": "programming/systems/stack-overflow",
-            "title": "Переповнення стека"
-          },
-          {
-            "ref": "physics/condensed-matter-physics/memory-cell-physics",
-            "title": "Фізика комірок"
-          }
-        ]
-      },
-      {
-        "title": "Програмована логіка: ПЛІС/FPGA",
-        "steps": [
-          {
-            "ref": "electronics/digital/programmable-logic",
-            "title": "Програмована логіка"
-          },
-          {
-            "ref": "electronics/digital/pal-to-fpga",
-            "title": "Від PAL до FPGA"
-          },
-          {
-            "ref": "electronics/digital/lut",
-            "title": "LUT"
-          },
-          {
-            "ref": "electronics/digital/inside-fpga",
-            "title": "Усередині FPGA"
-          },
-          {
-            "ref": "electronics/digital/hdl",
-            "title": "HDL"
-          },
-          {
-            "ref": "electronics/digital/fpga-flow",
-            "title": "Потік розробки"
-          },
-          {
-            "ref": "electronics/digital/fpga-timing",
-            "title": "Таймінг FPGA"
-          },
-          {
-            "ref": "electronics/digital/fpga-vs-mcu",
-            "title": "FPGA чи МК"
-          },
-          {
-            "ref": "electronics/digital/soft-core",
-            "title": "М'яке ядро"
-          }
-        ]
-      },
-      {
-        "title": "Зовнішня пам'ять",
-        "steps": [
-          {
-            "ref": "electronics/digital/when-memory-runs-out",
-            "title": "Коли пам'яті мало"
-          },
-          {
-            "ref": "electronics/microelectronics/dram-cell",
-            "title": "DRAM"
-          },
-          {
-            "ref": "electronics/digital/sdram-ddr",
-            "title": "SDRAM і DDR"
-          },
-          {
-            "ref": "electronics/digital/memory-controller",
-            "title": "Контролер пам'яті"
-          },
-          {
-            "ref": "electronics/microelectronics/nor-vs-nand",
-            "title": "NOR і NAND"
-          },
-          {
-            "ref": "electronics/digital/sd-card",
-            "title": "SD-картка"
-          },
-          {
-            "ref": "electronics/digital/emmc-ssd",
-            "title": "eMMC і SSD"
-          },
-          {
-            "ref": "electronics/microelectronics/eeprom-fram",
-            "title": "EEPROM і FRAM"
-          },
-          {
-            "ref": "electronics/digital/choosing-memory",
-            "title": "Вибір пам'яті"
-          }
-        ]
-      },
-      {
-        "title": "Коди виявлення й корекції помилок",
-        "steps": [
-          {
-            "ref": "algorithms/data-structures/bit-flips",
-            "title": "Перевернуті біти"
-          },
-          {
-            "ref": "communications/coding-theory/parity-bit",
-            "title": "Біт парності"
-          },
-          {
-            "ref": "communications/coding-theory/checksums",
-            "title": "Контрольні суми"
-          },
-          {
-            "ref": "communications/coding-theory/crc",
-            "title": "CRC"
-          },
-          {
-            "ref": "communications/coding-theory/hamming-distance",
-            "title": "Відстань Геммінга"
-          },
-          {
-            "ref": "communications/coding-theory/hamming-code",
-            "title": "Код Геммінга"
-          },
-          {
-            "ref": "communications/coding-theory/ecc-ram-flash",
-            "title": "ECC у пам'яті"
-          },
-          {
-            "ref": "communications/coding-theory/reed-solomon",
-            "title": "Рід–Соломон"
-          },
-          {
-            "ref": "communications/coding-theory/data-reliability",
-            "title": "Надійність даних"
-          }
-        ]
-      },
-      {
-        "title": "Як народжується чіп: від піску до корпуса",
-        "steps": [
-          {
-            "ref": "electronics/microelectronics/silicon-monocrystal",
-            "title": "Кремній і монокристал"
-          },
-          {
-            "ref": "electronics/microelectronics/photolithography",
-            "title": "Фотолітографія"
-          },
-          {
-            "ref": "electronics/microelectronics/doping-etching-metal",
-            "title": "Шар за шаром"
-          },
-          {
-            "ref": "electronics/microelectronics/process-node",
-            "title": "Техпроцес"
-          },
-          {
-            "ref": "electronics/microelectronics/yield",
-            "title": "Yield"
-          },
-          {
-            "ref": "electronics/microelectronics/testing-binning",
-            "title": "Тестування й binning"
-          },
-          {
-            "ref": "electronics/pcb/packaging",
-            "title": "Корпусування"
-          },
-          {
-            "ref": "electronics/microelectronics/fabs-fabless",
-            "title": "Фаби й fabless"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "n": 4,
-    "slug": "block-4-mcu-esp32",
-    "title": "Мікроконтролер і прошивка: ESP32",
-    "chapters": [
-      {
-        "title": "Анатомія мікроконтролера й архітектура ESP32",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/microcontroller",
-            "title": "Мікроконтролер"
-          },
-          {
-            "ref": "programming/computer-architecture/mcu-blocks",
-            "title": "Складові МК"
-          },
-          {
-            "ref": "programming/embedded-systems/memory-mapped-io",
-            "title": "Memory-mapped IO"
-          },
-          {
-            "ref": "programming/embedded-systems/clock-power",
-            "title": "Тактування й живлення"
-          },
-          {
-            "ref": "programming/embedded-systems/esp32-architecture",
-            "title": "Архітектура ESP32"
-          },
-          {
-            "ref": "programming/embedded-systems/esp32-vs-8bit",
-            "title": "ESP32 проти 8-біт"
-          },
-          {
-            "ref": "programming/embedded-systems/esp32-family",
-            "title": "Сімейство ESP32"
-          },
-          {
-            "ref": "programming/embedded-systems/reset-causes",
-            "title": "Причини reset"
-          }
-        ]
-      },
-      {
-        "title": "Тулчейн: як код стає прошивкою",
-        "steps": [
-          {
-            "ref": "programming/languages/compilation",
-            "title": "Компіляція"
-          },
-          {
-            "ref": "programming/languages/compiler-stages",
-            "title": "Стадії компілятора"
-          },
-          {
-            "ref": "programming/languages/linking",
-            "title": "Лінкування"
-          },
-          {
-            "ref": "programming/systems/firmware-image",
-            "title": "Образ прошивки"
-          },
-          {
-            "ref": "programming/embedded-systems/flashing",
-            "title": "Прошивка у Flash"
-          },
-          {
-            "ref": "programming/embedded-systems/bootloader",
-            "title": "Bootloader"
-          },
-          {
-            "ref": "programming/embedded-systems/baremetal-vs-framework",
-            "title": "Голе залізо vs фреймворк"
-          },
-          {
-            "ref": "programming/embedded-systems/jtag-swd-tools",
-            "title": "Serial, JTAG/SWD"
-          },
-          {
-            "ref": "programming/software-engineering/firmware-testing",
-            "title": "Тестування прошивки"
-          },
-          {
-            "ref": "programming/software-engineering/static-analysis",
-            "title": "Статичний аналіз"
-          },
-          {
-            "ref": "programming/systems/c-runtime",
-            "title": "C-рантайм"
-          }
-        ]
-      },
-      {
-        "title": "Постійні дані: Flash-розділи, NVS і файлові системи",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/why-persist",
-            "title": "Навіщо зберігати"
-          },
-          {
-            "ref": "programming/embedded-systems/flash-internals",
-            "title": "Flash зсередини"
-          },
-          {
-            "ref": "programming/embedded-systems/wear-leveling",
-            "title": "Wear leveling"
-          },
-          {
-            "ref": "programming/embedded-systems/partition-table",
-            "title": "Таблиця розділів"
-          },
-          {
-            "ref": "programming/embedded-systems/nvs",
-            "title": "NVS"
-          },
-          {
-            "ref": "programming/systems/flash-filesystems",
-            "title": "Файлові системи Flash"
-          },
-          {
-            "ref": "programming/embedded-systems/write-integrity",
-            "title": "Цілісність запису"
-          },
-          {
-            "ref": "programming/embedded-systems/ota-slots",
-            "title": "OTA-слоти"
-          },
-          {
-            "ref": "programming/security/secure-boot",
-            "title": "Secure boot"
-          }
-        ]
-      },
-      {
-        "title": "GPIO глибоко",
-        "steps": [
-          {
-            "ref": "electronics/digital/push-pull-output",
-            "title": "Push-pull вихід"
-          },
-          {
-            "ref": "electronics/digital/open-drain",
-            "title": "Open-drain"
-          },
-          {
-            "ref": "electronics/digital/logic-thresholds",
-            "title": "Логічні пороги"
-          },
-          {
-            "ref": "electronics/digital/floating-pullups",
-            "title": "Підтяжки"
-          },
-          {
-            "ref": "electronics/digital/contact-debounce",
-            "title": "Дребезг контактів"
-          },
-          {
-            "ref": "electronics/digital/pin-drive-limits",
-            "title": "Навантажувальна здатність"
-          },
-          {
-            "ref": "programming/embedded-systems/gpio-registers",
-            "title": "GPIO-регістри"
-          },
-          {
-            "ref": "programming/embedded-systems/module-model",
-            "title": "Модель модуля"
-          }
-        ]
-      },
-      {
-        "title": "Переривання",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/interrupts",
-            "title": "Переривання"
-          },
-          {
-            "ref": "programming/computer-architecture/interrupt-vector",
-            "title": "Контролер і вектор"
-          },
-          {
-            "ref": "programming/embedded-systems/isr",
-            "title": "ISR"
-          },
-          {
-            "ref": "programming/embedded-systems/interrupt-priorities",
-            "title": "Пріоритети переривань"
-          },
-          {
-            "ref": "programming/languages/volatile",
-            "title": "volatile"
-          },
-          {
-            "ref": "programming/systems/atomicity-races",
-            "title": "Атомарність і гонки"
-          },
-          {
-            "ref": "programming/embedded-systems/polling-vs-interrupts",
-            "title": "Polling vs переривання"
-          }
-        ]
-      },
-      {
-        "title": "Таймери й керування часом",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/timer-counter",
-            "title": "Таймер-лічильник"
-          },
-          {
-            "ref": "programming/embedded-systems/timer-overflow",
-            "title": "Період і переповнення"
-          },
-          {
-            "ref": "programming/embedded-systems/capture-compare",
-            "title": "Захоплення й порівняння"
-          },
-          {
-            "ref": "programming/embedded-systems/millis-micros",
-            "title": "Точний час"
-          },
-          {
-            "ref": "programming/embedded-systems/nonblocking-time",
-            "title": "Неблокуючий час"
-          },
-          {
-            "ref": "programming/embedded-systems/periodic-scheduling",
-            "title": "Періодичні події"
-          },
-          {
-            "ref": "programming/embedded-systems/watchdog",
-            "title": "Watchdog"
-          },
-          {
-            "ref": "programming/embedded-systems/rtc",
-            "title": "RTC"
-          }
-        ]
-      },
-      {
-        "title": "PWM і ЦАП",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/pwm",
-            "title": "ШІМ"
-          },
-          {
-            "ref": "programming/embedded-systems/hardware-pwm",
-            "title": "Апаратний PWM"
-          },
-          {
-            "ref": "programming/embedded-systems/pwm-resolution",
-            "title": "Шпаруватість і роздільність"
-          },
-          {
-            "ref": "electronics/analog/rc-filter",
-            "title": "RC-фільтр"
-          },
-          {
-            "ref": "electronics/power-electronics/pwm-power-control",
-            "title": "Керування потужністю"
-          },
-          {
-            "ref": "electronics/digital/dac",
-            "title": "ЦАП"
-          },
-          {
-            "ref": "electronics/optoelectronics/addressable-leds",
-            "title": "Адресні світлодіоди"
-          }
-        ]
-      },
-      {
-        "title": "Аналого-цифрове перетворення (АЦП)",
-        "steps": [
-          {
-            "ref": "electronics/digital/adc",
-            "title": "АЦП"
-          },
-          {
-            "ref": "electronics/digital/sampling-quantization",
-            "title": "Дискретизація й квантування"
-          },
-          {
-            "ref": "electronics/digital/adc-resolution",
-            "title": "Роздільність АЦП"
-          },
-          {
-            "ref": "electronics/metrology/voltage-reference",
-            "title": "Опорна напруга"
-          },
-          {
-            "ref": "communications/signal-processing/nyquist-aliasing",
-            "title": "Найквіст і аліасинг"
-          },
-          {
-            "ref": "electronics/metrology/adc-errors",
-            "title": "Похибки АЦП"
-          },
-          {
-            "ref": "communications/signal-processing/signal-acquisition",
-            "title": "Зчитування сигналу"
-          },
-          {
-            "ref": "electronics/digital/adc-types",
-            "title": "Типи АЦП"
-          }
-        ]
-      },
-      {
-        "title": "DMA: дані без участі ядра",
-        "steps": [
-          {
-            "ref": "programming/computer-architecture/dma-problem",
-            "title": "Проблема потоку даних"
-          },
-          {
-            "ref": "programming/computer-architecture/dma-controller",
-            "title": "DMA-контролер"
-          },
-          {
-            "ref": "programming/computer-architecture/dma-channels",
-            "title": "Канали й дескриптори"
-          },
-          {
-            "ref": "programming/embedded-systems/double-buffering",
-            "title": "Подвійна буферизація"
-          },
-          {
-            "ref": "programming/embedded-systems/dma-adc",
-            "title": "DMA + АЦП"
-          },
-          {
-            "ref": "programming/embedded-systems/dma-spi-i2s",
-            "title": "DMA + SPI/I2S"
-          },
-          {
-            "ref": "programming/systems/dma-cache-races",
-            "title": "Пастки DMA"
-          }
-        ]
-      },
-      {
-        "title": "Модель виконання й RTOS",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/super-loop",
-            "title": "Super-loop"
-          },
-          {
-            "ref": "programming/embedded-systems/super-loop-limits",
-            "title": "Межі super-loop"
-          },
-          {
-            "ref": "programming/systems/tasks",
-            "title": "Задачі"
-          },
-          {
-            "ref": "programming/systems/scheduler",
-            "title": "Планувальник"
-          },
-          {
-            "ref": "programming/embedded-systems/freertos",
-            "title": "FreeRTOS"
-          },
-          {
-            "ref": "programming/systems/task-ipc",
-            "title": "Черги й семафори"
-          },
-          {
-            "ref": "programming/systems/task-stacks",
-            "title": "Стеки задач"
-          },
-          {
-            "ref": "programming/embedded-systems/realtime-determinism",
-            "title": "Детермінованість"
-          },
-          {
-            "ref": "programming/software-engineering/profiling",
-            "title": "Профілювання"
-          }
-        ]
-      },
-      {
-        "title": "Пейзаж мікроконтролерів",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/mcu-selection",
-            "title": "Вибір МК"
-          },
-          {
-            "ref": "programming/embedded-systems/avr",
-            "title": "AVR-клас"
-          },
-          {
-            "ref": "programming/embedded-systems/cortex-m",
-            "title": "ARM Cortex-M"
-          },
-          {
-            "ref": "programming/embedded-systems/stm32",
-            "title": "STM32-клас"
-          },
-          {
-            "ref": "programming/embedded-systems/rp2040-pio",
-            "title": "RP2040 і PIO"
-          },
-          {
-            "ref": "programming/embedded-systems/nrf-radio-mcu",
-            "title": "nRF-клас"
-          },
-          {
-            "ref": "programming/embedded-systems/mcu-ecosystem",
-            "title": "Екосистема МК"
-          },
-          {
-            "ref": "programming/embedded-systems/mcu-checklist",
-            "title": "Чеклист вибору МК"
-          }
-        ]
-      },
-      {
-        "title": "USB на мікроконтролері",
-        "steps": [
-          {
-            "ref": "programming/peripherals/usb-overview",
-            "title": "USB огляд"
-          },
-          {
-            "ref": "programming/peripherals/usb-physical",
-            "title": "USB фізично"
-          },
-          {
-            "ref": "programming/peripherals/usb-enumeration",
-            "title": "Енумерація USB"
-          },
-          {
-            "ref": "programming/peripherals/usb-endpoints",
-            "title": "Кінцеві точки USB"
-          },
-          {
-            "ref": "programming/peripherals/usb-device-classes",
-            "title": "Класи USB"
-          },
-          {
-            "ref": "programming/peripherals/esp32-usb",
-            "title": "USB в ESP32"
-          },
-          {
-            "ref": "programming/peripherals/usb-power",
-            "title": "Живлення з USB"
-          },
-          {
-            "ref": "programming/peripherals/usb-host",
-            "title": "МК як USB-host"
-          }
-        ]
-      },
-      {
-        "title": "Енергоощадність глибоко",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/battery-budget",
-            "title": "Бюджет батареї"
-          },
-          {
-            "ref": "programming/embedded-systems/current-paths",
-            "title": "Куди тече струм"
-          },
-          {
-            "ref": "programming/embedded-systems/sleep-modes",
-            "title": "Режими сну"
-          },
-          {
-            "ref": "programming/embedded-systems/wakeup-sources",
-            "title": "Джерела пробудження"
-          },
-          {
-            "ref": "programming/embedded-systems/ulp-coprocessor",
-            "title": "ULP-співпроцесор"
-          },
-          {
-            "ref": "programming/embedded-systems/duty-cycle-current",
-            "title": "Цикл і середній струм"
-          },
-          {
-            "ref": "electronics/metrology/measure-consumption",
-            "title": "Виміряти споживання"
-          },
-          {
-            "ref": "electronics/power-electronics/board-consumption",
-            "title": "Споживання плати"
-          },
-          {
-            "ref": "programming/embedded-systems/rtc-memory",
-            "title": "RTC-память"
-          }
-        ]
-      },
-      {
-        "title": "Налагодження глибоко: JTAG/SWD, GDB і посмертний аналіз",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/why-debugger",
-            "title": "Навіщо відлагоджувач"
-          },
-          {
-            "ref": "programming/embedded-systems/swd-jtag-internals",
-            "title": "SWD і JTAG зсередини"
-          },
-          {
-            "ref": "programming/embedded-systems/breakpoints-watchpoints",
-            "title": "Брейкпоінти й вотчпоінти"
-          },
-          {
-            "ref": "programming/embedded-systems/openocd-gdb",
-            "title": "OpenOCD і GDB"
-          },
-          {
-            "ref": "programming/embedded-systems/step-debugging",
-            "title": "Кроком по коду"
-          },
-          {
-            "ref": "programming/embedded-systems/hardfault",
-            "title": "Розбір HardFault"
-          },
-          {
-            "ref": "programming/embedded-systems/core-dump",
-            "title": "Посмертний аналіз"
-          }
-        ]
-      },
-      {
-        "title": "Відмовостійка прошивка: помилки, паніка, відновлення",
-        "steps": [
-          {
-            "ref": "programming/software-engineering/error-handling",
-            "title": "Жодна помилка не мовчить"
-          },
-          {
-            "ref": "programming/software-engineering/assert-panic",
-            "title": "Assert і паніка"
-          },
-          {
-            "ref": "programming/software-engineering/defensive-programming",
-            "title": "Захисне програмування"
-          },
-          {
-            "ref": "programming/embedded-systems/safe-mode",
-            "title": "Безпечний стан"
-          },
-          {
-            "ref": "programming/embedded-systems/reboot-strategy",
-            "title": "Перезавантаження"
-          },
-          {
-            "ref": "programming/embedded-systems/reboot-counter",
-            "title": "Лічильник перезавантажень"
-          },
-          {
-            "ref": "programming/embedded-systems/brownout",
-            "title": "Brown-out"
-          },
-          {
-            "ref": "programming/embedded-systems/graceful-degradation",
-            "title": "Деградація з гідністю"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "n": 5,
-    "slug": "block-5-sensors-control",
-    "title": "Давачі, сигнали й керування",
-    "chapters": [
-      {
-        "title": "Фізика давачів",
-        "steps": [
-          {
-            "ref": "electronics/sensors/what-is-a-sensor",
-            "title": "Що таке давач"
-          },
-          {
-            "ref": "electronics/sensors/transducer-classes",
-            "title": "Класи перетворювачів"
-          },
-          {
-            "ref": "electronics/sensors/piezo-optical-semiconductor",
-            "title": "П'єзо й оптичні"
-          },
-          {
-            "ref": "electronics/sensors/sensor-characteristics",
-            "title": "Характеристики давача"
-          },
-          {
-            "ref": "electronics/sensors/drift-hysteresis-noise",
-            "title": "Дрейф і гістерезис"
-          },
-          {
-            "ref": "electronics/metrology/calibration",
-            "title": "Калібрування"
-          },
-          {
-            "ref": "electronics/sensors/sensor-input-matching",
-            "title": "Узгодження давача"
-          },
-          {
-            "ref": "electronics/metrology/current-voltage-measurement",
-            "title": "Вимірювання струму"
-          },
-          {
-            "ref": "electronics/sensors/strain-gauges",
-            "title": "Тензодавачі"
-          },
-          {
-            "ref": "electronics/electromechanics/microphone-speaker",
-            "title": "Мікрофон і динамік"
-          }
-        ]
-      },
-      {
-        "title": "Вимірювання відстані й оточення",
-        "steps": [
-          {
-            "ref": "electronics/sensors/contactless-distance",
-            "title": "Безконтактна відстань"
-          },
-          {
-            "ref": "electronics/sensors/tof-ultrasonic",
-            "title": "ToF звук"
-          },
-          {
-            "ref": "electronics/sensors/tof-laser",
-            "title": "ToF лазер"
-          },
-          {
-            "ref": "electronics/sensors/triangulation",
-            "title": "Тріангуляція"
-          },
-          {
-            "ref": "electronics/sensors/reflection-absorption",
-            "title": "Відбиття IR"
-          },
-          {
-            "ref": "electronics/sensors/distance-errors",
-            "title": "Похибки відстані"
-          },
-          {
-            "ref": "electronics/sensors/environment-sensors",
-            "title": "Давачі оточення"
-          }
-        ]
-      },
-      {
-        "title": "Давачі обертання й положення: енкодери",
-        "steps": [
-          {
-            "ref": "electronics/sensors/angle-rotation-sensing",
-            "title": "Вимір кута"
-          },
-          {
-            "ref": "electronics/sensors/potentiometer-angle-sensor",
-            "title": "Потенціометр кута"
-          },
-          {
-            "ref": "electronics/sensors/optical-incremental-encoder",
-            "title": "Оптичний енкодер"
-          },
-          {
-            "ref": "electronics/sensors/quadrature",
-            "title": "Квадратура"
-          },
-          {
-            "ref": "electronics/sensors/hall-magnetic-encoders",
-            "title": "Холл-енкодери"
-          },
-          {
-            "ref": "electronics/sensors/absolute-encoder-gray-code",
-            "title": "Абсолютний енкодер"
-          },
-          {
-            "ref": "algorithms/signal-robotics/odometry",
-            "title": "Одометрія"
-          }
-        ]
-      },
-      {
-        "title": "Цифрова фільтрація сигналів",
-        "steps": [
-          {
-            "ref": "algorithms/signal-robotics/signal-noise",
-            "title": "Шум у сигналі"
-          },
-          {
-            "ref": "algorithms/signal-robotics/moving-average",
-            "title": "Ковзне середнє"
-          },
-          {
-            "ref": "algorithms/signal-robotics/median-filter",
-            "title": "Медіанний фільтр"
-          },
-          {
-            "ref": "algorithms/signal-robotics/ema",
-            "title": "EMA"
-          },
-          {
-            "ref": "algorithms/signal-robotics/smoothing-vs-lag",
-            "title": "Згладжування й затримка"
-          },
-          {
-            "ref": "algorithms/signal-robotics/choosing-a-filter",
-            "title": "Вибір фільтра"
-          }
-        ]
-      },
-      {
-        "title": "Спектр і перетворення Фур'є",
-        "steps": [
-          {
-            "ref": "math/real-analysis/time-and-frequency",
-            "title": "Час і частота"
-          },
-          {
-            "ref": "math/real-analysis/fourier-idea",
-            "title": "Ідея Фур'є"
-          },
-          {
-            "ref": "math/real-analysis/spectrum",
-            "title": "Спектр"
-          },
-          {
-            "ref": "math/real-analysis/dft",
-            "title": "ДПФ"
-          },
-          {
-            "ref": "algorithms/signal-robotics/fft",
-            "title": "ШПФ"
-          },
-          {
-            "ref": "math/real-analysis/windowing-leakage",
-            "title": "Вікно й витік"
-          },
-          {
-            "ref": "math/real-analysis/why-frequency-domain",
-            "title": "Навіщо частота"
-          }
-        ]
-      },
-      {
-        "title": "Цифрові фільтри в мікроконтролері",
-        "steps": [
-          {
-            "ref": "algorithms/signal-robotics/filter-as-spectrum-shaper",
-            "title": "Формувач спектра"
-          },
-          {
-            "ref": "algorithms/signal-robotics/fir-filter",
-            "title": "КІХ-фільтр"
-          },
-          {
-            "ref": "algorithms/signal-robotics/iir-filter",
-            "title": "БІХ-фільтр"
-          },
-          {
-            "ref": "algorithms/signal-robotics/band-filters",
-            "title": "Смугові фільтри"
-          },
-          {
-            "ref": "algorithms/signal-robotics/fixed-point-implementation",
-            "title": "Реалізація fixed-point"
-          },
-          {
-            "ref": "algorithms/signal-robotics/fir-vs-iir",
-            "title": "КІХ проти БІХ"
-          }
-        ]
-      },
-      {
-        "title": "Інерціальні давачі: MEMS",
-        "steps": [
-          {
-            "ref": "electronics/sensors/mems",
-            "title": "MEMS"
-          },
-          {
-            "ref": "electronics/sensors/accelerometer",
-            "title": "Акселерометр"
-          },
-          {
-            "ref": "electronics/sensors/gyroscope",
-            "title": "Гіроскоп"
-          },
-          {
-            "ref": "electronics/sensors/magnetometer",
-            "title": "Магнітометр"
-          },
-          {
-            "ref": "electronics/sensors/imu-noise-bias-drift",
-            "title": "Шум і дрейф IMU"
-          },
-          {
-            "ref": "algorithms/signal-robotics/sensor-fusion",
-            "title": "Фьюжн"
-          },
-          {
-            "ref": "electronics/sensors/reading-imu-fifo",
-            "title": "Читання IMU"
-          },
-          {
-            "ref": "electronics/sensors/imu-vibration-isolation",
-            "title": "Розв'язка IMU"
-          },
-          {
-            "ref": "electronics/sensors/imu-calibration",
-            "title": "Калібрування IMU"
-          }
-        ]
-      },
-      {
-        "title": "Орієнтація й керування зі зворотним зв'язком (ПІД)",
-        "steps": [
-          {
-            "ref": "math/geometry/euler-angles",
-            "title": "Кути Ейлера"
-          },
-          {
-            "ref": "math/geometry/quaternions",
-            "title": "Кватерніони"
-          },
-          {
-            "ref": "algorithms/signal-robotics/complementary-filter",
-            "title": "Комплементарний фільтр"
-          },
-          {
-            "ref": "algorithms/signal-robotics/kalman-filter",
-            "title": "Фільтр Калмана"
-          },
-          {
-            "ref": "math/optimization/open-vs-closed-loop",
-            "title": "Зворотний зв'язок"
-          },
-          {
-            "ref": "math/optimization/proportional-control",
-            "title": "П-регулятор"
-          },
-          {
-            "ref": "math/optimization/integral-control",
-            "title": "І-складова"
-          },
-          {
-            "ref": "math/optimization/derivative-control",
-            "title": "Д-складова"
-          },
-          {
-            "ref": "algorithms/signal-robotics/discrete-pid",
-            "title": "Дискретний ПІД"
-          },
-          {
-            "ref": "math/optimization/pid-tuning-cascade",
-            "title": "Налаштування ПІД"
-          },
-          {
-            "ref": "math/optimization/loop-stability",
-            "title": "Запас стійкості"
-          },
-          {
-            "ref": "math/optimization/step-response",
-            "title": "Крокова відповідь"
-          },
-          {
-            "ref": "math/optimization/feedforward",
-            "title": "Феєдфорвард"
-          }
-        ]
-      },
-      {
-        "title": "Виконавчі механізми: мотори й рух",
-        "steps": [
-          {
-            "ref": "electronics/electromechanics/brushed-dc-motor",
-            "title": "DC-мотор"
-          },
-          {
-            "ref": "electronics/power-electronics/h-bridge-2",
-            "title": "H-міст"
-          },
-          {
-            "ref": "electronics/electromechanics/stepper-motor",
-            "title": "Кроковий мотор"
-          },
-          {
-            "ref": "electronics/electromechanics/hobby-servo",
-            "title": "Серво"
-          },
-          {
-            "ref": "electronics/electromechanics/solenoid-piezo-actuators",
-            "title": "Соленоїд і п'єзо"
-          },
-          {
-            "ref": "electronics/electromechanics/motor-current-stall-heat",
-            "title": "Заклинювання й нагрів"
-          },
-          {
-            "ref": "electronics/electromechanics/gears-transmission",
-            "title": "Редуктори"
-          },
-          {
-            "ref": "electronics/electromechanics/actuator-selection",
-            "title": "Вибір актуатора"
-          },
-          {
-            "ref": "algorithms/signal-robotics/motion-profiles",
-            "title": "Профілі руху"
-          }
-        ]
-      },
-      {
-        "title": "Давачі середовища глибше",
-        "steps": [
-          {
-            "ref": "electronics/sensors/mox-gas-sensor",
-            "title": "MOX-давач"
-          },
-          {
-            "ref": "electronics/sensors/ndir-co2",
-            "title": "NDIR CO2"
-          },
-          {
-            "ref": "electronics/sensors/electrochemical-cell",
-            "title": "Електрохімічна комірка"
-          },
-          {
-            "ref": "electronics/sensors/dust-aerosol-sensor",
-            "title": "Давач пилу"
-          },
-          {
-            "ref": "electronics/sensors/uv-light-sensor",
-            "title": "УФ-давач"
-          },
-          {
-            "ref": "electronics/sensors/geiger-muller-counter",
-            "title": "Лічильник Гейгера"
-          },
-          {
-            "ref": "electronics/sensors/barometric-altimeter",
-            "title": "Барометр-альтиметр"
-          },
-          {
-            "ref": "electronics/sensors/cross-sensitivity-compensation",
-            "title": "Перехресна чутливість"
-          }
-        ]
-      },
-      {
-        "title": "Час і синхронізація вимірювань",
-        "steps": [
-          {
-            "ref": "communications/synchronization/measurement-time",
-            "title": "Час вимірювання"
-          },
-          {
-            "ref": "communications/synchronization/timestamps",
-            "title": "Мітки часу"
-          },
-          {
-            "ref": "communications/synchronization/sampling-jitter",
-            "title": "Джиттер вибірки"
-          },
-          {
-            "ref": "communications/synchronization/synchronous-multi-sensor-read",
-            "title": "Синхронне зчитування"
-          },
-          {
-            "ref": "communications/synchronization/pps-pulse",
-            "title": "PPS-імпульс"
-          },
-          {
-            "ref": "communications/synchronization/clock-offset-drift",
-            "title": "Дрейф годинників"
-          },
-          {
-            "ref": "communications/synchronization/sensor-latency-compensation",
-            "title": "Затримка давача"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "n": 6,
-    "slug": "block-6-comms-radio",
-    "title": "Зв'язок: дротовий і радіо",
-    "chapters": [
-      {
-        "title": "UART і протоколи поверх нього",
-        "steps": [
-          {
-            "ref": "communications/buses/async-serial",
-            "title": "Асинхронна передача"
-          },
-          {
-            "ref": "communications/buses/uart-frame",
-            "title": "Кадр UART"
-          },
-          {
-            "ref": "communications/synchronization/baud-rate",
-            "title": "Швидкість baud"
-          },
-          {
-            "ref": "electronics/digital/ttl-rs232",
-            "title": "TTL і RS-232"
-          },
-          {
-            "ref": "communications/protocols/flow-control",
-            "title": "Керування потоком"
-          },
-          {
-            "ref": "communications/protocols/packet-design",
-            "title": "Проєктування пакета"
-          },
-          {
-            "ref": "programming/embedded-systems/stream-parser",
-            "title": "Розбір потоку"
-          }
-        ]
-      },
-      {
-        "title": "Шина I2C",
-        "steps": [
-          {
-            "ref": "communications/buses/i2c-bus",
-            "title": "Шина I2C"
-          },
-          {
-            "ref": "electronics/digital/open-collector",
-            "title": "Відкритий колектор"
-          },
-          {
-            "ref": "communications/buses/i2c-addressing",
-            "title": "Адресація I2C"
-          },
-          {
-            "ref": "communications/buses/start-stop-ack",
-            "title": "Старт, стоп, ACK"
-          },
-          {
-            "ref": "communications/buses/i2c-transaction",
-            "title": "Транзакція I2C"
-          },
-          {
-            "ref": "communications/multiple-access/clock-stretch-arbitration",
-            "title": "Розтягування й арбітраж"
-          },
-          {
-            "ref": "communications/buses/register-map",
-            "title": "Регістрова карта"
-          }
-        ]
-      },
-      {
-        "title": "Шина SPI",
-        "steps": [
-          {
-            "ref": "communications/buses/spi-bus",
-            "title": "Шина SPI"
-          },
-          {
-            "ref": "communications/buses/spi-lines",
-            "title": "Лінії SPI"
-          },
-          {
-            "ref": "communications/buses/cpol-cpha",
-            "title": "Режими CPOL/CPHA"
-          },
-          {
-            "ref": "communications/buses/chip-select",
-            "title": "Вибір кристала"
-          },
-          {
-            "ref": "communications/buses/spi-speed",
-            "title": "Швидкість SPI"
-          },
-          {
-            "ref": "communications/buses/spi-vs-i2c",
-            "title": "SPI проти I2C"
-          }
-        ]
-      },
-      {
-        "title": "Диференційні шини: RS-485 і CAN",
-        "steps": [
-          {
-            "ref": "communications/buses/single-ended-line-limits",
-            "title": "Межі односторонніх ліній"
-          },
-          {
-            "ref": "communications/buses/differential-pair",
-            "title": "Диференційна пара"
-          },
-          {
-            "ref": "communications/buses/rs-485",
-            "title": "RS-485"
-          },
-          {
-            "ref": "communications/buses/can-arbitration",
-            "title": "Арбітраж CAN"
-          },
-          {
-            "ref": "communications/buses/can-frame-errors",
-            "title": "Кадр CAN"
-          },
-          {
-            "ref": "communications/buses/dronecan",
-            "title": "DroneCAN"
-          },
-          {
-            "ref": "communications/buses/usb-ethernet-differential",
-            "title": "USB та Ethernet пари"
-          }
-        ]
-      },
-      {
-        "title": "Бездротовий зв'язок на чіпі: Wi-Fi і Bluetooth",
-        "steps": [
-          {
-            "ref": "communications/networks/on-chip-radio",
-            "title": "Радіо на чіпі"
-          },
-          {
-            "ref": "communications/networks/channel-band-packet",
-            "title": "Канал і пакет"
-          },
-          {
-            "ref": "communications/networks/wifi",
-            "title": "Wi-Fi"
-          },
-          {
-            "ref": "communications/protocols/tcp-vs-udp",
-            "title": "TCP проти UDP"
-          },
-          {
-            "ref": "communications/networks/bluetooth-spp",
-            "title": "Bluetooth SPP"
-          },
-          {
-            "ref": "communications/protocols/ble-gatt",
-            "title": "BLE GATT"
-          },
-          {
-            "ref": "communications/protocols/reliable-link",
-            "title": "Надійний обмін"
-          },
-          {
-            "ref": "communications/networks/esp-now",
-            "title": "ESP-NOW"
-          },
-          {
-            "ref": "programming/embedded-systems/ota-update",
-            "title": "OTA-оновлення"
-          },
-          {
-            "ref": "communications/protocols/mqtt",
-            "title": "MQTT"
-          },
-          {
-            "ref": "programming/networking/web-server-mcu",
-            "title": "Веб-сервер на МК"
-          },
-          {
-            "ref": "programming/embedded-systems/ble-gatt-practice",
-            "title": "BLE-практика"
-          }
-        ]
-      },
-      {
-        "title": "Радіо: фізика електромагнітних хвиль",
-        "steps": [
-          {
-            "ref": "physics/electromagnetism/em-wave",
-            "title": "Електромагнітна хвиля"
-          },
-          {
-            "ref": "physics/electromagnetism/frequency-wavelength",
-            "title": "Частота й довжина"
-          },
-          {
-            "ref": "communications/propagation/propagation-polarization",
-            "title": "Поширення й поляризація"
-          },
-          {
-            "ref": "communications/propagation/frequency-bands",
-            "title": "Діапазони частот"
-          },
-          {
-            "ref": "communications/propagation/power-decibels",
-            "title": "Потужність і децибели"
-          },
-          {
-            "ref": "communications/propagation/free-space-loss",
-            "title": "Загасання у просторі"
-          },
-          {
-            "ref": "communications/photonics/optical-fiber",
-            "title": "Оптоволокно"
-          }
-        ]
-      },
-      {
-        "title": "Радіо: модуляція й бюджет лінії",
-        "steps": [
-          {
-            "ref": "communications/modulation/why-modulation",
-            "title": "Навіщо модуляція"
-          },
-          {
-            "ref": "communications/modulation/am-fm",
-            "title": "AM і FM"
-          },
-          {
-            "ref": "communications/modulation/fsk-psk",
-            "title": "FSK і PSK"
-          },
-          {
-            "ref": "communications/information-theory/bandwidth-capacity",
-            "title": "Смуга і межа Шеннона"
-          },
-          {
-            "ref": "communications/modulation/spread-spectrum",
-            "title": "Розширений спектр"
-          },
-          {
-            "ref": "communications/propagation/link-budget",
-            "title": "Бюджет лінії"
-          },
-          {
-            "ref": "communications/propagation/multipath-fading",
-            "title": "Багатопроменевість"
-          },
-          {
-            "ref": "communications/modulation/lora",
-            "title": "LoRa"
-          },
-          {
-            "ref": "communications/radio-engineering/superheterodyne",
-            "title": "Супергетеродин"
-          }
-        ]
-      },
-      {
-        "title": "Антени й лінії передачі",
-        "steps": [
-          {
-            "ref": "communications/antennas/antenna",
-            "title": "Антена"
-          },
-          {
-            "ref": "communications/antennas/resonance-dipole",
-            "title": "Резонанс і диполь"
-          },
-          {
-            "ref": "communications/antennas/antenna-gain",
-            "title": "Підсилення антени"
-          },
-          {
-            "ref": "communications/antennas/antenna-polarization",
-            "title": "Поляризація антени"
-          },
-          {
-            "ref": "communications/radio-engineering/transmission-lines",
-            "title": "Лінії передачі"
-          },
-          {
-            "ref": "communications/radio-engineering/vswr",
-            "title": "Відбиття і КСХ"
-          },
-          {
-            "ref": "electronics/radio/rf-board-reading",
-            "title": "Читання ВЧ-плати"
-          },
-          {
-            "ref": "communications/propagation/ism-bands",
-            "title": "ISM-діапазони"
-          }
-        ]
-      },
-      {
-        "title": "Радіозв'язок системи: керування, телеметрія, MAVLink",
-        "steps": [
-          {
-            "ref": "communications/protocols/control-telemetry",
-            "title": "Керування й телеметрія"
-          },
-          {
-            "ref": "communications/protocols/rc-link",
-            "title": "RC-лінк"
-          },
-          {
-            "ref": "communications/protocols/telemetry-stream",
-            "title": "Телеметрія"
-          },
-          {
-            "ref": "communications/networks/latency-reliability",
-            "title": "Затримка й надійність"
-          },
-          {
-            "ref": "communications/protocols/mavlink-packet",
-            "title": "Пакет MAVLink"
-          },
-          {
-            "ref": "programming/embedded-systems/mavlink-commands",
-            "title": "Команди MAVLink"
-          },
-          {
-            "ref": "programming/networking/pymavlink",
-            "title": "pymavlink"
-          },
-          {
-            "ref": "communications/cryptographic-comm/mavlink-security",
-            "title": "Безпека MAVLink"
-          },
-          {
-            "ref": "communications/modulation/jamming-fhss",
-            "title": "Лінк під глушінням"
-          }
-        ]
-      },
-      {
-        "title": "Мережі: Ethernet, IP і як пакет знаходить дорогу",
-        "steps": [
-          {
-            "ref": "communications/networks/ethernet-frame",
-            "title": "Кадр Ethernet"
-          },
-          {
-            "ref": "communications/networks/ethernet-link-phy",
-            "title": "Фізика лінка"
-          },
-          {
-            "ref": "communications/networks/mac-ip-arp",
-            "title": "MAC, IP і ARP"
-          },
-          {
-            "ref": "communications/networks/ip-routing",
-            "title": "Маршрутизація"
-          },
-          {
-            "ref": "communications/networks/dhcp-dns",
-            "title": "DHCP і DNS"
-          },
-          {
-            "ref": "communications/networks/nat",
-            "title": "NAT"
-          },
-          {
-            "ref": "programming/networking/sockets-tcp-udp",
-            "title": "Сокети TCP/UDP"
-          },
-          {
-            "ref": "communications/photonics/fiber-in-network",
-            "title": "Оптоволокно в мережі"
-          },
-          {
-            "ref": "programming/embedded-systems/ethernet-on-mcu",
-            "title": "Ethernet на МК"
-          }
-        ]
-      },
-      {
-        "title": "MAVLink у роботі: словник даних і керування",
-        "steps": [
-          {
-            "ref": "communications/protocols/mavlink-message-dictionary",
-            "title": "Словник MAVLink"
-          },
-          {
-            "ref": "communications/protocols/coordinate-frames-units",
-            "title": "Координати й одиниці"
-          },
-          {
-            "ref": "communications/protocols/stream-rates",
-            "title": "Частоти потоків"
-          },
-          {
-            "ref": "communications/protocols/param-protocol",
-            "title": "Протокол параметрів"
-          },
-          {
-            "ref": "communications/protocols/mission-protocol",
-            "title": "Протокол місій"
-          },
-          {
-            "ref": "communications/protocols/mavlink-commands",
-            "title": "Команди MAVLink"
-          },
-          {
-            "ref": "communications/protocols/motion-control-setpoints",
-            "title": "Керування рухом"
-          },
-          {
-            "ref": "programming/networking/mavlink-stream-processing",
-            "title": "Обробка потоку"
-          },
-          {
-            "ref": "communications/protocols/mavlink-pitfalls",
-            "title": "Граблі MAVLink"
-          }
-        ]
-      },
-      {
-        "title": "Приєднання модулів: розпіновки, рівні, конектори, надійність",
-        "steps": [
-          {
-            "ref": "electronics/pcb/datasheet-pinout",
-            "title": "Розпіновка й даташит"
-          },
-          {
-            "ref": "electronics/pcb/common-ground",
-            "title": "Спільна земля"
-          },
-          {
-            "ref": "electronics/digital/level-shifting",
-            "title": "Зсув рівнів"
-          },
-          {
-            "ref": "electronics/power-electronics/module-power-supply",
-            "title": "Живлення модуля"
-          },
-          {
-            "ref": "communications/buses/bus-resource-conflicts",
-            "title": "Конфлікти шин"
-          },
-          {
-            "ref": "electronics/pcb/cables-connectors",
-            "title": "Кабелі й конектори"
-          },
-          {
-            "ref": "electronics/pcb/esd-hot-plug",
-            "title": "ESD і гаряче підключення"
-          },
-          {
-            "ref": "electronics/metrology/first-power-up-check",
-            "title": "Перша перевірка"
-          },
-          {
-            "ref": "electronics/pcb/basic-soldering",
-            "title": "Мінімальна пайка"
-          },
-          {
-            "ref": "electronics/metrology/fault-finding",
-            "title": "Пошук несправності"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "n": 7,
-    "slug": "block-7-systems",
-    "title": "Системи: ArduPilot, відео, машинне бачення",
-    "chapters": [
-      {
-        "title": "Архітектура автономної системи й політний контролер",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/autonomous-system",
-            "title": "Автономна система"
-          },
-          {
-            "ref": "programming/embedded-systems/flight-controller",
-            "title": "Політний контролер"
-          },
-          {
-            "ref": "programming/embedded-systems/ardupilot-layers",
-            "title": "Шари ArduPilot"
-          },
-          {
-            "ref": "programming/embedded-systems/params-gcs",
-            "title": "Параметри й GCS"
-          },
-          {
-            "ref": "programming/embedded-systems/fc-vs-companion",
-            "title": "Контролер vs комп'ютер"
-          }
-        ]
-      },
-      {
-        "title": "Як літає мультиротор",
-        "steps": [
-          {
-            "ref": "physics/mechanics/thrust-vs-weight",
-            "title": "Тяга проти ваги"
-          },
-          {
-            "ref": "physics/mechanics/reaction-torque",
-            "title": "Реактивний момент"
-          },
-          {
-            "ref": "algorithms/signal-robotics/roll-pitch-yaw-control",
-            "title": "Керування roll/pitch/yaw"
-          },
-          {
-            "ref": "algorithms/signal-robotics/motor-mixer",
-            "title": "Мікшер"
-          },
-          {
-            "ref": "algorithms/signal-robotics/instability-stabilization",
-            "title": "Потреба стабілізації"
-          },
-          {
-            "ref": "physics/mechanics/frame-configurations",
-            "title": "Рами й конфігурації"
-          },
-          {
-            "ref": "physics/mechanics/propeller-geometry",
-            "title": "Гвинт"
-          },
-          {
-            "ref": "algorithms/signal-robotics/stabilization-cascade",
-            "title": "Каскад стабілізації"
-          }
-        ]
-      },
-      {
-        "title": "Компоненти польотної системи",
-        "steps": [
-          {
-            "ref": "electronics/sensors/onboard-sensors",
-            "title": "Давачі апарата"
-          },
-          {
-            "ref": "electronics/sensors/imu-barometer",
-            "title": "IMU й барометр"
-          },
-          {
-            "ref": "communications/propagation/gnss",
-            "title": "GNSS"
-          },
-          {
-            "ref": "electronics/electromechanics/bldc-motor",
-            "title": "BLDC-мотор"
-          },
-          {
-            "ref": "electronics/power-electronics/esc",
-            "title": "ESC-регулятор"
-          },
-          {
-            "ref": "electronics/electromechanics/servo-2",
-            "title": "Серво"
-          },
-          {
-            "ref": "programming/embedded-systems/redundancy",
-            "title": "Надлишковість"
-          }
-        ]
-      },
-      {
-        "title": "Живлення складних систем",
-        "steps": [
-          {
-            "ref": "electronics/power-electronics/linear-vs-switching",
-            "title": "Лінійний vs імпульсний"
-          },
-          {
-            "ref": "electronics/power-electronics/switching-converter",
-            "title": "Імпульсний перетворювач"
-          },
-          {
-            "ref": "electronics/power-electronics/power-rails",
-            "title": "Шини живлення"
-          },
-          {
-            "ref": "electronics/power-electronics/batteries",
-            "title": "Акумулятори"
-          },
-          {
-            "ref": "electronics/power-electronics/c-rate",
-            "title": "C-rate й опір"
-          },
-          {
-            "ref": "electronics/power-electronics/cc-cv-bms",
-            "title": "Заряд і BMS"
-          },
-          {
-            "ref": "electronics/power-electronics/energy-budget",
-            "title": "Бюджет енергії"
-          }
-        ]
-      },
-      {
-        "title": "Оцінювання стану й сенсорний фьюжн",
-        "steps": [
-          {
-            "ref": "algorithms/signal-robotics/sensor-insufficiency",
-            "title": "Недостатність давача"
-          },
-          {
-            "ref": "algorithms/signal-robotics/motion-model",
-            "title": "Модель руху"
-          },
-          {
-            "ref": "algorithms/signal-robotics/predict-vs-measure",
-            "title": "Передбачення vs вимір"
-          },
-          {
-            "ref": "algorithms/signal-robotics/kalman-ekf",
-            "title": "Фільтр Калмана"
-          },
-          {
-            "ref": "algorithms/signal-robotics/sensor-fusion-2",
-            "title": "Сенсорний фьюжн"
-          },
-          {
-            "ref": "algorithms/signal-robotics/latency-sync",
-            "title": "Затримки й синхро"
-          }
-        ]
-      },
-      {
-        "title": "Польотні режими, місії та failsafe",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/manual-stabilized-modes",
-            "title": "Ручні режими"
-          },
-          {
-            "ref": "programming/embedded-systems/position-modes",
-            "title": "Режими з позицією"
-          },
-          {
-            "ref": "programming/embedded-systems/arming-checks",
-            "title": "Arming-перевірки"
-          },
-          {
-            "ref": "algorithms/signal-robotics/missions-waypoints",
-            "title": "Місії й точки"
-          },
-          {
-            "ref": "programming/embedded-systems/failsafe",
-            "title": "Failsafe"
-          },
-          {
-            "ref": "programming/embedded-systems/failure-priorities",
-            "title": "Пріоритети відмов"
-          },
-          {
-            "ref": "programming/embedded-systems/mode-state-machine",
-            "title": "Автомат режимів"
-          },
-          {
-            "ref": "programming/embedded-systems/first-bringup",
-            "title": "Перший запуск"
-          }
-        ]
-      },
-      {
-        "title": "Відеосигнали I: від світла до кадру",
-        "steps": [
-          {
-            "ref": "electronics/optoelectronics/image-sensor",
-            "title": "Сенсор зображення"
-          },
-          {
-            "ref": "electronics/optoelectronics/cmos-matrix",
-            "title": "CMOS-матриця"
-          },
-          {
-            "ref": "algorithms/computer-vision/bayer-demosaic",
-            "title": "Демозаїка"
-          },
-          {
-            "ref": "electronics/optoelectronics/dynamic-range-noise",
-            "title": "Динамічний діапазон"
-          },
-          {
-            "ref": "communications/signal-processing/resolution-framerate",
-            "title": "Роздільність і кадри"
-          },
-          {
-            "ref": "communications/modulation/analog-video",
-            "title": "Аналогове відео"
-          },
-          {
-            "ref": "programming/embedded-systems/video-latency",
-            "title": "Затримка відео"
-          }
-        ]
-      },
-      {
-        "title": "Відеосигнали II: стиснення й передача",
-        "steps": [
-          {
-            "ref": "algorithms/data-compression/why-compress",
-            "title": "Навіщо стискати"
-          },
-          {
-            "ref": "algorithms/data-compression/jpeg-intra",
-            "title": "JPEG"
-          },
-          {
-            "ref": "algorithms/data-compression/inter-frame",
-            "title": "Міжкадрове стиснення"
-          },
-          {
-            "ref": "algorithms/data-compression/mjpeg-vs-h264",
-            "title": "MJPEG vs H.264"
-          },
-          {
-            "ref": "algorithms/data-compression/quality-bitrate",
-            "title": "Якість і бітрейт"
-          },
-          {
-            "ref": "communications/networks/video-transmission",
-            "title": "Передача відео"
-          },
-          {
-            "ref": "communications/networks/bandwidth-loss",
-            "title": "Пропускна й втрати"
-          },
-          {
-            "ref": "algorithms/data-compression/lossless-huffman-lz",
-            "title": "Стиснення без втрат"
-          }
-        ]
-      },
-      {
-        "title": "Машинне бачення: основи",
-        "steps": [
-          {
-            "ref": "algorithms/computer-vision/image-as-data",
-            "title": "Зображення як дані"
-          },
-          {
-            "ref": "algorithms/computer-vision/histogram",
-            "title": "Гістограма"
-          },
-          {
-            "ref": "algorithms/computer-vision/convolution-filters",
-            "title": "Згортки й фільтри"
-          },
-          {
-            "ref": "algorithms/computer-vision/edge-detection",
-            "title": "Виділення меж"
-          },
-          {
-            "ref": "algorithms/computer-vision/threshold-morphology",
-            "title": "Пороги й морфологія"
-          },
-          {
-            "ref": "algorithms/computer-vision/object-detection",
-            "title": "Виявлення об'єктів"
-          },
-          {
-            "ref": "algorithms/computer-vision/nn-detectors",
-            "title": "Нейродетектори"
-          },
-          {
-            "ref": "algorithms/computer-vision/tracking",
-            "title": "Трекінг"
-          },
-          {
-            "ref": "algorithms/computer-vision/compute-cost",
-            "title": "Вартість обчислень"
-          }
-        ]
-      },
-      {
-        "title": "Машинне навчання й нейромережі на пристрої",
-        "steps": [
-          {
-            "ref": "algorithms/machine-learning/what-is-ml",
-            "title": "Що таке ML"
-          },
-          {
-            "ref": "algorithms/machine-learning/train-vs-inference",
-            "title": "Навчання vs вивід"
-          },
-          {
-            "ref": "algorithms/machine-learning/neuron-layer",
-            "title": "Нейрон і шар"
-          },
-          {
-            "ref": "algorithms/machine-learning/gradient-descent",
-            "title": "Градієнтний спуск"
-          },
-          {
-            "ref": "algorithms/machine-learning/cnn",
-            "title": "Згорткові мережі"
-          },
-          {
-            "ref": "algorithms/machine-learning/overfitting",
-            "title": "Перенавчання"
-          },
-          {
-            "ref": "algorithms/machine-learning/tinyml",
-            "title": "TinyML"
-          },
-          {
-            "ref": "algorithms/machine-learning/where-to-compute",
-            "title": "Де рахувати"
-          },
-          {
-            "ref": "algorithms/machine-learning/ml-limits-ethics",
-            "title": "Межі й етика"
-          }
-        ]
-      },
-      {
-        "title": "Бортовий комп'ютер: «політ» + «розум» разом",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/realtime-vs-compute",
-            "title": "Дві ролі на борту"
-          },
-          {
-            "ref": "programming/networking/mavlink-channel",
-            "title": "Канал MAVLink"
-          },
-          {
-            "ref": "programming/networking/mavlink-routing",
-            "title": "Роутинг MAVLink"
-          },
-          {
-            "ref": "algorithms/signal-robotics/sense-decide-act-loop",
-            "title": "Контур offboard"
-          },
-          {
-            "ref": "programming/embedded-systems/trust-boundaries-failsafe",
-            "title": "Межі довіри"
-          },
-          {
-            "ref": "programming/software-engineering/sitl-simulation",
-            "title": "SITL"
-          },
-          {
-            "ref": "electronics/power-electronics/companion-power-thermal",
-            "title": "Енергія й тепло"
-          }
-        ]
-      },
-      {
-        "title": "Інші автономні платформи: ровер, човен, літак",
-        "steps": [
-          {
-            "ref": "algorithms/signal-robotics/one-stack-many-bodies",
-            "title": "Один стек"
-          },
-          {
-            "ref": "algorithms/signal-robotics/rover-steering",
-            "title": "Ровер"
-          },
-          {
-            "ref": "physics/mechanics/fixed-wing-lift",
-            "title": "Літак"
-          },
-          {
-            "ref": "physics/mechanics/vtol-transition",
-            "title": "VTOL-гібриди"
-          },
-          {
-            "ref": "algorithms/signal-robotics/boat-underwater",
-            "title": "Човен і підводний"
-          },
-          {
-            "ref": "programming/embedded-systems/dynamics-dependent-failsafe",
-            "title": "Failsafe за динамікою"
-          },
-          {
-            "ref": "algorithms/signal-robotics/pure-pursuit-navigation",
-            "title": "Навігація pure pursuit"
-          },
-          {
-            "ref": "algorithms/signal-robotics/platform-selection",
-            "title": "Вибір платформи"
-          }
-        ]
-      },
-      {
-        "title": "Наземна станція й оператор",
-        "steps": [
-          {
-            "ref": "programming/software-engineering/gcs-as-system",
-            "title": "GCS як система"
-          },
-          {
-            "ref": "communications/radio-engineering/telemetry-link",
-            "title": "Канал земля-борт"
-          },
-          {
-            "ref": "communications/protocols/mavlink-from-ground",
-            "title": "MAVLink із землі"
-          },
-          {
-            "ref": "algorithms/signal-robotics/mission-planning-map",
-            "title": "Планування на карті"
-          },
-          {
-            "ref": "programming/graphics/operator-ergonomics",
-            "title": "Ергономіка оператора"
-          },
-          {
-            "ref": "programming/software-engineering/preflight-checklists",
-            "title": "Передпольотні чеклисти"
-          },
-          {
-            "ref": "programming/networking/multi-vehicle-one-station",
-            "title": "Кілька апаратів"
-          },
-          {
-            "ref": "programming/software-engineering/ground-station-logs",
-            "title": "Записи станції"
-          }
-        ]
-      },
-      {
-        "title": "Зібрати систему від батареї до місії",
-        "steps": [
-          {
-            "ref": "programming/embedded-systems/capstone-task",
-            "title": "Капстоун"
-          },
-          {
-            "ref": "electronics/power-electronics/battery-to-controller",
-            "title": "Батарея до контролера"
-          },
-          {
-            "ref": "electronics/pcb/components-buses-on-frame",
-            "title": "Компоненти й шини"
-          },
-          {
-            "ref": "programming/embedded-systems/firmware-realtime-loop",
-            "title": "Прошивка реального часу"
-          },
-          {
-            "ref": "algorithms/signal-robotics/closing-the-loop",
-            "title": "Замкнути контур"
-          },
-          {
-            "ref": "programming/embedded-systems/preflight-safety",
-            "title": "Безпека до польоту"
-          },
-          {
-            "ref": "programming/embedded-systems/end-to-end-mission",
-            "title": "Місія від початку до кінця"
-          },
-          {
-            "ref": "algorithms/signal-robotics/where-next",
-            "title": "Куди далі"
-          }
-        ]
-      }
-    ]
-  }
-]
-});
+/* guide/embedded/manifest.js — КУРС «Вбудована електроніка й автономні системи» (тип "guide"). Крок: {ref} АБО {slug,title,status}. */
+(window.__GUIDES__ = window.__GUIDES__ || []).push(
+{
+  "type": "guide",
+  "slug": "embedded",
+  "title": "Вбудована електроніка й автономні системи",
+  "modules": [
+    {
+      "n": 1,
+      "slug": "electricity",
+      "title": "Електрика",
+      "chapters": [
+        {
+          "title": "Заряд",
+          "steps": [
+            {
+              "ref": "physics/electromagnetism/electric-charge",
+              "title": "Електричний заряд"
+            },
+            {
+              "ref": "physics/electromagnetism/elementary-charge",
+              "title": "Елементарний заряд і квантування"
+            },
+            {
+              "ref": "physics/electromagnetism/charge-conservation",
+              "title": "Закон збереження заряду"
+            },
+            {
+              "ref": "physics/electromagnetism/coulomb-law",
+              "title": "Закон Кулона"
+            },
+            {
+              "ref": "physics/electromagnetism/electric-field",
+              "title": "Електричне поле"
+            },
+            {
+              "ref": "physics/electromagnetism/electric-potential",
+              "title": "Електричний потенціал"
+            },
+            {
+              "ref": "physics/electromagnetism/voltage",
+              "title": "Напруга як різниця потенціалів"
+            },
+            {
+              "ref": "physics/electromagnetism/faraday-cage",
+              "title": "Клітка Фарадея"
+            }
+          ]
+        },
+        {
+          "title": "Струм",
+          "steps": [
+            {
+              "ref": "physics/electromagnetism/electric-current",
+              "title": "Електричний струм"
+            },
+            {
+              "ref": "physics/electromagnetism/current-direction",
+              "title": "Напрямок струму: технічний і реальний"
+            },
+            {
+              "ref": "physics/condensed-matter-physics/electron-drift",
+              "title": "Дрейф електронів"
+            },
+            {
+              "ref": "physics/electromagnetism/signal-speed",
+              "title": "Швидкість сигналу проти дрейфу носіїв"
+            },
+            {
+              "ref": "physics/electromagnetism/current-continuity",
+              "title": "Неперервність струму"
+            },
+            {
+              "ref": "physics/electromagnetism/ionic-conduction",
+              "title": "Іонна провідність"
+            },
+            {
+              "ref": "physics/condensed-matter-physics/resistance-origin",
+              "title": "Природа опору"
+            },
+            {
+              "ref": "physics/condensed-matter-physics/resistivity",
+              "title": "Питомий опір і провідність"
+            }
+          ]
+        },
+        {
+          "title": "Опір",
+          "steps": [
+            {
+              "ref": "physics/condensed-matter-physics/resistance",
+              "title": "Електричний опір"
+            },
+            {
+              "ref": "electronics/analog/ohms-law",
+              "title": "Закон Ома"
+            },
+            {
+              "ref": "physics/condensed-matter-physics/resistance-temperature",
+              "title": "Опір і температура"
+            },
+            {
+              "ref": "physics/electromagnetism/electric-power",
+              "title": "Електрична потужність"
+            },
+            {
+              "ref": "physics/electromagnetism/joule-heating",
+              "title": "Джоулеве тепло"
+            },
+            {
+              "ref": "physics/thermal-statistical/thermal-resistance",
+              "title": "Тепловий опір і відведення тепла"
+            },
+            {
+              "ref": "electronics/analog/voltage-divider",
+              "title": "Дільник напруги"
+            },
+            {
+              "ref": "electronics/analog/current-divider",
+              "title": "Дільник струму"
+            }
+          ]
+        },
+        {
+          "title": "Коло",
+          "steps": [
+            {
+              "ref": "physics/electromagnetism/closed-circuit",
+              "title": "Замкнене коло й джерело ЕРС"
+            },
+            {
+              "ref": "electronics/analog/internal-resistance",
+              "title": "Внутрішній опір джерела"
+            },
+            {
+              "ref": "electronics/analog/nodes-branches-loops",
+              "title": "Вузли, вітки й контури"
+            },
+            {
+              "ref": "electronics/analog/kcl",
+              "title": "Закон струмів Кірхгофа"
+            },
+            {
+              "ref": "electronics/analog/kvl",
+              "title": "Закон напруг Кірхгофа"
+            },
+            {
+              "ref": "electronics/analog/series-connection",
+              "title": "Послідовне з'єднання"
+            },
+            {
+              "ref": "electronics/analog/parallel-connection",
+              "title": "Паралельне з'єднання"
+            },
+            {
+              "ref": "electronics/analog/superposition",
+              "title": "Принцип суперпозиції"
+            },
+            {
+              "ref": "electronics/analog/thevenin",
+              "title": "Теорема Тевеніна"
+            },
+            {
+              "ref": "electronics/analog/norton",
+              "title": "Теорема Нортона"
+            },
+            {
+              "ref": "electronics/analog/power-matching",
+              "title": "Узгодження навантаження за потужністю"
+            },
+            {
+              "ref": "electronics/analog/wheatstone-bridge",
+              "title": "Міст Вітстона"
+            }
+          ]
+        },
+        {
+          "title": "Сигнал",
+          "steps": [
+            {
+              "ref": "physics/electromagnetism/dc-vs-ac",
+              "title": "Постійний і змінний струм"
+            },
+            {
+              "ref": "physics/oscillations-waves/sine-wave",
+              "title": "Синусоїда"
+            },
+            {
+              "ref": "physics/oscillations-waves/amplitude-frequency",
+              "title": "Амплітуда, частота й період"
+            },
+            {
+              "ref": "electronics/analog/phase-shift",
+              "title": "Фаза й зсув фаз"
+            },
+            {
+              "ref": "physics/electromagnetism/rms-value",
+              "title": "Діюче значення"
+            },
+            {
+              "ref": "electronics/analog/rc-time-constant",
+              "title": "Стала часу RC"
+            },
+            {
+              "ref": "electronics/analog/rl-time-constant",
+              "title": "Стала часу RL"
+            }
+          ]
+        },
+        {
+          "title": "Магнетизм",
+          "steps": [
+            {
+              "ref": "physics/electromagnetism/magnetic-field",
+              "title": "Магнітне поле"
+            },
+            {
+              "ref": "physics/electromagnetism/oersted-experiment",
+              "title": "Магнітне поле струму"
+            },
+            {
+              "ref": "physics/electromagnetism/ampere-force",
+              "title": "Сила Ампера"
+            },
+            {
+              "ref": "physics/electromagnetism/electromagnet",
+              "title": "Електромагніт"
+            },
+            {
+              "ref": "physics/condensed-matter-physics/ferromagnetism",
+              "title": "Феромагнетизм і гістерезис"
+            },
+            {
+              "ref": "physics/electromagnetism/electromagnetic-induction",
+              "title": "Електромагнітна індукція"
+            },
+            {
+              "ref": "physics/electromagnetism/hall-effect",
+              "title": "Ефект Холла"
+            }
+          ]
+        },
+        {
+          "title": "Завада",
+          "steps": [
+            {
+              "ref": "physics/electromagnetism/noise-interference",
+              "title": "Шум і завади як фізика"
+            },
+            {
+              "ref": "physics/thermal-statistical/thermal-noise",
+              "title": "Тепловий шум"
+            },
+            {
+              "ref": "physics/electromagnetism/capacitive-coupling",
+              "title": "Ємнісна наводка"
+            },
+            {
+              "ref": "physics/electromagnetism/inductive-coupling",
+              "title": "Індуктивна наводка"
+            },
+            {
+              "ref": "electronics/microelectronics/esd-damage",
+              "title": "Електростатичний розряд"
+            },
+            {
+              "ref": "physics/electromagnetism/triboelectricity",
+              "title": "Трибоелектрика й заряд тіла"
+            },
+            {
+              "ref": "physics/condensed-matter-physics/air-breakdown",
+              "title": "Пробій повітря й іскра"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "slug": "electronics",
+      "title": "Електроніка",
+      "chapters": [
+        {
+          "title": "Пасиви",
+          "steps": [
+            {
+              "ref": "electronics/components/resistor",
+              "title": "Резистор"
+            },
+            {
+              "ref": "electronics/components/resistor-marking",
+              "title": "Номінали й допуск"
+            },
+            {
+              "ref": "electronics/components/potentiometer",
+              "title": "Потенціометр і підлаштовник"
+            },
+            {
+              "ref": "electronics/metrology/kelvin-shunt",
+              "title": "Струмовимірювальний шунт"
+            },
+            {
+              "ref": "electronics/components/capacitor",
+              "title": "Конденсатор"
+            },
+            {
+              "ref": "electronics/components/capacitor-dielectrics",
+              "title": "Діелектрики конденсаторів"
+            },
+            {
+              "ref": "electronics/components/capacitor-parasitics",
+              "title": "Паразити конденсатора"
+            },
+            {
+              "ref": "electronics/components/supercapacitor",
+              "title": "Суперконденсатор"
+            },
+            {
+              "ref": "electronics/components/inductor-coil",
+              "title": "Котушка"
+            },
+            {
+              "ref": "electronics/components/inductor-types",
+              "title": "Осердя й насичення"
+            },
+            {
+              "ref": "electronics/components/ferrite-bead",
+              "title": "Феритова намистина"
+            },
+            {
+              "ref": "electronics/components/mutual-inductance",
+              "title": "Зв'язані котушки"
+            },
+            {
+              "ref": "electronics/components/transformer",
+              "title": "Трансформатор"
+            },
+            {
+              "slug": "kvartsovyi-rezonator",
+              "title": "Кварцовий резонатор",
+              "status": "empty"
+            },
+            {
+              "slug": "keramichnyi-i-mems-rezonator",
+              "title": "Керамічний і MEMS-резонатор",
+              "status": "empty"
+            },
+            {
+              "slug": "tochnist-chastoty",
+              "title": "Точність частоти",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Напівпровідники",
+          "steps": [
+            {
+              "slug": "napivprovidnyk",
+              "title": "Напівпровідник",
+              "status": "empty"
+            },
+            {
+              "slug": "lehuvannia",
+              "title": "Легування",
+              "status": "empty"
+            },
+            {
+              "slug": "pn-perekhid",
+              "title": "PN-перехід",
+              "status": "empty"
+            },
+            {
+              "slug": "diod",
+              "title": "Діод",
+              "status": "empty"
+            },
+            {
+              "slug": "zmishchennia-dioda",
+              "title": "Зміщення діода",
+              "status": "empty"
+            },
+            {
+              "slug": "vakh-dioda",
+              "title": "ВАХ діода",
+              "status": "empty"
+            },
+            {
+              "slug": "vypriamlennia",
+              "title": "Випрямлення",
+              "status": "empty"
+            },
+            {
+              "slug": "stabilitron",
+              "title": "Стабілітрон",
+              "status": "empty"
+            },
+            {
+              "slug": "diod-shottki",
+              "title": "Діод Шотткі",
+              "status": "empty"
+            },
+            {
+              "slug": "zakhysnyi-diod",
+              "title": "Захисний діод",
+              "status": "empty"
+            },
+            {
+              "slug": "bipoliarnyi-tranzystor",
+              "title": "Біполярний транзистор",
+              "status": "empty"
+            },
+            {
+              "slug": "rezhymy-bjt",
+              "title": "Режими BJT",
+              "status": "empty"
+            },
+            {
+              "slug": "bjt-kliuch",
+              "title": "BJT-ключ",
+              "status": "empty"
+            },
+            {
+              "slug": "polovyi-tranzystor",
+              "title": "Польовий транзистор",
+              "status": "empty"
+            },
+            {
+              "slug": "porih-mosfet",
+              "title": "Поріг MOSFET",
+              "status": "empty"
+            },
+            {
+              "slug": "opir-kanalu",
+              "title": "Опір каналу",
+              "status": "empty"
+            },
+            {
+              "slug": "sylovyi-kliuch-mosfet",
+              "title": "Силовий ключ MOSFET",
+              "status": "empty"
+            },
+            {
+              "slug": "iemnist-zatvora",
+              "title": "Ємність затвора",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Підсилення",
+          "steps": [
+            {
+              "slug": "operatsiinyi-pidsyliuvach",
+              "title": "Операційний підсилювач",
+              "status": "empty"
+            },
+            {
+              "slug": "vidiemnyi-zvorotnyi-zviazok",
+              "title": "Від'ємний зворотний зв'язок",
+              "status": "empty"
+            },
+            {
+              "slug": "virtualne-korotke",
+              "title": "Віртуальне коротке",
+              "status": "empty"
+            },
+            {
+              "slug": "invertuvalnyi-pidsyliuvach",
+              "title": "Інвертувальний підсилювач",
+              "status": "empty"
+            },
+            {
+              "slug": "neinvertuvalnyi-pidsyliuvach",
+              "title": "Неінвертувальний підсилювач",
+              "status": "empty"
+            },
+            {
+              "slug": "povtoriuvach",
+              "title": "Повторювач",
+              "status": "empty"
+            },
+            {
+              "slug": "sumator",
+              "title": "Суматор",
+              "status": "empty"
+            },
+            {
+              "slug": "riznytsevyi-pidsyliuvach",
+              "title": "Різницевий підсилювач",
+              "status": "empty"
+            },
+            {
+              "ref": "electronics/analog/instrumentation-amp",
+              "title": "Інструментальний підсилювач"
+            },
+            {
+              "slug": "komparator",
+              "title": "Компаратор",
+              "status": "empty"
+            },
+            {
+              "slug": "tryher-shmitta",
+              "title": "Тригер Шмітта",
+              "status": "empty"
+            },
+            {
+              "slug": "aktyvnyi-filtr",
+              "title": "Активний фільтр",
+              "status": "empty"
+            },
+            {
+              "slug": "topolohiia-sallena-ki",
+              "title": "Топологія Саллена–Кі",
+              "status": "empty"
+            },
+            {
+              "slug": "henerator-syhnalu",
+              "title": "Генератор сигналу",
+              "status": "empty"
+            },
+            {
+              "slug": "realnyi-pidsyliuvach",
+              "title": "Реальний підсилювач",
+              "status": "empty"
+            },
+            {
+              "ref": "communications/buses/differential-pair",
+              "title": "Диференційна пара"
+            }
+          ]
+        },
+        {
+          "title": "Перетворення",
+          "steps": [
+            {
+              "slug": "dyskretyzatsiia",
+              "title": "Дискретизація",
+              "status": "empty"
+            },
+            {
+              "slug": "kvantuvannia",
+              "title": "Квантування",
+              "status": "empty"
+            },
+            {
+              "slug": "analoho-tsyfrovyi-peretvoriuvach",
+              "title": "Аналого-цифровий перетворювач",
+              "status": "empty"
+            },
+            {
+              "slug": "atsp-poslidovnoho-nablyzhennia",
+              "title": "АЦП послідовного наближення",
+              "status": "empty"
+            },
+            {
+              "slug": "syhma-delta-atsp",
+              "title": "Сигма-дельта АЦП",
+              "status": "empty"
+            },
+            {
+              "slug": "rozdilnist-i-efektyvni-bity",
+              "title": "Роздільність і ефективні біти",
+              "status": "empty"
+            },
+            {
+              "slug": "tsyfro-analohovyi-peretvoriuvach",
+              "title": "Цифро-аналоговий перетворювач",
+              "status": "empty"
+            },
+            {
+              "slug": "rezystyvna-drabyna-r-2r",
+              "title": "Резистивна драбина R-2R",
+              "status": "empty"
+            },
+            {
+              "slug": "oporne-dzherelo-napruhy",
+              "title": "Опорне джерело напруги",
+              "status": "empty"
+            },
+            {
+              "slug": "bandgap-dzherelo",
+              "title": "Bandgap-джерело",
+              "status": "empty"
+            },
+            {
+              "slug": "pokhybky-peretvorennia",
+              "title": "Похибки перетворення",
+              "status": "empty"
+            },
+            {
+              "slug": "kalibruvannia",
+              "title": "Калібрування",
+              "status": "empty"
+            },
+            {
+              "slug": "pidsyliuvach-vybirky-zberihannia",
+              "title": "Підсилювач вибірки-зберігання",
+              "status": "empty"
+            },
+            {
+              "slug": "antyaliasynhovyi-filtr",
+              "title": "Антиаліасинговий фільтр",
+              "status": "empty"
+            },
+            {
+              "slug": "naikvist-i-aliasynh",
+              "title": "Найквіст і аліасинг",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Живлення",
+          "steps": [
+            {
+              "slug": "liniinyi-rehuliator",
+              "title": "Лінійний регулятор",
+              "status": "empty"
+            },
+            {
+              "slug": "malopadinnyi-rehuliator",
+              "title": "Малопадінний регулятор",
+              "status": "empty"
+            },
+            {
+              "slug": "impulsnyi-peretvoriuvach",
+              "title": "Імпульсний перетворювач",
+              "status": "empty"
+            },
+            {
+              "slug": "ponyzhuvalnyi-peretvoriuvach",
+              "title": "Понижувальний перетворювач",
+              "status": "empty"
+            },
+            {
+              "slug": "pidvyshchuvalnyi-peretvoriuvach",
+              "title": "Підвищувальний перетворювач",
+              "status": "empty"
+            },
+            {
+              "slug": "invertuvalnyi-peretvoriuvach",
+              "title": "Інвертувальний перетворювач",
+              "status": "empty"
+            },
+            {
+              "slug": "zariad-nasos",
+              "title": "Заряд-насос",
+              "status": "empty"
+            },
+            {
+              "slug": "vypriamliach-i-zhladzhuvannia",
+              "title": "Випрямляч і згладжування",
+              "status": "empty"
+            },
+            {
+              "slug": "khimiia-akumuliatora",
+              "title": "Хімія акумулятора",
+              "status": "empty"
+            },
+            {
+              "slug": "zariadzhannia-akumuliatora",
+              "title": "Заряджання акумулятора",
+              "status": "empty"
+            },
+            {
+              "slug": "systema-keruvannia-batareieiu",
+              "title": "Система керування батареєю",
+              "status": "empty"
+            },
+            {
+              "slug": "zakhyst-vid-perenapruhy-i-strumu",
+              "title": "Захист від перенапруги й струму",
+              "status": "empty"
+            },
+            {
+              "slug": "zvorotnopoliarnyi-zakhyst",
+              "title": "Зворотнополярний захист",
+              "status": "empty"
+            },
+            {
+              "slug": "rozpodil-zhyvlennia",
+              "title": "Розподіл живлення",
+              "status": "empty"
+            },
+            {
+              "slug": "rozviazuvalnyi-kondensator",
+              "title": "Розв'язувальний конденсатор",
+              "status": "empty"
+            },
+            {
+              "slug": "nyzke-spozhyvannia",
+              "title": "Низьке споживання",
+              "status": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "slug": "programming",
+      "title": "Програмування",
+      "chapters": [
+        {
+          "title": "Логіка",
+          "steps": [
+            {
+              "slug": "navishcho-tsyfra",
+              "title": "Навіщо цифра",
+              "status": "empty"
+            },
+            {
+              "slug": "lohichni-rivni-iak-diapazony",
+              "title": "Логічні рівні як діапазони",
+              "status": "empty"
+            },
+            {
+              "slug": "zapas-zavadostiikosti",
+              "title": "Запас завадостійкості",
+              "status": "empty"
+            },
+            {
+              "slug": "buleva-alhebra",
+              "title": "Булева алгебра",
+              "status": "empty"
+            },
+            {
+              "slug": "bazovi-ventyli",
+              "title": "Базові вентилі",
+              "status": "empty"
+            },
+            {
+              "slug": "nand-i-nor",
+              "title": "NAND і NOR",
+              "status": "empty"
+            },
+            {
+              "slug": "xor-i-rivnist",
+              "title": "XOR і рівність",
+              "status": "empty"
+            },
+            {
+              "slug": "cmos-ventyl-zseredyny",
+              "title": "CMOS-вентиль зсередини",
+              "status": "empty"
+            },
+            {
+              "slug": "karty-karno",
+              "title": "Карти Карно",
+              "status": "empty"
+            },
+            {
+              "slug": "kombinatsiini-skhemy",
+              "title": "Комбінаційні схеми",
+              "status": "empty"
+            },
+            {
+              "slug": "multypleksor",
+              "title": "Мультиплексор",
+              "status": "empty"
+            },
+            {
+              "slug": "deshyfrator",
+              "title": "Дешифратор",
+              "status": "empty"
+            },
+            {
+              "slug": "sumator",
+              "title": "Суматор",
+              "status": "empty"
+            },
+            {
+              "slug": "komparator-velychyn",
+              "title": "Компаратор величин",
+              "status": "empty"
+            },
+            {
+              "slug": "zasuvka-sr",
+              "title": "Засувка SR",
+              "status": "empty"
+            },
+            {
+              "slug": "d-tryher",
+              "title": "D-тригер",
+              "status": "empty"
+            },
+            {
+              "slug": "front-proty-rivnia",
+              "title": "Фронт проти рівня",
+              "status": "empty"
+            },
+            {
+              "slug": "jk-i-t-tryhery",
+              "title": "JK і T-тригери",
+              "status": "empty"
+            },
+            {
+              "slug": "rehistr",
+              "title": "Регістр",
+              "status": "empty"
+            },
+            {
+              "ref": "electronics/digital/shift-register",
+              "title": "Зсувний регістр"
+            },
+            {
+              "slug": "lichylnyk",
+              "title": "Лічильник",
+              "status": "empty"
+            },
+            {
+              "slug": "taktovyi-syhnal",
+              "title": "Тактовий сигнал",
+              "status": "empty"
+            },
+            {
+              "slug": "skinchennyi-avtomat",
+              "title": "Скінченний автомат",
+              "status": "empty"
+            },
+            {
+              "slug": "chas-vstanovlennia-i-utrymannia",
+              "title": "Час встановлення й утримання",
+              "status": "empty"
+            },
+            {
+              "slug": "metastabilnist",
+              "title": "Метастабільність",
+              "status": "empty"
+            },
+            {
+              "slug": "zatrymka-poshyrennia",
+              "title": "Затримка поширення",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Число",
+          "steps": [
+            {
+              "slug": "chomu-dviikova",
+              "title": "Чому двійкова",
+              "status": "empty"
+            },
+            {
+              "slug": "pozytsiini-systemy",
+              "title": "Позиційні системи",
+              "status": "empty"
+            },
+            {
+              "slug": "shistnadtsiatkovyi-zapys",
+              "title": "Шістнадцятковий запис",
+              "status": "empty"
+            },
+            {
+              "slug": "dviikovo-desiatkovyi-kod",
+              "title": "Двійково-десятковий код",
+              "status": "empty"
+            },
+            {
+              "slug": "znak-i-modul",
+              "title": "Знак і модуль",
+              "status": "empty"
+            },
+            {
+              "slug": "dopovnialnyi-kod",
+              "title": "Доповняльний код",
+              "status": "empty"
+            },
+            {
+              "slug": "perepovnennia-i-zavorot",
+              "title": "Переповнення й заворот",
+              "status": "empty"
+            },
+            {
+              "slug": "rozshyrennia-znaka",
+              "title": "Розширення знака",
+              "status": "empty"
+            },
+            {
+              "slug": "zsuvy-i-masky-bitiv",
+              "title": "Зсуви й маски бітів",
+              "status": "empty"
+            },
+            {
+              "slug": "fiksovana-koma",
+              "title": "Фіксована кома",
+              "status": "empty"
+            },
+            {
+              "slug": "plavaiucha-koma",
+              "title": "Плаваюча кома",
+              "status": "empty"
+            },
+            {
+              "slug": "standart-ieee-754",
+              "title": "Стандарт IEEE 754",
+              "status": "empty"
+            },
+            {
+              "slug": "pokhybky-okruhlennia",
+              "title": "Похибки округлення",
+              "status": "empty"
+            },
+            {
+              "slug": "bity-baity-slova",
+              "title": "Біти, байти, слова",
+              "status": "empty"
+            },
+            {
+              "slug": "poriadok-baitiv",
+              "title": "Порядок байтів",
+              "status": "empty"
+            },
+            {
+              "slug": "koduvannia-ascii",
+              "title": "Кодування ASCII",
+              "status": "empty"
+            },
+            {
+              "slug": "iunikod-i-utf-8",
+              "title": "Юнікод і UTF-8",
+              "status": "empty"
+            },
+            {
+              "slug": "bit-parnosti",
+              "title": "Біт парності",
+              "status": "empty"
+            },
+            {
+              "slug": "kontrolna-suma",
+              "title": "Контрольна сума",
+              "status": "empty"
+            },
+            {
+              "slug": "tsyklichnyi-nadlyshkovyi-kod",
+              "title": "Циклічний надлишковий код",
+              "status": "empty"
+            },
+            {
+              "slug": "vidstan-hemminha",
+              "title": "Відстань Геммінга",
+              "status": "empty"
+            },
+            {
+              "slug": "kod-hemminha",
+              "title": "Код Геммінга",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Пам'ять",
+          "steps": [
+            {
+              "slug": "pamiat-iak-masyv-komirok",
+              "title": "Пам'ять як масив комірок",
+              "status": "empty"
+            },
+            {
+              "slug": "adresnyi-prostir",
+              "title": "Адресний простір",
+              "status": "empty"
+            },
+            {
+              "slug": "karta-pamiati",
+              "title": "Карта пам'яті",
+              "status": "empty"
+            },
+            {
+              "slug": "statychna-pamiat-sram",
+              "title": "Статична пам'ять SRAM",
+              "status": "empty"
+            },
+            {
+              "slug": "dynamichna-pamiat-dram",
+              "title": "Динамічна пам'ять DRAM",
+              "status": "empty"
+            },
+            {
+              "slug": "sdram-i-ddr",
+              "title": "SDRAM і DDR",
+              "status": "empty"
+            },
+            {
+              "slug": "kontroler-pamiati",
+              "title": "Контролер пам'яті",
+              "status": "empty"
+            },
+            {
+              "slug": "postiina-pamiat-rom",
+              "title": "Постійна пам'ять ROM",
+              "status": "empty"
+            },
+            {
+              "slug": "komirka-flash",
+              "title": "Комірка Flash",
+              "status": "empty"
+            },
+            {
+              "slug": "nor-proty-nand",
+              "title": "NOR проти NAND",
+              "status": "empty"
+            },
+            {
+              "slug": "eeprom-i-fram",
+              "title": "EEPROM і FRAM",
+              "status": "empty"
+            },
+            {
+              "slug": "vyrivniuvannia-znoshuvannia",
+              "title": "Вирівнювання зношування",
+              "status": "empty"
+            },
+            {
+              "slug": "sd-kartka",
+              "title": "SD-картка",
+              "status": "empty"
+            },
+            {
+              "slug": "stek-i-kupa",
+              "title": "Стек і купа",
+              "status": "empty"
+            },
+            {
+              "slug": "perepovnennia-steka",
+              "title": "Переповнення стека",
+              "status": "empty"
+            },
+            {
+              "slug": "ecc-u-pamiati",
+              "title": "ECC у пам'яті",
+              "status": "empty"
+            },
+            {
+              "slug": "prohramovana-lohika",
+              "title": "Програмована логіка",
+              "status": "empty"
+            },
+            {
+              "slug": "tablytsia-istynnosti-lut",
+              "title": "Таблиця істинності LUT",
+              "status": "empty"
+            },
+            {
+              "slug": "useredyni-fpga",
+              "title": "Усередині FPGA",
+              "status": "empty"
+            },
+            {
+              "slug": "fpga-proty-cpld",
+              "title": "FPGA проти CPLD",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Процесор",
+          "steps": [
+            {
+              "slug": "shcho-take-protsesor",
+              "title": "Що таке процесор",
+              "status": "empty"
+            },
+            {
+              "slug": "skladovi-protsesora",
+              "title": "Складові процесора",
+              "status": "empty"
+            },
+            {
+              "slug": "rehistrovyi-fail",
+              "title": "Регістровий файл",
+              "status": "empty"
+            },
+            {
+              "slug": "aryfmetyko-lohichnyi-prystrii",
+              "title": "Арифметико-логічний пристрій",
+              "status": "empty"
+            },
+            {
+              "slug": "tsykl-vybirky-vykonannia",
+              "title": "Цикл вибірки-виконання",
+              "status": "empty"
+            },
+            {
+              "slug": "nabir-instruktsii",
+              "title": "Набір інструкцій",
+              "status": "empty"
+            },
+            {
+              "slug": "mashynnyi-kod-i-asembler",
+              "title": "Машинний код і асемблер",
+              "status": "empty"
+            },
+            {
+              "slug": "rezhymy-adresatsii",
+              "title": "Режими адресації",
+              "status": "empty"
+            },
+            {
+              "slug": "fon-neiman-i-harvard",
+              "title": "Фон Нейман і Гарвард",
+              "status": "empty"
+            },
+            {
+              "slug": "risc-proty-cisc",
+              "title": "RISC проти CISC",
+              "status": "empty"
+            },
+            {
+              "slug": "konveier",
+              "title": "Конвеєр",
+              "status": "empty"
+            },
+            {
+              "slug": "konflikty-konveiera",
+              "title": "Конфлікти конвеєра",
+              "status": "empty"
+            },
+            {
+              "slug": "kesh",
+              "title": "Кеш",
+              "status": "empty"
+            },
+            {
+              "slug": "iierarkhiia-pamiati",
+              "title": "Ієрархія пам'яті",
+              "status": "empty"
+            },
+            {
+              "slug": "taktova-chastota",
+              "title": "Тактова частота",
+              "status": "empty"
+            },
+            {
+              "slug": "pereryvannia",
+              "title": "Переривання",
+              "status": "empty"
+            },
+            {
+              "slug": "vektor-pereryvan",
+              "title": "Вектор переривань",
+              "status": "empty"
+            },
+            {
+              "slug": "stek-vyklykiv-i-abi",
+              "title": "Стек викликів і ABI",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Контролер",
+          "steps": [
+            {
+              "slug": "shcho-take-mikrokontroler",
+              "title": "Що таке мікроконтролер",
+              "status": "empty"
+            },
+            {
+              "slug": "skladovi-mikrokontrolera",
+              "title": "Складові мікроконтролера",
+              "status": "empty"
+            },
+            {
+              "slug": "memory-mapped-vvedennia-vyvedennia",
+              "title": "Memory-mapped введення-виведення",
+              "status": "empty"
+            },
+            {
+              "slug": "dostup-do-rehistriv-peryferii",
+              "title": "Доступ до регістрів периферії",
+              "status": "empty"
+            },
+            {
+              "slug": "port-gpio",
+              "title": "Порт GPIO",
+              "status": "empty"
+            },
+            {
+              "slug": "taimer-lichylnyk",
+              "title": "Таймер-лічильник",
+              "status": "empty"
+            },
+            {
+              "slug": "zakhoplennia-i-porivniannia",
+              "title": "Захоплення й порівняння",
+              "status": "empty"
+            },
+            {
+              "slug": "shyrotno-impulsna-moduliatsiia",
+              "title": "Широтно-імпульсна модуляція",
+              "status": "empty"
+            },
+            {
+              "slug": "analoho-tsyfrovyi-peretvoriuvach-mk",
+              "title": "Аналого-цифровий перетворювач МК",
+              "status": "empty"
+            },
+            {
+              "slug": "tsyfro-analohovyi-peretvoriuvach-mk",
+              "title": "Цифро-аналоговий перетворювач МК",
+              "status": "empty"
+            },
+            {
+              "slug": "liniia-pereryvan",
+              "title": "Лінія переривань",
+              "status": "empty"
+            },
+            {
+              "slug": "priamyi-dostup-do-pamiati",
+              "title": "Прямий доступ до пам'яті",
+              "status": "empty"
+            },
+            {
+              "slug": "derevo-taktuvannia",
+              "title": "Дерево тактування",
+              "status": "empty"
+            },
+            {
+              "slug": "storozhovyi-taimer",
+              "title": "Сторожовий таймер",
+              "status": "empty"
+            },
+            {
+              "slug": "rezhymy-snu",
+              "title": "Режими сну",
+              "status": "empty"
+            },
+            {
+              "slug": "dzherela-probudzhennia",
+              "title": "Джерела пробудження",
+              "status": "empty"
+            },
+            {
+              "slug": "prychyny-skydannia",
+              "title": "Причини скидання",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Прошивка",
+          "steps": [
+            {
+              "slug": "hole-zalizo-proty-os",
+              "title": "Голе залізо проти ОС",
+              "status": "empty"
+            },
+            {
+              "slug": "c-i-c-dlia-mikrokontrolera",
+              "title": "C і C++ для мікроконтролера",
+              "status": "empty"
+            },
+            {
+              "slug": "dostup-do-rehistriv-iz-c",
+              "title": "Доступ до регістрів із C",
+              "status": "empty"
+            },
+            {
+              "slug": "kliuchove-slovo-volatile",
+              "title": "Ключове слово volatile",
+              "status": "empty"
+            },
+            {
+              "slug": "karta-linkera-i-rozdily",
+              "title": "Карта лінкера й розділи",
+              "status": "empty"
+            },
+            {
+              "slug": "obraz-proshyvky-i-zavantazhuvach",
+              "title": "Образ прошивки й завантажувач",
+              "status": "empty"
+            },
+            {
+              "slug": "holovnyi-tsykl",
+              "title": "Головний цикл",
+              "status": "empty"
+            },
+            {
+              "slug": "obrobnyk-pereryvannia",
+              "title": "Обробник переривання",
+              "status": "empty"
+            },
+            {
+              "slug": "atomarnist-i-honky",
+              "title": "Атомарність і гонки",
+              "status": "empty"
+            },
+            {
+              "slug": "realnyi-chas-i-determinizm",
+              "title": "Реальний час і детермінізм",
+              "status": "empty"
+            },
+            {
+              "slug": "operatsiina-systema-realnoho-chasu",
+              "title": "Операційна система реального часу",
+              "status": "empty"
+            },
+            {
+              "slug": "zadachi-i-planuvalnyk",
+              "title": "Задачі й планувальник",
+              "status": "empty"
+            },
+            {
+              "slug": "cherhy-i-semafory",
+              "title": "Черги й семафори",
+              "status": "empty"
+            },
+            {
+              "slug": "steky-zadach",
+              "title": "Стеки задач",
+              "status": "empty"
+            },
+            {
+              "slug": "priorytetna-inversiia",
+              "title": "Пріоритетна інверсія",
+              "status": "empty"
+            },
+            {
+              "slug": "nalahodzhennia-cherez-swd-i-gdb",
+              "title": "Налагодження через SWD і GDB",
+              "status": "empty"
+            },
+            {
+              "slug": "rozbir-avarii-hardfault",
+              "title": "Розбір аварії HardFault",
+              "status": "empty"
+            },
+            {
+              "slug": "onovlennia-cherez-efir-ota",
+              "title": "Оновлення через ефір (OTA)",
+              "status": "empty"
+            },
+            {
+              "slug": "zakhyshchene-zavantazhennia",
+              "title": "Захищене завантаження",
+              "status": "empty"
+            },
+            {
+              "slug": "bezpeka-proshyvky",
+              "title": "Безпека прошивки",
+              "status": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "slug": "peripherals",
+      "title": "Периферія",
+      "chapters": [
+        {
+          "title": "Давачі",
+          "steps": [
+            {
+              "slug": "shcho-take-davach",
+              "title": "Що таке давач",
+              "status": "empty"
+            },
+            {
+              "slug": "fizychna-velychyna-iak-syhnal",
+              "title": "Фізична величина як сигнал",
+              "status": "empty"
+            },
+            {
+              "slug": "klasy-peretvoriuvachiv",
+              "title": "Класи перетворювачів",
+              "status": "empty"
+            },
+            {
+              "slug": "piezoelektrychni-davachi",
+              "title": "П'єзоелектричні давачі",
+              "status": "empty"
+            },
+            {
+              "slug": "optychni-davachi",
+              "title": "Оптичні давачі",
+              "status": "empty"
+            },
+            {
+              "slug": "napivprovidnykovi-davachi",
+              "title": "Напівпровідникові давачі",
+              "status": "empty"
+            },
+            {
+              "slug": "kharakterystyky-davacha",
+              "title": "Характеристики давача",
+              "status": "empty"
+            },
+            {
+              "slug": "chutlyvist-i-diapazon",
+              "title": "Чутливість і діапазон",
+              "status": "empty"
+            },
+            {
+              "slug": "dreif-histerezys-shum",
+              "title": "Дрейф, гістерезис, шум",
+              "status": "empty"
+            },
+            {
+              "slug": "kalibruvannia-davacha",
+              "title": "Калібрування давача",
+              "status": "empty"
+            },
+            {
+              "slug": "uzhodzhennia-davacha-z-vkhodom",
+              "title": "Узгодження давача з входом",
+              "status": "empty"
+            },
+            {
+              "slug": "akselerometr",
+              "title": "Акселерометр",
+              "status": "empty"
+            },
+            {
+              "slug": "hiroskop",
+              "title": "Гіроскоп",
+              "status": "empty"
+            },
+            {
+              "slug": "mahnitometr",
+              "title": "Магнітометр",
+              "status": "empty"
+            },
+            {
+              "slug": "inertsiinyi-modul-imu",
+              "title": "Інерційний модуль IMU",
+              "status": "empty"
+            },
+            {
+              "slug": "shum-zmishchennia-i-dreif-imu",
+              "title": "Шум, зміщення й дрейф IMU",
+              "status": "empty"
+            },
+            {
+              "slug": "barometr",
+              "title": "Барометр",
+              "status": "empty"
+            },
+            {
+              "slug": "mems-tekhnolohiia",
+              "title": "MEMS-технологія",
+              "status": "empty"
+            },
+            {
+              "slug": "davach-temperatury",
+              "title": "Давач температури",
+              "status": "empty"
+            },
+            {
+              "slug": "davach-tysku",
+              "title": "Давач тиску",
+              "status": "empty"
+            },
+            {
+              "slug": "hazovyi-davach",
+              "title": "Газовий давач",
+              "status": "empty"
+            },
+            {
+              "slug": "davach-svitla",
+              "title": "Давач світла",
+              "status": "empty"
+            },
+            {
+              "ref": "electronics/sensors/load-cell",
+              "title": "Тензодавач"
+            },
+            {
+              "slug": "strumovyi-davach",
+              "title": "Струмовий давач",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Відстань",
+          "steps": [
+            {
+              "slug": "bezkontaktne-vymiriuvannia-vidstani",
+              "title": "Безконтактне вимірювання відстані",
+              "status": "empty"
+            },
+            {
+              "slug": "ultrazvukovyi-chas-prolotu",
+              "title": "Ультразвуковий час прольоту",
+              "status": "empty"
+            },
+            {
+              "slug": "lazernyi-chas-prolotu-tof",
+              "title": "Лазерний час прольоту ToF",
+              "status": "empty"
+            },
+            {
+              "slug": "trianhuliatsiia",
+              "title": "Тріангуляція",
+              "status": "empty"
+            },
+            {
+              "slug": "vidbyttia-i-pohlynannia-ir",
+              "title": "Відбиття й поглинання IR",
+              "status": "empty"
+            },
+            {
+              "slug": "pokhybky-vymiriuvannia-vidstani",
+              "title": "Похибки вимірювання відстані",
+              "status": "empty"
+            },
+            {
+              "slug": "vymiriuvannia-kuta-obertannia",
+              "title": "Вимірювання кута обертання",
+              "status": "empty"
+            },
+            {
+              "slug": "potentsiometrychnyi-davach-kuta",
+              "title": "Потенціометричний давач кута",
+              "status": "empty"
+            },
+            {
+              "slug": "optychnyi-inkrementnyi-enkoder",
+              "title": "Оптичний інкрементний енкодер",
+              "status": "empty"
+            },
+            {
+              "slug": "kvadratura",
+              "title": "Квадратура",
+              "status": "empty"
+            },
+            {
+              "slug": "mahnitni-enkodery-na-efekti-kholla",
+              "title": "Магнітні енкодери на ефекті Холла",
+              "status": "empty"
+            },
+            {
+              "slug": "absoliutnyi-enkoder-i-kod-hreia",
+              "title": "Абсолютний енкодер і код Грея",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Сигнал",
+          "steps": [
+            {
+              "slug": "shum-u-syhnali",
+              "title": "Шум у сигналі",
+              "status": "empty"
+            },
+            {
+              "slug": "dyskretyzatsiia",
+              "title": "Дискретизація",
+              "status": "empty"
+            },
+            {
+              "slug": "aliasynh",
+              "title": "Аліасинг",
+              "status": "empty"
+            },
+            {
+              "slug": "kvantuvannia",
+              "title": "Квантування",
+              "status": "empty"
+            },
+            {
+              "slug": "kovzne-serednie",
+              "title": "Ковзне середнє",
+              "status": "empty"
+            },
+            {
+              "slug": "mediannyi-filtr",
+              "title": "Медіанний фільтр",
+              "status": "empty"
+            },
+            {
+              "slug": "eksponentsiine-zhladzhuvannia-ema",
+              "title": "Експоненційне згладжування EMA",
+              "status": "empty"
+            },
+            {
+              "slug": "kikh-filtr-fir",
+              "title": "КІХ-фільтр FIR",
+              "status": "empty"
+            },
+            {
+              "slug": "bikh-filtr-iir",
+              "title": "БІХ-фільтр IIR",
+              "status": "empty"
+            },
+            {
+              "slug": "fir-proty-iir",
+              "title": "FIR проти IIR",
+              "status": "empty"
+            },
+            {
+              "slug": "smuhovi-filtry",
+              "title": "Смугові фільтри",
+              "status": "empty"
+            },
+            {
+              "slug": "spektr",
+              "title": "Спектр",
+              "status": "empty"
+            },
+            {
+              "slug": "shvydke-peretvorennia-furie-fft",
+              "title": "Швидке перетворення Фур'є FFT",
+              "status": "empty"
+            },
+            {
+              "slug": "vikno-i-spektralnyi-vytik",
+              "title": "Вікно й спектральний витік",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Фьюжн",
+          "steps": [
+            {
+              "slug": "nedostatnist-odnoho-davacha",
+              "title": "Недостатність одного давача",
+              "status": "empty"
+            },
+            {
+              "slug": "zlyttia-davachiv",
+              "title": "Злиття давачів",
+              "status": "empty"
+            },
+            {
+              "slug": "peredbachennia-proty-vymiriuvannia",
+              "title": "Передбачення проти вимірювання",
+              "status": "empty"
+            },
+            {
+              "slug": "komplementarnyi-filtr",
+              "title": "Комплементарний фільтр",
+              "status": "empty"
+            },
+            {
+              "slug": "model-rukhu",
+              "title": "Модель руху",
+              "status": "empty"
+            },
+            {
+              "slug": "filtr-kalmana",
+              "title": "Фільтр Калмана",
+              "status": "empty"
+            },
+            {
+              "slug": "rozshyrenyi-filtr-kalmana-ekf",
+              "title": "Розширений фільтр Калмана EKF",
+              "status": "empty"
+            },
+            {
+              "slug": "zatrymka-i-synkhronizatsiia-danykh",
+              "title": "Затримка й синхронізація даних",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Бачення",
+          "steps": [
+            {
+              "slug": "zobrazhennia-iak-dani",
+              "title": "Зображення як дані",
+              "status": "empty"
+            },
+            {
+              "slug": "kolirni-prostory",
+              "title": "Колірні простори",
+              "status": "empty"
+            },
+            {
+              "slug": "demozaika-baiera",
+              "title": "Демозаїка Баєра",
+              "status": "empty"
+            },
+            {
+              "slug": "histohrama-zobrazhennia",
+              "title": "Гістограма зображення",
+              "status": "empty"
+            },
+            {
+              "slug": "zhortky-i-filtry",
+              "title": "Згортки й фільтри",
+              "status": "empty"
+            },
+            {
+              "slug": "vyiavlennia-kraiv",
+              "title": "Виявлення країв",
+              "status": "empty"
+            },
+            {
+              "slug": "porih-i-morfolohiia",
+              "title": "Поріг і морфологія",
+              "status": "empty"
+            },
+            {
+              "slug": "kalibruvannia-kamery",
+              "title": "Калібрування камери",
+              "status": "empty"
+            },
+            {
+              "slug": "optychnyi-potik",
+              "title": "Оптичний потік",
+              "status": "empty"
+            },
+            {
+              "slug": "stereo-i-hlybyna",
+              "title": "Стерео й глибина",
+              "status": "empty"
+            },
+            {
+              "slug": "trekinh",
+              "title": "Трекінг",
+              "status": "empty"
+            },
+            {
+              "slug": "vyiavlennia-obiektiv",
+              "title": "Виявлення об'єктів",
+              "status": "empty"
+            },
+            {
+              "slug": "neiromerezha-i-cnn",
+              "title": "Нейромережа й CNN",
+              "status": "empty"
+            },
+            {
+              "slug": "semantychna-sehmentatsiia",
+              "title": "Семантична сегментація",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Обчислення",
+          "steps": [
+            {
+              "slug": "de-obchysliuvaty",
+              "title": "Де обчислювати",
+              "status": "empty"
+            },
+            {
+              "slug": "bortovi-obchysliuvachi",
+              "title": "Бортові обчислювачі",
+              "status": "empty"
+            },
+            {
+              "slug": "aparatni-pryskoriuvachi",
+              "title": "Апаратні прискорювачі",
+              "status": "empty"
+            },
+            {
+              "slug": "edge-ml-i-tinyml",
+              "title": "Edge-ML і TinyML",
+              "status": "empty"
+            },
+            {
+              "slug": "vartist-obchyslen",
+              "title": "Вартість обчислень",
+              "status": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "slug": "communication",
+      "title": "Зв'язок",
+      "chapters": [
+        {
+          "title": "Інтерфейси",
+          "steps": [
+            {
+              "slug": "poslidovna-i-paralelna-peredacha",
+              "title": "Послідовна й паралельна передача",
+              "status": "empty"
+            },
+            {
+              "slug": "uart",
+              "title": "UART",
+              "status": "empty"
+            },
+            {
+              "slug": "shvydkist-peredachi-baud",
+              "title": "Швидкість передачі baud",
+              "status": "empty"
+            },
+            {
+              "slug": "kadr-uart-i-parnist",
+              "title": "Кадр UART і парність",
+              "status": "empty"
+            },
+            {
+              "slug": "synkhronnyi-i-asynkhronnyi-obmin",
+              "title": "Синхронний і асинхронний обмін",
+              "status": "empty"
+            },
+            {
+              "slug": "spi",
+              "title": "SPI",
+              "status": "empty"
+            },
+            {
+              "slug": "rezhymy-spi",
+              "title": "Режими SPI",
+              "status": "empty"
+            },
+            {
+              "slug": "i2c",
+              "title": "I2C",
+              "status": "empty"
+            },
+            {
+              "slug": "adresatsiia-i-arbitrazh-i2c",
+              "title": "Адресація й арбітраж I2C",
+              "status": "empty"
+            },
+            {
+              "slug": "pidtiahuvalni-rezystory-shyny",
+              "title": "Підтягувальні резистори шини",
+              "status": "empty"
+            },
+            {
+              "slug": "1-wire",
+              "title": "1-Wire",
+              "status": "empty"
+            },
+            {
+              "slug": "parazytne-zhyvlennia-1-wire",
+              "title": "Паразитне живлення 1-Wire",
+              "status": "empty"
+            },
+            {
+              "slug": "rivni-lohiky-i-uzhodzhennia-napruh",
+              "title": "Рівні логіки й узгодження напруг",
+              "status": "empty"
+            },
+            {
+              "slug": "zsuvach-rivniv",
+              "title": "Зсувач рівнів",
+              "status": "empty"
+            },
+            {
+              "slug": "tsilisnist-syhnalu-i-dovzhyna-shyny",
+              "title": "Цілісність сигналу й довжина шини",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Шини",
+          "steps": [
+            {
+              "slug": "dyferentsiina-peredacha",
+              "title": "Диференційна передача",
+              "status": "empty"
+            },
+            {
+              "ref": "communications/buses/rs-485",
+              "title": "RS-485"
+            },
+            {
+              "slug": "topolohiia-shyny-i-terminatsiia",
+              "title": "Топологія шини й термінація",
+              "status": "empty"
+            },
+            {
+              "slug": "uzhodzhuvalnyi-rezystor-linii",
+              "title": "Узгоджувальний резистор лінії",
+              "status": "empty"
+            },
+            {
+              "slug": "rs-232-i-rivni-napruh",
+              "title": "RS-232 і рівні напруг",
+              "status": "empty"
+            },
+            {
+              "slug": "modbus",
+              "title": "Modbus",
+              "status": "empty"
+            },
+            {
+              "slug": "rehistry-i-funktsii-modbus",
+              "title": "Регістри й функції Modbus",
+              "status": "empty"
+            },
+            {
+              "slug": "can",
+              "title": "CAN",
+              "status": "empty"
+            },
+            {
+              "slug": "arbitrazh-i-priorytety-kadriv-can",
+              "title": "Арбітраж і пріоритети кадрів CAN",
+              "status": "empty"
+            },
+            {
+              "slug": "vyiavlennia-pomylok-u-can",
+              "title": "Виявлення помилок у CAN",
+              "status": "empty"
+            },
+            {
+              "slug": "halvanichna-rozviazka-interfeisu",
+              "title": "Гальванічна розв'язка інтерфейсу",
+              "status": "empty"
+            },
+            {
+              "slug": "kolizii-i-determinovanist-shyny",
+              "title": "Колізії й детермінованість шини",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "USB",
+          "steps": [
+            {
+              "slug": "arkhitektura-shyny-usb",
+              "title": "Архітектура шини USB",
+              "status": "empty"
+            },
+            {
+              "slug": "dyferentsiina-para-d-d",
+              "title": "Диференційна пара D+/D−",
+              "status": "empty"
+            },
+            {
+              "slug": "perelichennia-prystroiu",
+              "title": "Перелічення пристрою",
+              "status": "empty"
+            },
+            {
+              "slug": "deskryptory-i-klasy-prystroiv",
+              "title": "Дескриптори й класи пристроїв",
+              "status": "empty"
+            },
+            {
+              "slug": "kintsevi-tochky-i-typy-peredach",
+              "title": "Кінцеві точки й типи передач",
+              "status": "empty"
+            },
+            {
+              "slug": "usb-cdc",
+              "title": "USB CDC",
+              "status": "empty"
+            },
+            {
+              "slug": "usb-hid",
+              "title": "USB HID",
+              "status": "empty"
+            },
+            {
+              "slug": "zhyvlennia-po-usb",
+              "title": "Живлення по USB",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Радіо",
+          "steps": [
+            {
+              "slug": "elektromahnitna-khvylia",
+              "title": "Електромагнітна хвиля",
+              "status": "empty"
+            },
+            {
+              "slug": "chastota-dovzhyna-khvyli-i-spektr",
+              "title": "Частота, довжина хвилі й спектр",
+              "status": "empty"
+            },
+            {
+              "slug": "detsybel-i-odynytsi-potuzhnosti",
+              "title": "Децибел і одиниці потужності",
+              "status": "empty"
+            },
+            {
+              "slug": "antena",
+              "title": "Антена",
+              "status": "empty"
+            },
+            {
+              "slug": "pidsylennia-i-diahrama-spriamovanosti",
+              "title": "Підсилення й діаграма спрямованості",
+              "status": "empty"
+            },
+            {
+              "slug": "uzhodzhennia-anteny-i-kskh",
+              "title": "Узгодження антени й КСХ",
+              "status": "empty"
+            },
+            {
+              "slug": "poshyrennia-radiokhvyl",
+              "title": "Поширення радіохвиль",
+              "status": "empty"
+            },
+            {
+              "slug": "vtraty-u-vilnomu-prostori",
+              "title": "Втрати у вільному просторі",
+              "status": "empty"
+            },
+            {
+              "slug": "zavmyrannia-i-bahatopromenevist",
+              "title": "Завмирання й багатопроменевість",
+              "status": "empty"
+            },
+            {
+              "slug": "biudzhet-radiolinii",
+              "title": "Бюджет радіолінії",
+              "status": "empty"
+            },
+            {
+              "slug": "chutlyvist-pryimacha-i-shum",
+              "title": "Чутливість приймача й шум",
+              "status": "empty"
+            },
+            {
+              "slug": "rehuliatorni-diapazony-ism",
+              "title": "Регуляторні діапазони ISM",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Модуляція",
+          "steps": [
+            {
+              "slug": "nesucha-i-moduliatsiia",
+              "title": "Несуча й модуляція",
+              "status": "empty"
+            },
+            {
+              "slug": "amplitudna-moduliatsiia-am",
+              "title": "Амплітудна модуляція AM",
+              "status": "empty"
+            },
+            {
+              "slug": "chastotna-moduliatsiia-fm",
+              "title": "Частотна модуляція FM",
+              "status": "empty"
+            },
+            {
+              "slug": "chastotna-manipuliatsiia-fsk",
+              "title": "Частотна маніпуляція FSK",
+              "status": "empty"
+            },
+            {
+              "slug": "fazova-manipuliatsiia-psk",
+              "title": "Фазова маніпуляція PSK",
+              "status": "empty"
+            },
+            {
+              "slug": "kvadraturna-moduliatsiia-qam",
+              "title": "Квадратурна модуляція QAM",
+              "status": "empty"
+            },
+            {
+              "slug": "smuha-propuskannia-i-shvydkist-symvoliv",
+              "title": "Смуга пропускання й швидкість символів",
+              "status": "empty"
+            },
+            {
+              "slug": "syhnal-shum-i-mezha-shennona",
+              "title": "Сигнал/шум і межа Шеннона",
+              "status": "empty"
+            },
+            {
+              "slug": "zavadostiike-koduvannia",
+              "title": "Завадостійке кодування",
+              "status": "empty"
+            },
+            {
+              "slug": "kontrolna-suma-i-crc",
+              "title": "Контрольна сума й CRC",
+              "status": "empty"
+            },
+            {
+              "slug": "vypravlennia-pomylok-fec",
+              "title": "Виправлення помилок FEC",
+              "status": "empty"
+            },
+            {
+              "slug": "rozshyrennia-spektra",
+              "title": "Розширення спектра",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Бездротовий",
+          "steps": [
+            {
+              "slug": "osnovy-bezdrotovoho-zviazku",
+              "title": "Основи бездротового зв'язку",
+              "status": "empty"
+            },
+            {
+              "slug": "wi-fi",
+              "title": "Wi-Fi",
+              "status": "empty"
+            },
+            {
+              "slug": "tochka-dostupu-i-stantsiia",
+              "title": "Точка доступу й станція",
+              "status": "empty"
+            },
+            {
+              "slug": "bluetooth",
+              "title": "Bluetooth",
+              "status": "empty"
+            },
+            {
+              "slug": "bluetooth-low-energy-ble",
+              "title": "Bluetooth Low Energy BLE",
+              "status": "empty"
+            },
+            {
+              "slug": "profili-i-kharakterystyky-ble-gatt",
+              "title": "Профілі й характеристики BLE GATT",
+              "status": "empty"
+            },
+            {
+              "slug": "lora",
+              "title": "LoRa",
+              "status": "empty"
+            },
+            {
+              "slug": "lorawan-i-dalnii-zviazok",
+              "title": "LoRaWAN і дальній зв'язок",
+              "status": "empty"
+            },
+            {
+              "slug": "kompromis-dalnosti-shvydkosti-i-enerhii",
+              "title": "Компроміс дальності, швидкості й енергії",
+              "status": "empty"
+            },
+            {
+              "slug": "suputnykova-navihatsiia-gnss",
+              "title": "Супутникова навігація GNSS",
+              "status": "empty"
+            },
+            {
+              "slug": "trylateratsiia-i-vyznachennia-koordynat",
+              "title": "Трилатерація й визначення координат",
+              "status": "empty"
+            },
+            {
+              "slug": "tochnist-gnss-i-dzherela-pokhybok",
+              "title": "Точність GNSS і джерела похибок",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Мережі",
+          "steps": [
+            {
+              "slug": "rivneva-model-steka",
+              "title": "Рівнева модель стека",
+              "status": "empty"
+            },
+            {
+              "slug": "paket-kadr-i-sluzhbovi-polia",
+              "title": "Пакет, кадр і службові поля",
+              "status": "empty"
+            },
+            {
+              "slug": "adresatsiia-vuzliv",
+              "title": "Адресація вузлів",
+              "status": "empty"
+            },
+            {
+              "slug": "marshrutyzatsiia",
+              "title": "Маршрутизація",
+              "status": "empty"
+            },
+            {
+              "slug": "nadiina-dostavka-i-pidtverdzhennia",
+              "title": "Надійна доставка й підтвердження",
+              "status": "empty"
+            },
+            {
+              "slug": "topolohiia-merezhi",
+              "title": "Топологія мережі",
+              "status": "empty"
+            },
+            {
+              "slug": "mavlink",
+              "title": "MAVLink",
+              "status": "empty"
+            },
+            {
+              "slug": "telemetriia-i-kanal-komand",
+              "title": "Телеметрія й канал команд",
+              "status": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "slug": "construction",
+      "title": "Конструювання",
+      "chapters": [
+        {
+          "title": "Схема",
+          "steps": [
+            {
+              "slug": "pryznachennia-pryntsypovoi-skhemy",
+              "title": "Призначення принципової схеми",
+              "status": "empty"
+            },
+            {
+              "slug": "umovni-hrafichni-poznachennia",
+              "title": "Умовні графічні позначення",
+              "status": "empty"
+            },
+            {
+              "slug": "pozytsiini-poznachennia-komponentiv",
+              "title": "Позиційні позначення компонентів",
+              "status": "empty"
+            },
+            {
+              "slug": "nominaly-i-markuvannia-na-skhemi",
+              "title": "Номінали й маркування на схемі",
+              "status": "empty"
+            },
+            {
+              "slug": "shyny-zhyvlennia-i-zemlia",
+              "title": "Шини живлення й земля",
+              "status": "empty"
+            },
+            {
+              "slug": "symvol-i-vuzol-ziednannia",
+              "title": "Символ і вузол з'єднання",
+              "status": "empty"
+            },
+            {
+              "slug": "perekhresni-zviazky-i-mitky-syhnaliv",
+              "title": "Перехресні зв'язки й мітки сигналів",
+              "status": "empty"
+            },
+            {
+              "slug": "chytannia-chuzhoi-skhemy",
+              "title": "Читання чужої схеми",
+              "status": "empty"
+            },
+            {
+              "slug": "stvorennia-vlasnoi-skhemy",
+              "title": "Створення власної схеми",
+              "status": "empty"
+            },
+            {
+              "slug": "blok-skhema-prystroiu",
+              "title": "Блок-схема пристрою",
+              "status": "empty"
+            },
+            {
+              "slug": "iierarkhiia-arkushiv-i-moduliv-skhemy",
+              "title": "Ієрархія аркушів і модулів схеми",
+              "status": "empty"
+            },
+            {
+              "slug": "typovi-pomylky-v-skhemi",
+              "title": "Типові помилки в схемі",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Плата",
+          "steps": [
+            {
+              "slug": "budova-drukovanoi-platy",
+              "title": "Будова друкованої плати",
+              "status": "empty"
+            },
+            {
+              "slug": "stek-i-kilkist-shariv",
+              "title": "Стек і кількість шарів",
+              "status": "empty"
+            },
+            {
+              "slug": "mid-maska-shovkohrafiia",
+              "title": "Мідь, маска, шовкографія",
+              "status": "empty"
+            },
+            {
+              "slug": "perevidni-otvory-via",
+              "title": "Перевідні отвори via",
+              "status": "empty"
+            },
+            {
+              "slug": "korpusy-smd-proty-tht",
+              "title": "Корпуси SMD проти THT",
+              "status": "empty"
+            },
+            {
+              "slug": "vybir-posadkovoho-mistsia",
+              "title": "Вибір посадкового місця",
+              "status": "empty"
+            },
+            {
+              "slug": "rozmishchennia-komponentiv",
+              "title": "Розміщення компонентів",
+              "status": "empty"
+            },
+            {
+              "slug": "trasuvannia-dorizhok",
+              "title": "Трасування доріжок",
+              "status": "empty"
+            },
+            {
+              "slug": "shyryna-dorizhky-i-strum",
+              "title": "Ширина доріжки й струм",
+              "status": "empty"
+            },
+            {
+              "slug": "polihony-zhyvlennia-i-zemli",
+              "title": "Полігони живлення й землі",
+              "status": "empty"
+            },
+            {
+              "slug": "tsilisnist-syhnalu",
+              "title": "Цілісність сигналу",
+              "status": "empty"
+            },
+            {
+              "slug": "uzhodzhennia-dovzhyn-i-dyferentsiini-pary",
+              "title": "Узгодження довжин і диференційні пари",
+              "status": "empty"
+            },
+            {
+              "slug": "emc-i-dzherela-vyprominiuvannia",
+              "title": "EMC і джерела випромінювання",
+              "status": "empty"
+            },
+            {
+              "slug": "ekranuvannia-na-plati",
+              "title": "Екранування на платі",
+              "status": "empty"
+            },
+            {
+              "slug": "teplove-proiektuvannia-platy",
+              "title": "Теплове проєктування плати",
+              "status": "empty"
+            },
+            {
+              "slug": "pravyla-proiektuvannia-drc",
+              "title": "Правила проєктування DRC",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Виготовлення",
+          "steps": [
+            {
+              "slug": "vid-proiektu-do-failiv-vyrobnytstva",
+              "title": "Від проєкту до файлів виробництва",
+              "status": "empty"
+            },
+            {
+              "slug": "gerber-faily",
+              "title": "Gerber-файли",
+              "status": "empty"
+            },
+            {
+              "slug": "fail-sverdlinnia",
+              "title": "Файл свердління",
+              "status": "empty"
+            },
+            {
+              "slug": "spetsyfikatsiia-materialiv-bom",
+              "title": "Специфікація матеріалів BOM",
+              "status": "empty"
+            },
+            {
+              "slug": "fail-roztashuvannia-pick-and-place",
+              "title": "Файл розташування Pick-and-Place",
+              "status": "empty"
+            },
+            {
+              "slug": "zamovlennia-platy-na-fabrytsi",
+              "title": "Замовлення плати на фабриці",
+              "status": "empty"
+            },
+            {
+              "slug": "tekhnolohichni-normy-fabryky",
+              "title": "Технологічні норми фабрики",
+              "status": "empty"
+            },
+            {
+              "slug": "paialna-pasta-i-trafaret",
+              "title": "Паяльна паста й трафарет",
+              "status": "empty"
+            },
+            {
+              "slug": "fotovyvid-trafareta",
+              "title": "Фотовивід трафарета",
+              "status": "empty"
+            },
+            {
+              "slug": "vartist-i-stroky-partii",
+              "title": "Вартість і строки партії",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Монтаж",
+          "steps": [
+            {
+              "slug": "instrument-paialnyka",
+              "title": "Інструмент паяльника",
+              "status": "empty"
+            },
+            {
+              "slug": "ruchne-paiannia-tht",
+              "title": "Ручне паяння THT",
+              "status": "empty"
+            },
+            {
+              "slug": "ruchne-paiannia-smd",
+              "title": "Ручне паяння SMD",
+              "status": "empty"
+            },
+            {
+              "slug": "hariachyi-fen-i-demontazh",
+              "title": "Гарячий фен і демонтаж",
+              "status": "empty"
+            },
+            {
+              "slug": "paika-oplavlenniam-reflow",
+              "title": "Пайка оплавленням reflow",
+              "status": "empty"
+            },
+            {
+              "slug": "temperaturnyi-profil-reflow",
+              "title": "Температурний профіль reflow",
+              "status": "empty"
+            },
+            {
+              "slug": "flius-i-ochyshchennia-platy",
+              "title": "Флюс і очищення плати",
+              "status": "empty"
+            },
+            {
+              "slug": "typovi-defekty-paiky",
+              "title": "Типові дефекти пайки",
+              "status": "empty"
+            },
+            {
+              "slug": "inspektsiia-montazhu",
+              "title": "Інспекція монтажу",
+              "status": "empty"
+            },
+            {
+              "slug": "remont-i-doopratsiuvannia-platy",
+              "title": "Ремонт і доопрацювання плати",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Підключення",
+          "steps": [
+            {
+              "slug": "hotovi-platy-i-devbordy",
+              "title": "Готові плати й девборди",
+              "status": "empty"
+            },
+            {
+              "slug": "moduli-rozshyrennia-shield-hat",
+              "title": "Модулі-розширення shield/HAT",
+              "status": "empty"
+            },
+            {
+              "slug": "maketna-sumisnist-i-rozkladka-piniv",
+              "title": "Макетна сумісність і розкладка пінів",
+              "status": "empty"
+            },
+            {
+              "slug": "shtyrovi-ziednuvachi-ta-hrebinky",
+              "title": "Штирьові з'єднувачі та гребінки",
+              "status": "empty"
+            },
+            {
+              "slug": "hvyntovi-i-pruzhynni-klemnyky",
+              "title": "Гвинтові й пружинні клемники",
+              "status": "empty"
+            },
+            {
+              "slug": "roziemy-zhyvlennia",
+              "title": "Роз'єми живлення",
+              "status": "empty"
+            },
+            {
+              "slug": "shleify-i-strichkovi-kabeli",
+              "title": "Шлейфи й стрічкові кабелі",
+              "status": "empty"
+            },
+            {
+              "slug": "vyhotovlennia-kabeliu-i-obtysk",
+              "title": "Виготовлення кабелю й обтиск",
+              "status": "empty"
+            },
+            {
+              "slug": "vytyi-i-ekranovanyi-kabel",
+              "title": "Витий і екранований кабель",
+              "status": "empty"
+            },
+            {
+              "slug": "zazemlennia-ekrana-i-rozviazka",
+              "title": "Заземлення екрана й розв'язка",
+              "status": "empty"
+            },
+            {
+              "slug": "markuvannia-i-dokumentatsiia-ziednan",
+              "title": "Маркування й документація з'єднань",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Прототипування",
+          "steps": [
+            {
+              "slug": "bezpaialna-maketna-plata",
+              "title": "Безпаяльна макетна плата",
+              "status": "empty"
+            },
+            {
+              "slug": "montazhna-paialna-plata",
+              "title": "Монтажна паяльна плата",
+              "status": "empty"
+            },
+            {
+              "slug": "laboratornyi-blok-zhyvlennia",
+              "title": "Лабораторний блок живлення",
+              "status": "empty"
+            },
+            {
+              "slug": "multymetr-na-stoli",
+              "title": "Мультиметр на столі",
+              "status": "empty"
+            },
+            {
+              "slug": "ostsylohraf-na-stoli",
+              "title": "Осцилограф на столі",
+              "status": "empty"
+            },
+            {
+              "slug": "probnyky-ostsylohrafa",
+              "title": "Пробники осцилографа",
+              "status": "empty"
+            },
+            {
+              "slug": "lohichnyi-analizator",
+              "title": "Логічний аналізатор",
+              "status": "empty"
+            },
+            {
+              "slug": "roboche-mistse-i-antystatyka",
+              "title": "Робоче місце й антистатика",
+              "status": "empty"
+            },
+            {
+              "slug": "vid-maketa-do-platy",
+              "title": "Від макета до плати",
+              "status": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "slug": "drones",
+      "title": "Дрони",
+      "chapters": [
+        {
+          "title": "Фізика польоту",
+          "steps": [
+            {
+              "slug": "chotyry-syly-polotu",
+              "title": "Чотири сили польоту",
+              "status": "empty"
+            },
+            {
+              "slug": "vidnoshennia-tiahy-do-vahy",
+              "title": "Відношення тяги до ваги",
+              "status": "empty"
+            },
+            {
+              "slug": "iak-krylo-tvoryt-pidiomnu-sylu",
+              "title": "Як крило творить підйомну силу",
+              "status": "empty"
+            },
+            {
+              "slug": "lobovyi-induktyvnyi-i-parazytnyi-opir",
+              "title": "Лобовий, індуктивний і паразитний опір",
+              "status": "empty"
+            },
+            {
+              "slug": "iak-obertovyi-hvynt-tvoryt-tiahu",
+              "title": "Як обертовий гвинт творить тягу",
+              "status": "empty"
+            },
+            {
+              "slug": "reaktyvnyi-moment-rotora",
+              "title": "Реактивний момент ротора",
+              "status": "empty"
+            },
+            {
+              "slug": "hiroskopichna-pretsesiia-rotora",
+              "title": "Гіроскопічна прецесія ротора",
+              "status": "empty"
+            },
+            {
+              "slug": "momenty-krenu-tanhazha-i-nyshporennia",
+              "title": "Моменти крену, тангажа й нишпорення",
+              "status": "empty"
+            },
+            {
+              "slug": "statychna-i-dynamichna-stiikist",
+              "title": "Статична і динамічна стійкість",
+              "status": "empty"
+            },
+            {
+              "slug": "enerhetyka-polotu-i-chas-vysinnia",
+              "title": "Енергетика польоту і час висіння",
+              "status": "empty"
+            },
+            {
+              "slug": "dalnist-vytryvalist-i-kreiser",
+              "title": "Дальність, витривалість і крейсер",
+              "status": "empty"
+            },
+            {
+              "slug": "vplyv-vysoty-hustyny-povitria-i-vitru",
+              "title": "Вплив висоти, густини повітря й вітру",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Рушії",
+          "steps": [
+            {
+              "slug": "bezkolektornyi-motor-bldc",
+              "title": "Безколекторний мотор BLDC",
+              "status": "empty"
+            },
+            {
+              "slug": "parametr-kv-i-vybir-obertiv",
+              "title": "Параметр KV і вибір обертів",
+              "status": "empty"
+            },
+            {
+              "slug": "rehuliator-obertiv-esc",
+              "title": "Регулятор обертів ESC",
+              "status": "empty"
+            },
+            {
+              "slug": "analohove-keruvannia-esc-cherez-pwm",
+              "title": "Аналогове керування ESC через PWM",
+              "status": "empty"
+            },
+            {
+              "slug": "tsyfrovi-protokoly-esc-dshot",
+              "title": "Цифрові протоколи ESC DShot",
+              "status": "empty"
+            },
+            {
+              "slug": "kalibruvannia-i-konfihuratsiia-esc",
+              "title": "Калібрування й конфігурація ESC",
+              "status": "empty"
+            },
+            {
+              "slug": "heometriia-hvynta",
+              "title": "Геометрія гвинта",
+              "status": "empty"
+            },
+            {
+              "slug": "tiaha-potuzhnist-i-kkd-hvynta",
+              "title": "Тяга, потужність і ККД гвинта",
+              "status": "empty"
+            },
+            {
+              "slug": "uzhodzhennia-motor-hvynt-batareia",
+              "title": "Узгодження мотор-гвинт-батарея",
+              "status": "empty"
+            },
+            {
+              "slug": "litii-polimerna-batareia",
+              "title": "Літій-полімерна батарея",
+              "status": "empty"
+            },
+            {
+              "slug": "rozpodil-zhyvlennia-pdb-i-bec",
+              "title": "Розподіл живлення PDB і BEC",
+              "status": "empty"
+            },
+            {
+              "slug": "vibratsiia-vid-dysbalansu-i-rezonans",
+              "title": "Вібрація від дисбалансу й резонанс",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Типи апаратів",
+          "steps": [
+            {
+              "slug": "ohliad-typiv-aparativ",
+              "title": "Огляд типів апаратів",
+              "status": "empty"
+            },
+            {
+              "slug": "kvadrokopter-i-heometrii-x-h-plius",
+              "title": "Квадрокоптер і геометрії X, H, плюс",
+              "status": "empty"
+            },
+            {
+              "slug": "heksakopter-i-oktokopter",
+              "title": "Гексакоптер і октокоптер",
+              "status": "empty"
+            },
+            {
+              "slug": "spivvisni-skhemy-x8-i-koaksialy",
+              "title": "Співвісні схеми X8 і коаксіали",
+              "status": "empty"
+            },
+            {
+              "slug": "litak-fixed-wing",
+              "title": "Літак fixed-wing",
+              "status": "empty"
+            },
+            {
+              "slug": "konfihuratsii-khvosta-litaka",
+              "title": "Конфігурації хвоста літака",
+              "status": "empty"
+            },
+            {
+              "slug": "litak-krylo-ta-skhema-kachka",
+              "title": "Літак-крило та схема качка",
+              "status": "empty"
+            },
+            {
+              "slug": "helikopter-z-avtomatom-perekosu",
+              "title": "Гелікоптер з автоматом перекосу",
+              "status": "empty"
+            },
+            {
+              "slug": "khvostovyi-rotor-i-kompensatsiia-momentu",
+              "title": "Хвостовий ротор і компенсація моменту",
+              "status": "empty"
+            },
+            {
+              "slug": "vtol-iz-nakhylom-rotora-tiltrotor",
+              "title": "VTOL із нахилом ротора tiltrotor",
+              "status": "empty"
+            },
+            {
+              "slug": "vtol-tailsitter-i-nakhyl-kryla",
+              "title": "VTOL tailsitter і нахил крила",
+              "status": "empty"
+            },
+            {
+              "slug": "hibryd-lift-plus-cruise",
+              "title": "Гібрид lift-plus-cruise",
+              "status": "empty"
+            },
+            {
+              "slug": "fpv-fristail-i-honochni-drony",
+              "title": "FPV-фрістайл і гоночні дрони",
+              "status": "empty"
+            },
+            {
+              "slug": "mikrodrony-i-tinywhoop",
+              "title": "Мікродрони й tinywhoop",
+              "status": "empty"
+            },
+            {
+              "slug": "vantazhni-i-vazhkopidnimalni-platformy",
+              "title": "Вантажні й важкопіднімальні платформи",
+              "status": "empty"
+            },
+            {
+              "slug": "aparaty-velykoi-dalnosti",
+              "title": "Апарати великої дальності",
+              "status": "empty"
+            },
+            {
+              "slug": "nazemni-roboty-rover",
+              "title": "Наземні роботи rover",
+              "status": "empty"
+            },
+            {
+              "slug": "nadvodni-aparaty-i-bezpilotni-chovny",
+              "title": "Надводні апарати й безпілотні човни",
+              "status": "empty"
+            },
+            {
+              "slug": "pidvodni-aparaty-rov-i-auv",
+              "title": "Підводні апарати ROV і AUV",
+              "status": "empty"
+            },
+            {
+              "slug": "pryviazni-aparaty-tethered",
+              "title": "Прив'язні апарати tethered",
+              "status": "empty"
+            },
+            {
+              "slug": "vybir-konfihuratsii-pid-zadachu",
+              "title": "Вибір конфігурації під задачу",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Механіка апарата",
+          "steps": [
+            {
+              "slug": "heometriia-i-komponuvannia-ramy",
+              "title": "Геометрія й компонування рами",
+              "status": "empty"
+            },
+            {
+              "slug": "materialy-ramy",
+              "title": "Матеріали рами",
+              "status": "empty"
+            },
+            {
+              "slug": "zhorstkist-i-vlasni-chastoty-konstruktsii",
+              "title": "Жорсткість і власні частоти конструкції",
+              "status": "empty"
+            },
+            {
+              "slug": "tsentr-vahy-i-tsentruvannia",
+              "title": "Центр ваги і центрування",
+              "status": "empty"
+            },
+            {
+              "slug": "miake-kriplennia-i-hasinnia-vibratsii",
+              "title": "М'яке кріплення й гасіння вібрацій",
+              "status": "empty"
+            },
+            {
+              "slug": "pidvis-kamery-gimbal",
+              "title": "Підвіс камери gimbal",
+              "status": "empty"
+            },
+            {
+              "slug": "shasi-i-zakhyst-hvyntiv",
+              "title": "Шасі й захист гвинтів",
+              "status": "empty"
+            },
+            {
+              "slug": "komponuvannia-elektroniky-i-anten",
+              "title": "Компонування електроніки й антен",
+              "status": "empty"
+            },
+            {
+              "slug": "zakhyst-vid-pylu-volohy-i-udaru",
+              "title": "Захист від пилу, вологи й удару",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Оцінка стану",
+          "steps": [
+            {
+              "slug": "inertsiinyi-vymiriuvach-imu",
+              "title": "Інерційний вимірювач IMU",
+              "status": "empty"
+            },
+            {
+              "slug": "mahnitometr-i-vyznachennia-kursu",
+              "title": "Магнітометр і визначення курсу",
+              "status": "empty"
+            },
+            {
+              "slug": "barometr-i-vysota-za-tyskom",
+              "title": "Барометр і висота за тиском",
+              "status": "empty"
+            },
+            {
+              "slug": "gnss-pryimach-iak-davach-polozhennia",
+              "title": "GNSS-приймач як давач положення",
+              "status": "empty"
+            },
+            {
+              "slug": "davachi-vysoty-lidar-sonar-potik",
+              "title": "Давачі висоти: лідар, сонар, потік",
+              "status": "empty"
+            },
+            {
+              "slug": "kuty-eilera-i-kvaterniony",
+              "title": "Кути Ейлера й кватерніони",
+              "status": "empty"
+            },
+            {
+              "slug": "zlyttia-davachiv-i-ekf",
+              "title": "Злиття давачів і EKF",
+              "status": "empty"
+            },
+            {
+              "slug": "otsinka-polozhennia-shvydkosti-i-dreifu",
+              "title": "Оцінка положення, швидкості й дрейфу",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Керування",
+          "steps": [
+            {
+              "slug": "zvorotnyi-zviazok-u-keruvanni-polotom",
+              "title": "Зворотний зв'язок у керуванні польотом",
+              "status": "empty"
+            },
+            {
+              "slug": "pid-rehuliator",
+              "title": "ПІД-регулятор",
+              "status": "empty"
+            },
+            {
+              "slug": "kaskadni-kontury-kutovoi-shvydkosti-i-kuta",
+              "title": "Каскадні контури кутової швидкості й кута",
+              "status": "empty"
+            },
+            {
+              "slug": "kontury-shvydkosti-i-pozytsii",
+              "title": "Контури швидкості й позиції",
+              "status": "empty"
+            },
+            {
+              "slug": "miksher-vid-komand-do-tiahy",
+              "title": "Мікшер: від команд до тяги",
+              "status": "empty"
+            },
+            {
+              "slug": "filtratsiia-hiroskopa-i-zatrymka",
+              "title": "Фільтрація гіроскопа й затримка",
+              "status": "empty"
+            },
+            {
+              "slug": "rezhektornyi-filtr-notch",
+              "title": "Режекторний фільтр notch",
+              "status": "empty"
+            },
+            {
+              "slug": "tiuninh-pid",
+              "title": "Тюнінг PID",
+              "status": "empty"
+            },
+            {
+              "slug": "avtotiuninh-i-analiz-vidhuku",
+              "title": "Автотюнінг і аналіз відгуку",
+              "status": "empty"
+            },
+            {
+              "slug": "keruvannia-multyrotorom",
+              "title": "Керування мультиротором",
+              "status": "empty"
+            },
+            {
+              "slug": "keruvannia-litakom",
+              "title": "Керування літаком",
+              "status": "empty"
+            },
+            {
+              "slug": "keruvannia-helikopterom",
+              "title": "Керування гелікоптером",
+              "status": "empty"
+            },
+            {
+              "slug": "keruvannia-vtol-i-perekhid-rezhymiv",
+              "title": "Керування VTOL і перехід режимів",
+              "status": "empty"
+            },
+            {
+              "slug": "zryv-keruvannia-i-nasychennia-motoriv",
+              "title": "Зрив керування й насичення моторів",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Автопілот",
+          "steps": [
+            {
+              "slug": "politnyi-kontroler-zalizo",
+              "title": "Політний контролер: залізо",
+              "status": "empty"
+            },
+            {
+              "slug": "proshyvky-ardupilot-i-px4",
+              "title": "Прошивки ArduPilot і PX4",
+              "status": "empty"
+            },
+            {
+              "slug": "ohliad-rezhymiv-polotu",
+              "title": "Огляд режимів польоту",
+              "status": "empty"
+            },
+            {
+              "slug": "ruchni-i-stabilizovani-rezhymy",
+              "title": "Ручні й стабілізовані режими",
+              "status": "empty"
+            },
+            {
+              "slug": "utrymannia-vysoty",
+              "title": "Утримання висоти",
+              "status": "empty"
+            },
+            {
+              "slug": "utrymannia-pozytsii-loiter",
+              "title": "Утримання позиції loiter",
+              "status": "empty"
+            },
+            {
+              "slug": "avtomatychnyi-zlit-i-posadka",
+              "title": "Автоматичний зліт і посадка",
+              "status": "empty"
+            },
+            {
+              "slug": "povernennia-dodomu-rtl",
+              "title": "Повернення додому RTL",
+              "status": "empty"
+            },
+            {
+              "slug": "kalibruvannia-i-nalashtuvannia-ramy",
+              "title": "Калібрування й налаштування рами",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Навігація",
+          "steps": [
+            {
+              "slug": "gnss-navihatsiia-i-rtk",
+              "title": "GNSS-навігація й RTK",
+              "status": "empty"
+            },
+            {
+              "slug": "tochky-marshrutu-i-misiia",
+              "title": "Точки маршруту й місія",
+              "status": "empty"
+            },
+            {
+              "slug": "sliduvannia-shliakhom",
+              "title": "Слідування шляхом",
+              "status": "empty"
+            },
+            {
+              "slug": "heozony-i-obmezhennia-prostoru",
+              "title": "Геозони й обмеження простору",
+              "status": "empty"
+            },
+            {
+              "slug": "planuvannia-traiektorii",
+              "title": "Планування траєкторії",
+              "status": "empty"
+            },
+            {
+              "slug": "unyknennia-pereshkod",
+              "title": "Уникнення перешкод",
+              "status": "empty"
+            },
+            {
+              "slug": "sliduvannia-za-obiektom",
+              "title": "Слідування за об'єктом",
+              "status": "empty"
+            },
+            {
+              "slug": "rivni-avtonomii",
+              "title": "Рівні автономії",
+              "status": "empty"
+            },
+            {
+              "slug": "koordynatsiia-roiu-droniv",
+              "title": "Координація рою дронів",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Радіолінк",
+          "steps": [
+            {
+              "slug": "rc-keruvannia-kanaly",
+              "title": "RC-керування: канали",
+              "status": "empty"
+            },
+            {
+              "slug": "rc-protokoly-sbus-crsf-elrs",
+              "title": "RC-протоколи SBUS, CRSF, ELRS",
+              "status": "empty"
+            },
+            {
+              "slug": "radiolink-dalnist-i-zavady",
+              "title": "Радіолінк: дальність і завади",
+              "status": "empty"
+            },
+            {
+              "slug": "telemetriia-i-protokol-mavlink",
+              "title": "Телеметрія й протокол MAVLink",
+              "status": "empty"
+            },
+            {
+              "slug": "nazemna-stantsiia-gcs",
+              "title": "Наземна станція GCS",
+              "status": "empty"
+            },
+            {
+              "slug": "videolink-fpv",
+              "title": "Відеолінк FPV",
+              "status": "empty"
+            },
+            {
+              "slug": "bortovyi-kompiuter",
+              "title": "Бортовий комп'ютер",
+              "status": "empty"
+            }
+          ]
+        },
+        {
+          "title": "Безпека",
+          "steps": [
+            {
+              "slug": "failsafe-pry-vtrati-zviazku-gps-zhyvlennia",
+              "title": "Failsafe при втраті зв'язку, GPS, живлення",
+              "status": "empty"
+            },
+            {
+              "slug": "rezervuvannia-krytychnykh-system",
+              "title": "Резервування критичних систем",
+              "status": "empty"
+            },
+            {
+              "slug": "peredpolotni-perevirky",
+              "title": "Передпольотні перевірки",
+              "status": "empty"
+            },
+            {
+              "slug": "korysne-navantazhennia",
+              "title": "Корисне навантаження",
+              "status": "empty"
+            },
+            {
+              "slug": "rehuliatsii-i-povitrianyi-prostir",
+              "title": "Регуляції й повітряний простір",
+              "status": "empty"
+            },
+            {
+              "slug": "symuliatsiia-sitl-i-hitl",
+              "title": "Симуляція SITL і HITL",
+              "status": "empty"
+            },
+            {
+              "slug": "lohuvannia-i-rozbir-polotu",
+              "title": "Логування й розбір польоту",
+              "status": "empty"
+            },
+            {
+              "slug": "zbyrannia-aparata",
+              "title": "Збирання апарата",
+              "status": "empty"
+            },
+            {
+              "slug": "kalibruvannia-i-pershyi-polit",
+              "title": "Калібрування й перший політ",
+              "status": "empty"
+            },
+            {
+              "slug": "diahnostyka-i-typovi-nespravnosti",
+              "title": "Діагностика й типові несправності",
+              "status": "empty"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+);

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому без давача: крок порахований — кут відомий</text>
+<rect x="79.2" y="68.2" width="81.6" height="47.6" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="120.0" y="88.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">лічильник</tspan><tspan x="120.0" dy="15.6">кроків</tspan></text>
+<line x1="160.8" y1="92.0" x2="300.0" y2="92.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="298.7" y="68.2" width="122.6" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="88.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">драйвер</tspan><tspan x="360.0" dy="15.6">(крок + напрям)</tspan></text>
+<line x1="421.3" y1="92.0" x2="540.0" y2="92.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="571.4" y="76.0" width="57.2" height="32.0" rx="6" fill="#eef2f8" stroke="#2457d6" stroke-width="1.5"/><text x="600.0" y="96.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">мотор</tspan></text>
+<text x="360.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Кроковий: РОЗІМКНЕНА петля — зворотного дроту нема</text>
+<text x="360.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кут = кроки × крок на оберт; нічого не міряємо</text>
+<line x1="60.0" y1="168.0" x2="660.0" y2="168.0" stroke="#d6dde6" stroke-width="1.2" stroke-dasharray="5,5"/>
+<rect x="92.9" y="222.2" width="54.2" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="242.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">ціль</tspan><tspan x="120.0" dy="15.6">(кут)</tspan></text>
+<line x1="147.1" y1="246.0" x2="300.0" y2="246.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="309.0" y="222.2" width="102.1" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="242.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">регулятор</tspan><tspan x="360.0" dy="15.6">+ підсилювач</tspan></text>
+<line x1="411.0" y1="246.0" x2="540.0" y2="246.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="564.0" y="222.2" width="72.1" height="47.6" rx="6" fill="#fbeee6" stroke="#c0392b" stroke-width="1.5"/><text x="600.0" y="242.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">мотор</tspan><tspan x="600.0" dy="15.6">+ давач</tspan></text>
+<line x1="600.0" y1="272.0" x2="600.0" y2="298.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="600.0" y1="298.0" x2="360.0" y2="298.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="360.0" y1="298.0" x2="360.0" y2="268.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">зворотний зв'язок: вимір реального кута</text>
+<text x="360.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Серво: ЗАМКНЕНА петля — давач + регулятор</text>
+</svg>

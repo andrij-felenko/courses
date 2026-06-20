@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що псує показ струму: ланцюг похибок</text>
+<rect x="40.0" y="70.0" width="250.0" height="50.0" rx="6" fill="#fff3e0" stroke="#b8860b" stroke-width="1.6"/>
+<text x="165.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Опір шунта R_ш</text>
+<text x="165.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">↓ додається до бюджету</text>
+<text x="310.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">допуск ±1% і дрейф із t° (TCR):</text>
+<text x="310.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">рахуємо I = V/R, а R «попливе»</text>
+<rect x="40.0" y="132.0" width="250.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="165.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зміщення нуля (offset)</text>
+<text x="165.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">↓ додається до бюджету</text>
+<text x="310.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">підсилювач додає кілька мкВ навіть</text>
+<text x="310.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">при I = 0 — фатально на малому струмі</text>
+<rect x="40.0" y="194.0" width="250.0" height="50.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="165.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підсилення G</text>
+<text x="165.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">↓ додається до бюджету</text>
+<text x="310.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">похибка коефіцієнта ×G</text>
+<text x="310.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">масштабує весь показ</text>
+<rect x="40.0" y="256.0" width="250.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="165.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синфазна напруга</text>
+<text x="165.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">↓ додається до бюджету</text>
+<text x="310.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">на high-side вхід «висить» на +V;</text>
+<text x="310.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">скінченний CMRR протікає в сигнал</text>
+<rect x="40.0" y="318.0" width="250.0" height="50.0" rx="6" fill="#f0f0f3" stroke="#6b7280" stroke-width="1.6"/>
+<text x="165.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">АЦП</text>
+<text x="165.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">↓ додається до бюджету</text>
+<text x="310.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">крок кванта, своє зміщення</text>
+<text x="310.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">й нелінійність на хвості тракту</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400">
+<rect width="900" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="450.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Чому це біда: один натиск порахується як багато</text>
+<text x="450.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">кожен відскік — окремий «перепад», і код, що рахує перепади, збивається</text>
+<line x1="90.0" y1="150.0" x2="280.0" y2="150.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="120.0" y1="150.0" x2="120.0" y2="110.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="120.0" y1="110.0" x2="120.0" y2="94.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="120.0" y="88.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<line x1="150.0" y1="150.0" x2="150.0" y2="110.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="150.0" y1="110.0" x2="150.0" y2="94.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="150.0" y="88.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<line x1="180.0" y1="150.0" x2="180.0" y2="110.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="180.0" y1="110.0" x2="180.0" y2="94.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="180.0" y="88.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<line x1="210.0" y1="150.0" x2="210.0" y2="110.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="210.0" y1="110.0" x2="210.0" y2="94.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="210.0" y="88.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">4</text>
+<line x1="240.0" y1="150.0" x2="240.0" y2="110.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<line x1="240.0" y1="110.0" x2="240.0" y2="94.0" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<text x="240.0" y="88.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">5</text>
+<text x="180.0" y="174.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">5 відскоків = 5 «натисків»</text>
+<rect x="360.0" y="110.0" width="230.0" height="90.0" rx="12" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="475.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Чого хотіли</text>
+<text x="475.0" y="178.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">лічильник: 1</text>
+<rect x="630.0" y="110.0" width="230.0" height="90.0" rx="12" fill="#fbecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="745.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Що сталося</text>
+<text x="745.0" y="178.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">лічильник: 5</text>
+<rect x="150.0" y="250.0" width="600.0" height="112.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="1.6"/>
+<text x="450.0" y="278.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Симптоми брязкоту в проєкті:</text>
+<text x="175.0" y="304.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• меню «перестрибує» через пункт</text>
+<text x="175.0" y="326.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• лічильник натисків біжить уперед</text>
+<text x="175.0" y="348.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• світло вмикається через раз</text>
+<text x="475.0" y="304.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• «вмк/вимк» поводиться хаотично</text>
+<text x="475.0" y="326.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• подвійні спрацювання на один натиск</text>
+<text x="475.0" y="348.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">• важко відтворити — «то є, то нема»</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420">
+<rect width="880" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Звідки експонента: вихідний опір драйвера заряджає ємність вузла</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">та сама RC-стала часу, що й у Розділі 7 — лише тепер це «паразит», який сповільнює логіку</text>
+<line x1="120.0" y1="110.0" x2="120.0" y2="140.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<text x="120.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Vdd</text>
+<rect x="108.0" y="140.0" width="24.0" height="40.0" rx="0" fill="none" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="92.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">Rout</text>
+<text x="150.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">(опір драйвера)</text>
+<line x1="120.0" y1="180.0" x2="120.0" y2="215.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="120.0" cy="215.0" r="3.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1"/>
+<text x="120.0" y="232.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">вузол (вихід)</text>
+<line x1="120.0" y1="215.0" x2="260.0" y2="215.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="260.0" y1="215.0" x2="260.0" y2="250.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="245.0" y1="250.0" x2="275.0" y2="250.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<line x1="245.0" y1="260.0" x2="275.0" y2="260.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
+<line x1="260.0" y1="260.0" x2="260.0" y2="285.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="245.0" y1="285.0" x2="275.0" y2="285.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<text x="286.0" y="248.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">C = затвор</text>
+<text x="286.0" y="264.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">+ дріт + входи</text>
+<rect x="180.0" y="195.0" width="70.0" height="40.0" rx="6" fill="#eef4ff" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="215.0" y="219.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">приймач</text>
+<line x1="470.0" y1="330.0" x2="846.0" y2="330.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="470.0" y1="330.0" x2="470.0" y2="104.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<polyline points="470.0,330.0 473.1,319.0 476.2,308.5 479.2,298.6 482.3,289.1 485.4,280.2 488.5,271.6 491.6,263.5 494.7,255.8 497.8,248.5 500.8,241.6 503.9,235.0 507.0,228.7 510.1,222.8 513.2,217.1 516.2,211.8 519.3,206.7 522.4,201.8 525.5,197.2 528.6,192.9 531.7,188.7 534.8,184.8 537.8,181.0 540.9,177.5 544.0,174.1 547.1,170.9 550.2,167.8 553.2,164.9 556.3,162.2 559.4,159.6 562.5,157.1 565.6,154.7 568.7,152.5 571.8,150.4 574.8,148.3 577.9,146.4 581.0,144.6 584.1,142.9 587.2,141.2 590.2,139.6 593.3,138.2 596.4,136.8 599.5,135.4 602.6,134.1 605.7,132.9 608.8,131.8 611.8,130.7 614.9,129.7 618.0,128.7 621.1,127.7 624.2,126.8 627.2,126.0 630.3,125.2 633.4,124.4 636.5,123.7 639.6,123.0 642.7,122.4 645.8,121.8 648.8,121.2 651.9,120.6 655.0,120.1 658.1,119.6 661.2,119.1 664.2,118.6 667.3,118.2 670.4,117.8 673.5,117.4 676.6,117.0 679.7,116.7 682.8,116.3 685.8,116.0 688.9,115.7 692.0,115.4 695.1,115.2 698.2,114.9 701.2,114.7 704.3,114.4 707.4,114.2 710.5,114.0 713.6,113.8 716.7,113.6 719.8,113.4 722.8,113.3 725.9,113.1 729.0,112.9 732.1,112.8 735.2,112.6 738.2,112.5 741.3,112.4 744.4,112.3 747.5,112.2 750.6,112.0 753.7,111.9 756.8,111.8 759.8,111.8 762.9,111.7 766.0,111.6 769.1,111.5 772.2,111.4 775.2,111.4 778.3,111.3 781.4,111.2 784.5,111.2 787.6,111.1 790.7,111.1 793.8,111.0 796.8,110.9 799.9,110.9 803.0,110.9 806.1,110.8 809.2,110.8 812.2,110.7 815.3,110.7 818.4,110.7 821.5,110.6 824.6,110.6 827.7,110.6 830.8,110.5 833.8,110.5 836.9,110.5 840.0,110.5" fill="none" stroke="#1f8a3b" stroke-width="2.8"/>
+<line x1="470.0" y1="191.4" x2="530.0" y2="191.4" stroke="#8a8a8a" stroke-width="1" stroke-dasharray="3 3" stroke-linecap="round"/>
+<line x1="530.0" y1="330.0" x2="530.0" y2="191.4" stroke="#8a8a8a" stroke-width="1" stroke-dasharray="3 3" stroke-linecap="round"/>
+<text x="534.0" y="195.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">63% за час τ</text>
+<rect x="560.0" y="120.0" width="250.0" height="96.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="685.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">τ = Rout · C</text>
+<text x="685.0" y="170.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">tr ≈ 2.2 · τ</text>
+<text x="685.0" y="196.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">крутість (slew) = ΔV / tr</text>
+<rect x="70.0" y="360.0" width="740.0" height="44.0" rx="10" fill="#fbf6ec" stroke="#caa24a" stroke-width="1.6"/>
+<text x="440.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Більший опір драйвера або більша ємність (довгий дріт, багато входів) → довша τ → млявіший фронт.</text>
+<text x="440.0" y="398.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Швидкий фронт = сильний драйвер (малий Rout) + мала ємність (короткі дроти).</text>
+</svg>

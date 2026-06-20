@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Осі тіла й вихідна орієнтація апарата</text>
+<path d="M 285.0 195.0 h 110.0 v 110.0 h -110.0 z" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M 285.0 195.0 h 110.0 l 60.0 -34.0 h -110.0 z" fill="#dfe6ee" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M 395.0 195.0 v 110.0 l 60.0 -34.0 v -110.0 z" fill="#cdd6e0" stroke="#1a1a1a" stroke-width="2"/>
+<text x="344.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">корпус</text>
+<line x1="370.0" y1="233.0" x2="520.0" y2="233.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="530.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="start" font-weight="700">X</text>
+<text x="520.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">крен (roll)</text>
+<line x1="370.0" y1="233.0" x2="440.0" y2="113.0" stroke="#2457d6" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="448.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="start" font-weight="700">Y</text>
+<text x="448.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">тангаж (pitch)</text>
+<line x1="370.0" y1="233.0" x2="370.0" y2="83.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="376.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="start" font-weight="700">Z</text>
+<text x="364.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end">курс (yaw)</text>
+<text x="740.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">система СВІТУ</text>
+<line x1="740.0" y1="130.0" x2="740.0" y2="270.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="748.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">g (вниз)</text>
+<line x1="740.0" y1="190.0" x2="850.0" y2="160.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="856.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">північ</text>
+<path d="M 540.0 190.0 C 560.0 130.0, 620.0 130.0, 700.0 150.0" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrow)"/>
+<text x="560.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">переклад</tspan><tspan x="560.0" dy="15.6">тіло → світ</tspan></text>
+<rect x="152.7" y="421.5" width="594.6" height="37.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="450.0" y="444.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">IMU міряє в осях ТІЛА; орієнтацію дають відносно СВІТУ (крен · тангаж · курс)</tspan></text>
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повторювач ОП перед ADC1 ESP32 — схема ввімкнення</text>
+<line x1="120.0" y1="96.0" x2="120.0" y2="190.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="106.0" y="96.0" width="28.0" height="50.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="120.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Rtop</text>
+<text x="120.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(100 кОм+)</text>
+<line x1="120.0" y1="62.0" x2="120.0" y2="96.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="120.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3.3 В</text>
+<line x1="102.0" y1="62.0" x2="138.0" y2="62.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="120.0" y1="190.0" x2="120.0" y2="206.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="106.0" y="206.0" width="28.0" height="50.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="120.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Rbot</text>
+<text x="120.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(100 кОм+)</text>
+<line x1="120.0" y1="256.0" x2="120.0" y2="380.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="102.0" y1="380.0" x2="138.0" y2="380.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="108.0" y1="386.0" x2="132.0" y2="386.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="114.0" y1="392.0" x2="126.0" y2="392.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="120.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">GND</text>
+<circle cx="120.0" cy="220.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="59.9" y="150.5" width="120.3" height="35.0" rx="6" fill="#fff9e0" stroke="#caa24a" stroke-width="1.2"/><text x="120.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">вузол подільника</tspan><tspan x="120.0" dy="13.0">(високий опір)</tspan></text>
+<line x1="120.0" y1="176.0" x2="120.0" y2="215.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="120.0" y1="220.0" x2="330.0" y2="220.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="225.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">IN+ (сигнал)</text>
+<polygon points="360,175 360,265 440,220" fill="#eef4ff" stroke="#333333" stroke-width="2"/>
+<circle cx="374.0" cy="202.0" r="8.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="374.0" y="205.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<circle cx="374.0" cy="238.0" r="8.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="374.0" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<text x="396.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ОП</text>
+<line x1="360.0" y1="202.0" x2="366.0" y2="202.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="360.0" y1="238.0" x2="366.0" y2="238.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="440.0" y1="220.0" x2="460.0" y2="220.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="460.0" y1="220.0" x2="460.0" y2="238.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="460.0" y1="238.0" x2="360.0" y2="238.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="490.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">петля ×1
+(OUT→IN−)</text>
+<line x1="330.0" y1="202.0" x2="360.0" y2="202.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="400.0" y1="175.0" x2="400.0" y2="143.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="386.0" y1="143.0" x2="414.0" y2="143.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="400.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">V+ = 3.3 В</text>
+<line x1="448.0" y1="143.0" x2="448.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="438.0" y1="155.0" x2="458.0" y2="155.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="438.0" y1="161.0" x2="458.0" y2="161.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="448.0" y1="161.0" x2="448.0" y2="173.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="438.0" y1="173.0" x2="458.0" y2="173.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="442.0" y1="179.0" x2="454.0" y2="179.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="445.0" y1="185.0" x2="451.0" y2="185.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="462.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">0.1 мкФ
+(декаплінг)</text>
+<line x1="400.0" y1="143.0" x2="448.0" y2="143.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="400.0" y1="265.0" x2="400.0" y2="291.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="386.0" y1="291.0" x2="414.0" y2="291.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="391.0" y1="297.0" x2="409.0" y2="297.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="396.0" y1="303.0" x2="404.0" y2="303.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="400.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">V− = GND</text>
+<line x1="440.0" y1="220.0" x2="590.0" y2="220.0" stroke="#27ae60" stroke-width="3.0"/>
+<circle cx="440.0" cy="220.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="632.5" y="190.2" width="95.0" height="59.6" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="2.0"/><text x="680.0" y="209.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">ESP32</tspan><tspan x="680.0" dy="14.3">ADC1</tspan><tspan x="680.0" dy="14.3">(GPIO32–39)</tspan></text>
+<line x1="590.0" y1="220.0" x2="650.0" y2="220.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="515.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">OUT → ADC1 (коротка доріжка)</text>
+<text x="50.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Single-supply RRIO ОП (напр. MCP6001)</text>
+<text x="50.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">V+ = 3.3 В; V− = GND; підсилення = 1 (×1)</text>
+</svg>

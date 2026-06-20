@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ARP-таблиця: кеш, щоб не питати щоразу</text>
+<rect x="50.0" y="80.0" width="360.0" height="168.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<rect x="50.0" y="80.0" width="360.0" height="42.0" rx="6" fill="#eef3ff" stroke="#333333" stroke-width="1.2"/>
+<text x="145.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">IP</text>
+<text x="295.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">MAC</text>
+<text x="380.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">вік</text>
+<line x1="50.0" y1="122.0" x2="410.0" y2="122.0" stroke="#dddddd" stroke-width="1.0"/>
+<text x="145.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">192.168.1.1</text>
+<text x="295.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">A4:B1:..:01</text>
+<text x="380.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">12 c</text>
+<line x1="50.0" y1="164.0" x2="410.0" y2="164.0" stroke="#dddddd" stroke-width="1.0"/>
+<text x="145.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">192.168.1.42</text>
+<text x="295.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">C0:FF:..:EE</text>
+<text x="380.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">47 c</text>
+<line x1="50.0" y1="206.0" x2="410.0" y2="206.0" stroke="#dddddd" stroke-width="1.0"/>
+<text x="145.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">192.168.1.50</text>
+<text x="295.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">DE:AD:..:34</text>
+<text x="380.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">3 c</text>
+<line x1="225.0" y1="80.0" x2="225.0" y2="248.0" stroke="#dddddd" stroke-width="1.0"/>
+<line x1="345.0" y1="80.0" x2="345.0" y2="248.0" stroke="#dddddd" stroke-width="1.0"/>
+<text x="230.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">записи живуть кілька хвилин, потім стираються</text>
+<rect x="450.0" y="90.0" width="270.0" height="52.0" rx="6" fill="#fff7e6" stroke="#6b7280" stroke-width="1.3"/><text x="585.0" y="112.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="585.0" dy="0.0">Треба надіслати на IP.</tspan><tspan x="585.0" dy="15.6">Заглянь у таблицю:</tspan></text>
+<line x1="585.0" y1="142.0" x2="585.0" y2="168.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="450.0" y="170.0" width="270.0" height="46.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.3"/><text x="585.0" y="189.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">Є запис? → шлю кадр ОДРАЗУ</tspan><tspan x="585.0" dy="14.3">(нуль затримки)</tspan></text>
+<line x1="585.0" y1="216.0" x2="585.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="450.0" y="242.0" width="270.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="585.0" y="261.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">Нема? → один ARP-запит,</tspan><tspan x="585.0" dy="14.3">відповідь лягає в таблицю,</tspan><tspan x="585.0" dy="14.3">далі знову з кеша</tspan></text>
+</svg>

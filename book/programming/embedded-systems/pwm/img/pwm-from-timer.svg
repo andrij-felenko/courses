@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="400" viewBox="0 0 960 400">
+<rect width="960" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="480.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ШІМ родом із таймера: режим порівняння у дії</text>
+<text x="480.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">лічильник рахує до ВЕРХУ (період); поки він менший за поріг — ніжка увімк., далі — вимк.</text>
+<line x1="90.0" y1="220.0" x2="880.0" y2="220.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<polyline points="90.0,220.0 250.0,90.0 250.0,220.0 470.0,90.0 470.0,220.0 690.0,90.0 690.0,220.0" fill="none" stroke="#1f8a3b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="64.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">лічильник</text>
+<line x1="90.0" y1="160.0" x2="760.0" y2="160.0" stroke="#caa24a" stroke-width="1.6" stroke-dasharray="5,3" stroke-linecap="round"/>
+<text x="764.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a6a14" text-anchor="start" font-weight="bold" font-style="normal">поріг = шпаруватість</text>
+<text x="64.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">ніжка</text>
+<polyline points="90.0,300.0 90.0,300.0 191.5,300.0 191.5,334.0 310.0,334.0 250.0,300.0 351.5,300.0 351.5,334.0 470.0,334.0 470.0,300.0 571.5,300.0 571.5,334.0 690.0,334.0" fill="none" stroke="#1f47b5" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="90.0" y1="160.0" x2="90.0" y2="334.0" stroke="#e4e4e4" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="250.0" y1="160.0" x2="250.0" y2="334.0" stroke="#e4e4e4" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="470.0" y1="160.0" x2="470.0" y2="334.0" stroke="#e4e4e4" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="690.0" y1="160.0" x2="690.0" y2="334.0" stroke="#e4e4e4" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="480.0" y="362.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.3" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Підняв поріг — ширший імпульс (більша шпаруватість); опустив — вужчий. Усе апаратно.</text>
+<text x="480.0" y="384.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">ШІМ — це режим порівняння таймера: процесор не бере участі, лише задає поріг.</text>
+</svg>
