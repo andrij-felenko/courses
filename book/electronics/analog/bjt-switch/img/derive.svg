@@ -1,40 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="380" viewBox="0 0 820 380">
-<rect width="820" height="380" fill="#ffffff"/>
-<defs>
-  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
-  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
-  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
-  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
-  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
-</defs>
-<text x="410.0" y="28.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Формула, приклад і перевірка</text>
-<line x1="120.0" y1="80.0" x2="120.0" y2="130.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
-<text x="112.0" y="80.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">+5 В</text>
-<rect x="104.0" y="130.0" width="32.0" height="16.0" rx="0" fill="#fff" stroke="#1b1b1b" stroke-width="1.4"/>
-<text x="160.0" y="142.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">навантаж. (Ic)</text>
-<line x1="76.0" y1="200.0" x2="120.0" y2="200.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
-<line x1="120.0" y1="172.0" x2="120.0" y2="228.0" stroke="#1b1b1b" stroke-width="3" stroke-linecap="round"/>
-<line x1="120.0" y1="191.0" x2="150.0" y2="168.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
-<line x1="150.0" y1="168.0" x2="150.0" y2="144.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
-<line x1="120.0" y1="209.0" x2="150.0" y2="232.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
-<line x1="150.0" y1="232.0" x2="150.0" y2="256.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
-<line x1="128.0" y1="215.0" x2="148.0" y2="231.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
-<line x1="120.0" y1="256.0" x2="120.0" y2="286.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
-<text x="120.0" y="300.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">GND</text>
-<line x1="40.0" y1="200.0" x2="76.0" y2="200.0" stroke="#1f8a3b" stroke-width="2" stroke-linecap="round"/>
-<text x="36.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="end" font-weight="bold" font-style="normal">Vlog</text>
-<rect x="54.0" y="188.0" width="22.0" height="24.0" rx="0" fill="#fff" stroke="#1b1b1b" stroke-width="1.4"/>
-<text x="65.0" y="178.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Rб</text>
-<text x="290.0" y="86.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">1)  обери β_forced ≈ 10</text>
-<text x="290.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">2)  Ib = Ic / β_forced</text>
-<text x="290.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">3)  Rб = (Vlog − Vbe) / Ib</text>
-<text x="290.0" y="168.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">      = β_forced·(Vlog − 0.7)/Ic</text>
-<line x1="290.0" y1="186.0" x2="770.0" y2="186.0" stroke="#ddd" stroke-width="1" stroke-linecap="round"/>
-<text x="290.0" y="212.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Приклад: Ic = 100 мА, Vlog = 5 В</text>
-<text x="290.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Ib = 100/10 = 10 мА</text>
-<text x="290.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Rб = (5 − 0.7)/10мА = 430 Ом → 390 Ом</text>
-<text x="290.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#9c6a16" text-anchor="start" font-weight="bold" font-style="normal">перевір: Ib ≤ Iвиводу МК (≈20–40 мА)? ✓</text>
-<text x="290.0" y="312.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#9c6a16" text-anchor="start" font-weight="bold" font-style="normal">перевір: Vce(sat) &lt; 0.3 В у даташиті? ✓</text>
-<text x="290.0" y="334.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="italic">не лізе → потрібен Дарлінгтон або MOSFET</text>
-<text x="410.0" y="370.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Округляй Rб ВНИЗ (більше бази — безпечніше); але стеж, щоб струм бази не перевищив дозволений для виводу.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула, приклад і перевірка</text>
+<line x1="152.0" y1="78.0" x2="254.0" y2="78.0" stroke="#c0392b" stroke-width="2.4"/><text x="144.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">+5 В</text>
+<line x1="198.0" y1="78.0" x2="198.0" y2="95.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="175.0" y="95.0" width="46.0" height="34.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/><text x="198.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">навант. (Ic)</text>
+<line x1="198.0" y1="129.0" x2="198.0" y2="136.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="168.0" y1="170.0" x2="168.0" y2="226.0" stroke="#1a1a1a" stroke-width="3.0"/><line x1="138.0" y1="198.0" x2="168.0" y2="198.0" stroke="#1a1a1a" stroke-width="2.0"/><line x1="168.0" y1="179.0" x2="198.0" y2="160.0" stroke="#1a1a1a" stroke-width="2.0"/><line x1="198.0" y1="160.0" x2="198.0" y2="136.0" stroke="#1a1a1a" stroke-width="2.0"/><line x1="168.0" y1="217.0" x2="198.0" y2="236.0" stroke="#1a1a1a" stroke-width="2.0"/><line x1="198.0" y1="236.0" x2="198.0" y2="260.0" stroke="#1a1a1a" stroke-width="2.0"/><path d="M186.0 229.0 L198.0 237.0 L184.0 238.0 z" fill="#1a1a1a"/>
+<line x1="198.0" y1="260.0" x2="198.0" y2="300.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="198.0" y1="300.0" x2="198.0" y2="307.0" stroke="#1a1a1a" stroke-width="1.8"/><line x1="184.0" y1="307.0" x2="212.0" y2="307.0" stroke="#1a1a1a" stroke-width="2.4"/><line x1="190.0" y1="312.0" x2="206.0" y2="312.0" stroke="#1a1a1a" stroke-width="2.0"/><line x1="195.0" y1="317.0" x2="201.0" y2="317.0" stroke="#1a1a1a" stroke-width="1.8"/><text x="198.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GND</text>
+<rect x="75.0" y="190.0" width="38.0" height="16.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/><text x="94.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Rб</text>
+<line x1="113.0" y1="198.0" x2="138.0" y2="198.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="60.0" y1="198.0" x2="75.0" y2="198.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="56.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">Vlog</text>
+<text x="300.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1)  обери β_forced ≈ 10</text>
+<text x="300.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2)  Ib = Ic / β_forced</text>
+<text x="300.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">3)  Rб = (Vlog − Vbe) / Ib</text>
+<text x="314.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">= β_forced·(Vlog − 0.7)/Ic</text>
+<line x1="300.0" y1="180.0" x2="800.0" y2="180.0" stroke="#dddddd" stroke-width="1.0"/>
+<text x="300.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Приклад: Ic = 100 мА, Vlog = 5 В</text>
+<text x="300.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1f6e33" text-anchor="start" font-weight="700">Ib = 100/10 = 10 мА</text>
+<text x="300.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1f6e33" text-anchor="start" font-weight="700">Rб = (5 − 0.7)/10мА = 430 Ом → 390 Ом</text>
+<text x="300.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9c6a16" text-anchor="start" font-weight="700">перевір: Ib ≤ Iвиводу МК (≈20–40 мА)?  так</text>
+<text x="300.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9c6a16" text-anchor="start" font-weight="700">перевір: Vce(sat) &lt; 0.3 В у даташиті?  так</text>
+<text x="300.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">не лізе → потрібен Дарлінгтон або MOSFET</text>
+<text x="420.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Округляй Rб ВНИЗ (більше бази — безпечніше), та стеж, щоб струм бази не перевищив дозволений для виводу.</text>
 </svg>

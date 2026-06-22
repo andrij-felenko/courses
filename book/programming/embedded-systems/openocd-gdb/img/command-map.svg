@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта команд GDB: рух, огляд, пастки, monitor</text>
+<rect x="20.0" y="56.0" width="192.0" height="30.0" rx="6" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="116.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">РУХ</text>
+<rect x="20.0" y="92.0" width="192.0" height="40.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="116.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">continue / c</text>
+<text x="116.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">далі до пастки</text>
+<rect x="20.0" y="138.0" width="192.0" height="40.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="116.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">next / n</text>
+<text x="116.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">крок, не входити</text>
+<rect x="20.0" y="184.0" width="192.0" height="40.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="116.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">step / s</text>
+<text x="116.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">крок, входити</text>
+<rect x="20.0" y="230.0" width="192.0" height="40.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="116.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">finish</text>
+<text x="116.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">вийти з функції</text>
+<rect x="228.0" y="56.0" width="192.0" height="30.0" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="324.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">ОГЛЯД</text>
+<rect x="228.0" y="92.0" width="192.0" height="40.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="324.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">print / p VAR</text>
+<text x="324.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">значення змінної</text>
+<rect x="228.0" y="138.0" width="192.0" height="40.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="324.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">backtrace / bt</text>
+<text x="324.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">стек викликів</text>
+<rect x="228.0" y="184.0" width="192.0" height="40.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="324.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">info registers</text>
+<text x="324.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">регістри CPU</text>
+<rect x="228.0" y="230.0" width="192.0" height="40.0" rx="4" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.0"/>
+<text x="324.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">x/16xw ADDR</text>
+<text x="324.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">дамп пам'яті</text>
+<rect x="436.0" y="56.0" width="192.0" height="30.0" rx="6" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="532.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">ПАСТКИ</text>
+<rect x="436.0" y="92.0" width="192.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="532.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">break / b LOC</text>
+<text x="532.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">програмний</text>
+<rect x="436.0" y="138.0" width="192.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="532.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">hbreak LOC</text>
+<text x="532.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">апаратний (Flash)</text>
+<rect x="436.0" y="184.0" width="192.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="532.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">watch VAR</text>
+<text x="532.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">вотчпоінт запису</text>
+<rect x="436.0" y="230.0" width="192.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="532.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">tbreak LOC</text>
+<text x="532.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">одноразовий</text>
+<rect x="644.0" y="56.0" width="192.0" height="30.0" rx="6" fill="#e67e22" stroke="#e67e22" stroke-width="1.5"/>
+<text x="740.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">MONITOR (→ OpenOCD)</text>
+<rect x="644.0" y="92.0" width="192.0" height="40.0" rx="4" fill="#fff8e1" stroke="#e67e22" stroke-width="1.0"/>
+<text x="740.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">mon reset halt</text>
+<text x="740.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">скинути й стати</text>
+<rect x="644.0" y="138.0" width="192.0" height="40.0" rx="4" fill="#fff8e1" stroke="#e67e22" stroke-width="1.0"/>
+<text x="740.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">mon reg</text>
+<text x="740.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">регістри ядра</text>
+<rect x="644.0" y="184.0" width="192.0" height="40.0" rx="4" fill="#fff8e1" stroke="#e67e22" stroke-width="1.0"/>
+<text x="740.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">mon mdw ADDR</text>
+<text x="740.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">читати слово</text>
+<rect x="644.0" y="230.0" width="192.0" height="40.0" rx="4" fill="#fff8e1" stroke="#e67e22" stroke-width="1.0"/>
+<text x="740.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">mon flash erase</text>
+<text x="740.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">стерти Flash</text>
+</svg>

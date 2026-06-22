@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">digitalWrite — виклик функції; прямий запис — одна дія</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">за зручність обгортки платять часом</text>
+<text x="60.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">digitalWrite(2, HIGH):</text>
+<rect x="60.0" y="112.0" width="160.0" height="54.0" rx="8" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.6"/>
+<text x="140.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">виклик</text>
+<text x="140.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">функції</text>
+<line x1="220.0" y1="139.0" x2="246.0" y2="139.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="246.0" y="112.0" width="160.0" height="54.0" rx="8" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.6"/>
+<text x="326.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">знайти регістр</text>
+<text x="326.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">і біт за № піна</text>
+<line x1="406.0" y1="139.0" x2="432.0" y2="139.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="432.0" y="112.0" width="160.0" height="54.0" rx="8" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.6"/>
+<text x="512.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">перевірки</text>
+<text x="512.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">безпеки</text>
+<line x1="592.0" y1="139.0" x2="618.0" y2="139.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="618.0" y="112.0" width="160.0" height="54.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="698.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">запис у</text>
+<text x="698.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">регістр</text>
+<text x="784.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">≈ 1 мкс</text>
+<text x="60.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">GPIO.out_w1ts = (1 &lt;&lt; 2):</text>
+<rect x="60.0" y="248.0" width="160.0" height="54.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="140.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">запис у</text>
+<text x="140.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">регістр</text>
+<text x="236.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">≈ одиниці–десятки нс  (у десятки разів швидше)</text>
+<rect x="60.0" y="322.0" width="700.0" height="30.0" rx="8" fill="#fff6e0" stroke="#caa24a" stroke-width="1.4"/>
+<text x="410.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рідкі перемикання — digitalWrite зручний; «гарячі» — прямий регістр.</text>
+</svg>

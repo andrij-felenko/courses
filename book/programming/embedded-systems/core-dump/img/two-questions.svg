@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два дешеві джерела — на два різні питання</text>
+<rect x="265.0" y="38.0" width="210.0" height="36.0" rx="6" fill="#2d3e50" stroke="#2d3e50" stroke-width="1.5"/><text x="370.0" y="60.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">пристрій перезавантажився</tspan></text>
+<rect x="98.6" y="127.3" width="142.8" height="45.3" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="170.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">esp_reset_reason()</tspan><tspan x="170.0" dy="14.3">(регістр RTC)</tspan></text>
+<line x1="370.0" y1="74.0" x2="170.0" y2="127.3" stroke="#2457d6" stroke-width="1.5"/>
+<text x="170.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ЩО сталося</text>
+<text x="170.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">PANIC — впав у паніку</text>
+<text x="170.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">BROWNOUT — просів струм</text>
+<text x="170.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">WDT — застряг, watchdog</text>
+<text x="170.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">DEEPSLEEP — прокинувся</text>
+<rect x="505.4" y="127.3" width="129.1" height="45.3" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="570.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">core dump + .elf</tspan><tspan x="570.0" dy="14.3">(GDB офлайн)</tspan></text>
+<line x1="370.0" y1="74.0" x2="570.0" y2="127.3" stroke="#27ae60" stroke-width="1.5"/>
+<text x="570.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ДЕ і ЧОМУ</text>
+<text x="570.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">задача й рядок збою</text>
+<text x="570.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">backtrace кожної задачі</text>
+<text x="570.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">регістри, EXCVADDR</text>
+<text x="570.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">значення змінних</text>
+<text x="570.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">лише якщо встиг записатися</text>
+</svg>

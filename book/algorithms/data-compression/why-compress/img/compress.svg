@@ -1,104 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
-     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
-  <defs>
-    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
-    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
-    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
-    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
-  </defs>
-  <rect x="0" y="0" width="960" height="460" fill="white"/>
-<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Чому це стискає: лишаємо кілька, відкидаємо решту</text>
-<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">після DCT майже вся «енергія» — у кількох низькочастотних числах; дрібні (високочастотні) ≈ 0</text>
-<rect x="110" y="132" width="28" height="28" rx="8" fill="rgb(0,0,0)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="140" y="132" width="28" height="28" rx="8" fill="rgb(115,115,115)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="170" y="132" width="28" height="28" rx="8" fill="rgb(178,178,178)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="200" y="132" width="28" height="28" rx="8" fill="rgb(212,212,212)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="230" y="132" width="28" height="28" rx="8" fill="rgb(231,231,231)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="260" y="132" width="28" height="28" rx="8" fill="rgb(242,242,242)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="290" y="132" width="28" height="28" rx="8" fill="rgb(248,248,248)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="320" y="132" width="28" height="28" rx="8" fill="rgb(251,251,251)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="110" y="162" width="28" height="28" rx="8" fill="rgb(115,115,115)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="140" y="162" width="28" height="28" rx="8" fill="rgb(178,178,178)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="170" y="162" width="28" height="28" rx="8" fill="rgb(212,212,212)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="200" y="162" width="28" height="28" rx="8" fill="rgb(231,231,231)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="230" y="162" width="28" height="28" rx="8" fill="rgb(242,242,242)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="260" y="162" width="28" height="28" rx="8" fill="rgb(248,248,248)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="290" y="162" width="28" height="28" rx="8" fill="rgb(251,251,251)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="320" y="162" width="28" height="28" rx="8" fill="rgb(252,252,252)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="110" y="192" width="28" height="28" rx="8" fill="rgb(178,178,178)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="140" y="192" width="28" height="28" rx="8" fill="rgb(212,212,212)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="170" y="192" width="28" height="28" rx="8" fill="rgb(231,231,231)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="200" y="192" width="28" height="28" rx="8" fill="rgb(242,242,242)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="230" y="192" width="28" height="28" rx="8" fill="rgb(248,248,248)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="260" y="192" width="28" height="28" rx="8" fill="rgb(251,251,251)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="290" y="192" width="28" height="28" rx="8" fill="rgb(252,252,252)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="320" y="192" width="28" height="28" rx="8" fill="rgb(253,253,253)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="110" y="222" width="28" height="28" rx="8" fill="rgb(212,212,212)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="140" y="222" width="28" height="28" rx="8" fill="rgb(231,231,231)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="170" y="222" width="28" height="28" rx="8" fill="rgb(242,242,242)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="200" y="222" width="28" height="28" rx="8" fill="rgb(248,248,248)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="230" y="222" width="28" height="28" rx="8" fill="rgb(251,251,251)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="260" y="222" width="28" height="28" rx="8" fill="rgb(252,252,252)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="290" y="222" width="28" height="28" rx="8" fill="rgb(253,253,253)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="320" y="222" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="110" y="252" width="28" height="28" rx="8" fill="rgb(231,231,231)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="140" y="252" width="28" height="28" rx="8" fill="rgb(242,242,242)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="170" y="252" width="28" height="28" rx="8" fill="rgb(248,248,248)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="200" y="252" width="28" height="28" rx="8" fill="rgb(251,251,251)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="230" y="252" width="28" height="28" rx="8" fill="rgb(252,252,252)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="260" y="252" width="28" height="28" rx="8" fill="rgb(253,253,253)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="290" y="252" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="320" y="252" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="110" y="282" width="28" height="28" rx="8" fill="rgb(242,242,242)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="140" y="282" width="28" height="28" rx="8" fill="rgb(248,248,248)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="170" y="282" width="28" height="28" rx="8" fill="rgb(251,251,251)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="200" y="282" width="28" height="28" rx="8" fill="rgb(252,252,252)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="230" y="282" width="28" height="28" rx="8" fill="rgb(253,253,253)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="260" y="282" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="290" y="282" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="320" y="282" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="110" y="312" width="28" height="28" rx="8" fill="rgb(248,248,248)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="140" y="312" width="28" height="28" rx="8" fill="rgb(251,251,251)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="170" y="312" width="28" height="28" rx="8" fill="rgb(252,252,252)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="200" y="312" width="28" height="28" rx="8" fill="rgb(253,253,253)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="230" y="312" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="260" y="312" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="290" y="312" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="320" y="312" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="110" y="342" width="28" height="28" rx="8" fill="rgb(251,251,251)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="140" y="342" width="28" height="28" rx="8" fill="rgb(252,252,252)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="170" y="342" width="28" height="28" rx="8" fill="rgb(253,253,253)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="200" y="342" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="230" y="342" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="260" y="342" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="290" y="342" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="320" y="342" width="28" height="28" rx="8" fill="rgb(254,254,254)" fill-opacity="1.0" stroke="#e5e7eb" stroke-width="0.6"/>
-<rect x="110" y="132" width="240" height="240" rx="8" fill="none" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.4"/>
-<text x="230" y="120" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">коефіцієнти DCT (8×8)</text>
-<text x="102" y="150" font-size="9" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">низькі</text>
-<text x="102" y="366" font-size="9" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">↓ високі</text>
-<circle cx="140" cy="162" r="16" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2.2"/>
-<text x="170" y="166" font-size="10" fill="#15803d" text-anchor="start" font-weight="bold" font-style="normal">← тут уся «суть»</text>
-<text x="275.0" y="312" font-size="10" fill="#cc0000" text-anchor="middle" font-weight="normal" font-style="normal">майже нулі</text>
-<text x="275.0" y="333.0" font-size="9" fill="#cc0000" text-anchor="middle" font-weight="normal" font-style="normal">(викидаємо)</text>
-<text x="745" y="120" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">лишаємо кілька великих чисел →</text>
-<rect x="620" y="140" width="110" height="110" rx="4" fill="#dbeafe" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.6"/>
-<text x="675" y="200" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">оригінал</text>
-<text x="745" y="200" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">≈</text>
-<rect x="760" y="140" width="110" height="110" rx="4" fill="#dbeafe" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.6"/>
-<text x="815" y="198" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">відновлено</text>
-<text x="815" y="213" font-size="8.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">з кількох чисел</text>
-<rect x="620" y="280" width="250" height="72" rx="10" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.5"/>
-<text x="745" y="306" font-size="10.5" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">було 64 числа → стало кілька</text>
-<text x="745" y="326" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">і око майже не бачить різниці</text>
-<text x="745" y="343" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">(бо викинули лише дрібне)</text>
-<text x="480.0" y="446" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Це й є стиснення «з утратами»: відкидаємо ті частоти, яких природа дає мало, а око й не помічає.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Після DCT уся «енергія» — у кількох коефіцієнтах</text>
+<rect x="90.0" y="64.0" width="26.0" height="26.0" rx="6" fill="#242424" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="116.0" y="64.0" width="26.0" height="26.0" rx="6" fill="#7b7b7b" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="142.0" y="64.0" width="26.0" height="26.0" rx="6" fill="#aeaeae" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="168.0" y="64.0" width="26.0" height="26.0" rx="6" fill="#cccccc" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="194.0" y="64.0" width="26.0" height="26.0" rx="6" fill="#dcdcdc" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="220.0" y="64.0" width="26.0" height="26.0" rx="6" fill="#e6e6e6" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="246.0" y="64.0" width="26.0" height="26.0" rx="6" fill="#ececec" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="272.0" y="64.0" width="26.0" height="26.0" rx="6" fill="#efefef" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="90.0" y="90.0" width="26.0" height="26.0" rx="6" fill="#7b7b7b" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="116.0" y="90.0" width="26.0" height="26.0" rx="6" fill="#aeaeae" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="142.0" y="90.0" width="26.0" height="26.0" rx="6" fill="#cccccc" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="168.0" y="90.0" width="26.0" height="26.0" rx="6" fill="#dcdcdc" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="194.0" y="90.0" width="26.0" height="26.0" rx="6" fill="#e6e6e6" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="220.0" y="90.0" width="26.0" height="26.0" rx="6" fill="#ececec" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="246.0" y="90.0" width="26.0" height="26.0" rx="6" fill="#efefef" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="272.0" y="90.0" width="26.0" height="26.0" rx="6" fill="#f1f1f1" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="90.0" y="116.0" width="26.0" height="26.0" rx="6" fill="#aeaeae" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="116.0" y="116.0" width="26.0" height="26.0" rx="6" fill="#cccccc" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="142.0" y="116.0" width="26.0" height="26.0" rx="6" fill="#dcdcdc" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="168.0" y="116.0" width="26.0" height="26.0" rx="6" fill="#e6e6e6" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="194.0" y="116.0" width="26.0" height="26.0" rx="6" fill="#ececec" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="220.0" y="116.0" width="26.0" height="26.0" rx="6" fill="#efefef" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="246.0" y="116.0" width="26.0" height="26.0" rx="6" fill="#f1f1f1" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="272.0" y="116.0" width="26.0" height="26.0" rx="6" fill="#f2f2f2" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="90.0" y="142.0" width="26.0" height="26.0" rx="6" fill="#cccccc" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="116.0" y="142.0" width="26.0" height="26.0" rx="6" fill="#dcdcdc" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="142.0" y="142.0" width="26.0" height="26.0" rx="6" fill="#e6e6e6" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="168.0" y="142.0" width="26.0" height="26.0" rx="6" fill="#ececec" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="194.0" y="142.0" width="26.0" height="26.0" rx="6" fill="#efefef" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="220.0" y="142.0" width="26.0" height="26.0" rx="6" fill="#f1f1f1" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="246.0" y="142.0" width="26.0" height="26.0" rx="6" fill="#f2f2f2" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="272.0" y="142.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="90.0" y="168.0" width="26.0" height="26.0" rx="6" fill="#dcdcdc" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="116.0" y="168.0" width="26.0" height="26.0" rx="6" fill="#e6e6e6" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="142.0" y="168.0" width="26.0" height="26.0" rx="6" fill="#ececec" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="168.0" y="168.0" width="26.0" height="26.0" rx="6" fill="#efefef" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="194.0" y="168.0" width="26.0" height="26.0" rx="6" fill="#f1f1f1" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="220.0" y="168.0" width="26.0" height="26.0" rx="6" fill="#f2f2f2" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="246.0" y="168.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="272.0" y="168.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="90.0" y="194.0" width="26.0" height="26.0" rx="6" fill="#e6e6e6" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="116.0" y="194.0" width="26.0" height="26.0" rx="6" fill="#ececec" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="142.0" y="194.0" width="26.0" height="26.0" rx="6" fill="#efefef" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="168.0" y="194.0" width="26.0" height="26.0" rx="6" fill="#f1f1f1" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="194.0" y="194.0" width="26.0" height="26.0" rx="6" fill="#f2f2f2" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="220.0" y="194.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="246.0" y="194.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="272.0" y="194.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="90.0" y="220.0" width="26.0" height="26.0" rx="6" fill="#ececec" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="116.0" y="220.0" width="26.0" height="26.0" rx="6" fill="#efefef" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="142.0" y="220.0" width="26.0" height="26.0" rx="6" fill="#f1f1f1" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="168.0" y="220.0" width="26.0" height="26.0" rx="6" fill="#f2f2f2" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="194.0" y="220.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="220.0" y="220.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="246.0" y="220.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="272.0" y="220.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="90.0" y="246.0" width="26.0" height="26.0" rx="6" fill="#efefef" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="116.0" y="246.0" width="26.0" height="26.0" rx="6" fill="#f1f1f1" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="142.0" y="246.0" width="26.0" height="26.0" rx="6" fill="#f2f2f2" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="168.0" y="246.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="194.0" y="246.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="220.0" y="246.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="246.0" y="246.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="272.0" y="246.0" width="26.0" height="26.0" rx="6" fill="#f3f3f3" stroke="#cccccc" stroke-width="0.6"/>
+<rect x="90.0" y="64.0" width="208.0" height="208.0" rx="6" fill="none" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="90.0" y="64.0" width="78.0" height="78.0" rx="6" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="129.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">тут уся енергія</text>
+<line x1="90.0" y1="286.0" x2="298.0" y2="286.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="298.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">частота →</text>
+<line x1="76.0" y1="64.0" x2="76.0" y2="272.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="338.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">низькі частоти —</text>
+<text x="338.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">великі числа (темні).</text>
+<text x="338.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"></text>
+<text x="338.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">високі — майже нулі</text>
+<text x="338.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">(світлі): викидаємо</text>
+<text x="338.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">чи грубо округлюємо.</text>
+<text x="338.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"></text>
+<text x="338.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">було 64 числа —</text>
+<text x="338.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">лишилось кілька.</text>
 </svg>

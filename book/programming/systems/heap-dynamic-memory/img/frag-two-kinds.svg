@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Та сама втрата пам'яті, два різні механізми</text>
+<text x="225.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">зовнішня: між блоками</text>
+<rect x="60.0" y="86.0" width="70.0" height="30.0" rx="2" fill="#e9eefb" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="130.0" y="86.0" width="18.0" height="30.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="139.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">18</text>
+<rect x="148.0" y="86.0" width="60.0" height="30.0" rx="2" fill="#e9eefb" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="208.0" y="86.0" width="14.0" height="30.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="215.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">14</text>
+<rect x="222.0" y="86.0" width="60.0" height="30.0" rx="2" fill="#e9eefb" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="282.0" y="86.0" width="12.0" height="30.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="288.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">12</text>
+<rect x="294.0" y="86.0" width="50.0" height="30.0" rx="2" fill="#e9eefb" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="344.0" y="86.0" width="16.0" height="30.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="352.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">16</text>
+<text x="60.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">вільно: 18+14+12+16 = 60 Б</text>
+<text x="60.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">найбільший суцільний: лише 18 Б</text>
+<rect x="60.0" y="172.0" width="320.0" height="30.0" rx="6" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.6"/>
+<text x="220.0" y="190.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">malloc(40) → відмова</text>
+<line x1="450.0" y1="56.0" x2="450.0" y2="230.0" stroke="#dde2ea" stroke-width="1.5" stroke-dasharray="2,4"/>
+<text x="675.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="700">внутрішня: всередині блока</text>
+<rect x="520.0" y="86.0" width="320.0" height="40.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="526.0" y="91.0" width="200.0" height="30.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="626.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">дані: 30 Б</text>
+<rect x="730.0" y="91.0" width="104.0" height="30.0" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="782.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+18 Б</text>
+<text x="520.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">заголовок 8 Б + округлення до 48 Б</text>
+<rect x="520.0" y="172.0" width="320.0" height="30.0" rx="6" fill="#fff8ec" stroke="#caa24a" stroke-width="1.6"/>
+<text x="680.0" y="190.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9a7322" text-anchor="middle" font-weight="700">18 з 48 Б у нікуди ≈ 38 %</text>
+<rect x="50.0" y="232.0" width="800.0" height="47.9" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="450.0" y="252.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Зовнішня губить пам'ять МІЖ блоками: вільне роздроблене, великий запит не влазить.</tspan><tspan x="450.0" dy="14.3">Внутрішня губить пам'ять ВСЕРЕДИНІ блока: видали більше, ніж просили, лишок марний.</tspan></text>
+</svg>

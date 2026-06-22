@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Коли PIO — правильний вибір</text>
+<rect x="40.0" y="60.0" width="330.0" height="240.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="205.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">брати PIO</text>
+<circle cx="64.0" cy="112.0" r="7.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="64.0" y="115.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="82.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">нестандартний цифровий протокол</text>
+<circle cx="64.0" cy="146.0" r="7.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="64.0" y="149.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="82.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">жорсткий субмікросекундний таймінг</text>
+<circle cx="64.0" cy="180.0" r="7.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="64.0" y="183.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="82.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">кілька каналів того самого протоколу</text>
+<circle cx="64.0" cy="214.0" r="7.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="64.0" y="217.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="82.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">блока в доступних чіпах немає</text>
+<circle cx="64.0" cy="248.0" r="7.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="64.0" y="251.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="82.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ядро треба лишити вільним</text>
+<rect x="400.0" y="60.0" width="320.0" height="240.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="560.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">не варто PIO</text>
+<circle cx="424.0" cy="112.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="424.0" y="114.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<text x="442.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">стандартний SPI/I²C/UART вистачає</text>
+<circle cx="424.0" cy="146.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="424.0" y="148.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<text x="442.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">потрібна складна логіка чи математика</text>
+<circle cx="424.0" cy="180.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="424.0" y="182.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<text x="442.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">протокол має жити на різних МК</text>
+<circle cx="424.0" cy="214.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="424.0" y="216.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<text x="442.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">потрібні точки зупину для відладки</text>
+<circle cx="424.0" cy="248.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="424.0" y="250.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<text x="442.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">автоматів треба більше ніж вісім</text>
+</svg>

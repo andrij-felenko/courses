@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="280" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асемблер: дослівний переклад слів у числа</text>
+<text x="235.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">асемблер (мнемоніки)</text>
+<text x="560.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">машинний код (числа)</text>
+<rect x="70.0" y="90.0" width="330.0" height="40.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/><text x="86.0" y="114.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#eaf6ee" text-anchor="start" font-weight="700">load  r1, [GPIO_OUT]</text>
+<line x1="408.0" y1="110.0" x2="462.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="470.0" y="90.0" width="180.0" height="40.0" rx="8" fill="#101418" stroke="#0a120d" stroke-width="1.4"/><text x="486.0" y="114.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#7fe0a0" text-anchor="start" font-weight="700">3A 01 7C</text>
+<rect x="70.0" y="146.0" width="330.0" height="40.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/><text x="86.0" y="170.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#eaf6ee" text-anchor="start" font-weight="700">or    r1, r1, 0x04</text>
+<line x1="408.0" y1="166.0" x2="462.0" y2="166.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="470.0" y="146.0" width="180.0" height="40.0" rx="8" fill="#101418" stroke="#0a120d" stroke-width="1.4"/><text x="486.0" y="170.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#7fe0a0" text-anchor="start" font-weight="700">2B 01 04</text>
+<rect x="70.0" y="202.0" width="330.0" height="40.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/><text x="86.0" y="226.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#eaf6ee" text-anchor="start" font-weight="700">store [GPIO_OUT], r1</text>
+<line x1="408.0" y1="222.0" x2="462.0" y2="222.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="470.0" y="202.0" width="180.0" height="40.0" rx="8" fill="#101418" stroke="#0a120d" stroke-width="1.4"/><text x="486.0" y="226.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#7fe0a0" text-anchor="start" font-weight="700">3C 01 7C</text>
+<text x="360.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">найпростіша стадія: ніякого розуму, лише словник «мнемоніка → число»</text>
+</svg>

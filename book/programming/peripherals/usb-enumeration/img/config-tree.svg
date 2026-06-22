@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Configuration tree: три дескриптори в одному буфері (25 байтів)</text>
+<rect x="70.0" y="70.0" width="360.0" height="64.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="250.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Config (9)</text>
+<rect x="76.0" y="104.0" width="348.0" height="22.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="250.0" y="118.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="250.0" dy="0.0">wTotalLength = 25 · bNumInterfaces = 1 · bMaxPower</tspan></text>
+<line x1="250.0" y1="134.0" x2="250.0" y2="170.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="70.0" y="170.0" width="360.0" height="64.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/>
+<text x="250.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Interface (9)</text>
+<rect x="76.0" y="204.0" width="348.0" height="22.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="250.0" y="218.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="250.0" dy="0.0">bInterfaceNumber 0 · bNumEndpoints 1 · клас</tspan></text>
+<line x1="250.0" y1="234.0" x2="250.0" y2="270.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="70.0" y="270.0" width="360.0" height="64.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="250.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Endpoint (7)</text>
+<rect x="76.0" y="304.0" width="348.0" height="22.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="250.0" y="318.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="250.0" dy="0.0">0x81 IN · interrupt · wMaxPacketSize 8 · bInterval</tspan></text>
+<line x1="460.0" y1="70.0" x2="460.0" y2="334.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="452.0" y1="70.0" x2="460.0" y2="70.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="452.0" y1="334.0" x2="460.0" y2="334.0" stroke="#c0392b" stroke-width="2.5"/>
+<rect x="500.4" y="170.4" width="109.3" height="63.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="555.0" y="190.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="555.0" dy="0.0">wTotalLength</tspan><tspan x="555.0" dy="15.6">охоплює все</tspan><tspan x="555.0" dy="15.6">дерево = 25</tspan></text>
+<text x="410.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Хост спершу читає 9 байтів Config, дізнається wTotalLength,</text>
+<text x="410.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">потім забирає всі 25 одним запитом. Брехливий wTotalLength → дерево уривається.</text>
+</svg>

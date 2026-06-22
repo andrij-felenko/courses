@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="280" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підпис і перевірка: хешуй, підпиши, перевір</text>
+<rect x="40.0" y="60.0" width="320.0" height="100.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="200.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">виробник</text>
+<text x="200.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">h = Hash(дані)</text>
+<rect x="80.0" y="122.5" width="240.0" height="31.0" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="200.0" y="141.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a6d1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">s = Sign(h, таємний ключ)</tspan></text>
+<line x1="360.0" y1="110.0" x2="440.0" y2="110.0" stroke="#6b7280" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="400.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">дані + s</text>
+<rect x="440.0" y="60.0" width="280.0" height="100.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="580.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">пристрій</text>
+<text x="580.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">сам рахує Hash(дані)</text>
+<text x="580.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">відкритим добуває закладений h</text>
+<text x="580.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">і звіряє</text>
+<rect x="120.0" y="196.0" width="520.0" height="56.0" rx="6" fill="#fbfbfb" stroke="#6b7280" stroke-width="1.4"/><text x="380.0" y="220.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Збіг → прошивка справжня і ціла.</tspan><tspan x="380.0" dy="14.3">Розбіжність → підробка: чужий код або зіпсовані дані.</tspan></text>
+</svg>

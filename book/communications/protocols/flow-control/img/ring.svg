@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кільцевий буфер: покажчики head (пише) і tail (читає)</text>
+<circle cx="360.0" cy="120.0" r="22.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="425.0" cy="137.4" r="22.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<circle cx="472.6" cy="185.0" r="22.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<circle cx="490.0" cy="250.0" r="22.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<circle cx="472.6" cy="315.0" r="22.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<circle cx="425.0" cy="362.6" r="22.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<circle cx="360.0" cy="380.0" r="22.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<circle cx="295.0" cy="362.6" r="22.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="247.4" cy="315.0" r="22.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="230.0" cy="250.0" r="22.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="247.4" cy="185.0" r="22.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="295.0" cy="137.4" r="22.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="481.0" y1="107.4" x2="451.0" y2="129.4" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="485.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">head — пише переривання</text>
+<line x1="239.0" y1="392.6" x2="269.0" y2="370.6" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="235.0" y="400.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">tail — читає застосунок</text>
+<text x="360.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">непрочитані</text>
+<text x="360.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">байти</text>
+<rect x="610.0" y="150.0" width="200.0" height="64.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.3"/>
+<text x="622.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">head == tail → порожній</text>
+<text x="622.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">head наздогнав tail → повний</text>
+<rect x="50.0" y="394.2" width="720.0" height="31.5" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/><text x="410.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">«Кільце»: після останньої комірки покажчик стрибає на першу — пам'ять по колу.</tspan></text>
+</svg>

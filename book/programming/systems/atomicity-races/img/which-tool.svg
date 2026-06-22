@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хто свариться за дані — той і обирає інструмент</text>
+<rect x="70.0" y="80.0" width="260.0" height="50.0" rx="6" fill="#fbfcff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="200.0" y="109.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ISR ↔ main (одне ядро)</text>
+<line x1="335.0" y1="105.0" x2="375.0" y2="105.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="380.0" y="80.0" width="220.0" height="50.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="490.0" y="109.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">вимкнути переривання</text>
+<text x="620.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">noInterrupts() — швидко, грубо</text>
+<rect x="70.0" y="152.0" width="260.0" height="50.0" rx="6" fill="#fbfcff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="200.0" y="181.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">задача ↔ задача</text>
+<line x1="335.0" y1="177.0" x2="375.0" y2="177.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="380.0" y="152.0" width="220.0" height="50.0" rx="6" fill="#eef6ef" stroke="#2457d6" stroke-width="1.6"/>
+<text x="490.0" y="181.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">м'ютекс</text>
+<text x="620.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">можна блокуватись; НЕ з ISR</text>
+<rect x="70.0" y="224.0" width="260.0" height="50.0" rx="6" fill="#fbfcff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="200.0" y="253.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">два ядра ESP32</text>
+<line x1="335.0" y1="249.0" x2="375.0" y2="249.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="380.0" y="224.0" width="220.0" height="50.0" rx="6" fill="#eef6ef" stroke="#c0392b" stroke-width="1.6"/>
+<text x="490.0" y="253.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">спінлок</text>
+<text x="620.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">portENTER_CRITICAL — замок + вимк. перерив.</text>
+<rect x="70.0" y="296.0" width="260.0" height="50.0" rx="6" fill="#fbfcff" stroke="#6b7280" stroke-width="1.6"/>
+<text x="200.0" y="325.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">одне вирівняне слово</text>
+<line x1="335.0" y1="321.0" x2="375.0" y2="321.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="380.0" y="296.0" width="220.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="490.0" y="325.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">часто без секції</text>
+<text x="620.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">атомарний доступ / lock-free кільце</text>
+<rect x="70.0" y="372.0" width="760.0" height="46.6" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="450.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Інструмент диктує контендер: хто з ким змагається за спільні дані.</tspan><tspan x="450.0" dy="14.3">Одне вирівняне слово часто й секції не потребує — атомарний доступ дешевший.</tspan></text>
+</svg>

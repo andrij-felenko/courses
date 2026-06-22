@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один DEFLATE, різні обгортки</text>
+<rect x="260.0" y="138.9" width="180.0" height="52.2" rx="6" fill="#f3c6bf" stroke="#c0392b" stroke-width="2.0"/><text x="350.0" y="160.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="350.0" dy="0.0">DEFLATE</tspan><tspan x="350.0" dy="18.2">(RFC 1951)</tspan></text>
+<rect x="217.2" y="54.0" width="265.5" height="32.0" rx="6" fill="#fbfcfd" stroke="#27ae60" stroke-width="1.6"/><text x="350.0" y="74.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="350.0" dy="0.0">gzip: заголовок + CRC-32 + розмір</tspan></text>
+<line x1="350.0" y1="88.0" x2="350.0" y2="165.0" stroke="#dde3ea" stroke-width="1.0"/>
+<rect x="250.7" y="246.0" width="198.6" height="32.0" rx="6" fill="#fbfcfd" stroke="#2457d6" stroke-width="1.6"/><text x="350.0" y="266.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="350.0" dy="0.0">zlib: 2 байти + Adler-32</tspan></text>
+<line x1="350.0" y1="244.0" x2="350.0" y2="165.0" stroke="#dde3ea" stroke-width="1.0"/>
+<rect x="75.0" y="141.2" width="150.0" height="47.6" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.6"/><text x="150.0" y="161.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">zip</tspan><tspan x="150.0" dy="15.6">(архів)</tspan></text>
+<line x1="150.0" y1="165.0" x2="350.0" y2="165.0" stroke="#dde3ea" stroke-width="1.0"/>
+<rect x="485.0" y="141.2" width="150.0" height="47.6" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.6"/><text x="560.0" y="161.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">PNG</tspan><tspan x="560.0" dy="15.6">(зображення)</tspan></text>
+<line x1="560.0" y1="165.0" x2="350.0" y2="165.0" stroke="#dde3ea" stroke-width="1.0"/>
+<text x="350.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ядро те саме; формати різняться лише заголовком і контрольною сумою</text>
+</svg>

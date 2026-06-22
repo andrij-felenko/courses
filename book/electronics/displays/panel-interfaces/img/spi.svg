@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">SPI: три-пʼять дротів; панель тримає кадр сама</text>
+<rect x="60.0" y="110.0" width="150.0" height="110.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="135.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікроконтролер</text>
+<text x="135.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">шле лише</text>
+<text x="135.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">зміни</text>
+<rect x="540.0" y="80.0" width="170.0" height="200.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="625.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Панель</text>
+<rect x="560.0" y="116.0" width="130.0" height="46.0" rx="6" fill="#eef0ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="625.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">контролер +</text>
+<text x="625.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">памʼять кадру (GRAM)</text>
+<rect x="560.0" y="176.0" width="130.0" height="86.0" rx="4" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="625.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">скло</text>
+<text x="625.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#cfd3da" text-anchor="middle">освіжає сам</text>
+<line x1="212.0" y1="128.0" x2="538.0" y2="128.0" stroke="#9aa0a6" stroke-width="2.0"/>
+<text x="375.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9aa0a6" text-anchor="middle">MOSI — дані</text>
+<line x1="212.0" y1="152.0" x2="538.0" y2="152.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="375.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SCK — такт</text>
+<line x1="212.0" y1="176.0" x2="538.0" y2="176.0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="375.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">CS — вибір</text>
+<line x1="212.0" y1="200.0" x2="538.0" y2="200.0" stroke="#b08900" stroke-width="2.0"/>
+<text x="375.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b08900" text-anchor="middle">DC — команда/дані</text>
+<line x1="212.0" y1="224.0" x2="538.0" y2="224.0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="375.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">RST — скид</text>
+<text x="380.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">SPI жене по одному біту за такт — труба вузька. Але контролер панелі сам освіжає скло з GRAM,</text>
+<text x="380.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">тож хост шле не весь кадр 60 разів на секунду, а лише те, що змінилося.</text>
+</svg>

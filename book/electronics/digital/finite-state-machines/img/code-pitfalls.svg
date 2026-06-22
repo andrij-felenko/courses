@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три класичні граблі автомата на мікроконтролері</text>
+<rect x="30.0" y="64.0" width="270.0" height="300.0" rx="12" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+<text x="165.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Діра в таблиці</text>
+<rect x="70.0" y="120.0" width="78.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="109.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">OPEN</text>
+<rect x="148.0" y="120.0" width="78.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="187.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">???</text>
+<rect x="70.0" y="166.0" width="78.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="109.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">LOCK</text>
+<rect x="148.0" y="166.0" width="78.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="187.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">OPEN</text>
+<line x1="187.0" y1="226.0" x2="187.0" y2="266.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="165.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">забута клітинка →</text>
+<text x="165.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">провал у невизначеність</text>
+<text x="165.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">лік: заповнити кожен стан × подію</text>
+<rect x="325.0" y="64.0" width="270.0" height="300.0" rx="12" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+<text x="460.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Дія: стан чи перехід?</text>
+<circle cx="460.0" cy="170.0" r="40.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="460.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">S</text><text x="460.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">on_enter</text>
+<path d="M440.0 135.2 C424.0 88.0 496.0 88.0 480.0 135.2" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="460.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">S → S</text>
+<text x="460.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Мур: дія в стані (on_enter/exit)</text>
+<text x="460.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Мілі: дія на переході</text>
+<text x="460.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">пастка: on_enter спрацює ВДРУГЕ</text>
+<text x="460.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">на петлі сам-у-себе</text>
+<text x="460.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">лік: дія лише на справжній зміні стану</text>
+<rect x="620.0" y="64.0" width="270.0" height="300.0" rx="12" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+<text x="755.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">default → безпечний стан</text>
+<rect x="660.0" y="126.0" width="190.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="755.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">брудний / чужий</tspan><tspan x="755.0" dy="15.6">вхід</tspan></text>
+<line x1="755.0" y1="174.0" x2="755.0" y2="252.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="769.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">default</text>
+<circle cx="755.0" cy="280.0" r="36.0" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/><text x="755.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">SAFE</text>
+<text x="755.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">автомат завжди має куди впасти</text>
+</svg>

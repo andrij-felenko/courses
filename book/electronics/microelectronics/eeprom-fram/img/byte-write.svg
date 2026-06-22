@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Побайтовий запис: чому дрібне оновлення любить EEPROM і FRAM</text>
+<text x="500.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Flash мусить СПЕРШУ стерти цілий блок, щоб змінити один байт; EEPROM і FRAM міняють окремий байт напряму</text>
+<text x="90.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Flash (NOR/NAND): один байт не змінити окремо</text>
+<text x="295.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">хочу змінити цей</text>
+<rect x="110.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="144.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="178.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="212.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="246.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="280.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="314.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="348.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="382.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="416.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="450.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="484.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="518.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="552.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="586.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="620.0" y="132.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<text x="382.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">крок 1: стерти ВЕСЬ блок (усі 16 → 0xFF)</text>
+<text x="382.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">крок 2: записати блок наново</text>
+<rect x="110.0" y="220.0" width="540.0" height="26.0" rx="4" fill="#fff7e6" stroke="#b9770e" stroke-width="1.4"/>
+<text x="382.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-style="italic">багато зайвої роботи заради одного байта</text>
+<text x="90.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">EEPROM / FRAM: пишемо РІВНО потрібний байт</text>
+<rect x="110.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="144.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="178.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="212.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="246.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="280.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="314.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="348.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="382.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="416.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="450.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="484.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="518.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="552.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="586.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<rect x="620.0" y="322.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#cfcfcf" stroke-width="1.0"/>
+<line x1="295.0" y1="300.0" x2="295.0" y2="320.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="295.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">записали — і все</text>
+<text x="484.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">решта байтів недоторкані; стирати нічого</text>
+<text x="500.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Для лічильника напрацювання чи окремої уставки це безцінно: оновив одне число — і не переписав увесь блок.</text>
+</svg>

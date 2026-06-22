@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Демозаїка: одну складову виміряно, дві — з сусідів</text>
+<rect x="150.0" y="70.0" width="46.0" height="46.0" rx="4" fill="#cc2c20" stroke="#ffffff" stroke-width="1.4"/>
+<rect x="196.0" y="70.0" width="46.0" height="46.0" rx="4" fill="#1f9d4d" stroke="#ffffff" stroke-width="1.4"/>
+<rect x="242.0" y="70.0" width="46.0" height="46.0" rx="4" fill="#cc2c20" stroke="#ffffff" stroke-width="1.4"/>
+<rect x="150.0" y="116.0" width="46.0" height="46.0" rx="4" fill="#1f9d4d" stroke="#ffffff" stroke-width="1.4"/>
+<rect x="196.0" y="116.0" width="46.0" height="46.0" rx="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.4"/>
+<rect x="242.0" y="116.0" width="46.0" height="46.0" rx="4" fill="#1f9d4d" stroke="#ffffff" stroke-width="1.4"/>
+<rect x="150.0" y="162.0" width="46.0" height="46.0" rx="4" fill="#cc2c20" stroke="#ffffff" stroke-width="1.4"/>
+<rect x="196.0" y="162.0" width="46.0" height="46.0" rx="4" fill="#1f9d4d" stroke="#ffffff" stroke-width="1.4"/>
+<rect x="242.0" y="162.0" width="46.0" height="46.0" rx="4" fill="#cc2c20" stroke="#ffffff" stroke-width="1.4"/>
+<rect x="194.0" y="114.0" width="50.0" height="50.0" rx="4" fill="none" stroke="#1a1a1a" stroke-width="2.8"/>
+<text x="219.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#cc2c20" text-anchor="middle" font-weight="700">цей піксель: лише R</text>
+<line x1="219.0" y1="93.0" x2="219.0" y2="124.3" stroke="#1f9d4d" stroke-width="1.8" stroke-dasharray="3,2"/>
+<line x1="173.0" y1="139.0" x2="204.3" y2="139.0" stroke="#1f9d4d" stroke-width="1.8" stroke-dasharray="3,2"/>
+<line x1="219.0" y1="185.0" x2="219.0" y2="153.7" stroke="#1f9d4d" stroke-width="1.8" stroke-dasharray="3,2"/>
+<line x1="265.0" y1="139.0" x2="233.7" y2="139.0" stroke="#1f9d4d" stroke-width="1.8" stroke-dasharray="3,2"/>
+<line x1="173.0" y1="93.0" x2="204.3" y2="124.3" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="3,2"/>
+<line x1="265.0" y1="93.0" x2="233.7" y2="124.3" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="3,2"/>
+<line x1="173.0" y1="185.0" x2="204.3" y2="153.7" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="3,2"/>
+<line x1="265.0" y1="185.0" x2="233.7" y2="153.7" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="3,2"/>
+<text x="219.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">позичає G і B у сусідів</text>
+<line x1="300.0" y1="139.0" x2="356.0" y2="139.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="328.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">демозаїка</text>
+<rect x="364.0" y="87.0" width="150.0" height="104.0" rx="6" fill="#7c3aed" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="439.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">повний колір</text>
+<text x="380.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="start">R — виміряно</text>
+<text x="380.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="start">G — вгадано</text>
+<text x="380.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="start">B — вгадано</text>
+<text x="360.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">У сирій мозаїці кожна точка має лише одну складову; демозаїка інтерполює дві відсутні з сусідів.</text>
+<text x="360.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">На виході — повноколірний кадр, де в кожному пікселі є R, G і B. Але дві з трьох — обчислена гадка.</text>
+</svg>

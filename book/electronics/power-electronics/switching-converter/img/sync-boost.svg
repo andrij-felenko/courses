@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві важливі варіації: менше втрат і підвищення напруги</text>
+<text x="490.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">діод → другий MOSFET (ефективніше); інша схема → boost (вища напруга)</text>
+<rect x="40.0" y="90.0" width="440.0" height="320.0" rx="12" fill="#ffffff" stroke="#0a8f3c" stroke-width="1.6"/>
+<text x="260.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0a8f3c" text-anchor="middle" font-weight="700">Синхронний випрямляч</text>
+<text x="64.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Діод завжди має падіння ~0.5 В —</text>
+<text x="64.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">а на великому струмі це втрати й тепло.</text>
+<text x="64.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="64.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Замінюємо діод другим MOSFET:</text>
+<text x="64.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">у нього опір міліоми → майже без втрат.</text>
+<text x="64.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="64.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Два ключі по черзі: верхній «качає»,</text>
+<text x="64.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">нижній «замикає». ККД ще вищий.</text>
+<rect x="64.0" y="360.0" width="392.0" height="34.0" rx="8" fill="#eafaef" stroke="#0a8f3c" stroke-width="1.2"/>
+<text x="260.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0a8f3c" text-anchor="middle" font-weight="700">так зроблено майже всі сучасні перетворювачі дрона</text>
+<rect x="500.0" y="90.0" width="440.0" height="320.0" rx="12" fill="#ffffff" stroke="#d98a00" stroke-width="1.6"/>
+<text x="720.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d98a00" text-anchor="middle" font-weight="700">Boost — підвищення напруги</text>
+<text x="524.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Інша розкладка тих самих деталей.</text>
+<text x="524.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Ключ накачує котушку, а коли рветься —</text>
+<text x="524.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">її «брикання» (викид напруги при</text>
+<text x="524.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">розмиканні) ДОДАЄТЬСЯ до входу.</text>
+<text x="524.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="524.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Тому boost робить Vвих ВИЩУ за Vвх —</text>
+<text x="524.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">чого лінійний не вміє в принципі.</text>
+<rect x="524.0" y="360.0" width="392.0" height="34.0" rx="8" fill="#fff5e6" stroke="#d98a00" stroke-width="1.2"/>
+<text x="720.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d98a00" text-anchor="middle" font-weight="700">те саме «брикання» котушки, що псувало ключі, — тут на користь</text>
+<text x="490.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Усе це — комбінації ключа, котушки, діода й конденсатора; міняється лише схема їхнього з'єднання.</text>
+</svg>

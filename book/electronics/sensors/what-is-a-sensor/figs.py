@@ -211,6 +211,222 @@ def fig_imperfect_chain():
            title="Кожна ланка щось спотворює")
 
 
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║  Фігури до історичної вставки 📜 hist-seebeck.md                           ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+HOT  = "#e8702a"   # полум'я/нагрів
+BRONZE = "#b07a32"  # метал A
+STEEL  = "#6f7e8c"  # метал B
+
+
+def _flame(f, cx, cy):
+    """Маленьке полум'я (дві накладені «краплі») із центром-вершиною (cx,cy)."""
+    f.append('<path d="M %.1f,%.1f C %.1f,%.1f %.1f,%.1f %.1f,%.1f '
+             'C %.1f,%.1f %.1f,%.1f %.1f,%.1f Z" fill="%s"/>'
+             % (cx, cy + 26, cx - 11, cy + 16, cx - 7, cy - 9, cx, cy - 20,
+                cx + 7, cy - 9, cx + 11, cy + 16, cx, cy + 26, HOT))
+    f.append('<path d="M %.1f,%.1f C %.1f,%.1f %.1f,%.1f %.1f,%.1f '
+             'C %.1f,%.1f %.1f,%.1f %.1f,%.1f Z" fill="#f6c84a"/>'
+             % (cx, cy + 21, cx - 6, cy + 13, cx - 4, cy - 2, cx, cy - 11,
+                cx + 4, cy - 2, cx + 6, cy + 13, cx, cy + 21))
+
+
+def _compass(f, cx, cy, r=44):
+    """Компас із відхиленою стрілкою (червоний/синій кінці)."""
+    f.append(circle(cx, cy, r, fill=BG, stroke=INK, sw=2))
+    f.append(circle(cx, cy, r + 5, fill="none", stroke=MUTED, sw=1))
+    import math
+    for k in range(8):
+        a = k * math.pi / 4
+        f.append(line(cx + (r - 6) * math.cos(a), cy + (r - 6) * math.sin(a),
+                      cx + r * math.cos(a), cy + r * math.sin(a), color=MUTED, sw=1))
+    ang = math.radians(-58)
+    nx, ny = cx + (r - 8) * math.cos(ang), cy + (r - 8) * math.sin(ang)
+    sx, sy = cx - (r - 8) * math.cos(ang), cy - (r - 8) * math.sin(ang)
+    px, py = cx + 11 * math.cos(ang + math.pi / 2), cy + 11 * math.sin(ang + math.pi / 2)
+    f.append('<path d="M %.1f,%.1f L %.1f,%.1f L %.1f,%.1f Z" fill="%s"/>'
+             % (nx, ny, px, py, cx, cy, POS))
+    f.append('<path d="M %.1f,%.1f L %.1f,%.1f L %.1f,%.1f Z" fill="%s"/>'
+             % (sx, sy, px, py, cx, cy, NEG))
+    f.append(circle(cx, cy, 3, fill=INK, stroke=INK, sw=1))
+
+
+# ── 7. Дослід 1821: петля з двох металів і компас ─────────────────────────────
+def fig_seebeck_loop():
+    W, H = 680, 374
+    f = []
+    # замкнена петля: верхня гілка — метал A, нижня — метал B
+    f.append('<polyline points="185,130 185,92 495,92 495,130" fill="none" '
+             'stroke="%s" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>' % BRONZE)
+    f.append('<polyline points="185,130 185,168 495,168 495,130" fill="none" '
+             'stroke="%s" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>' % STEEL)
+    f.append(text(340, 82, "метал A  (сурма, Sb)", size=13, color=BRONZE, bold=True))
+    f.append(text(340, 190, "метал B  (вісмут, Bi)", size=13, color=STEEL, bold=True))
+    f.append(circle(185, 130, 7, fill=INK, stroke=INK, sw=1))
+    f.append(circle(495, 130, 7, fill=INK, stroke=INK, sw=1))
+    # нагрів лівого спаю
+    _flame(f, 185, 150)
+    f.append(text(185, 206, "нагрів", size=12, color=HOT, bold=True))
+    f.append(text(175, 116, "гарячий спай  T₁", size=12, color=POS, anchor="end", bold=True))
+    f.append(text(505, 116, "холодний спай  T₂", size=12, color=NEG, anchor="start", bold=True))
+    # термострум по петлі
+    f.append(arrow(372, 92, 308, 92, color=FIELD, sw=2.4))
+    f.append(arrow(308, 168, 372, 168, color=FIELD, sw=2.4))
+    f.append(text(340, 70, "термострум  I", size=12.5, color=FIELD, italic=True))
+    # пунктир до компаса
+    f.append(line(340, 96, 340, 250, color=MUTED, sw=1.4, dash="3,4"))
+    _compass(f, 340, 300)
+    f.append(text(340, 360, "стрілка відхиляється", size=12.5, italic=True))
+    # пояснювальна рамка
+    box = ("Що бачив Зеебек:\n"
+           "стрілка хитнулась —\n"
+           "він вирішив, що це\n"
+           "магнетизм. Насправді\n"
+           "ΔT жене струм, а той\n"
+           "хитає стрілку\n"
+           "(Ерстед, 1820).")
+    f.append(fitbox(508, 250, 162, 116, box, size=11, pad=9,
+                    fill="#fbfbf6", stroke=MUTED, sw=1.2, color=INK))
+    render(os.path.join(IMG, "seebeck-loop.svg"), W, H, *f,
+           title="Дослід 1821 року: петля з двох металів і компас")
+
+
+# ── 8. Чому ΔT робить напругу: дифузія носіїв ─────────────────────────────────
+def fig_seebeck_diffusion():
+    import math
+    W, H = 680, 360
+    f = []
+    # провідник: ліва половина «гаряча», права «холодна»
+    f.append(rect(120, 110, 210, 78, fill="#fff0e2", stroke="none", sw=0))
+    f.append(rect(330, 110, 210, 78, fill="#e8f1fb", stroke="none", sw=0))
+    f.append(rect(120, 110, 420, 78, fill="none", stroke=INK, sw=2, rx=0))
+    f.append(text(170, 100, "гарячий кінець (T↑)", size=12.5, color=POS, bold=True))
+    f.append(text(490, 100, "холодний кінець (T↓)", size=12.5, color=NEG, bold=True))
+    # носії, що дрейфують уліво→вправо (на гарячому боці зі стрілками)
+    drift = [(155, 135), (180, 165), (215, 145), (255, 159), (300, 137)]
+    for x, y in drift:
+        f.append(arrow(x, y, x + 30, y - 2, color=INK, sw=1.6))
+        f.append(circle(x, y, 7, fill="#dfe7f7", stroke=NEG, sw=1.5))
+        f.append(line(x - 3.5, y, x + 3.5, y, color=NEG, sw=1.8))
+    # скупчення на холодному кінці
+    for x, y in [(510, 133), (510, 151), (510, 167), (488, 141), (488, 161), (526, 149)]:
+        f.append(circle(x, y, 7, fill="#dfe7f7", stroke=NEG, sw=1.5))
+        f.append(line(x - 3.5, y, x + 3.5, y, color=NEG, sw=1.8))
+    f.append(text(136, 156, "+", size=26, color=POS, bold=True))
+    f.append(text(532, 156, "−", size=26, color=NEG, bold=True))
+    # виводи до вольтметра
+    f.append(line(120, 188, 120, 250, color=INK, sw=2))
+    f.append(line(540, 188, 540, 250, color=INK, sw=2))
+    f.append(line(120, 250, 304, 250, color=INK, sw=2))
+    f.append(line(540, 250, 356, 250, color=INK, sw=2))
+    f.append(circle(330, 250, 26, fill=BG, stroke=INK, sw=2))
+    f.append(text(330, 256, "V", size=17, color=FIELD, bold=True))
+    f.append(text(330, 312, "ΔV = S · ΔT   (S — коефіцієнт Зеебека, мкВ/°C)",
+                  size=15, color=FIELD, bold=True))
+    f.append(text(330, 336, "гарячі носії енергійніші → дифундують до холодного → там надлишок (−), тут нестача (+)",
+                  size=11.5, italic=True))
+    render(os.path.join(IMG, "seebeck-diffusion.svg"), W, H, *f,
+           title="Чому різниця температур робить напругу: дифузія носіїв")
+
+
+# ── 9. Три термоелектричні ефекти — одне сімейство ────────────────────────────
+def fig_three_effects():
+    W, H = 720, 320
+    f = []
+    # Зеебек
+    f.append(rect(27, 56, 210, 168, fill="#fff0e2", stroke=POS, sw=1.6, rx=8))
+    f.append(text(132, 80, "Зеебек · 1821", size=14, color=POS, bold=True))
+    f.append(text(132, 100, "тепло → напруга", size=12.5, italic=True))
+    f.append('<polyline points="98,170 132,148 166,170" fill="none" stroke="%s" '
+             'stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>' % BRONZE)
+    f.append('<polyline points="132,148 166,170" fill="none" stroke="%s" '
+             'stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>' % STEEL)
+    f.append(circle(132, 148, 5, fill=INK, stroke=INK, sw=1))
+    _flame(f, 132, 176)
+    f.append(arrow(57, 154, 92, 154, color=POS, sw=2))
+    f.append(text(45, 142, "ΔT", size=13, color=POS, bold=True))
+    f.append(circle(203, 154, 16, fill=BG, stroke=INK, sw=1.6))
+    f.append(text(203, 159, "V", size=13, color=FIELD, bold=True))
+    f.append(arrow(172, 154, 185, 154, color=FIELD, sw=2))
+    f.append(text(132, 214, "термопара", size=11.5, color=MUTED, italic=True))
+    # Пельтьє
+    f.append(rect(255, 56, 210, 168, fill="#e8f1fb", stroke=NEG, sw=1.6, rx=8))
+    f.append(text(360, 80, "Пельтьє · 1834", size=14, color=NEG, bold=True))
+    f.append(text(360, 100, "струм → тепло/холод", size=12.5, italic=True))
+    f.append('<polyline points="326,178 360,156 394,178" fill="none" stroke="%s" '
+             'stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>' % BRONZE)
+    f.append('<polyline points="360,156 394,178" fill="none" stroke="%s" '
+             'stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>' % STEEL)
+    f.append(circle(360, 156, 5, fill=INK, stroke=INK, sw=1))
+    f.append(arrow(279, 162, 320, 162, color=INK, sw=2))
+    f.append(text(273, 150, "I", size=13, bold=True))
+    f.append(text(360, 138, "▲ гріється", size=11.5, color=POS, bold=True))
+    f.append(text(360, 198, "▼ холоне", size=11.5, color=NEG, bold=True))
+    f.append(text(360, 214, "елемент Пельтьє", size=11.5, color=MUTED, italic=True))
+    # Томсон
+    f.append(rect(483, 56, 210, 168, fill="#fbf3e2", stroke="#caa24a", sw=1.6, rx=8))
+    f.append(text(588, 80, "Томсон · 1851", size=14, color="#9a7a1e", bold=True))
+    f.append(text(588, 100, "струм + градієнт → тепло", size=11.5, italic=True))
+    f.append(rect(511, 150, 154, 20, fill=BG, stroke=INK, sw=1.6, rx=0))
+    f.append(arrow(517, 140, 653, 140, color=POS, sw=1.8))
+    f.append(text(588, 132, "градієнт T", size=11, color=POS))
+    f.append(arrow(517, 160, 649, 160, color=INK, sw=2))
+    f.append(text(505, 184, "I", size=12.5, bold=True))
+    f.append(text(588, 200, "тепло вздовж дроту", size=11.5, color="#9a7a1e"))
+    f.append(text(588, 214, "(передбачив теорією)", size=11.5, color=MUTED, italic=True))
+    # підсумкова смуга
+    f.append(rect(27, 248, 666, 40, fill="#f2f6ff", stroke=INK, sw=1.4, rx=8))
+    f.append(text(360, 273, "Кельвін (В. Томсон): термодинаміка зв'язала всі три — співвідношення Кельвіна",
+                  size=13, bold=True))
+    render(os.path.join(IMG, "three-effects.svg"), W, H, *f,
+           title="Три термоелектричні ефекти — одне сімейство")
+
+
+# ── 10. Термопара як давач: різниця спаїв і опорна точка ──────────────────────
+def fig_thermocouple_sensor():
+    W, H = 720, 300
+    f = []
+    # піч / процес
+    f.append(rect(40, 80, 120, 120, fill="#fff0e2", stroke=HOT, sw=1.6, rx=6))
+    f.append(text(100, 98, "піч / процес", size=12, color=HOT, bold=True))
+    _flame(f, 100, 168)
+    # вимірювальний спай
+    f.append(circle(155, 135, 7, fill=INK, stroke=INK, sw=1))
+    f.append(text(155, 121, "вимір. спай", size=11.5, color=POS, bold=True))
+    f.append(text(155, 165, "T_вимір", size=12, color=POS, italic=True))
+    # два дроти до опорного спаю
+    f.append('<polyline points="155,135 260,105 430,105" fill="none" stroke="%s" '
+             'stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>' % BRONZE)
+    f.append('<polyline points="155,135 260,165 430,165" fill="none" stroke="%s" '
+             'stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>' % STEEL)
+    f.append(text(345, 96, "метал A", size=11.5, color=BRONZE, bold=True))
+    f.append(text(345, 182, "метал B", size=11.5, color=STEEL, bold=True))
+    # опорний спай / клеми
+    f.append(rect(430, 85, 120, 100, fill="#e8f1fb", stroke=NEG, sw=1.6, rx=6))
+    f.append(circle(430, 105, 6, fill=INK, stroke=INK, sw=1))
+    f.append(circle(430, 165, 6, fill=INK, stroke=INK, sw=1))
+    f.append(text(490, 77, "опорний спай  T_оп", size=11.5, color=NEG, bold=True))
+    f.append(line(550, 105, 610, 105, color="#b5651d", sw=4))
+    f.append(line(550, 165, 610, 165, color="#b5651d", sw=4))
+    f.append(text(580, 97, "мідь", size=10.5, color="#b5651d"))
+    f.append(rect(452, 127, 76, 30, fill=BG, stroke=INK, sw=1.4, rx=4))
+    f.append(text(490, 147, "ХКК-давач", size=11, bold=True))
+    f.append(text(490, 199, "(або лазня з льодом 0 °C)", size=10.5, color=MUTED, italic=True))
+    # підсилювач
+    f.append('<polyline points="610,90 660,135 610,180" fill="%s" stroke="%s" '
+             'stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>' % (BG, INK))
+    f.append(text(632, 140, "×", size=16, color=FIELD, bold=True))
+    f.append(text(636, 200, "мкВ → В", size=11, color=FIELD, italic=True))
+    # формула
+    f.append(text(360, 244, "V ≈ S · (T_вимір − T_оп)      сигнал — десятки мкВ/°C",
+                  size=14, color=FIELD, bold=True))
+    f.append(text(360, 268, "термопара міряє РІЗНИЦЮ спаїв → опорну треба знати окремо",
+                  size=12.5, italic=True))
+    render(os.path.join(IMG, "thermocouple-sensor.svg"), W, H, *f,
+           title="Термопара як давач: різниця спаїв і опорна точка")
+
+
 if __name__ == "__main__":
     fig_translator()
     fig_chain()
@@ -218,4 +434,9 @@ if __name__ == "__main__":
     fig_duality()
     fig_output_forms()
     fig_imperfect_chain()
-    print("Готово: 6 SVG у", IMG)
+    # фігури історичної вставки 📜 hist-seebeck.md
+    fig_seebeck_loop()
+    fig_seebeck_diffusion()
+    fig_three_effects()
+    fig_thermocouple_sensor()
+    print("Готово: 10 SVG у", IMG)

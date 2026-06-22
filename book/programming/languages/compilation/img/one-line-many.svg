@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один рядок → кілька машинних команд → числа</text>
+<rect x="210.0" y="58.0" width="300.0" height="48.0" rx="8" fill="#13202a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="360.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#eaf6ee" text-anchor="middle" font-weight="700">OUT |= (1 &lt;&lt; 2);</text>
+<text x="522.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">← один рядок C</text>
+<line x1="360.0" y1="108.0" x2="360.0" y2="134.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="160.0" y="138.0" width="400.0" height="104.0" rx="8" fill="#13202a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="180.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7fe0a0" text-anchor="start" font-weight="700">load  r1, [OUT]</text>
+<text x="366.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6f8fa0" text-anchor="start">; прочитати</text>
+<text x="180.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7fe0a0" text-anchor="start" font-weight="700">or    r1, r1, 0x04</text>
+<text x="366.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6f8fa0" text-anchor="start">; накласти маску 1&lt;&lt;2</text>
+<text x="180.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7fe0a0" text-anchor="start" font-weight="700">store [OUT], r1</text>
+<text x="366.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6f8fa0" text-anchor="start">; записати назад</text>
+<text x="572.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">← кілька</text>
+<text x="572.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">  машинних команд</text>
+<line x1="360.0" y1="244.0" x2="360.0" y2="270.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="210.0" y="272.0" width="300.0" height="44.0" rx="8" fill="#101418" stroke="#000000" stroke-width="1.5"/>
+<text x="360.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7fe0a0" text-anchor="middle" font-weight="700">3A 01 ..  2B 01 04  3C 01 ..</text>
+<text x="522.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">← лише числа</text>
+</svg>

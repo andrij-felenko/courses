@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як хробак пробивав fingerd: класичне «smashing the stack»</text>
+<text x="195.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Звичайний запит (вкладається)</text>
+<rect x="60.0" y="96.0" width="270.0" height="156.0" rx="6" fill="#f1f7f2" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="78.0" y="112.0" width="234.0" height="72.0" rx="4" fill="#e7f2ea" stroke="#27ae60" stroke-width="1.4"/>
+<text x="195.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">буфер[512]</text>
+<text x="195.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">коротке ім'я …</text>
+<rect x="78.0" y="190.0" width="234.0" height="24.0" rx="3" fill="#eef3fb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="195.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">збережені регістри</text>
+<rect x="78.0" y="218.0" width="234.0" height="24.0" rx="3" fill="#fff6e6" stroke="#9a7322" stroke-width="1.4"/>
+<text x="195.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">адреса повернення (ціла)</text>
+<text x="195.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">функція чесно повертається назад</text>
+<text x="565.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Запит хробака: 536 байтів у 512</text>
+<rect x="430.0" y="96.0" width="270.0" height="156.0" rx="6" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="448.0" y="112.0" width="234.0" height="72.0" rx="4" fill="#f7e2e2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="565.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">буфер[512]</text>
+<text x="565.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">код хробака (shell)</text>
+<text x="565.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">0x90 0x90 … exec()</text>
+<rect x="448.0" y="190.0" width="234.0" height="24.0" rx="3" fill="#f7e2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="565.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">затерто «зайвими» 24 Б</text>
+<rect x="448.0" y="218.0" width="234.0" height="24.0" rx="3" fill="#ffd9d9" stroke="#c0392b" stroke-width="1.8"/>
+<text x="565.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">адреса повернення = &amp;буфер</text>
+<line x1="682.0" y1="230.0" x2="712.0" y2="230.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="712.0" y1="230.0" x2="712.0" y2="148.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="712.0" y1="148.0" x2="684.0" y2="148.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="565.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700" font-style="italic">«повертається» у власний код хробака</text>
+<text x="380.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому 536 у 512: «зайві» 24 байти перелазять за буфер і лягають точно на адресу повернення</text>
+<rect x="150.0" y="326.0" width="449.0" height="30.0" rx="0" fill="#e7f2ea" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="599.0" y="326.0" width="21.0" height="30.0" rx="0" fill="#ffd9d9" stroke="#c0392b" stroke-width="1.6"/>
+<text x="374.5" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">512 байтів буфера</text>
+<text x="609.5" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">+24</text>
+<text x="150.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">0</text>
+<text x="620.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">536</text>
+<rect x="60.0" y="402.0" width="640.0" height="86.0" rx="6" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.5"/><text x="380.0" y="436.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Корінь — той самий, що в будь-якому переповненні буфера: запис за межі масиву + відсутність перевірки довжини.</tspan><tspan x="380.0" dy="11.7">gets() приймає лише адресу буфера, але не його розмір — і фізично не може спинитись на 512-му байті.</tspan><tspan x="380.0" dy="11.7">Саме тому gets() згодом викинули зі стандарту C, а перевірка меж стала залізним правилом.</tspan></text>
+</svg>

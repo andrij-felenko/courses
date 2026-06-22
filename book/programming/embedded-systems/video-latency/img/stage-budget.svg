@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бюджет затримки по ланках: усе додається, кодек і буфер з'їдають найбільше</text>
+<rect x="80.0" y="156.4" width="86.0" height="93.6" rx="3" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="123.0" y="148.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">18 мс</text>
+<text x="123.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">сенсор</text>
+<rect x="192.0" y="135.6" width="86.0" height="114.4" rx="3" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="235.0" y="127.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">22 мс</text>
+<text x="235.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">кодек</text>
+<rect x="304.0" y="208.4" width="86.0" height="41.6" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="347.0" y="200.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">8 мс</text>
+<text x="347.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">канал</text>
+<rect x="416.0" y="120.0" width="86.0" height="130.0" rx="3" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="459.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">25 мс</text>
+<text x="459.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">буфер</text>
+<rect x="528.0" y="187.6" width="86.0" height="62.4" rx="3" fill="#b8860b" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="571.0" y="179.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">12 мс</text>
+<text x="571.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">декодер</text>
+<rect x="640.0" y="187.6" width="86.0" height="62.4" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="683.0" y="179.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">12 мс</text>
+<text x="683.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">екран</text>
+<line x1="60.0" y1="250.0" x2="732.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="720.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="end" font-weight="700">сума ≈ 97 мс</text>
+<text x="720.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">(кодек + буфер — найбільші)</text>
+</svg>

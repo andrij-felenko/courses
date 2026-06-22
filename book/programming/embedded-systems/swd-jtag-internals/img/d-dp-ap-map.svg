@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мапа регістрів: DP веде дріт, AP веде до пам'яті</text>
+<text x="40.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">DP — Debug Port (говорить дріт)</text>
+<rect x="40.0" y="70.0" width="300.0" height="34.0" rx="6" fill="#2457d6" stroke="#2457d6" stroke-width="1.4"/>
+<text x="54.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start" font-weight="700">адреса A[3:2]</text>
+<text x="190.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start" font-weight="700">регістр (R / W)</text>
+<rect x="40.0" y="104.0" width="300.0" height="34.0" rx="0" fill="#f4f6f8" stroke="#d7dde6" stroke-width="1.0"/>
+<text x="54.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0b00</text>
+<text x="190.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">IDCODE (R) / ABORT (W)</text>
+<rect x="40.0" y="138.0" width="300.0" height="34.0" rx="0" fill="#f4f6f8" stroke="#d7dde6" stroke-width="1.0"/>
+<text x="54.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0b01</text>
+<text x="190.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">CTRL/STAT (R/W)*</text>
+<rect x="40.0" y="172.0" width="300.0" height="34.0" rx="0" fill="#f4f6f8" stroke="#d7dde6" stroke-width="1.0"/>
+<text x="54.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0b10</text>
+<text x="190.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">SELECT (W) / RESEND (R)</text>
+<rect x="40.0" y="206.0" width="300.0" height="34.0" rx="0" fill="#f4f6f8" stroke="#d7dde6" stroke-width="1.0"/>
+<text x="54.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0b11</text>
+<text x="190.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">RDBUFF (R)</text>
+<text x="420.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a5fb0" text-anchor="start" font-weight="700">MEM-AP — міст до шини</text>
+<rect x="420.0" y="70.0" width="300.0" height="34.0" rx="6" fill="#8a5fb0" stroke="#8a5fb0" stroke-width="1.4"/>
+<text x="434.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start" font-weight="700">адреса A[3:2]</text>
+<text x="570.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start" font-weight="700">регістр (R / W)</text>
+<rect x="420.0" y="104.0" width="300.0" height="34.0" rx="0" fill="#f4f6f8" stroke="#d7dde6" stroke-width="1.0"/>
+<text x="434.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0x00</text>
+<text x="570.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">CSW (R/W) — режим доступу</text>
+<rect x="420.0" y="138.0" width="300.0" height="34.0" rx="0" fill="#f4f6f8" stroke="#d7dde6" stroke-width="1.0"/>
+<text x="434.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0x04</text>
+<text x="570.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">TAR (R/W) — адреса в пам'яті</text>
+<rect x="420.0" y="172.0" width="300.0" height="34.0" rx="0" fill="#f4f6f8" stroke="#d7dde6" stroke-width="1.0"/>
+<text x="434.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0x0C</text>
+<text x="570.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">DRW (R/W) — дані</text>
+<rect x="420.0" y="206.0" width="300.0" height="34.0" rx="0" fill="#f4f6f8" stroke="#d7dde6" stroke-width="1.0"/>
+<text x="434.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0xF8</text>
+<text x="570.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">BASE / IDR — опис AP</text>
+<line x1="340.0" y1="155.0" x2="416.0" y2="86.0" stroke="#c0392b" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="380.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SELECT задає,</text>
+<text x="380.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ЯКИЙ AP і банк</text>
+<text x="40.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">* який саме регістр на 0b01 і 0b10 — залежить від поля DPBANKSEL у SELECT</text>
+<text x="40.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Читання AP запізнюється на крок: значення приходить у наступному читанні або з RDBUFF</text>
+</svg>

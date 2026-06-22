@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ваш код — начинка чужого main()</text>
+<rect x="90.0" y="60.0" width="520.0" height="210.0" rx="6" fill="#f7f7fb" stroke="#6b7280" stroke-width="1.8"/>
+<text x="104.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">main() фреймворку (прихований)</text>
+<rect x="184.0" y="131.2" width="72.1" height="47.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="220.0" y="151.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">setup()</tspan><tspan x="220.0" dy="15.6">(раз)</tspan></text>
+<line x1="256.0" y1="155.0" x2="384.2" y2="155.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="384.2" y="131.2" width="131.6" height="47.6" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/><text x="450.0" y="151.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">loop()</tspan><tspan x="450.0" dy="15.6">(знову й знову)</tspan></text>
+<path d="M496 179 C 570 269, 330 269, 404 179" fill="none" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="450.0" y="264.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">керування виходить і повертається</text>
+<text x="350.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">loop() — не вічний цикл усередині вас; його кличуть щоразу заново</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Internet checksum: сума слів, загорнутий перенос, інверсія</text>
+<rect x="40.0" y="92.0" width="78.0" height="34.0" rx="5" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="79.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x4500</text>
+<text x="122.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="136.0" y="92.0" width="78.0" height="34.0" rx="5" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="175.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x003c</text>
+<text x="218.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="232.0" y="92.0" width="78.0" height="34.0" rx="5" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="271.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x1c46</text>
+<text x="314.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="328.0" y="92.0" width="78.0" height="34.0" rx="5" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="367.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x4000</text>
+<text x="410.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="424.0" y="92.0" width="78.0" height="34.0" rx="5" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="463.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x4006</text>
+<text x="506.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="520.0" y="92.0" width="78.0" height="34.0" rx="5" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="559.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x0000</text>
+<text x="602.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="616.0" y="92.0" width="78.0" height="34.0" rx="5" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="655.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x....</text>
+<text x="40.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">16-бітні слова (тут — поля заголовка IPv4)</text>
+<rect x="191.1" y="151.8" width="337.8" height="32.5" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/><text x="360.0" y="172.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">32-бітний акумулятор: складаємо всі слова</tspan></text>
+<line x1="360.0" y1="130.0" x2="360.0" y2="149.8" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="179.5" y="207.8" width="361.0" height="32.5" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.8"/><text x="360.0" y="228.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">загорнути перенос:  (s &amp; 0xFFFF) + (s &gt;&gt; 16)</tspan></text>
+<line x1="360.0" y1="184.2" x2="360.0" y2="205.8" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="222.1" y="263.8" width="275.8" height="32.5" rx="6" fill="#fff8e8" stroke="#caa24a" stroke-width="2.0"/><text x="360.0" y="284.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">інвертувати (~) → контрольна сума</tspan></text>
+<line x1="360.0" y1="240.2" x2="360.0" y2="261.8" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="360.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">на приймачі додають усі слова РАЗОМ із сумою: правильний пакет дає 0x0000</text>
+</svg>

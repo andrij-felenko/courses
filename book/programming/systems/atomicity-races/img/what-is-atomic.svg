@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атомарна дія неподільна; багатокрокову переривання може розрізати</text>
+<text x="230.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">count++ — три кроки (подільна)</text>
+<rect x="130.0" y="95.0" width="200.0" height="44.0" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="230.0" y="121.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">прочитати</text>
+<rect x="130.0" y="165.0" width="200.0" height="44.0" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="230.0" y="191.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">додати</text>
+<rect x="130.0" y="235.0" width="200.0" height="44.0" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="230.0" y="261.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">записати</text>
+<line x1="230.0" y1="139.0" x2="230.0" y2="163.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="209.0" x2="230.0" y2="233.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="152.0" x2="360.0" y2="222.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,4"/>
+<text x="372.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">переривання</text>
+<text x="372.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">втручається тут</text>
+<line x1="360.0" y1="187.0" x2="332.0" y2="187.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="70.0" x2="430.0" y2="300.0" stroke="#dde2ea" stroke-width="1.5" stroke-dasharray="2,4"/>
+<text x="640.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">читання/запис слова (атомарна)</text>
+<rect x="540.0" y="150.0" width="200.0" height="60.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="640.0" y="184.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">одна неподільна дія</text>
+<text x="640.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">перервати «всередині» ніде</text>
+<rect x="70.0" y="320.0" width="720.0" height="46.6" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="430.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Захищати треба саме БАГАТОКРОКОВІ дії: count++ з обох боків, читання ширшого за слово.</tspan><tspan x="430.0" dy="14.3">Одне читання чи запис вирівняного слова на 32-бітному ESP32 атомарне саме собою.</tspan></text>
+</svg>

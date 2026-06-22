@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 366" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="366" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порахуймо: з 40 МГц — у 240 МГц ядра</text>
+<text x="450.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">множення в PLL, потім ділення під кожен домен — усе цілими числами</text>
+<rect x="250.0" y="78.0" width="400.0" height="44.0" rx="10" fill="#fdf6e3" stroke="#b9851f" stroke-width="1.4"/>
+<text x="450.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">f(домену) = f(кварцу) × N ÷ M</text>
+<text x="118.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">PLL множить</text>
+<rect x="250.0" y="138.0" width="400.0" height="40.0" rx="8" fill="#fbecec" stroke="#c0392b" stroke-width="1.4"/>
+<text x="300.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">40 МГц × 12</text>
+<text x="622.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">= 480 МГц</text>
+<text x="118.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">CPU-дільник</text>
+<rect x="250.0" y="190.0" width="400.0" height="40.0" rx="8" fill="#fbecec" stroke="#c0392b" stroke-width="1.4"/>
+<text x="300.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">480 МГц ÷ 2</text>
+<text x="622.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">= 240 МГц</text>
+<text x="118.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">APB-дільник</text>
+<rect x="250.0" y="242.0" width="400.0" height="40.0" rx="8" fill="#e9eefb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="300.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">480 МГц ÷ 6</text>
+<text x="622.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">= 80 МГц</text>
+<rect x="140.0" y="322.0" width="620.0" height="32.0" rx="6" fill="#eef0f2" stroke="#6b7280" stroke-width="1.2"/><text x="450.0" y="341.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Дільники цілі — точно дістати можна не будь-яку частоту; беруть найближчу.</tspan></text>
+</svg>

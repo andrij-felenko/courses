@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 220" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="220" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один такт регулятора (кожні Δt)</text>
+<rect x="30.0" y="84.0" width="78.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="69.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="69.0" dy="0.0">давач</tspan></text>
+<rect x="128.0" y="84.0" width="78.0" height="52.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="167.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="167.0" dy="0.0">e = r − y</tspan></text>
+<line x1="108.0" y1="110.0" x2="126.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="226.0" y="84.0" width="78.0" height="52.0" rx="6" fill="#eafaf0" stroke="#1a1a1a" stroke-width="1.5"/><text x="265.0" y="106.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="265.0" dy="0.0">I += e·Δt</tspan><tspan x="265.0" dy="14.3">(затиск)</tspan></text>
+<line x1="206.0" y1="110.0" x2="224.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="324.0" y="84.0" width="78.0" height="52.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.5"/><text x="363.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="363.0" dy="0.0">D з виміру</tspan><tspan x="363.0" dy="13.0">(фільтр)</tspan></text>
+<line x1="304.0" y1="110.0" x2="322.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="422.0" y="84.0" width="78.0" height="52.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="461.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="461.0" dy="0.0">u = Σ</tspan></text>
+<line x1="402.0" y1="110.0" x2="420.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="520.0" y="84.0" width="78.0" height="52.0" rx="6" fill="#fdf6e3" stroke="#1a1a1a" stroke-width="1.5"/><text x="559.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="559.0" dy="0.0">затиск u</tspan></text>
+<line x1="500.0" y1="110.0" x2="518.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="618.0" y="84.0" width="78.0" height="52.0" rx="6" fill="#eafaf0" stroke="#1a1a1a" stroke-width="1.5"/><text x="657.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="657.0" dy="0.0">вивід</tspan></text>
+<line x1="598.0" y1="110.0" x2="616.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="370.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">лічені множення й додавання — робота на мікросекунди</text>
+</svg>

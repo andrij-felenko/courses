@@ -20,8 +20,8 @@
 
 Пара `idVendor`/`idProduct` — це те, за чим ОС шукає драйвер. VID (Vendor ID) видає організація USB-IF за гроші, тому в аматорських проектах зазвичай беруть VID чипмейкера (Espressif) або тестові значення. Той самий «ідентифікатор пристрою», про який хост дізнається при [енумерації](book:programming/usb-enumeration), тут постає конкретними байтами в конкретних позиціях.
 
-![18 байтів Device-дескриптора горизонтальною стрічкою клітинок](img/fig-12-3a-1-device-bytes.svg)
-*Рис. 18 байтів Device-дескриптора стрічкою: зони полів, зміщення, приклад little-endian на idVendor.*
+![18 байтів Device-дескриптора горизонтальною стрічкою клітинок](/book/programming/peripherals/usb-enumeration/img/device-bytes.svg)
+*18 байтів Device-дескриптора стрічкою: зони полів, зміщення й приклад little-endian на idVendor — значення 0x3003 лягає як пара 03 30.*
 
 Device-дескриптор не містить усього. Він лише повідомляє: «конфігурацій у мене N». Решту — інтерфейси, кінцеві точки — хост забирає окремим запитом GET_DESCRIPTOR(Configuration), і у відповідь надходить ціле дерево, склеєне в один буфер: Config → Interface → Endpoint(и). Звідси й назва «Configuration tree».
 
@@ -70,7 +70,7 @@ static const uint8_t desc_config[] = {
     1,            // bConfigurationValue  = 1 (індекс конфігурації)
     0x00,         // iConfiguration       = 0 (рядка нема)
     0x80,         // bmAttributes         = 0x80 (bus-powered, без remote-wakeup)
-    50,           // bMaxPower            = 50 × 2 мА = 100 мА (→ §4.12.7)
+    50,           // bMaxPower            = 50 × 2 мА = 100 мА (живлення по USB)
 
     // ── Interface Descriptor (9 байтів) ────────────────────────────────────
     9,            // bLength              = 9
@@ -78,7 +78,7 @@ static const uint8_t desc_config[] = {
     0,            // bInterfaceNumber     = 0
     0,            // bAlternateSetting    = 0
     1,            // bNumEndpoints        = 1 (крім EP0)
-    0xFF,         // bInterfaceClass      = 0xFF vendor-specific (клас → §4.12.5)
+    0xFF,         // bInterfaceClass      = 0xFF vendor-specific (клас інтерфейсу)
     0x00,         // bInterfaceSubClass   = 0
     0x00,         // bInterfaceProtocol   = 0
     0x00,         // iInterface           = 0
@@ -87,7 +87,7 @@ static const uint8_t desc_config[] = {
     7,            // bLength              = 7
     0x05,         // bDescriptorType      = ENDPOINT (0x05)
     0x81,         // bEndpointAddress     = 0x81 (IN, endpoint 1)
-    0x03,         // bmAttributes         = 0x03 (interrupt; тип передачі → §4.12.4)
+    0x03,         // bmAttributes         = 0x03 (interrupt; тип передачі)
     0x08, 0x00,   // wMaxPacketSize       = 8 (LE: low, high)
     10,           // bInterval            = 10 мс (інтервал опитування)
 };
@@ -95,8 +95,8 @@ static const uint8_t desc_config[] = {
 
 Поле `wTotalLength = 25` — ключове: хост читає Config-дескриптор першого разу лише на 9 байтів, дізнається `wTotalLength`, потім робить ще один запит вже на всі 25 байтів і отримує ціле дерево. Якщо `wTotalLength` не відповідає фактичному розміру буфера, хост або урізає дерево, або отримує сміттєві байти — інтерфейс і кінцева точка «зникають».
 
-![Три дескриптори склеєні в один буфер 25 байтів і роль wTotalLength](img/fig-12-3a-2-config-tree.svg)
-*Рис. Дерево конфігурації в одному буфері: Config→Interface→Endpoint і охоплювальна роль wTotalLength.*
+![Три дескриптори склеєні в один буфер 25 байтів і роль wTotalLength](/book/programming/peripherals/usb-enumeration/img/config-tree.svg)
+*Дерево конфігурації в одному буфері: Config → Interface → Endpoint і охоплювальна роль wTotalLength, яке хост читає першим.*
 
 **Колбеки TinyUSB — де масиви «віддаються» хосту**
 
@@ -131,5 +131,3 @@ uint8_t const *tud_descriptor_configuration_cb(uint8_t index) {
 - **`bMaxPower` — не косметика.** Значення × 2 мА мусить відповідати реальному споживанню пристрою. Хост (особливо через хаб) може відмовити, якщо пристрій запитує більше, ніж порт здатен дати; детально — у [живленні по USB](book:programming/usb-power).
 
 - **Не плутати рівні.** Ці байти — лише вміст відповіді. Саму передачу — квитування, повтори, кадри по 1 мс — виконує [апаратний USB-блок](book:programming/esp32-usb) ESP32-S2/S3 разом зі стеком, а самі [типи передач](book:programming/usb-endpoints) описано окремо. Наше завдання тут — правильно заповнити буфер.
-
-> ▶️ Повернутися до теми: [Енумерація USB](book:programming/usb-enumeration)

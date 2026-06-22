@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія правильного обробника</text>
+<rect x="110.0" y="70.0" width="500.0" height="120.0" rx="10" fill="#0f1115" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="140" y="102" font-family="Consolas, monospace" font-size="15" fill="#e8e8e8" font-weight="bold">volatile uint32_t pulses = 0;</text>
+<text x="140" y="128" font-family="Consolas, monospace" font-size="15" fill="#e8e8e8" font-weight="bold">void IRAM_ATTR onPulse() {</text>
+<text x="140" y="154" font-family="Consolas, monospace" font-size="15" fill="#e8e8e8" font-weight="bold">  pulses++;</text>
+<text x="140" y="180" font-family="Consolas, monospace" font-size="15" fill="#e8e8e8" font-weight="bold">}</text>
+<rect x="60.0" y="220.0" width="180.0" height="76.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.6"/><text x="150.0" y="248.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">1 · volatile</tspan><tspan x="150.0" dy="13.0">спільну змінну</tspan><tspan x="150.0" dy="13.0">не «оптимізують»</tspan></text>
+<rect x="270.0" y="220.0" width="180.0" height="76.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/><text x="360.0" y="248.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">2 · IRAM_ATTR</tspan><tspan x="360.0" dy="13.0">обробник у RAM —</tspan><tspan x="360.0" dy="13.0">працює при зайнятому флеші</tspan></text>
+<rect x="480.0" y="220.0" width="180.0" height="76.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/><text x="570.0" y="248.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">3 · коротке тіло</tspan><tspan x="570.0" dy="13.0">лише лічильник;</tspan><tspan x="570.0" dy="13.0">жодних delay/Serial/malloc</tspan></text>
+<text x="360.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">4 · уся важка робота винесена в loop()</text>
+</svg>

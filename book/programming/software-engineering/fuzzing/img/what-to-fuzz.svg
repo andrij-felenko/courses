@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що добре і що кепсько фаззити</text>
+<rect x="30.0" y="78.0" width="380.0" height="222.0" rx="12" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="220.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">добре фаззити</text>
+<text x="220.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">вхід → результат, без стану збоку</text>
+<line x1="50.0" y1="138.0" x2="390.0" y2="138.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="4 3"/>
+<text x="52.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">+  парсер протоколу чи кадру</text>
+<text x="52.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">+  декодер формату (JPEG, JSON, шрифт)</text>
+<text x="52.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">+  розбір недовіреного вводу ззовні</text>
+<text x="52.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">+  чиста функція: той самий вхід → той самий вихід</text>
+<text x="52.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">+  робота з буфером і межами</text>
+<rect x="430.0" y="78.0" width="380.0" height="222.0" rx="12" fill="#fbecec" stroke="#c0392b" stroke-width="2.0"/>
+<text x="620.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">кепсько фаззити</text>
+<text x="620.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">результат залежить не лише від входу</text>
+<line x1="450.0" y1="138.0" x2="790.0" y2="138.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4 3"/>
+<text x="452.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">−  код з прихованим станом між викликами</text>
+<text x="452.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">−  звернення до мережі чи диска</text>
+<text x="452.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">−  залежність від реального заліза / годинника</text>
+<text x="452.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">−  недетермінована логіка (потоки, гонки)</text>
+<text x="452.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">−  повільні операції — крадуть швидкість</text>
+<text x="420.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ідеальна ціль — детермінована функція над недовіреним входом</text>
+</svg>

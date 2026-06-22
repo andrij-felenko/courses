@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому «зник» мій код: що робить оптимізатор</text>
+<text x="280.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">як написано</text>
+<text x="600.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">що згенеровано</text>
+<text x="40.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Згортання сталих</text>
+<rect x="180.0" y="96.0" width="280.0" height="40.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/><text x="196.0" y="119.7" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#eaf6ee" text-anchor="start" font-weight="700">x = 2 + 3;</text>
+<line x1="466.0" y1="116.0" x2="516.0" y2="116.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="524.0" y="96.0" width="196.0" height="40.0" rx="8" fill="#13251a" stroke="#0a120d" stroke-width="1.4"/><text x="540.0" y="119.8" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#7fe0a0" text-anchor="start" font-weight="700">x = 5;</text>
+<text x="524.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">пораховано наперед</text>
+<text x="40.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Мертвий код</text>
+<rect x="180.0" y="172.0" width="280.0" height="40.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/><text x="196.0" y="195.7" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#eaf6ee" text-anchor="start" font-weight="700">int t = a*b; // не вжито</text>
+<line x1="466.0" y1="192.0" x2="516.0" y2="192.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="524.0" y="172.0" width="196.0" height="40.0" rx="8" fill="#13251a" stroke="#0a120d" stroke-width="1.4"/><text x="540.0" y="195.8" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#7fe0a0" text-anchor="start" font-weight="700">(зникло)</text>
+<text x="524.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">ось чому «зник» код</text>
+<text x="40.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Інлайн функції</text>
+<rect x="180.0" y="248.0" width="280.0" height="40.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/><text x="196.0" y="271.7" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#eaf6ee" text-anchor="start" font-weight="700">y = sq(x);</text>
+<line x1="466.0" y1="268.0" x2="516.0" y2="268.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="524.0" y="248.0" width="196.0" height="40.0" rx="8" fill="#13251a" stroke="#0a120d" stroke-width="1.4"/><text x="540.0" y="271.9" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#7fe0a0" text-anchor="start" font-weight="700">y = x*x;</text>
+<text x="524.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">тіло вставлено в виклик</text>
+<rect x="60.0" y="320.0" width="640.0" height="64.0" rx="10" fill="#fff7e6" stroke="#b8860b" stroke-width="1.6"/>
+<text x="380.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Пастка на МК: порожній цикл-затримка зникає, а читання регістра компілятор «кешує».</tspan><tspan x="380.0" dy="13.0">Ліки — volatile: «це може змінитися саме — не оптимізуй доступ».</tspan></text>
+</svg>

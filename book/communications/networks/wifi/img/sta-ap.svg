@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ESP32 по обидва боки Wi-Fi: STA проти AP</text>
+<rect x="40.0" y="70.0" width="320.0" height="250.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="200.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">STA — клієнт (station)</text>
+<rect x="120.0" y="120.0" width="160.0" height="48.0" rx="6" fill="#fff7e6" stroke="#c0392b" stroke-width="1.5"/>
+<text x="200.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">чужа AP (роутер)</text>
+<circle cx="200.0" cy="268.0" r="30.0" fill="#eef3ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="200.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">ESP32</text>
+<line x1="200.0" y1="238.0" x2="200.0" y2="172.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="248.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">заходжу</text>
+<rect x="400.0" y="70.0" width="320.0" height="250.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="560.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">AP — точка доступу</text>
+<circle cx="560.0" cy="150.0" r="30.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="560.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ESP32</text>
+<rect x="480.0" y="248.0" width="160.0" height="48.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="560.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">телефон заходить</text>
+<line x1="560.0" y1="248.0" x2="560.0" y2="184.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">STA — щоб вийти в інтернет; AP — щоб віддати дані напряму. ESP32 уміє й обидва разом (AP+STA).</text>
+</svg>

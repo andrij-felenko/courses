@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">NAND: запасна зона під сильніший код</text>
+<text x="380.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">комірки зношуються й течуть — тому ECC тут не розкіш, а умова роботи</text>
+<text x="60.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">одна фізична сторінка NAND</text>
+<rect x="60.0" y="96.0" width="470.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="295.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">дані сторінки (напр. 2048 байтів)</text>
+<rect x="540.0" y="96.0" width="160.0" height="56.0" rx="6" fill="#fdf3e0" stroke="#b9770e" stroke-width="1.8"/>
+<text x="620.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700">запасна зона</text>
+<text x="620.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle">(ECC + службове)</text>
+<text x="60.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Що більше циклів стирання — то більше бітів «пливе», то сильніший код:</text>
+<rect x="70.0" y="220.0" width="190.0" height="72.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="165.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">свіжа NAND</text>
+<text x="165.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1–4 биті/сектор</text>
+<line x1="260.0" y1="256.0" x2="284.0" y2="256.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="284.0" y="220.0" width="190.0" height="72.0" rx="8" fill="#ffffff" stroke="#b9770e" stroke-width="1.8"/>
+<text x="379.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">середина ресурсу</text>
+<text x="379.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">близько 8/сектор</text>
+<line x1="474.0" y1="256.0" x2="498.0" y2="256.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="498.0" y="220.0" width="190.0" height="72.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="593.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">під кінець ресурсу</text>
+<text x="593.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">24–40 і більше</text>
+<text x="380.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">контролер рахує BCH чи LDPC на стільки бітів; «зношений» накопичувач — це</text>
+<text x="380.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">той, де код уже не встигає виправляти більше помилок, ніж народжується</text>
+</svg>

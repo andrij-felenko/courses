@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 280" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="280" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один бінарний кадр — побайтно</text>
+<rect x="35.0" y="84.0" width="100.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="85.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x7E</text>
+<text x="85.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="85.0" dy="0.0">маркер-</tspan><tspan x="85.0" dy="13.7">початок</tspan></text>
+<rect x="141.0" y="84.0" width="100.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/>
+<text x="191.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x01</text>
+<text x="191.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle"><tspan x="191.0" dy="0.0">ID</tspan><tspan x="191.0" dy="13.7">шаблону</tspan></text>
+<rect x="247.0" y="84.0" width="100.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/>
+<text x="297.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x02</text>
+<text x="297.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="297.0" dy="0.0">довжина</tspan><tspan x="297.0" dy="13.7">n</tspan></text>
+<rect x="353.0" y="84.0" width="100.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="403.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x2E</text>
+<text x="403.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="403.0" dy="0.0">арг. байт 0</tspan></text>
+<rect x="459.0" y="84.0" width="100.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="509.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x09</text>
+<text x="509.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="509.0" dy="0.0">арг. байт 1</tspan></text>
+<rect x="565.0" y="84.0" width="100.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="615.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">XOR</text>
+<text x="615.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="615.0" dy="0.0">контроль</tspan></text>
+<line x1="450.0" y1="84.0" x2="450.0" y2="196.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4 4"/>
+<text x="350.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">int16_t 2350 = 0x092E у пам'яті → [0x2E, 0x09] (little-endian, НЕ ASCII)</text>
+<text x="350.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">маркер і контроль дають ловити межі кадру й помилки на шумній лінії</text>
+</svg>

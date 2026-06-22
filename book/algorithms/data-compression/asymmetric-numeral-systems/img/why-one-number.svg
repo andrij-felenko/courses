@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому одне число несе все: log₂(x) — це накопичені біти</text>
+<line x1="90.0" y1="230.0" x2="90.0" y2="62.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="230.0" x2="630.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="80.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">log₂(x)</text>
+<text x="80.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">(біти)</text>
+<text x="630.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-style="italic">символи →</text>
+<line x1="90.0" y1="230.0" x2="198.0" y2="230.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="198.0" y1="230.0" x2="198.0" y2="209.7" stroke="#27ae60" stroke-width="2.4"/>
+<text x="204.0" y="223.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">+1.0 (A)</text>
+<line x1="198.0" y1="209.7" x2="306.0" y2="209.7" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="306.0" y1="209.7" x2="306.0" y2="189.5" stroke="#27ae60" stroke-width="2.4"/>
+<text x="312.0" y="203.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">+1.0 (A)</text>
+<line x1="306.0" y1="189.5" x2="414.0" y2="189.5" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="414.0" y1="189.5" x2="414.0" y2="142.9" stroke="#2457d6" stroke-width="2.4"/>
+<text x="420.0" y="170.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">+2.3 (B)</text>
+<line x1="414.0" y1="142.9" x2="522.0" y2="142.9" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="522.0" y1="142.9" x2="522.0" y2="70.0" stroke="#8a5fb0" stroke-width="2.4"/>
+<text x="528.0" y="110.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a5fb0" text-anchor="start" font-weight="700">+3.6 (C)</text>
+<text x="98.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">кожен символ додає −log₂(p) біта до log₂(x)</text>
+<rect x="67.9" y="255.0" width="584.2" height="30.0" rx="6" fill="#f2ecf8" stroke="#8a5fb0" stroke-width="1.4"/><text x="360.0" y="273.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">x росте без меж → renormalization зливає молодші байти в потік, тримаючи x у вікні регістра</tspan></text>
+</svg>

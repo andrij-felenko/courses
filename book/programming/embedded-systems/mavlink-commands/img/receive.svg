@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приймання: байти стають готовими повідомленнями</text>
+<text x="40.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">лінк (UART / USB / UDP)</text>
+<rect x="40.0" y="95.0" width="26.0" height="26.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="53.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">FD</text>
+<rect x="70.0" y="95.0" width="26.0" height="26.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="83.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1C</text>
+<rect x="100.0" y="95.0" width="26.0" height="26.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="113.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">00</text>
+<rect x="130.0" y="95.0" width="26.0" height="26.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="143.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">07</text>
+<rect x="160.0" y="95.0" width="26.0" height="26.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="173.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">..</text>
+<rect x="190.0" y="95.0" width="26.0" height="26.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="203.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">5C</text>
+<line x1="224.0" y1="108.0" x2="264.0" y2="108.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="294.0" y="81.9" width="130.0" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="359.0" y="103.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="359.0" dy="0.0">парсер</tspan><tspan x="359.0" dy="18.2">MAVLink</tspan></text>
+<text x="359.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">збирає кадр, звіряє CRC</text>
+<line x1="430.0" y1="108.0" x2="470.0" y2="108.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="476.0" y="69.0" width="235.0" height="92.0" rx="6" fill="#eef4ff" stroke="#c9d6f0" stroke-width="1.5"/><text x="593.5" y="95.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="593.5" dy="0.0">msg = ATTITUDE</tspan><tspan x="593.5" dy="15.6">  msg.roll  = 0.03</tspan><tspan x="593.5" dy="15.6">  msg.pitch = -0.11</tspan><tspan x="593.5" dy="15.6">  msg.yaw   = 1.57</tspan></text>
+<text x="593.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">поля вже розкладені — байти не чіпаємо</text>
+<rect x="40.0" y="215.0" width="215.0" height="44.0" rx="6" fill="#eafaf1" stroke="#bfe6cf" stroke-width="1.5"/><text x="147.5" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="147.5" dy="0.0">1. дочекатися HEARTBEAT</tspan></text>
+<line x1="259.0" y1="237.0" x2="273.0" y2="237.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="273.0" y="215.0" width="215.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="380.5" y="240.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.5" dy="0.0">2. у циклі брати потрібний тип</tspan></text>
+<line x1="492.0" y1="237.0" x2="506.0" y2="237.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="506.0" y="215.0" width="215.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="613.5" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="613.5" dy="0.0">3. читати готові поля</tspan></text>
+</svg>

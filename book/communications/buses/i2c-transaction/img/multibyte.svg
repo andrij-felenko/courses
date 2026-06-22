@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">16-бітне значення з двох регістрів: зібрати в одне число</text>
+<rect x="120.0" y="90.0" width="150.0" height="54.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="195.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">регістр 0x3B</text>
+<text x="195.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x12</text>
+<text x="195.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">старший байт</text>
+<rect x="360.0" y="90.0" width="150.0" height="54.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="435.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">регістр 0x3C</text>
+<text x="435.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x34</text>
+<text x="435.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">молодший байт</text>
+<text x="195.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">&lt;&lt; 8</text>
+<text x="280.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">|</text>
+<line x1="195.0" y1="222.0" x2="560.0" y2="222.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="595.0" y="90.0" width="150.0" height="54.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="670.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">0x1234</text>
+<text x="670.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">= 4660</text>
+<rect x="60.0" y="224.0" width="700.0" height="82.0" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.5"/><text x="410.0" y="254.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">value = (старший &lt;&lt; 8) | молодший = (0x12 &lt;&lt; 8) | 0x34 = 0x1234.</tspan><tspan x="410.0" dy="15.0">Пастка 1 — ПОРЯДОК байтів: інші чіпи дають молодший першим (дістанеш 0x3412).</tspan><tspan x="410.0" dy="15.0">Пастка 2 — ЗНАК: виміри часто від'ємні, тож це int16 у доповняльному коді, не uint16.</tspan></text>
+</svg>

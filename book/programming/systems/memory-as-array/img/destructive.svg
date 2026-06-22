@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Читання, що руйнує — і відновлення</text>
+<rect x="30.0" y="110.0" width="150.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="105.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. було</text>
+<text x="105.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">1</tspan></text>
+<text x="105.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="105.0" dy="0.0">осердя в стані 1</tspan></text>
+<line x1="182.0" y1="145.0" x2="208.0" y2="145.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="210.0" y="110.0" width="150.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="285.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. читаємо</text>
+<text x="285.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="285.0" dy="0.0">→0</tspan></text>
+<text x="285.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="285.0" dy="0.0">силоміць у 0;</tspan><tspan x="285.0" dy="12.3">перемикання дає</tspan><tspan x="285.0" dy="12.3">«клац» у сенс-дроті</tspan></text>
+<line x1="362.0" y1="145.0" x2="388.0" y2="145.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="390.0" y="110.0" width="150.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="465.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. висновок</text>
+<text x="465.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="465.0" dy="0.0">був «клац»</tspan><tspan x="465.0" dy="14.3">= там була 1</tspan></text>
+<text x="465.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="465.0" dy="0.0">нема клацу = був 0</tspan></text>
+<line x1="542.0" y1="145.0" x2="568.0" y2="145.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="570.0" y="110.0" width="150.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="645.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">4. відновлюємо</text>
+<text x="645.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">1</tspan></text>
+<text x="645.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="645.0" dy="0.0">записуємо назад:</tspan><tspan x="645.0" dy="12.3">цикл read-restore</tspan></text>
+<text x="380.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Читання ЗНИЩИЛО значення (осердя тепер у 0), тож одразу його записують назад.</text>
+<text x="380.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Цю саму логіку — прочитав, одразу відновив — успадкувала сучасна DRAM.</text>
+</svg>

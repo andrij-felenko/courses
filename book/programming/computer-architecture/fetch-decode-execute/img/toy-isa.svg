@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Уся «мова» іграшкового процесора: рівно 8 інструкцій</text>
+<rect x="30.0" y="70.0" width="840.0" height="40.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="50.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">код</text>
+<text x="110.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">мнемоніка</text>
+<text x="270.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">байти</text>
+<text x="410.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">що робить</text>
+<text x="770.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">родина</text>
+<rect x="30.0" y="110.0" width="840.0" height="40.0" rx="6" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.1"/>
+<rect x="46.0" y="117.0" width="26.0" height="26.0" rx="6" fill="#f0f0f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="59" y="136" font-family="Consolas, monospace" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">0</text>
+<text x="110" y="136" font-family="Consolas, monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">HLT</text>
+<text x="270" y="136" font-family="Consolas, monospace" font-size="13" fill="#6b7280" text-anchor="start">0  –  –</text>
+<text x="410.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">зупинити машину (running ← 0)</text>
+<text x="770.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">плин</text>
+<rect x="30.0" y="150.0" width="840.0" height="40.0" rx="6" fill="#f7f9fb" stroke="#e4e4e4" stroke-width="1.1"/>
+<rect x="46.0" y="157.0" width="26.0" height="26.0" rx="6" fill="#f0f0f0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="59" y="176" font-family="Consolas, monospace" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="110" y="176" font-family="Consolas, monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">LD  r,n</text>
+<text x="270" y="176" font-family="Consolas, monospace" font-size="13" fill="#6b7280" text-anchor="start">1  r  n</text>
+<text x="410.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">r ← n  (поклади число в регістр)</text>
+<text x="770.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">дані</text>
+<rect x="30.0" y="190.0" width="840.0" height="40.0" rx="6" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.1"/>
+<rect x="46.0" y="197.0" width="26.0" height="26.0" rx="6" fill="#f0f0f0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="59" y="216" font-family="Consolas, monospace" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">2</text>
+<text x="110" y="216" font-family="Consolas, monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">LDM r,a</text>
+<text x="270" y="216" font-family="Consolas, monospace" font-size="13" fill="#6b7280" text-anchor="start">2  r  a</text>
+<text x="410.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">r ← mem[a]  (читати з пам'яті)</text>
+<text x="770.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">дані</text>
+<rect x="30.0" y="230.0" width="840.0" height="40.0" rx="6" fill="#f7f9fb" stroke="#e4e4e4" stroke-width="1.1"/>
+<rect x="46.0" y="237.0" width="26.0" height="26.0" rx="6" fill="#f0f0f0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="59" y="256" font-family="Consolas, monospace" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">3</text>
+<text x="110" y="256" font-family="Consolas, monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">ST  r,a</text>
+<text x="270" y="256" font-family="Consolas, monospace" font-size="13" fill="#6b7280" text-anchor="start">3  r  a</text>
+<text x="410.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">mem[a] ← r  (писати в пам'ять)</text>
+<text x="770.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">дані</text>
+<rect x="30.0" y="270.0" width="840.0" height="40.0" rx="6" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.1"/>
+<rect x="46.0" y="277.0" width="26.0" height="26.0" rx="6" fill="#f0f0f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="59" y="296" font-family="Consolas, monospace" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">4</text>
+<text x="110" y="296" font-family="Consolas, monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">ADD r,s</text>
+<text x="270" y="296" font-family="Consolas, monospace" font-size="13" fill="#6b7280" text-anchor="start">4  r  s</text>
+<text x="410.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">r ← r + s  (рахує АЛП)</text>
+<text x="770.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">арифм.</text>
+<rect x="30.0" y="310.0" width="840.0" height="40.0" rx="6" fill="#f7f9fb" stroke="#e4e4e4" stroke-width="1.1"/>
+<rect x="46.0" y="317.0" width="26.0" height="26.0" rx="6" fill="#f0f0f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="59" y="336" font-family="Consolas, monospace" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">5</text>
+<text x="110" y="336" font-family="Consolas, monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">SUB r,s</text>
+<text x="270" y="336" font-family="Consolas, monospace" font-size="13" fill="#6b7280" text-anchor="start">5  r  s</text>
+<text x="410.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">r ← r − s  (заразом для порівнянь)</text>
+<text x="770.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">арифм.</text>
+<rect x="30.0" y="350.0" width="840.0" height="40.0" rx="6" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.1"/>
+<rect x="46.0" y="357.0" width="26.0" height="26.0" rx="6" fill="#f0f0f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="59" y="376" font-family="Consolas, monospace" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">6</text>
+<text x="110" y="376" font-family="Consolas, monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">JMP a</text>
+<text x="270" y="376" font-family="Consolas, monospace" font-size="13" fill="#6b7280" text-anchor="start">6  a  –</text>
+<text x="410.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">ip ← a  (безумовний стрибок)</text>
+<text x="770.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">плин</text>
+<rect x="30.0" y="390.0" width="840.0" height="40.0" rx="6" fill="#f7f9fb" stroke="#e4e4e4" stroke-width="1.1"/>
+<rect x="46.0" y="397.0" width="26.0" height="26.0" rx="6" fill="#f0f0f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="59" y="416" font-family="Consolas, monospace" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">7</text>
+<text x="110" y="416" font-family="Consolas, monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">JNZ r,a</text>
+<text x="270" y="416" font-family="Consolas, monospace" font-size="13" fill="#6b7280" text-anchor="start">7  r  a</text>
+<text x="410.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">якщо r≠0 → ip ← a  (цикл/гілка)</text>
+<text x="770.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">плин</text>
+<rect x="30.0" y="70.0" width="840.0" height="360.0" rx="6" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="270" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Семафор: дзвоник події (виносить роботу з ISR)</text>
+<rect x="76.5" y="66.2" width="87.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="120.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">ISR</tspan><tspan x="120.0" dy="15.6">(коротка)</tspan></text>
+<rect x="321.8" y="93.5" width="76.4" height="33.0" rx="6" fill="#fdf6e3" stroke="#b8860b" stroke-width="2.0"/><text x="360.0" y="114.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">семафор</tspan></text>
+<rect x="560.2" y="66.2" width="79.5" height="47.6" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/><text x="600.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">задача-</tspan><tspan x="600.0" dy="15.6">обробник</tspan></text>
+<line x1="163.5" y1="100.0" x2="319.8" y2="105.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="242.6" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">дає («сталося!»)</text>
+<line x1="400.2" y1="105.0" x2="558.2" y2="100.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="479.2" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">будить</text>
+<text x="600.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="600.0" dy="0.0">спала на ньому →</tspan><tspan x="600.0" dy="13.0">прокинулась і працює</tspan></text>
+<line x1="60.0" y1="200.0" x2="660.0" y2="200.0" stroke="#dddddd" stroke-width="1.2"/>
+<text x="360.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">бінарний — є/нема сигналу · лічильний — рахує вільні одиниці ресурсу</text>
+<text x="360.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">семафор передає СИГНАЛ, не дані</text>
+</svg>

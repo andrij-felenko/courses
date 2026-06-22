@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 442" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="442" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок байтів на практиці: коли кусає і як із ним жити</text>
+<rect x="60.0" y="80.0" width="380.0" height="300.0" rx="10" fill="#fdf6f6" stroke="#c0392b" stroke-width="1.6"/>
+<text x="250.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Коли кусає</text>
+<text x="78.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">✘ Читаєш багатобайтове значення</text>
+<text x="96.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">побайтно: файл, пакет, регістр давача</text>
+<text x="78.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">✘ Обмін між машинами</text>
+<text x="96.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">різної ендіанності — байти переставляться</text>
+<text x="78.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">✘ Hex-дамп «задом наперед»</text>
+<text x="96.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">на little-endian: 0x1234 → «34 12»</text>
+<text x="78.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">✘ Невідповідність у протоколі</text>
+<text x="96.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">відправник BE, отримувач LE → сміття</text>
+<rect x="460.0" y="80.0" width="380.0" height="300.0" rx="10" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="650.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Як із цим жити</text>
+<text x="478.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">✔ Мережевий порядок = big-endian</text>
+<text x="496.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">htons/htonl/ntohs/ntohl переставляють байти</text>
+<text x="478.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">✔ Даташит каже порядок</text>
+<text x="496.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">MSB-first чи LSB-first — читай і дотримуйся</text>
+<text x="478.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">✔ Складай число явно з байтів</text>
+<text x="496.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">v = b0 | (b1&lt;&lt;8) | (b2&lt;&lt;16) | (b3&lt;&lt;24)</text>
+<text x="478.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">✔ Усередині машини — байдуже</text>
+<text x="496.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ендіанність невидима, поки байти «вдома»</text>
+<text x="450.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Золоте правило: складай багатобайтові значення явними зсувами — і код працюватиме на будь-якій машині.</text>
+</svg>

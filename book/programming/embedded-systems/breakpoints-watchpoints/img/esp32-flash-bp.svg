@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ESP32: OpenOCD дає «програмний» брейк навіть у Flash</text>
+<rect x="43.0" y="88.5" width="130.0" height="43.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="108.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="108.0" dy="0.0">break</tspan><tspan x="108.0" dy="13.0">flash_func</tspan></text>
+<rect x="187.0" y="88.5" width="130.0" height="43.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="252.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="252.0" dy="0.0">апаратні</tspan><tspan x="252.0" dy="13.0">скінчились?</tspan></text>
+<line x1="173.0" y1="110.0" x2="187.0" y2="110.0" stroke="#6b7280" stroke-width="1.9" marker-end="url(#arrow)"/>
+<rect x="331.0" y="88.5" width="130.0" height="43.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/><text x="396.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="396.0" dy="0.0">прочитати</tspan><tspan x="396.0" dy="13.0">сторінку Flash</tspan></text>
+<line x1="317.0" y1="110.0" x2="331.0" y2="110.0" stroke="#6b7280" stroke-width="1.9" marker-end="url(#arrow)"/>
+<rect x="475.0" y="88.5" width="130.0" height="43.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="540.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">вписати BREAK,</tspan><tspan x="540.0" dy="13.0">перепрошити</tspan></text>
+<line x1="461.0" y1="110.0" x2="475.0" y2="110.0" stroke="#6b7280" stroke-width="1.9" marker-end="url(#arrow)"/>
+<rect x="619.0" y="88.5" width="130.0" height="43.0" rx="6" fill="#fbfdfb" stroke="#27ae60" stroke-width="1.8"/><text x="684.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="684.0" dy="0.0">ядро спиниться</tspan><tspan x="684.0" dy="13.0">на BREAK</tspan></text>
+<line x1="605.0" y1="110.0" x2="619.0" y2="110.0" stroke="#6b7280" stroke-width="1.9" marker-end="url(#arrow)"/>
+<rect x="60.0" y="170.0" width="300.0" height="110.0" rx="12" fill="#fbfdfb" stroke="#27ae60" stroke-width="1.8"/>
+<text x="210.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Чим платимо</text>
+<text x="78.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• час на стирання+запис сторінки</text>
+<text x="78.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• ресурс стирань Flash</text>
+<text x="78.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• до 32 таких у Flash + 32 в IRAM</text>
+<rect x="400.0" y="170.0" width="320.0" height="110.0" rx="12" fill="#fff6f5" stroke="#c0392b" stroke-width="1.8"/>
+<text x="560.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пастка FreeRTOS</text>
+<text x="418.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">вартовий кінця стека з'їдає</text>
+<text x="418.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">один із ДВОХ вотчпоінтів —</text>
+<text x="418.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">тоді твій watch без ресурсу</text>
+<text x="418.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">(CONFIG_FREERTOS_WATCHPOINT_…)</text>
+<text x="380.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Тому «у Flash тільки апаратні» — міф для ESP32: бар'єр обходить перепрошивання сторінки.</text>
+</svg>

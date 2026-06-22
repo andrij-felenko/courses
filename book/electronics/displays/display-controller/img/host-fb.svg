@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 280" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="280" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр «у МК»: хост-буфер + дурна панель</text>
+<rect x="40.0" y="70.0" width="360.0" height="170.0" rx="6" fill="#fff3f1" stroke="#c0392b" stroke-width="2.2"/>
+<text x="220.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">МІКРОКОНТРОЛЕР</text>
+<rect x="60.0" y="110.0" width="150.0" height="100.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="135.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">RAM</text>
+<text x="135.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кадровий буфер</text>
+<text x="135.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(великий шмат)</text>
+<rect x="240.0" y="110.0" width="140.0" height="60.0" rx="6" fill="#f6f4ec" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="310.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">LTDC</text>
+<text x="310.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(двигун)</text>
+<line x1="210.0" y1="145.0" x2="238.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="225.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">через DMA</text>
+<rect x="470.0" y="90.0" width="180.0" height="130.0" rx="6" fill="#eaf3ff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="560.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">ДУРНА ПАНЕЛЬ</text>
+<text x="560.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">лише скло,</text>
+<text x="560.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">без пам'яті</text>
+<line x1="400.0" y1="140.0" x2="468.0" y2="150.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="434.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">безперервний</text>
+<text x="434.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">потік кадрів</text>
+<text x="350.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Повний контроль над кожним пікселем — ціною швидкої RAM і безупинної шини</text>
+</svg>

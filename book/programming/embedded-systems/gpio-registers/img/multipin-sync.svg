@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один масковий запис підіймає кілька ніжок СИНХРОННО</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">послідовні digitalWrite зсувають фронти на мікросекунди</text>
+<text x="60.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">4× digitalWrite — врозкид:</text>
+<text x="138.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">GPIO2</text>
+<polyline points="150,110 220,110 220,90 710,90" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="220" y1="90" x2="220" y2="104" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="138.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">GPIO3</text>
+<polyline points="150,146 290,146 290,126 710,126" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="290" y1="126" x2="290" y2="104" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="138.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">GPIO4</text>
+<polyline points="150,182 360,182 360,162 710,162" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="360" y1="162" x2="360" y2="104" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="138.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">GPIO5</text>
+<polyline points="150,218 430,218 430,198 710,198" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="430" y1="198" x2="430" y2="104" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="220.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">фронти розповзаються →</text>
+<text x="60.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1× масковий запис — разом:</text>
+<text x="138.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">GPIO2</text>
+<polyline points="150,306 300,306 300,286 710,286" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<text x="138.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">GPIO3</text>
+<polyline points="150,332 300,332 300,312 710,312" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<text x="138.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">GPIO4</text>
+<polyline points="150,358 300,358 300,338 710,338" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<text x="138.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">GPIO5</text>
+<polyline points="150,384 300,384 300,364 710,364" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="300" y1="292" x2="300" y2="390" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="310.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">спільний фронт</text>
+<text x="150.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">GPIO.out_w1ts = (1&lt;&lt;2)|(1&lt;&lt;3)|(1&lt;&lt;4)|(1&lt;&lt;5);</text>
+</svg>

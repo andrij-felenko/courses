@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що всередині тригера: апаратне рукостискання й ключ навантаження</text>
+<text x="70.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">вхід</text>
+<rect x="65.0" y="95.0" width="60.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="95.0" y="113.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="95.0" dy="0.0">USB-C</tspan></text>
+<text x="95.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle">CC1 / CC2</text>
+<text x="95.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">VBUS</text>
+<rect x="200.0" y="60.0" width="330.0" height="240.0" rx="6" fill="#f6fbf6" stroke="#27ae60" stroke-width="2.0"/>
+<text x="365.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ТРИГЕР (sink-контролер)</text>
+<rect x="224.0" y="106.0" width="282.0" height="48.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.4"/><text x="365.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="365.0" dy="0.0">апаратний PD-рушій</tspan><tspan x="365.0" dy="14.3">сам робить рукостискання</tspan></text>
+<rect x="224.0" y="166.0" width="282.0" height="48.0" rx="6" fill="#eef3fb" stroke="#333333" stroke-width="1.4"/><text x="365.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="365.0" dy="0.0">список бажаних PDO</tspan><tspan x="365.0" dy="14.3">12 В → 9 В → 5 В (NVM/перемички)</tspan></text>
+<rect x="224.0" y="226.0" width="282.0" height="48.0" rx="6" fill="#fff7e6" stroke="#333333" stroke-width="1.4"/><text x="365.0" y="246.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="365.0" dy="0.0">контроль VBUS-ключа</tspan><tspan x="365.0" dy="14.3">замикає лише по power-good</tspan></text>
+<line x1="150.0" y1="130.0" x2="198.0" y2="130.0" stroke="#b8860b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="200.0" x2="198.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="250.0" x2="570.0" y2="250.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="550.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">12 В</text>
+<rect x="560.0" y="234.5" width="120.0" height="31.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="620.0" y="253.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Навантаження</tspan></text>
+<text x="360.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">розробник раз обирає, що просити, і пише нуль коду</text>
+</svg>

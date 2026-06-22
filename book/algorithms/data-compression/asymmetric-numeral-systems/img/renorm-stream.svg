@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Renormalization потоком байтів: x завжди у вікні [L, b·L)</text>
+<line x1="200.0" y1="70.0" x2="200.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="140.0" y1="70.0" x2="260.0" y2="70.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="140.0" y1="250.0" x2="260.0" y2="250.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="270.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">b·L  (стеля)</text>
+<text x="270.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">L  (дно)</text>
+<rect x="160.0" y="78.0" width="80.0" height="164.0" rx="6" fill="#f2ecf8" stroke="#8a5fb0" stroke-width="1.4"/>
+<text x="200.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5fb0" text-anchor="middle" font-weight="700">робоче</text>
+<text x="200.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5fb0" text-anchor="middle" font-weight="700">вікно x</text>
+<rect x="427.2" y="87.3" width="265.5" height="45.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="560.0" y="106.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">кодер: x перевалив стелю →</tspan><tspan x="560.0" dy="14.3">злий молодший байт у потік (x ÷ 256)</tspan></text>
+<line x1="244.0" y1="100.0" x2="430.0" y2="110.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="423.8" y="177.3" width="272.3" height="45.3" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.4"/><text x="560.0" y="196.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">декодер: x присів під дно →</tspan><tspan x="560.0" dy="14.3">підтягни байт із потоку (x · 256 + b)</tspan></text>
+<line x1="244.0" y1="220.0" x2="430.0" y2="200.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="360.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">renormalization тримає x у вузькому вікні — скінченний регістр, нескінченний потік</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Задача: m = m + R1  (число m лежить у пам'яті)</text>
+<rect x="60.0" y="80.0" width="300.0" height="220.0" rx="10" fill="#f3f5fd" stroke="#1f47b5" stroke-width="2.0"/>
+<text x="210.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1f47b5" text-anchor="middle" font-weight="700">CISC — одна команда</text>
+<rect x="84.0" y="124.0" width="252.0" height="40.0" rx="6" fill="#ffffff" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="210.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ADD [m], R1</text>
+<text x="210.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">ця одна команда сама:</text>
+<text x="100.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. читає m з пам'яті</text>
+<text x="100.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. додає R1</text>
+<text x="100.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. пише суму назад у m</text>
+<text x="210.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f47b5" text-anchor="middle" font-weight="700">коротко в коді · важко й довго виконати</text>
+<rect x="400.0" y="80.0" width="300.0" height="220.0" rx="10" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2.0"/>
+<text x="550.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="700">RISC — три прості команди</text>
+<rect x="420.0" y="124.0" width="260.0" height="32.0" rx="6" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="434.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">LD  R2, [m]</text>
+<text x="550.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">; завантажити m у регістр</text>
+<rect x="420.0" y="164.0" width="260.0" height="32.0" rx="6" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="434.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">ADD R2, R1</text>
+<text x="550.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">; додати в регістрах</text>
+<rect x="420.0" y="204.0" width="260.0" height="32.0" rx="6" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="434.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">ST  [m], R2</text>
+<text x="550.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">; зберегти назад</text>
+<text x="550.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle" font-weight="700">кожна проста · ~1 такт · легко в конвеєр</text>
+<text x="380.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">У RISC пам'ять чіпають ЛИШЕ LD і ST; обчислення — між регістрами (load/store).</text>
+<text x="380.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Та сама робота: CISC економить рядки коду, RISC — складність заліза.</text>
+</svg>

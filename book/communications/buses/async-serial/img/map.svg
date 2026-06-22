@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві осі рішень — і де на них сидить UART</text>
+<rect x="230.0" y="90.0" width="230.0" height="150.0" rx="6" fill="#fbfbfc" stroke="#c8ccd0" stroke-width="1.4"/>
+<rect x="230.0" y="240.0" width="230.0" height="150.0" rx="6" fill="#fbfbfc" stroke="#c8ccd0" stroke-width="1.4"/>
+<rect x="460.0" y="90.0" width="230.0" height="150.0" rx="6" fill="#fbfbfc" stroke="#c8ccd0" stroke-width="1.4"/>
+<rect x="460.0" y="240.0" width="230.0" height="150.0" rx="6" fill="#fbfbfc" stroke="#c8ccd0" stroke-width="1.4"/>
+<text x="460.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">одна лінія даних → →  багато ліній</text>
+<text x="212" y="240" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11.5" fill="#6b7280" text-anchor="middle" transform="rotate(-90 212 240)">є дріт такту ↑   немає такту ↓</text>
+<rect x="236.0" y="96.0" width="218.0" height="138.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="345.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Синхронна послідовна</text>
+<text x="345.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SPI, I²C</text>
+<text x="345.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дані + такт</text>
+<rect x="466.0" y="96.0" width="218.0" height="138.0" rx="6" fill="#f2f3f5" stroke="#6b7280" stroke-width="1.8"/>
+<text x="575.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Паралельна з тактом</text>
+<text x="575.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">шини пам'яті</text>
+<text x="575.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">коротко, швидко</text>
+<rect x="236.0" y="246.0" width="218.0" height="138.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="345.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Асинхронна послідовна</text>
+<text x="345.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UART ←</text>
+<text x="345.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">старт-стоп, без такту</text>
+<rect x="466.0" y="246.0" width="218.0" height="138.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="575.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Асинхронна паралельна</text>
+<text x="575.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">майже не вживають:</text>
+<text x="575.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">перекіс ліній</text>
+<rect x="70.0" y="410.0" width="580.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="431.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">UART — у клітині «асинхронна послідовна»: одна лінія на напрям, без дроту</tspan><tspan x="360.0" dy="15.6">такту, синхронізація старт-стопом. Сусіди — синхронні шини з дротом такту.</tspan></text>
+</svg>

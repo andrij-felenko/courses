@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Фігури до вставки «Body-діод у ключі навантаження».
+"""Фігури теми «Load switch» та вставки «Body-діод у ключі навантаження».
+  load-switch.md   →  load-switch.svg, gate-limit.svg
+  comp-body-diode.md →  body-diode.svg, back-to-back.svg
 Запуск:  python figs.py   → пише SVG у ./img/
 Стиль і помічники — зі спільного svgkit (НЕ переписувати тут)."""
 import sys, os
@@ -128,7 +130,113 @@ def fig_back_to_back():
     render(os.path.join(IMG, "back-to-back.svg"), W, H, *f)
 
 
+def gnd(cx, y, label="GND"):
+    """Символ землі: штрихи, що звужуються."""
+    out = [line(cx, y, cx, y + 7, color=INK, sw=1.8)]
+    out.append(line(cx - 13, y + 7, cx + 13, y + 7, color=INK, sw=2.4))
+    out.append(line(cx - 8, y + 12, cx + 8, y + 12, color=INK, sw=2.0))
+    out.append(line(cx - 3, y + 17, cx + 3, y + 17, color=INK, sw=1.8))
+    if label:
+        out.append(text(cx, y + 32, label, size=11, color=INK, bold=True))
+    return "".join(out)
+
+
+def nmos_small(cx, cy, label="Q2"):
+    """Маленький N-ключ: квадрат каналу, стік угорі, витік унизу (на GND)."""
+    out = [rect(cx - 22, cy - 26, 44, 52, fill="#eef6ef", stroke=FIELD, sw=2, rx=6)]
+    out.append(text(cx, cy - 11, label, size=13, bold=True, color=FIELD))
+    out.append(text(cx, cy + 14, "n", size=11, color=MUTED))
+    return "".join(out)
+
+
+# ── 3. Схема ключа: P-MOS + підтяжка + n-ключ Q2 від логіки ──────────────────
+def fig_load_switch():
+    W, H = 720, 430
+    f = [text(W / 2, 28, "Ключ живлення на P-MOS: підтяжка тримає вимкненим, n-ключ перекидає затвор від логіки",
+              size=14, bold=True)]
+
+    # +Vin рейка (червона) і GND рейка
+    railY, gndY = 70, 372
+    f.append(line(90, railY, 560, railY, color=POS, sw=2.4))
+    f.append(text(84, railY + 4, "+Vin", size=12, color=POS, bold=True, anchor="end"))
+    f.append(line(90, gndY, 560, gndY, color=INK, sw=2))
+
+    # P-MOS праворуч: витік (S) на +Vin, стік (D) на навантаження
+    px, py = 440, 175
+    f.append(pmos(px, py, on=True, label="P-MOS"))
+    f.append(line(px, railY, px, py - 30, color=INK, sw=2))     # S → +Vin
+    f.append(circle(px, railY, 3, fill=INK, stroke=INK))
+    f.append(text(px + 32, py - 18, "S", size=11, color=INK, anchor="start"))
+    f.append(text(px + 32, py + 22, "D", size=11, color=INK, anchor="start"))
+    # стік → навантаження → GND
+    f.append(line(px, py + 30, px, py + 70, color=INK, sw=2))
+    f.append(rect(px - 30, py + 70, 60, 50, fill="#e9edf2", stroke=LINE, sw=1.6, rx=4))
+    f.append(text(px, py + 99, "вузол", size=11, color=INK))
+    f.append(line(px, py + 120, px, gndY, color=INK, sw=2))
+
+    # затвор P-MOS ліворуч; підтяжка Rпу від затвора до +Vin
+    gx = px - 80
+    f.append(line(px - 26, py, gx, py, color=INK, sw=2))
+    f.append(circle(gx, py, 3, fill=INK, stroke=INK))
+    f.append(text(px - 26, py - 12, "G", size=11, color=INK, anchor="end"))
+    # Rпу: вертикальний резистор від затвора вгору до +Vin
+    rx, ryc = gx, (railY + py) / 2
+    f.append(rect(rx - 8, ryc - 20, 16, 40, fill="#ffffff", stroke=INK, sw=1.6, rx=2))
+    f.append(text(rx - 14, ryc + 4, "Rпу", size=11, color=INK, anchor="end"))
+    f.append(line(rx, railY, rx, ryc - 20, color=INK, sw=2))
+    f.append(circle(rx, railY, 3, fill=INK, stroke=INK))
+    f.append(line(rx, ryc + 20, rx, py, color=INK, sw=2))
+
+    # n-ключ Q2: стік до затвора P-MOS, витік на GND
+    qx, qy = gx, py + 95
+    f.append(nmos_small(qx, qy, "Q2"))
+    f.append(line(qx, py, qx, qy - 26, color=INK, sw=2))
+    f.append(line(qx, qy + 26, qx, gndY, color=INK, sw=2))
+    f.append(circle(qx, gndY, 3, fill=INK, stroke=INK))
+
+    # логічний вхід → затвор Q2 (зліва)
+    f.append(rect(110, qy - 18, 84, 36, fill="#eef6ef", stroke=FIELD, sw=1.6, rx=6))
+    f.append(text(152, qy + 4, "лог. вхід", size=11, color=INK, bold=True))
+    f.append(arrow(194, qy, qx - 22, qy, color=FIELD, sw=2))
+
+    # нижній підсумок у рамці
+    b, _, _ = textbox(W / 2, gndY + 38,
+                      "лог. 1 → Q2 відкрив → затвор P-MOS донизу → Vgs ≈ −Vin → P-MOS відкрив → живлення є.\n"
+                      "лог. 0 → Q2 закрив → Rпу підтягла затвор до витоку → Vgs = 0 → ВИМКНЕНО.",
+                      size=11, fill="#f4f6f8", stroke=MUTED)
+    f.append(b)
+    render(os.path.join(IMG, "load-switch.svg"), W, H, *f)
+
+
+# ── 4. Берегти затвор при високому Vin: дві панелі ───────────────────────────
+def fig_gate_limit():
+    W, H = 700, 300
+    f = [text(W / 2, 26, "Високе Vin: затвор P-MOS треба берегти", size=15, bold=True)]
+
+    # ліва панель — небезпека
+    f.append(rect(28, 50, 312, 226, fill=BG, stroke=POS, sw=1.8, rx=10))
+    f.append(text(184, 74, "небезпека: Vin = 24 В", size=12.5, bold=True, color=INK))
+    f.append(text(184, 102, "затвор тягнемо до 0 В", size=11, color=INK))
+    f.append(text(184, 130, "Vgs = 0 − 24 = −24 В", size=13, bold=True, color=POS))
+    f.append(text(184, 158, "межа затвора ≈ ±20 В", size=11, color=INK))
+    f.append(text(184, 192, "✗ пробій оксиду затвора", size=12, bold=True, color=POS))
+    f.append(text(184, 220, "(ізолятор у кілька десятків нм)", size=10, color=MUTED))
+
+    # права панель — захист
+    f.append(rect(360, 50, 312, 226, fill=BG, stroke=FIELD, sw=1.8, rx=10))
+    f.append(text(516, 74, "захист: обмежити Vgs", size=12.5, bold=True, color=INK))
+    f.append(text(516, 100, "стабілітрон затвір–витік", size=11, color=FIELD, bold=True))
+    f.append(text(516, 118, "або дільник у колі затвора", size=11, color=FIELD, bold=True))
+    f.append(text(516, 148, "тримають |Vgs| ≈ 10–12 В", size=12, color=INK))
+    f.append(text(516, 184, "✓ затвор цілий,", size=12, bold=True, color=FIELD))
+    f.append(text(516, 206, "P-MOS усе одно відкритий повністю", size=10.5, color=INK))
+    f.append(text(516, 232, "(досить ~10 В перевищення)", size=10, color=MUTED))
+    render(os.path.join(IMG, "gate-limit.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_body_diode()
     fig_back_to_back()
-    print("OK: 2 figures ->", IMG)
+    fig_load_switch()
+    fig_gate_limit()
+    print("OK: 4 figures ->", IMG)

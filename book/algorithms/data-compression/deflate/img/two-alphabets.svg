@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">DEFLATE: дві абетки, два дерева</text>
+<rect x="50.0" y="78.5" width="300.0" height="33.0" rx="6" fill="#f3c6bf" stroke="#c0392b" stroke-width="1.9"/><text x="200.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">абетка 1: літери + довжини</tspan></text>
+<text x="60.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">0…255 — літери (байти)</text>
+<text x="60.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">256 — кінець блоку</text>
+<text x="60.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">257…285 — довжини збігу 3…258</text>
+<rect x="410.0" y="78.5" width="240.0" height="33.0" rx="6" fill="#cfe0f5" stroke="#2457d6" stroke-width="1.9"/><text x="530.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">абетка 2: відступи</tspan></text>
+<text x="425.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">0…29 — код відступу</text>
+<text x="425.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">відступ 1…32768</text>
+<text x="425.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">(+ додаткові біти)</text>
+<line x1="350.0" y1="70.0" x2="350.0" y2="230.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="350.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">довжина і відступ ідуть парою: довжина — з абетки 1, відступ — з абетки 2</text>
+<text x="350.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кожна абетка — своє дерево Гаффмана; декодер знає, котре зараз читати</text>
+</svg>

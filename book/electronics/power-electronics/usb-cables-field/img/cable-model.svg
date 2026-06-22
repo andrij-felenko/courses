@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель падіння на кабелі: дві жили — туди й назад</text>
+<rect x="60.0" y="116.0" width="124.0" height="116.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="122.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">джерело</text>
+<text x="122.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">5.0 В</text>
+<rect x="536.0" y="116.0" width="124.0" height="116.0" rx="10" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="598.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">пристрій</text>
+<text x="598.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Vпр</text>
+<text x="598.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">= 5 − ΔV</text>
+<line x1="184.0" y1="142.0" x2="320.0" y2="142.0" stroke="#b8860b" stroke-width="3.0"/>
+<rect x="320.0" y="125.0" width="70.0" height="34.0" rx="4" fill="#ffffff" stroke="#b8860b" stroke-width="1.8"/>
+<text x="355.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700">Rжили</text>
+<line x1="390.0" y1="142.0" x2="536.0" y2="142.0" stroke="#b8860b" stroke-width="3.0"/>
+<line x1="228.0" y1="142.0" x2="288.0" y2="142.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="258.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">I →</text>
+<text x="355.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">VBUS (туди)</text>
+<line x1="184.0" y1="206.0" x2="320.0" y2="206.0" stroke="#1a1a1a" stroke-width="3.0"/>
+<rect x="320.0" y="189.0" width="70.0" height="34.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="355.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Rжили</text>
+<line x1="390.0" y1="206.0" x2="536.0" y2="206.0" stroke="#1a1a1a" stroke-width="3.0"/>
+<line x1="452.0" y1="206.0" x2="392.0" y2="206.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="422.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">← I</text>
+<text x="355.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">GND (назад)</text>
+<rect x="130.0" y="290.0" width="460.0" height="66.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="360.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Rкаб = 2 · (L · ρ) + Rконтактів      ΔV = I · Rкаб</text>
+<text x="360.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">струм біжить туди по VBUS і назад по GND — тому опір ПОДВІЙНИЙ</text>
+</svg>

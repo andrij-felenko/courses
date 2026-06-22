@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Роздільність — це крок: millis() по 1 мс, micros() тонше</text>
+<text x="460.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">значення міняється сходинками; дрібніший крок ловить коротші проміжки</text>
+<text x="70.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">millis()</text>
+<polyline points="90,200 220,200 220,168 350,168 350,136 480,136 480,104 610,104" fill="none" stroke="#27ae60" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="155.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">крок 1 мс</text>
+<polyline points="90,320 110,316 130,312 150,308 170,304 190,300 210,296 230,292 250,288 270,284 290,280 310,276 330,272 350,268 370,264 390,260 410,256 430,252 450,248 470,244 490,240 510,236 530,232 550,228 570,224 590,220 610,216" fill="none" stroke="#2457d6" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="70.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">micros()</text>
+<text x="340.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">крок ~1 мкс — у 1000× дрібніший</text>
+<rect x="645.0" y="110.0" width="250.0" height="130.0" rx="10" fill="#ffffff" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="770.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що обрати:</text>
+<text x="662.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• інтервали від мс — millis()</text>
+<text x="662.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• короткі чи точні — micros()</text>
+<text x="662.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">на Uno крок micros ~4 мкс,</text>
+<text x="672.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">на ESP32 ~1 мкс</text>
+</svg>

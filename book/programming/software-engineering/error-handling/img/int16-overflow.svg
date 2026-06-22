@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переповнення, що знищило ракету: float64 → int16</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Горизонтальний зсув BH вискочив за межу 16-бітного цілого → Operand Error → зупинка SRI</text>
+<line x1="60.0" y1="195.0" x2="700.0" y2="195.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="698.0" y1="195.0" x2="730.0" y2="195.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="87.0" y="165.0" width="537.0" height="60.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="2.0"/>
+<text x="355.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">безпечний діапазон int16</text>
+<line x1="87.0" y1="185.0" x2="87.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="87.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">−32768</text>
+<line x1="624.0" y1="185.0" x2="624.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="624.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">32767</text>
+<line x1="355.0" y1="189.0" x2="355.0" y2="201.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="355.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<circle cx="413.0" cy="195.0" r="7.0" fill="#27ae60" stroke="#27ae60" stroke-width="2.0"/>
+<text x="413.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">BH Ariane 4</text>
+<text x="413.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">≈ 7 000</text>
+<line x1="624.0" y1="173.0" x2="642.0" y2="187.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="642.0" y1="187.0" x2="624.0" y2="203.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="624.0" y1="203.0" x2="642.0" y2="217.0" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="667.0" cy="195.0" r="7.0" fill="#c0392b" stroke="#c0392b" stroke-width="2.0"/>
+<text x="667.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">BH Ariane 5</text>
+<text x="667.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">≈ 38 000</text>
+<line x1="628.0" y1="139.0" x2="658.0" y2="187.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="623.0" y="97.0" width="102.0" height="39.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="674.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="674.0" dy="0.0">Operand Error!</tspan><tspan x="674.0" dy="14.3">SRI зупинено</tspan></text>
+<line x1="667.0" y1="265.0" x2="648.0" y2="265.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="519.0" y="274.0" width="277.0" height="25.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="657.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">float64 → int16: вийшло за [−32768; 32767]</text>
+<rect x="13.0" y="304.0" width="793.0" height="27.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="410.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Ariane 4 — повільніший старт, BH у нормі. Ariane 5 — потужніший, горизонтальна швидкість у кілька разів більша → BH виходить за 32767.</text>
+</svg>

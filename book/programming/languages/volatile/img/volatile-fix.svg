@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">З volatile кожна перевірка читає свіже значення з пам'яті</text>
+<rect x="255.0" y="80.0" width="250.0" height="96.0" rx="10" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="380.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПАМ'ЯТЬ</text>
+<rect x="305.0" y="120.0" width="150.0" height="40.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="380.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">flag = true</text>
+<line x1="150.0" y1="128.0" x2="253.0" y2="128.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="95.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ISR пише</text>
+<text x="95.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">flag=true</text>
+<line x1="610.0" y1="128.0" x2="507.0" y2="128.0" stroke="#2457d6" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="665.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">цикл читає</text>
+<text x="665.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">щоразу</text>
+<text x="380.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">volatile bool flag;  →  кожна перевірка !flag іде в пам'ять</text>
+<text x="380.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">цикл бачить запис обробника й коректно виходить</text>
+</svg>

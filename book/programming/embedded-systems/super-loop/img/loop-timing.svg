@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Швидкість циклу визначає його найповільніший крок</text>
+<text x="70.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">КОРОТКИЙ loop() — багато швидких обертів</text>
+<line x1="70.0" y1="130.0" x2="890.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="90.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="160.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="230.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="300.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="370.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="440.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="510.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="580.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="650.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="720.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="790.0" y="106.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<text x="480.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">реакція майже миттєва</text>
+<text x="70.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">ОДИН ДОВГИЙ КРОК — оберт розтягнувся, усе чекає</text>
+<line x1="70.0" y1="300.0" x2="890.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="90.0" y="276.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="160.0" y="276.0" width="520.0" height="24.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="420.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">delay(1000) — пристрій «заморожений»</text>
+<rect x="690.0" y="276.0" width="60.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<text x="770.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">усе інше чекає кінця довгого кроку</text>
+<rect x="213.3" y="374.0" width="533.4" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="480.0" y="394.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">поки тягнеться один тривалий виклик — ні читання, ні оновлення виходу</tspan></text>
+</svg>

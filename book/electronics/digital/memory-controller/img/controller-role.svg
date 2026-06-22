@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контролер — перекладач між «дай слово» і протоколом DRAM</text>
+<rect x="46.0" y="150.0" width="150.0" height="96.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="121.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ядро / шина</text>
+<text x="121.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">проста мова:</text>
+<text x="121.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">«дай слово</text>
+<text x="121.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">за адресою A»</text>
+<rect x="296.0" y="96.0" width="250.0" height="200.0" rx="6" fill="#f1ecfa" stroke="#6a3fb5" stroke-width="2.4"/>
+<text x="421.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6a3fb5" text-anchor="middle" font-weight="700">контролер пам'яті</text>
+<line x1="312.0" y1="132.0" x2="530.0" y2="132.0" stroke="#6a3fb5" stroke-width="1.2"/>
+<text x="314.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• розкласти адресу: банк / ряд / стовпець</text>
+<text x="314.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• мультиплексувати: RAS-ряд, тоді CAS-стовпець</text>
+<text x="314.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• видати ACT → RD/WR із паузами</text>
+<text x="314.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• витримати таймінги (tRCD, CL, tRP)</text>
+<text x="314.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• слати REFRESH усім рядам</text>
+<text x="314.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• провести ініціалізацію при старті</text>
+<rect x="646.0" y="150.0" width="150.0" height="96.0" rx="6" fill="#fdeef0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="721.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">DRAM-чіп</text>
+<text x="721.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">складна мова:</text>
+<text x="721.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">команди +</text>
+<text x="721.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">жорсткі таймінги</text>
+<line x1="196.0" y1="184.0" x2="294.0" y2="184.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="245.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">запит</text>
+<line x1="294.0" y1="216.0" x2="196.0" y2="216.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="245.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">дані</text>
+<line x1="548.0" y1="184.0" x2="644.0" y2="184.0" stroke="#6a3fb5" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="596.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6a3fb5" text-anchor="middle" font-weight="700">команди</text>
+<line x1="644.0" y1="216.0" x2="548.0" y2="216.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="596.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">слова</text>
+<text x="400.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Між ядром і чіпом мусить стояти контролер, що знає весь протокол, — тому DDR не чіпляють до простих ніжок GPIO.</text>
+</svg>

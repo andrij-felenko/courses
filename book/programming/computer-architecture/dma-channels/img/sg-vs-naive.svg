@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наївна склейка проти scatter-gather</text>
+<text x="200.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Наївно: спершу склеїти копіюванням</text>
+<rect x="60.0" y="80.0" width="80.0" height="40.0" rx="6" fill="#fff8e8" stroke="#c8a060" stroke-width="1.4"/>
+<text x="100.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a5000" text-anchor="middle" font-weight="700">hdr</text>
+<rect x="156.0" y="80.0" width="80.0" height="40.0" rx="6" fill="#fff8e8" stroke="#c8a060" stroke-width="1.4"/>
+<text x="196.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a5000" text-anchor="middle" font-weight="700">body</text>
+<rect x="252.0" y="80.0" width="80.0" height="40.0" rx="6" fill="#fff8e8" stroke="#c8a060" stroke-width="1.4"/>
+<text x="292.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a5000" text-anchor="middle" font-weight="700">crc</text>
+<line x1="200.0" y1="130.0" x2="200.0" y2="168.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="216.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">копія ядром (такти CPU!)</text>
+<rect x="80.0" y="172.0" width="240.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="80.0" y="172.0" width="240.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="200.0" y="195.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">один великий буфер (склеєно)</tspan></text>
+<line x1="200.0" y1="214.0" x2="200.0" y2="250.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="80.0" y="254.0" width="240.0" height="36.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="80.0" y="254.0" width="240.0" height="36.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="200.0" y="275.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">DMA: один блок</tspan></text>
+<text x="200.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Ядро вже витратило такти на склейку —
+рівно те, від чого DMA рятував.</text>
+<line x1="410.0" y1="50.0" x2="410.0" y2="360.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="600.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Scatter-gather: DMA сама обходить ланцюг</text>
+<rect x="470.0" y="80.0" width="80.0" height="40.0" rx="6" fill="#fff8e8" stroke="#c8a060" stroke-width="1.4"/>
+<text x="510.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a5000" text-anchor="middle" font-weight="700">hdr</text>
+<rect x="566.0" y="80.0" width="80.0" height="40.0" rx="6" fill="#fff8e8" stroke="#c8a060" stroke-width="1.4"/>
+<text x="606.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a5000" text-anchor="middle" font-weight="700">body</text>
+<rect x="662.0" y="80.0" width="80.0" height="40.0" rx="6" fill="#e8f8ee" stroke="#c8a060" stroke-width="1.4"/>
+<text x="702.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a5000" text-anchor="middle" font-weight="700">crc</text>
+<rect x="470.0" y="150.0" width="80.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="510.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">desc[0]</text>
+<line x1="510.0" y1="120.0" x2="510.0" y2="150.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="550.0" y1="167.0" x2="566.0" y2="167.0" stroke="#c0a020" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="566.0" y="150.0" width="80.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="606.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">desc[1]</text>
+<line x1="606.0" y1="120.0" x2="606.0" y2="150.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="646.0" y1="167.0" x2="662.0" y2="167.0" stroke="#c0a020" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="662.0" y="150.0" width="80.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="702.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">desc[2]</text>
+<line x1="702.0" y1="120.0" x2="702.0" y2="150.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="710.0" y1="184.0" x2="710.0" y2="220.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="490.0" y="224.0" width="240.0" height="36.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="490.0" y="224.0" width="240.0" height="36.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="610.0" y="245.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">DMA: обхід по next, один потік</tspan></text>
+<text x="600.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Жодного копіювання й жодного пробудження
+ядра між шматками — одне переривання на eof.</text>
+<text x="400.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Список вузлів прибирає і зайву копію, і зайві переривання.</text>
+</svg>

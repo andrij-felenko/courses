@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві симетричні пастки: ядро й DMA бачать ту саму RAM</text>
+<text x="110.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро</text>
+<text x="300.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кеш</text>
+<text x="500.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">RAM</text>
+<text x="680.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">DMA</text>
+<text x="40.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">Приймання (RX): DMA → RAM, потім читає ядро</text>
+<rect x="45.0" y="96.0" width="130.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="45.0" y="96.0" width="130.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="110.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">читає</tspan><tspan x="110.0" dy="15.6">стале</tspan></text>
+<rect x="235.0" y="96.0" width="130.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="235.0" y="96.0" width="130.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="300.0" y="124.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="300.0" dy="0.0">стара копія</tspan></text>
+<rect x="435.0" y="96.0" width="130.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="435.0" y="96.0" width="130.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="500.0" y="124.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="500.0" dy="0.0">свіжі дані</tspan></text>
+<rect x="615.0" y="96.0" width="130.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="615.0" y="96.0" width="130.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="680.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="680.0" dy="0.0">щойно</tspan><tspan x="680.0" dy="15.6">записав</tspan></text>
+<line x1="615.0" y1="120.0" x2="565.0" y2="120.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="120.0" x2="175.0" y2="120.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="40.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">Ліки: invalidate — оголосити рядки кешу недійсними перед читанням</text>
+<line x1="40.0" y1="248.0" x2="720.0" y2="248.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="40.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">Передавання (TX): ядро → RAM, потім читає DMA</text>
+<rect x="45.0" y="286.0" width="130.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="45.0" y="286.0" width="130.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="110.0" y="306.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="110.0" dy="0.0">написало</tspan><tspan x="110.0" dy="15.6">нове</tspan></text>
+<rect x="235.0" y="286.0" width="130.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="235.0" y="286.0" width="130.0" height="48.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="300.0" y="306.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="300.0" dy="0.0">нове</tspan><tspan x="300.0" dy="15.6">(не скинуте)</tspan></text>
+<rect x="435.0" y="286.0" width="130.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="435.0" y="286.0" width="130.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="500.0" y="314.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="500.0" dy="0.0">стара RAM</tspan></text>
+<rect x="615.0" y="286.0" width="130.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="615.0" y="286.0" width="130.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="680.0" y="306.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">везе</tspan><tspan x="680.0" dy="15.6">стале</tspan></text>
+<line x1="175.0" y1="310.0" x2="235.0" y2="310.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="565.0" y1="310.0" x2="615.0" y2="310.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="40.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">Ліки: write-back (clean) — примусово скинути кеш у RAM перед стартом DMA</text>
+</svg>

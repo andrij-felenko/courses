@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="250" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один натиск у часі: стан і порожній звіт по interrupt-IN</text>
+<line x1="70.0" y1="170.0" x2="650.0" y2="170.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="650.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">час</text>
+<line x1="128.0" y1="164.0" x2="128.0" y2="176.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="186.0" y1="164.0" x2="186.0" y2="176.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="244.0" y1="164.0" x2="244.0" y2="176.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="302.0" y1="164.0" x2="302.0" y2="176.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="360.0" y1="164.0" x2="360.0" y2="176.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="418.0" y1="164.0" x2="418.0" y2="176.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="476.0" y1="164.0" x2="476.0" y2="176.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="534.0" y1="164.0" x2="534.0" y2="176.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="592.0" y1="164.0" x2="592.0" y2="176.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="157.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">опитування хоста кожні bInterval (напр. 1 мс)</text>
+<rect x="210.0" y="90.0" width="68.0" height="44.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="244.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="244.0" dy="0.0">звіт-стан</tspan><tspan x="244.0" dy="13.0">key=0x15</tspan></text>
+<line x1="244.0" y1="136.0" x2="244.0" y2="166.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="326.0" y="90.0" width="68.0" height="44.0" rx="6" fill="#efefef" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="360.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">порожній</tspan><tspan x="360.0" dy="13.0">0x00×8</tspan></text>
+<line x1="360.0" y1="136.0" x2="360.0" y2="166.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="360.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">темп задає опитування хоста, а не код пристрою; без порожнього звіту — авторепіт</text>
+</svg>

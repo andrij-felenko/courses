@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 230" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="230" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бюджет одного такту: усе має вкластися в Δt</text>
+<text x="60.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">період Δt = 5 мс (200 Гц)</text>
+<rect x="60.0" y="110.0" width="58.0" height="54.0" rx="0" fill="#cfe0f5" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="89.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="89.0" dy="0.0">читання</tspan><tspan x="89.0" dy="11.7">давачів</tspan></text>
+<text x="89.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0.50 мс</text>
+<rect x="118.0" y="110.0" width="23.2" height="54.0" rx="0" fill="#dff0df" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="141.2" y="110.0" width="2.3" height="54.0" rx="0" fill="#f3dede" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="143.5" y="110.0" width="11.6" height="54.0" rx="0" fill="#f6efd6" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="155.1" y="110.0" width="484.9" height="54.0" rx="0" fill="#efefef" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="397.6" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="397.6" dy="0.0">запас (slack)</tspan></text>
+<text x="397.6" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4.18 мс</text>
+<text x="135.4" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">фільтр ~0.2 · ПІД ~0.02 · вивід ~0.1 мс</text>
+<text x="350.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">ПІД — найдешевший; якщо сума підбирається під Δt — час бити на сполох</text>
+</svg>

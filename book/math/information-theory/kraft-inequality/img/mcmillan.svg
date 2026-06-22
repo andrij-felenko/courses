@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="680" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="340.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Макміллан: степеневий трюк — межа без префіксності</text>
+<text x="40.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">(Σ 2^(−ℓᵢ))ⁿ  =  Σ 2^(−(ℓ_{i1}+…+ℓ_{in}))</text>
+<text x="40.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">                =  Σ_L  N_L · 2^(−L)</text>
+<text x="40.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">де N_L — скільки n-слів мають сумарну довжину L</text>
+<text x="40.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">однозначність ⇒  N_L ≤ 2^L  (різні слова — різні рядки)</text>
+<text x="40.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">⇒  (Σ 2^(−ℓᵢ))ⁿ  ≤  Σ_L 1  ≤  n · ℓ_max</text>
+<rect x="140.0" y="225.1" width="300.0" height="49.9" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.8"/><text x="290.0" y="246.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="290.0" dy="0.0">Sⁿ ≤ n·ℓ_max  для всіх n</tspan><tspan x="290.0" dy="16.9">⇒  S ≤ 1</tspan></text>
+<line x1="470.0" y1="300.0" x2="470.0" y2="94.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="300.0" x2="650.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="650.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">n</text>
+<line x1="470.0" y1="280.0" x2="650.0" y2="130.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="646.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">n·ℓ_max</text>
+<line x1="470.0" y1="292.0" x2="533.0" y2="278.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="533.0" y1="278.0" x2="578.0" y2="245.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="578.0" y1="245.0" x2="614.0" y2="180.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="614.0" y1="180.0" x2="641.0" y2="100.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="581.6" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Sⁿ, S&gt;1</text>
+<text x="560.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">якби S&gt;1 — суперечність</text>
+</svg>

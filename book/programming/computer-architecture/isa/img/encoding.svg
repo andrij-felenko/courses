@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія машинної команди: число, розбите на поля</text>
+<text x="380.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">біти команди діляться на поля: КОД операції (що робити) і ОПЕРАНДИ (над чим) — схема спрощена</text>
+<text x="380.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">людською:  ДОДАЙ R3 ← R1 + R2   (ADD R3, R1, R2)</text>
+<line x1="380.0" y1="100.0" x2="380.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="185.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="700">код операції</text>
+<rect x="120.0" y="150.0" width="130.0" height="54.0" rx="6" fill="#fdf4f4" stroke="#c0271e" stroke-width="2.0"/>
+<text x="185.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0001</text>
+<text x="185.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ADD = додати</text>
+<text x="345.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="700">призначення</text>
+<rect x="280.0" y="150.0" width="130.0" height="54.0" rx="6" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2.0"/>
+<text x="345.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0011</text>
+<text x="345.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">R3</text>
+<text x="505.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="700">операнд 1</text>
+<rect x="440.0" y="150.0" width="130.0" height="54.0" rx="6" fill="#f3f5fd" stroke="#1f47b5" stroke-width="2.0"/>
+<text x="505.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0001</text>
+<text x="505.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">R1</text>
+<text x="665.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="700">операнд 2</text>
+<rect x="600.0" y="150.0" width="130.0" height="54.0" rx="6" fill="#f3f5fd" stroke="#1f47b5" stroke-width="2.0"/>
+<text x="665.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0010</text>
+<text x="665.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">R2</text>
+<text x="380.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">16 бітів = 4 поля по 4 біти (4 hex-цифри)</text>
+<text x="380.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">усе разом — одне число:</text>
+<text x="380.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">0001 0011 0001 0010</text>
+<text x="380.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1f8a3b" text-anchor="middle" font-weight="700">= 0x1312</text>
+<rect x="50.0" y="366.0" width="660.0" height="44.0" rx="10" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="380.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Саме це число лежить у пам'яті як команда. Декодер ріже його на поля й розуміє наказ:</text>
+<text x="380.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">біти не мають сенсу самі по собі — ISA робить із числа 0x1312 саме «ДОДАЙ R3,R1,R2».</text>
+</svg>

@@ -1,22 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="340" viewBox="0 0 820 340">
-<rect width="820" height="340" fill="#ffffff"/>
-<defs>
-  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
-  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
-  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
-  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
-  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
-</defs>
-<text x="410.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Крапка вирішує все: з'єднано чи ні</text>
-<text x="410.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">жирна крапка на перетині = дроти з'єднані; немає крапки = просто перетинаються</text>
-<line x1="410.0" y1="78.0" x2="410.0" y2="290.0" stroke="#e4e4e4" stroke-width="1.4" stroke-dasharray="4,5" stroke-linecap="round"/>
-<text x="210.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">Із крапкою — З'ЄДНАНО</text>
-<line x1="110.0" y1="200.0" x2="310.0" y2="200.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
-<line x1="210.0" y1="145.0" x2="210.0" y2="255.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
-<circle cx="210.0" cy="200.0" r="6.5" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1"/>
-<text x="210.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">одна спільна точка (вузол)</text>
-<text x="610.0" y="110.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Без крапки — НЕ з'єднано</text>
-<line x1="510.0" y1="200.0" x2="710.0" y2="200.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
-<line x1="610.0" y1="145.0" x2="610.0" y2="255.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
-<text x="610.0" y="290.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">дроти йдуть повз — різні вузли</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крапка вирішує все: з'єднано чи ні</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">жирна крапка на перетині = дроти з'єднані; немає крапки = просто перетинаються</text>
+<line x1="410.0" y1="78.0" x2="410.0" y2="290.0" stroke="#e4e4e4" stroke-width="1.4" stroke-dasharray="4,5"/>
+<text x="210.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Із крапкою — З'ЄДНАНО</text>
+<line x1="110.0" y1="200.0" x2="310.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="210.0" y1="145.0" x2="210.0" y2="255.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="210.0" cy="200.0" r="6.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="210.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">одна спільна точка (вузол)</text>
+<text x="610.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Без крапки — НЕ з'єднано</text>
+<line x1="510.0" y1="200.0" x2="710.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="610.0" y1="145.0" x2="610.0" y2="255.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="610.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">дроти йдуть повз — різні вузли</text>
 </svg>

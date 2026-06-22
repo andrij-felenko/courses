@@ -316,6 +316,118 @@ def fig_bridge_configs():
     render(os.path.join(IMG, 'bridge-configs.svg'), W, H, *f)
 
 
+# ── 7. Історія: подвійний незалежний винахід 1938 (захід / схід) ───────────────
+def fig_two_coasts():
+    W, H = 820, 470
+    f = [text(W / 2, 28, "Тензодавач, винайдений двічі: 1938, два узбережжя", size=16, bold=True)]
+
+    # тонка лінія часу вгорі: Кельвін 1856 → прилад 1944
+    ty = 66
+    f.append(line(70, ty, W - 70, ty, color=MUTED, sw=1.4))
+    for x, yr, lab in [(90, "1856", "Кельвін: ефект"),
+                       (W / 2, "1938", "два незалежні винаходи"),
+                       (W - 90, "1944", "патент, назва SR-4")]:
+        f.append(circle(x, ty, 4, fill=MUTED, stroke=MUTED))
+        f.append(text(x, ty - 12, yr, size=12, bold=True, color=MUTED))
+        f.append(text(x, ty + 18, lab, size=10, color=MUTED))
+
+    # ── ЛІВОРУЧ: Сіммонс (Caltech, захід) ──
+    lx = 60
+    f.append(fitbox(lx, 110, 320, 28, "Захід — Сіммонс (Caltech)",
+                    size=13, bold=True, fill="#eef3f9", stroke=NEG))
+    f.append(rect(lx, 150, 320, 150, fill="#fafafa", stroke=MUTED, sw=1, rx=6))
+    steps_w = ["удар по металу: як міряти різку силу?",
+               "динамометр + тонкий резистивний дріт",
+               "натяг тягне дріт → опір змінюється",
+               "швидко, без механічної інерції"]
+    for i, s in enumerate(steps_w):
+        f.append(text(lx + 160, 178 + i * 30, s, size=11))
+        if i < len(steps_w) - 1:
+            f.append(text(lx + 160, 193 + i * 30, "↓", size=12, color=NEG, bold=True))
+
+    # ── ПРАВОРУЧ: Руге (MIT, схід) ──
+    rx = 440
+    f.append(fitbox(rx, 110, 320, 28, "Схід — Руге (MIT), 3 квітня 1938",
+                    size=13, bold=True, fill="#fdecea", stroke=POS))
+    f.append(rect(rx, 150, 320, 150, fill="#fafafa", stroke=MUTED, sw=1, rx=6))
+    steps_e = ["модель водонапірного бака: чи встоїть у землетрус?",
+               "цигарковий папір на стінці + тонкий дріт",
+               "стінка тягнеться → дріт → опір змінюється",
+               "«винахід просто сплив у голові цілком»"]
+    for i, s in enumerate(steps_e):
+        f.append(text(rx + 160, 178 + i * 30, s, size=11))
+        if i < len(steps_e) - 1:
+            f.append(text(rx + 160, 193 + i * 30, "↓", size=12, color=POS, bold=True))
+
+    # між колонками — відстань і відсутність контакту
+    f.append(text(W / 2, 230, "≈3000 км", size=12, bold=True, color=MUTED))
+    f.append(text(W / 2, 248, "жодного", size=10, color=MUTED))
+    f.append(text(W / 2, 262, "контакту", size=10, color=MUTED))
+
+    # спільний вузол унизу: той самий прилад
+    by = 330
+    f.append(line(220, 300, 410, by, color=NEG, sw=1.5))
+    f.append(line(600, 300, 410, by, color=POS, sw=1.5))
+    f.append(fitbox(W / 2 - 200, by, 400, 44,
+                    "той самий прилад → ΔR ≈ 0.7 Ω при 1000 µε",
+                    size=13, bold=True, fill="#eafaf1", stroke=FIELD))
+    f.append(fitbox(W / 2 - 200, by + 56, 400, 40,
+                    "назва SR-4: S — Сіммонс, R — Руге; обидва — співвинахідники",
+                    size=11, fill="#fff3e0", stroke="#b8860b"))
+    f.append(text(W / 2, by + 120,
+                  "«перший» у техніці — рідко чиста дата: дозрів увесь тракт, і винахід зробили одразу двоє",
+                  size=11, color=MUTED, italic=True))
+
+    render(os.path.join(IMG, 'two-coasts.svg'), W, H, *f)
+
+
+# ── 8. Від Кельвіна (1856) до коефіцієнта тензочутливості ──────────────────────
+def fig_kelvin_to_gauge_factor():
+    W, H = 800, 430
+    f = [text(W / 2, 28, "Від Кельвіна (1856) до коефіцієнта тензочутливості", size=16, bold=True)]
+
+    # верх: дріт під натягом + міст Вітстона (той самий, що в Кельвіна)
+    f.append(text(190, 66, "дріт під натягом", size=12, bold=True))
+    f.append(arrow(70, 96, 40, 96, color=POS))
+    f.append(rect(58, 88, 170, 16, fill="#fdecea", stroke=POS, sw=1.8))
+    f.append(arrow(238, 96, 268, 96, color=POS))
+    f.append(text(150, 124, "опір росте під розтягом", size=10, color=MUTED))
+
+    # маленький ромб моста праворуч угорі
+    cx, cy, s = 560, 96, 44
+    top = (cx, cy - s); bot = (cx, cy + s); lft = (cx - s, cy); rgt = (cx + s, cy)
+    for a, b in [(top, rgt), (rgt, bot), (bot, lft), (lft, top)]:
+        f.append(line(a[0], a[1], b[0], b[1], color=LINE, sw=1.6))
+    f.append(text(cx, 50, "міст Вітстона", size=11, bold=True))
+    f.append(text(cx, cy + s + 22, "ним Кельвін і міряв ефект 1856-го", size=10, color=MUTED))
+
+    # середина: розклад формули GF
+    f.append(rect(50, 160, W - 100, 110, fill="#f4f6f8", stroke=LINE, sw=1.3, rx=8))
+    f.append(text(W / 2, 184, "GF = (ΔR/R) / ε = (1 + 2ν) + (Δρ/ρ) / ε", size=15, bold=True))
+    f.append(fitbox(80, 200, 320, 56,
+                    "(1 + 2ν) — геометрія:\nвидовження + звуження перерізу\nдля металів ν ≈ 0.3 → 1.6",
+                    size=11, fill="#eef3f9", stroke=NEG))
+    f.append(fitbox(420, 200, 320, 56,
+                    "(Δρ/ρ)/ε — п'єзорезистивний член:\nзміна самого питомого опору —\nоте «зайве», що побачив Кельвін",
+                    size=11, fill="#fff3e0", stroke="#b8860b"))
+
+    # низ: контраст метал ≈ 2 проти напівпровідника
+    by = 300
+    f.append(rect(120, by, 240, 90, fill="#eef3f9", stroke=NEG, sw=2, rx=6))
+    f.append(text(240, by + 30, "метал: GF ≈ 2.0–2.1", size=14, bold=True, color=NEG))
+    f.append(text(240, by + 58, "лінійний, стабільний —", size=11, color=MUTED))
+    f.append(text(240, by + 74, "досі основа вимірювання ваги", size=11, color=MUTED))
+    f.append(rect(440, by, 240, 90, fill="#fdecea", stroke=POS, sw=2, rx=6))
+    f.append(text(560, by + 30, "кремній: GF ≈ 100–200", size=14, bold=True, color=POS))
+    f.append(text(560, by + 58, "надчутливий, але", size=11, color=MUTED))
+    f.append(text(560, by + 74, "нелінійний і «пливе» з теплом", size=11, color=MUTED))
+    f.append(text(W / 2, by + 112,
+                  "різниця між 1.6 і 2.07 — це і є п'єзорезистивний внесок: кільце замкнулось",
+                  size=11, color=MUTED, italic=True))
+
+    render(os.path.join(IMG, 'kelvin-to-gauge-factor.svg'), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_principle()
     fig_gauge_factor()
@@ -323,4 +435,6 @@ if __name__ == "__main__":
     fig_temp_comp()
     fig_bridge_derivation()
     fig_bridge_configs()
-    print("OK: 6 фігур у", IMG)
+    fig_two_coasts()
+    fig_kelvin_to_gauge_factor()
+    print("OK: 8 фігур у", IMG)

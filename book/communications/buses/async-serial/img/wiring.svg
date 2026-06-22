@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двопровідне з'єднання: TX↔RX навхрест і спільна земля</text>
+<rect x="70.0" y="90.0" width="150.0" height="150.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="500.0" y="90.0" width="150.0" height="150.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="145.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пристрій A</text>
+<text x="575.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пристрій B</text>
+<text x="216.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">TX</text>
+<text x="216.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">RX</text>
+<text x="216.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">GND</text>
+<text x="504.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">RX</text>
+<text x="504.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">TX</text>
+<text x="504.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">GND</text>
+<path d="M220,118 C330,118 390,160 500,160" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<path d="M220,160 C330,160 390,118 500,118" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<text x="360.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">A.TX → B.RX</text>
+<text x="360.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">B.TX → A.RX</text>
+<line x1="220.0" y1="210.0" x2="500.0" y2="210.0" stroke="#6b7280" stroke-width="2.2"/>
+<text x="360.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">спільна земля (GND)</text>
+<rect x="70.0" y="262.0" width="580.0" height="78.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="281.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Вихід одного йде на вхід іншого: A.TX → B.RX і B.TX → A.RX (навхрест).</tspan><tspan x="360.0" dy="15.6">Окремі лінії на кожен напрям дають повний дуплекс — обидва боки говорять</tspan><tspan x="360.0" dy="15.6">одночасно. Третій обов'язковий дріт — спільна земля: «0» і «1» це напруги,</tspan><tspan x="360.0" dy="15.6">а напругу нема як виміряти без спільної опорної точки.</tspan></text>
+</svg>

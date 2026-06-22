@@ -1,40 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="450"
-     viewBox="0 0 960 450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
-  <defs>
-    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
-    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
-    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
-    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
-  </defs>
-  <rect x="0" y="0" width="960" height="450" fill="white"/>
-<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Без утрат чи з утратами: дві стратегії</text>
-<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">без утрат — точна копія, та стиск скромний; з утратами — викидаємо непомітне, стиск у рази більший</text>
-<rect x="70" y="120" width="380" height="150" rx="12" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.8"/>
-<text x="260" y="148" font-size="13" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">БЕЗ УТРАТ (lossless)</text>
-<text x="92" y="174" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• точно відновлює оригінал (як zip)</text>
-<text x="92" y="196" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• лише пакує повтори розумніше</text>
-<text x="92" y="218" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• стиск скромний: ~2× для зображень</text>
-<text x="260" y="252" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">де треба ТОЧНІСТЬ: код, текст, медкадри</text>
-<rect x="510" y="120" width="380" height="150" rx="12" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.8"/>
-<text x="700" y="148" font-size="13" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">З УТРАТАМИ (lossy)</text>
-<text x="532" y="174" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• свідомо викидає непомітне (DCT)</text>
-<text x="532" y="196" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• відновлене ≈ оригінал, не точно</text>
-<text x="532" y="218" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• стиск великий: 10–100× і більше</text>
-<text x="700" y="252" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">де важить РОЗМІР: фото, відео, FPV</text>
-<text x="170" y="308" font-size="10.5" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">наочно (умовно):</text>
-<rect x="170" y="320" width="600" height="22" rx="4" fill="#e5e7eb" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
-<text x="778" y="336" font-size="10" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">сире</text>
-<rect x="170" y="348" width="300" height="18" rx="4" fill="#1f4ed8" fill-opacity="0.7" stroke="none" stroke-width="1.6"/>
-<text x="478" y="362" font-size="10" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">без утрат ~½</text>
-<rect x="170" y="372" width="40" height="18" rx="4" fill="#0a8f3c" fill-opacity="0.8" stroke="none" stroke-width="1.6"/>
-<text x="218" y="386" font-size="10" fill="#15803d" text-anchor="start" font-weight="bold" font-style="normal">з утратами ~1/20</text>
-<text x="480.0" y="436" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Відео майже завжди стискають З УТРАТАМИ: інакше пожежний шланг не приборкати. Питання — скільки якості віддати.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві стратегії: точність (скромно) проти розміру (різко)</text>
+<rect x="90.0" y="80.0" width="90.0" height="170.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="135.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">оригінал</text>
+<text x="135.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">100%</text>
+<rect x="300.0" y="165.0" width="90.0" height="85.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="345.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">без утрат</text>
+<text x="345.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">~2×</text>
+<text x="345.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">точно до біта</text>
+<text x="345.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(як zip)</text>
+<rect x="500.0" y="236.4" width="90.0" height="13.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="545.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">з утратами</text>
+<text x="545.0" y="228.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">10–100×</text>
+<text x="545.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">≈ оригінал</text>
+<text x="545.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(викидаємо непомітне)</text>
+<line x1="60.0" y1="250.0" x2="620.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.6"/>
 </svg>

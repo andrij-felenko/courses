@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 388" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="388" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому Flash не годиться для частих змін</text>
+<text x="380.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">читати легко й швидко, а ПИСАТИ — лише блоками, повільно, обмежену кількість разів</text>
+<rect x="40.0" y="74.0" width="330.0" height="132.0" rx="12" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="205.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">RAM — пише легко</text>
+<text x="60.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• будь-який окремий байт — одразу</text>
+<text x="60.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• швидко (за такти)</text>
+<text x="60.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• скільки завгодно разів</text>
+<rect x="390.0" y="74.0" width="330.0" height="132.0" rx="12" fill="#fff8e8" stroke="#caa24a" stroke-width="1.8"/>
+<text x="555.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#9a7322" text-anchor="middle" font-weight="700">Flash — пише важко</text>
+<text x="410.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• лише цілими блоками (не байтом)</text>
+<text x="410.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• спершу стерти блок (усе → 1), тоді 0</text>
+<text x="410.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• повільно; знос ~10–100 тис. циклів</text>
+<text x="230.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9a7322" text-anchor="start" font-weight="700">запис у Flash:</text>
+<text x="300.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">стерти весь блок</text>
+<rect x="220.0" y="280.0" width="160.0" height="26.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="300.0" y="296.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">1 1 1 1 1 1 1 1</tspan></text>
+<line x1="388.0" y1="293.0" x2="448.0" y2="293.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="560.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">тоді записати потрібні 0</text>
+<rect x="480.0" y="280.0" width="160.0" height="26.0" rx="4" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="296.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">1 0 1 1 0 0 1 0</tspan></text>
+<rect x="40.0" y="322.0" width="680.0" height="50.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="380.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Код записують раз при прошивці — читають мільйони разів. А лічильник, що пише у Flash щосекунди,</text>
+<text x="380.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">зносить блок за лічені дні — тож часті зміни робить RAM. Так само зношуються SSD і флешки.</text>
+</svg>

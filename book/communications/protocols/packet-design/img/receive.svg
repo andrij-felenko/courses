@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="290" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прийом і перевірка: рішення — лише після CRC</text>
+<rect x="30.0" y="78.0" width="112.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.7"/>
+<text x="86.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="86.0" dy="0.0">чекати</tspan><tspan x="86.0" dy="15.6">SYNC</tspan></text>
+<rect x="164.0" y="78.0" width="112.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#b9770e" stroke-width="1.7"/>
+<text x="220.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">прочитати</tspan><tspan x="220.0" dy="15.6">LEN</tspan></text>
+<rect x="298.0" y="78.0" width="112.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.7"/>
+<text x="354.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="354.0" dy="0.0">зібрати LEN</tspan><tspan x="354.0" dy="15.6">байтів</tspan></text>
+<rect x="432.0" y="78.0" width="112.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.7"/>
+<text x="488.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="488.0" dy="0.0">прочитати</tspan><tspan x="488.0" dy="15.6">CRC</tspan></text>
+<rect x="566.0" y="78.0" width="112.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.7"/>
+<text x="622.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="622.0" dy="0.0">звірити</tspan><tspan x="622.0" dy="15.6">CRC</tspan></text>
+<line x1="142.0" y1="106.0" x2="164.0" y2="106.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="276.0" y1="106.0" x2="298.0" y2="106.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="106.0" x2="432.0" y2="106.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="544.0" y1="106.0" x2="566.0" y2="106.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="622.0" y1="134.0" x2="622.0" y2="152.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="622.0" y1="152.0" x2="462.0" y2="152.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="462.0" y1="152.0" x2="462.0" y2="168.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="622.0" y1="152.0" x2="622.0" y2="168.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="392.0" y="168.0" width="140.0" height="30.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.3"/><text x="462.0" y="186.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="462.0" dy="0.0">збіг → у роботу</tspan></text>
+<rect x="556.0" y="168.0" width="150.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/><text x="631.0" y="186.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="631.0" dy="0.0">не збіг → відкинути</tspan></text>
+<text x="380.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">побитий пакет не калічить систему — його тихо відкидають, наступний SYNC дає шанс почати спочатку</text>
+</svg>

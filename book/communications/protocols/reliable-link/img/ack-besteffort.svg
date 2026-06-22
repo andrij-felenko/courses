@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розділяй: критичні команди з ACK, потік — best-effort</text>
+<text x="190.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">критичне: ACK + повтор</text>
+<rect x="122.0" y="114.5" width="135.9" height="31.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="190.0" y="133.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">«вимкнути мотори»</tspan></text>
+<rect x="156.1" y="194.5" width="67.7" height="31.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/><text x="190.0" y="213.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">приймач</tspan></text>
+<line x1="170.0" y1="145.5" x2="170.0" y2="194.5" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="164.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">шлю</text>
+<line x1="210.0" y1="194.5" x2="210.0" y2="145.5" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="216.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">ACK</text>
+<text x="190.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">повторюю, поки нема ACK</text>
+<line x1="360.0" y1="70.0" x2="360.0" y2="260.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="530.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">потік: best-effort</text>
+<rect x="426.0" y="115.0" width="52.0" height="30.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="452.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">висота</text>
+<rect x="492.0" y="115.0" width="52.0" height="30.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="518.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">висота</text>
+<rect x="558.0" y="115.0" width="52.0" height="30.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="584.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">висота</text>
+<line x1="502.0" y1="115.0" x2="534.0" y2="145.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="530.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">загубилось — байдуже,</text>
+<text x="530.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">наступне свіже за мить</text>
+<text x="360.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">не плати за надійність там, де команда не критична</text>
+</svg>

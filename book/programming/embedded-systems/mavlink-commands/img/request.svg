@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="290" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спершу замов: апарат не транслює все підряд</text>
+<rect x="75.0" y="133.0" width="150.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="154.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">твій код</tspan></text>
+<rect x="535.0" y="133.0" width="150.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="610.0" y="154.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">апарат</tspan></text>
+<line x1="230.0" y1="128.0" x2="530.0" y2="128.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">SET_MESSAGE_INTERVAL  (ATTITUDE, 100 ms)</text>
+<line x1="530.0" y1="176.0" x2="230.0" y2="176.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ATTITUDE  · ATTITUDE · ATTITUDE …  (10 раз/с)</text>
+<text x="380.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="380.0" dy="0.0">Не замовив — повідомлення «немає». Критичне — частіше, фонове — рідше,</tspan><tspan x="380.0" dy="15.6">щоб не перевантажити вузький канал телеметрії.</tspan></text>
+</svg>

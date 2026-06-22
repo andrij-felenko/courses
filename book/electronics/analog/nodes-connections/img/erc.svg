@@ -1,38 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="400" viewBox="0 0 880 400">
-<rect width="880" height="400" fill="#ffffff"/>
-<defs>
-  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
-  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
-  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
-  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
-  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
-</defs>
-<text x="440.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ERC: автоматична перевірка електричних правил</text>
-<text x="440.0" y="51.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">маючи нетлист, редактор перевіряє кожен ланцюг і пін на типові помилки — та не на «правильність задуму»</text>
-<text x="180.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Два виходи на ланцюг</text>
-<rect x="108.0" y="116.0" width="42.0" height="30.0" rx="4" fill="#fff" stroke="#1f47b5" stroke-width="1.6"/>
-<text x="129.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">OUT</text>
-<rect x="210.0" y="116.0" width="42.0" height="30.0" rx="4" fill="#fff" stroke="#1f47b5" stroke-width="1.6"/>
-<text x="231.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">OUT</text>
-<line x1="150.0" y1="131.0" x2="210.0" y2="131.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
-<text x="180.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">⚠ конфлікт (закоротка)</text>
-<text x="450.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#e08030" text-anchor="middle" font-weight="bold" font-style="normal">Висячий вхід</text>
-<rect x="432.0" y="116.0" width="42.0" height="30.0" rx="4" fill="#fff" stroke="#1f8a3b" stroke-width="1.6"/>
-<text x="453.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">IN</text>
-<line x1="432.0" y1="131.0" x2="400.0" y2="131.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ERC: автоматична перевірка електричних правил</text>
+<text x="440.0" y="51.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">маючи нетлист, редактор перевіряє кожен ланцюг і пін на типові помилки — та не на «правильність задуму»</text>
+<text x="180.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Два виходи на ланцюг</text>
+<rect x="108.0" y="116.0" width="42.0" height="30.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="129.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">OUT</text>
+<rect x="210.0" y="116.0" width="42.0" height="30.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="231.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">OUT</text>
+<line x1="150.0" y1="131.0" x2="210.0" y2="131.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="180.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">⚠ конфлікт (закоротка)</text>
+<text x="450.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e08030" text-anchor="middle" font-weight="700">Висячий вхід</text>
+<rect x="432.0" y="116.0" width="42.0" height="30.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="453.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">IN</text>
+<line x1="432.0" y1="131.0" x2="400.0" y2="131.0" stroke="#1a1a1a" stroke-width="2.0"/>
 <circle cx="400.0" cy="131.0" r="3.0" fill="none" stroke="#e08030" stroke-width="1.5"/>
-<text x="450.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#e08030" text-anchor="middle" font-weight="bold" font-style="normal">⚠ нічим не керований</text>
-<text x="712.0" y="96.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">Живлення без джерела</text>
-<rect x="690.0" y="116.0" width="44.0" height="30.0" rx="4" fill="#fff" stroke="#c0271e" stroke-width="1.6"/>
-<text x="712.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">VCC</text>
-<text x="712.0" y="164.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">⚠ пін живлення «висить»</text>
+<text x="450.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08030" text-anchor="middle" font-weight="700">⚠ нічим не керований</text>
+<text x="712.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Живлення без джерела</text>
+<rect x="690.0" y="116.0" width="44.0" height="30.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="712.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">VCC</text>
+<text x="712.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">⚠ пін живлення «висить»</text>
 <rect x="110.0" y="206.0" width="660.0" height="84.0" rx="10" fill="#fff8ee" stroke="#e08030" stroke-width="1.5"/>
-<text x="440.0" y="230.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Підступ, який ERC НЕ ловить: дроти, що ЛЕДЬ не торкаються</text>
-<line x1="300.0" y1="260.0" x2="400.0" y2="260.0" stroke="#1b1b1b" stroke-width="2.5" stroke-linecap="round"/>
-<line x1="406.0" y1="260.0" x2="520.0" y2="260.0" stroke="#1b1b1b" stroke-width="2.5" stroke-linecap="round"/>
-<text x="403.0" y="248.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">зазор</text>
-<text x="440.0" y="282.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">виглядає з'єднано, а насправді — два різні ланцюги (бо кінці не зійшлися)</text>
-<rect x="110.0" y="308.0" width="660.0" height="40.0" rx="8" fill="#f7f7f7" stroke="#8a8a8a" stroke-width="1.4"/>
-<text x="440.0" y="326.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ERC — це перевірка ПРАВИЛ (конфлікти пінів, висячі входи), а не правильності задуму.</text>
-<text x="440.0" y="342.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Він ловить «два виходи б'ються», та не «ти поставив не той резистор».</text>
+<text x="440.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підступ, який ERC НЕ ловить: дроти, що ЛЕДЬ не торкаються</text>
+<line x1="300.0" y1="260.0" x2="400.0" y2="260.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="406.0" y1="260.0" x2="520.0" y2="260.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="403.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">зазор</text>
+<text x="440.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">виглядає з'єднано, а насправді — два різні ланцюги (бо кінці не зійшлися)</text>
+<rect x="110.0" y="308.0" width="660.0" height="40.0" rx="8" fill="#f7f7f7" stroke="#6b7280" stroke-width="1.4"/>
+<text x="440.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">ERC — це перевірка ПРАВИЛ (конфлікти пінів, висячі входи), а не правильності задуму.</text>
+<text x="440.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Він ловить «два виходи б'ються», та не «ти поставив не той резистор».</text>
 </svg>

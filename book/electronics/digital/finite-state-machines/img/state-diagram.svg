@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Діаграма станів: контролер приймача послідовного байта</text>
+<circle cx="130.0" cy="220.0" r="47.0" fill="none" stroke="#27ae60" stroke-width="1.8"/><circle cx="130.0" cy="220.0" r="42.0" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/><text x="130.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">IDLE</text><text x="130.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">спокій</text>
+<circle cx="360.0" cy="220.0" r="42.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="360.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">START</text><text x="360.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">старт</text>
+<circle cx="590.0" cy="220.0" r="42.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="590.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">DATA</text><text x="590.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">біти</text>
+<circle cx="810.0" cy="220.0" r="42.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="810.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">STOP</text><text x="810.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">стоп</text>
+<path d="M109.0 183.5 C92.2 136.0 167.8 136.0 151.0 183.5" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="130.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">лінія=1</text>
+<text x="130.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(тиша)</text>
+<line x1="172.0" y1="214.0" x2="318.0" y2="214.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="245.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">лінія=0</text>
+<text x="245.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(старт-біт)</text>
+<line x1="402.0" y1="214.0" x2="548.0" y2="214.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="475.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">перечекати</text>
+<path d="M569.0 183.5 C552.2 136.0 627.8 136.0 611.0 183.5" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="590.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">бітів&lt;8</text>
+<text x="590.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(рахувати)</text>
+<line x1="632.0" y1="214.0" x2="768.0" y2="214.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="700.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">8 бітів</text>
+<path d="M810.0 262.0 Q470.0 132.0 130.0 262.0" fill="none" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="470.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">стоп-біт перевірено → чекати нову посилку</text>
+<text x="130.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">подвійне кільце = початковий стан</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Арбітраж шини: пріоритет вирішує чергу, а не пропускну здатність</text>
+<rect x="60.0" y="70.0" width="220.0" height="56.0" rx="6" fill="#f4eaf8" stroke="#8e44ad" stroke-width="1.8"/>
+<rect x="60.0" y="70.0" width="220.0" height="56.0" rx="6" fill="#f4eaf8" stroke="#8e44ad" stroke-width="1.5"/><text x="170.0" y="94.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">Канал аудіо — запит</tspan><tspan x="170.0" dy="15.6">пріоритет HIGH</tspan></text>
+<rect x="60.0" y="150.0" width="220.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="60.0" y="150.0" width="220.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="170.0" y="174.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Канал дисплея — запит</tspan><tspan x="170.0" dy="15.6">пріоритет LOW</tspan></text>
+<rect x="330.0" y="96.0" width="110.0" height="84.0" rx="8" fill="#fff6e0" stroke="#c0a020" stroke-width="2.0"/>
+<rect x="330.0" y="96.0" width="110.0" height="84.0" rx="6" fill="#fff6e0" stroke="#c0a020" stroke-width="1.5"/><text x="385.0" y="126.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="385.0" dy="0.0">Арбітр:</tspan><tspan x="385.0" dy="15.6">пропускає</tspan><tspan x="385.0" dy="15.6">вищий</tspan></text>
+<line x1="280.0" y1="98.0" x2="330.0" y2="120.0" stroke="#8e44ad" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="178.0" x2="330.0" y2="156.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="305.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">притримано</text>
+<line x1="440.0" y1="138.0" x2="500.0" y2="138.0" stroke="#333333" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="470.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle">пропущено</text>
+<rect x="500.0" y="110.0" width="210.0" height="56.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.6"/>
+<rect x="500.0" y="110.0" width="52.0" height="56.0" rx="6" fill="#f0f0f0" stroke="#6b7280" stroke-width="0.8"/>
+<rect x="552.0" y="110.0" width="12.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="0.8"/>
+<text x="605.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Смуга шини (≈ 80 МБ/с)</text>
+<text x="526.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ядро</text>
+<text x="670.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">запас</text>
+<rect x="60.0" y="250.0" width="650.0" height="90.0" rx="8" fill="#f9fafb" stroke="#333333" stroke-width="1.4"/>
+<rect x="60.0" y="250.0" width="650.0" height="44.0" rx="6" fill="#f9fafb" stroke="none" stroke-width="1.5"/><text x="385.0" y="276.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="385.0" dy="0.0">Пріоритет = ПОРЯДОК у черзі: вищий канал отримує шину першим.</tspan></text>
+<rect x="60.0" y="296.0" width="650.0" height="40.0" rx="6" fill="#f9fafb" stroke="none" stroke-width="1.5"/><text x="385.0" y="320.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="385.0" dy="0.0">Якщо сумарний трафік &gt; смуги шини — жоден пріоритет не врятує: нижчий канал голодуватиме.</tspan></text>
+<text x="380.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Високий пріоритет аудіо тримає затримку малою; дисплей терпить кілька мікросекунд.</text>
+</svg>

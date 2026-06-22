@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три родини формальних методів: від автоматичної до ручної</text>
+<rect x="80.0" y="66.0" width="680.0" height="88.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="98.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Перевірка моделей (model checking)</text>
+<text x="98.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">автоматичний перебір УСІХ станів скінченної моделі</text>
+<text x="98.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">приклади: TLA+ / TLC · SPIN</text>
+<text x="744.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-style="italic">автоматично, але модель мусить бути скінченна</text>
+<rect x="80.0" y="170.0" width="680.0" height="88.0" rx="10" fill="#e6f4f4" stroke="#1f8a8a" stroke-width="2.0"/>
+<text x="98.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f8a8a" text-anchor="start" font-weight="700">Дедуктивна верифікація + SMT</text>
+<text x="98.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">контракти {P}C{Q} → умови коректності → розв'язувач</text>
+<text x="98.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">приклади: Frama-C / ACSL · Z3</text>
+<text x="744.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1f8a8a" text-anchor="end" font-style="italic">напівавтоматично: анотації пишеш ти, доводить машина</text>
+<rect x="80.0" y="274.0" width="680.0" height="88.0" rx="10" fill="#e9eefb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="98.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Інтерактивні теорема-пруфери</text>
+<text x="98.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">доказ будуєш кроками, машина перевіряє кожен крок</text>
+<text x="98.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">приклади: Coq · Isabelle</text>
+<text x="744.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="end" font-style="italic">найсильніше й найдорожче: доказ пишеться руками</text>
+<line x1="52.0" y1="72.0" x2="52.0" y2="362.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="40.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-weight="700"><tspan x="40.0" dy="0.0">сила</tspan><tspan x="40.0" dy="10.8">автомат.</tspan></text>
+<text x="40.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="end" font-weight="700"><tspan x="40.0" dy="0.0">сила</tspan><tspan x="40.0" dy="10.8">ручна</tspan></text>
+<text x="420.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">що нижче — то ширший клас властивостей доводиться, але дорожче й менш автоматично</text>
+</svg>

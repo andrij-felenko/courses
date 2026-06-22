@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кілька пристроїв: ланцюг JTAG проти одиночної цілі SWD</text>
+<text x="40.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">JTAG: TDI → TDO крізь усі чипи; зайві ставимо в BYPASS (1 біт)</text>
+<rect x="90.0" y="96.0" width="130.0" height="56.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="155.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="155.0" dy="0.0">чип A</tspan><tspan x="155.0" dy="14.3">BYPASS</tspan></text>
+<rect x="264.0" y="96.0" width="130.0" height="56.0" rx="8" fill="#dcecff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="329.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="329.0" dy="0.0">чип B</tspan><tspan x="329.0" dy="14.3">(ціль, IR)</tspan></text>
+<rect x="438.0" y="96.0" width="130.0" height="56.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="503.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="503.0" dy="0.0">чип C</tspan><tspan x="503.0" dy="14.3">BYPASS</tspan></text>
+<line x1="34.0" y1="124.0" x2="88.0" y2="124.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="34.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">TDI</text>
+<line x1="220.0" y1="124.0" x2="262.0" y2="124.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="394.0" y1="124.0" x2="436.0" y2="124.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="568.0" y1="124.0" x2="608.0" y2="124.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="608.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">TDO</text>
+<text x="380.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">TCK і TMS — паралельно всім; довжина зсуву = сума IR усіх чипів</text>
+<line x1="60.0" y1="210.0" x2="700.0" y2="210.0" stroke="#dddddd" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="40.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">SWD: один чип на лінії; ланцюга немає (кілька — лише через multidrop за адресою)</text>
+<rect x="90.0" y="268.0" width="120.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="150.0" y="297.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">зонд</tspan></text>
+<line x1="210.0" y1="293.0" x2="268.0" y2="293.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="239.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">2 лінії</text>
+<rect x="268.0" y="268.0" width="140.0" height="50.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="338.0" y="289.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="338.0" dy="0.0">один чип</tspan><tspan x="338.0" dy="15.6">(SW-DP)</tspan></text>
+</svg>

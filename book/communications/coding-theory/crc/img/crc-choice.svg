@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вибір CRC: ширина вирішує покриття, параметри вирішують сумісність</text>
+<rect x="28.0" y="52.0" width="224.0" height="150.0" rx="10" fill="#fcfcfc" stroke="#2457d6" stroke-width="2.2"/>
+<rect x="28.0" y="52.0" width="224.0" height="28.0" rx="10" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="140.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="700">CRC-8</text>
+<text x="42.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">поліном 0x07</text>
+<text x="42.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ширина: 8 біт</text>
+<text x="42.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">де: короткі кадри давачів</text>
+<text x="42.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ловить: ≤ 8 біт; пропуск ≈ 2⁻⁸</text>
+<rect x="268.0" y="52.0" width="224.0" height="150.0" rx="10" fill="#fcfcfc" stroke="#27ae60" stroke-width="2.2"/>
+<rect x="268.0" y="52.0" width="224.0" height="28.0" rx="10" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="380.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="700">CRC-16</text>
+<text x="282.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">поліном 0x1021</text>
+<text x="282.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ширина: 16 біт</text>
+<text x="282.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">де: пакети, карти пам'яті</text>
+<text x="282.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ловить: ≤ 16 біт; пропуск ≈ 2⁻¹⁶</text>
+<rect x="508.0" y="52.0" width="224.0" height="150.0" rx="10" fill="#fcfcfc" stroke="#7a3ea8" stroke-width="2.2"/>
+<rect x="508.0" y="52.0" width="224.0" height="28.0" rx="10" fill="#7a3ea8" stroke="#7a3ea8" stroke-width="0.0"/>
+<text x="620.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="700">CRC-32</text>
+<text x="522.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7a3ea8" text-anchor="start" font-weight="700">поліном 0x04C11DB7</text>
+<text x="522.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ширина: 32 біти</text>
+<text x="522.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">де: Ethernet, великі блоки</text>
+<text x="522.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ловить: ≤ 32 біт; пропуск ≈ 2⁻³²</text>
+<text x="380.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Ширша остача — рідший хибний пропуск і довший спійманий сплеск, але більше байтів і такти/таблиця.</text>
+<text x="380.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому дві коректні реалізації того самого полінома дають різні числа</text>
+<rect x="28.0" y="270.0" width="224.0" height="80.0" rx="9" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="140.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">init</text>
+<text x="140.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">чим заряджено регістр</text>
+<text x="140.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">перед першим байтом</text>
+<rect x="268.0" y="270.0" width="224.0" height="80.0" rx="9" fill="#ffffff" stroke="#caa24a" stroke-width="1.8"/>
+<text x="380.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#caa24a" text-anchor="middle" font-weight="700">refin / refout</text>
+<text x="380.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">чи перевертати порядок</text>
+<text x="380.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">бітів у байті й на виході</text>
+<rect x="508.0" y="270.0" width="224.0" height="80.0" rx="9" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="620.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">xorout</text>
+<text x="620.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">чим XOR-нути остачу</text>
+<text x="620.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">наприкінці</text>
+<text x="380.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Поміняй будь-що одне — і число зміниться, хоч поліном той самий.</text>
+<text x="380.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Як обрати на практиці</text>
+<circle cx="70.0" cy="416.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="86.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Є апаратний блок CRC у МК?</text>
+<line x1="390.0" y1="416.0" x2="420.0" y2="416.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="428.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">беремо саме його поліном і параметри</text>
+<circle cx="70.0" cy="446.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="86.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Говоримо з готовим протоколом?</text>
+<line x1="390.0" y1="446.0" x2="420.0" y2="446.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="428.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">копіюємо ВСІ параметри з його специфікації</text>
+<circle cx="70.0" cy="476.0" r="5.0" fill="#caa24a" stroke="#caa24a" stroke-width="1.0"/>
+<text x="86.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Свій формат, кадри короткі?</text>
+<line x1="390.0" y1="476.0" x2="420.0" y2="476.0" stroke="#caa24a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="428.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#caa24a" text-anchor="start">CRC-8/16 таблицею — дешево</text>
+<circle cx="70.0" cy="506.0" r="5.0" fill="#7a3ea8" stroke="#7a3ea8" stroke-width="1.0"/>
+<text x="86.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Свій формат, блоки великі/критичні?</text>
+<line x1="390.0" y1="506.0" x2="420.0" y2="506.0" stroke="#7a3ea8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="428.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a3ea8" text-anchor="start">CRC-32 — найменший хибний пропуск</text>
+<text x="380.0" y="548.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Головне правило: CRC задають не лише поліном, а й init, refin/refout і xorout — звіряти всю п'ятірку.</text>
+</svg>

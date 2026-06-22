@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="950" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="475.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта регістрів давача середовища: одна величина — кілька регістрів</text>
+<rect x="70.0" y="92.0" width="760.0" height="30.0" rx="0" fill="#f3f5f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="88.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Адреса</text>
+<text x="210.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Регістр (даташит)</text>
+<text x="440.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Вміст (8 бітів)</text>
+<text x="610.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Роль байта</text>
+<rect x="70.0" y="122.0" width="760.0" height="36.0" rx="0" fill="#fdecea" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="88.0" y="145.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">0xF7</text>
+<text x="210.0" y="145.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">press_msb</text>
+<text x="440.0" y="145.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="start">P[19:12]</text>
+<text x="610.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">старший байт тиску</text>
+<rect x="70.0" y="158.0" width="760.0" height="36.0" rx="0" fill="#fdecea" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="88.0" y="181.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">0xF8</text>
+<text x="210.0" y="181.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">press_lsb</text>
+<text x="440.0" y="181.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="start">P[11:4]</text>
+<text x="610.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">молодший байт тиску</text>
+<rect x="70.0" y="194.0" width="760.0" height="36.0" rx="0" fill="#fdecea" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="88.0" y="217.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">0xF9</text>
+<text x="210.0" y="217.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">press_xlsb</text>
+<text x="440.0" y="217.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="start">P[3:0]·0000</text>
+<text x="610.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">додаткові 4 біти</text>
+<rect x="70.0" y="230.0" width="760.0" height="36.0" rx="0" fill="#eaf0fd" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="88.0" y="253.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">0xFA</text>
+<text x="210.0" y="253.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">temp_msb</text>
+<text x="440.0" y="253.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="start">T[19:12]</text>
+<text x="610.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">старший байт темпер.</text>
+<rect x="70.0" y="266.0" width="760.0" height="36.0" rx="0" fill="#eaf0fd" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="88.0" y="289.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">0xFB</text>
+<text x="210.0" y="289.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">temp_lsb</text>
+<text x="440.0" y="289.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="start">T[11:4]</text>
+<text x="610.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">молодший байт темпер.</text>
+<rect x="70.0" y="302.0" width="760.0" height="36.0" rx="0" fill="#eaf0fd" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="88.0" y="325.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">0xFC</text>
+<text x="210.0" y="325.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">temp_xlsb</text>
+<text x="440.0" y="325.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="start">T[3:0]·0000</text>
+<text x="610.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">додаткові 4 біти</text>
+<rect x="70.0" y="338.0" width="760.0" height="36.0" rx="0" fill="#eaf6ee" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="88.0" y="361.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">0xFD</text>
+<text x="210.0" y="361.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">hum_msb</text>
+<text x="440.0" y="361.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="start">H[15:8]</text>
+<text x="610.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">старший байт вологості</text>
+<rect x="70.0" y="374.0" width="760.0" height="36.0" rx="0" fill="#eaf6ee" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="88.0" y="397.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">0xFE</text>
+<text x="210.0" y="397.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">hum_lsb</text>
+<text x="440.0" y="397.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="start">H[7:0]</text>
+<text x="610.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">молодший байт вологості</text>
+<rect x="70.0" y="122.0" width="760.0" height="288.0" rx="0" fill="none" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="844.0" y1="342.0" x2="856.0" y2="342.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="856.0" y1="342.0" x2="856.0" y2="406.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="856.0" y1="406.0" x2="844.0" y2="406.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="864.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">16 бітів</text>
+<text x="864.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">вологості</text>
+<text x="70.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">MSB-байт — за МЕНШОЮ адресою (0xF7), молодший — за більшою: у даташиті регістри впорядковані big-endian,</text>
+<text x="70.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="start" font-weight="700">хоч сам мікроконтролер (ESP32, ARM) — little-endian. Порядок диктує ДАВАЧ, а не процесор.</text>
+</svg>

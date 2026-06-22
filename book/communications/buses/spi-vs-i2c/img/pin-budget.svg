@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бюджет ніжок: п'ять пристроїв, три розклади</text>
+<text x="380.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">3 давачі (IMU, баро, магнітометр) + TFT-дисплей + SD-картка</text>
+<text x="30.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">усе на SPI</text>
+<rect x="250.0" y="86.0" width="360.0" height="26.0" rx="6" fill="#f2f2f2" stroke="#dddddd" stroke-width="1.0"/>
+<rect x="250.0" y="86.0" width="360.0" height="26.0" rx="6" fill="#27ae60" stroke="none" stroke-width="0.0"/>
+<text x="620.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">8 ніжок</text>
+<text x="30.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">3 спільні + 5 CS — найбільше ніжок</text>
+<text x="30.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">усе на I2C</text>
+<rect x="250.0" y="150.0" width="360.0" height="26.0" rx="6" fill="#f2f2f2" stroke="#dddddd" stroke-width="1.0"/>
+<rect x="250.0" y="150.0" width="90.0" height="26.0" rx="6" fill="#b9770e" stroke="none" stroke-width="0.0"/>
+<text x="350.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="start" font-weight="700">2 ніжок</text>
+<text x="30.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">дешево, але дисплей і картка по I2C повільні/незручні</text>
+<text x="30.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">розумно: давачі I2C, дисплей+SD SPI</text>
+<rect x="250.0" y="214.0" width="360.0" height="26.0" rx="6" fill="#f2f2f2" stroke="#dddddd" stroke-width="1.0"/>
+<rect x="250.0" y="214.0" width="315.0" height="26.0" rx="6" fill="#2c7a4b" stroke="none" stroke-width="0.0"/>
+<text x="575.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c7a4b" text-anchor="start" font-weight="700">7 ніжок</text>
+<text x="30.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">I2C: 2 ніжки на 3 давачі  ·  SPI: 3 спільні + 2 CS</text>
+<text x="380.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">виграє розподіл: кожен пристрій на «своїй» шині, а не «або-або»</text>
+</svg>

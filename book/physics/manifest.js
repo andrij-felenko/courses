@@ -93,7 +93,7 @@
         { slug: "doping", title: "Легування", status: "done", levels: ["basic"], origin: "embedded/block-2-components-analog/diode-pn-junction#2.5.2" },
         { slug: "pn-junction", title: "PN-перехід", status: "done", levels: ["basic"], origin: "embedded/block-2-components-analog/diode-pn-junction#2.5.3" },
         { slug: "piezoelectric-effect", title: "П'єзоефект", status: "done", levels: ["basic"], origin: "embedded/block-2-components-analog/resonators-references#2.10.2" },
-        { slug: "memory-cell-physics", title: "Фізика комірок", status: "recheck", origin: "embedded/block-3-digital-processor/memory-stack-heap#3.6.8", hist: [{ file: "hist-frohman-eprom.md", status: "recheck" }], math: [{ file: "math-tunneling.md", status: "recheck" }] },
+        { slug: "memory-cell-physics", title: "Фізика комірок", status: "done", origin: "embedded/block-3-digital-processor/memory-stack-heap#3.6.8", hist: [{ file: "hist-frohman-eprom.md", status: "done" }], math: [{ file: "math-tunneling.md", status: "done" }] },
       ] },
     { slug: "nuclear-particle", title: "Ядерна фізика", scope: "Будова, стійкість і перетворення ядра (радіоактивність, поділ, синтез, ядерні моделі) та елементарні частинки й фундаментальні взаємодії: Стандартна модель, кварки, калібрувальні поля, симетрії, механізм Хіггса.",
       topics: [

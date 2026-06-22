@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пріоритети — це закодовані дедлайни</text>
+<text x="380.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">найтерміновіша задача дістає найвищий пріоритет і витісняє решту</text>
+<rect x="60.0" y="80.0" width="280.0" height="54.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="80.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">керування мотором</text>
+<text x="80.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">кожні 1 мс — тісно</text>
+<line x1="346.0" y1="107.0" x2="392.0" y2="107.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="400.0" y="80.0" width="180.0" height="54.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="490.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ВИСОКИЙ</text>
+<rect x="60.0" y="146.0" width="280.0" height="54.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="80.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">опитування кнопок</text>
+<text x="80.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">кожні 20 мс</text>
+<line x1="346.0" y1="173.0" x2="392.0" y2="173.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="400.0" y="146.0" width="180.0" height="54.0" rx="8" fill="#fff7e6" stroke="#caa24a" stroke-width="1.8"/>
+<text x="490.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="700">середній</text>
+<rect x="60.0" y="212.0" width="280.0" height="54.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="80.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">оновлення дисплея</text>
+<text x="80.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">кожні 200 мс — вільно</text>
+<line x1="346.0" y1="239.0" x2="392.0" y2="239.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="400.0" y="212.0" width="180.0" height="54.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="490.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">низький</text>
+<rect x="606.0" y="80.0" width="130.0" height="186.0" rx="12" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="671.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="671.0" dy="0.0">правило</tspan><tspan x="671.0" dy="12.3">(rate-monotonic):</tspan></text>
+<text x="671.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="671.0" dy="0.0">тісніший дедлайн</tspan><tspan x="671.0" dy="11.7">→ вищий</tspan><tspan x="671.0" dy="11.7">пріоритет</tspan></text>
+<text x="671.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="671.0" dy="0.0">критична задача</tspan><tspan x="671.0" dy="11.7">витісняє решту</tspan><tspan x="671.0" dy="11.7">й завжди встигає</tspan></text>
+</svg>

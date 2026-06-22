@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асиметрія зернистості: дрібно читаєш і пишеш, а стираєш — крупно</text>
+<rect x="40.0" y="86.0" width="380.0" height="250.0" rx="10" fill="#fbfbfb" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="52.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">чип — 16 МБ (W25Q128)</text>
+<text x="408.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">Chip Erase — усе одразу</text>
+<rect x="58.0" y="122.0" width="344.0" height="168.0" rx="8" fill="#eef0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="68.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">блок — 64 КБ (×256)</text>
+<text x="392.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">Block Erase 64K</text>
+<rect x="74.0" y="154.0" width="312.0" height="104.0" rx="8" fill="#fdf6ee" stroke="#caa24a" stroke-width="1.8"/>
+<text x="84.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a6a18" text-anchor="start" font-weight="700">сектор — 4 КБ (×16 у блоці)</text>
+<text x="376.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a6a18" text-anchor="end" font-style="italic">Sector Erase 4K — найдрібніше</text>
+<rect x="86.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<rect x="123.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<rect x="160.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<rect x="197.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<rect x="234.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<rect x="271.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<rect x="308.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<rect x="345.0" y="188.0" width="34.0" height="44.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="230.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">16 сторінок по 256 Б — найдрібніший запис</text>
+<text x="230.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">читання — будь-який байт усередині</text>
+<text x="230.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">запис — сторінка · стирання — сектор/блок/чип</text>
+<rect x="450.0" y="86.0" width="410.0" height="250.0" rx="12" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="655.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">щоб змінити навіть один байт:</text>
+<circle cx="478.0" cy="142.0" r="13.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="478.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="500.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">дозвіл на запис</text>
+<text x="500.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">інакше чип мовчки відмовить</text>
+<line x1="478.0" y1="156.0" x2="478.0" y2="172.0" stroke="#6b7280" stroke-width="1.6"/>
+<circle cx="478.0" cy="186.0" r="13.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="478.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2</text>
+<text x="500.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">стерти сектор 4 КБ</text>
+<text x="500.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">усі біти сектора → 1 (десятки мс)</text>
+<line x1="478.0" y1="200.0" x2="478.0" y2="216.0" stroke="#6b7280" stroke-width="1.6"/>
+<circle cx="478.0" cy="230.0" r="13.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="478.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3</text>
+<text x="500.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">записати сторінки</text>
+<text x="500.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">опускаємо біти 1→0, по ≤256 Б</text>
+<line x1="478.0" y1="244.0" x2="478.0" y2="260.0" stroke="#6b7280" stroke-width="1.6"/>
+<circle cx="478.0" cy="274.0" r="13.0" fill="#ffffff" stroke="#caa24a" stroke-width="2.0"/>
+<text x="478.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="700">4</text>
+<text x="500.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#caa24a" text-anchor="start" font-weight="700">чекати, поки зайнятий</text>
+<text x="500.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">опитуємо біт Busy; далі — по його скиданню</text>
+<rect x="60.0" y="352.0" width="780.0" height="86.0" rx="10" fill="#fff8e8" stroke="#caa24a" stroke-width="1.8"/>
+<text x="450.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">граблі read-modify-write: апаратного «змінити один байт на місці» немає.</text>
+<text x="450.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">щоб поправити 1 байт у вже записаному секторі: вичитати сектор у RAM → змінити байт →</text>
+<text x="450.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">стерти весь сектор 4 КБ → записати назад. один байт коштує стирання й перезапису тисяч.</text>
+<text x="450.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6a18" text-anchor="middle" font-weight="700">тому під часті дрібні зміни (лічильники, журнали) такий чип не годиться — краще EEPROM/FRAM.</text>
+<rect x="60.0" y="452.0" width="780.0" height="76.0" rx="10" fill="#f4f7f4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="450.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">і ще наслідок: кожне стирання потроху зношує комірки (тунелювання крізь ізолятор).</text>
+<text x="450.0" y="498.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">ресурс — близько 100 000 циклів стирання на сектор, потім сектор «втомлюється».</text>
+<text x="450.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">тому файлові системи й бутлоадери стирають по черзі різні сектори, щоб не виробити один.</text>
+</svg>

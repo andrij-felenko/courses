@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ланцюговий проти синхронного: де перенос «біжить», а де ні</text>
+<rect x="40.0" y="70.0" width="390.0" height="280.0" rx="10" fill="none" stroke="#caa24a" stroke-width="1.6"/>
+<text x="235.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#9a7322" text-anchor="middle" font-weight="700">Ланцюговий (ripple)</text>
+<rect x="80.0" y="150.0" width="70.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="115.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">T0</text>
+<path d="M 80,182 L 90,188 L 80,194" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="150.0" y1="175.0" x2="205.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="205.0" y="150.0" width="70.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="240.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">T1</text>
+<path d="M 205,182 L 215,188 L 205,194" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="275.0" y1="175.0" x2="330.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="330.0" y="150.0" width="70.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="365.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">T2</text>
+<path d="M 330,182 L 340,188 L 330,194" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="40.0" y1="175.0" x2="80.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="40.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">такт</text>
+<text x="235.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">такт → T0 → T1 → T2</text>
+<text x="235.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">перенос «біжить» крізь розряди</text>
+<text x="235.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">просто, та старший біт відстає</text>
+<text x="235.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">на суму затримок → можливі глітчі</text>
+<rect x="450.0" y="70.0" width="390.0" height="280.0" rx="10" fill="none" stroke="#27ae60" stroke-width="1.6"/>
+<text x="645.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Синхронний</text>
+<rect x="500.0" y="150.0" width="66.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="533.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">T0</text>
+<path d="M 500,182 L 510,188 L 500,194" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="620.0" y="150.0" width="66.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="653.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">T1</text>
+<path d="M 620,182 L 630,188 L 620,194" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="740.0" y="150.0" width="66.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="773.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">T2</text>
+<path d="M 740,182 L 750,188 L 740,194" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="470.0" y1="220.0" x2="806.0" y2="220.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="510.0" y1="200.0" x2="510.0" y2="220.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="510.0" cy="220.0" r="2.6" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="630.0" y1="200.0" x2="630.0" y2="220.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="630.0" cy="220.0" r="2.6" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="750.0" y1="200.0" x2="750.0" y2="220.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="750.0" cy="220.0" r="2.6" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="462.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">такт</text>
+<text x="645.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">усі тригери — по СПІЛЬНОМУ такту</text>
+<text x="645.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">логіка вирішує, кому перемкнутись</text>
+<text x="645.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">складніше, зате швидко й без глітчів</text>
+<text x="440.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ланцюговий — для невибагливого; синхронний — там, де треба швидкість і чистота.</text>
+</svg>

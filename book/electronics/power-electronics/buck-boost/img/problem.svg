@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Напруга банки перетинає вихідну ціль</text>
+<line x1="90.0" y1="336.0" x2="90.0" y2="70.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="330.0" x2="820.0" y2="330.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="82.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">В</text>
+<text x="824.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">розряд →</text>
+<line x1="90.0" y1="311.4" x2="800.0" y2="311.4" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="82.0" y="315.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">3.0</text>
+<line x1="90.0" y1="255.7" x2="800.0" y2="255.7" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="82.0" y="259.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">3.3</text>
+<line x1="90.0" y1="181.4" x2="800.0" y2="181.4" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="82.0" y="185.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">3.7</text>
+<line x1="90.0" y1="88.6" x2="800.0" y2="88.6" stroke="#e4e4e4" stroke-width="1.0"/>
+<text x="82.0" y="92.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">4.2</text>
+<polyline points="90.0,88.6 132.0,116.4 230.0,162.9 440.0,209.3 615.0,255.7 706.0,283.6 762.0,307.7 790.0,320.7" fill="none" stroke="#b5763a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="90.0" y1="255.7" x2="800.0" y2="255.7" stroke="#27ae60" stroke-width="2.2" stroke-dasharray="7,5"/>
+<text x="806.0" y="259.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">ціль 3.3 В</text>
+<circle cx="615.0" cy="255.7" r="5.0" fill="#caa24a" stroke="#caa24a" stroke-width="0.0"/>
+<line x1="615.0" y1="330.0" x2="615.0" y2="255.7" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="320.0" y="160.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Vбат &gt; ціль → ЗНИЖУВАТИ (buck)</text>
+<text x="690.0" y="291.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Vбат &lt; ціль →</text>
+<text x="690.0" y="307.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ПІДВИЩУВАТИ (boost)</text>
+<rect x="70.0" y="382.0" width="760.0" height="26.0" rx="6" fill="#fbf7ec" stroke="#caa24a" stroke-width="1.5"/><text x="450.0" y="398.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Одна банка LiPo сповзає 4.2 → 3.0 В і перетинає 3.3 В: спершу треба знижувати, під кінець підвищувати. Чистий buck чи boost не покриє весь розряд</tspan></text>
+</svg>

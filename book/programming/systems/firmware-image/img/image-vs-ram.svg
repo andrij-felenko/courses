@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві різні картини: образ у Flash і RAM у роботі</text>
+<text x="195.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#3a5bb8" text-anchor="middle" font-weight="700">Образ у Flash (що заливають)</text>
+<rect x="70.0" y="70.0" width="250.0" height="70.0" rx="0" fill="#eef4ff" stroke="#bbbbbb" stroke-width="1.3"/>
+<text x="195.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">.text (код)</text>
+<rect x="70.0" y="140.0" width="250.0" height="40.0" rx="0" fill="#eafaf0" stroke="#bbbbbb" stroke-width="1.3"/>
+<text x="195.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">.data (поч. значення)</text>
+<rect x="70.0" y="180.0" width="250.0" height="24.0" rx="0" fill="#f0f0f0" stroke="#bbbbbb" stroke-width="1.3"/>
+<text x="195.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">.bss → лише розмір</text>
+<text x="195.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">нулів .bss в образі нема</text>
+<text x="525.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">RAM під час роботи</text>
+<rect x="400.0" y="70.0" width="250.0" height="40.0" rx="0" fill="#eafaf0" stroke="#bfe6cf" stroke-width="1.3"/>
+<text x="525.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">.data (скопійована)</text>
+<rect x="400.0" y="110.0" width="250.0" height="60.0" rx="0" fill="#eafaf0" stroke="#bfe6cf" stroke-width="1.3"/>
+<text x="525.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">.bss (обнулена)</text>
+<rect x="400.0" y="170.0" width="250.0" height="50.0" rx="0" fill="#eafaf0" stroke="#bfe6cf" stroke-width="1.3"/>
+<text x="525.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">стек ↓ … купа ↑</text>
+<text x="525.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">ще й росте на ходу</text>
+<text x="360.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">розмір образу й витрата RAM — різні числа</text>
+</svg>

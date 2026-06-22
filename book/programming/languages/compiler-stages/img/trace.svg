@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="620" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один вираз крізь стадії: токени → AST → IR → асемблер → числа</text>
+<text x="60.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1 · вихідний код (з директивою)</text>
+<rect x="60.0" y="64.0" width="640.0" height="44.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/><text x="76.0" y="90.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#eaf6ee" text-anchor="start" font-weight="700">#define LED_PIN 2   ·   GPIO_OUT |= (1 &lt;&lt; LED_PIN);</text>
+<line x1="380.0" y1="110.0" x2="380.0" y2="138.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="394.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">препроцесор ↓</text>
+<text x="60.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2 · після препроцесора (текст підставлено)</text>
+<rect x="60.0" y="144.0" width="640.0" height="44.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/><text x="76.0" y="170.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#eaf6ee" text-anchor="start" font-weight="700">GPIO_OUT |= (1 &lt;&lt; 2);</text>
+<line x1="380.0" y1="190.0" x2="380.0" y2="218.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="394.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">лексер ↓</text>
+<text x="60.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3 · токени (лексер порізав на слова)</text>
+<rect x="60.0" y="224.0" width="640.0" height="44.0" rx="8" fill="#1a2230" stroke="#0a120d" stroke-width="1.4"/><text x="76.0" y="250.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#bcd0ff" text-anchor="start" font-weight="700">[GPIO_OUT] [|=] [(] [1] [&lt;&lt;] [2] [)] [;]</text>
+<line x1="380.0" y1="270.0" x2="380.0" y2="298.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="394.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">парсер ↓</text>
+<text x="60.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">4 · дерево розбору (AST)</text>
+<rect x="60.0" y="304.0" width="640.0" height="44.0" rx="8" fill="#1a2230" stroke="#0a120d" stroke-width="1.4"/><text x="76.0" y="330.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#bcd0ff" text-anchor="start" font-weight="700">(|=  GPIO_OUT  (&lt;&lt;  1  2))</text>
+<line x1="380.0" y1="350.0" x2="380.0" y2="378.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="394.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">семантика + IR ↓</text>
+<text x="60.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">5 · проміжний код (IR, 1&lt;&lt;2 згорнуто)</text>
+<rect x="60.0" y="384.0" width="640.0" height="44.0" rx="8" fill="#2a230f" stroke="#0a120d" stroke-width="1.4"/><text x="76.0" y="410.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#f0dca0" text-anchor="start" font-weight="700">t = GPIO_OUT ;  t = t | 4 ;  GPIO_OUT = t</text>
+<line x1="380.0" y1="430.0" x2="380.0" y2="458.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="394.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">кодоген (під ядро) ↓</text>
+<text x="60.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">6 · асемблер (мнемоніки ядра)</text>
+<rect x="60.0" y="464.0" width="640.0" height="44.0" rx="8" fill="#13202a" stroke="#0a120d" stroke-width="1.4"/><text x="76.0" y="490.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#7fe0a0" text-anchor="start" font-weight="700">load r1,[GPIO_OUT] · or r1,r1,0x04 · store [GPIO_OUT],r1</text>
+<line x1="380.0" y1="510.0" x2="380.0" y2="538.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="394.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">асемблер ↓</text>
+<text x="60.0" y="538.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">7 · машинний код (числа)</text>
+<rect x="60.0" y="544.0" width="640.0" height="44.0" rx="8" fill="#101418" stroke="#0a120d" stroke-width="1.4"/><text x="76.0" y="570.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#7fe0a0" text-anchor="start" font-weight="700">3A 01 7C    2B 01 04    3C 01 7C</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Плата TP4056-класу: один резистор задає струм CC</text>
+<rect x="40.0" y="151.2" width="110.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="95.0" y="171.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="95.0" dy="0.0">USB 5 В</tspan><tspan x="95.0" dy="15.6">(вхід)</tspan></text>
+<rect x="240.0" y="119.0" width="200.0" height="112.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="340.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">TP4056</text>
+<text x="340.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="340.0" dy="0.0">лінійний CC/CV</tspan><tspan x="340.0" dy="14.3">до 4.2 В · автономно</tspan></text>
+<rect x="590.0" y="151.2" width="110.0" height="47.6" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="645.0" y="171.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="645.0" dy="0.0">комірка</tspan><tspan x="645.0" dy="15.6">Li 1S</tspan></text>
+<line x1="152.0" y1="175.0" x2="238.0" y2="175.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="195.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">VCC</text>
+<line x1="442.0" y1="175.0" x2="586.0" y2="175.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="515.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">BAT</text>
+<line x1="300.0" y1="231.0" x2="300.0" y2="267.0" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="276.0" y="267.0" width="48.0" height="26.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="300.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Rprog</text>
+<line x1="300.0" y1="293.0" x2="300.0" y2="307.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="288.0" y1="307.0" x2="312.0" y2="307.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="300.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">PROG → задає Iзар</text>
+<line x1="560.0" y1="231.0" x2="560.0" y2="267.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4,3"/>
+<text x="560.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">TEMP → термістор</text>
+<text x="560.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(часто вимкнено)</text>
+<line x1="310.0" y1="119.0" x2="310.0" y2="89.0" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="310.0" cy="81.0" r="7.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="370.0" y1="119.0" x2="370.0" y2="89.0" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="370.0" cy="81.0" r="7.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="340.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">CHRG / STDBY (відкритий стік)</text>
+<rect x="28.9" y="356.8" width="702.3" height="30.5" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="380.0" y="375.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">вихід до системи з'єднано прямо з BAT — power-path немає; захист DW01+8205 (на «захищених» платах) — окремий вузол</tspan></text>
+</svg>

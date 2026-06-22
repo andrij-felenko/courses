@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хобі-плата МК зсередини й «перший байт»</text>
+<text x="410.0" y="51.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">однаковий каркас плати; ISA живе всередині ядра — і її ж обираєш як ціль</text>
+<rect x="36.0" y="74.0" width="470.0" height="356.0" rx="10" fill="#fafafa" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="50.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">плата (модуль розробника)</text>
+<rect x="22.0" y="224.0" width="22.0" height="44.0" rx="3" fill="#e4e4e4" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="33.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB</text>
+<rect x="76.0" y="224.0" width="96.0" height="46.0" rx="6" fill="#dfe6f6" stroke="#1f47b5" stroke-width="1.8"/>
+<text x="124.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f47b5" text-anchor="middle" font-weight="700">USB↔UART</text>
+<text x="124.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(або вбуд.)</text>
+<line x1="44" y1="246" x2="74" y2="247" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="76.0" y="110.0" width="120.0" height="42.0" rx="6" fill="#f6dcd9" stroke="#c0271e" stroke-width="1.8"/>
+<text x="136.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="700">Стабілізатор</text>
+<text x="136.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">5 В → 3.3 В</text>
+<rect x="232.0" y="184.0" width="230.0" height="150.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="347.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чип МК (SoC)</text>
+<rect x="258.0" y="224.0" width="178.0" height="60.0" rx="8" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2.0"/>
+<text x="347.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f8a3b" text-anchor="middle" font-weight="700">ЯДРО + ISA</text>
+<text x="347.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Cortex-M / RISC-V / Xtensa</text>
+<text x="347.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+ Flash, RAM, периферія на кристалі</text>
+<line x1="136" y1="152" x2="347" y2="182" stroke="#c0271e" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="353.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0271e" text-anchor="start" font-weight="700">3.3 В</text>
+<line x1="172" y1="247" x2="230" y2="254" stroke="#1f47b5" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="202.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f47b5" text-anchor="middle">прошивка/лог</text>
+<line x1="462.0" y1="208.0" x2="496.0" y2="208.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="500.0" cy="208.0" r="3.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="462.0" y1="234.0" x2="496.0" y2="234.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="500.0" cy="234.0" r="3.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="462.0" y1="260.0" x2="496.0" y2="260.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="500.0" cy="260.0" r="3.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="462.0" y1="286.0" x2="496.0" y2="286.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="500.0" cy="286.0" r="3.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="462.0" y1="312.0" x2="496.0" y2="312.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="500.0" cy="312.0" r="3.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="498.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-weight="700">GPIO-піни</text>
+<text x="50.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="start" font-weight="700">рівні логіки 3.3 В — не 5 В на входи!</text>
+<rect x="528.0" y="74.0" width="256.0" height="356.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="656.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">«Перший байт»:</text>
+<text x="656.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">як заговорити з платою</text>
+<rect x="540.0" y="138.0" width="232.0" height="60.0" rx="6" fill="#dfe6f6" stroke="#1f47b5" stroke-width="1.5"/>
+<text x="550.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Дізнайся ядро плати</text>
+<text x="550.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">RP2040 → ARM; ESP32-C3 → RISC-V;</text>
+<text x="550.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">ESP32 → Xtensa.</text>
+<rect x="540.0" y="208.0" width="232.0" height="60.0" rx="6" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="550.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Обери ту саму ISA-ціль</text>
+<text x="550.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">у IDE: «board / target» = саме</text>
+<text x="550.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">цей чип, не «якийсь ESP».</text>
+<rect x="540.0" y="278.0" width="232.0" height="60.0" rx="6" fill="#dfe6f6" stroke="#1f47b5" stroke-width="1.5"/>
+<text x="550.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Постав потрібний toolchain</text>
+<text x="550.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">компілятор кодує під ISA;</text>
+<text x="550.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">чужий дасть несумісний код.</text>
+<rect x="540.0" y="348.0" width="232.0" height="60.0" rx="6" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="550.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Залий і поглянь у лог</text>
+<text x="550.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">перший рядок по UART (115200)</text>
+<text x="550.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">= плата ожила й говорить.</text>
+</svg>

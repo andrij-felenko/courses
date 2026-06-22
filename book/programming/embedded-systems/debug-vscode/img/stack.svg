@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розширення не замінює OpenOCD і GDB — воно їх оркеструє</text>
+<rect x="40.0" y="56.0" width="740.0" height="64.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="410.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">VS Code + cortex-debug</text>
+<text x="410.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">читає launch.json · запускає сервер · веде GDB · малює панелі</text>
+<rect x="56.0" y="196.0" width="150.0" height="78.0" rx="8" fill="#fff8e1" stroke="#e67e22" stroke-width="2.0"/>
+<text x="131.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#e67e22" text-anchor="middle" font-weight="700">OpenOCD</text>
+<text x="131.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="131.0" dy="0.0">сервер RSP</tspan><tspan x="131.0" dy="13.8">:3333</tspan></text>
+<rect x="262.0" y="196.0" width="150.0" height="78.0" rx="8" fill="#d5e8d4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="337.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">arm-…-gdb</text>
+<text x="337.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="337.0" dy="0.0">читає .elf</tspan><tspan x="337.0" dy="13.8">команди RSP</tspan></text>
+<rect x="468.0" y="196.0" width="150.0" height="78.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="543.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зонд + чип</text>
+<text x="543.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="543.0" dy="0.0">SWD/JTAG</tspan><tspan x="543.0" dy="13.8">залізо</tspan></text>
+<line x1="209.0" y1="235.0" x2="259.0" y2="235.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="234.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">RSP</text>
+<line x1="415.0" y1="235.0" x2="465.0" y2="235.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">USB</text>
+<line x1="131.0" y1="122.0" x2="131.0" y2="194.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="337.0" y1="122.0" x2="337.0" y2="194.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="234.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">запускає й веде</text>
+<rect x="154.5" y="309.5" width="511.1" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="410.0" y="329.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Той самий ланцюг, що й у голому терміналі, — лише схований за вікном редактора</tspan></text>
+</svg>

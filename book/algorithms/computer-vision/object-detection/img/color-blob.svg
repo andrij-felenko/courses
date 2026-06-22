@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">За кольором: маска → пляма → центр і рамка</text>
+<rect x="30.0" y="120.0" width="150.0" height="116.0" rx="8" fill="#1e293b" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="46.0" y="134.0" width="30.0" height="26.0" rx="5" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<circle cx="152.0" cy="206.0" r="16.0" fill="#27ae60" stroke="none" stroke-width="0.0"/>
+<circle cx="105.0" cy="178.0" r="26.0" fill="#e08a1e" stroke="none" stroke-width="0.0"/>
+<text x="105.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">кадр</text>
+<rect x="224.0" y="120.0" width="150.0" height="116.0" rx="8" fill="#0a0d12" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="299.0" cy="178.0" r="26.0" fill="#f4f6f8" stroke="none" stroke-width="0.0"/>
+<rect x="248.0" y="136.0" width="5.0" height="5.0" rx="1" fill="#f4f6f8" stroke="none" stroke-width="0.0"/>
+<rect x="344.0" y="212.0" width="4.0" height="4.0" rx="1" fill="#f4f6f8" stroke="none" stroke-width="0.0"/>
+<text x="299.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">HSV-поріг → маска</text>
+<rect x="418.0" y="120.0" width="150.0" height="116.0" rx="8" fill="#0a0d12" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="493.0" cy="178.0" r="26.0" fill="#f4f6f8" stroke="none" stroke-width="0.0"/>
+<text x="493.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">морфологія</text>
+<rect x="612.0" y="120.0" width="150.0" height="116.0" rx="8" fill="#0a0d12" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="687.0" cy="178.0" r="26.0" fill="#f4f6f8" stroke="none" stroke-width="0.0"/>
+<rect x="659.0" y="150.0" width="56.0" height="56.0" rx="2" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="680.0" y1="178.0" x2="694.0" y2="178.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="687.0" y1="171.0" x2="687.0" y2="185.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="687.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">пляма: центр + рамка</text>
+<line x1="184.0" y1="178.0" x2="220.0" y2="178.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="378.0" y1="178.0" x2="414.0" y2="178.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="572.0" y1="178.0" x2="608.0" y2="178.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="40.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Колір — найдешевший сигнал: поріг у HSV, чистка маски —</text>
+<text x="40.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">і пляма сама віддає центр, площу й рамку цілі. Тягне навіть МК.</text>
+<rect x="438.0" y="272.0" width="238.0" height="72.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/><text x="557.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="557.0" dy="0.0">що дістаємо:</tspan><tspan x="557.0" dy="13.0">• центр (cx, cy)</tspan><tspan x="557.0" dy="13.0">• площа (пікселі)</tspan><tspan x="557.0" dy="13.0">• габаритна рамка</tspan></text>
+</svg>

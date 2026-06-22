@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Які саме числа — залежить від ядра</text>
+<rect x="30.0" y="130.0" width="180.0" height="76.0" rx="8" fill="#13202a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="120.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8fcf9f" text-anchor="middle" font-weight="700">вихідний код</text>
+<text x="120.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#eaf6ee" text-anchor="middle" font-weight="700">OUT |= (1&lt;&lt;2);</text>
+<line x1="212.0" y1="168.0" x2="271.7" y2="168.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="275.7" y="139.1" width="108.6" height="57.9" rx="6" fill="#f6f4ec" stroke="#1a1a1a" stroke-width="2.2"/><text x="330.0" y="164.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">Компілятор</tspan><tspan x="330.0" dy="16.9">перекладач</tspan></text>
+<rect x="560.0" y="88.0" width="180.0" height="70.0" rx="8" fill="#101418" stroke="#000000" stroke-width="1.5"/>
+<text x="572.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7fa6bf" text-anchor="start" font-weight="700">для Xtensa (ESP32, S3):</text>
+<text x="572.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7fe0a0" text-anchor="start" font-weight="700">3A 01 7C…  2B 01 04…</text>
+<line x1="386.3" y1="156.0" x2="556.0" y2="123.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="472.1" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">під Xtensa</text>
+<rect x="560.0" y="198.0" width="180.0" height="70.0" rx="8" fill="#101418" stroke="#000000" stroke-width="1.5"/>
+<text x="572.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7fa6bf" text-anchor="start" font-weight="700">для RISC-V (C3, C6):</text>
+<text x="572.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7fe0a0" text-anchor="start" font-weight="700">0C 1A 04…  93 81 41…</text>
+<line x1="386.3" y1="180.0" x2="556.0" y2="233.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="472.1" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">під RISC-V</text>
+<text x="380.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Один текст → різні числа під різні ядра (звідси «зібрати під ESP32 / під C3»)</text>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кілька однакових чіпів на шині: ніжки адреси</text>
+<rect x="120.0" y="80.0" width="160.0" height="120.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="200.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">той самий тип чіпа</text>
+<text x="200.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">адреса 0x68</text>
+<text x="200.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">A0 = GND (0)</text>
+<rect x="540.0" y="80.0" width="160.0" height="120.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="620.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">той самий тип чіпа</text>
+<text x="620.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">адреса 0x69</text>
+<text x="620.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">A0 = VCC (1)</text>
+<text x="410.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">база 0x68</text>
+<text x="410.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">+ A0 → 0x68 / 0x69</text>
+<line x1="284.0" y1="140.0" x2="536.0" y2="140.0" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="4,3"/>
+<rect x="70.0" y="250.0" width="680.0" height="96.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="410.0" y="287.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Так два-чотири однакові давачі живуть на одній шині: кожному дають свою адресу ніжками.</tspan><tspan x="410.0" dy="15.0">Бракує ніжок — ставлять I2C-мультиплексор, що розводить шину на кілька гілок.</tspan><tspan x="410.0" dy="15.0">Дві однакові адреси на одній шині без цього — конфлікт: обидва відгукнуться разом.</tspan></text>
+</svg>

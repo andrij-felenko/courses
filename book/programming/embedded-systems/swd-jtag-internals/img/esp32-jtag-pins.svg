@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">JTAG коштує ніжок; на нових ESP32 він іде прямо по USB</text>
+<text x="40.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Класичний ESP32 / S2 — 4 GPIO</text>
+<rect x="40.0" y="78.0" width="150.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="50.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">MTCK</text>
+<text x="182.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">GPIO13</text>
+<rect x="40.0" y="122.0" width="150.0" height="36.0" rx="6" fill="#fdf6e3" stroke="#c0392b" stroke-width="1.5"/>
+<text x="50.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">MTDI</text>
+<text x="182.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">GPIO12</text>
+<rect x="40.0" y="166.0" width="150.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="50.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">MTMS</text>
+<text x="182.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">GPIO14</text>
+<rect x="40.0" y="210.0" width="150.0" height="36.0" rx="6" fill="#fdf6e3" stroke="#c0392b" stroke-width="1.5"/>
+<text x="50.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">MTDO</text>
+<text x="182.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">GPIO15</text>
+<text x="40.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">GPIO12/15 — strapping:</text>
+<text x="40.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">хибний рівень при reset зриває</text>
+<text x="40.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">завантаження</text>
+<line x1="370.0" y1="50.0" x2="370.0" y2="290.0" stroke="#dddddd" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="410.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">ESP32-S3 / C3 / C6 — USB-JTAG</text>
+<rect x="410.0" y="88.0" width="150.0" height="50.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="485.0" y="109.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="485.0" dy="0.0">один</tspan><tspan x="485.0" dy="15.6">USB-кабель</tspan></text>
+<line x1="560.0" y1="113.0" x2="610.0" y2="113.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="610.0" y="88.0" width="60.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="640.0" y="117.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">чип</tspan></text>
+<text x="410.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• прошивка</text>
+<text x="410.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• відлагодження</text>
+<text x="410.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• консоль</text>
+<text x="410.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">— без зонда, без конфлікту GPIO</text>
+</svg>

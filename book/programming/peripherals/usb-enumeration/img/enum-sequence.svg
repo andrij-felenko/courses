@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Енумерація: кожен крок ініціює хост, усе через EP0</text>
+<line x1="200.0" y1="70.0" x2="200.0" y2="525.0" stroke="#6b7280" stroke-width="2.0" stroke-dasharray="4,4"/>
+<line x1="620.0" y1="70.0" x2="620.0" y2="525.0" stroke="#6b7280" stroke-width="2.0" stroke-dasharray="4,4"/>
+<rect x="172.6" y="49.0" width="54.7" height="34.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="200.0" y="70.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">ХОСТ</tspan></text>
+<rect x="575.3" y="49.0" width="89.4" height="34.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="70.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">ПРИСТРІЙ</tspan></text>
+<line x1="612.0" y1="108.0" x2="208.0" y2="108.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">підключення: підтяжка D+ (Full-Speed)</text>
+<line x1="208.0" y1="150.0" x2="612.0" y2="150.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">USB reset</text>
+<line x1="208.0" y1="192.0" x2="612.0" y2="192.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">GET_DESCRIPTOR(Device, 8) → адреса 0</text>
+<line x1="612.0" y1="234.0" x2="208.0" y2="234.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">перші 8 байтів: дізнаюсь bMaxPacketSize0</text>
+<line x1="208.0" y1="276.0" x2="612.0" y2="276.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">USB reset</text>
+<line x1="208.0" y1="318.0" x2="612.0" y2="318.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">SET_ADDRESS(N)</text>
+<line x1="612.0" y1="360.0" x2="208.0" y2="360.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">тепер відповідаю на адресі N</text>
+<line x1="208.0" y1="402.0" x2="612.0" y2="402.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">GET_DESCRIPTOR(Device, 18) → адреса N</text>
+<line x1="612.0" y1="444.0" x2="208.0" y2="444.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Configuration + Interface + Endpoint</text>
+<line x1="208.0" y1="486.0" x2="612.0" y2="486.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">SET_CONFIGURATION(1) → стан configured</text>
+<rect x="250.0" y="505.0" width="320.0" height="34.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="410.0" y="526.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Готовий нести корисний трафік</tspan></text>
+</svg>

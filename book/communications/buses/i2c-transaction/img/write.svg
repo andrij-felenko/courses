@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="280" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запис у регістр: спершу номер, тоді дані</text>
+<rect x="60.0" y="90.0" width="50.0" height="56.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="85.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">S</text>
+<text x="85.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">старт</text>
+<rect x="120.0" y="90.0" width="110.0" height="56.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="175.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x68 +W</text>
+<text x="175.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">адреса, пишемо</text>
+<rect x="240.0" y="90.0" width="56.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/>
+<text x="268.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ACK</text>
+<rect x="306.0" y="90.0" width="84.0" height="56.0" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.8"/>
+<text x="348.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x6B</text>
+<text x="348.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">номер регістра</text>
+<rect x="400.0" y="90.0" width="56.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/>
+<text x="428.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ACK</text>
+<rect x="466.0" y="90.0" width="72.0" height="56.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="502.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x01</text>
+<text x="502.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дані</text>
+<rect x="548.0" y="90.0" width="56.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/>
+<text x="576.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ACK</text>
+<rect x="614.0" y="90.0" width="50.0" height="56.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="639.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">P</text>
+<text x="639.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">стоп</text>
+<line x1="60.0" y1="186.0" x2="664.0" y2="186.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="60.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">напрямок у часі →</text>
+<rect x="60.0" y="224.0" width="760.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="241.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Читається як «у пристрій 0x68, у регістр 0x6B, поклади 0x01».</tspan><tspan x="440.0" dy="15.0">Так, наприклад, давач виводять зі сну, увімкнувши його регістр живлення.</tspan></text>
+</svg>

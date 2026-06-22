@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Фігури до статті «Оптопара» (PC817-клас: ранги CTR і розрахунок обох боків).
+"""Фігури до вставки «Фототранзисторна оптопара: розрахунок обох боків і старіння».
+PC817 — лише приклад; підписи узагальнені на клас фототранзисторних оптопар.
 Запуск:  python figs.py   → пише SVG у ./img/
 Стиль і помічники — зі спільного svgkit (НЕ переписувати тут)."""
 import sys, os
@@ -11,7 +12,7 @@ os.makedirs(IMG, exist_ok=True)
 
 
 def fig_calc():
-    """Розрахунок обох боків PC817: вхід — як світлодіод, вихід — як ключ у насиченні."""
+    """Розрахунок обох боків: вхід — як світлодіод, вихід — як ключ у насиченні."""
     W, H = 860, 430
     f = []
 
@@ -19,18 +20,18 @@ def fig_calc():
     cx, cy, cw, ch = 70, 96, 150, 132
     f.append(rect(cx, cy, cw, ch, fill="#2b2b2b", stroke=INK, sw=2, rx=8))
     f.append(circle(cx + 16, cy + 16, 5, fill=BG, stroke=MUTED, sw=1.4))
-    f.append(text(cx + cw / 2, cy + 58, "PC817", size=14, color="#e8e8e8", bold=True))
+    f.append(text(cx + cw / 2, cy + 58, "оптопара", size=14, color="#e8e8e8", bold=True))
     f.append(text(cx + cw / 2, cy + 78, "DIP-4", size=11, color="#bdbdbd"))
     # виводи входу (ліворуч)
     f.append(line(cx, cy + 30, cx - 26, cy + 30, color=INK, sw=2))
-    f.append(text(cx - 30, cy + 34, "1 анод", size=11, color=POS, anchor="end", bold=True))
+    f.append(text(cx - 30, cy + 34, "анод", size=11, color=POS, anchor="end", bold=True))
     f.append(line(cx, cy + 80, cx - 26, cy + 80, color=INK, sw=2))
-    f.append(text(cx - 30, cy + 84, "2 катод", size=11, color=NEG, anchor="end", bold=True))
+    f.append(text(cx - 30, cy + 84, "катод", size=11, color=NEG, anchor="end", bold=True))
     # виводи виходу (праворуч)
     f.append(line(cx + cw, cy + 30, cx + cw + 26, cy + 30, color=INK, sw=2))
-    f.append(text(cx + cw + 30, cy + 34, "4 колектор", size=11, color=INK, anchor="start", bold=True))
+    f.append(text(cx + cw + 30, cy + 34, "колектор", size=11, color=INK, anchor="start", bold=True))
     f.append(line(cx + cw, cy + 80, cx + cw + 26, cy + 80, color=INK, sw=2))
-    f.append(text(cx + cw + 30, cy + 84, "3 емітер", size=11, color=INK, anchor="start", bold=True))
+    f.append(text(cx + cw + 30, cy + 84, "емітер", size=11, color=INK, anchor="start", bold=True))
     f.append(text(cx + cw / 2, cy + 150, "крапка/зріз = вивід 1", size=10, color=MUTED, italic=True))
 
     # ── панель ВХІД ──
@@ -53,7 +54,7 @@ def fig_calc():
     f.append(rect(qx, qy, qw, qh, fill=BG, stroke="#c9d3dc", sw=1.4))
     ocx = qx + qw / 2
     f.append(text(ocx, qy + 26, "ВИХІД — ключ у насиченні", size=13, color=INK, bold=True))
-    f.append(text(ocx, qy + 52, "CTR_min = 80 %  (ранг A)", size=11, color=INK))
+    f.append(text(ocx, qy + 52, "CTR_min = 80 %  (нижчий ранг)", size=11, color=INK))
     f.append(text(ocx, qy + 78, "I_C(гарант.) = 0.8 · 10 мА = 8 мА", size=11, color=POS, bold=True))
     f.append(text(ocx, qy + 116, "R_C при вих. 5 В:", size=11, color=INK))
     f.append(text(ocx, qy + 138, "R_C > 5 В / 8 мА ≈ 620 Ом", size=12, color=FIELD, bold=True))
@@ -63,17 +64,16 @@ def fig_calc():
     f.append(text(ocx, qy + 236, "чіткий логічний 0", size=11, color=MUTED))
     f.append(text(ocx, qy + 274, "інверсія: світлодіод горить → 0", size=11, color="#7a4e8a", bold=True))
 
-    # стрілка «світло» крізь корпус від входу до виходу
     f.append(text(W / 2, H - 22,
                   "Дві землі — два окремі розрахунки: вхід рахують як світлодіод, вихід — як ключ-транзистор.",
                   size=11, color=MUTED, italic=True))
 
-    render(os.path.join(IMG, "pc817-calc.svg"), W, H, *f,
-           title="PC817 у цифровому ключі: обидва боки в числах")
+    render(os.path.join(IMG, "both-sides-calc.svg"), W, H, *f,
+           title="Фототранзисторна оптопара: обидва боки в числах")
 
 
 def fig_ranks():
-    """Ранги CTR за літерою, сімейство 817/827/847 і швидкі цифрові родичі."""
+    """Ранги CTR за літерою, канали в корпусі й швидкі цифрові родичі."""
     W, H = 860, 400
     f = []
 
@@ -81,10 +81,10 @@ def fig_ranks():
     lx, ly, lw, lh = 40, 56, 380, 180
     f.append(rect(lx, ly, lw, lh, fill=BG, stroke="#c9d3dc", sw=1.4))
     f.append(text(lx + lw / 2, ly - 8, "ранг CTR — літера в назві", size=12, color=INK, bold=True))
-    ranks = [("PC817A", "80…160 %", 26.7, FIELD),
-             ("PC817B", "130…260 %", 43.3, "#b5732e"),
-             ("PC817C", "200…400 %", 66.7, NEG),
-             ("PC817D", "300…600 %", 100.0, "#7a4e8a")]
+    ranks = [("ранг A", "80…160 %", 26.7, FIELD),
+             ("ранг B", "130…260 %", 43.3, "#b5732e"),
+             ("ранг C", "200…400 %", 66.7, NEG),
+             ("ранг D", "300…600 %", 100.0, "#7a4e8a")]
     ry = ly + 36
     for name, rng, bw, col in ranks:
         f.append(text(lx + 30, ry, name, size=12, color=col, anchor="start", bold=True))
@@ -98,12 +98,12 @@ def fig_ranks():
     rx, ry0, rw, rh = 440, 56, 380, 180
     f.append(rect(rx, ry0, rw, rh, fill=BG, stroke="#c9d3dc", sw=1.4))
     f.append(text(rx + rw / 2, ry0 - 8, "скільки каналів у корпусі", size=12, color=INK, bold=True))
-    pkgs = [("PC817", "1 канал"), ("PC827", "2 канали"), ("PC847", "4 канали")]
+    pkgs = [("1 канал", "напр. PC817"), ("2 канали", "напр. PC827"), ("4 канали", "напр. PC847")]
     bx = rx + 30
-    for name, chans in pkgs:
+    for chans, ex in pkgs:
         f.append(rect(bx, ry0 + 40, 90, 70, fill="#eef6ef", stroke=FIELD, sw=1.6, rx=8))
-        f.append(text(bx + 45, ry0 + 74, name, size=12, color=INK, bold=True))
-        f.append(text(bx + 45, ry0 + 96, chans, size=10, color=MUTED))
+        f.append(text(bx + 45, ry0 + 74, chans, size=12, color=INK, bold=True))
+        f.append(text(bx + 45, ry0 + 96, ex, size=9, color=MUTED))
         bx += 120
     f.append(text(rx + rw / 2, ry0 + rh - 12, "однакова комірка, більше пар у корпусі",
                   size=10, color=MUTED, italic=True))
@@ -113,18 +113,18 @@ def fig_ranks():
     f.append(rect(bx0, by0, bw0, bh0, fill=BG, stroke="#c9d3dc", sw=1.4))
     bcx = bx0 + bw0 / 2
     f.append(text(bcx, by0 - 8, "коли фототранзистора замало — швидкі цифрові", size=12, color=INK, bold=True))
-    f.append(text(bcx, by0 + 28, "PC817-клас: смуга ~80 кГц (фототранзистор повільний)", size=11, color=INK))
+    f.append(text(bcx, by0 + 28, "фототранзисторна оптопара: смуга ~десятки кГц (повільна)", size=11, color=INK))
     f.append(text(bcx, by0 + 56, "потрібні сотні кБіт/Мбіт → 6N137 / TLP-клас:", size=11, color=FIELD, bold=True))
     f.append(text(bcx, by0 + 78, "усередині фотодіод + підсилювач-формувач, логічний вихід, мегагерци",
                   size=10, color=MUTED))
-    f.append(text(bcx, by0 + 102, "для зв'язку (ізольований UART / SPI) беруть саме їх, а не PC817",
+    f.append(text(bcx, by0 + 102, "для зв'язку (ізольований UART / SPI) беруть саме їх, а не фототранзисторну",
                   size=10, color=MUTED, italic=True))
 
-    render(os.path.join(IMG, "ranks-family.svg"), W, H, *f,
-           title="Ранги CTR, сімейство й швидкі родичі")
+    render(os.path.join(IMG, "ctr-ranks.svg"), W, H, *f,
+           title="Ранги CTR, канали в корпусі й швидкі родичі")
 
 
 if __name__ == "__main__":
     fig_calc()
     fig_ranks()
-    print("OK: pc817-calc.svg, ranks-family.svg")
+    print("OK: both-sides-calc.svg, ctr-ranks.svg")

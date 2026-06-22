@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як ECC проявляється для інженера</text>
+<text x="390.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">поки виправляється одна помилка, ECC мовчить — голосною подія стає лише тоді, коли код безсилий</text>
+<rect x="30.0" y="80.0" width="236.0" height="96.0" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="148.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1 біт → тихо виправлено</text>
+<line x1="44.0" y1="116.0" x2="252.0" y2="116.0" stroke="#e0e0e0" stroke-width="1.2"/>
+<text x="148.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="148.0" dy="0.0">дані для програми чисті;</tspan><tspan x="148.0" dy="14.3">слід — лише в лічильнику CE</tspan></text>
+<line x1="267.0" y1="128.0" x2="283.0" y2="128.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="284.0" y="80.0" width="236.0" height="96.0" rx="10" fill="#ffffff" stroke="#b9770e" stroke-width="1.8"/>
+<text x="402.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">лічильник CE росте</text>
+<line x1="298.0" y1="116.0" x2="506.0" y2="116.0" stroke="#e0e0e0" stroke-width="1.2"/>
+<text x="402.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="402.0" dy="0.0">багато виправлень з однієї</tspan><tspan x="402.0" dy="14.3">адреси — комірка слабне</tspan></text>
+<line x1="521.0" y1="128.0" x2="537.0" y2="128.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="538.0" y="80.0" width="236.0" height="96.0" rx="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="656.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">нескоригована (UE)</text>
+<line x1="552.0" y1="116.0" x2="760.0" y2="116.0" stroke="#e0e0e0" stroke-width="1.2"/>
+<text x="656.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="656.0" dy="0.0">двох+ біт не виправити:</tspan><tspan x="656.0" dy="14.3">прапор, лог, переривання</tspan></text>
+<text x="40.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Де ці лічильники реально читати:</text>
+<rect x="30.0" y="230.0" width="236.0" height="150.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="44.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Сервер (RAM)</text>
+<line x1="44.0" y1="262.0" x2="252.0" y2="262.0" stroke="#e0e0e0" stroke-width="1.2"/>
+<text x="44.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">EDAC / mcelog у Linux:</text>
+<text x="44.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="44.0" dy="0.0">ce_count, ue_count на канал —</tspan><tspan x="44.0" dy="13.7">скільки виправлено й скільки</tspan><tspan x="44.0" dy="13.7">фатальних</tspan></text>
+<rect x="284.0" y="230.0" width="236.0" height="150.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="298.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">SSD / eMMC</text>
+<line x1="298.0" y1="262.0" x2="506.0" y2="262.0" stroke="#e0e0e0" stroke-width="1.2"/>
+<text x="298.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">атрибути S.M.A.R.T.:</text>
+<text x="298.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="298.0" dy="0.0">окремі лічильники під</tspan><tspan x="298.0" dy="13.7">ECC-виправлення й під</tspan><tspan x="298.0" dy="13.7">нескориговані сектори</tspan></text>
+<rect x="538.0" y="230.0" width="236.0" height="150.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="552.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">МК (вбудований Flash)</text>
+<line x1="552.0" y1="262.0" x2="760.0" y2="262.0" stroke="#e0e0e0" stroke-width="1.2"/>
+<text x="552.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">status-регістр контролера:</text>
+<text x="552.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="552.0" dy="0.0">біти «сталося виправлення»</tspan><tspan x="552.0" dy="13.7">й «двобітна помилка»,</tspan><tspan x="552.0" dy="13.7">часто й адреса збою</tspan></text>
+</svg>

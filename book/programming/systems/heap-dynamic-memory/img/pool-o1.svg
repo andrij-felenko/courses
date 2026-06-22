@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пул: alloc і free за сталий час; загальний malloc мусить шукати</text>
+<text x="225.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">пул — pop / push вершини</text>
+<rect x="60.0" y="86.0" width="150.0" height="44.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/><text x="135.0" y="104.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">pool_alloc()</tspan><tspan x="135.0" dy="14.3">= pop</tspan></text>
+<line x1="215.0" y1="108.0" x2="255.0" y2="108.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="260.0" y="86.0" width="130.0" height="44.0" rx="6" fill="#fbfcff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="325.0" y="111.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">free_head</text>
+<line x1="395.0" y1="108.0" x2="435.0" y2="108.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="440.0" y="86.0" width="150.0" height="44.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/><text x="515.0" y="104.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="515.0" dy="0.0">pool_free(p)</tspan><tspan x="515.0" dy="14.3">= push</tspan></text>
+<text x="225.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">кілька інструкцій, без жодного перебору</text>
+<line x1="60.0" y1="176.0" x2="840.0" y2="176.0" stroke="#dde2ea" stroke-width="1.2" stroke-dasharray="2,4"/>
+<text x="225.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">загальний malloc — пробіг різнорозмірних блоків</text>
+<rect x="60.0" y="220.0" width="130.0" height="40.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="125.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">16 Б</text>
+<text x="125.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">«чи влізе?»</text>
+<line x1="190.0" y1="240.0" x2="210.0" y2="240.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="210.0" y="220.0" width="130.0" height="40.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="275.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">24 Б</text>
+<text x="275.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">«чи влізе?»</text>
+<line x1="340.0" y1="240.0" x2="360.0" y2="240.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="360.0" y="220.0" width="130.0" height="40.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="425.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">8 Б</text>
+<text x="425.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">«чи влізе?»</text>
+<line x1="490.0" y1="240.0" x2="510.0" y2="240.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="510.0" y="220.0" width="130.0" height="40.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="575.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">96 Б</text>
+<text x="575.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">нарешті ділимо</text>
+<rect x="40.0" y="286.0" width="820.0" height="63.8" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="450.0" y="307.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Пул шукати не мусить — усі слоти однакові, тож вершину видно одразу: і alloc, і free — O(1).</tspan><tspan x="450.0" dy="14.3">Загальний malloc проходить список, на кожному перевіряючи «чи влізе?», і ще ділить знайдений.</tspan><tspan x="450.0" dy="14.3">Сталий час — саме те, що потрібно в керуванні реального часу.</tspan></text>
+</svg>

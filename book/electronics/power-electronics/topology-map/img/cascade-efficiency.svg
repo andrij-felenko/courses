@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ККД ланцюга = добуток ККД каскадів (не сума)</text>
+<text x="70.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Каскад buck + LDO:</text>
+<circle cx="110.0" cy="130.0" r="26.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.4"/><text x="110.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">100%</text>
+<line x1="136.0" y1="130.0" x2="200.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="200.0" y="110.0" width="90.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="245.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">buck→5В</text><text x="245.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">η=0.92</text>
+<line x1="290.0" y1="130.0" x2="360.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="390.0" cy="130.0" r="26.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.4"/><text x="390.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">92%</text>
+<line x1="416.0" y1="130.0" x2="480.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="480.0" y="110.0" width="90.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="525.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">LDO→3.3В</text><text x="525.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">η=0.66</text>
+<line x1="570.0" y1="130.0" x2="640.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="672.0" cy="130.0" r="26.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.4"/><text x="672.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">61%</text>
+<line x1="245.0" y1="152.0" x2="245.0" y2="178.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="245.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">−8% тепло</text>
+<line x1="525.0" y1="152.0" x2="525.0" y2="178.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="525.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">LDO палить різницю напруг!</text>
+<text x="745.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">→ 61%</text>
+<text x="745.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">0.92×0.66</text>
+<text x="70.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Один buck:</text>
+<circle cx="110.0" cy="300.0" r="26.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.4"/><text x="110.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">100%</text>
+<line x1="136.0" y1="300.0" x2="270.0" y2="300.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="275.0" y="280.0" width="90.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="320.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">buck 12→3.3В</text><text x="320.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">η=0.90</text>
+<line x1="365.0" y1="300.0" x2="640.0" y2="300.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="672.0" cy="300.0" r="26.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.4"/><text x="672.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">90%</text>
+<line x1="320.0" y1="322.0" x2="320.0" y2="348.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="320.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">−10% тепло</text>
+<text x="745.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">→ 90%</text>
+<rect x="70.0" y="384.0" width="760.0" height="26.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="450.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Один добрий перетворювач (90%) б'є каскад buck+LDO (61%): зайвий каскад, надто лінійний, з'їдає десятки відсотків</text>
+</svg>

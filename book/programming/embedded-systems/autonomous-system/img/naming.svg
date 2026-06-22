@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому стільки назв: залізо, прошивка й наземна станція — три різні шари</text>
+<defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2457d6"/></marker><marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker></defs>
+<text x="460.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">їх обирають майже незалежно; плутанина тягнеться ще з епохи «APM»</text>
+<rect x="70.0" y="80.0" width="520.0" height="96.0" rx="12" fill="#fff5e6" stroke="#d98a00" stroke-width="1.8"/>
+<text x="88.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d98a00" text-anchor="start" font-weight="700">НАЗЕМНА СТАНЦІЯ (GCS)</text>
+<text x="88.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">на ноутбуці/планшеті: карта, параметри, місія, логи</text>
+<text x="88.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">приклади:  Mission Planner · QGroundControl</text>
+<rect x="70.0" y="206.0" width="520.0" height="96.0" rx="12" fill="#eafaef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="88.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">ПРОШИВКА — польотний стек</text>
+<text x="88.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">заливається у плату; читає давачі й керує моторами</text>
+<text x="88.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">приклади:  ArduPilot (GPLv3) · PX4 (BSD)</text>
+<rect x="70.0" y="332.0" width="520.0" height="96.0" rx="12" fill="#eef2ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="88.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">ЗАЛІЗО — політний контролер (FMU)</text>
+<text x="88.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">STM32 + IMU + барометр + роз'єми; «мозок» у залізі</text>
+<text x="88.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">приклади:  Pixhawk · Cube · Matek · Holybro</text>
+<line x1="620.0" y1="254.0" x2="620.0" y2="128.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="136.0" x2="620.0" y2="246.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="628.0" y="163.0" width="222.0" height="56.0" rx="9" fill="#f4f4f5" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="640.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">MAVLink — протокол,</text>
+<text x="640.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">по радіо/USB</text>
+<line x1="330.0" y1="302.0" x2="330.0" y2="332.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrG)" stroke-linecap="round"/>
+<text x="342.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-style="italic">прошити (USB/UART)</text>
+<text x="460.0" y="498.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Один FMU може нести або ArduPilot, або PX4; стара назва «APM» означала і плату, і прошивку — звідси вічна плутанина в чужих доках.</text>
+</svg>

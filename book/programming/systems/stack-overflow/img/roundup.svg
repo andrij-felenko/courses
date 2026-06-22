@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звід типових бід пам'яті</text>
+<rect x="60.0" y="64.0" width="600.0" height="36.0" rx="6" fill="#fbfcfd" stroke="#c0392b" stroke-width="1.5"/>
+<text x="74.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Переповнення стека</text>
+<text x="310.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">стек доріс до купи</text>
+<rect x="60.0" y="106.0" width="600.0" height="36.0" rx="6" fill="#fbfcfd" stroke="#c0392b" stroke-width="1.5"/>
+<text x="74.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Переповнення буфера</text>
+<text x="310.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">запис за межі масиву псує сусіда, аж до адреси повернення</text>
+<rect x="60.0" y="148.0" width="600.0" height="36.0" rx="6" fill="#fbfcfd" stroke="#9a7322" stroke-width="1.5"/>
+<text x="74.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9a7322" text-anchor="start" font-weight="700">Витік пам'яті</text>
+<text x="310.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">узяв на купі й не повернув → вичерпання</text>
+<rect x="60.0" y="190.0" width="600.0" height="36.0" rx="6" fill="#fbfcfd" stroke="#9a7322" stroke-width="1.5"/>
+<text x="74.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9a7322" text-anchor="start" font-weight="700">Висячий покажчик</text>
+<text x="310.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">указує на звільнену / зниклу пам'ять</text>
+<rect x="60.0" y="232.0" width="600.0" height="36.0" rx="6" fill="#fbfcfd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="74.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Розіменування null</text>
+<text x="310.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">піти за нульовим покажчиком</text>
+<rect x="60.0" y="274.0" width="600.0" height="36.0" rx="6" fill="#fbfcfd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="74.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Дикий покажчик</text>
+<text x="310.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">випадкова, ніколи не задана адреса</text>
+<rect x="60.0" y="316.0" width="600.0" height="36.0" rx="6" fill="#fbfcfd" stroke="#9a7322" stroke-width="1.5"/>
+<text x="74.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9a7322" text-anchor="start" font-weight="700">Подвійне звільнення</text>
+<text x="310.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">free() двічі по тій самій пам'яті</text>
+<rect x="60.0" y="358.0" width="600.0" height="36.0" rx="6" fill="#fbfcfd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="74.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Читання неініціалізованого</text>
+<text x="310.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">узяв змінну до присвоєння → сміття</text>
+</svg>

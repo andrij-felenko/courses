@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка ПІСЛЯ: оптимізатор стирає її ще на компіляції</text>
+<text x="360.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">int y = x + 1;  if (y &lt; x) overflow();</text>
+<rect x="150.0" y="96.0" width="420.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.7"/><text x="360.0" y="120.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">UB: знакове не переповнюється</tspan></text>
+<text x="582.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">припущення стандарту</text>
+<rect x="150.0" y="152.0" width="420.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.7"/><text x="360.0" y="176.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">отже y завжди &gt; x</tspan></text>
+<text x="582.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">наслідок</text>
+<line x1="360.0" y1="136.0" x2="360.0" y2="150.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="150.0" y="208.0" width="420.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.7"/><text x="360.0" y="232.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">отже (y &lt; x) завжди хибне</tspan></text>
+<text x="582.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">висновок</text>
+<line x1="360.0" y1="192.0" x2="360.0" y2="206.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="150.0" y="264.0" width="420.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.7"/><text x="360.0" y="288.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">перевірку викинуто з коду</tspan></text>
+<text x="582.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">вартовий зник</text>
+<line x1="360.0" y1="248.0" x2="360.0" y2="262.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>

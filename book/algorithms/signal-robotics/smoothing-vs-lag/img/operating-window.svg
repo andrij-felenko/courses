@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 250" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="680" height="250" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="340.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Робоча точка — між смугою сигналу й смугою шуму</text>
+<line x1="80.0" y1="150.0" x2="624.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="620.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">частота →</text>
+<rect x="80.0" y="110.0" width="180.0" height="40.0" rx="0" fill="#d8efd8" stroke="#27ae60" stroke-width="1.2"/>
+<text x="170.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">сигнал (повільне)</text>
+<rect x="380.0" y="110.0" width="240.0" height="40.0" rx="0" fill="#cfd9f3" stroke="#2457d6" stroke-width="1.2"/>
+<text x="500.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">шум (швидке)</text>
+<line x1="300.0" y1="90.0" x2="300.0" y2="166.0" stroke="#c0392b" stroke-width="2.4" stroke-dasharray="5,3"/>
+<text x="300.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">зріз фільтра</text>
+<line x1="292.0" y1="158.0" x2="110.0" y2="158.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="190.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">пропустити</text>
+<line x1="308.0" y1="158.0" x2="590.0" y2="158.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="470.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">відрізати</text>
+<text x="340.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">смуги перекрилися — простий фільтр безсилий, треба хитріше</text>
+</svg>

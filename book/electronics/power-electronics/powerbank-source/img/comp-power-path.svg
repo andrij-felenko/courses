@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Усередині power-path-зарядки: три ключі на шині SYS</text>
+<rect x="60.0" y="150.0" width="120.0" height="64.0" rx="6" fill="#ffffff" stroke="#c89a2b" stroke-width="1.8"/><text x="120.0" y="178.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a07d1f" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">ВХІД</tspan><tspan x="120.0" dy="14.3">(USB)</tspan></text>
+<rect x="330.0" y="120.0" width="140.0" height="124.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="400.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">системна шина SYS</text>
+<rect x="720.0" y="80.0" width="120.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="780.0" y="111.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">система</tspan></text>
+<rect x="720.0" y="232.0" width="120.0" height="56.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="780.0" y="263.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">батарея 1S</tspan></text>
+<line x1="180.0" y1="182.0" x2="328.0" y2="182.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="282.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ключ → SYS</text>
+<line x1="470.0" y1="150.0" x2="718.0" y2="110.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="600.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">SYS → система</text>
+<line x1="470.0" y1="210.0" x2="718.0" y2="252.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="600.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">заряд залишком</text>
+<line x1="718.0" y1="276.0" x2="460.0" y2="276.0" stroke="#a07d1f" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="460.0" y1="276.0" x2="460.0" y2="246.0" stroke="#a07d1f" stroke-width="2.2"/>
+<text x="560.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#a07d1f" text-anchor="middle" font-weight="700">батарея → SYS (коли входу нема / на піку)</text>
+<rect x="172.7" y="320.9" width="554.7" height="46.1" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="450.0" y="340.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Три виводи замість двох. Контролер тримає пріоритет: спершу нагодувати систему із входу,</tspan><tspan x="450.0" dy="13.7">тоді заряджати батарею залишком, а на піку — підмішати батарею до входу. Батарея = буфер.</tspan></text>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві дії над купою: взяти блок і повернути його</text>
+<text x="70.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">купа (спільний запас вільної пам'яті)</text>
+<rect x="70.0" y="88.0" width="740.0" height="40.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="330.0" y="88.0" width="150.0" height="40.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="405.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">виданий блок</text>
+<rect x="70.0" y="175.0" width="340.0" height="50.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="240.0" y="204.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">взяти:  p = malloc(100)</text>
+<text x="240.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">купа знаходить вільне місце,</text>
+<text x="240.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">повертає ПОКАЖЧИК на нього</text>
+<line x1="240.0" y1="168.0" x2="405.0" y2="130.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="470.0" y="175.0" width="340.0" height="50.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="640.0" y="204.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">повернути:  free(p)</text>
+<text x="640.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">блок іде назад у спільний запас,</text>
+<text x="640.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">звідки його видадуть комусь іншому</text>
+<line x1="640.0" y1="168.0" x2="470.0" y2="130.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="286.0" width="760.0" height="47.9" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="440.0" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Купа РУЧНА: ти сам береш і сам мусиш повернути, причому в будь-якому порядку (не LIFO).</tspan><tspan x="440.0" dy="14.3">Покажчик — твоя ЄДИНА ниточка до блоку: дані на купі не мають імені, лише адресу.</tspan></text>
+</svg>

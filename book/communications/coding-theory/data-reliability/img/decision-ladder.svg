@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 646" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="646" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сходи надійності: від найдешевшого виявлення до виправлення пакетів</text>
+<text x="440.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">три питання вибирають інструмент: виправляти чи виявити? поодинокі чи пакетні? скільки платити?</text>
+<rect x="60.0" y="86.0" width="560.0" height="86.0" rx="9" fill="#ffffff" stroke="#caa24a" stroke-width="2.2"/>
+<text x="78.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#caa24a" text-anchor="start" font-weight="700">Парність  ·  1 біт</text>
+<text x="78.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">бачить 1 помилку, не виправляє</text>
+<text x="78.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">де: UART-кадр, простий регістр</text>
+<rect x="634.0" y="111.0" width="93.8" height="36.0" rx="8" fill="#fbfbfb" stroke="#caa24a" stroke-width="1.6"/>
+<text x="680.9" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="700">виявлення</text>
+<line x1="86.0" y1="172.0" x2="94.0" y2="190.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="68.0" y="190.0" width="560.0" height="86.0" rx="9" fill="#ffffff" stroke="#caa24a" stroke-width="2.2"/>
+<text x="86.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#caa24a" text-anchor="start" font-weight="700">Контрольна сума  ·  сума / Флетчер</text>
+<text x="86.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">дешеве програмне виявлення</text>
+<text x="86.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">де: легкі протоколи, файли без заліза CRC</text>
+<rect x="642.0" y="215.0" width="93.8" height="36.0" rx="8" fill="#fbfbfb" stroke="#caa24a" stroke-width="1.6"/>
+<text x="688.9" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="700">виявлення</text>
+<line x1="94.0" y1="276.0" x2="102.0" y2="294.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="76.0" y="294.0" width="560.0" height="86.0" rx="9" fill="#ffffff" stroke="#c0392b" stroke-width="2.2"/>
+<text x="94.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="start" font-weight="700">CRC</text>
+<text x="94.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">потужне виявлення пакетів, апаратно майже задарма</text>
+<text x="94.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">де: CAN, Ethernet, SD, USB, серйозний кадр</text>
+<rect x="650.0" y="319.0" width="163.5" height="36.0" rx="8" fill="#fbfbfb" stroke="#c0392b" stroke-width="1.6"/>
+<text x="731.8" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">виявлення (сильне)</text>
+<line x1="102.0" y1="380.0" x2="110.0" y2="398.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="84.0" y="398.0" width="560.0" height="86.0" rx="9" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="102.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="start" font-weight="700">ECC  ·  Геммінг / SECDED, BCH</text>
+<text x="102.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">виправляє на льоту, платить зайвими бітами</text>
+<text x="102.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">де: RAM серверів, Flash, пам'ять у радіації</text>
+<rect x="658.0" y="423.0" width="109.2" height="36.0" rx="8" fill="#fbfbfb" stroke="#27ae60" stroke-width="1.6"/>
+<text x="712.6" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">виправлення</text>
+<line x1="110.0" y1="484.0" x2="118.0" y2="502.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="92.0" y="502.0" width="560.0" height="86.0" rx="9" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="110.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="start" font-weight="700">Рід–Соломон  ·  каскад</text>
+<text x="110.0" y="552.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">виправляє пакети символів</text>
+<text x="110.0" y="572.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">де: носії, супутник, далекий космос</text>
+<rect x="666.0" y="527.0" width="179.0" height="36.0" rx="8" fill="#fbfbfb" stroke="#27ae60" stroke-width="1.6"/>
+<text x="755.5" y="550.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">виправлення (пакети)</text>
+<text x="440.0" y="630.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Стрілка вниз — «треба більше надійності й готовий платити дорожче». Більшість систем поєднує кілька рівнів разом.</text>
+</svg>

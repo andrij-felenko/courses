@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один XML — два згенеровані кодеки, що завжди збігаються</text>
+<rect x="303.9" y="94.4" width="192.2" height="71.2" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="400.0" y="118.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">common.xml</tspan><tspan x="400.0" dy="15.6">ATTITUDE = ID 30</tspan><tspan x="400.0" dy="15.6">roll, pitch, yaw : float</tspan></text>
+<text x="400.0" y="84.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">опис повідомлень (схема)</text>
+<line x1="370.0" y1="165.6" x2="216.0" y2="210.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="165.6" x2="584.0" y2="210.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="400.0" y="198.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">автогенерація</text>
+<rect x="169.8" y="206.2" width="92.4" height="51.6" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="216.0" y="228.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="216.0" dy="0.0">C-кодек</tspan><tspan x="216.0" dy="15.6">(прошивка)</tspan></text>
+<rect x="541.2" y="206.2" width="85.6" height="51.6" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="584.0" y="228.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="584.0" dy="0.0">pymavlink</tspan><tspan x="584.0" dy="15.6">(скрипти)</tspan></text>
+<text x="400.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Пакують і розпаковують поля однаково, бо зроблені з тих самих визначень.</text>
+</svg>

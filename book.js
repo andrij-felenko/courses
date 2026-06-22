@@ -76,6 +76,7 @@
 
   var currentSlug = null;   // який розділ зараз відрендерено
   var pendingTarget = null; // якір, до якого прокрутитись після рендеру
+  var pendingTokens = null; // стек попапів, який треба відкрити після рендеру розділу
   var textCache = {};       // кеш завантажених .md
 
   /* ── Дрібні утиліти ─────────────────────────────────────────────────── */
@@ -345,7 +346,9 @@
         var flatx = body.replace(/\s*\[([^\]]+)\]\(book:[^)]+\)/ig, "").trim();
         return '<a class="callout callout-nav hist-teaser xref-teaser" href="#" data-xbook="' + escapeAttr(cross) + '" title="Відкрити повну тему">' +
           '<span class="callout-ico">🔗<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
-          '<div class="callout-body">' + renderInline(flatx.replace(/\n/g, " "), ctx) + "</div></a>";
+          '<div class="callout-body">' + renderInline(flatx.replace(/\n/g, " "), ctx) + "</div>" +
+          '<span class="teaser-share" data-share-token="b:' + escapeAttr(cross) + '" role="button" tabindex="0" title="Копіювати посилання" aria-label="Копіювати посилання">🔗</span>' +
+          "</a>";
       }
     }
 
@@ -361,7 +364,9 @@
         }).trim();
         return '<a class="callout callout-' + kind + ' hist-teaser" href="#" data-hist="' + ibase + '" title="Розгорнути вставку">' +
           '<span class="callout-ico">' + icon + '<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
-          '<div class="callout-body">' + renderInline(flat.replace(/\n/g, " "), ctx) + "</div></a>";
+          '<div class="callout-body">' + renderInline(flat.replace(/\n/g, " "), ctx) + "</div>" +
+          '<span class="teaser-share" data-share-token="h:' + ibase + '" role="button" tabindex="0" title="Копіювати посилання" aria-label="Копіювати посилання">🔗</span>' +
+          "</a>";
       }
     }
 
@@ -413,7 +418,9 @@
     var ic = { hist: "📜", math: "🧮", comp: "🔌", proj: "⚙️" }[k];
     return '<a class="callout callout-' + k + ' hist-teaser" href="#" data-hist="' + base + '" title="Розгорнути вставку">' +
       '<span class="callout-ico">' + ic + '<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
-      '<div class="callout-body">' + escapeHtml(label) + "</div></a>";
+      '<div class="callout-body">' + escapeHtml(label) + "</div>" +
+      '<span class="teaser-share" data-share-token="h:' + base + '" role="button" tabindex="0" title="Копіювати посилання" aria-label="Копіювати посилання">🔗</span>' +
+      "</a>";
   }
 
   function renderChapter(chap) {
@@ -451,7 +458,8 @@
 
         buildChapterSidebar(chap, pm.sections, ctx.attach, arts);
         setupScrollSpy();
-        scrollToAnchor(pendingTarget); pendingTarget = null;
+        scrollToAnchor(pendingTarget); appliedAt = pendingTarget; pendingTarget = null;
+        syncModals(pendingTokens || []); pendingTokens = null;     // відновити стек попапів (deep-link / «назад-вперед»)
       })
       .catch(function (e) {
         setContent('<div class="state error"><h2>Не вдалося завантажити розділ</h2><p>' +
@@ -478,7 +486,9 @@
     var t = SPEC_META[a.type] || SPEC_META.hist;
     var h = '<div class="hist-modal spec-' + (a.type || "hist") + '" id="histmodal-' + a.base + '" role="dialog" aria-modal="true" aria-label="' +
       escapeAttr(a.title) + '" hidden><div class="hist-modal-backdrop" data-close></div>' +
-      '<div class="hist-modal-dialog"><button class="hist-modal-close" type="button" data-close aria-label="Закрити">✕</button>' +
+      '<div class="hist-modal-dialog">' +
+      '<button class="hist-modal-share" type="button" data-share aria-label="Копіювати посилання" title="Копіювати посилання на цю вставку">🔗</button>' +
+      '<button class="hist-modal-close" type="button" data-close aria-label="Закрити">✕</button>' +
       '<div class="hist-modal-scroll"><div class="hist-modal-head"><div class="hist-art-label">' + t.emoji + " " + t.modal + "</div><h1>" +
       escapeHtml(a.title) + "</h1>";
     if (a.introHtml) h += '<div class="hist-intro">' + a.introHtml + "</div>";
@@ -839,35 +849,54 @@
   /* ════════════════════════════════════════════════════════════════════
      8) РОУТЕР + ДОПОМІЖНЕ
      ════════════════════════════════════════════════════════════════════ */
+  /* ── Хеш як стан: розділ + якір + СТЕК попапів ───────────────────────────
+     pop=<токен>;<токен>…  ·  токен «h:<base>» — локальна вставка розділу,
+     «b:<book>|<slug>|<file>|<frag>» — матеріал з іншої книги. */
+  function parsePopParam(v) { return v ? v.split(";").filter(Boolean) : []; }
+  function tokensToHashPart(tokens) { return (tokens && tokens.length) ? "&pop=" + encodeURIComponent(tokens.join(";")) : ""; }
+  function buildHash(slug, at, tokens) {
+    var h = "ch=" + encodeURIComponent(slug);
+    if (at) h += "&at=" + encodeURIComponent(at);
+    return h + tokensToHashPart(tokens);
+  }
+  function navUrl(slug, at, tokens) { return "#" + buildHash(slug, at, tokens); }
+
   function parseHash() {
     var hsh = location.hash.replace(/^#/, "");
-    if (!hsh) return { view: "cover" };
+    if (!hsh) return { view: "cover", tokens: [] };
     var p = {};
     hsh.split("&").forEach(function (kv) { var a = kv.split("="); p[a[0]] = decodeURIComponent(a[1] || ""); });
-    if (p.ch) return { view: "chapter", slug: p.ch, at: p.at || null };
-    return { view: "cover" };
+    if (!p.ch) return { view: "cover", tokens: [] };
+    var at = p.at || null, tokens = parsePopParam(p.pop);
+    if (at && at.indexOf("hist-") === 0) { tokens = tokens.concat(["h:" + at.slice(5)]); at = null; }   // легасі-якір історії → токен попапа
+    return { view: "chapter", slug: p.ch, at: at, tokens: tokens };
   }
+
+  var appliedAt = null;     // який якір уже застосовано (щоб не стрибати догори при закритті попапа)
 
   function route() {
     var r = parseHash();
     closeMobileSidebar();
-    closeAllModals();
-    if (r.view === "cover") { currentSlug = null; renderCover(); window.scrollTo(0, 0); return; }
+    if (r.view === "cover") { syncModals([]); currentSlug = null; appliedAt = null; renderCover(); window.scrollTo(0, 0); return; }
     var chap = CH_BY_SLUG[r.slug];
     if (!chap) {
+      syncModals([]);
       var any = null;
       BOOK.modules.forEach(function (m) { m.chapters.forEach(function (c) { if (c.status !== "done" && c.slug === r.slug) any = c; }); });
-      currentSlug = null;
+      currentSlug = null; appliedAt = null;
       if (any) renderComingSoon(any); else renderCover();
       return;
     }
-    if (r.slug === currentSlug) { scrollToAnchor(r.at); markActive(r.at); return; }
-    currentSlug = r.slug; pendingTarget = r.at || null; renderChapter(chap);
+    if (r.slug === currentSlug) {
+      if (r.at && r.at !== appliedAt) { scrollToAnchor(r.at); markActive(r.at); appliedAt = r.at; }
+      syncModals(r.tokens);
+      return;
+    }
+    currentSlug = r.slug; pendingTarget = r.at || null; pendingTokens = r.tokens || []; renderChapter(chap);
   }
 
   function scrollToAnchor(at) {
     if (!at) { window.scrollTo(0, 0); return; }
-    if (at.indexOf("hist-") === 0) { openHist(at.slice(5)); return; }   // deep-link на історію → popup
     var el = document.getElementById(at);
     if (el) el.scrollIntoView({ behavior: "auto", block: "start" });
     else window.scrollTo(0, 0);
@@ -878,20 +907,108 @@
     for (var i = 0; i < links.length; i++) links[i].classList.toggle("active", links[i].getAttribute("data-target") === at);
   }
 
-  /* ── Popup історичної вставки ───────────────────────────────────────── */
-  function openHist(base) {
-    closeAllModals();
-    var m = document.getElementById("histmodal-" + base);
-    if (!m) return;
-    m.hidden = false;
-    document.body.classList.add("modal-open");
-    var sc = m.querySelector(".hist-modal-scroll"); if (sc) sc.scrollTop = 0;
-    var cl = m.querySelector(".hist-modal-close"); if (cl) cl.focus();
+  /* ── Стек попапів: кожен шар — окремий .hist-modal поверх попереднього ──── */
+  var modalStack = [];                       // [{ token, kind, el }]
+  function modalContainer() {
+    var c = document.getElementById("modal-stack");
+    if (!c) { c = document.createElement("div"); c.id = "modal-stack"; document.body.appendChild(c); }
+    return c;
   }
-  function closeAllModals() {
-    var ms = document.querySelectorAll(".hist-modal");
-    for (var i = 0; i < ms.length; i++) ms[i].hidden = true;
-    document.body.classList.remove("modal-open");
+  function blankLayer() {
+    var el = document.createElement("div");
+    el.className = "hist-modal modal-layer spec-comp";
+    el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true");
+    el.innerHTML = '<div class="hist-modal-backdrop" data-close></div>' +
+      '<div class="hist-modal-dialog"><div class="hist-modal-scroll"><div class="state"><div class="spinner"></div>Завантаження…</div></div></div>';
+    return el;
+  }
+  function histClone(base) {                  // клон прихованої вставки розділу як новий шар
+    var src = document.getElementById("histmodal-" + base);
+    if (!src) {
+      var miss = blankLayer();
+      miss.querySelector(".hist-modal-scroll").innerHTML = '<div class="state error">Вставку не знайдено.</div>';
+      return miss;
+    }
+    var el = src.cloneNode(true);
+    el.removeAttribute("hidden"); el.removeAttribute("id");
+    el.classList.add("modal-layer");
+    return el;
+  }
+  function openModalToken(token) {
+    var ci = token.indexOf(":"), kind = token.slice(0, ci), data = token.slice(ci + 1);
+    var el = (kind === "h") ? histClone(data) : blankLayer();
+    modalContainer().appendChild(el);
+    modalStack.push({ token: token, kind: kind, el: el });
+    if (kind === "b") fillXbook(el, data);
+    refreshModalChrome();
+    var sc = el.querySelector(".hist-modal-scroll"); if (sc) sc.scrollTop = 0;
+    var cl = el.querySelector(".hist-modal-close"); if (cl) cl.focus();
+  }
+  function closeTopLayer() {
+    var rec = modalStack.pop();
+    if (rec && rec.el && rec.el.parentNode) rec.el.parentNode.removeChild(rec.el);
+    refreshModalChrome();
+  }
+  function closeAllModals() { while (modalStack.length) modalStack.pop().el.remove(); refreshModalChrome(); }
+  function refreshModalChrome() {
+    var n = modalStack.length;
+    document.body.classList.toggle("modal-open", n > 0);
+    for (var i = 0; i < n; i++) {
+      var m = modalStack[i], top = (i === n - 1);
+      m.el.style.zIndex = String(1000 + i * 10);
+      m.el.classList.toggle("modal-covered", !top);
+      var cl = m.el.querySelector(".hist-modal-close");
+      if (cl) {
+        var back = top && n > 1;
+        cl.textContent = back ? "←" : "✕";
+        cl.setAttribute("aria-label", back ? "Назад" : "Закрити");
+        cl.setAttribute("title", back ? "Назад до попередньої вставки" : "Закрити");
+      }
+    }
+  }
+  // звести DOM-стек до списку токенів із хеша: відкрити нові поверх, закрити зайві згори
+  function syncModals(tokens) {
+    tokens = tokens || [];
+    var i = 0;
+    while (i < tokens.length && i < modalStack.length && modalStack[i].token === tokens[i]) i++;
+    while (modalStack.length > i) closeTopLayer();
+    for (var d = i; d < tokens.length; d++) openModalToken(tokens[d]);
+  }
+  // дії користувача: відкрити попап = новий запис історії; закрити = крок «назад»
+  function pushModal(token) {
+    var r = parseHash();
+    if (r.view !== "chapter") return;
+    var tokens = (r.tokens || []).concat([token]);
+    history.pushState(null, "", navUrl(r.slug, r.at, tokens));
+    syncModals(tokens);
+  }
+  function closeViaHistory() { if (modalStack.length) history.back(); }
+  // абсолютне посилання, що відкриває конкретний попап над поточним розділом
+  function popupShareUrl(token) {
+    var slug = currentSlug || parseHash().slug || "";
+    return location.origin + location.pathname + location.search + navUrl(slug, null, [token]);
+  }
+
+  /* ── Копіювання посилань + тост «скопійовано» ───────────────────────────── */
+  function showToast(msg) {
+    var t = document.getElementById("copy-toast");
+    if (!t) { t = document.createElement("div"); t.id = "copy-toast"; document.body.appendChild(t); }
+    t.textContent = msg; t.classList.add("show");
+    clearTimeout(showToast._t); showToast._t = setTimeout(function () { t.classList.remove("show"); }, 1700);
+  }
+  function fallbackCopy(text) {
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      document.execCommand("copy"); document.body.removeChild(ta);
+    } catch (e) { /* ignore */ }
+  }
+  function copyText(text) {
+    var ok = function () { showToast("Посилання скопійовано ✓"); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok, function () { fallbackCopy(text); ok(); });
+    } else { fallbackCopy(text); ok(); }
   }
 
   /* ── Крос-книжковий popup: матеріал з ІНШОЇ книги (book:<id>/<slug>…) ──── */
@@ -918,28 +1035,28 @@
     });
     return found;
   }
-  function xbookHost() {
-    var h = document.getElementById("xbook-host");
-    if (!h) { h = document.createElement("div"); h.id = "xbook-host"; document.body.appendChild(h); }
-    return h;
+  // крос-книжковий шар розбирається з токена «b:<book>|<slug>|<file>|<frag>»
+  function fillXbook(el, data) {
+    var pp = data.split("|");
+    openCrossBook(el, pp[0] || "", pp[1] || "", pp[2] || "", pp[3] || "");
   }
-  function showXbookModal(html) {
-    var host = xbookHost();
-    host.innerHTML = html;
-    document.body.classList.add("modal-open");
-    var sc = host.querySelector(".hist-modal-scroll"); if (sc) sc.scrollTop = 0;
-    var cl = host.querySelector(".hist-modal-close"); if (cl) cl.focus();
+  function setLayerHtml(el, inner) {
+    el.innerHTML = inner;
+    var sc = el.querySelector(".hist-modal-scroll"); if (sc) sc.scrollTop = 0;
+    refreshModalChrome();                          // оновити кнопку «✕/←» уже після підвантаження
   }
+  // ВМІСТ діалогу шару (без зовнішньої .hist-modal — її дає сам шар)
   function xbookShell(reg, slug, frag, headHtml, innerHtml) {
     var openHref = reg ? reg.entry + "#ch=" + encodeURIComponent(slug) + (frag ? "&at=" + encodeURIComponent(frag) : "") : "#";
     var lbl = reg ? reg.icon + " Інша книга · " + escapeHtml(reg.label) : "Інша книга";
     var btn = '<a href="' + escapeAttr(openHref) + '" style="display:inline-block;margin-top:1.1rem;padding:.5rem .9rem;background:#1d6fa4;color:#fff;border-radius:7px;text-decoration:none">' +
       (reg ? "Відкрити книгу «" + escapeHtml(reg.label) + "» →" : "Відкрити книгу →") + "</a>";
-    return '<div class="hist-modal spec-comp xbook-modal" role="dialog" aria-modal="true">' +
-      '<div class="hist-modal-backdrop" data-close></div>' +
-      '<div class="hist-modal-dialog"><button class="hist-modal-close" type="button" data-close aria-label="Закрити">✕</button>' +
+    return '<div class="hist-modal-backdrop" data-close></div>' +
+      '<div class="hist-modal-dialog">' +
+      '<button class="hist-modal-share" type="button" data-share aria-label="Копіювати посилання" title="Копіювати посилання на цю вставку">🔗</button>' +
+      '<button class="hist-modal-close" type="button" data-close aria-label="Закрити">✕</button>' +
       '<div class="hist-modal-scroll"><div class="hist-modal-head"><div class="hist-art-label">' + lbl + "</div>" + headHtml + "</div>" +
-      '<div class="content-body">' + innerHtml + btn + "</div></div></div></div>";
+      '<div class="content-body">' + innerHtml + btn + "</div></div></div>";
   }
   // знайти тему за slug у будь-якій предметній книзі (будь-який статус, аби був текст)
   function chapInBookAny(book, slug) {
@@ -951,12 +1068,11 @@
     });
     return found;
   }
-  // book:<id>/<slug> у НОВІЙ структурі book/<id> → попап зі статтею тієї теми
-  function openBookRef(subject, slug, frag) {
-    closeAllModals();
+  // book:<id>/<slug> у НОВІЙ структурі book/<id> → попап зі статтею тієї теми (у шар el)
+  function openBookRef(el, subject, slug, frag) {
     var meta = SUBJECT_META[subject] || { icon: "📘", label: subject };
     var reg = { entry: "read.html?book=" + encodeURIComponent(subject), icon: meta.icon, label: meta.label };
-    function show(head, inner) { showXbookModal(xbookShell(reg, slug, frag, head, inner)); }
+    function show(head, inner) { setLayerHtml(el, xbookShell(reg, slug, frag, head, inner)); }
     var loader = (subject === BOOK.bookSlug) ? Promise.resolve(BOOK)
       : (_subjCache[subject] ? Promise.resolve(_subjCache[subject])
         : window.loadSubjectBook(subject).then(function (b) { _subjCache[subject] = b; return b; }));
@@ -978,16 +1094,15 @@
       });
     });
   }
-  function openCrossBook(book, slug, file, frag) {
-    if (window.loadSubjectBook && SUBJECT_META[book]) { openBookRef(book, slug, frag); return; }
-    closeAllModals();
+  function openCrossBook(el, book, slug, file, frag) {
+    if (window.loadSubjectBook && SUBJECT_META[book]) { openBookRef(el, book, slug, frag); return; }
     var reg = XBOOK[book];
-    if (!reg) { showXbookModal(xbookShell(null, slug, frag, "<h1>" + escapeHtml(slug || "Розділ") + "</h1>", "<p>Невідома книга <code>" + escapeHtml(book) + "</code>.</p>")); return; }
+    if (!reg) { setLayerHtml(el, xbookShell(null, slug, frag, "<h1>" + escapeHtml(slug || "Розділ") + "</h1>", "<p>Невідома книга <code>" + escapeHtml(book) + "</code>.</p>")); return; }
     loadXBook(book).then(function (bk) {
       var chap = bk && chapInBook(bk, slug);
       if (!chap) {
         var title = slug ? slug.replace(/-/g, " ") : ((bk && bk.title) || reg.label);
-        showXbookModal(xbookShell(reg, slug, frag, "<h1>" + escapeHtml(title) + "</h1>",
+        setLayerHtml(el, xbookShell(reg, slug, frag, "<h1>" + escapeHtml(title) + "</h1>",
           '<p>📝 Ця тема ще <strong>в розробці</strong>. Її напишуть за першим посиланням сюди. ' +
           "Поки що відкрий книгу — там видно загальну мапу й сусідні теми.</p>"));
         return;
@@ -996,14 +1111,14 @@
       fetchText(reg.basePath + chap.dir + "/" + fname).then(function (text) {
         var ctx = { currentSlug: slug, dir: chap.dir, base: reg.basePath, histBases: new Set(), attach: [] };
         var a = parseHistory(text, fname, ctx);
-        showXbookModal(xbookShell(reg, slug, frag, "<h1>" + escapeHtml(a.title) + "</h1>",
+        setLayerHtml(el, xbookShell(reg, slug, frag, "<h1>" + escapeHtml(a.title) + "</h1>",
           (a.introHtml ? '<div class="hist-intro">' + a.introHtml + "</div>" : "") + a.bodyHtml));
       }).catch(function (e) {
-        showXbookModal(xbookShell(reg, slug, frag, "<h1>" + escapeHtml(chap.title || slug) + "</h1>",
+        setLayerHtml(el, xbookShell(reg, slug, frag, "<h1>" + escapeHtml(chap.title || slug) + "</h1>",
           "<p>Не вдалося завантажити матеріал (<code>" + escapeHtml(e.message) + "</code>).</p>"));
       });
     }).catch(function () {
-      showXbookModal(xbookShell(reg, slug, frag, "<h1>" + escapeHtml(slug) + "</h1>",
+      setLayerHtml(el, xbookShell(reg, slug, frag, "<h1>" + escapeHtml(slug) + "</h1>",
         '<p>Не вдалося завантажити маніфест книги «' + escapeHtml(reg.label) + "».</p>"));
     });
   }
@@ -1047,31 +1162,51 @@
       top.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
       window.addEventListener("scroll", function () { top.classList.toggle("vis", window.scrollY > 600); });
     }
-    // делеговані кліки: відкрити/закрити popup історичної вставки
+    // делеговані кліки: відкрити/закрити/поділитися попапом
     document.addEventListener("click", function (e) {
+      var sh = e.target.closest && e.target.closest("[data-share-token]");   // значок 🔗 на картці-вставці
+      if (sh) { e.preventDefault(); e.stopPropagation(); copyText(popupShareUrl(sh.getAttribute("data-share-token"))); return; }
+      var dsh = e.target.closest && e.target.closest("[data-share]");        // кнопка 🔗 у самому попапі
+      if (dsh) { e.preventDefault(); copyText(location.href); return; }
       var op = e.target.closest && e.target.closest("[data-hist]");
-      if (op) { e.preventDefault(); openHist(op.getAttribute("data-hist")); return; }
+      if (op) { e.preventDefault(); pushModal("h:" + op.getAttribute("data-hist")); return; }
       var xb = e.target.closest && e.target.closest("[data-xbook]");
-      if (xb) {
-        e.preventDefault();
-        var pp = (xb.getAttribute("data-xbook") || "").split("|");
-        openCrossBook(pp[0] || "", pp[1] || "", pp[2] || "", pp[3] || "");
-        return;
-      }
+      if (xb) { e.preventDefault(); pushModal("b:" + (xb.getAttribute("data-xbook") || "")); return; }
       var cl = e.target.closest && e.target.closest("[data-close]");
-      if (cl) { e.preventDefault(); closeAllModals(); return; }
-      var ex = e.target.closest && e.target.closest("[data-exp]");   // розгорнути/згорнути теми розділу в змісті
+      if (cl) { e.preventDefault(); closeViaHistory(); return; }            // ✕/фон → крок «назад» (закриває верхній)
+      var ex = e.target.closest && e.target.closest("[data-exp]");          // розгорнути/згорнути теми розділу в змісті
       if (ex) {
         e.preventDefault();
         var ul = document.getElementById(ex.getAttribute("data-exp"));
-        if (ul) { var op = ul.hidden; ul.hidden = !op; ex.classList.toggle("open", op); ex.setAttribute("aria-expanded", String(op)); }
+        if (ul) { var open = ul.hidden; ul.hidden = !open; ex.classList.toggle("open", open); ex.setAttribute("aria-expanded", String(open)); }
       }
     });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeAllModals(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modalStack.length) { e.preventDefault(); closeViaHistory(); }
+    });
+    // права кнопка на будь-якому «відкривачі» попапа → скопіювати пряме посилання
+    document.addEventListener("contextmenu", function (e) {
+      var op = e.target.closest && e.target.closest("[data-share-token],[data-hist],[data-xbook]");
+      if (!op) return;
+      e.preventDefault();
+      var token = op.getAttribute("data-share-token")
+        || (op.hasAttribute("data-hist") ? "h:" + op.getAttribute("data-hist") : "b:" + (op.getAttribute("data-xbook") || ""));
+      copyText(popupShareUrl(token));
+    });
   }
 
   /* ── Старт ──────────────────────────────────────────────────────────── */
   initChrome();
+  // якщо стартовий URL уже містить відкриті попапи — підкладемо базові записи історії,
+  // щоб «назад»/закриття поверталися до статті, а не виходили зі сторінки
+  (function normalizeDeepLink() {
+    var r = parseHash();
+    if (r.view === "chapter" && r.tokens && r.tokens.length) {
+      history.replaceState(null, "", navUrl(r.slug, r.at, []));
+      for (var k = 1; k <= r.tokens.length; k++) history.pushState(null, "", navUrl(r.slug, r.at, r.tokens.slice(0, k)));
+    }
+  })();
   window.addEventListener("hashchange", route);
+  window.addEventListener("popstate", route);
   route();
 })();

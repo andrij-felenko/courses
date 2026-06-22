@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта GPIO-регістрів ESP32</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">ніжок більше за 32 → дві групи: 0–31 і 32–39 (регістри з «1» у назві)</text>
+<rect x="26.0" y="92.0" width="180.0" height="150.0" rx="10" fill="#fbfcff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="116.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Вихід (стан)</text>
+<rect x="40.0" y="136.0" width="152.0" height="34.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="116.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO_OUT</text>
+<rect x="40.0" y="180.0" width="152.0" height="34.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="116.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO_OUT1</text>
+<rect x="222.0" y="92.0" width="180.0" height="150.0" rx="10" fill="#fbfcff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="312.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Атомарний set/скид</text>
+<rect x="236.0" y="136.0" width="152.0" height="34.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="312.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO_OUT_W1TS</text>
+<rect x="236.0" y="180.0" width="152.0" height="34.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="312.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO_OUT_W1TC</text>
+<rect x="418.0" y="92.0" width="180.0" height="150.0" rx="10" fill="#fbfcff" stroke="#8a5a00" stroke-width="1.6"/>
+<text x="508.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5a00" text-anchor="middle" font-weight="700">Напрям</text>
+<rect x="432.0" y="136.0" width="152.0" height="34.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="508.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO_ENABLE</text>
+<rect x="432.0" y="180.0" width="152.0" height="34.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="508.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO_ENABLE1</text>
+<rect x="614.0" y="92.0" width="180.0" height="150.0" rx="10" fill="#fbfcff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="704.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхід (рівень)</text>
+<rect x="628.0" y="136.0" width="152.0" height="34.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="704.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO_IN</text>
+<rect x="628.0" y="180.0" width="152.0" height="34.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="704.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO_IN1</text>
+<text x="410.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Усі мають фіксовані адреси в пам'яті (memory-mapped).</text>
+<text x="410.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">pinMode → ENABLE · digitalWrite → OUT (W1TS/W1TC) · digitalRead → IN</text>
+</svg>

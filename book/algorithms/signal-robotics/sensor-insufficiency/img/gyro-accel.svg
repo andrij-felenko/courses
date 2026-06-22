@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два чуття інерції: гіроскоп і акселерометр</text>
+<circle cx="150.0" cy="150.0" r="56.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="150.0" cy="150.0" r="38.0" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<circle cx="150.0" cy="150.0" r="7.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="94.0" y1="150.0" x2="206.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="150.0" y1="94.0" x2="150.0" y2="206.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="150.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ГІРОСКОП</text>
+<text x="150.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ротор тримає напрям</text>
+<text x="150.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">→ міряє ОБЕРТ</text>
+<rect x="322.0" y="105.0" width="116.0" height="90.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="363.0" y="134.0" width="34.0" height="32.0" rx="4" fill="#d98a00" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="380.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">m</text>
+<line x1="322.0" y1="150.0" x2="363.0" y2="150.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="397.0" y1="150.0" x2="438.0" y2="150.0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="380.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">АКСЕЛЕРОМЕТР</text>
+<text x="380.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">маса на пружинах зміщується</text>
+<text x="380.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">→ міряє ПРИСКОРЕННЯ</text>
+<rect x="550.0" y="119.3" width="170.0" height="61.4" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.7"/><text x="635.0" y="139.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="635.0" dy="0.0">ІНЕРЦІАЛЬНИЙ БЛОК</tspan><tspan x="635.0" dy="15.0">(IMU)</tspan><tspan x="635.0" dy="15.0">гіро + акселерометр</tspan></text>
+<rect x="105.0" y="303.5" width="150.0" height="33.0" rx="6" fill="#ffffff" stroke="#d98a00" stroke-width="1.8"/><text x="180.0" y="324.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d98a00" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">прискорення</tspan></text>
+<rect x="325.0" y="303.5" width="150.0" height="33.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/><text x="400.0" y="324.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">швидкість</tspan></text>
+<line x1="255.0" y1="320.0" x2="323.0" y2="320.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="290.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">∫ dt</text>
+<rect x="545.0" y="303.5" width="150.0" height="33.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/><text x="620.0" y="324.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">положення</tspan></text>
+<line x1="475.0" y1="320.0" x2="543.0" y2="320.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="510.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">∫ dt</text>
+<text x="380.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">інтегруємо раз — швидкість, ще раз — положення: «розрахунок шляху» (dead reckoning)</text>
+</svg>

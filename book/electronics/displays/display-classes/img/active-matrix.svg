@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Активна матриця: чому на кожному пікселі сидить транзистор (TFT)</text>
+<text x="370.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">транзистор заряджає піксель і тримає заряд, доки рядок не виберуть знову</text>
+<line x1="70.0" y1="130.0" x2="360.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.6"/>
+<text x="64.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">РЯДОК</text>
+<text x="64.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">(gate)</text>
+<line x1="200.0" y1="90.0" x2="200.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.6"/>
+<text x="200.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">СТОВПЕЦЬ (data)</text>
+<rect x="174.0" y="142.0" width="52.0" height="28.0" rx="5" fill="#eef2f5" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="200.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">TFT</text>
+<line x1="200.0" y1="130.0" x2="200.0" y2="142.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="200.0" y1="170.0" x2="200.0" y2="192.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="136.0" y1="192.0" x2="280.0" y2="192.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="136.0" y1="192.0" x2="136.0" y2="208.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="121.0" y1="208.0" x2="151.0" y2="208.0" stroke="#1a1a1a" stroke-width="3.0"/>
+<line x1="121.0" y1="216.0" x2="151.0" y2="216.0" stroke="#1a1a1a" stroke-width="3.0"/>
+<line x1="136.0" y1="216.0" x2="136.0" y2="234.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="115.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">C</text>
+<text x="136.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">пам'ять</text>
+<line x1="280.0" y1="192.0" x2="280.0" y2="208.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="263.0" y1="208.0" x2="297.0" y2="208.0" stroke="#5d7e93" stroke-width="3.0"/>
+<line x1="263.0" y1="216.0" x2="297.0" y2="216.0" stroke="#5d7e93" stroke-width="3.0"/>
+<line x1="280.0" y1="216.0" x2="280.0" y2="234.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="303.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">піксель</text>
+<text x="303.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">(LC)</text>
+<line x1="136.0" y1="234.0" x2="280.0" y2="234.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="208.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">спільний електрод</text>
+<text x="400.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">1 · вибрали РЯДОК → TFT відкрився</text>
+<text x="400.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">2 · напруга СТОВПЦЯ зарядила C і піксель</text>
+<text x="400.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">3 · рядок зняли → TFT закрився</text>
+<text x="400.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">4 · C ТРИМАЄ напругу весь кадр</text>
+</svg>

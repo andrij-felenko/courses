@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як годувати watchdog: сліпо проти чекпойнтів</text>
+<rect x="40.0" y="70.0" width="360.0" height="200.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="220.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Сліпо: feed() щоразу на початку loop()</text>
+<text x="220.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">годуємо БЕЗУМОВНО,</text>
+<text x="220.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">навіть коли справжня робота стала</text>
+<text x="220.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">пес мовчить, хоча пристрій зламано</text>
+<text x="220.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗ марна сторожа</text>
+<text x="220.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">feed нічого не доводить про поступ</text>
+<rect x="420.0" y="70.0" width="360.0" height="200.0" rx="10" fill="#f3faf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="600.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Чекпойнти: feed лише коли всі живі</text>
+<text x="600.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">годуємо, ЛИШЕ коли всі задачі</text>
+<text x="600.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">відмітились «я жива» нещодавно</text>
+<text x="600.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">зависла задача → не годуємо → скид</text>
+<text x="600.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">✓ чесна сторожа</text>
+<text x="600.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">feed доводить поступ КОЖНОЇ задачі</text>
+<rect x="110.0" y="286.0" width="600.0" height="26.0" rx="6" fill="#fff8ec" stroke="#b9770e" stroke-width="1.4"/><text x="410.0" y="302.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Годувати — означає підтвердити, що робота рухається, а не просто крутиться loop().</tspan></text>
+</svg>

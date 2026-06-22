@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири лінії SPI: хто з ким говорить</text>
+<rect x="70.0" y="96.0" width="150.0" height="150.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="145.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">ВЕДУЧИЙ</text>
+<text x="145.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(master)</text>
+<rect x="480.0" y="96.0" width="150.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="555.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ВЕДЕНИЙ</text>
+<text x="555.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(slave)</text>
+<line x1="220.0" y1="174.0" x2="480.0" y2="174.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="350.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SCK</text>
+<text x="350.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">такт</text>
+<line x1="220.0" y1="200.0" x2="480.0" y2="200.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="350.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">MOSI</text>
+<text x="350.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">дані туди</text>
+<line x1="480.0" y1="226.0" x2="220.0" y2="226.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="350.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">MISO</text>
+<text x="350.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">дані звідти</text>
+<line x1="220.0" y1="250.0" x2="480.0" y2="250.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="350.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">CS</text>
+<text x="350.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">вибір (0 = обрано)</text>
+<text x="350.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">три лінії спільні для всіх ведених; CS — окрема на кожного</text>
+</svg>

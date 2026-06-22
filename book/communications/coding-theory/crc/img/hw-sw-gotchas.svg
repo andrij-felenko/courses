@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граблі апаратного CRC: те саме число лише за повного збігу всіх правил</text>
+<text x="380.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Поліном — лише одне з п'яти. Розбіжність у будь-якому пункті — і блок та бібліотека дають різні остачі</text>
+<rect x="40.0" y="76.0" width="400.0" height="72.0" rx="9" fill="#fcfcfc" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="40.0" y="76.0" width="6.0" height="72.0" rx="6" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<text x="58.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Порядок згодовування</text>
+<text x="58.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">блок ковтає 32-бітні слова,</text>
+<text x="58.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">бібліотека — окремі байти</text>
+<rect x="40.0" y="156.0" width="400.0" height="72.0" rx="9" fill="#fcfcfc" stroke="#caa24a" stroke-width="2.0"/>
+<rect x="40.0" y="156.0" width="6.0" height="72.0" rx="6" fill="#caa24a" stroke="#caa24a" stroke-width="0.0"/>
+<text x="58.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#caa24a" text-anchor="start" font-weight="700">Рефлексії бітів</text>
+<text x="58.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">частина блоків НЕ перевертає біти,</text>
+<text x="58.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">а ходовий CRC-32 у софті — перевертає</text>
+<rect x="40.0" y="236.0" width="400.0" height="72.0" rx="9" fill="#fcfcfc" stroke="#7a3ea8" stroke-width="2.0"/>
+<rect x="40.0" y="236.0" width="6.0" height="72.0" rx="6" fill="#7a3ea8" stroke="#7a3ea8" stroke-width="0.0"/>
+<text x="58.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7a3ea8" text-anchor="start" font-weight="700">init та xorout</text>
+<text x="58.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">блок може стартувати з 0xFFFFFFFF</text>
+<text x="58.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">і не робити фінального XOR, або навпаки</text>
+<rect x="40.0" y="316.0" width="400.0" height="72.0" rx="9" fill="#fcfcfc" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="40.0" y="316.0" width="6.0" height="72.0" rx="6" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="58.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Поліном за замовчуванням</text>
+<text x="58.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">у простих блоків зашитий жорстко</text>
+<text x="58.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">(часто 0x04C11DB7)</text>
+<rect x="460.0" y="76.0" width="260.0" height="86.0" rx="6" fill="#fff7ec" stroke="#caa24a" stroke-width="1.5"/><text x="590.0" y="96.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Симптом, який усіх ловить</tspan><tspan x="590.0" dy="13.0"></tspan><tspan x="590.0" dy="13.0">«CRC рахується і там, і там, обидва</tspan><tspan x="590.0" dy="13.0">коди коректні — а числа різні».</tspan><tspan x="590.0" dy="13.0">Причина — один із пунктів зліва.</tspan></text>
+<rect x="460.0" y="172.0" width="260.0" height="144.0" rx="6" fill="#f0fff2" stroke="#27ae60" stroke-width="1.5"/><text x="590.0" y="204.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Рецепт: звіряти всю п'ятірку</tspan><tspan x="590.0" dy="14.3"></tspan><tspan x="590.0" dy="14.3">1. поліном</tspan><tspan x="590.0" dy="14.3">2. ширина (8 / 16 / 32 біти)</tspan><tspan x="590.0" dy="14.3">3. init — заряд регістра</tspan><tspan x="590.0" dy="14.3">4. refin / refout — рефлексії</tspan><tspan x="590.0" dy="14.3">5. xorout — фінальний XOR</tspan></text>
+<line x1="40.0" y1="336.0" x2="720.0" y2="336.0" stroke="#e4e4e4" stroke-width="1.4"/>
+<text x="380.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Коли вмикати апаратний блок, а коли лишитися на софті</text>
+<circle cx="58.0" cy="380.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="74.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Великі блоки (кілобайти): прошивка, лог, кадр</text>
+<line x1="470.0" y1="380.0" x2="500.0" y2="380.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="508.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">блок МК: розвантажує ядро</text>
+<circle cx="58.0" cy="410.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="74.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">CRC уже робить периферія (CAN, SD-контролер)</text>
+<line x1="470.0" y1="410.0" x2="500.0" y2="410.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="508.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">нічого не пишемо — рахується сам</text>
+<circle cx="58.0" cy="440.0" r="5.0" fill="#caa24a" stroke="#caa24a" stroke-width="1.0"/>
+<text x="74.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Формат чужого протоколу (Modbus, своя п'ятірка)</text>
+<line x1="470.0" y1="440.0" x2="500.0" y2="440.0" stroke="#caa24a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="508.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#caa24a" text-anchor="start">часто легше софт: гнучкі рефлексії</text>
+<circle cx="58.0" cy="470.0" r="5.0" fill="#7a3ea8" stroke="#7a3ea8" stroke-width="1.0"/>
+<text x="74.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Кілька байтів зрідка чи економимо код</text>
+<line x1="470.0" y1="470.0" x2="500.0" y2="470.0" stroke="#7a3ea8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="508.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7a3ea8" text-anchor="start">табличний софт — простий і переносний</text>
+<text x="380.0" y="524.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Апаратний CRC економить такти, але остача однакова лише тоді, коли однакова вся п'ятірка параметрів.</text>
+</svg>

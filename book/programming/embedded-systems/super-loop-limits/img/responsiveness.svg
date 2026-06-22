@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чуйність = тривалість найдовшого проходу циклу</text>
+<text x="470.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">подію помітять лише тоді, коли цикл дійде до її кроку</text>
+<line x1="70.0" y1="150.0" x2="880.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="880.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">час →</text>
+<rect x="90.0" y="116.0" width="70.0" height="34.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="125.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">крок A</text>
+<rect x="170.0" y="116.0" width="430.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="385.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">довгий крок B</text>
+<rect x="610.0" y="116.0" width="70.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="645.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">крок C</text>
+<line x1="180.0" y1="156.0" x2="180.0" y2="214.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="180.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">кнопку натиснули</text>
+<line x1="610.0" y1="156.0" x2="610.0" y2="194.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="610.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">аж тепер помічено</text>
+<line x1="190.0" y1="190.0" x2="600.0" y2="190.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="395.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">затримка реакції (найгірший випадок)</text>
+<rect x="128.9" y="314.0" width="682.2" height="32.0" rx="6" fill="#fdf6e3" stroke="#b08900" stroke-width="1.5"/><text x="470.0" y="334.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Найгірша затримка дорівнює найдовшому проходу: більше роботи в циклі — млявіший пристрій.</tspan></text>
+</svg>

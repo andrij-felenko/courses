@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільний корінь — дві першопричини</text>
+<rect x="60.0" y="70.0" width="290.0" height="230.0" rx="10" fill="#fdf6f6" stroke="#c0392b" stroke-width="1.7"/>
+<text x="205.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">доступ поза дійсною пам'яттю</text>
+<text x="78.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• за межі масиву (буфер)</text>
+<text x="78.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• за нульовою / випадковою адресою</text>
+<text x="78.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• стек доріс до купи</text>
+<rect x="74.0" y="214.0" width="262.0" height="72.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/><text x="205.0" y="246.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="205.0" dy="0.0">корінь: плутанина «адреса / значення»</tspan><tspan x="205.0" dy="13.7">+ брак перевірки меж</tspan></text>
+<rect x="370.0" y="70.0" width="290.0" height="230.0" rx="10" fill="#eef4ff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="515.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">вживання в не той час</text>
+<text x="388.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• до ініціалізації → сміття</text>
+<text x="388.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• після звільнення → висячий</text>
+<text x="388.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• після виходу функції → локальна</text>
+<rect x="384.0" y="214.0" width="262.0" height="72.0" rx="6" fill="#fff" stroke="#2457d6" stroke-width="1.5"/><text x="515.0" y="246.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="515.0" dy="0.0">корінь: брак дисципліни покажчиків</tspan><tspan x="515.0" dy="13.7">+ керування часом життя</tspan></text>
+<text x="360.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">звідси вся профілактика: не виходь за межі й не чіпай пам'ять не у свій час</text>
+</svg>

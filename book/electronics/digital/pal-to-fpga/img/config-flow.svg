@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="280" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="70.0" width="190.0" height="80.0" rx="6" fill="#fafafa" stroke="#27ae60" stroke-width="1.7"/>
+<text x="125.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1. малюємо схему</text>
+<text x="125.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">у GUI-конструкторі</text>
+<line x1="220.0" y1="110.0" x2="240.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="240.0" y="70.0" width="190.0" height="80.0" rx="6" fill="#fafafa" stroke="#b8860b" stroke-width="1.7"/>
+<text x="335.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">2. запис по I²C</text>
+<text x="335.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">схема → у NVM чипа</text>
+<line x1="430.0" y1="110.0" x2="450.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="450.0" y="70.0" width="190.0" height="80.0" rx="6" fill="#fafafa" stroke="#2457d6" stroke-width="1.7"/>
+<text x="545.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">3. знеструмлення</text>
+<text x="545.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">конфігурація лишається</text>
+<line x1="640.0" y1="110.0" x2="660.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="660.0" y="70.0" width="190.0" height="80.0" rx="6" fill="#fafafa" stroke="#c0392b" stroke-width="1.7"/>
+<text x="755.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. увімкнули знову</text>
+<text x="755.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">чип одразу готовий</text>
+<rect x="30.0" y="180.0" width="790.0" height="70.0" rx="6" fill="#f7f8fa" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="425.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">МК щоразу при старті ВИКОНУЄ програму інструкція за інструкцією,</text>
+<text x="425.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">а CMIC просто Є потрібною схемою з першої мілісекунди після подачі живлення.</text>
+</svg>

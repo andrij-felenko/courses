@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 688" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="688" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<defs><marker id="mInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1a1a1a"/></marker><marker id="mRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker><marker id="mGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker><marker id="mBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker></defs>
+<text x="470.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кулі декодування: скільки помилок видно, а скільки виправно</text>
+<text x="470.0" y="53.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-style="italic">довкола кожного кодового слова — куля радіуса t; поки кулі не злипаються, помилки до t виправні</text>
+<text x="250.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">d = 2: лише виявлення (1 біт)</text>
+<line x1="100.0" y1="250.0" x2="400.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="100.0" y1="244.0" x2="100.0" y2="256.0" stroke="#8a8a8a" stroke-width="1.4"/>
+<line x1="250.0" y1="244.0" x2="250.0" y2="256.0" stroke="#8a8a8a" stroke-width="1.4"/>
+<line x1="400.0" y1="244.0" x2="400.0" y2="256.0" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="250.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">відстань d = 2</text>
+<circle cx="100.0" cy="250.0" r="13.0" fill="#eef2fb" stroke="#1f47b5" stroke-width="2.4"/>
+<text x="100.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="700">A</text>
+<circle cx="400.0" cy="250.0" r="13.0" fill="#eef2fb" stroke="#1f47b5" stroke-width="2.4"/>
+<text x="400.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="700">B</text>
+<text x="250.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="700">кулі стикаються →</text>
+<text x="250.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0271e" text-anchor="middle" font-weight="700">виправити не можна</text>
+<text x="680.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">d = 3: виявлення 2, виправлення 1</text>
+<line x1="530.0" y1="250.0" x2="830.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="530.0" y1="244.0" x2="530.0" y2="256.0" stroke="#8a8a8a" stroke-width="1.4"/>
+<line x1="630.0" y1="244.0" x2="630.0" y2="256.0" stroke="#8a8a8a" stroke-width="1.4"/>
+<line x1="730.0" y1="244.0" x2="730.0" y2="256.0" stroke="#8a8a8a" stroke-width="1.4"/>
+<line x1="830.0" y1="244.0" x2="830.0" y2="256.0" stroke="#8a8a8a" stroke-width="1.4"/>
+<text x="680.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">відстань d = 3</text>
+<circle cx="530.0" cy="250.0" r="100.0" fill="#eef7f0" stroke="#1f8a3b" stroke-width="2.0" stroke-dasharray="6 4"/>
+<circle cx="830.0" cy="250.0" r="100.0" fill="#eef7f0" stroke="#1f8a3b" stroke-width="2.0" stroke-dasharray="6 4"/>
+<circle cx="530.0" cy="250.0" r="13.0" fill="#eef2fb" stroke="#1f47b5" stroke-width="2.4"/>
+<text x="530.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="700">A</text>
+<circle cx="830.0" cy="250.0" r="13.0" fill="#eef2fb" stroke="#1f47b5" stroke-width="2.4"/>
+<text x="830.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="700">B</text>
+<line x1="530.0" y1="246.0" x2="630.0" y2="246.0" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#mGreen)"/>
+<text x="580.0" y="238.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="700">t=1</text>
+<text x="680.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="700">кулі не торкаються →</text>
+<text x="680.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="700">1 помилку видно й виправно</text>
+<rect x="60.0" y="360.0" width="820.0" height="150.0" rx="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="470.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві межі через мінімальну відстань d_min</text>
+<rect x="90.0" y="410.0" width="370.0" height="78.0" rx="10" fill="#faf3e0" stroke="#caa24a" stroke-width="1.4"/>
+<text x="275.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ВИЯВЛЕННЯ (detect)</text>
+<text x="275.0" y="462.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">помилок ловимо до:  d_min − 1</text>
+<text x="275.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle">(будь-яка зміна &lt; d не дотягне до іншого слова)</text>
+<rect x="480.0" y="410.0" width="370.0" height="78.0" rx="10" fill="#eef7f0" stroke="#1f8a3b" stroke-width="1.4"/>
+<text x="665.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ВИПРАВЛЕННЯ (correct)</text>
+<text x="665.0" y="462.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="15" fill="#1f8a3b" text-anchor="middle" font-weight="700">помилок чинимо до:  t = ⌊(d_min − 1) / 2⌋</text>
+<text x="665.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle">(куля радіуса t навколо кожного слова не перетинає сусідню)</text>
+<text x="470.0" y="528.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як це читати для типових d:</text>
+<rect x="90.0" y="542.0" width="120.0" height="26.0" rx="5" fill="#eef2fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="150.0" y="560.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_min</text>
+<rect x="210.0" y="542.0" width="150.0" height="26.0" rx="5" fill="#eef2fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="285.0" y="560.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">виявляє</text>
+<rect x="360.0" y="542.0" width="170.0" height="26.0" rx="5" fill="#eef2fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="445.0" y="560.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">виправляє t</text>
+<rect x="530.0" y="542.0" width="320.0" height="26.0" rx="5" fill="#eef2fb" stroke="#1f47b5" stroke-width="1.3"/>
+<text x="690.0" y="560.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">приклад коду</text>
+<rect x="90.0" y="568.0" width="120.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="150.0" y="585.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="210.0" y="568.0" width="150.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="285.0" y="585.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="360.0" y="568.0" width="170.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="445.0" y="585.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="530.0" y="568.0" width="320.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="690.0" y="585.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">без захисту</text>
+<rect x="90.0" y="592.0" width="120.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="150.0" y="609.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<rect x="210.0" y="592.0" width="150.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="285.0" y="609.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="360.0" y="592.0" width="170.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="445.0" y="609.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="700">0</text>
+<rect x="530.0" y="592.0" width="320.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="690.0" y="609.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">біт парності</text>
+<rect x="90.0" y="616.0" width="120.0" height="24.0" rx="4" fill="#faf3e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="150.0" y="633.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<rect x="210.0" y="616.0" width="150.0" height="24.0" rx="4" fill="#faf3e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="285.0" y="633.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<rect x="360.0" y="616.0" width="170.0" height="24.0" rx="4" fill="#faf3e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="445.0" y="633.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="700">1</text>
+<rect x="530.0" y="616.0" width="320.0" height="24.0" rx="4" fill="#faf3e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="690.0" y="633.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">код Геммінга (7,4)</text>
+<rect x="90.0" y="640.0" width="120.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="150.0" y="657.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text>
+<rect x="210.0" y="640.0" width="150.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="285.0" y="657.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<rect x="360.0" y="640.0" width="170.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="445.0" y="657.0" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="700">1</text>
+<rect x="530.0" y="640.0" width="320.0" height="24.0" rx="4" fill="#ffffff" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="690.0" y="657.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">SECDED — виправ один, познач два</text>
+</svg>

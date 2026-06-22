@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="680" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="340.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">ULP як сторож порога: велике ядро будиться лише на подію</text>
+<rect x="210.0" y="45.0" width="260.0" height="49.9" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="340.0" y="66.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">RTC-таймер будить ULP</tspan><tspan x="340.0" dy="16.9">(кожні X мс)</tspan></text>
+<line x1="340.0" y1="95.0" x2="340.0" y2="120.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="210.0" y="117.0" width="260.0" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="138.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">читає RTC-АЦП / RTC-GPIO</tspan><tspan x="340.0" dy="16.9">(вимір — мікросекунди)</tspan></text>
+<line x1="340.0" y1="166.9" x2="340.0" y2="192.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="245.0" y="197.5" width="190.0" height="33.0" rx="6" fill="#fdf3e6" stroke="#b8860b" stroke-width="1.5"/><text x="340.0" y="218.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">поза порогом?</tspan></text>
+<line x1="245.0" y1="214.0" x2="180.0" y2="214.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="212.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ні · норма</text>
+<rect x="45.0" y="246.2" width="150.0" height="47.6" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="120.0" y="266.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="120.0" dy="0.0">записати вимір</tspan><tspan x="120.0" dy="15.6">у RTC-пам'ять</tspan></text>
+<line x1="120.0" y1="293.8" x2="120.0" y2="322.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="45.0" y="319.1" width="150.0" height="49.9" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="340.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">велике ядро</tspan><tspan x="120.0" dy="16.9">СПИТЬ</tspan></text>
+<text x="120.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">I ≈ одиниці мкА</text>
+<line x1="120.0" y1="374.9" x2="120.0" y2="440.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="120.0" y1="440.0" x2="36.0" y2="440.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="36.0" y1="440.0" x2="36.0" y2="70.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="36.0" y1="70.0" x2="208.0" y2="70.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="195.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">наступний тік — знову вимір</text>
+<line x1="435.0" y1="214.0" x2="510.0" y2="214.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="472.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">так · поріг!</text>
+<rect x="495.0" y="246.2" width="150.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="570.0" y="266.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">ULP будить</tspan><tspan x="570.0" dy="15.6">велике ядро</tspan></text>
+<line x1="570.0" y1="293.8" x2="570.0" y2="322.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="495.0" y="319.1" width="150.0" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="570.0" y="340.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">ядро активне:</tspan><tspan x="570.0" dy="16.9">передає тривогу</tspan></text>
+<text x="570.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I ≈ міліампери (коротко)</text>
+<rect x="105.0" y="470.0" width="470.0" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="340.0" y="486.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">майже всі виміри ULP відсіює сам — велике ядро не прокидається</tspan></text>
+</svg>

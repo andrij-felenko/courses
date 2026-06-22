@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 388" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="388" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">XIP: код «живе» у флеші, виконується наче з RAM</text>
+<text x="380.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">контролер сам підкачує шматки коду з повільної флеші у швидкий кеш; ядро бачить суцільні адреси</text>
+<rect x="80.0" y="130.0" width="150.0" height="90.0" rx="6" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.5"/><text x="155.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="155.0" dy="0.0">ядро CPU</tspan><tspan x="155.0" dy="13.7">просить байт коду</tspan><tspan x="155.0" dy="13.7">за його адресою</tspan></text>
+<rect x="305.0" y="130.0" width="150.0" height="90.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">кеш</tspan><tspan x="380.0" dy="13.7">швидкий, малий</tspan><tspan x="380.0" dy="13.7">копія гарячого коду</tspan></text>
+<rect x="540.0" y="130.0" width="180.0" height="90.0" rx="6" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.5"/><text x="630.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="630.0" dy="0.0">SPI-NOR-флеш</tspan><tspan x="630.0" dy="13.7">уся прошивка</tspan><tspan x="630.0" dy="13.7">повільна, але містка</tspan></text>
+<line x1="230.0" y1="158.0" x2="305.0" y2="158.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="267.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">адреса</text>
+<line x1="305.0" y1="192.0" x2="230.0" y2="192.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="267.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">є в кеші → миттєво</text>
+<line x1="455.0" y1="158.0" x2="540.0" y2="158.0" stroke="#caa24a" stroke-width="2.0" stroke-dasharray="5 4"/>
+<line x1="530.0" y1="158.0" x2="540.0" y2="158.0" stroke="#caa24a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="497.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9a7322" text-anchor="middle" font-weight="700">промах →</text>
+<line x1="540.0" y1="192.0" x2="465.0" y2="192.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5 4"/>
+<line x1="475.0" y1="192.0" x2="465.0" y2="192.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="500.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">блок коду по SPI</text>
+<rect x="40.0" y="240.0" width="680.0" height="60.0" rx="10" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="380.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Execute-In-Place: процесор виконує код прямо «на місці» — не копіюючи всю програму в RAM наперед.</text>
+<text x="380.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Потрібен байт — кеш або вже має його (миттєво), або підкачує блок із флеші по SPI (рідше, повільніше).</text>
+<rect x="40.0" y="312.0" width="680.0" height="60.0" rx="10" fill="#eef7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="380.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Це лягає на природу флеші: код читають мільйони разів і майже не пишуть —</text>
+<text x="380.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">тож читати його прямо з нелеткої флеші саме те, для чого вона добра.</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розділ → сторінки → записи</text>
+<text x="60.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">розділ nvs (≥ 3 сторінки = 3 сектори по 4 КБ)</text>
+<rect x="60.0" y="70.0" width="189.3" height="96.0" rx="6" fill="#fbfbff" stroke="#1a1a1a" stroke-width="1.7"/><text x="154.7" y="114.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="154.7" dy="0.0">сторінка</tspan><tspan x="154.7" dy="15.6">(сектор)</tspan></text>
+<rect x="265.3" y="70.0" width="189.3" height="96.0" rx="6" fill="#fbfbff" stroke="#1a1a1a" stroke-width="1.7"/><text x="360.0" y="114.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">сторінка</tspan><tspan x="360.0" dy="15.6">(сектор)</tspan></text>
+<rect x="470.7" y="70.0" width="189.3" height="96.0" rx="6" fill="#fbfbff" stroke="#1a1a1a" stroke-width="1.7"/><text x="565.3" y="114.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="565.3" dy="0.0">сторінка</tspan><tspan x="565.3" dy="15.6">(сектор)</tspan></text>
+<line x1="154.7" y1="166.0" x2="130.0" y2="210.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="360.0" y1="166.0" x2="600.0" y2="210.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="110.0" y="210.0" width="100.0" height="50.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="160.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">запис</text>
+<text x="160.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">10</text>
+<rect x="216.0" y="210.0" width="100.0" height="50.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="266.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">запис</text>
+<text x="266.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">10</text>
+<rect x="322.0" y="210.0" width="100.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="372.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">запис</text>
+<text x="372.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">00</text>
+<rect x="428.0" y="210.0" width="100.0" height="50.0" rx="6" fill="#f7f7f7" stroke="#6b7280" stroke-width="1.6"/>
+<text x="478.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">запис</text>
+<text x="478.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">11</text>
+<rect x="534.0" y="210.0" width="100.0" height="50.0" rx="6" fill="#f7f7f7" stroke="#6b7280" stroke-width="1.6"/>
+<text x="584.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">запис</text>
+<text x="584.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">11</text>
+<text x="360.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">стан запису — 2 біти:  11 порожньо  →  10 записано  →  00 застаріло</text>
+<text x="360.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">кожен перехід лише ГАСИТЬ біт (1→0) — а це Flash уміє без стирання</text>
+</svg>

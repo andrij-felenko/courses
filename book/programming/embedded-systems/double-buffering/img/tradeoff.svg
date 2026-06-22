@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вибір N: дві стіни - overrun і RAM/затримка</text>
+<text x="400.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ліворуч - замало (втрати даних), праворуч - забагато (марна SRAM + лаг)</text>
+<line x1="90.0" y1="320.0" x2="740.0" y2="320.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="750.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#333333" text-anchor="start" font-weight="700">N</text>
+<line x1="100.0" y1="315.0" x2="100.0" y2="325.0" stroke="#333333" stroke-width="1.2"/>
+<text x="100.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">64</text>
+<line x1="203.3" y1="315.0" x2="203.3" y2="325.0" stroke="#333333" stroke-width="1.2"/>
+<text x="203.3" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">128</text>
+<line x1="306.7" y1="315.0" x2="306.7" y2="325.0" stroke="#333333" stroke-width="1.2"/>
+<text x="306.7" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">256</text>
+<line x1="410.0" y1="315.0" x2="410.0" y2="325.0" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">512</text>
+<line x1="513.3" y1="315.0" x2="513.3" y2="325.0" stroke="#333333" stroke-width="1.2"/>
+<text x="513.3" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1024</text>
+<line x1="616.7" y1="315.0" x2="616.7" y2="325.0" stroke="#333333" stroke-width="1.2"/>
+<text x="616.7" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">2048</text>
+<line x1="720.0" y1="315.0" x2="720.0" y2="325.0" stroke="#333333" stroke-width="1.2"/>
+<text x="720.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4096</text>
+<rect x="100.0" y="80.0" width="155.0" height="240.0" rx="0" fill="#fef2f2" stroke="none" stroke-width="0.0"/>
+<rect x="255.0" y="80.0" width="465.0" height="240.0" rx="0" fill="#f0fff4" stroke="none" stroke-width="0.0"/>
+<rect x="616.7" y="80.0" width="103.3" height="240.0" rx="0" fill="#eff6ff" stroke="none" stroke-width="0.0"/>
+<line x1="255.0" y1="70.0" x2="255.0" y2="320.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6,3"/>
+<line x1="410.0" y1="70.0" x2="410.0" y2="320.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="410.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Rs * t_proc * k</text>
+<rect x="114.2" y="151.1" width="126.6" height="73.9" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/><text x="177.5" y="170.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="177.5" dy="0.0">OVERRUN</tspan><tspan x="177.5" dy="14.3">(N &lt; Rs * t_proc)</tspan><tspan x="177.5" dy="14.3">DMA дожене</tspan><tspan x="177.5" dy="14.3">ядро -&gt; втрата</tspan></text>
+<rect x="623.5" y="158.2" width="89.0" height="59.6" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/><text x="668.0" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle"><tspan x="668.0" dy="0.0">Надмір RAM</tspan><tspan x="668.0" dy="14.3">+ зростання</tspan><tspan x="668.0" dy="14.3">затримки</tspan></text>
+<polyline points="203.3,294.0 275.3,278.7 323.6,268.4 360.0,260.6 389.2,254.4 413.7,249.2 434.7,244.7 453.1,240.8 469.4,237.3 484.2,234.2 497.6,231.3 509.9,228.7 521.3,226.3 531.9,224.1 541.8,221.9 551.0,220.0 559.7,218.1 568.0,216.4 575.8,214.7 583.2,213.1 590.2,211.6 597.0,210.2 603.4,208.8 609.6,207.5 615.5,206.2 621.3,205.0 626.8,203.9 632.1,202.7 637.2,201.6 642.1,200.6 646.9,199.6 651.6,198.6 656.1,197.6 660.4,196.7 664.7,195.8 668.8,194.9 672.8,194.0 676.7,193.2 680.6,192.4 684.3,191.6 687.9,190.8 691.4,190.1 694.9,189.3 698.3,188.6 701.6,187.9 704.8,187.2 708.0,186.6 711.1,185.9 714.1,185.3 717.1,184.6 720.0,184.0" stroke="#2457d6" stroke-width="2" fill="none" stroke-dasharray="5,3" opacity="0.7"/>
+<text x="646.7" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">B_total = 2N * байт</text>
+<circle cx="255.0" cy="320.0" r="8.0" fill="#c0392b" stroke="#c0392b" stroke-width="2.0"/>
+<text x="255.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">200</tspan><tspan x="255.0" dy="13.0">(впритул,</tspan><tspan x="255.0" dy="13.0">overrun)</tspan></text>
+<circle cx="410.0" cy="320.0" r="8.0" fill="#27ae60" stroke="#27ae60" stroke-width="2.0"/>
+<text x="410.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">512</tspan><tspan x="410.0" dy="13.0">(робоча)</tspan></text>
+<circle cx="720.0" cy="320.0" r="8.0" fill="#2457d6" stroke="#2457d6" stroke-width="2.0"/>
+<text x="720.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">4096</tspan><tspan x="720.0" dy="13.0">(надмір)</tspan></text>
+<rect x="159.4" y="374.0" width="481.3" height="32.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.8"/><text x="400.0" y="394.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Робоча зона: N = Rs * t_proc * k, округлити вгору до степеня 2</tspan></text>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три способи дістати USB на ESP32</text>
+<rect x="20.0" y="56.0" width="720.0" height="98.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.0"/>
+<text x="34.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">Зовнішній USB-UART-міст</text>
+<rect x="34.0" y="100.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="93.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ESP32</text>
+<line x1="155.0" y1="115.0" x2="175.0" y2="115.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="178.0" y="100.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="237.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">UART</text>
+<line x1="299.0" y1="115.0" x2="319.0" y2="115.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="322.0" y="100.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="381.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">CP2102 / CH340</text>
+<line x1="443.0" y1="115.0" x2="463.0" y2="115.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="466.0" y="100.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="525.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB</text>
+<line x1="587.0" y1="115.0" x2="607.0" y2="115.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="610.0" y="100.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="669.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПК: COM-порт</text>
+<text x="34.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Стек USB живе в мості, не в чипі — лише текстовий Serial</text>
+<rect x="20.0" y="168.0" width="720.0" height="98.0" rx="10" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="34.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">Нативний USB-OTG (S2 / S3)</text>
+<rect x="34.0" y="212.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="93.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ESP32-S2/S3</text>
+<line x1="155.0" y1="227.0" x2="175.0" y2="227.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="178.0" y="212.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="237.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB FS PHY</text>
+<line x1="299.0" y1="227.0" x2="319.0" y2="227.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="322.0" y="212.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="381.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">роз'єм USB</text>
+<line x1="443.0" y1="227.0" x2="463.0" y2="227.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="466.0" y="212.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="525.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПК: будь-який клас</text>
+<text x="34.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Чип сам — USB-вузол: CDC / HID / MSC, навіть хост</text>
+<rect x="20.0" y="280.0" width="720.0" height="98.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="34.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">USB-Serial-JTAG (S3 / C3 / C6 / H2)</text>
+<rect x="34.0" y="324.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="93.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ESP32-S3/C3/C6</text>
+<line x1="155.0" y1="339.0" x2="175.0" y2="339.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="178.0" y="324.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="237.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">вбудований блок</text>
+<line x1="299.0" y1="339.0" x2="319.0" y2="339.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="322.0" y="324.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="381.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">роз'єм USB</text>
+<line x1="443.0" y1="339.0" x2="463.0" y2="339.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="466.0" y="324.0" width="118.0" height="30.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="525.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПК: COM + JTAG</text>
+<text x="34.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">З коробки: прошивка, лог і відлагодження; функція фіксована</text>
+</svg>

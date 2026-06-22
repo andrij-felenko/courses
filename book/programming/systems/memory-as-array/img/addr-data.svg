@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адреса проти даних: розмова двома шинами</text>
+<rect x="60.0" y="110.0" width="150.0" height="140.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="135.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">процесор</text>
+<rect x="550.0" y="110.0" width="150.0" height="140.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="625.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">пам'ять</text>
+<line x1="210.0" y1="144.0" x2="550.0" y2="144.0" stroke="#6b7280" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="380.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">адресна шина — «де»</text>
+<text x="380.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">0x20</text>
+<line x1="550.0" y1="196.0" x2="210.0" y2="196.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="210.0" x2="550.0" y2="210.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="380.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">шина даних — «що»</text>
+<text x="380.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">байт 0x41</text>
+<line x1="210.0" y1="244.0" x2="550.0" y2="244.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="380.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">шина керування — читати чи писати</text>
+<text x="380.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x20 і 0x41 — обидва числа, та сенс різний: одне — місце, інше — значення.</text>
+</svg>

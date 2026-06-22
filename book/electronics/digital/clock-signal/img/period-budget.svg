@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бюджет періоду: логіка мусить устигнути між фронтами</text>
+<text x="108.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">такт</text>
+<line x1="120.0" y1="106.0" x2="820.0" y2="106.0" stroke="#e4e4e4" stroke-width="1.0"/>
+<polyline points="120,106 250,106 250,80 290,80 290,106 620,106 620,80 660,80 660,106 820,106" fill="none" stroke="#1a1a1a" stroke-width="2.3" stroke-linejoin="round"/>
+<line x1="250.0" y1="72.0" x2="250.0" y2="330.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="620.0" y1="72.0" x2="620.0" y2="330.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="250.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">▲</text>
+<text x="620.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">▲</text>
+<line x1="250.0" y1="132.0" x2="620.0" y2="132.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="435.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">період T</text>
+<text x="95.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">логіка</text>
+<polyline points="250,200 270,200 340,172 520,172 620,172" fill="none" stroke="#27ae60" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="390.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">порахувала й «устоялась»</text>
+<line x1="520.0" y1="158.0" x2="520.0" y2="186.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="520.0" y1="186.0" x2="620.0" y2="186.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="570.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">запас</text>
+<text x="258.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">✓ встигла до наступного фронту</text>
+<text x="95.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">надто</text>
+<text x="95.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">швидко</text>
+<line x1="450.0" y1="322.0" x2="450.0" y2="270.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="450.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">наступний фронт ТУТ</text>
+<polyline points="250,322 270,322 430,288 470,288" fill="none" stroke="#b8862b" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="360.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">✘ логіка ще рахує — фронт ловить «сире» → помилка</text>
+<text x="430.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Є МАКСИМАЛЬНА частота: T ≥ найдовший шлях логіки + запас</text>
+</svg>

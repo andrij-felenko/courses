@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Від HDL до чипа: синтез, розміщення, трасування, бітстрім</text>
+<rect x="24.0" y="120.0" width="128.0" height="78.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.9"/>
+<text x="88.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">HDL-код</text>
+<text x="88.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="88.0" dy="0.0">Verilog / VHDL</tspan></text>
+<rect x="174.0" y="120.0" width="128.0" height="78.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.9"/>
+<text x="238.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">синтез</text>
+<text x="238.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="238.0" dy="0.0">→ netlist:</tspan><tspan x="238.0" dy="13.0">вентилі, тригери</tspan></text>
+<line x1="152.0" y1="159.0" x2="172.0" y2="159.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="324.0" y="120.0" width="128.0" height="78.0" rx="6" fill="#fdf6e3" stroke="#b9770e" stroke-width="1.9"/>
+<text x="388.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">розміщення</text>
+<text x="388.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="388.0" dy="0.0">елемент →</tspan><tspan x="388.0" dy="13.0">клітинка</tspan></text>
+<line x1="302.0" y1="159.0" x2="322.0" y2="159.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="474.0" y="120.0" width="128.0" height="78.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.9"/>
+<text x="538.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">трасування</text>
+<text x="538.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="538.0" dy="0.0">дроти крізь</tspan><tspan x="538.0" dy="13.0">перемикачі</tspan></text>
+<line x1="452.0" y1="159.0" x2="472.0" y2="159.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="624.0" y="120.0" width="128.0" height="78.0" rx="6" fill="#f0f0f0" stroke="#1a1a1a" stroke-width="1.9"/>
+<text x="688.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">бітстрім</text>
+<text x="688.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="688.0" dy="0.0">біти для всіх</tspan><tspan x="688.0" dy="13.0">комірок</tspan></text>
+<line x1="602.0" y1="159.0" x2="622.0" y2="159.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="688.0" y1="198.0" x2="688.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="696.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">залив у чип</text>
+<rect x="626.9" y="259.4" width="122.3" height="45.3" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="688.0" y="278.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="688.0" dy="0.0">FPGA набула</tspan><tspan x="688.0" dy="14.3">потрібної схеми</tspan></text>
+<line x1="24.0" y1="98.0" x2="302.0" y2="98.0" stroke="#6b7280" stroke-width="2.2"/>
+<text x="163.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">схоже на компіляцію</text>
+<line x1="324.0" y1="98.0" x2="752.0" y2="98.0" stroke="#b9770e" stroke-width="2.2"/>
+<text x="534.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">суто апаратне вкладання в кристал</text>
+</svg>

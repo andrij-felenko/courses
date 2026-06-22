@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбір кадру: кожна перевірка — ворота на свій клас біди</text>
+<rect x="70.0" y="70.0" width="70.0" height="46.0" rx="6" fill="#fff3cd" stroke="#c0392b" stroke-width="1.8"/>
+<text x="105.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">magic</text>
+<rect x="140.0" y="70.0" width="52.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="166.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">len</text>
+<rect x="192.0" y="70.0" width="150.0" height="46.0" rx="6" fill="#eef9f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="267.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">payload</text>
+<rect x="342.0" y="70.0" width="70.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="377.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">CRC</text>
+<text x="241.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">сирий кадр з UART (недовірений)</text>
+<rect x="70.0" y="150.0" width="196.0" height="40.0" rx="6" fill="#fff3cd" stroke="#c0392b" stroke-width="2.0"/>
+<text x="168.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">buf != NULL</text>
+<line x1="241.0" y1="116.0" x2="168.0" y2="150.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="266.0" y1="170.0" x2="416.0" y2="170.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="422.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ крах за NULL-вказівником</text>
+<rect x="70.0" y="202.0" width="196.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="168.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">len ≥ header</text>
+<line x1="168.0" y1="190.0" x2="168.0" y2="202.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="266.0" y1="222.0" x2="416.0" y2="222.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="422.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ читання за межами буфера</text>
+<rect x="70.0" y="254.0" width="196.0" height="40.0" rx="6" fill="#eef9f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="168.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">magic == 0xA55A</text>
+<line x1="168.0" y1="242.0" x2="168.0" y2="254.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="266.0" y1="274.0" x2="416.0" y2="274.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="422.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ чужий / зашумований кадр</text>
+<rect x="70.0" y="306.0" width="196.0" height="40.0" rx="6" fill="#f2ecf8" stroke="#8a5fb0" stroke-width="2.0"/>
+<text x="168.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">payload_len у межах</text>
+<line x1="168.0" y1="294.0" x2="168.0" y2="306.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="266.0" y1="326.0" x2="416.0" y2="326.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="422.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ переповнення буфера (memcpy)</text>
+<rect x="70.0" y="358.0" width="196.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="168.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">CRC збігся</text>
+<line x1="168.0" y1="346.0" x2="168.0" y2="358.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="266.0" y1="378.0" x2="416.0" y2="378.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="422.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ биті дані (шум, пошкодження)</text>
+<line x1="168.0" y1="398.0" x2="168.0" y2="420.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="31.8" y="422.5" width="272.3" height="31.0" rx="6" fill="#eef9f0" stroke="#27ae60" stroke-width="2.0"/><text x="168.0" y="441.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="168.0" dy="0.0">усі ворота пройдено → читаємо payload</tspan></text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прозорий латч у петлі: значення оббігає коло багато разів за такт</text>
+<rect x="250.0" y="90.0" width="150.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="325.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">латч</text>
+<text x="264.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">D</text>
+<text x="386.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">Q</text>
+<text x="325.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">EN = такт</text>
+<path d="M351.0 250.0 L299.0 232.0 L299.0 268.0 z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="358.0" cy="250.0" r="5.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="325.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">інвертор</text>
+<line x1="400.0" y1="135.0" x2="470.0" y2="135.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="470.0" y1="135.0" x2="470.0" y2="250.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="470.0" y1="250.0" x2="365.0" y2="250.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="299.0" y1="250.0" x2="180.0" y2="250.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="180.0" y1="250.0" x2="180.0" y2="135.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="180.0" y1="135.0" x2="250.0" y2="135.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="172.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="30" fill="#c0392b" text-anchor="middle">↻</text>
+<text x="172.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">×N</text>
+<text x="495.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="495.0" dy="0.0">Поки такт = 1, латч відкритий.</tspan><tspan x="495.0" dy="18.8">Нове Q інвертується, вертається на D,</tspan><tspan x="495.0" dy="18.8">знову міняє Q — і так багато разів</tspan><tspan x="495.0" dy="18.8">за ОДИН високий такт. Скільки —</tspan><tspan x="495.0" dy="18.8">залежить від затримок вентилів.</tspan></text>
+<text x="495.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Результат непередбачуваний — гонка (race-through).</text>
+</svg>

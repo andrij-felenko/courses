@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Та сама абстракція — у реальному залізі й коді</text>
+<defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2457d6"/></marker><marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker></defs>
+<text x="450.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">кожна ланка контуру = конкретні компоненти апарата</text>
+<rect x="44.0" y="72.0" width="196.0" height="72.0" rx="10" fill="#eef2ff" stroke="#2457d6" stroke-width="1.7"/><text x="142.0" y="112.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="142.0" dy="0.0">ДАВАЧІ</tspan></text>
+<line x1="240.0" y1="108.0" x2="285.0" y2="108.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="288.0" y="72.0" width="576.0" height="72.0" rx="9" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="304.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">IMU (гіроскоп + акселерометр) · магнітометр · барометр</text>
+<text x="304.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">GNSS-приймач · давач струму та напруги</text>
+<rect x="44.0" y="164.0" width="196.0" height="72.0" rx="10" fill="#f4f4f5" stroke="#1a1a1a" stroke-width="1.7"/><text x="142.0" y="196.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="142.0" dy="0.0">ОЦІНЮВАЧ</tspan><tspan x="142.0" dy="16.9">СТАНУ</tspan></text>
+<line x1="240.0" y1="200.0" x2="285.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="288.0" y="164.0" width="576.0" height="72.0" rx="9" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="304.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">орієнтація: крен · тангаж · курс</text>
+<text x="304.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">висота · положення · швидкість</text>
+<rect x="44.0" y="256.0" width="196.0" height="72.0" rx="10" fill="#eafaef" stroke="#27ae60" stroke-width="1.7"/><text x="142.0" y="296.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="142.0" dy="0.0">КЕРУВАННЯ</tspan></text>
+<line x1="240.0" y1="292.0" x2="285.0" y2="292.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="288.0" y="256.0" width="576.0" height="72.0" rx="9" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="304.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">ПІД-контури й каскади:</text>
+<text x="304.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">кутова швидкість → кут → положення → траєкторія</text>
+<rect x="44.0" y="348.0" width="196.0" height="72.0" rx="10" fill="#fff5e6" stroke="#d98a00" stroke-width="1.7"/><text x="142.0" y="380.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="142.0" dy="0.0">ВИКОНАВЧІ</tspan><tspan x="142.0" dy="16.9">МЕХАНІЗМИ</tspan></text>
+<line x1="240.0" y1="384.0" x2="285.0" y2="384.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="288.0" y="348.0" width="576.0" height="72.0" rx="9" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="304.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">ESC → безколекторні мотори (тяга)</text>
+<text x="304.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">серворушії → керма / елерони</text>
+<text x="450.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Той самий контур — не метафора: за кожним блоком стоять відчутні мікросхеми, мотори й рядки коду.</text>
+</svg>

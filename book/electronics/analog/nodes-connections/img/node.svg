@@ -1,30 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" viewBox="0 0 820 320">
-<rect width="820" height="320" fill="#ffffff"/>
-<defs>
-  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
-  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
-  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
-  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
-  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
-</defs>
-<text x="410.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Вузол — одна електрична точка, хоч як розкидана</text>
-<text x="410.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">усі виводи, сполучені дротом, — той самий вузол з одним потенціалом (як §4.1)</text>
-<line x1="120.0" y1="130.0" x2="700.0" y2="130.0" stroke="#1f8a3b" stroke-width="4" stroke-linecap="round"/>
-<line x1="180.0" y1="130.0" x2="180.0" y2="170.0" stroke="#1f8a3b" stroke-width="3" stroke-linecap="round"/>
-<rect x="166.0" y="170.0" width="28.0" height="40.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
-<circle cx="180.0" cy="130.0" r="5.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
-<line x1="320.0" y1="130.0" x2="320.0" y2="170.0" stroke="#1f8a3b" stroke-width="3" stroke-linecap="round"/>
-<rect x="306.0" y="170.0" width="28.0" height="40.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
-<circle cx="320.0" cy="130.0" r="5.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
-<line x1="460.0" y1="130.0" x2="460.0" y2="170.0" stroke="#1f8a3b" stroke-width="3" stroke-linecap="round"/>
-<rect x="446.0" y="170.0" width="28.0" height="40.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
-<circle cx="460.0" cy="130.0" r="5.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
-<line x1="600.0" y1="130.0" x2="600.0" y2="170.0" stroke="#1f8a3b" stroke-width="3" stroke-linecap="round"/>
-<rect x="586.0" y="170.0" width="28.0" height="40.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
-<circle cx="600.0" cy="130.0" r="5.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
-<line x1="120.0" y1="130.0" x2="120.0" y2="110.0" stroke="#1f8a3b" stroke-width="3" stroke-linecap="round"/>
-<circle cx="120.0" cy="110.0" r="5.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
-<text x="120.0" y="100.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">А</text>
-<text x="410.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Хоч до вузла А під'єднано чотири деталі в різних місцях —</text>
-<text x="410.0" y="272.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">це ОДНА точка кола (один потенціал), бо все сполучено суцільним дротом.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол — одна електрична точка, хоч як розкидана</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">усі виводи, сполучені дротом, — той самий вузол з одним потенціалом</text>
+<line x1="120.0" y1="130.0" x2="700.0" y2="130.0" stroke="#27ae60" stroke-width="4.0"/>
+<line x1="180.0" y1="130.0" x2="180.0" y2="170.0" stroke="#27ae60" stroke-width="4.0"/>
+<rect x="166.0" y="170.0" width="28.0" height="40.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="180.0" cy="130.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="320.0" y1="130.0" x2="320.0" y2="170.0" stroke="#27ae60" stroke-width="4.0"/>
+<rect x="306.0" y="170.0" width="28.0" height="40.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="320.0" cy="130.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="460.0" y1="130.0" x2="460.0" y2="170.0" stroke="#27ae60" stroke-width="4.0"/>
+<rect x="446.0" y="170.0" width="28.0" height="40.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="460.0" cy="130.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="600.0" y1="130.0" x2="600.0" y2="170.0" stroke="#27ae60" stroke-width="4.0"/>
+<rect x="586.0" y="170.0" width="28.0" height="40.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="600.0" cy="130.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="120.0" y1="130.0" x2="120.0" y2="110.0" stroke="#27ae60" stroke-width="4.0"/>
+<circle cx="120.0" cy="110.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="120.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">А</text>
+<text x="410.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хоч до вузла А під'єднано чотири деталі в різних місцях —</text>
+<text x="410.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">це ОДНА точка кола (один потенціал), бо все сполучено суцільним дротом.</text>
 </svg>

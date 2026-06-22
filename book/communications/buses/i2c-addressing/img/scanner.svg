@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">I2C-сканер: гукнути кожну адресу й глянути, хто відгукнеться</text>
+<rect x="90.0" y="70.0" width="350.0" height="220.0" rx="10" fill="#1e2330" stroke="#111" stroke-width="2.0"/>
+<text x="110.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7fd0ff" text-anchor="start" font-weight="700">Scanning I2C bus...</text>
+<text x="110.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9be39b" text-anchor="start">found device at 0x3C</text>
+<text x="110.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9be39b" text-anchor="start">found device at 0x68</text>
+<text x="110.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9be39b" text-anchor="start">found device at 0x76</text>
+<text x="110.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e8e8e8" text-anchor="start" font-weight="700">3 devices found.</text>
+<text x="110.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7fd0ff" text-anchor="start" font-weight="700">_</text>
+<rect x="480.0" y="70.0" width="280.0" height="220.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="620.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">як це працює</text>
+<text x="498.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. для кожної адреси —</text>
+<text x="498.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">   старт + адреса + W</text>
+<text x="498.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">2. є ACK → пристрій є</text>
+<text x="498.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">3. NACK → нікого нема</text>
+<text x="498.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">4. стоп, наступна адреса</text>
+<text x="498.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">(нічого не пишемо в чіп)</text>
+<rect x="70.0" y="314.0" width="700.0" height="34.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">не знаєш адресу давача чи лінія мовчить? запусти сканер — це перший крок налагодження</tspan></text>
+</svg>

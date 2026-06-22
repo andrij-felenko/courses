@@ -1,42 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440"
-     viewBox="0 0 960 440" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
-  <defs>
-    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
-    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
-    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
-    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
-            orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
-  </defs>
-  <rect x="0" y="0" width="960" height="440" fill="white"/>
-<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Головний принцип: зберігай лише НОВЕ</text>
-<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">не пиши те, що можна передбачити з уже відомого; пиши тільки несподіванку — звідси й уся вигода</text>
-<rect x="80" y="130" width="200" height="112" rx="11" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.7"/>
-<text x="180" y="158" font-size="12" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">ПЕРЕДБАЧЕННЯ</text>
-<text x="110" y="182" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">з уже відомого:</text>
-<text x="110" y="199" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">сусідні пікселі,</text>
-<text x="110" y="216" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">попередній кадр</text>
-<text x="310" y="182" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">−</text>
-<rect x="340" y="130" width="180" height="112" rx="11" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.7"/>
-<text x="430" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">РЕАЛЬНІСТЬ</text>
-<text x="430" y="186" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">що насправді</text>
-<text x="430" y="202" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">в кадрі</text>
-<text x="548" y="182" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">=</text>
-<rect x="575" y="130" width="200" height="112" rx="11" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.9"/>
-<text x="675" y="158" font-size="12" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">НЕСПОДІВАНКА</text>
-<text x="605" y="182" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">лише різниця —</text>
-<text x="605" y="199" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">мала, добре</text>
-<text x="605" y="216" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">стискається</text>
-<text x="805" y="182" font-size="10" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">→ це й</text>
-<text x="805" y="197" font-size="10" fill="#6b7280" text-anchor="start" font-weight="bold" font-style="normal">пишемо</text>
-<rect x="150" y="288" width="660" height="70" rx="10" fill="#fff0d8" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.5"/>
-<text x="480" y="312" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Типові стиски: фото JPEG ~10×, відео H.264 ~50–200× (бо ще й кадри схожі між собою).</text>
-<text x="480" y="334" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">Саме тому 1.5-гігабітний потік (47.5) ужимається до десятків мегабіт — і влазить у канал.</text>
-<text x="480.0" y="426" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Передбач відоме, запиши лише несподіване — це й є душа всякого стиснення, від DCT до міжкадрового.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="250" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Душа стиснення: записуй лише несподіване</text>
+<rect x="102.8" y="96.2" width="94.4" height="47.6" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/><text x="150.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">передбач</tspan><tspan x="150.0" dy="15.6">з відомого</tspan></text>
+<circle cx="225.2" cy="120.0" r="13.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="225.2" y="125.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="23" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<rect x="320.2" y="96.2" width="79.5" height="47.6" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/><text x="360.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">реальне</tspan><tspan x="360.0" dy="15.6">значення</tspan></text>
+<text x="433.8" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" font-weight="700">=</text>
+<rect x="505.4" y="96.2" width="109.3" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="560.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">несподіванка</tspan><tspan x="560.0" dy="15.6">(мала)</tspan></text>
+<text x="360.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">чим краще передбачення — тим менша різниця — тим сильніше стиснення</text>
 </svg>

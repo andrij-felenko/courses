@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регіон = шматок адрес + права доступу до нього</text>
+<rect x="50.0" y="64.0" width="660.0" height="30.0" rx="6" fill="#eef1f6" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="58.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">регіон (де лежить)</text>
+<text x="270.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">діапазон: база … межа</text>
+<text x="470.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">читати / писати</text>
+<text x="595.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">викон.</text>
+<text x="655.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">режим</text>
+<rect x="50.0" y="100.0" width="660.0" height="38.0" rx="5" fill="#fbfcfd" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="50.0" y="100.0" width="6.0" height="38.0" rx="0" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="58.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">.text — код</text>
+<text x="270.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">0x0000_0000 … +код</text>
+<text x="470.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">R — лише читати</text>
+<text x="595.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">так (X)</text>
+<text x="655.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">усі</text>
+<rect x="50.0" y="140.0" width="660.0" height="38.0" rx="5" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="50.0" y="140.0" width="6.0" height="38.0" rx="0" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="58.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">.rodata — сталі</text>
+<text x="270.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">далі за кодом</text>
+<text x="470.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">R — лише читати</text>
+<text x="595.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">ні</text>
+<text x="655.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">усі</text>
+<rect x="50.0" y="180.0" width="660.0" height="38.0" rx="5" fill="#fbfcfd" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="50.0" y="180.0" width="6.0" height="38.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="58.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">.data/.bss — глоб.</text>
+<text x="270.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">у RAM</text>
+<text x="470.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">RW</text>
+<text x="595.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">ні</text>
+<text x="655.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">усі</text>
+<rect x="50.0" y="220.0" width="660.0" height="38.0" rx="5" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="50.0" y="220.0" width="6.0" height="38.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="58.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">купа</text>
+<text x="270.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">у RAM, росте вгору</text>
+<text x="470.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">RW</text>
+<text x="595.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">ні</text>
+<text x="655.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">усі</text>
+<rect x="50.0" y="260.0" width="660.0" height="38.0" rx="5" fill="#fbfcfd" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="50.0" y="260.0" width="6.0" height="38.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="58.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">стек</text>
+<text x="270.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">у RAM, росте вниз</text>
+<text x="470.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">RW</text>
+<text x="595.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">ні</text>
+<text x="655.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">своя задача</text>
+<rect x="50.0" y="300.0" width="660.0" height="38.0" rx="5" fill="#fff" stroke="#e4e4e4" stroke-width="1.2"/>
+<rect x="50.0" y="300.0" width="6.0" height="38.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<text x="58.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">MMIO — периферія</text>
+<text x="270.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">діапазон регістрів</text>
+<text x="470.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">RW</text>
+<text x="595.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">ні</text>
+<text x="655.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">лише привіл.</text>
+<rect x="50.0" y="348.0" width="660.0" height="66.0" rx="6" fill="#f4f7f4" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="377.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Два правила гасять цілі класи бід: код позначено «лише читати», дані — «не виконувати» (NX, no-execute),</tspan><tspan x="380.0" dy="13.7">а регістри периферії доступні «лише з привілейованого режиму» — звичайна задача їх навіть не торкнеться.</tspan></text>
+</svg>

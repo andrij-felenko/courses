@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чим пул платить за свою простоту</text>
+<text x="225.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">зовнішньої фрагментації НЕМА</text>
+<rect x="60.0" y="86.0" width="58.0" height="40.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="122.0" y="86.0" width="58.0" height="40.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="184.0" y="86.0" width="58.0" height="40.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="246.0" y="86.0" width="58.0" height="40.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="308.0" y="86.0" width="58.0" height="40.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="370.0" y="86.0" width="58.0" height="40.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="225.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">будь-який вільний слот пасує будь-якому запиту</text>
+<line x1="450.0" y1="60.0" x2="450.0" y2="230.0" stroke="#dde2ea" stroke-width="1.5" stroke-dasharray="2,4"/>
+<text x="675.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#caa24a" text-anchor="middle" font-weight="700">натомість — ВНУТРІШНЯ фрагментація</text>
+<rect x="520.0" y="86.0" width="320.0" height="44.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="526.0" y="91.0" width="200.0" height="34.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="626.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">об'єкт 40 Б</text>
+<rect x="726.0" y="91.0" width="108.0" height="34.0" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="780.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">24 Б марно</text>
+<text x="675.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">слот на 64 Б, об'єкт 40 Б → хвіст лежить без діла</text>
+<rect x="150.0" y="196.0" width="280.0" height="40.0" rx="6" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.6"/><text x="290.0" y="212.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="290.0" dy="0.0">запит &gt; слота → відмова</tspan><tspan x="290.0" dy="13.7">(хай би скільки слотів вільних)</tspan></text>
+<rect x="470.0" y="196.0" width="280.0" height="40.0" rx="6" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.6"/><text x="610.0" y="212.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">усі N слотів роздані →</tspan><tspan x="610.0" dy="13.7">pool_alloc повертає NULL</tspan></text>
+<rect x="40.0" y="256.0" width="820.0" height="63.8" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="450.0" y="277.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Розмір слота беруть під найбільший очікуваний об'єкт класу; різні класи — окремі пули.</tspan><tspan x="450.0" dy="14.3">N рахують під пік одночасно живих об'єктів, ще й із запасом.</tspan><tspan x="450.0" dy="14.3">І звільняйте лише власні слоти пулу й рівно раз — інакше вільний список псується тихцем.</tspan></text>
+</svg>

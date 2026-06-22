@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пам'ять автомата — жменька змінних між викликами</text>
+<line x1="90.0" y1="96.0" x2="630.0" y2="96.0" stroke="#6b7280" stroke-width="1.4"/>
+<circle cx="150.0" cy="96.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="150.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">feed(b1)</text>
+<text x="255.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">…інші задачі…</text>
+<circle cx="360.0" cy="96.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="360.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">feed(b2)</text>
+<text x="465.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">…інші задачі…</text>
+<circle cx="570.0" cy="96.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="570.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">feed(b3)</text>
+<rect x="150.0" y="150.0" width="420.0" height="96.0" rx="6" fill="#f6f4ec" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="360.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">стан, що переживає виклики</text>
+<text x="192.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">st</text>
+<text x="192.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="192.0" dy="0.0">поточний</tspan><tspan x="192.0" dy="10.3">стан</tspan></text>
+<text x="276.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">len</text>
+<text x="276.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="276.0" dy="0.0">очікувана</tspan><tspan x="276.0" dy="10.3">довжина</tspan></text>
+<text x="360.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">idx</text>
+<text x="360.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="360.0" dy="0.0">скільки</tspan><tspan x="360.0" dy="10.3">зібрано</tspan></text>
+<text x="444.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">buf[]</text>
+<text x="444.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="444.0" dy="0.0">накопичувач</tspan></text>
+<text x="528.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">crc</text>
+<text x="528.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="528.0" dy="0.0">на льоту</tspan></text>
+<line x1="150.0" y1="102.0" x2="150.0" y2="148.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+<line x1="360.0" y1="102.0" x2="360.0" y2="148.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+<line x1="570.0" y1="102.0" x2="570.0" y2="148.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="360.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">виклик лише оновлює ці змінні й виходить — наступний байт продовжить з того ж місця</text>
+</svg>

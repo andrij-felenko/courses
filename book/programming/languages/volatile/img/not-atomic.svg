@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">volatile дає свіжість, та не неподільність: багатобайтне читання можна перервати</text>
+<line x1="80.0" y1="150.0" x2="680.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="80.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">основний код читає 64-бітну змінну:</text>
+<rect x="150.0" y="132.0" width="150.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="225.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">читає старшу</text>
+<rect x="470.0" y="132.0" width="150.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="545.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">читає молодшу</text>
+<line x1="385.0" y1="96.0" x2="385.0" y2="204.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5 4"/>
+<rect x="310.0" y="210.0" width="150.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="385.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ISR міняє все значення</text>
+<line x1="385.0" y1="210.0" x2="385.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="385.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">обробник влітає ТУТ</text>
+<rect x="210.0" y="278.0" width="340.0" height="40.0" rx="8" fill="#f4f6f8" stroke="#b8860b" stroke-width="2.0"/>
+<text x="380.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">склеєно: стара половина + нова половина</text>
+<text x="380.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700">= число, якого не існувало (розрив, tearing)</text>
+<text x="380.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">volatile зробив кожну половину свіжою — але не зробив читання неподільним</text>
+</svg>

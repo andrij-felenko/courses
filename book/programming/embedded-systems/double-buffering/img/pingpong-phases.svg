@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Подвійна буферизація: ролі чергуються</text>
+<text x="205.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">фаза 1</text>
+<rect x="40.0" y="80.0" width="330.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/>
+<text x="64.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#2457d6" text-anchor="start" font-weight="700">A</text>
+<text x="225.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">DMA → A</text>
+<rect x="40.0" y="165.0" width="330.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="64.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="start" font-weight="700">B</text>
+<text x="225.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ядро ← B</text>
+<text x="555.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">фаза 2 (обмін)</text>
+<rect x="390.0" y="80.0" width="330.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="414.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="start" font-weight="700">A</text>
+<text x="575.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">DMA → B</text>
+<rect x="390.0" y="165.0" width="330.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/>
+<text x="414.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#2457d6" text-anchor="start" font-weight="700">B</text>
+<text x="575.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ядро ← A</text>
+<line x1="374.0" y1="158.0" x2="386.0" y2="158.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">переривання «готово»
+→ ролі міняються</text>
+<text x="380.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">у будь-який момент кожен буфер належить лише одному: DMA пише або ядро читає — ніколи разом</text>
+</svg>

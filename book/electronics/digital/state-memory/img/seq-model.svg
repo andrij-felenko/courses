@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комбінаційна логіка + зворотний зв'язок = стан</text>
+<text x="380.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">частину виходу заводять назад як стан — вихід тепер залежить і від входів, і від минулого</text>
+<rect x="270.0" y="100.0" width="220.0" height="110.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="380.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">комбінаційна логіка</text>
+<text x="380.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(вентилі без петель)</text>
+<line x1="160.0" y1="130.0" x2="270.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="154.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">входи</text>
+<line x1="490.0" y1="130.0" x2="580.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="586.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">виходи</text>
+<text x="550.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">наступний стан</text>
+<line x1="490.0" y1="188.0" x2="610.0" y2="188.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="610.0" y1="188.0" x2="610.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="310.0" y="280.0" width="140.0" height="44.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="380.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">пам'ять стану</text>
+<line x1="610.0" y1="300.0" x2="450.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="310.0" y1="300.0" x2="200.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="200.0" y1="300.0" x2="200.0" y2="188.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="200.0" y1="188.0" x2="270.0" y2="188.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="200.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">поточний стан</text>
+<rect x="60.0" y="350.0" width="640.0" height="38.0" rx="6" fill="#f4f7f4" stroke="#27ae60" stroke-width="1.6"/><text x="380.0" y="372.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">вихід = f(входи, стан)   ·   наступний стан = g(входи, стан) — кістяк усіх схем з пам'яттю</tspan></text>
+</svg>

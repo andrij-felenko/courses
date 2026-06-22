@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повернення блоку і злиття вільних сусідів (coalescing)</text>
+<rect x="90.0" y="80.0" width="200.0" height="40.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="190.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">24 Б вільн.</text>
+<rect x="292.0" y="80.0" width="200.0" height="40.0" rx="2" fill="#e9eefb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="392.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">32 Б — звільняємо</text>
+<rect x="494.0" y="80.0" width="200.0" height="40.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="594.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">40 Б вільн.</text>
+<text x="76.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">(а)</text>
+<text x="390.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">наївний free лишив би ТРИ уламки (24+32+40), порізано натроє</text>
+<rect x="90.0" y="160.0" width="200.0" height="40.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="190.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">24 Б вільн.</text>
+<rect x="292.0" y="160.0" width="200.0" height="40.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="392.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">32 Б вільн.</text>
+<rect x="494.0" y="160.0" width="200.0" height="40.0" rx="2" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="594.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">40 Б вільн.</text>
+<text x="76.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">(б)</text>
+<rect x="90.0" y="240.0" width="604.0" height="40.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="390.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">один великий вільний блок (96 Б)</text>
+<text x="76.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">(в)</text>
+<rect x="40.0" y="300.0" width="820.0" height="63.8" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/><text x="450.0" y="321.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Звільнив блок поряд із вільними — наївний free дає три дрібні уламки: великий запит не влізе.</tspan><tspan x="450.0" dy="14.3">Лік: злити блок із вільними сусідами за АДРЕСОЮ в один суцільний.</tspan><tspan x="450.0" dy="14.3">Наступного сусіда дає «адреса + розмір»; попереднього — граничні мітки (розмір у кінці блока).</tspan></text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розподіл струму: система в пріоритеті, батарея — із залишку</text>
+<rect x="55.0" y="64.0" width="380.0" height="150.0" rx="12" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="245.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Звичайно: вистачає на все</text>
+<text x="245.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Iвх = Iсист + Iбат(заряд)</text>
+<rect x="90.0" y="134.0" width="310.0" height="30.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="90.0" y="134.0" width="175.0" height="30.0" rx="6" fill="#cfe8d6" stroke="#27ae60" stroke-width="0.0"/>
+<text x="177.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">система</text>
+<rect x="265.0" y="134.0" width="135.0" height="30.0" rx="6" fill="#dfeefb" stroke="#2457d6" stroke-width="0.0"/>
+<text x="332.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">заряд батареї</text>
+<text x="245.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">вхідний ліміт ділиться: систему годуємо першою</text>
+<rect x="465.0" y="64.0" width="380.0" height="150.0" rx="12" fill="#fdf6e3" stroke="#c89a2b" stroke-width="1.6"/>
+<text x="655.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#a07d1f" text-anchor="middle" font-weight="700">Пік: системі треба більше за вхід</text>
+<text x="655.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Iсист = Iвх + Iбат(розряд)</text>
+<rect x="500.0" y="134.0" width="310.0" height="30.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="500.0" y="134.0" width="195.0" height="30.0" rx="6" fill="#dfeefb" stroke="#2457d6" stroke-width="0.0"/>
+<text x="597.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">із входу</text>
+<rect x="695.0" y="134.0" width="115.0" height="30.0" rx="6" fill="#f6e0c8" stroke="#c89a2b" stroke-width="0.0"/>
+<text x="752.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">+ батарея</text>
+<text x="655.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">батарея допомагає входу — тримає просадку</text>
+<rect x="165.7" y="237.1" width="568.6" height="61.8" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="450.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Вхідний струм обмежений тим, що дозволив порт. Розумний вузол стежить за цим лімітом:</tspan><tspan x="450.0" dy="13.7">не дає сумарному споживанню просадити VBUS, а коли системі замало — підмішує струм батареї.</tspan><tspan x="450.0" dy="13.7">Це і є динамічний розподіл (load sharing) у power path.</tspan></text>
+</svg>

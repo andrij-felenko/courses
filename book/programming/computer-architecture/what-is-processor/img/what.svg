@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процесор виконує інструкції по одній, без упину</text>
+<rect x="60.0" y="90.0" width="220.0" height="210.0" rx="6" fill="#f4f7f4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="170.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПАМ'ЯТЬ (програма)</text>
+<rect x="76.0" y="130.0" width="188.0" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="88.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">0x10</text>
+<text x="252.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">завантаж 7</text>
+<rect x="76.0" y="164.0" width="188.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="88.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">0x11</text>
+<text x="252.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">додай</text>
+<rect x="76.0" y="198.0" width="188.0" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="88.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">0x12</text>
+<text x="252.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">порівняй</text>
+<rect x="76.0" y="232.0" width="188.0" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="88.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">0x13</text>
+<text x="252.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">перейти, якщо…</text>
+<rect x="76.0" y="266.0" width="188.0" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="88.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">0x14</text>
+<text x="252.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">запиши</text>
+<text x="170.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">← поточна команда</text>
+<line x1="286.0" y1="178.0" x2="360.0" y2="196.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="380.0" y="156.6" width="180.0" height="78.8" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="470.0" y="176.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">ПРОЦЕСОР</tspan><tspan x="470.0" dy="15.6">бере команду</tspan><tspan x="470.0" dy="15.6">й виконує дію</tspan><tspan x="470.0" dy="15.6">далі — наступна</tspan></text>
+<line x1="560.0" y1="196.0" x2="632.0" y2="196.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="645.0" y="172.2" width="130.0" height="47.6" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.8"/><text x="710.0" y="192.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">крихітна</tspan><tspan x="710.0" dy="15.6">дія: A + B</tspan></text>
+<text x="410.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">читає чергове число-команду, робить означену дію — і одразу береться за наступну</text>
+</svg>

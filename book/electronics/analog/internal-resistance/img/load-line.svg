@@ -1,28 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="420" viewBox="0 0 820 420">
-<rect width="820" height="420" fill="#ffffff"/>
-<defs>
-  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
-  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
-  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
-  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
-  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
-</defs>
-<text x="410.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Лінія навантаження: робоча точка — це перетин</text>
-<text x="410.0" y="51.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">джерело й навантаження мають спільні V та I — тож реальна точка там, де їхні характеристики перетинаються</text>
-<line x1="110.0" y1="360.0" x2="720.0" y2="360.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
-<text x="720.0" y="382.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="italic" font-style="normal">напруга V</text>
-<line x1="110.0" y1="360.0" x2="110.0" y2="84.0" stroke="#1b1b1b" stroke-width="1.8" marker-end="url(#aInk)"/>
-<text x="102.0" y="80.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">струм I</text>
-<line x1="637.3" y1="360.0" x2="110.0" y2="135.0" stroke="#c0271e" stroke-width="2.8" stroke-linecap="round"/>
-<line x1="110.0" y1="360.0" x2="584.5" y2="258.8" stroke="#1f47b5" stroke-width="2.6" stroke-linecap="round"/>
-<line x1="461.5" y1="285.0" x2="461.5" y2="360.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3 3" stroke-linecap="round"/>
-<line x1="461.5" y1="285.0" x2="110.0" y2="285.0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="3 3" stroke-linecap="round"/>
-<circle cx="461.5" cy="285.0" r="6.0" fill="#1f8a3b" stroke="#1f8a3b" stroke-width="1"/>
-<text x="473.5" y="273.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">робоча: 6.7 В, 33 мА</text>
-<circle cx="637.3" cy="360.0" r="4.0" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
-<text x="637.3" y="380.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ε (хол. хід)</text>
-<circle cx="110.0" cy="135.0" r="4.0" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
-<text x="102.0" y="135.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">I_кз = ε/r</text>
-<text x="484.4" y="180.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">джерело: V = ε − I·r  (нахил −1/r)</text>
-<text x="542.4" y="292.5" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">навантаження R: V = I·R</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лінія навантаження: робоча точка — це перетин</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">джерело й навантаження мають спільні V та I — реальна точка там, де характеристики перетинаються</text>
+<line x1="110.0" y1="360.0" x2="720.0" y2="360.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="720.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">напруга V</text>
+<line x1="110.0" y1="360.0" x2="110.0" y2="84.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="102.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">струм I</text>
+<line x1="664.5" y1="360.0" x2="110.0" y2="359.7" stroke="#c0392b" stroke-width="2.8"/>
+<line x1="110.0" y1="360.0" x2="720.0" y2="222.0" stroke="#2457d6" stroke-width="2.6"/>
+<line x1="479.7" y1="359.9" x2="479.7" y2="360.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="479.7" y1="359.9" x2="110.0" y2="359.9" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="479.7" cy="359.9" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="491.7" y="347.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">робоча: 6.7 В, 33 мА</text>
+<circle cx="664.5" cy="360.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="664.5" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ε (хол. хід)</text>
+<circle cx="110.0" cy="359.7" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="102.0" y="359.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">I_кз = ε/r</text>
+<text x="498.2" y="164.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">джерело: V = ε − I·r  (нахил −1/r)</text>
+<text x="575.8" y="264.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">навантаження R: V = I·R</text>
 </svg>

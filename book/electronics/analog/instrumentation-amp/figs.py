@@ -210,8 +210,280 @@ def fig_one_vs_three():
     return render(os.path.join(IMG, "one-vs-three.svg"), W, H, *f)
 
 
+# ── допоміжне: ОП-трикутник і синусоїда ─────────────────────────────────────
+def _opamp_tri(cx, cy, w=70, h=64, label="", inv_top=True):
+    """Трикутник ОП вершиною праворуч; «−»/«+» на входах, підпис усередині."""
+    p1 = (cx - w / 2, cy - h / 2)
+    p2 = (cx - w / 2, cy + h / 2)
+    p3 = (cx + w / 2, cy)
+    tri = ('<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f z" fill="%s" stroke="%s" '
+           'stroke-width="1.8"/>' % (p1[0], p1[1], p2[0], p2[1], p3[0], p3[1], FILL, LINE))
+    top = (cx - w / 2 + 16, cy - h / 4)
+    bot = (cx - w / 2 + 16, cy + h / 4)
+    if inv_top:
+        marks = minus(*top, 7) + plus(*bot, 7)
+    else:
+        marks = plus(*top, 7) + minus(*bot, 7)
+    lab = text(cx - 2, cy + 5, label, size=13, color=MUTED, bold=True)
+    return tri + marks + lab, p3
+
+def _sine(x0, y0, span, cycles, amp, color, sw=2.2, phase=0.0):
+    """Полілінія-синусоїда: span px завширшки, amp px розмаху, cycles періодів."""
+    import math
+    n = int(span)
+    pts = []
+    for i in range(n + 1):
+        t = i / span
+        x = x0 + i
+        y = y0 - amp * math.sin(2 * math.pi * cycles * t + phase)
+        pts.append("%.1f,%.1f" % (x, y))
+    return ('<path d="M %s" fill="none" stroke="%s" stroke-width="%.1f"/>'
+            % (" L ".join(pts), color, sw))
+
+
+# ── 4. Топологія для math-вставки: повна схема трьох ОП із R₁/R₂ ─────────────
+def fig_inamp_topology():
+    W, H = 780, 440
+    f = [text(W / 2, 26, "Інструментальний підсилювач: три ОП", size=17, bold=True)]
+
+    # зони
+    f.append(rect(150, 64, 230, 312, fill="#f0f8f1", stroke=FIELD, sw=1.4, rx=10))
+    f.append(text(160, 84, "1) буфери + Rg: усе підсилення", size=12, color=FIELD,
+                  bold=True, anchor="start"))
+    f.append(rect(398, 96, 320, 280, fill="#eef2fc", stroke=NEG, sw=1.4, rx=10))
+    f.append(text(408, 116, "2) різницевий каскад: ріже синфазне", size=12, color=NEG,
+                  bold=True, anchor="start"))
+
+    # входи
+    f.append(text(40, 124, "V₊", size=16, color=POS, bold=True, anchor="start"))
+    f.append(text(40, 324, "V₋", size=16, color=NEG, bold=True, anchor="start"))
+    f.append(arrow(58, 120, 100, 120, color=POS, sw=2))
+    f.append(arrow(58, 320, 100, 320, color=NEG, sw=2))
+
+    # A1, A2
+    a1, p1r = _opamp_tri(210, 120, label="A1", inv_top=False)
+    a2, p2r = _opamp_tri(210, 320, label="A2", inv_top=True)
+    f.append(a1); f.append(a2)
+    f.append(line(100, 120, 175, 105, color=POS, sw=2))
+    f.append(line(100, 320, 175, 335, color=NEG, sw=2))
+
+    # виходи буферів Va, Vb
+    f.append(line(245, 120, 470, 120, color=INK, sw=2))
+    f.append(line(245, 320, 470, 320, color=INK, sw=2))
+    f.append(text(252, 111, "Va", size=13, color=INK, bold=True, anchor="start"))
+    f.append(text(252, 338, "Vb", size=13, color=INK, bold=True, anchor="start"))
+
+    # ланцюг R–Rg–R по вертикалі (x=320)
+    f.append(circle(320, 120, 3.4, fill=INK, stroke=INK))
+    f.append(line(320, 120, 320, 126, color=INK, sw=2))
+    rb1, _, _ = textbox(320, 140, "R", size=12, fill="#fff", stroke=INK, min_w=22)
+    f.append(rb1)
+    f.append(line(320, 154, 320, 176, color=INK, sw=2))
+    f.append(circle(320, 176, 3.4, fill=INK, stroke=INK))
+    rg, _, _ = textbox(320, 220, "Rg", size=12, fill="#eef9f0", stroke=FIELD, min_w=26)
+    f.append(rg)
+    f.append(line(320, 176, 320, 200, color=INK, sw=2))
+    f.append(line(320, 240, 320, 264, color=INK, sw=2))
+    f.append(circle(320, 264, 3.4, fill=INK, stroke=INK))
+    rb2, _, _ = textbox(320, 300, "R", size=12, fill="#fff", stroke=INK, min_w=22)
+    f.append(rb2)
+    f.append(line(320, 264, 320, 286, color=INK, sw=2))
+    f.append(line(320, 314, 320, 320, color=INK, sw=2))
+    f.append(circle(320, 320, 3.4, fill=INK, stroke=INK))
+    # зворотні зв'язки буферів до ланцюга
+    f.append(line(175, 135, 250, 135, color=INK, sw=2))
+    f.append(line(250, 135, 250, 176, color=INK, sw=2))
+    f.append(line(250, 176, 320, 176, color=INK, sw=2))
+    f.append(line(175, 305, 250, 305, color=INK, sw=2))
+    f.append(line(250, 305, 250, 264, color=INK, sw=2))
+    f.append(line(250, 264, 320, 264, color=INK, sw=2))
+
+    # різницевий каскад A3 з R₁/R₂
+    f.append(circle(470, 120, 3.4, fill=INK, stroke=INK))
+    f.append(line(470, 120, 470, 201, color=INK, sw=2))
+    f.append(line(470, 201, 488, 201, color=INK, sw=2))
+    r1a, _, _ = textbox(515, 201, "R₁", size=12, fill="#fff", stroke=INK, min_w=40)
+    f.append(r1a)
+    f.append(line(535, 201, 554, 201, color=INK, sw=2))
+    f.append(circle(498, 201, 3.4, fill=INK, stroke=INK))
+    f.append(circle(470, 320, 3.4, fill=INK, stroke=INK))
+    f.append(line(470, 320, 470, 231, color=INK, sw=2))
+    f.append(line(470, 231, 488, 231, color=INK, sw=2))
+    r1b, _, _ = textbox(515, 231, "R₁", size=12, fill="#fff", stroke=INK, min_w=40)
+    f.append(r1b)
+    f.append(line(535, 231, 554, 231, color=INK, sw=2))
+    f.append(circle(498, 231, 3.4, fill=INK, stroke=INK))
+    # R₂ до землі
+    f.append(line(498, 231, 498, 300, color=INK, sw=2))
+    r2g, _, _ = textbox(515, 315, "R₂", size=12, fill="#fff", stroke=INK, min_w=40)
+    f.append(r2g)
+    f.append(line(498, 330, 498, 348, color=INK, sw=2))
+    f.append(line(486, 348, 510, 348, color=INK, sw=2.4))
+    f.append(line(490, 353, 506, 353, color=INK, sw=2))
+    f.append(line(494, 358, 502, 358, color=INK, sw=1.6))
+    # A3
+    a3, p3r = _opamp_tri(590, 216, label="A3", inv_top=True)
+    f.append(a3)
+    f.append(line(626, 216, 670, 216, color=INK, sw=2))
+    f.append(circle(652, 216, 3.4, fill=INK, stroke=INK))
+    f.append(arrow(670, 216, 724, 216, color=INK, sw=2))
+    f.append(text(708, 204, "Vвих", size=14, color=INK, bold=True))
+    # зворотний R₂ A3
+    f.append(line(652, 216, 652, 150, color=INK, sw=2))
+    f.append(line(652, 150, 575, 150, color=INK, sw=2))
+    r2f, _, _ = textbox(575, 150, "R₂", size=12, fill="#fff", stroke=INK, min_w=40)
+    f.append(r2f)
+    f.append(line(555, 150, 498, 150, color=INK, sw=2))
+    f.append(line(498, 150, 498, 201, color=INK, sw=2))
+
+    # підпис-формула
+    fb = fitbox(150, 392, 484, 36,
+                "G = (1 + 2R/Rg) · (R₂/R₁)   — підсилення задає один резистор Rg",
+                size=14, fill="#fbf6e6", stroke="#d8c98a", bold=True)
+    f.append(fb)
+    return render(os.path.join(IMG, "inamp-topology.svg"), W, H, *f)
+
+
+# ── 5. Синфазне проти диференційного: дві панелі з хвилями ───────────────────
+def fig_inamp_cm_vs_dm():
+    W, H = 760, 360
+    f = [text(W / 2, 26, "Два сигнали на одному вході: що з ними робить in-amp",
+              size=16, bold=True)]
+
+    # ── ліва панель: диференційний (протифазні) ──
+    f.append(rect(60, 56, 300, 280, fill="none", stroke="#c9d3dc", sw=1.4, rx=10))
+    f.append(text(210, 78, "Корисний (диференційний) сигнал", size=13, color=FIELD, bold=True))
+    f.append(text(78, 110, "V₊", size=13, color=POS, bold=True, anchor="start"))
+    f.append(text(78, 214, "V₋", size=13, color=NEG, bold=True, anchor="start"))
+    f.append(line(100, 110, 310, 110, color=MUTED, sw=1.2, dash="4 4"))
+    f.append(line(100, 190, 310, 190, color=MUTED, sw=1.2, dash="4 4"))
+    f.append(_sine(100, 110, 210, 1.5, 18, POS, sw=2.2, phase=0.0))
+    f.append(_sine(100, 190, 210, 1.5, 18, NEG, sw=2.2, phase=3.14159))
+    f.append(text(210, 250, "різниця V₊−V₋ ≠ 0", size=12, color=FIELD, bold=True))
+    f.append(arrow(210, 258, 210, 276, color=FIELD, sw=2))
+    f.append(fitbox(120, 280, 180, 28, "× велике G", size=13, fill="#eef6ef",
+                    stroke=FIELD, color=FIELD, bold=True))
+
+    # ── права панель: синфазний (синхронні) ──
+    f.append(rect(410, 56, 290, 280, fill="none", stroke="#c9d3dc", sw=1.4, rx=10))
+    f.append(text(555, 78, "Завада (синфазна): однакова на обох", size=13, color=POS, bold=True))
+    f.append(text(428, 144, "V₊", size=13, color=POS, bold=True, anchor="start"))
+    f.append(text(428, 168, "V₋", size=13, color=NEG, bold=True, anchor="start"))
+    f.append(_sine(450, 154, 200, 1.5, 36, POS, sw=2.6, phase=0.0))
+    f.append(_sine(450, 146, 200, 1.5, 36, NEG, sw=2.0, phase=0.0))
+    f.append(text(555, 250, "різниця V₊−V₋ ≈ 0", size=12, color=POS, bold=True))
+    f.append(arrow(555, 258, 555, 276, color=POS, sw=2))
+    f.append(fitbox(455, 280, 200, 28, "× майже нуль (÷ CMRR)", size=12, fill="#fdecea",
+                    stroke=POS, color=POS, bold=True))
+    return render(os.path.join(IMG, "inamp-cm-vs-dm.svg"), W, H, *f)
+
+
+# ── 6. In-amp як чип: розпіновка + мостовий давач + ADC ──────────────────────
+def fig_inamp_bridge_pinout():
+    W, H = 760, 420
+    f = [text(W / 2, 26, "In-amp як готовий чип: міст на входах, Rg задає G, REF зсуває нуль",
+              size=15, bold=True)]
+
+    # корпус чипа
+    cx, cy, cw, ch = 330, 120, 150, 200
+    f.append(rect(cx, cy, cw, ch, fill="#eef2fc", stroke=NEG, sw=1.6, rx=8))
+    f.append(text(cx + cw / 2, cy + ch / 2 - 6, "in-amp", size=15, color=NEG, bold=True))
+    f.append(text(cx + cw / 2, cy + ch / 2 + 14, "(3 ОП усередині)", size=11, color=MUTED))
+
+    # ліві ноги: IN+ / IN−
+    f.append(line(cx - 40, cy + 40, cx, cy + 40, color=POS, sw=2))
+    f.append(line(cx - 40, cy + 80, cx, cy + 80, color=NEG, sw=2))
+    f.append(text(cx - 44, cy + 44, "IN+", size=12, color=POS, bold=True, anchor="end"))
+    f.append(text(cx - 44, cy + 84, "IN−", size=12, color=NEG, bold=True, anchor="end"))
+
+    # ноги RG (дві, знизу ліворуч) із зовнішнім Rg
+    f.append(line(cx + 40, cy + ch, cx + 40, cy + ch + 30, color=INK, sw=2))
+    f.append(line(cx + 100, cy + ch, cx + 100, cy + ch + 30, color=INK, sw=2))
+    f.append(line(cx + 40, cy + ch + 30, cx + 100, cy + ch + 30, color=INK, sw=2))
+    rg, _, _ = textbox(cx + 70, cy + ch + 30, "Rg", size=12, fill="#eef9f0",
+                       stroke=FIELD, min_w=30)
+    f.append(rg)
+    f.append(text(cx + 40, cy + ch + 16, "RG", size=11, color=MUTED, anchor="middle"))
+    f.append(text(cx + 100, cy + ch + 16, "RG", size=11, color=MUTED, anchor="middle"))
+
+    # REF знизу
+    f.append(line(cx + cw / 2, cy + ch, cx + cw / 2, cy + ch + 60, color=INK, sw=2))
+    f.append(text(cx + cw / 2 + 6, cy + ch + 20, "REF", size=11, color=MUTED, anchor="start"))
+    f.append(line(cx + cw / 2 - 12, cy + ch + 60, cx + cw / 2 + 12, cy + ch + 60, color=INK, sw=2.4))
+    f.append(line(cx + cw / 2 - 8, cy + ch + 65, cx + cw / 2 + 8, cy + ch + 65, color=INK, sw=2))
+
+    # живлення зверху V+/V−
+    f.append(line(cx + 40, cy, cx + 40, cy - 30, color=INK, sw=2))
+    f.append(line(cx + 100, cy, cx + 100, cy - 30, color=INK, sw=2))
+    f.append(text(cx + 40, cy - 34, "V+", size=12, color=POS, bold=True, anchor="middle"))
+    f.append(text(cx + 100, cy - 34, "V−", size=12, color=NEG, bold=True, anchor="middle"))
+
+    # права нога OUT → ADC
+    f.append(line(cx + cw, cy + ch / 2, cx + cw + 60, cy + ch / 2, color=INK, sw=2))
+    f.append(text(cx + cw + 6, cy + ch / 2 - 8, "OUT", size=12, color=INK, bold=True, anchor="start"))
+    f.append(rect(cx + cw + 60, cy + ch / 2 - 30, 90, 60, fill=FILL, stroke=LINE, sw=1.4, rx=6))
+    f.append(text(cx + cw + 105, cy + ch / 2 - 4, "ADC", size=13, color=INK, bold=True))
+    f.append(text(cx + cw + 105, cy + ch / 2 + 14, "MCU", size=11, color=MUTED))
+
+    # міст ліворуч (ромб)
+    bx, by = 120, cy + 60
+    f.append(text(bx, by - 56, "мостовий давач", size=12, color=MUTED, bold=True))
+    d = 34
+    f.append(line(bx, by - d, bx + d, by, color=INK, sw=1.8))
+    f.append(line(bx + d, by, bx, by + d, color=INK, sw=1.8))
+    f.append(line(bx, by + d, bx - d, by, color=INK, sw=1.8))
+    f.append(line(bx - d, by, bx, by - d, color=INK, sw=1.8))
+    # виходи моста на IN+/IN−
+    f.append(line(bx + d, by, cx - 40, cy + 40, color=POS, sw=2))
+    f.append(line(bx - d, by, cx - 40, cy + 80, color=NEG, sw=2))
+    f.append(text(bx, by + 4, "≈мВ", size=10, color=MUTED))
+
+    f.append(fitbox(140, 372, 480, 34,
+                    "крихітна різниця в мілівольтах → G·різниця на OUT → код у MCU",
+                    size=13, fill="#fbf6e6", stroke="#d8c98a", bold=True))
+    return render(os.path.join(IMG, "inamp-bridge-pinout.svg"), W, H, *f)
+
+
+# ── 7. Дискретно (3 ОП + 5 точних R) проти готового чипа (1 Rg) ──────────────
+def fig_inamp_bridge_discrete_vs_chip():
+    W, H = 760, 360
+    f = [text(W / 2, 26, "Чому платять за чип: узгодженість резисторів = CMRR",
+              size=16, bold=True)]
+
+    # ліворуч — дискретно
+    f.append(rect(40, 56, 320, 280, fill="#fdf2f2", stroke=POS, sw=1.4, rx=10))
+    f.append(text(200, 80, "Зібрати самому: 3 ОП", size=13, color=POS, bold=True))
+    f.append(fitbox(60, 100, 280, 50,
+                    "три окремі ОП\n+ п'ять ПІДІГНАНИХ резисторів", size=12,
+                    fill="#fff", stroke=POS))
+    f.append(fitbox(60, 162, 280, 50,
+                    "CMRR = наскільки точно\nзбіглися ці резистори", size=12,
+                    fill="#fff", stroke=POS))
+    f.append(fitbox(60, 224, 280, 70,
+                    "на 0.1% деталях →\nCMRR ≈ 60–66 дБ\n(+ температурний дрейф)", size=12,
+                    fill="#fff", stroke=POS, bold=True))
+
+    # праворуч — чип
+    f.append(rect(400, 56, 320, 280, fill="#f0f8f1", stroke=FIELD, sw=1.4, rx=10))
+    f.append(text(560, 80, "Готовий in-amp: 1 корпус", size=13, color=FIELD, bold=True))
+    f.append(fitbox(420, 100, 280, 50,
+                    "резистори на кристалі,\nпідрізані лазером", size=12,
+                    fill="#fff", stroke=FIELD))
+    f.append(fitbox(420, 162, 280, 50,
+                    "дрейфують РАЗОМ →\nстабільний CMRR", size=12,
+                    fill="#fff", stroke=FIELD))
+    f.append(fitbox(420, 224, 280, 70,
+                    "CMRR ≈ 90–130 дБ «з коробки»\nлишається поставити\nодин Rg", size=12,
+                    fill="#fff", stroke=FIELD, bold=True))
+    return render(os.path.join(IMG, "inamp-bridge-discrete-vs-chip.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_problem()
     fig_three_opamp()
     fig_one_vs_three()
+    fig_inamp_topology()
+    fig_inamp_cm_vs_dm()
+    fig_inamp_bridge_pinout()
+    fig_inamp_bridge_discrete_vs_chip()
     print("OK: figures ->", IMG)

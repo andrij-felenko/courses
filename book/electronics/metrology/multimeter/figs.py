@@ -15,6 +15,7 @@ IMG = os.path.join(os.path.dirname(__file__), 'img')
 import math
 
 ORANGE = "#e08030"   # попередження (гніздо/запобіжник)
+WIRE   = "#cf8b5e"   # колір дроту в схемах
 
 
 # ── допоміжне: батарея (вертикальна, з підписом) ──────────────────────────────
@@ -36,6 +37,15 @@ def resistor(x, y, w, h, label="R", lx=None, anchor="start", italic=True):
     f = [rect(x, y, w, h, fill=BG, stroke=INK, sw=2, rx=3),
          text(lx, y + h / 2 + 4, label, size=12, color=INK, anchor=anchor, bold=True, italic=italic)]
     return f
+
+
+def resistor_h(x, y, w, h, label="R"):
+    """Горизонтальний резистор: прямокутник по центру лінії y, з підписом зверху."""
+    rx0 = x + (w - 46) / 2
+    return [rect(rx0, y - h / 2, 46, h, fill=BG, stroke=INK, sw=2, rx=3),
+            line(x, y, rx0, y, color=INK, sw=2),
+            line(rx0 + 46, y, x + w, y, color=INK, sw=2),
+            text(x + w / 2, y - h / 2 - 6, label, size=11, color=INK, bold=True, italic=True)]
 
 
 def node(x, y, color=INK, r=3.5):
@@ -255,10 +265,159 @@ def fig_mistakes():
            title="Дві небезпечні помилки")
 
 
+# ── 6. Блок-схема DMM: усе зводиться до напруги ────────────────────────────────
+def fig_blockdiagram():
+    W, H = 920, 470
+    f = [text(W / 2, 52, "вхідний каскад залежить від режиму; далі тракт спільний для всіх",
+              size=12, color=MUTED, italic=True)]
+
+    # гнізда ліворуч
+    jx = 64
+    f.append(text(jx, 96, "Гнізда", size=12, color=INK, bold=True))
+    f.append(circle(jx, 128, 9, fill=BG, stroke=POS, sw=2.4))
+    f.append(text(jx + 18, 132, "VΩmA", size=11, color=POS, anchor="start", bold=True))
+    f.append(circle(jx, 200, 9, fill=BG, stroke=ORANGE, sw=2.4))
+    f.append(text(jx + 18, 204, "10A", size=11, color=ORANGE, anchor="start", bold=True))
+    f.append(circle(jx, 312, 9, fill=BG, stroke=INK, sw=2.4))
+    f.append(text(jx + 18, 316, "COM", size=11, color=INK, anchor="start", bold=True))
+    f.append(text(jx, 342, "опорна точка", size=10, color=MUTED))
+
+    # каскади обробки за режимом
+    bx, bw = 184, 200
+    f.append(text(bx + bw / 2, 90, "вибирає перемикач режиму", size=10, color=MUTED, italic=True))
+    blocks = [
+        (104, NEG,   "#eef3fb", "Режим V — дільник", "вхід ≈ 10 МОм"),
+        (178, POS,   "#fdeeee", "Режим A — шунт", "малий опір, спад напруги"),
+        (252, FIELD, "#eef7f0", "Режим Ω — джерело I", "пускає струм, міряє спад"),
+    ]
+    for yy, col, fillc, t1, t2 in blocks:
+        f.append(rect(bx, yy, bw, 54, fill=fillc, stroke=col, sw=1.6, rx=8))
+        f.append(text(bx + bw / 2, yy + 23, t1, size=11, color=col, bold=True))
+        f.append(text(bx + bw / 2, yy + 41, t2, size=10, color=MUTED))
+    f.append(line(jx + 9, 128, bx, 128, color=POS, sw=2))
+    f.append(line(jx + 9, 200, bx, 200, color=ORANGE, sw=2))
+
+    # опорна напруга + АЦП
+    mx = 440
+    f.append(arrow(bx + bw, 131, mx, 188, color=INK, sw=1.8))
+    f.append(arrow(bx + bw, 205, mx, 200, color=INK, sw=1.8))
+    f.append(arrow(bx + bw, 279, mx, 212, color=INK, sw=1.8))
+    f.append(rect(mx, 100, 156, 44, fill="#f7f7f7", stroke=MUTED, sw=1.4, rx=6))
+    f.append(text(mx + 78, 121, "Опорна напруга", size=11, color=INK, bold=True))
+    f.append(text(mx + 78, 137, "еталон для порівняння", size=10, color=MUTED))
+    f.append(arrow(mx + 78, 144, mx + 78, 166, color=MUTED, sw=1.6))
+    f.append(rect(mx, 166, 156, 76, fill=BG, stroke=INK, sw=2, rx=8))
+    f.append(text(mx + 78, 196, "АЦП", size=15, color=INK, bold=True))
+    f.append(text(mx + 78, 216, "напруга → число", size=10, color=MUTED))
+    f.append(text(mx + 78, 264, "інтегрувальний (dual-slope)", size=10, color=MUTED))
+    f.append(text(mx + 78, 280, "або сигма-дельта", size=10, color=MUTED))
+
+    # табло
+    dx = 658
+    f.append(arrow(mx + 156, 204, dx, 204, color=INK, sw=2))
+    f.append(rect(dx, 166, 162, 84, fill="#101814", stroke="#101814", sw=2, rx=8))
+    f.append(text(dx + 81, 220, "4.236", size=30, color="#5dff9b", bold=True))
+    f.append(text(dx + 81, 272, "табло (лічильник + дисплей)", size=10, color=MUTED))
+
+    f.append(fitbox(130, 396, 660, 54,
+                    ["Головна ідея: цифрувати прилад уміє лише НАПРУГУ.",
+                     "Струм і опір він спершу обертає на напругу — шунтом чи джерелом струму — і вже її злічує."],
+                    size=11, pad=10, fill="#f3f6fb", stroke=NEG, bold=False))
+
+    render(os.path.join(IMG, "blockdiagram.svg"), W, H, *f,
+           title="Що всередині DMM: будь-яку величину звести до напруги")
+
+
+# ── 7. Два числа з паспорта: вхідний опір і напруга навантаження ───────────────
+def fig_impedance():
+    W, H = 900, 470
+    f = [line(450, 70, 450, H - 20, color="#e4e4e4", sw=2)]
+
+    # ── ЛІВОРУЧ: вольтметр 10 МОм паралельно ──
+    f.append(text(228, 84, "Вольтметр — 10 МОм у паралель", size=13, color=NEG, bold=True))
+    f.append(rect(44, 140, 42, 46, fill=BG, stroke=POS, sw=1.8, rx=4))
+    f.append(text(65, 168, "Uвх", size=11, color=POS, bold=True))
+    f.append(line(86, 163, 156, 163, color=INK, sw=2))
+    f += resistor_h(156, 163, 70, 22, "Rдж")
+    f.append(line(226, 163, 300, 163, color=INK, sw=2))
+    f.append(node(300, 163))
+    f.append(text(300, 150, "вузол", size=10, color=MUTED))
+    f.append(line(300, 163, 300, 236, color=INK, sw=2))
+    f.append(circle(300, 260, 23, fill=BG, stroke=NEG, sw=2))
+    f.append(text(300, 258, "V", size=15, color=NEG, bold=True))
+    f.append(text(300, 274, "10 МОм", size=9, color=MUTED))
+    f.append(line(300, 283, 300, 320, color=INK, sw=2))
+    f.append(line(282, 320, 318, 320, color=INK, sw=2))
+    f.append(line(288, 326, 312, 326, color=INK, sw=2))
+    f.append(line(294, 332, 306, 332, color=INK, sw=2))
+    f.append(rect(40, 356, 388, 96, fill="#f3f6fb", stroke=NEG, sw=1.4, rx=8))
+    f.append(text(234, 379, "10 МОм майже не відбирають струму — але:", size=11, color=INK, bold=True))
+    f.append(text(60, 402, "Rдж = 1 кОм → похибка ≈ 0.01 %", size=11, color=FIELD, anchor="start", bold=True))
+    f.append(text(60, 424, "Rдж = 1 МОм → показ занижений на ~9 %", size=11, color=POS, anchor="start", bold=True))
+    f.append(text(60, 443, "на високоомних вузлах ефект відчутний", size=10, color=MUTED, anchor="start", italic=True))
+
+    # ── ПРАВОРУЧ: амперметр — шунт послідовно ──
+    f.append(text(678, 84, "Амперметр — шунт послідовно", size=13, color=POS, bold=True))
+    f.append(rect(492, 190, 42, 46, fill=BG, stroke=POS, sw=1.8, rx=4))
+    f.append(text(513, 218, "3.3 В", size=10, color=POS, bold=True))
+    f.append(line(513, 190, 513, 163, color=INK, sw=2))
+    f.append(line(513, 163, 562, 163, color=INK, sw=2))
+    f.append(circle(587, 163, 23, fill=BG, stroke=POS, sw=2))
+    f.append(text(587, 169, "A", size=15, color=POS, bold=True))
+    f.append(text(587, 132, "шунт усередині", size=10, color=MUTED))
+    f.append(text(587, 210, "спад Uнав ≈ 0.2 В", size=10, color=POS, bold=True))
+    f.append(line(610, 163, 682, 163, color=INK, sw=2))
+    f += resistor_h(682, 163, 80, 22, "Rнав")
+    f.append(line(762, 163, 822, 163, color=INK, sw=2))
+    f.append(line(822, 163, 822, 282, color=INK, sw=2))
+    f.append(line(822, 282, 513, 282, color=INK, sw=2))
+    f.append(line(513, 282, 513, 236, color=INK, sw=2))
+    f.append(rect(494, 356, 378, 96, fill="#fdeeee", stroke=POS, sw=1.4, rx=8))
+    f.append(text(683, 379, "Амперметр «краде» трохи напруги:", size=11, color=INK, bold=True))
+    f.append(text(514, 402, "A-діапазон — десятки мВ (дрібниця)", size=11, color=MUTED, anchor="start"))
+    f.append(text(514, 424, "µA/mA — сотні мВ: коло 3.3 В це відчує", size=11, color=POS, anchor="start", bold=True))
+    f.append(text(514, 443, "тому надовго в розрив амперметр не лишають", size=10, color=MUTED, anchor="start", italic=True))
+
+    render(os.path.join(IMG, "impedance.svg"), W, H, *f,
+           title="Прилад не «безкоштовний»: вхідний опір і спад на шунті")
+
+
+# ── 8. Counts і цифри: скільки знаків видно ────────────────────────────────────
+def fig_counts():
+    W, H = 900, 410
+    f = [text(W / 2, 52, "та сама напруга ≈ 4.2361 В на табло різної роздільності",
+              size=12, color=MUTED, italic=True)]
+    cards = [
+        (60,  "Кишеньковий", "2000 counts · 3½ цифри", "4.23", "крок 10 мВ", MUTED),
+        (330, "Польовий", "6000 counts · 3¾ цифри", "4.236", "крок 1 мВ", NEG),
+        (600, "Лабораторний", "6½ цифри (1199999)", "4.23612", "крок 10 мкВ", FIELD),
+    ]
+    for x, ttl, spec, val, step, col in cards:
+        f.append(rect(x, 80, 240, 156, fill="#fafafa", stroke=col, sw=1.6, rx=10))
+        f.append(text(x + 120, 106, ttl, size=13, color=col, bold=True))
+        f.append(text(x + 120, 125, spec, size=10, color=MUTED))
+        f.append(rect(x + 30, 140, 180, 52, fill="#101814", stroke="#101814", sw=2, rx=6))
+        f.append(text(x + 120, 176, val, size=26, color="#5dff9b", bold=True))
+        f.append(text(x + 120, 213, step + "  (В)", size=11, color=INK, bold=True))
+    f.append(fitbox(120, 260, 660, 120,
+                    ["Counts — найбільше число, що влазить на табло (2000 → до 1999).",
+                     "Більше counts чи цифр = дрібніший крок = більше значущих знаків.",
+                     "Автодіапазон сам обирає найменший діапазон, де число влазить,",
+                     "щоб лишилося найбільше корисних цифр (4.236, а не 04.23).",
+                     "«Точність» (±%) — це інше: межа правдивості показу, не його дрібність."],
+                    size=11, pad=12, fill="#f7f7f7", stroke=MUTED, bold=False))
+
+    render(os.path.join(IMG, "counts.svg"), W, H, *f,
+           title="Counts і цифри вирішують, скільки знаків ви бачите")
+
+
 if __name__ == "__main__":
     fig_overview()
     fig_voltage()
     fig_current()
     fig_resistance()
     fig_mistakes()
-    print("OK: 5 figures ->", IMG)
+    fig_blockdiagram()
+    fig_impedance()
+    fig_counts()
+    print("OK: 8 figures ->", IMG)

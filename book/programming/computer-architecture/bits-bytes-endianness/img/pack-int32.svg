@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Серіалізація int32 у байтовий буфер явними зсувами</text>
+<rect x="300.0" y="84.0" width="360.0" height="56.0" rx="8" fill="#f4f4f4" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="480.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">значення в регістрі (uint32_t)</text>
+<text x="480.0" y="127.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">v = 0x12345678</text>
+<text x="60.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">крок 1 — дістаємо кожен байт зсувом і маскою:</text>
+<rect x="60.0" y="190.0" width="200.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="70.0" y="215.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#1a1a1a" text-anchor="start">(v &gt;&gt; 24) &amp; 0xFF</text>
+<text x="250.0" y="246.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#c0392b" text-anchor="end" font-weight="700">= 0x12</text>
+<line x1="160.0" y1="252.0" x2="160.0" y2="280.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="160.0" y1="262.0" x2="160.0" y2="280.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="278.0" y="190.0" width="200.0" height="40.0" rx="6" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.8"/>
+<text x="288.0" y="215.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#1a1a1a" text-anchor="start">(v &gt;&gt; 16) &amp; 0xFF</text>
+<text x="468.0" y="246.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#b8860b" text-anchor="end" font-weight="700">= 0x34</text>
+<line x1="378.0" y1="252.0" x2="378.0" y2="280.0" stroke="#b8860b" stroke-width="2.0"/>
+<line x1="378.0" y1="262.0" x2="378.0" y2="280.0" stroke="#b8860b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="496.0" y="190.0" width="200.0" height="40.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="506.0" y="215.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#1a1a1a" text-anchor="start">(v &gt;&gt;  8) &amp; 0xFF</text>
+<text x="686.0" y="246.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#27ae60" text-anchor="end" font-weight="700">= 0x56</text>
+<line x1="596.0" y1="252.0" x2="596.0" y2="280.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="596.0" y1="262.0" x2="596.0" y2="280.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="714.0" y="190.0" width="200.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="724.0" y="215.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#1a1a1a" text-anchor="start">(v &gt;&gt;  0) &amp; 0xFF</text>
+<text x="904.0" y="246.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#2457d6" text-anchor="end" font-weight="700">= 0x78</text>
+<line x1="814.0" y1="252.0" x2="814.0" y2="280.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="814.0" y1="262.0" x2="814.0" y2="280.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="60.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">крок 2 — кладемо в буфер старшим байтом уперед (мережевий порядок):</text>
+<rect x="60.0" y="310.0" width="200.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="160.0" y="343.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x12</text>
+<text x="160.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">buf[0]</text>
+<rect x="278.0" y="310.0" width="200.0" height="56.0" rx="6" fill="#fdf6e3" stroke="#b8860b" stroke-width="2.0"/>
+<text x="378.0" y="343.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x34</text>
+<text x="378.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">buf[1]</text>
+<rect x="496.0" y="310.0" width="200.0" height="56.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="596.0" y="343.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x56</text>
+<text x="596.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">buf[2]</text>
+<rect x="714.0" y="310.0" width="200.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="814.0" y="343.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x78</text>
+<text x="814.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">buf[3]</text>
+<line x1="60.0" y1="392.0" x2="914.0" y2="392.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="894.0" y1="392.0" x2="914.0" y2="392.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="60.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">найменша адреса</text>
+<text x="914.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">найбільша</text>
+<rect x="60.0" y="470.0" width="840.0" height="56.0" rx="10" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="480.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Код НЕ залежить від ендіанності машини: ми самі диктуємо порядок зсувами.</text>
+<text x="480.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Розпакування дзеркальне: v = (buf[0]&lt;&lt;24)|(buf[1]&lt;&lt;16)|(buf[2]&lt;&lt;8)|buf[3].  Треба little-endian — поміняй buf[0..3] місцями.</text>
+</svg>

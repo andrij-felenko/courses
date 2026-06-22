@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Надійність: підтвердження (ACK) і перевідправлення</text>
+<text x="150.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">передавач</text>
+<text x="620.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">приймач</text>
+<line x1="150.0" y1="90.0" x2="150.0" y2="350.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="620.0" y1="90.0" x2="620.0" y2="350.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="150" y1="116" x2="620" y2="136" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="385.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">пакет</text>
+<line x1="620" y1="150" x2="150" y2="170" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="385.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ACK ✓</text>
+<text x="70.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">доставлено</text>
+<line x1="150" y1="210" x2="430" y2="230" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+<text x="330.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">пакет (загубився)</text>
+<line x1="444.0" y1="224.0" x2="460.0" y2="240.0" stroke="#c0392b" stroke-width="2.4"/><line x1="444.0" y1="240.0" x2="460.0" y2="224.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="136.0" y1="230.0" x2="136.0" y2="276.0" stroke="#b08900" stroke-width="1.6" stroke-dasharray="3,3"/>
+<text x="86.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b08900" text-anchor="middle" font-weight="700">час очікування</text>
+<text x="86.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">вийшов — нема ACK</text>
+<line x1="150" y1="288" x2="620" y2="308" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="385.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">пакет (ще раз)</text>
+<line x1="620" y1="322" x2="150" y2="342" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="385.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ACK ✓</text>
+</svg>

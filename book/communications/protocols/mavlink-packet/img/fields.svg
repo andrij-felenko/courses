@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Роль кожного поля заголовка</text>
+<rect x="30.0" y="58.0" width="100.0" height="28.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="80.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">STX</text>
+<text x="146.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">маркер «тут починається пакет» — за ним парсер ловить початок</text>
+<rect x="30.0" y="94.0" width="100.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="80.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">LEN</text>
+<text x="146.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">скільки байтів даних читати далі</text>
+<rect x="30.0" y="130.0" width="100.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="80.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SEQ</text>
+<text x="146.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">лічильник; за розривом у нумерації видно загублений пакет</text>
+<rect x="30.0" y="166.0" width="100.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="80.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SYS</text>
+<text x="146.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">від якого апарата (дрон №1, №2 …)</text>
+<rect x="30.0" y="202.0" width="100.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="80.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">COMP</text>
+<text x="146.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">від якого вузла всередині апарата</text>
+<rect x="30.0" y="238.0" width="100.0" height="28.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="80.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">MSG ID</text>
+<text x="146.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">тип повідомлення — за ним відомо, як читати дані</text>
+<rect x="30.0" y="274.0" width="100.0" height="28.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="80.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">PAYLOAD</text>
+<text x="146.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">самі дані обраного типу</text>
+<rect x="30.0" y="310.0" width="100.0" height="28.0" rx="6" fill="#ffffff" stroke="#b9770e" stroke-width="2.0"/>
+<text x="80.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700">CRC</text>
+<text x="146.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">контрольна сума: чи не спотворилося в ефірі</text>
+</svg>

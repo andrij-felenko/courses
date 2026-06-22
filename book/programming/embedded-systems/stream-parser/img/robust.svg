@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три запобіжники: хай що піде не так — дорога назаду WAIT_SYNC</text>
+<rect x="275.0" y="139.0" width="170.0" height="42.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.2"/><text x="360.0" y="164.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">WAIT_SYNC</tspan></text>
+<text x="360.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">безпечна гавань: завжди є дорога сюди</text>
+<rect x="70.0" y="70.0" width="160.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="150.0" y="90.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Межа довжини</tspan></text>
+<text x="150.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="150.0" dy="0.0">len &gt; буфер → скид</tspan><tspan x="150.0" dy="12.3">(інакше переповнення)</tspan></text>
+<line x1="150.0" y1="110.0" x2="322.2" y2="139.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="490.0" y="70.0" width="160.0" height="32.0" rx="6" fill="#fbf3df" stroke="#b08900" stroke-width="1.8"/><text x="570.0" y="90.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b08900" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">Таймаут</tspan></text>
+<text x="570.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="570.0" dy="0.0">застрягли надовго → скид</tspan><tspan x="570.0" dy="12.3">(загублений байт)</tspan></text>
+<line x1="570.0" y1="110.0" x2="397.8" y2="139.0" stroke="#b08900" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="280.0" y="234.0" width="160.0" height="32.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="360.0" y="254.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">Ресинхрон за CRC</tspan></text>
+<text x="360.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="360.0" dy="0.0">побитий пакет → відкинути,</tspan><tspan x="360.0" dy="12.3">чекати наступний SYNC</tspan></text>
+<line x1="360.0" y1="226.0" x2="360.0" y2="181.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>

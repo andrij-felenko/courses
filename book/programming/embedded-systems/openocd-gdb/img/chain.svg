@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири ланки: кожна перекладає на наступний рівень абстракції</text>
+<rect x="18.0" y="110.0" width="168.0" height="86.0" rx="8" fill="#fff8e1" stroke="#e67e22" stroke-width="2.0"/>
+<text x="102.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#e67e22" text-anchor="middle" font-weight="700">Зонд</text>
+<text x="102.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="102.0" dy="0.0">біти SWD/JTAG</tspan><tspan x="102.0" dy="13.8">(апаратний рівень)</tspan></text>
+<rect x="228.0" y="110.0" width="168.0" height="86.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="312.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">OpenOCD</text>
+<text x="312.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="312.0" dy="0.0">знає чип і конфіг;</tspan><tspan x="312.0" dy="13.8">сервер RSP :3333</tspan></text>
+<rect x="438.0" y="110.0" width="168.0" height="86.0" rx="8" fill="#d5e8d4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="522.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">GDB</text>
+<text x="522.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="522.0" dy="0.0">читає .elf:</tspan><tspan x="522.0" dy="13.8">адреса → ім'я, рядок</tspan></text>
+<rect x="648.0" y="110.0" width="168.0" height="86.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="732.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інженер</text>
+<text x="732.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="732.0" dy="0.0">мислить логікою</tspan><tspan x="732.0" dy="13.8">програми</tspan></text>
+<line x1="189.0" y1="153.0" x2="225.0" y2="153.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="207.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="207.0" dy="0.0">USB-команди</tspan></text>
+<line x1="399.0" y1="153.0" x2="435.0" y2="153.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="417.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="417.0" dy="0.0">запити регістрів</tspan></text>
+<line x1="609.0" y1="153.0" x2="645.0" y2="153.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="627.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="627.0" dy="0.0">Remote Serial</tspan><tspan x="627.0" dy="9.9">Protocol (TCP)</tspan></text>
+<rect x="432.0" y="240.0" width="180.0" height="56.0" rx="6" fill="#fff8e1" stroke="#e67e22" stroke-width="1.6"/>
+<text x="522.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#e67e22" text-anchor="middle" font-weight="700">app.elf</text>
+<text x="522.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">символи: адреса → ім'я</text>
+<line x1="522.0" y1="238.0" x2="522.0" y2="198.0" stroke="#e67e22" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="536.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="start">«словник»</text>
+</svg>

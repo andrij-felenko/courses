@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зсуви складаються в ланцюжок</text>
+<rect x="80.0" y="100.0" width="200.0" height="46.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="180.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">nvs</text>
+<text x="294.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">зсув  0x9000</text>
+<text x="294.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">розмір 0x6000</text>
+<line x1="180.0" y1="146.0" x2="180.0" y2="168.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="270.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+ розмір → наступний зсув</text>
+<rect x="80.0" y="168.0" width="200.0" height="46.0" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="180.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">factory</text>
+<text x="294.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">зсув  0x10000</text>
+<text x="294.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">розмір 0x100000</text>
+<line x1="180.0" y1="214.0" x2="180.0" y2="236.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="270.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+ розмір → наступний зсув</text>
+<rect x="80.0" y="236.0" width="200.0" height="46.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="180.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">storage</text>
+<text x="294.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">зсув  0x110000</text>
+<text x="294.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">розмір 0x80000</text>
+<text x="360.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">зсув кожного = зсув попереднього + його розмір; межі кратні 4 КБ (app — 64 КБ)</text>
+<text x="360.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">поле offset можна лишити порожнім — збірка покладе розділ одразу за попереднім</text>
+</svg>

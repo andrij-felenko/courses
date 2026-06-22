@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 250" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="250" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інкрементний CRC: підрахунок іде паралельно з прийомом</text>
+<rect x="25.0" y="103.5" width="70.0" height="33.0" rx="6" fill="#fbf3df" stroke="#b08900" stroke-width="1.8"/><text x="60.0" y="124.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b08900" text-anchor="middle" font-weight="700"><tspan x="60.0" dy="0.0">LEN</tspan></text>
+<text x="60.0" y="152.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">crc = init(len)</text>
+<rect x="175.0" y="103.5" width="70.0" height="33.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.8"/><text x="210.0" y="124.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">D0</tspan></text>
+<text x="210.0" y="152.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">crc = upd(crc, b)</text>
+<line x1="95.0" y1="120.0" x2="175.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="325.0" y="103.5" width="70.0" height="33.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.8"/><text x="360.0" y="124.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">D1</tspan></text>
+<text x="360.0" y="152.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">crc = upd(crc, b)</text>
+<line x1="245.0" y1="120.0" x2="325.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="475.0" y="103.5" width="70.0" height="33.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.8"/><text x="510.0" y="124.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">D2</tspan></text>
+<text x="510.0" y="152.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">crc = upd(crc, b)</text>
+<line x1="395.0" y1="120.0" x2="475.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="625.0" y="103.5" width="70.0" height="33.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="660.0" y="124.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">CRC</tspan></text>
+<text x="660.0" y="152.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">b == crc ?</text>
+<line x1="545.0" y1="120.0" x2="625.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="370.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">контрольна сума росте разом з прийомом</text>
+<text x="370.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">коли приходить контрольний байт — відповідь уже готова, лишається порівняти</text>
+</svg>

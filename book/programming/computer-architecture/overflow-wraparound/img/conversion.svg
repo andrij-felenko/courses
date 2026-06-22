@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фатальне перетворення: ширше дійсне не влізло у вузьке ціле</text>
+<rect x="80.0" y="64.0" width="560.0" height="40.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="360.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">BH — горизонтальний зсув: float64 (величезний діапазон)</text>
+<line x1="360.0" y1="110.0" x2="360.0" y2="138.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="240.0" y="142.0" width="240.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="360.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">int16: лише −32768 … +32767</text>
+<text x="360.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">на Ariane 5 значення виросло за +32767 — старші біти не вмістились</text>
+<rect x="120.0" y="226.0" width="480.0" height="50.0" rx="6" fill="#f6f4ec" stroke="#1a1a1a" stroke-width="1.6"/><text x="360.0" y="254.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">мова Ada кинула виняток Operand Error — не тиха «перевалка» по колу, як у C, а зупинка</tspan></text>
+</svg>

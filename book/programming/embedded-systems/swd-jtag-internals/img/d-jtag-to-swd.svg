@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="250" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перемикання JTAG → SWD: послідовність на одній лінії</text>
+<rect x="40.0" y="78.0" width="115.2" height="64.0" rx="8" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="97.6" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="97.6" dy="0.0">≥50 тактів</tspan><tspan x="97.6" dy="14.3">SWDIO=1</tspan></text>
+<text x="97.6" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">line reset</text>
+<rect x="181.2" y="78.0" width="115.2" height="64.0" rx="8" fill="#fdf6e3" stroke="#9a7d1a" stroke-width="1.6"/>
+<text x="238.8" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9a7d1a" text-anchor="middle" font-weight="700"><tspan x="238.8" dy="0.0">0111100111100111</tspan></text>
+<text x="238.8" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x79E7 (MSB) = 0xE79E (LSB)</text>
+<rect x="322.4" y="78.0" width="115.2" height="64.0" rx="8" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="380.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">≥50 тактів</tspan><tspan x="380.0" dy="14.3">SWDIO=1</tspan></text>
+<text x="380.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">line reset</text>
+<rect x="463.6" y="78.0" width="115.2" height="64.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="521.2" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="521.2" dy="0.0">≥2 такти</tspan><tspan x="521.2" dy="14.3">SWDIO=0</tspan></text>
+<text x="521.2" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">idle</text>
+<rect x="604.8" y="78.0" width="115.2" height="64.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="662.4" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="662.4" dy="0.0">читати</tspan><tspan x="662.4" dy="14.3">IDCODE</tspan></text>
+<text x="662.4" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">перевірка</text>
+<line x1="155.2" y1="110.0" x2="179.2" y2="110.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="296.4" y1="110.0" x2="320.4" y2="110.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="437.6" y1="110.0" x2="461.6" y2="110.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="578.8" y1="110.0" x2="602.8" y2="110.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">магічне слово між двома line-reset перемикає SWJ-DP із JTAG у SWD; IDCODE підтверджує успіх</text>
+</svg>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Читач</title>
 <script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('courses-theme')||'day')}catch(e){}</script>
-<link rel="stylesheet" href="book.css?v=14">
+<link rel="stylesheet" href="book.css?v=15">
 </head>
 <body>
 
@@ -32,7 +32,7 @@
       if (!b) { content.innerHTML = '<div class="state error">Книгу не знайдено</div>'; return; }
       if (courseSlug && arr[1]) b.course = { slug: courseSlug, title: arr[1].title, modules: arr[1].modules || [] };
       window.BOOK = b;
-      var s = document.createElement("script"); s.src = "book.js?v=14"; document.body.appendChild(s);
+      var s = document.createElement("script"); s.src = "book.js?v=16"; document.body.appendChild(s);
     });
   } else if (p.get("guide")) {
     loadGuide(p.get("guide")).then(function (g) { renderGuide(g); });

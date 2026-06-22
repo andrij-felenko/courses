@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Паливомір сидить на напрузі комірки — без шунта в силовій лінії</text>
+<rect x="42.0" y="66.0" width="84.0" height="60.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="84.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f6e33" text-anchor="middle" font-weight="700">комірка</text>
+<text x="84.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Li 1S</text>
+<line x1="126.0" y1="96.0" x2="770.0" y2="96.0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="776.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">у систему</text>
+<line x1="338.0" y1="80.0" x2="382.0" y2="112.0" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="4,3"/>
+<line x1="382.0" y1="80.0" x2="338.0" y2="112.0" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="4,3"/>
+<text x="360.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">немає шунта</text>
+<text x="360.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(нема падіння й нагріву)</text>
+<rect x="250.0" y="220.0" width="220.0" height="130.0" rx="12" fill="#eef3fb" stroke="#1f47b5" stroke-width="2.0"/>
+<text x="360.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="700">паливомір</text>
+<text x="360.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">модель комірки</text>
+<text x="360.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">міряє лише напругу</text>
+<text x="360.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f6e33" text-anchor="middle" font-weight="700">→ рахує SOC, %</text>
+<text x="360.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(без інтеграла струму)</text>
+<line x1="84.0" y1="126.0" x2="84.0" y2="280.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="4,3"/>
+<line x1="84.0" y1="280.0" x2="250.0" y2="280.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="4,3"/>
+<circle cx="84.0" cy="96.0" r="3.2" fill="#1a1a1a"/>
+<text x="167.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1f6e33" text-anchor="middle">напруга комірки</text>
+<text x="167.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(вимір + живлення)</text>
+<rect x="640.0" y="220.0" width="170.0" height="130.0" rx="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="725.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">МК</text>
+<line x1="470.0" y1="270.0" x2="640.0" y2="270.0" stroke="#1f47b5" stroke-width="2.0"/>
+<text x="555.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f47b5" text-anchor="middle" font-weight="700">I²C (SDA/SCL)</text>
+<text x="555.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">читає SOC, VCELL</text>
+<line x1="470.0" y1="316.0" x2="640.0" y2="316.0" stroke="#b5732e" stroke-width="2.0"/>
+<text x="555.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b5732e" text-anchor="middle" font-weight="700">ALRT → переривання</text>
+<text x="555.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(будить МК при низькому заряді)</text>
+<text x="440.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Нема резистора в силовому колі — нема втрат на ньому; SoC дає модель напруги, а не інтеграл струму.</text>
+</svg>

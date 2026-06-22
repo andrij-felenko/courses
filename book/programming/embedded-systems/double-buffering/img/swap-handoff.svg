@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обмін у мить завершення передачі</text>
+<text x="28.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">DMA</text>
+<text x="28.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">ядро</text>
+<line x1="90.0" y1="235.0" x2="740.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="738.0" y1="235.0" x2="748.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="740.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">час</text>
+<rect x="90.0" y="72.0" width="210.7" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="195.3" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">пише A</text>
+<rect x="90.0" y="157.0" width="210.7" height="36.0" rx="6" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.6"/>
+<text x="195.3" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">(чекає)</text>
+<rect x="306.7" y="72.0" width="210.7" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="412.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">пише B</text>
+<rect x="306.7" y="157.0" width="210.7" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="412.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">читає A</text>
+<rect x="523.3" y="72.0" width="210.7" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="628.7" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">пише A</text>
+<rect x="523.3" y="157.0" width="210.7" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="628.7" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">читає B</text>
+<line x1="303.7" y1="70.0" x2="303.7" y2="235.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="4,3"/>
+<text x="303.7" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">обмін</text>
+<line x1="520.3" y1="70.0" x2="520.3" y2="235.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="4,3"/>
+<text x="520.3" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">обмін</text>
+<text x="390.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">переривання завершення міняє ролі за один такт; ядро завжди працює з повним, нерухомим буфером</text>
+</svg>

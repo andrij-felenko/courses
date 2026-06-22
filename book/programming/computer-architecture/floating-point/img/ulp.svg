@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ULP: біти float як ціле нумерують представні числа</text>
+<text x="380.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">послідовні float-значення (один крок ULP між сусідами)</text>
+<rect x="60.0" y="130.0" width="104.0" height="54.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="112.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1.0000000</text>
+<text x="112.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">0x3F800000</text>
+<text x="112.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">N</text>
+<rect x="178.0" y="130.0" width="104.0" height="54.0" rx="6" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="230.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1.0000001</text>
+<text x="230.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">0x3F800001</text>
+<text x="230.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">N+1</text>
+<line x1="164.0" y1="157.0" x2="178.0" y2="157.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="296.0" y="130.0" width="104.0" height="54.0" rx="6" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="348.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1.0000002</text>
+<text x="348.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">0x3F800002</text>
+<text x="348.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">N+2</text>
+<line x1="282.0" y1="157.0" x2="296.0" y2="157.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="414.0" y="130.0" width="104.0" height="54.0" rx="6" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="466.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1.0000004</text>
+<text x="466.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">0x3F800003</text>
+<text x="466.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">N+3</text>
+<line x1="400.0" y1="157.0" x2="414.0" y2="157.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="532.0" y="130.0" width="104.0" height="54.0" rx="6" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="584.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1.0000005</text>
+<text x="584.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">0x3F800004</text>
+<text x="584.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">N+4</text>
+<line x1="518.0" y1="157.0" x2="532.0" y2="157.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="650.0" y="130.0" width="104.0" height="54.0" rx="6" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="702.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1.0000006</text>
+<text x="702.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">0x3F800005</text>
+<text x="702.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">N+5</text>
+<line x1="636.0" y1="157.0" x2="650.0" y2="157.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="380.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ті самі біти як 32-бітне ціле → рівно +1 на кожен крок</text>
+<rect x="150.0" y="262.0" width="460.0" height="84.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.7"/><text x="380.0" y="291.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">ulpDiff = | bitsAsInt(a) − bitsAsInt(b) |</tspan><tspan x="380.0" dy="16.9">«рівні» ⇔ ulpDiff ≤ maxUlps (типово 1…4)</tspan><tspan x="380.0" dy="16.9">поріг у ULP сам масштабується — окремий ε не потрібен</tspan></text>
+<rect x="50.0" y="366.0" width="660.0" height="78.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="66.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Пастки ULP:</text>
+<text x="66.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• знак: від'ємні float як ціле йдуть «навспак» — різні знаки обробляємо окремо;</text>
+<text x="66.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• NaN не «рівний» нічому (перевірка перша); ±0 — окремий випадок; біти — через memcpy/union.</text>
+</svg>

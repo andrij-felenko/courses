@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аварію розшифровує той самий тулчейн</text>
+<rect x="40.0" y="60.0" width="300.0" height="120.0" rx="6" fill="#1f1f1f" stroke="#c0392b" stroke-width="1.8"/>
+<text x="54.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e6a6a0" text-anchor="start">чіп друкує паніку:</text>
+<text x="54.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#cccccc" text-anchor="start">Guru Meditation (LoadProhibited)</text>
+<text x="54.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#cccccc" text-anchor="start">Backtrace:</text>
+<text x="54.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#f0c674" text-anchor="start">0x400d1a3c  0x400d1b08 …</text>
+<line x1="340.0" y1="120.0" x2="400.0" y2="120.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="400.0" y="92.0" width="130.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="465.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">addr2line</text>
+<text x="465.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">+ ваш .elf</text>
+<line x1="465.0" y1="148.0" x2="465.0" y2="196.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="465.0" y1="196.0" x2="465.0" y2="214.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="330.0" y="222.0" width="270.0" height="56.0" rx="6" fill="#f1fbf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="465.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">sensor.cpp : 42</text>
+<text x="465.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(читання з порожнього покажчика)</text>
+<text x="200.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">текст → адреси «туди»</text>
+<text x="200.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-style="italic">адреси → текст «назад»</text>
+</svg>

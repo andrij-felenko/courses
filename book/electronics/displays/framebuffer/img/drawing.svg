@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Малювання — це послідовність записів у масив</text>
+<rect x="70.0" y="90.0" width="150.0" height="70.0" rx="6" fill="#eef2f5" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="145.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">set_pixel(x,y,c)</text>
+<text x="145.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle">«постав піксель»</text>
+<line x1="220.0" y1="125.0" x2="280.0" y2="125.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="280.0" y="90.0" width="160.0" height="70.0" rx="6" fill="#eef4f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="360.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">адреса =</text>
+<text x="360.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle">база+(y·W+x)·бпп</text>
+<line x1="440.0" y1="125.0" x2="500.0" y2="125.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="510.0" y="108.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.0"/>
+<rect x="544.0" y="108.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.0"/>
+<rect x="578.0" y="108.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.0"/>
+<rect x="612.0" y="108.0" width="34.0" height="34.0" rx="0" fill="#dff0e2" stroke="#8a8a8a" stroke-width="1.0"/>
+<rect x="646.0" y="108.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.0"/>
+<rect x="680.0" y="108.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.0"/>
+<rect x="714.0" y="108.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.0"/>
+<rect x="748.0" y="108.0" width="34.0" height="34.0" rx="0" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.0"/>
+<text x="629.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">c</text>
+<text x="646.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle">записати колір у комірку</text>
+<text x="410.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінія, текст, картинка — усе зводиться до багатьох таких записів.</text>
+<text x="410.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Кадровий буфер дає довільний доступ: торкайся будь-якого пікселя будь-коли,</text>
+<text x="410.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">склади все в памʼяті — і виштовхни готовий кадр на екран.</text>
+<text x="410.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Саме заради цієї свободи компонувати в памʼяті й тримають кадровий буфер.</text>
+</svg>

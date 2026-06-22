@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="290" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">DWT-лічильник циклів: точний вимір без зупину</text>
+<line x1="60.0" y1="150.0" x2="680.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="680.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">такти ядра</text>
+<line x1="70.0" y1="145.0" x2="70.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="114.0" y1="145.0" x2="114.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="158.0" y1="145.0" x2="158.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="202.0" y1="145.0" x2="202.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="246.0" y1="145.0" x2="246.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="290.0" y1="145.0" x2="290.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="334.0" y1="145.0" x2="334.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="378.0" y1="145.0" x2="378.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="422.0" y1="145.0" x2="422.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="466.0" y1="145.0" x2="466.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="510.0" y1="145.0" x2="510.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="554.0" y1="145.0" x2="554.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="598.0" y1="145.0" x2="598.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="158.0" y="110.0" width="308.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="312.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">тіло ISR виконується</text>
+<line x1="158.0" y1="92.0" x2="158.0" y2="108.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="158.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">знімок t0 = CYCCNT</text>
+<line x1="466.0" y1="92.0" x2="466.0" y2="108.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="466.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">знімок t1 = CYCCNT</text>
+<text x="360.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">t1 − t0 = рівно стільки тактів тривав ISR</text>
+<text x="360.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">÷ частоту ядра → час у мікросекундах</text>
+<text x="360.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">CYCCNT тикає сам, кожен такт — вимір не спиняє ядро й не спотворює час</text>
+</svg>

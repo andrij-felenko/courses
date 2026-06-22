@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два роди опису породжують фізично різне залізо</text>
+<text x="201.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Комбінаційний (миттєвий)</text>
+<rect x="36.0" y="70.0" width="330.0" height="42.8" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.6"/><text x="48.0" y="93.0" font-family="'Consolas', 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" xml:space="preserve">assign y = a &amp; b;</text>
+<line x1="60.0" y1="168.8" x2="165.0" y2="168.8" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="60.0" y1="196.8" x2="165.0" y2="196.8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="54.0" y="172.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-style="italic">a</text>
+<text x="54.0" y="200.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-style="italic">b</text>
+<path d="M165.0 160.8 L201.0 160.8 A28 28 0 0 1 201.0 204.8 L165.0 204.8 Z" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="187.0" y="186.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">&amp;</text>
+<line x1="229.0" y1="182.8" x2="348.0" y2="182.8" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="354.0" y="186.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-style="italic">y</text>
+<text x="201.0" y="238.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">вентиль AND — без пам'яті</text>
+<text x="201.0" y="256.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">вихід міняється миттєво за входами</text>
+<text x="559.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Реєстровий (по такту)</text>
+<rect x="394.0" y="70.0" width="330.0" height="61.7" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.6"/><text x="406.0" y="93.0" font-family="'Consolas', 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" xml:space="preserve">always @(posedge clk)</text><text x="406.0" y="111.8" font-family="'Consolas', 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" xml:space="preserve">  q &lt;= d;</text>
+<rect x="514.0" y="163.7" width="90.0" height="64.0" rx="4" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="559.0" y="189.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">D-тригер</text>
+<line x1="484.0" y1="179.7" x2="514.0" y2="179.7" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="478.0" y="183.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-style="italic">d</text>
+<line x1="604.0" y1="179.7" x2="634.0" y2="179.7" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="640.0" y="183.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-style="italic">q</text>
+<path d="M514.0 211.7 L526.0 205.7 L514.0 199.7 Z" fill="none" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="484.0" y1="205.7" x2="514.0" y2="205.7" stroke="#2457d6" stroke-width="1.6"/>
+<text x="478.0" y="209.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end">clk</text>
+<text x="559.0" y="253.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">оновлюється лише на фронті такту</text>
+<text x="559.0" y="271.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">тримає стан — це пам'ять</text>
+</svg>

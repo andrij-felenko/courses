@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="290" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">pymavlink: MAVLink у Python кількома рядками</text>
+<rect x="30.0" y="56.0" width="470.0" height="150.0" rx="8" fill="#1b1f24" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="46.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#cfe8cf" text-anchor="start">from pymavlink import mavutil</text>
+<text x="46.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#cfe8cf" text-anchor="start">m = mavutil.mavlink_connection(</text>
+<text x="46.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#cfe8cf" text-anchor="start">        'udpin:localhost:14550')</text>
+<text x="46.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#cfe8cf" text-anchor="start">m.wait_heartbeat()        # апарат на лінії</text>
+<text x="46.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#cfe8cf" text-anchor="start">while True:</text>
+<text x="46.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#cfe8cf" text-anchor="start">    msg = m.recv_match(blocking=True)</text>
+<text x="46.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#cfe8cf" text-anchor="start">    # …реагуй, шли команди, веди логіку…</text>
+<rect x="520.0" y="56.0" width="210.0" height="150.0" rx="8" fill="#fbfbfb" stroke="#27ae60" stroke-width="1.6"/>
+<text x="625.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">бібліотека бере на себе:</text>
+<text x="532.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• з'єднання serial/udp/tcp</text>
+<text x="532.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• розбір і пакування кадрів</text>
+<text x="532.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• усі діалекти з тих XML</text>
+<text x="532.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• основа MAVProxy</text>
+<text x="380.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">кілька рядків — і ти вже читаєш потік апарата</text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві ролі: виконувати код на місці (XIP) проти зберігати дані</text>
+<rect x="40.0" y="64.0" width="320.0" height="310.0" rx="12" fill="#eef0fd" stroke="#2457d6" stroke-width="2.2"/>
+<text x="200.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">NOR + XIP (виконання на місці)</text>
+<rect x="70.0" y="120.0" width="110.0" height="70.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="125.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процесор</text>
+<text x="125.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">вибірка</text>
+<rect x="230.0" y="120.0" width="110.0" height="70.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="285.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">NOR-флеш</text>
+<text x="285.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">код</text>
+<line x1="230.0" y1="142.0" x2="180.0" y2="142.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="205.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">адреса</text>
+<line x1="180.0" y1="170.0" x2="230.0" y2="170.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="205.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">інструкція</text>
+<text x="200.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">процесор вибирає команди</text>
+<text x="200.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">прямо з NOR</text>
+<text x="200.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">→ код не треба копіювати</text>
+<text x="200.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">→ але NOR дорога за мегабайт</text>
+<text x="200.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">тому в NOR тримають прошивку</text>
+<rect x="400.0" y="64.0" width="320.0" height="310.0" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="560.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">NAND — сховище через буфер у RAM</text>
+<rect x="420.0" y="120.0" width="90.0" height="64.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2.2"/>
+<text x="465.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">NAND</text>
+<text x="465.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">сторінки</text>
+<rect x="545.0" y="120.0" width="80.0" height="64.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="585.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">RAM</text>
+<text x="585.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">буфер</text>
+<rect x="655.0" y="120.0" width="55.0" height="64.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="682.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ядро</text>
+<line x1="510.0" y1="152.0" x2="545.0" y2="152.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="527.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">копія</text>
+<line x1="625.0" y1="152.0" x2="655.0" y2="152.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="560.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">сторінку спершу копіюють у RAM,</text>
+<text x="560.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">і вже звідти з нею працює ядро</text>
+<text x="560.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">→ виконувати код напряму не можна</text>
+<text x="560.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">→ зате дешево й дуже ємно</text>
+<text x="560.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">тому в NAND тримають дані:</text>
+<text x="560.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">файли, медіа, великі масиви</text>
+</svg>

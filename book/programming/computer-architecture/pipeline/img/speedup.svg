@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виграш конвеєра — і чому він не безмежний</text>
+<rect x="60.0" y="56.0" width="310.0" height="120.0" rx="10" fill="#eef7ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="215.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">В ідеалі</text>
+<text x="215.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">N стадій → до ~N× команд за такт</text>
+<text x="215.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">CPI → 1 (команда за такт)</text>
+<text x="215.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">за ту саму частоту</text>
+<rect x="390.0" y="56.0" width="310.0" height="120.0" rx="10" fill="#fef6e9" stroke="#b8860b" stroke-width="1.8"/>
+<text x="545.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a6508" text-anchor="middle" font-weight="700">Насправді</text>
+<text x="545.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">затори крадуть частину виграшу</text>
+<text x="545.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">трохи менше за ×N</text>
+<text x="545.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">та все одно велика перемога</text>
+<rect x="60.0" y="196.0" width="640.0" height="96.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="380.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр є майже в кожному процесорі: від ESP32 й ARM Cortex до настільних ПК.</text>
+<text x="380.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ось як зменшують CPI, не піднімаючи частоти — перекриваючи фази.</text>
+<text x="380.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Конвеєр (один потік швидше) ≠ багатоядерність (різні потоки водночас).</text>
+</svg>
