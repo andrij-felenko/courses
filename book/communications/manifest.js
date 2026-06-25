@@ -30,7 +30,7 @@
       topics: [
         { slug: "nyquist-aliasing", title: "Найквіст і аліасинг", status: "done", levels: ["basic"], origin: "embedded/block-4-mcu-esp32/adc#4.8.5", math: [{ file: "math-alias-folding.md", status: "done" }] },
         { slug: "signal-acquisition", title: "Зчитування сигналу", status: "done", levels: ["basic"], origin: "embedded/block-4-mcu-esp32/adc#4.8.7", comp: [{ file: "comp-opamp-buffer.md", status: "done" }], math: [{ file: "math-sample-hold.md", status: "done" }] },
-        { slug: "resolution-framerate", title: "Роздільність і кадри", status: "recheck", origin: "embedded/block-7-systems/video-signals-1#7.7.5" },
+        { slug: "resolution-framerate", title: "Роздільність і кадри", status: "done", levels: ["basic"], origin: "embedded/block-7-systems/video-signals-1#7.7.5" },
       ] },
     { slug: "propagation", title: "Поширення хвиль", scope: "Поведінка електромагнітних хвиль у середовищі: загасання, відбиття, завмирання, дальність.",
       topics: [
@@ -91,7 +91,7 @@
         { slug: "tcp-vs-udp", title: "TCP проти UDP", status: "done", origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.4" },
         { slug: "ble-gatt", title: "BLE GATT", status: "done", origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.6", proj: [{ file: "proj-cccd-notify.md", status: "done" }] },
         { slug: "reliable-link", title: "Надійний обмін", status: "done", origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.7", proj: [{ file: "proj-stop-and-wait.md", status: "done" }] },
-        { slug: "mqtt", title: "MQTT", status: "empty", origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.10" },
+        { slug: "mqtt", title: "MQTT", status: "done", levels: ["basic", "detailed"], origin: "embedded/block-6-comms-radio/wifi-bluetooth#6.5.10" },
         { slug: "control-telemetry", title: "Керування й телеметрія", status: "done", origin: "embedded/block-6-comms-radio/telemetry-mavlink#6.9.1", hist: [{ file: "hist-mavlink.md", status: "done" }] },
         { slug: "rc-link", title: "RC-лінк", status: "done", origin: "embedded/block-6-comms-radio/telemetry-mavlink#6.9.2", proj: [{ file: "proj-sbus-decode.md", status: "done" }] },
         { slug: "telemetry-stream", title: "Телеметрія", status: "done", origin: "embedded/block-6-comms-radio/telemetry-mavlink#6.9.3", comp: [{ file: "comp-telemetry-radio.md", status: "done" }] },

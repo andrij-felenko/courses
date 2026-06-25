@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канал ATE: драйвер задає, компаратор зчитує — по одному на вивід</text>
+<text x="180.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">один канал (pin electronics)</text>
+<polygon points="70,86 70,134 118,110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="88.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">DRV</text>
+<text x="64.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">вектор (що подати)</text>
+<line x1="40.0" y1="110.0" x2="70.0" y2="110.0" stroke="#2457d6" stroke-width="1.6"/>
+<polygon points="70,176 70,224 118,200" fill="#eef7f0" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="88.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="700">CMP</text>
+<text x="64.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="start">відповідь = еталон?</text>
+<line x1="40.0" y1="200.0" x2="70.0" y2="200.0" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="40.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="start">еталон</text>
+<line x1="118.0" y1="110.0" x2="158.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="118.0" y1="200.0" x2="158.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="158.0" y1="110.0" x2="158.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="158.0" cy="155.0" r="4.0" fill="#e0a020" stroke="#9a6a00" stroke-width="1.0"/>
+<line x1="158.0" y1="155.0" x2="196.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="196.0" y="120.0" width="70.0" height="70.0" rx="6" fill="#e7eef8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="231.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">вивід</text>
+<text x="231.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">чіпа (DUT)</text>
+<text x="170.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">драйвер ЗАДАЄ рівень входу,</text>
+<text x="170.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle">компаратор ЗЧИТУЄ й порівнює вихід</text>
+<text x="170.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">з еталоном — на кожнісінькому виводі</text>
+<line x1="300.0" y1="200.0" x2="344.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="540.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">multisite: один тестер — багато кристалів</text>
+<rect x="372.0" y="72.0" width="300.0" height="150.0" rx="6" fill="#f3f7fc" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="522.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">тестер ATE</text>
+<rect x="392.0" y="108.0" width="120.0" height="44.0" rx="6" fill="#e7eef8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="452.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">кристал 1</text>
+<line x1="378.0" y1="130.0" x2="391.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="542.0" y="108.0" width="120.0" height="44.0" rx="6" fill="#e7eef8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="602.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">кристал 2</text>
+<line x1="528.0" y1="130.0" x2="541.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="392.0" y="164.0" width="120.0" height="44.0" rx="6" fill="#e7eef8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="452.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">кристал 3</text>
+<line x1="378.0" y1="186.0" x2="391.0" y2="186.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="542.0" y="164.0" width="120.0" height="44.0" rx="6" fill="#e7eef8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="602.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">кристал 4</text>
+<line x1="528.0" y1="186.0" x2="541.0" y2="186.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="522.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ATE дорогий і платять за ЧАС;</text>
+<text x="522.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">тому багато кристалів тестують паралельно —</text>
+<text x="522.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">час-на-кристал падає, а з ним і ціна тесту.</text>
+<text x="522.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Канали драйвер/компаратор на кожен вивід ×</text>
+<text x="522.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">багато сайтів — головний кошт тестера.</text>
+</svg>

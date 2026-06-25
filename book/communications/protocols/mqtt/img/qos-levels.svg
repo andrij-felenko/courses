@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три рівні QoS: що більше гарантій — то більше балачки</text>
+<text x="60.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">QoS 0</text>
+<text x="60.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">≤1 раз</text>
+<line x1="180.0" y1="70.0" x2="180.0" y2="106.0" stroke="#dddddd" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="520.0" y1="70.0" x2="520.0" y2="106.0" stroke="#dddddd" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="180.0" y1="84.0" x2="520.0" y2="84.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="350.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">PUBLISH</text>
+<text x="590.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">кинув і забув — може зникнути</text>
+<text x="60.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">QoS 1</text>
+<text x="60.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">≥1 раз</text>
+<line x1="180.0" y1="140.0" x2="180.0" y2="196.0" stroke="#dddddd" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="520.0" y1="140.0" x2="520.0" y2="196.0" stroke="#dddddd" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="180.0" y1="152.0" x2="520.0" y2="152.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="350.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PUBLISH</text>
+<line x1="520.0" y1="180.0" x2="180.0" y2="180.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="350.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">PUBACK</text>
+<text x="590.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">дійде напевно, та може задвоїтись</text>
+<text x="60.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">QoS 2</text>
+<text x="60.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">рівно 1</text>
+<line x1="180.0" y1="232.0" x2="180.0" y2="328.0" stroke="#dddddd" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="520.0" y1="232.0" x2="520.0" y2="328.0" stroke="#dddddd" stroke-width="1.1" stroke-dasharray="3 4"/>
+<line x1="180.0" y1="244.0" x2="520.0" y2="244.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="350.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PUBLISH</text>
+<line x1="520.0" y1="268.0" x2="180.0" y2="268.0" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="350.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">PUBREC</text>
+<line x1="180.0" y1="292.0" x2="520.0" y2="292.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="350.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PUBREL</text>
+<line x1="520.0" y1="316.0" x2="180.0" y2="316.0" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="350.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">PUBCOMP</text>
+<text x="590.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">рівно раз — найдовше й найважче</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один цикл зчитування рядка (4T): сигнали за тактами</text>
+<text x="138.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">SEL</text>
+<polyline points="150,96 175,96 175,72 735,72 735,96" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="138.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b06b00" text-anchor="end" font-weight="700">RST</text>
+<polyline points="150,156 210,156 210,132 250,132 250,156" fill="none" stroke="#d98a00" stroke-width="2.2"/>
+<polyline points="250,156 760,156" fill="none" stroke="#d98a00" stroke-width="2.2"/>
+<text x="138.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">TG</text>
+<polyline points="150,216 430,216 430,192 470,192 470,216" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<polyline points="470,216 760,216" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="300.0" y1="60.0" x2="300.0" y2="300.0" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="4,4"/>
+<circle cx="300.0" cy="96.0" r="5.0" fill="#c0392b" stroke="white" stroke-width="1.3"/>
+<line x1="540.0" y1="60.0" x2="540.0" y2="300.0" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="4,4"/>
+<circle cx="540.0" cy="96.0" r="5.0" fill="#c0392b" stroke="white" stroke-width="1.3"/>
+<text x="300.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="300.0" dy="0.0">опорний рівень</tspan><tspan x="300.0" dy="11.9">(порожній: лише шум)</tspan></text>
+<text x="540.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="540.0" dy="0.0">рівень сигналу</tspan><tspan x="540.0" dy="11.9">(той самий шум + сигнал)</tspan></text>
+<text x="230.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b06b00" text-anchor="middle">1. скидання FD</text>
+<text x="450.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">2. перенос заряду</text>
+<rect x="110.0" y="330.0" width="660.0" height="56.0" rx="10" fill="#f4f4f5" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="410.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">між A і B немає скидання → теплова зернинка kTC однакова → B − A її вираховує</text>
+<text x="410.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">той самий порядок «рядок за рядком» і породжує рядкову заслінку</text>
+<text x="410.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Спершу беруть порожній відлік FD, тоді переливають заряд і беруть сигнальний — і віднімають один від одного.</text>
+</svg>

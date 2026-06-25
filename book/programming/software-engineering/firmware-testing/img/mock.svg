@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мок підміняє давач сценарними відповідями</text>
+<rect x="60.0" y="150.0" width="230.0" height="96.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="175.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">код під тестом</text>
+<text x="175.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">драйвер / логіка</text>
+<text x="175.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">питає «дай вимір»</text>
+<text x="175.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">він не бачить різниці →</text>
+<line x1="292.0" y1="180.0" x2="398.0" y2="142.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="292.0" y1="216.0" x2="398.0" y2="280.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="515.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">у реальному пристрої</text>
+<rect x="400.0" y="106.0" width="230.0" height="72.0" rx="8" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="515.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">справжній давач</text>
+<text x="515.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">потрібен чіп і залізо</text>
+<rect x="400.0" y="250.0" width="380.0" height="92.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="2.0"/>
+<text x="590.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d1a" text-anchor="middle" font-weight="700">МОК давача (у тесті)</text>
+<text x="590.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">сценарій: 25 °C → 0 → −999 (помилка) → таймаут</text>
+<text x="590.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">повертає що скажеш — і ловить реакцію коду на кожен</text>
+<text x="410.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">дивні випадки не чекають у полі — їх наказують мокові в тесті</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ефект спостерігача у профілюванні</text>
+<rect x="50.0" y="80.0" width="330.0" height="230.0" rx="12" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="215.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">ЛЕГКИЙ ВИМІР</text>
+<text x="215.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">лічильник тактів (DWT)</text>
+<rect x="145.0" y="156.0" width="140.0" height="34.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="215.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ділянка 50 мкс</text>
+<text x="215.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Δt = 50 мкс</text>
+<text x="215.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">тайминг не змінено</text>
+<text x="215.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">вимір ≈ реальність</text>
+<rect x="420.0" y="80.0" width="330.0" height="230.0" rx="12" fill="#fbecec" stroke="#c0392b" stroke-width="2.0"/>
+<text x="585.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">ВАЖКИЙ ВИМІР</text>
+<text x="585.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">printf на кожній ітерації</text>
+<rect x="515.0" y="156.0" width="140.0" height="34.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="585.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">та сама 50 мкс</text>
+<rect x="475.0" y="198.0" width="220.0" height="28.0" rx="6" fill="#f6cccc" stroke="#c0392b" stroke-width="1.4"/>
+<text x="585.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">+ UART блокує ~2 мс</text>
+<text x="585.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">вимір = 2 мс</text>
+<text x="585.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">роздуття у 40 разів</text>
+<text x="585.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">профіль бреше</text>
+<text x="400.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">ефект спостерігача: вимір сам споживає ресурс, який міряє</text>
+</svg>

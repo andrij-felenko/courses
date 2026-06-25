@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Будова MQTT-пакета: крихітний фіксований заголовок</text>
+<rect x="40.0" y="90.0" width="150.0" height="64.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="115.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1-й байт</text>
+<text x="115.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">тип пакета (4 біти)</text>
+<text x="115.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">+ прапорці (4 біти)</text>
+<rect x="198.0" y="90.0" width="175.0" height="64.0" rx="6" fill="#fff3df" stroke="#b8901f" stroke-width="1.8"/>
+<text x="285.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8901f" text-anchor="middle" font-weight="700">Remaining Length</text>
+<text x="285.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1–4 байти, змінна;</text>
+<text x="285.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">7 біт + біт-продовження</text>
+<rect x="381.0" y="90.0" width="180.0" height="64.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="471.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Змінний заголовок</text>
+<text x="471.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">за типом: ід. пакета,</text>
+<text x="471.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">топік, прапорці…</text>
+<rect x="569.0" y="90.0" width="155.0" height="64.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="646.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Навантаження</text>
+<text x="646.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">самі дані</text>
+<text x="646.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(може бути порожнім)</text>
+<line x1="40.0" y1="76.0" x2="373.0" y2="76.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="206.5" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">фіксований заголовок (мінімум 2 байти)</text>
+<line x1="381.0" y1="168.0" x2="724.0" y2="168.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 4"/>
+<text x="552.5" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">є не в кожному пакеті</text>
+<text x="360.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">найкоротший пакет (наприклад PINGREQ) — це лише 2 байти заголовка, і все</text>
+</svg>

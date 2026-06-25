@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Полум'яний графік: стеки-знімки, злиті в кадри</text>
+<text x="380.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ширина кадру = частка знімків, де він був у стеку (не час!)</text>
+<rect x="60.0" y="287.0" width="640.0" height="30.0" rx="3" fill="#f6c453" stroke="#ffffff" stroke-width="1.2"/>
+<text x="380.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">main → loop</text>
+<rect x="60.0" y="254.0" width="396.8" height="30.0" rx="3" fill="#f0a04b" stroke="#ffffff" stroke-width="1.2"/>
+<text x="258.4" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">read_sensor()</text>
+<rect x="456.8" y="254.0" width="243.2" height="30.0" rx="3" fill="#f0a04b" stroke="#ffffff" stroke-width="1.2"/>
+<text x="578.4" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">send_packet()</text>
+<rect x="60.0" y="221.0" width="288.0" height="30.0" rx="3" fill="#e06c2d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="204.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">i2c_xfer()  ← гаряче</text>
+<rect x="348.0" y="221.0" width="108.8" height="30.0" rx="3" fill="#e9853b" stroke="#ffffff" stroke-width="1.2"/>
+<text x="402.4" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">filter()</text>
+<rect x="456.8" y="221.0" width="153.6" height="30.0" rx="3" fill="#e9853b" stroke="#ffffff" stroke-width="1.2"/>
+<text x="533.6" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">crc()</text>
+<rect x="610.4" y="221.0" width="89.6" height="30.0" rx="3" fill="#e9853b" stroke="#ffffff" stroke-width="1.2"/>
+<text x="655.2" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">tx()</text>
+<rect x="60.0" y="188.0" width="288.0" height="30.0" rx="3" fill="#d65420" stroke="#ffffff" stroke-width="1.2"/>
+<text x="204.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">i2c_wait_ack()  ← найширший лист</text>
+<line x1="60.0" y1="320.0" x2="700.0" y2="320.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="60.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">0%</text>
+<text x="700.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">100% знімків</text>
+<text x="380.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">найширший лист угорі — там процесор буває найчастіше</text>
+</svg>

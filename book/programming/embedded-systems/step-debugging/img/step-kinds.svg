@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три види кроку: всередину, через, назовні</text>
+<rect x="180.0" y="52.0" width="300.0" height="24.0" rx="4" fill="#f6f7f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="190.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">void caller() {</text>
+<rect x="180.0" y="82.0" width="300.0" height="24.0" rx="4" fill="#f6f7f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="190.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">    int x = read();</text>
+<rect x="180.0" y="112.0" width="300.0" height="24.0" rx="4" fill="#fff5e6" stroke="#c0392b" stroke-width="1.6"/>
+<text x="190.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">    int r = f(x);</text>
+<rect x="180.0" y="142.0" width="300.0" height="24.0" rx="4" fill="#f6f7f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="190.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">    use(r);</text>
+<rect x="180.0" y="172.0" width="300.0" height="24.0" rx="4" fill="#f6f7f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="190.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">}</text>
+<rect x="520.0" y="150.0" width="200.0" height="78.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="620.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">f(int x) {</text>
+<text x="620.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">...тіло...</text>
+<text x="620.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">}</text>
+<line x1="480.0" y1="130.0" x2="520.0" y2="172.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="505.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">крок «всередину»</text>
+<text x="505.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">(step / s)</text>
+<path d="M180 130 C 80 130, 80 160, 180 160" fill="none" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="75.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="75.0" dy="0.0">крок «через»</tspan><tspan x="75.0" dy="14.3">(next / n):</tspan><tspan x="75.0" dy="14.3">f() виконано</tspan><tspan x="75.0" dy="14.3">цілком</tspan></text>
+<path d="M720 218 C 760 288, 490 190, 480 160" fill="none" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="550.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">крок «назовні» (finish): доконати f і вийти</text>
+<rect x="90.0" y="374.0" width="580.0" height="30.0" rx="6" fill="#f8f8f8" stroke="#6b7280" stroke-width="1.3"/><text x="380.0" y="392.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="380.0" dy="0.0">різниця кроків — у тому, ЯК повелися з вкладеним викликом, а не в довжині кроку</tspan></text>
+</svg>

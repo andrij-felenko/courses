@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві моделі сесії: чиста проти тривалої</text>
+<rect x="30.0" y="56.0" width="300.0" height="220.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.6"/>
+<text x="180.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Чиста сесія (clean)</text>
+<circle cx="52.0" cy="112.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="66.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">при розриві брокер</text>
+<circle cx="52.0" cy="142.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="66.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  усе про клієнта забуває</text>
+<circle cx="52.0" cy="172.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="66.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">підписки зникають</text>
+<circle cx="52.0" cy="202.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="66.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">черга повідомлень — ні</text>
+<circle cx="52.0" cy="232.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="66.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">повернувся — починай з нуля</text>
+<text x="180.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700" font-style="italic">просто, та проспані повідомлення втрачено</text>
+<rect x="370.0" y="56.0" width="300.0" height="220.0" rx="6" fill="#f6fbf7" stroke="#27ae60" stroke-width="1.6"/>
+<text x="520.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Тривала сесія (persistent)</text>
+<circle cx="392.0" cy="112.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="406.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">брокер памʼятає клієнта</text>
+<circle cx="392.0" cy="142.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="406.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  за його стійким id</text>
+<circle cx="392.0" cy="172.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="406.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">підписки лишаються</text>
+<circle cx="392.0" cy="202.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="406.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">копить повідомлення QoS&gt;0</text>
+<circle cx="392.0" cy="232.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="406.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">повернувся — отримав усе проспане</text>
+<text x="520.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700" font-style="italic">переживає сон і обриви, але займає памʼять брокера</text>
+</svg>

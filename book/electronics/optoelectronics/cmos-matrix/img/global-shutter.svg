@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глобальна заслінка: вузол зберігання в кожному пікселі</text>
+<text x="210.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">1. усі воднораз: PPD → сховок</text>
+<circle cx="70.0" cy="150.0" r="28.0" fill="#bbf7d0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="70.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">PPD</text>
+<rect x="118.0" y="131.0" width="60.0" height="38.0" rx="5" fill="#fef3c7" stroke="#c0392b" stroke-width="1.8"/>
+<text x="148.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="148.0" dy="0.0">вузол</tspan><tspan x="148.0" dy="10.3">зберіг.</tspan></text>
+<line x1="98.0" y1="150.0" x2="119.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="200.0" cy="150.0" r="28.0" fill="#bbf7d0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="200.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">PPD</text>
+<rect x="248.0" y="131.0" width="60.0" height="38.0" rx="5" fill="#fef3c7" stroke="#c0392b" stroke-width="1.8"/>
+<text x="278.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="278.0" dy="0.0">вузол</tspan><tspan x="278.0" dy="10.3">зберіг.</tspan></text>
+<line x1="228.0" y1="150.0" x2="249.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="330.0" cy="150.0" r="28.0" fill="#bbf7d0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="330.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">PPD</text>
+<rect x="378.0" y="131.0" width="60.0" height="38.0" rx="5" fill="#fef3c7" stroke="#c0392b" stroke-width="1.8"/>
+<text x="408.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="408.0" dy="0.0">вузол</tspan><tspan x="408.0" dy="10.3">зберіг.</tspan></text>
+<line x1="358.0" y1="150.0" x2="379.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="70.0" y1="100.0" x2="590.0" y2="100.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="148.0" y1="100.0" x2="148.0" y2="132.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="278.0" y1="100.0" x2="278.0" y2="132.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="408.0" y1="100.0" x2="408.0" y2="132.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="598.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">спільний імпульс</text>
+<text x="210.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">усі пікселі замикаються в ОДНУ мить</text>
+<text x="210.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2. далі читають сховки рядок за рядком</text>
+<line x1="300.0" y1="215.0" x2="300.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="268.0" width="700.0" height="86.0" rx="10" fill="#fff5e6" stroke="#d98a00" stroke-width="1.6"/>
+<text x="410.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b06b00" text-anchor="middle" font-weight="700">Ціна: вузол зберігання в КОЖНОМУ пікселі</text>
+<text x="410.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b06b00" text-anchor="middle"><tspan x="410.0" dy="0.0">зайві транзистори (5T+) · екранування сховку від паразитного світла · менша площа фотодіода</tspan><tspan x="410.0" dy="14.5">→ нижча чутливість і вища ціна, тому масові сенсори лишаються рядковими</tspan></text>
+<text x="410.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Заморозити весь кадр в одну мить можна — але сховок на кожен піксель з'їдає площу фотодіода й гроші.</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому активна матриця перемогла пасивну</text>
+<rect x="24.0" y="50.0" width="350.0" height="318.0" rx="10" fill="#fffaf9" stroke="#c0392b" stroke-width="1.6"/>
+<text x="199.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пасивна: піксель живе лише свою мить</text>
+<line x1="64.0" y1="250.0" x2="334.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="199.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">один кадр = всі N рядків по черзі</text>
+<rect x="97.8" y="180.0" width="33.8" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="114.6" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">наш рядок</text>
+<text x="114.6" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1/N часу</text>
+<rect x="64.0" y="228.0" width="33.8" height="22.0" rx="6" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="131.5" y="228.0" width="33.8" height="22.0" rx="6" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="165.2" y="228.0" width="33.8" height="22.0" rx="6" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="199.0" y="228.0" width="33.8" height="22.0" rx="6" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="232.8" y="228.0" width="33.8" height="22.0" rx="6" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="266.5" y="228.0" width="33.8" height="22.0" rx="6" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="46.5" y="300.5" width="305.0" height="43.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="199.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="199.0" dy="0.0">решту кадру піксель згасає; сусіди підсвічуються</tspan><tspan x="199.0" dy="13.0">крізь спільні дроти → розмиття й перехресні завади</tspan></text>
+<rect x="388.0" y="50.0" width="350.0" height="318.0" rx="10" fill="#fbfdfb" stroke="#27ae60" stroke-width="1.6"/>
+<text x="563.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Активна: транзистор тримає піксель весь кадр</text>
+<line x1="428.0" y1="250.0" x2="698.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="563.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">той самий кадр</text>
+<rect x="461.8" y="180.0" width="13.5" height="70.0" rx="6" fill="#eef2f8" stroke="#2457d6" stroke-width="1.4"/>
+<text x="468.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">заряд</text>
+<rect x="428.0" y="210.0" width="270.0" height="40.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="563.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Cs ТРИМАЄ напругу — 100 % часу</text>
+<rect x="399.1" y="300.5" width="327.8" height="43.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="563.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="563.0" dy="0.0">транзистор ізолює піксель від сусідів: без перехресних</tspan><tspan x="563.0" dy="13.0">завад, повний контраст, годиться для великих панелей</tspan></text>
+</svg>
