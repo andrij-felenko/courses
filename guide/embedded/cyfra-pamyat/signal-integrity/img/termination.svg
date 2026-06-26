@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві школи термінації: погасити на старті чи на фініші</text>
+<text x="220.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовна (source / series)</text>
+<rect x="64.0" y="132.0" width="52.0" height="36.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.6"/><text x="90.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">DRV</text>
+<polyline points="116.0,150.0 126.0,143.0 136.0,157.0 146.0,143.0 156.0,157.0 166.0,143.0 176.0,150.0" fill="none" stroke="#c0392b" stroke-width="1.8"/><text x="146.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Rₛ ≈ Z₀ − Rdrv</text>
+<line x1="176.0" y1="150.0" x2="330.0" y2="150.0" stroke="#2457d6" stroke-width="2.2"/>
+<rect x="330.0" y="132.0" width="52.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/><text x="356.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">RX</text>
+<line x1="330.0" y1="150.0" x2="330.0" y2="150.0" stroke="#2457d6" stroke-width="2.2"/>
+<rect x="60.0" y="196.0" width="320.0" height="64.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="220.0" y="225.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">Резистор біля драйвера. Відбиття від далекого кінця вертається</tspan><tspan x="220.0" dy="11.1">й гасне на Rₛ. Нуль постійного струму — економно.</tspan></text>
+<text x="610.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Паралельна (parallel / shunt)</text>
+<rect x="444.0" y="132.0" width="52.0" height="36.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.6"/><text x="470.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">DRV</text>
+<line x1="496.0" y1="150.0" x2="700.0" y2="150.0" stroke="#2457d6" stroke-width="2.2"/>
+<rect x="700.0" y="132.0" width="52.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/><text x="726.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">RX</text>
+<circle cx="700.0" cy="150.0" r="3.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<polyline points="700.0,150.0 693.0,159.7 707.0,169.3 693.0,179.0 707.0,188.7 693.0,198.3 700.0,208.0" fill="none" stroke="#1a1a1a" stroke-width="1.8"/><text x="716.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">R = Z₀</text>
+<line x1="686.0" y1="208.0" x2="714.0" y2="208.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="690.0" y1="213.0" x2="710.0" y2="213.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="694.0" y1="218.0" x2="706.0" y2="218.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="440.0" y="196.0" width="330.0" height="64.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="605.0" y="225.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="605.0" dy="0.0">Резистор = Z₀ на землю біля приймача. Хвиля одразу «бачить»</tspan><tspan x="605.0" dy="11.1">узгодження — відбиття немає. Та через нього тече струм.</tspan></text>
+</svg>

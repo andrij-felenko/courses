@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Та сама адреса, три словники</text>
+<text x="370.0" y="60.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="15" fill="#1a1a1a" text-anchor="middle">addr2line  0x400f360d  →  ?</text>
+<rect x="22.0" y="84.0" width="226.0" height="40.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="135.0" y="108.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">рідний firmware.elf</tspan></text>
+<rect x="22.0" y="134.0" width="226.0" height="120.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="135.0" y="184.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">sensor.c:88</text>
+<text x="135.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">✓ правильно</text>
+<rect x="260.0" y="84.0" width="226.0" height="40.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="373.0" y="108.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="373.0" dy="0.0">чужий .elf (інша збірка)</tspan></text>
+<rect x="260.0" y="134.0" width="226.0" height="120.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="373.0" y="184.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">wifi.c:213</text>
+<text x="373.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">✗ хибний рядок</text>
+<rect x="498.0" y="84.0" width="226.0" height="40.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="611.0" y="108.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="611.0" dy="0.0">stripped .bin із Flash</tspan></text>
+<rect x="498.0" y="134.0" width="226.0" height="120.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.6"/>
+<text x="611.0" y="184.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">??:0</text>
+<text x="611.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">немає DWARF</text>
+<text x="370.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Числа адрес однакові — сенс дає лише точно відповідний .elf із цієї збірки.</text>
+</svg>

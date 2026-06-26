@@ -206,6 +206,10 @@
         { slug: "lookup-table", title: "Таблиця замін (LUT)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "heisenbug", title: "Гейзенбаги та спостережницький ефект", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
+    { slug: "code", title: "Код", scope: "Робота з кодом як артефактом: контроль версій, репозиторії, гілки, злиття, історія змін, спільна розробка.",
+      topics: [
+        { slug: "version-control", title: "Контроль версій і git", basic: { status: "pending" }, detailed: { status: "pending" } },
+      ] },
     { slug: "embedded-systems", title: "Вбудовані системи", scope: "Програмування мікроконтролерів і прошивок: периферія МК, реального часу (RTOS), тулчейни, драйвери, апаратна взаємодія.",
       topics: [
         { slug: "microcontroller", title: "Мікроконтролер", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-first-mcu.md", status: "done" }] },
@@ -384,6 +388,7 @@
         { slug: "flash-wear-model", title: "Модель зношування Flash", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "backlash-compensation", title: "Компенсація люфту в прошивці", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "pwm-hardware-timer", title: "Апаратний таймер для PWM", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "cmsis", title: "CMSIS: стандартний інтерфейс ПЗ для Cortex-M", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
   ]
 });

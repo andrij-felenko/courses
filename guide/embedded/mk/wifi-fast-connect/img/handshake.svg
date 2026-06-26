@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рукостискання WPA2: дороге виведення PMK проти готового з кешу</text>
+<line x1="150.0" y1="150.0" x2="150.0" y2="380.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="600.0" y1="150.0" x2="600.0" y2="380.0" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="84.2" y="112.0" width="131.6" height="32.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="132.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Станція (ESP32)</tspan></text>
+<rect x="541.6" y="112.0" width="116.7" height="32.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="600.0" y="132.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">Точка доступу</tspan></text>
+<rect x="26.6" y="77.9" width="234.8" height="44.1" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="144.0" y="96.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="144.0" dy="0.0">PMK = PBKDF2(пароль, SSID, 4096×)</tspan><tspan x="144.0" dy="13.7">— сотні мс рахунку</tspan></text>
+<text x="315.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">з кешу: пропускаємо</text>
+<line x1="308.0" y1="100.0" x2="450.0" y2="100.0" stroke="#27ae60" stroke-width="1.4" stroke-dasharray="5,3"/>
+<line x1="600.0" y1="170.0" x2="150.0" y2="170.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="375.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1. ANonce  (+ PMKID)</text>
+<line x1="150.0" y1="220.0" x2="600.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="375.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2. SNonce + MIC</text>
+<line x1="600.0" y1="270.0" x2="150.0" y2="270.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="375.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">3. GTK + MIC (став ключ)</text>
+<line x1="150.0" y1="320.0" x2="600.0" y2="320.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="375.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">4. ACK</text>
+<text x="240.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">PTK з PMK</text>
+<rect x="113.5" y="403.4" width="552.9" height="45.3" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="390.0" y="422.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">PMKID у повідомленні 1 каже точці: «PMK уже маю». Збіг — і обидва беруть готовий PMK;</tspan><tspan x="390.0" dy="14.3">чотири кроки лишаються, але важка PBKDF2 не повторюється</tspan></text>
+</svg>

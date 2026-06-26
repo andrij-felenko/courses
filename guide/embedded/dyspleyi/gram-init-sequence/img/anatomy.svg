@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія послідовності ініціалізації</text>
+<text x="78.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">крок</text>
+<text x="328.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">аргументи</text>
+<text x="490.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">пауза</text>
+<rect x="60.0" y="64.0" width="640.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#5b6b7a" stroke-width="1.6"/>
+<text x="78.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#5b6b7a" text-anchor="start" font-weight="700">апаратний reset</text>
+<text x="78.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">змити будь-який старий стан</text>
+<text x="328.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">ніжка RST ↓↑</text>
+<text x="490.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">+120 мс</text>
+<rect x="60.0" y="112.0" width="640.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#5b6b7a" stroke-width="1.6"/>
+<text x="78.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#5b6b7a" text-anchor="start" font-weight="700">SWRESET 0x01</text>
+<text x="78.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">програмне скидання логіки</text>
+<text x="328.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">—</text>
+<text x="490.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">+150 мс</text>
+<rect x="60.0" y="160.0" width="640.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#b9770e" stroke-width="1.6"/>
+<text x="78.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="start" font-weight="700">SLPOUT 0x11</text>
+<text x="78.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">розбудити живлення матриці</text>
+<text x="328.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">—</text>
+<text x="490.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">+120 мс</text>
+<rect x="60.0" y="208.0" width="640.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#1f78b4" stroke-width="1.6"/>
+<text x="78.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f78b4" text-anchor="start" font-weight="700">COLMOD 0x3A</text>
+<text x="78.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">скільки байтів на піксель</text>
+<text x="328.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0x55 (RGB565)</text>
+<text x="490.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">+10 мс</text>
+<rect x="60.0" y="256.0" width="640.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#1f78b4" stroke-width="1.6"/>
+<text x="78.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f78b4" text-anchor="start" font-weight="700">MADCTL 0x36</text>
+<text x="78.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">поворот, дзеркало, RGB/BGR</text>
+<text x="328.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0x00 (орієнтація)</text>
+<text x="490.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">—</text>
+<rect x="60.0" y="304.0" width="640.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#1f78b4" stroke-width="1.6"/>
+<text x="78.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1f78b4" text-anchor="start" font-weight="700">гама + інверсія</text>
+<text x="78.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">відтінки й полярність панелі</text>
+<text x="328.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">вектор констант</text>
+<text x="490.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">—</text>
+<rect x="60.0" y="352.0" width="640.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.6"/>
+<text x="78.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">DISPON 0x29</text>
+<text x="78.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">увімкнути показ — аж тепер</text>
+<text x="328.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">—</text>
+<text x="490.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">+20 мс</text>
+<text x="380.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">червона пауза — НЕ ввічливість, а час, потрібний кремнію; пропустиш — біла пляма</text>
+</svg>

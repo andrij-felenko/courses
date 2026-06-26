@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Де живуть байти моделі: Flash тримає ваги, RAM — арену</text>
+<text x="205.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">FLASH (нелетка, тільки читання)</text>
+<rect x="80.0" y="80.0" width="250.0" height="70.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.5"/>
+<text x="205.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">код прошивки</text>
+<rect x="80.0" y="160.0" width="250.0" height="190.0" rx="6" fill="#dbe6f7" stroke="#2457d6" stroke-width="1.8"/>
+<text x="205.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="205.0" dy="0.0">ВАГИ МОДЕЛІ (int8)</tspan><tspan x="205.0" dy="15.6">сталі, лежать на місці,</tspan><tspan x="205.0" dy="15.6">читаються прямо звідси</tspan></text>
+<text x="205.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">найбільший шматок</text>
+<text x="525.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">RAM (летка, читання/запис)</text>
+<rect x="400.0" y="80.0" width="250.0" height="55.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="525.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">стек і купа прошивки</text>
+<rect x="400.0" y="145.0" width="250.0" height="205.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="525.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="525.0" dy="0.0">ТЕНЗОРНА АРЕНА</tspan><tspan x="525.0" dy="15.6">активації між шарами +</tspan><tspan x="525.0" dy="15.6">робочі буфери</tspan><tspan x="525.0" dy="15.6">(перезаписується щоразу)</tspan></text>
+<text x="525.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">її розмір ти задаєш сам</text>
+<line x1="330.0" y1="255.0" x2="400.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="365.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">MAC-и</text>
+<text x="360.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Ваги переживають вимкнення живлення у Flash; арену чіп ліпить у RAM наново після кожного скидання.</text>
+</svg>

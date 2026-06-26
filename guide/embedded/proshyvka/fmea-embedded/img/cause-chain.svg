@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ланцюг FMEA: причина, режим відмови, наслідок</text>
+<text x="420.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">відмова як ланцюг: причина → режим → наслідок</text>
+<rect x="28.0" y="92.0" width="232.0" height="96.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="144.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПРИЧИНА</text>
+<text x="144.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">чому зламалось</text>
+<text x="144.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">холодна пайка на виводі;</text>
+<text x="144.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">просіла напруга живлення</text>
+<rect x="304.0" y="92.0" width="232.0" height="96.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="2.0"/>
+<text x="420.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d1a" text-anchor="middle" font-weight="700">РЕЖИМ ВІДМОВИ</text>
+<text x="420.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">ЯК це бачить компонент</text>
+<text x="420.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">давач I²C не відповідає</text>
+<text x="420.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">(шина зависла на low)</text>
+<rect x="580.0" y="92.0" width="232.0" height="96.0" rx="10" fill="#fbecec" stroke="#c0392b" stroke-width="2.0"/>
+<text x="696.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">НАСЛІДОК</text>
+<text x="696.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">що відчула система</text>
+<text x="696.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">висота «застигла» —</text>
+<text x="696.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">дрон тримає газ і б'ється</text>
+<line x1="266.0" y1="140.0" x2="298.0" y2="140.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="542.0" y1="140.0" x2="574.0" y2="140.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="580.0" y="206.0" width="232.0" height="34.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="696.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">тяжкість міряють ТУТ</text>
+<rect x="40.0" y="268.0" width="760.0" height="64.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="420.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">інстинкт інженера читає ланцюг зліва направо (від деталі);</text>
+<text x="420.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">FMEA змушує читати справа наліво — спершу «чим це загрожує», потім «звідки прийде»</text>
+</svg>

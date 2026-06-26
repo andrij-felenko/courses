@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Та сама логіка, інша розкладка → інша довжина коду</text>
+<text x="200.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Розкидано по банках</text>
+<text x="560.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Угруповано в один банк</text>
+<rect x="40.0" y="78.0" width="320.0" height="24.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="52.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">BANKSEL count_lo</text>
+<rect x="40.0" y="108.0" width="320.0" height="24.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="52.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">incf  count_lo</text>
+<rect x="40.0" y="138.0" width="320.0" height="24.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="52.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">BANKSEL count_hi</text>
+<rect x="40.0" y="168.0" width="320.0" height="24.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="52.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">incf  count_hi</text>
+<rect x="40.0" y="198.0" width="320.0" height="24.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="52.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">BANKSEL ovf_flag</text>
+<rect x="40.0" y="228.0" width="320.0" height="24.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="52.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">movwf ovf_flag</text>
+<text x="200.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3 перемикання банку</text>
+<rect x="400.0" y="78.0" width="320.0" height="24.0" rx="4" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="412.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">BANKSEL ctr</text>
+<rect x="400.0" y="108.0" width="320.0" height="24.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="412.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">incf  ctr+0</text>
+<rect x="400.0" y="138.0" width="320.0" height="24.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="412.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">incf  ctr+1</text>
+<rect x="400.0" y="168.0" width="320.0" height="24.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="412.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">movwf ctr+2</text>
+<line x1="728.0" y1="112.0" x2="728.0" y2="188.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="734.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">той самий банк:</text>
+<text x="734.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">BANKSEL зайвий →</text>
+<text x="734.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">компілятор прибрав</text>
+<text x="560.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1 перемикання банку</text>
+<text x="380.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">загорнув три змінні у struct — і два перемикання щезли самі</text>
+</svg>

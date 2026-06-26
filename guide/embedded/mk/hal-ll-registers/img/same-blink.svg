@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Та сама дія трьома мовами: HAL, LL, голий регістр</text>
+<text x="132.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">HAL</text>
+<rect x="18.0" y="86.0" width="228.0" height="86.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/>
+<text x="132.0" y="110.0" font-family="Consolas, monospace" font-size="12.5" fill="#9ec5ff" text-anchor="middle">HAL_GPIO_WritePin(</text>
+<text x="132.0" y="130.0" font-family="Consolas, monospace" font-size="12.5" fill="#9ec5ff" text-anchor="middle">GPIOA, GPIO_PIN_5,</text>
+<text x="132.0" y="150.0" font-family="Consolas, monospace" font-size="12.5" fill="#9ec5ff" text-anchor="middle">GPIO_PIN_SET);</text>
+<text x="132.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">найясніше, переносно</text>
+<text x="390.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b8860b" text-anchor="middle" font-weight="700">LL</text>
+<rect x="276.0" y="86.0" width="228.0" height="86.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/>
+<text x="390.0" y="110.0" font-family="Consolas, monospace" font-size="12.5" fill="#ffd27f" text-anchor="middle">LL_GPIO_SetOutputPin(</text>
+<text x="390.0" y="130.0" font-family="Consolas, monospace" font-size="12.5" fill="#ffd27f" text-anchor="middle">GPIOA,</text>
+<text x="390.0" y="150.0" font-family="Consolas, monospace" font-size="12.5" fill="#ffd27f" text-anchor="middle">LL_GPIO_PIN_5);</text>
+<text x="390.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-style="italic">тонко, швидко</text>
+<text x="648.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">регістри</text>
+<rect x="534.0" y="86.0" width="228.0" height="66.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/>
+<text x="648.0" y="110.0" font-family="Consolas, monospace" font-size="12.5" fill="#7fe0a0" text-anchor="middle">GPIOA-&gt;BSRR =</text>
+<text x="648.0" y="130.0" font-family="Consolas, monospace" font-size="12.5" fill="#7fe0a0" text-anchor="middle">(1 &lt;&lt; 5);</text>
+<text x="648.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-style="italic">гола правда заліза</text>
+<text x="390.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="390.0" dy="0.0">одна дія — «підняти ніжку PA5» — три записи; усі три зрештою</tspan><tspan x="390.0" dy="14.3">ставлять той самий біт у тому самому регістрі BSRR</tspan></text>
+</svg>

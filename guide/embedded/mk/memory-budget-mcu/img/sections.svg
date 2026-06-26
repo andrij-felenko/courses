@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звідки беруться байти: чотири секції коду</text>
+<text x="460.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">.data платить двічі; .bss у Flash не коштує нічого</text>
+<rect x="60.0" y="90.0" width="250.0" height="58.0" rx="6" fill="#e8eef9" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="123.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="185.0" dy="0.0">.text — інструкції</tspan></text>
+<rect x="60.0" y="168.0" width="250.0" height="58.0" rx="6" fill="#e9f7ef" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="201.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="185.0" dy="0.0">.rodata — лише читання</tspan></text>
+<rect x="60.0" y="246.0" width="250.0" height="58.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="185.0" dy="0.0">.data — є початкове значення</tspan></text>
+<rect x="60.0" y="324.0" width="250.0" height="58.0" rx="6" fill="#f3e8fb" stroke="#333333" stroke-width="1.5"/><text x="185.0" y="357.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="185.0" dy="0.0">.bss — без значення (нуль)</tspan></text>
+<rect x="560.0" y="80.0" width="150.0" height="280.0" rx="10" fill="#eef2f7" stroke="#333333" stroke-width="2.0"/>
+<text x="635.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">FLASH</text>
+<rect x="740.0" y="80.0" width="150.0" height="280.0" rx="10" fill="#fdf6e3" stroke="#333333" stroke-width="2.0"/>
+<text x="815.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">RAM</text>
+<line x1="310.0" y1="119.0" x2="560.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="197.0" x2="560.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="275.0" x2="560.0" y2="240.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="275.0" x2="740.0" y2="230.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="353.0" x2="740.0" y2="310.0" stroke="#7b3fa0" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="635.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">.text</text>
+<text x="635.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">.rodata</text>
+<text x="635.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">.data</text>
+<text x="815.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">.data</text>
+<text x="815.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7b3fa0" text-anchor="middle" font-weight="700">.bss</text>
+<text x="815.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7b3fa0" text-anchor="middle">(нулі)</text>
+<rect x="450.0" y="372.0" width="440.0" height="44.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="670.0" y="396.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">.data — у Flash лежить початкове значення, у RAM його копія: коштує в ОБОХ.   .bss у Flash = 0 байтів (зберігати нулі нема сенсу), на старті його просто чистять у RAM.</tspan></text>
+</svg>

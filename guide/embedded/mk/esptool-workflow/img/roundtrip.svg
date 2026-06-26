@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 220" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="220" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний цикл: від чистого чипа до перевіреної прошивки</text>
+<rect x="45.0" y="75.0" width="130.0" height="70.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/>
+<text x="110.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">erase_flash</text>
+<text x="110.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="110.0" dy="0.0">очистити</tspan></text>
+<rect x="235.0" y="75.0" width="130.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/>
+<text x="300.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">write_flash</text>
+<text x="300.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="300.0" dy="0.0">залити app</tspan></text>
+<rect x="425.0" y="75.0" width="130.0" height="70.0" rx="6" fill="#eafaf1" stroke="#333333" stroke-width="1.5"/>
+<text x="490.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">verify</text>
+<text x="490.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="490.0" dy="0.0">звірити хеш</tspan></text>
+<rect x="595.0" y="75.0" width="130.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="660.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">read_flash</text>
+<text x="660.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="660.0" dy="0.0">знати, що там</tspan></text>
+<line x1="179.0" y1="110.0" x2="231.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="369.0" y1="110.0" x2="421.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="559.0" y1="110.0" x2="591.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="370.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запис не доводить успіху сам собою — доводить його звірка. А read_flash дає бекап і правду про чип.</text>
+</svg>

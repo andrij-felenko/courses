@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Машина станів драйвера читача CC</text>
+<rect x="65.0" y="115.0" width="170.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.9"/><text x="150.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">DETACHED</tspan><tspan x="150.0" dy="15.6">джерела нема</tspan><tspan x="150.0" dy="15.6">CC ≈ 0 В</tspan></text>
+<rect x="345.0" y="115.0" width="170.0" height="70.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.9"/><text x="430.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">DEBOUNCING</tspan><tspan x="430.0" dy="15.6">обрано CC1/CC2</tspan><tspan x="430.0" dy="15.6">чекаємо M однакових</tspan></text>
+<rect x="625.0" y="115.0" width="170.0" height="70.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.9"/><text x="710.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">ATTACHED</tspan><tspan x="710.0" dy="15.6">рівень сталий</tspan><tspan x="710.0" dy="15.6">навантаження ON</tspan></text>
+<line x1="235.0" y1="136.0" x2="345.0" y2="136.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="290.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">напруга &gt; порога присутності</text>
+<text x="290.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(фіксуємо активну лінію)</text>
+<line x1="515.0" y1="136.0" x2="625.0" y2="136.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="570.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">M відліків поспіль, рівень ≠ нема</text>
+<text x="570.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">→ подія on_attach</text>
+<path d="M740.0 115.0 C 805.0 80.0, 680.0 80.0, 688.0 115.0" fill="none" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="746.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">рівень змінився → on_level</text>
+<line x1="430.0" y1="185.0" x2="430.0" y2="245.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="710.0" y1="185.0" x2="710.0" y2="245.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="150.0" y1="245.0" x2="710.0" y2="245.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="150.0" y1="245.0" x2="150.0" y2="185.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="430.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">напруга на активній лінії &lt; порога присутності  →  on_detach, навантаження OFF</text>
+<text x="430.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">уся логіка живе в одному poll(): без блокувань, callback — з контексту poll</text>
+</svg>

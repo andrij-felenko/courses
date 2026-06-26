@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Куди вмикається кастомна інструкція</text>
+<text x="390.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">декодер ловить свій опкод; логіка читає регістри, рахує, пише результат — за один прохід</text>
+<rect x="40.0" y="150.0" width="150.0" height="130.0" rx="6" fill="#eef0f4" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="115.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регістровий</text>
+<text x="115.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">файл</text>
+<text x="115.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">rs1, rs2 -&gt; ...</text>
+<text x="115.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">... -&gt; rd</text>
+<rect x="270.0" y="76.0" width="240.0" height="42.0" rx="6" fill="#fff8e6" stroke="#b8860b" stroke-width="1.8"/>
+<text x="390.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Декодер інструкції</text>
+<text x="390.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6d00" text-anchor="middle" font-style="italic">побачив зарезервований опкод</text>
+<rect x="300.0" y="168.0" width="180.0" height="64.0" rx="6" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="390.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Штатний ALU</text>
+<text x="390.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+  −  &amp;  |  &lt;&lt;</text>
+<rect x="300.0" y="252.0" width="180.0" height="70.0" rx="6" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2.2"/>
+<text x="390.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="middle" font-weight="700">ВАША логіка</text>
+<text x="390.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">комбінаційна або</text>
+<text x="390.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">на кілька тактів</text>
+<rect x="540.0" y="196.0" width="70.0" height="96.0" rx="4" fill="#eef0f4" stroke="#1a1a1a" stroke-width="1.7"/>
+<text x="575.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">mux</text>
+<text x="575.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">вибір</text>
+<rect x="660.0" y="198.0" width="96.0" height="92.0" rx="6" fill="#eef0f4" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="708.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">запис</text>
+<text x="708.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">у rd</text>
+<line x1="190.0" y1="190.0" x2="300.0" y2="192.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="240.0" x2="300.0" y2="282.0" stroke="#1f8a3b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="216.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">rs1, rs2</text>
+<line x1="390.0" y1="118.0" x2="390.0" y2="246.0" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="5 3"/>
+<line x1="390.0" y1="234.0" x2="390.0" y2="246.0" stroke="#b8860b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="398.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a6d00" text-anchor="start" font-style="italic">вмикає саме ваш блок</text>
+<line x1="480.0" y1="200.0" x2="540.0" y2="224.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="480.0" y1="287.0" x2="540.0" y2="266.0" stroke="#1f8a3b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="244.0" x2="660.0" y2="244.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="708.0" y1="290.0" x2="708.0" y2="360.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="708.0" y1="360.0" x2="115.0" y2="360.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="115.0" y1="360.0" x2="115.0" y2="280.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="350.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">результат повертається у регістр — як після звичайної інструкції</text>
+<rect x="40.0" y="376.0" width="700.0" height="44.0" rx="6" fill="#f4f7f4" stroke="#1f8a3b" stroke-width="1.7"/><text x="390.0" y="400.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Ключове: ваш блок сидить ПОРЯД з ALU всередині того самого ядра й користується тими самими регістрами. Ні шини, ні DMA — лише ще один шлях обчислення.</tspan></text>
+</svg>

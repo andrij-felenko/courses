@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 308" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="308" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два способи покарати клон: цегла проти відмови</text>
+<rect x="28.0" y="56.0" width="340.0" height="196.0" rx="6" fill="#fdeeec" stroke="#c0392b" stroke-width="1.8"/>
+<text x="198.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">FTDI, 2014 — деструктивно</text>
+<line x1="48.0" y1="94.0" x2="348.0" y2="94.0" stroke="#c0392b" stroke-width="1.1"/>
+<text x="48.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• драйвер перезаписує PID у чіпі</text>
+<text x="48.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 0x6001 → 0x0000 у НЕЛЕТКІЙ памʼяті</text>
+<text x="48.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• слід лишається в самому пристрої</text>
+<text x="48.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• не впізнається на ЖОДНІЙ ОС потім</text>
+<text x="198.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">рятує лише зворотний перезапис PID</text>
+<rect x="392.0" y="56.0" width="340.0" height="196.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="562.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d7a44" text-anchor="middle" font-weight="700">Prolific — лише відмова</text>
+<line x1="412.0" y1="94.0" x2="712.0" y2="94.0" stroke="#27ae60" stroke-width="1.1"/>
+<text x="412.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• драйвер просто не запускається</text>
+<text x="412.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• «Code 10» — і все, чіп цілий</text>
+<text x="412.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• нелетку памʼять НЕ чіпає</text>
+<text x="412.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• лікується відкатом драйвера</text>
+<text x="562.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">та сама мета, мʼякший засіб</text>
+<text x="380.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Спільний мотив — убити клон; різниця в тому, чи лишається пристрій живим після покари.</text>
+</svg>

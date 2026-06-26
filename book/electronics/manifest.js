@@ -805,6 +805,7 @@
         { slug: "solar-cell", title: "Сонячний елемент", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "pixel-binning", title: "Піксельний бінінг", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "tone-mapping", title: "Тонмаппінг", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "crt-tube", title: "Електронно-променева трубка (CRT)", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "displays", title: "Дисплеї", scope: "Засоби візуального відображення інформації — панелі, їхні інтерфейси й сенсорний ввід, разом із програмним конвеєром формування зображення в пам'яті.",
       topics: [

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Машина станів теплового регулятора заряду</text>
+<rect x="75.0" y="98.0" width="150.0" height="64.0" rx="6" fill="#fff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="150.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">COLD_WAIT</text>
+<text x="150.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">T &lt; 0°</text>
+<text x="150.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">грій / чекай</text>
+<rect x="335.0" y="98.0" width="150.0" height="64.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="410.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CHARGE</text>
+<text x="410.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0..35°</text>
+<text x="410.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">повний струм</text>
+<rect x="585.0" y="98.0" width="150.0" height="64.0" rx="6" fill="#fff" stroke="#caa24a" stroke-width="2.0"/>
+<text x="660.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#caa24a" text-anchor="middle" font-weight="700">FOLDBACK</text>
+<text x="660.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">35..45°</text>
+<text x="660.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">зрізаю струм</text>
+<rect x="335.0" y="268.0" width="150.0" height="64.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="410.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">STOP</text>
+<text x="410.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">≥45° (гіст.)</text>
+<text x="410.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">струм = 0</text>
+<rect x="585.0" y="308.0" width="150.0" height="64.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="660.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">FAULT</text>
+<text x="660.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">давач збрехав</text>
+<text x="660.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">безпечний нуль</text>
+<line x1="225.0" y1="130.0" x2="335.0" y2="130.0" stroke="#27ae60" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="280.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">потеплішало &gt;2°</text>
+<line x1="485.0" y1="130.0" x2="585.0" y2="130.0" stroke="#caa24a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="535.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#caa24a" text-anchor="middle" font-weight="700">&gt;35°</text>
+<line x1="585.0" y1="146.0" x2="485.0" y2="146.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="535.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">&lt;33°</text>
+<line x1="660.0" y1="162.0" x2="489.0" y2="268.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="630.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">≥45°</text>
+<line x1="410.0" y1="268.0" x2="410.0" y2="162.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="446.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">охолов &lt;42°</text>
+<line x1="335.0" y1="148.0" x2="225.0" y2="148.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="280.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#2457d6" text-anchor="middle">&lt;0°</text>
+<line x1="150.0" y1="410.0" x2="660.0" y2="410.0" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="6 5"/>
+<line x1="150.0" y1="410.0" x2="150.0" y2="405.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="410.0" y1="410.0" x2="410.0" y2="405.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="660.0" y1="410.0" x2="660.0" y2="405.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="660.0" y1="410.0" x2="660.0" y2="376.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">обрив / КЗ / абсурдне значення давача → FAULT з будь-якого стану</text>
+</svg>

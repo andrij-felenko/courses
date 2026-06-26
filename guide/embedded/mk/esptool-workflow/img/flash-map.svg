@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Типова мапа Flash на ESP32: що де лежить</text>
+<rect x="210.0" y="60.0" width="270.0" height="28.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="210.0" y="60.0" width="270.0" height="28.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="345.0" y="78.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="345.0" dy="0.0">(порожньо / залежить від чипа)</tspan></text>
+<text x="196.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">0x00000</text>
+<rect x="210.0" y="92.0" width="270.0" height="46.0" rx="6" fill="#eafaf1" stroke="#333333" stroke-width="1.5"/>
+<rect x="210.0" y="92.0" width="270.0" height="46.0" rx="6" fill="#eafaf1" stroke="#333333" stroke-width="1.5"/><text x="345.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="345.0" dy="0.0">Завантажувач (bootloader)</tspan></text>
+<text x="196.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">0x01000</text>
+<rect x="210.0" y="142.0" width="270.0" height="30.0" rx="6" fill="#fdf3e7" stroke="#333333" stroke-width="1.5"/>
+<rect x="210.0" y="142.0" width="270.0" height="30.0" rx="6" fill="#fdf3e7" stroke="#333333" stroke-width="1.5"/><text x="345.0" y="161.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="345.0" dy="0.0">Таблиця розділів</tspan></text>
+<text x="196.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">0x08000</text>
+<rect x="210.0" y="176.0" width="270.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="210.0" y="176.0" width="270.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="345.0" y="198.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="345.0" dy="0.0">NVS / службові дані</tspan></text>
+<text x="196.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">0x09000</text>
+<rect x="210.0" y="216.0" width="270.0" height="90.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/>
+<rect x="210.0" y="216.0" width="270.0" height="90.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="345.0" y="265.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="345.0" dy="0.0">Прошивка (app)</tspan></text>
+<text x="196.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">0x10000</text>
+<rect x="210.0" y="310.0" width="270.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="210.0" y="310.0" width="270.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="345.0" y="336.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="345.0" dy="0.0">OTA / файлова система</tspan></text>
+<text x="196.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">0x310000</text>
+<text x="345.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">вгору — старші адреси</text>
+<text x="132.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">адреса</text>
+<rect x="504.0" y="95.0" width="196.0" height="170.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="602.0" y="140.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="602.0" dy="0.0">Кожен шматок має</tspan><tspan x="602.0" dy="14.3">свою адресу-зсув.</tspan><tspan x="602.0" dy="14.3">write_flash 0x10000</tspan><tspan x="602.0" dy="14.3">app.bin кладе</tspan><tspan x="602.0" dy="14.3">прикладну прошивку</tspan><tspan x="602.0" dy="14.3">саме на її місце —</tspan><tspan x="602.0" dy="14.3">не на початок Flash.</tspan></text>
+</svg>

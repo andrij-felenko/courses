@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова смуга завантаження: від живлення до вашого коду</text>
+<rect x="40.0" y="150.0" width="70.0" height="70.0" rx="6" fill="#eef1f4" stroke="#6b7280" stroke-width="2.0"/>
+<text x="75.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПЗП</text>
+<text x="75.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">стрепи · тягне щабель 2</text>
+<rect x="110.0" y="150.0" width="322.0" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="271.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Завантажувач 2</text>
+<text x="271.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">копіює сегменти · SHA-256</text>
+<rect x="432.0" y="150.0" width="210.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="537.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Старт ESP-IDF</text>
+<text x="537.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">частота · служби · FreeRTOS</text>
+<rect x="642.0" y="150.0" width="98.0" height="70.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="691.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">app_main</text>
+<text x="691.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ваш код</text>
+<line x1="110.0" y1="140.0" x2="432.0" y2="140.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="271.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">найдовша ланка</text>
+<line x1="40.0" y1="236.0" x2="740.0" y2="236.0" stroke="#6b7280" stroke-width="1.3"/>
+<text x="40.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">живлення / скидання</text>
+<text x="740.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">час →</text>
+<rect x="19.5" y="306.2" width="741.0" height="31.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="390.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">t_завант = t_ПЗП + t_образ + t_перевірка + t_старт_IDF.  Розкладене на доданки — можна тиснути; монолітне — ні</tspan></text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три лінії оборони пам'яті</text>
+<rect x="125.0" y="64.0" width="470.0" height="76.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="360.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">1. УНИКНУТИ конструкцією</text>
+<text x="360.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">статична пам'ять, без malloc,</tspan><tspan x="360.0" dy="15.6">перевірка меж, RAII</tspan></text>
+<line x1="360.0" y1="144.0" x2="360.0" y2="170.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="510.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">що прорвалось →</text>
+<rect x="125.0" y="176.0" width="470.0" height="76.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.2"/>
+<text x="360.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">2. ОХОРОНИТИ в рантаймі</text>
+<text x="360.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">MPU, канарки стека,</tspan><tspan x="360.0" dy="15.6">brown-out, watchdog</tspan></text>
+<line x1="360.0" y1="256.0" x2="360.0" y2="282.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="510.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">що прорвалось →</text>
+<rect x="125.0" y="288.0" width="470.0" height="76.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="360.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">3. СПІЙМАТИ рано</text>
+<text x="360.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">санітайзери, статичний аналіз,</tspan><tspan x="360.0" dy="15.6">MISRA, тести</tspan></text>
+<rect x="210.0" y="394.0" width="300.0" height="40.0" rx="6" fill="#fff7e6" stroke="#d68910" stroke-width="1.5"/><text x="360.0" y="418.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">у полі — лише те, що проминуло всі три</tspan></text>
+</svg>

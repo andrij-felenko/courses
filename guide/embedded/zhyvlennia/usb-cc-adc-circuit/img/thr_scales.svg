@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири масштаби напруги біля порога CC</text>
+<rect x="320.0" y="68.0" width="2.0" height="24.0" rx="4" fill="#2457d6" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="320.0" y="68.0" width="2.0" height="24.0" rx="4" fill="white" fill-opacity="0.5"/>
+<text x="308.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">Квант АЦП (12 біт, 3.3 В)</text>
+<text x="308.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">1 LSB ≈ 0.8 мВ</text>
+<text x="332.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">1 мВ</text>
+<rect x="320.0" y="138.0" width="112.0" height="24.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.2"/>
+<rect x="320.0" y="138.0" width="112.0" height="24.0" rx="4" fill="white" fill-opacity="0.5"/>
+<text x="308.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">Залишковий шум (розмах)</text>
+<text x="308.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">±0.04 В після RC+усереднення</text>
+<text x="442.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">80 мВ</text>
+<rect x="320.0" y="208.0" width="196.0" height="24.0" rx="4" fill="#b8860b" stroke="#b8860b" stroke-width="1.2"/>
+<rect x="320.0" y="208.0" width="196.0" height="24.0" rx="4" fill="white" fill-opacity="0.5"/>
+<text x="308.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="end" font-weight="700">Смуга гістерезису</text>
+<text x="308.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">вгору − вниз = 0.14 В</text>
+<text x="526.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="start" font-weight="700">140 мВ</text>
+<rect x="320.0" y="278.0" width="309.4" height="24.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="320.0" y="278.0" width="309.4" height="24.0" rx="4" fill="white" fill-opacity="0.5"/>
+<text x="308.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">Зазор до сусідньої смуги</text>
+<text x="308.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Default.max → 1.5А.min</text>
+<text x="639.4" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">221 мВ</text>
+<text x="120.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">≪</text>
+<text x="120.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">&lt;</text>
+<text x="120.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">&lt;</text>
+<text x="410.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">ланцюг масштабів: квант ≪ шум &lt; смуга гістерезису &lt; зазор між смугами</text>
+<text x="410.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">поки нерівність тримається — читання надійне; зламалась ланка — звідти й баг</text>
+</svg>

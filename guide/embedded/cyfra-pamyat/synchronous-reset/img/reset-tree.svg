@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розведення скидання: окремий синхронізатор на кожен домен</text>
+<rect x="345.0" y="52.0" width="190.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="440.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">rst_async  (POR / BOR / кнопка)</text>
+<text x="440.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">асинхронна подія — спільна на весь чип</text>
+<line x1="440.0" y1="92.0" x2="440.0" y2="112.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="440.0" y1="112.0" x2="170.0" y2="112.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="170.0" y1="112.0" x2="170.0" y2="140.0" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="170.0" cy="112.0" r="0.1" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="100.0" y="140.0" width="140.0" height="56.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="170.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">reset sync</text>
+<text x="170.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">CLK_A  100 МГц</text>
+<text x="170.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">(2 тригери на ЦЕЙ такт)</text>
+<line x1="170.0" y1="196.0" x2="170.0" y2="216.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="110.0" y1="216.0" x2="230.0" y2="216.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="110.0" y1="216.0" x2="110.0" y2="238.0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="99.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="110.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#2457d6" text-anchor="middle">FF</text>
+<line x1="140.0" y1="216.0" x2="140.0" y2="238.0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="129.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="140.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#2457d6" text-anchor="middle">FF</text>
+<line x1="170.0" y1="216.0" x2="170.0" y2="238.0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="159.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="170.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#2457d6" text-anchor="middle">FF</text>
+<line x1="200.0" y1="216.0" x2="200.0" y2="238.0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="189.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="200.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#2457d6" text-anchor="middle">FF</text>
+<line x1="230.0" y1="216.0" x2="230.0" y2="238.0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="219.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="230.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#2457d6" text-anchor="middle">FF</text>
+<text x="170.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">тригери домену «ядро»</text>
+<text x="170.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(зняття синхронне з CLK_A)</text>
+<line x1="440.0" y1="92.0" x2="440.0" y2="112.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="440.0" y1="112.0" x2="440.0" y2="112.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="440.0" y1="112.0" x2="440.0" y2="140.0" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="440.0" cy="112.0" r="0.1" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="370.0" y="140.0" width="140.0" height="56.0" rx="6" fill="#eef2ff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="440.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">reset sync</text>
+<text x="440.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">CLK_B  25 МГц</text>
+<text x="440.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">(2 тригери на ЦЕЙ такт)</text>
+<line x1="440.0" y1="196.0" x2="440.0" y2="216.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="216.0" x2="500.0" y2="216.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="380.0" y1="216.0" x2="380.0" y2="238.0" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="369.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#27ae60" stroke-width="1.4"/>
+<text x="380.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle">FF</text>
+<line x1="410.0" y1="216.0" x2="410.0" y2="238.0" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="399.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#27ae60" stroke-width="1.4"/>
+<text x="410.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle">FF</text>
+<line x1="440.0" y1="216.0" x2="440.0" y2="238.0" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="429.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#27ae60" stroke-width="1.4"/>
+<text x="440.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle">FF</text>
+<line x1="470.0" y1="216.0" x2="470.0" y2="238.0" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="459.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#27ae60" stroke-width="1.4"/>
+<text x="470.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle">FF</text>
+<line x1="500.0" y1="216.0" x2="500.0" y2="238.0" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="489.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#27ae60" stroke-width="1.4"/>
+<text x="500.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle">FF</text>
+<text x="440.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">тригери домену «Ethernet»</text>
+<text x="440.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(зняття синхронне з CLK_B)</text>
+<line x1="440.0" y1="92.0" x2="440.0" y2="112.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="440.0" y1="112.0" x2="710.0" y2="112.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="710.0" y1="112.0" x2="710.0" y2="140.0" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="710.0" cy="112.0" r="0.1" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="640.0" y="140.0" width="140.0" height="56.0" rx="6" fill="#eef2ff" stroke="#b8860b" stroke-width="1.8"/>
+<text x="710.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">reset sync</text>
+<text x="710.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">CLK_C  12 МГц</text>
+<text x="710.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">(2 тригери на ЦЕЙ такт)</text>
+<line x1="710.0" y1="196.0" x2="710.0" y2="216.0" stroke="#b8860b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="216.0" x2="770.0" y2="216.0" stroke="#b8860b" stroke-width="1.8"/>
+<line x1="650.0" y1="216.0" x2="650.0" y2="238.0" stroke="#b8860b" stroke-width="1.4"/>
+<rect x="639.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#b8860b" stroke-width="1.4"/>
+<text x="650.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#b8860b" text-anchor="middle">FF</text>
+<line x1="680.0" y1="216.0" x2="680.0" y2="238.0" stroke="#b8860b" stroke-width="1.4"/>
+<rect x="669.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#b8860b" stroke-width="1.4"/>
+<text x="680.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#b8860b" text-anchor="middle">FF</text>
+<line x1="710.0" y1="216.0" x2="710.0" y2="238.0" stroke="#b8860b" stroke-width="1.4"/>
+<rect x="699.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#b8860b" stroke-width="1.4"/>
+<text x="710.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#b8860b" text-anchor="middle">FF</text>
+<line x1="740.0" y1="216.0" x2="740.0" y2="238.0" stroke="#b8860b" stroke-width="1.4"/>
+<rect x="729.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#b8860b" stroke-width="1.4"/>
+<text x="740.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#b8860b" text-anchor="middle">FF</text>
+<line x1="770.0" y1="216.0" x2="770.0" y2="238.0" stroke="#b8860b" stroke-width="1.4"/>
+<rect x="759.0" y="238.0" width="22.0" height="26.0" rx="3" fill="#f7f9fb" stroke="#b8860b" stroke-width="1.4"/>
+<text x="770.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#b8860b" text-anchor="middle">FF</text>
+<text x="710.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700">тригери домену «USB»</text>
+<text x="710.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(зняття синхронне з CLK_C)</text>
+<line x1="60.0" y1="360.0" x2="820.0" y2="360.0" stroke="#dfe3e8" stroke-width="1.2"/>
+<text x="440.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ASSERT — спільний і асинхронний на всі домени (червоне).  DE-ASSERT — окремий і синхронний у КОЖНОМУ домені (кольорове).</text>
+<text x="440.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Один синхронізатор на весь чип не годиться: «синхронно» — це синхронно з конкретним тактом.</text>
+</svg>

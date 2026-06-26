@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один .elf → стрункий реліз + товстий словник</text>
+<rect x="301.5" y="53.0" width="157.0" height="49.9" rx="6" fill="#fff7e6" stroke="#c0392b" stroke-width="1.5"/><text x="380.0" y="74.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">firmware.elf</tspan><tspan x="380.0" dy="16.9">код + увесь DWARF</tspan></text>
+<line x1="360.0" y1="103.0" x2="200.0" y2="136.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="103.0" x2="560.0" y2="136.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="240.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">--strip-debug</text>
+<text x="524.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-style="italic">--only-keep-debug</text>
+<rect x="111.9" y="146.2" width="176.2" height="47.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="200.0" y="166.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">firmware-stripped.elf</tspan><tspan x="200.0" dy="15.6">код, без DWARF</tspan></text>
+<text x="200.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-style="italic">→ їде в поле</text>
+<rect x="497.9" y="146.2" width="124.2" height="47.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="166.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">firmware.debug</tspan><tspan x="560.0" dy="15.6">самий DWARF</tspan></text>
+<text x="560.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-style="italic">→ лягає в архів</text>
+<rect x="306.8" y="146.2" width="146.5" height="47.6" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="380.0" y="166.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">.gnu_debuglink</tspan><tspan x="380.0" dy="15.6">ім'я + 4-байт CRC</tspan></text>
+<line x1="292.1" y1="170.0" x2="302.8" y2="170.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="457.2" y1="170.0" x2="493.9" y2="170.0" stroke="#1a1a1a" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text x="380.0" y="136.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">--add-gnu-debuglink</text>
+<text x="380.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Реліз малий — у поле; словник окремо — в архів.</text>
+<text x="380.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">CRC у debuglink не дає GDB підхопити схожий ЧУЖИЙ словник.</text>
+</svg>

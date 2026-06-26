@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підключення: TX↔RX навхрест, спільна земля, обережно з 5 В</text>
+<rect x="60.0" y="80.0" width="180.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="150.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">міст USB↔UART</text>
+<text x="150.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(або USB-свисток)</text>
+<text x="80.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">TX</text>
+<text x="80.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">RX</text>
+<text x="80.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">GND</text>
+<rect x="520.0" y="80.0" width="180.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/>
+<text x="610.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">мікроконтролер</text>
+<text x="610.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(3.3 В логіка)</text>
+<text x="680.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">RX</text>
+<text x="680.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">TX</text>
+<text x="680.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">GND</text>
+<line x1="120.0" y1="152.0" x2="300.0" y2="152.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="300.0" y1="152.0" x2="460.0" y2="182.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="460.0" y1="182.0" x2="638.0" y2="182.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="638.0" y1="152.0" x2="460.0" y2="152.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="460.0" y1="152.0" x2="300.0" y2="182.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="300.0" y1="182.0" x2="122.0" y2="182.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">TX → RX</text>
+<text x="380.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">RX ← TX</text>
+<line x1="122.0" y1="212.0" x2="678.0" y2="212.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="380.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">спільна земля — обов'язково</text>
+<rect x="169.5" y="253.9" width="421.0" height="44.1" rx="6" fill="#fdeeec" stroke="#c0392b" stroke-width="1.3"/><text x="380.0" y="272.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Дві часті помилки: з'єднати TX↔TX (тиша) і забути спільну землю.</tspan><tspan x="380.0" dy="13.7">Міст 5 В, а МК 3.3 В → на лінії RX МК потрібен перетворювач рівнів.</tspan></text>
+</svg>

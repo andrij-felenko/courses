@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">vtable за непрозорим вказівником: хто що бачить</text>
+<rect x="260.0" y="54.0" width="300.0" height="58.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="410.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">політика  altitude_step()</text>
+<text x="410.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">кличе baro-&gt;vt-&gt;read(...) — не знає, чий</text>
+<rect x="280.0" y="150.0" width="260.0" height="70.0" rx="9" fill="#fff6e0" stroke="#caa24a" stroke-width="2.0"/>
+<text x="410.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d1a" text-anchor="middle" font-weight="700">baro_t  →  vtable</text>
+<text x="410.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">read(self, *out_pa)</text>
+<text x="410.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">close(self)</text>
+<line x1="410.0" y1="112.0" x2="410.0" y2="150.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="41.5" y="330.0" width="218.0" height="74.0" rx="9" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="150.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">bme280_i2c.c</text>
+<text x="150.5" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">vt.read = i2c_read</text>
+<text x="150.5" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">прихований стан: addr 0x76</text>
+<line x1="150.5" y1="330.0" x2="340.0" y2="220.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="301.0" y="330.0" width="218.0" height="74.0" rx="9" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="410.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">bme280_spi.c</text>
+<text x="410.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">vt.read = spi_read</text>
+<text x="410.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">прихований стан: cs_pin 17</text>
+<line x1="410.0" y1="330.0" x2="410.0" y2="220.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="560.5" y="330.0" width="218.0" height="74.0" rx="9" fill="#fbecec" stroke="#c0392b" stroke-width="1.8"/>
+<text x="669.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">baro_mock.c</text>
+<text x="669.5" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">vt.read = mock_read</text>
+<text x="669.5" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">прихований стан: сценарій</text>
+<line x1="669.5" y1="330.0" x2="480.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">одна таблиця методів, три реалізації — політика бачить лише абстракцію</text>
+</svg>

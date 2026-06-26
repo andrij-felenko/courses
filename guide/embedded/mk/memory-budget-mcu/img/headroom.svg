@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запас закладай ПОНАД виміряне</text>
+<text x="450.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">вимір — лише те, що відпрацювало; реальний пік завжди глибший</text>
+<text x="70.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">дно стека</text>
+<text x="830.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">стеля (кінець ділянки)</text>
+<rect x="70.0" y="150.0" width="349.6" height="64.0" rx="6" fill="#e8eef9" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="70.0" y="220.0" width="349.6" height="34.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="244.8" y="240.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="244.8" dy="0.0">виміряний пік</tspan></text>
+<rect x="419.6" y="150.0" width="121.6" height="64.0" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="1.6"/>
+<rect x="419.6" y="220.0" width="121.6" height="34.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.5"/><text x="480.4" y="240.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.4" dy="0.0">+ переривання</tspan></text>
+<rect x="541.2" y="150.0" width="121.6" height="64.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="541.2" y="220.0" width="121.6" height="34.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="602.0" y="239.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="602.0" dy="0.0">+ глибша гілка завтра</tspan></text>
+<rect x="662.8" y="150.0" width="167.2" height="64.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="746.4" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ЗАПАС</text>
+<text x="746.4" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">(подушка)</text>
+<line x1="830.0" y1="144.0" x2="830.0" y2="220.0" stroke="#c0392b" stroke-width="2.6"/>
+<rect x="70.0" y="270.0" width="760.0" height="56.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="450.0" y="287.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Вимір water-mark показує лише ті гілки, що встигли відпрацювати під час прогону.</tspan><tspan x="450.0" dy="14.3">Переривання приходить поверх стека задачі, що саме виконувалась; завтрашня правка додасть рівень викликів.</tspan><tspan x="450.0" dy="14.3">Тому до виміряного піка додають подушку — тримати зайнятим ≲70–80% ділянки.</tspan></text>
+</svg>

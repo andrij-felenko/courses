@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішнє підсилення: три класи приймача</text>
+<line x1="70.0" y1="340.0" x2="700.0" y2="340.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="700.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">зворотне зміщення →</text>
+<line x1="70.0" y1="340.0" x2="70.0" y2="70.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="64.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">M (підсилення)</text>
+<line x1="473.2" y1="72.0" x2="473.2" y2="340.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="5 5"/>
+<text x="473.2" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">напруга пробою Vbr</text>
+<line x1="80.0" y1="316.0" x2="363.2" y2="316.0" stroke="#2457d6" stroke-width="2.6"/>
+<text x="84.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">PIN-фотодіод: M = 1</text>
+<text x="84.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">без внутрішнього підсилення</text>
+<line x1="323.2" y1="300.0" x2="378.2" y2="270.0" stroke="#8e44ad" stroke-width="2.6"/>
+<line x1="378.2" y1="270.0" x2="428.2" y2="220.0" stroke="#8e44ad" stroke-width="2.6"/>
+<line x1="428.2" y1="220.0" x2="465.2" y2="162.0" stroke="#8e44ad" stroke-width="2.6"/>
+<text x="305.2" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="start" font-weight="700">APD (лінійний):</text>
+<text x="305.2" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="start">M ≈ 10…кілька×100</text>
+<line x1="477.2" y1="162.0" x2="477.2" y2="96.0" stroke="#c0392b" stroke-width="3.0"/>
+<circle cx="477.2" cy="96.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="493.2" y="86.0" width="210.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="598.2" y="104.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="598.2" dy="0.0">SPAD (Гейгер):</tspan><tspan x="598.2" dy="14.3">M ≈ 10⁵…10⁶ — лавина не</tspan><tspan x="598.2" dy="14.3">гасне сама, вихід двійковий</tspan></text>
+<rect x="84.1" y="370.5" width="571.8" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="370.0" y="389.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">нижче Vbr — лінійне множення; вище — самопідтримна лавина: один фотон дає повний імпульс</tspan></text>
+</svg>

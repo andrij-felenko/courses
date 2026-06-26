@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Build-ID: один відбиток зшиває образ із його словником</text>
+<rect x="18.0" y="96.0" width="168.0" height="78.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="102.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">компонувальник</text>
+<text x="102.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="102.0" dy="0.0">хеш над вмістом</tspan><tspan x="102.0" dy="14.3">--build-id</tspan></text>
+<line x1="188.0" y1="135.0" x2="208.0" y2="135.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="210.0" y="96.0" width="168.0" height="78.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="294.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">.note.gnu.build-id</text>
+<text x="294.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle"><tspan x="294.0" dy="0.0">секція в образі</tspan><tspan x="294.0" dy="14.3">(їде у Flash)</tspan></text>
+<line x1="380.0" y1="135.0" x2="400.0" y2="135.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="402.0" y="96.0" width="168.0" height="78.0" rx="6" fill="#fff7e6" stroke="#c0392b" stroke-width="2.0"/>
+<text x="486.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">прошивка в полі</text>
+<text x="486.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="486.0" dy="0.0">друкує свій</tspan><tspan x="486.0" dy="14.3">Build-ID у лог</tspan></text>
+<line x1="572.0" y1="135.0" x2="592.0" y2="135.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="594.0" y="96.0" width="168.0" height="78.0" rx="6" fill="#f3f4f6" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="678.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">сховище символів</text>
+<text x="678.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="678.0" dy="0.0">хеш — ключ</tspan><tspan x="678.0" dy="14.3">до .elf</tspan></text>
+<text x="390.0" y="218.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Build ID: 4e9f2a1c8b3d5e7f…1a3c5e7f9b1d</text>
+<text x="390.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Той самий 40-значний хеш — у логу з поля Й іменем файла в архіві.</text>
+<text x="390.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Машина рахує його з коду — переплутати збірки руками неможливо.</text>
+</svg>

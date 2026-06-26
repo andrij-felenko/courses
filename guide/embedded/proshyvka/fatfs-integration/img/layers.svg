@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">FatFs: три шари й шов diskio</text>
+<rect x="130.0" y="64.0" width="460.0" height="58.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="360.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Ваш застосунок</text>
+<text x="360.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">f_open · f_write · f_read · f_close</text>
+<rect x="130.0" y="148.0" width="460.0" height="58.0" rx="6" fill="#f6f4ec" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="360.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">FatFs — модуль FAT</text>
+<text x="360.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">знає лише формат FAT; про залізо — нічого</text>
+<rect x="130.0" y="232.0" width="460.0" height="58.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="360.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Ваш diskio (шов)</text>
+<text x="360.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">disk_read · disk_write · disk_ioctl · get_fattime</text>
+<rect x="130.0" y="316.0" width="460.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="360.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Залізо: SD по SPI / NOR-Flash / SDIO</text>
+<text x="360.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">фізичні блоки на носії</text>
+<line x1="200.0" y1="122.0" x2="200.0" y2="148.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="148.0" x2="520.0" y2="122.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="206.0" x2="200.0" y2="232.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="232.0" x2="520.0" y2="206.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="290.0" x2="200.0" y2="316.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="316.0" x2="520.0" y2="290.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="188.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="end">кличе вниз</text>
+<text x="532.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">дані / код</text>
+<text x="360.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">↑ замінюєте лише цей шар — і той самий FatFs пише на будь-який носій</text>
+</svg>

@@ -316,6 +316,7 @@
         { slug: "sdio-bus", title: "Шина SDIO", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "quad-spi", title: "Quad-SPI (QSPI)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "usb3-physical", title: "USB 3.x фізично: SuperSpeed і вище", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "usb-device-basics", title: "Пристрій на шині USB: хост, енумерація, кінцеві точки, класи", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
   ]
 });

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два табори, дві дефолтні відповіді — і чому</text>
+<rect x="40.0" y="70.0" width="360.0" height="250.0" rx="6" fill="#f7f9fb" stroke="#c0392b" stroke-width="2.0"/>
+<text x="220.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">ASIC-табір</text>
+<text x="220.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">власний кремній, своя бібліотека комірок</text>
+<line x1="60.0" y1="126.0" x2="380.0" y2="126.0" stroke="#dfe3e8" stroke-width="1.2"/>
+<text x="64.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Тригер з CLR — майже безплатний</text>
+<text x="64.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">у комірці й так є асинхронний вхід</text>
+<text x="64.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Працює без такту</text>
+<text x="64.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">годиться для скидання при ввімкненні</text>
+<text x="64.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Скидання потрібне для тесту на фабриці</text>
+<text x="64.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">scan-ланцюг треба вміти обнулити</text>
+<rect x="60.0" y="286.0" width="320.0" height="26.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="220.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ЗА замовчуванням: асинхронний</text>
+<rect x="480.0" y="70.0" width="360.0" height="250.0" rx="6" fill="#f7f9fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="660.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">FPGA-табір</text>
+<text x="660.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">чужа готова матриця тригерів</text>
+<line x1="500.0" y1="126.0" x2="820.0" y2="126.0" stroke="#dfe3e8" stroke-width="1.2"/>
+<text x="504.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Асинхронний вхід — дефіцитний ресурс</text>
+<text x="504.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">часто веде до зайвих LUT і гіршого розведення</text>
+<text x="504.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Синхронний reset зливається в логіку</text>
+<text x="504.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">синтез вкладає його у наявні таблиці</text>
+<text x="504.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Таймінг замикається легше</text>
+<text x="504.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">лишається звичайний шлях даних</text>
+<rect x="500.0" y="286.0" width="320.0" height="26.0" rx="6" fill="#fff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="660.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">ЗА замовчуванням: синхронний</text>
+<text x="440.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="40" fill="#b8860b" text-anchor="middle" font-weight="700">?</text>
+<text x="440.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Одне залізо штовхало в асинхронний бік, інше — у синхронний.</text>
+<text x="440.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Сперечалися не про теорію, а про те, що дешевше на ТВОЇЙ підкладці.</text>
+<text x="440.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Розв'язок (asynchronous assert, synchronous de-assert) помирив обидва аж згодом.</text>
+</svg>

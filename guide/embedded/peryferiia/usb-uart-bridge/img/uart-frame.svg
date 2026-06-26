@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="260" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що тече по лінії UART: один байт у кадрі</text>
+<text x="380.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">приклад: байт 0x53 = 'S' = 0101 0011, передається молодшим бітом уперед</text>
+<line x1="60.0" y1="96.0" x2="118.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="89.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">спокій</text>
+<line x1="118.0" y1="96.0" x2="118.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="118.0" y1="150.0" x2="176.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="147.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">старт</text>
+<line x1="176.0" y1="150.0" x2="176.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="176.0" y1="96.0" x2="234.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="205.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">D0</text>
+<text x="205.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<line x1="234.0" y1="96.0" x2="234.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="234.0" y1="96.0" x2="292.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="263.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">D1</text>
+<text x="263.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<line x1="292.0" y1="96.0" x2="292.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="292.0" y1="150.0" x2="350.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="321.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">D2</text>
+<text x="321.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<line x1="350.0" y1="150.0" x2="350.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="350.0" y1="150.0" x2="408.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="379.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">D3</text>
+<text x="379.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<line x1="408.0" y1="150.0" x2="408.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="408.0" y1="96.0" x2="466.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="437.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">D4</text>
+<text x="437.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<line x1="466.0" y1="96.0" x2="466.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="466.0" y1="150.0" x2="524.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="495.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">D5</text>
+<text x="495.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<line x1="524.0" y1="150.0" x2="524.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="524.0" y1="96.0" x2="582.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="553.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">D6</text>
+<text x="553.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<line x1="582.0" y1="96.0" x2="582.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="582.0" y1="150.0" x2="640.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="611.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">D7</text>
+<text x="611.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<line x1="640.0" y1="150.0" x2="640.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="640.0" y1="96.0" x2="698.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="669.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">стоп</text>
+<text x="52.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">1</text>
+<text x="52.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">0</text>
+<line x1="118.0" y1="194.0" x2="176.0" y2="194.0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="147.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">1 біт = 1/швидкість</text>
+<text x="380.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">обидва кінці мають заздалегідь знати швидкість — годинника в кадрі немає (тому «асинхронна»)</text>
+</svg>

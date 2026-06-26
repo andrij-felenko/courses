@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Базове збудження: рухома основа y(t) → відгук маси x(t)</text>
+<line x1="70.0" y1="70.0" x2="70.0" y2="320.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,5"/>
+<text x="70.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">нерухомий відлік</text>
+<rect x="180.0" y="300.0" width="240.0" height="28.0" rx="6" fill="#e9ecf2" stroke="#333333" stroke-width="1.5"/>
+<text x="300.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">основа (рама)</text>
+<line x1="150.0" y1="314.0" x2="204.0" y2="314.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="132.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="end" font-weight="700">y(t)</text>
+<text x="132.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end">вхід</text>
+<rect x="244.0" y="96.0" width="112.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="300.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">маса m</text>
+<text x="300.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(IMU)</text>
+<line x1="374.0" y1="114.0" x2="428.0" y2="114.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="436.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">x(t)</text>
+<text x="436.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">вихід</text>
+<polyline points="270.0,152.0 282.0,176.7 258.0,201.3 282.0,226.0 258.0,250.7 282.0,275.3 270.0,300.0" fill="none" stroke="#27ae60" stroke-width="2.4"/>
+<text x="240.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="end" font-weight="700">k</text>
+<text x="240.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end">пружина</text>
+<rect x="317.0" y="270.0" width="26.0" height="30.0" rx="2" fill="#eef2ff" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="330.0" y1="152.0" x2="330.0" y2="284.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="319.0" y1="284.0" x2="341.0" y2="284.0" stroke="#2457d6" stroke-width="3.0"/>
+<text x="360.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="start" font-weight="700">c</text>
+<text x="360.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">тертя</text>
+<rect x="150.0" y="24.0" width="300.0" height="30.0" rx="6" fill="#fff8e1" stroke="#b8860b" stroke-width="1.5"/><text x="300.0" y="42.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a5c00" text-anchor="middle"><tspan x="300.0" dy="0.0">пружина й тертя «бачать» лише різницю  x − y</tspan></text>
+</svg>

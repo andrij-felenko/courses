@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">SOLID мовою прошивки</text>
+<rect x="40.0" y="78.0" width="740.0" height="62.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="1.7"/>
+<circle cx="78.0" cy="109.0" r="22.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="78.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="24" fill="#27ae60" text-anchor="middle" font-weight="700">S</text>
+<text x="118.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">одна причина змінитися</text>
+<text x="118.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">модуль робить одне; читання давача, лог і пакет — нарізно</text>
+<rect x="40.0" y="150.0" width="740.0" height="62.0" rx="10" fill="#e9eefb" stroke="#2457d6" stroke-width="1.7"/>
+<circle cx="78.0" cy="181.0" r="22.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="78.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="24" fill="#2457d6" text-anchor="middle" font-weight="700">O</text>
+<text x="118.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">відкрите на розширення</text>
+<text x="118.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">новий давач = новий .c під інтерфейс, старий код не чіпаєш</text>
+<rect x="40.0" y="222.0" width="740.0" height="62.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="1.7"/>
+<circle cx="78.0" cy="253.0" r="22.0" fill="#ffffff" stroke="#caa24a" stroke-width="2.2"/>
+<text x="78.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="24" fill="#8a6d1a" text-anchor="middle" font-weight="700">L</text>
+<text x="118.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d1a" text-anchor="start" font-weight="700">підтип чесно заміняє предка</text>
+<text x="118.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">будь-яка реалізація драйвера працює там, де чекають інтерфейс</text>
+<rect x="40.0" y="294.0" width="740.0" height="62.0" rx="10" fill="#fbecec" stroke="#c0392b" stroke-width="1.7"/>
+<circle cx="78.0" cy="325.0" r="22.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.2"/>
+<text x="78.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="24" fill="#c0392b" text-anchor="middle" font-weight="700">I</text>
+<text x="118.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">вузькі інтерфейси</text>
+<text x="118.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">клієнт залежить лише від методів, які справді кличе</text>
+<rect x="40.0" y="366.0" width="740.0" height="62.0" rx="10" fill="#e9eefb" stroke="#2457d6" stroke-width="1.7"/>
+<circle cx="78.0" cy="397.0" r="22.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="78.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="24" fill="#2457d6" text-anchor="middle" font-weight="700">D</text>
+<text x="118.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">залежність від абстракції</text>
+<text x="118.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">політика й драйвер дивляться на інтерфейс, не один на одного</text>
+<text x="410.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">п'ять відповідей на одне питання: як стримати зчеплення, щоб правка не їхала по всьому коду</text>
+</svg>

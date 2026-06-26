@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інференс на чипі: налаштувати раз, викликати на кожен кадр</text>
+<rect x="35.0" y="45.0" width="170.0" height="49.9" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="66.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">.tflite</tspan><tspan x="120.0" dy="16.9">(граф + ваги int8)</tspan></text>
+<rect x="40.0" y="120.0" width="300.0" height="130.0" rx="6" fill="#f0f7f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="190.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ОДИН РАЗ при старті</text>
+<rect x="100.0" y="152.3" width="180.0" height="45.3" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="190.0" y="171.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">розібрати модель</tspan><tspan x="190.0" dy="14.3">(resolver, ops)</tspan></text>
+<rect x="80.0" y="197.3" width="220.0" height="45.3" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="190.0" y="216.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">AllocateTensors():</tspan><tspan x="190.0" dy="14.3">розкласти арену в RAM</tspan></text>
+<rect x="410.0" y="120.0" width="320.0" height="250.0" rx="6" fill="#fdf3f2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="570.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">НА КОЖЕН КАДР (Invoke)</text>
+<rect x="455.0" y="159.5" width="230.0" height="31.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="570.0" y="178.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">вхід → input-тензор (int8)</tspan></text>
+<rect x="445.0" y="207.3" width="250.0" height="45.3" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.5"/><text x="570.0" y="226.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">граф int8-операцій</tspan><tspan x="570.0" dy="14.3">шар за шаром у топ-порядку</tspan></text>
+<rect x="455.0" y="269.5" width="230.0" height="31.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="570.0" y="288.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">output-тензор (int8)</tspan></text>
+<rect x="455.0" y="319.5" width="230.0" height="31.0" rx="6" fill="#f0f7f0" stroke="#27ae60" stroke-width="1.5"/><text x="570.0" y="338.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">деквантувати → число</tspan></text>
+<line x1="120.0" y1="92.0" x2="120.0" y2="118.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="185.0" x2="410.0" y2="185.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="735.0" y1="175.0" x2="755.0" y2="175.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="755.0" y1="175.0" x2="755.0" y2="285.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="755.0" y1="285.0" x2="735.0" y2="285.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="748.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">знов</text>
+<text x="380.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Граф і ваги — сталі; «навчання» вже позаду. Кожен Invoke — детермінований прохід.</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO-маркер підписує криву: фронти маркера = межі фази в коді</text>
+<line x1="86.0" y1="230.0" x2="686.0" y2="230.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="86.0" y1="230.0" x2="86.0" y2="70.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="22.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">струм</text>
+<text x="22.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">I(t)</text>
+<polygon points="250.0,230.0 250.0,72.3 410.0,72.3 410.0,230.0" fill="#c0392b" fill-opacity="0.16" stroke="none"/>
+<polyline points="86.0,229.7 150.0,229.7 150.0,135.4 250.0,135.4 250.0,72.3 410.0,72.3 410.0,229.7 686.0,229.7" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="124.0" y="221.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">сон</text>
+<text x="200.0" y="127.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">вимір</text>
+<text x="330.0" y="64.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">пік TX</text>
+<text x="518.0" y="221.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">сон</text>
+<text x="330.0" y="181.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">заряд фази</text>
+<line x1="86.0" y1="382.0" x2="686.0" y2="382.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="686.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">час →</text>
+<text x="22.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">GPIO</text>
+<text x="22.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">маркер</text>
+<polyline points="86.0,360.0 250.0,360.0 250.0,300.0 410.0,300.0 410.0,360.0 686.0,360.0" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<text x="246.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0</text>
+<text x="330.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">маркер фази TX = 1</text>
+<line x1="250.0" y1="72.3" x2="250.0" y2="300.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,4"/>
+<line x1="410.0" y1="72.3" x2="410.0" y2="300.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,4"/>
+<text x="330.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">фронти збігаються</text>
+<rect x="34.6" y="436.5" width="690.9" height="31.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="455.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Прошивка піднімає GPIO на вході у фазу й опускає на виході — площа під піком належить саме цій ділянці коду</tspan></text>
+</svg>

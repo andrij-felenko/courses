@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Уприскування зависання: чесна перевірка сторожового таймера</text>
+<line x1="60.0" y1="150.0" x2="720.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="720.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-style="italic">час</text>
+<rect x="70.0" y="110.0" width="200.0" height="26.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="170.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">годуємо сторожа</text>
+<rect x="280.0" y="110.0" width="250.0" height="26.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="405.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">вкинуто: while(1) — не годуємо</text>
+<circle cx="120.0" cy="150.0" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="120.0" y1="156.0" x2="120.0" y2="186.5" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="85.2" y="186.5" width="69.6" height="43.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/><text x="120.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">reset()</tspan><tspan x="120.0" dy="13.0">reset()…</tspan></text>
+<circle cx="290.0" cy="150.0" r="6.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="290.0" y1="156.0" x2="290.0" y2="186.5" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="252.1" y="186.5" width="75.8" height="43.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="290.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="290.0" dy="0.0">вкидаємо</tspan><tspan x="290.0" dy="13.0">зависання</tspan></text>
+<circle cx="530.0" cy="150.0" r="6.0" fill="#b9770e" stroke="#b9770e" stroke-width="1.5"/>
+<line x1="530.0" y1="156.0" x2="530.0" y2="186.5" stroke="#b9770e" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="467.3" y="186.5" width="125.4" height="43.0" rx="6" fill="#fff3e0" stroke="#b9770e" stroke-width="1.4"/><text x="530.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">таймаут:</tspan><tspan x="530.0" dy="13.0">сторож спрацьовує</tspan></text>
+<circle cx="670.0" cy="150.0" r="6.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="670.0" y1="156.0" x2="670.0" y2="186.5" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="610.4" y="186.5" width="119.2" height="43.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/><text x="670.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">reboot →</tspan><tspan x="670.0" dy="13.0">ESP_RST_TASK_WDT</tspan></text>
+<text x="400.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">Зелений тест = причина скидання довела, що сторож не проспав</text>
+</svg>

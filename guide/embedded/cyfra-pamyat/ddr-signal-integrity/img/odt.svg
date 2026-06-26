@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">On-die termination: термінація всередині чипа, вмикна на льоту</text>
+<text x="200.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">де живе термінатор</text>
+<rect x="60.0" y="100.0" width="150.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="135.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">БУЛО: резистор</tspan><tspan x="135.0" dy="13.0">на платі (Vtt-острів)</tspan></text>
+<text x="135.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">зайва площа, шлейф,</text>
+<text x="135.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">фіксований опір</text>
+<line x1="135.0" y1="178.0" x2="135.0" y2="206.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="206.0" width="150.0" height="38.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="135.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">СТАЛО: ODT</tspan><tspan x="135.0" dy="13.0">усередині кристала</tspan></text>
+<text x="135.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">контролер вмикає лише</text>
+<text x="135.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">там, де приймає зараз</text>
+<line x1="410.0" y1="80.0" x2="410.0" y2="300.0" stroke="#e4e8ee" stroke-width="1.4"/>
+<text x="580.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">як це відчиняє око</text>
+<rect x="475.0" y="115.0" width="130.0" height="130.0" rx="6" fill="#ffffff" stroke="#e4e8ee" stroke-width="1.0"/>
+<polyline points="475.0,119.0 540.0,169.6 605.0,119.0" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<polyline points="475.0,241.0 540.0,190.4 605.0,241.0" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="540.0" y1="169.6" x2="540.0" y2="190.4" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="540.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">без термінації:</tspan><tspan x="540.0" dy="13.0">дзвін, око майже</tspan><tspan x="540.0" dy="13.0">зачинене</tspan></text>
+<line x1="620.0" y1="180.0" x2="660.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="675.0" y="115.0" width="130.0" height="130.0" rx="6" fill="#ffffff" stroke="#e4e8ee" stroke-width="1.0"/>
+<polyline points="675.0,119.0 740.0,139.7 805.0,119.0" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<polyline points="675.0,241.0 740.0,220.3 805.0,241.0" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="740.0" y1="139.7" x2="740.0" y2="220.3" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="740.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="740.0" dy="0.0">з ODT:</tspan><tspan x="740.0" dy="13.0">дзвін гасне,</tspan><tspan x="740.0" dy="13.0">око відчинене</tspan></text>
+<text x="410.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">термінатор переїхав у чип і вмикається на льоту; відкрите око — це запас на похибки</text>
+</svg>

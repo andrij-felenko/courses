@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три точки зору на той самий шлях завантаження</text>
+<line x1="70.0" y1="114.0" x2="70.0" y2="300.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="70.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">фронт RESET / EN</text>
+<text x="70.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">t = 0</text>
+<rect x="70.0" y="150.0" width="74.0" height="46.0" rx="6" fill="#eef1f4" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="73.0" y="155.0" width="68.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="107.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="107.0" dy="0.0">ПЗП</tspan></text>
+<rect x="144.0" y="150.0" width="340.4" height="46.0" rx="6" fill="#fdf6e3" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="147.0" y="155.0" width="334.4" height="36.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="314.2" y="169.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="314.2" dy="0.0">завантажувач 2-го щабля</tspan><tspan x="314.2" dy="15.0">(копіює образ · SHA-256)</tspan></text>
+<rect x="484.4" y="150.0" width="222.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="487.4" y="155.0" width="216.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="595.4" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="595.4" dy="0.0">старт ESP-IDF</tspan></text>
+<rect x="706.4" y="150.0" width="103.6" height="46.0" rx="6" fill="#eafaf1" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="709.4" y="155.0" width="97.6" height="36.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="758.2" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="758.2" dy="0.0">app_main</tspan></text>
+<line x1="706.4" y1="130.0" x2="706.4" y2="300.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="5 4"/>
+<text x="711.4" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">старт app_main</text>
+<line x1="70.0" y1="230.0" x2="706.4" y2="230.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="70.0" y1="224.0" x2="70.0" y2="236.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="706.4" y1="224.0" x2="706.4" y2="236.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="70.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">щуп аналізатора (GPIO-маркер)</text>
+<text x="70.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">бачить УВЕСЬ шлях: фронт RESET → перший такт коду</text>
+<line x1="144.0" y1="284.0" x2="484.4" y2="284.0" stroke="#7b3fa0" stroke-width="3.0"/>
+<line x1="144.0" y1="278.0" x2="144.0" y2="290.0" stroke="#7b3fa0" stroke-width="2.0"/>
+<line x1="484.4" y1="278.0" x2="484.4" y2="290.0" stroke="#7b3fa0" stroke-width="2.0"/>
+<text x="144.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7b3fa0" text-anchor="start" font-weight="700">мітки завантажувача (лог)</text>
+<text x="144.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">час лише в межах 2-го щабля, і лише якщо лог увімкнено</text>
+<line x1="706.4" y1="360.0" x2="810.0" y2="360.0" stroke="#2457d6" stroke-width="3.0"/>
+<line x1="706.4" y1="354.0" x2="706.4" y2="366.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="810.0" y1="354.0" x2="810.0" y2="366.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="706.4" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">esp_timer_get_time()</text>
+<text x="706.4" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">лічить від старту ESP-IDF — усе лівіше для нього сліпе</text>
+<rect x="70.0" y="326.0" width="636.4" height="22.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<rect x="72.0" y="327.0" width="632.4" height="20.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="388.2" y="340.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="388.2" dy="0.0">сліпа зона esp_timer — час сюди зсередини прошивки не видно</tspan></text>
+</svg>
