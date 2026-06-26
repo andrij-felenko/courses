@@ -48,6 +48,7 @@
       ] },
     { slug: "string-geometry-streaming", title: "Дискретні", scope: "Алгоритми над текстом, геометрією та потоками: пошук і вирівнювання рядків, оболонки й перетини фігур, онлайн-рішення та один прохід над масивними даними.",
       topics: [
+        { slug: "regex-engine", title: "Рушій регулярних виразів", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "numerical-algorithms", title: "Числові", scope: "Арифметика великих чисел, лінійна алгебра, чисельні методи, точні та наближені обчислення.",
       topics: [
@@ -55,6 +56,7 @@
         { slug: "newtons-method", title: "Метод Ньютона", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "automatic-differentiation", title: "Автоматичне диференціювання", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "numerical-ode", title: "Числові методи розв'язку ОДУ", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "float-formats", title: "Формати чисел із рухомою комою (IEEE 754)", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "combinatorial-optimization", title: "Оптимізація", scope: "Пошук найкращого розв'язку в дискретних і неперервних просторах: лінійне, цілочисельне програмування, евристики.",
       topics: [

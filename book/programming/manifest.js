@@ -79,6 +79,7 @@
         { slug: "std-atomic", title: "std::atomic і порядок пам'яті", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "rust-ownership", title: "Модель власності Rust", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "unsigned-overflow", title: "Беззнакове переповнення і модульна арифметика", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "lexer-design", title: "Лексичний аналіз", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "systems", title: "Системи", scope: "Керування ресурсами й виконанням: процеси, планування, віртуальна й фізична пам'ять (стек, купа, алокатори, GC, покажчики), файлові системи, драйвери, потоки, синхронізація, моделі пам'яті, неблокувальність.",
       topics: [

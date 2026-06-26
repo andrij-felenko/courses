@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Який шум головний: напруги eₙ чи струму iₙ·R — залежить від опору джерела</text>
+<line x1="90.0" y1="300.0" x2="630.0" y2="300.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="90.0" y1="300.0" x2="90.0" y2="70.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="360.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">опір джерела R (лог. шкала) →</text>
+<text x="30.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">внесок</text>
+<text x="30.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">у шум</text>
+<line x1="90.0" y1="230.0" x2="630.0" y2="230.0" stroke="#2457d6" stroke-width="2.6"/>
+<text x="626.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end" font-weight="700">eₙ  — шум напруги ОП (стала)</text>
+<line x1="100.0" y1="292.0" x2="620.0" y2="88.0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="106.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">iₙ·R — шум струму на R (росте)</text>
+<line x1="100.0" y1="270.0" x2="620.0" y2="150.0" stroke="#27ae60" stroke-width="2.4" stroke-dasharray="7 5"/>
+<text x="620.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">√(4kTR) — шум самого R</text>
+<circle cx="370.8" cy="230.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="370.8" y1="230.0" x2="370.8" y2="300.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="370.8" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">R_opt = eₙ / iₙ</text>
+<text x="160.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">малий R:
+керує eₙ</text>
+<text x="560.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">великий R:
+керує iₙ·R</text>
+<rect x="86.9" y="326.2" width="526.2" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="346.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Сумарний шум — корінь із суми квадратів цих трьох. За малих R головний eₙ,</tspan><tspan x="350.0" dy="15.6">за великих — iₙ·R; найтихіше там, де R близький до R_opt = eₙ/iₙ.</tspan></text>
+</svg>

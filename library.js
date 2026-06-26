@@ -31,7 +31,7 @@
     return fetchText("book/" + slug + "/manifest.js").then(function (src) {
       var b = manifestObj(src, "__BOOKS__");
       var topics = 0, done = 0;
-      ((b && b.sections) || []).forEach(function (sec) { (sec.topics || []).forEach(function (t) { topics++; if (t.status === "done") done++; }); });
+      ((b && b.sections) || []).forEach(function (sec) { (sec.topics || []).forEach(function (t) { var st = t.basic && t.basic.status; if (st !== "empty") topics++; if (st === "done") done++; }); });
       return { slug: slug, title: (b && b.title) || slug, branches: ((b && b.sections) || []).length, topics: topics, done: done };
     });
   }

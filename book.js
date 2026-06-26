@@ -57,7 +57,7 @@
   BOOK.modules.forEach(function (m) {
     m.chapters.forEach(function (c) {
       c.module = m;
-      if (c.dir && c.status && c.status !== "empty") {   // done/deeper/update — текст Є, отже читабельне
+      if (c.dir && (c.status === "done" || c.status === "update" || c.status === "deeper" || c.status === "recheck")) {   // файл існує (pending/empty — ще не написано)
         c.slug = c.dir.split("/").pop();
         c.draft = c.status !== "done";                   // deeper/update — чернетка (читається, але позначена)
         CH_BY_SLUG[c.slug] = c;
@@ -580,6 +580,7 @@
       if (!m.chapters.length) return;
       s += '<div class="sb-group-label">' + escapeHtml(m.title) + "</div>";
       m.chapters.forEach(function (c) {
+        if (c.status === "empty") return;
         if (c.slug) {
           s += '<a class="sb-link' + (c.slug === chap.slug ? " active" : "") + '" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
         } else {
@@ -728,9 +729,11 @@
       "</div></header><div class=\"toc\">";
     live.forEach(function (m) {
       var d = m.chapters.filter(function (c) { return c.slug; }).length;
+      var total = m.chapters.filter(function (c) { return c.status !== "empty"; }).length;
       h += '<div class="module-block"><div class="module-head"><span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
-        '<span class="m-prog">' + d + " / " + m.chapters.length + "</span></div><div class=\"ch-list\">";
+        '<span class="m-prog">' + d + " / " + total + "</span></div><div class=\"ch-list\">";
       m.chapters.forEach(function (c) {
+        if (c.status === "empty") return;   // не потрібно — не показуємо
         if (c.slug) {   // є текст → читабельне (коротка або повна версія)
           h += '<div class="ch-item done"><div class="ch-row"><a class="ch-open" href="#ch=' + c.slug + '">' +
             '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
@@ -752,6 +755,7 @@
       if (!m.chapters.length) return;
       s += '<div class="sb-group-label">' + escapeHtml(m.title) + "</div>";
       m.chapters.forEach(function (c) {
+        if (c.status === "empty") return;
         if (c.slug) s += '<a class="sb-link" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
         else s += '<span class="sb-link" style="opacity:.4;cursor:default">' + escapeHtml(c.title) + "</span>";
       });
@@ -876,7 +880,7 @@
     if (!chap) {
       syncModals([]);
       var any = null;
-      BOOK.modules.forEach(function (m) { m.chapters.forEach(function (c) { if (c.status !== "done" && c.slug === r.slug) any = c; }); });
+      BOOK.modules.forEach(function (m) { m.chapters.forEach(function (c) { if (!c.slug && c.dir && c.dir.split("/").pop() === r.slug) any = c; }); });
       currentSlug = null; appliedAt = null;
       if (any) renderComingSoon(any); else renderCover();
       return;

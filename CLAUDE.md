@@ -23,7 +23,7 @@
 ## Скрипти — усі в `scripts/` (універсальні, параметр — книга)
 
 - **Утиліти:** `bookbuild.js` (адаптер маніфест→рушій), `svgkit.py`/`svgcheck.py` (фігури; `figs.py` у теці теми імпортує `svgkit`), `wordcount.js` (проза за §3), `linkcheck.js` (биті лінки/book:-цілі; `empty` = легітимний стаб).
-- **Воркфлоу (через `Workflow scriptPath="scripts/<name>.js"`):** `write-topics.js` (пише/править статті `empty`/`update`/`recheck`/`deeper` → `done`), `write-inserts.js` (те саме для вставок). args = `{book, kind?, section?, status?, level?/type?, limit?}`.
+- **Воркфлоу письма (`Workflow scriptPath="scripts/write-batch.js"`):** повний v5-батч в один прогін, 4 фази — **Скаут** (перші N `pending` за `level`) → **Статті** (opus-max агенти, стагер 2с; кожен пише статтю + лишає список своїх вставок і нових залежних тем, ref-лінки вже в прозі; вставок і маніфесту НЕ чіпає) → **Вставки** (opus-max агенти пишуть зібрані вставки під ці статті) → **Маніфест** (серійно: статті→`done`, вставки→`done`, нові теми→`pending`). args = `{book, kind?:"book"|"catalog"|"guide", level?:"basic"|"detailed", limit?:10, scope?, units?}`. Скаут можна обійти, передавши готовий `units:[{section,slug,title,scope?}]`.
 - `migrate-manifests-v2.js` — разова міграція маніфестів під схему §2 (запис ведеться).
 
 ## Паралельність і loop-сесії
