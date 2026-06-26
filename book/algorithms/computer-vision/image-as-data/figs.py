@@ -499,6 +499,217 @@ def fig_roadmap():
            title="Зір виявився не задачею, а наукою")
 
 
+# ── packed-vs-planar: YUYV (packed 4:2:2) vs NV12 (planar 4:2:0) ──────────────
+# Ідея: як ті самі пікселі лежать у пам'яті двома форматами камери.
+# YUYV — один потік, Y/U/Y/V упереміш; NV12 — спершу площина Y, потім площина UV.
+
+def fig_packed_vs_planar():
+    W, H = 980, 540
+    p = []
+    Y_COL = "#334155"
+    U_COL = "#1f4ed8"
+    V_COL = "#cc0000"
+
+    def byte(x, y, w, h, fill, lab, tcol="white"):
+        out = ['<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="2" '
+               'fill="%s" stroke="white" stroke-width="0.8"/>' % (x, y, w, h, fill)]
+        out.append(text(x + w / 2, y + h / 2 + 4, lab, size=10, color=tcol, bold=True))
+        return "".join(out)
+
+    bw, bh = 44, 34
+
+    # ── YUYV (packed 4:2:2) ──
+    p.append(text(70, 80, "YUYV — packed 4:2:2 (один потік)", size=13, color=INK, bold=True, anchor="start"))
+    p.append(text(70, 100, "2 пікселі = 4 байти; U/V — одні на пару (по горизонталі)",
+                  size=10, color=MUTED, anchor="start"))
+    seq = [("Y0", Y_COL), ("U0", U_COL), ("Y1", Y_COL), ("V0", V_COL),
+           ("Y2", Y_COL), ("U2", U_COL), ("Y3", Y_COL), ("V2", V_COL)]
+    x0, y0 = 70, 116
+    for i, (lab, col) in enumerate(seq):
+        p.append(byte(x0 + i * bw, y0, bw, bh, col, lab))
+    # дужки «піксель 0 = Y0+U0+V0» / «піксель 1 = Y1+U0+V0»
+    p.append(line(x0, y0 + bh + 8, x0 + 4 * bw, y0 + bh + 8, color=MUTED, sw=1.2))
+    p.append(text(x0 + 2 * bw, y0 + bh + 24, "пікселі 0,1 ділять U0,V0", size=9, color=MUTED))
+    p.append(line(x0 + 4 * bw, y0 + bh + 8, x0 + 8 * bw, y0 + bh + 8, color=MUTED, sw=1.2))
+    p.append(text(x0 + 6 * bw, y0 + bh + 24, "пікселі 2,3 ділять U2,V2", size=9, color=MUTED))
+    p.append(text(70, y0 + bh + 50, "адреса пікселя x:  base + y·stride + (x & ~1)·2   (крок по 4 байти на пару)",
+                  size=9, color=INK, anchor="start"))
+
+    # ── NV12 (planar 4:2:0) ──
+    ny = 280
+    p.append(text(70, ny, "NV12 — planar 4:2:0 (дві площини)", size=13, color=INK, bold=True, anchor="start"))
+    p.append(text(70, ny + 20, "спершу вся площина Y (W×H), потім напівплощина UV (W×H/2), U/V чергуються",
+                  size=10, color=MUTED, anchor="start"))
+    # площина Y — рядок клітинок
+    yy = ny + 36
+    p.append(text(70, yy - 4, "площина Y (яскравість, повна роздільність)", size=9, color=Y_COL, anchor="start"))
+    for i in range(8):
+        p.append(byte(70 + i * bw, yy + 4, bw, bh, Y_COL, "Y%d" % i))
+    p.append(text(70 + 8 * bw + 14, yy + 4 + bh / 2 + 4, "… W·H байтів", size=9, color=MUTED, anchor="start"))
+    # напівплощина UV — чергування
+    uy = yy + bh + 26
+    p.append(text(70, uy - 4, "напівплощина UV (одна пара на 2×2 блок, чергується)", size=9, color=U_COL, anchor="start"))
+    uv = [("U0", U_COL), ("V0", V_COL), ("U1", U_COL), ("V1", V_COL),
+          ("U2", U_COL), ("V2", V_COL), ("U3", U_COL), ("V3", V_COL)]
+    for i, (lab, col) in enumerate(uv):
+        p.append(byte(70 + i * bw, uy + 4, bw, bh, col, lab))
+    p.append(text(70 + 8 * bw + 14, uy + 4 + bh / 2 + 4, "… W·H/2 байтів", size=9, color=MUTED, anchor="start"))
+
+    # нижня плашка-висновок
+    by = 470
+    p.append(rect(70, by, 840, 52, fill=FILL, stroke=INK, sw=1.3, rx=10))
+    p.append(text(490, by + 21,
+                  "Packed: усе впереміш в одному буфері — зручно копіювати. Planar: Y окремо — зручно "
+                  "взяти саму яскравість (сіре) без розбору колірності.",
+                  size=10, bold=True))
+    p.append(text(490, by + 40,
+                  "4:2:2 проріджує колір лише по горизонталі; 4:2:0 — і по горизонталі, і по вертикалі (удвічі менше колірних байтів).",
+                  size=9, color=MUTED))
+
+    render(os.path.join(OUT, "packed-vs-planar.svg"), W, H, *p,
+           title="Пам'ять буфера камери: YUYV (packed) vs NV12 (planar)")
+
+
+# ── hsv-hexcone: тон по колу, насиченість по радіусу, яскравість по осі ───────
+# Ідея: геометрія HSV — кутова природа H, ахроматична вісь (S=0), обід (S=1),
+# граничні точки V=0 (чорне) і V=1.
+
+def fig_hsv_hexcone():
+    W, H = 940, 520
+    p = []
+    cx, cy, R = 300, 250, 150
+
+    # колірне коло (тон по куту, насиченість по радіусу) — кільцями
+    rings = 7
+    sectors = 60
+    import math
+    for ri in range(rings):
+        r_in = R * ri / rings
+        r_out = R * (ri + 1) / rings
+        s = (ri + 0.5) / rings           # насиченість росте від центру до обода
+        for si in range(sectors):
+            a0 = 2 * math.pi * si / sectors
+            a1 = 2 * math.pi * (si + 1) / sectors
+            hue = si / float(sectors)
+            rr, gg, bb = colorsys.hsv_to_rgb(hue, s, 1.0)
+            col = (int(rr * 255), int(gg * 255), int(bb * 255))
+            x0 = cx + r_in * math.cos(a0); y0 = cy + r_in * math.sin(a0)
+            x1 = cx + r_out * math.cos(a0); y1 = cy + r_out * math.sin(a0)
+            x2 = cx + r_out * math.cos(a1); y2 = cy + r_out * math.sin(a1)
+            x3 = cx + r_in * math.cos(a1); y3 = cy + r_in * math.sin(a1)
+            p.append('<polygon points="%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f" fill="rgb(%d,%d,%d)"/>'
+                     % (x0, y0, x1, y1, x2, y2, x3, y3, col[0], col[1], col[2]))
+    p.append('<circle cx="%d" cy="%d" r="%d" fill="none" stroke="%s" stroke-width="1.4"/>' % (cx, cy, R, INK))
+
+    # центр — ахроматична точка (S=0)
+    p.append('<circle cx="%d" cy="%d" r="6" fill="#bfbfbf" stroke="%s" stroke-width="1.2"/>' % (cx, cy, INK))
+    p.append(text(cx, cy - 14, "S=0 (сіре)", size=9, color=INK, bold=True))
+    p.append(text(cx, cy + 24, "тут тон не визначений", size=9, color=MUTED))
+
+    # кут тону: 0°, та помаранчевий ~32°
+    p.append(line(cx, cy, cx + R, cy, color=INK, sw=1.3, dash="3,2"))
+    p.append(text(cx + R + 26, cy + 4, "H=0° (червоний)", size=9, color=INK))
+    a = math.radians(32)
+    p.append(line(cx, cy, cx + R * math.cos(a), cy + R * math.sin(a), color=INK, sw=1.6))
+    p.append(text(cx + R * math.cos(a) + 6, cy + R * math.sin(a) + 18, "H≈32° помаранчевий", size=9, color=INK, anchor="start"))
+    # дужка-кут
+    p.append('<path d="M %.1f %.1f A 40 40 0 0 1 %.1f %.1f" fill="none" stroke="%s" stroke-width="1.2"/>'
+             % (cx + 40, cy, cx + 40 * math.cos(a), cy + 40 * math.sin(a), POS))
+    p.append(text(cx + 54, cy + 20, "H", size=11, color=POS, bold=True))
+    # підпис радіуса = S
+    p.append(text(cx + R * 0.5, cy - 8, "S →", size=10, color=INK, bold=True))
+
+    p.append(text(cx, cy + R + 34, "Тон H — це КУТ (0…360°); насиченість S — радіус (0 у центрі → 1 на ободі)",
+                  size=10, color=MUTED))
+
+    # ── вісь V збоку (вертикальний стовпчик яскравості) ──
+    vx, vtop, vbot = 720, 110, 410
+    n = 24
+    for i in range(n):
+        v = 1.0 - i / float(n)
+        g = int(v * 255)
+        p.append('<rect x="%d" y="%.1f" width="48" height="%.1f" fill="rgb(%d,%d,%d)"/>'
+                 % (vx, vtop + i * (vbot - vtop) / n, (vbot - vtop) / n + 0.6, g, g, g))
+    p.append(rect(vx, vtop, 48, vbot - vtop, fill="none", stroke=INK, sw=1.3, rx=2))
+    p.append(text(vx + 24, vtop - 12, "вісь V", size=11, color=INK, bold=True))
+    p.append(text(vx + 64, vtop + 6, "V=1 (повна яскравість)", size=9, color=INK, anchor="start"))
+    p.append(text(vx + 64, vbot - 2, "V=0 (чорне — тон і S не важать)", size=9, color=INK, anchor="start"))
+    p.append(text(vx + 24, vbot + 22, "яскравість", size=9, color=MUTED))
+
+    # нижня плашка
+    by = 446
+    p.append(rect(60, by, 820, 60, fill="#eef2ff", stroke=B_COL, sw=1.4, rx=11))
+    p.append(text(470, by + 22, "Геометрія HSV: тон — кут, насиченість — радіус, яскравість — окрема вісь",
+                  size=11, color=B_COL, bold=True))
+    p.append(text(470, by + 44,
+                  "Граничні точки: на осі (S=0) тон не визначений; на дні (V=0) і тон, і S не мають значення — це просто чорне.",
+                  size=10, color=MUTED))
+
+    render(os.path.join(OUT, "hsv-hexcone.svg"), W, H, *p,
+           title="Колірне коло HSV: тон — кут, насиченість — радіус, яскравість — вісь")
+
+
+# ── stride-align: чому рядок доповнюють і де ховається перекіс ────────────────
+# Ідея: width*bpp < stride; «хвіст» padding; неврахований крок → зсув щорядка → перекіс.
+
+def fig_stride_align():
+    W, H = 960, 470
+    p = []
+    Y_COL = "#334155"
+    PAD = "#fca5a5"
+
+    # ── правильно: адресуємо через stride ──
+    p.append(text(70, 84, "Рядок у пам'яті: корисні байти + доповнення до вирівнювання",
+                  size=12, color=INK, bold=True, anchor="start"))
+    rows = 4
+    cellw, cellh = 30, 26
+    usefuln = 18          # width*bpp
+    padn = 6              # доповнення
+    x0, y0 = 70, 104
+    for r in range(rows):
+        ry = y0 + r * (cellh + 8)
+        for c in range(usefuln):
+            g = 120 + ((c * 7 + r * 13) % 90)
+            p.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="rgb(%d,%d,%d)" '
+                     'stroke="white" stroke-width="0.5"/>' % (x0 + c * cellw, ry, cellw, cellh, g, g, g))
+        for c in range(padn):
+            p.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="%s" '
+                     'stroke="white" stroke-width="0.5"/>' % (x0 + (usefuln + c) * cellw, ry, cellw, cellh, PAD))
+    # підписи дужок
+    p.append(line(x0, y0 - 8, x0 + usefuln * cellw, y0 - 8, color=Y_COL, sw=1.4))
+    p.append(text(x0 + usefuln * cellw / 2, y0 - 14, "width · bpp (корисні)", size=9, color=Y_COL))
+    p.append(line(x0 + usefuln * cellw, y0 - 8, x0 + (usefuln + padn) * cellw, y0 - 8, color=POS, sw=1.4))
+    p.append(text(x0 + (usefuln + padn / 2) * cellw, y0 - 14, "padding", size=9, color=POS))
+    fullw = (usefuln + padn) * cellw
+    p.append(line(x0, y0 + rows * (cellh + 8) + 4, x0 + fullw, y0 + rows * (cellh + 8) + 4, color=INK, sw=1.4))
+    p.append(text(x0 + fullw / 2, y0 + rows * (cellh + 8) + 20, "stride (повний крок рядка, кратний N байтам)",
+                  size=10, color=INK, bold=True))
+
+    # ── формула вирівнювання ──
+    fy = 330
+    p.append(rect(70, fy, 400, 110, fill=FILL, stroke=INK, sw=1.3, rx=10))
+    p.append(text(270, fy + 24, "Як порахувати крок", size=11, color=INK, bold=True))
+    p.append(text(90, fy + 50, "stride = align_up(width · bpp, N)", size=11, color=INK, anchor="start"))
+    p.append(text(90, fy + 74, "align_up(v,N) = (v + N−1) & ~(N−1)", size=10, color=MUTED, anchor="start"))
+    p.append(text(90, fy + 94, "N: 4 (типово), 16 (NEON/SIMD), 32/64 (DMA-burst)", size=9, color=MUTED, anchor="start"))
+
+    # ── помилка: узяв width замість stride → перекіс ──
+    p.append(text(700, fy - 6, "Узяв width замість stride →", size=11, color=POS, bold=True))
+    p.append(text(700, fy + 12, "щорядка зсув на padding → перекіс", size=10, color=POS))
+    sx, sy = 560, fy + 24
+    for r in range(6):
+        shift = r * 10            # накопичений зсув
+        for c in range(14):
+            g = 90 + ((c + r) % 2) * 110
+            p.append('<rect x="%.1f" y="%.1f" width="14" height="12" fill="rgb(%d,%d,%d)"/>'
+                     % (sx + c * 14 + shift, sy + r * 14, g, g, g))
+    p.append(text(700, sy + 6 * 14 + 18, "«діагональні смуги» — класичний підпис сплутаного кроку",
+                  size=9, color=MUTED))
+
+    render(os.path.join(OUT, "stride-align.svg"), W, H, *p,
+           title="Stride і вирівнювання: чому рядок доповнюють і звідки перекіс")
+
+
 if __name__ == "__main__":
     fig_image_as_grid()
     fig_channels()
@@ -508,4 +719,7 @@ if __name__ == "__main__":
     fig_semantic_gap()
     fig_project_goals()
     fig_roadmap()
+    fig_packed_vs_planar()
+    fig_hsv_hexcone()
+    fig_stride_align()
     print("OK: figures written to", OUT)

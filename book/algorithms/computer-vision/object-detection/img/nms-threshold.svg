@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 408" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="408" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив порога IoU на результат NMS</text>
+<rect x="40.0" y="64.0" width="220.0" height="250.0" rx="8" fill="#0f172a" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="150.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">розріджена + низький поріг</text>
+<rect x="82.4" y="129.0" width="56" height="70" rx="3" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+<circle cx="110.4" cy="150.0" r="11.0" fill="#1e293b" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="86.8" y="134.0" width="56" height="70" rx="3" fill="none" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 3"/>
+<circle cx="114.8" cy="155.0" r="11.0" fill="#1e293b" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="166.0" y="194.0" width="56" height="70" rx="3" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+<circle cx="194.0" cy="215.0" r="11.0" fill="#1e293b" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="170.4" y="199.0" width="56" height="70" rx="3" fill="none" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 3"/>
+<circle cx="198.4" cy="220.0" r="11.0" fill="#1e293b" stroke="#6b7280" stroke-width="1.6"/>
+<text x="150.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">дублікати прибрано ✓</text>
+<rect x="280.0" y="64.0" width="220.0" height="250.0" rx="8" fill="#0f172a" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="390.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">щільна + низький поріг</text>
+<rect x="340.0" y="159.0" width="56" height="70" rx="3" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+<circle cx="368.0" cy="180.0" r="11.0" fill="#1e293b" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="384.0" y="159.0" width="56" height="70" rx="3" fill="none" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 3"/>
+<circle cx="412.0" cy="180.0" r="11.0" fill="#1e293b" stroke="#6b7280" stroke-width="1.6"/>
+<text x="390.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">сусід помилково викинутий ✗</text>
+<rect x="520.0" y="64.0" width="220.0" height="250.0" rx="8" fill="#0f172a" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="630.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">щільна + високий поріг</text>
+<rect x="580.0" y="159.0" width="56" height="70" rx="3" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+<circle cx="608.0" cy="180.0" r="11.0" fill="#1e293b" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="624.0" y="159.0" width="56" height="70" rx="3" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+<circle cx="652.0" cy="180.0" r="11.0" fill="#1e293b" stroke="#27ae60" stroke-width="1.6"/>
+<text x="630.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">обидва збережено ✓</text>
+<rect x="40.0" y="344.0" width="680.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/><text x="380.0" y="360.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Зелена суцільна рамка — лишена, сіра пунктирна — викинута NMS.</tspan><tspan x="380.0" dy="13.0">На щільній сцені низький поріг зливає сусідів (середня);</tspan><tspan x="380.0" dy="13.0">високий поріг або Soft-/DIoU-NMS їх рятує.</tspan></text>
+</svg>

@@ -253,9 +253,215 @@ def fig_opening_closing():
            title="Відкриття і закриття: прибрати й залатати")
 
 
+# ── otsu-variance: гістограма з двох куп + крива σ²_b(t) з максимумом у долині ─
+# Ідея: внизу та сама гістограма (дві купи, долина), угорі — крива міжкласової
+# дисперсії σ²_b(t); її вершина припадає точно на долину, де Оцу й ставить поріг.
+
+def fig_otsu_variance():
+    W, H = 760, 470
+    p = []
+
+    # шість рівнів прикладу зі вставки: n = [0,24,16,0,12,28]
+    levels = [0, 24, 16, 0, 12, 28]
+    nlev = len(levels)
+    # σ²_b(t) для t = 0..4 (нормовано на пік) — порахована в тексті:
+    # t=1:1.802  t=2:2.723  t=3:2.723  t=4:2.048 ; крайні майже нуль
+    var_t = {0: 0.05, 1: 1.802, 2: 2.723, 3: 2.723, 4: 2.048, 5: 0.05}
+    vmax = max(var_t.values())
+
+    # геометрія двох панелей, спільна вісь рівнів
+    plot_x = 90
+    plot_w = 600
+    step = plot_w / float(nlev)              # ширина «слота» рівня
+
+    def col_center(i):
+        return plot_x + step * (i + 0.5)
+
+    # ── верхня панель: крива σ²_b(t) ──
+    top_y0, top_h = 64, 150
+    top_base = top_y0 + top_h
+    p.append(text(W / 2, 28, "Міжкласова дисперсія σ²_b(t): вершина — у долині",
+                  size=15, color=INK, bold=True))
+    p.append(line(plot_x, top_base, plot_x + plot_w, top_base, color=INK, sw=1.4))
+    p.append(line(plot_x, top_base, plot_x, top_y0, color=INK, sw=1.4))
+    p.append(text(plot_x - 10, top_y0 + 6, "σ²_b", size=11, color=INK, anchor="end", bold=True))
+
+    # лінія кривої по точках t=0..5
+    pts = []
+    for i in range(nlev):
+        cx = col_center(i)
+        cy = top_base - (var_t[i] / vmax) * (top_h - 14)
+        pts.append((cx, cy))
+    for i in range(len(pts) - 1):
+        p.append(line(pts[i][0], pts[i][1], pts[i + 1][0], pts[i + 1][1], color=NEG, sw=2.4))
+    for i, (cx, cy) in enumerate(pts):
+        p.append(circle(cx, cy, 3.4, fill=NEG, stroke="none", sw=0))
+    # позначити вершину (t=2..3) і впустити пунктир до спільної осі знизу
+    peak_x = col_center(2)
+    p.append(line(peak_x, pts[2][1] - 4, peak_x, top_base, color=POS, sw=1.6, dash="4,3"))
+    p.append(text(peak_x, pts[2][1] - 10, "максимум σ²_b", size=10.5, color=POS, bold=True))
+
+    # ── нижня панель: гістограма ──
+    bot_y0, bot_h = 286, 120
+    bot_base = bot_y0 + bot_h
+    hmax = float(max(levels))
+    p.append(text(W / 2, bot_y0 - 14, "Гістограма яскравостей: дві купи й долина",
+                  size=13, color=INK, bold=True))
+    p.append(line(plot_x, bot_base, plot_x + plot_w, bot_base, color=INK, sw=1.4))
+    for i, c in enumerate(levels):
+        cx = col_center(i)
+        bw = step * 0.62
+        if c > 0:
+            hgt = (c / hmax) * (bot_h - 10)
+            p.append(rect(cx - bw / 2, bot_base - hgt, bw, hgt,
+                          fill="#94a3b8", stroke="none", sw=0, rx=3))
+        p.append(text(cx, bot_base + 16, str(i), size=10, color=MUTED))   # підпис рівня
+
+    # спільний поріг: пунктир крізь долину (рівень 3) на обох панелях
+    thr_x = plot_x + step * 3.0              # межа між рівнем 2 і 3 (поріг t=2..3)
+    p.append(line(thr_x, top_y0, thr_x, bot_base, color=POS, sw=1.6, dash="2,4"))
+    p.append(text(thr_x + 4, bot_base - bot_h - 4, "поріг Оцу", size=10, color=POS,
+                  anchor="start", bold=True))
+    p.append(text(plot_x + step * 1.5, bot_base + 32, "тло (темна купа)", size=9.5, color=MUTED))
+    p.append(text(plot_x + step * 4.5, bot_base + 32, "об'єкт (світла купа)", size=9.5, color=MUTED))
+
+    p.append(text(W / 2, H - 14,
+                  "Дисперсія мала на краях (купа недорізана) і сягає вершини над долиною — "
+                  "там і стає поріг.",
+                  size=10.5, color=MUTED, italic=True))
+
+    render(os.path.join(OUT, "otsu-variance.svg"), W, H, *p,
+           title=None)
+
+
+# ── adaptive-mean-gauss: рівномірне vs Гауссове локальне середнє ───────────────
+# Ідея: біля різкого перепаду яскравості mean-поріг «пливе» (важить далекі
+# пікселі), Гаусс притишує далеких — край чіткіший, дрібні штрихи цілі.
+
+def fig_adaptive_mean_gauss():
+    W, H = 820, 372
+    p = []
+    bw, bh = 220, 150
+    ys = 78
+    xs = [40, 300, 560]
+
+    def scene(x):
+        # фон: світла ліва половина, темна права — різкий перепад посередині
+        p.append(rect(x, ys, bw / 2, bh, fill="#c8c8c8", stroke="none", sw=0))
+        p.append(rect(x + bw / 2, ys, bw / 2, bh, fill="#3a3a3a", stroke="none", sw=0))
+        p.append(rect(x, ys, bw, bh, fill="none", stroke=INK, sw=1.2, rx=8))
+        # тонкий напис (штрихи) поверх — на світлому темний, на темному світлий
+        for k in range(5):
+            sx = x + 22 + k * (bw - 44) / 4.0
+            col = "#222222" if sx < x + bw / 2 else "#dddddd"
+            p.append(rect(sx, ys + bh / 2 - 26, 4, 52, fill=col, stroke="none", sw=0, rx=1))
+
+    def result(x, kind):
+        # вихід порога: чорне тло, білі штрихи; mean «пливе» біля перепаду
+        p.append(rect(x, ys, bw, bh, fill="#000000", stroke=INK, sw=1.2, rx=8))
+        for k in range(5):
+            sx = x + 22 + k * (bw - 44) / 4.0
+            near = abs(sx - (x + bw / 2))           # відстань до перепаду
+            if kind == "mean" and near < 30:
+                # біля перепаду штрих розмитий/обрізаний — «пливе»
+                p.append(rect(sx, ys + bh / 2 - 14, 4, 28, fill="#9a9a9a", stroke="none", sw=0, rx=1))
+            else:
+                p.append(rect(sx, ys + bh / 2 - 26, 4, 52, fill="#ffffff", stroke="none", sw=0, rx=1))
+        # маркер перепаду
+        p.append(line(x + bw / 2, ys, x + bw / 2, ys + bh, color=POS, sw=1.2, dash="3,3"))
+
+    scene(xs[0])
+    p.append(text(xs[0] + bw / 2, ys + bh + 20, "шматок кадру", size=11, color=INK, bold=True))
+    p.append(text(xs[0] + bw / 2, ys + bh + 36, "тонкі штрихи, різкий перепад тла", size=9, color=MUTED))
+
+    result(xs[1], "mean")
+    p.append(text(xs[1] + bw / 2, ys + bh + 20, "рівномірний (mean)", size=11, color=NEG, bold=True))
+    p.append(text(xs[1] + bw / 2, ys + bh + 36, "біля перепаду край «пливе»", size=9, color=MUTED))
+
+    result(xs[2], "gauss")
+    p.append(text(xs[2] + bw / 2, ys + bh + 20, "Гауссів (зважений)", size=11, color=FIELD, bold=True))
+    p.append(text(xs[2] + bw / 2, ys + bh + 36, "край чіткий, штрихи цілі", size=9, color=MUTED))
+
+    p.append(arrow(xs[0] + bw + 4, ys + bh / 2, xs[1] - 4, ys + bh / 2, color=NEG, sw=1.7))
+    p.append(arrow(xs[1] + bw + 4, ys + bh / 2, xs[2] - 4, ys + bh / 2, color=FIELD, sw=1.7))
+
+    p.append(text(W / 2, H - 14,
+                  "Mean важить усіх сусідів однаково, тож біля перепаду поріг зміщується; "
+                  "Гаусс притишує далеких — край тримається.",
+                  size=10.5, color=MUTED, italic=True))
+
+    render(os.path.join(OUT, "adaptive-mean-gauss.svg"), W, H, *p,
+           title="Рівномірний vs Гауссів адаптивний поріг")
+
+
+# ── hit-or-miss: до/після перетворення влучання-промаху (виявлення кутів) ──────
+# Ідея: HMT лишає тільки пікселі, навколо яких збігся повний шаблон «біле тут
+# ТА чорне там» — так із суцільного об'єкта виокремлюються самі кути.
+
+def fig_hit_or_miss():
+    W, H = 720, 372
+    p = []
+    cell = 26
+    cols, rows = 7, 7
+    grid_w = cols * cell
+
+    # об'єкт-«сходинка» з виразними кутами (1 — біле)
+    obj = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 0, 0, 0],
+        [0, 1, 1, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ]
+    # «кути» — опуклі кутові пікселі об'єкта (виокремлені шаблоном)
+    corners = [(1, 1), (1, 3), (3, 5), (5, 5), (5, 3), (3, 1)]
+
+    def draw_grid(x0, y0, mark=None):
+        for r in range(rows):
+            for c in range(cols):
+                xx = x0 + c * cell
+                yy = y0 + r * cell
+                if mark is not None:
+                    fill = "#facc15" if (r, c) in mark else "#0f172a"
+                    if obj[r][c] == 0:
+                        fill = "#0f172a"
+                else:
+                    fill = "#ffffff" if obj[r][c] else "#0f172a"
+                p.append(rect(xx, yy, cell - 1.5, cell - 1.5, fill=fill,
+                              stroke="#334155", sw=0.7, rx=2))
+
+    y0 = 80
+    x_in = 56
+    x_out = x_in + grid_w + 96
+
+    p.append(text(x_in + grid_w / 2, y0 - 16, "вхід: суцільний об'єкт", size=12, color=INK, bold=True))
+    draw_grid(x_in, y0)
+
+    p.append(text(x_out + grid_w / 2, y0 - 16, "після hit-or-miss: самі кути", size=12, color=INK, bold=True))
+    draw_grid(x_out, y0, mark=corners)
+
+    p.append(arrow(x_in + grid_w + 14, y0 + grid_w / 2,
+                   x_out - 14, y0 + grid_w / 2, color=POS, sw=2.2))
+    p.append(text((x_in + grid_w + x_out) / 2, y0 + grid_w / 2 - 12, "шаблон",
+                  size=10.5, color=POS, bold=True))
+
+    p.append(text(W / 2, H - 16,
+                  "Шаблон вимагає білого в одних позиціях і чорного в інших — лишаються тільки "
+                  "пікселі точної форми (кути).",
+                  size=10.5, color=MUTED, italic=True))
+
+    render(os.path.join(OUT, "hit-or-miss.svg"), W, H, *p,
+           title="Перетворення влучання-промаху: виявлення кутів")
+
+
 if __name__ == "__main__":
     fig_thresholding()
     fig_adaptive()
     fig_erosion_dilation()
     fig_opening_closing()
+    fig_otsu_variance()
+    fig_adaptive_mean_gauss()
+    fig_hit_or_miss()
     print("OK: figures written to", OUT)

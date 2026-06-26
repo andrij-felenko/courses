@@ -17,15 +17,7 @@
   // «/book/…» пішло б на домен-корінь повз підтеку «/courses/».
   var SITE_ROOT = location.pathname.replace(/[^/]*$/, "");
 
-  // Реєстр книг для крос-книжкових лінків [текст](book:<id>/<slug>[/<file>][#<topic>]).
-  // Маніфест іншої книги тягнемо ліниво (при першому кліку) і кешуємо в _book.
-  var XBOOK = {
-    electronics: { manifest: "manifest.js",      basePath: "embedded/",   entry: "electronics.html", icon: "⚡",  label: "Вбудована електроніка" },
-    chem:        { manifest: "manifest-chem.js", basePath: "chemistry/",  entry: "chem.html",        icon: "⚗️", label: "Хімія" },
-    math:        { manifest: "manifest-math.js", basePath: "math/",       entry: "math.html",        icon: "🧮", label: "Математика" },
-    components:  { manifest: "manifest-comp.js", basePath: "components/", entry: "comp.html",        icon: "🔌", label: "Компоненти" }
-  };
-  // Предметні книги book/<id> — для крос-попапів book:<id>/<slug> у новій структурі.
+  // Предметні книги book/<id> та курси guide/<course> — для крос-попапів book:/guide: (v5).
   var SUBJECT_META = {
     physics:        { icon: "⚛️", label: "Фізика" },        math:           { icon: "🧮", label: "Математика" },
     chemistry:      { icon: "⚗️", label: "Хімія" },         electronics:    { icon: "🔌", label: "Електроніка" },
@@ -121,13 +113,15 @@
 
   /* Крос-книжкове посилання book:<id>/<slug>[/<file>][#<topic>] → дескриптор для popup */
   function resolveCrossBook(href) {
-    var rest = href.replace(/^book:/i, "");
+    var isGuide = /^guide:/i.test(href);
+    var rest = href.replace(/^(book|guide):/i, "");
     var frag = ""; var hi = rest.indexOf("#");
     if (hi >= 0) { frag = rest.slice(hi + 1); rest = rest.slice(0, hi); }
     var segs = rest.split("/").filter(Boolean);
     var book = segs.shift() || "";
     var slug = segs.shift() || "";
     var file = segs.join("/");                 // порожнє → головний файл розділу
+    if (isGuide) book = "guide/" + book;        // курс кодуємо як "guide/<course>" у book-слоті токена
     return { href: "#", external: false, cross: [book, slug, file, frag].join("|") };
   }
 
@@ -135,7 +129,7 @@
   function resolveHref(href, text, ctx) {
     if (/^(https?:|mailto:|tel:)/i.test(href)) return { href: href, external: true };
     if (href.charAt(0) === "#") return { href: href, external: false };
-    if (/^book:/i.test(href)) return resolveCrossBook(href);
+    if (/^(book|guide):/i.test(href)) return resolveCrossBook(href);
     var frag = ""; var hi = href.indexOf("#");
     if (hi >= 0) { frag = href.slice(hi + 1); href = href.slice(0, hi); }
     if (!/\.md$/i.test(href)) return { href: href, external: false };
@@ -340,10 +334,10 @@
 
     // 🔗-вставка з book:-лінком → УСЯ картка клікабельна → крос-попап на іншу тему/предмет
     if (kind === "xref") {
-      var bm = body.match(/\]\((book:[^)]+)\)/i);
+      var bm = body.match(/\]\(((?:book|guide):[^)]+)\)/i);
       if (bm) {
         var cross = resolveCrossBook(bm[1]).cross;
-        var flatx = body.replace(/\s*\[([^\]]+)\]\(book:[^)]+\)/ig, "").trim();
+        var flatx = body.replace(/\s*\[([^\]]+)\]\((?:book|guide):[^)]+\)/ig, "").trim();
         return '<a class="callout callout-nav hist-teaser xref-teaser" href="#" data-xbook="' + escapeAttr(cross) + '" title="Відкрити повну тему">' +
           '<span class="callout-ico">🔗<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
           '<div class="callout-body">' + renderInline(flatx.replace(/\n/g, " "), ctx) + "</div>" +
@@ -1011,31 +1005,8 @@
     } else { fallbackCopy(text); ok(); }
   }
 
-  /* ── Крос-книжковий popup: матеріал з ІНШОЇ книги (book:<id>/<slug>…) ──── */
-  function loadXBook(id) {
-    var reg = XBOOK[id];
-    if (!reg) return Promise.reject(new Error("Невідома книга: " + id));
-    if (reg._book) return Promise.resolve(reg._book);
-    if (reg.basePath === BASE) { reg._book = BOOK; return Promise.resolve(BOOK); }
-    return fetchText(reg.manifest).then(function (src) {
-      // Новий формат індексу (BOOK_META+BOOK_MODULES) збираємо через bookbuild.js;
-      // legacy (window.BOOK у самому файлі) — як раніше.
-      var p = window.bookFromIndexSrc
-        ? window.bookFromIndexSrc(src, reg.basePath)
-        : Promise.resolve((function () { try { return new Function("window", src + "\n;return window.BOOK;")({}); } catch (e) { return null; } })());
-      return Promise.resolve(p).then(function (book) { reg._book = book; return book; });
-    });
-  }
-  function chapInBook(book, slug) {
-    var found = null;
-    ((book && book.modules) || []).forEach(function (m) {
-      (m.chapters || []).forEach(function (c) {
-        if (c.status === "done" && c.dir && c.dir.split("/").pop() === slug) { c.module = c.module || m; found = c; }
-      });
-    });
-    return found;
-  }
-  // крос-книжковий шар розбирається з токена «b:<book>|<slug>|<file>|<frag>»
+  /* ── Крос-попап (v5): book:<id>/<slug>[/<file>] або guide:<course>/<slug>[/<file>] ──── */
+  // токен шару: «<id|guide/course>|<slug>|<file>|<frag>»
   function fillXbook(el, data) {
     var pp = data.split("|");
     openCrossBook(el, pp[0] || "", pp[1] || "", pp[2] || "", pp[3] || "");
@@ -1048,9 +1019,9 @@
   // ВМІСТ діалогу шару (без зовнішньої .hist-modal — її дає сам шар)
   function xbookShell(reg, slug, frag, headHtml, innerHtml) {
     var openHref = reg ? reg.entry + "#ch=" + encodeURIComponent(slug) + (frag ? "&at=" + encodeURIComponent(frag) : "") : "#";
-    var lbl = reg ? reg.icon + " Інша книга · " + escapeHtml(reg.label) : "Інша книга";
+    var lbl = reg ? reg.icon + " " + escapeHtml(reg.label) : "Інша книга";
     var btn = '<a href="' + escapeAttr(openHref) + '" style="display:inline-block;margin-top:1.1rem;padding:.5rem .9rem;background:#1d6fa4;color:#fff;border-radius:7px;text-decoration:none">' +
-      (reg ? "Відкрити книгу «" + escapeHtml(reg.label) + "» →" : "Відкрити книгу →") + "</a>";
+      (reg ? "Відкрити «" + escapeHtml(reg.label) + "» →" : "Відкрити →") + "</a>";
     return '<div class="hist-modal-backdrop" data-close></div>' +
       '<div class="hist-modal-dialog">' +
       '<button class="hist-modal-share" type="button" data-share aria-label="Копіювати посилання" title="Копіювати посилання на цю вставку">🔗</button>' +
@@ -1058,7 +1029,7 @@
       '<div class="hist-modal-scroll"><div class="hist-modal-head"><div class="hist-art-label">' + lbl + "</div>" + headHtml + "</div>" +
       '<div class="content-body">' + innerHtml + btn + "</div></div></div>";
   }
-  // знайти тему за slug у будь-якій предметній книзі (будь-який статус, аби був текст)
+  // знайти тему за slug у книзі/курсі (будь-який статус, аби був текст)
   function chapInBookAny(book, slug) {
     var found = null;
     ((book && book.modules) || []).forEach(function (m) {
@@ -1068,26 +1039,57 @@
     });
     return found;
   }
-  // book:<id>/<slug> у НОВІЙ структурі book/<id> → попап зі статтею тієї теми (у шар el)
-  function openBookRef(el, subject, slug, frag) {
-    var meta = SUBJECT_META[subject] || { icon: "📘", label: subject };
-    var reg = { entry: "read.html?book=" + encodeURIComponent(subject), icon: meta.icon, label: meta.label };
+  var _guideCache = {};
+  function loadGuideAsBook(course) {
+    if (_guideCache[course]) return Promise.resolve(_guideCache[course]);
+    return window.loadGuide(course).then(function (g) {
+      var b = (g && window.adaptSubjectBook) ? window.adaptSubjectBook(g, "guide/") : null; _guideCache[course] = b; return b;
+    });
+  }
+  /* Єдиний відкривач крос-попапу. kind: "book" (book/<id>) | "guide" (guide/<course>).
+     file: порожнє → головна стаття; "<slug>-d.md" → детальна; "<type>-<name>.md" → вставка (📜/🔌/🧮/⚙️). */
+  function openRef(el, kind, id, slug, file, frag) {
+    var reg, loader;
+    if (kind === "guide") {
+      reg = { entry: "read.html?guide=" + encodeURIComponent(id), icon: "📘", label: "Курс" };
+      loader = loadGuideAsBook(id);
+    } else {
+      var meta = SUBJECT_META[id] || { icon: "📘", label: id };
+      reg = { entry: "read.html?book=" + encodeURIComponent(id), icon: meta.icon, label: meta.label };
+      loader = (BOOK && id === BOOK.bookSlug) ? Promise.resolve(BOOK)
+        : (_subjCache[id] ? Promise.resolve(_subjCache[id])
+          : window.loadSubjectBook(id).then(function (b) { _subjCache[id] = b; return b; }));
+    }
     function show(head, inner) { setLayerHtml(el, xbookShell(reg, slug, frag, head, inner)); }
-    var loader = (subject === BOOK.bookSlug) ? Promise.resolve(BOOK)
-      : (_subjCache[subject] ? Promise.resolve(_subjCache[subject])
-        : window.loadSubjectBook(subject).then(function (b) { _subjCache[subject] = b; return b; }));
     loader.then(function (bk) {
       var chap = bk && chapInBookAny(bk, slug);
-      if (!chap || !chap.dir || chap.status === "empty") {
-        show("<h1>" + escapeHtml((chap && chap.title) || slug.replace(/-/g, " ")) + "</h1>",
-          '<p>📝 Ця тема ще <strong>в розробці</strong> — її напишуть за першим посиланням сюди.</p>');
+      var base = bk ? (bk.basePath || ((kind === "guide" ? "guide/" : "book/") + id + "/")) : "";
+      var dir = chap && chap.dir;
+
+      // ── ВСТАВКА — самостійний файл: відкриваємо НЕЗАЛЕЖНО від статусу/готовності статті ──
+      if (file && /^(hist|comp|math|proj)-/.test(file)) {
+        if (!dir) { show("<h1>" + escapeHtml(slug.replace(/-/g, " ")) + "</h1>", "<p>📝 Вставку не знайдено.</p>"); return; }
+        fetchText(base + dir + "/" + file).then(function (text) {
+          var ctx = { currentSlug: slug, dir: dir, base: base, histBases: new Set(), attach: [] };
+          var a = parseHistory(text, file, ctx);
+          show("<h1>" + escapeHtml(a.title) + "</h1>", (a.introHtml ? '<div class="hist-intro">' + a.introHtml + "</div>" : "") + a.bodyHtml);
+        }).catch(function (e) {
+          show("<h1>" + escapeHtml(slug.replace(/-/g, " ")) + "</h1>", "<p>Не вдалося завантажити вставку (<code>" + escapeHtml(e.message) + "</code>).</p>");
+        });
         return;
       }
-      var base = bk.basePath || ("book/" + subject + "/");
-      fetchText(base + chap.dir + "/" + chap.main).then(function (text) {
-        var ctx = { currentSlug: slug, dir: chap.dir, base: base, histBases: new Set(), attach: [] };
+
+      // ── СТАТТЯ (головна / детальна) — гейтимо на статус (стаб, якщо ще не написана) ──
+      if (!dir || chap.status === "empty") {
+        show("<h1>" + escapeHtml((chap && chap.title) || slug.replace(/-/g, " ")) + "</h1>",
+          '<p>📝 ' + (kind === "guide" ? "Крок курсу" : "Ця тема") + ' ще <strong>в розробці</strong>.</p>');
+        return;
+      }
+      var fname = file || chap.main;
+      fetchText(base + dir + "/" + fname).then(function (text) {
+        var ctx = { currentSlug: slug, dir: dir, base: base, histBases: new Set(), attach: [] };
         var pm = parseMain(text, ctx);
-        var body = pm.bodyHtml.replace(/src="(img\/[^"]+)"/g, 'src="' + base + chap.dir + '/$1"');
+        var body = pm.bodyHtml.replace(/src="(img\/[^"]+)"/g, 'src="' + base + dir + '/$1"');
         show("<h1>" + escapeHtml(chap.title) + "</h1>", body);
       }).catch(function (e) {
         show("<h1>" + escapeHtml(chap.title || slug) + "</h1>", "<p>Не вдалося завантажити (<code>" + escapeHtml(e.message) + "</code>).</p>");
@@ -1095,32 +1097,9 @@
     });
   }
   function openCrossBook(el, book, slug, file, frag) {
-    if (window.loadSubjectBook && SUBJECT_META[book]) { openBookRef(el, book, slug, frag); return; }
-    var reg = XBOOK[book];
-    if (!reg) { setLayerHtml(el, xbookShell(null, slug, frag, "<h1>" + escapeHtml(slug || "Розділ") + "</h1>", "<p>Невідома книга <code>" + escapeHtml(book) + "</code>.</p>")); return; }
-    loadXBook(book).then(function (bk) {
-      var chap = bk && chapInBook(bk, slug);
-      if (!chap) {
-        var title = slug ? slug.replace(/-/g, " ") : ((bk && bk.title) || reg.label);
-        setLayerHtml(el, xbookShell(reg, slug, frag, "<h1>" + escapeHtml(title) + "</h1>",
-          '<p>📝 Ця тема ще <strong>в розробці</strong>. Її напишуть за першим посиланням сюди. ' +
-          "Поки що відкрий книгу — там видно загальну мапу й сусідні теми.</p>"));
-        return;
-      }
-      var fname = file || chap.main;
-      fetchText(reg.basePath + chap.dir + "/" + fname).then(function (text) {
-        var ctx = { currentSlug: slug, dir: chap.dir, base: reg.basePath, histBases: new Set(), attach: [] };
-        var a = parseHistory(text, fname, ctx);
-        setLayerHtml(el, xbookShell(reg, slug, frag, "<h1>" + escapeHtml(a.title) + "</h1>",
-          (a.introHtml ? '<div class="hist-intro">' + a.introHtml + "</div>" : "") + a.bodyHtml));
-      }).catch(function (e) {
-        setLayerHtml(el, xbookShell(reg, slug, frag, "<h1>" + escapeHtml(chap.title || slug) + "</h1>",
-          "<p>Не вдалося завантажити матеріал (<code>" + escapeHtml(e.message) + "</code>).</p>"));
-      });
-    }).catch(function () {
-      setLayerHtml(el, xbookShell(reg, slug, frag, "<h1>" + escapeHtml(slug) + "</h1>",
-        '<p>Не вдалося завантажити маніфест книги «' + escapeHtml(reg.label) + "».</p>"));
-    });
+    if (/^guide\//.test(book)) { openRef(el, "guide", book.slice(6), slug, file, frag); return; }   // guide:<course>/<slug>
+    if (window.loadSubjectBook && SUBJECT_META[book]) { openRef(el, "book", book, slug, file, frag); return; }
+    setLayerHtml(el, xbookShell(null, slug, frag, "<h1>" + escapeHtml(slug || "Розділ") + "</h1>", "<p>Невідома книга <code>" + escapeHtml(book) + "</code>.</p>"));
   }
 
   var spy = null;

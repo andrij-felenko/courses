@@ -1,0 +1,722 @@
+# План: теми, що дістають детальну -d.md (704)
+
+## algorithms (52)
+- algorithms/band-filters — Смугові фільтри
+- ✅ algorithms/bayer-demosaic — Демозаїка
+- algorithms/bit-flips — Перевернуті біти
+- algorithms/choosing-a-filter — Вибір фільтра
+- algorithms/cnn — Згорткові мережі
+- algorithms/complementary-filter — Комплементарний фільтр
+- ✅ algorithms/compute-cost — Вартість обчислень
+- ✅ algorithms/convolution-filters — Згортки й фільтри
+- algorithms/discrete-pid — Дискретний ПІД
+- ✅ algorithms/edge-detection — Виділення меж
+- algorithms/ema — EMA
+- algorithms/fft — ШПФ
+- algorithms/filter-as-spectrum-shaper — Формувач спектра
+- algorithms/fir-filter — КІХ-фільтр
+- algorithms/fir-vs-iir — КІХ проти БІХ
+- algorithms/fixed-point-implementation — Реалізація fixed-point
+- algorithms/gradient-descent — Градієнтний спуск
+- ✅ algorithms/histogram — Гістограма
+- algorithms/iir-filter — БІХ-фільтр
+- ✅ algorithms/image-as-data — Зображення як дані
+- algorithms/instability-stabilization — Потреба стабілізації
+- algorithms/inter-frame — Міжкадрове стиснення
+- algorithms/jitter-buffer — Буфер джитера
+- algorithms/jpeg-intra — JPEG
+- algorithms/kalman-ekf — Розширений фільтр Калмана (EKF)
+- algorithms/kalman-filter — Фільтр Калмана
+- algorithms/latency-sync — Затримки й синхро
+- algorithms/median-filter — Медіанний фільтр
+- algorithms/mjpeg-vs-h264 — MJPEG vs H.264
+- algorithms/motion-model — Модель руху
+- algorithms/motor-mixer — Мікшер
+- algorithms/moving-average — Ковзне середнє
+- algorithms/neuron-layer — Нейрон і шар
+- ✅ algorithms/nn-detectors — Нейродетектори
+- ✅ algorithms/object-detection — Виявлення об'єктів
+- algorithms/overfitting — Перенавчання
+- algorithms/predict-vs-measure — Передбачення vs вимір
+- algorithms/quality-bitrate — Якість і бітрейт
+- algorithms/rle — RLE (довжини серій)
+- algorithms/roll-pitch-yaw-control — Керування roll/pitch/yaw
+- algorithms/sensor-fusion — Поєднання давачів
+- algorithms/sensor-insufficiency — Недостатність давача
+- algorithms/shannon-fano — Код Шеннона–Фано
+- algorithms/signal-noise — Шум у сигналі
+- algorithms/smoothing-vs-lag — Згладжування й затримка
+- algorithms/stabilization-cascade — Каскад стабілізації
+- ✅ algorithms/threshold-morphology — Пороги й морфологія
+- algorithms/tinyml — TinyML
+- ✅ algorithms/tracking — Трекінг
+- algorithms/train-vs-inference — Навчання vs вивід
+- algorithms/what-is-ml — Що таке ML
+- algorithms/where-to-compute — Де рахувати
+
+## boards (1)
+- boards/microsd-card — microSD-модуль
+
+## communications (75)
+- communications/am-fm — AM і FM
+- communications/analog-video — Аналогове відео
+- communications/antenna — Антена
+- communications/antenna-gain — Підсилення антени
+- communications/antenna-polarization — Поляризація антени
+- communications/async-serial — Асинхронна передача
+- communications/bandwidth-capacity — Смуга і межа Шеннона
+- communications/bandwidth-loss — Пропускна й втрати
+- communications/baud-rate — Швидкість baud
+- communications/ble-gatt — BLE GATT
+- communications/bluetooth-spp — Bluetooth SPP
+- communications/channel-band-packet — Канал і пакет
+- communications/checksums — Контрольні суми
+- communications/chip-select — Вибір кристала
+- communications/clock-stretch-arbitration — Розтягування й арбітраж
+- communications/control-telemetry — Керування й телеметрія
+- communications/cpol-cpha — Режими CPOL/CPHA
+- communications/crc — CRC
+- communications/data-reliability — Надійність даних
+- communications/differential-pair — Диференційна пара
+- communications/ecc-ram-flash — ECC у пам'яті
+- communications/esp32-antenna — Антена ESP32
+- communications/esp32-module — ESP32-модуль
+- communications/flow-control — Керування потоком
+- communications/free-space-loss — Загасання у просторі
+- communications/frequency-bands — Діапазони частот
+- communications/fsk-psk — FSK і PSK
+- communications/gnss — GNSS
+- communications/hamming-code — Код Геммінга
+- communications/hamming-distance — Відстань Геммінга
+- communications/i2c-addressing — Адресація I2C
+- communications/i2c-bus — Шина I2C
+- communications/i2c-transaction — Транзакція I2C
+- communications/ip-routing — Маршрутизація
+- communications/jamming-fhss — Лінк під глушінням
+- communications/latency-reliability — Затримка й надійність
+- communications/link-budget — Бюджет лінії
+- communications/lora — LoRa
+- communications/mac-ip-arp — MAC, IP і ARP
+- communications/mavlink-commands — Команди MAVLink
+- communications/mavlink-from-ground — MAVLink із землі
+- communications/mavlink-packet — Пакет MAVLink
+- communications/multipath-fading — Багатопроменевість
+- communications/nfc-rfid — NFC/RFID
+- communications/nyquist-aliasing — Найквіст і аліасинг
+- communications/on-chip-radio — Радіо на чіпі
+- communications/optical-fiber — Оптоволокно
+- communications/packet-design — Проєктування пакета
+- communications/parity-bit — Біт парності
+- communications/power-decibels — Потужність і децибели
+- communications/propagation-polarization — Поширення й поляризація
+- communications/rc-link — RC-лінк
+- communications/reed-solomon — Рід–Соломон
+- communications/register-map — Регістрова карта
+- communications/reliable-link — Надійний обмін
+- communications/resolution-framerate — Роздільність і кадри
+- communications/resonance-dipole — Резонанс і диполь
+- communications/rs-485 — RS-485
+- communications/signal-acquisition — Зчитування сигналу
+- communications/spi-bus — Шина SPI
+- communications/spi-lines — Лінії SPI
+- communications/spi-speed — Швидкість SPI
+- communications/spi-vs-i2c — SPI проти I2C
+- communications/spread-spectrum — Розширений спектр
+- communications/start-stop-ack — Старт, стоп, ACK
+- communications/superheterodyne — Супергетеродин
+- communications/tcp-vs-udp — TCP проти UDP
+- communications/telemetry-stream — Телеметрія
+- communications/transmission-lines — Лінії передачі
+- communications/uart-frame — Кадр UART
+- communications/utp-cable — UTP-кабель
+- communications/video-transmission — Передача відео
+- communications/vswr — Відбиття і КСХ
+- communications/why-modulation — Навіщо модуляція
+- communications/wifi — Wi-Fi
+
+## connect (1)
+- connect/lora-module — LoRa-модуль
+
+## electronics (330)
+- electronics/74hc138 — 74HC138
+- electronics/abs-max-ratings — Граничні режими
+- electronics/ac-switch-need — Ключі для мережі
+- electronics/accelerometer — Акселерометр
+- electronics/adc — АЦП
+- electronics/adc-errors — Похибки АЦП
+- electronics/adc-resolution — Роздільність АЦП
+- electronics/adc-types — Типи АЦП
+- electronics/addressable-leds — Адресні світлодіоди
+- electronics/antistatic-workplace — Антистатичне місце
+- electronics/bandwidth-3db — Смуга −3 дБ
+- electronics/barometric-altimeter — Барометр-альтиметр
+- electronics/basic-gates — Базові вентилі
+- electronics/battery-aging — Старіння батарей
+- electronics/battery-chemistries — Хімії батарей
+- electronics/battery-mechanics — Механіка й безпека
+- electronics/battery-sag — Просадка під навантаженням
+- electronics/bjt — BJT-транзистори
+- electronics/bjt-amplifier — BJT-підсилювач
+- electronics/bjt-gain — Підсилення β
+- electronics/bjt-load-driving — BJT: навантаження
+- electronics/bjt-operation — Робота BJT
+- electronics/bjt-regions — Режими BJT
+- electronics/bjt-structure — Будова BJT
+- electronics/bjt-switch — BJT-ключ
+- electronics/bjt-vs-mosfet — BJT проти MOSFET
+- electronics/bldc-motor — BLDC-мотор
+- electronics/bms — Захист і BMS
+- electronics/board-consumption — Споживання плати
+- electronics/bode-plot — Діаграма Боде
+- electronics/body-diode — Body-діод
+- electronics/boost — Boost-перетворювач
+- electronics/bridge-rectifier — Діодний міст
+- electronics/brushed-dc-motor — DC-мотор
+- electronics/buck — Buck-перетворювач
+- electronics/buck-boost — Buck-boost
+- electronics/c-rate — C-rate й опір
+- electronics/calibration — Калібрування
+- electronics/capacitance — Ємність
+- electronics/capacitive-reactance — Опір конденсатора
+- electronics/capacitor — Конденсатор
+- electronics/capacitor-dielectrics — Діелектрики конденсаторів
+- electronics/capacitor-energy — Енергія конденсатора
+- electronics/capacitor-marking — Маркування конденсаторів
+- electronics/capacitor-parasitics — Паразити конденсатора
+- electronics/capacitor-uses — Застосування конденсаторів
+- electronics/capacitors-series-parallel — Конденсатори: з'єднання
+- electronics/cc-cv-bms — Заряд і BMS
+- electronics/ceramic-mems-resonators — Керамічні резонатори
+- electronics/charge-pump-conv — Заряд-помпа
+- electronics/choosing-memory — Вибір пам'яті
+- electronics/circuit-analysis — Аналіз кіл
+- electronics/clamp-meter — Струмові кліщі
+- electronics/clock-signal — Тактовий сигнал
+- electronics/cmos — CMOS
+- electronics/cmos-gate — CMOS-вентиль
+- electronics/color-formats — Колір у пам'яті
+- electronics/combinational-circuits — Комбінаційні схеми
+- electronics/common-ground — Спільна земля
+- electronics/comparator — Компаратор
+- electronics/component-symbols — Умовні позначення
+- electronics/contact-debounce — Брязкіт контактів
+- electronics/contactless-distance — Безконтактна відстань
+- electronics/controller-fsw — Контролер і частота
+- electronics/converter-caps — Конденсатори перетворювача
+- electronics/converter-inductor — Котушка перетворювача
+- electronics/converter-layout — Розведення перетворювача
+- electronics/converter-measure — Вимірювання перетворювача
+- electronics/converter-spec — ТЗ перетворювача
+- electronics/core-losses — Ферит і втрати в осерді
+- electronics/counters — Лічильники
+- electronics/crowbar — Crowbar-захист
+- electronics/crystal — Кварц
+- electronics/current-divider — Дільник струму
+- electronics/current-monitor — Монітор струму
+- electronics/d-flip-flop — D-тригер
+- electronics/dac — ЦАП
+- electronics/darlington-uln — Дарлінгтон ULN
+- electronics/datasheet-fine-print — Дрібний шрифт
+- electronics/datasheet-graphs — Графіки даташита
+- electronics/datasheet-practice — Практикум даташитів
+- electronics/datasheet-structure — Структура даташита
+- electronics/dc-motor-driver — Драйвер DC-моторів
+- electronics/decibels — Децибели
+- electronics/decoupling — Decoupling-конденсатор
+- electronics/differential-pair — Диференційна пара
+- electronics/diode-bias — Зміщення діода
+- electronics/diode-iv-curve — ВАХ діода
+- electronics/diodes — Діоди
+- electronics/display-classes — Класи дисплеїв
+- electronics/display-controller — Контролер дисплея
+- electronics/display-selection — Вибір дисплея
+- electronics/distance-errors — Похибки відстані
+- electronics/dram-cell — DRAM
+- electronics/drift-hysteresis-noise — Дрейф і гістерезис
+- electronics/dynamic-range-noise — Динамічний діапазон
+- electronics/edge-vs-level — Фронт і рівень
+- electronics/edges-rise-time — Фронти й час наростання
+- electronics/eeprom-fram — EEPROM і FRAM
+- electronics/eink — E-ink дисплей
+- electronics/eink-refresh — E-ink оновлення
+- electronics/electrolytic-cap — Електролітичний конденсатор
+- electronics/emmc-ssd — eMMC і SSD
+- electronics/energy-budget — Бюджет енергії
+- electronics/environment-sensors — Давачі оточення
+- electronics/esc — ESC-регулятор
+- electronics/esd-damage — ESD-пошкодження
+- electronics/esd-packaging — ESD-пакування
+- electronics/fabs-fabless — Фаби й fabless
+- electronics/feedback-stability — Зворотний зв'язок
+- electronics/ferrite-bead — Феритова намистина
+- electronics/ferrite-clamp — Феритова клема
+- electronics/finite-state-machines — Скінченні автомати
+- electronics/floating-pullups — Підтяжки
+- electronics/flyback-isolated — Flyback
+- electronics/flyback-protection — Захист flyback
+- electronics/fpga-flow — Потік розробки
+- electronics/fpga-timing — Таймінг FPGA
+- electronics/fpga-vs-mcu — FPGA чи МК
+- electronics/framebuffer — Кадровий буфер
+- electronics/frequency-accuracy-ppm — Точність ppm
+- electronics/frequency-response — Частотна характеристика
+- electronics/fuel-gauge — Fuel gauge
+- electronics/fuse-types — Типи запобіжників
+- electronics/fuses-ptc — Запобіжники
+- electronics/gate-capacitance — Ємність затвора
+- electronics/gate-driver — Gate driver
+- electronics/gates-to-functions — Складні функції
+- electronics/gdt — Газорозрядник
+- electronics/gearmotor — Мотор-редуктор
+- electronics/gears-transmission — Редуктори
+- electronics/gpio-expander — GPIO-розширювач
+- electronics/ground-loops — Земляні петлі
+- electronics/ground-power-rails — Земля й шини
+- electronics/gyroscope — Гіроскоп
+- electronics/h-bridge — H-міст
+- electronics/hdl — HDL
+- electronics/heatsink — Радіатор
+- electronics/high-side-switch — Верхній ключ
+- electronics/hobby-servo — Хобі-серво
+- electronics/ic-invention — Винайдення інтегральної схеми
+- electronics/ideal-diode — Ideal diode
+- electronics/ideal-opamp — Ідеальний ОП
+- electronics/igbt — IGBT
+- electronics/image-sensor — Сенсор зображення
+- electronics/imu — IMU-давач
+- electronics/imu-barometer — IMU й барометр
+- electronics/imu-noise-bias-drift — Шум і дрейф IMU
+- electronics/imu-vibration-isolation — Розв'язка IMU
+- electronics/inductance — Індуктивність
+- electronics/inductive-reactance — Опір котушки
+- electronics/inductor-coil — Котушка
+- electronics/inductor-energy — Енергія котушки
+- electronics/inductor-kickback — Брикання котушки
+- electronics/inductor-types — Типи котушок
+- electronics/inrush-ntc — Inrush NTC
+- electronics/inside-fpga — Усередині FPGA
+- electronics/instrumentation-amp — Інструментальний підсилювач
+- electronics/internal-resistance — Внутрішній опір
+- electronics/inverting-noninverting — Інвертуючий підсилювач
+- electronics/kcl — Закон струмів Кірхгофа
+- electronics/kelvin-shunt — Шунт Кельвіна
+- electronics/kvl — Закон напруг Кірхгофа
+- electronics/lab-power-supply — Блок живлення
+- electronics/lc-resonance — LC-резонанс
+- electronics/lc-rlc-filters — LC-фільтри
+- electronics/ldo — LDO
+- electronics/ldo-internals — LDO зсередини
+- electronics/led — LED
+- electronics/led-photodiode — Світлодіод
+- electronics/legacy-charging — Легасі-зарядка
+- electronics/level-shifter — Перетворювач рівнів
+- electronics/level-shifting — Зсув рівнів
+- electronics/li-ion-charger — Зарядка Li-ion
+- electronics/linear-vs-switching — Лінійний vs імпульсний
+- electronics/load-cell — Тензодавач
+- electronics/load-switch — Load switch
+- electronics/logic-analyzer — Логічний аналізатор
+- electronics/logic-families — Логічні сімейства
+- electronics/logic-level-mosfet — Logic-level MOSFET
+- electronics/logic-levels-as-ranges — Рівні «0» і «1»
+- electronics/logic-thresholds — Логічні пороги
+- electronics/lut — LUT
+- electronics/magnet-grades — Класи магнітів
+- electronics/magnetometer — Магнітометр
+- electronics/mains-safety — Безпека з мережею
+- electronics/measure-consumption — Виміряти споживання
+- electronics/measurement-errors — Похибки вимірювань
+- electronics/memory-controller — Контролер пам'яті
+- electronics/mems — MEMS
+- electronics/metastability-timing — Метастабільність
+- electronics/microphone-speaker — Мікрофон і динамік
+- electronics/min-typ-max — Min/typ/max
+- electronics/mlcc — MLCC
+- electronics/mosfet-power-switch — Силовий ключ
+- electronics/mosfet-structure — Будова MOSFET
+- electronics/mosfet-threshold — Поріг MOSFET
+- electronics/motor-current-stall-heat — Заклинювання й нагрів
+- electronics/multimeter — Мультиметр
+- electronics/mutual-inductance — Взаємоіндукція
+- electronics/nand-nor — NAND і NOR
+- electronics/negative-feedback — Від'ємний ЗЗ
+- electronics/nmos-pmos — NMOS/PMOS
+- electronics/nodes-branches-loops — Вузли й контури
+- electronics/nodes-connections — Вузли й з'єднання
+- electronics/noise-hunting — Полювання на заваду
+- electronics/noise-margin — Запас завадостійкості
+- electronics/nor-vs-nand — NOR і NAND
+- electronics/norton — Теорема Нортона
+- electronics/ntc-thermistor — NTC-термістор
+- electronics/ohms-law — Закон Ома
+- electronics/oled — OLED-дисплей
+- electronics/opamp — Оппідсилювач
+- electronics/open-collector — Відкритий колектор
+- electronics/open-drain — Open-drain
+- electronics/optocoupler — Оптопара
+- electronics/oscilloscope — Осцилограф
+- electronics/output-mixing — Узгодження сигналів керування
+- electronics/packages — Корпуси
+- electronics/packages-pinout — Корпуси й розпіновка
+- electronics/pal-to-fpga — Від PAL до FPGA
+- electronics/panel-interfaces — Інтерфейси панелей
+- electronics/panel-iv-mpp — ВАХ панелі
+- electronics/panel-parameters — Параметри панелі
+- electronics/parallel-connection — Паралельне з'єднання
+- electronics/pd-sink-design — PD у пристрої
+- electronics/phase-control-dimmer — Фазове керування
+- electronics/phase-shift — Зсув фаз
+- electronics/photo-sensors — Фотодавачі
+- electronics/photovoltaic-cell — Фотоелемент
+- electronics/pierce-oscillator — Генератор П'єрса
+- electronics/piezo-optical-semiconductor — П'єзо й оптичні
+- electronics/pin-drive-limits — Навантажувальна здатність
+- electronics/potentiometer — Потенціометр
+- electronics/power-inductor — Силовий дросель
+- electronics/power-matching — Узгодження потужності
+- electronics/power-rails — Шини живлення
+- electronics/powerbank-source — Свій павербанк
+- electronics/programmable-logic — Програмована логіка
+- electronics/push-pull-output — Push-pull вихід
+- electronics/pwm-power-control — Керування потужністю
+- electronics/quality-factor — Добротність Q
+- electronics/quartz-resonator — Кварцовий резонатор
+- electronics/quartz-rlc-model — RLC-модель кварцу
+- electronics/rc-filter — RC-фільтр
+- electronics/rc-high-pass — RC-ФВЧ
+- electronics/rc-low-pass — RC-ФНЧ
+- electronics/rc-time-constant — Стала RC
+- electronics/rds-on — Опір Rds(on)
+- electronics/reactance — Реактивність
+- electronics/reading-schematics — Читання схем
+- electronics/real-opamp-limits — Реальний ОП
+- electronics/real-sun-mppt — Реальне сонце
+- electronics/rectification — Випрямлення
+- electronics/reference-frequency — Опорна частота
+- electronics/reflection-absorption — Відбиття IR
+- electronics/register — Регістр
+- electronics/relay-driver — Реле і драйвер
+- electronics/resistor — Резистор
+- electronics/resistor-marking — Маркування резисторів
+- electronics/reverse-polarity — Захист переполюсування
+- electronics/rl-time-constant — Стала RL
+- electronics/rlc-selectivity — RLC-вибірковість
+- electronics/rolling-shutter — Рядкова заслінка
+- electronics/sampling-quantization — Дискретизація й квантування
+- electronics/schmitt-trigger — Тригер Шмітта
+- electronics/sd-card — SD-картка
+- electronics/sdram-ddr — SDRAM і DDR
+- electronics/sensor-characteristics — Характеристики давача
+- electronics/sensor-input-matching — Узгодження давача
+- electronics/series-connection — Послідовне з'єднання
+- electronics/servo — Сервомеханізм
+- electronics/shielded-cable — Екранований кабель
+- electronics/shielding — Екранування
+- electronics/shift-register — Зсувний регістр
+- electronics/silicon-monocrystal — Кремній і монокристал
+- electronics/sine-on-scope — Синусоїда на осцилографі
+- electronics/snubbers-dvdt — Снабери
+- electronics/soft-core — М'яке ядро
+- electronics/solenoid-relay — Соленоїд реле
+- electronics/solid-state-relay — Твердотільне реле
+- electronics/sr-latch — SR-засувка
+- electronics/state-memory — Пам'ять стану
+- electronics/state-of-charge — Заряд, що лишився
+- electronics/stepper-motor — Кроковий мотор
+- electronics/strain-gauges — Тензодавачі
+- electronics/summing-difference-amp — Суматор
+- electronics/supercapacitor — Суперконденсатор
+- electronics/superposition — Суперпозиція
+- electronics/switching-converter — Імпульсний перетворювач
+- electronics/sync-rectifier — Синхронний випрямляч
+- electronics/tcxo-ocxo — TCXO та OCXO
+- electronics/thevenin — Теорема Тевеніна
+- electronics/thevenin-equivalent — Пошук еквівалента
+- electronics/threshold-schmitt — Поріг і Шмітт
+- electronics/thyristor-scr — Тиристор
+- electronics/tl431 — TL431
+- electronics/tof-laser — ToF лазер
+- electronics/tof-ultrasonic — ToF звук
+- electronics/topology-map — Вибір топології
+- electronics/touch-tech — Сенсорний ввід
+- electronics/tp4056 — TP4056
+- electronics/transducer-classes — Класи перетворювачів
+- electronics/transformer — Трансформатор
+- electronics/transistor-idea — Транзистор
+- electronics/triac — Симістор
+- electronics/triangulation — Тріангуляція
+- electronics/ttl-rs232 — TTL і RS-232
+- electronics/tvs-diode — TVS-діод
+- electronics/twisted-pair — Вита пара
+- electronics/type-c-cc — Type-C без PD
+- electronics/ultrasonic-rangefinder — Ультразвуковий далекомір
+- electronics/usb-cables-field — Кабелі й сумісність
+- electronics/usb-pd — USB Power Delivery
+- electronics/varistor — Варистор
+- electronics/virtual-short — Віртуальне коротке
+- electronics/voltage-divider — Дільник напруги
+- electronics/voltage-follower — Повторювач
+- electronics/voltage-reference — Опорна напруга
+- electronics/voltage-reference-sources — Джерела опорної напруги: стабілітрон і bandgap
+- electronics/watch-crystal-rtc — Годинниковий кварц
+- electronics/what-is-a-sensor — Що таке давач
+- electronics/wheatstone-bridge — Міст Вітстона
+- electronics/when-memory-runs-out — Коли пам'яті мало
+- electronics/why-digital — Навіщо цифра
+- electronics/wire-gauge — Калібр проводу
+- electronics/xor-comparison — XOR
+- electronics/yield — Yield
+- electronics/zener-schottky — Діоди Зенера
+- electronics/zero-cross-switching — Перехід через нуль
+
+## math (62)
+- math/address-space — Адресний простір
+- math/averaging — Усереднення
+- math/averaging-gain — Виграш усереднення
+- math/boolean-algebra — Булева алгебра
+- math/calculus-for-pid — Похідна й інтеграл для PID
+- math/capacitor-derivative — Похідна конденсатора
+- math/central-limit — Центральна гранична теорема
+- math/convolution — Згортка
+- math/crc — Циклічна надмірність
+- math/cross-product — Векторний добуток
+- math/derivative — Похідна
+- math/derivative-control — Д-складова
+- math/dft — ДПФ
+- math/dimensional-analysis — Розмірний аналіз
+- math/dot-product — Скалярний добуток
+- math/e-series — Ряди E
+- math/energy-units — Одиниці енергії
+- math/error-budget — Бюджет похибок
+- math/euler-angles — Кути Ейлера
+- math/euler-formula — Формула Ейлера
+- math/extrema — Екстремуми
+- math/finite-automata — Скінченні автомати
+- math/fourier-idea — Ідея Фур'є
+- math/gauss-elimination — Метод Гаусса
+- math/graph-theory — Теорія графів
+- math/half-power — Точка -3 дБ
+- math/hamming-distance — Відстань Гемінга
+- math/ieee754 — IEEE 754
+- math/impedance — Імпеданс
+- math/integral — Інтеграл
+- math/integral-control — І-складова
+- math/karnaugh-maps — Карти Карно
+- math/kraft-inequality — Нерівність Крафта
+- math/least-squares — Найменші квадрати
+- math/linear-systems — Лінійні системи
+- math/logarithms — Логарифми
+- math/loop-stability — Запас стійкості
+- math/matrices-as-operations — Матриці як дії
+- math/mean-variance — Середнє й дисперсія
+- math/modular-arithmetic — Модульна арифметика
+- math/open-vs-closed-loop — Зворотний зв'язок
+- math/phase-shift — Фаза й зсув
+- math/phasors — Фазори
+- math/pid-tuning-cascade — Налаштування ПІД
+- math/poisson-statistics — Статистика Пуассона
+- math/positional-systems — Позиційні системи
+- math/power-triangle — Трикутник потужності
+- math/proportional-control — П-регулятор
+- math/quaternions — Кватерніони
+- math/rms — RMS
+- math/rotation-matrices — Матриці повороту
+- math/si-prefixes — Префікси СІ
+- math/sine-cosine — Синус і косинус
+- math/sine-derivative — Похідна синуса
+- math/spectrum — Спектр
+- math/superposition — Суперпозиція
+- math/thermal-fluctuations — Теплові флуктуації
+- math/twos-complement — Доповняльний код
+- math/vector-addition — Додавання векторів
+- math/vector-components — Складові вектора
+- math/why-binary — Чому двійкова
+- math/windowing-leakage — Вікно й витік
+
+## physics (61)
+- physics/ac-power-grid — Змінна мережа
+- physics/air-breakdown — Пробій повітря
+- physics/ampere-force — Сила Ампера
+- physics/amplitude-frequency — Амплітуда й частота
+- physics/body-charge — Заряд тіла
+- physics/capacitive-coupling — Ємнісна наводка
+- physics/charge-conservation — Закон збереження заряду
+- physics/closed-circuit — Замкнене коло
+- physics/conductivity — Провідність
+- physics/conductors-insulators — Провідники й діелектрики
+- physics/coulomb-law — Закон Кулона
+- physics/current-continuity — Неперервність струму
+- physics/current-direction — Напрямок струму
+- physics/current-safety — Електробезпека
+- physics/dc-vs-ac — DC і AC
+- physics/doping — Легування
+- physics/earth-magnetic-field — Поле Землі
+- physics/electric-charge — Заряд
+- physics/electric-current — Струм
+- physics/electric-field — Електричне поле
+- physics/electric-potential — Потенціал
+- physics/electric-power — Потужність
+- physics/electromagnet — Електромагніт
+- physics/electromagnetic-induction — Електромагнітна індукція
+- physics/electron-drift — Дрейф електронів
+- physics/elementary-charge — Елементарний заряд і квантування
+- physics/em-wave — Електромагнітна хвиля
+- physics/faraday-cage — Клітка Фарадея
+- physics/ferromagnetism — Феромагнетизм
+- physics/field-and-potential — Поле й потенціал
+- physics/frequency-wavelength — Частота й довжина
+- physics/hall-effect — Ефект Холла
+- physics/humidity-static-control — Вологість і статика
+- physics/inductive-coupling — Індуктивна наводка
+- physics/ionic-conduction — Іонна провідність
+- physics/joule-heating — Джоулеве тепло
+- physics/lightning — Блискавка
+- physics/magnetic-field — Магнітне поле
+- physics/memory-cell-physics — Фізика комірок
+- physics/noise-interference — Шум і завади
+- physics/oersted-experiment — Дослід Ерстеда
+- physics/permanent-magnets — Постійні магніти
+- physics/phase — Фаза
+- physics/piezoelectric-effect — П'єзоефект
+- physics/pn-junction — PN-перехід
+- physics/resistance — Опір
+- physics/resistance-origin — Природа опору
+- physics/resistance-temperature — Опір і температура
+- physics/resistivity — Питомий опір
+- physics/rms-value — Діюче значення
+- physics/saturation-hysteresis — Насичення й гістерезис
+- physics/semiconductor — Напівпровідник
+- physics/shot-flicker-noise — Дробовий шум
+- physics/signal-speed — Швидкість сигналу
+- physics/sine-wave — Синусоїда
+- physics/thermal-noise — Тепловий шум
+- physics/thermal-resistance — Тепловий опір
+- physics/total-internal-reflection — Повне внутрішнє відбиття
+- physics/triboelectricity — Трибоелектрика
+- physics/volt — Вольт
+- physics/voltage — Напруга
+
+## programming (122)
+- programming/addresses-pointers — Адреси й покажчики
+- programming/ardupilot-layers — Шари ArduPilot
+- programming/atomicity-races — Атомарність і гонки
+- programming/autonomous-system — Автономна система
+- programming/avr — AVR-клас
+- programming/baremetal-vs-framework — Голе залізо vs фреймворк
+- programming/battery-budget — Бюджет батареї
+- programming/behavioral-subtyping — Поведінкова підтипізація
+- programming/bits-bytes-endianness — Біти й порядок байтів
+- programming/bootloader — Bootloader
+- programming/brownout — Brown-out
+- programming/c-runtime — C-рантайм
+- programming/cache — Кеш
+- programming/capture-compare — Захоплення й порівняння
+- programming/clock-frequency — Частота процесора
+- programming/clock-power — Тактування й живлення
+- programming/code-review — Рев'ю коду
+- programming/compilation — Компіляція
+- programming/compiler-stages — Стадії компілятора
+- programming/core-dump — Посмертний аналіз
+- programming/current-paths — Куди тече струм
+- programming/debug-vscode — Налагодження у VS Code
+- programming/dma-adc — DMA + АЦП
+- programming/dma-cache-races — Пастки DMA
+- programming/dma-channels — Канали й дескриптори
+- programming/dma-controller — DMA-контролер
+- programming/dma-problem — Проблема потоку даних
+- programming/dma-spi-i2s — DMA + SPI/I2S
+- programming/double-buffering — Подвійна буферизація
+- programming/duty-cycle-current — Цикл і середній струм
+- programming/error-handling — Жодна помилка не мовчить
+- programming/esp-hosted — ESP-Hosted
+- programming/esp32-architecture — Архітектура ESP32
+- programming/esp32-family — Сімейство ESP32
+- programming/esp32-p4 — ESP32-P4
+- programming/ethernet-on-mcu — Ethernet на МК
+- programming/failsafe — Failsafe
+- programming/fetch-decode-execute — Цикл виконання
+- programming/firmware-image — Образ прошивки
+- programming/fixed-point — Фіксована кома
+- programming/flash-filesystems — Файлові системи Flash
+- programming/flash-internals — Flash зсередини
+- programming/flash-vs-ram — Flash і RAM
+- programming/flashing — Прошивка у Flash
+- programming/flight-controller — Політний контролер
+- programming/floating-point — Плаваюча кома
+- programming/freertos — FreeRTOS
+- programming/gpio-registers — GPIO-регістри
+- programming/graceful-degradation — Деградація з гідністю
+- programming/hardfault — Розбір HardFault
+- programming/hardware-pwm — Апаратний PWM
+- programming/heap-dynamic-memory — Купа
+- programming/interrupt-priorities — Пріоритети переривань
+- programming/interrupt-vector — Контролер і вектор
+- programming/interrupts — Переривання
+- programming/isa — Набір інструкцій
+- programming/isr — ISR
+- programming/linking — Лінкування
+- programming/loop-invariants — Інваріанти циклу
+- programming/mavlink-commands — Команди MAVLink
+- programming/mcu-blocks — Складові МК
+- programming/mcu-selection — Вибір МК
+- programming/memory-as-array — Пам'ять як масив
+- programming/memory-map — Карта пам'яті
+- programming/memory-mapped-io — Memory-mapped IO
+- programming/microcontroller — Мікроконтролер
+- programming/millis-micros — Точний час
+- programming/module-model — Модель модуля
+- programming/nonblocking-time — Неблокуючий час
+- programming/nrf-radio-mcu — nRF-клас
+- programming/nvs — NVS
+- programming/ota-slots — OTA-слоти
+- programming/ota-update — OTA-оновлення
+- programming/overflow-wraparound — Переповнення
+- programming/params-gcs — Параметри й GCS
+- programming/partition-table — Таблиця розділів
+- programming/periodic-scheduling — Періодичні події
+- programming/pipeline — Конвеєр
+- programming/polling-vs-interrupts — Polling vs переривання
+- programming/processor-parts — Складові процесора
+- programming/psram — PSRAM
+- programming/pwm — ШІМ
+- programming/pwm-resolution — Шпаруватість і роздільність
+- programming/pymavlink — pymavlink
+- programming/realtime-determinism — Детермінованість
+- programming/reboot-counter — Лічильник перезавантажень
+- programming/reboot-strategy — Перезавантаження
+- programming/redundancy — Надлишковість
+- programming/reset-causes — Причини reset
+- programming/risc-cisc — RISC і CISC
+- programming/rtc — RTC
+- programming/rtc-memory — RTC-память
+- programming/rtt — RTT (Real-Time Transfer)
+- programming/safe-mode — Безпечний стан
+- programming/scheduler — Планувальник
+- programming/secure-boot — Secure boot
+- programming/semihosting — Семіхостинг
+- programming/sleep-modes — Режими сну
+- programming/spi-flash — SPI-флеш
+- programming/stack-lifo — Стек
+- programming/stack-overflow — Переповнення стека
+- programming/stm32 — STM32-клас
+- programming/stream-parser — Розбір потоку
+- programming/super-loop — Super-loop
+- programming/super-loop-limits — Межі super-loop
+- programming/task-ipc — Черги й семафори
+- programming/task-stacks — Стеки задач
+- programming/tasks — Задачі
+- programming/timer-counter — Таймер-лічильник
+- programming/timer-overflow — Період і переповнення
+- programming/ulp-coprocessor — ULP-співпроцесор
+- programming/usb-physical — USB фізично
+- programming/usb-power — Живлення з USB
+- programming/volatile — volatile
+- programming/von-neumann-harvard — Фон Нейман і Гарвард
+- programming/wakeup-sources — Джерела пробудження
+- programming/watchdog — Watchdog
+- programming/wear-leveling — Wear leveling
+- programming/what-is-processor — Що таке процесор
+- programming/why-debugger — Навіщо відлагоджувач
+- programming/why-persist — Навіщо зберігати
+- programming/write-integrity — Цілісність запису
+

@@ -37,11 +37,31 @@ for (const kind of ["book", "catalog"]) {
     for (const b of books) for (const sec of b.sections || []) for (const t of sec.topics || []) {
       const dir = path.join(base, b.slug, sec.slug, t.slug);
       const files = new Set();
-      const lv = t.levels || [];
-      if (lv.indexOf("basic") >= 0 || lv.length === 0) files.add(t.slug + ".md");
-      if (lv.indexOf("detailed") >= 0) files.add(t.slug + "-d.md");
+      const bs = (t.basic && t.basic.status) || "empty";
+      const ds = (t.detailed && t.detailed.status) || "empty";
+      if (bs !== "empty") files.add(t.slug + ".md");        // basic планована/наявна (done|pending|update|recheck)
+      if (ds !== "empty") files.add(t.slug + "-d.md");      // detailed планована/наявна
       for (const k of ["hist", "comp", "math", "proj"]) for (const o of t[k] || []) files.add(typeof o === "string" ? o : o.file);
-      TOPICS.set(b.slug + "/" + t.slug, { dir, status: t.status || "empty", files });
+      TOPICS.set(b.slug + "/" + t.slug, { dir, status: bs, files });
+    }
+  }
+}
+
+// guide own-articles index: "<course>/<slug>" → {dir,status,files} (для guide:-лінків)
+const GTOPICS = new Map();
+{
+  const gbase = path.join(ROOT, "guide");
+  if (exists(gbase)) for (const d of fs.readdirSync(gbase)) {
+    const guides = loadReg("__GUIDES__", path.join(gbase, d, "manifest.js"));
+    for (const g of guides) for (const sec of g.sections || []) for (const t of sec.topics || []) {
+      if (!t.slug) continue;                          // ref-крок — не guide:-ціль
+      const files = new Set();
+      const bs = (t.basic && t.basic.status) || "empty";
+      const ds = (t.detailed && t.detailed.status) || "empty";
+      if (bs !== "empty") files.add(t.slug + ".md");
+      if (ds !== "empty") files.add(t.slug + "-d.md");
+      for (const k of ["hist", "comp", "math", "proj"]) for (const o of t[k] || []) files.add(typeof o === "string" ? o : o.file);
+      GTOPICS.set(g.slug + "/" + t.slug, { dir: path.join(gbase, g.slug, sec.slug, t.slug), status: bs, files });
     }
   }
 }
@@ -60,6 +80,15 @@ for (const f of mdFiles) {
     if (/^(https?:|mailto:|tel:|#)/i.test(href)) continue;
     href = href.split("#")[0]; if (!href) continue;
 
+    if (/^guide:/i.test(href)) {
+      const segs = href.replace(/^guide:/i, "").split("/").filter(Boolean);
+      const key = (segs[0] || "") + "/" + (segs[1] || "");
+      const t = GTOPICS.get(key);
+      if (!t) { broken.push(`${rel}: guide:${segs.join("/")} — кроку нема в жодному курсі`); continue; }
+      if (segs[2]) { if (!t.files.has(segs[2]) && !exists(path.join(t.dir, segs[2]))) broken.push(`${rel}: guide:${segs.join("/")} — файла нема`); }
+      else if (t.status !== "done") stubs.push(`${rel}: guide:${key} (${t.status}-стаб)`);
+      continue;
+    }
     if (/^book:/i.test(href)) {
       const segs = href.replace(/^book:/i, "").split("/").filter(Boolean);
       const key = (segs[0] || "") + "/" + (segs[1] || "");
@@ -67,7 +96,7 @@ for (const f of mdFiles) {
       if (!t) { broken.push(`${rel}: book:${segs.join("/")} — теми нема в жодному маніфесті`); continue; }
       if (segs[2]) { // конкретний файл (детальна/вставка)
         if (!t.files.has(segs[2]) && !exists(path.join(t.dir, segs[2]))) broken.push(`${rel}: book:${segs.join("/")} — файла нема`);
-      } else if (t.status === "empty") stubs.push(`${rel}: book:${key} (empty-стаб)`);
+      } else if (t.status !== "done") stubs.push(`${rel}: book:${key} (${t.status}-стаб)`);
       continue;
     }
     // шлях від кореня репо (зображення/файл)

@@ -1,0 +1,254 @@
+[
+ {
+  "slug": "mobilenet",
+  "book": "algorithms",
+  "section": "machine-learning",
+  "kind": "book",
+  "title": "MobileNet: компактна архітектура",
+  "scope": "Архітектура MobileNet як приклад навмисно компактної CNN: depthwise separable convolutions, чому вони дешевші за стандартні (числово), width/resolution multiplier; MobileNetV2 і inverted residuals.",
+  "parents": 1
+ },
+ {
+  "slug": "chip-antenna-2g4",
+  "book": "catalog",
+  "section": "connect",
+  "kind": "catalog",
+  "title": "Чіп-антена 2.4 ГГц (SMD-компонент)",
+  "scope": "Конкретні SMD чіп-антени для Wi-Fi/BLE 2.4 ГГц (TDK, Johanson, Abracon): розпіновка, PCB layout за даташитом виробника, типова ефективність і КСХ, порівняння популярних моделей.",
+  "parents": 1
+ },
+ {
+  "slug": "crc-catalog",
+  "book": "communications",
+  "section": "coding-theory",
+  "kind": "book",
+  "title": "Каталог стандартних профілів CRC",
+  "scope": "Зведена таблиця іменованих профілів CRC (RevENG-каталог): ширина, поліном, init, refin, refout, xorout, check-value для CRC-8, CRC-16/CCITT-FALSE, CRC-16/IBM, CRC-32, CRC-32C (Castagnoli), CRC-32/BZIP2. Де застосовується кожен стандарт і як перевірити реалізацію check-value 0x89.",
+  "parents": 1
+ },
+ {
+  "slug": "telemetry-radio-modem",
+  "book": "catalog",
+  "section": "connect",
+  "kind": "catalog",
+  "title": "Телеметрійний радіомодем (SiK / RFD900)",
+  "scope": "Конкретні модулі телеметрії: SiK-сумісні (3DR Radio v2, RFD900x та аналоги), діапазони 433/868/915 МГц, реальні параметри дальності/потужності, схема підключення до UART контролера, AT-команди конфігурації, типові граблі (неузгоджена air speed, неправильний NETID, задній кут антени).",
+  "parents": 1
+ },
+ {
+  "slug": "esp32-wroom-d32",
+  "book": "catalog",
+  "section": "connect",
+  "kind": "catalog",
+  "title": "Модуль ESP32-WROOM-32 / WROVER-B",
+  "scope": "Конкретний каталожний опис родини модулів ESP32-WROOM-32(D/E/UE) і WROVER-B: розпіновка (38 виводів), розміри (18×25.5 мм), пам'ять (4/8/16 МБ Flash, 8 МБ PSRAM у WROVER), варіанти антени (PCB / IPEX U.FL), максимальні струми, заборонені GPIO при PSRAM, типова мінімальна обв'язка зі схемою.",
+  "parents": 1
+ },
+ {
+  "slug": "sx127x",
+  "book": "communications",
+  "section": "connect",
+  "kind": "catalog",
+  "title": "SX127x (трансивер LoRa)",
+  "scope": "Родина трансиверів Semtech SX1272/SX1276/SX1278: діапазон частот, карта регістрів SPI, режими роботи (Sleep/Standby/TX/RX), налаштування потужності PA_BOOST vs RFO, IRQ-маски, типові схеми підключення.",
+  "parents": 1
+ },
+ {
+  "slug": "fuse-holder-socket",
+  "book": "catalog",
+  "section": "power",
+  "kind": "catalog",
+  "title": "Тримачі й панельки для запобіжників",
+  "scope": "Конкретні типи тримачів (панельний PCB, DIN-рейка, картріджний inline) з розмірами посадок, контактним матеріалом, рейтингами. Це catalog/, бо прив'язане до конкретних продуктів і розмірів, а не до принципу.",
+  "parents": 1
+ },
+ {
+  "slug": "bav99",
+  "book": "catalog",
+  "section": "connect",
+  "kind": "catalog",
+  "title": "BAV99",
+  "scope": "Конкретний опис BAV99: здвоєний перемикальний діод у SOT-23 (спільний катод), параметри (V_R, I_F, t_rr), типова розпіновка, де ставлять (захист ліній даних, вхід МК), особливості замовлення та аналоги від різних виробників.",
+  "parents": 1
+ },
+ {
+  "slug": "74hc238",
+  "book": "electronics",
+  "section": "digital",
+  "kind": "catalog",
+  "title": "74HC238",
+  "scope": "Дешифратор 3→8 з активними-високими виходами — двійник 74HC138. Розпіновка, параметри, схема увімкнення, коли обирати замість 74HC138 (світлодіоди, реле, активні-високі enable).",
+  "parents": 1
+ },
+ {
+  "slug": "74hc-logic-chips",
+  "book": "catalog",
+  "section": "boards",
+  "kind": "catalog",
+  "title": "74HC00 / 08 / 32 — розсипна логіка в DIP-14",
+  "scope": "Конкретні мікросхеми дрібної логіки: 74HC00 (4×NAND), 74HC08 (4×AND), 74HC32 (4×OR) в корпусі DIP-14 — розпіновка, живлення, блокувальний конденсатор, підключення на макетці, типові граблі.",
+  "parents": 1
+ },
+ {
+  "slug": "mcp23017",
+  "book": "catalog",
+  "section": "boards",
+  "kind": "catalog",
+  "title": "MCP23017 — 16-бітний GPIO-розширювач I²C",
+  "scope": "Конкретна мікросхема MCP23017: розпіновка, повна карта регістрів (IOCON, IODIR, GPPU, INTCON, DEFVAL, INTCAP, OLAT, GPIO), режими переривань, часові параметри 400 kHz / 1.7 MHz (5 V), схема підключення, типові граблі. Відрізняється від узагальненої book/-статті про GPIO-розширювач.",
+  "parents": 1
+ },
+ {
+  "slug": "pcf8574",
+  "book": "catalog",
+  "section": "boards",
+  "kind": "catalog",
+  "title": "PCF8574 — 8-бітний квазі-двонапрямний GPIO-розширювач",
+  "scope": "Конкретна мікросхема PCF8574/PCF8574A: розпіновка, діапазони адрес (0x20–0x27 vs 0x38–0x3F), внутрішня схема квазі-двонапрямного буфера, обмеження струму 100 мкА на HIGH, схема підключення індикаторів і кнопок, типові помилки монтажу.",
+  "parents": 1
+ },
+ {
+  "slug": "bss138",
+  "book": "electronics",
+  "section": "digital",
+  "kind": "catalog",
+  "title": "BSS138 (N-MOSFET для level-shifter)",
+  "scope": "Опис конкретного N-канального MOSFET BSS138, що найчастіше використовується як однотранзисторний двонапрямний перетворювач рівнів для I2C/1-Wire. Параметри: Vth, Rds(on), Cgd/Cgs, розпіновка SOT-23, типова схема включення, граничні умови, порівняння з 2N7002.",
+  "parents": 1
+ },
+ {
+  "slug": "level-shifter-ic",
+  "book": "catalog",
+  "section": "connect",
+  "kind": "catalog",
+  "title": "Мікросхеми зсуву рівнів",
+  "scope": "Конкретні мікросхеми для зсуву рівнів: 74LVC245 (однонаправлений, 5←→3.3 В), TXB0108 (двонаправлений з push-pull), TXS0108 (open-drain лінії), BSS138-схема (дискретний MOSFET-місток) — розпіновка, типове підключення, граблі кожного.",
+  "parents": 1
+ },
+ {
+  "slug": "mems-microphone",
+  "book": "catalog",
+  "section": "sensors",
+  "kind": "catalog",
+  "title": "MEMS-мікрофон",
+  "scope": "Конкретні MEMS-мікрофони (SPM0405, ICS-43434, MP23DB01HP та ін.): розпіновка, інтерфейс I2S/PDM, схема підключення, типові параметри SNR/AOP, налаштування у проєкті. Не виводиться з загального принципу — специфічне для кожної моделі.",
+  "parents": 1
+ },
+ {
+  "slug": "comp-continuous-monitor",
+  "book": "electronics",
+  "section": "pcb",
+  "kind": "book",
+  "title": "Безперервний монітор браслета",
+  "scope": "Узагальнений опис класу пристроїв — безперервних моніторів ESD-браслета: принцип двопровідного вимірювання опору, вікно допустимого опору (~750 кОм – 35 МОм), схема сигналізації (звуковий/світловий аларм), відмінність від разового тестера браслетів. Пояснюється без партномерів, однаково для всіх виробників, прямо випливає з науки статті про антистатичне місце.",
+  "parents": 1
+ },
+ {
+  "slug": "uln2003",
+  "book": "catalog",
+  "section": "power",
+  "kind": "catalog",
+  "title": "ULN2003 / ULN2803 — семиканальний драйвер Дарлінгтона",
+  "scope": "Конкретний опис мікросхем ULN2003A та ULN2803A: розпіновка DIP-16/SOP-16, параметри каналу (500 мА, 50 В, Vce(sat)), вбудований резистор бази 2.7 кОм, гасні діоди на COM; типові схеми підключення реле, соленоїда, крокового двигуна; derating-графіки; практичні граблі (COM не підключено, зворотний струм, перегрів при паралельних каналах).",
+  "parents": 1
+ },
+ {
+  "slug": "motor-driver-ic",
+  "book": "catalog",
+  "section": "power",
+  "kind": "catalog",
+  "title": "Мікросхеми драйверів моторів",
+  "scope": "Огляд конкретних мікросхем H-мосту (DRV8833, TB6612FNG, L298N): схема підключення, розпіновка, режими керування, максимальний струм, тепловий режим, типові схеми з компонентами.",
+  "parents": 1
+ },
+ {
+  "slug": "4in1-esc",
+  "book": "electronics",
+  "section": "power-electronics",
+  "kind": "catalog",
+  "title": "Комбінований 4-in-1 ESC",
+  "scope": "Опис класу продуктів: чотири ESC на одній платі для мультикоптерів; типова схема живлення, теплові обмеження, інтеграція з BEC/BEC-less FC-стеком, особливості вибору під клас апарата.",
+  "parents": 1
+ },
+ {
+  "slug": "igbt-module",
+  "book": "catalog",
+  "section": "power",
+  "kind": "catalog",
+  "title": "Силовий модуль IGBT",
+  "scope": "Конкретний клас промислових пристроїв: IGBT-модуль (наприклад Infineon FF200R12KT4 чи аналог) — корпусування, вбудовані діоди, термічний опір Rth(j-c), типова розпіновка, особливості монтажу (затяжка, термопаста), підключення gate-driver до модуля.",
+  "parents": 1
+ },
+ {
+  "slug": "tlv431",
+  "book": "catalog",
+  "section": "power",
+  "kind": "catalog",
+  "title": "TLV431 (низьковольтний програмований стабілітрон)",
+  "scope": "Конкретна мікросхема TLV431 (та сумісні LMV431, TS431L): опора ~1.24 В, діапазон виходу від 1.24 В, застосування в схемах на 1.8…3.3 В де TL431 не проходить за порогом, розпіновка, підключення, типові граблі (ще менший мінімальний струм катода), відмінності від TL431 у поведінці петлі.",
+  "parents": 1
+ },
+ {
+  "slug": "mems-gyroscope-module",
+  "book": "catalog",
+  "section": "sensors",
+  "kind": "catalog",
+  "title": "Модуль MEMS-гіроскопа",
+  "scope": "Конкретні ІМС MEMS-гіроскопів (MPU-6050/6500, ICM-42688, BMI088, LSM6DSO): розпіновка, налаштування FS і ODR через регістри, SPI/I²C-транзакції, типові схеми включення, параметри з datasheet, пастки конкретних сімейств.",
+  "parents": 1
+ },
+ {
+  "slug": "hc-sr04",
+  "book": "sensors",
+  "section": "sensors",
+  "kind": "catalog",
+  "title": "HC-SR04",
+  "scope": "Конкретний ультразвуковий модуль HC-SR04 (та сумісні): схема, розпіновка, часові діаграми trigger/echo, типова мертва зона, живлення 5 В і узгодження рівнів із 3.3 В MCU, поширені проблеми з клонами.",
+  "parents": 1
+ },
+ {
+  "slug": "dimensionless-numbers",
+  "book": "physics",
+  "section": "mechanics",
+  "kind": "book",
+  "title": "Безрозмірні числа у фізиці та техніці",
+  "scope": "Каталог ключових безрозмірних чисел (Рейнольдс, Маха, Нуссельта, Струхаля та ін.): фізичний зміст кожного, звідки береться з аналізу розмірностей, що визначає в поведінці системи.",
+  "parents": 1
+ },
+ {
+  "slug": "stm32-series-matrix",
+  "book": "programming",
+  "section": "embedded-systems",
+  "kind": "book",
+  "title": "Матриця серій STM32",
+  "scope": "Практичний навігатор по лінійці: F0/F1 (бюджет, M0/M3), F4 (M4F, 168 МГц, DSP), G4 (M4F + HRTIM, силова електроніка), H7 (M7, 480 МГц). Таблиця ядро / частота / FPU / advanced timers / HRTIM / ціновий сегмент — щоб вибрати серію під задачу без читання кожного даташиту.",
+  "parents": 1
+ },
+ {
+  "slug": "supervisor-ic",
+  "book": "boards",
+  "section": "boards",
+  "kind": "catalog",
+  "title": "Мікросхема-супервізор живлення та скиду",
+  "scope": "Клас зовнішніх супервізорних чипів (TI TPS38xx, Maxim MAX706, STMicroelectronics STM6xxx): апаратний watchdog із вікном, детектор просідання напруги, пін RESET з відкритим стоком. Застосовується, коли внутрішній WDT MCU недостатній для safety-critical дизайну.",
+  "parents": 1
+ },
+ {
+  "slug": "mavsdk",
+  "book": "programming",
+  "section": "networking",
+  "kind": "book",
+  "title": "MAVSDK",
+  "scope": "Бібліотека MAVSDK як високорівневий API поверх MAVLink (Python/C++/Swift): абстракції Action, Telemetry, Mission, Offboard; порівняння з pymavlink (рівень абстракції, гарантії, async/await); для якого застосування що обирати.",
+  "parents": 1
+ },
+ {
+  "slug": "mavros",
+  "book": "programming",
+  "section": "networking",
+  "kind": "book",
+  "title": "MAVROS",
+  "scope": "MAVROS як міст MAVLink ↔ ROS: як публікуються топіки телеметрії в ROS, як командують апарату через ROS-сервіси, типова архітектура ROS-вузлів на бортовому комп'ютері; чому це відчиняє доступ до всієї екосистеми ROS (planning, SLAM, perception).",
+  "parents": 1
+ }
+]

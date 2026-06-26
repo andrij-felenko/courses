@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 392" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="392" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як читати вихідний тензор YOLO-подібного детектора</text>
+<text x="156.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">вихідний тензор</text>
+<rect x="70.0" y="96.0" width="46.0" height="46.0" rx="0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="116.0" y="96.0" width="46.0" height="46.0" rx="0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="162.0" y="96.0" width="46.0" height="46.0" rx="0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="70.0" y="142.0" width="46.0" height="46.0" rx="0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="116.0" y="142.0" width="46.0" height="46.0" rx="0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="162.0" y="142.0" width="46.0" height="46.0" rx="0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="70.0" y="188.0" width="46.0" height="46.0" rx="0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="116.0" y="188.0" width="46.0" height="46.0" rx="0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="162.0" y="188.0" width="46.0" height="46.0" rx="0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<polygon points="70,96 104,62 150,62 116,96" fill="#cfd8e3" stroke="#1a1a1a" stroke-width="1"/>
+<polygon points="116,96 150,62 196,62 162,96" fill="#cfd8e3" stroke="#1a1a1a" stroke-width="1"/>
+<polygon points="162,96 196,62 242,62 208,96" fill="#cfd8e3" stroke="#1a1a1a" stroke-width="1"/>
+<polygon points="208,96 242,62 242,108 208,142" fill="#dbe3ec" stroke="#1a1a1a" stroke-width="1"/>
+<polygon points="208,142 242,108 242,154 208,188" fill="#dbe3ec" stroke="#1a1a1a" stroke-width="1"/>
+<polygon points="208,188 242,154 242,200 208,234" fill="#dbe3ec" stroke="#1a1a1a" stroke-width="1"/>
+<text x="139.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">S × S клітинок</text>
+<text x="248.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">глибина K</text>
+<rect x="116.0" y="142.0" width="46.0" height="46.0" rx="0" fill="none" stroke="#c0392b" stroke-width="2.4"/>
+<text x="560.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">вектор однієї клітинки (K = B·5 + C)</text>
+<rect x="360.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="375.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">tx</text>
+<rect x="390.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="405.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">ty</text>
+<rect x="420.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="435.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">tw</text>
+<rect x="450.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="465.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">th</text>
+<rect x="480.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="495.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">obj</text>
+<rect x="510.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="525.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">tx</text>
+<rect x="540.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="555.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">ty</text>
+<rect x="570.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="585.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">tw</text>
+<rect x="600.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="615.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">th</text>
+<rect x="630.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="645.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">obj</text>
+<rect x="660.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="675.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">c0</text>
+<rect x="690.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="705.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">c1</text>
+<rect x="720.0" y="78.0" width="30.0" height="30.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="735.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">c2</text>
+<line x1="360.0" y1="116.0" x2="510.0" y2="116.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="435.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">якір 1: 5 чисел</text>
+<line x1="510.0" y1="116.0" x2="660.0" y2="116.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="585.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">якір 2: 5 чисел</text>
+<line x1="660.0" y1="116.0" x2="750.0" y2="116.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="705.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e7d45" text-anchor="middle">C класів</text>
+<line x1="166.0" y1="165.0" x2="352.0" y2="93.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="70.0" y="274.0" width="680.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.3"/><text x="410.0" y="312.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Кожен блок із 5: tx, ty — зсув центру всередині клітинки (через σ → 0…1);</tspan><tspan x="410.0" dy="13.0">tw, th — лог-масштаб відносно якоря (bw = anchor_w · e^tw); obj — упевненість, що тут об'єкт.</tspan><tspan x="410.0" dy="13.0">Далі C class-logits → softmax дає ймовірність класу. Підсумкова оцінка рамки = obj · max(class).</tspan></text>
+</svg>

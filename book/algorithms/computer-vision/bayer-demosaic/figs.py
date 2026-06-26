@@ -200,9 +200,224 @@ def fig_artifacts():
     render(os.path.join(IMG, "artifacts.svg"), W, H, *f)
 
 
+# ── 5. Решітки дискретизації RGGB і межа Найквіста (math-вставка) ─────────────
+# Ідея: зелене стоїть квінконсом (вдвічі густіше) → ширша зона Найквіста;
+# червоне й синє — рідка квадратна решітка → вузька зона, раніший aliasing.
+def fig_sampling_lattice():
+    W, H = 720, 470
+    f = [text(W / 2, 26, "Решітки дискретизації: зелене густіше → ширша зона Найквіста",
+              size=16, bold=True)]
+
+    # ── ЛІВОРУЧ: реальні позиції відліків (квінконс G vs квадрат R) ──
+    f.append(text(190, 56, "де стоять відліки (крок пікселя d)", size=12, color=INK, bold=True))
+    s = 26
+    gx, gy = 70, 70
+    n = 8
+    for r in range(n):
+        for c in range(n):
+            cx = gx + c * s
+            cy = gy + r * s
+            # світла підкладка-сітка пікселів
+            f.append(circle(cx, cy, 2.2, fill="#d7dbe0", stroke="none", sw=0))
+            if (r + c) % 2 == 0:                      # зелені — квінконс (шахівниця)
+                f.append(circle(cx, cy, 5.2, fill=G, stroke=BG, sw=1.0))
+            elif r % 2 == 1 and c % 2 == 1:           # сині
+                f.append(circle(cx, cy, 5.2, fill=B, stroke=BG, sw=1.0))
+            else:                                      # червоні
+                f.append(circle(cx, cy, 5.2, fill=R, stroke=BG, sw=1.0))
+    yb = gy + n * s + 6
+    f.append(text(gx + n * s / 2 - 13, yb + 12,
+                  "зелене — по діагоналі (квінконс), удвічі густіше за R чи B",
+                  size=10, color=MUTED))
+
+    # ── ПРАВОРУЧ: зони Найквіста у частотній площині (fx,fy) ──
+    f.append(text(515, 56, "зона Найквіста (частоти fx,fy)", size=12, color=INK, bold=True))
+    ox, oy = 515, 210                                  # центр осей
+    L = 120
+    f.append(line(ox - L, oy, ox + L, oy, color=INK, sw=1.4))
+    f.append(line(ox, oy - L, ox, oy + L, color=INK, sw=1.4))
+    f.append(text(ox + L + 8, oy + 4, "fx", size=11, color=INK, anchor="start"))
+    f.append(text(ox + 6, oy - L - 4, "fy", size=11, color=INK))
+    # квадрат R/B: межа ±1/(2d)  (рідка решітка з кроком 2d → менша зона)
+    q = 56
+    f.append(rect(ox - q, oy - q, 2 * q, 2 * q, fill="none", stroke=R, sw=2.2, rx=2))
+    f.append(text(ox + q - 2, oy - q - 6, "R, B: ±1/(4d)", size=10, color=R, anchor="end"))
+    # ромб зеленого: квінконс дає більшу (повернену) зону Найквіста
+    d = 96
+    f.append('<polygon points="%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f" '
+             'fill="none" stroke="%s" stroke-width="2.4"/>'
+             % (ox, oy - d, ox + d, oy, ox, oy + d, ox - d, oy, G))
+    f.append(text(ox, oy - d - 8, "G (квінконс): ширша", size=10, color=G, bold=True))
+
+    # підсумкова рамка
+    box = fitbox(70, 396, W - 140, 56,
+                 "Що рідша решітка каналу, то вужча його зона Найквіста — і то нижча частота, на якій\n"
+                 "деталь уже не відрізнити від хибної (aliasing). У зеленого зона ширша, тож муар у ньому пізніший.",
+                 size=12, fill=FILL, stroke=MUTED, color=INK)
+    f.append(box)
+    render(os.path.join(IMG, "sampling-lattice.svg"), W, H, *f)
+
+
+# ── 6. Спектр RGGB: накладання копій → муар без AA-фільтра (-d, фіг. b) ───────
+# Ідея: дискретизація тиражує спектр сцени копіями на вузлах решітки; де копії
+# заходять одна в одну, високі частоти «складаються» в низькі — це муар.
+def fig_aliasing_spectrum():
+    W, H = 720, 430
+    f = [text(W / 2, 26, "Чому муар неминучий: копії спектра накладаються", size=16, bold=True)]
+
+    def band(cx, title, col, rep, baserad, reprad):
+        out = [text(cx, 70, title, size=12, color=col, bold=True)]
+        oy = 150
+        # осі
+        out.append(line(cx - 78, oy, cx + 78, oy, color=INK, sw=1.1))
+        out.append(line(cx, oy - 70, cx, oy + 12, color=INK, sw=1.1))
+        # центральна копія спектра сцени (базова смуга)
+        out.append(circle(cx, oy - 22, baserad, fill=col, stroke="none", sw=0))
+        # копії-репліки на вузлах решітки (праворуч/ліворуч); що рідша решітка — то ближче копії
+        for k in (-1, 1):
+            ccx = cx + k * rep
+            faded = col.replace("#", "#")
+            out.append(circle(ccx, oy - 22, reprad, fill=col, stroke="none", sw=0))
+            out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" fill-opacity="0.30" stroke="none"/>'
+                       % (ccx, oy - 22, reprad, col))
+        out.append(text(cx, oy + 28, "копії на кроці решітки", size=9.5, color=MUTED))
+        return out
+
+    # зелене: копії далеко (густа решітка) — майже не перекриваються
+    f += band(170, "зелене (густа решітка)", G, True, 22, 48)
+    f.append(text(170, 196, "копії далеко → перекриття мале", size=10, color=POS, bold=True))
+    # червоне/синє: копії близько (рідка решітка) — заходять у базову смугу
+    f += band(420, "червоне / синє (рідка)", R, True, 22, 30)
+    f.append(text(420, 196, "копії близько → перекриття є", size=10, color=POS, bold=True))
+    # зона перекриття праворуч позначена
+    f.append(text(610, 70, "перекриття = aliasing", size=12, color=INK, bold=True))
+    oy = 150
+    f.append(circle(600, oy - 22, 26, fill=B, stroke="none", sw=0))
+    f.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" fill-opacity="0.35" stroke="none"/>'
+             % (628, oy - 22, 26, R))
+    f.append(circle(628, oy - 22, 26, fill="none", stroke=INK, sw=1.0))
+    f.append(text(614, oy + 28, "тут частоти", size=9.5, color=MUTED))
+    f.append(text(614, oy + 42, "складаються", size=9.5, color=MUTED))
+
+    box = fitbox(70, 250, W - 140, 92,
+                 "Дискретизація тиражує спектр сцени копіями на вузлах решітки каналу. Де копія сусіда\n"
+                 "залазить у базову смугу, висока частота сцени стає НЕВІДРІЗНЕННОЮ від низької —\n"
+                 "у кадрі вона проступає хвилями (муар). Рідша решітка R/B ставить копії ближче, тож\n"
+                 "складаються вони раніше. AA-фільтр (легке оптичне розмиття) зрізає верхні частоти ще\n"
+                 "до сенсора — щоб накладатися вже не було чому.",
+                 size=11.5, fill=FILL, stroke=MUTED, color=INK)
+    f.append(box)
+    render(os.path.join(IMG, "aliasing-spectrum.svg"), W, H, *f)
+
+
+# ── 7. Градієнтно-коригована інтерполяція: вибір напряму (-d, фіг. a) ─────────
+# Ідея: рахуємо горизонтальний і вертикальний градієнт; інтерполюємо вздовж
+# меншого (вздовж краю), а не впоперек — звідси вага напряму.
+def fig_gradient_weight():
+    W, H = 720, 430
+    f = [text(W / 2, 26, "Градієнтно-коригована інтерполяція: уздовж краю, не впоперек",
+              size=16, bold=True)]
+
+    # центральний піксель і чотири сусіди-хрест
+    cx, cy = 200, 150
+    s = 52
+    f.append(circle(cx, cy, 16, fill=GRAY, stroke=INK, sw=1.6))
+    f.append(text(cx, cy + 4, "?", size=15, color="#ffffff", bold=True))
+    nb = ((0, -s, "↑"), (0, s, "↓"), (-s, 0, "←"), (s, 0, "→"))
+    for dx, dy, _ in nb:
+        f.append(circle(cx + dx, cy + dy, 13, fill=G, stroke=INK, sw=1.2))
+    # горизонтальний градієнт ΔH (ліво-право), вертикальний ΔV (верх-низ)
+    f.append(line(cx - s, cy, cx + s, cy, color=R, sw=2.0, dash="4,3"))
+    f.append(text(cx, cy - s - 18, "ΔV = |верх − низ|", size=10.5, color=NEG, bold=True))
+    f.append(line(cx, cy - s, cx, cy + s, color=NEG, sw=2.0, dash="4,3"))
+    f.append(text(cx, cy + s + 28, "ΔH = |ліво − право|", size=10.5, color=R, bold=True))
+
+    # блок-схема рішення праворуч
+    bx = 430
+    b1 = fitbox(bx, 70, 230, 40, "порахувати ΔH і ΔV", size=12, fill=FILL, stroke=INK, color=INK, bold=True)
+    f.append(b1)
+    f.append(arrow(bx + 115, 110, bx + 115, 134, color=INK, sw=1.8))
+    # ромб умови
+    dy0 = 160
+    f.append('<polygon points="%.1f,%.1f %.1f,%.1f %.1f,%.1f %.1f,%.1f" fill="%s" stroke="%s" stroke-width="1.6"/>'
+             % (bx + 115, dy0 - 26, bx + 210, dy0, bx + 115, dy0 + 26, bx + 20, dy0, FILL, INK))
+    f.append(text(bx + 115, dy0 + 4, "ΔH < ΔV ?", size=11.5, color=INK, bold=True))
+    # дві гілки
+    f.append(arrow(bx + 30, dy0 + 14, bx - 20, dy0 + 52, color=INK, sw=1.6))
+    f.append(text(bx - 28, dy0 + 40, "так", size=10, color=POS, anchor="end", bold=True))
+    f.append(arrow(bx + 200, dy0 + 14, bx + 250, dy0 + 52, color=INK, sw=1.6))
+    f.append(text(bx + 256, dy0 + 40, "ні", size=10, color=POS, anchor="start", bold=True))
+    yb = dy0 + 56
+    lb = fitbox(bx - 120, yb, 175, 56,
+                "край горизонтальний:\nбрати ліво+право\n(вага → горизонталі)",
+                size=10.5, fill="#eaf0fd", stroke=NEG, color=INK)
+    f.append(lb)
+    rb = fitbox(bx + 80, yb, 175, 56,
+                "край вертикальний:\nбрати верх+низ\n(вага → вертикалі)",
+                size=10.5, fill="#fdecea", stroke=R, color=INK)
+    f.append(rb)
+
+    box = fitbox(70, 332, W - 140, 64,
+                 "Замість сліпого середнього чотирьох сусідів зважуємо їх ОБЕРНЕНО до градієнта в кожному\n"
+                 "напрямі: де перепад малий (уздовж краю) — вага більша, де великий (упоперек) — менша.\n"
+                 "Так інтерполяція не «перестрибує» різку межу, і «застібка» на контурах майже зникає.",
+                 size=12, fill=FILL, stroke=MUTED, color=INK)
+    f.append(box)
+    render(os.path.join(IMG, "gradient-weight.svg"), W, H, *f)
+
+
+# ── 8. AHD: два буфери (H і V) + вибір за гомогенністю в Lab (-d) ─────────────
+# Ідея: інтерполюємо ВЕСЬ кадр двічі — по горизонталі й по вертикалі; потім у
+# кожному пікселі лишаємо той варіант, чиє около однорідніше в Lab.
+def fig_ahd_hv_select():
+    W, H = 720, 410
+    f = [text(W / 2, 26, "AHD: два буфери, вибір попіксельно за однорідністю в Lab",
+              size=16, bold=True)]
+
+    # сирий кадр ліворуч
+    raw = fitbox(60, 96, 120, 60, "сира\nмозаїка\nRGGB", size=12, fill=FILL, stroke=INK, color=INK, bold=True)
+    f.append(raw)
+    # дві гілки інтерполяції
+    f.append(arrow(182, 112, 232, 84, color=INK, sw=1.8))
+    f.append(arrow(182, 140, 232, 168, color=INK, sw=1.8))
+    hbuf = fitbox(234, 60, 158, 48, "буфер H\n(лише горизонталь)", size=11,
+                  fill="#fdecea", stroke=R, color=INK, bold=True)
+    vbuf = fitbox(234, 150, 158, 48, "буфер V\n(лише вертикаль)", size=11,
+                  fill="#eaf0fd", stroke=NEG, color=INK, bold=True)
+    f.append(hbuf)
+    f.append(vbuf)
+    # переклад у Lab + метрика гомогенності
+    f.append(arrow(394, 84, 436, 110, color=INK, sw=1.6))
+    f.append(arrow(394, 174, 436, 148, color=INK, sw=1.6))
+    lab = fitbox(438, 100, 170, 58,
+                 "перевести в Lab,\nзміряти однорідність\nоколу для H і для V",
+                 size=10.5, fill=FILL, stroke=INK, color=INK)
+    f.append(lab)
+    # вибір
+    f.append(arrow(610, 128, 638, 128, color=INK, sw=1.8))
+    pick = fitbox(600, 170, 116, 54, "лишити\nоднорідніший", size=11,
+                  fill="#e8f6ee", stroke=FIELD, color=INK, bold=True)
+    f.append(pick)
+    f.append(text(658, 150, "піксель", size=9.5, color=MUTED))
+
+    box = fitbox(60, 250, W - 120, 92,
+                 "Замість одного компромісного напряму AHD інтерполює кадр ДВІЧІ — окремо по горизонталі\n"
+                 "(буфер H) і по вертикалі (буфер V). Тоді для кожного пікселя дивиться, у якому з двох\n"
+                 "варіантів сусідство однорідніше за кольором у перцептивному просторі Lab: різкий край,\n"
+                 "перетятий упоперек, дає рвані стрибки кольору (низька однорідність), а вздовж — гладко.\n"
+                 "Лишаємо локально гладший варіант. Звідси менше і «застібки», і хибного кольору на діагоналях.",
+                 size=11.5, fill=FILL, stroke=MUTED, color=INK)
+    f.append(box)
+    render(os.path.join(IMG, "ahd-hv-select.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_colorblind()
     fig_bayer()
     fig_demosaic()
     fig_artifacts()
-    print("OK: 4 SVG у", IMG)
+    fig_sampling_lattice()
+    fig_aliasing_spectrum()
+    fig_gradient_weight()
+    fig_ahd_hv_select()
+    print("OK: 8 SVG у", IMG)

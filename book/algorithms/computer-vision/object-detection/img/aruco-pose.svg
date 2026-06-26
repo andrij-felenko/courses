@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 432" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="432" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ArUco-поза: осі XYZ, накладені на мітку</text>
+<text x="350.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">кадр: мітка знайдена → поза (осі XYZ накладено)</text>
+<rect x="60.0" y="64.0" width="580.0" height="280.0" rx="8" fill="#10131a" stroke="#1a1a1a" stroke-width="1.2"/>
+<polygon points="275.0,239.0 410.0,217.0 454.0,309.0 319.0,331.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+<polygon points="283.1,242.1 304.7,238.6 311.7,253.4 290.1,256.9" fill="#11151c" stroke="none"/>
+<polygon points="316.8,236.6 338.4,233.1 345.4,247.9 323.8,251.4" fill="#11151c" stroke="none"/>
+<polygon points="350.6,231.1 372.2,227.6 379.2,242.4 357.6,245.9" fill="#11151c" stroke="none"/>
+<polygon points="384.3,225.6 405.9,222.1 412.9,236.9 391.3,240.4" fill="#11151c" stroke="none"/>
+<circle cx="275.0" cy="239.0" r="4.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.0"/>
+<circle cx="410.0" cy="217.0" r="4.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.0"/>
+<circle cx="454.0" cy="309.0" r="4.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.0"/>
+<circle cx="319.0" cy="331.0" r="4.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.0"/>
+<line x1="275.0" y1="239.0" x2="416.8" y2="215.9" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<line x1="275.0" y1="239.0" x2="321.2" y2="335.6" stroke="#27ae60" stroke-width="3.0" marker-end="url(#arrow)"/>
+<line x1="275.0" y1="239.0" x2="241.0" y2="119.0" stroke="#2457d6" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="424.8" y="215.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">X</text>
+<text x="327.2" y="347.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Y</text>
+<text x="237.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Z</text>
+<rect x="444.0" y="80.0" width="178.0" height="120.0" rx="6" fill="#fbfbfd" stroke="#1a1a1a" stroke-width="1.2"/><text x="533.0" y="109.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="533.0" dy="0.0">4 кути мітки</tspan><tspan x="533.0" dy="13.7">+ відомий розмір</tspan><tspan x="533.0" dy="13.7">+ калібрування камери</tspan><tspan x="533.0" dy="13.7">↓ solvePnP</tspan><tspan x="533.0" dy="13.7">rvec + tvec</tspan><tspan x="533.0" dy="13.7">= поза мітки</tspan></text>
+<rect x="60.0" y="368.0" width="580.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/><text x="350.0" y="386.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Знайшовши чотири кути мітки відомого розміру, solvePnP відновлює</tspan><tspan x="350.0" dy="13.0">позу: поворот rvec + зсув tvec.</tspan><tspan x="350.0" dy="13.0">Її показують, проєктуючи осі XYZ мітки назад у кадр.</tspan></text>
+</svg>

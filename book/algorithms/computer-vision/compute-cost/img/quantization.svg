@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Квантування float32 → int8</text>
+<line x1="90.0" y1="110.0" x2="670.0" y2="110.0" stroke="#0ea5e9" stroke-width="2.4"/>
+<text x="90.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0ea5e9" text-anchor="start" font-weight="700">float32: неперервні значення активації</text>
+<text x="84.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">min</text>
+<text x="676.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">max</text>
+<line x1="90.0" y1="230.0" x2="670.0" y2="230.0" stroke="#9333ea" stroke-width="2.4"/>
+<text x="90.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9333ea" text-anchor="start" font-weight="700">int8: 256 цілих сходинок  (крок = масштаб S)</text>
+<line x1="90.0" y1="224.0" x2="90.0" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="126.2" y1="224.0" x2="126.2" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="162.5" y1="224.0" x2="162.5" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="198.8" y1="224.0" x2="198.8" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="235.0" y1="224.0" x2="235.0" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="271.2" y1="224.0" x2="271.2" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="307.5" y1="224.0" x2="307.5" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="343.8" y1="224.0" x2="343.8" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="380.0" y1="224.0" x2="380.0" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="416.2" y1="224.0" x2="416.2" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="452.5" y1="224.0" x2="452.5" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="488.8" y1="224.0" x2="488.8" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="525.0" y1="224.0" x2="525.0" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="561.2" y1="224.0" x2="561.2" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="597.5" y1="224.0" x2="597.5" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="633.8" y1="224.0" x2="633.8" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<line x1="670.0" y1="224.0" x2="670.0" y2="236.0" stroke="#9333ea" stroke-width="1.2"/>
+<text x="84.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0</text>
+<text x="676.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">255</text>
+<circle cx="194.4" cy="110.0" r="4.5" fill="#0ea5e9" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="194.4" y1="118.0" x2="198.8" y2="220.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="198.8" cy="230.0" r="4.5" fill="#9333ea" stroke="#ffffff" stroke-width="1.5"/>
+<text x="194.4" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0ea5e9" text-anchor="middle">v₁</text>
+<circle cx="391.6" cy="110.0" r="4.5" fill="#0ea5e9" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="391.6" y1="118.0" x2="380.0" y2="220.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="380.0" cy="230.0" r="4.5" fill="#9333ea" stroke="#ffffff" stroke-width="1.5"/>
+<text x="391.6" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0ea5e9" text-anchor="middle">v₂</text>
+<circle cx="559.8" cy="110.0" r="4.5" fill="#0ea5e9" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="559.8" y1="118.0" x2="561.2" y2="220.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="561.2" cy="230.0" r="4.5" fill="#9333ea" stroke="#ffffff" stroke-width="1.5"/>
+<text x="559.8" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0ea5e9" text-anchor="middle">v₃</text>
+<rect x="187.9" y="295.8" width="384.2" height="32.5" rx="6" fill="#f6eefe" stroke="#9333ea" stroke-width="1.5"/><text x="380.0" y="316.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">q = round(v / S) + Z      S = (max − min) / 255</tspan></text>
+</svg>
