@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Похибка орієнтації як векторний добуток</text>
+<circle cx="250.0" cy="195.0" r="130.0" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.5"/>
+<ellipse cx="250.0" cy="195.0" rx="130.0" ry="34" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="250.0" cy="195.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="250.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">центр</text>
+<line x1="250.0" y1="195.0" x2="290.2" y2="71.4" stroke="#27ae60" stroke-width="2.6" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="195.0" x2="330.0" y2="92.6" stroke="#c0392b" stroke-width="2.6" marker-end="url(#arrow)"/>
+<text x="296.2" y="65.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">v̂ — очікуваний «низ»</text>
+<text x="338.0" y="90.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">v — вимір акселерометра</text>
+<path d="M 284.5 150.9 A 56 56 0 0 1 267.3 141.7" fill="none" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="286.6" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">кут похибки</text>
+<line x1="250.0" y1="195.0" x2="246.0" y2="29.0" stroke="#2457d6" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="252.0" y="23.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">e = v × v̂</text>
+<text x="252.0" y="39.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">вісь, навколо якої докрутити</text>
+<rect x="470.0" y="70.0" width="232.0" height="96.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="586.0" y="83.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="586.0" dy="0.0">Збіглися v і v̂ →</tspan><tspan x="586.0" dy="15.6">e = 0 → корекції нема.</tspan><tspan x="586.0" dy="15.6"></tspan><tspan x="586.0" dy="15.6">Розійшлися → e показує</tspan><tspan x="586.0" dy="15.6">і НАСКІЛЬКИ, і В ЯКИЙ БІК</tspan><tspan x="586.0" dy="15.6">крутити оцінку.</tspan></text>
+<rect x="470.0" y="182.0" width="232.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="586.0" y="205.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="586.0" dy="0.0">|e| ≈ sin(кута похибки):</tspan><tspan x="586.0" dy="15.6">мала похибка — мала</tspan><tspan x="586.0" dy="15.6">корекція, велика — більша.</tspan></text>
+<rect x="470.0" y="268.0" width="232.0" height="64.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="586.0" y="288.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="586.0" dy="0.0">Жодних кутів Ейлера й</tspan><tspan x="586.0" dy="15.6">арктангенсів — самий</tspan><tspan x="586.0" dy="15.6">векторний добуток. Дешево.</tspan></text>
+</svg>

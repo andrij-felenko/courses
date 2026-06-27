@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Mahony: дві петлі ПІ-корекції за один такт</text>
+<rect x="30.0" y="150.0" width="96.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="78.0" y="169.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="78.0" dy="0.0">гіроскоп</tspan><tspan x="78.0" dy="15.6">Ω (рад/с)</tspan></text>
+<circle cx="200.0" cy="173.0" r="18.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="200.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Σ</text>
+<line x1="126.0" y1="173.0" x2="182.0" y2="173.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.0" y="150.0" width="150.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="375.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="375.0" dy="0.0">q ← q + ½·q⊗(0,ω)·Δt</tspan><tspan x="375.0" dy="13.0">нормувати q</tspan></text>
+<line x1="218.0" y1="173.0" x2="300.0" y2="173.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="259.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ω</text>
+<rect x="540.0" y="150.0" width="110.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="595.0" y="169.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="595.0" dy="0.0">орієнтація</tspan><tspan x="595.0" dy="15.6">(кватерніон)</tspan></text>
+<line x1="450.0" y1="173.0" x2="540.0" y2="173.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="300.0" y="250.0" width="150.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="375.0" y="269.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="375.0" dy="0.0">e = v(акс) × v̂(q)</tspan><tspan x="375.0" dy="15.6">похибка напряму</tspan></text>
+<line x1="595.0" y1="196.0" x2="595.0" y2="273.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="273.0" x2="595.0" y2="273.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="601.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">v̂(q)</text>
+<line x1="300.0" y1="273.0" x2="200.0" y2="191.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="244.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+ Kp·e</text>
+<rect x="60.0" y="250.0" width="150.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="135.0" y="269.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="135.0" dy="0.0">b̂ ← b̂ + Ki·e·Δt</tspan><tspan x="135.0" dy="15.6">оцінка зсуву гіро</tspan></text>
+<line x1="300.0" y1="273.0" x2="210.0" y2="273.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="135.0" y1="250.0" x2="200.0" y2="191.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="105.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">− b̂</text>
+<text x="150.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">ШВИДКА петля: підтягни кут зараз  (Kp)</text>
+<text x="150.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">ПОВІЛЬНА петля: вилови й відніми зсув гіро  (Ki)</text>
+</svg>

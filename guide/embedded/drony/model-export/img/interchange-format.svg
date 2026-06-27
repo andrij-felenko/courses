@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проміжний формат — спільна мова рамок і чипів</text>
+<rect x="35.0" y="63.5" width="150.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="110.0" y="84.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">PyTorch</tspan></text>
+<rect x="35.0" y="143.5" width="150.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="110.0" y="164.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">TensorFlow</tspan></text>
+<rect x="35.0" y="223.5" width="150.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="110.0" y="244.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">JAX / Keras</tspan></text>
+<rect x="320.0" y="110.0" width="160.0" height="120.0" rx="12" fill="#fdf6e3" stroke="#c0392b" stroke-width="2.0"/>
+<text x="400.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ПРОМІЖНИЙ</text>
+<text x="400.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ФОРМАТ</text>
+<text x="400.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">.tflite · ONNX</text>
+<text x="400.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">граф + ваги</text>
+<rect x="575.0" y="56.2" width="150.0" height="47.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="650.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">МК + TFLite</tspan><tspan x="650.0" dy="15.6">Micro</tspan></text>
+<rect x="575.0" y="136.2" width="150.0" height="47.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="650.0" y="156.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">бортовий</tspan><tspan x="650.0" dy="15.6">комп'ютер</tspan></text>
+<rect x="575.0" y="216.2" width="150.0" height="47.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="650.0" y="236.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">мобільний</tspan><tspan x="650.0" dy="15.6">GPU / NPU</tspan></text>
+<line x1="190.0" y1="80.0" x2="318.0" y2="130.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="160.0" x2="318.0" y2="150.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="240.0" x2="318.0" y2="200.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="482.0" y1="130.0" x2="572.0" y2="80.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="482.0" y1="150.0" x2="572.0" y2="160.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="482.0" y1="200.0" x2="572.0" y2="240.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="380.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">M рамок навчають у K цілей через ОДИН формат —</text>
+<text x="380.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">замість M×K окремих конвертерів. Це й уся ідея ONNX.</text>
+</svg>

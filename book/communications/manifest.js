@@ -75,6 +75,7 @@
         { slug: "ycbcr", title: "Колірний простір YCbCr", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "bandwidth", title: "Смуга пропускання", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "h264-hardware-codec", title: "Апаратний кодек H.264", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "decimation", title: "Проріджування (decimation): фільтр і зниження частоти відліків", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
     { slug: "propagation", title: "Поширення хвиль", scope: "Поведінка електромагнітних хвиль у середовищі: загасання, відбиття, завмирання, дальність.",
       topics: [
@@ -239,6 +240,7 @@
         { slug: "clock-stretch-arbitration", title: "Розтягування й арбітраж", basic: { status: "done" }, detailed: { status: "pending" }, comp: [{ file: "comp-clock-stretching-slave.md", status: "done" }] },
         { slug: "cdma", title: "CDMA: код як адреса", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "mimo", title: "MIMO", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ofdma", title: "OFDMA: множинний доступ на ортогональних піднесних", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "synchronization", title: "Синхронізація", scope: "Узгодження часу, частоти й фази між передавачем і приймачем, відновлення тактів.",
       topics: [
@@ -317,6 +319,14 @@
         { slug: "quad-spi", title: "Quad-SPI (QSPI)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "usb3-physical", title: "USB 3.x фізично: SuperSpeed і вище", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "usb-device-basics", title: "Пристрій на шині USB: хост, енумерація, кінцеві точки, класи", basic: { status: "pending" }, detailed: { status: "pending" } },
+      ] },
+    { slug: "radio", title: "Радіо", scope: "Радіочастотні діапазони, канальні плани й бездротові лінки конкретних застосувань.",
+      topics: [
+        { slug: "fpv-channels", title: "Канали 5.8 ГГц для FPV (Raceband і смуги A/B/E/F)", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+    { slug: "reliability", title: "Надійність", scope: "Забезпечення доставки попри помилки й втрати: повтори, підтвердження, відновлення зв'язку.",
+      topics: [
+        { slug: "arq", title: "ARQ: автоматичний запит на повтор", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
   ]
 });

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Де ISP сидить на апараті</text>
+<rect x="61.6" y="146.2" width="116.7" height="47.6" rx="6" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.5"/><text x="120.0" y="166.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Матриця</tspan><tspan x="120.0" dy="15.6">(сирий Байєр)</tspan></text>
+<rect x="291.5" y="141.1" width="157.0" height="57.9" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="370.0" y="166.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">ISP</tspan><tspan x="370.0" dy="16.9">(конвеєр стадій)</tspan></text>
+<line x1="190.0" y1="170.0" x2="290.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="240.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">RAW</text>
+<rect x="589.2" y="81.2" width="131.6" height="47.6" rx="6" fill="#fff4e8" stroke="#c0392b" stroke-width="1.5"/><text x="655.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">Кодек → лінк</tspan><tspan x="655.0" dy="15.6">(H.264 у радіо)</tspan></text>
+<rect x="592.9" y="226.2" width="124.2" height="47.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="655.0" y="246.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">Детектор / зір</tspan><tspan x="655.0" dy="15.6">(на борту)</tspan></text>
+<line x1="455.0" y1="150.0" x2="558.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="455.0" y1="195.0" x2="558.0" y2="245.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="515.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">чистий
+кадр</text>
+<rect x="120.0" y="300.0" width="580.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="410.0" y="323.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Сире з матриці нікуди не годиться напряму — ISP робить його придатним і кодекові, і детекторові.</tspan></text>
+</svg>

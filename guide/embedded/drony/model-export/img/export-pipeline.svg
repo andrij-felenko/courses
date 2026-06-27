@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дорога моделі: від хмари до чипа</text>
+<rect x="24.0" y="50.0" width="360.0" height="150.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="204.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ХМАРА — навчання</text>
+<rect x="436.0" y="50.0" width="360.0" height="150.0" rx="10" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="616.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ПРИСТРІЙ — інференс</text>
+<rect x="69.0" y="88.4" width="102.1" height="63.2" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="108.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">навчена</tspan><tspan x="120.0" dy="15.6">модель</tspan><tspan x="120.0" dy="15.6">(PyTorch/TF)</tspan></text>
+<rect x="239.1" y="96.2" width="101.8" height="47.6" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/><text x="290.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="290.0" dy="0.0">ЕКСПОРТ</tspan><tspan x="290.0" dy="15.6">граф + ваги</tspan></text>
+<line x1="168.0" y1="120.0" x2="248.0" y2="120.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="387.5" y="107.3" width="45.1" height="45.3" rx="6" fill="#fdf6e3" stroke="#6b7280" stroke-width="1.5"/><text x="410.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">один</tspan><tspan x="410.0" dy="14.3">файл</tspan></text>
+<line x1="330.0" y1="120.0" x2="388.0" y2="128.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="432.0" y1="128.0" x2="500.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="505.5" y="96.2" width="108.9" height="47.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">вшити у Flash</tspan><tspan x="560.0" dy="15.6">(масив C)</tspan></text>
+<rect x="680.2" y="96.2" width="79.5" height="47.6" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">Invoke()</tspan><tspan x="720.0" dy="15.6">на кадр</tspan></text>
+<line x1="626.0" y1="120.0" x2="660.0" y2="120.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що насправді робить «експорт» — чотири фази</text>
+<rect x="36.0" y="254.0" width="178.0" height="110.0" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.6"/>
+<text x="125.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1. ЗАФІКСУВАТИ</text>
+<text x="125.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="125.0" dy="0.0">застиглі ваги +</tspan><tspan x="125.0" dy="14.3">граф операцій</tspan></text>
+<line x1="215.0" y1="308.0" x2="225.0" y2="308.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="226.0" y="254.0" width="178.0" height="110.0" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.6"/>
+<text x="315.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. ПЕРЕКЛАСТИ</text>
+<text x="315.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="315.0" dy="0.0">у формат рушія</tspan><tspan x="315.0" dy="14.3">(.tflite / ONNX)</tspan></text>
+<line x1="405.0" y1="308.0" x2="415.0" y2="308.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="416.0" y="254.0" width="178.0" height="110.0" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="505.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. КВАНТУВАТИ</text>
+<text x="505.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="505.0" dy="0.0">float32 → int8</tspan><tspan x="505.0" dy="14.3">на калібрувальних</tspan><tspan x="505.0" dy="14.3">даних</tspan></text>
+<line x1="595.0" y1="308.0" x2="605.0" y2="308.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="606.0" y="254.0" width="178.0" height="110.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="695.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">4. ПЕРЕВІРИТИ</text>
+<text x="695.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">той самий вихід,</tspan><tspan x="695.0" dy="14.3">що й в оригіналі?</tspan></text>
+<text x="410.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Помилка тут не «впаде» — модель просто почне тихо помилятися на чипі.</text>
+</svg>

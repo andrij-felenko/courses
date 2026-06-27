@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">RPC: виклик функції, що насправді живе на іншому пристрої</text>
+<text x="440.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">прикладний код кличе звичайну функцію — заглушка нишком перетворює виклик на кадр і назад</text>
+<text x="180.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">клієнт (наземна станція / задача)</text>
+<rect x="55.0" y="105.8" width="250.0" height="32.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="180.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">val = read_sensor(3);</tspan></text>
+<text x="180.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">звичайний виклик у коді</text>
+<rect x="55.0" y="166.8" width="250.0" height="46.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="186.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">заглушка (stub)</tspan><tspan x="180.0" dy="15.0">пакує №3 у байти</tspan></text>
+<line x1="180.0" y1="138.0" x2="180.0" y2="174.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="700.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">сервер (давач / периферійний МК)</text>
+<rect x="575.0" y="91.3" width="250.0" height="61.4" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="700.0" y="111.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">int read_sensor(int n){</tspan><tspan x="700.0" dy="15.0">  return adc[n];</tspan><tspan x="700.0" dy="15.0">}</tspan></text>
+<text x="700.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">справжня реалізація</text>
+<rect x="575.0" y="176.8" width="250.0" height="46.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="196.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">диспетчер</tspan><tspan x="700.0" dy="15.0">розбирає кадр, кличе функцію</tspan></text>
+<line x1="700.0" y1="184.0" x2="700.0" y2="144.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="184.0" x2="575.0" y2="194.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="440.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">запит: «функція №7, аргумент 3»</text>
+<line x1="575.0" y1="214.0" x2="305.0" y2="204.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="440.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">відповідь: «результат = 512»</text>
+<line x1="440.0" y1="250.0" x2="440.0" y2="360.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4,5"/>
+<text x="440.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">↑ невидимий для прикладного коду дріт: UART, радіо, шина ↑</text>
+<text x="440.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Заглушка й диспетчер — це весь RPC: одна перетворює виклик на байти, друга — байти назад на виклик.</text>
+<text x="440.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">Ілюзія зручна, але дріт не зникає: він може загубити запит, відповідь або впасти посередині.</text>
+</svg>

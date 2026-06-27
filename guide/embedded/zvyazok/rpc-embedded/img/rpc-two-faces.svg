@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому та сама ілюзія — і геніальна, і небезпечна</text>
+<text x="450.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">виклик `set_heater(60)` виглядає локальним — обгортка ховає і рутину (добре), і дріт (зле)</text>
+<rect x="330.0" y="79.5" width="240.0" height="33.0" rx="6" fill="#eef2fb" stroke="#1a1a1a" stroke-width="1.5"/><text x="450.0" y="100.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">val = read_sensor(3);</tspan></text>
+<text x="450.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">виглядає як звичайний локальний виклик</text>
+<rect x="40.0" y="150.0" width="360.0" height="150.0" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="220.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ГЕНІАЛЬНО: ховає рутину</text>
+<text x="56.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• не вигадуєш формат пакета щоразу</text>
+<text x="56.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• не пишеш розбір байтів руками</text>
+<text x="56.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• код обох боків — просто функції</text>
+<text x="56.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• нову команду додав одним рядком</text>
+<rect x="500.0" y="150.0" width="360.0" height="150.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="680.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">НЕБЕЗПЕЧНО: ховає дріт</text>
+<text x="516.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• запит може не дійти</text>
+<text x="516.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• відповідь може згинути → подвійна дія</text>
+<text x="516.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• сервер може впасти посеред виклику</text>
+<text x="516.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• затримка, втрати, обрив — не видно в коді</text>
+<line x1="390.0" y1="116.0" x2="220.0" y2="150.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="116.0" x2="680.0" y2="150.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="450.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вісім хибних припущень, які ця ілюзія непомітно нав'язує</text>
+<rect x="46.0" y="328.0" width="193.0" height="30.0" rx="5" fill="#fff7ed" stroke="#c0392b" stroke-width="1.3"/>
+<text x="142.5" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. мережа надійна</text>
+<rect x="251.0" y="328.0" width="193.0" height="30.0" rx="5" fill="#fff7ed" stroke="#c0392b" stroke-width="1.3"/>
+<text x="347.5" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. затримка нульова</text>
+<rect x="456.0" y="328.0" width="193.0" height="30.0" rx="5" fill="#fff7ed" stroke="#c0392b" stroke-width="1.3"/>
+<text x="552.5" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. смуга безмежна</text>
+<rect x="661.0" y="328.0" width="193.0" height="30.0" rx="5" fill="#fff7ed" stroke="#c0392b" stroke-width="1.3"/>
+<text x="757.5" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. мережа безпечна</text>
+<rect x="46.0" y="368.0" width="193.0" height="30.0" rx="5" fill="#fff7ed" stroke="#c0392b" stroke-width="1.3"/>
+<text x="142.5" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">5. топологія стала</text>
+<rect x="251.0" y="368.0" width="193.0" height="30.0" rx="5" fill="#fff7ed" stroke="#c0392b" stroke-width="1.3"/>
+<text x="347.5" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">6. адміністратор один</text>
+<rect x="456.0" y="368.0" width="193.0" height="30.0" rx="5" fill="#fff7ed" stroke="#c0392b" stroke-width="1.3"/>
+<text x="552.5" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">7. передача безплатна</text>
+<rect x="661.0" y="368.0" width="193.0" height="30.0" rx="5" fill="#fff7ed" stroke="#c0392b" stroke-width="1.3"/>
+<text x="757.5" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">8. мережа однорідна</text>
+<text x="450.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Кожне «припущення» — те, що локальний виклик дає задарма, а мережевий — НІ. RPC ховає саме цей розрив.</text>
+</svg>

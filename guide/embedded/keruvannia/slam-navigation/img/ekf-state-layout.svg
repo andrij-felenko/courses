@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільний стан EKF-SLAM: один вектор, одна коваріація</text>
+<text x="98.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">вектор стану</text>
+<rect x="70.0" y="95.0" width="56.0" height="30.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="98.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">x</text>
+<rect x="70.0" y="125.0" width="56.0" height="30.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="98.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">y</text>
+<rect x="70.0" y="155.0" width="56.0" height="30.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="98.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">θ</text>
+<rect x="70.0" y="185.0" width="56.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="98.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">mx¹</text>
+<rect x="70.0" y="215.0" width="56.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="98.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">my¹</text>
+<rect x="70.0" y="245.0" width="56.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="98.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">mx²</text>
+<rect x="70.0" y="275.0" width="56.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="98.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">my²</text>
+<rect x="70.0" y="305.0" width="56.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="98.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">mx³</text>
+<rect x="70.0" y="335.0" width="56.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="98.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">my³</text>
+<line x1="62.0" y1="95.0" x2="62.0" y2="185.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="56.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">поза</text>
+<line x1="62.0" y1="185.0" x2="62.0" y2="365.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="56.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">орієн-</text>
+<text x="56.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">тири</text>
+<text x="435.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">коваріація  P  (dim × dim)</text>
+<rect x="300.0" y="95.0" width="270.0" height="270.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="300.0" y="95.0" width="30" height="30" fill="#dbe6fb" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="330.0" y="95.0" width="30" height="30" fill="#eef4fe" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="360.0" y="95.0" width="30" height="30" fill="#eef4fe" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="390.0" y="95.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="420.0" y="95.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="450.0" y="95.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="480.0" y="95.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="510.0" y="95.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="540.0" y="95.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="300.0" y="125.0" width="30" height="30" fill="#eef4fe" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="330.0" y="125.0" width="30" height="30" fill="#dbe6fb" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="360.0" y="125.0" width="30" height="30" fill="#eef4fe" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="390.0" y="125.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="420.0" y="125.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="450.0" y="125.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="480.0" y="125.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="510.0" y="125.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="540.0" y="125.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="300.0" y="155.0" width="30" height="30" fill="#eef4fe" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="330.0" y="155.0" width="30" height="30" fill="#eef4fe" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="360.0" y="155.0" width="30" height="30" fill="#dbe6fb" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="390.0" y="155.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="420.0" y="155.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="450.0" y="155.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="480.0" y="155.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="510.0" y="155.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="540.0" y="155.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="300.0" y="185.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="330.0" y="185.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="360.0" y="185.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="390.0" y="185.0" width="30" height="30" fill="#d8f2e2" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="420.0" y="185.0" width="30" height="30" fill="#cdeeda" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="450.0" y="185.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="480.0" y="185.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="510.0" y="185.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="540.0" y="185.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="300.0" y="215.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="330.0" y="215.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="360.0" y="215.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="390.0" y="215.0" width="30" height="30" fill="#cdeeda" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="420.0" y="215.0" width="30" height="30" fill="#d8f2e2" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="450.0" y="215.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="480.0" y="215.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="510.0" y="215.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="540.0" y="215.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="300.0" y="245.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="330.0" y="245.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="360.0" y="245.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="390.0" y="245.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="420.0" y="245.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="450.0" y="245.0" width="30" height="30" fill="#d8f2e2" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="480.0" y="245.0" width="30" height="30" fill="#cdeeda" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="510.0" y="245.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="540.0" y="245.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="300.0" y="275.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="330.0" y="275.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="360.0" y="275.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="390.0" y="275.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="420.0" y="275.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="450.0" y="275.0" width="30" height="30" fill="#cdeeda" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="480.0" y="275.0" width="30" height="30" fill="#d8f2e2" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="510.0" y="275.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="540.0" y="275.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="300.0" y="305.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="330.0" y="305.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="360.0" y="305.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="390.0" y="305.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="420.0" y="305.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="450.0" y="305.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="480.0" y="305.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="510.0" y="305.0" width="30" height="30" fill="#d8f2e2" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="540.0" y="305.0" width="30" height="30" fill="#cdeeda" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="300.0" y="335.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="330.0" y="335.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="360.0" y="335.0" width="30" height="30" fill="#eafaf0" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="390.0" y="335.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="420.0" y="335.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="450.0" y="335.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="480.0" y="335.0" width="30" height="30" fill="#e7f7ee" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="510.0" y="335.0" width="30" height="30" fill="#cdeeda" stroke="#ffffff" stroke-width="0.8"/>
+<rect x="540.0" y="335.0" width="30" height="30" fill="#d8f2e2" stroke="#ffffff" stroke-width="0.8"/>
+<line x1="390.0" y1="95.0" x2="390.0" y2="365.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="300.0" y1="185.0" x2="570.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="345.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">поза</text>
+<text x="345.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">коре-</text>
+<text x="345.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ляції</text>
+<text x="480.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">кореляції</text>
+<text x="582.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">← рядок пози несе</text>
+<text x="582.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">зв'язок з усіма</text>
+<text x="582.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">орієнтирами</text>
+<rect x="70.0" y="388.0" width="620.0" height="64.0" rx="6" fill="#f7f9fb" stroke="#6b7280" stroke-width="1.5"/><text x="380.0" y="401.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Один вектор: поза робота (3 числа, сині) і далі ПАРИ координат орієнтирів</tspan><tspan x="380.0" dy="15.0">(зелені). Поряд — квадратна коваріація того ж розміру: діагональні блоки —</tspan><tspan x="380.0" dy="15.0">невпевненість кожного, а позадіагональні (зелені) — КОРЕЛЯЦІЇ, через які</tspan><tspan x="380.0" dy="15.0">виправлення одного орієнтира торкається пози й усіх інших. Це й росте як dim².</tspan></text>
+</svg>

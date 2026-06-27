@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Затримка — це розподіл, а не одне число</text>
+<line x1="90.0" y1="300.0" x2="730.0" y2="300.0" stroke="#333333" stroke-width="1.4"/>
+<text x="730.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">час одного кадру, мс →</text>
+<rect x="92.0" y="292.0" width="31.6" height="8.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="127.6" y="270.0" width="31.6" height="30.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="163.1" y="205.0" width="31.6" height="95.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="198.7" y="150.0" width="31.6" height="150.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="234.2" y="180.0" width="31.6" height="120.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="269.8" y="230.0" width="31.6" height="70.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="305.3" y="260.0" width="31.6" height="40.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="340.9" y="278.0" width="31.6" height="22.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="376.4" y="288.0" width="31.6" height="12.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="412.0" y="292.0" width="31.6" height="8.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="447.6" y="294.0" width="31.6" height="6.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="483.1" y="295.0" width="31.6" height="5.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="518.7" y="295.0" width="31.6" height="5.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="554.2" y="294.0" width="31.6" height="6.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
+<rect x="589.8" y="291.0" width="31.6" height="9.0" rx="6" fill="#c0392b" stroke="none" stroke-width="0.0"/>
+<rect x="625.3" y="284.0" width="31.6" height="16.0" rx="6" fill="#c0392b" stroke="none" stroke-width="0.0"/>
+<rect x="660.9" y="290.0" width="31.6" height="10.0" rx="6" fill="#c0392b" stroke="none" stroke-width="0.0"/>
+<rect x="696.4" y="296.0" width="31.6" height="4.0" rx="6" fill="#c0392b" stroke="none" stroke-width="0.0"/>
+<line x1="250.0" y1="300.0" x2="250.0" y2="125.0" stroke="#1a1a1a" stroke-width="2.0" stroke-dasharray="5 4"/>
+<text x="250.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">середнє ≈ 28 мс</text>
+<text x="250.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(виглядає добре)</text>
+<line x1="641.1" y1="300.0" x2="641.1" y2="170.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5 4"/>
+<text x="645.1" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">p99 ≈ 90 мс</text>
+<text x="645.1" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">(саме він зриває дедлайн)</text>
+<text x="410.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">рідкісний повільний кадр (хвіст) і провалює реальний час — тому беремо p95/p99, не середнє</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат дебаунсу: підтвердження часом + вимога тиші</text>
+<circle cx="140.0" cy="150.0" r="52.0" fill="#f3f8ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="140.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">IDLE</text>
+<text x="140.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="140.0" dy="0.0">тиша / чекаємо тон</tspan></text>
+<circle cx="430.0" cy="150.0" r="52.0" fill="#f3f8ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="430.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">MATCHING</text>
+<text x="430.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="430.0" dy="0.0">той самий символ,</tspan><tspan x="430.0" dy="11.1">лічимо до M</tspan></text>
+<circle cx="620.0" cy="280.0" r="52.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="620.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">PRESSED</text>
+<text x="620.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="620.0" dy="0.0">ВИДАЛИ подію</tspan><tspan x="620.0" dy="11.1">(один раз)</tspan></text>
+<circle cx="300.0" cy="300.0" r="52.0" fill="#f3f8ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="300.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">RELEASE</text>
+<text x="300.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="300.0" dy="0.0">чекаємо K блоків</tspan><tspan x="300.0" dy="11.1">тиші</tspan></text>
+<line x1="192.0" y1="150.0" x2="378.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">побачили валідний символ</text>
+<line x1="472.9" y1="179.4" x2="577.1" y2="250.6" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="560.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">M однакових</text>
+<text x="560.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">поспіль</text>
+<line x1="568.1" y1="283.2" x2="351.9" y2="296.8" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">символ зник</text>
+<line x1="262.1" y1="264.4" x2="177.9" y2="185.6" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="205.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">K блоків тиші</text>
+<text x="430.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(символ змінився → лічильник з нуля)</text>
+<text x="620.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">той самий символ → мовчимо</text>
+<rect x="40.0" y="332.0" width="360.0" height="34.0" rx="6" fill="#fdf6f5" stroke="#c0392b" stroke-width="1.3"/><text x="220.0" y="351.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">без стану RELEASE одна цифра видавала б подію щоблока — «дзвеніла» б повторами</tspan></text>
+</svg>

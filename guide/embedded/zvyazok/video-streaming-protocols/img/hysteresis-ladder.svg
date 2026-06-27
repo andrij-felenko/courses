@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гістерезис: дві межі й мертва зона замість однієї</text>
+<line x1="250.0" y1="372.0" x2="250.0" y2="74.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="250.0" y1="84.0" x2="250.0" y2="66.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="250.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">втрати, %</text>
+<text x="250.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0%</text>
+<rect x="270.0" y="298.0" width="340.0" height="74.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="440.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">втрати &lt; 2%  →  крок ВГОРУ  ×1.05</tspan><tspan x="440.0" dy="14.3">канал вільний — обережно піднімаємо</tspan></text>
+<rect x="270.0" y="158.0" width="340.0" height="140.0" rx="6" fill="#eef2f7" stroke="#6b7280" stroke-width="1.6"/>
+<text x="440.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">2% ≤ втрати ≤ 10%  →  ТРИМАТИ</tspan><tspan x="440.0" dy="14.3">мертва зона: НЕ чіпати бітрейт</tspan></text>
+<rect x="270.0" y="84.0" width="340.0" height="74.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="440.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">втрати &gt; 10%  →  крок ВНИЗ  ×(1 − 0.5·p)</tspan><tspan x="440.0" dy="14.3">канал захлинається — різко скидаємо</tspan></text>
+<line x1="244.0" y1="298.0" x2="256.0" y2="298.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="240.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">2%  (UP)</text>
+<line x1="244.0" y1="158.0" x2="256.0" y2="158.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="240.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">10% (DOWN)</text>
+<text x="470.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">це правило Google Congestion Control: проміжок між порогами вгору й вниз і є те, що не дає контролеру торохтіти</text>
+</svg>

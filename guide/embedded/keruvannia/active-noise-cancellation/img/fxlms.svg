@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адаптивний контур: фільтр учиться на власній помилці</text>
+<rect x="45.4" y="85.0" width="79.3" height="49.9" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="85.0" y="106.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="85.0" dy="0.0">опорний</tspan><tspan x="85.0" dy="16.9">шум x[n]</tspan></text>
+<line x1="140.0" y1="110.0" x2="215.0" y2="110.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="218.1" y="85.0" width="123.7" height="49.9" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="280.0" y="106.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">фільтр W</tspan><tspan x="280.0" dy="16.9">(те, що вчимо)</tspan></text>
+<line x1="348.0" y1="110.0" x2="430.0" y2="110.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="422.0" y="85.0" width="146.0" height="49.9" rx="6" fill="#eef0f2" stroke="#6b7280" stroke-width="1.5"/><text x="495.0" y="106.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="495.0" dy="0.0">вторинний шлях S</tspan><tspan x="495.0" dy="16.9">(динамік+повітря)</tspan></text>
+<line x1="575.0" y1="110.0" x2="640.0" y2="110.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="665.0" cy="210.0" r="16.0" fill="#fff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="665.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Σ</text>
+<path d="M640 110 Q 665 150 665 194" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="648.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end">анти-шум</text>
+<rect x="606.8" y="35.0" width="116.3" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="665.0" y="56.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">первинний шум</tspan><tspan x="665.0" dy="16.9">(акустика)</tspan></text>
+<line x1="665.0" y1="88.0" x2="665.0" y2="194.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="665.0" y1="226.0" x2="665.0" y2="300.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="610.5" y="305.1" width="108.9" height="49.9" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="665.0" y="326.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">помилка e[n]</tspan><tspan x="665.0" dy="16.9">(мікрофон)</tspan></text>
+<rect x="178.5" y="305.1" width="183.0" height="49.9" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="270.0" y="326.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">оновлення коефіцієнтів</tspan><tspan x="270.0" dy="16.9">W += μ · e · x′</tspan></text>
+<path d="M610 330 Q 460 372 366 330" fill="none" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<line x1="270.0" y1="304.0" x2="270.0" y2="136.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="270.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">x′ = опорний крізь копію S</text>
+</svg>

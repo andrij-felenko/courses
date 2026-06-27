@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому назв так багато: модель — це конструктор</text>
+<rect x="30.0" y="102.0" width="70.0" height="96.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="65.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="65.0" dy="0.0">КАДР</tspan></text>
+<text x="65.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="65.0" dy="0.0">вхід</tspan></text>
+<line x1="102.0" y1="150.0" x2="122.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="124.0" y="102.0" width="150.0" height="96.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="199.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="199.0" dy="0.0">BACKBONE</tspan><tspan x="199.0" dy="15.6">(хребет)</tspan></text>
+<text x="199.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="199.0" dy="0.0">видобуває ознаки</tspan><tspan x="199.0" dy="13.0">MobileNet · ResNet</tspan></text>
+<line x1="276.0" y1="150.0" x2="296.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="298.0" y="102.0" width="190.0" height="96.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="393.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="393.0" dy="0.0">NECK</tspan><tspan x="393.0" dy="15.6">(шия)</tspan></text>
+<text x="393.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="393.0" dy="0.0">зводить масштаби</tspan><tspan x="393.0" dy="13.0">піраміда ознак</tspan></text>
+<line x1="490.0" y1="150.0" x2="510.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="512.0" y="102.0" width="190.0" height="96.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="607.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="607.0" dy="0.0">HEAD</tspan><tspan x="607.0" dy="15.6">(голова)</tspan></text>
+<text x="607.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="607.0" dy="0.0">видає рамки</tspan><tspan x="607.0" dy="13.0">SSD · YOLO-head</tspan></text>
+<line x1="704.0" y1="150.0" x2="724.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="726.0" y="102.0" width="70.0" height="96.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="761.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="761.0" dy="0.0">РАМКИ</tspan></text>
+<text x="761.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="761.0" dy="0.0">клас + рамка</tspan><tspan x="761.0" dy="13.0">+ упевненість</tspan></text>
+<rect x="150.0" y="244.0" width="580.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="270.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">«MobileNet-SSD» = хребет MobileNet + голова SSD</tspan><tspan x="440.0" dy="16.9">«YOLOv8» = свій хребет + своя голова, навчені разом</tspan></text>
+<text x="440.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">переставляєш хребти й голови — дістаєш десятки назв; найдорожчий за обчисленнями — хребет</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві мови газу: аналоговий PWM проти цифрового DShot</text>
+<text x="70.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">Аналоговий PWM (ширина імпульсу)</text>
+<line x1="70.0" y1="150.0" x2="750.0" y2="150.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="110.0" y1="150.0" x2="110.0" y2="100.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="110.0" y1="100.0" x2="140.0" y2="100.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="140.0" y1="100.0" x2="140.0" y2="150.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="125.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1000 мкс (0%)</text>
+<line x1="330.0" y1="150.0" x2="330.0" y2="100.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="330.0" y1="100.0" x2="385.0" y2="100.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="385.0" y1="100.0" x2="385.0" y2="150.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="357.5" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1500 мкс (50%)</text>
+<line x1="560.0" y1="150.0" x2="560.0" y2="100.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="560.0" y1="100.0" x2="640.0" y2="100.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="640.0" y1="100.0" x2="640.0" y2="150.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="600.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2000 мкс (100%)</text>
+<text x="750.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end">± шум, ~50 Гц</text>
+<text x="70.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ширина = газ; аналогова, дрижить, повільне оновлення</text>
+<text x="70.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">Цифровий DShot (кадр з бітів + контрольна сума)</text>
+<rect x="70.0" y="300.0" width="360.0" height="44.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="250.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">11 біт: газ (0…2047)</text>
+<rect x="430.0" y="300.0" width="70.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="465.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1 біт: телеметрія</text>
+<rect x="500.0" y="300.0" width="200.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="600.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4 біти: CRC (контроль)</text>
+<text x="70.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">16 бітів = один кадр</text>
+<line x1="700.0" y1="370.0" x2="70.0" y2="370.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="385.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">двосторонній DShot: оберти (eRPM) назад тим самим проводом</text>
+<text x="70.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">число доходить точно; CRC ловить спотворення; жодного калібрування країв</text>
+</svg>

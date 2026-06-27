@@ -980,5 +980,9 @@
         { slug: "thermal-vias", title: "Теплові перехідні отвори (thermal vias)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "eda-tools", title: "Засоби проєктування плат (EDA)", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
+    { slug: "signals", title: "Сигнали", scope: "Форми, рівні й тайминг електричних сигналів — від кодування інформації у формі коливання до стандартів їхнього подання.",
+      topics: [
+        { slug: "composite-video", title: "Композитний відеосигнал (CVBS)", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
   ]
 });

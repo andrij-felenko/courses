@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стенд перевірки: один набір — дві гілки — вердикт</text>
+<rect x="35.0" y="105.6" width="150.0" height="78.8" rx="6" fill="#fdf6e3" stroke="#6b7280" stroke-width="1.5"/><text x="110.0" y="125.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">спільний</tspan><tspan x="110.0" dy="15.6">тестовий</tspan><tspan x="110.0" dy="15.6">набір</tspan><tspan x="110.0" dy="15.6">(N кадрів)</tspan></text>
+<rect x="280.0" y="70.0" width="250.0" height="70.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="405.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ОРИГІНАЛ (float32)</text>
+<text x="405.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">еталонний вихід ref[i]</text>
+<rect x="280.0" y="180.0" width="250.0" height="70.0" rx="10" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="405.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ЕКСПОРТ .tflite (int8)</text>
+<text x="405.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">той самий рушій → lite[i]</text>
+<line x1="186.0" y1="120.0" x2="278.0" y2="105.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="186.0" y1="160.0" x2="278.0" y2="215.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="580.0" y="118.0" width="215.0" height="124.0" rx="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="687.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">МЕТРИКА РОЗБІЖНОСТІ</text>
+<text x="687.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="687.0" dy="0.0">макс |ref − lite|</tspan><tspan x="687.0" dy="14.3">середнє |ref − lite|</tspan><tspan x="687.0" dy="14.3">збіг класу-переможця</tspan><tspan x="687.0" dy="14.3">падіння точності</tspan></text>
+<line x1="532.0" y1="105.0" x2="578.0" y2="150.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="532.0" y1="215.0" x2="578.0" y2="185.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="410.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автоматичний вердикт за порогом</text>
+<rect x="125.0" y="328.4" width="250.0" height="63.2" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="250.0" y="348.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">розбіжність ≤ поріг</tspan><tspan x="250.0" dy="15.6">і точність не впала</tspan><tspan x="250.0" dy="15.6">→ ПРОШИВАТИ</tspan></text>
+<rect x="455.0" y="328.4" width="250.0" height="63.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="580.0" y="348.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">розбіжність &gt; поріг</tspan><tspan x="580.0" dy="15.6">або точність впала</tspan><tspan x="580.0" dy="15.6">→ РОЗБИРАТИСЯ</tspan></text>
+<line x1="665.0" y1="244.0" x2="300.0" y2="332.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="715.0" y1="244.0" x2="560.0" y2="332.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="410.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Ловиться на столі, поки апарат ще не злетів — найдешевше місце спіймати тиху похибку.</text>
+</svg>
