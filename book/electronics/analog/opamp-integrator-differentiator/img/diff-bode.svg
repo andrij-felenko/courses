@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Боде практичного диференціатора: підйом → плато → спад</text>
+<line x1="96.0" y1="300.0" x2="636.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="96.0" y1="300.0" x2="96.0" y2="64.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="366.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">частота ω (log)</text>
+<text x="26.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">|H| (log)</text>
+<line x1="258.0" y1="300.0" x2="258.0" y2="64.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 4"/>
+<text x="258.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">ω₁ = 1/(R·Cf)</text>
+<line x1="430.8" y1="300.0" x2="430.8" y2="64.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 4"/>
+<text x="430.8" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">ω₂ = 1/(Rs·C)</text>
+<line x1="102.0" y1="257.5" x2="258.0" y2="144.2" stroke="#2457d6" stroke-width="2.8"/>
+<text x="114.0" y="276.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">+20 дБ/дек</text>
+<text x="114.0" y="292.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">(чесна похідна, ∝ ω)</text>
+<line x1="258.0" y1="144.2" x2="430.8" y2="144.2" stroke="#27ae60" stroke-width="2.8"/>
+<text x="344.4" y="134.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">плато ≈ R/Rs</text>
+<text x="344.4" y="118.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">(стеля підсилення)</text>
+<line x1="430.8" y1="144.2" x2="630.0" y2="243.4" stroke="#c0392b" stroke-width="2.8"/>
+<text x="500.8" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">−20 дБ/дек</text>
+<text x="500.8" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">(шум придушено)</text>
+<line x1="102.0" y1="257.5" x2="528.0" y2="59.3" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="3 4"/>
+<text x="376.8" y="78.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ідеальний: росте без стелі</text>
+<rect x="35.4" y="324.2" width="649.3" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="344.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Практичний диференціатор диференціює (+20 дБ/дек) лише між двома зламами; вище ω₂ підсилення</tspan><tspan x="360.0" dy="15.6">виходить на плато R/Rs, а далі спадає (−20 дБ/дек) — саме це й рятує від шуму та дзвону.</tspan></text>
+</svg>

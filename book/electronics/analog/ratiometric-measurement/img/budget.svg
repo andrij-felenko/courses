@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бюджет похибок: спільне до розгалуження зникає, решта лишається</text>
+<rect x="80.0" y="102.0" width="54.0" height="36.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="107.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Vж</text>
+<line x1="134.0" y1="120.0" x2="230.0" y2="120.0" stroke="#27ae60" stroke-width="2.6"/>
+<circle cx="230.0" cy="120.0" r="3.4" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="230.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">розгалуження</text>
+<line x1="230.0" y1="120.0" x2="230.0" y2="74.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="230.0" y1="74.0" x2="350.0" y2="74.0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="356.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">сигнал → Vвх</text>
+<line x1="230.0" y1="120.0" x2="230.0" y2="166.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="230.0" y1="166.0" x2="350.0" y2="166.0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="356.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">опора → Vref</text>
+<rect x="100.0" y="193.5" width="180.0" height="33.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="190.0" y="214.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">СКОРОЧУЄТЬСЯ</tspan></text>
+<text x="190.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">дрейф самої шини Vж</text>
+<text x="190.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">— один і той самий вузол</text>
+<text x="190.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">до розгалуження: один струм I,</text>
+<text x="190.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">одне джерело — тотожні до біта</text>
+<rect x="418.0" y="193.5" width="220.0" height="33.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="528.0" y="214.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="528.0" dy="0.0">НЕ СКОРОЧУЄТЬСЯ</tspan></text>
+<text x="528.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">шум, доданий ПІСЛЯ розгалуження</text>
+<text x="528.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">— різний на Vвх і Vref</text>
+<text x="528.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">часове розузгодження вибірки</text>
+<text x="528.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">— два різні значення Vж у мить t</text>
+<text x="528.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">точність опорного резистора R_оп</text>
+<text x="528.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">— це новий еталон системи</text>
+</svg>

@@ -3,138 +3,228 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
 from svgkit import *
 
-OUT = os.path.join(os.path.dirname(__file__), 'img')
-os.makedirs(OUT, exist_ok=True)
+HERE = os.path.dirname(__file__)
+IMG = os.path.join(HERE, "img")
+os.makedirs(IMG, exist_ok=True)
 
 
-# ── 1. Петля додатного зворотного зв'язку (саме розгін) ──────────────────────
-def fig_loop():
-    W, H = 720, 380
-    parts = []
-    cx, cy = W / 2, 210
-    # чотири вузли петлі по колу
-    nodes = [
-        (cx,        78,  "температура\nкристала ↑"),
-        (cx + 250,  cy,  "струм\nколектора ↑"),
-        (cx,        342, "потужність\nна кристалі ↑"),
-        (cx - 250,  cy,  "ще тепліше"),
+# ── 1. Три входи тепла в рівняння струму колектора BJT ──────────────────────
+def fig_three_pushes():
+    """Що в рівнянні Ic = β·Ib + (β+1)·ICBO сповзає від тепла:
+    β росте, ICBO росте, VBE падає — усі три штовхають Ic в один бік."""
+    W, H = 760, 380
+    frags = []
+    # центральне рівняння
+    eqx, eqy = W / 2, 96
+    eb, ew, eh = textbox(eqx, eqy, "Ic = β · Ib + (β + 1) · ICBO",
+                         size=20, pad=16, stroke=INK, sw=2.2, bold=True, min_w=360)
+    frags.append(eb)
+
+    # три рамки-чинники під рівнянням
+    items = [
+        (W * 0.20, "β (підсилення)\nросте з T",      "+0.5…1 %/°C", POS),
+        (W * 0.50, "VBE (відкривання)\nпадає з T",    "−2 мВ/°C",    POS),
+        (W * 0.80, "ICBO (витік)\nросте з T",         "×2 / +10 °C", POS),
     ]
     boxes = []
-    for x, y, s in nodes:
-        b, w, h = textbox(x, y, s, size=15, pad=12, bold=True,
-                          fill="#fdecea", stroke=POS, sw=2)
-        boxes.append((x, y, w, h))
-        parts.append(b)
-    # дуги-стрілки за годинниковою (між сусідніми вузлами)
-    seq = [0, 1, 2, 3, 0]
-    for i in range(4):
-        x1, y1, _, _ = boxes[seq[i]]
-        x2, y2, _, _ = boxes[seq[i + 1]]
-        mx, my = (x1 + x2) / 2, (y1 + y2) / 2
-        # відсунути кінці від центрів рамок
-        dx, dy = x2 - x1, y2 - y1
-        L = (dx * dx + dy * dy) ** 0.5
-        ux, uy = dx / L, dy / L
-        parts.append(arrow(x1 + ux * 95, y1 + uy * 45,
-                           x2 - ux * 95, y2 - uy * 45, color=POS, sw=2.4))
-    parts.append(text(cx, cy + 5, "+", size=40, color=POS, bold=True))
-    parts.append(text(cx, cy + 34, "замкнена петля", size=13, color=MUTED))
-    return render(os.path.join(OUT, 'runaway-loop.svg'), W, H, *parts,
-                  title="Тепловий розгін — петля з додатним знаком")
+    for (x, label, num, col) in items:
+        b, w, h = textbox(x, 250, label, size=14, pad=12,
+                          fill="#fdecea", stroke=col, sw=2.0, color=INK)
+        frags.append(b)
+        boxes.append((x, 250, w, h))
+        nb, _, _ = textbox(x, 250 + h / 2 + 30, num, size=13, pad=8,
+                           stroke=col, sw=1.6, color=col, bold=True)
+        frags.append(nb)
+
+    # стрілки від рівняння до кожного чинника
+    for (x, y, w, h) in boxes:
+        frags.append(arrow(eqx + (x - eqx) * 0.18, eqy + eh / 2 + 4,
+                           x, y - h / 2 - 6, color=POS, sw=2.0))
+
+    frags.append(text(W / 2, H - 18,
+                      "усі три зсуви штовхають Ic в один бік — угору",
+                      size=14, color=POS, italic=True, bold=True))
+    render(os.path.join(IMG, "three-pushes.svg"), W, H, *frags,
+           title="Три температурні зсуви в струмі колектора BJT")
 
 
-# ── 2. Зсув кривої Vbe(T): тепліше → крива ліворуч → за тієї ж напруги більший струм ──
-def fig_vbe_shift():
-    W, H = 720, 420
-    parts = []
-    ox, oy = 110, 350          # початок осей
-    aw, ah = 540, 280
-    parts.append(line(ox, oy, ox + aw, oy, color=INK, sw=2))        # вісь Vbe
-    parts.append(line(ox, oy, ox, oy - ah, color=INK, sw=2))        # вісь Ic
-    parts.append(text(ox + aw, oy + 26, "напруга база–емітер  Vbe", size=13, color=INK, anchor="end"))
-    parts.append(text(ox - 14, oy - ah, "струм  Ic", size=13, color=INK, anchor="end"))
+# ── 2. Сходинка зміщень: чим краще тримає базу — тим менший S ───────────────
+def fig_bias_ladder():
+    """Три способи зміщення BJT і їхній чинник стійкості S = ΔIc/ΔICO:
+    фіксований струм бази (S = β+1, погано) → з RE → подільник (S мале, добре)."""
+    W, H = 760, 408
+    frags = []
+    rows = [
+        ("Фіксований струм бази", "тільки резистор база→живлення",
+         "S = β + 1", "≈ 150…300", POS, "#fdecea", "розгін легкий"),
+        ("Емітерний резистор RE", "RE дає від'ємний зв'язок за струмом",
+         "S = (β+1)·(1+RB/RE) / (1+β+RB/RE)", "≈ 10…30", MUTED, FILL, "помітно стійкіше"),
+        ("Подільник + RE", "база жорстко зафіксована, RE гальмує",
+         "S → (1 + RB/RE),  RB мале", "≈ 3…10", FIELD, "#eafaf0", "майже не пливе"),
+    ]
+    y = 78
+    bw = W - 80
+    bx = 40
+    for (name, sub, sform, sval, col, fillc, verdict) in rows:
+        bh = 86
+        frags.append(rect(bx, y, bw, bh, fill=fillc, stroke=col, sw=2.0, rx=8))
+        frags.append(text(bx + 18, y + 28, name, size=16, color=INK, anchor="start", bold=True))
+        frags.append(text(bx + 18, y + 50, sub, size=12.5, color=MUTED, anchor="start"))
+        frags.append(text(bx + 18, y + 72, sform, size=12.5, color=col, anchor="start", bold=True))
+        # права колонка: значення S і вирок
+        frags.append(text(bx + bw - 18, y + 34, sval, size=20, color=col, anchor="end", bold=True))
+        frags.append(text(bx + bw - 18, y + 58, verdict, size=12.5, color=col, anchor="end", italic=True))
+        y += bh + 14
 
-    import math
-    def expo(shift, color, dash=None):
-        # експонента Ic ~ exp((V-shift)/k); shift зсуває криву ліворуч (тепліше)
-        k = 46.0
-        pts = []
-        for px in range(0, aw + 1, 4):
-            v = px
-            y = math.exp((v - 250 + shift) / k)
-            if y > ah:
-                y = ah
-            pts.append((ox + px, oy - y))
-            if y >= ah:
-                break
-        d = "M " + " L ".join("%.1f %.1f" % p for p in pts)
-        da = ' stroke-dasharray="%s"' % dash if dash else ''
-        return ('<path d="%s" fill="none" stroke="%s" stroke-width="2.6"%s/>' % (d, color, da))
-
-    parts.append(expo(0,  NEG))          # холодна крива
-    parts.append(expo(60, POS))          # гаряча крива (зсунута ліворуч)
-
-    # фіксована напруга зміщення — вертикаль
-    vx = ox + 232
-    parts.append(line(vx, oy, vx, oy - ah, color=MUTED, sw=1.4, dash="4 4"))
-    parts.append(text(vx, oy + 20, "та сама\nVbe".split("\n")[0], size=12, color=MUTED))
-    parts.append(text(vx, oy + 34, "Vbe", size=12, color=MUTED))
-
-    # точки перетину вертикалі з двома кривими
-    k = 46.0
-    y_cold = math.exp((232 - 250 + 0) / k)
-    y_hot = math.exp((232 - 250 + 60) / k)
-    y_cold = min(y_cold, ah); y_hot = min(y_hot, ah)
-    parts.append(circle(vx, oy - y_cold, 5, fill=NEG, stroke=NEG))
-    parts.append(circle(vx, oy - y_hot, 5, fill=POS, stroke=POS))
-    parts.append(arrow(vx + 16, oy - y_cold, vx + 16, oy - y_hot + 6, color=POS, sw=2))
-    parts.append(text(vx + 26, oy - (y_cold + y_hot) / 2, "+ΔIc", size=13, color=POS, anchor="start", bold=True))
-
-    parts.append(fitbox(ox + 300, oy - ah + 6, 230, 52,
-                        "−2 мВ/°C: нагрів зсуває\nкриву ліворуч",
-                        size=13, fill="#fdecea", stroke=POS, color=POS))
-    parts.append(text(ox + 70, oy - ah + 20, "холодний", size=12, color=NEG, anchor="start", bold=True))
-    return render(os.path.join(OUT, 'vbe-shift.svg'), W, H, *parts,
-                  title="Чому нагрів сам піднімає струм за незмінної напруги")
+    frags.append(text(W / 2, H - 14,
+                      "що жорсткіше зафіксована база й сильніший RE — то менший S, то стійкіше",
+                      size=12.5, color=FIELD, anchor="middle", italic=True))
+    render(os.path.join(IMG, "bias-ladder.svg"), W, H, *frags,
+           title="Чинник стійкості S за різних схем зміщення BJT")
 
 
-# ── 3. Емітерний резистор розриває петлю ────────────────────────────────────
-def fig_emitter_cure():
-    W, H = 720, 360
-    parts = []
-    # ліворуч: без Re — петля замкнена; праворуч: з Re — розірвана
-    # ЛІВО
-    lx = 185
-    parts.append(text(lx, 56, "Без емітерного резистора", size=14, bold=True, color=POS))
-    a, _, _ = textbox(lx, 120, "Ic ↑", size=15, bold=True, fill="#fdecea", stroke=POS, sw=2)
-    b, _, _ = textbox(lx, 250, "нагрів ↑", size=15, bold=True, fill="#fdecea", stroke=POS, sw=2)
-    parts += [a, b]
-    parts.append(arrow(lx + 36, 132, lx + 36, 232, color=POS, sw=2.4))
-    parts.append(arrow(lx - 36, 232, lx - 36, 132, color=POS, sw=2.4))
-    parts.append(text(lx + 92, 190, "ніщо\nне гальмує".split("\n")[0], size=12, color=MUTED, anchor="start"))
-    parts.append(text(lx + 92, 204, "ніщо не гальмує", size=12, color=MUTED, anchor="start"))
+# ── 3. Витік приходить у колектор помножений на (β+1) ───────────────────────
+def fig_leakage_gain():
+    """Крихітний ICBO у переході база–колектор виходить у колекторний струм
+    помноженим на (β+1): транзистор підсилює власний паразитний витік."""
+    W, H = 760, 320
+    frags = []
+    # ліворуч — джерело витоку (мала рамка)
+    a, aw, ah = textbox(150, 150, "ICBO\nвитік переходу\nБ–К", size=14, pad=12,
+                        stroke=POS, sw=2.0, color=INK, fill="#fdecea")
+    frags.append(a)
+    frags.append(text(150, 150 + ah / 2 + 26, "крихітний (нА)", size=12.5,
+                      color=MUTED, italic=True))
 
-    # розділювач
-    parts.append(line(W / 2, 44, W / 2, H - 24, color=MUTED, sw=1.2, dash="5 5"))
+    # посередині — «×(β+1)» транзистор
+    m, mw, mh = textbox(W / 2, 150, "транзистор\n×(β + 1)", size=16, pad=16,
+                        stroke=INK, sw=2.2, color=INK, bold=True)
+    frags.append(m)
 
-    # ПРАВО
-    rx = 535
-    parts.append(text(rx, 56, "З емітерним резистором Re", size=14, bold=True, color=FIELD))
-    c, _, _ = textbox(rx, 120, "Ic хоче ↑", size=15, bold=True, fill="#eafaf0", stroke=FIELD, sw=2)
-    d, _, _ = textbox(rx, 250, "більше падає на Re", size=14, bold=True, fill="#eafaf0", stroke=FIELD, sw=2)
-    parts += [c, d]
-    parts.append(arrow(rx + 70, 132, rx + 70, 232, color=FIELD, sw=2.4))
-    # зустрічна стрілка — гальмо (повертає назад і прикриває)
-    parts.append(arrow(rx - 70, 232, rx - 70, 132, color=NEG, sw=2.4))
-    parts.append(text(rx - 78, 190, "Vbe падає →\nIc назад".split("\n")[0], size=12, color=NEG, anchor="end"))
-    parts.append(text(rx - 78, 204, "Ic назад", size=12, color=NEG, anchor="end"))
-    parts.append(text(rx, H - 18, "петлю розірвано", size=13, color=FIELD, bold=True))
-    return render(os.path.join(OUT, 'emitter-cure.svg'), W, H, *parts,
-                  title="Емітерний резистор — від'ємний зворотний зв'язок проти розгону")
+    # праворуч — наслідок у колекторі (велика рамка)
+    c, cw, ch = textbox(W - 150, 150, "ICEO = (β+1)·ICBO\nдодаток до Ic", size=14, pad=12,
+                        stroke=POS, sw=2.2, color=INK, fill="#fdecea")
+    frags.append(c)
+    frags.append(text(W - 150, 150 + ch / 2 + 26, "у сотні разів більший",
+                      size=12.5, color=POS, italic=True, bold=True))
+
+    # стрілки
+    frags.append(arrow(150 + aw / 2 + 6, 150, W / 2 - mw / 2 - 8, 150, color=POS, sw=2.4))
+    frags.append(arrow(W / 2 + mw / 2 + 6, 150, W - 150 - cw / 2 - 8, 150, color=POS, sw=2.6))
+
+    frags.append(text(W / 2, H - 20,
+                      "тепло множить ICBO — а схема ще раз множить його на (β+1)",
+                      size=14, color=POS, italic=True))
+    render(os.path.join(IMG, "leakage-gain.svg"), W, H, *frags,
+           title="Власний витік, підсилений у (β+1) разів")
 
 
-if __name__ == '__main__':
-    fig_loop()
-    fig_vbe_shift()
-    fig_emitter_cure()
-    print('figs done')
+# ── 4. RE «бачиться» з боку бази помноженим на (β+1) ────────────────────────
+def fig_re_reflected():
+    """Чому RE входить у рівняння бази як (β+1)·RE: крізь резистор тече струм
+    емітера (β+1)·Ib, тож база «бачить» падіння (β+1)·Ib·RE — наче опір більший."""
+    W, H = 760, 360
+    frags = []
+    # вертикальна вісь кола: база зверху, емітер знизу, RE до землі
+    cx = 250
+    # вузол бази
+    frags.append(circle(cx, 90, 7, fill=INK, stroke=INK, sw=1.5))
+    frags.append(text(cx - 16, 94, "база", size=13, color=INK, anchor="end"))
+    frags.append(text(cx + 16, 78, "Ib  →", size=13, color=NEG, anchor="start", bold=True))
+    # транзистор (рамка) між базою та емітером
+    tb, tw, th = textbox(cx, 165, "BJT", size=15, pad=14, stroke=INK, sw=2.0, bold=True)
+    frags.append(tb)
+    frags.append(line(cx, 97, cx, 165 - th / 2, color=INK, sw=2.0))
+    # емітерний вузол
+    frags.append(line(cx, 165 + th / 2, cx, 230, color=INK, sw=2.0))
+    frags.append(circle(cx, 230, 7, fill=INK, stroke=INK, sw=1.5))
+    frags.append(text(cx + 16, 226, "емітер", size=13, color=INK, anchor="start"))
+    frags.append(text(cx + 20, 250, "Ie = (β+1)·Ib  ↓", size=13, color=POS, anchor="start", bold=True))
+    # RE до землі
+    frags.append(rect(cx - 16, 262, 32, 50, fill="#eafaf0", stroke=FIELD, sw=2.0, rx=4))
+    frags.append(text(cx + 28, 290, "RE", size=14, color=FIELD, anchor="start", bold=True))
+    frags.append(line(cx, 312, cx, 330, color=INK, sw=2.0))
+    frags.append(line(cx - 18, 330, cx + 18, 330, color=INK, sw=2.5))  # земля
+    frags.append(line(cx - 11, 336, cx + 11, 336, color=INK, sw=2.0))
+    frags.append(line(cx - 4, 342, cx + 4, 342, color=INK, sw=1.6))
+
+    # права колонка — висновок: падіння, віднесене до струму бази
+    bx = 470
+    e1, ew, eh = textbox(bx + 130, 120,
+                         "падіння на RE\n= Ie · RE\n= (β+1)·Ib · RE",
+                         size=14, pad=14, stroke=FIELD, sw=2.0, color=INK, fill="#eafaf0")
+    frags.append(e1)
+    e2, ew2, eh2 = textbox(bx + 130, 240,
+                           "віднести до Ib  ⇒\nбаза «бачить» опір\n(β+1)·RE",
+                           size=14, pad=14, stroke=INK, sw=2.2, color=INK, bold=True)
+    frags.append(e2)
+    frags.append(arrow(bx + 130, 120 + eh / 2 + 4, bx + 130, 240 - eh2 / 2 - 6,
+                       color=INK, sw=2.0))
+    # стрілка від кола до висновку
+    frags.append(arrow(cx + 70, 200, bx + 130 - ew / 2 - 8, 130, color=MUTED, sw=1.8))
+
+    frags.append(text(W / 2, H - 14,
+                      "малий струм бази тече крізь RE як великий струм емітера — тому в колі бази RE «важить» у (β+1) разів",
+                      size=12, color=FIELD, anchor="middle", italic=True))
+    render(os.path.join(IMG, "re-reflected.svg"), W, H, *frags,
+           title="Чому RE входить у коло бази як (β+1)·RE")
+
+
+# ── 5. Три чинники стійкості складаються в повний дрейф струму ───────────────
+def fig_three_factors():
+    """Повний температурний дрейф ΔIc = S·ΔICO + S_VBE·ΔVBE + S_β·Δβ:
+    три похідні від того самого рівняння кола, кожна множить свій поштовх."""
+    W, H = 780, 380
+    frags = []
+    # три вхідні поштовхи (ліворуч)
+    ins = [
+        (90,  "ΔICO\nвитік ↑",   POS,  "#fdecea"),
+        (170, "ΔVBE\nсповзання ↓", NEG, "#eaf0fd"),
+        (250, "Δβ\nпідсилення ↑", POS,  "#fdecea"),
+    ]
+    facs = [
+        (90,  "× S",     "= ΔIc/ΔICO"),
+        (170, "× S_VBE", "= ΔIc/ΔVBE"),
+        (250, "× S_β",   "= ΔIc/Δβ"),
+    ]
+    boxes = []
+    for (y, lbl, col, fillc), (yf, fl, fsub) in zip(ins, facs):
+        b, w, h = textbox(140, y, lbl, size=13, pad=10, stroke=col, sw=1.9,
+                          color=INK, fill=fillc)
+        frags.append(b)
+        # множник
+        fb, fw, fh = textbox(360, y, fl, size=15, pad=11, stroke=INK, sw=2.0,
+                             color=INK, bold=True, min_w=92)
+        frags.append(fb)
+        frags.append(text(360, y + fh / 2 + 16, fsub, size=11, color=MUTED, italic=True))
+        frags.append(arrow(140 + w / 2 + 6, y, 360 - fw / 2 - 8, y, color=col, sw=2.0))
+        boxes.append((360, y, fw, fh))
+
+    # сумовий вузол
+    sumx = 560
+    frags.append(circle(sumx, 170, 22, fill="#fff", stroke=INK, sw=2.2))
+    frags.append(text(sumx, 178, "Σ", size=26, color=INK, bold=True))
+    for (x, y, w, h) in boxes:
+        frags.append(arrow(x + w / 2 + 6, y, sumx - 26, 170 + (y - 170) * 0.25,
+                           color=MUTED, sw=1.8))
+
+    # результат
+    rb, rw, rh = textbox(700, 170, "ΔIc\nповний\nдрейф", size=15, pad=14,
+                         stroke=POS, sw=2.4, color=INK, bold=True, fill="#fdecea")
+    frags.append(rb)
+    frags.append(arrow(sumx + 24, 170, 700 - rw / 2 - 8, 170, color=POS, sw=2.6))
+
+    frags.append(text(W / 2, H - 16,
+                      "ΔIc = S·ΔICO + S_VBE·ΔVBE + S_β·Δβ — три чутливості того самого кола, кожна множить свій поштовх",
+                      size=12, color=INK, anchor="middle", italic=True))
+    render(os.path.join(IMG, "three-factors.svg"), W, H, *frags,
+           title="Повний дрейф струму: три чинники стійкості")
+
+
+if __name__ == "__main__":
+    fig_three_pushes()
+    fig_bias_ladder()
+    fig_leakage_gain()
+    fig_re_reflected()
+    fig_three_factors()
+    print("ok: figures written to", IMG)

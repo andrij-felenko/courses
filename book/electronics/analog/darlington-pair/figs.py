@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """Фігури до теми «Схема Дарлінгтона» (analog/darlington-pair).
-Чотири фігури:
+П'ять фігур:
   cascade.svg            — суть: емітер Q1 → база Q2, колектори разом, β = β1·β2
   two-vbe.svg            — ціна №1: два переходи база–емітер послідовно (~1.4 В)
   leakage.svg            — ціна №2: витік Q1 підсилюється Q2; резистор-злив на базі Q2
   darlington-vs-sziklai  — два різновиди: NPN-NPN та комплементарний (NPN-PNP)
+  hist-timeline.svg      — історична вставка: дві паралельні долі (Дарлінгтон / Сіклаї)
 Запуск:  python figs.py   → пише SVG у ./img/
 Стиль і помічники — зі спільного svgkit (НЕ переписувати тут)."""
 import sys, os
@@ -240,9 +241,63 @@ def fig_vs():
                   title="Два різновиди складеного транзистора")
 
 
+# ════════════════════════════════════════════════════════════════════════════
+# 5. hist-timeline.svg — дві паралельні долі, що збіглися на одній думці
+# ════════════════════════════════════════════════════════════════════════════
+def fig_hist_timeline():
+    W, H = 760, 430
+    f = []
+    # вісь часу
+    x0, x1 = 70, 690
+    yA, yB = 150, 320          # верхня доріжка — Дарлінгтон, нижня — Сіклаї
+    # роки-позначки 1929…1957
+    yr0, yr1 = 1928, 1958
+    def X(year):
+        return x0 + (x1 - x0) * (year - yr0) / (yr1 - yr0)
+    # дві горизонтальні осі
+    f.append(line(x0, yA, x1, yA, color=NEG, sw=2))
+    f.append(line(x0, yB, x1, yB, color=FIELD, sw=2))
+    f.append(text(x0 - 4, yA - 14, "Сідні Дарлінгтон · Bell Labs (США)", size=13, color=NEG, anchor="start", bold=True))
+    f.append(text(x0 - 4, yB + 26, "Джордж Сіклаї · RCA (емігрант з Угорщини)", size=13, color=FIELD, anchor="start", bold=True))
+    # сітка років (підписи згори, щоб не стикалися з нижніми рамками-подіями)
+    for year in (1930, 1935, 1940, 1945, 1950, 1955):
+        gx = X(year)
+        f.append(line(gx, 64, gx, 392, color="#e8e8e8", sw=1))
+        f.append(text(gx, 58, str(year), size=12, color=MUTED))
+    # точки-події: (рік, доріжка, підпис, колір)
+    def dot(year, y, color):
+        gx = X(year)
+        f.append(circle(gx, y, 5, fill=color, stroke=color))
+        return gx
+    # ── Дарлінгтон ──
+    gx = dot(1929, yA, NEG); f.append(text(gx, yA - 22, "MIT, інженер-зв'язківець", size=11, color=INK))
+    gx = dot(1952, yA, NEG)
+    bx, _, _ = textbox(X(1952), yA - 48, "9 травня 1952\nзаявка на патент", size=11.5, bold=True, fill="#eaf0fb", stroke=NEG)
+    f.append(bx)
+    f.append(line(X(1952), yA - 30, X(1952), yA - 5, color=NEG, sw=1.4))
+    gx = dot(1953, yA, NEG)
+    bx, _, _ = textbox(X(1953) + 30, yA + 34, "22 грудня 1953\nпатент US 2 663 806", size=11.5, bold=True, fill="#eaf0fb", stroke=NEG)
+    f.append(bx)
+    f.append(line(X(1953), yA + 5, X(1953) + 30, yA + 20, color=NEG, sw=1.4))
+    # ── Сіклаї ──
+    gx = dot(1930, yB, FIELD); f.append(text(gx + 4, yB + 44, "1930: переїзд до Нью-Йорка", size=11, color=INK, anchor="start"))
+    gx = dot(1936, yB, FIELD); f.append(text(gx, yB - 18, "телебачення RCA: іконоскоп, орфікон", size=11, color=INK))
+    gx = dot(1956, yB, FIELD)
+    bx, _, _ = textbox(X(1956) - 10, yB + 60, "1956–57\nкомплементарні\nкаскади (патенти)", size=11.5, bold=True, fill="#eef7f0", stroke=FIELD)
+    f.append(bx)
+    f.append(line(X(1956), yB + 5, X(1956) - 10, yB + 36, color=FIELD, sw=1.4))
+    # позначка «винайдено транзистор, 1947» — спільний старт
+    gx = X(1947)
+    f.append(line(gx, 70, gx, 380, color=POS, sw=1.6, dash="5,4"))
+    f.append(text(gx + 4, 86, "1947: винайдено транзистор", size=11.5, color=POS, anchor="start", bold=True))
+    return render(os.path.join(IMG, "hist-timeline.svg"), W, H, *f,
+                  title="Дві долі, одна думка: складений транзистор на двох берегах")
+
+
 if __name__ == "__main__":
     fig_cascade()
     fig_two_vbe()
     fig_leakage()
     fig_vs()
-    print("OK: 4 фігури у", IMG)
+    fig_hist_timeline()
+    print("OK: 5 фігур у", IMG)

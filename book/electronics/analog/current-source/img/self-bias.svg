@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Резистор витоку опускає струм: робоча точка self-bias</text>
+<line x1="330.0" y1="54.0" x2="330.0" y2="350.0" stroke="#d0d0d0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="150.0" y1="78.0" x2="150.0" y2="120.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="150.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">стік</text>
+<line x1="150.0" y1="120.0" x2="150.0" y2="220.0" stroke="#1a1a1a" stroke-width="4.0"/>
+<line x1="96.0" y1="170.0" x2="148.0" y2="170.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<polygon points="148.0,170.0 136.0,164.0 136.0,176.0" fill="#1a1a1a"/>
+<text x="90.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">затвор</text>
+<line x1="150.0" y1="220.0" x2="150.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="150.0" y1="250.0" x2="150.0" y2="253.0" stroke="#1a1a1a" stroke-width="2.0"/><rect x="137.0" y="253.0" width="26.0" height="64.0" rx="3" fill="#fff" stroke="#1a1a1a" stroke-width="2.0"/><line x1="150.0" y1="317.0" x2="150.0" y2="320.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="188.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">R_S</text>
+<line x1="150.0" y1="320.0" x2="150.0" y2="330.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="96.0" y1="170.0" x2="96.0" y2="320.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="96.0" y1="320.0" x2="150.0" y2="320.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="150.0" cy="320.0" r="3.2" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="180.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">U_GS &lt; 0</text>
+<rect x="18.0" y="210.0" width="132.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="84.0" y="222.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="84.0" dy="0.0">затвор — на землю,</tspan><tspan x="84.0" dy="13.0">витік піднятий I·R_S</tspan><tspan x="84.0" dy="13.0">→ U_GS = −I·R_S</tspan></text>
+<line x1="400.0" y1="320.0" x2="680.0" y2="320.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="320.0" x2="400.0" y2="70.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="676.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">−U_GS  (глибше зміщення →)</text>
+<text x="408.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">струм  I_D</text>
+<polyline points="400.0,120.0 408.9,134.0 417.9,147.6 426.8,160.6 435.7,173.1 444.6,185.1 453.6,196.5 462.5,207.5 471.4,218.0 480.4,227.9 489.3,237.3 498.2,246.3 507.1,254.7 516.1,262.6 525.0,270.0 533.9,276.9 542.9,283.3 551.8,289.1 560.7,294.5 569.6,299.3 578.6,303.7 587.5,307.5 596.4,310.8 605.4,313.6 614.3,315.9 623.2,317.7 632.1,319.0 641.1,319.7 650.0,320.0" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<text x="470.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">крива JFET (квадрат)</text>
+<line x1="400.0" y1="120.0" x2="406.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="392.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">I_DSS</text>
+<text x="650.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">U_P</text>
+<line x1="400.0" y1="320.0" x2="556.2" y2="257.5" stroke="#2457d6" stroke-width="2.4"/>
+<text x="565.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">пряма R_S:</text>
+<text x="565.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">I = −U_GS/R_S</text>
+<circle cx="525.0" cy="270.0" r="5.0" fill="#27ae60" stroke="#1e7e44" stroke-width="2.0"/>
+<line x1="400.0" y1="270.0" x2="525.0" y2="270.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="525.0" y1="320.0" x2="525.0" y2="270.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="392.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e7e44" text-anchor="end" font-weight="700">I_роб</text>
+<rect x="533.0" y="226.0" width="150.0" height="30.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="608.0" y="237.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e7e44" text-anchor="middle"><tspan x="608.0" dy="0.0">робоча точка:</tspan><tspan x="608.0" dy="14.3">струм &lt; I_DSS</tspan></text>
+</svg>

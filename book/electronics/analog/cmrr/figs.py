@@ -178,8 +178,111 @@ def fig_vs_freq():
     render(os.path.join(IMG, "vs-freq.svg"), W, H, *f)
 
 
+# ── 4. Чому «довгий хвіст»: короткий резистор vs джерело струму ──────────────
+def _valve(f, cx, cy):
+    """Спрощений символ лампи-тріода: коло, всередині анод/сітка/катод-риски."""
+    f.append(circle(cx, cy, 24, fill="#ffffff", stroke=INK, sw=1.8))
+    # анод (пластинка вгорі)
+    f.append(line(cx - 10, cy - 11, cx + 10, cy - 11, color=INK, sw=2.4))
+    # сітка (пунктир посередині)
+    f.append(line(cx - 11, cy, cx + 11, cy, color=MUTED, sw=1.6, dash="3 3"))
+    # катод (галочка внизу)
+    f.append(line(cx - 8, cy + 12, cx, cy + 6, color=POS, sw=2.2))
+    f.append(line(cx, cy + 6, cx + 8, cy + 12, color=POS, sw=2.2))
+
+
+def _ltp(f, ox, oy, long_tail):
+    """Малює одну пару з двома лампами зі спільним катодним хвостом у точці (ox,oy=верх)."""
+    lx, rx = ox + 40, ox + 150      # центри двох ламп по X
+    vy = oy + 70                    # центр ламп по Y
+    rail_top = oy + 6               # верхня шина (анодне живлення)
+    knot = oy + 150                 # вузол з'єднання катодів
+    tail_bot = oy + 250             # низ хвоста (−)
+
+    # верхня шина живлення й анодні резистори
+    f.append(line(lx - 30, rail_top, rx + 30, rail_top, color=INK, sw=2))
+    f.append(text(rx + 36, rail_top + 4, "+V", size=11, color=INK, anchor="start", bold=True))
+    for x in (lx, rx):
+        f.append(line(x, rail_top, x, vy - 24, color=LINE, sw=1.6))
+        f.append(rect(x - 6, rail_top + 14, 12, 26, fill="#fff7ec", stroke=WIRE, sw=1.4, rx=3))
+
+    # лампи
+    _valve(f, lx, vy)
+    _valve(f, rx, vy)
+    # виходи від анодів убік
+    f.append(text(lx - 30, vy - 26, "вих", size=10, color=FIELD, anchor="middle", bold=True))
+    f.append(text(rx + 30, vy - 26, "вих", size=10, color=FIELD, anchor="middle", bold=True))
+
+    # входи (сітки) ліворуч/праворуч зі стрілками «спільний підйом»
+    f.append(line(lx - 24, vy, lx - 50, vy, color=NEG, sw=1.6))
+    f.append(line(rx + 24, vy, rx + 50, vy, color=NEG, sw=1.6))
+    f.append(text(lx - 54, vy + 4, "вх", size=10, color=NEG, anchor="end", bold=True))
+    f.append(text(rx + 54, vy + 4, "вх", size=10, color=NEG, anchor="start", bold=True))
+
+    # катоди вниз до спільного вузла
+    f.append(line(lx, vy + 12, lx, knot, color=POS, sw=1.8))
+    f.append(line(rx, vy + 12, rx, knot, color=POS, sw=1.8))
+    f.append(line(lx, knot, rx, knot, color=POS, sw=1.8))
+    midx = (lx + rx) / 2
+    f.append(circle(midx, knot, 3.2, fill=POS, stroke=POS))
+
+    # хвіст донизу
+    f.append(line(midx, knot, midx, tail_bot - (40 if long_tail else 0), color=POS, sw=1.8))
+
+    if long_tail:
+        # джерело струму: коло з двома стрілками (символ)
+        scy = tail_bot - 22
+        f.append(circle(midx, scy, 18, fill="#eaf6ee", stroke=FIELD, sw=2))
+        f.append(arrow(midx, scy + 9, midx, scy - 9, color=FIELD, sw=2))
+        f.append(line(midx, tail_bot - 4, midx, tail_bot + 14, color=POS, sw=1.8))
+        f.append(text(midx + 24, scy + 4, "джерело", size=10, color=FIELD, anchor="start", bold=True))
+        f.append(text(midx + 24, scy + 17, "струму", size=10, color=FIELD, anchor="start", bold=True))
+        f.append(text(midx, tail_bot + 30, "Iхв = const", size=11, color=FIELD, bold=True))
+    else:
+        # звичайний резистор
+        f.append(rect(midx - 7, tail_bot - 60, 14, 40, fill="#fff7ec", stroke=WIRE, sw=1.5, rx=3))
+        f.append(text(midx + 22, tail_bot - 40, "Rмал", size=11, color=WIRE, anchor="start", bold=True))
+        f.append(line(midx, tail_bot - 20, midx, tail_bot + 14, color=POS, sw=1.8))
+
+    # шина «−» внизу
+    f.append(line(midx - 26, tail_bot + 14, midx + 26, tail_bot + 14, color=INK, sw=2))
+    f.append(text(midx + 32, tail_bot + 18, "−", size=12, color=INK, anchor="start", bold=True))
+
+    # стрілки спільного підйому входів (обидва вгору однаково)
+    for x in (lx - 50, rx + 50):
+        f.append(arrow(x, vy + 26, x, vy + 6, color=NEG, sw=1.6))
+    f.append(text(midx, vy + 40, "обидва входи ↑ разом (спільне)", size=10,
+                  color=NEG, anchor="middle"))
+
+    return midx, knot
+
+
+def fig_ltp_tail():
+    W, H = 820, 470
+    f = [text(W / 2, 28, "Чому хвіст хочуть «довгим»", size=17, bold=True),
+         text(W / 2, 50, "той самий спільний підйом обох входів: короткий хвіст пропускає заваду, довгий — застигає",
+              size=12, color=MUTED, italic=True)]
+
+    # ліва пара — короткий резистор
+    mxL, _ = _ltp(f, 60, 80, long_tail=False)
+    f.append(fitbox(40, 360, 320, 84,
+                    "короткий хвіст: спільний струм ВІЛЬНО росте →\nвихід сіпається → спільне просочилось",
+                    size=13, fill="#fdecea", stroke=POS, bold=True))
+
+    # права пара — джерело струму
+    mxR, _ = _ltp(f, 460, 80, long_tail=True)
+    f.append(fitbox(460, 360, 320, 84,
+                    "довгий хвіст (джерело струму): Iхв сталий →\nспільному нікуди дітися → скоротилось",
+                    size=13, fill="#eaf6ee", stroke=FIELD, bold=True))
+
+    # роздільник по центру
+    f.append(line(W / 2, 90, W / 2, 345, color="#dfe2e6", sw=1.4, dash="4 5"))
+    render(os.path.join(IMG, "ltp-tail.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_decompose()
     fig_ladder()
     fig_vs_freq()
+    fig_ltp_tail()
     print("OK: figures written to", IMG)

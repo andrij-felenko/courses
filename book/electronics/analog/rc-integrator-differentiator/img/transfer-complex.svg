@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комплексний бік: один вектор 1 + jωτ задає обидві машини</text>
+<line x1="190.0" y1="250.0" x2="570.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="250.0" y1="320.0" x2="250.0" y2="20.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="572.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Re</text>
+<text x="240.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Im</text>
+<line x1="345.0" y1="246.0" x2="345.0" y2="254.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="345.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1</text>
+<line x1="250.0" y1="250.0" x2="345.0" y2="117.0" stroke="#1a1a1a" stroke-width="2.6"/>
+<circle cx="345.0" cy="117.0" r="3.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="353.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1 + jωτ</text>
+<line x1="345.0" y1="117.0" x2="345.0" y2="250.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="250.0" y1="117.0" x2="345.0" y2="117.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="297.5" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Re = 1</text>
+<text x="242.0" y="183.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Im = ωτ</text>
+<text x="280.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">φ</text>
+<text x="291.5" y="173.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">|1+jωτ| = √(1+(ωτ)²)</text>
+<rect x="469.5" y="110.6" width="191.0" height="78.8" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="565.0" y="130.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="565.0" dy="0.0">ІНТЕГРАТОР  H = 1/(1+jωτ)</tspan><tspan x="565.0" dy="15.6">модуль = 1 / довжина</tspan><tspan x="565.0" dy="15.6">кут = −φ  (поворот назад)</tspan><tspan x="565.0" dy="15.6">велике ωτ → |H|→0, спад</tspan></text>
+<rect x="452.4" y="260.6" width="225.2" height="78.8" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="565.0" y="280.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="565.0" dy="0.0">ДИФЕРЕНЦІАТОР  H = jωτ/(1+jωτ)</tspan><tspan x="565.0" dy="15.6">домножити ще на jωτ:</tspan><tspan x="565.0" dy="15.6">+довжина ωτ, +90° поворот</tspan><tspan x="565.0" dy="15.6">мале ωτ → |H|≈ωτ, підйом</tspan></text>
+<rect x="62.7" y="368.2" width="594.6" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="388.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Обидві передавальні функції — це дії над ОДНИМ вектором 1 + jωτ (сторони 1 і ωτ).</tspan><tspan x="360.0" dy="15.6">Інтегратор бере його обернений; диференціатор домножує на jωτ. Уся різниця — у фазі.</tspan></text>
+</svg>

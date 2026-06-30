@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ланки поспіль: вихід однієї — вхід наступної</text>
+<rect x="70.0" y="90.0" width="110.0" height="100.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="125.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ланка A</text>
+<text x="125.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">[A B; C D]</text>
+<line x1="70.0" y1="110.0" x2="70.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="300.0" y="90.0" width="110.0" height="100.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="355.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ланка B</text>
+<text x="355.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">[A B; C D]</text>
+<line x1="300.0" y1="110.0" x2="300.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="530.0" y="90.0" width="110.0" height="100.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="585.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ланка C</text>
+<text x="585.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">[A B; C D]</text>
+<line x1="530.0" y1="110.0" x2="530.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="20.0" y1="110.0" x2="70.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="20.0" y1="180.0" x2="70.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="180.0" y1="110.0" x2="300.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="180.0" y1="180.0" x2="300.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="410.0" y1="110.0" x2="530.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="410.0" y1="180.0" x2="530.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="640.0" y1="110.0" x2="680.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="640.0" y1="180.0" x2="680.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="20.0" cy="110.0" r="4.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="20.0" cy="180.0" r="4.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="680.0" cy="110.0" r="4.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="680.0" cy="180.0" r="4.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="20.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">вхід</text>
+<text x="680.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">вихід</text>
+<rect x="26.5" y="227.3" width="647.0" height="45.3" rx="6" fill="#f3ecf8" stroke="#8e44ad" stroke-width="1.5"/><text x="350.0" y="246.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Уся гірлянда = одна скринька з матрицею  [A B; C D]_заг = [A B; C D]_A · [A B; C D]_B · [A B; C D]_C</tspan><tspan x="350.0" dy="14.3">Саме тому в ABCD беруть вихідний струм зі знаком «−»: тоді матриці множаться підряд без поправок</tspan></text>
+</svg>

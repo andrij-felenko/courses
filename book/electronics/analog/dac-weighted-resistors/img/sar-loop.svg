@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="60.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">аналоговий</text>
+<text x="60.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">сигнал</text>
+<path d="M 211.0 111.0 L 211.0 189.0 L 289.0 150.0 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="242.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" font-weight="700">?</text>
+<text x="250.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">компаратор</text>
+<text x="224.0" y="136.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="224.0" y="173.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<line x1="64.0" y1="150.0" x2="209.0" y2="131.3" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="448.1" y="46.8" width="183.9" height="46.5" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="540.0" y="66.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">регістр наближення</tspan><tspan x="540.0" dy="15.0">(поточний здогад — число)</tspan></text>
+<rect x="449.4" y="205.1" width="181.2" height="49.9" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="540.0" y="226.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">ЦАП</tspan><tspan x="540.0" dy="16.9">код → пробна напруга</tspan></text>
+<text x="540.0" y="270.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">це і є перетворювач усередині</text>
+<line x1="540.0" y1="93.2" x2="540.0" y2="205.1" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="548.0" y="153.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">код</text>
+<line x1="540.0" y1="254.9" x2="540.0" y2="294.9" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="540.0" y1="294.9" x2="187.0" y2="294.9" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="187.0" y1="294.9" x2="187.0" y2="168.7" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="187.0" y1="168.7" x2="209.0" y2="168.7" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="375.5" y="310.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">пробна напруга</text>
+<line x1="289.0" y1="150.0" x2="329.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="329.0" y1="150.0" x2="329.0" y2="70.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="329.0" y1="70.0" x2="446.1" y2="70.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="335.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">лишити чи</text>
+<text x="335.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">скинути біт</text>
+<rect x="14.4" y="309.4" width="791.2" height="45.3" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="410.0" y="328.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Оцифровувач вгадує число розряд за розрядом: компаратор зважує вхід проти пробної напруги, а ту пробну</tspan><tspan x="410.0" dy="14.3">напругу виробляє ЦАП із поточного здогаду. Тому перші резисторні ЦАП народилися саме тут — як вузол усередині оцифровувача.</tspan></text>
+</svg>

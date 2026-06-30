@@ -189,9 +189,133 @@ def fig_compensation():
            title="Компенсація cos φ: віднімання реактивних потужностей")
 
 
+# ── 5. Дві школи означення: частотна (Будяну) проти часової (Фрізе) ──────────
+def fig_two_schools():
+    W, H = 760, 420
+    parts = []
+    # спотворений струм як спільне джерело вгорі
+    sx0, sy = 90, 70
+    sw = 580
+    mid = sy
+    samp = 26
+    cur = []
+    for i in range(241):
+        t = i / 240.0
+        v = (math.sin(2 * math.pi * t)
+             + 0.33 * math.sin(2 * math.pi * 3 * t)
+             + 0.20 * math.sin(2 * math.pi * 5 * t))
+        cur.append((sx0 + sw * t, mid - samp * v))
+    parts.append(line(sx0, mid, sx0 + sw, mid, MUTED, 1.0, dash="4,4"))
+    parts.append(poly(cur, "#c98a2b", 2.2))
+    parts.append(text(sx0 + sw / 2, sy - 34, "один спотворений струм i(t)", 14, INK, bold=True))
+    # стрілки вниз до двох колонок
+    lcx, rcx = 210, 552
+    parts.append(arrow(sx0 + sw / 2, sy + 32, lcx, 132, MUTED, 1.8))
+    parts.append(arrow(sx0 + sw / 2, sy + 32, rcx, 132, MUTED, 1.8))
+
+    # ── ліва колонка: Будяну — частотна область (спектр) ──
+    bx, by, bw, bh = 70, 140, 280, 210
+    parts.append(rect(bx, by, bw, bh, fill="#f0f4ff", stroke=NEG, sw=1.6))
+    parts.append(text(bx + bw / 2, by + 24, "Будяну: частотна область", 13.5, NEG, bold=True))
+    # маленькі стовпчики спектра
+    spx0 = bx + 30
+    base = by + 150
+    bars = [(0, 60), (1, 38), (2, 22), (3, 14), (4, 9)]
+    labels = ["f₁", "3f₁", "5f₁", "7f₁", "9f₁"]
+    for k, (idx, hgt) in enumerate(bars):
+        xx = spx0 + idx * 40
+        parts.append(rect(xx, base - hgt, 22, hgt, fill="#cfd9ff", stroke=NEG, sw=1.2, rx=2))
+        parts.append(text(xx + 11, base + 16, labels[k], 11, MUTED))
+    parts.append(line(spx0 - 6, base, spx0 + 4 * 40 + 28, base, INK, 1.3))
+    parts.append(text(bx + bw / 2, by + bh - 12,
+                      "складає потужність кожної гармоніки → P, Q, D", 11.5, INK))
+
+    # ── права колонка: Фрізе — часова область (поділ струму) ──
+    fx, fy, fw, fh = 410, 140, 280, 210
+    parts.append(rect(fx, fy, fw, fh, fill="#eefaf1", stroke=FIELD, sw=1.6))
+    parts.append(text(fx + fw / 2, fy + 24, "Фрізе: часова область", 13.5, "#1c6b35", bold=True))
+    # активний струм (форма напруги) + неактивний залишок
+    axx0 = fx + 24
+    axw = fw - 48
+    amid = fy + 110
+    aamp = 24
+    act = [(axx0 + axw * i / 120.0, amid - aamp * math.sin(2 * math.pi * i / 120.0)) for i in range(121)]
+    non = []
+    for i in range(121):
+        t = i / 120.0
+        full = (math.sin(2 * math.pi * t) + 0.33 * math.sin(2 * math.pi * 3 * t)
+                + 0.20 * math.sin(2 * math.pi * 5 * t))
+        non.append((axx0 + axw * t, amid - aamp * (full - math.sin(2 * math.pi * t))))
+    parts.append(line(axx0, amid, axx0 + axw, amid, MUTED, 1.0, dash="4,4"))
+    parts.append(poly(act, FIELD, 2.2))
+    parts.append(poly(non, POS, 1.8))
+    parts.append(text(fx + fw / 2, fy + bh - 12,
+                      "активний струм (зел.) + неактивний залишок (черв.)", 11.5, INK))
+    cap = ("Активна потужність P в обох однакова — різниться поділ «неактивного»:\n"
+           "Будяну рахує його по гармоніках у спектрі, Фрізе — як зайвий струм у часі.")
+    b, w, h = textbox(W / 2, H - 26, cap, 12.5, fill=FILL, stroke=MUTED, color=INK)
+    parts.append(b)
+    render(os.path.join(IMG, 'two-schools.svg'), W, H, *parts,
+           title="Дві школи реактивної потужності: спектр проти часу")
+
+
+# ── 6. Часова стрічка суперечки про реактивну потужність ─────────────────────
+def fig_dispute_timeline():
+    # Не пропорційна шкала років: вузли рівновіддалені (важить послідовність),
+    # а великий розрив 1931→1987 позначено явним «зломом» осі.
+    W, H = 760, 360
+    parts = []
+    x0, x1 = 90, 670
+    ay = 150
+    # позиції чотирьох подій (рівні слоти) + точка зламу між 3-ю і 4-ю
+    xs = [150, 280, 410, 600]
+    brk = 505           # де ось «зламана»
+    parts.append(line(x0, ay, brk - 12, ay, INK, 2.0))
+    parts.append(line(brk + 12, ay, x1, ay, INK, 2.0))
+    parts.append(arrow(x1 - 2, ay, x1 + 18, ay, INK, 2.0))
+    # значок зламу осі (//)
+    for dx in (-12, -4):
+        parts.append(line(brk + dx - 4, ay + 8, brk + dx + 6, ay - 8, INK, 1.6))
+    parts.append(text(brk + 1, ay + 28, "≈ 56 років", 10.5, MUTED, italic=True))
+
+    events = [
+        ("1927", "Будяну", "означення P, Q, D\n(Фур'є, спектр)", NEG, True),
+        ("1930", "вар", "IEC, Стокгольм:\nодиниця прийнята", FIELD, False),
+        ("1931", "Фрізе", "поділ у часі:\nактивний / неактивний", "#7a3fb0", True),
+        ("1987", "Чарнецький", "«від D слід\nвідмовитися» → CPC", POS, True),
+    ]
+    for k, (yr, name, desc, col, up) in enumerate(events):
+        x = xs[k]
+        parts.append(circle(x, ay, 6, fill=col, stroke=INK, sw=1.4))
+        parts.append(text(x, ay + 26, yr, 12.5, INK, bold=True))
+        if up:
+            ty = ay - 96
+            parts.append(line(x, ay - 6, x, ty + 30, MUTED, 1.0, dash="3,3"))
+            b, w, h = textbox(x, ty + 12, name, 13, fill="#ffffff", stroke=col, color=col, bold=True, min_w=104)
+            parts.append(b)
+            parts.append(mtext(x, ty + 40, desc, 11, MUTED))
+        else:
+            ty = ay + 66
+            parts.append(line(x, ay + 6, x, ty - 18, MUTED, 1.0, dash="3,3"))
+            b, w, h = textbox(x, ty, name, 13, fill="#ffffff", stroke=col, color="#1c6b35", bold=True, min_w=104)
+            parts.append(b)
+            parts.append(mtext(x, ty + 26, desc, 11, MUTED))
+    # дужка «триває донині» після 1987
+    parts.append(line(xs[3] + 14, ay, x1, ay, "#b04848", 3.0, dash="6,5"))
+    parts.append(text((xs[3] + x1) / 2 + 6, ay - 12, "триває", 11.5, "#b04848", bold=True, italic=True))
+    cap = ("Одиницю «вар» (зелене) прийняли швидко й безповоротно. А «правильне» означення\n"
+           "реактивної потужності за спотворених струмів лишається відкритим від 1927 року.")
+    b, w, h = textbox(W / 2, H - 24, cap, 12, fill=FILL, stroke=MUTED, color=INK)
+    parts.append(b)
+    render(os.path.join(IMG, 'dispute-timeline.svg'), W, H, *parts,
+           title="Суперечка про реактивну потужність: 1927 → донині")
+
+
 if __name__ == "__main__":
     fig_instant_power()
     fig_current_split()
     fig_copper_cost()
     fig_compensation()
+    fig_two_schools()
+    fig_dispute_timeline()
     print("OK: figures written to", IMG)

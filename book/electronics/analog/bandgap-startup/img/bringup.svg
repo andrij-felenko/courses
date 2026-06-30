@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Старт системи: довіряти АЦП лише по доведенню, що опора жива</text>
+<rect x="140.0" y="47.0" width="440.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="360.0" y="74.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">увімкнули живлення · adc_init() · чекати t прокидання</tspan></text>
+<line x1="360.0" y1="93.0" x2="360.0" y2="126.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="180.0" y="122.0" width="360.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="360.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">виміряти вузол ½·Vживл</tspan><tspan x="360.0" dy="16.9">відлік у вікні 7/16…9/16 ?</tspan></text>
+<line x1="540.0" y1="150.0" x2="610.0" y2="150.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="610.0" y1="150.0" x2="610.0" y2="360.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="610.0" y1="360.0" x2="520.0" y2="360.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="556.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e7a45" text-anchor="middle" font-weight="700">так</text>
+<rect x="240.0" y="334.0" width="240.0" height="52.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="360.0" y="356.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e7a45" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">опора ЖИВА →</tspan><tspan x="360.0" dy="16.9">enter_normal_mode()</tspan></text>
+<line x1="180.0" y1="150.0" x2="110.0" y2="150.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="110.0" y1="150.0" x2="110.0" y2="300.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="110.0" y1="300.0" x2="200.0" y2="300.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="152.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ні</text>
+<rect x="240.0" y="274.0" width="240.0" height="52.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.8"/><text x="360.0" y="296.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">ще є спроби?</tspan><tspan x="360.0" dy="16.9">(таймаут не вичерпано)</tspan></text>
+<line x1="360.0" y1="274.0" x2="360.0" y2="260.0" stroke="#b8860b" stroke-width="1.6" stroke-dasharray="4,3"/>
+<line x1="360.0" y1="260.0" x2="360.0" y2="180.0" stroke="#b8860b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="368.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="start">почекати ще трохи й перевиміряти</text>
+<line x1="360.0" y1="326.0" x2="360.0" y2="384.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="368.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">таймаут вичерпано</text>
+<rect x="130.0" y="384.0" width="460.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="360.0" y="406.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">fault_latch(FAULT_VREF_DEAD)  →</tspan><tspan x="360.0" dy="16.9">перезавантаження  АБО  деградований режим</tspan></text>
+</svg>

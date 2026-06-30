@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="660" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="330.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Окремий Vref: дрейф живлення тече прямо в результат</text>
+<circle cx="95.0" cy="150.0" r="16.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="95.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Vж</text>
+<text x="95.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">живлення</text>
+<text x="95.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">просідає,</text>
+<text x="95.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">шумить</text>
+<line x1="111.0" y1="150.0" x2="215.0" y2="150.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="215.0" y1="150.0" x2="215.0" y2="128.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="205.0" y="80.0" width="20.0" height="46.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/><text x="229.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">R_дав</text>
+<line x1="215.0" y1="80.0" x2="215.0" y2="64.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="215.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Vвх</text>
+<line x1="215.0" y1="172.0" x2="215.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="215.0" y1="200.0" x2="215.0" y2="207.0" stroke="#1a1a1a" stroke-width="1.8"/><line x1="203.0" y1="207.0" x2="227.0" y2="207.0" stroke="#1a1a1a" stroke-width="2.4"/><line x1="208.0" y1="212.0" x2="222.0" y2="212.0" stroke="#1a1a1a" stroke-width="2.0"/><line x1="213.0" y1="217.0" x2="217.0" y2="217.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="221.0" y1="64.0" x2="363.0" y2="114.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="365.0" y="102.0" width="78.0" height="64.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="404.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">АЦП</text><text x="404.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Vвх / Vref</text>
+<circle cx="404.0" cy="212.0" r="16.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="404.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Vref</text>
+<text x="404.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">власне, стабільне,</text>
+<text x="404.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">але НЕ те саме</text>
+<line x1="404.0" y1="196.0" x2="404.0" y2="168.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="443.0" y1="134.0" x2="467.0" y2="134.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="495.7" y="110.2" width="122.6" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="557.0" y="130.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="557.0" dy="0.0">код пливе разом</tspan><tspan x="557.0" dy="15.6">з Vж — ПОХИБКА</tspan></text>
+</svg>

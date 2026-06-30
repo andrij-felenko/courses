@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два виведення сходяться до однієї форми</text>
+<text x="200.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">RC (послідовне)</text>
+<text x="560.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">RL (паралельне)</text>
+<rect x="65.0" y="84.0" width="270.0" height="38.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="200.0" y="107.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">i = C · dV_C/dt</tspan></text>
+<rect x="425.0" y="84.0" width="270.0" height="38.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="107.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">U = L · diL/dt</tspan></text>
+<text x="200.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">↓</text>
+<text x="560.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">↓</text>
+<rect x="65.0" y="136.0" width="270.0" height="38.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="200.0" y="159.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">E = i·R + V_C   (KVL)</tspan></text>
+<rect x="425.0" y="136.0" width="270.0" height="38.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="159.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">I = U/R + iL   (KCL)</tspan></text>
+<text x="200.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">↓</text>
+<text x="560.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">↓</text>
+<rect x="65.0" y="188.0" width="270.0" height="38.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="200.0" y="211.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">dV_C/dt = (E − V_C)/(R·C)</tspan></text>
+<rect x="425.0" y="188.0" width="270.0" height="38.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="211.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">diL/dt = (I − iL)/(L/R)</tspan></text>
+<line x1="200.0" y1="232.0" x2="200.0" y2="246.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="560.0" y1="232.0" x2="560.0" y2="246.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="200.0" y1="246.0" x2="380.0" y2="246.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="560.0" y1="246.0" x2="380.0" y2="246.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="380.0" y1="246.0" x2="380.0" y2="264.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="165.0" y="268.0" width="430.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="380.0" y="292.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">d(змінна)/dt = (мета − змінна) / (стала часу)</tspan></text>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гра опорів: збалансований міст робить вихідний опір нескінченним</text>
+<circle cx="380.0" cy="196.0" r="7.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="380.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">вузол навантаження  (iₒ)</text>
+<rect x="81.2" y="86.4" width="81.6" height="63.2" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="122.0" y="106.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="122.0" dy="0.0">від'ємний</tspan><tspan x="122.0" dy="15.6">зв'язок</tspan><tspan x="122.0" dy="15.6">(R1, R2)</tspan></text>
+<text x="122.0" y="73.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-style="italic">тягне вниз</text>
+<line x1="168.8" y1="124.0" x2="310.0" y2="188.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="600.6" y="86.4" width="74.7" height="63.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="638.0" y="106.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="638.0" dy="0.0">додатний</tspan><tspan x="638.0" dy="15.6">зв'язок</tspan><tspan x="638.0" dy="15.6">(R3, R4)</tspan></text>
+<text x="638.0" y="73.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">тягне вгору</text>
+<line x1="594.6" y1="124.0" x2="450.0" y2="188.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="238.3" y="246.6" width="283.3" height="70.8" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.2"/><text x="380.0" y="269.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">R1/R2 = R3/R4</tspan><tspan x="380.0" dy="16.9">→ дві тяги рівні й гасять одна одну</tspan><tspan x="380.0" dy="16.9">→ опір виходу = ∞</tspan></text>
+<line x1="380.0" y1="203.0" x2="380.0" y2="246.6" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4,4"/>
+<text x="380.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">струм у навантаження не залежить від його опору — рівно vᵢ/R1</text>
+</svg>

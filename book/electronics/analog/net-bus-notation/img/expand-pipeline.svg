@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як редактор розгортає D[7..0] у поіменні ланцюги</text>
+<rect x="60.0" y="62.0" width="120.0" height="36.0" rx="6" fill="#fff7e6" stroke="#b9770e" stroke-width="1.5"/><text x="120.0" y="85.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#b9770e" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">D[7..0]</tspan></text>
+<text x="120.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">запис шини</text>
+<line x1="190.0" y1="80.0" x2="250.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="255.0" y="50.2" width="210.0" height="59.6" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="360.0" y="69.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">парсер діапазону</tspan><tspan x="360.0" dy="14.3">prefix=&quot;D&quot;  lo=7  hi=0</tspan><tspan x="360.0" dy="14.3">крок = (lo&lt;=hi)?+1:-1</tspan></text>
+<line x1="360.0" y1="118.0" x2="360.0" y2="158.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="250.0" y="175.0" width="220.0" height="150.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="360.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">члени-скаляри (нетлист)</text>
+<text x="276.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D7</text>
+<text x="340.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ біт 7</text>
+<text x="276.0" y="228.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D6</text>
+<text x="340.0" y="228.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ біт 6</text>
+<text x="276.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D5</text>
+<text x="340.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ біт 5</text>
+<text x="276.0" y="255.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D4</text>
+<text x="340.0" y="255.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ біт 4</text>
+<text x="276.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D3</text>
+<text x="340.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ біт 3</text>
+<text x="276.0" y="282.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D2</text>
+<text x="340.0" y="282.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ біт 2</text>
+<text x="276.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D1</text>
+<text x="340.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ біт 1</text>
+<text x="276.0" y="309.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D0</text>
+<text x="340.0" y="309.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">→ біт 0</text>
+<line x1="470.0" y1="250.0" x2="540.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="545.0" y="175.0" width="175.0" height="150.0" rx="6" fill="#eafaf1" stroke="#1e8449" stroke-width="1.4"/>
+<text x="632.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">мапа ім'я → піни</text>
+<text x="565.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D7 → U3.12</text>
+<text x="565.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D6 → U3.11</text>
+<text x="565.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">...</text>
+<text x="565.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">D0 → U3.5</text>
+<rect x="138.6" y="335.9" width="462.9" height="44.1" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="370.0" y="354.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">Вектора в нетлисті НЕМАЄ — лише 8 скалярів. Розгортання раз і назавжди</tspan><tspan x="370.0" dy="13.7">перетворює один запис на 8 імен; далі кожен член живе як звичайний ланцюг.</tspan></text>
+</svg>

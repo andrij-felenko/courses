@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Частотний бік: де нахил АЧХ справді = інтеграл або похідна</text>
+<line x1="90.0" y1="320.0" x2="630.0" y2="320.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="90.0" y1="320.0" x2="90.0" y2="70.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="360.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">частота (log)</text>
+<text x="30.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">|вихід|</text>
+<text x="30.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">(log)</text>
+<line x1="333.0" y1="320.0" x2="333.0" y2="70.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 4"/>
+<text x="333.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">f꜀ = 1/(2πRC)</text>
+<line x1="90.0" y1="125.0" x2="333.0" y2="125.0" stroke="#2457d6" stroke-width="2.6"/>
+<line x1="333.0" y1="125.0" x2="630.0" y2="280.0" stroke="#2457d6" stroke-width="2.6"/>
+<text x="100.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">інтегратор (вихід на C)</text>
+<text x="423.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">−6 дБ/окт</text>
+<rect x="333.0" y="70.0" width="297.0" height="250.0" rx="6" fill="rgba(0,0,0,0)" stroke="none" stroke-width="1.5"/>
+<text x="481.5" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">тут вихід ≈ ∫ входу</text>
+<line x1="90.0" y1="280.0" x2="333.0" y2="142.5" stroke="#c0392b" stroke-width="2.6"/>
+<line x1="333.0" y1="142.5" x2="630.0" y2="142.5" stroke="#c0392b" stroke-width="2.6"/>
+<text x="100.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">диференціатор (вихід на R)</text>
+<text x="150.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+6 дБ/окт</text>
+<text x="211.5" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">тут вихід ≈ d/dt входу</text>
+<rect x="76.4" y="348.2" width="567.2" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="368.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Інтегрування = нахил −6 дБ/окт (ділення на ω): працює ВИЩЕ зламу, де C коротить.</tspan><tspan x="360.0" dy="15.6">Диференціювання = +6 дБ/окт (множення на ω): працює НИЖЧЕ зламу, де C ще тримає.</tspan></text>
+</svg>
