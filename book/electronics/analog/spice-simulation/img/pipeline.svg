@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як SPICE рахує схему: від нетліста до чисел</text>
+<rect x="30.0" y="102.0" width="120.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/>
+<text x="90.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">нетліст</tspan></text>
+<text x="90.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="90.0" dy="0.0">хто з ким</tspan><tspan x="90.0" dy="14.3">з'єднаний</tspan></text>
+<line x1="154.0" y1="150.0" x2="191.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="195.0" y="102.0" width="120.0" height="96.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="255.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">рівняння</tspan><tspan x="255.0" dy="19.5">вузлів</tspan></text>
+<text x="255.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="255.0" dy="0.0">KCL у кожному</tspan><tspan x="255.0" dy="14.3">вузлі</tspan></text>
+<line x1="319.0" y1="150.0" x2="356.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="360.0" y="102.0" width="120.0" height="96.0" rx="6" fill="#fdf3e6" stroke="#b8732e" stroke-width="2.0"/>
+<text x="420.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b8732e" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">матриця</tspan><tspan x="420.0" dy="19.5">G · v = i</tspan></text>
+<text x="420.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="420.0" dy="0.0">система</tspan><tspan x="420.0" dy="14.3">лінійних рівнянь</tspan></text>
+<line x1="484.0" y1="150.0" x2="521.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="525.0" y="102.0" width="120.0" height="96.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="585.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="585.0" dy="0.0">розв'язок</tspan></text>
+<text x="585.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="585.0" dy="0.0">напруги</tspan><tspan x="585.0" dy="14.3">й струми</tspan></text>
+<line x1="255.0" y1="94.0" x2="255.0" y2="70.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 3"/>
+<line x1="420.0" y1="70.0" x2="420.0" y2="94.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 3"/>
+<line x1="255.0" y1="70.0" x2="420.0" y2="70.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 3"/>
+<line x1="420.0" y1="70.0" x2="420.0" y2="94.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="337.5" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">якщо нелінійно — повторити (Ньютон)</text>
+<rect x="113.5" y="296.2" width="533.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="380.0" y="316.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Симулятор не «малює схему» — він перекладає її в систему рівнянь Кірхгофа</tspan><tspan x="380.0" dy="15.6">і чисельно її розв'язує. Нелінійні елементи змушують повторювати розв'язок.</tspan></text>
+</svg>

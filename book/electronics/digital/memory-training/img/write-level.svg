@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вирівнювання запису: пошук єдиної точки переходу 0→1</text>
+<rect x="80.7" y="76.4" width="118.6" height="87.2" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="140.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">PHY</tspan><tspan x="140.0" dy="16.2">суне затримку</tspan><tspan x="140.0" dy="16.2">строба DQS</tspan><tspan x="140.0" dy="16.2">на крок kδ</tspan></text>
+<rect x="568.3" y="77.6" width="183.3" height="84.8" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/><text x="660.0" y="100.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">DRAM (режим MR1[7]=1):</tspan><tspan x="660.0" dy="15.6">у мить фронту DQS</tspan><tspan x="660.0" dy="15.6">защіпає рівень такту CK</tspan><tspan x="660.0" dy="15.6">і вертає його на DQ</tspan></text>
+<line x1="199.3" y1="100.0" x2="568.3" y2="100.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="383.8" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">строб DQS →</text>
+<line x1="568.3" y1="140.0" x2="199.3" y2="140.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="383.8" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">← відповідь на DQ: 0 або 1</text>
+<text x="116.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">CK</text>
+<line x1="130.0" y1="272.0" x2="188.0" y2="272.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="188.0" y1="228.0" x2="246.0" y2="228.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="188.0" y1="272.0" x2="188.0" y2="228.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="246.0" y1="272.0" x2="304.0" y2="272.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="246.0" y1="228.0" x2="246.0" y2="272.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="304.0" y1="228.0" x2="362.0" y2="228.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="304.0" y1="272.0" x2="304.0" y2="228.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="362.0" y1="272.0" x2="420.0" y2="272.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="362.0" y1="228.0" x2="362.0" y2="272.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="420.0" y1="228.0" x2="478.0" y2="228.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="420.0" y1="272.0" x2="420.0" y2="228.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="478.0" y1="272.0" x2="536.0" y2="272.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="478.0" y1="228.0" x2="478.0" y2="272.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="170.6" y1="198.0" x2="170.6" y2="282.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3,3"/>
+<circle cx="170.6" cy="198.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="170.6" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<line x1="217.0" y1="198.0" x2="217.0" y2="282.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3,3"/>
+<circle cx="217.0" cy="198.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="217.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<line x1="263.4" y1="198.0" x2="263.4" y2="282.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3,3"/>
+<circle cx="263.4" cy="198.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="263.4" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<line x1="309.8" y1="198.0" x2="309.8" y2="282.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="3,3"/>
+<circle cx="309.8" cy="198.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="309.8" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<line x1="356.2" y1="198.0" x2="356.2" y2="282.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="3,3"/>
+<circle cx="356.2" cy="198.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="356.2" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<line x1="286.6" y1="310.0" x2="286.6" y2="280.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="286.6" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">стрибок 0 → 1: строб щойно наздогнав фронт CK —</text>
+<text x="286.6" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">ось шукана затримка вирівнювання запису</text>
+<rect x="70.0" y="350.0" width="700.0" height="44.0" rx="6" fill="#fffef0" stroke="#caa300" stroke-width="1.5"/><text x="420.0" y="368.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Одна ручка, монотонна відповідь: збільшуємо затримку — рано чи пізно 0 зміниться на 1.</tspan><tspan x="420.0" dy="15.0">Це край, а не вікно, тож досить знайти саму точку переходу (можна навпіл — бінарним пошуком).</tspan></text>
+</svg>

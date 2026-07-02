@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переговори втрьох: джерело окремо опитує кабель (SOP')</text>
+<rect x="40.0" y="150.0" width="150.0" height="96.0" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.9"/>
+<text x="115.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Джерело</text>
+<text x="115.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(зарядка)</text>
+<text x="115.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DFP · Rp</text>
+<rect x="315.0" y="150.0" width="150.0" height="96.0" rx="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.9"/>
+<text x="390.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">e-marker</text>
+<text x="390.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">у штекері</text>
+<text x="390.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">живлений VCONN</text>
+<rect x="590.0" y="150.0" width="150.0" height="96.0" rx="12" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.9"/>
+<text x="665.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Пристрій</text>
+<text x="665.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(споживач)</text>
+<text x="665.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">UFP · Rd</text>
+<line x1="190.0" y1="176.0" x2="315.0" y2="176.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="252.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">SOP'  «хто ти?»</text>
+<line x1="315.0" y1="200.0" x2="190.0" y2="200.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="252.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">паспорт: 5 А, 20 В</text>
+<line x1="190.0" y1="240.0" x2="590.0" y2="240.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 4"/>
+<text x="390.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">SOP  «скільки дати?» — переговори PD джерела з пристроєм</text>
+<text x="56.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Пристрій під'єднано → джерело бачить Rd, вмикає VCONN.</text>
+<text x="56.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">2. SOP' до КАБЕЛЯ: джерело питає e-marker його межі (струм, напруга, швидкість).</text>
+<text x="56.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Лише тепер джерело знає стелю КАБЕЛЯ — і в SOP-переговорах не пропонує над неї.</text>
+<text x="56.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">4. Немає відповіді по SOP' → кабель «німий» → джерело тримає безпечні 3 А, EPR зась.</text>
+<rect x="40.0" y="300.0" width="700.0" height="30.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="390.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Ключ: кабель — окремий співрозмовник (SOP'), а не пасивний дріт. Його межі джерело дізнається ДО того, як дати струм.</text>
+<rect x="40.0" y="346.0" width="700.0" height="96.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="390.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три адреси на одній лінії CC</text>
+<text x="170.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">SOP</text>
+<text x="170.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">джерело ↔ пристрій</text>
+<text x="390.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">SOP'</text>
+<text x="390.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">джерело ↔ ближній e-marker</text>
+<text x="620.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">SOP″</text>
+<text x="620.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">джерело ↔ дальній e-marker</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канал MOSFET у розрізі: звідки береться квадрат (Vgs − Vth)²</text>
+<text x="260.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">триод (лінійний): Vds мале — канал наскрізний</text>
+<rect x="80.0" y="70.0" width="360.0" height="90.0" rx="0" fill="#eef1f5" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="80.0" y="40.0" width="360.0" height="10.0" rx="0" fill="#d9d2c5" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="80.0" y1="50.0" x2="440.0" y2="50.0" stroke="#b8b0a0" stroke-width="3.0"/>
+<text x="74.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">затвор</text>
+<rect x="46.0" y="70.0" width="34.0" height="90.0" rx="0" fill="#cdd8ea" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="440.0" y="70.0" width="34.0" height="90.0" rx="0" fill="#cdd8ea" stroke="#2457d6" stroke-width="1.4"/>
+<text x="63.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">витік</text>
+<text x="457.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">стік</text>
+<polygon points="80,84 440,106 440,154 80,154" fill="#cfefe0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="188.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">шар носіїв (канал)</text>
+<line x1="86.0" y1="190.0" x2="434.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="434.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">y: 0 → L</text>
+<text x="518.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="518.0" dy="0.0">місцевий заряд каналу</tspan><tspan x="518.0" dy="13.0">Qn(y) = Cox·(Vgs − Vth − V(y))</tspan><tspan x="518.0" dy="13.0">тонший там, де V(y) вище</tspan><tspan x="518.0" dy="13.0">→ інтеграл по y дає (Vgs−Vth)²</tspan></text>
+<text x="260.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">насичення: Vds велике — канал «відсічено» біля стоку (pinch-off)</text>
+<rect x="80.0" y="280.0" width="360.0" height="90.0" rx="0" fill="#eef1f5" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="80.0" y="250.0" width="360.0" height="10.0" rx="0" fill="#d9d2c5" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="80.0" y1="260.0" x2="440.0" y2="260.0" stroke="#b8b0a0" stroke-width="3.0"/>
+<rect x="46.0" y="280.0" width="34.0" height="90.0" rx="0" fill="#cdd8ea" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="440.0" y="280.0" width="34.0" height="90.0" rx="0" fill="#cdd8ea" stroke="#2457d6" stroke-width="1.4"/>
+<polygon points="80,294 375,364 80,364" fill="#fbe3dd" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="375.2" y1="280.0" x2="375.2" y2="370.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="378.2" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">відсічка</text>
+<text x="518.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="518.0" dy="0.0">за відсічкою заряд = 0</tspan><tspan x="518.0" dy="13.0">далі струм уже не росте</tspan><tspan x="518.0" dy="13.0">Id = ½·k·(Vgs − Vth)²</tspan><tspan x="518.0" dy="13.0">струм «насичується»</tspan></text>
+<rect x="80.0" y="400.0" width="620.0" height="44.0" rx="6" fill="#f0f7f1" stroke="#27ae60" stroke-width="1.5"/><text x="390.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Заряд каналу в точці y: Qn(y) = Cox·(Vgs − Vth − V(y)) — де потенціал каналу вищий, там носіїв менше.</tspan><tspan x="390.0" dy="13.0">Сталість струму вздовж каналу зшиває Qn·швидкість; інтеграл по всій довжині L дає рівно ½·k·(Vgs−Vth)².</tspan></text>
+</svg>

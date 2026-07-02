@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Польовий хід: від виміряного RSSI до рішення апарата</text>
+<text x="470.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">радіочип дає RSSI; калькулятор перекладає його на відсоток доступності, а той — на курс</text>
+<rect x="40.0" y="110.0" width="160.0" height="60.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">RSSI (дБм)</tspan><tspan x="120.0" dy="15.6">з радіочипа</tspan></text>
+<rect x="250.0" y="110.0" width="170.0" height="60.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="335.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="335.0" dy="0.0">запас = RSSI − S_rx</tspan></text>
+<rect x="470.0" y="110.0" width="190.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="565.0" y="136.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="565.0" dy="0.0">доступність =</tspan><tspan x="565.0" dy="15.0">1 − 10^(−M/10)</tspan></text>
+<rect x="710.0" y="110.0" width="190.0" height="60.0" rx="6" fill="#fff4e6" stroke="#b9770e" stroke-width="1.5"/><text x="805.0" y="136.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="805.0" dy="0.0">стан лінії →</tspan><tspan x="805.0" dy="15.0">рішення керування</tspan></text>
+<line x1="200.0" y1="140.0" x2="250.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="140.0" x2="470.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="140.0" x2="710.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="230.0" width="280.0" height="120.0" rx="12" fill="#eafaf0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="180.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">≥ 20 дБ  (~99 %)</text>
+<line x1="60.0" y1="274.0" x2="300.0" y2="274.0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="180.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">ТРИМАТИ КУРС</text>
+<text x="180.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">лінія певна, летимо далі</text>
+<rect x="340.0" y="230.0" width="280.0" height="120.0" rx="12" fill="#fff4e6" stroke="#b9770e" stroke-width="2.2"/>
+<text x="480.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">10–20 дБ (~90–99 %)</text>
+<line x1="360.0" y1="274.0" x2="600.0" y2="274.0" stroke="#b9770e" stroke-width="1.2"/>
+<text x="480.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b9770e" text-anchor="middle" font-weight="700">НАБЛИЗИТИСЯ</text>
+<text x="480.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">запас тане — обережно</text>
+<rect x="640.0" y="230.0" width="280.0" height="120.0" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="780.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">&lt; 10 дБ  (&lt; ~90 %)</text>
+<line x1="660.0" y1="274.0" x2="900.0" y2="274.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="780.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">РОЗВОРОТ НА БАЗУ</text>
+<text x="780.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">провали часті — рветься</text>
+<text x="470.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Апарат питає не «є сигнал?», а «в який відсоток часу лінія жива?» — і саме це задає поведінку.</text>
+</svg>

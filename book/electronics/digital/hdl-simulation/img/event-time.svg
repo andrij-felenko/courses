@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час у симуляції рухають події, а не рівномірний тік</text>
+<line x1="80.0" y1="150.0" x2="740.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="738.0" y1="150.0" x2="762.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="766.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">час</text>
+<line x1="80.0" y1="120.0" x2="80.0" y2="180.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="3 3"/>
+<circle cx="80.0" cy="150.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="80.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">clk↑</text>
+<text x="80.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t=0</text>
+<text x="80.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="80.0" dy="0.0">лічильник</tspan><tspan x="80.0" dy="10.8">+1</tspan></text>
+<line x1="230.0" y1="120.0" x2="230.0" y2="180.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="3 3"/>
+<circle cx="230.0" cy="150.0" r="5.0" fill="#6b7280" stroke="#6b7280" stroke-width="1.0"/>
+<text x="230.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">clk↓</text>
+<text x="230.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t=5</text>
+<text x="230.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">нічого</tspan><tspan x="230.0" dy="10.8">не міняє</tspan></text>
+<line x1="380.0" y1="120.0" x2="380.0" y2="180.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="3 3"/>
+<circle cx="380.0" cy="150.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="380.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">clk↑</text>
+<text x="380.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t=10</text>
+<text x="380.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">лічильник</tspan><tspan x="380.0" dy="10.8">+1</tspan></text>
+<line x1="440.0" y1="120.0" x2="440.0" y2="180.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="3 3"/>
+<circle cx="440.0" cy="150.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="440.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">rst=1</text>
+<text x="440.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t=12</text>
+<text x="440.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">скидання</tspan><tspan x="440.0" dy="10.8">→ 0</tspan></text>
+<line x1="680.0" y1="120.0" x2="680.0" y2="180.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="3 3"/>
+<circle cx="680.0" cy="150.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="680.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">clk↑</text>
+<text x="680.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t=20</text>
+<text x="680.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">лишається 0</tspan><tspan x="680.0" dy="10.8">(rst тримає)</tspan></text>
+<rect x="440.0" y="216.0" width="240.0" height="26.0" rx="6" fill="none" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="560.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">між подіями час СТОЇТЬ — рахувати нічого</text>
+<text x="400.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">симулятор перестрибує від події до події за чергою подій — так модельний час обганяє реальний</text>
+</svg>

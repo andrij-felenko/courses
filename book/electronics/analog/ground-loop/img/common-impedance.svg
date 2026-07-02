@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільний зворотний провід: чужий струм піднімає твою «землю»</text>
+<rect x="45.0" y="72.3" width="150.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="120.0" y="91.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">гучне коло</tspan><tspan x="120.0" dy="14.3">(великий струм)</tspan></text>
+<rect x="45.0" y="152.3" width="150.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="120.0" y="171.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">наш сигнал</tspan><tspan x="120.0" dy="14.3">(слабкий)</tspan></text>
+<line x1="195.0" y1="95.0" x2="470.0" y2="95.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="195.0" y1="175.0" x2="470.0" y2="175.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="470.0" y1="95.0" x2="470.0" y2="300.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="470.0" y1="175.0" x2="470.0" y2="300.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<circle cx="470.0" cy="300.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="480.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">вузол N</text>
+<polyline points="470.0,300.0 508.3,308.0 546.7,292.0 585.0,308.0 623.3,292.0 661.7,308.0 700.0,300.0" fill="none" stroke="#2457d6" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="585.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">спільний зворотний — опір R</text>
+<line x1="700.0" y1="300.0" x2="700.0" y2="308.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="686.0" y1="308.0" x2="714.0" y2="308.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="691.0" y1="314.0" x2="709.0" y2="314.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="696.0" y1="320.0" x2="704.0" y2="320.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="452.0" y1="103.0" x2="452.0" y2="292.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="446.0" y="197.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="end" font-weight="700">I</text>
+<line x1="500.0" y1="300.0" x2="670.0" y2="300.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="305.0" x2="470.0" y2="347.4" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="3 3"/>
+<rect x="395.0" y="347.4" width="150.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="366.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">потенціал N = I·R</tspan><tspan x="470.0" dy="14.3">(а не 0!)</tspan></text>
+<rect x="120.0" y="392.0" width="560.0" height="40.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="400.0" y="414.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Тихий приймач міряє свій сигнал ВІД вузла N → дістає сигнал + I·R. Чужий струм підмішався в наш — хоча проводи нібито нарізно.</tspan></text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Руйнівне читання FRAM: перемкнути, зміряти струм, дописати назад</text>
+<text x="500.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Читання силоміць заганяє комірку в один стан; біт впізнають за РОЗМІРОМ струму перемикання — а потім відновлюють</text>
+<rect x="70.0" y="95.0" width="260.0" height="210.0" rx="8" fill="#fbfbfd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="200.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1 · подати поле читання</text>
+<rect x="375.0" y="95.0" width="260.0" height="210.0" rx="8" fill="#fbfbfd" stroke="#b9770e" stroke-width="1.8"/>
+<text x="505.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700">2 · зміряти заряд на біт-лінії</text>
+<rect x="680.0" y="95.0" width="260.0" height="210.0" rx="8" fill="#fbfbfd" stroke="#27ae60" stroke-width="1.8"/>
+<text x="810.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3 · дописати прочитане назад</text>
+<rect x="110.0" y="150.0" width="80.0" height="90.0" rx="4" fill="#eef0f4" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="150.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">комірка</text>
+<line x1="132.0" y1="165.0" x2="132.0" y2="227.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="165.0" x2="150.0" y2="227.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="168.0" y1="165.0" x2="168.0" y2="227.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="235.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">тиснемо
+полем
+у стан «1»</text>
+<text x="150.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">лінію слова — увімк.</text>
+<line x1="405.0" y1="245.0" x2="595.0" y2="245.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="405.0" y1="245.0" x2="405.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="399.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">I</text>
+<path d="M 413.0 245.0 Q 435.0 167.0, 465.0 245.0 T 495.0 245.0" fill="none" stroke="#c0392b" stroke-width="2.4"/>
+<text x="451.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">великий</text>
+<path d="M 505.0 245.0 Q 521.0 215.0, 545.0 245.0 T 573.0 245.0" fill="none" stroke="#27ae60" stroke-width="2.4"/>
+<text x="537.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">малий</text>
+<text x="505.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">великий Q → був «0»;  малий Q → був «1»</text>
+<rect x="720.0" y="150.0" width="80.0" height="90.0" rx="4" fill="#eef0f4" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="742.0" y1="227.0" x2="742.0" y2="165.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="760.0" y1="227.0" x2="760.0" y2="165.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="778.0" y1="227.0" x2="778.0" y2="165.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="845.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">контролер
+сам пише
+біт назад</text>
+<text x="760.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">читач цього не бачить</text>
+<line x1="336.0" y1="200.0" x2="369.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="641.0" y1="200.0" x2="674.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="90.0" y="338.0" width="820.0" height="50.0" rx="6" fill="#fff7e6" stroke="#b9770e" stroke-width="1.4"/><text x="500.0" y="359.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Тому «прочитати» у FRAM фізично означає «стерти й відновити» — як у DRAM. Кожне читання</tspan><tspan x="500.0" dy="15.6">витрачає цикл перемикання; рятує лише те, що ресурс FRAM ~10¹²–10¹⁴ практично невичерпний.</tspan></text>
+<text x="500.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Уся ця машинерія схована в чипі: назовні FRAM поводиться як звичайна пам'ять «прочитав байт — і живи далі».</text>
+</svg>

@@ -252,6 +252,217 @@ def fig_arm_licensing():
     render(os.path.join(IMG, "arm-licensing.svg"), W, H, *f)
 
 
+# ── 7. (детальна) Площа кристала: чому ядро перестало домінувати в ціні ──────
+def fig_die_area():
+    W, H = 780, 400
+    f = [text(W / 2, 28, "Чому 32-бітне ядро подешевшало до ціни 8-бітного", size=16, bold=True)]
+
+    # два «кристали»-стовпчики: старий грубий вузол vs сучасний
+    # кожен — стос шарів однакової загальної висоти; змінюється лише частка ЯДРА
+    def die(x0, title, core_frac, note, accent):
+        top, tot_h, w = 66, 250, 210
+        f.append(text(x0 + w / 2, top - 12, title, size=13, bold=True, color=accent))
+        # шари знизу вгору: корпус+ніжки, аналог, флеш, ЯДРО (згори)
+        base = [
+            ("корпус · ніжки", 0.24, "#d1d5db"),
+            ("аналог · I/O",   0.22, "#cbd5e1"),
+            ("флеш-пам'ять",   0.30, "#e5e7eb"),
+        ]
+        fixed = sum(fr for _, fr, _ in base)
+        # ядро займає рівно core_frac, решту фіксованих шарів масштабуємо у (1-core_frac)
+        scale = (1.0 - core_frac) / fixed
+        y = top + tot_h
+        for label, fr, col in base:
+            hh = tot_h * fr * scale
+            y -= hh
+            f.append(rect(x0, y, w, hh, fill=col, stroke="#9ca3af", sw=1, rx=0))
+            if hh >= 20:
+                f.append(text(x0 + w / 2, y + hh / 2 + 4, label, size=10, color=MUTED))
+        # ядро — згори, кольорове
+        hh = tot_h * core_frac
+        y -= hh
+        f.append(rect(x0, y, w, hh, fill="#dbeafe", stroke=accent, sw=2, rx=0))
+        lab = "ЯДРО 32-біт" if hh >= 18 else "ядро"
+        f.append(text(x0 + w / 2, y + hh / 2 + 4, lab, size=11 if hh >= 18 else 9,
+                      bold=True, color=accent))
+        f.append(text(x0 + w / 2, top + tot_h + 22, note, size=10.5, color=accent, italic=True))
+
+    die(90,  "Грубий старий вузол", 0.42, "ядро — велика частка → дорого", "#c0392b")
+    die(480, "Сучасний тонкий вузол", 0.06, "ядро — крихта → майже безкоштовно", FIELD)
+
+    f.append(arrow(310, 190, 470, 190, color=MUTED, sw=1.8))
+    f.append(text(390, 178, "техпроцес", size=10, color=MUTED, italic=True))
+    f.append(text(390, 205, "↓ на порядки", size=10, color=MUTED, italic=True))
+    f.append(text(W / 2, 384,
+                  "логіка ядра масштабується з вузлом, а флеш, аналог і корпус — майже ні",
+                  size=10.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "die-area.svg"), W, H, *f)
+
+
+# ── 8. (детальна) Енергетичний перелом: сон проти активної фази ──────────────
+def fig_energy_crossover():
+    import math
+    W, H = 800, 440
+    f = [text(W / 2, 28, "Точка перелому робочого циклу: коли швидкодія починає важити",
+              size=15, bold=True)]
+
+    # осі
+    ox, oy, aw, ah = 90, 360, 620, 280
+    f.append(line(ox, oy, ox + aw, oy, color=INK, sw=1.5))          # X
+    f.append(line(ox, oy, ox, oy - ah, color=INK, sw=1.5))          # Y
+    f.append(text(ox + aw / 2, oy + 40, "робочий цикл D (лог-шкала) →", size=11, color=MUTED))
+    f.append(text(ox - 60, oy - ah / 2, "I_сер", size=11, color=MUTED))
+
+    # лог-вісь D від 1e-5 до 1e-1; дві складові струму
+    Iact, Isleep = 80.0, 0.010   # мА (ESP32-клас)
+    d_lo, d_hi = 1e-5, 1e-1
+    def X(d):
+        return ox + aw * (math.log10(d) - math.log10(d_lo)) / (math.log10(d_hi) - math.log10(d_lo))
+    Imax = Iact * d_hi + Isleep
+    def Y(i):
+        return oy - ah * (i / Imax) ** 0.5 * 0.92   # sqrt-стиск для видимості малих
+
+    # крива внеску сну (майже стала) і активної фази (росте) та сума
+    N = 80
+    ds = [d_lo * (d_hi / d_lo) ** (k / N) for k in range(N + 1)]
+    def poly(vals, col, sw, dash=None):
+        pts = " ".join("%.1f,%.1f" % (X(d), Y(v)) for d, v in vals)
+        dd = ' stroke-dasharray="%s"' % dash if dash else ''
+        return ('<polyline points="%s" fill="none" stroke="%s" stroke-width="%.1f"%s/>'
+                % (pts, col, sw, dd))
+
+    f.append(poly([(d, Isleep) for d in ds], TEAL, 2.2, "6 4"))            # сон
+    f.append(poly([(d, Iact * d) for d in ds], ORNG, 2.2, "6 4"))          # актив
+    f.append(poly([(d, Iact * d + Isleep) for d in ds], NEG, 3.0))         # сума
+
+    # точка перелому D_крит = Isleep/(Iact+Isleep)
+    Dc = Isleep / (Iact + Isleep)
+    f.append(line(X(Dc), oy, X(Dc), Y(Iact * Dc + Isleep), color=POS, sw=1.4, dash="3 3"))
+    f.append(circle(X(Dc), Y(Iact * Dc + Isleep), 4, fill=POS, stroke=POS, sw=1))
+    f.append(text(X(Dc), oy - ah - 4, "D_крит ≈ 0.0125 %", size=10.5, bold=True, color=POS))
+
+    # робочий цикл датчика D≈3.3e-4
+    Dw = 3.3e-4
+    f.append(line(X(Dw), oy, X(Dw), oy - 20, color=MUTED, sw=1, dash="2 2"))
+    f.append(text(X(Dw), oy + 20, "датчик 20мс/60с", size=9.5, color=MUTED))
+
+    # підписи зон і кривих
+    f.append(text(X(3e-5), oy - ah + 22, "домінує СОН", size=11, bold=True, color=TEAL))
+    f.append(text(X(3e-5), oy - ah + 38, "швидкодія байдужа", size=9.5, color=TEAL, italic=True))
+    f.append(text(X(4e-2), oy - ah + 22, "домінує АКТИВ", size=11, bold=True, color=ORNG, anchor="end"))
+    f.append(text(X(4e-2), oy - ah + 38, "race to sleep", size=9.5, color=ORNG, italic=True, anchor="end"))
+    f.append(text(X(6e-3), Y(Iact * 6e-3 + Isleep) - 12, "I_сер (сума)", size=10, bold=True, color=NEG))
+
+    f.append(text(W / 2, 424,
+                  "ліворуч від порога виграє найглибший сон, праворуч — найшвидше «зробив і заснув»",
+                  size=10.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "energy-crossover.svg"), W, H, *f)
+
+
+# ── 9. (детальна) Компроміс щаблів: швидкість проти передбачуваності відгуку ──
+def fig_pipeline_latency():
+    W, H = 800, 400
+    f = [text(W / 2, 28, "Глибший конвеєр: швидше в середньому — але відгук менш передбачуваний",
+              size=14.5, bold=True)]
+
+    tiers = [
+        (120, "Cortex-M0+", "2–3 щаблі", "0.9 DMIPS/MHz",
+         "відгук: малий, сталий", 0.30, FIELD),
+        (400, "Cortex-M4F", "3 щаблі + DSP", "1.25 DMIPS/MHz",
+         "відгук: сталий, короткий", 0.55, BLUE),
+        (680, "Cortex-M7", "6 щаблів, 2 інстр/такт", "2.14 DMIPS/MHz",
+         "відгук: довший, «плаває»", 1.00, PURP),
+    ]
+    baseY = 300
+    for cx, name, pipe, dmips, resp, spd, accent in tiers:
+        # стовпчик середньої швидкодії
+        bh = 150 * spd
+        f.append(rect(cx - 42, baseY - bh, 84, bh, fill="#eef2ff", stroke=accent, sw=2))
+        f.append(text(cx, baseY - bh - 8, dmips, size=10, bold=True, color=accent))
+        f.append(text(cx, baseY + 20, name, size=12.5, bold=True, color=accent))
+        f.append(text(cx, baseY + 37, pipe, size=9.5, color=MUTED))
+        # «вус» розкиду часу відгуку — росте зі щаблем
+        jitter = 8 + 46 * spd
+        jy = baseY + 60
+        f.append(line(cx - jitter, jy, cx + jitter, jy, color=POS, sw=2.2))
+        f.append(line(cx - jitter, jy - 5, cx - jitter, jy + 5, color=POS, sw=2.2))
+        f.append(line(cx + jitter, jy - 5, cx + jitter, jy + 5, color=POS, sw=2.2))
+        f.append(circle(cx, jy, 3, fill=POS, stroke=POS, sw=1))
+        f.append(text(cx, jy + 22, resp, size=9.5, color=POS, italic=True))
+
+    f.append(text(150, baseY - 150, "↑ середня", size=10, color=MUTED, anchor="start"))
+    f.append(text(150, baseY - 137, "  швидкодія", size=10, color=MUTED, anchor="start"))
+    f.append(text(600, baseY + 60, "↔ розкид часу відгуку (WCET)", size=10, color=POS, italic=True))
+    f.append(text(W / 2, 388,
+                  "для жорсткого реального часу M4 із коротким конвеєром часто кращий за швидший M7",
+                  size=10.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "pipeline-latency.svg"), W, H, *f)
+
+
+# ── 10. (детальна) Бюджет пам'яті: флеш і ОЗП по шарах ───────────────────────
+def fig_memory_budget():
+    W, H = 800, 440
+    f = [text(W / 2, 28, "Бюджет пам'яті МК: рахуй флеш і ОЗП окремо, на найгірший випадок",
+              size=14.5, bold=True)]
+
+    top, colh, bw = 66, 300, 150
+
+    # ── ФЛЕШ (ліворуч): стос знизу вгору, фреймворк домінує ──
+    fx = 150
+    f.append(text(fx + bw / 2, top - 14, "ФЛЕШ (код)", size=13, bold=True, color=NEG))
+    flash = [
+        ("код застосунку", 0.14, "#dbeafe", INK),
+        ("BLE/Wi-Fi стек", 0.40, "#fde2c4", "#b45309"),   # домінує
+        ("HAL/драйвери", 0.10, "#e5e7eb", MUTED),
+        ("OTA-дубль образу", 0.22, "#fee2e2", POS),
+        ("запас +30…50 %", 0.14, "#f0fdf4", FIELD),
+    ]
+    y = top + colh
+    for label, fr, col, tc in flash:
+        hh = colh * fr
+        y -= hh
+        f.append(rect(fx, y, bw, hh, fill=col, stroke="#9ca3af", sw=1, rx=0))
+        if hh >= 16:
+            f.append(text(fx + bw / 2, y + hh / 2 + 4, label, size=10, color=tc,
+                          bold=(fr >= 0.30)))
+    f.append(text(fx + bw / 2, top + colh + 22, "домінує стек, а не застосунок",
+                  size=10, color="#b45309", italic=True))
+
+    # ── ОЗП (праворуч): статика внизу, купа ↑ і стек ↓ ростуть назустріч ──
+    rx = 520
+    f.append(text(rx + bw / 2, top - 14, "ОЗП (виконання)", size=13, bold=True, color=FIELD))
+    # статичні дані (низ, фіксовані)
+    stat_h = colh * 0.20
+    f.append(rect(rx, top + colh - stat_h, bw, stat_h, fill="#dbeafe", stroke="#9ca3af", sw=1, rx=0))
+    f.append(text(rx + bw / 2, top + colh - stat_h / 2 + 4, "статичні дані", size=10, color=INK))
+    # купа (над статикою, росте вгору)
+    heap_h = colh * 0.30
+    f.append(rect(rx, top + colh - stat_h - heap_h, bw, heap_h, fill="#d1fae5",
+                  stroke=FIELD, sw=1.4, rx=0))
+    f.append(text(rx + bw / 2, top + colh - stat_h - heap_h / 2, "купа (heap)", size=10,
+                  color=FIELD, bold=True))
+    f.append(arrow(rx + bw / 2, top + colh - stat_h - heap_h + 14,
+                   rx + bw / 2, top + colh - stat_h - heap_h - 6, color=FIELD, sw=1.4))
+    # стек (верх, росте вниз)
+    stk_h = colh * 0.22
+    f.append(rect(rx, top, bw, stk_h, fill="#fee2e2", stroke=POS, sw=1.4, rx=0))
+    f.append(text(rx + bw / 2, top + stk_h / 2 + 4, "стек (worst-case)", size=10,
+                  color=POS, bold=True))
+    f.append(arrow(rx + bw / 2, top + stk_h - 14, rx + bw / 2, top + stk_h + 8, color=POS, sw=1.4))
+    # вільний зазор посередині
+    gap_top = top + stk_h
+    gap_bot = top + colh - stat_h - heap_h
+    f.append(text(rx + bw / 2, (gap_top + gap_bot) / 2 + 4, "← вільний зазор →",
+                  size=9.5, color=MUTED, italic=True))
+    f.append(text(rx + bw / 2, top + colh + 22, "стек і купа стикнулись → тихо псується",
+                  size=10, color=POS, italic=True))
+
+    f.append(text(W / 2, 424,
+                  "у бюджеті домінує вага фреймворку/стеків, а не сам застосунок; стек рахуй на найгірший випадок",
+                  size=10.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "memory-budget.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_bit_width()
     fig_cortex_ladder()
@@ -259,4 +470,8 @@ if __name__ == "__main__":
     fig_why_own_cpu()
     fig_risc_vs_cisc()
     fig_arm_licensing()
-    print("OK: 6 SVG -> ./img/")
+    fig_die_area()
+    fig_energy_crossover()
+    fig_pipeline_latency()
+    fig_memory_budget()
+    print("OK: 10 SVG -> ./img/")

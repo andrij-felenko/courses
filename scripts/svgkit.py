@@ -3,7 +3,9 @@
 НЕ копіювати ці функції у figs.py — імпортувати:
 
     import sys, os
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '_tools'))
+    # '..' стільки, скільки треба, щоб дійти до scripts/ у корені репо
+    # (для figs.py у теці теми — чотири рівні вглиб — це чотири '..'):
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
     from svgkit import *
 
 Єдиний стиль (§9 AUTHORING): білий фон, sans-serif, «+» червоний, «−» синій, поле зелене.

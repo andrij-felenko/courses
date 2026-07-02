@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1010 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1010" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="505.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр MAVLink v2: що бачить парсер землі і що покриває CRC</text>
+<rect x="40.0" y="120.0" width="60.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="70.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">0xFD</text>
+<text x="70.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="70.0" dy="0.0">магія</tspan><tspan x="70.0" dy="10.9">(v2)</tspan></text>
+<rect x="104.0" y="120.0" width="66.0" height="60.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="137.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">LEN</text>
+<text x="137.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="137.0" dy="0.0">довжина</tspan><tspan x="137.0" dy="10.9">даних</tspan></text>
+<rect x="174.0" y="120.0" width="70.0" height="60.0" rx="6" fill="#eef2f7" stroke="#6b7280" stroke-width="1.6"/>
+<text x="209.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">INC</text>
+<text x="209.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="209.0" dy="0.0">incompat</tspan><tspan x="209.0" dy="10.9">flags</tspan></text>
+<rect x="248.0" y="120.0" width="68.0" height="60.0" rx="6" fill="#eef2f7" stroke="#6b7280" stroke-width="1.6"/>
+<text x="282.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">CMP</text>
+<text x="282.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="282.0" dy="0.0">compat</tspan><tspan x="282.0" dy="10.9">flags</tspan></text>
+<rect x="320.0" y="120.0" width="70.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="355.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SEQ</text>
+<text x="355.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="355.0" dy="0.0">лічильник</tspan><tspan x="355.0" dy="10.9">0..255</tspan></text>
+<rect x="394.0" y="120.0" width="58.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="423.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SYS</text>
+<text x="423.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="423.0" dy="0.0">system</tspan><tspan x="423.0" dy="10.9">id</tspan></text>
+<rect x="456.0" y="120.0" width="78.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="495.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">COMP</text>
+<text x="495.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="495.0" dy="0.0">component</tspan><tspan x="495.0" dy="10.9">id</tspan></text>
+<rect x="538.0" y="120.0" width="80.0" height="60.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="578.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">MSGID</text>
+<text x="578.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="578.0" dy="0.0">тип, 3 Б</tspan><tspan x="578.0" dy="10.9">(24 біт)</tspan></text>
+<rect x="622.0" y="120.0" width="150.0" height="60.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="697.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">PAYLOAD</text>
+<text x="697.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="697.0" dy="0.0">корисні дані</tspan><tspan x="697.0" dy="10.9">(0..255 Б)</tspan></text>
+<rect x="776.0" y="120.0" width="78.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="815.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">CRC</text>
+<text x="815.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="815.0" dy="0.0">16 біт</tspan><tspan x="815.0" dy="10.9">MCRF4XX</tspan></text>
+<line x1="104.0" y1="206.0" x2="772.0" y2="206.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="104.0" y1="206.0" x2="104.0" y2="198.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="772.0" y1="206.0" x2="772.0" y2="198.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="438.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">CRC рахується від LEN до кінця PAYLOAD</text>
+<line x1="815.0" y1="214.0" x2="565.0" y2="270.2" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,4"/>
+<rect x="367.4" y="270.2" width="395.1" height="59.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="565.0" y="289.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="565.0" dy="0.0">…+ CRC_EXTRA:</tspan><tspan x="565.0" dy="14.3">невидимий байт-підпис ВИЗНАЧЕННЯ повідомлення.</tspan><tspan x="565.0" dy="14.3">різні поля/порядок у борту й станції → CRC не зійдеться</tspan></text>
+<text x="70.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">точка старту</text>
+<text x="505.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">v1 починався з 0xFE й ніс 1-байтовий MSGID; v2 — 0xFD, 3-байтовий MSGID + прапорці сумісності</text>
+</svg>

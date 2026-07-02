@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виливання регістрів: коли живих змінних більше, ніж регістрів</text>
+<text x="60.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">банк регістрів (скінченний)</text>
+<rect x="60.0" y="90.0" width="52.0" height="46.0" rx="6" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="86.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">r2</text>
+<text x="86.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">a</text>
+<rect x="122.0" y="90.0" width="52.0" height="46.0" rx="6" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="148.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">r3</text>
+<text x="148.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">b</text>
+<rect x="184.0" y="90.0" width="52.0" height="46.0" rx="6" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="210.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">r4</text>
+<text x="210.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">c</text>
+<rect x="246.0" y="90.0" width="52.0" height="46.0" rx="6" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="272.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">r5</text>
+<text x="272.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">d</text>
+<rect x="308.0" y="90.0" width="52.0" height="46.0" rx="6" fill="#eef7ee" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="334.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">r6</text>
+<text x="334.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">e</text>
+<rect x="370.0" y="90.0" width="52.0" height="46.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="396.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">r7</text>
+<text x="396.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">—</text>
+<text x="246.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="middle">усі зайняті живими значеннями</text>
+<rect x="438.0" y="90.0" width="70.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="473.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">g?</text>
+<text x="473.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#c0392b" text-anchor="middle">нема місця</text>
+<line x1="473.0" y1="140.0" x2="473.0" y2="186.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="408.0" y="190.0" width="130.0" height="62.0" rx="8" fill="#f4f5f7" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="473.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">стек у RAM</text>
+<text x="473.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">spill: ST r, [SP]</text>
+<text x="473.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">потім: LD r, [SP]</text>
+<rect x="235.6" y="265.3" width="348.9" height="69.4" rx="6" fill="#f4f5f7" stroke="#1a1a1a" stroke-width="1.8"/><text x="410.0" y="289.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Кожне виливання = зайва пара ST+LD у пам'ять.</tspan><tspan x="410.0" dy="15.0">Через це довга функція з десятками змінних</tspan><tspan x="410.0" dy="15.0">часто повільніша за кілька коротких.</tspan></text>
+<text x="410.0" y="358.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Практика: тримай робочий набір гарячого циклу малим — і виливань не буде.</text>
+</svg>

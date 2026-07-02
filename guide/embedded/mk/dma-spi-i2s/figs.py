@@ -373,11 +373,242 @@ def fig_timeline():
            title="Еволюція Sound Blaster: 1988–1994")
 
 
+# ── DETAILED: descriptor-chain — кільце дескрипторів із бітом owner ────────────
+# Ідея: DMA бачить не «буфер», а зв'язаний список дескрипторів. Кожен несе адресу,
+# розмір, прапор eof і біт owner (хто господар — HW чи SW). next замикає кільце.
+
+def fig_desc_chain():
+    W, H = 720, 360
+    p = []
+    # три дескриптори по колу
+    boxes = [(120, 90), (430, 90), (430, 250)]
+    labels = [
+        "дескриптор 0\nbuf → пів A\nsize=1024  eof=1\nowner: HW",
+        "дескриптор 1\nbuf → пів B\nsize=1024  eof=1\nowner: HW",
+        "дескриптор 2\nbuf → пів C\nsize=1024  eof=1\nowner: SW",
+    ]
+    cols = ["#eafaf0", "#eef4ff", "#f3dede"]
+    strokes = [FIELD, NEG, POS]
+    bw, bh = 170, 92
+    centers = []
+    for (x, y), lab, fill, st in zip(boxes, labels, cols, strokes):
+        p.append(fitbox(x, y, bw, bh, lab, size=11, bold=True, fill=fill, stroke=st, sw=1.7))
+        centers.append((x + bw / 2, y + bh / 2))
+
+    # стрілки next: 0→1, 1→2, 2→0 (замкнене кільце)
+    p.append(arrow(boxes[0][0] + bw + 2, boxes[0][1] + bh / 2, boxes[1][0] - 2, boxes[1][1] + bh / 2, color=INK, sw=1.8))
+    p.append(text((boxes[0][0] + bw + boxes[1][0]) / 2, boxes[0][1] + bh / 2 - 8, "next", size=10, color=MUTED))
+    p.append(arrow(boxes[1][0] + bw / 2, boxes[1][1] + bh + 2, boxes[2][0] + bw / 2, boxes[2][1] - 2, color=INK, sw=1.8))
+    p.append(text(boxes[1][0] + bw / 2 + 22, (boxes[1][1] + bh + boxes[2][1]) / 2, "next", size=10, color=MUTED))
+    # 2 → 0 довга дуга (через ламану)
+    p.append(line(boxes[2][0] - 2, boxes[2][1] + bh / 2, 120, boxes[2][1] + bh / 2, color=INK, sw=1.6, dash="5 4"))
+    p.append(line(120, boxes[2][1] + bh / 2, 120, boxes[0][1] + bh + 2, color=INK, sw=1.6, dash="5 4"))
+    p.append(arrow(120, boxes[0][1] + bh + 2, boxes[0][0] + bw / 2 - 30, boxes[0][1] + bh + 2, color=INK, sw=1.6))
+    p.append(text(150, boxes[2][1] + bh / 2 - 8, "next замикає кільце", size=10, color=MUTED, anchor="start"))
+
+    # позначка «тут зараз DMA»
+    p.append(circle(centers[1][0], boxes[1][1] - 14, 6, fill=POS, stroke=INK, sw=1.4))
+    p.append(text(centers[1][0], boxes[1][1] - 24, "тут зараз DMA", size=10, color=POS, bold=True))
+
+    p.append(text(W / 2, 335,
+                  "owner=HW — блок належить контролеру; owner=SW — ядро ще не звільнило, DMA спиниться",
+                  size=10, color=MUTED, italic=True))
+    render(os.path.join(OUT, "desc-chain.svg"), W, H, *p,
+           title="DMA бачить не буфер, а кільце дескрипторів")
+
+
+# ── DETAILED: bus-matrix — арбітраж шини, коли ядро й DMA лізуть у ту саму SRAM ─
+# Ідея: SRAM одна, портів обмаль. Матриця шин арбітрує доступ; програш у
+# арбітражі — такт очікування. DMA й ядро крадуть цикли одне в одного.
+
+def fig_bus_matrix():
+    W, H = 720, 330
+    p = []
+    # два майстри зверху
+    p.append(fitbox(90, 60, 180, 56, "ядро (CPU)\nчитає код і дані", size=11, bold=True,
+                    fill="#eef4ff", stroke=NEG, sw=1.6))
+    p.append(fitbox(450, 60, 180, 56, "DMA-контролер\nжене блок у шину", size=11, bold=True,
+                    fill="#eafaf0", stroke=FIELD, sw=1.6))
+    # матриця посередині
+    mb, mw, mh = 250, 220, 54
+    p.append(rect(mb, 160, mw, mh, fill="#f2ecf8", stroke="#8a5fb0", sw=1.9, rx=6))
+    p.append(text(mb + mw / 2, 160 + mh / 2 + 4, "матриця шин (арбітр)", size=12, color=INK, bold=True))
+    # SRAM знизу
+    p.append(fitbox(280, 258, 160, 46, "SRAM\n(один порт)", size=11, bold=True,
+                    fill=FILL, stroke=INK, sw=1.6))
+    # запити до матриці
+    p.append(arrow(180, 116, mb + 40, 160 - 2, color=NEG, sw=1.9))
+    p.append(arrow(540, 116, mb + mw - 40, 160 - 2, color=FIELD, sw=1.9))
+    p.append(arrow(mb + mw / 2, 160 + mh + 2, 360, 258 - 2, color=INK, sw=1.9))
+    # напис про конфлікт
+    p.append(text(mb + mw / 2, 150, "обидва хочуть SRAM в той самий такт", size=10, color=POS, italic=True))
+    p.append(text(W / 2, 325,
+                  "переможець іде в пам'ять, той хто програв — чекає такт; так DMA й ядро крадуть цикли одне в одного",
+                  size=10, color=MUTED, italic=True))
+    render(os.path.join(OUT, "bus-matrix.svg"), W, H, *p,
+           title="Одна пам'ять, два майстри: хто перший у SRAM")
+
+
+# ── DETAILED: buffer race — темп наповнення проти темпу спорожнення + запас ────
+# Ідея: у звуку два годинники. Апаратура наповнює половину за фіксований час T_fill;
+# ядро мусить спорожнити за T_proc < T_fill. Різниця — запас від underrun/overrun.
+
+def fig_buffer_race():
+    W, H = 720, 320
+    p = []
+    tx0, tx1 = 110, 660
+    span = tx1 - tx0
+
+    # верх: DMA наповнює половини рівним темпом
+    y1 = 90
+    p.append(text(tx0 - 12, y1 + 4, "DMA", size=11, color=FIELD, anchor="end", bold=True))
+    p.append(line(tx0, y1, tx1, y1, color=INK, sw=1.2))
+    for i in range(4):
+        x = tx0 + span * i / 4
+        p.append(rect(x, y1 - 14, span / 4 - 4, 28, fill="#eafaf0", stroke=FIELD, sw=1.2))
+        p.append(text(x + span / 8, y1 + 4, "T_fill", size=10, color=INK))
+
+    # низ: ядро обробляє швидше (коротші блоки) — лишається запас
+    y2 = 175
+    p.append(text(tx0 - 12, y2 + 4, "ядро", size=11, color=NEG, anchor="end", bold=True))
+    p.append(line(tx0, y2, tx1, y2, color=INK, sw=1.2))
+    for i in range(4):
+        x = tx0 + span * i / 4
+        wproc = span / 4 * 0.62
+        p.append(rect(x, y2 - 14, wproc, 28, fill="#eef4ff", stroke=NEG, sw=1.2))
+        if i == 0:
+            p.append(text(x + wproc / 2, y2 + 4, "T_proc", size=10, color=INK))
+        # запас
+        p.append(rect(x + wproc, y2 - 14, span / 4 - wproc - 4, 28, fill="#f7fbef", stroke=FIELD, sw=0.8, rx=2))
+    p.append(text(tx0 + span / 2, y2 + 42, "світле — запас часу до наступного блоку (проти underrun/overrun)",
+                  size=10, color=FIELD, italic=True))
+
+    # формула умови
+    p.append(text(W / 2, 262, "умова без втрат:  T_proc < T_fill = N / f_s", size=12, color=INK, bold=True))
+    p.append(text(W / 2, 292, "більший буфер N → більший запас, але й довша затримка від входу до обробки",
+                  size=10, color=MUTED, italic=True))
+    render(os.path.join(OUT, "buffer-race.svg"), W, H, *p,
+           title="Два годинники звуку: наповнення проти спорожнення")
+
+
+# ── hist-i2s-origin: два способи нести такт по проводах ───────────────────────
+# Ідея: асинхронна лінія «зашиває» такт у самі дані (приймач мусить його
+# видлубати схемою відновлення); I2S виносить такт окремим проводом — приймачу
+# лишається клацати по фронту. Це і є головний історичний вибір Philips 1986.
+
+def fig_clock_ways():
+    W, H = 720, 340
+    p = []
+    x0, x1 = 120, 660
+    span = x1 - x0
+    bits = 12
+    bw = span / bits
+    hi = 16
+
+    def label(y, s, color):
+        return text(x0 - 14, y + 4, s, size=11, color=color, anchor="end", bold=True)
+
+    def square(y, pattern, color, sw=2.2):
+        seg = []
+        prev = None
+        for i, b in enumerate(pattern):
+            x = x0 + i * bw
+            lvl = y - hi if b else y + hi
+            if prev is not None and prev != lvl:
+                seg.append("%.1f,%.1f" % (x, prev))
+            seg.append("%.1f,%.1f" % (x, lvl))
+            seg.append("%.1f,%.1f" % (x + bw, lvl))
+            prev = lvl
+        return '<polyline points="%s" fill="none" stroke="%s" stroke-width="%.1f"/>' % (" ".join(seg), color, sw)
+
+    # ── зверху: асинхронна лінія — один провід, такт схований у переходах ──
+    p.append(text(x0 + span / 2, 46, "Асинхронна лінія: один провід — такт схований у самих переходах",
+                  size=13, bold=True, color=INK))
+    ya = 92
+    p.append(label(ya, "лінія", NEG))
+    patt = [1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1]
+    p.append(square(ya, patt, NEG))
+    # приймач мусить видобути такт — рамка збоку
+    p.append(fitbox(x0, ya + 34, span, 34, "приймач мусить ВІДНОВИТИ такт із потоку (PLL/оверсемплінг)",
+                    size=10, fill="#fdecea", stroke=NEG, sw=1.4, color=NEG))
+
+    # ── знизу: I2S — окремий такт-провід і окремі дані ──
+    p.append(text(x0 + span / 2, 216, "I2S: такт окремим проводом — приймачу лишається клацнути по фронту",
+                  size=13, bold=True, color=FIELD))
+    ys = 258
+    p.append(label(ys, "SCK", INK))
+    seg = []
+    for i in range(bits):
+        x = x0 + i * bw
+        seg.append("%.1f,%.1f" % (x, ys + hi))
+        seg.append("%.1f,%.1f" % (x, ys - hi))
+        seg.append("%.1f,%.1f" % (x + bw / 2, ys - hi))
+        seg.append("%.1f,%.1f" % (x + bw / 2, ys + hi))
+        seg.append("%.1f,%.1f" % (x + bw, ys + hi))
+    p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2"/>' % (" ".join(seg), INK))
+    # стрілки-фронти вгору
+    for i in range(bits):
+        x = x0 + i * bw
+        p.append(line(x, ys - hi - 6, x, ys - hi - 18, color=MUTED, sw=1.0))
+    yd = 306
+    p.append(label(yd, "SD", FIELD))
+    p.append(square(yd, patt, FIELD))
+    p.append(text(x1 + 4, yd + 4, "→", size=14, color=FIELD, anchor="start"))
+
+    render(os.path.join(OUT, "clock-ways.svg"), W, H, *p,
+           title="Головний вибір 1986: нести такт у даних чи окремим проводом")
+
+
+# ── hist-i2s-origin: LSI-звену звуку, злучені однією тришиною ──────────────────
+# Ідея: у CD-програвачі 1980-х звук іде ланцюгом окремих мікросхем; I2S — спільна
+# «мова» тактів і даних між ними, тож будь-чий вихід стикується з будь-чиїм входом.
+
+def fig_audio_chain():
+    W, H = 760, 300
+    p = []
+    y = 120
+    boxes = [
+        ("оптика\n+ АЦП", "#eef4ff", NEG),
+        ("корекція\nпомилок", "#f2ecf8", "#8a5fb0"),
+        ("цифровий\nфільтр", "#eafaf0", FIELD),
+        ("ЦАП →\nвихід", "#fff7e6", "#b8860b"),
+    ]
+    n = len(boxes)
+    bw, bh, gap = 130, 66, 44
+    total = n * bw + (n - 1) * gap
+    x = (W - total) / 2
+    centers = []
+    for (lbl, fill, stroke) in boxes:
+        p.append(fitbox(x, y, bw, bh, lbl, size=12, bold=True, fill=fill, stroke=stroke, sw=1.8))
+        centers.append(x + bw / 2)
+        x += bw + gap
+
+    # шина між сусідами: три лінії SCK/WS/SD
+    for i in range(n - 1):
+        xa = centers[i] + bw / 2
+        xb = centers[i + 1] - bw / 2
+        for k, (dy, col, nm) in enumerate([(-14, INK, "SCK"), (0, NEG, "WS"), (14, FIELD, "SD")]):
+            p.append(line(xa, y + bh / 2 + dy, xb, y + bh / 2 + dy, color=col, sw=1.8))
+            if i == 0:
+                p.append(text((xa + xb) / 2, y + bh / 2 + dy - 4, nm, size=8, color=col))
+
+    p.append(text(W / 2, y - 24, "Один цифровий звуковий тракт CD-програвача — ланцюг окремих LSI",
+                  size=13, bold=True, color=INK))
+    p.append(text(W / 2, y + bh + 44,
+                  "Спільні три лінії (такт · вибір каналу · дані) — будь-який вихід стикується з будь-яким входом",
+                  size=11, color=MUTED, italic=True))
+    render(os.path.join(OUT, "audio-chain.svg"), W, H, *p)
+
+
 if __name__ == "__main__":
     # стаття
     fig_block_to_bus()
     fig_frame_jitter()
     fig_audio_duplex()
+    # детальна стаття (-d)
+    fig_desc_chain()
+    fig_bus_matrix()
+    fig_buffer_race()
     # вставка comp-spi-display
     fig_frame_cost()
     fig_dma_vs_nodma()
@@ -388,4 +619,7 @@ if __name__ == "__main__":
     fig_isa_bus()
     fig_dma_flow()
     fig_timeline()
+    # вставка hist-i2s-origin
+    fig_clock_ways()
+    fig_audio_chain()
     print("OK: figures written to", OUT)

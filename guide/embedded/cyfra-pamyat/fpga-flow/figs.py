@@ -377,6 +377,352 @@ def fig_anneal():
            title="Імітація відпалу: цикл swap і вихід із локальної ями")
 
 
+# ════════════════ Фігури ДЕТАЛЬНОЇ статті (глибший шар) ══════════════════════
+
+# ── 9. Синтез зсередини: розбір → RTL-оптимізація → технологічне відображення ─
+def fig_synth_stages():
+    W, H = 780, 340
+    p = []
+    y = 130
+    bw, bh = 150, 90
+    gap = 34
+    x = 26
+    stages = [
+        ("розбір", "текст HDL →\nдерево, RTL-граф", HDLC, SOFT),
+        ("RTL-оптимізація", "згорнути сталі,\nвикинути мертве,\nспільні підвирази", SYN, SOFTG),
+        ("відображення", "покрити граф\nтаблицями LUT-k\n(covering)", AMBER, "#fdf6e3"),
+    ]
+    centers = []
+    for i, (head, sub, col, fill) in enumerate(stages):
+        p.append(rect(x, y, bw, bh, fill=fill, stroke=col, sw=1.9))
+        p.append(text(x + bw / 2, y + 24, head, size=13, color=col, bold=True))
+        p.append(mtext(x + bw / 2, y + 44, sub, size=10, color=INK))
+        centers.append((x, x + bw))
+        if i > 0:
+            p.append(arrow(centers[i - 1][1], y + bh / 2, x - 2, y + bh / 2, color=INK, sw=2.0))
+        x += bw + gap
+    # результат праворуч
+    lastr = centers[-1][1]
+    p.append(arrow(lastr, y + bh / 2, lastr + gap - 2, y + bh / 2, color=INK, sw=2.0))
+    box, w2, h2 = textbox(lastr + gap + 66, y + bh / 2, "нетліст\nіз LUT-k і тригерів",
+                          size=11, bold=True, color=CHIP, fill="#f0f0f0", stroke=CHIP, sw=1.9)
+    p.append(box)
+    # підпис під відображенням: одна фізична межа
+    p.append(text(centers[2][0] + bw / 2, y + bh + 26,
+                  "тут форма схеми стрибком міняється:", size=10, color=MUTED, italic=True))
+    p.append(text(centers[2][0] + bw / 2, y + bh + 42,
+                  "вентилі зникають, лишаються цеглинки кристала", size=10, color=MUTED, italic=True))
+    # верхній підпис: усе це — «що», без «де»
+    p.append(line(26, y - 26, centers[2][1], y - 26, color=SYN, sw=2.2))
+    p.append(text((26 + centers[2][1]) / 2, y - 32,
+                  "усе це відповідає на «ЩО будувати» — про «де на кристалі» ще ні слова",
+                  size=10, color=SYN, bold=True))
+    render(os.path.join(IMG, "synth-stages.svg"), W, H, *p,
+           title="Синтез — три стадії: розбір, RTL-оптимізація, відображення в LUT")
+
+
+# ── 10. STA: слек як різниця «є часу» і «треба часу» на одному шляху ──────────
+def fig_slack():
+    W, H = 720, 360
+    p = []
+    # часова вісь
+    ax0, ay = 70, 150
+    axlen = 560
+    p.append(line(ax0, ay, ax0 + axlen, ay, color=INK, sw=1.6))
+    p.append(text(ax0 + axlen, ay + 20, "час, нс", size=10, color=INK, anchor="end", italic=True))
+    def tick(t, lab, col, up=True):
+        x = ax0 + t / 12.0 * axlen
+        dy = -8 if up else 8
+        p.append(line(x, ay, x, ay + dy, color=col, sw=1.8))
+        p.append(text(x, ay + (dy - 6 if up else dy + 14), lab, size=10, color=col, bold=True))
+        return x
+    # такт 10 нс, вимога прибуття = 10 − tsu; дані прибувають на 8.0
+    xlaunch = tick(0, "0: старт такту", INK, up=False)
+    xreq = tick(10, "10.0: край такту", MUTED, up=True)
+    xsu = tick(9.6, "9.6: край − t_su", NEG, up=True)
+    xarr = tick(8.0, "8.0: дані тут", SYN, up=False)
+    # дуга прибуття даних (Tcq + logic + wire)
+    p.append('<path d="M %.1f %.1f Q %.1f %.1f %.1f %.1f" fill="none" stroke="%s" stroke-width="2.2"/>'
+             % (xlaunch, ay, (xlaunch + xarr) / 2, ay - 54, xarr, ay, SYN))
+    p.append(text((xlaunch + xarr) / 2, ay - 60, "прибуття даних: T_cq + логіка + дріт = 8.0",
+                  size=10, color=SYN, bold=True))
+    # відрізок слеку
+    p.append(line(xarr, ay + 46, xsu, ay + 46, color=POS, sw=2.6))
+    p.append(line(xarr, ay + 40, xarr, ay + 52, color=POS, sw=1.6))
+    p.append(line(xsu, ay + 40, xsu, ay + 52, color=POS, sw=1.6))
+    p.append(text((xarr + xsu) / 2, ay + 70, "слек = 9.6 − 8.0 = +1.6 нс", size=11, color=POS, bold=True))
+    p.append(text((xarr + xsu) / 2, ay + 86, "додатний → встигаємо; від'ємний → зрив", size=10, color=MUTED, italic=True))
+    # формула зверху
+    box, w2, h2 = textbox(W / 2, 300,
+                          "слек = (край такту − t_su) − (T_cq + t_логіки + t_дроту)",
+                          size=12, bold=True, color=INK, fill=SOFT, stroke=NEG, sw=1.8)
+    p.append(box)
+    render(os.path.join(IMG, "slack.svg"), W, H, *p,
+           title="Статичний аналіз таймінгу: слек одного шляху")
+
+
+# ── 11. Негоційоване трасування: present + history робить ресурс дорогим ──────
+def fig_negotiate():
+    W, H = 760, 340
+    p = []
+    # три ітерації: спільний ресурс дорожчає, поки один сигнал не поступиться
+    col_share = POS
+    xs = [150, 380, 610]
+    labs = ["ітерація 1", "ітерація 5", "ітерація 12"]
+    caps = ["обидва сигнали лізуть\nв один канал —\nдозволено, але дорого",
+            "історія перевантаження\nросте → канал ще дорожчий\nобом невигідно",
+            "слабший сигнал знайшов\nобхід; сильніший лишився —\nконфлікту нема"]
+    for i, (cx, lab, cap) in enumerate(zip(xs, labs, caps)):
+        # канал (ресурс)
+        p.append(rect(cx - 26, 70, 52, 60, fill=("#fdecea" if i < 2 else SOFTG),
+                      stroke=(col_share if i < 2 else SYN), sw=2.0))
+        # сигнали, що претендують
+        if i == 0:
+            p.append(circle(cx - 8, 100, 7, fill=NEG, stroke=NEG, sw=1));
+            p.append(circle(cx + 8, 100, 7, fill=AMBER, stroke=AMBER, sw=1))
+            p.append(text(cx, 150, "2 сигнали / 1 канал", size=9, color=col_share, bold=True))
+        elif i == 1:
+            p.append(circle(cx - 8, 100, 7, fill=NEG, stroke=NEG, sw=1))
+            p.append(circle(cx + 8, 100, 7, fill=AMBER, stroke=AMBER, sw=1))
+            p.append(text(cx, 150, "штраф історії ↑", size=9, color=col_share, bold=True))
+        else:
+            p.append(circle(cx, 100, 7, fill=AMBER, stroke=AMBER, sw=1))
+            p.append(circle(cx + 40, 100, 7, fill=NEG, stroke=NEG, sw=1))
+            p.append(line(cx + 26, 100, cx + 33, 100, color=NEG, sw=1.6, dash="3 2"))
+            p.append(text(cx + 6, 150, "розвели", size=9, color=SYN, bold=True))
+        p.append(text(cx, 58, lab, size=11, color=INK, bold=True))
+        p.append(mtext(cx, 176, cap, size=9, color=MUTED))
+        if i < 2:
+            p.append(arrow(xs[i] + 60, 100, xs[i + 1] - 60, 100, color=INK, sw=1.8))
+    # формула вартості внизу
+    box, w2, h2 = textbox(W / 2, 290,
+                          "вартість ресурсу = базова · (1 + present_зайнятість) · (1 + history_штраф)",
+                          size=11, bold=True, color=INK, fill=SOFT, stroke=NEG, sw=1.8)
+    p.append(box)
+    render(os.path.join(IMG, "negotiate.svg"), W, H, *p,
+           title="Негоційоване трасування: спільний ресурс дорожчає, поки конфлікт не зникне")
+
+
+# ── 12. Петля timing closure: зібрав → перевірив слек → правки → знову ────────
+def fig_closure_loop():
+    W, H = 720, 380
+    p = []
+    cx = 250
+    ys = [70, 145, 220, 295]
+    steps = [
+        ("синтез + P&R", "інструмент склав розкладку", SYN, SOFTG),
+        ("STA: найгірший слек?", "порахувати запас на\nкритичному шляху", AMBER, "#fdf6e3"),
+        ("слек < 0 → зрив", "шлях не встигає за тактом", POS, "#fdecea"),
+        ("правки дизайну", "конвеєр, менше логіки,\nобмеження, seed", NEG, SOFT),
+    ]
+    boxw = 250
+    hh = []
+    for i, (head, sub, col, fill) in enumerate(steps):
+        b, bw, bh = textbox(cx, ys[i], head + "\n" + sub, size=11, bold=False, color=INK,
+                            fill=fill, stroke=col, sw=1.8, min_w=boxw)
+        # заголовок жирним окремо
+        p.append(rect(cx - bw / 2, ys[i] - bh / 2, bw, bh, fill=fill, stroke=col, sw=1.8))
+        p.append(text(cx, ys[i] - bh / 2 + 18, head, size=12, color=col, bold=True))
+        p.append(mtext(cx, ys[i] - bh / 2 + 36, sub, size=10, color=INK))
+        hh.append(bh)
+        if i > 0:
+            p.append(arrow(cx, ys[i - 1] + hh[i - 1] / 2, cx, ys[i] - bh / 2, color=INK, sw=1.9))
+    # гілка «слек ≥ 0 → готово» праворуч від кроку STA
+    rx = cx + boxw / 2 + 30
+    b2, w2, h2 = textbox(rx + 70, ys[1], "слек ≥ 0 →\nбітстрім, готово",
+                         size=11, bold=True, color=SYN, fill=SOFTG, stroke=SYN, sw=1.9)
+    p.append(b2)
+    p.append(arrow(cx + boxw / 2, ys[1], rx, ys[1], color=SYN, sw=1.9))
+    p.append(text((cx + boxw / 2 + rx) / 2, ys[1] - 8, "так", size=9, color=SYN, bold=True))
+    # петля назад від «правок» до «синтез+P&R»
+    lx = cx - boxw / 2 - 24
+    p.append(line(cx - boxw / 2, ys[3], lx, ys[3], color=NEG, sw=1.8))
+    p.append(line(lx, ys[3], lx, ys[0], color=NEG, sw=1.8))
+    p.append(arrow(lx, ys[0], cx - boxw / 2, ys[0], color=NEG, sw=1.8))
+    p.append(text(lx - 6, (ys[0] + ys[3]) / 2, "знову", size=10, color=NEG, anchor="end", bold=True))
+    p.append(text(lx - 6, (ys[0] + ys[3]) / 2 + 14, "весь потік", size=10, color=NEG, anchor="end"))
+    render(os.path.join(IMG, "closure-loop.svg"), W, H, *p,
+           title="Петля timing closure: збирай, міряй слек, прав, повторюй")
+
+
+# ═══ Фігури до вставки math-lut-covering (FlowMap) ═══════════════════════════
+
+# Кольори саме для цієї вставки
+CONE = "#7b3fbf"      # конус / LUT-межа (фіолетовий)
+CONEF = "#f3ecfb"     # світла заливка конуса
+CUT = "#c0392b"       # лінія розрізу (червона)
+
+
+def _dot(cx, cy, r, fill, stroke=INK, sw=1.6):
+    return circle(cx, cy, r, fill=fill, stroke=stroke, sw=sw)
+
+
+# ── 13. Відображення як покриття DAG конусами по k входів ────────────────────
+def fig_cover():
+    """Той самий граф вентилів, укритий K-feasible-конусами: кожен конус = один LUT-k."""
+    W, H = 760, 430
+    p = []
+    R = 15
+    # координати вузлів графа (шар за шаром знизу вгору)
+    # первинні входи
+    ins = {"a": (70, 360), "b": (150, 360), "c": (250, 360),
+           "d": (350, 360), "e": (470, 360), "f": (590, 360), "g": (690, 360)}
+    # внутрішні вузли (вентилі)
+    g1 = (110, 275); g2 = (300, 275); g3 = (530, 275); g4 = (650, 275)
+    g5 = (205, 185); g6 = (590, 185)
+    root = (400, 95)
+    nodes = dict(ins); nodes.update({"g1": g1, "g2": g2, "g3": g3, "g4": g4,
+                                     "g5": g5, "g6": g6, "root": root})
+    edges = [("a", "g1"), ("b", "g1"), ("c", "g2"), ("d", "g2"),
+             ("e", "g3"), ("f", "g3"), ("f", "g4"), ("g", "g4"),
+             ("g1", "g5"), ("g2", "g5"), ("g3", "g6"), ("g4", "g6"),
+             ("g5", "root"), ("g6", "root")]
+    # три конуси (кожен ≤ 4 входи) — малюємо як напівпрозорі «шапки» позаду
+    def cone(pts, cx, cy):
+        # многокутник-обгортка навколо переліку точок (проста опукла шапка)
+        return ('<polygon points="%s" fill="%s" stroke="%s" stroke-width="1.6" '
+                'opacity="0.9"/>' % (" ".join("%.0f,%.0f" % pt for pt in pts), CONEF, CONE))
+    # конус L1: g5 з входами g1,g2 → 4 входи (a,b,c,d)
+    p.append(cone([(60, 300), (95, 250), (300, 250), (340, 300), (240, 330)],
+                  *g5))
+    # конус L2: g6 з входами g3,g4 → 4 входи (e,f,g)
+    p.append(cone([(455, 300), (500, 250), (680, 250), (720, 300), (600, 330)],
+                  *g6))
+    # конус root: входи g5,g6 → 2 входи
+    p.append(cone([(150, 210), (205, 155), (595, 155), (640, 210), (400, 130)],
+                  *root))
+    # ребра
+    for u, v in edges:
+        x1, y1 = nodes[u]; x2, y2 = nodes[v]
+        p.append(line(x1, y1 - R + 3, x2, y2 + R - 3, color=MUTED, sw=1.6))
+    # вузли-входи (квадратики)
+    for nm, (x, y) in ins.items():
+        p.append(rect(x - 12, y - 12, 24, 24, fill=SOFT, stroke=NEG, sw=1.7, rx=3))
+        p.append(text(x, y + 5, nm, size=12, color=NEG, bold=True))
+    # внутрішні вузли (кола)
+    for nm in ["g1", "g2", "g3", "g4", "g5", "g6", "root"]:
+        x, y = nodes[nm]
+        p.append(_dot(x, y, R, fill="#fff", stroke=INK, sw=1.7))
+    p.append(text(root[0] + R + 6, root[1], "вихід", size=11, color=INK,
+                  anchor="start", bold=True))
+    # підписи конусів = LUT (біля вершини конуса, збоку від вузла-кореня)
+    p.append(text(g5[0] - R - 8, g5[1] - 2, "LUT₁", size=11, color=CONE,
+                  anchor="end", bold=True))
+    p.append(text(g6[0] + R + 8, g6[1] - 2, "LUT₂", size=11, color=CONE,
+                  anchor="start", bold=True))
+    p.append(text(root[0] - R - 8, root[1], "LUT₃", size=11, color=CONE,
+                  anchor="end", bold=True))
+    # легенда — угорі ліворуч, де вільно
+    lb, lw, lh = textbox(120, 90, "квадрат — вхід\nколо — вентиль\nшапка — один LUT-k",
+                         size=10, color=INK, fill="#fff", stroke=MUTED, sw=1.3)
+    p.append(lb)
+    render(os.path.join(IMG, "cover.svg"), W, H, *p,
+           title="Відображення = покриття графа конусами по ≤ k входів (кожен конус — один LUT)")
+
+
+# ── 14. Крок мітки: min-cut вирішує l(t) = p чи p+1 ──────────────────────────
+def fig_labelcut():
+    """Дві половини: зліва — підмережа N_t зі збором вузлів label≥p у стік;
+    справа — розріз ≤ k (успіх, l=p) проти розрізу > k (невдача, l=p+1)."""
+    W, H = 760, 400
+    p = []
+    R = 14
+    # ── ліва панель: побудова мережі ──
+    p.append(text(190, 40, "1. збери у стік усе з міткою ≥ p", size=12, color=INK, bold=True))
+    # вузли: кілька входів з мітками, вузол t згори
+    lvl = {"u1": (70, 300, "1"), "u2": (140, 300, "2"), "u3": (210, 300, "1"),
+           "u4": (300, 300, "2"), "v1": (110, 220, "2"), "v2": (250, 220, "2")}
+    t = (190, 130)
+    for nm, (x, y, lb) in lvl.items():
+        col = POS if lb == "2" else MUTED
+        p.append(_dot(x, y, R, fill="#fff", stroke=col, sw=1.8))
+        p.append(text(x, y + 4, lb, size=11, color=col, bold=True))
+    # ребра до t
+    for nm, (x, y, lb) in lvl.items():
+        p.append(line(x, y - R + 2, t[0], t[1] + R - 2, color=MUTED, sw=1.4))
+    p.append(_dot(t[0], t[1], R, fill=SOFTG, stroke=SYN, sw=2.0))
+    p.append(text(t[0], t[1] + 4, "t", size=12, color=SYN, bold=True))
+    # «стік»: пунктирна обгортка навколо label-2 вузлів + t
+    p.append('<ellipse cx="185" cy="205" rx="140" ry="120" fill="none" '
+             'stroke="%s" stroke-width="1.8" stroke-dasharray="6 5"/>' % CUT)
+    p.append(text(185, 345, "p = max мітка входів = 2", size=11, color=POS, bold=True))
+    p.append(mtext(300, 95, "стік t′:\nусе з міткою ≥ p\nзлите з t разом", size=9,
+                   color=CUT, anchor="middle", lh=1.25))
+    # роздільник
+    p.append(line(390, 60, 390, 360, color=MUTED, sw=1.4, dash="4 4"))
+    # ── права панель: два розрізи ──
+    p.append(text(575, 40, "2. є розріз заввишки p−1 з ≤ k ребрами?", size=12, color=INK, bold=True))
+    # успіх
+    bx = 470
+    p.append(_dot(bx, 300, R, fill="#fff", stroke=MUTED, sw=1.6))
+    p.append(_dot(bx + 70, 300, R, fill="#fff", stroke=MUTED, sw=1.6))
+    p.append(_dot(bx + 35, 210, R, fill=SOFTG, stroke=SYN, sw=1.9))
+    p.append(line(bx, 300 - R, bx + 35, 210 + R, color=INK, sw=1.6))
+    p.append(line(bx + 70, 300 - R, bx + 35, 210 + R, color=INK, sw=1.6))
+    p.append(line(bx - 20, 255, bx + 90, 255, color=CUT, sw=2.4, dash="7 4"))
+    p.append(text(bx + 35, 175, "розріз = 2 ≤ k", size=10, color=SYN, bold=True))
+    b1, w1, h1 = textbox(bx + 35, 145, "l(t) = p", size=12, bold=True,
+                         color=SYN, fill=SOFTG, stroke=SYN, sw=1.9)
+    p.append(b1)
+    # невдача
+    fx = 640
+    for dx in (-25, 0, 25, 50):
+        p.append(_dot(fx + dx, 300, R - 2, fill="#fff", stroke=MUTED, sw=1.5))
+    p.append(_dot(fx + 12, 210, R, fill="#fdecea", stroke=POS, sw=1.9))
+    for dx in (-25, 0, 25, 50):
+        p.append(line(fx + dx, 300 - R, fx + 12, 210 + R, color=INK, sw=1.4))
+    p.append(line(fx - 45, 255, fx + 75, 255, color=CUT, sw=2.4, dash="7 4"))
+    p.append(text(fx + 12, 175, "будь-який розріз > k", size=10, color=POS, bold=True))
+    b2, w2, h2 = textbox(fx + 12, 145, "l(t) = p+1", size=12, bold=True,
+                         color=POS, fill="#fdecea", stroke=POS, sw=1.9)
+    p.append(b2)
+    render(os.path.join(IMG, "labelcut.svg"), W, H, *p,
+           title="Крок мітки: мінімальний розріз вирішує, l(t) = p чи p+1")
+
+
+# ── 15. Мітки = глибина: найбільша мітка на виходах і є оптимальна глибина ────
+def fig_labels_depth():
+    """Той самий DAG, але кожен вузол несе свою мітку; мітка виходу = число LUT
+    на найдовшому ланцюгу = оптимальна глибина."""
+    W, H = 720, 380
+    p = []
+    R = 16
+    # шари; підписуємо мітку в кожному вузлі
+    ins = {"a": (60, 320, 0), "b": (130, 320, 0), "c": (210, 320, 0),
+           "d": (290, 320, 0), "e": (400, 320, 0), "f": (480, 320, 0), "g": (560, 320, 0)}
+    inner = {"g1": (95, 240, 1), "g2": (250, 240, 1), "g3": (440, 240, 1), "g4": (560, 240, 1),
+             "g5": (170, 160, 1), "g6": (500, 160, 2), "root": (330, 85, 2)}
+    edges = [("a", "g1"), ("b", "g1"), ("c", "g2"), ("d", "g2"),
+             ("e", "g3"), ("f", "g3"), ("f", "g4"), ("g", "g4"),
+             ("g1", "g5"), ("g2", "g5"), ("g3", "g6"), ("g4", "g6"),
+             ("g5", "root"), ("g6", "root")]
+    alln = {k: (x, y) for k, (x, y, _) in ins.items()}
+    alln.update({k: (x, y) for k, (x, y, _) in inner.items()})
+    for u, v in edges:
+        x1, y1 = alln[u]; x2, y2 = alln[v]
+        p.append(line(x1, y1 - R + 3, x2, y2 + R - 3, color=MUTED, sw=1.5))
+    for nm, (x, y, lb) in ins.items():
+        p.append(rect(x - 12, y - 12, 24, 24, fill=SOFT, stroke=NEG, sw=1.6, rx=3))
+        p.append(text(x, y + 4, str(lb), size=11, color=NEG, bold=True))
+    for nm, (x, y, lb) in inner.items():
+        hot = (nm in ("g6", "root"))
+        p.append(_dot(x, y, R, fill=("#fdecea" if hot else "#fff"),
+                      stroke=(POS if hot else INK), sw=1.8))
+        p.append(text(x, y + 5, str(lb), size=12, color=(POS if hot else INK), bold=True))
+    # позначити критичну гілку g3/g4 → g6 → root
+    for u, v in [("g3", "g6"), ("g4", "g6"), ("g6", "root")]:
+        x1, y1 = alln[u]; x2, y2 = alln[v]
+        p.append(line(x1, y1 - R + 3, x2, y2 + R - 3, color=POS, sw=2.6))
+    p.append(text(330, 60, "мітка виходу = 2 = глибина мережі LUT (оптимум)",
+                  size=12, color=POS, bold=True))
+    lb2, w2, h2 = textbox(620, 330,
+                          "мітка = скільки LUT\nна найдовшому шляху\nсюди від входів",
+                          size=10, color=INK, fill="#fff", stroke=MUTED, sw=1.3)
+    p.append(lb2)
+    render(os.path.join(IMG, "labels-depth.svg"), W, H, *p,
+           title="Мітки поширюються вперед; найбільша на виходах = оптимальна глибина")
+
+
 if __name__ == "__main__":
     fig_flow()
     fig_synthesis()
@@ -386,4 +732,11 @@ if __name__ == "__main__":
     fig_pipeline()
     fig_placeroute_ice()
     fig_anneal()
+    fig_synth_stages()
+    fig_slack()
+    fig_negotiate()
+    fig_closure_loop()
+    fig_cover()
+    fig_labelcut()
+    fig_labels_depth()
     print("OK: figures written to", IMG)

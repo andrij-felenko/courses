@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тракт SerDes: одна лінія несе байт — і сама несе такт</text>
+<rect x="26.0" y="122.0" width="78.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="65.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="65.0" dy="0.0">байт</tspan><tspan x="65.0" dy="15.6">8 біт</tspan></text>
+<rect x="116.0" y="122.0" width="78.0" height="56.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="155.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="155.0" dy="0.0">кодер</tspan><tspan x="155.0" dy="15.6">8b/10b</tspan></text>
+<rect x="206.0" y="122.0" width="78.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="245.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">серіалі-</tspan><tspan x="245.0" dy="15.6">затор</tspan></text>
+<rect x="296.0" y="122.0" width="78.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="335.0" y="154.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="335.0" dy="0.0">драйвер</tspan></text>
+<line x1="104.0" y1="150.0" x2="116.0" y2="150.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="194.0" y1="150.0" x2="206.0" y2="150.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="284.0" y1="150.0" x2="296.0" y2="150.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="200.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПЕРЕДАЧА</text>
+<line x1="386.0" y1="144.0" x2="506.0" y2="144.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="386.0" y1="156.0" x2="506.0" y2="156.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="446.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="446.0" dy="0.0">диф. пара</tspan></text>
+<text x="446.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="446.0" dy="0.0">1 лінія,</tspan><tspan x="446.0" dy="13.7">без такту</tspan></text>
+<line x1="392.0" y1="150.0" x2="500.0" y2="150.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="518.0" y="122.0" width="78.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="557.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="557.0" dy="0.0">CDR:</tspan><tspan x="557.0" dy="15.6">такт</tspan></text>
+<rect x="608.0" y="122.0" width="78.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="647.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="647.0" dy="0.0">читання</tspan><tspan x="647.0" dy="15.6">бітів</tspan></text>
+<rect x="698.0" y="122.0" width="78.0" height="56.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="737.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="737.0" dy="0.0">вирівн.</tspan><tspan x="737.0" dy="15.6">по комі</tspan></text>
+<rect x="788.0" y="122.0" width="78.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="827.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="827.0" dy="0.0">декодер</tspan><tspan x="827.0" dy="15.6">→ байт</tspan></text>
+<line x1="596.0" y1="150.0" x2="608.0" y2="150.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="686.0" y1="150.0" x2="698.0" y2="150.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="776.0" y1="150.0" x2="788.0" y2="150.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="692.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПРИЙОМ</text>
+<text x="470.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">між чипами — жодного окремого такту й жодного перекосу між лініями: лінія одна</text>
+</svg>

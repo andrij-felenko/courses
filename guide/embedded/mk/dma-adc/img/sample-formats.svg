@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два формати слова вибірки: вузьке TYPE1 і широке TYPE2</text>
+<text x="60.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">TYPE1  ·  uint16_t  ·  SOC_ADC_DIGI_RESULT_BYTES = 2</text>
+<rect x="60.0" y="92.0" width="80.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="100.0" y="118.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">channel:4</text>
+<rect x="140.0" y="92.0" width="240.0" height="46.0" rx="0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="260.0" y="118.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">data:12  (код 0..4095)</text>
+<rect x="380.0" y="92.0" width="320.0" height="46.0" rx="0" fill="#f4f6f8" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="540.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">цих 16 бітів немає — слово вужче</text>
+<text x="60.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ESP32, ESP32-S2  ·  unit-біта нема: DMA лише на ADC1</text>
+<text x="60.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">TYPE2  ·  uint32_t  ·  SOC_ADC_DIGI_RESULT_BYTES = 4</text>
+<rect x="60.0" y="230.0" width="280.0" height="46.0" rx="0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="200.0" y="256.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">reserved:14</text>
+<rect x="340.0" y="230.0" width="20.0" height="46.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="350.0" y="256.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">u</text>
+<rect x="360.0" y="230.0" width="80.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="400.0" y="256.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">channel:4</text>
+<rect x="440.0" y="230.0" width="20.0" height="46.0" rx="0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="450.0" y="256.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">r</text>
+<rect x="460.0" y="230.0" width="240.0" height="46.0" rx="0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="580.0" y="256.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">data:12  (код 0..4095)</text>
+<text x="60.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ESP32-S3/C3/C6/H2/P4  ·  u = unit: 0=ADC1, 1=ADC2 — місце під нього є</text>
+<line x1="350.0" y1="230.0" x2="350.0" y2="218.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="350.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">unit</text>
+<rect x="92.7" y="354.0" width="574.6" height="36.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="380.0" y="376.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">код і канал — в обох; unit розрізняє ADC1/ADC2 лише там, де слово 32-бітне</tspan></text>
+<text x="380.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">молодші 12 бітів — завжди код вибірки; решта розкладки залежить від класу формату</text>
+</svg>

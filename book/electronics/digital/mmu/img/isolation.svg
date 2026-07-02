@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кожна програма живе у власному просторі адрес</text>
+<rect x="40.0" y="70.0" width="160.0" height="120.0" rx="8" fill="#f7f8fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="120.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">програма A</text>
+<rect x="64.0" y="100.0" width="112.0" height="34.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="120.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">адреса 0x2000</text>
+<text x="120.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">той самий номер</text>
+<rect x="40.0" y="210.0" width="160.0" height="120.0" rx="8" fill="#f7f8fb" stroke="#c0392b" stroke-width="2.0"/>
+<text x="120.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">програма B</text>
+<rect x="64.0" y="240.0" width="112.0" height="34.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="120.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">адреса 0x2000</text>
+<text x="120.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">той самий номер</text>
+<rect x="320.0" y="120.0" width="150.0" height="110.0" rx="10" fill="#f1ecfa" stroke="#6a3fb5" stroke-width="2.4"/>
+<text x="395.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6a3fb5" text-anchor="middle" font-weight="700">MMU</text>
+<text x="395.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6a3fb5" text-anchor="middle">своя таблиця</text>
+<text x="395.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6a3fb5" text-anchor="middle">для кожної</text>
+<text x="395.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6a3fb5" text-anchor="middle">програми</text>
+<line x1="200.0" y1="117.0" x2="320.0" y2="154.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="257.0" x2="320.0" y2="210.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="560.0" y="60.0" width="200.0" height="220.0" rx="8" fill="#f4fbf5" stroke="#27ae60" stroke-width="2.0"/>
+<text x="660.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">фізична пам'ять (одна на всіх)</text>
+<rect x="580.0" y="90.0" width="160.0" height="34.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="660.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">кадр A → 0x81000</text>
+<rect x="580.0" y="210.0" width="160.0" height="34.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="660.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">кадр B → 0x4A000</text>
+<text x="660.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">не перетинаються</text>
+<line x1="470.0" y1="154.0" x2="560.0" y2="107.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="210.0" x2="560.0" y2="227.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Однакова віртуальна адреса 0x2000 у двох програм веде MMU у РІЗНІ фізичні кадри — тому вони не бачать даних одна одної.</text>
+</svg>

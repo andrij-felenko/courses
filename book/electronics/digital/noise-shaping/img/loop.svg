@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формувач шуму: помилку округлення міряють і повертають у вхід</text>
+<text x="420.0" y="47.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">квантувач відкидає молодші біти; різницю (помилку) фільтрують і додають до наступного відліку</text>
+<text x="34.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">вхід</text>
+<text x="34.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">(багато біт)</text>
+<line x1="40.0" y1="150.0" x2="118.0" y2="150.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="140.0" cy="150.0" r="22.0" fill="#fff7e6" stroke="#b8860b" stroke-width="2.0"/>
+<text x="140.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#b8860b" text-anchor="middle" font-weight="700">+</text>
+<line x1="162.0" y1="150.0" x2="250.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="255.5" y="116.4" width="112.9" height="67.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/><text x="312.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="312.0" dy="0.0">Квантувач</tspan><tspan x="312.0" dy="15.6">(відкидає</tspan><tspan x="312.0" dy="15.6">молодші біти)</tspan></text>
+<line x1="368.5" y1="150.0" x2="470.0" y2="150.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="470.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">вихід</text>
+<text x="470.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">(мало біт)</text>
+<circle cx="452.0" cy="150.0" r="3.2" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="452.0" y1="154.0" x2="452.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="452.0" cy="240.0" r="20.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="452.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#c0392b" text-anchor="middle" font-weight="700">−</text>
+<line x1="250.0" y1="150.0" x2="250.0" y2="240.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,4"/>
+<line x1="250.0" y1="240.0" x2="432.0" y2="240.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="351.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">помилка квантування e[n]</text>
+<rect x="100.4" y="222.0" width="99.2" height="36.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/><text x="150.0" y="244.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Фільтр H(z)</tspan></text>
+<line x1="432.0" y1="240.0" x2="199.6" y2="240.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="100.4" y1="240.0" x2="90.0" y2="240.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="90.0" y1="240.0" x2="90.0" y2="172.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="90.0" y1="172.0" x2="132.0" y2="164.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="96.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">повертаємо</text>
+<text x="96.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">у вхід</text>
+<rect x="516.0" y="210.0" width="308.0" height="60.0" rx="6" fill="#f0fff0" stroke="#27ae60" stroke-width="1.5"/><text x="670.0" y="236.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">H(z) вирішує, куди «виштовхнути» шум.</tspan><tspan x="670.0" dy="15.6">Затримка z⁻¹ → перший порядок, нахил 1.</tspan></text>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 384" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="384" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири пастки: дві — баги дизайну (X), одна — баг тестбенча, одна — вічний прогін</text>
+<rect x="29.0" y="58.0" width="372.0" height="128.0" rx="10" fill="#eef4ff" stroke="#2457d6" stroke-width="1.9"/>
+<text x="215.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1 · Забутий скид → X</text>
+<text x="215.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">Регістр без rst лишається X.</tspan><tspan x="215.0" dy="13.4">!== ловить на ПЕРШОМУ фронті.</tspan><tspan x="215.0" dy="13.4">(!= на X дав би X → проспав би.)</tspan><tspan x="215.0" dy="13.4">Баг ДИЗАЙНУ.</tspan></text>
+<rect x="419.0" y="58.0" width="372.0" height="128.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.9"/>
+<text x="605.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2 · Гонитва драйверів → X</text>
+<text x="605.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="605.0" dy="0.0">Два джерела женуть count →</tspan><tspan x="605.0" dy="13.4">симулятор дає X. Рецепт:</tspan><tspan x="605.0" dy="13.4">вихід DUT — wire, жене ЛИШЕ</tspan><tspan x="605.0" dy="13.4">дизайн. Баг ДИЗАЙНУ.</tspan></text>
+<rect x="29.0" y="208.0" width="372.0" height="128.0" rx="10" fill="#fdf3d6" stroke="#b8860b" stroke-width="1.9"/>
+<text x="215.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">3 · Off-by-one у зчитуванні</text>
+<text x="215.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">Читаєш до защіпки &lt;= → старе</tspan><tspan x="215.0" dy="13.4">значення → чесний DUT «відстає».</tspan><tspan x="215.0" dy="13.4">Лікує: та сама фаза + #0.</tspan><tspan x="215.0" dy="13.4">Баг ТЕСТБЕНЧА!</tspan></text>
+<rect x="419.0" y="208.0" width="372.0" height="128.0" rx="10" fill="#eef1f4" stroke="#6b7280" stroke-width="1.9"/>
+<text x="605.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">4 · Забутий $finish</text>
+<text x="605.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="605.0" dy="0.0">always #5 clk=~clk тіпає</tspan><tspan x="605.0" dy="13.4">ВІЧНО → симуляція висить.</tspan><tspan x="605.0" dy="13.4">$finish і в PASS, і в FAIL.</tspan><tspan x="605.0" dy="13.4">Без нього тесту нема кінця.</tspan></text>
+</svg>

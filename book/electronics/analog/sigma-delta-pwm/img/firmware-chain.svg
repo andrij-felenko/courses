@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири ланки одного переривання: від фази до плавної хвилі</text>
+<rect x="49.3" y="140.6" width="157.4" height="70.8" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/><text x="128.0" y="163.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="128.0" dy="0.0">фазовий акумулятор</tspan><tspan x="128.0" dy="16.9">+ таблиця синуса</tspan><tspan x="128.0" dy="16.9">(256 точок)</tspan></text>
+<rect x="314.4" y="140.6" width="83.3" height="70.8" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="356.0" y="163.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="356.0" dy="0.0">миттєвий</tspan><tspan x="356.0" dy="16.9">рівень</tspan><tspan x="356.0" dy="16.9">0..255</tspan></text>
+<rect x="487.3" y="140.6" width="157.4" height="70.8" rx="6" fill="#dcf3e6" stroke="#27ae60" stroke-width="2.0"/><text x="566.0" y="163.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="566.0" dy="0.0">sigma-delta</tspan><tspan x="566.0" dy="16.9">акумулятор</tspan><tspan x="566.0" dy="16.9">(переповнення→біт)</tspan></text>
+<rect x="746.7" y="149.1" width="90.7" height="53.9" rx="6" fill="#fff7ed" stroke="#c0392b" stroke-width="2.0"/><text x="792.0" y="172.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="792.0" dy="0.0">RC-фільтр</tspan><tspan x="792.0" dy="16.9">за ніжкою</tspan></text>
+<line x1="210.7" y1="176.0" x2="310.4" y2="176.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="260.5" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-style="italic">фаза</text>
+<line x1="401.6" y1="176.0" x2="483.3" y2="176.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="442.5" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">рівень</text>
+<line x1="648.7" y1="176.0" x2="742.7" y2="176.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="695.7" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-style="italic">потік бітів</text>
+<polyline points="82.0,273.4 84.3,271.0 86.6,268.6 88.9,266.2 91.2,263.8 93.5,261.4 95.8,259.0 98.1,256.6 100.4,254.2 102.7,251.8 105.0,249.4 107.3,247.0 109.6,244.6 111.9,242.2 114.2,271.8 116.5,269.4 118.8,267.0 121.1,264.6 123.4,262.2 125.7,259.8 128.0,257.4 130.3,255.0 132.6,252.6 134.9,250.2 137.2,247.8 139.5,245.4 141.8,243.0 144.1,272.6 146.4,270.2 148.7,267.8 151.0,265.4 153.3,263.0 155.6,260.6 157.9,258.2 160.2,255.8 162.5,253.4 164.8,251.0 167.1,248.6 169.4,246.2 171.7,243.8 174.0,273.4" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="128.0" y="297.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">фаза росте по колу</text>
+<polyline points="310.0,257.4 311.9,255.1 313.8,252.7 315.8,250.5 317.7,248.4 319.6,246.4 321.5,244.7 323.4,243.1 325.3,241.8 327.2,240.8 329.2,240.0 331.1,239.6 333.0,239.4 334.9,239.6 336.8,240.0 338.8,240.8 340.7,241.8 342.6,243.1 344.5,244.7 346.4,246.4 348.3,248.4 350.2,250.5 352.2,252.7 354.1,255.1 356.0,257.4 357.9,259.7 359.8,262.1 361.8,264.3 363.7,266.4 365.6,268.4 367.5,270.1 369.4,271.7 371.3,273.0 373.2,274.0 375.2,274.8 377.1,275.2 379.0,275.4 380.9,275.2 382.8,274.8 384.8,274.0 386.7,273.0 388.6,271.7 390.5,270.1 392.4,268.4 394.3,266.4 396.2,264.3 398.2,262.1 400.1,259.7 402.0,257.4" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="356.0" y="297.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">плавне число</text>
+<line x1="520.0" y1="241.4" x2="525.8" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="525.8" y1="241.4" x2="525.8" y2="273.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="525.8" y1="273.4" x2="531.5" y2="273.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="531.5" y1="273.4" x2="531.5" y2="241.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="531.5" y1="241.4" x2="537.2" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="537.2" y1="241.4" x2="543.0" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="543.0" y1="241.4" x2="543.0" y2="273.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="543.0" y1="273.4" x2="548.8" y2="273.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="548.8" y1="273.4" x2="548.8" y2="241.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="548.8" y1="241.4" x2="554.5" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="554.5" y1="241.4" x2="554.5" y2="273.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="554.5" y1="273.4" x2="560.2" y2="273.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="560.2" y1="273.4" x2="560.2" y2="241.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="560.2" y1="241.4" x2="566.0" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="566.0" y1="241.4" x2="571.8" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="571.8" y1="241.4" x2="577.5" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="577.5" y1="241.4" x2="577.5" y2="273.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="577.5" y1="273.4" x2="583.2" y2="273.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="583.2" y1="273.4" x2="583.2" y2="241.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="583.2" y1="241.4" x2="589.0" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="589.0" y1="241.4" x2="594.8" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="594.8" y1="241.4" x2="594.8" y2="273.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="594.8" y1="273.4" x2="600.5" y2="273.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="600.5" y1="273.4" x2="600.5" y2="241.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="600.5" y1="241.4" x2="606.2" y2="241.4" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="606.2" y1="241.4" x2="606.2" y2="273.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="606.2" y1="273.4" x2="612.0" y2="273.4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="566.0" y="297.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">хмарка бітів</text>
+<polyline points="746.0,257.4 747.9,255.1 749.8,252.7 751.8,250.5 753.7,248.4 755.6,246.4 757.5,244.7 759.4,243.1 761.3,241.8 763.2,240.8 765.2,240.0 767.1,239.6 769.0,239.4 770.9,239.6 772.8,240.0 774.8,240.8 776.7,241.8 778.6,243.1 780.5,244.7 782.4,246.4 784.3,248.4 786.2,250.5 788.2,252.7 790.1,255.1 792.0,257.4 793.9,259.7 795.8,262.1 797.8,264.3 799.7,266.4 801.6,268.4 803.5,270.1 805.4,271.7 807.3,273.0 809.2,274.0 811.2,274.8 813.1,275.2 815.0,275.4 816.9,275.2 818.8,274.8 820.8,274.0 822.7,273.0 824.6,271.7 826.5,270.1 828.4,268.4 830.3,266.4 832.2,264.3 834.2,262.1 836.1,259.7 838.0,257.4" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<text x="792.0" y="297.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">чистий тон</text>
+<rect x="29.3" y="120.6" width="635.4" height="190.8" rx="10" fill="none" stroke="#6b7280" stroke-width="1.4"/>
+<text x="347.0" y="112.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">усе всередині ISR — лише цілочислові додавання й одне порівняння</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як збити порт-тиск, не будуючи монстра на 8 портів</text>
+<rect x="30.0" y="60.0" width="210.0" height="300.0" rx="8" fill="#f7f9fc" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="135.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Банки</text>
+<text x="135.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">розбити масив</text>
+<text x="135.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ділимо регістри</text>
+<text x="135.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">на 2 половини;</text>
+<text x="135.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">кожен банк —</text>
+<text x="135.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1R + 1W</text>
+<text x="135.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">конфлікт, якщо</text>
+<text x="135.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">обидва в одному</text>
+<rect x="42.0" y="302.0" width="186.0" height="44.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="135.0" y="320.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">8 портів → 2×(1R1W)</tspan><tspan x="135.0" dy="14.3">поки доступи в різні банки</tspan></text>
+<rect x="260.0" y="60.0" width="210.0" height="300.0" rx="8" fill="#f7f9fc" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="365.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Копії читання</text>
+<text x="365.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">реплікувати</text>
+<text x="365.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">тримаємо 2 копії</text>
+<text x="365.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">з однаковим вмістом;</text>
+<text x="365.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">пишемо в обидві,</text>
+<text x="365.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">читаємо з кожної</text>
+<text x="365.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">своєю адресою</text>
+<text x="365.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">(+копія = +1 R)</text>
+<rect x="272.0" y="302.0" width="186.0" height="44.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="365.0" y="321.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">Alpha 21264: 2 копії</tspan><tspan x="365.0" dy="11.7">integer-файла в реальному кремнії</tspan></text>
+<rect x="490.0" y="60.0" width="210.0" height="300.0" rx="8" fill="#f7f9fc" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="595.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Double-pump</text>
+<text x="595.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">подвоїти такт</text>
+<text x="595.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">масив працює</text>
+<text x="595.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">на 2× частоті;</text>
+<text x="595.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">два доступи</text>
+<text x="595.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">за один такт ядра</text>
+<text x="595.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1 фізичний порт</text>
+<text x="595.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">= 2 логічні</text>
+<rect x="502.0" y="302.0" width="186.0" height="44.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="595.0" y="321.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="595.0" dy="0.0">2× швидкість замість</tspan><tspan x="595.0" dy="11.7">2× дротів — ціна: тактова стеля</tspan></text>
+</svg>

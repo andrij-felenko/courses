@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три типи компенсатора: скільки фази здатен докинути кожен</text>
+<rect x="30.0" y="60.0" width="220.0" height="250.0" rx="10" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="140.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#27ae60" text-anchor="middle" font-weight="700">Тип I</text>
+<text x="140.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">інтегратор</text>
+<rect x="50.0" y="124.0" width="180.0" height="26.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="140.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">0° boost</text>
+<text x="140.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">лише полюс на нулі.</tspan><tspan x="140.0" dy="14.7">Тягне вихід точно до цілі,</tspan><tspan x="140.0" dy="14.7">але фази НЕ додає —</tspan><tspan x="140.0" dy="14.7">тільки для дуже повільних</tspan><tspan x="140.0" dy="14.7">(коеф. потужності, LED).</tspan></text>
+<rect x="270.0" y="60.0" width="220.0" height="250.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="380.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#2457d6" text-anchor="middle" font-weight="700">Тип II</text>
+<text x="380.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">полюс-нуль</text>
+<rect x="290.0" y="124.0" width="180.0" height="26.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="380.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">до ~90° boost</text>
+<text x="380.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">нуль піднімає фазу,</tspan><tspan x="380.0" dy="14.7">полюс потім прибирає шум.</tspan><tspan x="380.0" dy="14.7">Робоча конячка струмового</tspan><tspan x="380.0" dy="14.7">режиму й виходів із ESR</tspan><tspan x="380.0" dy="14.7">(електроліт, тантал).</tspan></text>
+<rect x="510.0" y="60.0" width="220.0" height="250.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="620.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">Тип III</text>
+<text x="620.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">два нулі</text>
+<rect x="530.0" y="124.0" width="180.0" height="26.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="620.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">до ~180° boost</text>
+<text x="620.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">два нулі й два полюси.</tspan><tspan x="620.0" dy="14.7">Докидає фазу навіть проти</tspan><tspan x="620.0" dy="14.7">крутого −180° подвійного</tspan><tspan x="620.0" dy="14.7">полюса LC. Треба для</tspan><tspan x="620.0" dy="14.7">керамічних виходів.</tspan></text>
+<line x1="60.0" y1="330.0" x2="700.0" y2="330.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">дедалі більший запас фази ⇒ дедалі крутіший (низькоомний) вихід можна приборкати</text>
+</svg>

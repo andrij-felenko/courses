@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один такт: два операнди з файлу -&gt; АЛП -&gt; результат назад</text>
+<rect x="50.0" y="70.0" width="170.0" height="170.0" rx="6" fill="#eef3fb" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="135.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регістровий</text>
+<text x="135.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">файл</text>
+<polygon points="340,80 490,80 460,140 490,220 340,220 370,140" fill="#eef3fb" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="415.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">АЛП</text>
+<line x1="220.0" y1="125.0" x2="340.0" y2="106.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">операнд A</text>
+<line x1="220.0" y1="180.0" x2="340.0" y2="194.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">операнд B</text>
+<line x1="490.0" y1="150.0" x2="530.0" y2="150.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="150.0" x2="530.0" y2="268.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="530.0" y1="268.0" x2="135.0" y2="268.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="135.0" y1="268.0" x2="135.0" y2="240.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="580.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">результат</text>
+<text x="237.5" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">запис по фронту такту</text>
+<rect x="60.0" y="298.0" width="600.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="360.0" y="324.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Пастка: читаємо той самий регістр, у який цей же такт пишемо —</tspan><tspan x="360.0" dy="15.6">порт читання ще віддає СТАРЕ значення, а не щойно записане</tspan></text>
+</svg>

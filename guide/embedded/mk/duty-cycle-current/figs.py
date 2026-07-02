@@ -146,7 +146,182 @@ def fig_two_levers():
     render(os.path.join(IMG, "two-levers.svg"), W, H, *f)
 
 
+# ── Розклад середнього струму на постійне дно + амортизований фікс + змінне ────
+def fig_fixed_variable():
+    """Стовпчик I_сер розкладено на три внески; поряд — як кожен поводиться з T."""
+    W, H = 780, 490
+    f = [text(W / 2, 28,
+              "Три внески в середній струм: дно сну, амортизований фікс, змінне",
+              size=15, bold=True)]
+
+    # --- лівий стовпчик-розклад ---
+    bx, bw = 90, 120
+    base_y, top_y = 380, 90
+    total_px = base_y - top_y
+    # частки (умовні, для метеостанції: сон ~4 %, фікс/boot ~70 %, змінне ~26 %)
+    seg = [("дно сну\nI_сон", 0.06, NEG),
+           ("амортизований\nфікс  Q_фікс/T", 0.68, POS),
+           ("змінне\nf · q_роб", 0.26, FIELD)]
+    y = base_y
+    for name, frac, col in seg:
+        h = total_px * frac
+        f.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="%s" '
+                 'fill-opacity="0.28" stroke="%s" stroke-width="1.6"/>'
+                 % (bx, y - h, bw, h, col, col))
+        f.append(mtext(bx + bw / 2, y - h / 2 - 6, name, size=10.5, bold=True, color=INK))
+        y -= h
+    f.append(text(bx + bw / 2, base_y + 20, "I_сер", size=12.5, bold=True))
+    f.append(line(bx - 10, base_y, bx + bw + 10, base_y, color=MUTED, sw=1.2))
+
+    # --- права панель: поведінка з періодом T ---
+    ox, oy = 340, 380
+    span_x, top = 380, 90
+    f.append(line(ox, oy, ox + span_x, oy, color=MUTED, sw=1.4))
+    f.append(line(ox, oy, ox, top, color=MUTED, sw=1.4))
+    f.append(text(ox + span_x, oy + 22, "період T →", size=11, color=MUTED, anchor="end"))
+    f.append(text(ox + 4, top - 6, "внесок у I_сер", size=11, color=MUTED, anchor="start"))
+
+    import math
+    # дно сну — горизонталь
+    sleep_y = oy - 0.10 * (oy - top)
+    f.append(line(ox, sleep_y, ox + span_x, sleep_y, color=NEG, sw=2))
+    f.append(text(ox + span_x - 4, sleep_y - 6, "I_сон — стала", size=10.5,
+                  color=NEG, anchor="end"))
+    # амортизований фікс — гіпербола Q/T, спадає до нуля
+    pts = []
+    for i in range(0, span_x + 1, 6):
+        t = 0.12 + (i / span_x) * 3.0            # T у відн. одиницях
+        val = 0.80 / t                            # Q_фікс/T
+        yy = oy - min(val, 0.86) * (oy - top)
+        pts.append("%.1f,%.1f" % (ox + i, yy))
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.2"/>'
+             % (" ".join(pts), POS))
+    f.append(text(ox + 120, top + 30, "Q_фікс/T — спадає як 1/T", size=10.5,
+                  color=POS, anchor="start", bold=True))
+    # змінне — стала висота (не залежить від T)
+    var_y = oy - 0.30 * (oy - top)
+    f.append(line(ox, var_y, ox + span_x, var_y, color=FIELD, sw=2, dash="6,4"))
+    f.append(text(ox + span_x - 4, var_y - 6, "f·q_роб — стала", size=10.5,
+                  color=FIELD, anchor="end"))
+
+    b, _, _ = textbox(W / 2, 466,
+                      "Розтягуєш T — тане лише амортизований фікс (1/T); дно сну й змінне стоять. Звідси й дно кривої життя",
+                      size=11, fill="#eef4ff", stroke=NEG)
+    f.append(b)
+    render(os.path.join(IMG, "fixed-variable.svg"), W, H, *f)
+
+
+# ── Крива віддачі: час життя проти періоду, з коліном насичення ───────────────
+def fig_returns_knee():
+    W, H = 760, 470
+    f = [text(W / 2, 28,
+              "Спадна віддача: час життя росте з періодом, тоді впирається в дно",
+              size=15, bold=True)]
+    import math
+    ox, oy = 80, 370
+    span_x, top = 610, 80
+    f.append(line(ox, oy, ox + span_x, oy, color=MUTED, sw=1.4))
+    f.append(line(ox, oy, ox, top, color=MUTED, sw=1.4))
+    f.append(text(ox + span_x, oy + 24, "період циклу T →", size=11, color=MUTED, anchor="end"))
+    f.append(text(ox - 2, top - 8, "час життя", size=11, color=MUTED, anchor="start"))
+
+    # життя = k / I_сер, I_сер = I_сон + Q_фікс/T  → життя росте, насичується на k/I_сон
+    Isleep, Qfix = 0.10, 0.40
+    tmin, tmax = 0.05, 8.0
+    def life(t):
+        return 1.0 / (Isleep + Qfix / t)
+    Lmax = 1.0 / Isleep
+    ymax_frac = 0.92                      # верхівка кривої трохи нижче за верх осі
+    pts = []
+    for i in range(0, span_x + 1, 5):
+        t = tmin + (i / span_x) * (tmax - tmin)
+        val = life(t) / Lmax
+        yy = oy - val * ymax_frac * (oy - top)
+        pts.append("%.1f,%.1f" % (ox + i, yy))
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6"/>'
+             % (" ".join(pts), POS))
+
+    # асимптота — стеля k/I_сон (дно струму = сон)
+    ceil_y = oy - ymax_frac * (oy - top)
+    f.append(line(ox, ceil_y, ox + span_x, ceil_y, color=NEG, sw=1.6, dash="7,4"))
+    f.append(text(ox + span_x - 4, ceil_y - 7,
+                  "стеля: усе дно = сам сон (Q_фікс/T → 0)", size=10.5,
+                  color=NEG, anchor="end"))
+
+    # «коліно» — позначка де крутість різко падає (тут Q_фікс/T ≈ I_сон)
+    tk = Qfix / Isleep                    # T, де амортизований фікс зрівнявся зі сном
+    ik = ox + (tk - tmin) / (tmax - tmin) * span_x
+    yk = oy - life(tk) / Lmax * ymax_frac * (oy - top)
+    f.append(circle(ik, yk, 5, fill="#fff", stroke=INK, sw=2))
+    f.append(text(ik + 12, yk + 20, "коліно: далі майже дарма", size=10.5,
+                  bold=True, color=INK, anchor="start"))
+    # ліва крута ділянка
+    f.append(mtext(ox + 118, oy - 96,
+                   ["крутий приріст:", "кожне подвоєння T", "майже подвоює життя"],
+                   size=10, color=FIELD, anchor="middle"))
+
+    b, _, _ = textbox(W / 2, 446,
+                      "Поки фікс домінує (T мале), життя ~ T; коли фікс/T падає під I_сон, крива лягає — знаменник більше не зменшити періодом",
+                      size=10.5, fill="#eafaf1", stroke=FIELD)
+    f.append(b)
+    render(os.path.join(IMG, "returns-knee.svg"), W, H, *f)
+
+
+# ── Батчинг: один boot на N замірів проти N окремих boot ──────────────────────
+def fig_batching():
+    W, H = 770, 430
+    f = [text(W / 2, 28,
+              "Батчинг: один дорогий старт ділиться на N корисних замірів",
+              size=15, bold=True)]
+
+    def strip(px, py, title, boots, meas_per_boot, note):
+        """Смуга подій: boot (широкий червоний) + заміри (вузькі зелені)."""
+        f.append(text(px, py - 26, title, size=12.5, bold=True, anchor="start"))
+        x = px
+        unit = 26
+        for _b in range(boots):
+            # boot-блок
+            f.append('<rect x="%.1f" y="%.1f" width="%.1f" height="26" fill="%s" '
+                     'fill-opacity="0.30" stroke="%s" stroke-width="1.4"/>'
+                     % (x, py, unit * 1.6, POS, POS))
+            f.append(text(x + unit * 0.8, py + 17, "boot", size=9.5, bold=True,
+                          color=INK))
+            x += unit * 1.6 + 4
+            for _m in range(meas_per_boot):
+                f.append('<rect x="%.1f" y="%.1f" width="14" height="26" fill="%s" '
+                         'fill-opacity="0.35" stroke="%s" stroke-width="1.2"/>'
+                         % (x, py, FIELD, FIELD))
+                x += 16
+            x += 10
+        f.append(text(px, py + 48, note, size=10.5, color=MUTED, anchor="start"))
+        return x
+
+    strip(60, 90, "(а) без батчингу: boot на кожен замір",
+          boots=4, meas_per_boot=1,
+          note="4 замори → 4 дорогі старти; фікс платиться 4 рази")
+    strip(60, 210, "(б) батчинг: один boot на 4 замори",
+          boots=1, meas_per_boot=4,
+          note="4 замори → 1 старт; фікс поділено на 4 (амортизація)")
+
+    # формула-висновок
+    f.append(text(60, 310,
+                  "заряд на корисний замір  =  Q_фікс / N  +  q_замір", size=12,
+                  bold=True, color=INK, anchor="start"))
+    f.append(text(60, 334,
+                  "N ↑  →  частка старту на замір падає як 1/N  →  дно = сам q_замір",
+                  size=10.5, color=MUTED, anchor="start"))
+
+    b, _, _ = textbox(W / 2, 400,
+                      "Батчинг не прибирає дорогий старт — він ділить його на N замірів; платня — свіжість (заміри лежать до спільної передачі)",
+                      size=10.5, fill="#fdf0ef", stroke=POS)
+    f.append(b)
+    render(os.path.join(IMG, "batching.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_duty_cycle_profile()
     fig_two_levers()
-    print("OK: 2 figures ->", IMG)
+    fig_fixed_variable()
+    fig_returns_knee()
+    fig_batching()
+    print("OK: 5 figures ->", IMG)

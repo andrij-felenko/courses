@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Функційна небезпека: між двома одиницями лежить нульовий кут</text>
+<text x="306.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">B = 0        B = 1</text>
+<text x="194.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">A=0</text>
+<text x="194.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">A=1</text>
+<text x="306.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">f = A·B + Ā·B̄</text>
+<rect x="210.0" y="92.0" width="96.0" height="96.0" rx="4" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/>
+<text x="258.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="306.0" y="92.0" width="96.0" height="96.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="354.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="210.0" y="188.0" width="96.0" height="96.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="258.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="306.0" y="188.0" width="96.0" height="96.0" rx="4" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/>
+<text x="354.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<line x1="258.0" y1="140.0" x2="354.0" y2="236.0" stroke="#c0392b" stroke-width="2.6" marker-end="url(#arrow)"/>
+<circle cx="354.0" cy="140.0" r="13.0" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<circle cx="258.0" cy="236.0" r="13.0" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="445.7" y1="188.0" x2="360.0" y2="232.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="449.7" y="164.8" width="112.7" height="46.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="506.0" y="184.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="506.0" dy="0.0">00 → 11</tspan><tspan x="506.0" dy="15.0">(A і B разом)</tspan></text>
+<rect x="80.0" y="318.0" width="560.0" height="92.0" rx="6" fill="#fff7e6" stroke="#d39e00" stroke-width="1.5"/><text x="360.0" y="339.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Обидва кінці переходу = 1, отже вихід МАВ стояти на 1. Але A і B не перемкнуться</tspan><tspan x="360.0" dy="14.3">точно одночасно: хто випередить — і схема на мить осяде в куті 10 або 01, а там</tspan><tspan x="360.0" dy="14.3">f = 0. Вихід провалиться в 0, і це не вада реалізації, а сама функція: між двома</tspan><tspan x="360.0" dy="14.3">одиницями по діагоналі лежить нуль. Жоден накривний член цього не сховає — накрити</tspan><tspan x="360.0" dy="14.3">нульовий кут одиничною групою не можна. Рятує лише те, щоб A і B НЕ мінялися разом.</tspan></text>
+</svg>

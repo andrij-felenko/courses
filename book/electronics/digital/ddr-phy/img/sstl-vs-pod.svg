@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому DDR4 покинув SSTL заради POD: економія струму драйвера</text>
+<text x="150.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">SSTL — DDR3</text>
+<text x="150.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">термінація до середини VDDQ/2</text>
+<line x1="70.0" y1="110.0" x2="230.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.4"/><text x="238.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">VDDQ (1.5 В)</text>
+<line x1="70.0" y1="235.0" x2="230.0" y2="235.0" stroke="#c0392b" stroke-width="2.4"/><text x="238.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">VTT = VDDQ/2</text>
+<line x1="70.0" y1="360.0" x2="230.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.4"/><text x="238.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">GND</text>
+<line x1="150.0" y1="110.0" x2="157.0" y2="124.7" stroke="#c0392b" stroke-width="1.8"/><line x1="157.0" y1="124.7" x2="143.0" y2="139.4" stroke="#c0392b" stroke-width="1.8"/><line x1="143.0" y1="139.4" x2="157.0" y2="154.1" stroke="#c0392b" stroke-width="1.8"/><line x1="157.0" y1="154.1" x2="143.0" y2="168.9" stroke="#c0392b" stroke-width="1.8"/><line x1="143.0" y1="168.9" x2="157.0" y2="183.6" stroke="#c0392b" stroke-width="1.8"/><line x1="157.0" y1="183.6" x2="143.0" y2="198.3" stroke="#c0392b" stroke-width="1.8"/><line x1="143.0" y1="198.3" x2="150.0" y2="213.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="106.0" y="172.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">Rтерм</text>
+<rect x="132.0" y="253.0" width="36.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="150.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">драйвер</text>
+<line x1="150.0" y1="213.0" x2="150.0" y2="253.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="150.0" cy="233.0" r="3.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="160.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">DQ</text>
+<line x1="150.0" y1="299.0" x2="150.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="120.0" y1="124.0" x2="120.0" y2="209.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="114.0" y="178.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">струм</text>
+<text x="114.0" y="192.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">живлення</text>
+<text x="560.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">POD — DDR4 / DDR5</text>
+<text x="560.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">термінація до самого VDDQ (псевдо-відкритий стік)</text>
+<line x1="480.0" y1="110.0" x2="640.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.4"/><text x="648.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">VDDQ (1.2 / 1.1 В)</text>
+<line x1="480.0" y1="360.0" x2="640.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.4"/><text x="648.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">GND</text>
+<line x1="560.0" y1="110.0" x2="567.0" y2="124.7" stroke="#27ae60" stroke-width="1.8"/><line x1="567.0" y1="124.7" x2="553.0" y2="139.4" stroke="#27ae60" stroke-width="1.8"/><line x1="553.0" y1="139.4" x2="567.0" y2="154.1" stroke="#27ae60" stroke-width="1.8"/><line x1="567.0" y1="154.1" x2="553.0" y2="168.9" stroke="#27ae60" stroke-width="1.8"/><line x1="553.0" y1="168.9" x2="567.0" y2="183.6" stroke="#27ae60" stroke-width="1.8"/><line x1="567.0" y1="183.6" x2="553.0" y2="198.3" stroke="#27ae60" stroke-width="1.8"/><line x1="553.0" y1="198.3" x2="560.0" y2="213.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="516.0" y="172.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end">Rтерм</text>
+<rect x="542.0" y="253.0" width="36.0" height="46.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="560.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">драйвер</text>
+<line x1="560.0" y1="213.0" x2="560.0" y2="253.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="560.0" cy="233.0" r="3.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="570.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">DQ</text>
+<line x1="560.0" y1="299.0" x2="560.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="560.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">струм лише коли DQ = 0;</text>
+<text x="560.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">при DQ = 1 струм ≈ 0</text>
+<rect x="70.0" y="398.0" width="720.0" height="56.0" rx="6" fill="#fffef0" stroke="#caa300" stroke-width="1.5"/><text x="430.0" y="423.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">SSTL палить струм і на 0, і на 1 — обидва плеча активні.</tspan><tspan x="430.0" dy="11.7">POD палить струм лише коли тягне 0: при 1 верх і драйвер на однаковому VDDQ, перепаду нема, струм ≈ 0. Половину рівнів отримали задарма.</tspan></text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глітч на вході даних — пробачимо; глітч на такті чи дозволі — ні</text>
+<text x="58.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">логіка</text>
+<polyline points="70.0,62.0 360.0,62.0 360.0,88.0 386.0,88.0 386.0,62.0 660.0,62.0" fill="none" stroke="#c0392b" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="345.9" y="94.5" width="54.1" height="31.0" rx="6" fill="#fff3cd" stroke="#d39e00" stroke-width="1.5"/><text x="373.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="373.0" dy="0.0">глітч</tspan></text>
+<text x="58.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">такт</text>
+<polyline points="70.0,183.0 540.0,183.0 540.0,157.0 660.0,157.0" fill="none" stroke="#2457d6" stroke-width="2.4" stroke-linejoin="round"/>
+<line x1="540.0" y1="149.0" x2="540.0" y2="193.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="540.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">фронт</text>
+<rect x="70.0" y="40.0" width="430.0" height="70.0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2" rx="3"/>
+<text x="80.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">вікно, де глітч нікому не шкодить</text>
+<line x1="500.0" y1="40.0" x2="500.0" y2="197.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="500.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">setup</text>
+<text x="58.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">дозвіл / такт</text>
+<polyline points="70.0,278.0 360.0,278.0 360.0,252.0 386.0,252.0 386.0,278.0 660.0,278.0" fill="none" stroke="#c0392b" stroke-width="2.6" stroke-linejoin="round"/>
+<rect x="356.0" y="244.0" width="34.0" height="44.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.3" rx="3"/>
+<text x="446.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">хибний фронт → залік сміття!</text>
+<rect x="70.0" y="320.0" width="590.0" height="30.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="365.0" y="337.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">Защіпка читає вхід даних лише за фронтом такту, коли все вже усталилося — глітч до того часу зник. Але глітч на самому такті чи на дозволі — це зайвий фронт: защіпнеться випадкове значення.</tspan></text>
+</svg>

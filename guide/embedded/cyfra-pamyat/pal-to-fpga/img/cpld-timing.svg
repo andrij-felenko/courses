@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="24.0" y="40.0" width="540.0" height="320.0" rx="6" fill="#fbfbfb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="294.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">CPLD: усі сигнали крізь ту саму центральну матрицю</text>
+<rect x="224.0" y="158.0" width="140.0" height="44.0" rx="6" fill="#eef0fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="294.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">центральна</text>
+<text x="294.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">матриця</text>
+<rect x="60.0" y="90.0" width="104.0" height="50.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="112.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PAL-блок</text>
+<text x="112.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">AND·OR·макро</text>
+<line x1="112.0" y1="140.0" x2="294.0" y2="180.0" stroke="#c0392b" stroke-width="1.9"/>
+<rect x="400.0" y="90.0" width="104.0" height="50.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="452.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PAL-блок</text>
+<text x="452.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">AND·OR·макро</text>
+<line x1="452.0" y1="140.0" x2="294.0" y2="180.0" stroke="#8a8a8a" stroke-width="1.2"/>
+<rect x="60.0" y="232.0" width="104.0" height="50.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="112.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PAL-блок</text>
+<text x="112.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">AND·OR·макро</text>
+<line x1="112.0" y1="232.0" x2="294.0" y2="180.0" stroke="#8a8a8a" stroke-width="1.2"/>
+<rect x="400.0" y="232.0" width="104.0" height="50.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="452.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PAL-блок</text>
+<text x="452.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">AND·OR·макро</text>
+<line x1="452.0" y1="232.0" x2="294.0" y2="180.0" stroke="#c0392b" stroke-width="1.9"/>
+<line x1="32.0" y1="300.0" x2="556.0" y2="300.0" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="294.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">t_PD — стала, одне число в даташиті (напр. 5 нс)</text>
+<text x="294.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">джитера немає: шляхи різні, а довжина в ланках однакова</text>
+<text x="294.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">конфіг у власній EEPROM/флеші → готовий із 1-ї мс</text>
+<rect x="584.0" y="40.0" width="272.0" height="320.0" rx="6" fill="#fff8f6" stroke="#c0392b" stroke-width="1.4"/>
+<text x="720.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">FPGA — для контрасту</text>
+<rect x="610.0" y="90.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="648.0" y="90.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="686.0" y="90.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="724.0" y="90.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="762.0" y="90.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="610.0" y="128.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="648.0" y="128.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="686.0" y="128.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="724.0" y="128.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="762.0" y="128.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="610.0" y="166.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="648.0" y="166.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="686.0" y="166.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="724.0" y="166.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="762.0" y="166.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="610.0" y="204.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="648.0" y="204.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="686.0" y="204.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="724.0" y="204.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="762.0" y="204.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="610.0" y="242.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="648.0" y="242.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="686.0" y="242.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="724.0" y="242.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="762.0" y="242.0" width="26.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<polyline points="623,103 661,103 661,141 737,141 737,217 775,217" fill="none" stroke="#c0392b" stroke-width="2.4"/>
+<text x="720.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">шлях крізь невідоме число перемикачів</text>
+<text x="720.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">→ затримка «плаває», єдиного t_PD нема</text>
+</svg>

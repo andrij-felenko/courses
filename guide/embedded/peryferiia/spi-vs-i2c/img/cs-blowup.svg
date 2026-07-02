@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ціна SPI: кожен пристрій — ще одна нога CS</text>
+<line x1="90.0" y1="250.0" x2="650.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="90.0" y1="250.0" x2="90.0" y2="60.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="650.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">число пристроїв N</text>
+<text x="80.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">ніг</text>
+<line x1="90.0" y1="218.3" x2="650.0" y2="218.3" stroke="#b9770e" stroke-width="2.4"/>
+<text x="646.0" y="210.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="end" font-weight="700">I2C: завжди 2</text>
+<polyline points="90.0,202.5 160.0,186.7 230.0,170.8 300.0,155.0 370.0,139.2 440.0,123.3 510.0,107.5 580.0,91.7 650.0,75.8" fill="none" stroke="#27ae60" stroke-width="2.4"/>
+<circle cx="90.0" cy="202.5" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="160.0" cy="186.7" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="230.0" cy="170.8" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="300.0" cy="155.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="370.0" cy="139.2" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="440.0" cy="123.3" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="510.0" cy="107.5" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="580.0" cy="91.7" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="650.0" cy="75.8" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="646.0" y="67.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">SPI: 3 + N</text>
+<text x="90.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0</text>
+<text x="230.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2</text>
+<text x="370.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4</text>
+<text x="510.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">6</text>
+<text x="650.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8</text>
+<rect x="130.0" y="84.0" width="300.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#e0e0e0" stroke-width="1.0"/><text x="280.0" y="110.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">На кожен новий пристрій SPI просить окрему ногу CS. Порятунок: дешифратор чи GPIO-розширювач (log₂N ніг) або ланцюг (daisy-chain).</tspan></text>
+</svg>

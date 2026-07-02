@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="385.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Батчинг: один дорогий старт ділиться на N корисних замірів</text>
+<text x="60.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">(а) без батчингу: boot на кожен замір</text>
+<rect x="60.0" y="90.0" width="41.6" height="26" fill="#c0392b" fill-opacity="0.30" stroke="#c0392b" stroke-width="1.4"/>
+<text x="80.8" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">boot</text>
+<rect x="105.6" y="90.0" width="14" height="26" fill="#27ae60" fill-opacity="0.35" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="131.6" y="90.0" width="41.6" height="26" fill="#c0392b" fill-opacity="0.30" stroke="#c0392b" stroke-width="1.4"/>
+<text x="152.4" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">boot</text>
+<rect x="177.2" y="90.0" width="14" height="26" fill="#27ae60" fill-opacity="0.35" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="203.2" y="90.0" width="41.6" height="26" fill="#c0392b" fill-opacity="0.30" stroke="#c0392b" stroke-width="1.4"/>
+<text x="224.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">boot</text>
+<rect x="248.8" y="90.0" width="14" height="26" fill="#27ae60" fill-opacity="0.35" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="274.8" y="90.0" width="41.6" height="26" fill="#c0392b" fill-opacity="0.30" stroke="#c0392b" stroke-width="1.4"/>
+<text x="295.6" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">boot</text>
+<rect x="320.4" y="90.0" width="14" height="26" fill="#27ae60" fill-opacity="0.35" stroke="#27ae60" stroke-width="1.2"/>
+<text x="60.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">4 замори → 4 дорогі старти; фікс платиться 4 рази</text>
+<text x="60.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">(б) батчинг: один boot на 4 замори</text>
+<rect x="60.0" y="210.0" width="41.6" height="26" fill="#c0392b" fill-opacity="0.30" stroke="#c0392b" stroke-width="1.4"/>
+<text x="80.8" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">boot</text>
+<rect x="105.6" y="210.0" width="14" height="26" fill="#27ae60" fill-opacity="0.35" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="121.6" y="210.0" width="14" height="26" fill="#27ae60" fill-opacity="0.35" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="137.6" y="210.0" width="14" height="26" fill="#27ae60" fill-opacity="0.35" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="153.6" y="210.0" width="14" height="26" fill="#27ae60" fill-opacity="0.35" stroke="#27ae60" stroke-width="1.2"/>
+<text x="60.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">4 замори → 1 старт; фікс поділено на 4 (амортизація)</text>
+<text x="60.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">заряд на корисний замір  =  Q_фікс / N  +  q_замір</text>
+<text x="60.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">N ↑  →  частка старту на замір падає як 1/N  →  дно = сам q_замір</text>
+<rect x="15.9" y="384.8" width="738.2" height="30.5" rx="6" fill="#fdf0ef" stroke="#c0392b" stroke-width="1.5"/><text x="385.0" y="403.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="385.0" dy="0.0">Батчинг не прибирає дорогий старт — він ділить його на N замірів; платня — свіжість (заміри лежать до спільної передачі)</tspan></text>
+</svg>

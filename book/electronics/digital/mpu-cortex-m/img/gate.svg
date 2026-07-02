@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">MPU стоїть на шляху кожного звернення ядра до пам'яті</text>
+<rect x="40.0" y="130.0" width="140.0" height="90.0" rx="8" fill="#eef2fb" stroke="#2457d6" stroke-width="2.2"/>
+<text x="110.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ядро</text>
+<text x="110.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Cortex-M</text>
+<text x="110.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">хоче адресу X</text>
+<rect x="300.0" y="108.0" width="170.0" height="134.0" rx="10" fill="#f1ecfa" stroke="#6a3fb5" stroke-width="2.6"/>
+<text x="385.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6a3fb5" text-anchor="middle" font-weight="700">MPU</text>
+<text x="385.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6a3fb5" text-anchor="middle">адреса X у якійсь</text>
+<text x="385.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6a3fb5" text-anchor="middle">дозволеній області?</text>
+<text x="385.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6a3fb5" text-anchor="middle">чи це право</text>
+<text x="385.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6a3fb5" text-anchor="middle">для цього режиму?</text>
+<line x1="180.0" y1="175.0" x2="300.0" y2="175.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="142.0" x2="640.0" y2="120.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">дозволено:</text>
+<rect x="640.0" y="100.0" width="150.0" height="44.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="715.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">звернення йде</text>
+<text x="715.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">на шину пам'яті</text>
+<line x1="470.0" y1="212.0" x2="640.0" y2="250.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">порушення:</text>
+<rect x="640.0" y="228.0" width="150.0" height="60.0" rx="6" fill="#fdeef0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="715.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">звернення блок-</text>
+<text x="715.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">ується, ядро йде</text>
+<text x="715.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">в MemManage fault</text>
+<text x="410.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Перевірка апаратна й миттєва: MPU не гальмує дозволені звернення, а заборонене зупиняє ще до того, як воно торкнеться пам'яті.</text>
+</svg>

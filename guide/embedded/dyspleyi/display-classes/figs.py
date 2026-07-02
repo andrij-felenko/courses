@@ -497,6 +497,535 @@ def fig_hist_tn():
     render(os.path.join(IMG, "tn.svg"), W, H, *f)
 
 
+# ════════════════════════════════════════════════════════════════════════════
+#  ФІГУРИ ДЛЯ ДЕТАЛЬНОЇ (display-classes-d.md) — глибший шар
+# ════════════════════════════════════════════════════════════════════════════
+
+# ── D1. Три моди рідкого кристала: TN · VA · IPS ─────────────────────────────
+def fig_lcd_modes():
+    import math
+    W, H = 840, 470
+    f = [text(W / 2, 34, "Три моди LCD: та сама заслінка, різна геометрія молекул", size=19, bold=True),
+         text(W / 2, 55, "як саме молекули стоять і повертаються — звідси й кути огляду, і чорний, і швидкість",
+              size=12.5, color=MUTED, italic=True)]
+
+    def panel(x0, name, sub):
+        f.append(rect(x0, 78, 246, 288, fill="none", stroke="#e4e4e4", sw=1.4, rx=8))
+        f.append(text(x0 + 123, 102, name, size=16, bold=True))
+        f.append(text(x0 + 123, 121, sub, size=11, color=MUTED, italic=True))
+        # два скельця
+        f.append(rect(x0 + 30, 150, 186, 8, fill="#a9c8dd", stroke=GLASS, sw=1.2, rx=2))
+        f.append(rect(x0 + 30, 300, 186, 8, fill="#a9c8dd", stroke=GLASS, sw=1.2, rx=2))
+
+    # TN — 90° закрут
+    panel(30, "TN — twisted nematic", "закрут 90° між скельцями")
+    rows = [(292, 0), (256, 22.5), (220, 45), (184, 67.5), (166, 90)]
+    for ry, ang in rows[:4]:
+        for k in range(4):
+            f.append(rod(90 + k * 34, ry, ang, ln=24))
+    for k in range(4):
+        f.append(rod(90 + k * 34, 168, 90, ln=8))
+        f.append(circle(90 + k * 34, 168, 4, fill=INK, stroke=INK, sw=1))
+    f.append(text(153, 340, "дешево, швидко, вузький кут:", size=11, color=MUTED))
+    f.append(text(153, 356, "колір «пливе» під нахилом", size=11, color=POS))
+
+    # VA — вертикальні, лягають
+    panel(297, "VA — vertical alignment", "стоять сторч, лягають від поля")
+    for k in range(4):
+        cx = 357 + k * 34
+        f.append(rod(cx, 228, 90, ln=64, color=INK, sw=4.6))
+    f.append(text(420, 200, "U = 0 → сторч", size=10.5, color=MUTED, anchor="start"))
+    f.append(text(420, 258, "→ чорний", size=10.5, color=INK, anchor="start"))
+    f.append(text(420, 274, "глибокий", size=10.5, color=FIELD, anchor="start"))
+    f.append(text(420, 340, "найкращий чорний із LCD;", size=11, color=FIELD, anchor="start"))
+    f.append(text(420, 356, "кут кращий за TN, гірший IPS", size=11, color=MUTED, anchor="start"))
+
+    # IPS — лежать, крутяться в площині
+    panel(564, "IPS — in-plane switching", "лежать; крутяться В ПЛОЩИНІ скла")
+    for k in range(4):
+        cx = 624 + k * 34
+        f.append(rod(cx, 214, 12, ln=26))
+        f.append(rod(cx, 250, -12, ln=26))
+    # електроди в площині (гребінка знизу)
+    f.append(plus(600, 300, 6))
+    f.append(minus(690, 300, 6))
+    f.append(text(687, 340, "широкий кут, стабільний колір;", size=11, color=FIELD, anchor="end"))
+    f.append(text(687, 356, "дорожче, чорний гірший за VA", size=11, color=MUTED, anchor="end"))
+
+    f.append(text(W / 2, 398, "Молекули крутяться механічно й повільно (мілісекунди), і тим повільніше, чим холодніше:",
+                  size=12.5, color=MUTED, italic=True))
+    f.append(text(W / 2, 418, "звідси «шлейф» за рухом і чутливість LCD до морозу — на відміну від електронного OLED.",
+                  size=12.5, color=MUTED, italic=True))
+    f.append(text(W / 2, 448, "Одна фізика заслінки — три різні компроміси лише від того, як розставити ті самі молекули.",
+                  size=12.5, color=INK, italic=True))
+    render(os.path.join(IMG, "lcd-modes.svg"), W, H, *f)
+
+
+# ── D2. Світловий бюджет підсвітки (водоспад втрат) ─────────────────────────
+def fig_light_budget():
+    W, H = 800, 430
+    f = [text(W / 2, 34, "Куди дівається світло підсвітки: водоспад втрат", size=19, bold=True),
+         text(W / 2, 55, "лампа світить на 100%, до ока доходять одиниці відсотків — решту з'їдає стос",
+              size=12.5, color=MUTED, italic=True)]
+    x0, base_y, top_y = 150, 360, 96
+    full = base_y - top_y  # висота 100%
+    # стадії: (підпис, частка ЩО ЛИШАЄТЬСЯ після стадії, підпис-втрата)
+    stages = [
+        ("підсвітка", 1.00, "100%"),
+        ("поляризатор", 0.50, "−50% поляризації"),
+        ("апертура TFT", 0.35, "×0.7 площі"),
+        ("кольорофільтр", 0.117, "÷3 на R·G·B"),
+        ("поляризатор", 0.094, "×0.8"),
+        ("скло", 0.075, "≈7–8% до ока"),
+    ]
+    n = len(stages)
+    bw = 96
+    gap = (W - 2 * x0 + bw) / n
+    prev = None
+    for i, (lab, frac, loss) in enumerate(stages):
+        cx = x0 + i * gap
+        h = full * frac
+        y = base_y - h
+        col = FIELD if i == 0 else (POS if i in (1, 3) else MUTED)
+        fillc = "#e7f5ea" if i == 0 else ("#fdeceb" if i in (1, 3) else "#eef0f2")
+        f.append(rect(cx - bw / 2, y, bw, h, fill=fillc, stroke=col, sw=1.6, rx=3))
+        f.append(text(cx, y - 8, "%d%%" % round(frac * 100), size=13, bold=True,
+                      color=(FIELD if i == 0 else INK)))
+        f.append(text(cx, base_y + 24, lab, size=10.5, color=INK))
+        f.append(text(cx, base_y + 44, loss, size=9.5, color=col))
+        if prev is not None:
+            f.append(line(prev[0] + bw / 2, prev[1], cx - bw / 2, y, color="#c9ccd1", sw=1.2, dash="4 3"))
+        prev = (cx, y)
+    f.append(line(x0 - bw / 2 - 8, base_y, W - x0 + bw / 2 + 8, base_y, color=INK, sw=2))
+    f.append(text(W / 2, 410, "Ось чому підсвітка мусить бути в РАЗИ яскравіша за картинку — і чому вона головний споживач.",
+                  size=12.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "light-budget.svg"), W, H, *f)
+
+
+# ── D3. Межа Альта–Плешка: чому пасивна матриця здувається ───────────────────
+def fig_alt_pleshko():
+    import math
+    W, H = 820, 440
+    f = [text(W / 2, 34, "Межа Альта–Плешка: чому без транзистора контраст помирає", size=19, bold=True),
+         text(W / 2, 55, "найкращий можливий відрив «увімкнено/вимкнено» падає до 1, щойно рядків стає багато",
+              size=12.5, color=MUTED, italic=True)]
+    # осі
+    ox, oy = 110, 350
+    ax_w, ax_h = 600, 250
+    f.append(arrow(ox, oy, ox + ax_w + 20, oy, color=INK, sw=2))
+    f.append(arrow(ox, oy, ox, oy - ax_h - 14, color=INK, sw=2))
+    f.append(text(ox + ax_w + 16, oy + 22, "рядків N →", size=12, anchor="end"))
+    f.append(text(ox - 6, oy - ax_h - 4, "відрив Von/Voff", size=12, anchor="start"))
+    # крива ratio = sqrt((sqrt(N)+1)/(sqrt(N)-1)); N від 2 до 260
+    def ratio(N):
+        s = math.sqrt(N)
+        return math.sqrt((s + 1) / (s - 1))
+    Nmax = 256
+    RCEIL = 2.5  # стеля шкали (ratio(2) ≈ 2.41)
+    # шкала: ratio 1..RCEIL → висота
+    def X(N):
+        return ox + ax_w * (N - 2) / (Nmax - 2)
+    def Y(r):
+        return oy - ax_h * (r - 1.0) / (RCEIL - 1.0)
+    # сітка по y
+    for r in (1.0, 1.5, 2.0, 2.5):
+        f.append(line(ox, Y(r), ox + ax_w, Y(r), color="#eceef0", sw=1))
+        f.append(text(ox - 10, Y(r) + 4, "%.2f" % r, size=10.5, color=MUTED, anchor="end"))
+    # позначки N
+    for N in (2, 16, 64, 128, 256):
+        f.append(text(X(N), oy + 20, str(N), size=10.5, color=MUTED))
+        f.append(line(X(N), oy, X(N), oy + 4, color=INK, sw=1.2))
+    # крива
+    pts = []
+    N = 2.0
+    while N <= Nmax:
+        pts.append("%.1f,%.1f" % (X(N), Y(ratio(N))))
+        N += 2
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="3"/>' % (" ".join(pts), NEG))
+    # точки-приклади
+    for N in (2, 16, 64, 256):
+        f.append(circle(X(N), Y(ratio(N)), 4.5, fill=NEG, stroke=BG, sw=1.5))
+    f.append(text(X(2) + 16, Y(ratio(2)) + 2, "N=2 → 2.41 (великий відрив)", size=11.5, color=NEG, anchor="start"))
+    f.append(text(X(16) + 10, Y(ratio(16)) - 10, "16 → 1.29", size=11.5, color=MUTED, anchor="start"))
+    f.append(text(X(64) + 8, Y(ratio(64)) - 10, "64 → лише 1.13", size=11.5, color=POS, anchor="start"))
+    f.append(text(X(256) - 8, Y(ratio(256)) - 12, "256 → 1.07: контрасту нема", size=11.5, color=POS, anchor="end"))
+    # формула
+    f.append(text(ox + 300, oy - ax_h + 20, "(Von/Voff)ₘₐₖₛ = √((√N + 1)/(√N − 1))",
+                  size=13, bold=True, color=INK))
+    f.append(text(W / 2, 410, "Активна матриця обходить цю межу: транзистор тримає піксель весь кадр, і N уже не тисне.",
+                  size=12.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "alt-pleshko.svg"), W, H, *f)
+
+
+# ── D4. Піксель OLED: керування СТРУМОМ (2T1C) і дрейф порога ────────────────
+def fig_oled_pixel():
+    W, H = 800, 420
+    f = [text(W / 2, 34, "Піксель AMOLED: транзистор задає СТРУМ, а не заслінку", size=19, bold=True),
+         text(W / 2, 55, "яскравість = струм крізь органіку; тому дрейф порога транзистора прямо псує колір",
+              size=12.5, color=MUTED, italic=True)]
+    # ── схема 2T1C зліва ──
+    # лінії
+    f.append(line(70, 120, 250, 120, color=INK, sw=2.4))
+    f.append(text(66, 114, "SCAN", size=11, bold=True, anchor="end"))
+    f.append(line(150, 92, 150, 120, color=INK, sw=2.4))
+    f.append(text(150, 86, "DATA", size=11, bold=True))
+    # T1 (ключ вибору)
+    f.append(rect(126, 130, 48, 26, fill="#eef2f5", stroke=INK, sw=1.6, rx=4))
+    f.append(text(150, 148, "T1", size=12, bold=True))
+    f.append(line(150, 120, 150, 130, color=INK, sw=2))
+    f.append(line(150, 156, 150, 178, color=INK, sw=2))
+    # вузол затвора + конденсатор
+    f.append(circle(150, 178, 3, fill=INK, stroke=INK, sw=1))
+    f.append(line(150, 178, 110, 178, color=INK, sw=2))
+    f.append(line(110, 170, 110, 186, color=INK, sw=3))
+    f.append(line(96, 170, 96, 186, color=INK, sw=3))
+    f.append(text(88, 165, "Cs", size=11, bold=True, anchor="end"))
+    f.append(text(103, 205, "тримає напругу", size=9.5, color=MUTED, anchor="middle"))
+    f.append(line(96, 186, 96, 300, color=INK, sw=2))
+    # T2 (керує струмом)
+    f.append(line(150, 178, 210, 178, color=INK, sw=2))
+    f.append(rect(210, 165, 30, 48, fill="#e7f5ea", stroke=FIELD, sw=2, rx=4))
+    f.append(text(225, 194, "T2", size=12, bold=True, color=FIELD))
+    f.append(text(225, 232, "струмовий", size=9.5, color=FIELD))
+    # VDD зверху до T2
+    f.append(line(225, 120, 225, 165, color=POS, sw=2))
+    f.append(line(200, 120, 250, 120, color=POS, sw=2))
+    f.append(text(258, 124, "VDD", size=11, color=POS, bold=True, anchor="start"))
+    # OLED знизу
+    f.append(line(225, 213, 225, 250, color=INK, sw=2))
+    # діод-символ OLED
+    f.append('<polygon points="212,250 238,250 225,270" fill="#eaf0fd" stroke="%s" stroke-width="1.6"/>' % NEG)
+    f.append(line(212, 270, 238, 270, color=NEG, sw=2.4))
+    f.append(text(250, 264, "OLED", size=11, color=NEG, anchor="start"))
+    f.append(arrow(244, 256, 262, 244, color=FIELD, sw=1.8))
+    f.append(text(268, 240, "світло", size=10, color=FIELD, anchor="start"))
+    f.append(line(225, 270, 225, 300, color=INK, sw=2))
+    f.append(line(96, 300, 225, 300, color=INK, sw=2))
+    f.append(text(160, 316, "спільний катод", size=10, color=MUTED))
+    f.append(text(150, 350, "T1 записав напругу в Cs → Cs тримає її на затворі T2 →", size=11, color=INK))
+    f.append(text(150, 366, "T2 жене СТАЛИЙ струм крізь OLED увесь кадр.", size=11, color=INK))
+
+    # ── праворуч: дрейф порога ──
+    gx, gy, gw, gh = 470, 130, 280, 170
+    f.append(text(gx + gw / 2, gy - 12, "Чому потрібна компенсація", size=14, bold=True))
+    f.append(arrow(gx, gy + gh, gx + gw + 10, gy + gh, color=INK, sw=2))
+    f.append(arrow(gx, gy + gh, gx, gy - 6, color=INK, sw=2))
+    f.append(text(gx + gw + 6, gy + gh + 20, "напруга затвора", size=10.5, anchor="end"))
+    f.append(text(gx + 2, gy - 4, "струм → яскравість", size=10.5, anchor="start"))
+    # крива «свіжий»
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6"/>'
+             % ("480,290 520,286 560,270 600,235 650,180 720,140", FIELD))
+    f.append(text(724, 138, "свіжий", size=10.5, color=FIELD, anchor="start"))
+    # крива «постарілий» — зсув праворуч (більший Vth)
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6" stroke-dasharray="6 4"/>'
+             % ("520,290 560,287 600,274 640,244 690,190 745,150", POS))
+    f.append(text(745, 168, "постарілий", size=10.5, color=POS, anchor="end"))
+    f.append(text(gx + gw / 2, gy + gh + 40, "той самий код DATA → менший струм → тьмяніший і зсунутий колір",
+                  size=10.5, color=MUTED, italic=True))
+    f.append(text(W / 2, 406, "Тому в AMOLED навколо пікселя ставлять не 2, а 4–7 транзисторів — щоб виміряти й скомпенсувати дрейф.",
+                  size=12.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "oled-pixel.svg"), W, H, *f)
+
+
+# ── D5. E-ink: баланс сил і хвиля оновлення ─────────────────────────────────
+def fig_eink_dynamics():
+    W, H = 830, 430
+    f = [text(W / 2, 34, "E-ink зблизька: чому повільно і чому «блимає» при оновленні", size=19, bold=True),
+         text(W / 2, 55, "частинка повзе в'язкою рідиною (звідси мілісекунди), а щоб прибрати привид — скидання",
+              size=12.5, color=MUTED, italic=True)]
+
+    # ── ЛІВО: баланс сил на частинці ──
+    f.append(text(210, 92, "Баланс сил на частинці", size=14, bold=True))
+    f.append(rect(90, 108, 240, 190, fill="#f4fbff", stroke="#7fa9c4", sw=1.6, rx=8))
+    # частинка в центрі
+    pcx, pcy = 210, 210
+    f.append(circle(pcx, pcy, 20, fill="#2b2f33", stroke="#2b2f33", sw=1))
+    f.append(minus(pcx + 10, pcy - 10, 6))
+    # сила поля вгору
+    f.append(arrow(pcx, pcy - 24, pcx, pcy - 74, color=FIELD, sw=3))
+    f.append(text(pcx + 8, pcy - 60, "F = qE (поле тягне)", size=11, color=FIELD, anchor="start"))
+    # опір в'язкості вниз
+    f.append(arrow(pcx, pcy + 24, pcx, pcy + 66, color=POS, sw=3))
+    f.append(text(pcx + 8, pcy + 52, "6πηr·v (в'язкість гальмує)", size=10.5, color=POS, anchor="start"))
+    f.append(text(210, 288, "рівновага → стала швидкість v", size=11, color=MUTED))
+    f.append(text(210, 322, "v = qE / (6πηr)   →   час ≈ d / v", size=12.5, bold=True, color=INK))
+    f.append(text(210, 344, "в'язке середовище → v мале → десятки–сотні мс", size=10.5, color=MUTED, italic=True))
+
+    # ── ПРАВО: хвиля оновлення (waveform) ──
+    ox, oy = 430, 250
+    f.append(text(620, 92, "Хвиля оновлення пікселя", size=14, bold=True))
+    f.append(arrow(ox, oy, ox + 350, oy, color=INK, sw=2))
+    f.append(text(ox + 348, oy + 20, "час →", size=11, anchor="end"))
+    f.append(line(ox, oy - 44, ox, oy + 44, color=INK, sw=1.6))
+    f.append(text(ox - 8, oy - 40, "+V", size=10, color=MUTED, anchor="end"))
+    f.append(text(ox - 8, oy + 44, "−V", size=10, color=MUTED, anchor="end"))
+    f.append(line(ox, oy, ox + 350, oy, color="#e4e4e4", sw=1))
+    # фази: скидання (кілька інверсій) → активація → запис
+    seg = [
+        (0, 40, +36, "скид", NEG),
+        (40, 80, -36, None, NEG),
+        (80, 120, +36, None, NEG),
+        (120, 160, -36, "→ білий/чорний блимає", NEG),
+        (160, 210, 0, "пауза", MUTED),
+        (210, 300, -36, "запис", POS),
+    ]
+    for x1, x2, lvl, lab, col in seg:
+        yy = oy - lvl
+        f.append(line(ox + x1, yy, ox + x2, yy, color=col, sw=3))
+        # вертикальні переходи
+        f.append(line(ox + x2, oy - lvl, ox + x2, oy, color=col, sw=1.4, dash="3 2"))
+        if lab:
+            f.append(text(ox + (x1 + x2) / 2, oy + (60 if lvl <= 0 else -48), lab, size=10, color=col))
+    f.append(text(ox + 80, oy - 62, "інверсії стирають привид", size=10.5, color=NEG))
+    f.append(text(620, oy + 96, "Тому повне оновлення «моргає» чорним/білим: інакше лишиться привид (ghosting).",
+                  size=11, color=MUTED, italic=True))
+    f.append(text(W / 2, 412, "Бістабільність — платня натурою: між кадрами струму 0, зате перемикання повільне і з ритуалом скидання.",
+                  size=12, color=MUTED, italic=True))
+    render(os.path.join(IMG, "eink-dynamics.svg"), W, H, *f)
+
+
+def fig_pixel_shift():
+    """proj: pixel-shift — статичний елемент гуляє в межах безпечного поля,
+    тож жоден підпіксель не світить весь час у тій самій точці."""
+    W, H = 720, 400
+    f = []
+    # ── ліворуч: панель зі статичним рядком і полем зсуву ──
+    px, py, pw, ph = 60, 70, 300, 250
+    f.append(rect(px, py, pw, ph, fill="#101418", stroke=INK, sw=2, rx=8))
+    f.append(text(px + pw / 2, py - 14, "екран (темний UI)", size=12, color=MUTED))
+    # безпечне поле зсуву (пунктир): куди може від'їхати картинка
+    m = 16
+    f.append(rect(px + m, py + m, pw - 2 * m, ph - 2 * m, fill="none",
+                  stroke=FIELD, sw=1.4, rx=6))
+    f.append(text(px + pw - m - 4, py + m + 14, "поле зсуву", size=10,
+                  color=FIELD, anchor="end"))
+    # три позиції одного статичного елемента (рядок статусу) у різні хвилини
+    poss = [(0, 0, "#8a99a8", "0 хв"), (10, 6, "#b0c4d8", "20 хв"),
+            (-8, 12, BG, "40 хв")]
+    for dx, dy, col, lab in poss:
+        bx, by = px + 40 + dx, py + 40 + dy
+        f.append(rect(bx, by, 130, 20, fill="none", stroke=col, sw=2, rx=4))
+        f.append(text(bx + 65, by + 14, "СТАТУС · 12:04", size=11, color=col))
+        f.append(text(bx - 6, by + 14, lab, size=9, color=MUTED, anchor="end"))
+    f.append(text(px + pw / 2, py + ph - 12,
+                  "той самий рядок повільно кочує", size=11, color="#c9d4de"))
+    # ── праворуч: чому це рятує — знос підпікселя в точці ──
+    gx, gy, gw, gh = 430, 92, 230, 180
+    f.append(text(gx + gw / 2, gy - 22, "знос люмінофора в одній точці",
+                  size=12, color=INK))
+    # осі
+    f.append(line(gx, gy, gx, gy + gh, color=INK, sw=1.5))
+    f.append(line(gx, gy + gh, gx + gw, gy + gh, color=INK, sw=1.5))
+    f.append(text(gx - 8, gy + 6, "знос", size=10, color=MUTED, anchor="end"))
+    f.append(text(gx + gw, gy + gh + 16, "час", size=10, color=MUTED, anchor="end"))
+    # без зсуву — крута лінія (та сама точка світить завжди)
+    f.append(line(gx, gy + gh, gx + gw, gy + 8, color=POS, sw=3))
+    f.append(text(gx + gw - 4, gy + 4, "без зсуву", size=10.5, color=POS, anchor="end"))
+    # зі зсувом — пилка (точка світить лише зрідка), нижчий нахил
+    import math
+    pts = []
+    y = gy + gh
+    for i in range(0, gw + 1, 6):
+        # східчастий пологий підйом: світить ~третину часу
+        rise = 0.42 if (i // 30) % 3 == 0 else 0.06
+        y -= rise * 6
+        pts.append("%.1f,%.1f" % (gx + i, y))
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="3"/>'
+             % (" ".join(pts), FIELD))
+    f.append(text(gx + gw - 4, y - 6, "зі зсувом", size=10.5, color=FIELD, anchor="end"))
+    f.append(text(W / 2, 384,
+                  "Зсув на кілька пікселів раз на кілька хвилин «розмазує» знос по площі — привид не встигає впектися.",
+                  size=11.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "pixel-shift.svg"), W, H, *f)
+
+
+def fig_wear_model():
+    """proj: модель зносу — сині підпікселі старіють найшвидше; облік
+    світло-годин і приглушення вирівнюють спрацювання каналів."""
+    W, H = 720, 380
+    f = []
+    ox, oy, gw, gh = 90, 70, 540, 210
+    # осі
+    f.append(line(ox, oy, ox, oy + gh, color=INK, sw=1.5))
+    f.append(line(ox, oy + gh, ox + gw, oy + gh, color=INK, sw=1.5))
+    f.append(text(ox - 10, oy + 4, "яскравість", size=11, color=MUTED, anchor="end"))
+    f.append(text(ox - 10, oy + 16, "каналу, %", size=11, color=MUTED, anchor="end"))
+    f.append(text(ox + gw, oy + gh + 18, "світло-години", size=11, color=MUTED, anchor="end"))
+    # сітка 100 / 70 %
+    for frac, lab in [(0.0, "100"), (0.3, "70")]:
+        yy = oy + gh * frac
+        f.append(line(ox, yy, ox + gw, yy, color="#e2e6ea", sw=1))
+        f.append(text(ox - 6, yy + 4, lab, size=9.5, color=MUTED, anchor="end"))
+    import math
+    def curve(tau, col, dash=None, lab=None, laby=0):
+        pts = []
+        for i in range(0, gw + 1, 6):
+            t = i / gw
+            v = math.exp(-t / tau)              # спад люмінофора
+            y = oy + gh * (1 - v)
+            pts.append("%.1f,%.1f" % (ox + i, y))
+        d = ' stroke-dasharray="%s"' % dash if dash else ''
+        f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="3"%s/>'
+                 % (" ".join(pts), col, d))
+        if lab:
+            f.append(text(ox + gw + 6, oy + gh * (1 - math.exp(-1 / tau)) + laby,
+                          lab, size=11, color=col, anchor="start"))
+    # без обліку: синій падає круто, червоний/зелений повільно → колір «пливе»
+    curve(2.2, POS, lab="синій", laby=4)          # найшвидший знос
+    curve(4.5, FIELD, lab="зелений", laby=2)
+    curve(6.0, NEG, lab="червоний", laby=2)
+    # з обліком (приглушений синій): пунктир, знос вирівняний
+    curve(4.0, "#7a4fd0", dash="5 3", lab="синій*", laby=16)
+    f.append(text(ox + 150, oy + 24,
+                  "* синій наперед приглушено → канали старіють в один темп",
+                  size=10.5, color="#7a4fd0", anchor="start"))
+    f.append(text(W / 2, 356,
+                  "Без обліку синій вигоряє першим — біле з роками жовтіє; облік світло-годин дає привід приглушити синє заздалегідь.",
+                  size=11.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "wear-model.svg"), W, H, *f)
+
+
+# ── Вставка math-alt-pleshko ────────────────────────────────────────────────
+def fig_ap_waveforms():
+    """math: що бачить піксель за кадр. Стовпець весь кадр качає ±Vc (дані),
+    а рядок один-єдиний такт із N подає селект Vr. Різниця «увімк/вимк» —
+    лише в тому одному такті, решту N−1 тактів обидва пікселі однакові."""
+    import math
+    W, H = 840, 470
+    f = [text(W / 2, 32, "Що бачить комірка за один кадр із N рядків", size=19, bold=True),
+         text(W / 2, 53, "різниця «увімкнено / вимкнено» живе лише в ОДНОМУ такті селекту з N — звідси й уся межа",
+              size=12.5, color=MUTED, italic=True)]
+    ox, oy = 95, 250          # нуль осі напруги
+    slot = 74                 # ширина такту
+    Ntacts = 6                # показуємо 6 тактів (один — селект, п'ять — ні)
+    sel_i = 2                 # індекс такту, коли вибрано наш рядок
+    Vr = 118.0                # висота селект-піка (умовні px)
+    Vc = 40.0                 # висота дата-піка
+    # осі
+    f.append(line(ox - 20, oy, ox + Ntacts * slot + 30, oy, color=INK, sw=2))
+    f.append(text(ox + Ntacts * slot + 26, oy - 8, "час →", size=12, anchor="end"))
+    f.append(text(ox - 26, oy + 5, "0", size=11, color=MUTED, anchor="end"))
+    # межі тактів + підписи
+    for i in range(Ntacts + 1):
+        x = ox + i * slot
+        f.append(line(x, oy - 150, x, oy + 150, color="#eef0f2", sw=1))
+    for i in range(Ntacts):
+        cx = ox + i * slot + slot / 2
+        lab = "рядок j\n(СЕЛЕКТ)" if i == sel_i else "інший\nрядок"
+        col = FIELD if i == sel_i else MUTED
+        f.append(mtext(cx, oy + 168, lab, size=10.5, color=col, anchor="middle"))
+    f.append(text(ox + Ntacts * slot + 30, oy + 168, "…×N", size=11, color=MUTED, anchor="start"))
+
+    def step(i, top, col, sw=3, dash=None):
+        x0 = ox + i * slot + 4
+        x1 = ox + (i + 1) * slot - 4
+        return (line(x0, oy - top, x1, oy - top, color=col, sw=sw, dash=dash)
+                + line(x0, oy, x0, oy - top, color=col, sw=1.4, dash="2,3")
+                + line(x1, oy, x1, oy - top, color=col, sw=1.4, dash="2,3"))
+
+    # ── верх: рядковий (селект) сигнал НАШОГО рядка ──
+    f.append(text(ox - 30, oy - 128, "рядок", size=11.5, color=INK, anchor="end", bold=True))
+    for i in range(Ntacts):
+        if i == sel_i:
+            f.append(step(i, Vr, FIELD, sw=3.4))
+            f.append(text(ox + i * slot + slot / 2, oy - Vr - 8, "Vr", size=12, color=FIELD, bold=True))
+        else:
+            f.append(step(i, 0, MUTED, sw=2))   # 0 В на невибраному рядку
+    # ── низ таблиці: два сценарії комірки в НАШОМУ рядку ──
+    # (a) увімкнена комірка: дата протифазна селекту → сумарна напруга велика
+    # (b) вимкнена: дата у фазі → у селект-такті напруги майже гасяться
+    yA = oy + 250
+    # Ми малюємо СТОВПЦЕВИЙ сигнал (дані) — він тече ВЕСЬ кадр, ±Vc.
+    f.append(text(ox - 30, oy - 40, "стовпець", size=11.5, color=NEG, anchor="end", bold=True))
+    patt = [+1, -1, +1, +1, -1, +1]   # умовна послідовність даних інших рядків
+    for i in range(Ntacts):
+        s = patt[i]
+        top = Vc * s
+        x0 = ox + i * slot + 4; x1 = ox + (i + 1) * slot - 4
+        f.append(line(x0, oy - top, x1, oy - top, color=NEG, sw=2.6))
+        f.append(line(x0, oy, x0, oy - top, color=NEG, sw=1.2, dash="2,3"))
+        f.append(line(x1, oy, x1, oy - top, color=NEG, sw=1.2, dash="2,3"))
+    f.append(text(ox + sel_i * slot + slot / 2, oy + Vc + 20, "±Vc", size=11.5, color=NEG, bold=True))
+
+    # анотації: у селект-такті комірка бачить Vr∓Vc; у решті — лише ±Vc
+    f.append(textbox(ox + sel_i * slot + slot / 2, oy - Vr - 40,
+                     "селект-такт:\nкомірка бачить  Vr ∓ Vc", size=11, pad=7,
+                     fill="#eafaf0", stroke=FIELD, color=INK)[0])
+    f.append(textbox(ox + (Ntacts - 1) * slot + slot / 2 + 20, oy - 120,
+                     "решта N−1 тактів:\nлише  ± Vc", size=11, pad=7,
+                     fill="#eef2fd", stroke=NEG, color=INK)[0])
+    f.append(text(W / 2, H - 16,
+                  "Обидва пікселі стовпця однакові в N−1 тактах; вибір знака Vc в ОДНОМУ селект-такті — усе, чим «увімк» відрізняється від «вимк».",
+                  size=12, color=MUTED, italic=True))
+    render(os.path.join(IMG, "ap-waveforms.svg"), W, H, *f)
+
+
+def fig_ap_bias():
+    """math: селект-відношення Von/Voff як функція біаса b при кількох N.
+    Кожна крива має ГОСТРИЙ максимум рівно при b = 1/√N — це й доводить, що
+    оптимум не постулат, а справжня точка максимуму."""
+    import math
+    W, H = 840, 470
+    f = [text(W / 2, 32, "Оптимальний біас: відрив має максимум рівно при b = 1/√N", size=19, bold=True),
+         text(W / 2, 53, "не постулат, а вершина кривої — ліворуч селект слабне, праворуч дані «підтоплюють» вимкнений піксель",
+              size=12.5, color=MUTED, italic=True)]
+    ox, oy = 100, 360
+    ax_w, ax_h = 620, 270
+
+    # селект-відношення від b і N:  r(b,N) = sqrt( ((1/b)+... ) ) — беремо канонічний вираз
+    # Von²/Voff² = ( (√N·b?  ) ) ... використовуємо перевірену форму через u=1/b:
+    #   r² = ( (1 + (N-1)b²) + 2b·? )  — щоб не плутати, рахуємо через відому
+    # параметризацію: селект-напруга ∝ 1, дата ∝ b; тоді
+    #   Von² ∝ (1+b)² + (N-1)b² ,  Voff² ∝ (1−b)² + (N-1)b²   (з точністю до спільного множника)
+    def r2(b, N):
+        on = (1 + b) ** 2 + (N - 1) * b * b
+        off = (1 - b) ** 2 + (N - 1) * b * b
+        return on / off
+    def ratio(b, N):
+        return math.sqrt(r2(b, N))
+
+    curves = [(4, "#2457d6", "N=4"), (16, "#c0392b", "N=16"), (64, FIELD, "N=64")]
+    # шкала: b від 0 до 0.75; r від 1 до стелі
+    bmax = 0.75
+    rceil = 2.6
+    def X(b): return ox + ax_w * (b / bmax)
+    def Y(r): return oy - ax_h * (r - 1.0) / (rceil - 1.0)
+    # осі
+    f.append(arrow(ox, oy, ox + ax_w + 20, oy, color=INK, sw=2))
+    f.append(arrow(ox, oy, ox, oy - ax_h - 14, color=INK, sw=2))
+    f.append(text(ox + ax_w + 16, oy + 22, "біас b = Vc/Vr →", size=12, anchor="end"))
+    f.append(text(ox - 6, oy - ax_h - 4, "відрив Von/Voff", size=12, anchor="start"))
+    for r in (1.0, 1.5, 2.0, 2.5):
+        f.append(line(ox, Y(r), ox + ax_w, Y(r), color="#eceef0", sw=1))
+        f.append(text(ox - 10, Y(r) + 4, "%.1f" % r, size=10.5, color=MUTED, anchor="end"))
+    for b in (0.0, 0.25, 0.5, 0.75):
+        f.append(text(X(b), oy + 20, "%.2f" % b, size=10.5, color=MUTED))
+        f.append(line(X(b), oy, X(b), oy + 4, color=INK, sw=1.2))
+    # криві + позначка вершини
+    for N, col, lab in curves:
+        pts = []
+        b = 0.001
+        while b <= bmax:
+            pts.append("%.1f,%.1f" % (X(b), Y(ratio(b, N))))
+            b += 0.004
+        f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="3"/>' % (" ".join(pts), col))
+        bopt = 1.0 / math.sqrt(N)
+        ry = ratio(bopt, N)
+        f.append(line(X(bopt), oy, X(bopt), Y(ry), color=col, sw=1.2, dash="4,4"))
+        f.append(circle(X(bopt), Y(ry), 5, fill=col, stroke=BG, sw=1.6))
+        f.append(text(X(bopt), Y(ry) - 12, "b=1/√%d=%.2f" % (N, bopt), size=10.5, color=col, bold=True))
+    # легенда
+    lx, ly = ox + ax_w - 150, oy - ax_h + 6
+    for k, (N, col, lab) in enumerate(curves):
+        yy = ly + k * 20
+        f.append(line(lx, yy, lx + 22, yy, color=col, sw=3))
+        f.append(text(lx + 28, yy + 4, lab, size=11.5, color=col, anchor="start"))
+    f.append(text(W / 2, H - 16,
+                  "Що більше рядків N, то нижча й гостріша вершина: найкращий можливий відрив невблаганно повзе до 1.",
+                  size=12, color=MUTED, italic=True))
+    render(os.path.join(IMG, "ap-bias.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_classes()
     fig_lcd_stack()
@@ -508,4 +1037,16 @@ if __name__ == "__main__":
     fig_hist_timeline()
     fig_hist_dsm()
     fig_hist_tn()
-    print("OK: 10 figures ->", IMG)
+    # детальна
+    fig_lcd_modes()
+    fig_light_budget()
+    fig_alt_pleshko()
+    fig_oled_pixel()
+    fig_eink_dynamics()
+    # вставка proj-oled-compensation
+    fig_pixel_shift()
+    fig_wear_model()
+    # вставка math-alt-pleshko
+    fig_ap_waveforms()
+    fig_ap_bias()
+    print("OK: 19 figures ->", IMG)

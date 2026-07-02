@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Масив пайплайн-регістрів зсувається на такт — серце моделі</text>
+<rect x="326.0" y="70.0" width="168.0" height="44.0" rx="8" fill="#eef2f7" stroke="#333333" stroke-width="1.6"/>
+<text x="410.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">reg[0]=IF/ID</text>
+<line x1="410.0" y1="114.0" x2="410.0" y2="132.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="326.0" y="132.0" width="168.0" height="44.0" rx="8" fill="#eef2f7" stroke="#333333" stroke-width="1.6"/>
+<text x="410.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">reg[1]=ID/EX</text>
+<line x1="410.0" y1="176.0" x2="410.0" y2="194.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="326.0" y="194.0" width="168.0" height="44.0" rx="8" fill="#eef2f7" stroke="#333333" stroke-width="1.6"/>
+<text x="410.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">reg[2]=EX/MEM</text>
+<line x1="410.0" y1="238.0" x2="410.0" y2="256.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="326.0" y="256.0" width="168.0" height="44.0" rx="8" fill="#eef2f7" stroke="#333333" stroke-width="1.6"/>
+<text x="410.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">reg[3]=MEM/WB</text>
+<text x="524.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">нове →</text>
+<text x="296.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">→ запис</text>
+<rect x="618.5" y="116.6" width="191.0" height="78.8" rx="6" fill="#f7f9fb" stroke="#6b7280" stroke-width="1.5"/><text x="714.0" y="136.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="714.0" dy="0.0">1. детекція: порівняти rd</tspan><tspan x="714.0" dy="15.6">2. проброс: вибрати вхід</tspan><tspan x="714.0" dy="15.6">3. стоп? бульбашка : зсув</tspan><tspan x="714.0" dy="15.6">4. взято перехід? змив</tspan></text>
+<text x="714.0" y="104.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">порядок одного такту</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<circle cx="250.0" cy="122.0" r="26.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="250.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2048</text>
+<text x="250.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[0]</text>
+<circle cx="340.5" cy="159.5" r="26.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="340.5" y="164.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">2051</text>
+<text x="368.8" y="135.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[1]</text>
+<circle cx="378.0" cy="250.0" r="26.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="378.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">2049</text>
+<text x="418.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[2]</text>
+<circle cx="340.5" cy="340.5" r="26.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="340.5" y="345.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">2047</text>
+<text x="368.8" y="372.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[3]</text>
+<circle cx="250.0" cy="378.0" r="26.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="250.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">2052</text>
+<text x="250.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[4]</text>
+<circle cx="159.5" cy="340.5" r="26.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="159.5" y="345.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">2050</text>
+<text x="131.2" y="372.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[5]</text>
+<circle cx="122.0" cy="250.0" r="26.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="122.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">2048</text>
+<text x="82.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[6]</text>
+<circle cx="159.5" cy="159.5" r="26.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="159.5" y="164.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">2053</text>
+<text x="131.2" y="135.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[7]</text>
+<text x="250.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">running_sum</text>
+<text x="250.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">= Σ усіх 8</text>
+<line x1="250.0" y1="32.0" x2="250.0" y2="92.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="250.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">новий 2054</text>
+<text x="540.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Один вхідний відлік — один рух:</text>
+<rect x="540.0" y="138.0" width="230.0" height="26.0" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.6"/>
+<text x="548.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">running_sum −= buf[head]</text>
+<text x="548.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">прибрати найстаріший (2048)</text>
+<rect x="540.0" y="186.0" width="230.0" height="26.0" rx="4" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="548.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">running_sum += new</text>
+<text x="548.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">додати новий (2054)</text>
+<rect x="540.0" y="234.0" width="230.0" height="26.0" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="548.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">buf[head] = new</text>
+<text x="548.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">перезаписати комірку</text>
+<rect x="540.0" y="282.0" width="230.0" height="26.0" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="548.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">head = (head+1) &amp; 7</text>
+<text x="548.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">зсунути голову по колу</text>
+<rect x="540.0" y="348.0" width="230.0" height="50.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="655.0" y="369.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">Ціна оновлення НЕ залежить від K:</tspan><tspan x="655.0" dy="14.3">завжди 2 додавання, а не K</tspan></text>
+<text x="400.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кільце: голова біжить по колу, найстаріший відлік «випадає» саме там, де вписуємо новий</text>
+</svg>

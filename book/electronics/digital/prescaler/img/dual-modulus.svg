@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двомодульний прескейлер ділить то на N+1, то на N</text>
+<rect x="60.0" y="110.0" width="300.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="210.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">спершу ÷(N+1)</text>
+<text x="210.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">S разів  (S «зайвих» імпульсів)</text>
+<rect x="360.0" y="110.0" width="340.0" height="46.0" rx="6" fill="#f4f7f4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="530.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">потім ÷N</text>
+<text x="530.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">решту (P − S) разів</text>
+<text x="60.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">керує лічильник-«ковтач» S; головний лічильник рахує P повних циклів прескейлера</text>
+<rect x="120.0" y="210.0" width="520.0" height="92.0" rx="6" fill="#fffbe9" stroke="#b8862b" stroke-width="1.8"/><text x="380.0" y="243.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">усього вхідних імпульсів на один вихідний:</tspan><tspan x="380.0" dy="16.9">(N+1)·S + N·(P − S) = N·P + S</tspan><tspan x="380.0" dy="16.9">S = 0…P−1 змінює поділ по ОДИНИЦІ, хоч фронт-дільник швидкий</tspan></text>
+</svg>

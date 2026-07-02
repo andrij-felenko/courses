@@ -267,6 +267,237 @@ def fig_defaults():
     render(os.path.join(IMG, "defaults.svg"), W, H, *f)
 
 
+# ═══ ДЕТАЛЬНА (spi-vs-i2c-d): глибші фігури ═══════════════════════════════════
+
+# ── D1. Стеля частоти I2C: RC-підйом б'ється з підтяжкою ──────────────────────
+def fig_rc_ceiling():
+    import math
+    W, H = 760, 360
+    f = [text(W / 2, 26, "Чому I2C має стелю частоти: RC-підйом лінії", size=16, bold=True)]
+    f.append(text(W / 2, 46, "лінію вгору тягне лише підтяжка — напруга повзе за exp, не стрибає",
+                  size=11, color=MUTED, italic=True))
+
+    # осі
+    ox, oy = 90, 300      # початок координат
+    ax_w, ax_h = 560, 220
+    f.append(line(ox, oy, ox + ax_w, oy, color=INK, sw=1.5))          # час →
+    f.append(line(ox, oy, ox, oy - ax_h, color=INK, sw=1.5))          # напруга ↑
+    f.append(text(ox + ax_w, oy + 20, "час", size=11, color=MUTED, anchor="end", italic=True))
+    f.append(text(ox - 8, oy - ax_h + 4, "V", size=12, color=MUTED, anchor="end", bold=True))
+
+    Vcc = oy - ax_h + 10
+    Vth = oy - ax_h * 0.7      # поріг «одиниці» ≈ 0.7·Vcc
+    f.append(line(ox, Vcc, ox + ax_w, Vcc, color="#dddddd", sw=1, dash="4 3"))
+    f.append(text(ox + ax_w + 4, Vcc + 4, "Vcc", size=10, color=MUTED, anchor="start"))
+    f.append(line(ox, Vth, ox + ax_w, Vth, color=POS, sw=1, dash="4 3"))
+    f.append(text(ox + ax_w + 4, Vth + 4, "поріг «1»", size=10, color=POS, anchor="start"))
+
+    # дві криві V(t)=Vcc(1-e^{-t/RC}): менший R (крутіше) і більший R (пологіше)
+    def curve(tau_px, col, sw):
+        pts = []
+        for i in range(0, ax_w + 1, 4):
+            v = 1 - math.exp(-i / tau_px)
+            y = oy - (oy - Vcc) * v
+            pts.append("%.1f,%.1f" % (ox + i, y))
+        return ('<polyline points="%s" fill="none" stroke="%s" stroke-width="%.1f"/>'
+                % (" ".join(pts), col, sw))
+
+    f.append(curve(70,  SPI, 2.4))    # мала підтяжка (малий R): швидко
+    f.append(curve(190, I2C, 2.4))    # велика підтяжка (великий R): повільно
+
+    # де кожна перетинає поріг → мінімальний період біта
+    def cross(tau_px):
+        v_th = 0.7
+        t = -tau_px * math.log(1 - v_th)
+        return ox + t
+    xs, xl = cross(70), cross(190)
+    for xx, col in ((xs, SPI), (xl, I2C)):
+        f.append(line(xx, oy, xx, Vth, color=col, sw=1, dash="2 3"))
+        f.append(circle(xx, Vth, 3.5, fill=col, stroke=col, sw=1))
+
+    f.append(text(ox + 60, oy - ax_h - 2, "мала підтяжка (R↓): фронт крутий,",
+                  size=10.5, color=SPI, anchor="start", bold=True))
+    f.append(text(ox + 60, oy - ax_h + 13, "але струм у «0» більший", size=9.5, color=MUTED, anchor="start", italic=True))
+    f.append(text(xl + 12, Vth - 40, "велика підтяжка (R↑):", size=10.5, color=I2C, anchor="start", bold=True))
+    f.append(text(xl + 12, Vth - 26, "фронт пологий → біт мусить бути довшим", size=9.5, color=MUTED, anchor="start", italic=True))
+
+    f.append(fitbox(ox, oy + 30, ax_w, 24,
+                    "τ = R·C_bus; поки лінія не дійшла до порога, наступний біт слати не можна — звідси стеля f",
+                    size=10.5, color=INK, fill=FILL, stroke="#e0e0e0", sw=1))
+    render(os.path.join(IMG, "rc-ceiling.svg"), W, H, *f)
+
+
+# ── D2. Виведення КК: яка частка кадру корисна ───────────────────────────────
+def fig_overhead():
+    W, H = 760, 384
+    f = [text(W / 2, 26, "Куди йдуть такти: службове проти корисного", size=16, bold=True)]
+    f.append(text(W / 2, 46, "смуга = всі такти транзакції; зелене — корисні дані, золоте — службове",
+                  size=11, color=MUTED, italic=True))
+
+    OVH = "#c8a24b"   # службове (золото)
+    PAY = "#2c7a4b"   # корисне (зелене)
+    x0 = 250
+    full = 420        # повна ширина смуги = найдовший кадр
+    ref = 73          # такти найдовшого кадру (I2C, 6 байтів) — масштаб
+
+    def bar(y, label, payload, total, note):
+        f.append(text(30, y + 17, label, size=11.5, anchor="start", bold=True))
+        w = full * total / ref
+        wp = full * payload / ref
+        f.append(rect(x0, y, w, 28, fill=OVH, stroke=BG, sw=1.2, rx=3))          # весь кадр — службове
+        f.append(rect(x0, y, wp, 28, fill=PAY, stroke=BG, sw=1.2, rx=3))         # зелена частка — корисне
+        pct = round(100 * payload / total)
+        f.append(text(x0 + w + 10, y + 18, "%d%% корисного" % pct, size=11.5,
+                      color=PAY, anchor="start", bold=True))
+        f.append(text(30, y + 34, note, size=9, color=MUTED, anchor="start", italic=True))
+
+    # I2C 1 байт: S + (addr+R/W+ACK=9) + (reg+ACK=9) + (data+ACK=9) + P ≈ 29 тактів, 8 корисних
+    bar(78,  "I2C — 1 байт", 8, 29,
+        "S · addr+R/W+ACK · reg+ACK · data+ACK · P  →  8 / 29")
+    # SPI 1 байт: команда(8) + дані(8) = 16 тактів, 8 корисних (CS — окрема лінія)
+    bar(140, "SPI — 1 байт", 8, 16,
+        "команда(8) + дані(8);  CS — окрема лінія, у такти не входить  →  8 / 16")
+    # I2C 6 байтів пакетом: службове ~19 біт спереду + 6 ACK + P; ~73 такти, 48 корисних
+    bar(202, "I2C — 6 байтів пакетом", 48, 73,
+        "той самий службовий заголовок, але 48 корисних біт за раз  →  48 / 73")
+    # SPI 6 байтів: команда(8) + 48 даних = 56, 48 корисних
+    bar(264, "SPI — 6 байтів пакетом", 48, 56,
+        "команда(8) + 48 даних  →  48 / 56")
+
+    f.append(fitbox(30, 316, 700, 50,
+                    ["Службовий «податок» I2C майже сталий на транзакцію: на одному байті з'їдає ~⅔ кадру,",
+                     "але великим блоком розмивається. У SPI корисна частка близька до 100% незалежно від довжини."],
+                    size=10.5, color=INK, fill=FILL, stroke="#e0e0e0", sw=1))
+    render(os.path.join(IMG, "overhead.svg"), W, H, *f)
+
+
+# ── D3. Простір адрес I2C і як його вичерпують ───────────────────────────────
+def fig_address_space():
+    W, H = 760, 380
+    f = [text(W / 2, 26, "7-бітний простір адрес I2C: 128 комірок, 112 робочих", size=15, bold=True)]
+
+    # сітка 8×16 = 128 адрес; краї (0000xxx та 1111xxx) — зарезервовані
+    gx, gy = 60, 60
+    cw, ch = 40, 16
+    cols, rows = 16, 8
+    for r in range(rows):
+        for c in range(cols):
+            addr = r * cols + c
+            reserved = (addr <= 7) or (addr >= 120)
+            col = "#f3d9d9" if reserved else "#e7f2ea"
+            edge = POS if reserved else FIELD
+            f.append(rect(gx + c * cw, gy + r * ch, cw - 2, ch - 2,
+                          fill=col, stroke=edge, sw=0.6, rx=2))
+    f.append(text(gx, gy - 8, "кожна клітинка — одна 7-бітна адреса (0x00…0x7F)",
+                  size=10, color=MUTED, anchor="start", italic=True))
+    f.append(text(gx, gy + rows * ch + 16,
+                  "рожеве — зарезервовано (0000xxx і 1111xxx, 16 адрес); зелене — доступно (112)",
+                  size=10, color=MUTED, anchor="start", italic=True))
+
+    # реальна тіснота: популярні адреси
+    f.append(text(gx, gy + rows * ch + 44, "Але справжня межа — не 112, а КОЛІЗІЇ:",
+                  size=12, anchor="start", bold=True))
+    clash = ["0x68 — багато IMU", "0x76 — баро BME280", "0x3C — дрібні OLED", "0x29 — далекомір"]
+    yy = gy + rows * ch + 66
+    for csr in clash:
+        f.append(text(gx + 6, yy, "•", size=11, color=POS, anchor="start", bold=True))
+        f.append(text(gx + 20, yy, csr, size=10.5, anchor="start"))
+        yy += 18
+
+    # розв'язок: мультиплексор віялом
+    mx, my = 470, 210
+    f.append(rect(mx, my, 90, 40, fill=FILL, stroke=INK, sw=1.8))
+    f.append(text(mx + 45, my + 18, "I2C-mux", size=11, bold=True))
+    f.append(text(mx + 45, my + 33, "0x70", size=9, color=MUTED))
+    f.append(arrow(mx - 40, my + 20, mx, my + 20, color=I2C, sw=1.6))
+    f.append(text(mx - 42, my + 12, "одна шина", size=9, color=MUTED, anchor="end", italic=True))
+    for i in range(4):
+        yb = my - 30 + i * 30
+        f.append(arrow(mx + 90, my + 20, mx + 150, yb, color=I2C, sw=1.3))
+        f.append(rect(mx + 150, yb - 10, 88, 20, fill=BG, stroke=I2C, sw=1))
+        f.append(text(mx + 194, yb + 4, "0x68 давач", size=9, color=I2C))
+    f.append(fitbox(mx, my + 70, 250, 40,
+                    "Однакові адреси розводить мультиплексор: канали по черзі, кожен — «сам на шині».",
+                    size=10, color=INK, fill=FILL, stroke="#e0e0e0", sw=1))
+    render(os.path.join(IMG, "address-space.svg"), W, H, *f)
+
+
+# ── D4. Ціна SPI: лінії CS ростуть лінійно ───────────────────────────────────
+def fig_cs_blowup():
+    W, H = 760, 320
+    f = [text(W / 2, 26, "Ціна SPI: кожен пристрій — ще одна нога CS", size=16, bold=True)]
+
+    ox, oy = 90, 250
+    ax_w, ax_h = 560, 190
+    f.append(line(ox, oy, ox + ax_w, oy, color=INK, sw=1.5))
+    f.append(line(ox, oy, ox, oy - ax_h, color=INK, sw=1.5))
+    f.append(text(ox + ax_w, oy + 20, "число пристроїв N", size=11, color=MUTED, anchor="end", italic=True))
+    f.append(text(ox - 10, oy - ax_h + 4, "ніг", size=11, color=MUTED, anchor="end", bold=True))
+
+    nmax = 8
+    step = ax_w / nmax
+    scale = ax_h / 12.0
+
+    # I2C: стала лінія на 2
+    y2 = oy - 2 * scale
+    f.append(line(ox, y2, ox + ax_w, y2, color=I2C, sw=2.4))
+    f.append(text(ox + ax_w - 4, y2 - 8, "I2C: завжди 2", size=11, color=I2C, anchor="end", bold=True))
+
+    # SPI: 3 + N
+    pts = []
+    for n in range(0, nmax + 1):
+        pts.append("%.1f,%.1f" % (ox + n * step, oy - (3 + n) * scale))
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4"/>' % (" ".join(pts), SPI))
+    for n in range(0, nmax + 1):
+        f.append(circle(ox + n * step, oy - (3 + n) * scale, 3, fill=SPI, stroke=SPI, sw=1))
+    f.append(text(ox + ax_w - 4, oy - (3 + nmax) * scale - 8, "SPI: 3 + N", size=11, color=SPI, anchor="end", bold=True))
+
+    # шкала N
+    for n in range(0, nmax + 1, 2):
+        f.append(text(ox + n * step, oy + 16, str(n), size=9, color=MUTED))
+
+    f.append(fitbox(ox + 40, oy - ax_h + 24, 300, 48,
+                    "На кожен новий пристрій SPI просить окрему ногу CS. "
+                    "Порятунок: дешифратор чи GPIO-розширювач (log₂N ніг) або ланцюг (daisy-chain).",
+                    size=10, color=INK, fill=FILL, stroke="#e0e0e0", sw=1))
+    render(os.path.join(IMG, "cs-blowup.svg"), W, H, *f)
+
+
+# ── D5. Що насправді ловить контроль помилок ─────────────────────────────────
+def fig_error_reality():
+    W, H = 760, 330
+    f = [text(W / 2, 26, "Контроль помилок: що ACK ловить, а що ні", size=16, bold=True)]
+
+    # ліва колонка — I2C ACK
+    def col(x, title, ccol, catches, misses):
+        f.append(rect(x, 52, 336, 250, fill=FILL, stroke=ccol, sw=1.8))
+        f.append(text(x + 168, 76, title, size=13.5, color=ccol, bold=True))
+        f.append(line(x + 18, 88, x + 318, 88, color=ccol, sw=1.2))
+        f.append(text(x + 24, 110, "ловить:", size=11, anchor="start", bold=True, color=FIELD))
+        yy = 130
+        for it in catches:
+            f.append(text(x + 30, yy, "✓", size=11, color=FIELD, anchor="start", bold=True))
+            f.append(text(x + 46, yy, it, size=10.5, anchor="start"))
+            yy += 20
+        f.append(text(x + 24, yy + 6, "не ловить:", size=11, anchor="start", bold=True, color=POS))
+        yy += 26
+        for it in misses:
+            f.append(text(x + 30, yy, "✗", size=11, color=POS, anchor="start", bold=True))
+            f.append(text(x + 46, yy, it, size=10.5, anchor="start"))
+            yy += 20
+
+    col(24, "I2C: біт ACK на кожен байт", I2C,
+        ["чи є пристрій на адресі", "чи прийняв він байт", "обрив/відпад пристрою"],
+        ["чи ПРАВИЛЬНІ біти всередині", "спотворення завадою", "переплутаний регістр"])
+    col(400, "SPI: нічого вбудованого", SPI,
+        ["— (шина не квитує)"],
+        ["взагалі все — навіть відпад", "будь-яке спотворення біта", "потрібен свій CRC згори"])
+
+    f.append(text(W / 2, 322, "I2C ловить «пристрій живий і взяв байт», але не «байт правильний»; SPI — навіть цього не дає",
+                  size=10, color=MUTED, italic=True))
+    render(os.path.join(IMG, "error-reality.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_compare_table()
     fig_decision_tree()
@@ -275,4 +506,10 @@ if __name__ == "__main__":
     fig_three_buses()
     fig_pin_budget()
     fig_defaults()
-    print("OK: 7 figures ->", IMG)
+    # детальна:
+    fig_rc_ceiling()
+    fig_overhead()
+    fig_address_space()
+    fig_cs_blowup()
+    fig_error_reality()
+    print("OK: 7 base + 5 detailed figures ->", IMG)

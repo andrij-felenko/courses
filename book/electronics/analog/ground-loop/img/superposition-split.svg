@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Суперпозиція: спад на спільному Z — сума внесків кожного кола</text>
+<rect x="50.0" y="72.3" width="140.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="120.0" y="91.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">коло 1</tspan><tspan x="120.0" dy="14.3">струм I₁</tspan></text>
+<rect x="50.0" y="162.3" width="140.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="120.0" y="181.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">коло 2</tspan><tspan x="120.0" dy="14.3">струм I₂</tspan></text>
+<line x1="190.0" y1="95.0" x2="430.0" y2="95.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="190.0" y1="185.0" x2="430.0" y2="185.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="430.0" y1="95.0" x2="430.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="430.0" y1="185.0" x2="430.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<circle cx="430.0" cy="250.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="418.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">N</text>
+<line x1="250.0" y1="95.0" x2="282.0" y2="95.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="266.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">I₁</text>
+<line x1="250.0" y1="185.0" x2="282.0" y2="185.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="266.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">I₂</text>
+<polyline points="430.0,250.0 475.0,258.0 520.0,242.0 565.0,258.0 610.0,242.0 655.0,258.0 700.0,250.0" fill="none" stroke="#2457d6" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="565.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">спільний зворот  Z(ω)</text>
+<line x1="458.0" y1="250.0" x2="672.0" y2="250.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="565.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">I₁ + I₂</text>
+<line x1="700.0" y1="250.0" x2="700.0" y2="257.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="687.0" y1="257.0" x2="713.0" y2="257.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="692.0" y1="263.0" x2="708.0" y2="263.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="697.0" y1="269.0" x2="703.0" y2="269.0" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="120.0" y="320.0" width="580.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="410.0" y="348.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">V_N = (I₁ + I₂)·Z   →   у твій сигнал лізе чужий внесок I₁·Z.</tspan><tspan x="410.0" dy="15.6">Окремо: вимкни I₂ — лишиться I₁·Z; вимкни I₁ — лишиться I₂·Z; разом сума.</tspan><tspan x="410.0" dy="15.6">Тихе коло «бачить» Z як спільний член — звідси transfer impedance.</tspan></text>
+</svg>

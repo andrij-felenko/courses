@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронізація — вузьке місце: спершу знайти фазу, тоді втримати</text>
+<rect x="40.0" y="56.0" width="300.0" height="300.0" rx="8" fill="#fbfcfd" stroke="#dde3ea" stroke-width="1.3"/>
+<text x="190.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Захоплення (acquisition)</text>
+<text x="190.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ковзний корелятор пробує зсуви</text>
+<line x1="70.0" y1="300.0" x2="310.0" y2="300.0" stroke="#6b7280" stroke-width="1.1"/>
+<text x="190.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">зсув коду (чипи)</text>
+<rect x="67.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="77.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="87.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="97.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="107.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="117.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="127.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="137.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="147.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="157.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="167.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="177.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="187.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="197.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="207.0" y="150.0" width="7" height="150.0" fill="#27ae60"/>
+<rect x="217.0" y="150.0" width="7" height="150.0" fill="#27ae60"/>
+<rect x="227.0" y="150.0" width="7" height="150.0" fill="#27ae60"/>
+<rect x="237.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="247.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="257.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="267.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="277.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="287.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="297.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<rect x="307.0" y="282.0" width="7" height="18.0" fill="#cfd8dc"/>
+<text x="218.8" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">пік = знайшли фазу</text>
+<text x="118.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">тло: код «не в такт»</text>
+<line x1="348.0" y1="200.0" x2="388.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="368.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">зловили</text>
+<rect x="396.0" y="56.0" width="300.0" height="300.0" rx="8" fill="#fbfcfd" stroke="#dde3ea" stroke-width="1.3"/>
+<text x="546.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Стеження (tracking)</text>
+<text x="546.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">петля тримає фазу на вершині</text>
+<line x1="426.0" y1="300.0" x2="666.0" y2="300.0" stroke="#6b7280" stroke-width="1.1"/>
+<polyline points="436.0,300.0 546.0,150.0 656.0,300.0" fill="none" stroke="#27ae60" stroke-width="2.4"/>
+<circle cx="504.0" cy="207.3" r="4.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="504.0" y="197.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">рання</text>
+<circle cx="588.0" cy="207.3" r="4.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="588.0" y="225.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">пізня</text>
+<text x="546.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">вершина = точна фаза</text>
+<text x="546.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">рання=пізня → тримаємось у центрі</text>
+<rect x="110.0" y="366.0" width="500.0" height="26.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="360.0" y="382.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Схибив фазою більш ніж на пів-чипа — «свій» код уже не збирає сигнал, і виграш обробки зникає.</tspan></text>
+</svg>

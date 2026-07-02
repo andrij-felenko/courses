@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Круговий диспетчер: кожен крок сам віддає чергу</text>
+<circle cx="360.0" cy="180.0" r="44.0" fill="#eef6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="360.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">диспетчер</tspan><tspan x="360.0" dy="15.6">for(;;) крок()</tspan></text>
+<rect x="314.0" y="67.5" width="92.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="88.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">blink()</tspan></text>
+<line x1="360.0" y1="140.0" x2="360.0" y2="104.5" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="360.0" dy="0.0">перемкнув —</tspan><tspan x="360.0" dy="13.0">вихід</tspan></text>
+<rect x="397.1" y="211.5" width="92.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="443.1" y="232.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="443.1" dy="0.0">sensor()</tspan></text>
+<line x1="394.6" y1="200.0" x2="399.8" y2="217.8" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="513.1" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="513.1" dy="0.0">зняв —</tspan><tspan x="513.1" dy="13.0">вихід</tspan></text>
+<rect x="230.9" y="211.5" width="92.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="276.9" y="232.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="276.9" dy="0.0">uart()</tspan></text>
+<line x1="325.4" y1="200.0" x2="320.2" y2="217.8" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="206.9" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="206.9" dy="0.0">нема байта —</tspan><tspan x="206.9" dy="13.0">вихід</tspan></text>
+<text x="360.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">жоден крок не блокує: зробив своє — return; наступного оберту продовжить далі</text>
+</svg>

@@ -26,21 +26,42 @@
     algorithms: "Структури даних, складність, пошук, навчання машин.",
     philosophy: "Знання, буття, розум і добро — великі питання."
   };
+  // Курси — власні іконка, колір і опис (щоб не були однаково-зелені).
+  var GUIDE_ICON = { embedded: "🤖", "basic-chemistry": "⚗️" };
+  var GUIDE_ACCENT = { embedded: "#c1683f", "basic-chemistry": "#2f9e8f" };
+  var GUIDE_DESC = {
+    embedded: "Від заряду й струму до власного пристрою: фізика, схемотехніка, мікроконтролери й автономні системи — крок за кроком.",
+    "basic-chemistry": "Хімія для початківців: від атома й періодичної таблиці до реакцій, розчинів, органіки та розрахунків задач."
+  };
 
+  // Тема ІСНУЄ, якщо написана хоч одна версія (basic АБО detailed): статус не "empty"/"pending".
+  // Тема ЗАПЛАНОВАНА, якщо хоч одна версія не "empty".
+  function verReadable(v) { return !!(v && v.status && v.status !== "empty" && v.status !== "pending"); }
+  function verPlanned(v) { return !!(v && v.status && v.status !== "empty"); }
   function loadBook(slug) {
     return fetchText("book/" + slug + "/manifest.js").then(function (src) {
       var b = manifestObj(src, "__BOOKS__");
-      var topics = 0, done = 0;
-      ((b && b.sections) || []).forEach(function (sec) { (sec.topics || []).forEach(function (t) { var st = t.basic && t.basic.status; if (st !== "empty") topics++; if (st === "done") done++; }); });
-      return { slug: slug, title: (b && b.title) || slug, branches: ((b && b.sections) || []).length, topics: topics, done: done };
+      var planned = 0, exist = 0;
+      ((b && b.sections) || []).forEach(function (sec) {
+        (sec.topics || []).forEach(function (t) {
+          if (verPlanned(t.basic) || verPlanned(t.detailed)) planned++;
+          if (verReadable(t.basic) || verReadable(t.detailed)) exist++;
+        });
+      });
+      return { slug: slug, title: (b && b.title) || slug, branches: ((b && b.sections) || []).length, topics: planned, done: exist };
     });
   }
+  // Курси у двох схемах: нова (sections→topics) і стара (modules→chapters→steps).
   function loadGuide(slug) {
     return fetchText("guide/" + slug + "/manifest.js").then(function (src) {
       var g = manifestObj(src, "__GUIDES__");
-      var steps = 0;
-      ((g && g.modules) || []).forEach(function (m) { (m.chapters || []).forEach(function (c) { steps += (c.steps || []).length; }); });
-      return { slug: slug, title: (g && g.title) || slug, modules: ((g && g.modules) || []).length, steps: steps };
+      var mods = (g && (g.sections || g.modules)) || [];
+      var steps = 0, chapters = 0;
+      mods.forEach(function (m) {
+        if (m.chapters && m.chapters.length) m.chapters.forEach(function (c) { chapters++; steps += (c.steps || []).length; });
+        else steps += (m.topics || []).length;
+      });
+      return { slug: slug, title: (g && g.title) || slug, modules: mods.length, chapters: chapters, steps: steps };
     });
   }
 
@@ -64,20 +85,30 @@
       '</div></a>';
   }
   function guideCard(g) {
-    return '<a class="lib-card lib-card-guide" href="read.html?guide=' + esc(g.slug) + '" style="--accent:#16a34a">' +
-      '<div class="lib-cover"><span class="lib-ico">🎓</span><span class="lib-cover-ttl">' + esc(g.title) + '</span></div>' +
-      '<div class="lib-body"><p class="lib-desc">Курс — доріжка крізь предметні книги, що веде темами по черзі й сплітає їх у навчання.</p>' +
-      '<div class="lib-foot"><span class="lib-modnote">' + g.modules + ' модулів · ' + g.steps + ' кроків</span>' +
+    var accent = GUIDE_ACCENT[g.slug] || "#16a34a";
+    var ico = GUIDE_ICON[g.slug] || "🎓";
+    var desc = GUIDE_DESC[g.slug] || "Курс — доріжка крізь предметні книги, що веде темами по черзі й сплітає їх у навчання.";
+    var chaptersRow = g.chapters ? '<div class="lib-stat-row"><span class="lib-stat-k">Розділи</span><span class="lib-stat-v">' + g.chapters + '</span></div>' : "";
+    return '<a class="lib-card lib-card-guide" href="read.html?guide=' + esc(g.slug) + '" style="--accent:' + accent + '">' +
+      '<div class="lib-cover"><span class="lib-kind">Курс</span><span class="lib-ico">' + ico + '</span>' +
+      '<span class="lib-cover-ttl">' + esc(g.title) + '</span></div>' +
+      '<div class="lib-body"><p class="lib-desc">' + esc(desc) + '</p>' +
+      '<div class="lib-stats">' +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Модулі</span><span class="lib-stat-v">' + g.modules + '</span></div>' +
+        chaptersRow +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Теми</span><span class="lib-stat-v">' + g.steps + '</span></div>' +
+      '</div>' +
+      '<div class="lib-foot"><span class="lib-modnote">Доріжка крізь книги</span>' +
       '<span class="lib-cta">Пройти →</span></div></div></a>';
   }
 
   function render(books, guides) {
     var h = '<header class="lib-hero"><div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
-      '<p>Предметні <b>книги</b> — теорія за галузями науки; <b>курси</b> — доріжки, що сплітають теми в навчання.</p>' +
-      '<div class="lib-tabs"><button class="lib-tab active" data-tab="books">📚 Книги (' + books.length + ')</button>' +
-      '<button class="lib-tab" data-tab="guides">🎓 Курси (' + guides.length + ')</button></div></header>';
-    h += '<div class="lib-shelf" id="tab-books">' + books.map(bookCard).join("") + '</div>';
-    h += '<div class="lib-shelf" id="tab-guides" hidden>' + guides.map(guideCard).join("") + '</div>';
+      '<p><b>Курси</b> — доріжки, що ведуть темами по черзі й сплітають їх у навчання; предметні <b>книги</b> — теорія за галузями науки.</p>' +
+      '<div class="lib-tabs"><button class="lib-tab active" data-tab="guides">🎓 Курси (' + guides.length + ')</button>' +
+      '<button class="lib-tab" data-tab="books">📚 Книги (' + books.length + ')</button></div></header>';
+    h += '<div class="lib-shelf" id="tab-guides">' + guides.map(guideCard).join("") + '</div>';
+    h += '<div class="lib-shelf" id="tab-books" hidden>' + books.map(bookCard).join("") + '</div>';
     root.innerHTML = h;
     document.title = "Бібліотека — мої книги";
     var tabs = [].slice.call(root.querySelectorAll(".lib-tab"));

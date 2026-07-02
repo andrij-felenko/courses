@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тепловий ланцюг: як потужність-грійка піднімає температуру переходу</text>
+<circle cx="90.0" cy="130.0" r="30.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="90.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Tj</text>
+<text x="90.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Перехід</text>
+<circle cx="300.0" cy="130.0" r="30.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="300.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Tc</text>
+<text x="300.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Корпус</text>
+<circle cx="510.0" cy="130.0" r="30.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="510.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ts</text>
+<text x="510.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Радіатор</text>
+<circle cx="720.0" cy="130.0" r="30.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="720.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Ta</text>
+<text x="720.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Повітря</text>
+<line x1="120.0" y1="130.0" x2="270.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="195.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">θ(j-c)</text>
+<text x="195.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">перехід→корпус</text>
+<line x1="330.0" y1="130.0" x2="480.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="405.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">θ(c-s)</text>
+<text x="405.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">корпус→радіатор</text>
+<line x1="540.0" y1="130.0" x2="690.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="615.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">θ(s-a)</text>
+<text x="615.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">радіатор→повітря</text>
+<text x="90.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">P = Vce·Ic</text>
+<rect x="90.0" y="200.0" width="660.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="221.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Tj = Ta + P · (θjc + θcs + θsa).   Опори θ (°C/Вт) складаються послідовно, як у колі.</tspan><tspan x="420.0" dy="14.3">Радіатор зменшує ОСТАННЮ ланку θsa — і весь ланцюг холоне. Без радіатора θca велике → Tj злітає.</tspan></text>
+</svg>

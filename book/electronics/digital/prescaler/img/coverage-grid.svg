@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S ковзає 0…P−1 → коефіцієнт росте по одиниці, без пропусків</text>
+<line x1="70.0" y1="150.0" x2="710.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="708.0" y1="150.0" x2="730.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="734.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">поділ</text>
+<line x1="110.0" y1="143.0" x2="110.0" y2="157.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="110.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">N·P</text>
+<text x="110.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">S=0</text>
+<line x1="162.0" y1="143.0" x2="162.0" y2="157.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="162.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">N·P+1</text>
+<text x="162.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">S=1</text>
+<line x1="214.0" y1="143.0" x2="214.0" y2="157.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="214.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">N·P+2</text>
+<text x="214.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">S=2</text>
+<text x="266.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">…</text>
+<line x1="318.0" y1="143.0" x2="318.0" y2="157.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="318.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">N·P+(P−1)</text>
+<text x="318.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">S=P−1</text>
+<line x1="370.0" y1="143.0" x2="370.0" y2="157.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="370.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">N·(P+1)</text>
+<text x="370.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">S=0, P+1</text>
+<text x="344.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">стик: N·P+(P−1)+1 = N·P+P = N·(P+1)  ⟺  сусідні блоки P змикаються без діри</text>
+<rect x="150.0" y="228.0" width="480.0" height="74.0" rx="6" fill="#eef2fd" stroke="#2457d6" stroke-width="1.8"/><text x="390.0" y="255.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">щоб блоки P змикалися без пропуску, крок S має покрити стрибок по P:</tspan><tspan x="390.0" dy="13.0">діапазон S (0…P−1) завширшки P  ≥  крок по P, що дорівнює N</tspan><tspan x="390.0" dy="13.0">⟹  умова неперервності:  P ≥ N   (мінімальний суцільний поділ ≈ N·(N−1))</tspan></text>
+</svg>

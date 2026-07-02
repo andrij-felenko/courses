@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<defs><marker id="aInk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1a1a1a"/></marker><marker id="aPos" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker><marker id="aFld" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один перекіс — дві протилежні межі: вікно безпечного skew</text>
+<line x1="104.0" y1="195.0" x2="690.0" y2="195.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="690.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">t_skew →</text>
+<text x="102.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">slack</text>
+<text x="102.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">0</text>
+<line x1="120.0" y1="89.4" x2="680.0" y2="223.8" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="120.0" y1="246.6" x2="680.0" y2="112.2" stroke="#2457d6" stroke-width="2.4"/>
+<text x="124.0" y="81.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">hold slack = C₁ − t_skew</text>
+<text x="676.0" y="104.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">setup slack = C₂ + t_skew</text>
+<circle cx="560.0" cy="195.0" r="4.5" fill="#c0392b"/>
+<circle cx="335.0" cy="195.0" r="4.5" fill="#2457d6"/>
+<line x1="560.0" y1="70.0" x2="560.0" y2="300.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2 3"/>
+<line x1="335.0" y1="70.0" x2="335.0" y2="300.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2 3"/>
+<text x="564.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">hold=0</text>
+<text x="331.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end">setup=0</text>
+<rect x="335.0" y="70.0" width="225.0" height="230.0" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3" rx="4"/>
+<text x="447.5" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">обидва запаси ≥ 0</text>
+<rect x="120.0" y="336.0" width="520.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="380.0" y="355.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Праворуч по осі — виграєш setup, програєш hold; ліворуч — навпаки.</tspan><tspan x="380.0" dy="15.0">Безпечно лише там, де жодна пряма ще не пірнула під нуль.</tspan></text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 366" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="366" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дисципліна часу: входи — на спаді, вихід — трохи після наростного фронту</text>
+<path d="M90.0 156.0 L254.5 156.0 L254.5 96.0 L419.0 96.0 L419.0 156.0 L583.5 156.0 L583.5 96.0 L748.0 96.0" fill="none" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="68.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">clk</text>
+<line x1="254.5" y1="54.0" x2="254.5" y2="254.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 3"/>
+<line x1="583.5" y1="54.0" x2="583.5" y2="254.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text x="254.5" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">↑ФРОНТ: DUT защіпує count</text>
+<text x="583.5" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">↑ФРОНТ</text>
+<line x1="419.0" y1="72.0" x2="419.0" y2="254.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text x="419.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">↓спад: безпечна зона</text>
+<line x1="419.0" y1="278.0" x2="419.0" y2="254.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="311.0" y="280.0" width="216.0" height="48.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="419.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="419.0" dy="0.0">МІНЯЄМО ВХОДИ тут (rst, en)</tspan><tspan x="419.0" dy="12.3">у протифазі → вхід устоявся</tspan><tspan x="419.0" dy="12.3">до наступного ↑, без гонки</tspan></text>
+<circle cx="608.2" cy="96.0" r="4.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<line x1="608.2" y1="278.0" x2="608.2" y2="104.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="568.2" y="280.0" width="210.0" height="48.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="673.2" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="673.2" dy="0.0">ЧИТАЄМО count тут — трохи ПІСЛЯ</tspan><tspan x="673.2" dy="12.3">↑, коли &lt;= вже защіпнув. На самому</tspan><tspan x="673.2" dy="12.3">↑ → старе значення → off-by-one</tspan></text>
+</svg>

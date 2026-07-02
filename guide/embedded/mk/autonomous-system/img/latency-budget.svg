@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час як фізична сила: з чого складається затримка петлі</text>
+<defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2457d6"/></marker><marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker></defs>
+<text x="460.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">затримка від вибірки давача до дії команди з'їдає запас стійкості</text>
+<line x1="80.0" y1="150.0" x2="840.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="80.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">вибірка давача (t)</text>
+<text x="840.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">команда діє (t + τ_з)</text>
+<line x1="80.0" y1="142.0" x2="80.0" y2="158.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="840.0" y1="142.0" x2="840.0" y2="158.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="83.0" y="176.0" width="214.0" height="66.0" rx="10" fill="#eef2ff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="190.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ОБЧИСЛЕННЯ</text>
+<text x="190.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">читання шини + оцінювач + ПІД</text>
+<rect x="303.0" y="176.0" width="214.0" height="66.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="410.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ПІВ ТАКТУ  Δt/2</text>
+<text x="410.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">команда тримається весь такт (ZOH)</text>
+<rect x="523.0" y="176.0" width="314.0" height="66.0" rx="10" fill="#fff5e6" stroke="#d98a00" stroke-width="1.7"/>
+<text x="680.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="700">МЕХАНІКА</text>
+<text x="680.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">інерція мотора / серво</text>
+<line x1="80.0" y1="262.0" x2="840.0" y2="262.0" stroke="#6b7280" stroke-width="1.3"/>
+<text x="460.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">повна затримка  τ_з = τ_обч + Δt/2 + τ_мех</text>
+<rect x="150.0" y="306.0" width="620.0" height="92.0" rx="11" fill="#f4f4f5" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="460.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">фазовий зсув від затримки:   Δφ = 2π · f · τ_з</text>
+<text x="460.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">віднімається від запасу фази; коли Δφ дійде 180° — «гальмо» стає «газом»</text>
+<text x="460.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">гранична затримка:   τ_з ≈ запас_фази / (2π · f_зрізу)</text>
+<text x="460.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Підняти частоту петлі — зменшити середній сегмент (Δt/2); будь-який сплеск обчислень роздуває лівий і краде стійкість.</text>
+</svg>

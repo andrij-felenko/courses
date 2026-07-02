@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Читання «0»: подільник напруги піднімає нульовий вузол</text>
+<rect x="30.0" y="52.0" width="340.0" height="300.0" rx="6" fill="#fcfcfd" stroke="#e6e6ea" stroke-width="1.4"/>
+<line x1="200.0" y1="70.0" x2="200.0" y2="100.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="200.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">біт-лінія ≈ Vdd</text>
+<rect x="166.0" y="100.0" width="68.0" height="40.0" rx="6" fill="#fdf6f6" stroke="#c0392b" stroke-width="1.8"/>
+<text x="200.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Rдост</text>
+<line x1="148.0" y1="120.0" x2="166.0" y2="120.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="144.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="end">WL</text>
+<line x1="200.0" y1="140.0" x2="200.0" y2="176.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="200.0" cy="158.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="212.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">вузол «0»: Vчит</text>
+<rect x="166.0" y="176.0" width="68.0" height="40.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="200.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Rтяг</text>
+<text x="160.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end">«1» на</text>
+<text x="160.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end">затворі</text>
+<line x1="200.0" y1="216.0" x2="200.0" y2="246.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="178.0" y1="246.0" x2="222.0" y2="246.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="186.0" y1="251.0" x2="214.0" y2="251.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="193.0" y1="256.0" x2="207.0" y2="256.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="200.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">земля (0 В)</text>
+<text x="200.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle" font-style="italic">струм тече з біт-лінії крізь обидва опори в землю</text>
+<text x="200.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle" font-style="italic">→ на середньому вузлі осідає Vчит &gt; 0</text>
+<rect x="400.0" y="70.0" width="390.0" height="210.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/><text x="595.0" y="114.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="595.0" dy="0.0">Подільник (лінійне наближення):</tspan><tspan x="595.0" dy="14.3">  Vчит ≈ Vdd · Rтяг / (Rдост + Rтяг)</tspan><tspan x="595.0" dy="14.3"></tspan><tspan x="595.0" dy="14.3">Уведемо відношення комірки r = Rдост/Rтяг</tspan><tspan x="595.0" dy="14.3">  (r ≈ (W/L)тяг / (W/L)дост):</tspan><tspan x="595.0" dy="14.3">  Vчит ≈ Vdd / (1 + r)</tspan><tspan x="595.0" dy="14.3"></tspan><tspan x="595.0" dy="14.3">r велике (широкий pull-down) → Vчит малий</tspan><tspan x="595.0" dy="14.3">  → лопать майже не тисне → SNM більший.</tspan><tspan x="595.0" dy="14.3">r ≈ 1 → Vчит ≈ Vdd/2 → лопать змикається.</tspan></text>
+<line x1="430.0" y1="300.0" x2="430.0" y2="240.0" stroke="#6b7280" stroke-width="1.1"/>
+<line x1="430.0" y1="300.0" x2="760.0" y2="300.0" stroke="#6b7280" stroke-width="1.1"/>
+<text x="424.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end">Vчит</text>
+<text x="760.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">r</text>
+<polyline points="430.0,240.0 435.5,242.9 441.0,245.5 446.5,247.8 452.0,250.0 457.5,252.0 463.0,253.8 468.5,255.6 474.0,257.1 479.5,258.6 485.0,260.0 490.5,261.3 496.0,262.5 501.5,263.6 507.0,264.7 512.5,265.7 518.0,266.7 523.5,267.6 529.0,268.4 534.5,269.2 540.0,270.0 545.5,270.7 551.0,271.4 556.5,272.1 562.0,272.7 567.5,273.3 573.0,273.9 578.5,274.5 584.0,275.0 589.5,275.5 595.0,276.0 600.5,276.5 606.0,276.9 611.5,277.4 617.0,277.8 622.5,278.2 628.0,278.6 633.5,278.9 639.0,279.3 644.5,279.7 650.0,280.0 655.5,280.3 661.0,280.6 666.5,281.0 672.0,281.2 677.5,281.5 683.0,281.8 688.5,282.1 694.0,282.4 699.5,282.6 705.0,282.9 710.5,283.1 716.0,283.3 721.5,283.6 727.0,283.8 732.5,284.0 738.0,284.2 743.5,284.4 749.0,284.6 754.5,284.8 760.0,285.0" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="677.5" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#c0392b" text-anchor="middle">спадає з r</text>
+<text x="410.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">У режимі читання нульовий вузол через відкритий транзистор доступу з'єднаний з високою біт-лінією; поділ між Rдост і Rтяг тримає його вище нуля — саме це підняття стискає лопать метелика.</text>
+</svg>

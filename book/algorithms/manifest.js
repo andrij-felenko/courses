@@ -110,7 +110,7 @@
         { slug: "cnn", title: "Згорткові мережі", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-lecun-cnn.md", status: "done" }] },
         { slug: "overfitting", title: "Перенавчання", basic: { status: "done" }, detailed: { status: "pending" } },
         { slug: "tinyml", title: "TinyML", basic: { status: "done" }, detailed: { status: "pending" } },
-        { slug: "ml-limits-ethics", title: "Межі й етика", basic: { status: "recheck" }, detailed: { status: "empty" } },
+        { slug: "ml-limits-ethics", title: "Межі й етика", basic: { status: "update" }, detailed: { status: "empty" } },
         { slug: "transfer-learning", title: "Transfer learning (перенесення навчання)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "anchor-boxes", title: "Якорі та кодування рамок", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "model-quantization", title: "Квантування нейромереж", basic: { status: "pending" }, detailed: { status: "empty" } },
@@ -277,6 +277,7 @@
         { slug: "acceleration-profile", title: "Профілі розгону привода", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "cycle-counting-palmgren-miner", title: "Rainflow і правило Майнера", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "welford-online", title: "Онлайн-алгоритм Велфорда", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "pole-zero-plot", title: "Площина полюсів-нулів", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "parallel-distributed", title: "Паралельні", scope: "Одночасне виконання на багатьох процесорах зі спільною пам'яттю та системи незалежних вузлів з обміном повідомленнями: примітиви, синхронізація, консенсус, відмовостійкість.",
       topics: [

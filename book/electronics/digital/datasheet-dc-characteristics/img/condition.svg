@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому в таблиці два рядки VOH: рівень залежить від струму</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">вихід — не ідеальне джерело, а транзистор з опором; більший струм — більше падіння</text>
+<line x1="120.0" y1="320.0" x2="680.0" y2="320.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="120.0" y1="320.0" x2="120.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="670.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">струм навантаження |IOH|, мА</text>
+<text x="20.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">VOH на виході, В</text>
+<line x1="120.0" y1="110.0" x2="680.0" y2="110.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="680.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">VCC = 4.5 В</text>
+<line x1="120.0" y1="181.4" x2="680.0" y2="181.4" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="6,4"/>
+<text x="126.0" y="175.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">VIH приймача = 3.15 В — нижче цього «1» вже не читається</text>
+<path d="M 121.4 126.4 L 190.0 135.2 L 260.0 141.8 L 400.0 151.0 L 540.0 166.0 L 680.0 188.0" fill="none" stroke="#2457d6" stroke-width="2.6"/>
+<text x="125.4" y="118.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">VOH</text>
+<circle cx="121.4" cy="126.4" r="5.0" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<text x="129.4" y="130.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">−20 мкА → 4.4 В</text>
+<circle cx="400.0" cy="151.0" r="5.0" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<text x="408.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">−4 мА → 3.84 В</text>
+<line x1="120.0" y1="320.0" x2="120.0" y2="325.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="120.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<line x1="260.0" y1="320.0" x2="260.0" y2="325.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="260.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2</text>
+<line x1="400.0" y1="320.0" x2="400.0" y2="325.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="400.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">4</text>
+<line x1="540.0" y1="320.0" x2="540.0" y2="325.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="540.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">6</text>
+<line x1="680.0" y1="320.0" x2="680.0" y2="325.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="680.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">8</text>
+<rect x="420.0" y="170.0" width="250.0" height="96.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="545.0" y="195.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="545.0" dy="0.0">Тягнеш більше струму —</tspan><tspan x="545.0" dy="13.0">«1» просідає до порога.</tspan><tspan x="545.0" dy="13.0">За ~8 мА VOH падає до 3.0 В —</tspan><tspan x="545.0" dy="13.0">запас над VIH майже з'їдено.</tspan><tspan x="545.0" dy="13.0">Тому межу беруть за СВІЙ струм.</tspan></text>
+</svg>

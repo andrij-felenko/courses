@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">AVR: Flash словами, Z байтовий, LPM бере байт коду в дані</text>
+<text x="420.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Flash програми — слова по 16 біт; кожне слово = два байти</text>
+<rect x="120.0" y="96.0" width="150.0" height="56.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="195.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">слово 0</text>
+<line x1="195.0" y1="126.0" x2="195.0" y2="152.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="157.5" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">байт 0</text>
+<text x="232.5" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">байт 1</text>
+<rect x="290.0" y="96.0" width="150.0" height="56.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="365.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">слово 1</text>
+<line x1="365.0" y1="126.0" x2="365.0" y2="152.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="327.5" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">байт 2</text>
+<text x="402.5" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">байт 3</text>
+<rect x="460.0" y="96.0" width="150.0" height="56.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="535.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">слово 2</text>
+<line x1="535.0" y1="126.0" x2="535.0" y2="152.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="497.5" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">байт 4</text>
+<text x="572.5" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">байт 5</text>
+<rect x="65.0" y="196.8" width="190.0" height="46.5" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="160.0" y="216.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Z-покажчик</tspan><tspan x="160.0" dy="15.0">(байтова адреса)</tspan></text>
+<text x="160.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">старші біти → слово · молодший біт → який байт</text>
+<rect x="485.0" y="203.5" width="150.0" height="33.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="224.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">LPM Rd, Z</tspan></text>
+<line x1="258.0" y1="214.0" x2="484.0" y2="214.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="370.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">окрема команда в простір КОДУ</text>
+<rect x="485.0" y="276.8" width="150.0" height="46.5" rx="6" fill="#f6f7f9" stroke="#1a1a1a" stroke-width="1.5"/><text x="560.0" y="296.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">регістр даних</tspan><tspan x="560.0" dy="15.0">(один байт)</tspan></text>
+<line x1="560.0" y1="244.0" x2="560.0" y2="276.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="420.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звичайний покажчик читав би простір ДАНИХ за тим самим числом — там інше. Код дістаємо лише LPM.</text>
+</svg>

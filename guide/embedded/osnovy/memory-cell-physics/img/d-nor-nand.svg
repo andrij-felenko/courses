@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві архітектури масиву: NOR (паралель) vs NAND (низка)</text>
+<rect x="30.0" y="56.0" width="380.0" height="300.0" rx="6" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.7"/>
+<text x="220.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">NOR: кожна комірка — прямо на біт-лінії</text>
+<line x1="360.0" y1="100.0" x2="360.0" y2="300.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="366.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">біт-лінія</text>
+<line x1="70.0" y1="100.0" x2="70.0" y2="300.0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="64.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">земля</text>
+<rect x="210.0" y="126.0" width="60.0" height="28.0" rx="6" fill="#fff2cc" stroke="#b9770e" stroke-width="1.6"/>
+<text x="240.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#b9770e" text-anchor="middle" font-weight="700">комір.</text>
+<line x1="70.0" y1="140.0" x2="210.0" y2="140.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="270.0" y1="140.0" x2="360.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="240.0" y1="110.0" x2="240.0" y2="126.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="240.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle">WL0</text>
+<rect x="210.0" y="186.0" width="60.0" height="28.0" rx="6" fill="#fff2cc" stroke="#b9770e" stroke-width="1.6"/>
+<text x="240.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#b9770e" text-anchor="middle" font-weight="700">комір.</text>
+<line x1="70.0" y1="200.0" x2="210.0" y2="200.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="270.0" y1="200.0" x2="360.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="240.0" y1="170.0" x2="240.0" y2="186.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="240.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle">WL1</text>
+<rect x="210.0" y="246.0" width="60.0" height="28.0" rx="6" fill="#fff2cc" stroke="#b9770e" stroke-width="1.6"/>
+<text x="240.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#b9770e" text-anchor="middle" font-weight="700">комір.</text>
+<line x1="70.0" y1="260.0" x2="210.0" y2="260.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="270.0" y1="260.0" x2="360.0" y2="260.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="240.0" y1="230.0" x2="240.0" y2="246.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="240.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle">WL2</text>
+<text x="220.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">читаєш одну — струм тече прямо крізь неї → ШВИДКИЙ ДОСТУП</text>
+<text x="220.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">але кожна комірка потребує контакту → комірка більша</text>
+<rect x="430.0" y="56.0" width="380.0" height="300.0" rx="6" fill="#fff8e8" stroke="#b9770e" stroke-width="1.7"/>
+<text x="620.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">NAND: комірки нанизані в один ланцюг</text>
+<line x1="620.0" y1="104.0" x2="620.0" y2="122.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="620.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">біт-лінія</text>
+<rect x="594.0" y="130.0" width="52.0" height="24.0" rx="6" fill="#fff2cc" stroke="#b9770e" stroke-width="1.5"/>
+<line x1="576.0" y1="142.0" x2="594.0" y2="142.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="572.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="end">WL0</text>
+<line x1="620.0" y1="154.0" x2="620.0" y2="164.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="594.0" y="164.0" width="52.0" height="24.0" rx="6" fill="#fff2cc" stroke="#b9770e" stroke-width="1.5"/>
+<line x1="576.0" y1="176.0" x2="594.0" y2="176.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="572.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="end">WL1</text>
+<line x1="620.0" y1="188.0" x2="620.0" y2="198.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="594.0" y="198.0" width="52.0" height="24.0" rx="6" fill="#fff2cc" stroke="#b9770e" stroke-width="1.5"/>
+<line x1="576.0" y1="210.0" x2="594.0" y2="210.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="572.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="end">WL2</text>
+<line x1="620.0" y1="222.0" x2="620.0" y2="232.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="594.0" y="232.0" width="52.0" height="24.0" rx="6" fill="#fff2cc" stroke="#b9770e" stroke-width="1.5"/>
+<line x1="576.0" y1="244.0" x2="594.0" y2="244.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="572.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="end">WL3</text>
+<line x1="620.0" y1="256.0" x2="620.0" y2="266.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="594.0" y="266.0" width="52.0" height="24.0" rx="6" fill="#fff2cc" stroke="#b9770e" stroke-width="1.5"/>
+<line x1="576.0" y1="278.0" x2="594.0" y2="278.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="572.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="end">WL4</text>
+<line x1="620.0" y1="300.0" x2="620.0" y2="312.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="620.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">земля</text>
+<text x="620.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">нема контактів між комірками → найщільніше, найдешевше;</text>
+<text x="620.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle" font-style="italic">але доступ лише цілими сторінками/блоками, не по байту</text>
+<text x="420.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">NOR: паралель — швидке довільне читання, можна виконувати код на місці (програма МК). NAND: низка — гранична щільність, доступ блоками (масові дані, SSD, флешки).</text>
+</svg>

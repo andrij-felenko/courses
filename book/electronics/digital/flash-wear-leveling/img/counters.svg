@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як контролер це робить: у кожного блока — лічильник стирань, і вибір іде за ним</text>
+<text x="90.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">лічильник стирань кожного блока (у RAM/службовій ділянці)</text>
+<rect x="90.0" y="84.0" width="150.0" height="40.0" rx="4" fill="#a23e4c" opacity="0.85" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="102.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#fff" text-anchor="start" font-weight="700">блок 0</text>
+<text x="228.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#fff" text-anchor="end" font-weight="700">812</text>
+<rect x="90.0" y="136.0" width="150.0" height="40.0" rx="4" fill="#2b55cd" opacity="0.85" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="102.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#fff" text-anchor="start" font-weight="700">блок 1</text>
+<text x="228.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#fff" text-anchor="end" font-weight="700">47</text>
+<rect x="90.0" y="188.0" width="150.0" height="40.0" rx="4" fill="#9f3f4f" opacity="0.85" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="102.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#fff" text-anchor="start" font-weight="700">блок 2</text>
+<text x="228.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#fff" text-anchor="end" font-weight="700">790</text>
+<rect x="90.0" y="240.0" width="150.0" height="40.0" rx="4" fill="#a03f4e" opacity="0.85" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="102.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#fff" text-anchor="start" font-weight="700">блок 3</text>
+<text x="228.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#fff" text-anchor="end" font-weight="700">805</text>
+<rect x="90.0" y="292.0" width="150.0" height="40.0" rx="4" fill="#2b55cd" opacity="0.85" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="102.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#fff" text-anchor="start" font-weight="700">блок 4</text>
+<text x="228.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#fff" text-anchor="end" font-weight="700">51</text>
+<rect x="352.2" y="84.2" width="195.6" height="59.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="450.0" y="103.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle"><tspan x="450.0" dy="0.0">Новий запис →</tspan><tspan x="450.0" dy="14.3">брати блок із НАЙМЕНШИМ</tspan><tspan x="450.0" dy="14.3">лічильником (тут блок 1: 47)</tspan></text>
+<rect x="361.6" y="177.1" width="176.8" height="73.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="450.0" y="196.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="450.0" dy="0.0">Розрив завеликий?</tspan><tspan x="450.0" dy="14.3">(812 − 47 = 765 ≫ порога)</tspan><tspan x="450.0" dy="14.3">→ переселити холодні дані</tspan><tspan x="450.0" dy="14.3">з блока-ветерана у свіжий</tspan></text>
+<rect x="355.4" y="311.4" width="189.3" height="45.3" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="330.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="450.0" dy="0.0">Мета: тримати max − min</tspan><tspan x="450.0" dy="14.3">лічильників у вузькій смузі</tspan></text>
+<line x1="50.0" y1="346.0" x2="710.0" y2="346.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="380.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">лічильник — це «пробіг» блока; вирівнювання = не давати одним блокам обганяти інші</text>
+</svg>

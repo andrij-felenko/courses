@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звідки береться виграш: короткий чип = широкий спектр</text>
+<text x="64.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">у часі</text>
+<line x1="70.0" y1="130.0" x2="690.0" y2="130.0" stroke="#6b7280" stroke-width="1.1"/>
+<rect x="70.0" y="90.0" width="620.0" height="26" rx="3" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="380.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">один біт даних — тривалість T_b</text>
+<rect x="70.0" y="138.0" width="62.0" height="16" fill="#2457d6" stroke="#ffffff" stroke-width="1"/>
+<rect x="132.0" y="138.0" width="62.0" height="16" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+<rect x="194.0" y="138.0" width="62.0" height="16" fill="#2457d6" stroke="#ffffff" stroke-width="1"/>
+<rect x="256.0" y="138.0" width="62.0" height="16" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+<rect x="318.0" y="138.0" width="62.0" height="16" fill="#2457d6" stroke="#ffffff" stroke-width="1"/>
+<rect x="380.0" y="138.0" width="62.0" height="16" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+<rect x="442.0" y="138.0" width="62.0" height="16" fill="#2457d6" stroke="#ffffff" stroke-width="1"/>
+<rect x="504.0" y="138.0" width="62.0" height="16" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+<rect x="566.0" y="138.0" width="62.0" height="16" fill="#2457d6" stroke="#ffffff" stroke-width="1"/>
+<rect x="628.0" y="138.0" width="62.0" height="16" fill="#c0392b" stroke="#ffffff" stroke-width="1"/>
+<text x="380.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">той самий біт, подрібнений на N чипів — кожен коротший у N разів (T_c = T_b / N)</text>
+<line x1="380.0" y1="190.0" x2="380.0" y2="222.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="470.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">коротше в часі → ширше в спектрі</text>
+<text x="64.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">у спектрі</text>
+<line x1="70.0" y1="350.0" x2="690.0" y2="350.0" stroke="#6b7280" stroke-width="1.1"/>
+<text x="380.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">частота</text>
+<rect x="357.0" y="260.0" width="46" height="90" rx="3" fill="#eef6ef" stroke="#27ae60" stroke-width="2"/>
+<text x="380.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">спектр біта: вузький, W_дані</text>
+<rect x="100.0" y="326.0" width="560.0" height="24" rx="3" fill="#fbeeee" stroke="#c0392b" stroke-width="1.6"/>
+<text x="380.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">спектр чипів: у N разів ширший, W_розш = N · W_дані</text>
+<line x1="100.0" y1="356.0" x2="660.0" y2="356.0" stroke="#6b7280" stroke-width="1" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<rect x="190.0" y="280.0" width="380.0" height="30.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="380.0" y="298.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">виграш = W_розш / W_дані = T_b / T_c = N (число чипів на біт)</tspan></text>
+</svg>

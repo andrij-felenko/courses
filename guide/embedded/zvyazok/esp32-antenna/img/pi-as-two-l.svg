@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">П-ланка = дві Г-ланки, склеєні через віртуальний опір</text>
+<text x="470.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">кожна половина знижує свій кінець до спільного R_вірт; що глибше R_вірт — то вища Q і вужча смуга</text>
+<circle cx="150.0" cy="250.0" r="30.0" fill="#fcfcfc" stroke="#2457d6" stroke-width="2.2"/>
+<text x="150.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">R_дж</text>
+<text x="150.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">≈ 30 Ω</text>
+<circle cx="790.0" cy="250.0" r="30.0" fill="#fcfcfc" stroke="#27ae60" stroke-width="2.2"/>
+<text x="790.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">R_н</text>
+<text x="790.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">≈ 50 Ω</text>
+<circle cx="470.0" cy="370.0" r="30.0" fill="#fcfcfc" stroke="#b9770e" stroke-width="2.2"/>
+<text x="470.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700">R_вірт</text>
+<text x="470.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">&lt; 30 Ω</text>
+<line x1="178.0" y1="260.0" x2="448.0" y2="358.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="247.1" y="251.1" width="85.8" height="57.8" rx="6" fill="#f4f7ff" stroke="#2457d6" stroke-width="1.3"/><text x="290.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">Г-ланка №1</tspan><tspan x="290.0" dy="13.7">знижує 30 Ω</tspan><tspan x="290.0" dy="13.7">до R_вірт</tspan></text>
+<line x1="492.0" y1="358.0" x2="762.0" y2="260.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="595.1" y="251.1" width="109.8" height="57.8" rx="6" fill="#f2fbf5" stroke="#27ae60" stroke-width="1.3"/><text x="650.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">Г-ланка №2</tspan><tspan x="650.0" dy="13.7">піднімає R_вірт</tspan><tspan x="650.0" dy="13.7">до 50 Ω</tspan></text>
+<line x1="880.0" y1="110.0" x2="880.0" y2="400.0" stroke="#6b7280" stroke-width="1.6"/>
+<text x="886.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Q мала</text>
+<text x="886.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">смуга широка</text>
+<text x="886.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Q велика</text>
+<text x="886.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">смуга вузька</text>
+<path d="M 880,120 L 880,395" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="72.2" y="399.5" width="675.7" height="61.1" rx="6" fill="#fcfcfc" stroke="#6b7280" stroke-width="1.3"/><text x="410.0" y="420.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Проміжний R_вірт — вільний параметр, якого в Г-ланці нема. Обираючи його ГЛИБШЕ за обидва кінці,</tspan><tspan x="410.0" dy="13.4">піднімаємо перепад кожної половини, а з ним і сумарну Q; вужчаючи, це і є плата за керовану смугу.</tspan><tspan x="410.0" dy="13.4">Виберемо R_вірт близько до кінців — П розширює смугу; заженемо глибоко — звужує й піднімає підсилення на краях.</tspan></text>
+</svg>

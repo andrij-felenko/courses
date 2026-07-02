@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асинхронний цикл запису: як FMC розкладає одне «*ptr = x» у часі</text>
+<text x="156.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">~NEx</text>
+<polyline points="170.0,74.0 210.0,74.0 210.0,74.0 210.0,96.0 520.0,96.0 520.0,96.0 520.0,74.0 560.0,74.0" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="156.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">A / RS</text>
+<line x1="170.0" y1="169.0" x2="210.0" y2="169.0" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="3 3"/><line x1="210.0" y1="169.0" x2="218.0" y2="158.0" stroke="#2457d6" stroke-width="2.2"/><line x1="210.0" y1="169.0" x2="218.0" y2="180.0" stroke="#2457d6" stroke-width="2.2"/><line x1="218.0" y1="158.0" x2="512.0" y2="158.0" stroke="#2457d6" stroke-width="2.2"/><line x1="218.0" y1="180.0" x2="512.0" y2="180.0" stroke="#2457d6" stroke-width="2.2"/><line x1="520.0" y1="169.0" x2="512.0" y2="158.0" stroke="#2457d6" stroke-width="2.2"/><line x1="520.0" y1="169.0" x2="512.0" y2="180.0" stroke="#2457d6" stroke-width="2.2"/><text x="365.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">адреса дійсна</text><line x1="520.0" y1="169.0" x2="560.0" y2="169.0" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="3 3"/>
+<text x="156.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">~NWE</text>
+<polyline points="170.0,242.0 300.0,242.0 300.0,242.0 300.0,264.0 450.0,264.0 450.0,264.0 450.0,242.0 560.0,242.0" fill="none" stroke="#1a1a1a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="156.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">D[15:0]</text>
+<line x1="170.0" y1="337.0" x2="290.0" y2="337.0" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="3 3"/><line x1="290.0" y1="337.0" x2="298.0" y2="326.0" stroke="#27ae60" stroke-width="2.2"/><line x1="290.0" y1="337.0" x2="298.0" y2="348.0" stroke="#27ae60" stroke-width="2.2"/><line x1="298.0" y1="326.0" x2="512.0" y2="326.0" stroke="#27ae60" stroke-width="2.2"/><line x1="298.0" y1="348.0" x2="512.0" y2="348.0" stroke="#27ae60" stroke-width="2.2"/><line x1="520.0" y1="337.0" x2="512.0" y2="326.0" stroke="#27ae60" stroke-width="2.2"/><line x1="520.0" y1="337.0" x2="512.0" y2="348.0" stroke="#27ae60" stroke-width="2.2"/><text x="405.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">дані ядра</text><line x1="520.0" y1="337.0" x2="560.0" y2="337.0" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="3 3"/>
+<line x1="210.0" y1="66.0" x2="210.0" y2="362.0" stroke="#d7dbe0" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="300.0" y1="66.0" x2="300.0" y2="362.0" stroke="#d7dbe0" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="450.0" y1="66.0" x2="450.0" y2="362.0" stroke="#d7dbe0" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="520.0" y1="66.0" x2="520.0" y2="362.0" stroke="#d7dbe0" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="210.0" y1="300.0" x2="300.0" y2="300.0" stroke="#2457d6" stroke-width="1.4"/>
+<line x1="210.0" y1="295.0" x2="210.0" y2="305.0" stroke="#2457d6" stroke-width="1.4"/>
+<line x1="300.0" y1="295.0" x2="300.0" y2="305.0" stroke="#2457d6" stroke-width="1.4"/>
+<text x="255.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">ADDSET</text>
+<line x1="300.0" y1="300.0" x2="450.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="300.0" y1="295.0" x2="300.0" y2="305.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="450.0" y1="295.0" x2="450.0" y2="305.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="375.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">DATAST</text>
+<line x1="450.0" y1="300.0" x2="520.0" y2="300.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="450.0" y1="295.0" x2="450.0" y2="305.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="520.0" y1="295.0" x2="520.0" y2="305.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="485.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">ADDHLD</text>
+<text x="450.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">фронт ↑NWE ловить дані</text>
+<line x1="450.0" y1="322" x2="450.0" y2="342" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="500.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кожен відрізок — ціле число тактів HCLK, задане в регістрі таймінгу банку.</text>
+<text x="500.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ADDSET — скільки чекати, поки адреса вляжеться, перш ніж опустити ~NWE; DATAST — доки тримати ~NWE (і дані);</text>
+<text x="500.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">мікросхема-пам'ять фіксує дані на висхідному фронті ~NWE. Замало тактів — чіп не встиг, у пам'ять ляже сміття.</text>
+<text x="500.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-style="italic">Ці числа підбирають під конкретну мікросхему: швидшій вистачає 1–2 такти, повільнішій треба більше.</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один виклик p_step: конвеєр від виміру до обмеженого впливу</text>
+<defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2457d6"/></marker><marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker></defs>
+<text x="490.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">один такт: зважити завдання → помножити на Kp → додати bias → ОБМЕЖИТИ останнім</text>
+<rect x="30.0" y="130.0" width="118.0" height="40.0" rx="9" fill="#eef6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="89.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">завдання r</text>
+<rect x="30.0" y="182.0" width="118.0" height="40.0" rx="9" fill="#eef6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="89.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">вимір y</text>
+<rect x="176.0" y="141.0" width="128.0" height="70.0" rx="11" fill="#f4f4f5" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="240.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">β·r − y</tspan></text>
+<text x="240.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="240.0" dy="0.0">зважена</tspan><tspan x="240.0" dy="12.3">помилка</tspan></text>
+<rect x="356.0" y="141.0" width="128.0" height="70.0" rx="11" fill="#eafaef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="420.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">× Kp</tspan></text>
+<text x="420.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="420.0" dy="0.0">пропорційна</tspan><tspan x="420.0" dy="12.3">дія</tspan></text>
+<rect x="520.0" y="141.0" width="128.0" height="70.0" rx="11" fill="#fff5e6" stroke="#d98a00" stroke-width="1.8"/>
+<text x="584.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d98a00" text-anchor="middle" font-weight="700"><tspan x="584.0" dy="0.0">+ u_bias</tspan></text>
+<text x="584.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="584.0" dy="0.0">живлення</tspan><tspan x="584.0" dy="12.3">наперед</tspan></text>
+<rect x="690.0" y="141.0" width="128.0" height="70.0" rx="11" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="754.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="754.0" dy="0.0">clamp</tspan><tspan x="754.0" dy="16.9">u_min..u_max</tspan></text>
+<text x="754.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="754.0" dy="0.0">ОБМЕЖИТИ</tspan></text>
+<line x1="148.0" y1="150.0" x2="174.0" y2="168.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="148.0" y1="202.0" x2="174.0" y2="184.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="304.0" y1="176.0" x2="354.0" y2="176.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="484.0" y1="176.0" x2="518.0" y2="176.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="648.0" y1="176.0" x2="688.0" y2="176.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="818.0" y1="176.0" x2="862.0" y2="176.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrG)" stroke-linecap="round"/>
+<rect x="864.0" y="156.0" width="108.0" height="40.0" rx="9" fill="#eafaef" stroke="#27ae60" stroke-width="1.7"/>
+<text x="918.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">→ драйвер</text>
+<line x1="669.0" y1="176.0" x2="669.0" y2="250.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 3"/>
+<rect x="551.0" y="250.0" width="236.0" height="40.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="669.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">last_u (сирий) · saturated</text>
+<text x="669.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">діагностика — знімається ДО обмеження</text>
+<text x="490.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Обмеження бачить ВЕСЬ вплив разом із bias і стоїть останнім; β всередині множення перемикає P-на-помилці ↔ P-на-вимірі без жодної гілки.</text>
+</svg>

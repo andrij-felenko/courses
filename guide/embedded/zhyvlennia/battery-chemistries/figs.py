@@ -320,6 +320,335 @@ def fig_chemistries():
     render(os.path.join(IMG, "chemistries.svg"), W, H, *f)
 
 
+# ── 10. Форма кривої: твердий розчин проти двофазного переходу (детальна) ─────
+def fig_phase_plateau():
+    """Мікроскопічна причина похилої проти пласкої кривої.
+    Ліворуч — solid solution (плавна зміна складу → похила напруга за Нернстом);
+    праворуч — двофазний перехід (склади фаз сталі, рухається межа → плато)."""
+    W, H = 820, 400
+    f = [text(W / 2, 28, "Чому одні криві похилі, а інші — пласке плато", size=16, bold=True)]
+
+    # ── ліва панель: твердий розчин ──
+    def panel( x0, title, sub, col):
+        pw, ph = 320, 150
+        oy = 210
+        out = [text(x0 + pw / 2, 58, title, size=13, color=col, bold=True),
+               text(x0 + pw / 2, 76, sub, size=10, color=MUTED, italic=True)]
+        # осі невеликого графіка напруги
+        gx, gy, gw, gh = x0 + 40, oy, pw - 70, 100
+        out.append(line(gx, gy, gx + gw, gy, color=INK, sw=1.3))
+        out.append(line(gx, gy, gx, gy - gh, color=INK, sw=1.3))
+        out.append(text(gx - 8, gy - gh + 4, "В", size=9, color=MUTED, anchor="end"))
+        out.append(text(gx + gw / 2, gy + 18, "віддано →", size=9, color=MUTED))
+        return out, gx, gy, gw, gh
+
+    lp, lgx, lgy, lgw, lgh = panel(30, "Твердий розчин (Li-ion)",
+                                   "одна фаза, склад плавно біднішає", C_LI)
+    f += lp
+    # похила крива
+    pts = [(0.0, 0.92), (0.3, 0.74), (0.6, 0.58), (0.85, 0.42), (1.0, 0.16)]
+    p = " ".join("%.1f,%.1f" % (lgx + a * lgw, lgy - b * lgh) for a, b in pts)
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6" '
+             'stroke-linejoin="round"/>' % (p, C_LI))
+    # схематичний кристал: точки літію рідшають
+    cxk, cyk = 30 + 165, 130
+    for r in range(2):
+        for c in range(6):
+            filled = (r * 6 + c) < 8
+            xx, yy = cxk - 60 + c * 22, cyk + r * 20
+            f.append(circle(xx, yy, 5, fill=(C_LI if filled else "#fff"), stroke=C_LI, sw=1.3))
+    f.append(text(cxk, cyk + 56, "склад міняється → напруга сповзає", size=9.5, color=C_LI))
+
+    rp, rgx, rgy, rgw, rgh = panel(470, "Двофазний перехід (LiFePO4)",
+                                   "дві фази сталого складу, рух межі", C_LFP)
+    f += rp
+    # пласке плато + різкий обвал
+    pts2 = [(0.0, 0.78), (0.08, 0.70), (0.85, 0.68), (0.93, 0.5), (0.98, 0.2), (1.0, 0.05)]
+    p2 = " ".join("%.1f,%.1f" % (rgx + a * rgw, rgy - b * rgh) for a, b in pts2)
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6" '
+             'stroke-linejoin="round"/>' % (p2, C_LFP))
+    # дві фази з рухомою межею
+    bx0, by0, bw0, bh0 = 470 + 40, 108, 230, 40
+    f.append(rect(bx0, by0, bw0, bh0, fill="#fff", stroke=C_LFP, sw=1.4))
+    boundary = bx0 + bw0 * 0.55
+    f.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="4" fill="%s" fill-opacity="0.18"/>'
+             % (bx0, by0, boundary - bx0, bh0, C_LFP))
+    f.append(line(boundary, by0, boundary, by0 + bh0, color=C_LFP, sw=2.2))
+    f.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-width="1.8" marker-end="url(#arrow)"/>'
+             % (boundary + 4, by0 + bh0 / 2, boundary + 34, by0 + bh0 / 2, MUTED))
+    f.append(text(bx0 + (boundary - bx0) / 2, by0 + bh0 / 2 + 4, "багата", size=9, color=C_LFP, bold=True))
+    f.append(text(boundary + (bx0 + bw0 - boundary) / 2 + 8, by0 + bh0 / 2 + 4, "бідна", size=9, color=MUTED))
+    f.append(text(470 + 165, by0 + bh0 + 16, "склад фаз сталий → напруга стоїть", size=9.5, color=C_LFP))
+
+    f.append(fitbox(30, 340, 760, 30,
+                    "Напруга за Нернстом залежить від складу фази: плавна зміна → похила крива; "
+                    "стала (рух межі) → пласке плато.",
+                    size=10, fill="#eafaf0", stroke=FIELD, sw=1.3))
+    render(os.path.join(IMG, "phase-plateau.svg"), W, H, *f)
+
+
+# ── 11. Холодний заряд літію: осадження дендритів (детальна) ──────────────────
+def fig_cold_plating():
+    """Чому заряд літію заборонено нижче 0°C: на морозі дифузія вглиб гальмується
+    сильніше за прибуття іонів → метал осідає дендритами до сепаратора."""
+    W, H = 820, 380
+    f = [text(W / 2, 28, "Чому холодний заряд літію руйнує комірку", size=16, bold=True)]
+
+    def anode(x0, title, col, cold):
+        aw, ah = 300, 210
+        ay = 70
+        out = [text(x0 + aw / 2, 56, title, size=13, color=col, bold=True)]
+        # анод (сірий брусок ліворуч) + сепаратор (пунктир праворуч)
+        ex, ew = x0 + 20, 70
+        out.append(rect(ex, ay, ew, ah, fill="#eceff3", stroke=MUTED, sw=1.4))
+        out.append(text(ex + ew / 2, ay + ah + 16, "анод (графіт)", size=9, color=MUTED))
+        sep = x0 + aw - 40
+        out.append(line(sep, ay, sep, ay + ah, color=NEG, sw=2, dash="5 4"))
+        out.append(text(sep, ay - 6, "сепаратор", size=9, color=NEG))
+        # іони летять зліва направо (з електроліту в анод)
+        for k in range(4):
+            yy = ay + 30 + k * 45
+            out.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-width="1.6" marker-end="url(#arrow)"/>'
+                       % (sep - 20, yy, ex + ew + 14, yy, C_LI))
+            out.append(text(sep - 8, yy - 4, "Li⁺", size=9, color=C_LI, anchor="start"))
+        return out, ex, ew, ay, ah, sep
+
+    # ── тепло: іон заходить углиб ──
+    wp, wex, wew, way, wah, wsep = anode(20, "Тепло: іон заходить углиб", FIELD, False)
+    f += wp
+    # стрілки вглиб анода (інтеркаляція) — усередину бруска
+    for k in range(3):
+        yy = way + 45 + k * 55
+        f.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-width="1.6" marker-end="url(#arrow)"/>'
+                 % (wex + wew - 6, yy, wex + 14, yy, FIELD))
+    f.append(fitbox(20 + 20, way + wah + 26, 260, 26,
+                    "дифузія встигає: літій у ґратці",
+                    size=9.5, fill="#eafaf0", stroke=FIELD, sw=1.2))
+
+    # ── холод: метал осідає дендритами ──
+    cp, cex, cew, cay, cah, csep = anode(500, "Мороз: метал осідає на поверхні", POS, True)
+    f += cp
+    # дендрити ростуть від поверхні анода праворуч до сепаратора
+    surf = cex + cew
+    import math
+    for k in range(3):
+        y0 = cay + 40 + k * 60
+        x = surf
+        y = y0
+        pts = [(x, y)]
+        for step in range(6):
+            x += 18
+            y += (12 if step % 2 else -10)
+            pts.append((x, y))
+        pth = " ".join("%.1f,%.1f" % (px, py) for px, py in pts)
+        f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4" '
+                 'stroke-linejoin="round"/>' % (pth, POS))
+        f.append(circle(pts[-1][0], pts[-1][1], 3.5, fill=POS, stroke=POS, sw=1))
+    f.append(text(surf + 60, cay + 8, "дендрити → до сепаратора", size=9.5, color=POS, bold=True))
+    f.append(fitbox(500 + 20, cay + cah + 26, 260, 26,
+                    "дифузія відстає: незворотна втрата + ризик КЗ",
+                    size=9.5, fill="#fdf3f2", stroke=POS, sw=1.2))
+    render(os.path.join(IMG, "cold-plating.svg"), W, H, *f)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Фігури до математичної вставки «Нернст і вільна енергія Гіббса» (math-nernst-gibbs)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── M1. Ланцюг виведення: ΔG → E = −ΔG/nF → Нернст ───────────────────────────
+def fig_nernst_chain():
+    """Три сходинки думки: рушій реакції (ΔG) → напруга (заряд, що падає з висоти)
+    → плавання напруги за концентрацією (член RT/nF·lnQ). Видно, ЗВІДКИ береться
+    рівняння Нернста, а не як його постулат."""
+    W, H = 780, 470
+    f = [text(W / 2, 30, "Звідки береться рівняння Нернста: три сходинки", size=16, bold=True)]
+
+    # три вертикальні картки-сходинки
+    bx, top, bw, bh, gap = 40, 60, 226, 300, 22
+    cols = [FIELD, C_LI, NEG]
+    titles = ["1. Рушій реакції", "2. Напруга = рушій / заряд", "3. Рушій пливе з умовами"]
+    for i in range(3):
+        x = bx + i * (bw + gap)
+        f.append(rect(x, top, bw, bh, fill="#fbfcfd", stroke=cols[i], sw=1.8, rx=10))
+        f.append(fitbox(x + 10, top + 10, bw - 20, 26, titles[i], size=12,
+                        fill=cols[i], stroke=cols[i], sw=0, color="#ffffff", bold=True))
+
+    # картка 1: ΔG — вільна енергія
+    x0 = bx
+    f.append(text(x0 + bw / 2, top + 74, "Скільки корисної роботи", size=10.5, color=MUTED))
+    f.append(text(x0 + bw / 2, top + 90, "віддасть реакція?", size=10.5, color=MUTED))
+    f.append(fitbox(x0 + 18, top + 108, bw - 36, 34, "ΔG < 0 → реакція йде\nсама, віддає роботу",
+                    size=10.5, fill="#eafaf0", stroke=FIELD, sw=1.2))
+    f.append(text(x0 + bw / 2, top + 172, "ΔG = ΔH − T·ΔS", size=13, color=INK, bold=True))
+    f.append(fitbox(x0 + 18, top + 190, bw - 36, 46,
+                    "тепло реакції ΔH\nмінус T × безлад ΔS\n(звідси температура!)",
+                    size=9.5, fill=FILL, stroke=MUTED, sw=1))
+    f.append(text(x0 + bw / 2, top + 262, "енергія на моль", size=9.5, color=MUTED, italic=True))
+    f.append(text(x0 + bw / 2, top + 278, "(Дж/моль)", size=9.5, color=MUTED, italic=True))
+
+    # стрілка 1→2
+    f.append(arrow(bx + bw + 3, top + bh / 2, bx + bw + gap - 3, top + bh / 2, color=INK, sw=2))
+    # картка 2: E = −ΔG/nF
+    x1 = bx + bw + gap
+    f.append(text(x1 + bw / 2, top + 74, "Ту роботу несуть", size=10.5, color=MUTED))
+    f.append(text(x1 + bw / 2, top + 90, "n електронів заряду nF", size=10.5, color=MUTED))
+    f.append(text(x1 + bw / 2, top + 138, "E = − ΔG / (n·F)", size=15, color=C_LI, bold=True))
+    f.append(fitbox(x1 + 18, top + 158, bw - 36, 44,
+                    "робота / заряд = напруга\n(як висота, з якої\nпадає заряд)",
+                    size=9.5, fill="#fdecea", stroke=C_LI, sw=1.1))
+    f.append(text(x1 + bw / 2, top + 232, "n — електронів на реакцію", size=9.5, color=MUTED))
+    f.append(text(x1 + bw / 2, top + 248, "F = 96485 Кл/моль", size=9.5, color=MUTED))
+    f.append(text(x1 + bw / 2, top + 278, "вольти (В)", size=9.5, color=MUTED, italic=True))
+
+    # стрілка 2→3
+    f.append(arrow(x1 + bw + 3, top + bh / 2, x1 + bw + gap - 3, top + bh / 2, color=INK, sw=2))
+    # картка 3: Нернст
+    x2 = x1 + bw + gap
+    f.append(text(x2 + bw / 2, top + 74, "ΔG залежить від того,", size=10.5, color=MUTED))
+    f.append(text(x2 + bw / 2, top + 90, "скільки вже віддано:", size=10.5, color=MUTED))
+    f.append(fitbox(x2 + 16, top + 106, bw - 32, 26, "ΔG = ΔG° + RT·ln Q",
+                    size=11, fill=FILL, stroke=MUTED, sw=1))
+    f.append(text(x2 + bw / 2, top + 156, "поділили на −nF:", size=9.5, color=MUTED, italic=True))
+    f.append(fitbox(x2 + 14, top + 172, bw - 28, 30, "E = E° − (RT/nF)·ln Q",
+                    size=11.5, fill="#eaf0fd", stroke=NEG, sw=1.4, color=NEG, bold=True))
+    f.append(text(x2 + bw / 2, top + 234, "Q = [продукти]/[реагенти]", size=9.5, color=MUTED))
+    f.append(text(x2 + bw / 2, top + 250, "розряд → Q росте → E падає", size=9.5, color=NEG))
+    f.append(text(x2 + bw / 2, top + 278, "рівняння Нернста", size=9.5, color=NEG, italic=True, bold=True))
+
+    f.append(fitbox(bx, top + bh + 20, 3 * bw + 2 * gap, 28,
+                    "Напруга — не задане число, а вільна енергія реакції на одиницю перенесеного заряду.",
+                    size=10.5, fill="#eafaf0", stroke=FIELD, sw=1.3))
+    render(os.path.join(IMG, "nernst-chain.svg"), W, H, *f)
+
+
+# ── M2. Нахил Нернста: ~59 мВ на декаду, звідки 2.303·RT/F ────────────────────
+def fig_nernst_slope():
+    """Пряма E проти log10(Q): кожна декада Q зсуває напругу рівно на 2.303·RT/nF.
+    Показано, ЗВІДКИ 25.7 мВ (RT/F) і як множник ln10=2.303 робить із нього ~59 мВ."""
+    W, H = 780, 430
+    f = [text(W / 2, 30, "Нахил Нернста: 59 мВ на кожну декаду Q", size=16, bold=True)]
+
+    ox, oy = 300, 330
+    pw, ph = 430, 250
+    # осі
+    f.append(line(ox, oy, ox + pw, oy, color=INK, sw=1.6))
+    f.append(line(ox, oy, ox, oy - ph, color=INK, sw=1.6))
+    f.append(text(ox + pw / 2, oy + 40, "log₁₀ Q  (кожен крок — ×10 у складі)", size=10.5, color=MUTED))
+    # вертикальний підпис осі Y
+    f.append('<text x="%.1f" y="%.1f" font-family="%s" font-size="10.5" fill="%s" '
+             'text-anchor="middle" transform="rotate(-90 %.1f %.1f)">E − E° (мВ)</text>'
+             % (ox - 46, oy - ph / 2, FONT, MUTED, ox - 46, oy - ph / 2))
+
+    # пряма з нахилом −59 мВ/декаду: беремо log10 Q від −2 до +2, E від +2·59 до −2·59
+    slope_px = ph / 4.0            # 4 декади по всій висоті (від −2 до +2)
+    step_x = pw / 4.0
+    def px(logq): return ox + (logq + 2) * step_x
+    def py(mv):   return oy - ph / 2 - mv * (slope_px / 59.0)
+    # лінія
+    f.append(line(px(-2), py(2 * 59), px(2), py(-2 * 59), color=NEG, sw=2.8))
+    # горизонтальна нульова лінія E=E°
+    f.append(line(ox, oy - ph / 2, ox + pw, oy - ph / 2, color=MUTED, sw=1, dash="4,4"))
+    f.append(text(ox + pw + 4, oy - ph / 2 + 4, "E°", size=10, color=MUTED, anchor="start"))
+    # мітки по X (декади)
+    for lq in range(-2, 3):
+        f.append(line(px(lq), oy, px(lq), oy + 5, color=INK, sw=1))
+        f.append(text(px(lq), oy + 20, "%+d" % lq if lq else "0", size=9.5, color=MUTED))
+    # сходинка: одна декада → −59 мВ (ступінчаста ілюстрація на прямій)
+    x_a, x_b = px(0), px(1)
+    y_a, y_b = py(0), py(-59)
+    f.append(line(x_a, y_a, x_b, y_a, color=POS, sw=1.6, dash="3,3"))
+    f.append(line(x_b, y_a, x_b, y_b, color=POS, sw=1.6, dash="3,3"))
+    f.append(circle(x_a, y_a, 4, fill=NEG, stroke=NEG, sw=1))
+    f.append(circle(x_b, y_b, 4, fill=NEG, stroke=NEG, sw=1))
+    f.append(text((x_a + x_b) / 2, y_a - 8, "Q ×10", size=10, color=POS, bold=True))
+    f.append(text(x_b + 10, (y_a + y_b) / 2 + 4, "−59 мВ", size=11, color=POS, bold=True, anchor="start"))
+
+    # ліворуч — звідки береться 59
+    lx, ly = 30, 78
+    f.append(fitbox(lx, ly, 236, 26, "Звідки береться 59 мВ", size=11.5,
+                    fill=NEG, stroke=NEG, sw=0, color="#ffffff", bold=True))
+    steps = [
+        ("RT/F при 25°C:", "8.314 · 298.15 / 96485"),
+        ("=", "0.0257 В = 25.7 мВ"),
+        ("ln 10 = 2.303 (перехід", "натуральний → десятковий лог)"),
+        ("2.303 · 25.7 мВ", "= 59.2 мВ на декаду"),
+        ("для n електронів:", "нахил = 59 / n мВ"),
+    ]
+    yy = ly + 40
+    for a, b in steps:
+        f.append(text(lx + 6, yy, a, size=10, color=INK, anchor="start", bold=True))
+        f.append(text(lx + 6, yy + 15, b, size=10, color=MUTED, anchor="start"))
+        yy += 40
+    f.append(fitbox(lx, yy + 2, 236, 40,
+                    "n=1 → 59 мВ/декаду\nn=2 → лише 29 мВ/декаду",
+                    size=10, fill="#eaf0fd", stroke=NEG, sw=1.2))
+    render(os.path.join(IMG, "nernst-slope.svg"), W, H, *f)
+
+
+# ── M3. Температурний коефіцієнт напруги: dE/dT через ентропію ────────────────
+def fig_temp_coeff():
+    """Чому номінал зсувається на морозі й у спеку: dE/dT = ΔS/nF.
+    Мала, але реальна нахилена пряма E(T); числа для трьох катодів."""
+    W, H = 780, 420
+    f = [text(W / 2, 30, "Температурний зсув напруги: dE/dT = ΔS/(nF)", size=16, bold=True)]
+
+    ox, oy = 90, 300
+    pw, ph = 400, 210
+    f.append(line(ox, oy, ox + pw, oy, color=INK, sw=1.6))
+    f.append(line(ox, oy, ox, oy - ph, color=INK, sw=1.6))
+    f.append(text(ox + pw / 2, oy + 36, "температура T (°C)", size=10.5, color=MUTED))
+    f.append('<text x="%.1f" y="%.1f" font-family="%s" font-size="10.5" fill="%s" '
+             'text-anchor="middle" transform="rotate(-90 %.1f %.1f)">напруга комірки E</text>'
+             % (ox - 50, oy - ph / 2, FONT, MUTED, ox - 50, oy - ph / 2))
+
+    # температурна вісь від −20 до +60
+    def tx(t): return ox + (t + 20) / 80.0 * pw
+    for t in (-20, 0, 25, 60):
+        f.append(line(tx(t), oy, tx(t), oy + 5, color=INK, sw=1))
+        f.append(text(tx(t), oy + 20, str(t), size=9.5, color=MUTED))
+    # мітка 25°C — опорна
+    f.append(line(tx(25), oy, tx(25), oy - ph, color=MUTED, sw=1, dash="4,4"))
+    f.append(text(tx(25), oy - ph - 4, "стандарт 25°C", size=9.5, color=MUTED))
+
+    # спадна пряма (від'ємний dE/dT: холод → трохи вища, спека → трохи нижча)
+    y25 = oy - ph / 2
+    slope = 0.9    # px напруги на градус (перебільшено для видимості)
+    def ty(t): return y25 + (t - 25) * slope
+    f.append(line(tx(-20), ty(-20), tx(60), ty(60), color=C_LI, sw=2.8))
+    f.append(circle(tx(25), y25, 4.5, fill=C_LI, stroke=C_LI, sw=1))
+    f.append(text(tx(25) + 8, y25 - 8, "E° (тут)", size=9.5, color=C_LI, anchor="start"))
+    # холодний і теплий маркери
+    f.append(circle(tx(-20), ty(-20), 4, fill=NEG, stroke=NEG, sw=1))
+    f.append(text(tx(-20) + 6, ty(-20) - 6, "мороз:", size=9.5, color=NEG, anchor="start", bold=True))
+    f.append(text(tx(-20) + 6, ty(-20) + 8, "трохи вища", size=9.5, color=NEG, anchor="start"))
+    f.append(circle(tx(60), ty(60), 4, fill=POS, stroke=POS, sw=1))
+    f.append(text(tx(60) - 6, ty(60) + 4, "спека: трохи нижча", size=9.5, color=POS, anchor="end"))
+    f.append(text(ox + pw / 2, oy - ph + 16,
+                  "нахил малий: одиниці десятих мВ на градус", size=10, color=MUTED, italic=True))
+
+    # праворуч — формула й реальні числа
+    rx, ryy = 520, 76
+    f.append(fitbox(rx, ryy, 236, 26, "Нахил = ентропія реакції", size=11,
+                    fill=C_LI, stroke=C_LI, sw=0, color="#ffffff", bold=True))
+    f.append(text(rx + 118, ryy + 54, "dE/dT = ΔS / (n·F)", size=13.5, color=INK, bold=True))
+    f.append(fitbox(rx, ryy + 68, 236, 44,
+                    "ΔS — зміна безладу реакції\n(+ безлад → напруга росте з T,\n− безлад → падає)",
+                    size=9.5, fill=FILL, stroke=MUTED, sw=1))
+    f.append(text(rx + 6, ryy + 138, "Реальні катоди (dE/dT):", size=10, color=INK, anchor="start", bold=True))
+    rows = [("LiFePO4", "−0.08 мВ/К", C_LFP),
+            ("LiMn2O4", "−0.20 мВ/К", C_NI),
+            ("LiCoO2",  "−0.25 мВ/К", C_LI)]
+    yy = ryy + 158
+    for nm, val, col in rows:
+        f.append(text(rx + 10, yy, nm, size=10, color=col, anchor="start", bold=True))
+        f.append(text(rx + 226, yy, val, size=10, color=col, anchor="end"))
+        yy += 20
+    f.append(fitbox(rx, yy + 4, 236, 30,
+                    "малий, але не нуль — тому\nномінал «гуляє» з температурою",
+                    size=9.5, fill="#fdecea", stroke=C_LI, sw=1.1))
+    render(os.path.join(IMG, "temp-coeff.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_voltage()
     fig_energy()
@@ -330,4 +659,9 @@ if __name__ == "__main__":
     fig_timeline()
     fig_priority()
     fig_chemistries()
-    print("OK: 9 figures ->", IMG)
+    fig_phase_plateau()
+    fig_cold_plating()
+    fig_nernst_chain()
+    fig_nernst_slope()
+    fig_temp_coeff()
+    print("OK: 14 figures ->", IMG)

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Напруга втрат — петля зворотного зв'язку, а не просте віднімання</text>
+<rect x="46.1" y="96.2" width="67.9" height="47.6" rx="6" fill="#d6eaf8" stroke="#2457d6" stroke-width="2.0"/><text x="80.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle"><tspan x="80.0" dy="0.0">Джерело</tspan><tspan x="80.0" dy="15.6">V, R_дж</tspan></text>
+<line x1="113.9" y1="120.0" x2="210.0" y2="120.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="220.6" y="104.0" width="74.7" height="32.0" rx="6" fill="#fdf2e9" stroke="#e67e22" stroke-width="2.0"/><text x="258.0" y="124.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle"><tspan x="258.0" dy="0.0">Шунт R_ш</tspan></text>
+<text x="258.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle">спад I·(R_дж+R_ш)</text>
+<line x1="295.4" y1="120.0" x2="400.0" y2="120.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="400.0" cy="120.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="400.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">V_чип</text>
+<line x1="400.0" y1="120.0" x2="400.0" y2="166.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="388.0" y1="166.0" x2="412.0" y2="166.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="388.0" y1="172.0" x2="412.0" y2="172.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="400.0" y1="172.0" x2="400.0" y2="190.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="420.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">буферний C</text>
+<line x1="400.0" y1="120.0" x2="520.0" y2="120.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="526.1" y="96.2" width="67.9" height="47.6" rx="6" fill="#d6eaf8" stroke="#2457d6" stroke-width="2.0"/><text x="560.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle"><tspan x="560.0" dy="0.0">Чип</tspan><tspan x="560.0" dy="15.6">(радіо)</tspan></text>
+<line x1="593.9" y1="120.0" x2="700.0" y2="120.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="700.0" y1="120.0" x2="700.0" y2="250.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="700.0" y1="250.0" x2="80.0" y2="250.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="80.0" y1="250.0" x2="80.0" y2="143.8" stroke="#333333" stroke-width="2.0"/>
+<line x1="400.0" y1="190.0" x2="400.0" y2="250.0" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="120.0" y="236.0" width="560.0" height="96.0" rx="8" fill="#fff7f2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="400.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Петля (навантаження сталої потужності):</text>
+<text x="400.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">струм ↑ → спад ↑ → V_чип ↓ → (P=V·I const) струм ↑ …</text>
+<text x="400.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">аж до V_чип &lt; V_BOR → штучний brown-out, профіль зруйновано</text>
+<text x="400.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">буферний C: псує форму піку (занижує вершину), але зберігає заряд</text>
+</svg>

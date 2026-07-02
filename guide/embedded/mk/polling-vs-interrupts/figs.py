@@ -296,6 +296,204 @@ def fig_overrun():
     render(os.path.join(IMG, "overrun.svg"), W, H, *f)
 
 
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║  ДЕТАЛЬНА версія (polling-vs-interrupts-d.md) — глибші фігури             ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+# ── D1. Ланцюг латентності переривання: від фронту до першого рядка ISR ──────
+def fig_latency_chain():
+    W, H = 940, 360
+    f = [text(W / 2, 30, "Ланцюг латентності: від фронту на ніжці до першого рядка ISR", size=16, bold=True)]
+    f.append(text(W / 2, 52, "«12 тактів» ARM — лише ядро; повна затримка складається з ланок",
+                  size=12, color=MUTED, italic=True))
+
+    # шість ланок як стрічка зліва направо; стрілки між ними
+    seg = [
+        ("детекція\n+ синхро",    "1–2 такти",   "#8a5a00"),
+        ("дотягти\nінструкцію",   "0–кілька",    POS),
+        ("запис\nконтексту",      "8 слів",      FIELD),
+        ("вибірка\nвектора",      "з таблиці",   NEG),
+        ("пролог\nкомпілятора",   "регістри",    "#8a5a00"),
+        ("ПЕРШИЙ рядок\nISR",     "почалося",    FIELD),
+    ]
+    n = len(seg)
+    x0, x1 = 40, 900
+    gap = 12
+    bw = ((x1 - x0) - gap * (n - 1)) / n
+    cy = 150
+    bh = 56
+    f.append(text(x0, 100, "фронт на ніжці", size=11, color=MUTED, anchor="start", bold=True))
+    f.append(text(x1, 100, "час →", size=11, color=MUTED, anchor="end"))
+    for i, (lab, cyc, col) in enumerate(seg):
+        bx = x0 + i * (bw + gap)
+        f.append(rect(bx, cy, bw, bh, fill="#fbfcff", stroke=col, sw=1.6, rx=8))
+        f.append(mtext(bx + bw / 2, cy + 22, lab, size=11.5, color=col, bold=True))
+        f.append(text(bx + bw / 2, cy + bh + 18, cyc, size=10, color=MUTED))
+        if i < n - 1:
+            ax = bx + bw
+            f.append(arrow(ax + 1, cy + bh / 2, ax + gap - 1, cy + bh / 2, color=INK, sw=1.6))
+
+    # довідка: числа для типових ядер
+    f.append(rect(40, 258, W - 80, 66, fill="#f4f6f8", stroke=MUTED, sw=1.4, rx=10))
+    f.append(text(W / 2, 282, "Вхід у переривання (без очікувань пам'яті):", size=11.5, bold=True))
+    f.append(text(W / 2, 302, "AVR ≈ 4 такти · Cortex-M0 = 16 · M0+ = 15 · M3/M4 = 12 · тейл-чейн M3/M4 = 6",
+                  size=11.5, color=INK, bold=True))
+    f.append(text(W / 2, 320, "Cortex-M — фіксоване число тактів (детерміновано); на AVR довша інструкція дотягується до кінця.",
+                  size=10.5, color=MUTED))
+    render(os.path.join(IMG, "latency-chain.svg"), W, H, *f)
+
+
+# ── D2. Часова діаграма опитування: період, гірша латентність, вікно пропуску ─
+def fig_polling_timing():
+    W, H = 940, 430
+    f = [text(W / 2, 30, "Опитування в часі: період, найгірша затримка, вікно сліпоти", size=16, bold=True)]
+    f.append(text(W / 2, 52, "подія коротша за період падає в проміжок між перевірками — і зникає",
+                  size=12, color=MUTED, italic=True))
+
+    x0, x1 = 70, 880
+    span = x1 - x0
+    # верхня лінія: моменти перевірки (тики циклу)
+    yc = 120
+    f.append(text(x0 - 8, yc + 4, "перевірки", size=11, color=NEG, anchor="end", bold=True))
+    n = 6
+    xs = [x0 + i * span / (n - 1) for i in range(n)]
+    f.append(line(x0, yc, x1, yc, color=MUTED, sw=1.2))
+    for i, x in enumerate(xs):
+        f.append(line(x, yc - 10, x, yc + 10, color=NEG, sw=2.2))
+    # позначка періоду T між двома тиками
+    xa, xb = xs[1], xs[2]
+    f.append(line(xa, yc + 22, xb, yc + 22, color=INK, sw=1.2))
+    f.append(line(xa, yc + 17, xa, yc + 27, color=INK, sw=1.2))
+    f.append(line(xb, yc + 17, xb, yc + 27, color=INK, sw=1.2))
+    f.append(text((xa + xb) / 2, yc + 38, "період T", size=11, bold=True))
+
+    # середня лінія: довга подія — буде впіймана, але із запізненням
+    yl = 220
+    f.append(text(x0 - 8, yl + 4, "довга подія", size=11, color=FIELD, anchor="end", bold=True))
+    ev_a, ev_b = xs[0] + 18, xs[3] + 10
+    f.append(rect(ev_a, yl - 12, ev_b - ev_a, 24, fill="#eef6ef", stroke=FIELD, sw=1.6, rx=5))
+    f.append(text((ev_a + ev_b) / 2, yl + 5, "триває > T", size=10.5, color=FIELD, bold=True))
+    # впіймана на першій перевірці ВСЕРЕДИНІ події (xs[1])
+    f.append(circle(xs[1], yl, 5, fill=BG, stroke=INK, sw=2))
+    f.append(line(xs[1], yl - 20, xs[1], yl - 12, color=INK, sw=1))
+    f.append(text(xs[1], yl - 26, "впіймана", size=10, color=INK, bold=True))
+    # затримка від початку події до впіймання
+    f.append(line(ev_a, yl + 22, xs[1], yl + 22, color=POS, sw=1.4))
+    f.append(text((ev_a + xs[1]) / 2, yl + 38, "затримка ≤ T", size=10, color=POS, bold=True))
+
+    # нижня лінія: коротка подія — падає між перевірками, пропала
+    ys = 320
+    f.append(text(x0 - 8, ys + 4, "коротка подія", size=11, color=POS, anchor="end", bold=True))
+    sa = (xs[2] + xs[3]) / 2 - 10
+    sb = sa + 22
+    f.append(rect(sa, ys - 12, sb - sa, 24, fill="#fdecea", stroke=POS, sw=1.6, rx=5))
+    f.append(text((sa + sb) / 2, ys + 32, "триває < T", size=10, color=POS, anchor="middle", bold=True))
+    f.append(text((sa + sb) / 2, ys - 20, "✗ пропала", size=10.5, color=POS, bold=True))
+    # показати, що обидві сусідні перевірки її не бачать
+    for x in (xs[2], xs[3]):
+        f.append(line(x, ys - 14, x, ys + 14, color=NEG, sw=1, dash="2 2"))
+
+    f.append(rect(60, 370, W - 120, 46, fill="#f4f6f8", stroke=MUTED, sw=1.4, rx=10))
+    f.append(text(W / 2, 391, "Умова захоплення опитуванням: тривалість події ≥ T. Найгірша затримка реакції = T.",
+                  size=11.5, bold=True))
+    f.append(text(W / 2, 409, "Надійно (з полем на джитер): T ≤ (тривалість події) / 2 — «Найквіст для подій».",
+                  size=11, color=MUTED))
+    render(os.path.join(IMG, "polling-timing.svg"), W, H, *f)
+
+
+# ── D3. Порвате читання: 16-бітна змінна на 8-бітному ядрі ───────────────────
+def fig_race_torn():
+    W, H = 900, 400
+    f = [text(W / 2, 30, "Порвате читання: чому спільна змінна потребує захисту", size=16, bold=True)]
+    f.append(text(W / 2, 52, "16-бітне число на 8-бітному ядрі читається двома тактами — між ними влазить ISR",
+                  size=12, color=MUTED, italic=True))
+
+    # змінна з двох байтів
+    def byte(x, y, lab, val, col):
+        return (rect(x, y, 90, 40, fill="#fbfcff", stroke=col, sw=1.6, rx=6) +
+                text(x + 45, y + 17, lab, size=10, color=MUTED) +
+                text(x + 45, y + 34, val, size=13, color=col, bold=True))
+
+    # крок 1
+    f.append(text(150, 100, "1) loop() читає старший байт", size=12, bold=True, anchor="start"))
+    f.append(byte(150, 112, "hi", "0x01", FIELD))
+    f.append(byte(250, 112, "lo", "0xFF", MUTED))
+    f.append(text(360, 137, "значення = 0x01FF (511)", size=11, color=MUTED, anchor="start"))
+
+    # крок 2 — влазить ISR
+    f.append(text(150, 192, "2) тут спрацьовує ISR: turns++  →  0x01FF стає 0x0200", size=12, bold=True, color=POS, anchor="start"))
+    f.append(byte(150, 204, "hi", "0x02", POS))
+    f.append(byte(250, 204, "lo", "0x00", POS))
+    f.append(text(360, 229, "у пам'яті вже 0x0200 (512)", size=11, color=POS, anchor="start"))
+
+    # крок 3 — loop дочитує молодший
+    f.append(text(150, 284, "3) loop() дочитує молодший байт — уже НОВИЙ", size=12, bold=True, anchor="start"))
+    f.append(byte(150, 296, "hi (стар.)", "0x01", FIELD))
+    f.append(byte(250, 296, "lo (нов.)", "0x00", POS))
+
+    # результат
+    res, wr, hr = textbox(650, 320, "склеїлось 0x0100 = 256\n— НЕ 511 і НЕ 512", size=12, bold=True,
+                          color=POS, fill="#fdecea", stroke=POS, min_w=230)
+    f.append(res)
+    f.append(text(650, 250, "Лік: читати під критичною секцією", size=11, bold=True))
+    f.append(text(650, 270, "(коротко заборонити переривання)", size=10.5, color=MUTED))
+    render(os.path.join(IMG, "race-torn.svg"), W, H, *f)
+
+
+# ── D4. Кільцевий буфер SPSC: ISR-виробник, loop-споживач ───────────────────
+def fig_spsc_ring():
+    W, H = 900, 430
+    f = [text(W / 2, 30, "Кільцевий буфер: ISR кладе (head), loop бере (tail)", size=16, bold=True)]
+    f.append(text(W / 2, 52, "один виробник, один споживач — по одному індексу на кожного, без замка",
+                  size=12, color=MUTED, italic=True))
+
+    cx, cy, R = W / 2, 235, 96
+    N = 8
+    import math
+    # комірки по колу
+    filled = {5, 6, 7, 0}  # зайняті: від tail до head
+    for i in range(N):
+        ang = -math.pi / 2 + i * 2 * math.pi / N
+        x = cx + R * math.cos(ang)
+        y = cy + R * math.sin(ang)
+        is_f = i in filled
+        f.append(circle(x, y, 22, fill="#eef6ef" if is_f else BG,
+                        stroke=FIELD if is_f else MUTED, sw=2 if is_f else 1.4))
+        f.append(text(x, y + 5, str(i), size=13, color=INK if is_f else MUTED, bold=is_f))
+
+    # head (куди ISR покладе наступне) — після 0 → 1
+    ah = -math.pi / 2 + 1 * 2 * math.pi / N
+    hx, hy = cx + (R + 46) * math.cos(ah), cy + (R + 46) * math.sin(ah)
+    f.append(text(hx, hy, "head", size=12, color=POS, bold=True))
+    f.append(text(hx, hy + 16, "ISR пише сюди", size=9.5, color=POS))
+    f.append(arrow(hx, hy + 22, cx + (R + 6) * math.cos(ah), cy + (R + 6) * math.sin(ah), color=POS))
+
+    # tail (звідки loop візьме) — 5
+    at = -math.pi / 2 + 5 * 2 * math.pi / N
+    tx, ty = cx + (R + 52) * math.cos(at), cy + (R + 52) * math.sin(at)
+    f.append(text(tx, ty, "tail", size=12, color=NEG, bold=True))
+    f.append(text(tx, ty + 16, "loop() читає", size=9.5, color=NEG))
+    f.append(arrow(tx - 4, ty - 6, cx + (R + 6) * math.cos(at), cy + (R + 6) * math.sin(at), color=NEG))
+
+    # ролі по боках
+    f.append(rect(30, 100, 200, 70, fill="#fdecea", stroke=POS, sw=1.5, rx=10))
+    f.append(text(130, 124, "ISR (виробник)", size=12, color=POS, bold=True))
+    f.append(text(130, 144, "пише buf[head],", size=10.5))
+    f.append(text(130, 160, "потім head++", size=10.5))
+
+    f.append(rect(670, 100, 200, 70, fill="#eaf0fd", stroke=NEG, sw=1.5, rx=10))
+    f.append(text(770, 124, "loop() (споживач)", size=12, color=NEG, bold=True))
+    f.append(text(770, 144, "читає buf[tail],", size=10.5))
+    f.append(text(770, 160, "потім tail++", size=10.5))
+
+    f.append(rect(60, 372, W - 120, 46, fill="#f4f6f8", stroke=MUTED, sw=1.4, rx=10))
+    f.append(text(W / 2, 393, "Кожен індекс змінює ЛИШЕ свій власник → запис одного не рве іншого (порядок важливий).",
+                  size=11.5, bold=True))
+    f.append(text(W / 2, 411, "Порожньо: head == tail. Повно: наступний head наздогнав tail (одна комірка — жертва).",
+                  size=11, color=MUTED))
+    render(os.path.join(IMG, "spsc-ring.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_two_tools()
     fig_decision_flow()
@@ -304,4 +502,9 @@ if __name__ == "__main__":
     fig_examples()
     fig_budget_formula()
     fig_overrun()
+    # детальна версія
+    fig_latency_chain()
+    fig_polling_timing()
+    fig_race_torn()
+    fig_spsc_ring()
     print("OK: figures written to", IMG)

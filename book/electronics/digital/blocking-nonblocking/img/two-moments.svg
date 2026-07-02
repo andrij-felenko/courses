@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Той самий вигляд — різна мить запису</text>
+<text x="204.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Блокуюче  =  (одразу, по черзі)</text>
+<rect x="34.0" y="72.0" width="340.0" height="60.0" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.6"/><text x="46.0" y="94.0" font-family="'Consolas', 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" ><tspan xml:space="preserve">b = a;   // одразу: b дорівнює a</tspan></text><text x="46.0" y="112.0" font-family="'Consolas', 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" ><tspan xml:space="preserve">c = b;   // c бере вже НОВЕ b</tspan></text>
+<text x="204.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">рядок «блокує» наступний:</text>
+<text x="204.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">запис стається до переходу далі</text>
+<line x1="64.0" y1="202.0" x2="344.0" y2="202.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="124.0" cy="202.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="124.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">b←a</text>
+<circle cx="274.0" cy="202.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="274.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">c←b</text>
+<text x="204.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">дві окремі миті — як кроки програми на C</text>
+<text x="576.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Неблокуюче  &lt;=  (двофазно)</text>
+<rect x="406.0" y="72.0" width="340.0" height="60.0" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.6"/><text x="418.0" y="94.0" font-family="'Consolas', 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" ><tspan xml:space="preserve">b &lt;= a;  // читаємо праві</tspan></text><text x="418.0" y="112.0" font-family="'Consolas', 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" ><tspan xml:space="preserve">c &lt;= b;  // ЧАСТИНИ разом — старе b</tspan></text>
+<text x="576.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">фаза 1: усі праві частини читаються</text>
+<text x="576.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">фаза 2: усі ліві записуються РАЗОМ</text>
+<line x1="436.0" y1="202.0" x2="716.0" y2="202.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="466.0" cy="202.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="466.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">читання</text>
+<circle cx="686.0" cy="202.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="686.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">запис усіх</text>
+<text x="576.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">усі записи — в одну мить, наче одночасно</text>
+</svg>

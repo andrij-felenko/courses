@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три поверхи обчислень</text>
+<text x="470.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл задач по трьох поверхах гібридного апарата</text>
+<rect x="60.0" y="80.0" width="820.0" height="100.0" rx="10" fill="#f7f8fa" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="60.0" y="80.0" width="300.0" height="100.0" rx="10" fill="#f4f6f8" stroke="#27ae60" stroke-width="0.0"/>
+<text x="210.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПОЛІТНИЙ КОНТРОЛЕР (МК)</text>
+<text x="210.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">твердий real-time · без мережі</text>
+<text x="390.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• стабілізація, PID-контур 1–8 кГц</text>
+<text x="390.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• змішування виходів, безпечний режим</text>
+<text x="390.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• завжди-ввімкнений TinyML (слово, жест)</text>
+<rect x="60.0" y="200.0" width="820.0" height="100.0" rx="10" fill="#f7f8fa" stroke="#d98a00" stroke-width="2.0"/>
+<rect x="60.0" y="200.0" width="300.0" height="100.0" rx="10" fill="#f4f6f8" stroke="#d98a00" stroke-width="0.0"/>
+<text x="210.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="700">БОРТОВИЙ КОМП'ЮТЕР</text>
+<text x="210.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">м'який real-time · на борту</text>
+<text x="390.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• детектор і трекінг у реальному часі</text>
+<text x="390.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• SLAM, обхід перешкод, планування</text>
+<text x="390.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• віддає кут/ціль по MAVLink униз</text>
+<rect x="60.0" y="320.0" width="820.0" height="100.0" rx="10" fill="#f7f8fa" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="60.0" y="320.0" width="300.0" height="100.0" rx="10" fill="#f4f6f8" stroke="#2457d6" stroke-width="0.0"/>
+<text x="210.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ХМАРА / ЗЕМЛЯ</text>
+<text x="210.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">поза контуром · лише коли є зв'язок</text>
+<text x="390.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• навчання й перенавчання моделей</text>
+<text x="390.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• важкий аналіз логів і відео</text>
+<text x="390.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• побудова карт, звіти, зберігання</text>
+<line x1="300.0" y1="300.0" x2="300.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="315.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">кут по MAVLink</text>
+<path d="M 700 300 C 700 440, 470 440, 470 420" fill="none" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<rect x="50.0" y="68.0" width="840.0" height="244.0" rx="14" fill="none" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="707.5" y="71.0" width="105.0" height="22.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="760.0" y="85.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="760.0" dy="0.0">ПОЛІТНИЙ КОНТУР</tspan></text>
+<text x="470.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Усе, від чого залежить політ, — усередині контуру, на борту. Хмара стоїть зовні: пропаде — апарат літає далі.</text>
+</svg>

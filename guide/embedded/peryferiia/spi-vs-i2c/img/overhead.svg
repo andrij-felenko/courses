@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 384" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="384" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Куди йдуть такти: службове проти корисного</text>
+<text x="380.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">смуга = всі такти транзакції; зелене — корисні дані, золоте — службове</text>
+<text x="30.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">I2C — 1 байт</text>
+<rect x="250.0" y="78.0" width="166.8" height="28.0" rx="3" fill="#c8a24b" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="250.0" y="78.0" width="46.0" height="28.0" rx="3" fill="#2c7a4b" stroke="#ffffff" stroke-width="1.2"/>
+<text x="426.8" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c7a4b" text-anchor="start" font-weight="700">28% корисного</text>
+<text x="30.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">S · addr+R/W+ACK · reg+ACK · data+ACK · P  →  8 / 29</text>
+<text x="30.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">SPI — 1 байт</text>
+<rect x="250.0" y="140.0" width="92.1" height="28.0" rx="3" fill="#c8a24b" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="250.0" y="140.0" width="46.0" height="28.0" rx="3" fill="#2c7a4b" stroke="#ffffff" stroke-width="1.2"/>
+<text x="352.1" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c7a4b" text-anchor="start" font-weight="700">50% корисного</text>
+<text x="30.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">команда(8) + дані(8);  CS — окрема лінія, у такти не входить  →  8 / 16</text>
+<text x="30.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">I2C — 6 байтів пакетом</text>
+<rect x="250.0" y="202.0" width="420.0" height="28.0" rx="3" fill="#c8a24b" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="250.0" y="202.0" width="276.2" height="28.0" rx="3" fill="#2c7a4b" stroke="#ffffff" stroke-width="1.2"/>
+<text x="680.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c7a4b" text-anchor="start" font-weight="700">66% корисного</text>
+<text x="30.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">той самий службовий заголовок, але 48 корисних біт за раз  →  48 / 73</text>
+<text x="30.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">SPI — 6 байтів пакетом</text>
+<rect x="250.0" y="264.0" width="322.2" height="28.0" rx="3" fill="#c8a24b" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="250.0" y="264.0" width="276.2" height="28.0" rx="3" fill="#2c7a4b" stroke="#ffffff" stroke-width="1.2"/>
+<text x="582.2" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c7a4b" text-anchor="start" font-weight="700">86% корисного</text>
+<text x="30.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">команда(8) + 48 даних  →  48 / 56</text>
+<rect x="30.0" y="316.0" width="700.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#e0e0e0" stroke-width="1.0"/><text x="380.0" y="337.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Службовий «податок» I2C майже сталий на транзакцію: на одному байті з'їдає ~⅔ кадру,</tspan><tspan x="380.0" dy="13.7">але великим блоком розмивається. У SPI корисна частка близька до 100% незалежно від довжини.</tspan></text>
+</svg>

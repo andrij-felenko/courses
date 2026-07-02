@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Негоційоване трасування: спільний ресурс дорожчає, поки конфлікт не зникне</text>
+<rect x="124.0" y="70.0" width="52.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="142.0" cy="100.0" r="7.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="158.0" cy="100.0" r="7.0" fill="#b9770e" stroke="#b9770e" stroke-width="1.0"/>
+<text x="150.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">2 сигнали / 1 канал</text>
+<text x="150.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ітерація 1</text>
+<text x="150.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="150.0" dy="0.0">обидва сигнали лізуть</tspan><tspan x="150.0" dy="11.7">в один канал —</tspan><tspan x="150.0" dy="11.7">дозволено, але дорого</tspan></text>
+<line x1="210.0" y1="100.0" x2="320.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="354.0" y="70.0" width="52.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="372.0" cy="100.0" r="7.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="388.0" cy="100.0" r="7.0" fill="#b9770e" stroke="#b9770e" stroke-width="1.0"/>
+<text x="380.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">штраф історії ↑</text>
+<text x="380.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ітерація 5</text>
+<text x="380.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="380.0" dy="0.0">історія перевантаження</tspan><tspan x="380.0" dy="11.7">росте → канал ще дорожчий</tspan><tspan x="380.0" dy="11.7">обом невигідно</tspan></text>
+<line x1="440.0" y1="100.0" x2="550.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="584.0" y="70.0" width="52.0" height="60.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="610.0" cy="100.0" r="7.0" fill="#b9770e" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="650.0" cy="100.0" r="7.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<line x1="636.0" y1="100.0" x2="643.0" y2="100.0" stroke="#2457d6" stroke-width="1.6" stroke-dasharray="3 2"/>
+<text x="616.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">розвели</text>
+<text x="610.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ітерація 12</text>
+<text x="610.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="610.0" dy="0.0">слабший сигнал знайшов</tspan><tspan x="610.0" dy="11.7">обхід; сильніший лишився —</tspan><tspan x="610.0" dy="11.7">конфлікту нема</tspan></text>
+<rect x="117.7" y="274.5" width="524.7" height="31.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/><text x="380.0" y="293.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">вартість ресурсу = базова · (1 + present_зайнятість) · (1 + history_штраф)</tspan></text>
+</svg>

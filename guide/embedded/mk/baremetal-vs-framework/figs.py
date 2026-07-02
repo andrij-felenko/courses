@@ -277,6 +277,228 @@ def fig_credit():
            title="Дві версії історії: популярна й чесніша")
 
 
+# ════════════════ ФІГУРИ ДЕТАЛЬНОЇ СТАТТІ baremetal-vs-framework-d ════════════
+
+# ── d1. two-ceilings: стеля обгортки й стеля шини ─────────────────────────────
+def fig_two_ceilings():
+    W, H = 760, 340
+    p = []
+    # вертикальна вісь швидкості: чим вище, тим швидше
+    ax = 150
+    ytop, ybot = 70, 280
+    p.append(arrow(ax, ybot, ax, ytop - 8, color=INK, sw=2))
+    p.append(text(ax, ytop - 16, "швидше →", size=10, color=MUTED, italic=True))
+
+    # стеля APB (нижня, фізична) — суцільна товста лінія
+    y_apb = 210
+    p.append(line(ax, y_apb, W - 60, y_apb, color=POS, sw=3))
+    p.append(text(W - 60, y_apb - 8, "стеля APB ≈ 3–4 МГц", size=11, color=POS, anchor="end", bold=True))
+    p.append(text(ax + 14, y_apb + 18, "фізична: регістр GPIO на шині 80 МГц", size=10, color=MUTED, anchor="start"))
+
+    # стеля обгортки (ще нижче) — пунктир
+    y_fw = 250
+    p.append(line(ax, y_fw, W - 60, y_fw, color=MUTED, sw=2, dash="6,5"))
+    p.append(text(W - 60, y_fw + 16, "digitalWrite: ще ×3 накладних", size=11, color=MUTED, anchor="end"))
+
+    # ядро 240 МГц — недосяжна мрія нагорі
+    p.append(line(ax, ytop + 8, W - 60, ytop + 8, color=NEG, sw=1.6, dash="2,4"))
+    p.append(text(W - 60, ytop + 2, "ядро 240 МГц (недосяжно для ніжки на APB)", size=10, color=NEG, anchor="end", italic=True))
+
+    b, bw, bh = textbox((ax + W) / 2 - 20, 150,
+                        "прибрати обгортку — здолати нижню стелю;\nверхню (шину) вона не рухає",
+                        size=11, color=INK, fill="#f4f6f8", stroke=INK, sw=1.4, pad=12)
+    p.append(b)
+    render(os.path.join(OUT, "two-ceilings.svg"), W, H, *p,
+           title="Дві стелі швидкості: обгортка знімається, шина лишається")
+
+
+# ── d2. gpio-tiers: три поверхи доступу до ніжки ──────────────────────────────
+def fig_gpio_tiers():
+    W, H = 760, 320
+    p = []
+    rows = [
+        ("digitalWrite(2, HIGH)", "обгортка над IDF · ~58 тактів на виклик", "#fdecea", POS, 0.28),
+        ("REG_WRITE(W1TS, 1<<2)", "прямий запис у регістр APB · стеля ~3–4 МГц", "#fdf6e3", "#b8860b", 0.55),
+        ("dedic_gpio (CSR, S2/S3)", "повз APB, прямо з ядра · десятки МГц", "#eafaf0", FIELD, 1.0),
+    ]
+    bx = 250
+    barmax = 420
+    y = 90
+    for code, note, fill, col, frac in rows:
+        p.append(('<text x="%.1f" y="%.1f" font-family="Consolas, monospace" font-size="12" '
+                  'fill="%s" text-anchor="end">%s</text>' % (bx - 14, y + 24, INK, esc(code))))
+        w = max(barmax * frac, 40)
+        p.append(rect(bx, y + 6, w, 34, fill=fill, stroke=col, sw=1.8, rx=6))
+        p.append(text(bx + 10, y + 27, note, size=10.5, color=col, anchor="start", bold=True))
+        y += 66
+    p.append(mtext(W / 2, H - 34,
+                   "ключ не в «менше абстракцій», а в «інший механізм заліза»:\nшвидкість дає правильний шлях даних у чипі, а не відмова від обгортки",
+                   size=11, color=INK))
+    render(os.path.join(OUT, "gpio-tiers.svg"), W, H, *p,
+           title="Три поверхи швидкості GPIO на ESP32")
+
+
+# ── d3. rmw-race: гонитва read-modify-write ──────────────────────────────────
+def fig_rmw_race():
+    W, H = 780, 360
+    p = []
+    lx, rx = 210, 560          # колонки: основний код / переривання
+    p.append(text(lx, 62, "основний код", size=13, color=NEG, bold=True))
+    p.append(text(rx, 62, "переривання (ISR)", size=13, color=POS, bold=True))
+    # вертикальна вісь часу
+    p.append(arrow(W / 2, 78, W / 2, H - 60, color=MUTED, sw=1.4))
+    p.append(text(W / 2 + 8, H - 46, "час", size=10, color=MUTED, anchor="start", italic=True))
+
+    def step(cx, y, s, col, fill):
+        b = fitbox(cx - 150, y, 300, 40, s, size=10.5, fill=fill, stroke=col, sw=1.5)
+        return b
+
+    p.append(step(lx, 84, "1. читає GPIO_OUT = 0x00", NEG, "#eaf0fd"))
+    p.append(step(rx, 140, "читає GPIO_OUT = 0x00\nставить біт 5 → 0x20\nзаписує 0x20  ← ніжка 5 УВІМК", POS, "#fdecea"))
+    p.append(step(lx, 226, "2. у СТАРІЙ копії ставить біт 2 → 0x04", NEG, "#eaf0fd"))
+    p.append(step(lx, 278, "3. записує 0x04  ← біт 5 ЗАТЕРТО!", POS, "#fdecea"))
+
+    # стрілка «влучило» від осі до ISR
+    p.append(text(W / 2, 128, "◀ влучило між читанням і записом", size=10, color=POS, anchor="middle", italic=True))
+    p.append(mtext(W / 2, H - 20,
+                   "`|=` = прочитати-змінити-записати; переривання влучає в проміжок і його зміну затирають — збій плаваючий",
+                   size=10.5, color=INK))
+    render(os.path.join(OUT, "rmw-race.svg"), W, H, *p,
+           title="Гонитва read-modify-write: чому GPIO_OUT |= (1<<2) буває неправильним")
+
+
+# ── d4. startup-flow: від скидання до вашого коду ─────────────────────────────
+def fig_startup_flow():
+    W, H = 780, 360
+    p = []
+    # вертикальний ланцюг кроків стартового коду
+    cx = 300
+    steps = [
+        ("подача живлення / скидання", "лічильник команд → фіксована адреса", "#efefef", MUTED),
+        ("підняти годинники", "PLL, дільники, кеш → 240 МГц", "#fdf6e3", "#b8860b"),
+        ("копіювати .data з Flash у RAM", "початкові значення глобальних", "#eef3ff", NEG),
+        ("обнулити .bss у RAM", "неініціалізовані → нулі", "#eef3ff", NEG),
+        ("привести периферію до відомого стану", "порти, шини, переривання", "#fdf6e3", "#b8860b"),
+        ("викликати ВАШ код", "setup() / loop() / app_main", "#eafaf0", FIELD),
+    ]
+    bw, bh = 300, 40
+    y = 62
+    gap = 12
+    centers = []
+    for name, sub, fill, col in steps:
+        b = rect(cx - bw / 2, y, bw, bh, fill=fill, stroke=col, sw=1.6, rx=8)
+        b += text(cx, y + 16, name, size=11.5, color=col, bold=True)
+        b += text(cx, y + 32, sub, size=9.5, color=MUTED)
+        p.append(b)
+        centers.append(y + bh)
+        y += bh + gap
+    for i in range(len(steps) - 1):
+        p.append(arrow(cx, centers[i] + 1, cx, centers[i] + gap - 1, color=INK, sw=1.6))
+    # права підпис-дужка: усе це — обов'язок голого заліза
+    bx = cx + bw / 2 + 30
+    p.append(line(bx, 62, bx, centers[-2], color=POS, sw=2))
+    p.append(line(bx, 62, bx - 8, 62, color=POS, sw=2))
+    p.append(line(bx, centers[-2], bx - 8, centers[-2], color=POS, sw=2))
+    p.append(text(bx + 10, (62 + centers[-2]) / 2 - 10,
+                  "на голому залізі —", size=10.5, color=POS, anchor="start", bold=True))
+    p.append(text(bx + 10, (62 + centers[-2]) / 2 + 6,
+                  "усе це ваш обов'язок;", size=10, color=POS, anchor="start"))
+    p.append(text(bx + 10, (62 + centers[-2]) / 2 + 22,
+                  "забути будь-що →", size=10, color=POS, anchor="start"))
+    p.append(text(bx + 10, (62 + centers[-2]) / 2 + 38,
+                  "«магічний» баг", size=10, color=POS, anchor="start", italic=True))
+    render(os.path.join(OUT, "startup-flow.svg"), W, H, *p,
+           title="Від скидання до вашого коду: що робить стартовий код")
+
+
+# ── d5. weak-symbol: слабке гніздо, яке перекриває ваш код ────────────────────
+def fig_weak_symbol():
+    W, H = 760, 320
+    p = []
+    # ліворуч — фреймворк лишає слабку заглушку; праворуч — ваш сильний символ
+    lx, rx = 200, 560
+    p.append(text(lx, 58, "фреймворк лишає", size=12, color=MUTED, bold=True))
+    a, aw, ah = textbox(lx, 118, "weak setup()\n{ /* порожньо */ }", size=11.5, bold=True,
+                        color=MUTED, fill="#efefef", stroke=MUTED, sw=1.6, min_w=230)
+    p.append(a)
+    p.append(text(lx, 176, "слабкий символ = запасне гніздо", size=10, color=MUTED, italic=True))
+
+    p.append(text(rx, 58, "ви пишете", size=12, color=FIELD, bold=True))
+    b, bw, bh = textbox(rx, 118, "setup()\n{ ваша логіка }", size=11.5, bold=True,
+                        color=FIELD, fill="#eafaf0", stroke=FIELD, sw=1.8, min_w=230)
+    p.append(b)
+    p.append(text(rx, 176, "сильний символ", size=10, color=FIELD, italic=True))
+
+    # стрілка «перекриває»
+    p.append(arrow(rx - bw / 2 - 4, 118, lx + aw / 2 + 4, 118, color=POS, sw=2))
+    p.append(text((lx + rx) / 2, 104, "перекриває", size=11, color=POS, bold=True))
+
+    # знизу — main() фреймворку кличе результат
+    m, mw, mh = textbox((lx + rx) / 2, 236, "main() фреймворку кличе setup() — і бере ВАШ, сильний",
+                        size=11.5, color=INK, fill="#eef3ff", stroke=NEG, sw=1.8, pad=12)
+    p.append(m)
+    p.append(mtext(W / 2, H - 22,
+                   "ви не «під'єднуєтесь» до фреймворку — ви перекриваєте залишені для вас слабкі гнізда",
+                   size=11, color=MUTED))
+    render(os.path.join(OUT, "weak-symbol.svg"), W, H, *p,
+           title="Слабкий символ: ваш setup() перекриває заглушку фреймворку")
+
+
+# ── d6. leaky: закон дірявих абстракцій на нашому маршруті ────────────────────
+def fig_leaky():
+    W, H = 780, 330
+    p = []
+    p.append(text(W / 2, 54, "кожен шар тече під тиском — деталлю нижчого", size=13, color=INK, italic=True))
+    rows = [
+        ("digitalWrite", "гарячий цикл", "проступають такти + стеля APB"),
+        ("«просто пиши C»", ".data / .bss", "змінна містить сміття на старті"),
+        ("прямий запис у регістр", "переривання", "гонитва read-modify-write"),
+        ("сам C (модель пам'яті)", "забутий volatile", "оптимізатор вивертає регістровий код"),
+    ]
+    y = 84
+    for absn, press, leak in rows:
+        p.append(fitbox(90, y, 200, 46, absn, size=11, fill="#eafaf0", stroke=FIELD, sw=1.5, bold=True))
+        p.append(text(312, y + 20, "під тиском", size=9, color=MUTED, anchor="middle", italic=True))
+        p.append(fitbox(300, y + 24, 150, 20, press, size=9.5, fill="#fdf6e3", stroke="#b8860b", sw=1.2, pad=4))
+        p.append(arrow(300, y + 23, 292, y + 23, color=POS, sw=1.4))
+        p.append(arrow(462, y + 23, 476, y + 23, color=POS, sw=1.6))
+        p.append(fitbox(478, y, 224, 46, leak, size=10, fill="#fdecea", stroke=POS, sw=1.5))
+        y += 58
+    render(os.path.join(OUT, "leaky.svg"), W, H, *p,
+           title="Закон дірявих абстракцій: течуть усі, кожна на своїй межі")
+
+
+# ── d7. decide-flow: кількісний маршрут рішення ──────────────────────────────
+def fig_decide_flow():
+    W, H = 780, 330
+    p = []
+    cx = W / 2
+    boxes = [
+        ("1. ПОРАХУЙ БЮДЖЕТ", "ціна дії × частота проти часу ЦП", "#eef3ff", NEG),
+        ("2. ВИМІРЯЙ РЕАЛЬНІСТЬ", "осцилограф / лічильник тактів — не вір оцінці", "#fdf6e3", "#b8860b"),
+        ("3. ОПТИМІЗУЙ ВУЗЬКЕ МІСЦЕ", "саме ту стелю: обгортка? шина? механізм?", "#eafaf0", FIELD),
+        ("4. СХОДЬ ДО РЕГІСТРІВ ПРАВИЛЬНО", "атомарно W1TS/W1TC · volatile · без гонитв", "#eafaf0", FIELD),
+    ]
+    bw, bh = 420, 48
+    y = 62
+    gap = 20
+    centers = []
+    for name, sub, fill, col in boxes:
+        b = rect(cx - bw / 2, y, bw, bh, fill=fill, stroke=col, sw=1.8, rx=8)
+        b += text(cx, y + 19, name, size=12.5, color=col, bold=True)
+        b += text(cx, y + 36, sub, size=10, color=MUTED)
+        p.append(b)
+        centers.append(y + bh)
+        y += bh + gap
+    for i in range(len(boxes) - 1):
+        p.append(arrow(cx, centers[i] + 1, cx, centers[i] + gap - 1, color=INK, sw=1.7))
+    # бічна ремарка після кроку 1
+    p.append(text(cx + bw / 2 + 16, centers[0] - 12,
+                  "часто: оптимізувати\nнічого — стоп тут", size=9.5, color=MUTED, anchor="start", italic=True))
+    render(os.path.join(OUT, "decide-flow.svg"), W, H, *p,
+           title="Вирішувати числом: бюджет → вимір → вузьке місце → правильний спуск")
+
+
 if __name__ == "__main__":
     fig_two_ways()
     fig_layers()
@@ -287,4 +509,11 @@ if __name__ == "__main__":
     fig_lineage()
     fig_wiring_vs_arduino()
     fig_credit()
+    fig_two_ceilings()
+    fig_gpio_tiers()
+    fig_rmw_race()
+    fig_startup_flow()
+    fig_weak_symbol()
+    fig_leaky()
+    fig_decide_flow()
     print("OK: figures written to", OUT)

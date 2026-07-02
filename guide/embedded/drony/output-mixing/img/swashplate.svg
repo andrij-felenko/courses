@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат перекосу H3-120: кожне серво = сума трьох команд</text>
+<text x="230.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">розкладка серво (вид згори)</text>
+<text x="230.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">↑ вперед (0°)</text>
+<circle cx="230.0" cy="250.0" r="120.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<circle cx="230.0" cy="250.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<line x1="230.0" y1="130.0" x2="230.0" y2="370.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 4"/>
+<line x1="110.0" y1="250.0" x2="350.0" y2="250.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 4"/>
+<circle cx="333.9" cy="190.0" r="15.0" fill="#fff" stroke="#c0392b" stroke-width="2.4"/>
+<text x="333.9" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">A</text>
+<text x="349.5" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">60°</text>
+<circle cx="230.0" cy="370.0" r="15.0" fill="#fff" stroke="#2457d6" stroke-width="2.4"/>
+<text x="230.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">B</text>
+<text x="230.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">180°</text>
+<circle cx="126.1" cy="190.0" r="15.0" fill="#fff" stroke="#27ae60" stroke-width="2.4"/>
+<text x="126.1" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">C</text>
+<text x="110.5" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">300°</text>
+<text x="635.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">хід серво = C + P·cos θ + R·sin θ</text>
+<rect x="470.0" y="120.0" width="330.0" height="42.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="482.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">серво A (60°)</text>
+<text x="598.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">= C + 0.5·P + 0.866·R</text>
+<rect x="470.0" y="172.0" width="330.0" height="42.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="482.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">серво B (180°)</text>
+<text x="598.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">= C − 1.0·P + 0.0·R</text>
+<rect x="470.0" y="224.0" width="330.0" height="42.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="482.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">серво C (300°)</text>
+<text x="598.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">= C + 0.5·P − 0.866·R</text>
+<text x="470.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">C — загальний крок (усі три вгору однаково)</text>
+<text x="470.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">P — поздовжній нахил (заднє проти передніх)</text>
+<text x="470.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">R — поперечний нахил (бічні в різні боки)</text>
+<text x="410.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">коефіцієнти суми — це косинуси й синуси азимутів серво, а не магічні числа</text>
+</svg>

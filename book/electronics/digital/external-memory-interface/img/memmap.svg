@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адресна мапа FMC: одне вікно, поділене на чотири вибірки кристала</text>
+<rect x="120.0" y="90.0" width="210.0" height="66.0" rx="6" fill="#f7f9fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="132.0" y="116.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">0x6000_0000</text>
+<text x="132.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">64 МБ · SRAM / PSRAM</text>
+<rect x="360.0" y="98.0" width="66.0" height="34.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="393.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">~NE1</text>
+<line x1="330.0" y1="115.0" x2="360.0" y2="115.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="438.0" y="120.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#2457d6" text-anchor="start">A[27:26]=00</text>
+<rect x="120.0" y="164.0" width="210.0" height="66.0" rx="6" fill="#f7f9fb" stroke="#27ae60" stroke-width="2.0"/>
+<text x="132.0" y="190.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">0x6400_0000</text>
+<text x="132.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">64 МБ · NOR Flash</text>
+<rect x="360.0" y="172.0" width="66.0" height="34.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="393.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">~NE2</text>
+<line x1="330.0" y1="189.0" x2="360.0" y2="189.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="438.0" y="194.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#27ae60" text-anchor="start">A[27:26]=01</text>
+<rect x="120.0" y="238.0" width="210.0" height="66.0" rx="6" fill="#f7f9fb" stroke="#6a3fb5" stroke-width="2.0"/>
+<text x="132.0" y="264.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">0x6800_0000</text>
+<text x="132.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6a3fb5" text-anchor="start" font-weight="700">64 МБ · дисплей (8080)</text>
+<rect x="360.0" y="246.0" width="66.0" height="34.0" rx="5" fill="#ffffff" stroke="#6a3fb5" stroke-width="1.8"/>
+<text x="393.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6a3fb5" text-anchor="middle" font-weight="700">~NE3</text>
+<line x1="330.0" y1="263.0" x2="360.0" y2="263.0" stroke="#6a3fb5" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="438.0" y="268.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#6a3fb5" text-anchor="start">A[27:26]=10</text>
+<rect x="120.0" y="312.0" width="210.0" height="66.0" rx="6" fill="#f7f9fb" stroke="#6b7280" stroke-width="2.0"/>
+<text x="132.0" y="338.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">0x6C00_0000</text>
+<text x="132.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">64 МБ · вільно</text>
+<rect x="360.0" y="320.0" width="66.0" height="34.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="393.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">~NE4</text>
+<line x1="330.0" y1="337.0" x2="360.0" y2="337.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="438.0" y="342.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#6b7280" text-anchor="start">A[27:26]=11</text>
+<text x="225.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Банк NOR/PSRAM (256 МБ)</text>
+<text x="548.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Адреса розпадається на поля:</text>
+<rect x="548.0" y="130.0" width="138.0" height="54.0" rx="8" fill="#fbfdff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="617.0" y="152.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">A[31…28]</text>
+<text x="617.0" y="174.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1a1a1a" text-anchor="middle">0110</text>
+<text x="617.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">= 0x6 → зовнішня</text>
+<text x="617.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">пам'ять узагалі</text>
+<rect x="702.0" y="130.0" width="108.0" height="54.0" rx="8" fill="#fbfdff" stroke="#6a3fb5" stroke-width="2.0"/>
+<text x="756.0" y="152.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#6a3fb5" text-anchor="middle" font-weight="700">A[27…26]</text>
+<text x="756.0" y="174.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1a1a1a" text-anchor="middle">xx</text>
+<text x="756.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6a3fb5" text-anchor="middle">→ який ~NEx</text>
+<text x="756.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6a3fb5" text-anchor="middle">(1 з 4)</text>
+<rect x="826.0" y="130.0" width="138.0" height="54.0" rx="8" fill="#fbfdff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="895.0" y="152.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">A[25…0]</text>
+<text x="895.0" y="174.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1a1a1a" text-anchor="middle">……</text>
+<text x="895.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">→ комірка</text>
+<text x="895.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">всередині чіпа</text>
+<rect x="548.0" y="250.0" width="416.0" height="66.0" rx="8" fill="#f3f7f3" stroke="#27ae60" stroke-width="1.8"/>
+<text x="564.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Це та сама каскадна дешифрація, що на будь-якій шині:</text>
+<text x="564.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">старші біти вибирають мікросхему (піднімають один ~NEx),</text>
+<text x="564.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">молодші йдуть усередину неї на вибір комірки.</text>
+<text x="500.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Вся зовнішня пам'ять живе від 0x6000_0000; чотири підвікна по 64 МБ — це чотири окремі мікросхеми, кожна зі своїм ~NEx.</text>
+<text x="500.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6a3fb5" text-anchor="middle" font-weight="700">Записав за адресою 0x6800_0000 — активувався ~NE3, і цикл пішов саме до дисплея.</text>
+</svg>

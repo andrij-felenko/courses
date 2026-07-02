@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">SMBus — це I²C з трьома жорсткими правилами</text>
+<rect x="15.0" y="70.0" width="250.0" height="220.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="140.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Таймаут</text>
+<text x="140.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="140.0" dy="0.0">I²C: годинник можна</tspan><tspan x="140.0" dy="15.0">тримати низько скільки</tspan><tspan x="140.0" dy="15.0">завгодно (clock stretch).</tspan></text>
+<line x1="31.0" y1="202.0" x2="249.0" y2="202.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4,3"/>
+<text x="140.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">SMBus: тримав SCL</tspan><tspan x="140.0" dy="15.0">низько &gt; 35 мс —</tspan><tspan x="140.0" dy="15.0">усі скидають шину.</tspan></text>
+<rect x="285.0" y="70.0" width="250.0" height="220.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="410.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Мінімум такту</text>
+<text x="410.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="410.0" dy="0.0">I²C: можна й 0 Гц —</tspan><tspan x="410.0" dy="15.0">стій між бітами.</tspan></text>
+<line x1="301.0" y1="202.0" x2="519.0" y2="202.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="4,3"/>
+<text x="410.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">SMBus: не повільніше</tspan><tspan x="410.0" dy="15.0">10 кГц, інакше</tspan><tspan x="410.0" dy="15.0">спрацює таймаут.</tspan></text>
+<rect x="555.0" y="70.0" width="250.0" height="220.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="680.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Пороги рівнів</text>
+<text x="680.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="680.0" dy="0.0">I²C: пороги — частка</tspan><tspan x="680.0" dy="15.0">від живлення чипа.</tspan></text>
+<line x1="571.0" y1="202.0" x2="789.0" y2="202.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="4,3"/>
+<text x="680.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">SMBus: пороги фіксовані</tspan><tspan x="680.0" dy="15.0">(0.8 В / 2.1 В) —</tspan><tspan x="680.0" dy="15.0">рівні збігаються.</tspan></text>
+</svg>

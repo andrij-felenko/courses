@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слабкий символ: ваш setup() перекриває заглушку фреймворку</text>
+<text x="200.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">фреймворк лишає</text>
+<rect x="85.0" y="94.8" width="230.0" height="46.5" rx="6" fill="#efefef" stroke="#6b7280" stroke-width="1.6"/><text x="200.0" y="114.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">weak setup()</tspan><tspan x="200.0" dy="15.0">{ /* порожньо */ }</tspan></text>
+<text x="200.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">слабкий символ = запасне гніздо</text>
+<text x="560.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ви пишете</text>
+<rect x="445.0" y="94.8" width="230.0" height="46.5" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="560.0" y="114.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">setup()</tspan><tspan x="560.0" dy="15.0">{ ваша логіка }</tspan></text>
+<text x="560.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">сильний символ</text>
+<line x1="441.0" y1="118.0" x2="319.0" y2="118.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">перекриває</text>
+<rect x="194.3" y="218.2" width="371.4" height="35.5" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.8"/><text x="380.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">main() фреймворку кличе setup() — і бере ВАШ, сильний</tspan></text>
+<text x="380.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="380.0" dy="0.0">ви не «під'єднуєтесь» до фреймворку — ви перекриваєте залишені для вас слабкі гнізда</tspan></text>
+</svg>

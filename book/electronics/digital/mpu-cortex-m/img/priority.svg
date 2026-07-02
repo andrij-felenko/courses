@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Області перекриваються — виграє та, що зі старшим номером</text>
+<rect x="120.0" y="90.0" width="460.0" height="70.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="132.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Область 0</text>
+<text x="132.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">уся RAM — читати й писати</text>
+<rect x="370.0" y="110.0" width="200.0" height="90.0" rx="6" fill="#fdeef0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="470.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Область 3</text>
+<text x="470.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">лише читати</text>
+<text x="470.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">(старший номер!)</text>
+<line x1="370.0" y1="220.0" x2="570.0" y2="220.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4,3"/>
+<text x="470.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">тут запис заборонено</text>
+<line x1="120.0" y1="220.0" x2="370.0" y2="220.0" stroke="#2457d6" stroke-width="1.6" stroke-dasharray="4,3"/>
+<text x="245.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">тут запис дозволено</text>
+<rect x="231.4" y="225.3" width="317.3" height="49.3" rx="6" fill="#f1ecfa" stroke="#6a3fb5" stroke-width="2.0"/><text x="390.0" y="246.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6a3fb5" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Правило перекриття</tspan><tspan x="390.0" dy="14.3">діють атрибути області з НАЙБІЛЬШИМ номером</tspan></text>
+<text x="390.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Так широку область роблять «дефолтом», а точковими старшими областями вирізають у ній винятки — наприклад, роблять шматок RAM тільки для читання.</text>
+</svg>

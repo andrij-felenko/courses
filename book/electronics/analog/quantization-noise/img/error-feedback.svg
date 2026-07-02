@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формувач шуму 1-го порядку: похибку округлення повертаємо в наступний відлік</text>
+<text x="60.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">x[n]</text>
+<text x="60.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">довге слово</text>
+<line x1="60.0" y1="150.0" x2="150.0" y2="150.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="126.0" y1="150.0" x2="152.0" y2="150.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="170.0" cy="150.0" r="17.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="170.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<line x1="187.0" y1="150.0" x2="250.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="187.0" y1="150.0" x2="252.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="250.0" y="120.0" width="118.0" height="60.0" rx="6" fill="#eef0f2" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="309.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="309.0" dy="0.0">округлення</tspan><tspan x="309.0" dy="14.3">(+½q, &gt;&gt;)</tspan></text>
+<text x="309.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">до короткого</text>
+<text x="244.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">u[n]</text>
+<line x1="368.0" y1="150.0" x2="488.0" y2="150.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="464.0" y1="150.0" x2="490.0" y2="150.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="494.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">y[n]</text>
+<text x="494.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">коротке слово</text>
+<circle cx="428.0" cy="150.0" r="3.2" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<circle cx="309.0" cy="270.0" r="17.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="309.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">−</text>
+<line x1="244.0" y1="150.0" x2="244.0" y2="270.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="244.0" y1="270.0" x2="292.0" y2="270.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="244.0" y1="270.0" x2="294.0" y2="270.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="268.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">u</text>
+<line x1="428.0" y1="150.0" x2="428.0" y2="270.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="428.0" y1="270.0" x2="326.0" y2="270.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="428.0" y1="270.0" x2="324.0" y2="270.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="377.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">y</text>
+<text x="309.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">e[n] = u[n] − y[n]</text>
+<text x="309.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">похибка округлення</text>
+<line x1="292.0" y1="270.0" x2="170.0" y2="270.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="136.0" y="252.0" width="68.0" height="36.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="170.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">z⁻¹</text>
+<text x="170.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">затримка на 1 відлік</text>
+<line x1="136.0" y1="270.0" x2="112.0" y2="270.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="112.0" y1="270.0" x2="112.0" y2="150.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="112.0" y1="150.0" x2="153.0" y2="150.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="112.0" y1="150.0" x2="155.0" y2="150.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="118.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">+e[n−1]</text>
+<rect x="96.4" y="390.4" width="567.2" height="63.2" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="410.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Округлили — і те, що зрізали (похибку округлення e), не викидаємо, а тримаємо й</tspan><tspan x="380.0" dy="15.6">додаємо до наступного відліку перед округленням. Різниця сусідніх похибок гасить</tspan><tspan x="380.0" dy="15.6">низькі частоти: шум спливає вгору, у смузі сигналу його майже не лишається.</tspan></text>
+</svg>

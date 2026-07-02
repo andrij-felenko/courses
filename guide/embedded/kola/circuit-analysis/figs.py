@@ -458,6 +458,429 @@ def fig_what_it_shows():
            title="Що показує симулятор: величини Кірхгофа наживо")
 
 
+# ════════════════════════════════════════════════════════════════════════════
+#  ФІГУРИ ДЕТАЛЬНОЇ СТАТТІ (circuit-analysis-d.md)
+# ════════════════════════════════════════════════════════════════════════════
+
+# ── tree-cotree.svg — дерево й хорди: звідки N−1 і B−N+1 ─────────────────────
+def fig_tree_cotree():
+    W, H = 760, 340
+    parts = []
+    parts.append(line(W / 2, 62, W / 2, 300, color="#e4e4e4", sw=1.5))
+    # вузли — 4 штуки в обох панелях, гілки: 3 дерево + 2 хорди = 5, тож L=2
+    def graph(ox, tree_only):
+        pts = {1: (ox + 40, 110), 2: (ox + 200, 110),
+               3: (ox + 200, 240), 4: (ox + 40, 240)}
+        edges_tree = [(1, 2), (2, 3), (3, 4)]      # N−1 = 3 гілки дерева
+        edges_cotree = [(1, 4), (1, 3)]            # хорди
+        s = ""
+        for a, b in edges_tree:
+            s += line(pts[a][0], pts[a][1], pts[b][0], pts[b][1], color=FIELD, sw=3)
+        if not tree_only:
+            for a, b in edges_cotree:
+                s += line(pts[a][0], pts[a][1], pts[b][0], pts[b][1],
+                          color=NEG, sw=2.4, dash="6,5")
+        for n, (x, y) in pts.items():
+            s += circle(x, y, 13, fill="#fff", stroke=INK, sw=2)
+            s += text(x, y + 5, str(n), size=12, color=INK, bold=True)
+        return s
+    # ліва панель — дерево
+    parts.append(text(150, 88, "Кістякове дерево", size=13, color=FIELD, bold=True))
+    parts.append(graph(70, True))
+    parts.append(text(150, 288, "сполучає всі N вузлів, БЕЗ контурів",
+                      size=11, color=MUTED, italic=True))
+    parts.append(text(150, 310, "гілок дерева: завжди N − 1 = 3", size=12, color=INK, bold=True))
+    # права панель — дерево + хорди
+    parts.append(text(560, 88, "+ хорди (решта гілок)", size=13, color=NEG, bold=True))
+    parts.append(graph(480, False))
+    parts.append(text(560, 288, "кожна хорда замикає 1 контур",
+                      size=11, color=MUTED, italic=True))
+    parts.append(text(560, 310, "хорд: B − N + 1 = 2  →  стільки й контурів",
+                      size=12, color=INK, bold=True))
+    parts.append(text(W / 2, 332,
+                      "N−1 незалежних балансів струмів  ·  B−N+1 незалежних контурів",
+                      size=12, color=INK, italic=True))
+    render(out("tree-cotree.svg"), W, H, *parts,
+           title="Дерево й хорди: звідки беруться N−1 і B−N+1")
+
+
+# ── bridge-reduce.svg — місток Вітстона через Y-Δ ───────────────────────────
+def fig_bridge_reduce():
+    W, H = 780, 360
+    parts = []
+    # ── крок 0: місток (ромб) ──
+    def bridge(ox, oy):
+        T = (ox + 80, oy)          # верх (джерело)
+        A = (ox + 20, oy + 70)     # ліво
+        B = (ox + 140, oy + 70)    # право
+        D = (ox + 80, oy + 140)    # низ
+        s = line(*T, *A, color=INK, sw=2) + line(*T, *B, color=INK, sw=2)
+        s += line(*A, *D, color=INK, sw=2) + line(*B, *D, color=INK, sw=2)
+        s += line(*A, *B, color=POS, sw=2.4)   # перемичка R5
+        for p in (T, A, B, D):
+            s += circle(*p, 4, fill=INK, stroke=INK, sw=1)
+        s += text((T[0]+A[0])/2-14, (T[1]+A[1])/2, "R₁", size=11, bold=True, italic=True)
+        s += text((T[0]+B[0])/2+14, (T[1]+B[1])/2, "R₂", size=11, bold=True, italic=True)
+        s += text(ox + 80, oy + 62, "R₅", size=11, color=POS, bold=True, italic=True)
+        s += text((A[0]+D[0])/2-14, (A[1]+D[1])/2+6, "R₃", size=11, bold=True, italic=True)
+        s += text((B[0]+D[0])/2+14, (B[1]+D[1])/2+6, "R₄", size=11, bold=True, italic=True)
+        s += text(T[0], oy - 10, "T", size=10, color=MUTED, bold=True)
+        s += text(A[0]-12, A[1]+4, "A", size=10, color=MUTED, bold=True)
+        s += text(B[0]+12, B[1]+4, "B", size=10, color=MUTED, bold=True)
+        return s
+    parts.append(text(120, 78, "1. Місток не згортається", size=12.5, color=INK, bold=True))
+    parts.append(bridge(40, 110))
+    # ── крок 1: верхній трикутник → зірка ──
+    def star(ox, oy):
+        T = (ox + 80, oy); A = (ox + 20, oy + 70); B = (ox + 140, oy + 70)
+        D = (ox + 80, oy + 140); M = (ox + 80, oy + 55)
+        s = line(*T, *M, color=FIELD, sw=2.6) + line(*A, *M, color=FIELD, sw=2.6)
+        s += line(*B, *M, color=FIELD, sw=2.6)
+        s += line(*A, *D, color=INK, sw=2) + line(*B, *D, color=INK, sw=2)
+        for p in (T, A, B, D):
+            s += circle(*p, 4, fill=INK, stroke=INK, sw=1)
+        s += circle(*M, 4, fill=FIELD, stroke=FIELD, sw=1)
+        s += text(M[0]+12, M[1]-2, "M", size=10, color=FIELD, bold=True)
+        s += text(T[0]+10, (T[1]+M[1])/2, "R_T", size=10, color=FIELD, bold=True)
+        s += text(A[0]+2, (A[1]+M[1])/2+4, "R_A", size=10, color=FIELD, bold=True)
+        s += text(B[0]-2, (B[1]+M[1])/2+4, "R_B", size=10, color=FIELD, bold=True, anchor="end")
+        s += text((A[0]+D[0])/2-14, (A[1]+D[1])/2+6, "R₃", size=11, bold=True, italic=True)
+        s += text((B[0]+D[0])/2+14, (B[1]+D[1])/2+6, "R₄", size=11, bold=True, italic=True)
+        return s
+    parts.append(text(360, 78, "2. Трикутник (R₁,R₂,R₅) → зірка", size=12.5, color=FIELD, bold=True))
+    parts.append(star(290, 110))
+    parts.append(arrow(240, 180, 285, 180, color=MUTED, sw=2))
+    # ── крок 2: підсумок згортання ──
+    parts.append(text(640, 78, "3. Тепер згортається", size=12.5, color=POS, bold=True))
+    parts.append(fitbox(560, 110, 190, 150,
+                        "R_A+R₃ = 220 Ω\nR_B+R₄ = 220 Ω\n"
+                        "220 ∥ 220 = 110 Ω\n"
+                        "R_екв = R_T + 110\n     = 40 + 110 = 150 Ω\n"
+                        "I = 10/150 = 66.7 мА",
+                        size=13, fill="#fdecea", stroke=POS))
+    parts.append(arrow(505, 180, 555, 180, color=MUTED, sw=2))
+    parts.append(text(W / 2, 344,
+                      "Y-Δ прибирає зчепленість → повертає послідовно-паралельні пари → згортання оживає",
+                      size=11.5, color=INK, italic=True))
+    render(out("bridge-reduce.svg"), W, H, *parts,
+           title="Місток Вітстона: Y-Δ розчищає шлях згортанню")
+
+
+# ── superposition.svg — накладання ──────────────────────────────────────────
+def fig_superposition():
+    W, H = 780, 320
+    parts = []
+    def cell(ox, title, e1, e2, col):
+        # маленька рамкова схема: два джерела ліворуч/праворуч, R3 у центр вниз
+        s = text(ox + 95, 78, title, size=12, color=col, bold=True)
+        L, R, top, bot = ox + 30, ox + 160, 100, 210
+        mid = (L + R) / 2
+        s += line(L, top, R, top, color=INK, sw=1.8)
+        s += line(L, bot, R, bot, color=INK, sw=1.8)
+        s += line(mid, top, mid, 150, color=INK, sw=1.8)
+        s += res_v(mid, 175, "R₃", side="right") if False else ""
+        s += rect(mid - 8, 150, 16, 40, fill="#fff", stroke=INK, sw=1.8, rx=2)
+        # ліве плече
+        if e1 == "V":
+            s += line(L, top, L, 135, color=INK, sw=1.8)
+            s += line(L - 9, 138, L + 9, 138, color=INK, sw=3)
+            s += line(L - 5, 146, L + 5, 146, color=INK, sw=2)
+            s += line(L, 154, L, bot, color=INK, sw=1.8)
+            s += text(L - 12, 150, "V₁", size=10, color=POS, bold=True, anchor="end")
+        else:  # закорочено
+            s += line(L, top, L, bot, color=NEG, sw=2.6)
+            s += text(L - 12, 150, "0", size=11, color=NEG, bold=True, anchor="end")
+        # праве плече
+        if e2 == "V":
+            s += line(R, top, R, 135, color=INK, sw=1.8)
+            s += line(R - 9, 138, R + 9, 138, color=INK, sw=3)
+            s += line(R - 5, 146, R + 5, 146, color=INK, sw=2)
+            s += line(R, 154, R, bot, color=INK, sw=1.8)
+            s += text(R + 12, 150, "V₂", size=10, color=POS, bold=True, anchor="start")
+        else:
+            s += line(R, top, R, bot, color=NEG, sw=2.6)
+            s += text(R + 12, 150, "0", size=11, color=NEG, bold=True, anchor="start")
+        s += text(mid, 172, "R₃", size=10, bold=True, italic=True)
+        return s
+    parts.append(cell(0, "живе лише V₁ (V₂ закорочено)", "V", "0", NEG))
+    parts.append(cell(220, "живе лише V₂ (V₁ закорочено)", "0", "V", NEG))
+    parts.append(text(305, 240, "Vₐ' = 4.0 В", size=12, color=INK, bold=True))
+    parts.append(text(305, 258, "+  Vₐ'' = 2.4 В", size=12, color=INK, bold=True))
+    # знак суми праворуч
+    parts.append(fitbox(560, 100, 200, 130,
+                        "повний відгук =\nсума часткових\n\n"
+                        "Vₐ = 4.0 + 2.4\n    = 6.4 В  ✓",
+                        size=14, fill="#eef7f0", stroke=FIELD))
+    parts.append(text(490, 155, "→", size=26, color=FIELD, bold=True))
+    parts.append(text(W / 2, 300,
+                      "Лінійне коло: увімкни джерела по черзі й склади відгуки "
+                      "(струми/напруги — можна, потужність — НІ)",
+                      size=11.5, color=INK, italic=True))
+    render(out("superposition.svg"), W, H, *parts,
+           title="Накладання: розбити задачу з багатьма джерелами на прості")
+
+
+# ── thevenin.svg — еквівалент Тевенена/Нортона ──────────────────────────────
+def fig_thevenin():
+    W, H = 780, 320
+    parts = []
+    # ── «хмара» складної схеми ──
+    cx, cy = 130, 170
+    parts.append('<ellipse cx="%d" cy="%d" rx="86" ry="60" fill="%s" stroke="%s" '
+                 'stroke-width="2"/>' % (cx, cy, FILL, MUTED))
+    parts.append(mtext(cx, cy - 8, "будь-яка\nлінійна схема",
+                       size=13, color=INK, bold=True, lh=1.25))
+    parts.append(text(cx, cy + 28, "(десятки елементів)", size=10, color=MUTED))
+    parts.append(line(cx + 86, cy - 20, cx + 150, cy - 20, color=INK, sw=2))
+    parts.append(line(cx + 86, cy + 20, cx + 150, cy + 20, color=INK, sw=2))
+    parts.append(circle(cx + 150, cy - 20, 4, fill=INK, stroke=INK, sw=1))
+    parts.append(circle(cx + 150, cy + 20, 4, fill=INK, stroke=INK, sw=1))
+    parts.append(text(cx + 150, cy - 30, "затискачі", size=10, color=MUTED))
+    parts.append(arrow(cx + 158, cy, cx + 210, cy, color=FIELD, sw=2.6))
+    parts.append(text(cx + 184, cy - 8, "≡", size=18, color=FIELD, bold=True))
+    # ── еквівалент Тевенена ──
+    tx = 430
+    parts.append(text(tx + 20, 92, "Тевенен", size=13, color=INK, bold=True))
+    parts.append(line(tx + 20, 130, tx + 20, 150, color=INK, sw=2))
+    parts.append(line(tx + 11, 130, tx + 29, 130, color=INK, sw=3))
+    parts.append(line(tx + 15, 122, tx + 25, 122, color=INK, sw=2))
+    parts.append(line(tx + 20, 108, tx + 20, 122, color=INK, sw=2))
+    parts.append(text(tx - 4, 128, "V_th", size=11, color=POS, bold=True, anchor="end"))
+    parts.append(rect(tx + 12, 150, 16, 44, fill="#fff", stroke=INK, sw=2, rx=2))
+    parts.append(text(tx + 38, 176, "R_th", size=11, color=INK, bold=True, italic=True, anchor="start"))
+    parts.append(line(tx + 20, 194, tx + 20, 214, color=INK, sw=2))
+    parts.append(line(tx + 20, 108, tx + 60, 108, color=INK, sw=2))
+    parts.append(line(tx + 20, 214, tx + 60, 214, color=INK, sw=2))
+    parts.append(circle(tx + 60, 108, 4, fill=INK, stroke=INK, sw=1))
+    parts.append(circle(tx + 60, 214, 4, fill=INK, stroke=INK, sw=1))
+    # ── формули праворуч ──
+    parts.append(fitbox(560, 92, 200, 150,
+                        "V_th = напруга на\nРОЗІМКНЕНИХ\nзатискачах\n\n"
+                        "R_th = опір із затискачів,\nусі джерела вимкнено\n"
+                        "(V→дріт, I→розрив)",
+                        size=12, fill="#f6f8fc", stroke=INK))
+    parts.append(text(W / 2, 268,
+                      "Нортон — дуально: I_n = V_th/R_th паралельно з тим самим R_th",
+                      size=12, color=NEG, bold=True))
+    parts.append(text(W / 2, 296,
+                      "Максимум потужності в навантаженні — коли R_н = R_th (узгодження)",
+                      size=11, color=MUTED, italic=True))
+    render(out("thevenin.svg"), W, H, *parts,
+           title="Тевенен: складну двополюсну схему — до V_th і R_th")
+
+
+# ── method-map.svg — карта вибору методу ────────────────────────────────────
+def fig_method_map():
+    W, H = 780, 360
+    parts = []
+    rows = [
+        ("Згортається (послід./парал.)?", "→ згортання + дільники", "найшвидше", FIELD),
+        ("Місток / зчеплені трикутники?", "→ спершу Y-Δ, тоді згортання", "оживляє згортання", "#8e44ad"),
+        ("Кілька джерел?", "→ накладання АБО система", "внесок кожного окремо", NEG),
+        ("Одне навантаження, різні номінали?", "→ Тевенен / Нортон", "усе інше — 2 числа", POS),
+        ("Багато вузлів і гілок?", "→ вузловий чи контурний", "бери, де менше невідомих", "#e08030"),
+    ]
+    x0, y0, rw, rh, gap = 60, 66, 660, 40, 8
+    for i, (q, a, note, col) in enumerate(rows):
+        y = y0 + i * (rh + gap)
+        parts.append(rect(x0, y, rw, rh, fill=FILL, stroke=col, sw=2, rx=8))
+        parts.append(rect(x0, y, 8, rh, fill=col, sw=0, rx=0))
+        parts.append(text(x0 + 22, y + rh / 2 + 5, q, size=13, color=INK, bold=True, anchor="start"))
+        parts.append(text(x0 + 350, y + rh / 2 + 5, a, size=13, color=col, bold=True, anchor="start"))
+        parts.append(text(x0 + rw - 12, y + rh / 2 + 5, note, size=10.5, color=MUTED,
+                          italic=True, anchor="end"))
+    cy = y0 + 5 * (rh + gap) + 16
+    parts.append(rect(x0, cy, rw, 40, fill="#eef7f0", stroke=FIELD, sw=2, rx=8))
+    parts.append(text(W / 2, cy + 25,
+                      "І ЗАВЖДИ наприкінці — три самоперевірки: одиниці · баланси Кірхгофа · порядок величин",
+                      size=12.5, color=FIELD, bold=True))
+    render(out("method-map.svg"), W, H, *parts,
+           title="Карта вибору методу аналізу кіл")
+
+
+# ── math-y-delta: фігури для вставки про виведення Y-Δ ───────────────────────
+def _triangle(cx, cy, r, labels=("R₁₂", "R₂₃", "R₃₁"), nodes=("1", "2", "3"),
+              hot=None, col=INK):
+    """Трикутник: вузол 1 угорі, 2 — знизу-ліворуч, 3 — знизу-праворуч.
+    Сторона R₁₂ (1–2) ліва, R₂₃ (2–3) низ, R₃₁ (3–1) права. hot — індекс
+    сторони (0/1/2), яку підсвітити POS-кольором."""
+    import math
+    N1 = (cx, cy - r)
+    N2 = (cx - r * 0.87, cy + r * 0.5)
+    N3 = (cx + r * 0.87, cy + r * 0.5)
+    P = (N1, N2, N3)
+    sides = [(N1, N2), (N2, N3), (N3, N1)]   # 1–2, 2–3, 3–1
+    s = ""
+    for i, (a, b) in enumerate(sides):
+        c = POS if hot == i else col
+        sw = 3.0 if hot == i else 2.2
+        s += line(*a, *b, color=c, sw=sw)
+    # підписи сторін — трохи назовні від середини
+    mids = [((N1[0]+N2[0])/2 - 16, (N1[1]+N2[1])/2),
+            ((N2[0]+N3[0])/2, (N2[1]+N3[1])/2 + 16),
+            ((N3[0]+N1[0])/2 + 16, (N3[1]+N1[1])/2)]
+    for i, (mx, my) in enumerate(mids):
+        c = POS if hot == i else INK
+        s += text(mx, my, labels[i], size=13, color=c, bold=True, italic=True)
+    for i, p in enumerate(P):
+        s += circle(*p, 5, fill=INK, stroke=INK, sw=1)
+        dx = 0 if i == 0 else (-14 if i == 1 else 14)
+        dy = -12 if i == 0 else 6
+        s += text(p[0] + dx, p[1] + dy, nodes[i], size=12, color=MUTED, bold=True)
+    return s, P
+
+
+def _star(cx, cy, r, labels=("Rₐ", "R_b", "R_c"), nodes=("1", "2", "3"),
+          hot=(), col=FIELD):
+    """Зірка: центр M, промені до вузлів 1 (угорі), 2 (низ-ліво), 3 (низ-право).
+    hot — набір індексів променів (0/1/2), які підсвітити."""
+    M = (cx, cy)
+    N1 = (cx, cy - r)
+    N2 = (cx - r * 0.87, cy + r * 0.5)
+    N3 = (cx + r * 0.87, cy + r * 0.5)
+    P = (N1, N2, N3)
+    s = ""
+    for i, p in enumerate(P):
+        c = POS if i in hot else col
+        sw = 3.2 if i in hot else 2.6
+        s += line(*M, *p, color=c, sw=sw)
+    labpos = [(N1[0] + 14, (N1[1] + M[1]) / 2),
+              ((N2[0] + M[0]) / 2 - 4, (N2[1] + M[1]) / 2 + 12),
+              ((N3[0] + M[0]) / 2 + 4, (N3[1] + M[1]) / 2 + 12)]
+    for i, (lx, ly) in enumerate(labpos):
+        c = POS if i in hot else FIELD
+        s += text(lx, ly, labels[i], size=13, color=c, bold=True)
+    for i, p in enumerate(P):
+        s += circle(*p, 5, fill=INK, stroke=INK, sw=1)
+        dx = 0 if i == 0 else (-14 if i == 1 else 14)
+        dy = -12 if i == 0 else 6
+        s += text(p[0] + dx, p[1] + dy, nodes[i], size=12, color=MUTED, bold=True)
+    s += circle(*M, 5, fill=FIELD, stroke=FIELD, sw=1)
+    s += text(M[0] + 12, M[1] - 2, "M", size=11, color=FIELD, bold=True)
+    return s, P, M
+
+
+# ── ydelta-pair.svg — що таке «опір між парою» в кожній фігурі ───────────────
+def fig_ydelta_pair():
+    W, H = 780, 380
+    parts = []
+    parts.append(text(W / 2, 52,
+                      "Умова еквівалентності: опір між кожною парою зовнішніх вузлів — однаковий",
+                      size=13, color=INK, bold=True))
+    # ліворуч: трикутник, підсвічена «дорога» між вузлами 1 і 2
+    tS, tP = _triangle(190, 175, 92, hot=0)
+    parts.append(text(190, 92, "ТРИКУТНИК (Δ)", size=13, color=INK, bold=True))
+    parts.append(tS)
+    # праворуч: зірка, підсвічені промені a і b (шлях 1→M→2)
+    sS, sP, sM = _star(590, 175, 92, hot=(0, 1))
+    parts.append(text(590, 92, "ЗІРКА (Y)", size=13, color=FIELD, bold=True))
+    parts.append(sS)
+    # пояснення внизу — дві рамки з тим, що дає кожна фігура для пари 1–2
+    parts.append(fitbox(60, 288, 300, 70,
+                        "між 1 і 2: пряма сторона R₁₂\n"
+                        "паралельно з обхідною R₂₃+R₃₁\n"
+                        "R₁₂ ∥ (R₂₃ + R₃₁)",
+                        size=12.5, fill="#fdecea", stroke=POS))
+    parts.append(fitbox(420, 288, 300, 70,
+                        "між 1 і 2: два промені підряд,\n"
+                        "третій (R_c) висить у нікуди\n"
+                        "Rₐ + R_b",
+                        size=12.5, fill="#eef7f0", stroke=FIELD))
+    parts.append(text(W / 2, 372,
+                      "Прирівняй ці два вирази для кожної з трьох пар — і дістанеш систему на формули",
+                      size=11.5, color=INK, italic=True))
+    render(out("ydelta-pair.svg"), W, H, *parts,
+           title="Зірка ↔ трикутник: що прирівнюємо")
+
+
+# ── ydelta-equal.svg — симетричний випадок R_Y = R_Δ/3 ──────────────────────
+def fig_ydelta_equal():
+    W, H = 780, 330
+    parts = []
+    parts.append(text(W / 2, 52, "Рівні опори: звідки береться множник 3",
+                      size=13, color=INK, bold=True))
+    tS, tP = _triangle(190, 165, 88,
+                       labels=("R", "R", "R"), col=INK)
+    parts.append(text(190, 82, "Δ: усі сторони R", size=12.5, color=INK, bold=True))
+    parts.append(tS)
+    sS, sP, sM = _star(560, 165, 88,
+                       labels=("R/3", "R/3", "R/3"), col=FIELD)
+    parts.append(text(560, 82, "Y: усі промені R/3", size=12.5, color=FIELD, bold=True))
+    parts.append(sS)
+    parts.append(arrow(300, 165, 455, 165, color=MUTED, sw=2.2))
+    parts.append(fitbox(300, 196, 155, 74,
+                        "Δ→Y:\nR·R / (3R)\n= R/3",
+                        size=13, fill="#eef7f0", stroke=FIELD))
+    parts.append(text(W / 2, 300,
+                      "Пара в Δ: R ∥ 2R = 2R/3.  Пара в Y: R/3 + R/3 = 2R/3.  Збігається ✓",
+                      size=11.5, color=INK, italic=True))
+    parts.append(text(W / 2, 320,
+                      "Трикутник «жорсткіший» — щоб зірка була така сама, її промені втричі менші",
+                      size=11, color=MUTED, italic=True))
+    render(out("ydelta-equal.svg"), W, H, *parts,
+           title="Симетрія: R_Y = R_Δ / 3")
+
+
+# ── hist-network-theorems: часова смуга мережевих теорем ─────────────────────
+def fig_theorems_timeline():
+    """Хто, коли й що: Гельмгольц-першоджерело, дві незалежні перевідкриття
+    (Тевенен; Нортон+Маєр) та окрема гілка Кеннеллі (Y-Δ)."""
+    W, H = 900, 440
+    parts = []
+    # вісь часу
+    x0, x1 = 150, 760
+    axy = 360
+    def X(year):
+        return x0 + (x1 - x0) * (year - 1850) / (1930 - 1850)
+    parts.append(line(x0 - 20, axy, x1 + 20, axy, color=INK, sw=2.4))
+    for yr in (1850, 1870, 1890, 1910, 1930):
+        parts.append(line(X(yr), axy - 5, X(yr), axy + 5, color=INK, sw=2))
+        parts.append(text(X(yr), axy + 22, str(yr), size=12, color=MUTED, bold=True))
+
+    # подія: кружок на осі + картка на висоті cy (центр bx для широких карток)
+    def event(year, title, who, col, cy, bx=None):
+        px = X(year)
+        cx = px if bx is None else bx
+        s = circle(px, axy, 6, fill=col, stroke=col, sw=1)
+        s += line(px, axy, cx, cy + 30, color=col, sw=1.6, dash="3,3")
+        box, bw, bh = textbox(cx, cy, "%d · %s\n%s" % (year, title, who),
+                              size=12, pad=9, fill=FILL, stroke=col, sw=2,
+                              color=INK, bold=False)
+        return s + box, px
+
+    # чотири картки на різних висотах, щоб не налазили; центри зсунуті всередину
+    e1, x_h = event(1853, "Гельмгольц", "накладання + джерело напруги",
+                    POS, 250, bx=250)
+    e3, x_k = event(1899, "Кеннеллі", "зірка ⇄ трикутник (Y-Δ)",
+                    "#8e44ad", 250, bx=560)
+    e2, x_t = event(1883, "Тевенен", "джерело напруги, незалежно",
+                    NEG, 165, bx=405)
+    e4, x_n = event(1926, "Нортон + Маєр", "струмова форма, незалежно",
+                    FIELD, 165, bx=690)
+    for e in (e1, e3, e2, e4):
+        parts.append(e)
+
+    # дуги «перевідкрито незалежно» під осями подій: Гельмгольц→Тевенен→Нортон/Маєр
+    def redisc(xa, xb, label):
+        my = 78
+        s = ('<path d="M %.1f 108 C %.1f %d, %.1f %d, %.1f 108" fill="none" '
+             'stroke="%s" stroke-width="1.8" stroke-dasharray="5,4" '
+             'marker-end="url(#arrow)"/>'
+             % (xa, xa, my, xb, my, xb, MUTED))
+        s += text((xa + xb) / 2, my - 6, label, size=11, color=MUTED, italic=True)
+        return s
+    parts.append(redisc(x_h, x_t, "перевідкрито незалежно"))
+    parts.append(redisc(x_t, x_n, "і ще раз — двічі"))
+
+    # легенда-висновок унизу
+    parts.append(fitbox(80, 392, 740, 34,
+                        "Одна ідея (двополюсник ⇄ джерело + опір) — тричі відкрита незалежно; "
+                        "Y-Δ Кеннеллі — окремий інструмент, що ріже саме те з'єднання, яке не згортається",
+                        size=11.5, fill="#f4f6f8", stroke=MUTED, sw=1.5))
+    render(out("theorems-timeline.svg"), W, H, *parts,
+           title="Мережеві теореми: хто, коли — і що перевідкрито незалежно")
+
+
 def main():
     fig_toolkit()
     fig_reduction()
@@ -472,6 +895,17 @@ def main():
     fig_mna_augment()
     fig_verify_loop()
     fig_what_it_shows()
+    # детальна стаття
+    fig_tree_cotree()
+    fig_bridge_reduce()
+    fig_superposition()
+    fig_thevenin()
+    fig_method_map()
+    # вставка math-y-delta
+    fig_ydelta_pair()
+    fig_ydelta_equal()
+    # вставка hist-network-theorems
+    fig_theorems_timeline()
     print("Згенеровано фігури статті та вставок у", IMG)
 
 

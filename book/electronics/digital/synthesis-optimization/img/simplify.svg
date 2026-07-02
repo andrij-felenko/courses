@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оптимізація: та сама функція меншою ціною</text>
+<text x="175.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">як написано в коді</text>
+<text x="175.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle">a·b + a·(НЕ b)</text>
+<rect x="45.0" y="110.0" width="74.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="82.0" y="134.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="82.0" dy="0.0">AND</tspan></text>
+<rect x="45.0" y="170.0" width="74.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="82.0" y="194.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="82.0" dy="0.0">AND</tspan></text>
+<rect x="155.0" y="140.0" width="74.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="192.0" y="164.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="192.0" dy="0.0">OR</tspan></text>
+<line x1="119.0" y1="130.0" x2="155.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="119.0" y1="190.0" x2="155.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="175.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">3 гейти · 6 входів</text>
+<line x1="265.0" y1="175.0" x2="375.0" y2="175.0" stroke="#333333" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="320.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">спрощення</text>
+<text x="320.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">a·b + a·b̄ = a</text>
+<text x="560.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">що це насправді</text>
+<text x="560.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">a</text>
+<rect x="520.0" y="150.0" width="80.0" height="44.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/><text x="560.0" y="168.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">буфер</tspan><tspan x="560.0" dy="16.9">(a)</tspan></text>
+<text x="560.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1 елемент · 1 вхід</text>
+<text x="360.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">менше гейтів = менша площа, менше споживання, коротший шлях</text>
+</svg>

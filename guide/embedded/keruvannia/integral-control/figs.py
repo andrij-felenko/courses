@@ -334,6 +334,56 @@ def fig_anti_windup():
            title="Антивіндап: накручування спинене — на завдання виходимо чисто")
 
 
+# ── 7 (hist): часова смуга — від «скидача» до антивіндапу ─────────────────────
+def fig_reset_timeline():
+    """Історична смуга: народження інтегральної дії, назва «reset», антивіндап."""
+    W, H = 760, 340
+    ox = 70
+    axw = W - 2 * ox
+    y0 = 150                              # рівень осі часу
+
+    # роки → x лінійно від 1918 до 1988
+    t_lo, t_hi = 1918, 1988
+    def X(year):
+        return ox + axw * (year - t_lo) / (t_hi - t_lo)
+
+    p = [line(ox, y0, ox + axw, y0, color=INK, sw=2.0),
+         arrow(ox + axw - 12, y0, ox + axw, y0, color=INK, sw=2.0)]
+
+    # десятилітні позначки
+    for yr in range(1920, 1990, 10):
+        x = X(yr)
+        p.append(line(x, y0 - 5, x, y0 + 5, color=MUTED, sw=1.4))
+        p.append(text(x, y0 + 22, str(yr), size=11, color=MUTED))
+
+    # віхи: (рік, підпис, вгору?, колір)
+    marks = [
+        (1922, ["Мінорський", "інтеграл у стерні", "USS New Mexico"], True,  NEG),
+        (1931, ["Мейсон · Stabilog", "«automatic reset»"],            False, POS),
+        (1967, ["Фертик і Росс", "back-calculation"],                 True,  FIELD),
+        (1970, ["«reset» → ", "«integral»"],                          False, MUTED),
+        (1984, ["Åström &", "Wittenmark", "спостерігач"],             True,  NEG),
+    ]
+    for yr, lines, up, col in marks:
+        x = X(yr)
+        p.append(circle(x, y0, 5.5, fill=col, stroke=col, sw=1.5))
+        if up:
+            ytop = y0 - 30
+            p.append(line(x, y0 - 6, x, ytop, color=col, sw=1.4, dash="2 3"))
+            b, bw, bh = textbox(x, ytop - 6 - 8 * len(lines), "\n".join(lines),
+                                size=11, color=col, bold=True, fill=BG, stroke=col)
+            p.append(b)
+        else:
+            ybot = y0 + 44
+            p.append(line(x, y0 + 6, x, ybot, color=col, sw=1.4, dash="2 3"))
+            b, bw, bh = textbox(x, ybot + 8 * len(lines), "\n".join(lines),
+                                size=11, color=col, bold=True, fill=BG, stroke=col)
+            p.append(b)
+
+    render(os.path.join(OUT, "reset-timeline.svg"), W, H, *p,
+           title="Від «скидача» до антивіндапу: як дозрівала інтегральна дія")
+
+
 if __name__ == "__main__":
     fig_integral_area()
     fig_offset_removed()
@@ -341,4 +391,5 @@ if __name__ == "__main__":
     fig_ki_effect()
     fig_windup()
     fig_anti_windup()
+    fig_reset_timeline()
     print("OK: figures written to", OUT)

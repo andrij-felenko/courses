@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вікна регістрів: адреса повернення живе не тільки в стеку</text>
+<circle cx="220.0" cy="226.0" r="128.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<circle cx="220.0" cy="226.0" r="94.0" fill="#ffffff" stroke="#d8dbe0" stroke-width="1.0"/>
+<text x="220.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">64 фізичні</text>
+<text x="220.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">регістри</text>
+<path d="M320.9 147.2 A128.0 128.0 0 0 1 338.7 273.9 L307.2 261.2 A94.0 94.0 0 0 0 294.1 168.1 Z" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="329.9" y="214.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">a0 a1</text>
+<path d="M336.9 278.1 A128.0 128.0 0 0 1 233.4 353.3 L229.8 319.5 A94.0 94.0 0 0 0 305.9 264.2 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="285.2" y="319.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">a0 a1</text>
+<path d="M228.9 353.7 A128.0 128.0 0 0 1 113.9 297.6 L142.1 278.6 A94.0 94.0 0 0 0 226.6 319.8 Z" fill="#eef3fd" stroke="#7f9fe0" stroke-width="1.6"/>
+<text x="171.3" y="329.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7f9fe0" text-anchor="middle" font-weight="700">a0 a1</text>
+<text x="220.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">виклик прокручує вікно —</text>
+<text x="220.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">у стек НЕ пише (швидко)</text>
+<text x="352.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">a0 = адреса повернення</text>
+<text x="352.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">(2 старші біти = CALLINC,</text>
+<text x="352.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start"> маскувати: 0x8… → 0x4…)</text>
+<text x="352.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">a1 = покажчик стека</text>
+<rect x="512.0" y="105.3" width="276.0" height="45.3" rx="6" fill="#fff3e0" stroke="#d97706" stroke-width="1.8"/><text x="650.0" y="124.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">щоб розмотати ланцюг,</tspan><tspan x="650.0" dy="14.3">GDB бере з дампа:</tspan></text>
+<rect x="512.0" y="180.0" width="276.0" height="20.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="0.9"/>
+<text x="650.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">WINDOWBASE — де вікно</text>
+<rect x="512.0" y="206.0" width="276.0" height="20.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="0.9"/>
+<text x="650.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">WINDOWSTART — які зайняті</text>
+<rect x="512.0" y="232.0" width="276.0" height="20.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="0.9"/>
+<text x="650.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">PS — стан процесора</text>
+<text x="650.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">вікон забагато →</text>
+<text x="650.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">старі виштовхуються в стек</text>
+<line x1="512.0" y1="310.0" x2="788.0" y2="310.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="650.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">зіпсована адреса повернення →</text>
+<text x="650.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">хибний backtrace без попередження</text>
+</svg>

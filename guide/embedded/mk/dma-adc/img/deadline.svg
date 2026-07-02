@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Подвійний буфер як дедлайн: спорожнити раніше, ніж наповниться сусід</text>
+<text x="70.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">DMA наповнює половину за t_half (рівно, апаратно)</text>
+<rect x="70.0" y="96.0" width="310.0" height="30.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="225.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">пише A</text>
+<rect x="380.0" y="96.0" width="310.0" height="30.0" rx="6" fill="#dce6fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="535.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">пише B</text>
+<line x1="380.0" y1="90.0" x2="380.0" y2="250.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,4"/>
+<text x="380.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">дедлайн: A має бути прочитана</text>
+<text x="70.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Задача обробляє половину за t_proc</text>
+<rect x="380.0" y="176.0" width="192.2" height="26.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.6"/>
+<text x="476.1" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">читає A</text>
+<line x1="572.2" y1="189.0" x2="690.0" y2="189.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="631.1" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">запас</text>
+<text x="380.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">умова без втрат:  t_proc &lt; t_half  =  (N/2) / f_s</text>
+<text x="380.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">не встиг до пунктиру → overrun: DMA перезаписує ще не прочитану комірку</text>
+</svg>

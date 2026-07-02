@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Командний цикл як автомат: постріл → чекання → підсумок</text>
+<rect x="75.0" y="126.2" width="150.0" height="47.6" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.5"/><text x="150.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">IDLE</tspan><tspan x="150.0" dy="15.6">нема наказу</tspan></text>
+<rect x="405.0" y="126.2" width="150.0" height="47.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">WAITING_ACK</tspan><tspan x="480.0" dy="15.6">attempt, deadline</tspan></text>
+<rect x="745.0" y="66.2" width="150.0" height="47.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="820.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">DONE</tspan><tspan x="820.0" dy="15.6">ACCEPTED / кінець</tspan></text>
+<rect x="745.0" y="218.4" width="150.0" height="63.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="820.0" y="238.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">FAILED</tspan><tspan x="820.0" dy="15.6">спроби вичерпано</tspan><tspan x="820.0" dy="15.6">або DENIED</tspan></text>
+<line x1="228.0" y1="150.0" x2="392.0" y2="150.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="315.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">send(confirmation=0)</text>
+<text x="315.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">засікти deadline</text>
+<line x1="570.0" y1="136.0" x2="724.0" y2="100.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="660.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">ACK ACCEPTED</text>
+<line x1="570.0" y1="164.0" x2="724.0" y2="236.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="656.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">ACK DENIED / вичерпано</text>
+<line x1="440.0" y1="176.0" x2="440.0" y2="214.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="440.0" y1="214.0" x2="520.0" y2="214.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="520.0" y1="214.0" x2="520.0" y2="176.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="480.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">таймаут: send(confirmation++), attempt++</text>
+<line x1="436.0" y1="124.0" x2="436.0" y2="84.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5,4"/>
+<line x1="436.0" y1="84.0" x2="524.0" y2="84.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5,4"/>
+<line x1="524.0" y1="84.0" x2="524.0" y2="124.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="480.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">ACK IN_PROGRESS: deadline += довго</text>
+<rect x="24.8" y="422.5" width="910.3" height="31.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.5"/><text x="480.0" y="441.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">у стані WAITING два лічильники: deadline (коли повторити) і attempt (скільки ще можна); IN_PROGRESS лише зсуває deadline, не витрачаючи спробу</tspan></text>
+</svg>

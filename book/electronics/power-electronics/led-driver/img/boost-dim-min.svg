@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">ШІМ-димінг boost-драйвера: котушка не встигає за коротким імпульсом</text>
+<text x="62.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">EN (ШІМ)</text>
+<line x1="70.0" y1="90.0" x2="690.0" y2="90.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="110.0" y1="90.0" x2="110.0" y2="64.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="110.0" y1="64.0" x2="260.0" y2="64.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="260.0" y1="64.0" x2="260.0" y2="90.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="430.0" y1="90.0" x2="430.0" y2="64.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="430.0" y1="64.0" x2="456.0" y2="64.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="456.0" y1="64.0" x2="456.0" y2="90.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="185.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">довгий on</text>
+<text x="443.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">короткий on</text>
+<text x="62.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">струм</text>
+<text x="62.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">у нитці</text>
+<line x1="70.0" y1="250.0" x2="690.0" y2="250.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="70.0" y1="180.0" x2="690.0" y2="180.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 3"/>
+<text x="690.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">I_ном</text>
+<path d="M110.0 250.0L121.9 241.2L133.8 232.5L145.6 223.8L157.5 215.0L169.4 206.2L181.2 197.5L193.1 188.8L205.0 180.0L260.0 180.0L260.0 250.0" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+<text x="180.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">встиг набрати повний струм</text>
+<path d="M430.0 250.0 L456.0 227.6 L476.0 250.0" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<text x="450.0" y="219.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">не встиг —</text>
+<text x="450.0" y="233.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">яскравість нелінійна</text>
+<rect x="70.0" y="320.0" width="620.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="380.0" y="344.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Струм у нитці набирається за кілька циклів ключа (котушка інерційна). Поки on-час довгий за цей розбіг —</tspan><tspan x="380.0" dy="11.7">усе гаразд. Коротший за нього імпульс дає не повний струм: яскравість перестає бути пропорційна duty,</tspan><tspan x="380.0" dy="11.7">а на самому дні димінг просто зникає. Це і є мінімальний on-time — підлога глибини димінгу boost-драйвера.</tspan></text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 830 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="830" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="415.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">PHY — перекладач між широкою повільною шиною і вузькою швидкою</text>
+<rect x="69.1" y="72.6" width="131.7" height="114.8" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="135.0" y="98.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">Контролер</tspan><tspan x="135.0" dy="18.2">пам'яті</tspan><tspan x="135.0" dy="18.2">(широка шина,</tspan><tspan x="135.0" dy="18.2">повільний</tspan><tspan x="135.0" dy="18.2">ядровий такт)</tspan></text>
+<rect x="324.6" y="77.2" width="180.8" height="105.5" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="415.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="415.0" dy="0.0">DDR PHY</tspan><tspan x="415.0" dy="19.5">(мішана</tspan><tspan x="415.0" dy="19.5">аналого-</tspan><tspan x="415.0" dy="19.5">цифрова частина)</tspan></text>
+<rect x="629.1" y="81.7" width="131.7" height="96.6" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/><text x="695.0" y="107.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">Чіп DRAM</tspan><tspan x="695.0" dy="18.2">(вузька шина,</tspan><tspan x="695.0" dy="18.2">швидкі фронти</tspan><tspan x="695.0" dy="18.2">на ніжках)</tspan></text>
+<line x1="200.9" y1="112.0" x2="324.6" y2="112.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="262.7" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">паралельно, за один</text>
+<text x="262.7" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ядровий такт — багато бітів</text>
+<line x1="505.4" y1="112.0" x2="629.1" y2="112.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="567.3" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">послідовно, DQ + строб DQS</text>
+<text x="567.3" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">двічі за такт, на обох фронтах</text>
+<line x1="629.1" y1="152.0" x2="505.4" y2="152.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="324.6" y1="152.0" x2="200.9" y2="152.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="415.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">читання: дані й строб ідуть тим самим шляхом назад</text>
+<rect x="90.0" y="250.0" width="650.0" height="150.0" rx="6" fill="#f7fdfa" stroke="#27ae60" stroke-width="1.4"/>
+<line x1="415.0" y1="182.8" x2="415.0" y2="250.0" stroke="#27ae60" stroke-width="1.4" stroke-dasharray="4,4"/>
+<text x="106.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">що робить PHY усередині:</text>
+<text x="106.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• серіалізатор / десеріалізатор — збирає широке слово у вузький потік і назад</text>
+<text x="106.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• DLL + лінії затримки — рухають фронти, тримають зсув 90° попри зміни PVT</text>
+<text x="106.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• лінійні драйвери й приймачі — формують і ловлять швидкі фронти на ніжках</text>
+<text x="106.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• термінатори ODT та опора VREF — гасять відбиття, задають поріг рішення</text>
+<text x="106.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• логіка тренування й вирівнювання — сама шукає правильні затримки</text>
+</svg>

@@ -371,6 +371,369 @@ def fig_topology():
            title="Чому NOR читається побайтово (і годиться для XIP), а NAND — ні")
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# ФІГУРИ ДЕТАЛЬНОЇ СТАТТІ (nor-vs-nand-d.md) — глибші за базові
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── che-vs-fn: два механізми запису — і чому саме вони розводять NOR і NAND ────
+# Ідея: NOR програмує гарячими електронами (CHE) — потрібен великий струм каналу,
+# тому клітину не поставиш у щільну низку. NAND і пише, і стирає тунелюванням
+# Фаулера–Нордгайма (FN) — струм крихітний, тому клітини можна зшити в ланцюг.
+# Ця різниця в ефективності (5–6 порядків) — корінь усіх решти відмінностей.
+
+def fig_che_vs_fn():
+    W, H = 900, 560
+    frags = []
+
+    # ── ЛІВА панель: NOR — channel hot electron ──
+    frags.append(rect(34, 66, 410, 300, fill="#eef0fd", stroke=NEG, sw=2.2, rx=12))
+    frags.append(text(239, 92, "NOR: запис гарячими електронами (CHE)", size=13, color=NEG, bold=True))
+    # структура клітини: витік — канал — стік, зверху плаваючий затвор
+    sy = 250
+    frags.append(rect(70, sy, 70, 30, fill="#dfe6fb", stroke=NEG, sw=1.6, rx=4))       # витік
+    frags.append(text(105, sy + 19, "витік", size=9, color=NEG, bold=True))
+    frags.append(rect(140, sy, 200, 30, fill="#f4f7f4", stroke=MUTED, sw=1.4, rx=0))    # канал
+    frags.append(text(240, sy + 19, "канал (сильний струм)", size=9, color=MUTED))
+    frags.append(rect(340, sy, 70, 30, fill="#fdecea", stroke=POS, sw=1.6, rx=4))       # стік
+    frags.append(text(375, sy + 19, "стік", size=9, color=POS, bold=True))
+    # плаваючий затвор
+    frags.append(rect(150, sy - 74, 180, 26, fill="#fff8e8", stroke="#caa24a", sw=1.8, rx=5))
+    frags.append(text(240, sy - 57, "плаваючий затвор", size=10, color="#8a6a18", bold=True))
+    frags.append(text(240, sy - 84, "керівний затвор (висока напруга)", size=9, color=INK))
+    frags.append(line(150, sy - 90, 330, sy - 90, color=INK, sw=2))
+    # гарячий електрон стрибає вгору
+    frags.append(line(300, sy, 300, sy - 48, color=POS, sw=2.4))
+    frags.append(text(300, sy - 44, "▲", size=12, color=POS))
+    frags.append(text(360, sy - 20, "гарячий e⁻", size=9, color=POS, anchor="start", bold=True))
+    frags.append(text(240, sy + 58, "розігнати e⁻ в каналі → закинути на затвор", size=10, color=INK, bold=True))
+    frags.append(text(240, sy + 76, "коштує великого струму (десятки мкА на клітину)", size=9, color=MUTED, italic=True))
+
+    # ── ПРАВА панель: NAND — Fowler–Nordheim ──
+    frags.append(rect(456, 66, 410, 300, fill="#fdecea", stroke=POS, sw=2.2, rx=12))
+    frags.append(text(661, 92, "NAND: запис і стирання тунелюванням (FN)", size=13, color=POS, bold=True))
+    frags.append(rect(560, sy, 200, 30, fill="#f4f7f4", stroke=MUTED, sw=1.4, rx=0))
+    frags.append(text(660, sy + 19, "канал (майже без струму)", size=9, color=MUTED))
+    frags.append(rect(570, sy - 74, 180, 26, fill="#fff8e8", stroke="#caa24a", sw=1.8, rx=5))
+    frags.append(text(660, sy - 57, "плаваючий затвор", size=10, color="#8a6a18", bold=True))
+    frags.append(text(660, sy - 84, "керівний затвор (дуже висока напруга)", size=9, color=INK))
+    frags.append(line(570, sy - 90, 750, sy - 90, color=INK, sw=2))
+    # електрон тунелює крізь тонкий ізолятор (пунктир — крізь бар'єр)
+    frags.append(line(660, sy, 660, sy - 48, color=FIELD, sw=2.4, dash="3,3"))
+    frags.append(text(660, sy - 44, "▲", size=12, color=FIELD))
+    frags.append(text(770, sy - 20, "e⁻ тунелює", size=9, color=FIELD, anchor="start", bold=True))
+    frags.append(text(660, sy + 58, "сильне поле «продавлює» e⁻ крізь тонкий ізолятор", size=10, color=INK, bold=True))
+    frags.append(text(660, sy + 76, "струм крихітний → клітину можна зшити в низку", size=9, color=POS, italic=True))
+
+    # ── нижня рамка-висновок: ефективність і наслідок ──
+    frags.append(rect(60, 388, 780, 76, fill="#fff8e8", stroke="#caa24a", sw=1.8, rx=10))
+    frags.append(text(450, 412, "FN-тунелювання ефективніше за гарячі електрони приблизно в 100 000 – 1 000 000 разів за струмом.",
+                      size=12, color=INK, bold=True))
+    frags.append(text(450, 434, "тому NAND живить хоч тисячі клітин у ланцюгу тим самим мізерним струмом — звідси її щільність.",
+                      size=11, color=MUTED, italic=True))
+    frags.append(text(450, 452, "NOR же мусить гнати струм крізь кожну клітину поодинці — багато проводів, менша щільність, але прямий доступ.",
+                      size=10, color=NEG, bold=True))
+
+    frags.append(rect(60, 478, 780, 52, fill="#f4f7f4", stroke=FIELD, sw=1.8, rx=10))
+    frags.append(text(450, 500, "корінь усього: спосіб ЗАКИНУТИ заряд визначає, чи можна ставити клітини в щільну низку.",
+                      size=12, color=INK, bold=True))
+    frags.append(text(450, 520, "звідси вже випливають і топологія, і доступ, і ціна за біт, і хто для коду, а хто для даних.",
+                      size=10, color=MUTED, italic=True))
+
+    render(os.path.join(OUT, "che-vs-fn.svg"), W, H, *frags,
+           title="Два механізми запису — і чому саме вони розводять NOR та NAND")
+
+
+# ── bit-levels: SLC/MLC/TLC/QLC — скільки рівнів заряду й ціна за щільність ────
+# Ідея: більше бітів у клітині = більше рівнів напруги (2/4/8/16), тісніші вікна
+# між ними → менший запас на витік заряду → нижча витривалість і збереження.
+
+def _vt_curve(x0, y0, w, centers, sigma, color, h=34):
+    """Гаусоподібні «горби» розподілу порогової напруги на осі x0..x0+w."""
+    import math
+    out = []
+    pts = []
+    N = 120
+    for i in range(N + 1):
+        x = x0 + w * i / N
+        v = 0.0
+        for c in centers:
+            cx = x0 + w * c
+            v += math.exp(-((x - cx) ** 2) / (2 * (w * sigma) ** 2))
+        y = y0 - h * min(v, 1.0)
+        pts.append("%.1f,%.1f" % (x, y))
+    out.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="1.8"/>'
+               % (" ".join(pts), color))
+    return "".join(out)
+
+
+def fig_bit_levels():
+    W, H = 900, 560
+    frags = []
+    rows = [
+        ("SLC", "1 біт", "2 рівні", [0.25, 0.75], 0.055, "~100 000 циклів"),
+        ("MLC", "2 біти", "4 рівні", [0.14, 0.38, 0.62, 0.86], 0.030, "~3 000 – 10 000"),
+        ("TLC", "3 біти", "8 рівнів", [0.07 + 0.86 * k / 7 for k in range(8)], 0.017, "~1 000 – 3 000"),
+        ("QLC", "4 біти", "16 рівнів", [0.05 + 0.9 * k / 15 for k in range(16)], 0.010, "~100 – 1 000"),
+    ]
+    x0 = 250
+    axw = 470
+    top = 70
+    rh = 108
+    for i, (name, bits, lvls, centers, sig, endur) in enumerate(rows):
+        by = top + i * rh
+        base = by + 66
+        col = [NEG, FIELD, "#8a6a18", POS][i]
+        # мітка ліворуч
+        frags.append(text(60, by + 34, name, size=17, color=col, anchor="start", bold=True))
+        frags.append(text(60, by + 52, "%s / клітину" % bits, size=10, color=MUTED, anchor="start"))
+        frags.append(text(60, by + 68, lvls, size=10, color=INK, anchor="start", bold=True))
+        # вісь напруги
+        frags.append(line(x0, base, x0 + axw, base, color=INK, sw=1.4))
+        # горби розподілу
+        frags.append(_vt_curve(x0, base, axw, centers, sig, col))
+        # витривалість праворуч
+        frags.append(text(x0 + axw + 12, by + 42, endur, size=11, color=col, anchor="start", bold=True))
+        frags.append(text(x0 + axw + 12, by + 58, "стирань", size=9, color=MUTED, anchor="start"))
+    # підписи осей (внизу під останнім рядком)
+    frags.append(text(x0, top + 4 * rh - 20, "порогова напруга Vₜ (заряд на затворі) →", size=10, color=MUTED, anchor="start", italic=True))
+    frags.append(text(x0 + axw + 12, top - 6, "витривалість", size=10, color=MUTED, anchor="start", bold=True))
+
+    # рамка-висновок
+    frags.append(rect(60, top + 4 * rh - 2, 780, 66, fill="#fff8e8", stroke="#caa24a", sw=1.8, rx=10))
+    frags.append(text(450, top + 4 * rh + 22,
+                      "що більше бітів у клітині — то тісніші «горби» й вужчі проміжки між ними.",
+                      size=12, color=INK, bold=True))
+    frags.append(text(450, top + 4 * rh + 42,
+                      "найменший витік заряду вже штовхає клітину в сусідній рівень → менше циклів і гірше збереження.",
+                      size=10, color=MUTED, italic=True))
+
+    render(os.path.join(OUT, "bit-levels.svg"), W, H, *frags,
+           title="Скільки бітів у клітині: рівні заряду проти витривалості")
+
+
+# ── nand-org: повна ієрархія NAND і асиметрія програмування/стирання ──────────
+# Ідея: клітина → сторінка (одиниця читання/запису) → блок (одиниця стирання) →
+# площина/кристал. Програмують сторінками ПО ПОРЯДКУ, стирають цілим блоком.
+# Read-disturb: часте читання сусідів псує клітину.
+
+def fig_nand_org():
+    W, H = 900, 570
+    frags = []
+
+    # ── ліворуч: вкладена ієрархія NAND ──
+    frags.append(rect(34, 74, 420, 300, fill="#fbfbfb", stroke=INK, sw=2, rx=10))
+    frags.append(text(46, 96, "кристал (die)", size=11, color=INK, anchor="start", bold=True))
+    frags.append(rect(48, 106, 392, 254, fill="#f6f7fb", stroke=MUTED, sw=1.4, rx=8))
+    frags.append(text(60, 126, "блок — одиниця СТИРАННЯ (сотні КБ – МБ)", size=10, color=NEG, anchor="start", bold=True))
+    frags.append(rect(62, 136, 364, 210, fill="#eef0fd", stroke=NEG, sw=1.6, rx=6))
+    # сторінки в блоці
+    for i in range(6):
+        py = 152 + i * 30
+        pfill = "#dfe6fb" if i < 3 else BG
+        frags.append(rect(80, py, 328, 22, fill=pfill, stroke=POS if i == 3 else MUTED, sw=1.6 if i == 3 else 1.0, rx=3))
+        lbl = "сторінка %d — писати/читати" % i
+        frags.append(text(88, py + 15, lbl, size=9, color=INK if i < 3 else MUTED, anchor="start"))
+    frags.append(text(244, 340, "заповнені ↑   ·   ще стерті (0xFF) ↓", size=9, color=MUTED))
+    frags.append(text(430, 152, "◀ пишуться", size=8, color=POS, anchor="end"))
+    frags.append(text(430, 165, "по порядку", size=8, color=POS, anchor="end"))
+
+    # ── праворуч: асиметрія програм/стирання ──
+    frags.append(rect(474, 74, 392, 300, fill=BG, stroke=FIELD, sw=2, rx=12))
+    frags.append(text(670, 98, "три зернистості — і залізне правило", size=13, color=FIELD, bold=True))
+    items = [
+        (FIELD, "ЧИТАННЯ", "сторінка — найдрібніше, що можна дістати"),
+        (POS,   "ЗАПИС (program)", "сторінка; лише 1→0; тільки в стерте; по порядку в блоці"),
+        (NEG,   "СТИРАННЯ (erase)", "цілий БЛОК одразу; 0→1 гуртом; сотні клітин-сторінок"),
+    ]
+    for i, (col, head, sub) in enumerate(items):
+        cy = 138 + i * 56
+        frags.append(rect(494, cy, 26, 26, fill=BG, stroke=col, sw=2, rx=5))
+        frags.append(text(507, cy + 18, "RWE"[i], size=13, color=col, bold=True))
+        frags.append(text(532, cy + 11, head, size=12, color=col, anchor="start", bold=True))
+        frags.append(text(532, cy + 28, sub, size=9, color=MUTED, anchor="start"))
+    frags.append(text(670, 322, "не можна стерти одну сторінку — лише весь блок разом.", size=10, color=INK, bold=True))
+    frags.append(text(670, 340, "звідси й потреба переносити живі сторінки перед стиранням.", size=9, color=MUTED, italic=True))
+
+    # ── рамка read-disturb ──
+    frags.append(rect(60, 394, 780, 74, fill="#fff8e8", stroke="#caa24a", sw=1.8, rx=10))
+    frags.append(text(450, 418, "прихована пастка read-disturb: щоб прочитати одну сторінку, сусідні клітини в ланцюгу тримають відкритими.",
+                      size=12, color=INK, bold=True))
+    frags.append(text(450, 440, "кожне таке відкриття потроху підкидає їм заряд; після сотень тисяч читань сусід може «перекинутися».",
+                      size=10, color=MUTED, italic=True))
+    frags.append(text(450, 458, "тому контролер веде лік читань блока й вчасно переписує його на свіже місце — цього в NOR немає.",
+                      size=10, color="#8a6a18", bold=True))
+
+    # ── рамка: чому це і є «оптовий» характер ──
+    frags.append(rect(60, 482, 780, 52, fill="#f4f7f4", stroke=FIELD, sw=1.8, rx=10))
+    frags.append(text(450, 504, "усе це — плата за щільність: дрібно дістати не можна, зате бітів дуже багато й дуже дешево.",
+                      size=12, color=INK, bold=True))
+    frags.append(text(450, 524, "керувати цим вручну майже нереально — тому NAND майже завжди йде в парі з розумним контролером.",
+                      size=10, color=MUTED, italic=True))
+
+    render(os.path.join(OUT, "nand-org.svg"), W, H, *frags,
+           title="Організація NAND: сторінка читає-пише, блок стирає — і що з цього випливає")
+
+
+# ── xip-fetch: чому для КОДУ важлива саме затримка випадкового читання ────────
+# Ідея: процесор на кожен крок робить випадкову вибірку інструкції. NOR віддає
+# слово за наносекунди-десятки нс → можна виконувати з неї. NAND має велику
+# латентність доступу до сторінки → «на місці» не виконати, лише через RAM.
+
+def fig_xip_fetch():
+    W, H = 900, 520
+    frags = []
+
+    # ── верх: цикл вибірки процесора ──
+    frags.append(text(450, 62, "процесор на КОЖЕН крок вибирає інструкцію за (часто випадковою) адресою", size=12, color=INK, bold=True))
+    stages = ["вибірка", "декод", "виконання"]
+    for i, s in enumerate(stages):
+        bx = 300 + i * 110
+        frags.append(rect(bx, 76, 96, 40, fill=BG, stroke=INK if i else FIELD, sw=2.2 if i == 0 else 1.6, rx=8))
+        frags.append(text(bx + 48, 101, s, size=11, color=FIELD if i == 0 else INK, bold=(i == 0)))
+        if i < 2:
+            frags.append(line(bx + 96, 96, bx + 110, 96, color=MUTED, sw=1.6))
+    frags.append(text(348, 135, "адреса стрибає за лічильником команд — доступ РІДКО послідовний", size=10, color=MUTED, italic=True))
+
+    # ── дві доріжки-часу: NOR і NAND ──
+    def track(y, name, col, lat_txt, blocks, note):
+        out = []
+        out.append(text(60, y + 6, name, size=13, color=col, anchor="start", bold=True))
+        out.append(text(60, y + 24, lat_txt, size=9, color=MUTED, anchor="start"))
+        tx = 250
+        for i, (w, lbl, bcol) in enumerate(blocks):
+            out.append(rect(tx, y - 12, w, 30, fill=bcol, stroke=col, sw=1.4, rx=4))
+            out.append(text(tx + w / 2, y + 8, lbl, size=9, color=INK, bold=True))
+            tx += w + 6
+        out.append(text(tx + 8, y + 8, note, size=9, color=col, anchor="start", bold=True))
+        return "".join(out)
+
+    frags.append(track(200, "NOR", NEG,
+                       "затримка випадкового читання — десятки наносекунд",
+                       [(120, "адреса→слово", "#eef0fd")],
+                       "→ слово готове одразу: виконуй прямо з неї (XIP)"))
+
+    frags.append(track(270, "NAND", POS,
+                       "латентність доступу до сторінки — десятки МІКРОсекунд",
+                       [(150, "адреса сторінки", "#fdecea"),
+                        (170, "чекати завантаження сторінки", "#fdecea"),
+                        (90, "потік байтів", "#fdecea")],
+                       ""))
+    frags.append(text(250, 306, "→ поки сторінка не в буфері, жодного слова; тисячі тактів простою на кожну випадкову адресу",
+                      size=9, color=POS, anchor="start", bold=True))
+
+    # ── рамка: тому код і дані розводять ──
+    frags.append(rect(60, 336, 780, 76, fill="#fff8e8", stroke="#caa24a", sw=1.8, rx=10))
+    frags.append(text(450, 360, "для коду важить НЕ пропускна здатність, а затримка ВИПАДКОВОГО читання — скільки чекати одне слово.",
+                      size=12, color=INK, bold=True))
+    frags.append(text(450, 382, "NOR дає слово за десятки нс → процесор годується прямо з неї. NAND змушує спершу підняти сторінку в RAM.",
+                      size=10, color=MUTED, italic=True))
+    frags.append(text(450, 400, "тому «NAND-система» тримає крихітний завантажувач у NOR-подібній пам'яті — інакше нема звідки взяти першу команду.",
+                      size=10, color="#8a6a18", bold=True))
+
+    # ── рамка: а для даних навпаки ──
+    frags.append(rect(60, 426, 780, 54, fill="#f4f7f4", stroke=FIELD, sw=1.8, rx=10))
+    frags.append(text(450, 450, "а для масових даних важить ПРОПУСКНА здатність і ціна за біт — і тут перемагає NAND зі своїми сторінками.",
+                      size=12, color=INK, bold=True))
+    frags.append(text(450, 470, "великий блок вигідно лити суцільним потоком; випадковий доступ до окремого байта тут майже не потрібен.",
+                      size=10, color=MUTED, italic=True))
+
+    render(os.path.join(OUT, "xip-fetch.svg"), W, H, *frags,
+           title="Для коду важить затримка випадкового читання, для даних — пропускна здатність")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# ФІГУРА ІСТОРИЧНОЇ ВСТАВКИ (hist-flash-invention.md)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── flash-timeline: глухий кут EPROM/EEPROM → розвилка → хронологія винаходу ───
+# Ідея: показати, що NOR і NAND — дві відповіді на одне питання (як закинути
+# заряд), і три різні дати на кожен рід: ідея (патент) / презентація IEDM /
+# комерційний продукт. Ліворуч — що бентежило, праворуч — стрічка часу з двома
+# гілками (гарячі електрони → NOR, тунелювання → NAND).
+
+def fig_flash_timeline():
+    W, H = 900, 560
+    frags = []
+
+    # ── ліва панель: глухий кут до флеші ──
+    frags.append(rect(30, 62, 250, 300, fill="#fbfbfb", stroke=INK, sw=2, rx=10))
+    frags.append(text(155, 86, "до флеші: глухий кут", size=13, color=INK, bold=True))
+    frags.append(rect(48, 104, 214, 110, fill="#eef0fd", stroke=NEG, sw=1.6, rx=8))
+    frags.append(text(155, 126, "EPROM", size=13, color=NEG, bold=True))
+    frags.append(text(155, 146, "дешева, однотранзисторна,", size=9, color=INK))
+    frags.append(text(155, 162, "але стирати — тільки", size=9, color=INK))
+    frags.append(text(155, 178, "ультрафіолетом, вийнявши чип", size=9, color=INK))
+    frags.append(text(155, 200, "→ не оновиш у пристрої", size=10, color=NEG, bold=True))
+    frags.append(rect(48, 228, 214, 120, fill="#fdecea", stroke=POS, sw=1.6, rx=8))
+    frags.append(text(155, 250, "EEPROM", size=13, color=POS, bold=True))
+    frags.append(text(155, 270, "стирати можна електрикою,", size=9, color=INK))
+    frags.append(text(155, 286, "побайтово — зручно,", size=9, color=INK))
+    frags.append(text(155, 302, "але ДВА транзистори на комірку", size=9, color=INK))
+    frags.append(text(155, 324, "→ вдвічі дорожче за біт,", size=10, color=POS, bold=True))
+    frags.append(text(155, 340, "не масштабується", size=10, color=POS, bold=True))
+
+    # стрілка «вихід»
+    frags.append(text(300, 200, "рішення:", size=10, color=FIELD, anchor="middle", bold=True))
+    frags.append(text(300, 216, "1 комірка", size=10, color=FIELD, anchor="middle", bold=True))
+    frags.append(text(300, 232, "= 1 транзистор", size=10, color=FIELD, anchor="middle", bold=True))
+    frags.append(line(282, 250, 320, 250, color=FIELD, sw=2.4))
+    frags.append(text(320, 254, "▶", size=12, color=FIELD))
+
+    # ── права панель: вертикальна стрічка часу ──
+    ax = 400                       # вісь часу
+    top, bot = 84, 350
+    frags.append(line(ax, top, ax, bot, color=INK, sw=2.4))
+    frags.append(text(ax, top - 14, "час", size=10, color=MUTED))
+
+    # події: (y, рік, заголовок, підпис, колір, гілка) — гілка: 'C'=центр,'L'=NOR,'R'=NAND
+    events = [
+        (110, "1980", "патент: однотранзисторна комірка", "ІДЕЯ на папері (Масуока)", INK, "C"),
+        (170, "IEDM 1984", "презентація NOR", "гарячі електрони (CHE) → паралельно", NEG, "L"),
+        (238, "1988", "перший комерційний NOR-чип", "його вивела на ринок Intel", NEG, "L"),
+        (300, "IEDM 1987", "презентація щільної NAND", "тунелювання (FN) → в низку · 4-Мбіт", POS, "R"),
+        (348, "~1989", "комерційна NAND", "серійний чип від Toshiba", POS, "R"),
+    ]
+    for (y, yr, head, sub, col, side) in events:
+        frags.append(circle(ax, y, 7, fill=BG, stroke=col, sw=2.4))
+        if side == "L":
+            frags.append(line(ax - 7, y, ax - 34, y, color=col, sw=1.6))
+            frags.append(text(ax - 40, y - 4, yr, size=11, color=col, anchor="end", bold=True))
+            frags.append(text(ax - 40, y + 11, head, size=10, color=INK, anchor="end", bold=True))
+            frags.append(text(ax - 40, y + 25, sub, size=8, color=MUTED, anchor="end", italic=True))
+        elif side == "R":
+            frags.append(line(ax + 7, y, ax + 34, y, color=col, sw=1.6))
+            frags.append(text(ax + 40, y - 4, yr, size=11, color=col, anchor="start", bold=True))
+            frags.append(text(ax + 40, y + 11, head, size=10, color=INK, anchor="start", bold=True))
+            frags.append(text(ax + 40, y + 25, sub, size=8, color=MUTED, anchor="start", italic=True))
+        else:
+            frags.append(text(ax + 40, y - 4, yr, size=11, color=col, anchor="start", bold=True))
+            frags.append(text(ax + 40, y + 11, head, size=10, color=INK, anchor="start", bold=True))
+            frags.append(text(ax + 40, y + 25, sub, size=8, color=MUTED, anchor="start", italic=True))
+
+    # підписи гілок
+    frags.append(text(ax - 150, top + 4, "◀ NOR (для коду)", size=11, color=NEG, anchor="middle", bold=True))
+    frags.append(text(ax + 150, top + 4, "NAND (для даних) ▶", size=11, color=POS, anchor="middle", bold=True))
+
+    # ── нижня рамка: розвилка одним рядком ──
+    frags.append(rect(60, 388, 780, 76, fill="#fff8e8", stroke="#caa24a", sw=1.8, rx=10))
+    frags.append(text(450, 412, "розвилка вросла у фізику: спосіб ЗАКИНУТИ заряд визначив топологію, а та — рід флеші.",
+                      size=12, color=INK, bold=True))
+    frags.append(text(450, 434, "гарячі електрони потребують великого струму → комірки нарізно (NOR); тунелювання майже без струму → в низку (NAND).",
+                      size=9, color=MUTED, italic=True))
+    frags.append(text(450, 452, "різниця струму — близько 100 000 – 1 000 000 разів; звідси й уся несумісність двох топологій.",
+                      size=9, color="#8a6a18", bold=True))
+
+    # ── рамка: три різні дати ──
+    frags.append(rect(60, 478, 780, 52, fill="#f4f7f4", stroke=FIELD, sw=1.8, rx=10))
+    frags.append(text(450, 500, "три різні досягнення — три різні дати: ІДЕЯ (патент) · ПРЕЗЕНТАЦІЯ (IEDM) · ПРОДУКТ (ринок).",
+                      size=12, color=INK, bold=True))
+    frags.append(text(450, 520, "винайшли флеш у Toshiba (Масуока з командою); першу NOR на ринок вивела Intel — це різні заслуги різних людей.",
+                      size=9, color=MUTED, italic=True))
+
+    render(os.path.join(OUT, "flash-timeline.svg"), W, H, *frags,
+           title="Народження флеші: глухий кут EPROM/EEPROM → розвилка CHE/FN → NOR і NAND")
+
+
 if __name__ == "__main__":
     fig_architecture()
     fig_xip_vs_storage()
@@ -378,4 +741,11 @@ if __name__ == "__main__":
     fig_three_operations()
     fig_granularity()
     fig_topology()
+    # детальна стаття:
+    fig_che_vs_fn()
+    fig_bit_levels()
+    fig_nand_org()
+    fig_xip_fetch()
+    # історична вставка:
+    fig_flash_timeline()
     print("OK: figs written to", OUT)

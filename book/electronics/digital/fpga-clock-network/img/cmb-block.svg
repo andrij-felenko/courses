@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок керування тактами: типові входи, нутро й виходи</text>
+<rect x="250.0" y="80.0" width="220.0" height="250.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="360.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">менеджер тактів</text>
+<text x="360.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">÷M   (вхідний дільник)</tspan><tspan x="360.0" dy="18.7">ФЧД → фільтр → ГКН</tspan><tspan x="360.0" dy="18.7">×  синтез частоти</tspan><tspan x="360.0" dy="18.7">÷O₁ ÷O₂ ÷O₃  (виходи)</tspan></text>
+<rect x="40.0" y="123.0" width="34.0" height="24.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="57.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">REFCLK</text>
+<line x1="74.0" y1="135.0" x2="250.0" y2="135.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="57.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">опорний такт</text>
+<rect x="40.0" y="188.0" width="34.0" height="24.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="57.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">RST</text>
+<line x1="74.0" y1="200.0" x2="250.0" y2="200.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="57.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">скид</text>
+<rect x="40.0" y="253.0" width="34.0" height="24.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="57.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">CLKFB</text>
+<line x1="74.0" y1="265.0" x2="250.0" y2="265.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="57.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">зворотний зв’язок</text>
+<line x1="470.0" y1="140.0" x2="560.0" y2="140.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="566.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">100 МГц</text>
+<line x1="470.0" y1="190.0" x2="560.0" y2="190.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="566.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">200 МГц</text>
+<line x1="470.0" y1="240.0" x2="560.0" y2="240.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="566.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">25 МГц, фаза +90°</text>
+<line x1="470.0" y1="304.0" x2="560.0" y2="304.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="566.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">LOCKED (захопив)</text>
+<line x1="510.0" y1="140.0" x2="510.0" y2="370.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5 4"/>
+<line x1="510.0" y1="370.0" x2="57.0" y2="370.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5 4"/>
+<line x1="57.0" y1="370.0" x2="57.0" y2="277.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="285.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">петля зворотного зв’язку вирівнює фазу виходу з опорою</text>
+</svg>

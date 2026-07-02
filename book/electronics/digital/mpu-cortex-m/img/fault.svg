@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заборонений доступ ловиться апаратно й лишає слід</text>
+<rect x="40.0" y="90.0" width="200.0" height="66.0" rx="6" fill="#fdeef0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="140.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">*p = 42;</text>
+<text x="140.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">p у забороненій області</text>
+<line x1="240.0" y1="123.0" x2="320.0" y2="123.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="320.0" y="92.0" width="140.0" height="62.0" rx="8" fill="#f1ecfa" stroke="#6a3fb5" stroke-width="2.4"/>
+<text x="390.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6a3fb5" text-anchor="middle" font-weight="700">MPU</text>
+<text x="390.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6a3fb5" text-anchor="middle" font-weight="700">порушення!</text>
+<line x1="460.0" y1="122.0" x2="560.0" y2="122.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="560.0" y="88.0" width="200.0" height="70.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="660.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">MemManage_Handler</text>
+<text x="660.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">ядро стрибає сюди</text>
+<text x="660.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">замість зіпсувати пам'ять</text>
+<text x="400.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">у обробнику вже готові докази:</text>
+<rect x="150.0" y="216.0" width="220.0" height="56.0" rx="6" fill="#ffffff" stroke="#b9770e" stroke-width="1.8"/>
+<text x="260.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">MMFAR</text>
+<text x="260.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">адреса, куди ліз код</text>
+<rect x="430.0" y="216.0" width="220.0" height="56.0" rx="6" fill="#ffffff" stroke="#b9770e" stroke-width="1.8"/>
+<text x="540.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">MMFSR</text>
+<text x="540.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">що саме порушено (чит/зап/вик.)</text>
+<text x="400.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Замість тихо затерти чужі дані, помилковий доступ стає гучним винятком із точною адресою — баг ловиться в місці, де стався.</text>
+</svg>

@@ -311,6 +311,169 @@ def fig_riscv_why_migrate():
     render(os.path.join(IMG, "riscv-why-migrate.svg"), W, H, *f)
 
 
+# ════════════════════════════════════════════════════════════════════════════
+#  Фігури до ДЕТАЛЬНОЇ статті esp32-family-d.md (префікс d-)
+# ════════════════════════════════════════════════════════════════════════════
+
+WARN2 = "#caa24a"
+
+# ── Два ядра й SMP: хто на якому ядрі ────────────────────────────────────────
+def fig_d_cores():
+    W, H = 920, 430
+    f = [text(W / 2, 26, "Два ядра, спільна пам'ять і хто де сидить", size=18, bold=True),
+         text(W / 2, 48, "радіо тримає одне ядро — тому «два» не завжди означає «удвічі вільніше»",
+              size=11.5, color=MUTED, italic=True)]
+
+    # PRO CPU (core 0)
+    f.append(rect(70, 92, 340, 150, fill=XT_F, stroke=NEG, sw=2, rx=12))
+    f.append(text(240, 118, "Ядро 0 (PRO_CPU)", size=13, color=NEG, bold=True))
+    for i, ln in enumerate(["стек Wi-Fi / Bluetooth", "службові задачі IDF", "переривання радіо"]):
+        f.append(text(240, 148 + i * 26, "• " + ln, size=10.6, color=INK))
+    f.append(text(240, 232, "радіо «з'їдає» помітну частку", size=9.5, color=POS, italic=True))
+
+    # APP CPU (core 1)
+    f.append(rect(510, 92, 340, 150, fill=RV_F, stroke=FIELD, sw=2, rx=12))
+    f.append(text(680, 118, "Ядро 1 (APP_CPU)", size=13, color=FIELD, bold=True))
+    for i, ln in enumerate(["ваш app_main і задачі", "важкі обчислення", "вільніше під навантаження"]):
+        f.append(text(680, 148 + i * 26, "• " + ln, size=10.6, color=INK))
+    f.append(text(680, 232, "сюди «пінимо» гарячий код", size=9.5, color=FIELD, italic=True))
+
+    # спільна шина/RAM
+    f.append(rect(70, 286, 780, 56, fill="#fbfbfb", stroke="#d8d8d8", sw=1.8, rx=10))
+    f.append(text(460, 309, "спільна внутрішня SRAM · спільна шина · спільні периферія й регістри",
+                  size=11.5, color=INK, bold=True))
+    f.append(text(460, 328, "обидва ядра бачать ту саму пам'ять — тому потрібні м'ютекси й критичні секції",
+                  size=9.5, color=MUTED, italic=True))
+    f.append(line(240, 242, 240, 286, color=NEG, sw=2))
+    f.append(line(680, 242, 680, 286, color=FIELD, sw=2))
+
+    f.append(fitbox(150, 366, 620, 46,
+                    "Одноядерні C3/C6 роблять те саме — але по черзі: радіо й ваш код\n"
+                    "ділять ОДИН конвеєр, тож планувальник перемикає їх у часі.",
+                    size=10.5, bold=True, fill="#fff6e0", stroke=WARN2, sw=1.4))
+    render(os.path.join(IMG, "d-cores.svg"), W, H, *f)
+
+
+# ── Мапа пам'яті: внутрішня SRAM, кеш, зовнішні flash і PSRAM ────────────────
+def fig_d_memory():
+    W, H = 940, 470
+    f = [text(W / 2, 26, "Мапа пам'яті — справжня «особистість» чипа", size=18, bold=True),
+         text(W / 2, 48, "той самий байт видно з різних шин; зовнішнє — крізь кеш",
+              size=11.5, color=MUTED, italic=True)]
+
+    # ядро
+    f.append(rect(60, 96, 150, 300, fill="#eef1f6", stroke=INK, sw=2, rx=12))
+    f.append(text(135, 128, "Ядро", size=13, color=INK, bold=True))
+    f.append(text(135, 168, "шина", size=10, color=MUTED))
+    f.append(text(135, 184, "команд", size=10, color=NEG, bold=True))
+    f.append(text(135, 300, "шина", size=10, color=MUTED))
+    f.append(text(135, 316, "даних", size=10, color=FIELD, bold=True))
+
+    # внутрішня SRAM
+    f.append(rect(250, 96, 300, 300, fill="#fbfbfb", stroke="#cfcfcf", sw=2, rx=12))
+    f.append(text(400, 122, "внутрішня SRAM (на кристалі)", size=11.5, color=INK, bold=True))
+    f.append(rect(272, 140, 256, 70, fill=XT_F, stroke=NEG, sw=1.8, rx=8))
+    f.append(text(400, 166, "IRAM — код у RAM", size=11, color=NEG, bold=True))
+    f.append(text(400, 190, "гарячі функції, ISR (.iram_attr)", size=9.3, color=INK))
+    f.append(rect(272, 224, 256, 70, fill=RV_F, stroke=FIELD, sw=1.8, rx=8))
+    f.append(text(400, 250, "DRAM — дані в RAM", size=11, color=FIELD, bold=True))
+    f.append(text(400, 274, ".data / .bss / купа / стеки", size=9.3, color=INK))
+    f.append(rect(272, 308, 256, 70, fill="#f3eede", stroke=WARN2, sw=1.8, rx=8))
+    f.append(text(400, 334, "кеш (частина SRAM)", size=11, color="#8a6d1e", bold=True))
+    f.append(text(400, 358, "вікно у зовнішні flash і PSRAM", size=9.3, color=INK))
+
+    # зовнішні
+    f.append(rect(600, 96, 300, 300, fill="#fcfcfc", stroke="#cfcfcf", sw=2, rx=12))
+    f.append(text(750, 122, "зовнішні мікросхеми (по SPI)", size=11.5, color=INK, bold=True))
+    f.append(rect(622, 150, 256, 96, fill="#eef1f6", stroke=NEG, sw=1.8, rx=8))
+    f.append(text(750, 178, "flash: IROM + DROM", size=11, color=NEG, bold=True))
+    f.append(text(750, 202, "основний код і константи", size=9.3, color=INK))
+    f.append(text(750, 222, "виконується «на місці» крізь кеш", size=9, color=MUTED, italic=True))
+    f.append(rect(622, 262, 256, 96, fill="#eafaf1", stroke=FIELD, sw=1.8, rx=8))
+    f.append(text(750, 290, "PSRAM (опційно)", size=11, color=FIELD, bold=True))
+    f.append(text(750, 314, "великі буфери: кадри, звук, ML", size=9.3, color=INK))
+    f.append(text(750, 334, "теж крізь кеш — повільніше за SRAM", size=9, color=MUTED, italic=True))
+
+    # шини
+    f.append(line(210, 184, 272, 175, color=NEG, sw=2.4)); f.append(arrow(210, 184, 272, 175, color=NEG, sw=2.4))
+    f.append(line(210, 316, 272, 259, color=FIELD, sw=2.4)); f.append(arrow(210, 316, 272, 259, color=FIELD, sw=2.4))
+    f.append(line(528, 343, 622, 200, color="#8a6d1e", sw=2.2)); f.append(arrow(528, 343, 622, 200, color="#8a6d1e", sw=2.2))
+    f.append(line(528, 343, 622, 300, color="#8a6d1e", sw=2.2)); f.append(arrow(528, 343, 622, 300, color="#8a6d1e", sw=2.2))
+
+    f.append(fitbox(150, 418, 640, 42,
+                    "Внутрішня SRAM — швидка й мала (сотні КБ). Зовнішнє — велике й дешеве,\n"
+                    "але кожен промах кешу коштує тактів. Звідси весь тюнінг: що тримати всередині.",
+                    size=10.3, bold=True, fill="#f4f7fb", stroke="#cfd6e2", sw=1.4))
+    render(os.path.join(IMG, "d-memory.svg"), W, H, *f)
+
+
+# ── Домени живлення: що засинає, а що лишається живим ────────────────────────
+def fig_d_power():
+    W, H = 920, 440
+    f = [text(W / 2, 26, "Домени живлення: що вимикається уві сні", size=18, bold=True),
+         text(W / 2, 48, "глибокий сон гасить майже все — струм падає з міліампер до мікроампер",
+              size=11.5, color=MUTED, italic=True)]
+
+    # активна зона (гасне)
+    f.append(rect(60, 92, 500, 210, fill="#fdecea", stroke=POS, sw=2, rx=12))
+    f.append(text(310, 118, "«Цифровий» домен — ГАСНЕ у глибокому сні", size=12, color=POS, bold=True))
+    items = ["ядра (Xtensa / RISC-V)", "більшість SRAM",
+             "радіо Wi-Fi / BT", "швидка периферія (APB)"]
+    for i, lbl in enumerate(items):
+        col = 60 + (0 if i < 2 else 260)
+        yy = 150 + (i % 2) * 44
+        f.append(rect(col + 20, yy, 220, 34, fill=BG, stroke=POS, sw=1.4, rx=6))
+        f.append(text(col + 130, yy + 22, lbl, size=10, color=INK))
+    f.append(text(310, 288, "усе це знеструмлюється → десятки мкА зникають", size=9.5, color=POS, italic=True))
+
+    # RTC домен (живий)
+    f.append(rect(600, 92, 260, 210, fill="#eafaf1", stroke=FIELD, sw=2, rx=12))
+    f.append(text(730, 118, "RTC-домен — ЖИВИЙ", size=12, color=FIELD, bold=True))
+    for i, ln in enumerate(["RTC-контролер + таймер", "маленька RTC-пам'ять", "співпроцесор (ULP / LP)", "кілька RTC-ніжок"]):
+        f.append(text(730, 150 + i * 30, "• " + ln, size=10, color=INK))
+    f.append(text(730, 288, "лишається на мікроамперах", size=9.5, color=FIELD, italic=True))
+
+    # вісь струму
+    f.append(line(80, 356, 840, 356, color=INK, sw=2))
+    f.append(arrow(80, 356, 840, 356, color=INK, sw=2))
+    for x, lab in [(120, "глибокий сон\n~7 мкА (RTC on)"), (360, "легкий сон\n~240 мкА"),
+                   (620, "активно, радіо тихо\nдесятки мА"), (800, "передавання\n>100 мА")]:
+        f.append(circle(x, 356, 6, fill=BG, stroke=INK, sw=2))
+        f.append(mtext(x, 378, lab, size=9.3, color=INK, bold=True))
+    f.append(text(460, 420, "числа — для голого чипа з даташита; плата з регулятором і USB-мостом додасть своє",
+                  size=9.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "d-power.svg"), W, H, *f)
+
+
+# ── Співпроцесорний «звіринець»: FSM · RISC-V ULP · LP-ядро ──────────────────
+def fig_d_coproc():
+    W, H = 940, 400
+    f = [text(W / 2, 26, "Три обличчя «малого мозку, що не спить»", size=18, bold=True),
+         text(W / 2, 48, "той самий задум — стерегти давачі уві сні — у трьох поколіннях",
+              size=11.5, color=MUTED, italic=True)]
+
+    cards = [
+        (185, "ULP FSM", "ESP32 · S2 · S3",
+         ["крихітний автомат", "асемблер / C-макроси", "4 × 16-біт регістри", "I²C — лише бітбенгом"], XT_F, NEG),
+        (470, "ULP RISC-V", "S2 · S3",
+         ["справжнє RISC-V ядро", "звичайний C + GCC", "RV32IMC, множення/ділення", "є апаратний I²C"], RV_F, FIELD),
+        (755, "LP-ядро", "C6 · H2 · P4",
+         ["окреме RISC-V до ~20 МГц", "звичайний C", "власні переривання й шина", "стеки живлення нового рівня"], RV_F, FIELD),
+    ]
+    for cx, head, chips, items, fill, col in cards:
+        f.append(rect(cx - 135, 88, 270, 268, fill=fill, stroke=col, sw=2, rx=12))
+        f.append(text(cx, 116, head, size=14, color=col, bold=True))
+        f.append(text(cx, 138, chips, size=10, color=INK, bold=True))
+        f.append(line(cx - 105, 150, cx + 105, 150, color=col, sw=1.2))
+        for i, ln in enumerate(items):
+            f.append(text(cx, 178 + i * 30, "• " + ln, size=10, color=INK))
+    # стрілка «дозрівання»
+    f.append(line(320, 372, 620, 372, color=MUTED, sw=2, dash="4,4"))
+    f.append(arrow(320, 372, 620, 372, color=MUTED, sw=2))
+    f.append(text(470, 366, "від примітивного автомата — до повноцінного ядра", size=9.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "d-coproc.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     # тема
     fig_family()
@@ -323,5 +486,11 @@ if __name__ == "__main__":
     fig_riscv_three_ways()
     fig_riscv_espressif_split()
     fig_riscv_why_migrate()
+    # детальна esp32-family-d.md
+    fig_d_cores()
+    fig_d_memory()
+    fig_d_power()
+    fig_d_coproc()
     print("OK: family, axes, xtensa-riscv, connectivity, chooser, picks, "
-          "riscv-three-ways, riscv-espressif-split, riscv-why-migrate")
+          "riscv-three-ways, riscv-espressif-split, riscv-why-migrate, "
+          "d-cores, d-memory, d-power, d-coproc")

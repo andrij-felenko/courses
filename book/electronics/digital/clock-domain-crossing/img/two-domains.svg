@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="60.0" width="280.0" height="220.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="170.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">Область A</text>
+<text x="170.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">такт CLK_A = 50 МГц</text>
+<rect x="70.0" y="140.0" width="200.0" height="56.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="170.0" y="164.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Логіка A</tspan><tspan x="170.0" dy="16.9">(лічильники, регістри)</tspan></text>
+<rect x="410.0" y="60.0" width="280.0" height="220.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="550.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">Область B</text>
+<text x="550.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">такт CLK_B = 33 МГц</text>
+<rect x="450.0" y="140.0" width="200.0" height="56.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="550.0" y="164.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Логіка B</tspan><tspan x="550.0" dy="16.9">(інший конвеєр)</tspan></text>
+<line x1="360.0" y1="40.0" x2="360.0" y2="300.0" stroke="#1a1a1a" stroke-width="2.0" stroke-dasharray="8 6"/>
+<text x="360.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">МЕЖА</text>
+<line x1="270.0" y1="168.0" x2="450.0" y2="168.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="300.0" y="196.0" width="120.0" height="28.0" rx="6" fill="#fff7e6" stroke="#d18b00" stroke-width="1.5"/><text x="360.0" y="214.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">сигнал</tspan></text>
+<text x="360.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">тут CLK_A нічого не знає про фронти CLK_B</text>
+</svg>

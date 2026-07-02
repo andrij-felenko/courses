@@ -28,6 +28,7 @@
   --code-text: #cdd6f4;
   --ic-bg: #eef2f7;
   --ic-color: #c0392b;
+  --math: #2563eb; --comp: #0891b2; --proj: #16a34a;   /* плашки 🧮/🔌/⚙️ — темовані */
   --h2-color: #0f2744;
   --h3-color: #1d3d66;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
@@ -36,17 +37,28 @@
   --sidebar-w: 288px;
 }
 
-/* ── Вечірній: теплий, приглушений (сепія для затишного читання надвечір) ── */
+/* ── Вечірній «сепія»: старий папір + сепія-чорнило + бурштиновий акцент.
+   Три чіткі рівні поверхонь (bg → bg-alt → sidebar), тепла бокова панель
+   замість холодної синьої, збережена семантика кольорових плашок. ── */
 html[data-theme="evening"] {
-  --bg: #f4ecdd; --bg-alt: #ece0cd; --text: #3b3026; --text-muted: #7c6c58;
-  --border: #ddcdb5; --accent: #b5651d; --accent-light: #efe0c8;
-  --eng-bg: #f7e8c8; --eng-border: #c98e2c; --eng-color: #7d4a0e;
-  --hist-bg: #ece0cf; --hist-border: #a06f48; --hist-color: #5e3f27;
-  --nav-bg: #dde8c9; --nav-border: #6a8c4c; --nav-color: #3f5226;
-  --h2-color: #4a3320; --h3-color: #5d4631;
-  --code-bg: #2b2218; --code-text: #ecdfca;
-  --ic-bg: #e6d8bf; --ic-color: #9a3b12;
-  --shadow-sm: 0 1px 3px rgba(80,60,30,0.10); --shadow: 0 2px 8px rgba(80,60,30,0.14); --shadow-lg: 0 10px 30px rgba(80,60,30,0.20);
+  /* Поверхні: папір / картка / рамка — навмисно РІЗНІ, щоб не зливались */
+  --bg: #f5ecd9; --bg-alt: #ebdcbf; --text: #322614; --text-muted: #6c5940;
+  --border: #d6c29d;
+  /* Акцент — насичена сієна; світлий варіант — теплий бурштиновий тінт (не колір фону) */
+  --accent: #9c4e14; --accent-light: #f1dbac;
+  /* Бокова панель — тепле темне дерево/шкіра, а не холодний слейт */
+  --sidebar-bg: #382a1a; --sidebar-text: #dcc7a4; --sidebar-active-bg: #9c4e14; --sidebar-hover: #4c3a25;
+  /* Плашки: бурштин / приглушений мов / шавлія — різні відтінки, але теплі */
+  --eng-bg: #f6e0b3; --eng-border: #c68c1b; --eng-color: #79470d;
+  --hist-bg: #e9d6ce; --hist-border: #9d6a72; --hist-color: #653b44;
+  --nav-bg: #dde4bf; --nav-border: #6e8a3d; --nav-color: #44531d;
+  /* Заголовки — глибша сієна, помітно темніша/тепліша за тіло тексту */
+  --h2-color: #45300e; --h3-color: #6a4825;
+  --code-bg: #271f13; --code-text: #efe1c9;
+  --ic-bg: #ead7b6; --ic-color: #9c3b11;
+  /* Плашки 🧮/🔌/⚙️ — вицвіле чорнило: тон збережено, насиченість приглушено під папір */
+  --math: #4f6a92; --comp: #2f7a72; --proj: #5f7d34;
+  --shadow-sm: 0 1px 3px rgba(70,50,20,0.12); --shadow: 0 2px 10px rgba(70,50,20,0.16); --shadow-lg: 0 12px 32px rgba(70,50,20,0.24);
 }
 /* ── Нічний: темний фон, світлий текст ── */
 html[data-theme="night"] {
@@ -74,6 +86,17 @@ html[data-theme="night"] {
 #theme-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
 #theme-btn .th-ico { font-size: 1.2rem; }
 #theme-btn .th-lbl { display: none; }   /* кнопка-іконка, як кнопка меню (без підпису) */
+
+/* ── Кнопка щільності інтерфейсу (зліва від лупи: right 6.8rem) ── */
+#density-btn {
+  position: fixed; top: 0.6rem; right: 6.8rem; z-index: 200;
+  width: 2.4rem; height: 2.4rem; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: none; border-radius: 8px; background: var(--sidebar-bg); color: #fff;
+  cursor: pointer; box-shadow: var(--shadow); transition: filter 0.15s, transform 0.1s, background 0.15s;
+}
+#density-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
+#density-btn.on { background: var(--accent); }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -128,6 +151,12 @@ body {
   letter-spacing: 0.16em; text-transform: uppercase;
   color: #3a6a85;
 }
+/* Згортувані галузі в сайдбарі (лише позначені data-collapse-group) */
+.sb-group-label[data-collapse-group] { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+.sb-group-label[data-collapse-group]:hover { color: #6aa6c8; }
+.sb-caret { font-size: 0.6rem; line-height: 1; transition: transform 0.15s; flex-shrink: 0; }
+.sb-group-label.collapsed .sb-caret { transform: rotate(-90deg); }
+.sb-group-label.collapsed + .sb-group { display: none; }
 
 .sb-chap {
   padding: 0.4rem 1.25rem 0.7rem;
@@ -144,6 +173,9 @@ body {
 }
 .sb-link:hover { background: var(--sidebar-hover); color: #e2edf5; }
 .sb-link.active { background: var(--sidebar-active-bg); color: #fff; font-weight: 600; }
+/* Прочитана тема — трохи зеленіша + ✓ */
+.sb-link.read:not(.active) { color: #83c9a2; }
+.sb-link.read::after { content: " ✓"; font-size: 0.82em; opacity: 0.8; }
 
 .sb-sub {
   display: block;
@@ -261,12 +293,12 @@ h2.hist-h {
 .callout-nav .callout-body > strong:first-child,
 .callout-nav .callout-body > p:first-child > strong:first-child { color: var(--nav-color); }
 /* вставки за типом — кольори як у модалок (🧮 синій · 🔌 бірюзовий · ⚙️ зелений) */
-.callout-math { background: color-mix(in srgb, #2563eb 7%, transparent); border-left: 4px solid #2563eb; }
-.callout-comp { background: color-mix(in srgb, #0891b2 7%, transparent); border-left: 4px solid #0891b2; }
-.callout-proj { background: color-mix(in srgb, #16a34a 7%, transparent); border-left: 4px solid #16a34a; }
-.callout-math .callout-body > strong:first-child, .callout-math .callout-body > p:first-child > strong:first-child { color: #2563eb; }
-.callout-comp .callout-body > strong:first-child, .callout-comp .callout-body > p:first-child > strong:first-child { color: #0891b2; }
-.callout-proj .callout-body > strong:first-child, .callout-proj .callout-body > p:first-child > strong:first-child { color: #16a34a; }
+.callout-math { background: color-mix(in srgb, var(--math) 8%, transparent); border-left: 4px solid var(--math); }
+.callout-comp { background: color-mix(in srgb, var(--comp) 8%, transparent); border-left: 4px solid var(--comp); }
+.callout-proj { background: color-mix(in srgb, var(--proj) 8%, transparent); border-left: 4px solid var(--proj); }
+.callout-math .callout-body > strong:first-child, .callout-math .callout-body > p:first-child > strong:first-child { color: var(--math); }
+.callout-comp .callout-body > strong:first-child, .callout-comp .callout-body > p:first-child > strong:first-child { color: var(--comp); }
+.callout-proj .callout-body > strong:first-child, .callout-proj .callout-body > p:first-child > strong:first-child { color: var(--proj); }
 
 /* ── Лагідна книга (book/): вставки 📜/🏠/🧪/💡 вплетені в текст — без суцільної заливки
       і без CAPS-ярлика з першого жирного слова; лишається тонка лінія зліва + іконка ── */
@@ -427,9 +459,9 @@ body.modal-open { overflow: hidden; }
   transition: background 0.15s, transform 0.1s;
 }
 .hist-modal-share:hover { background: var(--hist-bg); transform: scale(1.06); }
-.hist-modal.spec-math .hist-modal-share { color: #2563eb; }
-.hist-modal.spec-comp .hist-modal-share { color: #0891b2; }
-.hist-modal.spec-proj .hist-modal-share { color: #16a34a; }
+.hist-modal.spec-math .hist-modal-share { color: var(--math); }
+.hist-modal.spec-comp .hist-modal-share { color: var(--comp); }
+.hist-modal.spec-proj .hist-modal-share { color: var(--proj); }
 
 /* значок «поділитися» на картці-вставці (з'являється на наведенні) */
 a.hist-teaser { position: relative; }
@@ -520,8 +552,9 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 }
 .ch-open { display: flex; align-items: center; gap: 0.7rem; flex: 1; min-width: 0; text-decoration: none; color: inherit; }
 .ch-open .c-ttl { font-size: 0.92rem; font-weight: 600; color: var(--text); }
-.ch-open .c-go { margin-left: auto; flex-shrink: 0; font-size: 0.76rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
+.ch-open .c-go { margin-left: auto; flex-shrink: 0; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; opacity: 0.7; transition: color 0.12s, opacity 0.12s; }
 .ch-open:hover .c-ttl { color: var(--accent); }
+.ch-open:hover .c-go { color: var(--accent); opacity: 1; }
 .ch-exp {
   flex-shrink: 0; background: var(--bg-alt); color: var(--text-muted); border: 1px solid var(--border);
   border-radius: 6px; padding: 0.28rem 0.55rem; font-size: 0.73rem; font-weight: 700; cursor: pointer; white-space: nowrap;
@@ -540,6 +573,42 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .ch-item.pending .c-ttl { flex: 1; font-size: 0.92rem; font-weight: 600; color: #9aa3ae; }
 .ch-item.pending .c-badge { flex-shrink: 0; font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #aab2bd; white-space: nowrap; }
 
+/* ── Тулбар мапи: список ⇄ плитка + згорнути галузі ── */
+.map-tools { max-width: 1040px; margin: 0 auto; padding: 0 4rem; display: flex; align-items: center; justify-content: flex-end; gap: 0.6rem; }
+.map-tools + .toc { padding-top: 1.2rem; }
+.map-view { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.mv-btn { border: none; background: var(--bg); color: var(--text-muted); padding: 0.34rem 0.62rem; cursor: pointer; font-size: 1rem; line-height: 1; }
+.mv-btn + .mv-btn { border-left: 1px solid var(--border); }
+.mv-btn:hover { background: var(--bg-alt); }
+.mv-btn.on { background: var(--accent); color: #fff; }
+.map-collapse-all { border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); border-radius: 8px; padding: 0.36rem 0.7rem; cursor: pointer; font-size: 0.82rem; }
+.map-collapse-all:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Згортання галузі в мапі */
+.module-head[data-collapse-group] { cursor: pointer; user-select: none; }
+.module-head .m-caret { font-size: 0.8rem; color: var(--text-muted); transition: transform 0.15s; align-self: center; }
+.module-block.collapsed .m-caret { transform: rotate(-90deg); }
+.module-block.collapsed .ch-list { display: none; }
+.module-block.collapsed .module-head { margin-bottom: 0; border-bottom-color: transparent; }
+
+/* Плитка (grid): теми як картки, назва в 1–2 рядки */
+.toc.map-grid .ch-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.6rem; align-items: stretch; }
+.toc.map-grid .ch-row { height: 100%; align-items: stretch; padding: 0.7rem 0.8rem; }
+.toc.map-grid .ch-open { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+.toc.map-grid .ch-open .c-ttl { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.toc.map-grid .ch-open .c-go { margin-left: 0; margin-top: auto; }
+.toc.map-grid .ch-item.pending .ch-row { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+.toc.map-grid .module-block.collapsed .ch-list { display: none; }   /* згорнуте ховаємо й у плитці */
+
+/* Прочитана тема в мапі — трохи зеленіша + ✓ */
+.ch-item.done.read { border-color: color-mix(in srgb, #16a34a 42%, var(--border)); background: color-mix(in srgb, #16a34a 6%, var(--bg)); }
+.ch-item.done.read .c-ttl::after { content: " ✓"; color: #16a34a; font-weight: 800; font-size: 0.82em; }
+.read-sentinel { display: block; height: 1px; }
+
+@media (max-width: 720px) {
+  .map-tools { padding-left: 1.4rem; padding-right: 1.4rem; }
+}
+
 /* спец-вставки в змісті (підзаголовки типів і пункти-вставки) */
 .ch-topics li.t-spec-head { padding: 0.55rem 0 0.15rem; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
 .ch-topics li.t-spec a { color: var(--text); }
@@ -547,12 +616,12 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 /* підзаголовок типу вставок у сайдбарі розділу */
 .sb-spec-type { padding: 0.5rem 1.25rem 0.15rem 1.5rem; font-size: 0.64rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: #6e93ad; }
 /* колір модалки за типом вставки (історія лишається фіолетовою) */
-.hist-modal.spec-math .hist-modal-dialog { border-top-color: #2563eb; }
-.hist-modal.spec-comp .hist-modal-dialog { border-top-color: #0891b2; }
-.hist-modal.spec-proj .hist-modal-dialog { border-top-color: #16a34a; }
-.hist-modal.spec-math .hist-modal-close, .hist-modal.spec-math .hist-art-label { color: #2563eb; }
-.hist-modal.spec-comp .hist-modal-close, .hist-modal.spec-comp .hist-art-label { color: #0891b2; }
-.hist-modal.spec-proj .hist-modal-close, .hist-modal.spec-proj .hist-art-label { color: #16a34a; }
+.hist-modal.spec-math .hist-modal-dialog { border-top-color: var(--math); }
+.hist-modal.spec-comp .hist-modal-dialog { border-top-color: var(--comp); }
+.hist-modal.spec-proj .hist-modal-dialog { border-top-color: var(--proj); }
+.hist-modal.spec-math .hist-modal-close, .hist-modal.spec-math .hist-art-label { color: var(--math); }
+.hist-modal.spec-comp .hist-modal-close, .hist-modal.spec-comp .hist-art-label { color: var(--comp); }
+.hist-modal.spec-proj .hist-modal-close, .hist-modal.spec-proj .hist-art-label { color: var(--proj); }
 
 /* ─── Loading / error states ────────────────────────────────────────────── */
 .state { max-width: 860px; margin: 0 auto; padding: 5rem 4rem; text-align: center; color: var(--text-muted); }
@@ -655,6 +724,12 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .lib-modnote { font-size: 0.74rem; color: var(--text-muted); }
 .lib-cta { font-weight: 800; color: var(--accent, #1d6fa4); font-size: 0.92rem; }
 .lib-card:hover .lib-cta { text-decoration: underline; }
+
+/* Картка курсу — виразніша: значок «Курс», багатша обкладинка, акцентна рамка */
+.lib-kind { position: absolute; top: 0.65rem; left: 1.2rem; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; background: rgba(255,255,255,0.22); padding: 0.16rem 0.55rem; border-radius: 999px; }
+.lib-card-guide { border-color: color-mix(in srgb, var(--accent) 38%, var(--border)); }
+.lib-card-guide .lib-cover { min-height: 108px; background: linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--accent) 34%, #10161f) 125%); }
+.lib-card-guide .lib-cta { color: var(--accent); }
 @media (max-width: 640px) {
   .lib-hero { padding: 3.5rem 1.4rem 4rem; }
   .lib-hero h1 { font-size: 2rem; }

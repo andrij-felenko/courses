@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Читач</title>
-<script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('courses-theme')||'day')}catch(e){}</script>
-<link rel="stylesheet" href="book.css?v=15">
+<script>try{var d=document.documentElement;d.setAttribute('data-theme',localStorage.getItem('courses-theme')||'day');d.setAttribute('data-density',localStorage.getItem('courses-density')||'cozy')}catch(e){}</script>
+<link rel="stylesheet" href="book.css?v=21">
+<link rel="stylesheet" href="search.css?v=2">
+<link rel="stylesheet" href="dense.css?v=1">
 </head>
 <body>
 
@@ -18,7 +20,7 @@
 <noscript><div style="max-width:700px;margin:3rem auto;padding:0 1.5rem">Потрібен JavaScript.</div></noscript>
 
 <!-- Універсальний читач: ?book=<subject> (предметна книга) або ?guide=<course> (курс) -->
-<script src="scripts/bookbuild.js?v=8"></script>
+<script src="scripts/bookbuild.js?v=9"></script>
 <script>
 (function () {
   var p = new URLSearchParams(location.search);
@@ -32,7 +34,7 @@
       if (!b) { content.innerHTML = '<div class="state error">Книгу не знайдено</div>'; return; }
       if (courseSlug && arr[1]) b.course = { slug: courseSlug, title: arr[1].title, modules: arr[1].modules || [] };
       window.BOOK = b;
-      var s = document.createElement("script"); s.src = "book.js?v=17"; document.body.appendChild(s);
+      var s = document.createElement("script"); s.src = "book.js?v=20"; document.body.appendChild(s);
     });
   } else if (p.get("guide")) {
     var gslug = p.get("guide");
@@ -42,7 +44,7 @@
         var b = g && adaptSubjectBook(g, "guide/");
         if (!b) { content.innerHTML = '<div class="state error">Курс не знайдено</div>'; return; }
         window.BOOK = b;
-        var s = document.createElement("script"); s.src = "book.js?v=17"; document.body.appendChild(s);
+        var s = document.createElement("script"); s.src = "book.js?v=20"; document.body.appendChild(s);
       });
     } else {
       loadGuide(gslug).then(function (g) { renderGuide(g); });   // лендинг курсу (доріжка модулів/кроків)
@@ -52,6 +54,8 @@
   }
 })();
 </script>
+<script src="search.js?v=4"></script>
 <script src="theme.js?v=1"></script>
+<script src="density.js?v=1"></script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<circle cx="150.0" cy="150.0" r="52.0" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.4"/>
+<text x="150.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">OK</text>
+<text x="150.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">все дозволено</text>
+<circle cx="630.0" cy="150.0" r="52.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/>
+<text x="630.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">SAG</text>
+<text x="630.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">радіо стоп</text>
+<circle cx="390.0" cy="150.0" r="52.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.4"/>
+<text x="390.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">RECOVER</text>
+<text x="390.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">тримай стабільно</text>
+<line x1="202.0" y1="120.0" x2="578.0" y2="120.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="390.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Vdd &lt; V_SAG  (провал)</text>
+<line x1="578.0" y1="174.0" x2="442.0" y2="174.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="510.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Vdd &gt; V_OK</text>
+<line x1="338.0" y1="174.0" x2="202.0" y2="174.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="270.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">стабільно t_hold</text>
+<line x1="420.0" y1="98.0" x2="600.0" y2="104.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="516.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">знов &lt; V_SAG</text>
+<rect x="120.0" y="272.0" width="540.0" height="54.0" rx="6" fill="#f6f6f6" stroke="#1a1a1a" stroke-width="1.5"/><text x="390.0" y="295.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Два різні пороги: V_SAG нижчий, V_OK вищий. Зазор між ними — гістерезис.</tspan><tspan x="390.0" dy="14.3">На самій межі стан не «торохтить» туди-сюди від кожного мілівольта шуму.</tspan></text>
+</svg>

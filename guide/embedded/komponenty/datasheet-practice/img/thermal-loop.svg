@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Теплова петля: втрати ⇄ температура кристала</text>
+<rect x="117.9" y="96.2" width="184.2" height="47.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="210.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">тепловиділення</tspan><tspan x="210.0" dy="15.6">P = I²·R (+ перемикання)</tspan></text>
+<rect x="431.6" y="96.2" width="156.8" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="510.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">температура кристала</tspan><tspan x="510.0" dy="15.6">Tj = T_amb + P·Rθ</tspan></text>
+<line x1="306.1" y1="104.0" x2="427.6" y2="104.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">гріє</text>
+<line x1="427.6" y1="136.0" x2="306.1" y2="136.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">гарячий опір/витік ↑ → P ↑</text>
+<rect x="102.8" y="215.3" width="214.4" height="45.3" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="210.0" y="234.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">стабільно: ітерація Tj → P → Tj</tspan><tspan x="210.0" dy="14.3">збігається</tspan></text>
+<rect x="434.2" y="215.3" width="151.7" height="45.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="510.0" y="234.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">розгін: dP/dTj &gt; 1/Rθ</tspan><tspan x="510.0" dy="14.3">петля не збігається</tspan></text>
+</svg>

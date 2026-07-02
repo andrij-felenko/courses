@@ -1,3 +1,8 @@
 # Python figure-generator cache
 __pycache__/
 *.pyc
+
+# Згенерований пошуковий індекс — будується в CI (.github/workflows/deploy.yml).
+# Локально: `node scripts/build-search-index.js`, щоб протестувати пошук.
+/search-index.json
+/search-fulltext.json

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скраб кадрами: прочитати назад → звірити → переписати лише хибний</text>
+<rect x="210.0" y="60.0" width="340.0" height="52.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/><text x="380.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">взяти наступний кадр конфігурації  f</tspan><tspan x="380.0" dy="16.2">(рухаємось адресами кадрів)</tspan></text>
+<rect x="210.0" y="150.0" width="340.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="380.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">READBACK кадру f: прочитати назад біти</tspan><tspan x="380.0" dy="15.6">+ синдром ECC / внесок у CRC</tspan></text>
+<rect x="210.0" y="248.0" width="340.0" height="60.0" rx="6" fill="#fff8e1" stroke="#c0392b" stroke-width="2.0"/><text x="380.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">синдром = 0 ?</tspan><tspan x="380.0" dy="16.2">(кадр збігається з еталоном)</tspan></text>
+<rect x="210.0" y="346.0" width="340.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="380.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="380.0" dy="0.0">WRITEBACK: переписати ЛИШЕ кадр f</tspan><tspan x="380.0" dy="15.6">виправленими бітами</tspan></text>
+<line x1="380.0" y1="112.0" x2="380.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="210.0" x2="380.0" y2="248.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="308.0" x2="380.0" y2="346.0" stroke="#c0392b" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="388.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">ні → біт побито</text>
+<line x1="550.0" y1="278.0" x2="640.0" y2="278.0" stroke="#27ae60" stroke-width="1.9"/>
+<line x1="640.0" y1="278.0" x2="640.0" y2="86.0" stroke="#27ae60" stroke-width="1.9"/>
+<line x1="640.0" y1="86.0" x2="550.0" y2="86.0" stroke="#27ae60" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="556.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e7a45" text-anchor="start" font-weight="700">так → кадр цілий</text>
+<line x1="210.0" y1="377.0" x2="120.0" y2="377.0" stroke="#c0392b" stroke-width="1.9"/>
+<line x1="120.0" y1="377.0" x2="120.0" y2="86.0" stroke="#c0392b" stroke-width="1.9"/>
+<line x1="120.0" y1="86.0" x2="210.0" y2="86.0" stroke="#c0392b" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="114.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end">повернути</text>
+<text x="114.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end">кадр на місце</text>
+<rect x="130.0" y="430.0" width="500.0" height="30.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="380.0" y="449.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="380.0" dy="0.0">прогнав усі кадри — і знову з першого: сторож ніколи не спить</tspan></text>
+</svg>

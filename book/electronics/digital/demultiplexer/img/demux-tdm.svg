@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пара MUX↔DEMUX: багато потоків одним каналом (часове ущільнення)</text>
+<polygon points="120,90 210,124 210,256 120,290" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="165.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">MUX</text>
+<line x1="86.0" y1="118.0" x2="120.0" y2="118.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="78.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">A</text>
+<line x1="86.0" y1="166.0" x2="120.0" y2="166.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="78.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">B</text>
+<line x1="86.0" y1="214.0" x2="120.0" y2="214.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="78.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">C</text>
+<line x1="86.0" y1="262.0" x2="120.0" y2="262.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="78.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">D</text>
+<text x="135.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">джерела</text>
+<line x1="210.0" y1="190.0" x2="540.0" y2="190.0" stroke="#1a1a1a" stroke-width="3.0"/>
+<text x="375.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">один канал</text>
+<text x="375.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">A B C D A B C D … по черзі</text>
+<polygon points="540,124 630,90 630,290 540,256" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="585.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">DEMUX</text>
+<line x1="630.0" y1="118.0" x2="664.0" y2="118.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="672.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">A</text>
+<line x1="630.0" y1="166.0" x2="664.0" y2="166.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="672.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">B</text>
+<line x1="630.0" y1="214.0" x2="664.0" y2="214.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="672.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">C</text>
+<line x1="630.0" y1="262.0" x2="664.0" y2="262.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="672.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">D</text>
+<text x="615.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">адресати</text>
+<line x1="165.0" y1="290.0" x2="165.0" y2="340.0" stroke="#8e44ad" stroke-width="2.0"/>
+<line x1="585.0" y1="290.0" x2="585.0" y2="340.0" stroke="#8e44ad" stroke-width="2.0"/>
+<line x1="165.0" y1="340.0" x2="585.0" y2="340.0" stroke="#8e44ad" stroke-width="2.0" stroke-dasharray="5,4"/>
+<rect x="350.0" y="326.0" width="160.0" height="30.0" rx="6" fill="#efe8f7" stroke="#8e44ad" stroke-width="1.5"/><text x="430.0" y="343.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#8e44ad" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">спільна адреса (лічильник)</tspan></text>
+</svg>

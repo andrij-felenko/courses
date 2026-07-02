@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Sigma-delta першого порядку у прошивці: один акумулятор і перенесення</text>
+<rect x="38.7" y="142.6" width="114.6" height="50.8" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="96.0" y="164.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="96.0" dy="0.0">вхід</tspan><tspan x="96.0" dy="16.2">(ціль 96/256)</tspan></text>
+<circle cx="268.0" cy="168.0" r="22.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="261.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="261.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<rect x="377.1" y="134.5" width="121.7" height="67.0" rx="6" fill="#dcf3e6" stroke="#27ae60" stroke-width="2.0"/><text x="438.0" y="156.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="438.0" dy="0.0">акумулятор</tspan><tspan x="438.0" dy="16.2">(додає різницю</tspan><tspan x="438.0" dy="16.2">щотакту)</tspan></text>
+<rect x="554.7" y="134.5" width="114.6" height="67.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="612.0" y="156.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="612.0" dy="0.0">переповнення?</tspan><tspan x="612.0" dy="16.2">1 → вихід ON</tspan><tspan x="612.0" dy="16.2">0 → вихід OFF</tspan></text>
+<line x1="157.3" y1="168.0" x2="244.0" y2="168.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="292.0" y1="168.0" x2="373.1" y2="168.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="502.9" y1="168.0" x2="550.7" y2="168.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="612.0" y1="205.5" x2="612.0" y2="264.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="612.0" y1="264.0" x2="268.0" y2="264.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="268.0" y1="264.0" x2="268.0" y2="192.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">якщо вихід був ON — відняти повну шкалу (256); якщо OFF — нічого</text>
+<line x1="673.3" y1="168.0" x2="729.3" y2="168.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="735.3" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">потік</text>
+<text x="735.3" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">бітів →</text>
+</svg>

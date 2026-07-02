@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заборонена «канарка» між стеками ловить переповнення на першому ж байті</text>
+<rect x="200.0" y="56.0" width="220.0" height="90.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="310.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">стек задачі A</text>
+<text x="310.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">чит/зап (обл. 5)</text>
+<text x="310.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">росте вниз ↓</text>
+<rect x="200.0" y="146.0" width="220.0" height="46.0" rx="6" fill="#fdeef0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="310.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">КАНАРКА — заборонено все</text>
+<text x="310.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#c0392b" text-anchor="middle">(старша область, AP = нема доступу)</text>
+<rect x="200.0" y="192.0" width="220.0" height="90.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="310.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">стек задачі B</text>
+<text x="310.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">чит/зап (обл. 5 після світчу)</text>
+<line x1="174.0" y1="76.0" x2="174.0" y2="154.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="168.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">переповнення A</text>
+<rect x="486.6" y="112.3" width="186.8" height="75.4" rx="6" fill="#f1ecfa" stroke="#6a3fb5" stroke-width="2.0"/><text x="580.0" y="133.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6a3fb5" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">перший байт за межу стека</tspan><tspan x="580.0" dy="13.7">= доступ у канарку</tspan><tspan x="580.0" dy="13.7">→ MemManage fault</tspan><tspan x="580.0" dy="13.7">одразу, не через сусіда</tspan></text>
+<text x="380.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Без канарки стек A, переповнюючись, тихо заповз би у стек B і повалив систему пізніше й деінде.</text>
+<text x="380.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Канарку роблять старшою забороненою областю, тож вона перекриває «чит/зап» широкої RAM — і перший же зайвий байт ловиться.</text>
+</svg>

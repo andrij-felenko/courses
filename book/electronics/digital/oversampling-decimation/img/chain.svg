@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 250" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="250" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="76.1" y="78.0" width="127.7" height="53.9" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="140.0" y="101.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Швидкий АЦП</tspan><tspan x="140.0" dy="16.9">K·fs знімків/с</tspan></text>
+<rect x="349.8" y="69.6" width="120.3" height="70.8" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/><text x="410.0" y="92.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Цифровий</tspan><tspan x="410.0" dy="16.9">фільтр НЧ</tspan><tspan x="410.0" dy="16.9">(усереднення)</tspan></text>
+<rect x="606.1" y="69.6" width="127.7" height="70.8" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="670.0" y="92.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">Проріджування</tspan><tspan x="670.0" dy="16.9">÷K</tspan><tspan x="670.0" dy="16.9">(беремо 1 з K)</tspan></text>
+<line x1="203.9" y1="105.0" x2="349.8" y2="105.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="470.2" y1="105.0" x2="606.1" y2="105.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="275.0" y="59.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">багато сирих</text>
+<text x="275.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">відліків</text>
+<text x="540.0" y="59.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">шум поза</text>
+<text x="540.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">смугою зрізано</text>
+<line x1="46.0" y1="105.0" x2="76.1" y2="105.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="50.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">аналог</text>
+<line x1="733.9" y1="105.0" x2="774.0" y2="105.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="768.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">чисті дані</text>
+<text x="768.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">на fs</text>
+<text x="400.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Фільтр — ПЕРЕД проріджуванням: інакше відкинутий шум складеться назад у смугу (аліасинг)</text>
+</svg>

@@ -51,6 +51,89 @@
   var $content = document.getElementById("content");
   var $sidebar = document.getElementById("sidebar");
 
+  /* ── Вигляд списку тем: список/плитка + згорнуті галузі (зберігається) ── */
+  var NAV = {
+    view: (function () { try { return localStorage.getItem("courses-map-view") === "grid" ? "grid" : "list"; } catch (e) { return "list"; } })(),
+    collapsed: (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-collapsed") || "[]")); } catch (e) { return new Set(); } })()
+  };
+  function saveNav() { try { localStorage.setItem("courses-map-view", NAV.view); localStorage.setItem("courses-collapsed", JSON.stringify(Array.from(NAV.collapsed))); } catch (e) {} }
+  function isCollapsed(key) { return NAV.collapsed.has(key); }
+  function allGroupKeys() { var out = []; BOOK.modules.forEach(function (m) { if (m.chapters && m.chapters.length) out.push(m.title); }); return out; }
+
+  /* ── Прогрес читання: доскролив до низу статті → «прочитано» (localStorage) ── */
+  var READ = (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-read") || "[]")); } catch (e) { return new Set(); } })();
+  function readKey(slug) { return (BOOK.bookSlug || BOOK.type || "book") + "/" + slug; }
+  function isRead(slug) { return !!slug && READ.has(readKey(slug)); }
+  function readClass(slug) { return isRead(slug) ? " read" : ""; }
+  function markRead(slug) {
+    if (!slug) return;
+    var k = readKey(slug);
+    if (READ.has(k)) return;
+    READ.add(k);
+    try { localStorage.setItem("courses-read", JSON.stringify(Array.from(READ))); } catch (e) {}
+    [].forEach.call(document.querySelectorAll(".sb-link.active"), function (a) { a.classList.add("read"); });   // підсвітити наживо
+  }
+  var readSpy = null;
+  function setupReadTracking(slug) {
+    if (readSpy) { readSpy.disconnect(); readSpy = null; }
+    if (isRead(slug) || !window.IntersectionObserver) return;
+    var end = document.getElementById("read-end");
+    if (!end) return;
+    readSpy = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) { markRead(slug); if (readSpy) { readSpy.disconnect(); readSpy = null; } break; }
+      }
+    }, { threshold: 0 });
+    readSpy.observe(end);
+  }
+
+  // Тулбар над мапою: перемикач список/плитка (лише для книг) + «згорнути галузі».
+  function mapToolbar(withView) {
+    var keys = allGroupKeys();
+    var allCol = keys.length > 0 && keys.every(function (k) { return NAV.collapsed.has(k); });
+    var view = withView ? '<div class="map-view" role="group" aria-label="Вигляд тем">' +
+      '<button type="button" class="mv-btn' + (NAV.view === "list" ? " on" : "") + '" data-map-view="list" title="Список" aria-label="Список">☰</button>' +
+      '<button type="button" class="mv-btn' + (NAV.view === "grid" ? " on" : "") + '" data-map-view="grid" title="Плитка" aria-label="Плитка">▦</button></div>' : "";
+    return '<div class="map-tools">' +
+      '<button type="button" class="map-collapse-all" data-collapse-all>' + (allCol ? "Розгорнути галузі" : "Згорнути галузі") + "</button>" + view + "</div>";
+  }
+  // Обгортки згортуваної галузі в сайдбарі (label + контейнер лінків).
+  function sbGroupOpen(key, labelHtml) {
+    return '<div class="sb-group-label' + (isCollapsed(key) ? " collapsed" : "") + '" data-collapse-group="' + escapeAttr(key) + '">' +
+      '<span class="sb-caret" aria-hidden="true">▾</span><span class="sb-gl-txt">' + labelHtml + "</span></div><div class=\"sb-group\">";
+  }
+  function sbGroupClose() { return "</div>"; }
+
+  function applyMapView() {
+    var toc = document.querySelector(".toc");
+    if (toc) toc.classList.toggle("map-grid", NAV.view === "grid");
+    [].forEach.call(document.querySelectorAll("[data-map-view]"), function (b) { b.classList.toggle("on", b.getAttribute("data-map-view") === NAV.view); });
+  }
+  function applyGroupCollapsed(key) {
+    var col = NAV.collapsed.has(key);
+    [].forEach.call(document.querySelectorAll(".module-head[data-collapse-group]"), function (mh) {
+      if (mh.getAttribute("data-collapse-group") === key) mh.parentElement.classList.toggle("collapsed", col);
+    });
+    [].forEach.call(document.querySelectorAll(".sb-group-label[data-collapse-group]"), function (sl) {
+      if (sl.getAttribute("data-collapse-group") === key) sl.classList.toggle("collapsed", col);
+    });
+  }
+  function toggleGroup(key) {
+    if (NAV.collapsed.has(key)) NAV.collapsed.delete(key); else NAV.collapsed.add(key);
+    saveNav(); applyGroupCollapsed(key); updateCollapseAllLabel();
+  }
+  function toggleAllGroups() {
+    var keys = allGroupKeys();
+    var allCol = keys.length > 0 && keys.every(function (k) { return NAV.collapsed.has(k); });
+    keys.forEach(function (k) { if (allCol) NAV.collapsed.delete(k); else NAV.collapsed.add(k); });
+    saveNav(); keys.forEach(applyGroupCollapsed); updateCollapseAllLabel();
+  }
+  function updateCollapseAllLabel() {
+    var keys = allGroupKeys();
+    var allCol = keys.length > 0 && keys.every(function (k) { return NAV.collapsed.has(k); });
+    [].forEach.call(document.querySelectorAll("[data-collapse-all]"), function (b) { b.textContent = allCol ? "Розгорнути галузі" : "Згорнути галузі"; });
+  }
+
   /* ── Індекси за маніфестом ──────────────────────────────────────────── */
   var FLAT = [];          // усі розділи по порядку (вкл. ще не написані)
   var CH_BY_SLUG = {};    // slug → готовий розділ
@@ -445,13 +528,15 @@
 
         var html = '<span id="top" class="anc"></span>';
         html += chapterHeader(chap, pm.introHtml);
-        html += '<div class="sec content-body">' + courseTopNav(chap) + versionLink(chap) + banner + pm.bodyHtml + courseBottomNav(chap) + "</div>";
+        html += '<div class="sec content-body">' + courseTopNav(chap) + versionLink(chap) + banner + pm.bodyHtml + courseBottomNav(chap) +
+          '<span id="read-end" class="read-sentinel" aria-hidden="true"></span></div>';
         arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна (історії + extras)
         setContent(html);
         document.body.classList.add("reading");
 
         buildChapterSidebar(chap, pm.sections, ctx.attach, arts);
         setupScrollSpy();
+        setupReadTracking(chap.slug);   // доскролив до #read-end → тема прочитана
         scrollToAnchor(pendingTarget); appliedAt = pendingTarget; pendingTarget = null;
         syncModals(pendingTokens || []); pendingTokens = null;     // відновити стек попапів (deep-link / «назад-вперед»)
       })
@@ -578,15 +663,16 @@
       '<a class="sb-back" href="#">← Усі галузі</a>';
     BOOK.modules.forEach(function (m) {
       if (!m.chapters.length) return;
-      s += '<div class="sb-group-label">' + escapeHtml(m.title) + "</div>";
+      s += sbGroupOpen(m.title, escapeHtml(m.title));
       m.chapters.forEach(function (c) {
         if (c.status === "empty") return;
         if (c.slug) {
-          s += '<a class="sb-link' + (c.slug === chap.slug ? " active" : "") + '" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
+          s += '<a class="sb-link' + (c.slug === chap.slug ? " active" : "") + readClass(c.slug) + '" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
         } else {
           s += '<span class="sb-link" style="opacity:.4;cursor:default">' + escapeHtml(c.title) + "</span>";
         }
       });
+      s += sbGroupClose();
     });
     s += chapterPager(chap);
     setSidebar(s);
@@ -726,18 +812,19 @@
     var h = '<header class="cover-hero"><div class="kicker">Книга · теорія за галузями</div>' +
       "<h1>" + escapeHtml(BOOK.title) + "</h1>" + (BOOK.subtitle ? "<p>" + escapeHtml(BOOK.subtitle) + "</p>" : "") +
       '<div class="cover-stats">' + stat(live.length, "галузей") + stat(readable, "статей") + (fullCount ? stat(fullCount, "повних") : "") +
-      "</div></header><div class=\"toc\">";
+      "</div></header>" + mapToolbar(true) + '<div class="toc' + (NAV.view === "grid" ? " map-grid" : "") + '">';
     live.forEach(function (m) {
       var d = m.chapters.filter(function (c) { return c.slug; }).length;
       var total = m.chapters.filter(function (c) { return c.status !== "empty"; }).length;
-      h += '<div class="module-block"><div class="module-head"><span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
+      h += '<div class="module-block' + (isCollapsed(m.title) ? " collapsed" : "") + '"><div class="module-head" data-collapse-group="' + escapeAttr(m.title) + '">' +
+        '<span class="m-caret" aria-hidden="true">▾</span><span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
         '<span class="m-prog">' + d + " / " + total + "</span></div><div class=\"ch-list\">";
       m.chapters.forEach(function (c) {
         if (c.status === "empty") return;   // не потрібно — не показуємо
         if (c.slug) {   // є текст → читабельне (коротка або повна версія)
-          h += '<div class="ch-item done"><div class="ch-row"><a class="ch-open" href="#ch=' + c.slug + '">' +
+          h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row"><a class="ch-open" href="#ch=' + c.slug + '">' +
             '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
-            '<span class="c-go">' + (c.status === "done" ? "читати →" : "коротко →") + "</span></a></div></div>";
+            '<span class="c-go">' + (c.status === "done" ? "→" : "коротко →") + "</span></a></div></div>";
         } else {
           h += '<div class="ch-item pending"><div class="ch-row"><span class="c-ttl">' + escapeHtml(c.title) +
             '</span><span class="c-badge">незабаром</span></div></div>';
@@ -753,12 +840,13 @@
       '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>";
     BOOK.modules.forEach(function (m) {
       if (!m.chapters.length) return;
-      s += '<div class="sb-group-label">' + escapeHtml(m.title) + "</div>";
+      s += sbGroupOpen(m.title, escapeHtml(m.title));
       m.chapters.forEach(function (c) {
         if (c.status === "empty") return;
-        if (c.slug) s += '<a class="sb-link" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
+        if (c.slug) s += '<a class="sb-link' + readClass(c.slug) + '" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
         else s += '<span class="sb-link" style="opacity:.4;cursor:default">' + escapeHtml(c.title) + "</span>";
       });
+      s += sbGroupClose();
     });
     setSidebar(s);
   }
@@ -771,10 +859,11 @@
       stat(BOOK.modules.length, "модулів") + stat(FLAT.length, "розділів") + stat(doneCount, "готових зараз") +
       "</div></header>";
 
-    h += '<div class="toc">';
+    h += mapToolbar(false) + '<div class="toc">';
     BOOK.modules.forEach(function (m) {
       var done = m.chapters.filter(function (c) { return c.status === "done"; }).length;
-      h += '<div class="module-block"><div class="module-head"><span class="m-num">Модуль ' + m.n + "</span>" +
+      h += '<div class="module-block' + (isCollapsed(m.title) ? " collapsed" : "") + '"><div class="module-head" data-collapse-group="' + escapeAttr(m.title) + '">' +
+        '<span class="m-caret" aria-hidden="true">▾</span><span class="m-num">Модуль ' + m.n + "</span>" +
         '<span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
         '<span class="m-prog">' + done + " / " + m.chapters.length + ' готово</span></div><div class="ch-list">';
       m.chapters.forEach(function (c) {
@@ -784,10 +873,10 @@
           var tops = entry.topics || [], specs = entry.specs || [];
           var tid = "tp-" + mr.replace(/\./g, "-");
           var btnLabel = plTopics(tops.length) + (specs.length ? " · " + specs.length + " вставок" : "");
-          h += '<div class="ch-item done"><div class="ch-row">' +
+          h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row">' +
             '<a class="ch-open" href="#ch=' + c.slug + '"><span class="c-num">' + mr + "</span>" +
             '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
-            '<span class="c-go">читати →</span></a>';
+            '<span class="c-go">→</span></a>';
           if (tops.length || specs.length) h += '<button class="ch-exp" type="button" data-exp="' + tid + '" aria-expanded="false">' + btnLabel + "</button>";
           h += "</div>";
           if (tops.length || specs.length) {
@@ -825,14 +914,15 @@
       '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Книга</span>' +
       '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>";
     BOOK.modules.forEach(function (m) {
-      s += '<div class="sb-group-label">Модуль ' + m.n + " · " + escapeHtml(m.title) + "</div>";
+      s += sbGroupOpen(m.title, "Модуль " + m.n + " · " + escapeHtml(m.title));
       m.chapters.forEach(function (c) {
         if (c.status === "done") {
-          s += '<a class="sb-link" href="#ch=' + c.slug + '">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</a>";
+          s += '<a class="sb-link' + readClass(c.slug) + '" href="#ch=' + c.slug + '">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</a>";
         } else {
           s += '<span class="sb-link" style="opacity:.45;cursor:default">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</span>";
         }
       });
+      s += sbGroupClose();
     });
     setSidebar(s);
   }
@@ -1147,6 +1237,12 @@
     }
     // делеговані кліки: відкрити/закрити/поділитися попапом
     document.addEventListener("click", function (e) {
+      var mv = e.target.closest && e.target.closest("[data-map-view]");      // список ⇄ плитка (мапа книги)
+      if (mv) { e.preventDefault(); NAV.view = mv.getAttribute("data-map-view"); saveNav(); applyMapView(); return; }
+      var ca = e.target.closest && e.target.closest("[data-collapse-all]");  // згорнути/розгорнути всі галузі
+      if (ca) { e.preventDefault(); toggleAllGroups(); return; }
+      var cg = e.target.closest && e.target.closest("[data-collapse-group]"); // згорнути одну галузь (мапа або сайдбар)
+      if (cg) { e.preventDefault(); toggleGroup(cg.getAttribute("data-collapse-group")); return; }
       var sh = e.target.closest && e.target.closest("[data-share-token]");   // значок 🔗 на картці-вставці
       if (sh) { e.preventDefault(); e.stopPropagation(); copyText(popupShareUrl(sh.getAttribute("data-share-token"))); return; }
       var dsh = e.target.closest && e.target.closest("[data-share]");        // кнопка 🔗 у самому попапі

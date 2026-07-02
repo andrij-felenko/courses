@@ -59,6 +59,7 @@
       topics: [
         { slug: "thermal-resistance", title: "Тепловий опір", basic: { status: "done" }, detailed: { status: "pending" }, math: [{ file: "math-thermal-rc.md", status: "done" }] },
         { slug: "thermal-noise", title: "Тепловий шум", basic: { status: "done" }, detailed: { status: "pending" }, math: [{ file: "math-kt-scale.md", status: "done" }, { file: "math-noise-density.md", status: "done" }] },
+        { slug: "ideal-gas-law", title: "Рівняння стану ідеального газу", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "white-noise-spectrum", title: "Білий шум і спектральна щільність", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "heat-pipe", title: "Теплова трубка", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "natural-convection", title: "Природна конвекція", basic: { status: "pending" }, detailed: { status: "empty" } },

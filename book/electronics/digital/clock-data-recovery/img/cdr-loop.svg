@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контур відновлення такту: та сама петля, що й у PLL, але опора — самі дані</text>
+<rect x="70.0" y="117.0" width="132.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="136.0" y="147.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="136.0" dy="0.0">Детектор фази</tspan><tspan x="136.0" dy="10.4">(дані ↔ такт: рано/пізно?)</tspan></text>
+<rect x="294.0" y="117.0" width="132.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Фільтр контуру</tspan><tspan x="360.0" dy="14.3">(згладжує похибку)</tspan></text>
+<rect x="518.0" y="117.0" width="132.0" height="66.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="584.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="584.0" dy="0.0">Генератор такту</tspan><tspan x="584.0" dy="15.6">(VCO / NCO)</tspan></text>
+<line x1="202.0" y1="150.0" x2="292.0" y2="150.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="247.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">похибка</text>
+<line x1="426.0" y1="150.0" x2="516.0" y2="150.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="471.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">керування</text>
+<line x1="70.0" y1="104.0" x2="70.0" y2="117.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="70.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">потік даних</text>
+<line x1="650.0" y1="117.0" x2="650.0" y2="104.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="650.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">відновлений такт</text>
+<line x1="584.0" y1="183.0" x2="584.0" y2="228.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="584.0" y1="228.0" x2="136.0" y2="228.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="136.0" y1="228.0" x2="136.0" y2="183.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">відновлений такт повертається на детектор — петля сама гасить розбіжність фаз</text>
+<rect x="300.0" y="258.0" width="120.0" height="40.0" rx="6" fill="#fff8e6" stroke="#c0392b" stroke-width="1.5"/><text x="360.0" y="275.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">цим тактом клацаємо</tspan><tspan x="360.0" dy="11.7">дані в середині біта</tspan></text>
+</svg>

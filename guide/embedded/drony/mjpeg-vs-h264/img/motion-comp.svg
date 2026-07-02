@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Компенсація руху: вектор + залишок замість цілого блока</text>
+<rect x="70.0" y="70.0" width="300.0" height="260.0" rx="8" fill="#f7f9fc" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="500.0" y="70.0" width="300.0" height="260.0" rx="8" fill="#f7f9fc" stroke="#6b7280" stroke-width="1.4"/>
+<text x="220.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">опорний кадр (минулий)</text>
+<text x="650.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">поточний кадр</text>
+<line x1="130.0" y1="70.0" x2="130.0" y2="330.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="190.0" y1="70.0" x2="190.0" y2="330.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="250.0" y1="70.0" x2="250.0" y2="330.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="310.0" y1="70.0" x2="310.0" y2="330.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="70.0" y1="122.0" x2="370.0" y2="122.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="70.0" y1="174.0" x2="370.0" y2="174.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="70.0" y1="226.0" x2="370.0" y2="226.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="70.0" y1="278.0" x2="370.0" y2="278.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="560.0" y1="70.0" x2="560.0" y2="330.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="620.0" y1="70.0" x2="620.0" y2="330.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="680.0" y1="70.0" x2="680.0" y2="330.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="740.0" y1="70.0" x2="740.0" y2="330.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="500.0" y1="122.0" x2="800.0" y2="122.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="500.0" y1="174.0" x2="800.0" y2="174.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="500.0" y1="226.0" x2="800.0" y2="226.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<line x1="500.0" y1="278.0" x2="800.0" y2="278.0" stroke="#dfe4ea" stroke-width="1.0"/>
+<rect x="680.0" y="122.0" width="60.0" height="52.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/>
+<text x="710.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">блок</text>
+<rect x="130.0" y="174.0" width="60.0" height="52.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.4"/>
+<text x="160.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">збіг</text>
+<circle cx="280.0" cy="148.0" r="3.0" fill="#6b7280" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="280.0" y1="148.0" x2="160.0" y2="200.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="199.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">MV=(−2,+1)</text>
+<line x1="380.0" y1="200.0" x2="490.0" y2="200.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="150.0" y="360.0" width="620.0" height="44.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="460.0" y="386.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">кодуємо: вектор (−2,+1)  +  залишок (поточний − зсунутий збіг)  →  часто майже нулі</tspan></text>
+</svg>

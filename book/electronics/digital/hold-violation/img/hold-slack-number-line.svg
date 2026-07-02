@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<defs><marker id="aInk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1a1a1a"/></marker><marker id="aPos" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker><marker id="aFld" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Hold slack — зазор між приходом даних і краєм вікна</text>
+<line x1="120.0" y1="230.0" x2="700.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="700.0" y1="225.0" x2="700.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="700.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">час →</text>
+<line x1="200.0" y1="80.0" x2="200.0" y2="246.0" stroke="#1a1a1a" stroke-width="1.4" stroke-dasharray="3 3"/>
+<text x="196.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">t = 0  (спільний фронт: launch = capture)</text>
+<rect x="200.0" y="116.0" width="200.0" height="110" fill="#fdecea" stroke="#c0392b" stroke-width="1.1" stroke-dasharray="4 3"/>
+<line x1="400.0" y1="100.0" x2="400.0" y2="246.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="202.0" y1="106.0" x2="398.0" y2="106.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#aPos)"/>
+<line x1="398.0" y1="106.0" x2="202.0" y2="106.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#aPos)"/>
+<text x="300.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">потрібний час = t_hold + t_skew</text>
+<text x="208.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">зона заборони (сюди приходити не можна)</text>
+<line x1="496.0" y1="184.0" x2="496.0" y2="294.0" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="496.0" cy="230.0" r="5" fill="#27ae60"/>
+<text x="502.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">нове значення прийшло</text>
+<line x1="202.0" y1="286.0" x2="494.0" y2="286.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#aFld)"/>
+<line x1="494.0" y1="286.0" x2="202.0" y2="286.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#aFld)"/>
+<text x="348.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">прихід даних = t_cq(min) + t_logic(min)</text>
+<rect x="400.0" y="216.0" width="96.0" height="28" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2" rx="4"/>
+<text x="448.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">slack</text>
+<rect x="150.0" y="300.0" width="460.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="380.0" y="319.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">slack &gt; 0 → запас є;   slack &lt; 0 → порушення hold</tspan></text>
+</svg>

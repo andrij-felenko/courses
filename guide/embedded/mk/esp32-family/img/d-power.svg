@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Домени живлення: що вимикається уві сні</text>
+<text x="460.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">глибокий сон гасить майже все — струм падає з міліампер до мікроампер</text>
+<rect x="60.0" y="92.0" width="500.0" height="210.0" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="310.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">«Цифровий» домен — ГАСНЕ у глибокому сні</text>
+<rect x="80.0" y="150.0" width="220.0" height="34.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="190.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ядра (Xtensa / RISC-V)</text>
+<rect x="80.0" y="194.0" width="220.0" height="34.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="190.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">більшість SRAM</text>
+<rect x="340.0" y="150.0" width="220.0" height="34.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="450.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">радіо Wi-Fi / BT</text>
+<rect x="340.0" y="194.0" width="220.0" height="34.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="450.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">швидка периферія (APB)</text>
+<text x="310.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">усе це знеструмлюється → десятки мкА зникають</text>
+<rect x="600.0" y="92.0" width="260.0" height="210.0" rx="12" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="730.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">RTC-домен — ЖИВИЙ</text>
+<text x="730.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• RTC-контролер + таймер</text>
+<text x="730.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• маленька RTC-пам'ять</text>
+<text x="730.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• співпроцесор (ULP / LP)</text>
+<text x="730.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• кілька RTC-ніжок</text>
+<text x="730.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">лишається на мікроамперах</text>
+<line x1="80.0" y1="356.0" x2="840.0" y2="356.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="80.0" y1="356.0" x2="840.0" y2="356.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="120.0" cy="356.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="120.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">глибокий сон</tspan><tspan x="120.0" dy="12.1">~7 мкА (RTC on)</tspan></text>
+<circle cx="360.0" cy="356.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="360.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">легкий сон</tspan><tspan x="360.0" dy="12.1">~240 мкА</tspan></text>
+<circle cx="620.0" cy="356.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="620.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">активно, радіо тихо</tspan><tspan x="620.0" dy="12.1">десятки мА</tspan></text>
+<circle cx="800.0" cy="356.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="800.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">передавання</tspan><tspan x="800.0" dy="12.1">&gt;100 мА</tspan></text>
+<text x="460.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">числа — для голого чипа з даташита; плата з регулятором і USB-мостом додасть своє</text>
+</svg>

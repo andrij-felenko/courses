@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один такт slave-serial: коли виставляти біт і коли цокати</text>
+<text x="78.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">DCLK</text>
+<text x="78.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">DIN</text>
+<path d="M 90.0 128.0 L 146.0 128.0 L 146.0 92.0 L 202.0 92.0 L 202.0 128.0 L 258.0 128.0 L 258.0 92.0 L 314.0 92.0 L 314.0 128.0 L 370.0 128.0 L 370.0 92.0 L 426.0 92.0 L 426.0 128.0 L 482.0 128.0 L 482.0 92.0 L 538.0 92.0 L 538.0 128.0 L 594.0 128.0 L 594.0 92.0 L 650.0 92.0 L 650.0 128.0" fill="none" stroke="#2457d6" stroke-width="2.4"/>
+<path d="M 90.0 190.0 L 202.0 190.0 L 202.0 190.0 L 202.0 226.0 L 314.0 226.0 L 314.0 226.0 L 314.0 190.0 L 426.0 190.0 L 426.0 190.0 L 538.0 190.0 L 538.0 190.0 L 538.0 226.0 L 650.0 226.0" fill="none" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="146.0" y1="88.0" x2="146.0" y2="242.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="146.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<line x1="258.0" y1="88.0" x2="258.0" y2="242.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="258.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<line x1="370.0" y1="88.0" x2="370.0" y2="242.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="370.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<line x1="482.0" y1="88.0" x2="482.0" y2="242.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="482.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<line x1="594.0" y1="88.0" x2="594.0" y2="242.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="594.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<text x="650.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end">↑ висхідний фронт DCLK — чип клацає біт</text>
+<text x="360.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">DIN виставили РАНІШЕ й тримаємо — на висхідному DCLK чип бере його; міняємо DIN на спадному</text>
+<rect x="185.8" y="292.0" width="348.3" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="312.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Порядок бітів у байті — старший біт (MSB) першим</tspan></text>
+</svg>

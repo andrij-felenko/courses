@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що пара бітів (aᵢ, bᵢ) робить із переносом</text>
+<text x="110.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">aᵢ</text>
+<text x="190.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">bᵢ</text>
+<text x="300.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Cout</text>
+<text x="470.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">роль</text>
+<line x1="80.0" y1="80.0" x2="660.0" y2="80.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="110.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="190.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="300.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<text x="470.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">гасить (kill): нуль на виході, хай що прийшло</text>
+<text x="110.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="190.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="300.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b8860b" text-anchor="middle" font-weight="700">Cin</text>
+<text x="470.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle">пропускає (propagate): перенос проходить наскрізь</text>
+<text x="110.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="190.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="300.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b8860b" text-anchor="middle" font-weight="700">Cin</text>
+<text x="470.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle">пропускає (propagate): перенос проходить наскрізь</text>
+<text x="110.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="190.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="300.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="470.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">породжує (generate): одиниця сама, без жодного входу</text>
+<line x1="80.0" y1="262.0" x2="660.0" y2="262.0" stroke="#e5e7eb" stroke-width="1.0"/>
+<rect x="150.0" y="286.0" width="440.0" height="64.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="370.0" y="313.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">Gᵢ = aᵢ · bᵢ   (породжує)</tspan><tspan x="370.0" dy="18.2">Pᵢ = aᵢ ⊕ bᵢ   (пропускає)</tspan></text>
+</svg>

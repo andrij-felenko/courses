@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна адреса — два порти: арбітр вирішує за різницею часу</text>
+<text x="120.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Порт A ← адреса 0x100</text>
+<text x="120.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Порт B ← адреса 0x100</text>
+<text x="120.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">…збіг у ту саму мить</text>
+<polygon points="360.0,152.0 465.0,200.0 360.0,248.0 255.0,200.0" fill="#fff7e6" stroke="#333333" stroke-width="2"/>
+<text x="360.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">Арбітр: чия адреса</tspan><tspan x="360.0" dy="16.9">стала першою?</tspan></text>
+<line x1="300.0" y1="100.0" x2="300.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="80.0" y="300.0" width="250.0" height="70.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/><text x="205.0" y="331.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="205.0" dy="0.0">Переможець: BUSY = 1</tspan><tspan x="205.0" dy="14.3">доступ дозволено, чекати не треба</tspan></text>
+<line x1="320.0" y1="240.0" x2="200.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="390.0" y="300.0" width="250.0" height="70.0" rx="6" fill="#fdeef0" stroke="#c0392b" stroke-width="2.0"/><text x="515.0" y="331.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="515.0" dy="0.0">Той, хто спізнився: BUSY = 0</tspan><tspan x="515.0" dy="15.6">чекай, поки перший завершить</tspan></text>
+<line x1="400.0" y1="240.0" x2="520.0" y2="300.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

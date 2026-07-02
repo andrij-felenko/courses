@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішній цикл запису EEPROM: звідки беруться мілісекунди</text>
+<text x="500.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Шинна передача байта — мікросекунди; а сам запис у комірку — окремий повільний цикл, поки чип «зайнятий»</text>
+<line x1="80.0" y1="300.0" x2="930.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="935.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">час</text>
+<rect x="90.0" y="254.0" width="90.2" height="46.0" rx="4" fill="#fbfbfd" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="93.0" y="256.0" width="84.2" height="42.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="135.1" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="135.1" dy="0.0">передача</tspan><tspan x="135.1" dy="13.0">байта</tspan></text>
+<text x="135.1" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">~десятки мкс</text>
+<rect x="180.2" y="254.0" width="172.2" height="46.0" rx="4" fill="#fbfbfd" stroke="#b9770e" stroke-width="1.6"/>
+<rect x="183.2" y="256.0" width="166.2" height="42.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="266.3" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700"><tspan x="266.3" dy="0.0">насос:</tspan><tspan x="266.3" dy="13.0">~15–20 В</tspan></text>
+<rect x="352.4" y="254.0" width="328.0" height="46.0" rx="4" fill="#fbfbfd" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="355.4" y="256.0" width="322.0" height="42.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="516.4" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="516.4" dy="0.0">тунелювання</tspan><tspan x="516.4" dy="13.0">у комірку</tspan></text>
+<text x="516.4" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">внутрішній цикл ~3–10 мс</text>
+<rect x="680.4" y="254.0" width="131.2" height="46.0" rx="4" fill="#fbfbfd" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="683.4" y="256.0" width="125.2" height="42.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="746.0" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="746.0" dy="0.0">перевірка</tspan></text>
+<rect x="811.6" y="254.0" width="98.4" height="46.0" rx="4" fill="#fbfbfd" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="814.6" y="256.0" width="92.4" height="42.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="860.8" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="860.8" dy="0.0">готовий</tspan><tspan x="860.8" dy="13.0">(ACK)</tspan></text>
+<line x1="172.0" y1="230.0" x2="811.6" y2="230.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="172.0" y1="230.0" x2="172.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="811.6" y1="230.0" x2="811.6" y2="240.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="491.8" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">чип ЗАЙНЯТИЙ — нової команди не прийме (звідси ACK polling / біт WIP)</text>
+<rect x="90.0" y="338.0" width="820.0" height="52.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.4"/><text x="500.0" y="360.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">У FRAM цієї довгої частини НЕМА взагалі: перемикання диполів завершується за час самої шинної</tspan><tspan x="500.0" dy="15.6">передачі, тож «зайнятого» стану не буває, чекати нічого — запис такий самий швидкий, як читання.</tspan></text>
+</svg>

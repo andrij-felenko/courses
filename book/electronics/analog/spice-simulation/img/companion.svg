@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель-супутник: конденсатор → провідність ‖ джерело</text>
+<rect x="55.0" y="70.0" width="240.0" height="150.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="175.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">конденсатор</tspan></text>
+<text x="175.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">i = C · dv/dt</tspan></text>
+<text x="175.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="175.0" dy="0.0">похідна —</tspan><tspan x="175.0" dy="14.3">неалгебрична</tspan></text>
+<line x1="303.0" y1="145.0" x2="423.0" y2="145.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="363.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">на кроці Δt</text>
+<text x="363.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(трапеція)</text>
+<rect x="465.0" y="68.0" width="270.0" height="204.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="600.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">модель-супутник</tspan></text>
+<line x1="530.0" y1="130.0" x2="670.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="530.0" y1="235.0" x2="670.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="530.0" cy="130.0" r="3.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="670.0" cy="130.0" r="3.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="518.0" y="152.0" width="24.0" height="60.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="510.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end">Geq</text>
+<line x1="530.0" y1="130.0" x2="530.0" y2="152.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="530.0" y1="212.0" x2="530.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="670.0" cy="182.0" r="18.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="670.0" y1="195.0" x2="670.0" y2="169.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="696.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">Ieq</text>
+<line x1="670.0" y1="130.0" x2="670.0" y2="164.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="670.0" y1="200.0" x2="670.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="61.9" y="273.4" width="656.1" height="63.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="390.0" y="293.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Замінивши dv/dt різницею, конденсатор на кожному кроці стає звичайною провідністю Geq = 2C/Δt</tspan><tspan x="390.0" dy="15.6">паралельно з джерелом струму Ieq, що ПАМ'ЯТАЄ минулий крок. Тепер він — лінійний елемент і</tspan><tspan x="390.0" dy="15.6">вкладається в ту саму матрицю, що резистори; час рахується тим самим апаратом Ньютона.</tspan></text>
+</svg>

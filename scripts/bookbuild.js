@@ -59,31 +59,42 @@
     var host = document.getElementById("content"), sb = document.getElementById("sidebar");
     if (!g) { if (host) host.innerHTML = '<div class="state error">Курс не знайдено</div>'; return; }
     document.title = g.title + " — курс";
-    var mods = g.sections || [], nStep = 0;
-    mods.forEach(function (m) { nStep += ((m.topics) || []).length; });
+    // Дві схеми: нова (section→topics, плоско) і стара (module→chapters→steps).
+    var mods = g.sections || g.modules || [];
+    function chaptersOf(m) { return (m.chapters && m.chapters.length) ? m.chapters : [{ title: null, steps: m.topics || [] }]; }
+    var nStep = 0, nChap = 0, hasChap = false;
+    mods.forEach(function (m) { chaptersOf(m).forEach(function (c) { nStep += (c.steps || []).length; if (c.title) { nChap++; hasChap = true; } }); });
+
+    function stepHtml(m, s, kn) {
+      if (s.ref) {
+        var pr = String(s.ref).split("/").filter(Boolean), subj = pr[0], top = pr[pr.length - 1];
+        return '<li class="guide-step"><a href="read.html?course=' + encodeURIComponent(g.slug) + '&book=' + encodeURIComponent(subj) + '#ch=' + encodeURIComponent(top) + '">' +
+          '<span class="gs-num">' + kn + '</span><span class="gs-ico">📖</span><span class="gs-ttl">' + _esc(s.title || top) +
+          '</span><span class="gs-subj">' + _esc(subj) + '</span></a></li>';
+      }
+      var avail = !!(s.basic && s.basic.status === "done");
+      return '<li class="guide-step own' + (avail ? '' : ' stub') + '"><a href="read.html?guide=' + encodeURIComponent(g.slug) + '&module=' + encodeURIComponent(m.slug) + '#ch=' + encodeURIComponent(s.slug) + '">' +
+        '<span class="gs-num">' + kn + '</span><span class="gs-ico">📘</span><span class="gs-ttl">' + _esc(s.title || s.slug) +
+        '</span><span class="gs-subj">' + (avail ? 'стаття курсу' : 'у роботі') + '</span></a></li>';
+    }
+
     var h = '<header class="cover-hero"><div class="kicker">Курс · доріжка крізь книги</div><h1>' + _esc(g.title) + '</h1>' +
       '<p>' + _esc(g.subtitle || "Кожен крок — або тема предметної книги, або власна стаття курсу, що спирається на пройдене.") + '</p>' +
       '<div class="cover-stats"><div class="stat"><div class="num">' + mods.length + '</div><div class="lbl">модулів</div></div>' +
-      '<div class="stat"><div class="num">' + nStep + '</div><div class="lbl">кроків</div></div></div></header><div class="toc guide-toc">';
+      (hasChap ? '<div class="stat"><div class="num">' + nChap + '</div><div class="lbl">розділів</div></div>' : '') +
+      '<div class="stat"><div class="num">' + nStep + '</div><div class="lbl">тем</div></div></div></header><div class="toc guide-toc">';
     mods.forEach(function (m, mi) {
       var mn = mi + 1;
       h += '<div class="module-block" id="gm-' + mn + '"><div class="module-head"><span class="m-num">Модуль ' + mn +
-        '</span><span class="m-ttl">' + _esc(m.title) + '</span></div><ol class="guide-steps">';
-      (m.topics || []).forEach(function (s, si) {
-        var kn = mn + "." + (si + 1);
-        if (s.ref) {
-          var pr = String(s.ref).split("/").filter(Boolean), subj = pr[0], top = pr[pr.length - 1];
-          h += '<li class="guide-step"><a href="read.html?course=' + encodeURIComponent(g.slug) + '&book=' + encodeURIComponent(subj) + '#ch=' + encodeURIComponent(top) + '">' +
-            '<span class="gs-num">' + kn + '</span><span class="gs-ico">📖</span><span class="gs-ttl">' + _esc(s.title || top) +
-            '</span><span class="gs-subj">' + _esc(subj) + '</span></a></li>';
-        } else {
-          var avail = !!(s.basic && s.basic.status === "done");
-          h += '<li class="guide-step own' + (avail ? '' : ' stub') + '"><a href="read.html?guide=' + encodeURIComponent(g.slug) + '&module=' + encodeURIComponent(m.slug) + '#ch=' + encodeURIComponent(s.slug) + '">' +
-            '<span class="gs-num">' + kn + '</span><span class="gs-ico">📘</span><span class="gs-ttl">' + _esc(s.title || s.slug) +
-            '</span><span class="gs-subj">' + (avail ? 'стаття курсу' : 'у роботі') + '</span></a></li>';
-        }
+        '</span><span class="m-ttl">' + _esc(m.title) + '</span></div>';
+      var k = 0;
+      chaptersOf(m).forEach(function (c) {
+        if (c.title) h += '<div class="guide-chap-head"><span class="gc-ttl">' + _esc(c.title) + '</span></div>';
+        h += '<ol class="guide-steps">';
+        (c.steps || []).forEach(function (s) { k++; h += stepHtml(m, s, mn + "." + k); });
+        h += '</ol>';
       });
-      h += '</ol></div>';
+      h += '</div>';
     });
     if (host) host.innerHTML = h + '</div>';
     if (sb) {

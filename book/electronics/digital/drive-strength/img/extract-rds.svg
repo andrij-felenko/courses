@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">Дві точки задають пряму: її нахил і є Rds(on)</text>
+<line x1="120.0" y1="330.0" x2="690.0" y2="330.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="650.0" y1="330.0" x2="690.0" y2="330.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="690.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">струм I →</text>
+<line x1="120.0" y1="330.0" x2="120.0" y2="70.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="120.0" y1="110.0" x2="120.0" y2="70.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="110.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">напруга «1»</text>
+<line x1="120.0" y1="90.0" x2="660.0" y2="90.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="110.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">VDD</text>
+<rect x="120.0" y="250.0" width="540.0" height="80.0" rx="6" fill="#fdecea" stroke="none" stroke-width="1.5"/>
+<line x1="120.0" y1="250.0" x2="660.0" y2="250.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,4"/>
+<text x="656.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">поріг VIH — нижче «1» не читається</text>
+<line x1="120.0" y1="90.0" x2="560.0" y2="250.0" stroke="#27ae60" stroke-width="2.8"/>
+<circle cx="120.0" cy="90.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="132.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">(0, VDD) — холостий хід</text>
+<line x1="300.0" y1="330.0" x2="300.0" y2="150.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,3"/>
+<line x1="120.0" y1="150.0" x2="300.0" y2="150.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,3"/>
+<circle cx="300.0" cy="150.0" r="5.5" fill="#fff" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="312.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">(IOH, VOH) — з даташиту</text>
+<text x="300.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">IOH</text>
+<text x="110.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">VOH</text>
+<line x1="120.0" y1="90.0" x2="120.0" y2="150.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="120.0" y1="150.0" x2="300.0" y2="150.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="110.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end">ΔU</text>
+<text x="210.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">ΔI</text>
+<circle cx="560.0" cy="250.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="560.0" y1="250.0" x2="560.0" y2="330.0" stroke="#c0392b" stroke-width="1.1" stroke-dasharray="3,3"/>
+<text x="560.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">I_макс</text>
+<rect x="430.0" y="300.0" width="250.0" height="58.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="555.0" y="319.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="555.0" dy="0.0">Rds(on) = (VDD − VOH) / IOH</tspan><tspan x="555.0" dy="13.0">= нахил прямої</tspan><tspan x="555.0" dy="13.0">→ напруга за будь-якого струму</tspan></text>
+</svg>

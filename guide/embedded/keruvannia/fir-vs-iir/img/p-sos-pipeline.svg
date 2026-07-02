@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тракт давача у fixed-point: формат і захист на кожній ланці</text>
+<rect x="22.0" y="66.0" width="250.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#b9770e" stroke-width="1.9"/>
+<text x="147.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">медіана-3</text>
+<text x="147.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">нелінійна</text>
+<line x1="38.0" y1="122.0" x2="256.0" y2="122.0" stroke="#b9770e" stroke-width="1.0"/>
+<text x="147.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">int32, без петлі</text>
+<text x="147.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-style="italic">сортування, не сума —</text>
+<text x="147.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-style="italic">переповнення нема</text>
+<rect x="294.0" y="66.0" width="250.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.9"/>
+<text x="419.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">БІХ-notch 50 Гц</text>
+<text x="419.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">каскад біквадів, DF1</text>
+<line x1="310.0" y1="122.0" x2="528.0" y2="122.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="419.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">стан Q31, акум. int64</text>
+<text x="419.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">петля назад —</text>
+<text x="419.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">насичення в петлі!</text>
+<rect x="566.0" y="66.0" width="250.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.9"/>
+<text x="691.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">КІХ-згладжування</text>
+<text x="691.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">лінійна фаза</text>
+<line x1="582.0" y1="122.0" x2="800.0" y2="122.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="691.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">стан Q31, акум. int64</text>
+<text x="691.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">без петлі —</text>
+<text x="691.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">похибка локальна</text>
+<line x1="272.0" y1="114.0" x2="294.0" y2="114.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="544.0" y1="114.0" x2="566.0" y2="114.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="22.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">сирий відлік АЦП →</text>
+<text x="798.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-style="italic">→ чистий Q31</text>
+<text x="410.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">єдиний масштаб Q31 крізь увесь тракт; проміжні суми — у 64-бітному акумуляторі</text>
+<text x="410.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">нелінійна медіана переповнення не боїться; обидва лінійні фільтри — бояться,</text>
+<text x="410.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">а найгостріше боїться БІХ, бо його вихід вертається у власний вхід</text>
+<text x="410.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">той самий ланцюжок, що в базовій темі, — тепер цілими числами на чипі без FPU</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="190.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тригер: жорстка стіна</text>
+<line x1="40.0" y1="110.0" x2="340.0" y2="110.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="270.0" y1="78.0" x2="270.0" y2="250.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="270.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">фронт</text>
+<rect x="50.0" y="94.0" width="210.0" height="32.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="155.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">логіка встигла</text>
+<rect x="50.0" y="152.0" width="245.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="160.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">не встигла → збій</text>
+<text x="190.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">устигни ДО фронту, інакше втрата</text>
+<text x="550.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Засувка: прозоре вікно</text>
+<line x1="400.0" y1="110.0" x2="700.0" y2="110.0" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="550.0" y="78.0" width="110.0" height="172.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="605.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">прозоро</text>
+<text x="660.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">спад</text>
+<line x1="660.0" y1="78.0" x2="660.0" y2="250.0" stroke="#2457d6" stroke-width="2.5"/>
+<rect x="410.0" y="94.0" width="190.0" height="32.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="505.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">устигла</text>
+<rect x="410.0" y="152.0" width="225.0" height="32.0" rx="6" fill="#fff6e6" stroke="#e0a500" stroke-width="1.6"/>
+<text x="520.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a06f00" text-anchor="middle">спізнилась — та спіймана</text>
+<text x="550.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">лови БУДЬ-КОЛИ у вікні — аж до спаду</text>
+</svg>
