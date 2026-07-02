@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три класи виключень різняться однією річчю: куди вказує адреса повернення</text>
+<rect x="50.0" y="78.0" width="800.0" height="92.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="70.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">FAULT — збій</text>
+<text x="70.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">повернення: адреса → на ТУ САМУ команду</text>
+<text x="70.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">дія: усунь причину й повтори; команда виконається</text>
+<text x="830.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-style="italic">приклад</text>
+<text x="830.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">брак сторінки пам'яті</text>
+<rect x="50.0" y="186.0" width="800.0" height="92.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="70.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">TRAP — пастка</text>
+<text x="70.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">повернення: адреса → на НАСТУПНУ команду</text>
+<text x="70.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">дія: обслужи й іди далі, наче нічого</text>
+<text x="830.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-style="italic">приклад</text>
+<text x="830.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">точка зупину, системний виклик</text>
+<rect x="50.0" y="294.0" width="800.0" height="92.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="70.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">ABORT — аварія</text>
+<text x="70.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">повернення: повернутись НЕМА КУДИ</text>
+<text x="70.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">дія: стан зіпсовано; безпечно продовжити не можна</text>
+<text x="830.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-style="italic">приклад</text>
+<text x="830.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">збій апаратної цілісності</text>
+<rect x="126.5" y="392.5" width="647.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="450.0" y="411.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">fault можна перезапустити, trap — крок повз, abort — глуха стіна: усе вирішує сенс адреси повернення</tspan></text>
+</svg>

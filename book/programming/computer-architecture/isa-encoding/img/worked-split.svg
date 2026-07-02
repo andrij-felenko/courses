@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбиття 0x12345FFF: коли старшу частину доводиться збільшити</text>
+<text x="410.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">val = 0x12345FFF   (молодші 12 біт = 0xFFF, bit 11 = 1)</text>
+<rect x="60.0" y="78.0" width="437.5" height="48.0" rx="6" fill="#eef2fd" stroke="#2457d6" stroke-width="1.7"/>
+<text x="278.8" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">старші 20 біт = 0x12345</text>
+<text x="278.8" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">→ lui</text>
+<rect x="497.5" y="78.0" width="262.5" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="628.8" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xFFF</text>
+<text x="628.8" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">bit 11 = 1</text>
+<line x1="50.0" y1="150.0" x2="770.0" y2="150.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,4"/>
+<rect x="50.0" y="168.0" width="340.0" height="118.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="220.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">НАЇВНО (ламається)</text>
+<text x="220.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">hi = 0x12345,  lo = 0xFFF як −1</text>
+<text x="220.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0x12345·4096 + (−1)</text>
+<text x="220.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">= 0x12345000 − 1</text>
+<text x="220.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">= 0x12344FFF  ✗  (на 4096 менше)</text>
+<rect x="430.0" y="168.0" width="340.0" height="118.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="600.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">З КОМПЕНСАЦІЄЮ ✓</text>
+<text x="600.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">hi = (val+0x800)&gt;&gt;12 = 0x12346</text>
+<text x="600.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">lo = val − (hi&lt;&lt;12) = −1</text>
+<text x="600.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0x12346·4096 + (−1)</text>
+<text x="600.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">= 0x12346000 − 1 = 0x12345FFF ✓</text>
+<rect x="60.0" y="306.0" width="700.0" height="46.0" rx="8" fill="#fbf3df" stroke="#a9842f" stroke-width="1.6"/>
+<text x="410.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">lui  x5, 0x12346      addi x5, x5, -1</text>
+<text x="410.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">старша частина на +1 більша; молодша від'ємна — і разом рівно ціль</text>
+<text x="410.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">перенесення +0x800 підняло 0x12345 → 0x12346; знакове −1 з'їдає рівно той зайвий 4096</text>
+</svg>

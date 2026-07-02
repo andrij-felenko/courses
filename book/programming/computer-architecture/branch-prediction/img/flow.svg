@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл передбачення переходу</text>
+<rect x="250.0" y="52.0" width="200.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="80.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">гілка на вибірці</tspan></text>
+<rect x="210.0" y="128.0" width="280.0" height="52.0" rx="6" fill="#fff4e6" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="150.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">таблиця лічильників + BTB:</tspan><tspan x="350.0" dy="15.6">напрям? ціль?</tspan></text>
+<rect x="230.0" y="210.0" width="240.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="229.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">вибираємо звідти наперед</tspan><tspan x="350.0" dy="15.6">(спекулятивно)</tspan></text>
+<rect x="250.0" y="288.0" width="200.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="307.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">гілка розв'язалась —</tspan><tspan x="350.0" dy="15.6">вгадали?</tspan></text>
+<line x1="350.0" y1="100.0" x2="350.0" y2="126.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="180.0" x2="350.0" y2="208.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="256.0" x2="350.0" y2="286.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="20.0" y="250.0" width="190.0" height="66.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="115.0" y="271.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">ВЛУЧИЛИ</tspan><tspan x="115.0" dy="15.6">потік не рвався,</tspan><tspan x="115.0" dy="15.6">штраф = 0</tspan></text>
+<line x1="250.0" y1="311.0" x2="212.0" y2="300.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="224.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">так</text>
+<rect x="490.0" y="250.0" width="190.0" height="66.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="585.0" y="271.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">ПРОМАХ</tspan><tspan x="585.0" dy="15.6">викид конвеєра,</tspan><tspan x="585.0" dy="15.6">штраф = глибина</tspan></text>
+<line x1="450.0" y1="311.0" x2="490.0" y2="300.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="474.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">ні</text>
+<path d="M 585 250 C 600 150 560 128 490 140" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<path d="M 115 250 C 90 150 150 128 210 148" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<text x="350.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">оновити лічильник (навчання)</text>
+</svg>

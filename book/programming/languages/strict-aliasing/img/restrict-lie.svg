@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Брехлива обіцянка: restrict сказав «окремі», а вони — ні</text>
+<rect x="196.9" y="55.5" width="326.3" height="33.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="360.0" y="76.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">restrict: «dst і src не перетинаються»</tspan></text>
+<text x="360.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">реальність: dst = buf+1, src = buf — одна пам'ять зі зсувом</text>
+<rect x="190.0" y="140.0" width="64.0" height="40.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.5"/>
+<text x="222.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">buf0</text>
+<rect x="260.0" y="140.0" width="64.0" height="40.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.5"/>
+<text x="292.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">buf1</text>
+<rect x="330.0" y="140.0" width="64.0" height="40.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.5"/>
+<text x="362.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">buf2</text>
+<rect x="400.0" y="140.0" width="64.0" height="40.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.5"/>
+<text x="432.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">buf3</text>
+<rect x="470.0" y="140.0" width="64.0" height="40.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.5"/>
+<text x="502.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">buf4</text>
+<text x="222.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">src</text>
+<text x="292.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">dst</text>
+<rect x="70.0" y="250.0" width="270.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="205.0" y="285.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="205.0" dy="0.0">компілятор повірив:</tspan><tspan x="205.0" dy="15.6">читає всі src наперед</tspan><tspan x="205.0" dy="15.6">у регістри, тоді розкладає</tspan><tspan x="205.0" dy="15.6">(векторно, з переставленням)</tspan></text>
+<rect x="380.0" y="250.0" width="270.0" height="110.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="515.0" y="285.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="515.0" dy="0.0">але src і dst — та сама</tspan><tspan x="515.0" dy="15.6">пам'ять: частину вже</tspan><tspan x="515.0" dy="15.6">затерто -&gt; результат не той</tspan><tspan x="515.0" dy="15.6">(UB, без попередження)</tspan></text>
+</svg>

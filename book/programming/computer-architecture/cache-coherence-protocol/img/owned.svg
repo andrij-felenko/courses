@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заради чого стан Owned: не писати в RAM щоб поділитися брудним</text>
+<line x1="380.0" y1="54.0" x2="380.0" y2="396.0" stroke="#d8dde3" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="190.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">MESI: брудну лінію треба спершу записати</text>
+<rect x="30.0" y="78.0" width="128.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="94.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ядро A</text>
+<text x="94.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X=8 · Modified</text>
+<text x="168.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">B просить</text>
+<text x="168.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">брудну X</text>
+<line x1="94.0" y1="136.0" x2="94.0" y2="176.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="178.0" width="128.0" height="46.0" rx="6" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.5"/>
+<text x="94.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">RAM</text>
+<text x="94.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X: 5 → 8</text>
+<text x="94.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">1) write-back у RAM (зайвий похід)</text>
+<rect x="30.0" y="258.0" width="128.0" height="58.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="94.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ядро A</text>
+<text x="94.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X=8 · Shared</text>
+<rect x="210.0" y="258.0" width="128.0" height="58.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="274.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ядро B</text>
+<text x="274.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X=8 · Shared</text>
+<line x1="160.0" y1="200.0" x2="250.0" y2="256.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="190.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2) обидва Shared, але пам'ять уже чіпали</text>
+<rect x="30.0" y="354.0" width="308.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="184.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="184.0" dy="0.0">Ціна: кожне «брудна → спільна»</tspan><tspan x="184.0" dy="13.0">= зайвий запис у повільну RAM</tspan></text>
+<text x="570.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">MOESI: власник Owned віддає дані прямо</text>
+<rect x="410.0" y="78.0" width="128.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="474.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ядро A</text>
+<text x="474.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X=8 · Modified</text>
+<text x="564.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">B просить X</text>
+<rect x="410.0" y="178.0" width="128.0" height="58.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.7"/>
+<text x="474.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ядро A</text>
+<text x="474.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X=8 · Owned</text>
+<rect x="590.0" y="178.0" width="128.0" height="58.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="654.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ядро B</text>
+<text x="654.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X=8 · Shared</text>
+<line x1="538.0" y1="200.0" x2="588.0" y2="200.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="570.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">дані кеш→кеш, RAM НЕ чіпали</text>
+<rect x="500.0" y="258.0" width="128.0" height="46.0" rx="6" fill="#fdf4f4" stroke="#6b7280" stroke-width="1.5"/>
+<text x="564.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">RAM</text>
+<text x="564.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X: 5 (застаріле — і хай)</text>
+<text x="570.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">A лишається Owned: брудний, але спільний;</text>
+<text x="570.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">він відповідальний записати X колись пізніше</text>
+<rect x="410.0" y="354.0" width="308.0" height="40.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="564.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="564.0" dy="0.0">Виграш: жодного write-back,</tspan><tspan x="564.0" dy="13.0">щоб поділитися брудною лінією</tspan></text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кільцевий буфер: покажчик сам завертається на початок</text>
+<circle cx="380.0" cy="168.0" r="92.0" fill="none" stroke="#6b7280" stroke-width="1.4"/>
+<circle cx="380.0" cy="76.0" r="20.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">x0</text>
+<circle cx="445.1" cy="102.9" r="20.0" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="445.1" y="106.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">x1</text>
+<circle cx="472.0" cy="168.0" r="20.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="472.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">x2</text>
+<circle cx="445.1" cy="233.1" r="20.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="445.1" y="237.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">x3</text>
+<circle cx="380.0" cy="260.0" r="20.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">x4</text>
+<circle cx="314.9" cy="233.1" r="20.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="314.9" y="237.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">x5</text>
+<circle cx="288.0" cy="168.0" r="20.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="288.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">x6</text>
+<circle cx="314.9" cy="102.9" r="20.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="314.9" y="106.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">x7</text>
+<text x="473.3" y="74.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">← запис</text>
+<text x="380.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">адреса++</text>
+<text x="380.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">по колу</text>
+<text x="380.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дійшовши кінця, адреса апаратно стає початком — без if і без модуля в циклі.</text>
+<text x="380.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Новий відлік затирає найдавніший; вікно фільтра «їде» по сигналу задарма.</text>
+</svg>

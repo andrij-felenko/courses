@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кожне звертання по APB — два такти: SETUP, потім ACCESS</text>
+<rect x="77.2" y="123.2" width="85.5" height="53.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">IDLE</tspan><tspan x="120.0" dy="15.6">(спокій)</tspan></text>
+<rect x="324.7" y="123.2" width="70.6" height="53.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="360.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">SETUP</tspan><tspan x="360.0" dy="15.6">такт 1</tspan></text>
+<rect x="564.7" y="123.2" width="70.6" height="53.6" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="2.0"/><text x="600.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">ACCESS</tspan><tspan x="600.0" dy="15.6">такт 2</tspan></text>
+<line x1="162.8" y1="150.0" x2="324.7" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="243.7" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">є звертання</text>
+<line x1="395.3" y1="150.0" x2="564.7" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="480.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">завжди</text>
+<path d="M 600.0 176.8 Q 360.0 270.0 120.0 176.8" fill="none" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="360.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PREADY=1 → готово</text>
+<path d="M 582.0 123.2 Q 600.0 80.0 618.0 123.2" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="600.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">PREADY=0</text>
+<text x="600.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">такт очікування</text>
+<text x="360.0" y="198.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">PSEL=1, адреса виставлена, PENABLE=0</text>
+<text x="600.0" y="198.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">PENABLE=1, раб віддає дані</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оновлюваний мікрокод: як латають помилку процесора на старті</text>
+<rect x="40.0" y="70.0" width="340.0" height="300.0" rx="14" fill="#fafafa" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="210.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">КРИСТАЛ ПРОЦЕСОРА</text>
+<rect x="70.0" y="110.0" width="130.0" height="120.0" rx="9" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.9"/>
+<text x="135.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ROM</text>
+<text x="135.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">мікрокод</text>
+<text x="135.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">вшитий,</text>
+<text x="135.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">незмінний</text>
+<text x="135.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">тут живе</text>
+<text x="135.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">помилковий рецепт</text>
+<rect x="220.0" y="110.0" width="130.0" height="120.0" rx="9" fill="#fbf3df" stroke="#a9842f" stroke-width="2.0"/>
+<text x="285.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a9842f" text-anchor="middle" font-weight="700">patch RAM</text>
+<text x="285.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#a9842f" text-anchor="middle" font-weight="700">(SRAM)</text>
+<text x="285.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">порожня після</text>
+<text x="285.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">вмикання</text>
+<text x="285.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">сюди лягає</text>
+<text x="285.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">виправлений рецепт</text>
+<line x1="200.0" y1="250.0" x2="285.0" y2="234.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="90.0" y="250.0" width="230.0" height="40.0" rx="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="205.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">збіг адреси рецепта →</text>
+<text x="205.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">брати рядки з patch RAM, не з ROM</text>
+<text x="210.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">виконавчі блоки бачать уже</text>
+<text x="210.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">виправлений мікрокод</text>
+<text x="210.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">вимкнув живлення → patch RAM чиста</text>
+<rect x="470.0" y="96.0" width="260.0" height="60.0" rx="10" fill="#eef2fd" stroke="#2457d6" stroke-width="1.9"/>
+<text x="600.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">BIOS / ОС на старті</text>
+<text x="600.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">тримають підписаний патч</text>
+<rect x="470.0" y="176.0" width="260.0" height="50.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="600.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">перевірити підпис Intel/AMD</text>
+<text x="600.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(чужий мікрокод не залити)</text>
+<line x1="600.0" y1="156.0" x2="600.0" y2="174.0" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="468.0" y1="201.0" x2="352.0" y2="175.0" stroke="#a9842f" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="468.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#a9842f" text-anchor="middle" font-weight="700">залити в patch RAM</text>
+<text x="600.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">НА КОЖНЕ ВВІМКНЕННЯ:</text>
+<text x="475.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">1. живлення → patch RAM порожня</text>
+<text x="475.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">2. firmware перевіряє й заливає патч</text>
+<text x="475.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">3. рецепти помилок перенаправлені</text>
+<text x="475.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">4. далі процесор працює виправлений</text>
+<text x="390.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">саме так апаратну помилку готового процесора латають без нового кристала</text>
+</svg>

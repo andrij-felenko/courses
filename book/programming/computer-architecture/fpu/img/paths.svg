@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 372" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="372" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один рядок C — два шляхи: апаратний FPU чи емуляція</text>
+<text x="200.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">hard-float (є FPU)</text>
+<text x="560.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">soft-float (немає FPU)</text>
+<rect x="250.0" y="108.0" width="260.0" height="34.0" rx="6" fill="#fbf4e6" stroke="#b9770e" stroke-width="1.6"/><text x="380.0" y="129.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">у коді: y = a * b + c;</tspan></text>
+<rect x="50.0" y="156.0" width="330.0" height="120.0" rx="6" fill="none" stroke="#27ae60" stroke-width="1.7"/>
+<text x="215.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">компілятор ставить</text>
+<text x="66.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">vmul.f32  s2, s0, s1</text>
+<text x="66.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">vadd.f32  s2, s2, s3</text>
+<text x="66.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">2 апаратні інструкції → одиниці тактів</text>
+<rect x="400.0" y="156.0" width="310.0" height="120.0" rx="6" fill="none" stroke="#c0392b" stroke-width="1.7"/>
+<text x="555.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">компілятор кличе підпрограму</text>
+<text x="416.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">bl  __aeabi_fmul</text>
+<text x="416.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">bl  __aeabi_fadd</text>
+<text x="416.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">цілими зсувами й додаваннями → десятки тактів</text>
+<rect x="50.0" y="294.0" width="660.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/><text x="380.0" y="327.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Той самий рядок C. Прапорцем збірки (напр. -mfpu=fpv4-sp-d16 -mfloat-abi=hard) ви кажете компілятору вживати інструкції FPU. Немає FPU або зібрано soft — і кожне float-множення стає викликом бібліотечної функції.</tspan></text>
+</svg>

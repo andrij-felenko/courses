@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири способи насичення: від наочного if до однієї інструкції</text>
+<rect x="40.0" y="52.0" width="320.0" height="116.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="54.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Ширший тип + затиск</text>
+<text x="54.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="54.0" dy="0.0">int32 s = (int32)a + b;</tspan><tspan x="54.0" dy="14.9">if (s&gt;255) s=255; else if (s&lt;0) s=0;</tspan></text>
+<text x="54.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">наочно, переносно всюди</text>
+<rect x="370.0" y="52.0" width="320.0" height="116.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="384.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Порівняння з межею ДО</text>
+<text x="384.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="384.0" dy="0.0">if (a &gt; 255 - b) r = 255;</tspan><tspan x="384.0" dy="14.9">else r = a + b;</tspan></text>
+<text x="384.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">без ширшого типу; знак b — який бік</text>
+<rect x="40.0" y="190.0" width="320.0" height="116.0" rx="6" fill="#f2ecf8" stroke="#8a5fb0" stroke-width="1.8"/>
+<text x="54.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a5fb0" text-anchor="start" font-weight="700">Безгіллясто (маска знаку)</text>
+<text x="54.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="54.0" dy="0.0">s = a + b;</tspan><tspan x="54.0" dy="14.9">r = s | -(s &gt;&gt; 8);   // клас DSP</tspan></text>
+<text x="54.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">без розгалуження — рівний час</text>
+<rect x="370.0" y="190.0" width="320.0" height="116.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="384.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Апаратна інструкція</text>
+<text x="384.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="384.0" dy="0.0">USAT / QADD (Cortex-M DSP)</tspan><tspan x="384.0" dy="14.9">__QADD, __USAT — одна дія</tspan></text>
+<text x="384.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">найшвидше, плюс прапорець Q</text>
+</svg>

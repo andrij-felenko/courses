@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому DSP має кілька шин: нагодувати MAC щотакту</text>
+<rect x="85.0" y="64.0" width="150.0" height="52.0" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="160.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Пам'ять</tspan><tspan x="160.0" dy="15.6">програми</tspan></text>
+<rect x="315.0" y="64.0" width="150.0" height="52.0" rx="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="390.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Дані X</tspan><tspan x="390.0" dy="15.6">(вибірка)</tspan></text>
+<rect x="545.0" y="64.0" width="150.0" height="52.0" rx="7" fill="#fef6e9" stroke="#b8860b" stroke-width="1.8"/><text x="620.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Дані Y</tspan><tspan x="620.0" dy="15.6">(коеф.)</tspan></text>
+<rect x="230.0" y="218.0" width="320.0" height="64.0" rx="7" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/><text x="390.0" y="255.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">MAC:  acc ← acc + x · h</tspan></text>
+<line x1="160.0" y1="116.0" x2="300.0" y2="222.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="390.0" y1="116.0" x2="390.0" y2="218.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="116.0" x2="480.0" y2="222.0" stroke="#b8860b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="214.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">команда</text>
+<text x="405.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">відлік x</text>
+<text x="566.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="end" font-weight="700">коеф. h</text>
+<text x="390.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">За один такт: дістати команду + два операнди й помножити-додати.</text>
+<text x="390.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">На одній шині це забрало б три-чотири такти — тому шин кілька.</text>
+</svg>

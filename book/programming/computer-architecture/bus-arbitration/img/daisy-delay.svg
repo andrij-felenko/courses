@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому ланцюжок повільніший: затримки складаються vs паралельні лінії</text>
+<text x="30.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Ланцюжок: grant біжить крізь усіх — затримки складаються</text>
+<rect x="40.5" y="81.5" width="58.9" height="29.0" rx="6" fill="#fff9e6" stroke="#e0a800" stroke-width="1.8"/><text x="70.0" y="99.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="70.0" dy="0.0">арбітр</tspan></text>
+<rect x="168.0" y="74.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#c8ccd0" stroke-width="1.6"/>
+<text x="210.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">П1</text>
+<line x1="99.5" y1="96.0" x2="168.0" y2="96.0" stroke="#2457d6" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="133.7" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">t</text>
+<rect x="308.0" y="74.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#c8ccd0" stroke-width="1.6"/>
+<text x="350.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">П2</text>
+<line x1="252.0" y1="96.0" x2="308.0" y2="96.0" stroke="#2457d6" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="280.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">t</text>
+<rect x="448.0" y="74.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#c8ccd0" stroke-width="1.6"/>
+<text x="490.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">П3</text>
+<line x1="392.0" y1="96.0" x2="448.0" y2="96.0" stroke="#2457d6" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="420.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">t</text>
+<rect x="588.0" y="74.0" width="84.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#c8ccd0" stroke-width="1.6"/>
+<text x="630.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">П4</text>
+<line x1="532.0" y1="96.0" x2="588.0" y2="96.0" stroke="#2457d6" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="560.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">t</text>
+<text x="730.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">до П4 — затримка 4·t</text>
+<text x="30.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Паралельний арбітр: окрема лінія до кожного — рішення всім за один крок</text>
+<rect x="40.5" y="253.5" width="58.9" height="29.0" rx="6" fill="#fff9e6" stroke="#e0a800" stroke-width="1.8"/><text x="70.0" y="271.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="70.0" dy="0.0">арбітр</tspan></text>
+<rect x="168.0" y="246.0" width="84.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="210.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">П1</text>
+<line x1="99.5" y1="252.0" x2="168.0" y2="268.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="308.0" y="246.0" width="84.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="350.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">П2</text>
+<line x1="99.5" y1="252.0" x2="308.0" y2="268.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="448.0" y="246.0" width="84.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="490.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">П3</text>
+<line x1="99.5" y1="252.0" x2="448.0" y2="268.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="588.0" y="246.0" width="84.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="630.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">П4</text>
+<line x1="99.5" y1="252.0" x2="588.0" y2="268.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="730.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">усім — затримка 1·t</text>
+</svg>

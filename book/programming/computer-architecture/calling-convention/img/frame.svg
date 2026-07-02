@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр стека: локальні змінні, збережені регістри й адреса повернення</text>
+<text x="410.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">кадр стека під час виклику  g()  з  f()</text>
+<rect x="250.0" y="70.0" width="320.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="410.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">кадр f() — локальні змінні f</text>
+<rect x="250.0" y="134.0" width="320.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="410.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">надлишкові аргументи для g</text>
+<rect x="250.0" y="172.0" width="320.0" height="34.0" rx="6" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.8"/>
+<text x="410.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">адреса повернення (куди вертатись у f)</text>
+<rect x="250.0" y="210.0" width="320.0" height="34.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="410.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">збережений RBP  (ланцюг кадрів)</text>
+<rect x="250.0" y="248.0" width="320.0" height="34.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="410.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">callee-saved регістри, що g псує</text>
+<rect x="250.0" y="286.0" width="320.0" height="60.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="410.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">локальні змінні g()</text>
+<text x="234.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">верх (старі кадри)</text>
+<line x1="660.0" y1="320.0" x2="576.0" y2="320.0" stroke="#2457d6" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="666.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">RSP — вершина стека</text>
+<line x1="160.0" y1="189.0" x2="244.0" y2="189.0" stroke="#b8860b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="154.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="end" font-weight="700">call поклав сюди</text>
+<text x="154.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="end" font-weight="700">адресу повернення</text>
+<text x="410.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">↓ стек росте вниз (до менших адрес) ↓</text>
+<text x="410.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">ret знімає адресу повернення й стрибає нею назад у f</text>
+</svg>

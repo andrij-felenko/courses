@@ -220,6 +220,12 @@ body {
 }
 .ch-intro { font-size: 1.02rem; line-height: 1.85; color: #95bfd8; max-width: 720px; }
 .ch-intro strong { color: #cfe3f1; }
+.ch-intro-body { font-size: 1.02rem; line-height: 1.85; color: var(--text-muted); max-width: 720px; margin-bottom: 1.5rem; }
+.ch-intro-body strong { color: var(--text); }
+
+/* Номер кроку курсу біля заголовка (курс-режим): удвічі менший за h1, інлайн — висоту панелі не змінює */
+.ch-header h1 .ch-kn { font-size: 0.5em; font-weight: 700; color: #60a5c8; margin-left: 0.55rem; vertical-align: 0.14em; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ch-header.ch-header-book h1 .ch-kn { color: var(--book-accent, var(--accent)); opacity: 0.85; }
 
 /* Книга: компактна sticky-панель розділу — постійно вгорі, у відтінку кольору книги */
 .ch-header.ch-header-book {
@@ -757,12 +763,16 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .guide-step > a, .guide-step.bridge { display: flex; align-items: baseline; gap: 0.55rem; padding: 0.46rem 0.8rem; text-decoration: none; color: var(--text); }
 .guide-step > a:hover { background: var(--bg-alt); }
 .guide-step.bridge { color: var(--text-muted); font-style: italic; }
-.guide-step .gs-num { font-variant-numeric: tabular-nums; font-size: 0.72rem; color: var(--text-muted); font-weight: 700; min-width: 2.7rem; flex-shrink: 0; }
+.guide-step .gs-num { font-variant-numeric: tabular-nums; font-size: 0.72rem; color: var(--text-muted); font-weight: 700; min-width: 3.4rem; flex-shrink: 0; }
 .guide-step .gs-ico { flex-shrink: 0; }
 .guide-step .gs-ttl { flex: 1; line-height: 1.4; }
 .guide-step > a:hover .gs-ttl { color: var(--accent); text-decoration: underline; }
 .guide-step .gs-subj { font-size: 0.68rem; color: #16a34a; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.06rem 0.5rem; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
 .guide-step.bridge .gs-subj { color: #b45309; background: #fffbeb; border-color: #fde68a; }
+/* Прочитаний крок курсу — як у книгах: ✓ й зелений відтінок */
+.guide-step.read > a { background: color-mix(in srgb, #16a34a 5%, transparent); }
+.guide-step.read .gs-ttl::after { content: " ✓"; color: #16a34a; font-weight: 800; font-size: 0.82em; }
+.guide-step.read .gs-num { color: #16a34a; }
 .sb-link.sb-mod { margin-top: 0.7rem; font-weight: 800; color: #cfe0ee; }
 .sb-link.sb-subchap { font-size: 0.82rem; padding-left: 1.5rem; }
 

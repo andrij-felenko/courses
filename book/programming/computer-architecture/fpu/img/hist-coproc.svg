@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 372" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="372" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">8087 як «спів-процесор»: два чипи на одній шині</text>
+<rect x="60.0" y="78.0" width="250.0" height="132.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="185.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">8086 / 8088</text>
+<text x="185.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">головний процесор</text>
+<text x="185.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">бачить у коді ESC —</text>
+<text x="185.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">«це не мені», лишає</text>
+<text x="185.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">адресу на шині</text>
+<rect x="450.0" y="78.0" width="250.0" height="132.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="575.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">8087</text>
+<text x="575.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">співпроцесор</text>
+<text x="575.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">підслуховує ту саму</text>
+<text x="575.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">шину, ловить ESC —</text>
+<text x="575.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">«о, це мені» й рахує</text>
+<line x1="120.0" y1="244.0" x2="640.0" y2="244.0" stroke="#1a1a1a" stroke-width="3.0"/>
+<text x="380.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">спільна шина команд і даних</text>
+<line x1="185.0" y1="210.0" x2="185.0" y2="244.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="575.0" y1="210.0" x2="575.0" y2="244.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="310.0" y1="120.0" x2="450.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="380.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">тест «зайнятий?»</text>
+<rect x="60.0" y="272.0" width="640.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/><text x="380.0" y="290.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Обидва чипи слухають ОДНУ шину. Команду FPU (опкод ESC) головний процесор пропускає,</tspan><tspan x="380.0" dy="15.0">а 8087 підхоплює й виконує; інструкція WAIT змушує CPU дочекатися, поки 8087 закінчить.</tspan></text>
+</svg>

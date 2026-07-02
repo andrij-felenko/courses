@@ -161,8 +161,9 @@ function indexGuide(slug) {
   const man = loadManifest(path.join(ROOT, "guide", slug, "manifest.js"), "__GUIDES__");
   if (!man) return;
   const gt = man.title || slug;
-  (man.sections || []).forEach((mod) => {
-    (mod.topics || []).forEach((s) => {
+  (man.sections || man.modules || []).forEach((mod) => {
+    const steps = (mod.topics && mod.topics.length) ? mod.topics : (mod.chapters || []).flatMap((c) => c.steps || []);
+    steps.forEach((s) => {
       if (s.ref || !s.slug) return;             // ref → book-атом (уже проіндексований)
       const basicDone = s.basic && s.basic.status === "done";
       if (!basicDone) return;

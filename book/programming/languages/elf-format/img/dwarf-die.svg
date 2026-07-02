@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що кодує DWARF: дерево описів і карта рядків</text>
+<text x="175.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">.debug_info — дерево DIE</text>
+<rect x="127.4" y="76.5" width="95.2" height="31.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="175.0" y="95.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">модуль led.c</tspan></text>
+<rect x="118.0" y="140.5" width="114.0" height="31.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.5"/><text x="175.0" y="159.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">функція blink()</tspan></text>
+<line x1="175.0" y1="107.5" x2="175.0" y2="140.5" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="39.1" y="224.8" width="91.8" height="30.5" rx="6" fill="#eef3ff" stroke="#6b7280" stroke-width="1.0"/><text x="85.0" y="243.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="85.0" dy="0.0">змінна count</tspan></text>
+<rect x="226.1" y="224.8" width="97.8" height="30.5" rx="6" fill="#e9f7ef" stroke="#6b7280" stroke-width="1.0"/><text x="275.0" y="243.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="275.0" dy="0.0">тип int (4 б)</tspan></text>
+<rect x="43.1" y="284.8" width="103.8" height="30.5" rx="6" fill="#eef3ff" stroke="#6b7280" stroke-width="1.0"/><text x="95.0" y="303.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="95.0" dy="0.0">змінна led_pin</tspan></text>
+<rect x="232.1" y="284.8" width="85.8" height="30.5" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/><text x="275.0" y="303.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="275.0" dy="0.0">область { }</tspan></text>
+<line x1="175.0" y1="171.5" x2="85.0" y2="226.0" stroke="#2457d6" stroke-width="0.8"/>
+<line x1="175.0" y1="171.5" x2="275.0" y2="226.0" stroke="#2457d6" stroke-width="0.8"/>
+<line x1="175.0" y1="171.5" x2="95.0" y2="286.0" stroke="#2457d6" stroke-width="0.8"/>
+<text x="175.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">кожен вузол — тег + атрибути</text>
+<text x="554.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">.debug_line — карта адреса↔рядок</text>
+<rect x="428.0" y="74.0" width="252.0" height="44.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.0"/>
+<text x="440.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">адреса</text>
+<text x="568.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">файл:рядок</text>
+<rect x="428.0" y="118.0" width="252.0" height="44.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.6"/>
+<text x="440.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0x0800_4a00</text>
+<text x="568.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">led.c:40</text>
+<rect x="428.0" y="162.0" width="252.0" height="44.0" rx="6" fill="#f4faf6" stroke="#333333" stroke-width="0.6"/>
+<text x="440.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0x0800_4a0c</text>
+<text x="568.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">led.c:41</text>
+<rect x="428.0" y="206.0" width="252.0" height="44.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.6"/>
+<text x="440.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">0x0800_4a12</text>
+<text x="568.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">led.c:42</text>
+<rect x="428.0" y="250.0" width="252.0" height="44.0" rx="6" fill="#f4faf6" stroke="#333333" stroke-width="0.6"/>
+<text x="440.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0x0800_4a1e</text>
+<text x="568.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">led.c:43</text>
+<text x="554.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">автомат розгортає код у цю таблицю</text>
+</svg>

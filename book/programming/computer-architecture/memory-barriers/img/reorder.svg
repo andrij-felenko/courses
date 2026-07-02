@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок у коді — не порядок у залізі</text>
+<rect x="40.0" y="70.0" width="250.0" height="250.0" rx="6" fill="#fbfcfd" stroke="#c7ccd2" stroke-width="1.4"/>
+<text x="165.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">як написано в коді</text>
+<rect x="62.0" y="116.0" width="206.0" height="54.0" rx="5" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="165.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">STR  R1, [CTRL]</text>
+<text x="165.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">увімкнути пристрій</text>
+<rect x="62.0" y="196.0" width="206.0" height="54.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="165.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">LDR  R2, [STATUS]</text>
+<text x="165.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">прочитати стан</text>
+<line x1="165.0" y1="172.0" x2="165.0" y2="194.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="470.0" y="70.0" width="250.0" height="250.0" rx="6" fill="#fbfcfd" stroke="#c7ccd2" stroke-width="1.4"/>
+<text x="595.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">що дозволила апаратура</text>
+<rect x="492.0" y="116.0" width="206.0" height="54.0" rx="5" fill="#fbeeee" stroke="#c0392b" stroke-width="1.6"/>
+<text x="595.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">LDR  R2, [STATUS]</text>
+<text x="595.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">читання випустили ПЕРШИМ</text>
+<rect x="492.0" y="196.0" width="206.0" height="54.0" rx="5" fill="#fbeeee" stroke="#c0392b" stroke-width="1.6"/>
+<text x="595.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">STR  R1, [CTRL]</text>
+<text x="595.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">запис ще в буфері…</text>
+<line x1="595.0" y1="172.0" x2="595.0" y2="194.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="298.0" y1="195.0" x2="462.0" y2="195.0" stroke="#6b7280" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="380.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">модель пам'яті</text>
+<text x="380.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дозволяє переставити</text>
+<text x="380.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">R2 дістав СТАРИЙ стан — пристрій ще не ввімкнувся: порядок у коді був підказкою, не наказом</text>
+</svg>

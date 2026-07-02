@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">MESI: чотири стани, у яких кеш тримає лінію</text>
+<rect x="95.0" y="64.0" width="210.0" height="92.0" rx="6" fill="#f0f1f3" stroke="#6b7280" stroke-width="1.8"/>
+<text x="200.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">I — Invalid</text>
+<text x="200.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">копії немає /</text>
+<text x="200.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">вона недійсна</text>
+<rect x="455.0" y="64.0" width="210.0" height="92.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="560.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S — Shared</text>
+<text x="560.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">чиста копія; МОЖЕ бути</text>
+<text x="560.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">така сама в інших ядрах</text>
+<rect x="95.0" y="254.0" width="210.0" height="92.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="200.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">E — Exclusive</text>
+<text x="200.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">чиста копія, ЄДИНА,</text>
+<text x="200.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">збігається з пам'яттю</text>
+<rect x="455.0" y="254.0" width="210.0" height="92.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="560.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">M — Modified</text>
+<text x="560.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">змінена копія, ЄДИНА,</text>
+<text x="560.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">пам'ять уже застаріла</text>
+<line x1="200.0" y1="156.0" x2="200.0" y2="254.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="130.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">читання (сам)</text>
+<line x1="305.0" y1="110.0" x2="455.0" y2="110.0" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="380.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">читання (спільне)</text>
+<line x1="305.0" y1="300.0" x2="455.0" y2="300.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="380.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">запис (тихо, без шини)</text>
+<line x1="560.0" y1="156.0" x2="560.0" y2="254.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="638.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">запис → invalidate у шину</text>
+<text x="380.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">чужий запис у цю лінію (invalidate з шини) → будь-який стан падає в Invalid</text>
+</svg>

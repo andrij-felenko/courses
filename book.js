@@ -73,15 +73,22 @@
     try { localStorage.setItem("courses-read", JSON.stringify(Array.from(READ))); } catch (e) {}
     [].forEach.call(document.querySelectorAll(".sb-link.active"), function (a) { a.classList.add("read"); });   // підсвітити наживо
   }
-  var readSpy = null;
+  var readSpy = null, readTimer = null;
+  var READ_DWELL_MS = 7000;   // просто доскролити мало: треба ПРОБУТИ внизу 7 с поспіль
   function setupReadTracking(slug) {
     if (readSpy) { readSpy.disconnect(); readSpy = null; }
+    if (readTimer) { clearTimeout(readTimer); readTimer = null; }
     if (isRead(slug) || !window.IntersectionObserver) return;
     var end = document.getElementById("read-end");
     if (!end) return;
     readSpy = new IntersectionObserver(function (entries) {
       for (var i = 0; i < entries.length; i++) {
-        if (entries[i].isIntersecting) { markRead(slug); if (readSpy) { readSpy.disconnect(); readSpy = null; } break; }
+        if (entries[i].isIntersecting) {
+          if (!readTimer) readTimer = setTimeout(function () {
+            readTimer = null; markRead(slug);
+            if (readSpy) { readSpy.disconnect(); readSpy = null; }
+          }, READ_DWELL_MS);
+        } else if (readTimer) { clearTimeout(readTimer); readTimer = null; }   // пішов угору раніше — скидаємо
       }
     }, { threshold: 0 });
     readSpy.observe(end);
@@ -527,8 +534,9 @@
         }
 
         var html = '<span id="top" class="anc"></span>';
-        html += chapterHeader(chap, pm.introHtml);
-        html += '<div class="sec content-body">' + courseTopNav(chap) + versionLink(chap) + banner + pm.bodyHtml + courseBottomNav(chap) +
+        html += chapterHeader(chap, null);
+        var introBlock = (pm.introHtml && BOOK.type !== "book") ? '<p class="ch-intro ch-intro-body">' + pm.introHtml + '</p>' : '';
+        html += '<div class="sec content-body">' + courseTopNav(chap) + versionLink(chap) + introBlock + banner + pm.bodyHtml + courseBottomNav(chap) +
           '<span id="read-end" class="read-sentinel" aria-hidden="true"></span></div>';
         arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна (історії + extras)
         setContent(html);
@@ -550,13 +558,20 @@
   }
 
   function chapterHeader(chap, introHtml) {
+    // Курс-режим: номер поточного кроку (Модуль.Розділ.Крок) дрібним шрифтом у рядку заголовка — висоту панелі не змінює.
+    var kn = "";
+    if (BOOK.course) {
+      var lst = courseNavList(), ci = courseCurrentIndex(chap);
+      if (ci >= 0) kn = ' <span class="ch-kn">' + lst[ci].kn + "</span>";
+    }
     if (BOOK.type === "book") {   // стаття книги: компактна sticky-панель, галузь + назва, відтінок книги
       return '<header class="ch-header ch-header-book" style="--book-accent:' + (BOOK.accent || "") + '"><div class="ch-label">' +
-        escapeHtml((chap.module && chap.module.title) || "") + "</div><h1>" + escapeHtml(chap.title) + "</h1></header>";
+        escapeHtml((chap.module && chap.module.title) || "") + "</div><h1>" + escapeHtml(chap.title) + kn + "</h1></header>";
     }
     var m = chap.module;
-    var h = '<header class="ch-header"><div class="ch-label">Модуль ' + m.n + " · " + escapeHtml(m.title) +
-      " &nbsp;/&nbsp; Розділ " + m.n + "." + chap.n + "</div><h1>" + escapeHtml(chap.title) + "</h1>";
+    var lbl = "Модуль " + m.n + " · " + escapeHtml(m.title) +
+      (BOOK.course ? "" : " &nbsp;/&nbsp; Розділ " + m.n + "." + chap.n);   // у курсі номер кроку — біля заголовка (kn), не «розділ» зі старої нумерації
+    var h = '<header class="ch-header"><div class="ch-label">' + lbl + "</div><h1>" + escapeHtml(chap.title) + kn + "</h1>";
     if (introHtml) h += '<p class="ch-intro">' + introHtml + "</p>";
     return h + "</header>";
   }
@@ -689,9 +704,12 @@
         var cn = mn + "." + (ci + 1);
         (c.steps || []).forEach(function (st, si) {
           var base = { kn: cn + "." + (si + 1), title: st.title, mTitle: m.title, cTitle: c.title };
-          if (!st.ref) { base.bridge = true; out.push(base); return; }
-          var pr = String(st.ref).split("/");
-          base.subject = pr[0]; base.top = pr[pr.length - 1];
+          if (st.ref) {
+            var pr = String(st.ref).split("/");
+            base.subject = pr[0]; base.top = pr[pr.length - 1];
+          } else if (st.slug) {   // власна стаття курсу — теж повноцінний крок навігації
+            base.own = true; base.subject = BOOK.course.slug; base.top = st.slug; base.mSlug = m.slug;
+          } else { base.bridge = true; }
           out.push(base);
         });
       });
@@ -705,6 +723,7 @@
     return -1;
   }
   function courseStepHref(s) {
+    if (s.own) return "read.html?guide=" + encodeURIComponent(BOOK.course.slug) + "&module=" + encodeURIComponent(s.mSlug || "") + "#ch=" + encodeURIComponent(s.top);
     return "read.html?course=" + encodeURIComponent(BOOK.course.slug) + "&book=" + encodeURIComponent(s.subject) + "#ch=" + encodeURIComponent(s.top);
   }
   function courseHome() { return "read.html?guide=" + encodeURIComponent(BOOK.course.slug); }
@@ -716,19 +735,27 @@
       '<a class="sb-back" href="' + courseHome() + '">← Огляд курсу</a>';
     (BOOK.course.modules || []).forEach(function (m, mi) {
       var mn = m.n || (mi + 1);
-      s += '<div class="sb-group-label">Модуль ' + mn + " · " + escapeHtml(m.title) + "</div>";
+      s += sbGroupOpen(m.title, "Модуль " + mn + " · " + escapeHtml(m.title));   // згортувана панель модуля (як у книгах)
       (m.chapters || []).forEach(function (c, ci) {
         var cn = mn + "." + (ci + 1);
-        s += '<div class="sb-chap">' + cn + " · " + escapeHtml(c.title) + "</div>";
+        if (c.title) s += '<div class="sb-chap">' + cn + " · " + escapeHtml(c.title) + "</div>";
         (c.steps || []).forEach(function (st, si) {
-          var kn = cn + "." + (si + 1);
-          if (!st.ref) { s += '<span class="sb-link sb-bridge"><span class="sb-kn">' + kn + "</span>🔗 " + escapeHtml(st.title || "місток") + "</span>"; return; }
-          var pr = String(st.ref).split("/"), subj = pr[0], top = pr[pr.length - 1];
+          var kn = cn + "." + (si + 1), subj, top, href;
+          if (st.ref) {
+            var pr = String(st.ref).split("/"); subj = pr[0]; top = pr[pr.length - 1];
+            href = "read.html?course=" + encodeURIComponent(BOOK.course.slug) + "&book=" + encodeURIComponent(subj) + "#ch=" + encodeURIComponent(top);
+          } else if (st.slug) {   // власна стаття курсу
+            subj = BOOK.course.slug; top = st.slug;
+            href = "read.html?guide=" + encodeURIComponent(BOOK.course.slug) + "&module=" + encodeURIComponent(m.slug || "") + "#ch=" + encodeURIComponent(st.slug);
+          } else {
+            s += '<span class="sb-link sb-bridge"><span class="sb-kn">' + kn + "</span>🔗 " + escapeHtml(st.title || "місток") + "</span>"; return;
+          }
           var cur = (subj === BOOK.bookSlug && top === chap.slug) ? " active" : "";
-          s += '<a class="sb-link' + cur + '" href="read.html?course=' + encodeURIComponent(BOOK.course.slug) + "&book=" +
-            encodeURIComponent(subj) + "#ch=" + encodeURIComponent(top) + '"><span class="sb-kn">' + kn + "</span>" + escapeHtml(st.title || top) + "</a>";
+          var rd = READ.has(subj + "/" + top) ? " read" : "";   // прочитано (ключ = книга-джерело/тема або курс/slug)
+          s += '<a class="sb-link' + cur + rd + '" href="' + href + '"><span class="sb-kn">' + kn + "</span>" + escapeHtml(st.title || top) + "</a>";
         });
       });
+      s += sbGroupClose();
     });
     s += coursePager(chap);
     setSidebar(s);

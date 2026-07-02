@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">MAC-цикл фільтра: одне множення-додавання за такт</text>
+<text x="150.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">такт 1</text>
+<text x="278.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">такт 2</text>
+<text x="406.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">такт 3</text>
+<text x="534.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">такт 4</text>
+<text x="662.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">такт 5</text>
+<rect x="94.0" y="84.0" width="112.0" height="48.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="150.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">acc += x₀·h₀</text>
+<line x1="206.0" y1="108.0" x2="222.0" y2="108.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="222.0" y="84.0" width="112.0" height="48.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="278.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">acc += x₁·h₁</text>
+<line x1="334.0" y1="108.0" x2="350.0" y2="108.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="350.0" y="84.0" width="112.0" height="48.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="406.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">acc += x₂·h₂</text>
+<line x1="462.0" y1="108.0" x2="478.0" y2="108.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="478.0" y="84.0" width="112.0" height="48.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="534.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">acc += x₃·h₃</text>
+<line x1="590.0" y1="108.0" x2="606.0" y2="108.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="606.0" y="84.0" width="112.0" height="48.0" rx="6" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.6"/>
+<text x="662.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">…</text>
+<text x="400.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кожен такт: узяти наступний відлік і коефіцієнт, помножити, додати до суми.</text>
+<rect x="90.0" y="200.0" width="620.0" height="96.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="400.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">На звичайному процесорі те саме — це LOAD, LOAD, MUL, ADD, лічильник, стрибок:</text>
+<text x="400.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">кілька команд на відлік. DSP робить усе це однією командою в апаратному циклі.</text>
+<text x="400.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Саме тому фільтр на 256 коефіцієнтів іде ≈ 256 тактів, а не тисячу з гаком.</text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві філософії: окремий простір портів проти пристроїв у пам'яті</text>
+<rect x="30.0" y="66.0" width="375.0" height="372.0" rx="10" fill="#fdf4f4" stroke="#c0271e" stroke-width="2.4"/>
+<text x="217.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0271e" text-anchor="middle" font-weight="700">PORT-MAPPED I/O</text>
+<text x="217.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">пристрої мають ОКРЕМИЙ простір</text>
+<text x="54.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• два простори: пам'ять і порти</text>
+<text x="54.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• до портів — лише IN / OUT</text>
+<text x="54.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• номер порту НЕ їсть адрес пам'яті</text>
+<text x="54.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• дані — через акумулятор (AL/AX)</text>
+<text x="54.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• потрібен зайвий сигнал (M/IO#)</text>
+<text x="54.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• простір портів тісний (65536)</text>
+<text x="54.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• живе в x86 (від 8080, 1974)</text>
+<rect x="54.0" y="356.0" width="327.0" height="62.0" rx="8" fill="#ffffff" stroke="#c0271e" stroke-width="1.5"/>
+<text x="74.0" y="380.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">OUT 0x20, AL</text>
+<text x="217.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">окрема команда для окремого світу</text>
+<rect x="445.0" y="66.0" width="375.0" height="372.0" rx="10" fill="#eef7ee" stroke="#1f8a3b" stroke-width="2.4"/>
+<text x="632.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1f8a3b" text-anchor="middle" font-weight="700">MEMORY-MAPPED I/O</text>
+<text x="632.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">пристрої живуть у звичайній пам'яті</text>
+<text x="469.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• один простір на все</text>
+<text x="469.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• до пристроїв — ті самі LD / ST</text>
+<text x="469.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• регістр пристрою = адреса пам'яті</text>
+<text x="469.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• дані — через будь-який регістр</text>
+<text x="469.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• жодного зайвого сигналу не треба</text>
+<text x="469.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• простору скільки завгодно</text>
+<text x="469.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• ARM, RISC-V, майже всі МК</text>
+<rect x="469.0" y="356.0" width="327.0" height="62.0" rx="8" fill="#ffffff" stroke="#1f8a3b" stroke-width="1.5"/>
+<text x="489.0" y="380.0" font-family="'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">*(uint32_t*)0x40021000 = 1;</text>
+<text x="632.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">звичайний запис у пам'ять — і все</text>
+</svg>

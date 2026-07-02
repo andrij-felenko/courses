@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 388" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="388" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">FPU у мікроконтролерах: є чи нема, одинарна чи подвійна</text>
+<text x="150.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">ядро</text>
+<text x="415.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">апаратна точність</text>
+<text x="632.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">наслідок</text>
+<rect x="48.0" y="104.0" width="664.0" height="46.0" rx="6" fill="#f6f8f6" stroke="#6b7280" stroke-width="1.0"/>
+<text x="64.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Cortex-M0 / M0+ / M3</text>
+<text x="300.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">немає FPU</text>
+<text x="500.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">float — лише емуляцією</text>
+<rect x="48.0" y="156.0" width="664.0" height="46.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="64.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Cortex-M4F</text>
+<text x="300.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">одинарна (FPv4-SP)</text>
+<text x="500.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">float швидко, double — емуляцією</text>
+<rect x="48.0" y="208.0" width="664.0" height="46.0" rx="6" fill="#f6f8f6" stroke="#6b7280" stroke-width="1.0"/>
+<text x="64.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Cortex-M7</text>
+<text x="300.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">одинарна + подвійна (FPv5)</text>
+<text x="500.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">і float, і double апаратно</text>
+<rect x="48.0" y="260.0" width="664.0" height="46.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="64.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">8-бітні (AVR)</text>
+<text x="300.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">немає FPU</text>
+<text x="500.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">float дуже дорогий — беруть цілі</text>
+<rect x="48.0" y="318.0" width="664.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="380.0" y="332.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Ключова пастка: навіть коли FPU Є, він часто ЛИШЕ одинарної точності.</tspan><tspan x="380.0" dy="15.6">Написали double — і на M4F воно тихо емулюється, повільно.</tspan><tspan x="380.0" dy="15.6">На МК float за замовчуванням означає float32.</tspan></text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вирівнювання як апаратна релігія: три табори крізь епохи</text>
+<rect x="24.0" y="70.0" width="296.0" height="330.0" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="172.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">СУВОРО: апаратний виняток</text>
+<text x="172.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">невирівняний доступ = fault; крапка</text>
+<line x1="42.0" y1="128.0" x2="302.0" y2="128.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="42.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">DEC Alpha (1992) — слова/quadword;</text>
+<text x="54.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">байтів узагалі нема до BWX (1996)</text>
+<text x="42.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">MIPS, SPARC — fault за замовч.</text>
+<text x="42.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Motorola 68000/68010 — address error</text>
+<text x="42.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ARM Cortex-M0/M0+ (ARMv6-M)</text>
+<rect x="332.0" y="70.0" width="296.0" height="330.0" rx="12" fill="#fdf6e3" stroke="#b8860b" stroke-width="2.0"/>
+<text x="480.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">ЕМУЛЮЄ: тихо, але поволі</text>
+<text x="480.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">ядро ловить trap, збирає число, вертає</text>
+<line x1="350.0" y1="128.0" x2="610.0" y2="128.0" stroke="#b8860b" stroke-width="1.0"/>
+<text x="350.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">DEC Alpha + ОС: trap у ядро,</text>
+<text x="362.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">аж ~тисячі тактів на доступ</text>
+<text x="350.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">RISC-V — на розсуд реалізації:</text>
+<text x="362.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">або залізо, або trap-handler</text>
+<text x="350.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Linux на суворих ISA — те саме</text>
+<rect x="640.0" y="70.0" width="296.0" height="330.0" rx="12" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="788.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ТЕРПИТЬ: залізо збирає само</text>
+<text x="788.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">подвійне читання в кремнії; платиш швидкодією</text>
+<line x1="658.0" y1="128.0" x2="918.0" y2="128.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="658.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">x86 / x86-64 — від 8086 (1978)</text>
+<text x="658.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Motorola 68020 (1984) — зняв заборону</text>
+<text x="658.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ARMv6+ / Cortex-M3, M4, M7</text>
+<text x="658.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">PowerPC — 32-біт так, 64-біт fault</text>
+<text x="658.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">AArch64 — звичайні load/store</text>
+<line x1="64.0" y1="434.0" x2="896.0" y2="434.0" stroke="#2457d6" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="480.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">з роками транзистори подешевшали → маятник хитнувся від суворості до терпимості</text>
+<text x="64.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">1980-ті: «декодер має бути простий»</text>
+<text x="896.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">2000-ні+: «клади куди хочеш»</text>
+</svg>

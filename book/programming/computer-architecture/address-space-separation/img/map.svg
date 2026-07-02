@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один адресний простір, поділений на області</text>
+<text x="360.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">32 біти адреси → 4 ГБ номерів; кожна область має своє призначення</text>
+<text x="242.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0xFFFFFFFF</text>
+<rect x="250.0" y="84.0" width="300.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="400.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Системні регістри ядра</text>
+<text x="400.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">керування процесором</text>
+<rect x="250.0" y="146.0" width="300.0" height="56.0" rx="6" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="400.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зовнішня пам'ять</text>
+<text x="400.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">флеш/RAM за шиною, XIP</text>
+<rect x="250.0" y="208.0" width="300.0" height="56.0" rx="6" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.8"/>
+<text x="400.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Периферія</text>
+<text x="400.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">регістри GPIO, UART, таймерів (XN)</text>
+<rect x="250.0" y="270.0" width="300.0" height="56.0" rx="6" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="400.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">SRAM</text>
+<text x="400.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">змінні, стек, купа — читання/запис</text>
+<rect x="250.0" y="332.0" width="300.0" height="56.0" rx="6" fill="#fff8e8" stroke="#b8860b" stroke-width="1.8"/>
+<text x="400.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Код</text>
+<text x="400.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">команди, вектори — читання/виконання</text>
+<text x="242.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0x00000000</text>
+<text x="60.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">старші</text>
+<text x="60.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">адреси</text>
+<text x="60.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">молодші</text>
+<text x="60.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">адреси</text>
+<line x1="90.0" y1="140.0" x2="90.0" y2="354.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="576.1" y="184.3" width="127.7" height="71.4" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="640.0" y="203.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Старші біти адреси</tspan><tspan x="640.0" dy="13.7">обирають область,</tspan><tspan x="640.0" dy="13.7">молодші — комірку</tspan><tspan x="640.0" dy="13.7">всередині неї</tspan></text>
+</svg>

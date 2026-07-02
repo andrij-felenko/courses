@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокол — це скінченний автомат на кожну кеш-лінію</text>
+<rect x="300.0" y="120.0" width="160.0" height="130.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="380.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">автомат</text>
+<text x="380.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">лінії</text>
+<rect x="322.0" y="186.0" width="116.0" height="44.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="380.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">стан лінії</text>
+<text x="380.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">M · E · S · I</text>
+<text x="150.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ВХІД — що трапилось</text>
+<rect x="40.0" y="96.0" width="220.0" height="40.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="150.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">своє ядро: PrRd (читаю) /</tspan><tspan x="150.0" dy="13.0">PrWr (пишу)</tspan></text>
+<rect x="40.0" y="148.0" width="220.0" height="44.0" rx="6" fill="#fdf1ec" stroke="#c0392b" stroke-width="1.5"/><text x="150.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">чужий запит із шини:</tspan><tspan x="150.0" dy="13.0">BusRd / BusRdX (підслухано)</tspan></text>
+<line x1="262.0" y1="118.0" x2="300.0" y2="166.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="262.0" y1="170.0" x2="300.0" y2="216.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="610.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ВИХІД — що зробити</text>
+<rect x="500.0" y="96.0" width="220.0" height="40.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="610.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">кинути в шину:</tspan><tspan x="610.0" dy="13.0">BusRd / BusRdX / BusUpgr</tspan></text>
+<rect x="500.0" y="148.0" width="220.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="610.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">перейти в новий стан</tspan><tspan x="610.0" dy="13.0">(і, може, віддати дані)</tspan></text>
+<line x1="460.0" y1="166.0" x2="500.0" y2="118.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="460.0" y1="216.0" x2="500.0" y2="170.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="150.0" y="288.0" width="460.0" height="46.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="380.0" y="308.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Та сама дія в РІЗНИХ станах дає різний вихід: запис у стані Exclusive — тихий,</tspan><tspan x="380.0" dy="11.7">а той самий запис у Shared мусить кинути invalidate у шину. У цьому вся суть.</tspan></text>
+</svg>

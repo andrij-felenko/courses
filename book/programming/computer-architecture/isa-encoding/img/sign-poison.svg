@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому наївне розбиття ламається: addi читає число зі знаком</text>
+<text x="410.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ті самі 12 біт 0xFFF — два прочитання</text>
+<rect x="60.0" y="74.0" width="300.0" height="60.0" rx="8" fill="#f4f7f4" stroke="#27ae60" stroke-width="1.7"/>
+<text x="210.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">як БЕЗЗНАКОВЕ</text>
+<text x="210.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">0xFFF = +4095</text>
+<rect x="460.0" y="74.0" width="300.0" height="60.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="610.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">як addi (ЗІ ЗНАКОМ)</text>
+<text x="610.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0xFFF = −1</text>
+<text x="410.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">bit 11 = 1 → addi бачить від'ємне: різниця рівно 4096 = 1&lt;&lt;12</text>
+<line x1="50.0" y1="178.0" x2="770.0" y2="178.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,4"/>
+<text x="410.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">хочемо: hi·4096 + 4095   але addi дає: hi·4096 + (−1)</text>
+<rect x="60.0" y="226.0" width="300.0" height="74.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.7"/>
+<text x="210.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">НАЇВНО  hi = val&gt;&gt;12</text>
+<text x="210.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">hi·4096 + (−1)</text>
+<text x="210.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">недобір на 4096 — сума менша</text>
+<line x1="370.0" y1="263.0" x2="448.0" y2="263.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="409.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">+1</text>
+<rect x="460.0" y="226.0" width="300.0" height="74.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.7"/>
+<text x="610.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">hi = (val+0x800)&gt;&gt;12</text>
+<text x="610.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">(hi+1)·4096 + (−1) = ✓</text>
+<text x="610.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">+4096 гасить −1 від знака</text>
+<text x="410.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">+0x800 — це +2048: він переносить одиницю в bit 12 РІВНО тоді, коли bit 11 молодших = 1</text>
+</svg>

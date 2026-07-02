@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мережа пробросу: результати ловлять на виходах і подають на вхід АЛП</text>
+<rect x="300.0" y="150.0" width="130.0" height="70.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="365.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">АЛП (вхід)</text>
+<rect x="497.9" y="70.5" width="124.3" height="39.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.6"/><text x="560.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">вихід АЛП</tspan><tspan x="560.0" dy="13.0">(попередня команда)</tspan></text>
+<line x1="497.9" y1="90.0" x2="436.0" y2="185.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="500.7" y="150.5" width="118.6" height="39.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.6"/><text x="560.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">виведене з пам'яті</tspan><tspan x="560.0" dy="13.0">(завантаження)</tspan></text>
+<line x1="500.7" y1="170.0" x2="436.0" y2="185.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="503.6" y="230.5" width="112.9" height="39.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/><text x="560.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">готовий результат</tspan><tspan x="560.0" dy="13.0">у стадії запису</tspan></text>
+<line x1="503.6" y1="250.0" x2="436.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="190.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">вибирач</text>
+<text x="190.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(що подати:</text>
+<text x="190.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">регістр чи проброс)</text>
+<rect x="288.6" y="300.5" width="152.8" height="39.0" rx="6" fill="#f6f8fb" stroke="#6b7280" stroke-width="1.5"/><text x="365.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">регістровий файл</tspan><tspan x="365.0" dy="13.0">(звичайний, довший шлях)</tspan></text>
+<line x1="365.0" y1="300.5" x2="365.0" y2="224.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="360.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Логіка щотакту питає: чи потрібне значення вже полічене «попереду»? Так — бере коротший шлях, ні — з регістра.</text>
+</svg>

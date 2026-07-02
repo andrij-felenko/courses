@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Spectre v1: як здогад процесора зливає заборонений байт</text>
+<rect x="15.0" y="70.0" width="168.0" height="100.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="99.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. Тренуємо</text>
+<text x="99.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="99.0" dy="0.0">багато разів годуємо</tspan><tspan x="99.0" dy="13.7">гілку-перевірку</tspan><tspan x="99.0" dy="13.7">ЗАКОННИМ індексом</tspan></text>
+<line x1="186.0" y1="120.0" x2="199.3" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="202.3" y="70.0" width="168.0" height="100.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="286.3" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">2. Мистрен</text>
+<text x="286.3" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="286.3" dy="0.0">підсовуємо ЗАВЕЛИКИЙ i;</tspan><tspan x="286.3" dy="13.7">перевірка ще рахується,</tspan><tspan x="286.3" dy="13.7">передбачувач каже «читай»</tspan></text>
+<line x1="373.3" y1="120.0" x2="386.7" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="389.7" y="70.0" width="168.0" height="100.0" rx="6" fill="#fff4e6" stroke="#c0392b" stroke-width="2.0"/>
+<text x="473.7" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">3. Спекуляція</text>
+<text x="473.7" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="473.7" dy="0.0">читання ЗА МЕЖІ →</tspan><tspan x="473.7" dy="13.7">ним індексуємо пробу</tspan><tspan x="473.7" dy="13.7">probe[secret*256]</tspan></text>
+<line x1="560.7" y1="120.0" x2="574.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="577.0" y="70.0" width="168.0" height="100.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="661.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">4. Замір</text>
+<text x="661.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="661.0" dy="0.0">перевірка скасувала все,</tspan><tspan x="661.0" dy="13.7">АЛЕ рядок проби гарячий —</tspan><tspan x="661.0" dy="13.7">час доступу видає байт</tspan></text>
+<rect x="60.0" y="220.0" width="300.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="210.0" y="243.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">АРХІТЕКТУРНИЙ стан</tspan><tspan x="210.0" dy="15.6">(регістри, пам'ять)</tspan><tspan x="210.0" dy="15.6">відкат чистить БЕЗДОГАННО</tspan></text>
+<rect x="400.0" y="220.0" width="300.0" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="550.0" y="243.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">МІКРОАРХІТЕКТУРНИЙ стан</tspan><tspan x="550.0" dy="15.6">(кеш) — слід ЛИШАЄТЬСЯ:</tspan><tspan x="550.0" dy="15.6">відкат його НЕ чистить</tspan></text>
+<text x="210.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">що відкат стирає</text>
+<text x="550.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">чим тече витік</text>
+<text x="380.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Замір: 255 рядків проби холодні (доступ довгий), рівно 1 гарячий (короткий) — його номер = байт</text>
+<rect x="60.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="73.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="86.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="99.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="112.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="125.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="138.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="151.0" y="338.0" width="12.0" height="12.0" rx="2" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="157.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">↑</text>
+<text x="157.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">гарячий</text>
+<rect x="164.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="177.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="190.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="203.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="216.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="229.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="242.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="255.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="268.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="281.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="294.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="307.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="320.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="333.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="346.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="359.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="372.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="385.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="398.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="411.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="424.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="437.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="450.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="463.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="476.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="489.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="502.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="515.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="528.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="541.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="554.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="567.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="580.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="593.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="606.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="619.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="632.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="645.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="658.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="671.0" y="338.0" width="12.0" height="34.0" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="718.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">…256</text>
+<text x="380.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Жодна складова не зламана — атака зводить докупи справні механізми. Тому діру не «полагодити», а лише обкласти латками.</text>
+</svg>

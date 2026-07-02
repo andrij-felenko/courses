@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регістри поділені: одні береже той, хто кличе, інші — той, кого кличуть</text>
+<text x="430.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">хто відповідає за збереження регістра?</text>
+<rect x="40.0" y="70.0" width="370.0" height="320.0" rx="6" fill="#fafafa" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="40.0" y="70.0" width="370.0" height="40.0" rx="6" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="225.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">CALLER-SAVED (леткі)</text>
+<text x="60.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">RAX RCX RDX RSI RDI R8 R9 R10 R11</text>
+<text x="60.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start"></text>
+<text x="60.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">callee вільно їх псує.</text>
+<text x="60.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Треба значення після виклику —</text>
+<text x="60.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">той, хто кличе, сам його зберіг</text>
+<text x="60.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">перед викликом і відновив після.</text>
+<text x="60.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Сюди ж падають перші аргументи.</text>
+<rect x="450.0" y="70.0" width="370.0" height="320.0" rx="6" fill="#fafafa" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="450.0" y="70.0" width="370.0" height="40.0" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="635.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">CALLEE-SAVED (стійкі)</text>
+<text x="470.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">RBX RBP R12 R13 R14 R15</text>
+<text x="470.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start"></text>
+<text x="470.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">callee, якщо хоче ними скористатись,</text>
+<text x="470.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">мусить спершу зберегти їх на стек</text>
+<text x="470.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">і повернути назад перед виходом.</text>
+<text x="470.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Для того, хто кличе, вони «як були» —</text>
+<text x="470.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">переживають виклик недоторканими.</text>
+<text x="430.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">поділ — компроміс: зберігати кожен регістр при кожному виклику було б надто дорого</text>
+</svg>

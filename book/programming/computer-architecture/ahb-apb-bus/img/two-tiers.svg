@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві шини, один міст: швидке — на AHB, повільне — на APB</text>
+<rect x="60.0" y="120.0" width="640.0" height="30.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.2"/>
+<text x="380.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">AHB — швидка шина (повна тактова частота, пакети, конвеєр)</text>
+<rect x="124.1" y="41.0" width="51.8" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="62.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">ядро</tspan></text>
+<line x1="150.0" y1="75.0" x2="150.0" y2="120.0" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="304.1" y="41.0" width="51.8" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="330.0" y="62.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">SRAM</tspan></text>
+<line x1="330.0" y1="75.0" x2="330.0" y2="120.0" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="477.8" y="41.0" width="44.3" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="62.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">DMA</tspan></text>
+<line x1="500.0" y1="75.0" x2="500.0" y2="120.0" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="582.0" y="179.2" width="76.1" height="51.6" rx="6" fill="#fff9e6" stroke="#e0a800" stroke-width="2.2"/><text x="620.0" y="201.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">міст</tspan><tspan x="620.0" dy="15.6">AHB↔APB</tspan></text>
+<line x1="620.0" y1="150.0" x2="620.0" y2="179.2" stroke="#e0a800" stroke-width="2.0"/>
+<text x="680.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">раб на AHB</text>
+<rect x="60.0" y="290.0" width="640.0" height="30.0" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="380.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">APB — повільна шина (проста, дешева, одне звертання за раз)</text>
+<line x1="620.0" y1="230.8" x2="620.0" y2="290.0" stroke="#e0a800" stroke-width="2.0"/>
+<text x="680.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">майстер на APB</text>
+<rect x="124.1" y="343.0" width="51.8" height="34.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.8"/><text x="150.0" y="364.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">UART</tspan></text>
+<line x1="150.0" y1="320.0" x2="150.0" y2="343.0" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="274.1" y="343.0" width="51.8" height="34.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.8"/><text x="300.0" y="364.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">GPIO</tspan></text>
+<line x1="300.0" y1="320.0" x2="300.0" y2="343.0" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="416.7" y="343.0" width="66.6" height="34.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.8"/><text x="450.0" y="364.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">таймер</tspan></text>
+<line x1="450.0" y1="320.0" x2="450.0" y2="343.0" stroke="#27ae60" stroke-width="1.6"/>
+</svg>

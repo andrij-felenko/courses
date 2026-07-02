@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">SSA і φ-функція: одне присвоєння, явні залежності</text>
+<text x="360.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">SSA: кожне ім'я — записане рівно один раз</text>
+<rect x="255.0" y="84.0" width="210.0" height="34.0" rx="8" fill="#2a230f" stroke="#0a120d" stroke-width="1.4"/><text x="269.0" y="105.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#f0dca0" text-anchor="start" font-weight="700">br  x&gt;0, then, else</text>
+<rect x="90.0" y="176.0" width="200.0" height="34.0" rx="8" fill="#2a230f" stroke="#0a120d" stroke-width="1.4"/><text x="104.0" y="197.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#f0dca0" text-anchor="start" font-weight="700">y1 = x</text>
+<text x="190.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">then</text>
+<rect x="430.0" y="176.0" width="200.0" height="34.0" rx="8" fill="#2a230f" stroke="#0a120d" stroke-width="1.4"/><text x="444.0" y="197.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#f0dca0" text-anchor="start" font-weight="700">y2 = 0 - x</text>
+<text x="530.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">else</text>
+<rect x="255.0" y="280.0" width="210.0" height="56.0" rx="8" fill="#2c1030" stroke="#0a120d" stroke-width="1.4"/><text x="269.0" y="298.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#f0c8ff" text-anchor="start">y3 = φ(y1, y2)</text><text x="269.0" y="316.8" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#f0c8ff" text-anchor="start">z1 = y3 + 1</text>
+<text x="360.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">злиття</text>
+<line x1="300.0" y1="118.0" x2="190.0" y2="170.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="118.0" x2="530.0" y2="170.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="210.0" x2="300.0" y2="274.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="210.0" x2="420.0" y2="274.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="350.0" width="600.0" height="46.0" rx="10" fill="#fdf0ff" stroke="#a020c0" stroke-width="1.4"/>
+<text x="360.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">φ вибирає, ЯКЕ значення прийшло: з гілки then → y1, з else → y2.</text>
+<text x="360.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Це не машинна команда — підказка компілятору, звідки взялося ім'я.</text>
+</svg>

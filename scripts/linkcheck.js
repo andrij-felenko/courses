@@ -53,7 +53,7 @@ const GTOPICS = new Map();
   const gbase = path.join(ROOT, "guide");
   if (exists(gbase)) for (const d of fs.readdirSync(gbase)) {
     const guides = loadReg("__GUIDES__", path.join(gbase, d, "manifest.js"));
-    for (const g of guides) for (const sec of g.sections || []) for (const t of sec.topics || []) {
+    for (const g of guides) for (const sec of (g.sections || g.modules || [])) for (const t of (sec.topics && sec.topics.length ? sec.topics : (sec.chapters || []).flatMap((c) => c.steps || []))) {
       if (!t.slug) continue;                          // ref-крок — не guide:-ціль
       const files = new Set();
       const bs = (t.basic && t.basic.status) || "empty";

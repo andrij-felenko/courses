@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 372" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="372" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що FPU робить за одну float-операцію</text>
+<rect x="44.0" y="78.0" width="158.0" height="118.0" rx="6" fill="#fafafa" stroke="#2457d6" stroke-width="1.8"/>
+<text x="123.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">вирівняти</text>
+<text x="123.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">порядки</text>
+<text x="123.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">менший порядок зсуваємо</text>
+<text x="123.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">до більшого — коми в ряд</text>
+<line x1="203.0" y1="137.0" x2="215.0" y2="137.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="216.0" y="78.0" width="158.0" height="118.0" rx="6" fill="#fafafa" stroke="#27ae60" stroke-width="1.8"/>
+<text x="295.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">порахувати</text>
+<text x="295.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">мантиси</text>
+<text x="295.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">тепер це просто ціле</text>
+<text x="295.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">додавання/множення</text>
+<line x1="375.0" y1="137.0" x2="387.0" y2="137.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="388.0" y="78.0" width="158.0" height="118.0" rx="6" fill="#fafafa" stroke="#b9770e" stroke-width="1.8"/>
+<text x="467.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b9770e" text-anchor="middle" font-weight="700">нормалізувати</text>
+<text x="467.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">результат</text>
+<text x="467.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">повернути вигляд 1.xxxx —</text>
+<text x="467.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">зсув + правка порядку</text>
+<line x1="547.0" y1="137.0" x2="559.0" y2="137.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="78.0" width="158.0" height="118.0" rx="6" fill="#fafafa" stroke="#c0392b" stroke-width="1.8"/>
+<text x="639.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">округлити</text>
+<text x="639.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">надлишок</text>
+<text x="639.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">зайві біти зрізати за</text>
+<text x="639.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">правилом до парного</text>
+<rect x="44.0" y="218.0" width="672.0" height="50.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.6"/><text x="380.0" y="231.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Оце чотири кроки на КОЖНЕ +, −, ×, ÷ над float.</tspan><tspan x="380.0" dy="15.6">FPU робить їх апаратно за один-кілька тактів;</tspan><tspan x="380.0" dy="15.6">без FPU ту саму логіку виконує програма — десятки тактів.</tspan></text>
+<rect x="44.0" y="282.0" width="672.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/><text x="380.0" y="293.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Чому цілий ALU так не вміє: у float число розкидане на три поля</tspan><tspan x="380.0" dy="15.6">(знак · порядок · мантиса), і перед арифметикою їх треба узгодити,</tspan><tspan x="380.0" dy="15.6">а після — зібрати назад. Це не одна дія, а маленька програма —</tspan><tspan x="380.0" dy="15.6">тож їй дали окреме залізо.</tspan></text>
+</svg>

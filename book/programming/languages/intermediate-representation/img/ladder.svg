@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сходинка форм: текст → дерево → IR → асемблер</text>
+<text x="60.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">вихідний код</text>
+<text x="660.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-style="italic">близько до людини</text>
+<rect x="60.0" y="66.0" width="600.0" height="46.0" rx="8" fill="#0f1b14" stroke="#0a120d" stroke-width="1.4"/><text x="74.0" y="93.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#eaf6ee" text-anchor="start" font-weight="700">sum = a + b * 2;</text>
+<line x1="360.0" y1="114.0" x2="360.0" y2="136.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="374.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">парсер ↓</text>
+<text x="60.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">AST (дерево)</text>
+<text x="660.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-style="italic">структура виразу</text>
+<rect x="60.0" y="142.0" width="600.0" height="46.0" rx="8" fill="#1a2230" stroke="#0a120d" stroke-width="1.4"/><text x="74.0" y="169.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#bcd0ff" text-anchor="start" font-weight="700">(=  sum  (+ a (* b 2)))</text>
+<line x1="360.0" y1="190.0" x2="360.0" y2="212.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="374.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">кодоген IR ↓</text>
+<text x="60.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">IR (три адреси)</text>
+<text x="660.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-style="italic">нейтральне до заліза</text>
+<rect x="60.0" y="218.0" width="600.0" height="78.0" rx="8" fill="#2a230f" stroke="#0a120d" stroke-width="1.4"/><text x="74.0" y="236.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#f0dca0" text-anchor="start">t1 = b * 2</text><text x="74.0" y="254.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#f0dca0" text-anchor="start">t2 = a + t1</text><text x="74.0" y="272.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#f0dca0" text-anchor="start">sum = t2</text>
+<line x1="360.0" y1="298.0" x2="360.0" y2="320.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="374.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">кодоген ядра ↓</text>
+<text x="60.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">асемблер</text>
+<text x="660.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-style="italic">команди ядра</text>
+<rect x="60.0" y="326.0" width="600.0" height="78.0" rx="8" fill="#13202a" stroke="#0a120d" stroke-width="1.4"/><text x="74.0" y="344.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#7fe0a0" text-anchor="start">mul  r2, r_b, #2</text><text x="74.0" y="362.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#7fe0a0" text-anchor="start">add  r3, r_a, r2</text><text x="74.0" y="380.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#7fe0a0" text-anchor="start">str  r3, [sum]</text>
+<text x="60.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">чим нижче — тим менше «мови», тим більше «заліза»; IR посередині: без обох</text>
+</svg>
