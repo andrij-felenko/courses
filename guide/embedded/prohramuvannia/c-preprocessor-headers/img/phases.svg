@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вісім фаз трансляції: де сидить препроцесор</text>
+<rect x="70.0" y="60.0" width="680.0" height="40.0" rx="6" fill="#f3edfb" stroke="#8a5cc7" stroke-width="1.4"/>
+<circle cx="92.0" cy="80.0" r="13.0" fill="#ffffff" stroke="#8a5cc7" stroke-width="1.8"/>
+<text x="92.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a5cc7" text-anchor="middle" font-weight="700">1</text>
+<text x="116.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">мапа символів · заміна триграфів</text>
+<rect x="70.0" y="108.0" width="680.0" height="40.0" rx="6" fill="#f3edfb" stroke="#8a5cc7" stroke-width="1.4"/>
+<circle cx="92.0" cy="128.0" r="13.0" fill="#ffffff" stroke="#8a5cc7" stroke-width="1.8"/>
+<text x="92.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a5cc7" text-anchor="middle" font-weight="700">2</text>
+<text x="116.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">склейка рядків: «\» + новий рядок → один рядок</text>
+<rect x="70.0" y="156.0" width="680.0" height="40.0" rx="6" fill="#f3edfb" stroke="#8a5cc7" stroke-width="1.4"/>
+<circle cx="92.0" cy="176.0" r="13.0" fill="#ffffff" stroke="#8a5cc7" stroke-width="1.8"/>
+<text x="92.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a5cc7" text-anchor="middle" font-weight="700">3</text>
+<text x="116.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">розбиття на препроцесорні токени (максимальне «відкушування»)</text>
+<rect x="70.0" y="204.0" width="680.0" height="40.0" rx="6" fill="#f3edfb" stroke="#8a5cc7" stroke-width="1.4"/>
+<circle cx="92.0" cy="224.0" r="13.0" fill="#ffffff" stroke="#8a5cc7" stroke-width="1.8"/>
+<text x="92.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a5cc7" text-anchor="middle" font-weight="700">4</text>
+<text x="116.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">директиви й розгортання макросів · #include тягне файл крізь 1–4</text>
+<rect x="70.0" y="252.0" width="680.0" height="40.0" rx="6" fill="#f3edfb" stroke="#8a5cc7" stroke-width="1.4"/>
+<circle cx="92.0" cy="272.0" r="13.0" fill="#ffffff" stroke="#8a5cc7" stroke-width="1.8"/>
+<text x="92.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a5cc7" text-anchor="middle" font-weight="700">5</text>
+<text x="116.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">escape-послідовності в літералах перетворено</text>
+<rect x="70.0" y="300.0" width="680.0" height="40.0" rx="6" fill="#f3edfb" stroke="#8a5cc7" stroke-width="1.4"/>
+<circle cx="92.0" cy="320.0" r="13.0" fill="#ffffff" stroke="#8a5cc7" stroke-width="1.8"/>
+<text x="92.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a5cc7" text-anchor="middle" font-weight="700">6</text>
+<text x="116.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">сусідні рядкові літерали склеєно</text>
+<rect x="70.0" y="348.0" width="680.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<circle cx="92.0" cy="368.0" r="13.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="92.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">7</text>
+<text x="116.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">КОМПІЛЯТОР: токени → синтаксис → код</text>
+<rect x="70.0" y="396.0" width="680.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<circle cx="92.0" cy="416.0" r="13.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="92.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">8</text>
+<text x="116.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ЛІНКУВАЛЬНИК: зовнішні посилання з'єднано</text>
+<line x1="766.0" y1="60.0" x2="766.0" y2="340.0" stroke="#8a5cc7" stroke-width="2.5"/>
+<line x1="766.0" y1="60.0" x2="758.0" y2="60.0" stroke="#8a5cc7" stroke-width="2.5"/>
+<line x1="766.0" y1="340.0" x2="758.0" y2="340.0" stroke="#8a5cc7" stroke-width="2.5"/>
+<text x="774.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a5cc7" text-anchor="start" font-weight="700">ПРЕ-</text>
+<text x="774.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a5cc7" text-anchor="start" font-weight="700">ПРОЦЕСОР</text>
+</svg>

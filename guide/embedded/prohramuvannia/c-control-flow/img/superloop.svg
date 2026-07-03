@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="560" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="280.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Суперцикл: серце будь-якої прошивки</text>
+<rect x="150.0" y="52.0" width="260.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="280.0" y="70.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">setup(): один раз на старті</tspan><tspan x="280.0" dy="15.6">(тактування, GPIO, периферія)</tspan></text>
+<line x1="280.0" y1="96.0" x2="280.0" y2="128.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="150.0" y="140.0" width="260.0" height="52.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="280.0" y="162.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">зчитати</tspan><tspan x="280.0" dy="16.9">давачі, кнопки, час</tspan></text>
+<line x1="280.0" y1="192.0" x2="280.0" y2="214.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="150.0" y="214.0" width="260.0" height="52.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="280.0" y="236.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">вирішити</tspan><tspan x="280.0" dy="16.9">if / else за станом</tspan></text>
+<line x1="280.0" y1="266.0" x2="280.0" y2="288.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="150.0" y="288.0" width="260.0" height="52.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="280.0" y="310.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">подіяти</tspan><tspan x="280.0" dy="16.9">мотори, світло, вивід</tspan></text>
+<line x1="410.0" y1="314.0" x2="445.0" y2="314.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="445.0" y1="314.0" x2="445.0" y2="166.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="445.0" y1="166.0" x2="410.0" y2="166.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="453.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">while(1)</text>
+<text x="453.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">нескінченно</text>
+</svg>

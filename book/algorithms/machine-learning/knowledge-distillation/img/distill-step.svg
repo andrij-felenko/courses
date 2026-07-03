@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один крок дистиляції: три softmax і дві гілки втрати в один градієнт</text>
+<rect x="159.0" y="30.0" width="158.0" height="46.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="238.0" y="49.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">логіти вчителя</text>
+<text x="238.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">z_t (сталі, кеш)</text>
+<rect x="540.0" y="30.0" width="158.0" height="46.0" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="619.0" y="49.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">логіти учня</text>
+<text x="619.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">z_s (прямий хід)</text>
+<rect x="150.0" y="150.0" width="176.0" height="52.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="238.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">softmax_T  (T)</text>
+<text x="238.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">q — м'яка мітка вчителя</text>
+<rect x="404.0" y="150.0" width="176.0" height="52.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="492.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">softmax_T  (T)</text>
+<text x="492.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">p_soft — м'який учень</text>
+<rect x="658.0" y="150.0" width="176.0" height="52.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="746.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">softmax_T  (T=1)</text>
+<text x="746.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">p_hard — гострий учень</text>
+<line x1="238.0" y1="76.0" x2="238.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="619.0" y1="76.0" x2="492.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="619.0" y1="76.0" x2="746.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="326.0" y1="176.0" x2="404.0" y2="176.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+<text x="365.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">та сама T</text>
+<rect x="233.0" y="278.0" width="264.0" height="58.0" rx="8" fill="#fffaf0" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="365.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">дистиляційна втрата</text>
+<text x="365.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CE(q, p_soft) · T²   →  × α</text>
+<rect x="614.0" y="278.0" width="264.0" height="58.0" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="746.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">якір на тверду мітку</text>
+<text x="746.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CE(onehot, p_hard) → ×(1−α)</text>
+<line x1="238.0" y1="202.0" x2="285.8" y2="278.0" stroke="#8e44ad" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="492.0" y1="202.0" x2="444.2" y2="278.0" stroke="#8e44ad" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="746.0" y1="202.0" x2="746.0" y2="278.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="282.0" y="402.0" width="336.0" height="50.0" rx="9" fill="#eef7f0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="450.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">градієнт на логітах учня  dL/dz</text>
+<text x="450.0" y="441.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">α·T·(p_soft−q) + (1−α)·(p_hard−onehot)</text>
+<line x1="365.0" y1="336.0" x2="355.9" y2="402.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="746.0" y1="336.0" x2="544.1" y2="402.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="452.0" x2="450.0" y2="472.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="450.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">→ зворотне поширення учня → крок спуску</text>
+</svg>

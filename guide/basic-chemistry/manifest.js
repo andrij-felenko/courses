@@ -1,6 +1,6 @@
 /* guide/basic-chemistry/manifest.js — КУРС «Хімія» (тип "guide").
    Доріжка-надбудова: впорядковані ref-и на теми book/chemistry (власних статей курс не має).
-   Схема v5 (AUTHORING §2): modules[] → chapters[] → steps[]; нумерація Модуль·Розділ·Крок — з порядку масивів. */
+   Схема v6 (AUTHORING §2): modules[] → chapters[] → steps[]; нумерація Модуль·Розділ·Крок — з порядку масивів. */
 (window.__GUIDES__ = window.__GUIDES__ || []).push({
   type: "guide", slug: "basic-chemistry", title: "Хімія",
   modules: [

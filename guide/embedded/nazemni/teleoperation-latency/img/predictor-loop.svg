@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Предиктор Сміта: контролер замикається на модель, не на лаг</text>
+<circle cx="95.0" cy="150.0" r="11.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="95.0" y="154.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<text x="95.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ціль</text>
+<line x1="106.0" y1="150.0" x2="120.4" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="120.4" y="123.6" width="109.2" height="52.8" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="146.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">Регулятор</tspan><tspan x="175.0" dy="16.2">(контролер)</tspan></text>
+<rect x="334.4" y="123.6" width="171.2" height="52.8" rx="6" fill="#eafbf0" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="146.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">МОДЕЛЬ апарата</tspan><tspan x="420.0" dy="16.2">(миттєва, без лагу)</tspan></text>
+<rect x="617.0" y="123.6" width="86.0" height="52.8" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="660.0" y="146.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">затримка</tspan><tspan x="660.0" dy="16.2">e^(−sτ)</tspan></text>
+<rect x="815.0" y="123.6" width="86.0" height="52.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="858.0" y="146.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="858.0" dy="0.0">апарат</tspan><tspan x="858.0" dy="16.2">(залізо)</tspan></text>
+<line x1="229.6" y1="150.0" x2="334.4" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="282.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">команда u</text>
+<line x1="505.6" y1="150.0" x2="617.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="703.0" y1="150.0" x2="815.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="511.6" y1="150.0" x2="511.6" y2="240.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="511.6" y1="240.0" x2="95.0" y2="240.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="95.0" y1="240.0" x2="95.0" y2="161.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="171.6" y="254.5" width="257.5" height="23.0" rx="6" fill="#eafbf0" stroke="#27ae60" stroke-width="1.5"/><text x="300.3" y="269.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="300.3" dy="0.0">миттєвий вихід моделі → швидка петля</tspan></text>
+<circle cx="759.0" cy="156.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="759.0" y1="156.0" x2="759.0" y2="315.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="759.0" y1="315.0" x2="95.0" y2="315.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="95.0" y1="315.0" x2="95.0" y2="161.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="217.2" y="329.5" width="419.5" height="23.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="427.0" y="344.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="427.0" dy="0.0">повільна звірка: реальність − запізніла модель  (корекція дрейфу)</tspan></text>
+<rect x="45.4" y="423.8" width="849.2" height="32.5" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.5"/><text x="470.0" y="444.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Регулятор «відчуває» апарат БЕЗ затримки (через модель); лаг лишається тільки в повільній фоновій корекції.</tspan></text>
+</svg>

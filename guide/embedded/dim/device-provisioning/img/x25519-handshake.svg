@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="620" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Захищений канал: X25519 + доказ володіння</text>
+<circle cx="190.0" cy="58.0" r="24.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.4"/>
+<text x="190.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#2457d6" text-anchor="middle">☎</text>
+<text x="190.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">телефон (застосунок)</text>
+<circle cx="710.0" cy="58.0" r="24.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="710.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПЛ</text>
+<text x="710.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">пристрій</text>
+<line x1="190.0" y1="108.0" x2="190.0" y2="560.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2 6"/>
+<line x1="710.0" y1="108.0" x2="710.0" y2="560.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2 6"/>
+<text x="450.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">◂ що чути в ефірі ▸</text>
+<line x1="218.0" y1="168.0" x2="682.0" y2="168.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="375.0" y="135.5" width="150.0" height="25.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="450.0" y="151.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">публічний ключ P_ph</tspan></text>
+<line x1="682.0" y1="232.0" x2="218.0" y2="232.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="374.8" y="199.5" width="150.4" height="25.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="215.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">публічний ключ P_dev</tspan></text>
+<rect x="62.0" y="268.0" width="256.0" height="42.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="190.0" y="293.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">s = X25519(k_ph, P_dev)</tspan></text>
+<rect x="582.0" y="268.0" width="256.0" height="42.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="710.0" y="293.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">s = X25519(k_dev, P_ph)</tspan></text>
+<text x="450.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" font-weight="700">=</text>
+<text x="450.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">той самий s — але в ефір НЕ летів</text>
+<rect x="240.0" y="348.0" width="420.0" height="44.0" rx="6" fill="#fff8e6" stroke="#8a6d0b" stroke-width="1.5"/><text x="450.0" y="374.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d0b" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">ключ сеансу  K = HKDF( s ‖ PoP-секрет із наклейки )</tspan></text>
+<text x="450.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">хто не тримав пристрій у руках — PoP не знає → K не збереться</text>
+<line x1="218.0" y1="452.0" x2="682.0" y2="452.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="361.2" y="419.5" width="177.7" height="25.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="450.0" y="435.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">AES-GCM{ SSID + пароль }</tspan></text>
+<text x="450.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">пароль їде тут — але вже під шифром K</text>
+<rect x="60.0" y="512.0" width="780.0" height="74.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="450.0" y="534.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підслуховувач в ефірі бачить:</text>
+<text x="450.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">два публічні ключі (з них секрет не відновити) + шифротекст. Ні s, ні PoP, ні пароля — самий шум.</text>
+</svg>

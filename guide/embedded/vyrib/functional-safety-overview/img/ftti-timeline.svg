@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Безпечний стан має дедлайн: виявити + відреагувати &lt; час до шкоди</text>
+<line x1="90.0" y1="150.0" x2="770.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="768.0" y1="150.0" x2="794.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="800.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">час</text>
+<line x1="110.0" y1="138.0" x2="110.0" y2="162.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="390.0" y1="138.0" x2="390.0" y2="162.0" stroke="#8a5a1f" stroke-width="2.4"/>
+<line x1="520.0" y1="138.0" x2="520.0" y2="162.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="740.0" y1="138.0" x2="740.0" y2="162.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="110.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">відмова</tspan><tspan x="110.0" dy="14.3">сталася</tspan></text>
+<text x="390.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5a1f" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">діагностика</tspan><tspan x="390.0" dy="14.3">засікла</tspan></text>
+<text x="520.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">безпечний</tspan><tspan x="520.0" dy="14.3">стан зайнято</tspan></text>
+<text x="740.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="740.0" dy="0.0">ШКОДА</tspan><tspan x="740.0" dy="14.3">без реакції</tspan></text>
+<line x1="110.0" y1="196.0" x2="390.0" y2="196.0" stroke="#8a5a1f" stroke-width="1.8"/>
+<line x1="110.0" y1="191.0" x2="110.0" y2="201.0" stroke="#8a5a1f" stroke-width="1.8"/>
+<line x1="390.0" y1="191.0" x2="390.0" y2="201.0" stroke="#8a5a1f" stroke-width="1.8"/>
+<text x="250.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a5a1f" text-anchor="middle" font-weight="700">FDTI  (виявлення)</text>
+<line x1="390.0" y1="196.0" x2="520.0" y2="196.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="390.0" y1="191.0" x2="390.0" y2="201.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="520.0" y1="191.0" x2="520.0" y2="201.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="455.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">FRTI  (реакція)</text>
+<line x1="110.0" y1="246.0" x2="740.0" y2="246.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="110.0" y1="241.0" x2="110.0" y2="251.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="740.0" y1="241.0" x2="740.0" y2="251.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="425.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">FTTI  —  дедлайн від фізики небезпеки</text>
+<rect x="90.0" y="292.0" width="680.0" height="40.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="430.0" y="315.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">FDTI + FRTI  &lt;  FTTI     —     час помітити плюс час відреагувати мусить лишатися меншим за час до біди.</tspan></text>
+<rect x="90.0" y="342.0" width="680.0" height="30.0" rx="6" fill="#fdf6ec" stroke="#8a5a1f" stroke-width="1.4"/><text x="430.0" y="360.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">FDTI задається частотою діагностики: DTI &lt; FTTI/2, інакше відмова дозріє до шкоди між двома перевірками.</tspan></text>
+<rect x="90.0" y="380.0" width="680.0" height="28.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="430.0" y="398.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Не вклався в дедлайн — failsafe спрацює вже ПІСЛЯ біди, і вся логіка марна.</tspan></text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому now − then переживає переповнення, а then &lt; now — ні</text>
+<line x1="90.0" y1="150.0" x2="650.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="90.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="650.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">2³² − 1 (MAX)</text>
+<path d="M 650.0 142.0 q 40 -46 -560.0 -46 q -280.0 0 -560.0 46" fill="none" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="370.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">лічильник обертається кожні ≈ 49 діб</text>
+<line x1="580.0" y1="141.0" x2="580.0" y2="159.0" stroke="#2457d6" stroke-width="2.4"/>
+<text x="580.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">then</text>
+<text x="580.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">= MAX − 30</text>
+<line x1="150.0" y1="141.0" x2="150.0" y2="159.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="150.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">now</text>
+<text x="150.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">= 70</text>
+<text x="370.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">справжній інтервал = 30 + 70 = 100 мс (короткий стрибок через край)</text>
+<rect x="90.0" y="242.0" width="300.0" height="62.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="240.0" y="261.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">now − then  (беззнаково)</tspan><tspan x="240.0" dy="15.6">= 70 − (MAX−30)</tspan><tspan x="240.0" dy="15.6">= 100  ✓ правильно</tspan></text>
+<rect x="350.0" y="242.0" width="300.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="500.0" y="261.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">then &lt; now ?</tspan><tspan x="500.0" dy="15.6">MAX−30 &lt; 70 → хибно</tspan><tspan x="500.0" dy="15.6">→ «час не настав» ✗ зависання</tspan></text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схемна еволюція: новий тег не ламає старого читача</text>
+<text x="40.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Відправник v2 шле:</text>
+<rect x="250.0" y="74.0" width="74.0" height="40.0" rx="4" fill="#eaf6ee" stroke="#333333" stroke-width="1.5"/><text x="287.0" y="98.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">тег 1</text>
+<text x="287.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">temp</text>
+<rect x="330.0" y="74.0" width="74.0" height="40.0" rx="4" fill="#eaf6ee" stroke="#333333" stroke-width="1.5"/><text x="367.0" y="98.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">тег 2</text>
+<text x="367.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">статус</text>
+<rect x="410.0" y="74.0" width="74.0" height="40.0" rx="4" fill="#fdf6e3" stroke="#333333" stroke-width="1.5"/><text x="447.0" y="98.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">тег 3</text>
+<text x="447.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">вологість</text>
+<text x="40.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Читач v1 (знає теги 1, 2):</text>
+<rect x="250.0" y="192.0" width="74.0" height="40.0" rx="4" fill="#eaf6ee" stroke="#333333" stroke-width="1.5"/><text x="287.0" y="216.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">тег 1</text>
+<text x="287.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<rect x="330.0" y="192.0" width="74.0" height="40.0" rx="4" fill="#eaf6ee" stroke="#333333" stroke-width="1.5"/><text x="367.0" y="216.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">тег 2</text>
+<text x="367.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<rect x="410.0" y="192.0" width="74.0" height="40.0" rx="4" fill="#e9ecef" stroke="#333333" stroke-width="1.5"/><text x="447.0" y="216.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">тег 3</text>
+<text x="447.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle" font-weight="700">→</text>
+<text x="447.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">незнайоме →
+переступити</text>
+<text x="450.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">поля 1 і 2 прочитані; тег 3 незнайомий — пропущено за його довжиною, БЕЗ падіння</text>
+<rect x="90.0" y="350.0" width="720.0" height="60.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="369.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Дзеркально: читач v2, діставши від старого відправника лише теги 1 і 2,</tspan><tspan x="450.0" dy="14.3">підставляє для відсутнього поля 3 значення за замовчуванням.</tspan><tspan x="450.0" dy="14.3">Правило: номер поля, раз виданий, закріплений НАВІЧНО — не міняти, не перевикористовувати.</tspan></text>
+</svg>

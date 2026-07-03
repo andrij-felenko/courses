@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">BLE-провізіонування: сервіс GATT і фрагментація даних</text>
+<text x="210.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">GATT-сервіс провізіонування</text>
+<rect x="60.0" y="84.0" width="300.0" height="40.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="210.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Service: Provisioning</text>
+<line x1="84.0" y1="124.0" x2="84.0" y2="172.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="84.0" y1="172.0" x2="106.0" y2="172.0" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="106.0" y="150.0" width="274.0" height="46.0" rx="7" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="243.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Char: scan-list</text>
+<text x="243.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">READ / NOTIFY  ·  мережі поблизу</text>
+<line x1="84.0" y1="124.0" x2="84.0" y2="238.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="84.0" y1="238.0" x2="106.0" y2="238.0" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="106.0" y="216.0" width="274.0" height="46.0" rx="7" fill="#fff4f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="243.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Char: config</text>
+<text x="243.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">WRITE  ·  сюди SSID + пароль</text>
+<line x1="84.0" y1="124.0" x2="84.0" y2="304.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="84.0" y1="304.0" x2="106.0" y2="304.0" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="106.0" y="282.0" width="274.0" height="46.0" rx="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="243.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Char: ctrl / status</text>
+<text x="243.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">WRITE / NOTIFY  ·  команда й вирок</text>
+<text x="690.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Пароль не влазить в один запис</text>
+<rect x="520.0" y="84.0" width="340.0" height="34.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="690.0" y="104.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">SSID + пароль ≈ 90 байтів (зашифровано)</tspan></text>
+<text x="690.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">MTU за замовчуванням: 23 байти (корисних ~20)</text>
+<line x1="690.0" y1="150.0" x2="690.0" y2="186.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="520.0" y="196.0" width="62.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="551.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Write #1</text>
+<line x1="582.0" y1="216.0" x2="590.0" y2="216.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="594.0" y="196.0" width="62.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="625.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Write #2</text>
+<line x1="656.0" y1="216.0" x2="664.0" y2="216.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="668.0" y="196.0" width="62.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="699.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Write #3</text>
+<line x1="730.0" y1="216.0" x2="738.0" y2="216.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="742.0" y="196.0" width="62.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="773.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">…</text>
+<line x1="804.0" y1="216.0" x2="812.0" y2="216.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="816.0" y="196.0" width="62.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="847.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Write #5</text>
+<rect x="520.0" y="262.0" width="340.0" height="62.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="690.0" y="282.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="690.0" dy="0.0">пристрій збирає фрагменти в буфер,</tspan><tspan x="690.0" dy="14.3">поки не прийде повний кадр —</tspan><tspan x="690.0" dy="14.3">аж тоді розшифровує й читає дані</tspan></text>
+<rect x="520.0" y="334.0" width="340.0" height="46.0" rx="6" fill="#fff8e6" stroke="#8a6d0b" stroke-width="1.5"/><text x="690.0" y="353.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a6d0b" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">домовитись про більший MTU (до 517) —</tspan><tspan x="690.0" dy="14.3">менше записів, швидше</tspan></text>
+</svg>

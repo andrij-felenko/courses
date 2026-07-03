@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="680" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="340.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому цикл коли-небудь спиниться: три речі, що мусять збігтися</text>
+<rect x="250.0" y="56.0" width="240.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="370.0" y="77.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">старт: i = 0  (початковий стан)</tspan></text>
+<line x1="370.0" y1="90.0" x2="370.0" y2="112.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<polygon points="370.0,119.0 482.0,152.0 370.0,185.0 258.0,152.0" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/><text x="370.0" y="156.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">умова ще істинна?</text>
+<line x1="482.0" y1="152.0" x2="520.0" y2="152.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="502.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">хибна</text>
+<rect x="520.0" y="132.0" width="118.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="579.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="579.0" dy="0.0">вихід із циклу</tspan><tspan x="579.0" dy="13.0">далі — код нижче</tspan></text>
+<line x1="370.0" y1="185.0" x2="370.0" y2="212.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="436.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">істинна</text>
+<rect x="250.0" y="212.0" width="240.0" height="42.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="370.0" y="229.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">тіло: робить корисне</tspan><tspan x="370.0" dy="15.6">(інваріант тримається)</tspan></text>
+<line x1="370.0" y1="254.0" x2="370.0" y2="282.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="250.0" y="282.0" width="240.0" height="42.0" rx="6" fill="#fff" stroke="#2457d6" stroke-width="1.5"/><text x="370.0" y="299.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">крок: i++  ← рух до виходу</tspan><tspan x="370.0" dy="14.3">(саме це веде умову до хибності)</tspan></text>
+<line x1="250.0" y1="303.0" x2="170.0" y2="303.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="170.0" y1="303.0" x2="170.0" y2="152.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="170.0" y1="152.0" x2="258.0" y2="152.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="162.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">назад</text>
+<rect x="75.0" y="346.0" width="530.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="340.0" y="366.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">нема кроку, що веде умову до хибності → петля не рветься → зависання</tspan></text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гарячий шлях заливки: де народжується швидкість</text>
+<rect x="46.0" y="60.0" width="320.0" height="300.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="206.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">наївно — по пікселю</text>
+<text x="66.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">for кожен піксель:</text>
+<text x="66.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  swap16() вручну в циклі</text>
+<text x="66.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  підняти CS  →  байт  →  опустити CS</text>
+<text x="66.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  чекати кінця передачі (CPU стоїть)</text>
+<line x1="66.0" y1="240.0" x2="346.0" y2="240.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="206.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="206.0" dy="0.0">тисячі разів: зайвий swap, смикання CS</tspan><tspan x="206.0" dy="13.2">на кожен байт, процесор чекає шину —</tspan><tspan x="206.0" dy="13.2">кадр повзе, батарея тане</tspan></text>
+<text x="206.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">повільно, гаряче</text>
+<rect x="394.0" y="60.0" width="320.0" height="300.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="554.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">гарячий шлях — блоком</text>
+<text x="414.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">перевернути колір РАЗ перед циклом</text>
+<text x="414.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">CS ↓ один раз на весь блок</text>
+<text x="414.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">залізо міняє байти на льоту (HW swap)</text>
+<text x="414.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">великий блок → DMA, CPU вільний</text>
+<text x="414.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">CS ↑ після всього блоку</text>
+<line x1="414.0" y1="258.0" x2="694.0" y2="258.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="554.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="554.0" dy="0.0">одна підготовка — і DMA жене буфер</tspan><tspan x="554.0" dy="13.2">сам, поки процесор рахує наступний</tspan><tspan x="554.0" dy="13.2">кадр; шина зайнята корисним, не CS</tspan></text>
+<text x="554.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">швидко, холодно</text>
+<text x="380.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">та сама трійця CASET·RASET·RAMWR — різниця лише в тому, ЯК ти віддаєш потік</text>
+</svg>

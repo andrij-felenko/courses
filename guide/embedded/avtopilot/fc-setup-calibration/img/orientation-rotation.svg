@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Орієнтація плати — це поворот осей, а не поправка на кожну вісь</text>
+<text x="235.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Суміщення систем координат</text>
+<text x="150.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">осі апарата (body)</text>
+<line x1="150.0" y1="200.0" x2="150.0" y2="128.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="134.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">X↑</text>
+<line x1="150.0" y1="200.0" x2="222.0" y2="200.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="226.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Y</text>
+<circle cx="150.0" cy="200.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="150.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">осі давача (як лежить мікросхема)</text>
+<line x1="150.0" y1="350.0" x2="216.0" y2="320.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="220.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">xₛ</text>
+<line x1="150.0" y1="350.0" x2="180.0" y2="410.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="184.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">yₛ</text>
+<circle cx="150.0" cy="350.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<line x1="154.0" y1="326.0" x2="154.0" y2="240.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="215.6" y="245.3" width="168.8" height="59.4" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.4"/><text x="300.0" y="264.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">a_body = R · a_sensor</tspan><tspan x="300.0" dy="15.0">R — матриця повороту</tspan><tspan x="300.0" dy="15.0">(дискретна, кратна 45°)</tspan></text>
+<line x1="470.0" y1="60.0" x2="470.0" y2="430.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="705.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Неправильна орієнтація отруює політ</text>
+<text x="560.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">фізично: ніс униз (тангаж)</text>
+<path d="M540 158 L640 176" stroke="#1a1a1a" stroke-width="3"/>
+<line x1="590.0" y1="154.0" x2="590.0" y2="190.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="596.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ніс</text>
+<text x="560.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">прошивка (R=None при Yaw90): нахил УБІК (крен)</text>
+<path d="M560 326 L680 304" stroke="#c0392b" stroke-width="3"/>
+<line x1="620.0" y1="315.0" x2="660.0" y2="297.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="538.2" y="375.2" width="333.5" height="59.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="705.0" y="394.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">Стабілізатор «виправляє» неіснуючий крен —</tspan><tspan x="705.0" dy="14.3">і вганяє апарат у реальний. «Злетів і перекинувся»</tspan><tspan x="705.0" dy="14.3">часто = переплутана AHRS_ORIENTATION.</tspan></text>
+<text x="470.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Поворот множить, калібрування додає й масштабує — вони не комутують: спершу поправ давач у його осях, тоді поверни в осі апарата</text>
+</svg>

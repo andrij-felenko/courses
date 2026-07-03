@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Утиск 8→5 біт: чому просте відкидання гасить біле</text>
+<text x="70.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">8-бітний канал (0…255): 256 рівнів</text>
+<rect x="70.0" y="66.0" width="640.0" height="22.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="64.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0</text>
+<text x="716.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">255</text>
+<rect x="70.0" y="150.0" width="320.0" height="210.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.9"/>
+<text x="230.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">просто відкинути: v &gt;&gt; 3</text>
+<text x="90.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">255 = 1111 1111</text>
+<text x="90.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  &gt;&gt; 3  →  11111 = 31   (5 біт)</text>
+<text x="90.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">назад у 8 біт: 31 &lt;&lt; 3</text>
+<text x="90.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  = 1111 1000 = 248</text>
+<line x1="90.0" y1="318.0" x2="370.0" y2="318.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="230.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">255 → 248: біле недотягнуло, ледь сіре</text>
+<rect x="420.0" y="150.0" width="320.0" height="210.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.9"/>
+<text x="580.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">дублювати старші вниз</text>
+<text x="440.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">5 біт = 11111 = 31</text>
+<text x="440.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">8 біт = (31&lt;&lt;3) | (31&gt;&gt;2)</text>
+<text x="440.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  1111 1000 | 0000 0111</text>
+<text x="440.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  = 1111 1111 = 255</text>
+<line x1="440.0" y1="318.0" x2="720.0" y2="318.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="580.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">255 → 255: діапазон повний, біле чисте</text>
+<text x="390.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">поле вузьке — точність губиться завжди; питання лише, куди «липне» край шкали</text>
+</svg>

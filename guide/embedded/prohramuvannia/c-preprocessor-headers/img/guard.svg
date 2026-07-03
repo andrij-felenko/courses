@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">led.h потрапляє двічі — сторож пропускає лише перший раз</text>
+<rect x="125.0" y="114.0" width="150.0" height="32.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="200.0" y="134.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">1-ша вставка</tspan></text>
+<text x="200.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">LED_H не визначено →</text>
+<text x="200.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">заходимо, ставимо LED_H,</text>
+<text x="200.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">тіло заголовка читається</text>
+<rect x="505.0" y="114.0" width="150.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="580.0" y="134.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">2-га вставка</tspan></text>
+<text x="580.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">LED_H вже визначено →</text>
+<text x="580.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">усе між #ifndef і #endif</text>
+<text x="580.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">пропущено (нічого не читаємо)</text>
+<rect x="300.0" y="246.8" width="180.0" height="46.5" rx="6" fill="#f3edfb" stroke="#8a5cc7" stroke-width="1.5"/><text x="390.0" y="266.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5cc7" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">прапорець LED_H</tspan><tspan x="390.0" dy="15.0">(порожній макрос)</tspan></text>
+<line x1="200.0" y1="224.0" x2="350.0" y2="250.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="255.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ставить</text>
+<line x1="430.0" y1="250.0" x2="580.0" y2="224.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="525.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">бачить</text>
+<text x="390.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">без сторожа — оголошення двічі → помилка «redefinition»</text>
+</svg>

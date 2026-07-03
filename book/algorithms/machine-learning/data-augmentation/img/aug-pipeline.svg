@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аугментація живе між даними й моделлю — тільки над train</text>
+<rect x="47.8" y="95.0" width="84.5" height="49.9" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="90.0" y="116.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">train</tspan><tspan x="90.0" dy="16.9">(N фото)</tspan></text>
+<line x1="150.0" y1="120.0" x2="215.0" y2="120.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="234.2" y="96.2" width="131.6" height="47.6" rx="6" fill="#fdf6e3" stroke="#c0392b" stroke-width="1.5"/><text x="300.0" y="116.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">аугментатор</tspan><tspan x="300.0" dy="15.6">щоепохи — новий</tspan></text>
+<line x1="392.0" y1="120.0" x2="470.0" y2="120.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="509.7" y="95.0" width="100.6" height="49.9" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="560.0" y="116.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">модель</tspan><tspan x="560.0" dy="16.9">(навчання)</tspan></text>
+<line x1="300.0" y1="154.0" x2="300.0" y2="180.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4,3"/>
+<text x="300.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">епоха 1: ліва-віддзеркалена…</text>
+<text x="300.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">епоха 2: обрізана, темніша…</text>
+<rect x="39.7" y="243.5" width="100.6" height="33.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="90.0" y="264.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">val / test</tspan></text>
+<line x1="150.0" y1="260.0" x2="470.0" y2="260.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="300.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">БЕЗ аугментації — оригінали</text>
+<rect x="517.8" y="235.1" width="84.5" height="49.9" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="560.0" y="256.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">модель</tspan><tspan x="560.0" dy="16.9">(оцінка)</tspan></text>
+</svg>

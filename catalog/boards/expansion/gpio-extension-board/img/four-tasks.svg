@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири задачі — чотири набори підписаних точок, усі беруться з тієї самої плати</text>
+<rect x="30.0" y="62.0" width="200.0" height="250.0" rx="10" fill="#f4f8f5" stroke="#2457d6" stroke-width="1.9"/>
+<text x="130.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1 · світлодіод</text>
+<rect x="46.0" y="101.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="72.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO17</text>
+<text x="108.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">вихід</text>
+<rect x="46.0" y="131.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="72.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GND</text>
+<text x="108.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">катод</text>
+<rect x="46.0" y="161.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="72.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">330 Ω</text>
+<text x="108.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">послідовно</text>
+<line x1="44.0" y1="260.0" x2="216.0" y2="260.0" stroke="#d7dbe0" stroke-width="1.2"/>
+<text x="130.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">перевірка залізом:</text>
+<text x="130.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">gpioset gpiochip0 17=1</text>
+<rect x="248.0" y="62.0" width="200.0" height="250.0" rx="10" fill="#f4f8f5" stroke="#27ae60" stroke-width="1.9"/>
+<text x="348.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2 · кнопка</text>
+<rect x="264.0" y="101.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="290.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO27</text>
+<text x="326.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">вхід+pull-up</text>
+<rect x="264.0" y="131.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="290.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GND</text>
+<text x="326.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">друга нога</text>
+<rect x="264.0" y="161.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="290.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">—</text>
+<text x="326.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">резистор не треба</text>
+<line x1="262.0" y1="260.0" x2="434.0" y2="260.0" stroke="#d7dbe0" stroke-width="1.2"/>
+<text x="348.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">перевірка залізом:</text>
+<text x="348.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">gpioget gpiochip0 27</text>
+<rect x="466.0" y="62.0" width="200.0" height="250.0" rx="10" fill="#f4f8f5" stroke="#1a1a1a" stroke-width="1.9"/>
+<text x="566.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3 · I²C-давач</text>
+<rect x="482.0" y="101.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="508.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">3V3</text>
+<text x="544.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">живлення</text>
+<rect x="482.0" y="131.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="508.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GND</text>
+<text x="544.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">земля</text>
+<rect x="482.0" y="161.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="508.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SDA</text>
+<text x="544.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">GPIO2</text>
+<rect x="482.0" y="191.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="508.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SCL</text>
+<text x="544.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">GPIO3</text>
+<line x1="480.0" y1="260.0" x2="652.0" y2="260.0" stroke="#d7dbe0" stroke-width="1.2"/>
+<text x="566.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">перевірка залізом:</text>
+<text x="566.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">i2cdetect -y 1</text>
+<rect x="684.0" y="62.0" width="200.0" height="250.0" rx="10" fill="#f4f8f5" stroke="#c0392b" stroke-width="1.9"/>
+<text x="784.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">4 · SPI</text>
+<rect x="700.0" y="101.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="726.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MOSI</text>
+<text x="762.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">GPIO10</text>
+<rect x="700.0" y="131.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="726.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MISO</text>
+<text x="762.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">GPIO9</text>
+<rect x="700.0" y="161.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="726.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SCLK</text>
+<text x="762.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">GPIO11</text>
+<rect x="700.0" y="191.0" width="52.0" height="22.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="726.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">CE0</text>
+<text x="762.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">GPIO8</text>
+<line x1="698.0" y1="260.0" x2="870.0" y2="260.0" stroke="#d7dbe0" stroke-width="1.2"/>
+<text x="784.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">перевірка залізом:</text>
+<text x="784.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">ls /dev/spidev0.0</text>
+<rect x="144.7" y="328.5" width="590.6" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="347.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">усі точки підписані на платі — беремо їх напряму, без відлічування штирів на голій гребінці</tspan></text>
+<rect x="138.4" y="386.5" width="603.1" height="31.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="440.0" y="405.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">!  3V3 — так, 5V — ніколи: живлення давача й РІВЕНЬ його сигналу в бік Pi — два різні питання</tspan></text>
+</svg>

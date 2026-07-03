@@ -1,15 +1,15 @@
-/* manifest — «Фізика» (тип "book"). Схема — AUTHORING.md §2 (v4). */
+/* manifest — «Фізика» (тип "book"). Схема — AUTHORING.md §2 (v6). */
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
   type: "book", slug: "physics", title: "Фізика",
   sections: [
     { slug: "mechanics", title: "Механіка", scope: "Рух точок, систем і твердого тіла під дією сил із законами збереження; лагранжів і гамільтонів формалізми та зв'язок симетрій зі збереженнями; нелінійна й дисипативна динаміка (стійкість, біфуркації, хаос, атрактори); деформації пружних тіл і плинність рідин та газів як суцільних середовищ.",
       topics: [
-        { slug: "thrust-vs-weight", title: "Тяга проти ваги", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "reaction-torque", title: "Реактивний момент", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "frame-configurations", title: "Рами й конфігурації", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "propeller-geometry", title: "Гвинт", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "fixed-wing-lift", title: "Літак", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "vtol-transition", title: "VTOL-гібриди", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "thrust-vs-weight", title: "Тяга проти ваги", basic: { status: "done" }, detailed: { status: "pending" }, math: [{ file: "math-actuator-disk.md", status: "done" }] },
+        { slug: "reaction-torque", title: "Реактивний момент", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-tail-rotor.md", status: "done" }], proj: [{ file: "proj-yaw-mixer.md", status: "done" }] },
+        { slug: "frame-configurations", title: "Рами й конфігурації", basic: { status: "done" }, detailed: { status: "pending" }, math: [{ file: "math-mixer-matrix.md", status: "done" }], hist: [{ file: "hist-multirotor.md", status: "done" }] },
+        { slug: "propeller-geometry", title: "Гвинт", basic: { status: "done" }, detailed: { status: "pending" }, math: [{ file: "math-blade-element.md", status: "done" }], hist: [{ file: "hist-propeller.md", status: "done" }] },
+        { slug: "fixed-wing-lift", title: "Літак", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-lift-theory.md", status: "done" }], math: [{ file: "math-circulation.md", status: "done" }] },
+        { slug: "vtol-transition", title: "VTOL-гібриди", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-tiltrotor.md", status: "done" }] },
         { slug: "gear-tooth-geometry", title: "Геометрія зуба та зачеплення", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "breguet-range-endurance", title: "Рівняння дальності й тривалості Бреге", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "specific-force", title: "Питома сила і strapdown-інтеграція", basic: { status: "pending" }, detailed: { status: "empty" } },
@@ -28,6 +28,9 @@
         { slug: "dynamic-pressure", title: "Динамічний тиск і число Бернуллі", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "atmospheric-pressure", title: "Атмосферний тиск", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "si-base-units", title: "Базові одиниці СІ", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "center-of-mass", title: "Центр мас", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "surface-tension", title: "Поверхневий натяг", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "material-fatigue", title: "Втома матеріалу", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "oscillations-waves", title: "Хвилі", scope: "Періодичний рух біля рівноваги та поширення механічних збурень: коливання, резонанс, дисперсія, інтерференція, звук.",
       topics: [

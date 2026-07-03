@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат збирання кадру S.BUS із байтового потоку</text>
+<circle cx="250.0" cy="150.0" r="62.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.4"/>
+<text x="250.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">SEEK</tspan><tspan x="250.0" dy="18.2">шукаю 0x0F</tspan></text>
+<circle cx="650.0" cy="150.0" r="62.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="650.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">COLLECT</tspan><tspan x="650.0" dy="18.2">набираю 25</tspan></text>
+<line x1="312.0" y1="132.0" x2="588.0" y2="132.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="450.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">байт == 0x0F  (n ← 1)</text>
+<line x1="196.0" y1="108.0" x2="158.0" y2="144.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="158.0" y1="144.0" x2="196.0" y2="192.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="110.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">байт ≠ 0x0F
+викинути</text>
+<line x1="704.0" y1="108.0" x2="742.0" y2="144.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="742.0" y1="144.0" x2="704.0" y2="192.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="790.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">n &lt; 25
+класти в буфер
+(n ← n+1)</text>
+<line x1="650.0" y1="212.0" x2="650.0" y2="304.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="530.0" y="306.0" width="240.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/><text x="650.0" y="336.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">n == 25 ?</tspan><tspan x="650.0" dy="16.9">буфер[24] == 0x00 ?</tspan></text>
+<line x1="530.0" y1="340.0" x2="220.0" y2="340.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="91.6" y="316.2" width="116.7" height="47.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="150.0" y="336.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">кадр валідний</tspan><tspan x="150.0" dy="15.6">→ розпакувати</tspan></text>
+<text x="475.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">так</text>
+<line x1="650.0" y1="374.0" x2="650.0" y2="406.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="406.0" x2="250.0" y2="406.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="406.0" x2="250.0" y2="212.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="740.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">хвіст не 0x00 → десинхрон:
+усе назад у SEEK</text>
+<text x="450.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">будь-який збій повертає в SEEK — зсунутий кадр краще викинути, ніж з'їсти</text>
+</svg>

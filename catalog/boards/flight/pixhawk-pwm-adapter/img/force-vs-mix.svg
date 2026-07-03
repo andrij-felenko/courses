@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два шляхи до гребінки: штатне змішування VS примусовий обхід</text>
+<text x="60.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Штатно (у польоті):</text>
+<rect x="60.0" y="96.0" width="170.0" height="62.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="145.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="145.0" dy="0.0">команда</tspan><tspan x="145.0" dy="13.7">пілота / місії</tspan></text>
+<line x1="236.0" y1="127.0" x2="270.0" y2="127.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="276.0" y="96.0" width="170.0" height="62.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="361.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="361.0" dy="0.0">контролер</tspan><tspan x="361.0" dy="13.7">+ ЗМІШУВАЧ</tspan></text>
+<line x1="452.0" y1="127.0" x2="486.0" y2="127.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="492.0" y="96.0" width="170.0" height="62.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="577.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="577.0" dy="0.0">ширина на</tspan><tspan x="577.0" dy="13.7">кожен вихід</tspan></text>
+<line x1="668.0" y1="127.0" x2="702.0" y2="127.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="708.0" y="96.0" width="170.0" height="62.0" rx="8" fill="#fff8e6" stroke="#b8860b" stroke-width="1.8"/>
+<text x="793.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="793.0" dy="0.0">гребінка</tspan><tspan x="793.0" dy="13.7">адаптера</tspan></text>
+<text x="577.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">змішувач враховує режим, тримінг, failsafe — виходи узгоджені</text>
+<text x="60.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Примусово (MAV_CMD_DO_SET_SERVO / DO_MOTOR_TEST):</text>
+<rect x="60.0" y="260.0" width="170.0" height="62.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="145.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="145.0" dy="0.0">твоя програма</tspan><tspan x="145.0" dy="13.7">(MAVLink-команда)</tspan></text>
+<rect x="492.0" y="260.0" width="170.0" height="62.0" rx="8" fill="#fff8e6" stroke="#b8860b" stroke-width="1.8"/>
+<text x="577.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="577.0" dy="0.0">ширина прямо</tspan><tspan x="577.0" dy="13.7">на цей вихід</tspan></text>
+<rect x="708.0" y="260.0" width="170.0" height="62.0" rx="8" fill="#fff8e6" stroke="#b8860b" stroke-width="1.8"/>
+<text x="793.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="793.0" dy="0.0">гребінка</tspan><tspan x="793.0" dy="13.7">адаптера</tspan></text>
+<line x1="236.0" y1="291.0" x2="486.0" y2="291.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="668.0" y1="291.0" x2="702.0" y2="291.0" stroke="#b8860b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="361.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">змішувача тут НЕМА</text>
+<text x="361.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">обхід прямо на вихід</text>
+<rect x="172.2" y="432.9" width="615.6" height="54.2" rx="6" fill="#fdf0e6" stroke="#c0392b" stroke-width="1.5"/><text x="480.0" y="451.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">примусова команда кладе ширину ПРЯМО на вихід, минаючи змішувач: годиться для перевірки одного керма чи мотора</tspan><tspan x="480.0" dy="12.3">на столі, небезпечна в польоті (жодного узгодження). У ArduPilot вона ще й спрацює лише на вихід із</tspan><tspan x="480.0" dy="12.3">SERVOn_FUNCTION = 0 / RCPassThru — зайнятий льотною функцією вихід команду відхилить.</tspan></text>
+</svg>

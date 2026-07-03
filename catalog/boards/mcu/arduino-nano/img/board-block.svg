@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що на платі: USB-C годує міст CH340, міст говорить із ATmega</text>
+<rect x="70.0" y="70.0" width="130.0" height="74.0" rx="10" fill="#eef2f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="135.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB-C</text>
+<text x="135.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">гніздо + кабель</text>
+<rect x="300.0" y="70.0" width="150.0" height="74.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="375.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">CH340C</text>
+<text x="375.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">USB ↔ UART міст</text>
+<rect x="560.0" y="70.0" width="180.0" height="74.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="650.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ATmega328P</text>
+<text x="650.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ядро AVR, 16 МГц</text>
+<line x1="200.0" y1="96.0" x2="300.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="120.0" x2="200.0" y2="120.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="250.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">D+ / D−</text>
+<line x1="450.0" y1="96.0" x2="560.0" y2="96.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="505.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">TX→RX</text>
+<line x1="560.0" y1="120.0" x2="450.0" y2="120.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="505.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">RX←TX</text>
+<line x1="324.0" y1="144.0" x2="324.0" y2="174.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="324.0" y1="174.0" x2="584.0" y2="174.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="584.0" y1="174.0" x2="584.0" y2="144.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="330.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">DTR</text>
+<text x="578.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">RESET</text>
+<text x="454.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">конденсатор — авто-скид перед заливкою</text>
+<rect x="70.0" y="300.0" width="130.0" height="72.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="135.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">VIN 7–12 В</text>
+<text x="135.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">або USB 5 В</text>
+<rect x="300.0" y="300.0" width="150.0" height="72.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="375.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">AMS1117-5.0</text>
+<text x="375.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">лінійний → 5 В</text>
+<rect x="560.0" y="300.0" width="180.0" height="72.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="650.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Шина 5 В</text>
+<text x="650.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">живить ATmega й піни</text>
+<line x1="200.0" y1="336.0" x2="300.0" y2="336.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="336.0" x2="560.0" y2="336.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="88.0" y1="144.0" x2="88.0" y2="336.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4,3"/>
+<line x1="88.0" y1="336.0" x2="70.0" y2="336.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4,3"/>
+<line x1="650.0" y1="300.0" x2="650.0" y2="144.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="666.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">5 В</text>
+<text x="442.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-weight="700">3V3 →</text>
+<rect x="126.9" y="448.5" width="282.2" height="43.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="268.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="268.0" dy="0.0">пін 3V3 — кволе джерело від CH340 (лічені мА);</tspan><tspan x="268.0" dy="13.0">окремого регулятора 3.3 В тут НЕМА</tspan></text>
+<rect x="581.6" y="448.5" width="196.7" height="43.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="680.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">порт лише везе дані й живлення;</tspan><tspan x="680.0" dy="13.0">сама програма — в ATmega328P</tspan></text>
+</svg>

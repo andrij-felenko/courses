@@ -1,4 +1,4 @@
-/* manifest — «Математика» (тип "book"). Схема — AUTHORING.md §2 (v4). */
+/* manifest — «Математика» (тип "book"). Схема — AUTHORING.md §2 (v6). */
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
   type: "book", slug: "math", title: "Математика",
   sections: [
@@ -198,6 +198,7 @@
         { slug: "binomial-distribution", title: "Біноміальний розподіл", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "poisson-process", title: "Пуассонівський процес", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "order-statistics", title: "Порядкові статистики", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "independent-trials", title: "Незалежні спроби", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "statistics", title: "Статистика", scope: "Висновки з даних — оцінювання, перевірка гіпотез, регресія та байєсів підхід.",
       topics: [

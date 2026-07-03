@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чіп біжить по СПРАВЖНЬОМУ годиннику — його не поставиш на паузу</text>
+<line x1="70.0" y1="120.0" x2="690.0" y2="120.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="680.0" y1="120.0" x2="700.0" y2="120.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="700.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">t</text>
+<line x1="120.0" y1="112.0" x2="120.0" y2="128.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="230.0" y1="112.0" x2="230.0" y2="128.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="340.0" y1="112.0" x2="340.0" y2="128.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="450.0" y1="112.0" x2="450.0" y2="128.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="560.0" y1="112.0" x2="560.0" y2="128.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="120.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">крок</text>
+<text x="340.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">плата вимагає новий вимір КОЖНІ 2.5 мс — і не чекатиме</text>
+<line x1="230.0" y1="160.0" x2="340.0" y2="160.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="230.0" y1="154.0" x2="230.0" y2="166.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="340.0" y1="154.0" x2="340.0" y2="166.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="285.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">модель + лінк мусять встигнути ТУТ</text>
+<circle cx="490.0" cy="160.0" r="7.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="490.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">!</text>
+<text x="504.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">вимір спізнився — плата вже зробила крок на старому</text>
+<line x1="40.0" y1="250.0" x2="720.0" y2="250.0" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="60.0" y="264.0" width="300.0" height="74.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="210.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Лінк має бути ШВИДКИЙ і СТАБІЛЬНИЙ</tspan><tspan x="210.0" dy="13.0">USB/UART чи дротовий Ethernet, не Wi-Fi.</tspan><tspan x="210.0" dy="13.0">Велика затримка/тремтіння — петля розпадається</tspan><tspan x="210.0" dy="13.0">(так і вмерла класична HIL ArduPilot).</tspan></text>
+<rect x="400.0" y="264.0" width="300.0" height="74.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="550.0" y="283.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Або крок-у-крок (lockstep) НА ЗАЛІЗІ:</tspan><tspan x="550.0" dy="14.3">модель і прошивка ходять по черзі за</tspan><tspan x="550.0" dy="14.3">модельним годинником — так робить PX4.</tspan><tspan x="550.0" dy="14.3">Але чіп мусить уміти чекати на модель.</tspan></text>
+</svg>

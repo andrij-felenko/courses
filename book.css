@@ -685,17 +685,81 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
    БІБЛІОТЕКА — стартова сторінка зі списком книг (index.html + library.js)
    ════════════════════════════════════════════════════════════════════════ */
 .library-page { background: var(--bg-alt); }
+/* Hero: текст зліва, лічильники-якорі справа — краї вирівняні з полицею, без «полотна» */
 .lib-hero {
   background: linear-gradient(135deg, #09192e 0%, #0f2744 45%, #1d4e8a 100%);
-  color: #fff; padding: 4.5rem 2rem 5rem; text-align: center;
+  color: #fff; padding: 2rem 1.5rem 2rem; text-align: left;
 }
-.lib-hero .kicker { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #60a5c8; margin-bottom: 1rem; }
-.lib-hero h1 { font-size: 2.6rem; font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
-.lib-hero p { font-size: 1.05rem; line-height: 1.7; color: #a7cae0; max-width: 56ch; margin: 0 auto; }
+.lib-hero-row { max-width: 1060px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+.lib-hero .kicker { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #60a5c8; margin-bottom: 0.45rem; }
+.lib-hero h1 { font-size: 1.9rem; font-weight: 900; line-height: 1.12; margin-bottom: 0.45rem; }
+.lib-hero p { font-size: 0.95rem; line-height: 1.55; color: #a7cae0; max-width: 58ch; margin: 0; }
+.lib-hero-nums { display: flex; gap: 1.6rem; flex-shrink: 0; }
+.lib-hero-nums a { display: block; text-decoration: none; }
+.lib-hero-nums .num { display: block; font-size: 1.5rem; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.lib-hero-nums .lbl { font-size: 0.66rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #5f93b5; }
+.lib-hero-nums a:hover .lbl { color: #9cc4de; }
+
+/* ── Сегмент-перемикач Курси | Книги | Каталоги (живе на темному hero —
+   «скляні» кольори локальні, однакові в усіх трьох темах) ── */
+.lib-seg {
+  position: relative; display: grid; grid-template-columns: repeat(3, 1fr);
+  max-width: 1060px; width: min(32rem, 100%); margin: 1.2rem auto 0;
+  padding: 3px; border-radius: 11px;
+  background: rgba(7, 16, 30, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.lib-seg-thumb {
+  position: absolute; top: 3px; bottom: 3px; left: 3px;
+  width: calc((100% - 6px) / 3); border-radius: 8px;
+  background: linear-gradient(180deg, #2a86c2, #1d6fa4);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.lib-seg[data-active="1"] .lib-seg-thumb { transform: translateX(100%); }
+.lib-seg[data-active="2"] .lib-seg-thumb { transform: translateX(200%); }
+.lib-seg-btn {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+  font: inherit; font-size: 0.88rem; font-weight: 700; white-space: nowrap;
+  color: #a7cae0; background: none; border: 0; cursor: pointer;
+  padding: 0.5rem 0.4rem; border-radius: 8px; transition: color 0.15s;
+}
+.lib-seg-btn:hover { color: #e6f2fa; }
+.lib-seg-btn.is-active { color: #fff; }
+.lib-seg-btn:focus-visible { outline: 2px solid #7cc0e8; outline-offset: -2px; }
+.lib-seg-count {
+  font-size: 0.68rem; font-weight: 800; font-variant-numeric: tabular-nums;
+  padding: 0.05rem 0.42rem; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.13); transition: background 0.15s;
+}
+.lib-seg-btn.is-active .lib-seg-count { background: rgba(255, 255, 255, 0.24); }
+
+/* ── Потік секцій ── */
+.lib-flow { max-width: 1060px; margin: 0 auto; padding: 0 1.5rem 3.5rem; }
+.lib-sect { margin-top: 1.6rem; }
+.lib-sect-head { display: flex; align-items: baseline; gap: 0.65rem; margin-bottom: 0.85rem; }
+.lib-sect-ttl { font-size: 1.14rem; font-weight: 900; color: var(--h2-color); letter-spacing: -0.01em; }
+.lib-sect-count { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.lib-sect-line { flex: 1; border-top: 1px solid var(--border); align-self: center; }
+.lib-sect-note { font-size: 0.74rem; color: var(--text-muted); white-space: nowrap; }
+
+/* Режими вигляду: tabs — одна активна секція без заголовків; one — все підряд */
+html[data-libview="tabs"] .lib-sect.off { display: none; }
+html[data-libview="tabs"] .lib-sect-head { display: none; }
+html[data-libview="tabs"] .lib-hero-nums { display: none; }
+html[data-libview="one"] .lib-seg { display: none; }
 
 .lib-shelf {
-  max-width: 1000px; margin: -3rem auto 4rem; padding: 0 1.5rem;
   display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.6rem;
+}
+.lib-shelf.shelf-in { animation: shelf-in 0.18s ease; }
+@keyframes shelf-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .lib-seg-thumb { transition: none; }
+  .lib-shelf.shelf-in { animation: none; }
 }
 .lib-card {
   display: flex; flex-direction: column;
@@ -736,10 +800,37 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .lib-card-guide { border-color: color-mix(in srgb, var(--accent) 38%, var(--border)); }
 .lib-card-guide .lib-cover { min-height: 108px; background: linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--accent) 34%, #10161f) 125%); }
 .lib-card-guide .lib-cta { color: var(--accent); }
+
+/* Картка каталогу — бейдж з обводкою + «міліметрівка» датащита на обкладинці */
+.lib-kind-cat { background: rgba(9,16,28,0.45); border: 1px solid rgba(255,255,255,0.35); }
+.lib-card-cat .lib-cover { background: linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--accent) 30%, #10161a) 125%); }
+.lib-card-cat .lib-cover::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg,  rgba(255,255,255,0.08) 0 1px, transparent 1px 13px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 1px, transparent 1px 13px);
+}
+.lib-card-cat .lib-cover-ttl, .lib-card-cat .lib-ico, .lib-card-cat .lib-kind { position: relative; z-index: 1; }
+.lib-card-cat .lib-kind { position: absolute; }
+.lib-card-cat .lib-cta { color: var(--accent); }
+
+/* Кнопка вигляду бібліотеки (вкладки ⇄ одна сторінка) — у правому кластері */
+#view-btn {
+  position: fixed; top: 0.6rem; right: 9.7rem; z-index: 200;
+  width: 2.4rem; height: 2.4rem; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: none; border-radius: 8px; background: var(--sidebar-bg); color: #fff;
+  font-size: 1.15rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow);
+  transition: filter 0.15s, transform 0.1s;
+}
+#view-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
+
 @media (max-width: 640px) {
-  .lib-hero { padding: 3.5rem 1.4rem 4rem; }
-  .lib-hero h1 { font-size: 2rem; }
-  .lib-shelf { grid-template-columns: 1fr; margin-top: -2.2rem; }
+  .lib-hero { padding: 1.6rem 1.4rem; }
+  .lib-hero h1 { font-size: 1.55rem; }
+  .lib-seg-ico { display: none; }               /* «Каталоги» + пігулка мають влізти */
+  .lib-seg-btn { font-size: 0.8rem; gap: 0.32rem; padding: 0.45rem 0.25rem; }
+  .lib-shelf { grid-template-columns: 1fr; }
 }
 
 /* посилання «← Бібліотека» вгорі сайдбару книги */

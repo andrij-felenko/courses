@@ -27,7 +27,7 @@ function loadRegistry() {
   const src = fs.readFileSync(path.join(ROOT, "books-index.js"), "utf8");
   const sb = {};                       // books-index.js робить window.SUBJECT_BOOKS = [...]
   new Function("window", src)(sb);
-  return { books: sb.SUBJECT_BOOKS || [], guides: sb.GUIDE_COURSES || [] };
+  return { books: sb.SUBJECT_BOOKS || [], guides: sb.GUIDE_COURSES || [], catalogs: sb.CATALOG_BOOKS || [] };
 }
 
 /* --- маніфест книги/курсу як об'єкт ----------------------------------------- */
@@ -186,8 +186,7 @@ function indexGuide(slug) {
 /* --- прогін ----------------------------------------------------------------- */
 const reg = loadRegistry();
 reg.books.forEach((s) => { if (!indexBook(s, "book")) indexBook(s, "catalog"); });
-// каталоги (окремий список у CLAUDE.md; спробуємо теку catalog/ якщо є)
-["pcb-board", "sensor-board"].forEach((s) => indexBook(s, "catalog"));
+reg.catalogs.forEach((s) => indexBook(s, "catalog"));   // каталоги — з реєстру books-index.js
 reg.guides.forEach((s) => indexGuide(s));
 
 fs.writeFileSync(OUT_INDEX, JSON.stringify(entries));

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один контур на всі тіла: давач → оцінка → регулятор → привід</text>
+<rect x="-5.0" y="90.0" width="150.0" height="130.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/>
+<text x="70.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Давачі</text>
+<text x="70.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="70.0" dy="0.0">IMU · компас</tspan><tspan x="70.0" dy="15.6">GPS / акустика</tspan><tspan x="70.0" dy="15.6">тиск / DVL</tspan></text>
+<rect x="190.0" y="90.0" width="150.0" height="130.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.0"/>
+<text x="265.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Оцінювач</text>
+<text x="265.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">фільтр</tspan><tspan x="265.0" dy="15.6">передбач–виправ</tspan><tspan x="265.0" dy="15.6">поза й швидкість</tspan></text>
+<rect x="385.0" y="90.0" width="150.0" height="130.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="460.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регулятори</text>
+<text x="460.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">каскад</tspan><tspan x="460.0" dy="15.6">курс → швидкість</tspan><tspan x="460.0" dy="15.6">→ тяга</tspan></text>
+<rect x="575.0" y="90.0" width="150.0" height="130.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="650.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Приводи</text>
+<text x="650.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">мотори-рушії</tspan><tspan x="650.0" dy="15.6">кермо / диф. тяга</tspan></text>
+<line x1="147.0" y1="155.0" x2="188.0" y2="155.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="342.0" y1="155.0" x2="383.0" y2="155.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="537.0" y1="155.0" x2="573.0" y2="155.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="220.0" x2="650.0" y2="260.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="650.0" y1="260.0" x2="70.0" y2="260.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="70.0" y1="260.0" x2="70.0" y2="222.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="360.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">світ рухає тіло → давачі бачать наслідок</text>
+<text x="390.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">той самий контур, що й у дрона чи ровера — змінюється лише вміст крайніх шарів</text>
+</svg>

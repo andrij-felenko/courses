@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Захоплення звуку — один наскрізний конвеєр із п'яти станцій</text>
+<rect x="38.0" y="87.0" width="108.0" height="66.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.7"/><text x="92.0" y="109.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="92.0" dy="0.0">мембрана</tspan><tspan x="92.0" dy="14.3">звук →</tspan><tspan x="92.0" dy="14.3">напруга</tspan></text>
+<rect x="172.0" y="87.0" width="108.0" height="66.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.7"/><text x="226.0" y="109.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="226.0" dy="0.0">фронт-енд</tspan><tspan x="226.0" dy="14.3">АЦП/сигма-</tspan><tspan x="226.0" dy="14.3">дельта</tspan></text>
+<line x1="148.0" y1="120.0" x2="170.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<rect x="306.0" y="87.0" width="108.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.7"/><text x="360.0" y="109.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">шина</tspan><tspan x="360.0" dy="14.3">I2S / АЦП /</tspan><tspan x="360.0" dy="14.3">PDM</tspan></text>
+<line x1="282.0" y1="120.0" x2="304.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<rect x="440.0" y="87.0" width="108.0" height="66.0" rx="6" fill="#f2ecf8" stroke="#8a5fb0" stroke-width="1.7"/><text x="494.0" y="109.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="494.0" dy="0.0">DMA</tspan><tspan x="494.0" dy="14.3">кільце</tspan><tspan x="494.0" dy="14.3">в RAM</tspan></text>
+<line x1="416.0" y1="120.0" x2="438.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<rect x="574.0" y="87.0" width="108.0" height="66.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.7"/><text x="628.0" y="109.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="628.0" dy="0.0">буфер</tspan><tspan x="628.0" dy="14.3">готовий</tspan><tspan x="628.0" dy="14.3">блок</tspan></text>
+<line x1="550.0" y1="120.0" x2="572.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<line x1="427.0" y1="53.0" x2="427.0" y2="193.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="226.0" y="47.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">темп задає ЗАЛІЗО — паузи немає</text>
+<text x="561.0" y="47.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">темп задаємо МИ — код читає блоками</text>
+<text x="159.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">аналог</text>
+<text x="293.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біти</text>
+<text x="427.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">слова</text>
+<text x="561.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">блок</text>
+<text x="360.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">конвеєр захоплення: від коливання повітря до масиву чисел, який можна обробити</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пропускна й латентність — різні величини</text>
+<text x="390.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">одне й те саме маленьке HIL-повідомлення (~100 байтів) крізь два канали</text>
+<rect x="60.0" y="84.0" width="300.0" height="30.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="210.0" y="103.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">ТОНКИЙ ПОТОКОВИЙ КАНАЛ (UART)</tspan></text>
+<text x="60.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">латентність ≈ 0, тече одразу</text>
+<rect x="60.0" y="150.0" width="6.0" height="34.0" rx="6" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="66.0" y="150.0" width="300.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="216.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">СЕРІАЛІЗАЦІЯ (довга)</text>
+<text x="68.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">затримка = майже цілком серіалізація</text>
+<text x="68.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">обсяг × 10 / швидкість_бод</text>
+<rect x="420.0" y="84.0" width="300.0" height="30.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="570.0" y="103.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">ТОВСТИЙ КАДРОВИЙ КАНАЛ (USB)</tspan></text>
+<text x="420.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">чекає до кадру опитування — латентність</text>
+<rect x="420.0" y="150.0" width="250.0" height="34.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="545.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ЛАТЕНТНІСТЬ КАДРУ (довга)</text>
+<rect x="670.0" y="150.0" width="16.0" height="34.0" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="678.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">серіал.</text>
+<text x="428.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">серіалізація миттєва, зате чекання кадру</text>
+<line x1="40.0" y1="300.0" x2="740.0" y2="300.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="390.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пропускна задає ДОВЖИНУ серіалізації; латентність — сталий наклад до старту.</text>
+<text x="390.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Для маленького повідомлення вирішує СУМА обох —</text>
+<text x="390.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">тому канал із більшою пропускною не конче має меншу повну затримку.</text>
+</svg>

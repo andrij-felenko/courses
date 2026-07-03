@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Калібрування радіо: сирі мікросекунди стають нормованим входом</text>
+<line x1="120.0" y1="130.0" x2="780.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="120.0" y1="122.0" x2="120.0" y2="138.0" stroke="#2457d6" stroke-width="2.4"/>
+<text x="120.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">RCn_MIN</text>
+<text x="120.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">≈ 1100 мкс</text>
+<line x1="450.0" y1="122.0" x2="450.0" y2="138.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="450.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">RCn_TRIM</text>
+<text x="450.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">≈ 1500 мкс</text>
+<line x1="780.0" y1="122.0" x2="780.0" y2="138.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="780.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">RCn_MAX</text>
+<text x="780.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">≈ 1900 мкс</text>
+<text x="120.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">стік у краю</text>
+<text x="450.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">стік відпущено</text>
+<text x="780.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">стік у краю</text>
+<line x1="450.0" y1="196.0" x2="450.0" y2="224.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="462.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">нормування</text>
+<line x1="120.0" y1="250.0" x2="780.0" y2="250.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="120.0" y1="243.0" x2="120.0" y2="257.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="450.0" y1="243.0" x2="450.0" y2="257.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="780.0" y1="243.0" x2="780.0" y2="257.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="120.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">−1</text>
+<text x="450.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="780.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+1</text>
+<text x="450.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Крайні положення стіка записують RCn_MIN/MAX, центр — RCn_TRIM. Далі керування бачить не мкс, а частку відхилення</text>
+</svg>

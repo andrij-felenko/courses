@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 476" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="476" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що прошивка робить із записом на старті — щоразу ПЕРЕВІРЯЄ, не вірить</text>
+<rect x="280.0" y="62.0" width="240.0" height="46.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="400.0" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">прочитати розділ у RAM</tspan></text>
+<rect x="280.0" y="142.0" width="240.0" height="46.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.6"/><text x="400.0" y="169.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">magic == 0x50524F56 ?</tspan></text>
+<rect x="280.0" y="222.0" width="240.0" height="46.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.6"/><text x="400.0" y="249.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">version підтримується ?</tspan></text>
+<rect x="280.0" y="302.0" width="240.0" height="46.0" rx="6" fill="#eef2f7" stroke="#b07a35" stroke-width="1.6"/><text x="400.0" y="329.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">CRC-32 збігається ?</tspan></text>
+<rect x="280.0" y="388.0" width="240.0" height="46.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/><text x="400.0" y="407.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">ПРОВІЗІОНОВАНА ✓</tspan><tspan x="400.0" dy="15.6">серійник, MAC, калібр — свої</tspan></text>
+<line x1="400.0" y1="108.0" x2="400.0" y2="142.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="188.0" x2="400.0" y2="222.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">так</text>
+<line x1="400.0" y1="268.0" x2="400.0" y2="302.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">так</text>
+<line x1="400.0" y1="348.0" x2="400.0" y2="388.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">так</text>
+<rect x="512.0" y="215.0" width="156.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="590.0" y="241.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">будь-яке «ні» →</tspan><tspan x="590.0" dy="14.3">ЗАПИС НЕДІЙСНИЙ</tspan></text>
+<line x1="520.0" y1="165.0" x2="512.0" y2="245.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="520.0" y1="245.0" x2="512.0" y2="245.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="520.0" y1="325.0" x2="512.0" y2="245.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="536.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ні</text>
+<line x1="590.0" y1="275.0" x2="590.0" y2="305.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="440.0" y="305.0" width="140.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/><text x="510.0" y="325.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">СТОП + сигнал:</tspan><tspan x="510.0" dy="13.7">«не провізіонована»</tspan></text>
+<rect x="604.0" y="305.0" width="140.0" height="48.0" rx="6" fill="#fbfbfb" stroke="#6b7280" stroke-width="1.4"/><text x="674.0" y="325.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="674.0" dy="0.0">або безпечні</tspan><tspan x="674.0" dy="13.7">ДЕФОЛТИ (де можна)</tspan></text>
+<line x1="590.0" y1="305.0" x2="510.0" y2="305.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="590.0" y1="305.0" x2="674.0" y2="305.0" stroke="#c0392b" stroke-width="1.4"/>
+</svg>

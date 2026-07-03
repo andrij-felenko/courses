@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">HIL-стенд: справжня плата в петлі, модель замикає коло</text>
+<rect x="74.2" y="110.8" width="211.5" height="78.4" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.2"/><text x="180.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Справжня плата (DUT)</tspan><tspan x="180.0" dy="18.2">справжня прошивка</tspan><tspan x="180.0" dy="18.2">справжній чіп і тайминг</tspan></text>
+<text x="180.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">У ПЕТЛІ — СПРАВЖНЄ</text>
+<rect x="482.2" y="110.8" width="195.6" height="78.4" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="580.0" y="136.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">ПК: симулятор</tspan><tspan x="580.0" dy="18.2">модель фізики польоту</tspan><tspan x="580.0" dy="18.2">+ модель давачів</tspan></text>
+<text x="580.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">МОДЕЛЬ</text>
+<line x1="500.0" y1="128.0" x2="262.0" y2="128.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="381.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">виміри → в плату (інжекція)</text>
+<line x1="262.0" y1="178.0" x2="500.0" y2="178.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="381.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">команди на мотори (зчитування)</text>
+<rect x="330.0" y="232.0" width="100.0" height="46.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="380.0" y="252.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">інтерфейс</tspan><tspan x="380.0" dy="10.4">(дроти, шини, АЦП/ЦАП)</tspan></text>
+<line x1="381.0" y1="206.0" x2="381.0" y2="232.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="580.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">→ рахує новий стан апарата →</text>
+<text x="580.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">нові виміри</text>
+<line x1="40.0" y1="300.0" x2="720.0" y2="300.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="380.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Різниця з SITL: там у петлі лише КОД (процес на ПК).</text>
+<text x="380.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Тут справжні КОД і ПЛАТА — модель лише навколо. Заліза не прибрано, прибрано тільки світ.</text>
+</svg>

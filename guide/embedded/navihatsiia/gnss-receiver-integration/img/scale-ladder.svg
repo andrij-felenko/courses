@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Найдрібніший крок координати: що NMEA й UBX фізично вміщають</text>
+<rect x="60.0" y="66.0" width="300.0" height="40.0" rx="6" fill="#fef6e7" stroke="#e9d8a6" stroke-width="1.5"/><text x="210.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">NMEA GGA: ГГММ.mmmm — градуси й хвилини</tspan></text>
+<text x="68.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">4916.4590,N</text>
+<text x="68.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">= 49° + 16.4590′</text>
+<text x="68.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">молодший знак = 0.0001′</text>
+<text x="68.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">1′ широти ≈ 1852 м</text>
+<text x="68.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">крок ≈ 0.0001 × 1852 ≈ 0.19 м</text>
+<text x="68.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">текст фіксованої розрядності — глибше не запишеш</text>
+<rect x="420.0" y="66.0" width="300.0" height="40.0" rx="6" fill="#eafaf1" stroke="#bfe6cf" stroke-width="1.5"/><text x="570.0" y="90.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">UBX NAV-PVT: int32 × 10⁻⁷ градуса</tspan></text>
+<text x="428.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">lat = 492741500  (ціле)</text>
+<text x="428.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">→ 49.2741500°</text>
+<text x="428.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">молодший біт = 10⁻⁷°</text>
+<text x="428.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">1° широти ≈ 111 320 000 мм</text>
+<text x="428.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">крок ≈ 10⁻⁷ × 111.32e6 ≈ 11 мм</text>
+<text x="428.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ціле — крок у ~17 разів дрібніший за NMEA</text>
+<line x1="50.0" y1="320.0" x2="730.0" y2="320.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="90.0" y="338.0" width="600.0" height="70.0" rx="6" fill="#eef4ff" stroke="#c9d6f0" stroke-width="1.5"/><text x="390.0" y="361.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">УВАГА: 1° ДОВГОТИ коротшає з широтою — 1°λ ≈ 111.32 км × cos φ.</tspan><tspan x="390.0" dy="15.6">На φ = 50° cos φ ≈ 0.643 → 1°λ ≈ 71.6 км, крок 10⁻⁷° по довготі ≈ 7.2 мм.</tspan><tspan x="390.0" dy="15.6">Той самий int32 дає РІЗНИЙ метричний крок по широті й по довготі.</tspan></text>
+</svg>

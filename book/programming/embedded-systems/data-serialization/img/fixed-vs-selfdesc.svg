@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві сім'ї форматів: та сама порція даних</text>
+<text x="450.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">температура = 235, статус = 1</text>
+<text x="40.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Фіксована розкладка</text>
+<text x="40.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">голі значення впритул — структуру читач знає з коду</text>
+<rect x="210.0" y="130.0" width="58.0" height="34.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="239.0" y="151.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">00</text>
+<text x="239.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">temp</text>
+<rect x="271.0" y="130.0" width="58.0" height="34.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="151.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">00</text>
+<text x="300.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">temp</text>
+<rect x="332.0" y="130.0" width="58.0" height="34.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="361.0" y="151.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">00</text>
+<text x="361.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">temp</text>
+<rect x="393.0" y="130.0" width="58.0" height="34.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="422.0" y="151.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">EB</text>
+<text x="422.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">temp</text>
+<rect x="454.0" y="130.0" width="58.0" height="34.0" rx="4" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="483.0" y="151.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">01</text>
+<text x="483.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">статус</text>
+<text x="555.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">5 байтів</text>
+<text x="450.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">щільно й швидко, але «мовчить» про структуру → крихке до змін</text>
+<text x="40.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Самоопис (стиль CBOR)</text>
+<text x="40.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">перед значенням — тег-заголовок «що це»</text>
+<rect x="210.0" y="302.0" width="58.0" height="34.0" rx="4" fill="#fdf6e3" stroke="#333333" stroke-width="1.5"/><text x="239.0" y="323.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">1A</text>
+<text x="239.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">тег:u32</text>
+<rect x="271.0" y="302.0" width="58.0" height="34.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="323.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">00</text>
+<text x="300.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">temp</text>
+<rect x="332.0" y="302.0" width="58.0" height="34.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="361.0" y="323.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">00</text>
+<text x="361.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">temp</text>
+<rect x="393.0" y="302.0" width="58.0" height="34.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="422.0" y="323.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">00</text>
+<text x="422.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">temp</text>
+<rect x="454.0" y="302.0" width="58.0" height="34.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="483.0" y="323.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">EB</text>
+<text x="483.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">temp</text>
+<rect x="515.0" y="302.0" width="58.0" height="34.0" rx="4" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="544.0" y="323.6" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">01</text>
+<text x="544.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">статус</text>
+<text x="596.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="start" font-weight="700">довше</text>
+<text x="450.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">тег розповідає структуру → додаси поле, старий читач переступить незнайоме</text>
+</svg>

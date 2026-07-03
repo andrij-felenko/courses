@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один оберт блимання: delay() vs millis()</text>
+<line x1="150.0" y1="52.0" x2="150.0" y2="300.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="150.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0 мс</text>
+<line x1="435.0" y1="52.0" x2="435.0" y2="300.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="435.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">200 мс: перемкнути</text>
+<line x1="720.0" y1="52.0" x2="720.0" y2="300.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="720.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">400 мс</text>
+<text x="138.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">delay()</text>
+<rect x="150.0" y="96.0" width="285.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="435.0" y="96.0" width="285.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="292.5" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">процесор СТОЇТЬ</text>
+<text x="577.5" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">процесор СТОЇТЬ</text>
+<text x="150.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">між перемиканнями нічого більше не встигає</text>
+<text x="138.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">millis()</text>
+<rect x="150.0" y="190.0" width="570.0" height="30.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="435.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">процесор ВІЛЬНИЙ — між справами зиркає на годинник</text>
+<line x1="170.0" y1="220.0" x2="170.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="204.0" y1="220.0" x2="204.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="238.0" y1="220.0" x2="238.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="272.0" y1="220.0" x2="272.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="306.0" y1="220.0" x2="306.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="340.0" y1="220.0" x2="340.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="374.0" y1="220.0" x2="374.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="408.0" y1="220.0" x2="408.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="442.0" y1="220.0" x2="442.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="476.0" y1="220.0" x2="476.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="510.0" y1="220.0" x2="510.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="544.0" y1="220.0" x2="544.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="578.0" y1="220.0" x2="578.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="612.0" y1="220.0" x2="612.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="646.0" y1="220.0" x2="646.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="680.0" y1="220.0" x2="680.0" y2="226.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="174.0" y="234.0" width="150.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="249.0" y="252.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="249.0" dy="0.0">опитати давач</tspan></text>
+<rect x="459.0" y="234.0" width="150.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="534.0" y="252.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="534.0" dy="0.0">прочитати кнопку</tspan></text>
+<text x="380.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">перемикання — в ті самі моменти; різниця в тому, що робить процесор МІЖ ними</text>
+</svg>

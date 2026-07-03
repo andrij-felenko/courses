@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розкладка WAV-заголовка: RIFF / fmt / data і два поля розміру</text>
+<rect x="130.0" y="78.0" width="250.0" height="26.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="255.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">&quot;RIFF&quot;</text>
+<text x="122.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">@0</text>
+<rect x="130.0" y="108.0" width="250.0" height="26.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="255.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">розмір файлу − 8</text>
+<text x="122.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">@4</text>
+<text x="392.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b8860b" text-anchor="start" font-weight="700">◀ заповнюємо останнім</text>
+<rect x="130.0" y="138.0" width="250.0" height="26.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="255.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">&quot;WAVE&quot;</text>
+<text x="122.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">@8</text>
+<rect x="130.0" y="168.0" width="250.0" height="26.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="255.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">&quot;fmt &quot;  + довжина 16</text>
+<text x="122.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">@12</text>
+<rect x="130.0" y="198.0" width="250.0" height="26.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="255.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">PCM · канали · частота</text>
+<text x="122.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">@20</text>
+<rect x="130.0" y="228.0" width="250.0" height="26.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="255.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ByteRate · BlockAlign · біти</text>
+<text x="122.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">@28</text>
+<rect x="130.0" y="258.0" width="250.0" height="26.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.4"/>
+<text x="255.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">&quot;data&quot;</text>
+<text x="122.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">@36</text>
+<rect x="130.0" y="288.0" width="250.0" height="26.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.4"/>
+<text x="255.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">розмір самого звуку</text>
+<text x="122.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">@40</text>
+<text x="392.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b8860b" text-anchor="start" font-weight="700">◀ заповнюємо останнім</text>
+<rect x="130.0" y="318.0" width="250.0" height="26.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="255.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">… далі йдуть відліки int16 …</text>
+<line x1="54.0" y1="80.0" x2="54.0" y2="162.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="50.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="end" font-weight="700">RIFF-дескриптор</text>
+<line x1="54.0" y1="170.0" x2="54.0" y2="252.0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="50.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-weight="700">підрозділ &quot;fmt &quot;</text>
+<line x1="54.0" y1="260.0" x2="54.0" y2="312.0" stroke="#b8860b" stroke-width="2.2"/>
+<text x="50.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b8860b" text-anchor="end" font-weight="700">підрозділ &quot;data&quot;</text>
+<text x="360.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">44 байти заголовка WAV — паспорт перед даними</text>
+<text x="360.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">жовті поля розміру відомі лише в кінці запису — їх правлять останніми</text>
+</svg>

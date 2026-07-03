@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 448" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="448" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повна затримка ланки (100 байтів): серіалізація + латентність</text>
+<line x1="220.0" y1="322.0" x2="220.0" y2="70.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="212.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">затримка, мкс</text>
+<line x1="220.0" y1="322.0" x2="740.0" y2="322.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="40.0" y="76.0" width="14.0" height="14.0" rx="6" fill="#dfe6f5" stroke="#2457d6" stroke-width="1.4"/>
+<text x="58.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">серіалізація</text>
+<text x="58.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">обсяг / пропускна</text>
+<rect x="40.0" y="118.0" width="14.0" height="14.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="58.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">латентність</text>
+<text x="58.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">наклад кадру</text>
+<rect x="295.0" y="85.3" width="90.0" height="236.7" rx="6" fill="#dfe6f5" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="295.0" y="84.2" width="90.0" height="1.1" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="340.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">UART 921600</text>
+<text x="340.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">серіал. 1085</text>
+<text x="340.0" y="76.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">≈ 1090</text>
+<rect x="445.0" y="307.4" width="90.0" height="14.6" rx="6" fill="#dfe6f5" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="445.0" y="89.2" width="90.0" height="218.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="490.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB Full-Speed</text>
+<text x="490.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">серіал. 67</text>
+<text x="490.0" y="81.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">≈ 1067</text>
+<rect x="595.0" y="307.4" width="90.0" height="14.6" rx="6" fill="#dfe6f5" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="595.0" y="280.1" width="90.0" height="27.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="640.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB High-Speed</text>
+<text x="640.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">серіал. 67</text>
+<text x="640.0" y="272.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">≈ 192</text>
+<line x1="40.0" y1="388.0" x2="740.0" y2="388.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="390.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB виграє пропускну (серіалізація мізерна), але кадр FS зрівнює його повну затримку з UART.</text>
+<text x="390.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">High-Speed кращий для HIL не пропускною, а увосьмеро меншим кадром (125 мкс проти 1000).</text>
+</svg>

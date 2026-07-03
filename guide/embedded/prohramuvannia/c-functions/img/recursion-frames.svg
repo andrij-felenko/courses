@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="90.0" y="70.0" width="210.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="195.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">fact(3)</text>
+<text x="195.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">чекає 3 · fact(2)</text>
+<rect x="90.0" y="138.0" width="210.0" height="60.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="195.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">fact(2)</text>
+<text x="195.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">чекає 2 · fact(1)</text>
+<rect x="90.0" y="206.0" width="210.0" height="60.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="195.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">fact(1)</text>
+<text x="195.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">чекає 1 · fact(0)</text>
+<rect x="90.0" y="274.0" width="210.0" height="60.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="195.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">fact(0)</text>
+<text x="195.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">база: повертає 1</text>
+<line x1="66.0" y1="70.0" x2="66.0" y2="334.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="30.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">виклики</text>
+<text x="30.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">глибшають</text>
+<rect x="450.0" y="286.0" width="180.0" height="40.0" rx="6" fill="#fdf0ea" stroke="#c0392b" stroke-width="1.5"/><text x="540.0" y="310.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">1   →   fact(0)=1</tspan></text>
+<rect x="450.0" y="218.0" width="180.0" height="40.0" rx="6" fill="#fdf0ea" stroke="#c0392b" stroke-width="1.5"/><text x="540.0" y="242.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">1·1=1   →   fact(1)=1</tspan></text>
+<rect x="450.0" y="150.0" width="180.0" height="40.0" rx="6" fill="#fdf0ea" stroke="#c0392b" stroke-width="1.5"/><text x="540.0" y="174.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">2·1=2   →   fact(2)=2</tspan></text>
+<rect x="450.0" y="82.0" width="180.0" height="40.0" rx="6" fill="#fdf0ea" stroke="#c0392b" stroke-width="1.5"/><text x="540.0" y="106.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">3·2=6   →   fact(3)=6</tspan></text>
+<line x1="652.0" y1="334.0" x2="652.0" y2="82.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="540.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">повернення множать угору</text>
+<text x="375.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">кожен виклик — свій кадр на стеку</text>
+</svg>

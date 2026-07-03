@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ім'я масиву = адреса першого елемента</text>
+<rect x="120.0" y="96.0" width="96.0" height="48.0" rx="6" fill="#fbfcfd" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="168.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">10</text>
+<text x="168.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">arr[0]</text>
+<text x="168.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x40</text>
+<rect x="220.0" y="96.0" width="96.0" height="48.0" rx="6" fill="#fbfcfd" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="268.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">20</text>
+<text x="268.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">arr[1]</text>
+<text x="268.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x44</text>
+<rect x="320.0" y="96.0" width="96.0" height="48.0" rx="6" fill="#fbfcfd" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="368.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">30</text>
+<text x="368.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">arr[2]</text>
+<text x="368.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x48</text>
+<rect x="420.0" y="96.0" width="96.0" height="48.0" rx="6" fill="#fbfcfd" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="468.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">40</text>
+<text x="468.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">arr[3]</text>
+<text x="468.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x4C</text>
+<rect x="520.0" y="96.0" width="96.0" height="48.0" rx="6" fill="#fbfcfd" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="568.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">50</text>
+<text x="568.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">arr[4]</text>
+<text x="568.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x50</text>
+<line x1="150.0" y1="210.0" x2="150.0" y2="150.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="80.0" y="215.8" width="140.0" height="32.5" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="150.0" y="236.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">arr  →  0x40</tspan></text>
+<rect x="365.0" y="215.5" width="210.0" height="33.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="236.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">arr[i]  ≡  *(arr + i)</tspan></text>
+<text x="470.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">індекс — це прихована арифметика покажчика</text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому допустима h не проґавить найкоротший шлях</text>
+<circle cx="70.0" cy="200.0" r="15.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.4"/>
+<text x="70.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">S</text>
+<circle cx="690.0" cy="200.0" r="15.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.4"/>
+<text x="690.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">G</text>
+<path d="M 84 194 Q 380 90 676 194" fill="none" stroke="#6b7280" stroke-width="2.4"/>
+<text x="380.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">шлях, який A* ось-ось оголосить: ціна f(G)</text>
+<path d="M 82 208 L 330 250" fill="none" stroke="#2457d6" stroke-width="2.6"/>
+<path d="M 330 250 L 678 208" fill="none" stroke="#c0392b" stroke-width="2.6" stroke-dasharray="7 5"/>
+<circle cx="330.0" cy="250.0" r="13.0" fill="#fff6e0" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="330.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">n</text>
+<text x="194.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">g(n) — вже точно пройдено</text>
+<text x="516.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">h(n) ≤ (справжня решта)</text>
+<rect x="70.0" y="292.0" width="620.0" height="52.0" rx="6" fill="#f7f9fc" stroke="#1a1a1a" stroke-width="1.5"/><text x="380.0" y="322.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">f(n) = g(n) + h(n)  ≤  (ціна дешевшого шляху)  &lt;  f(G)</tspan></text>
+<text x="380.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">отже n має МЕНШЕ f — його витягли б РАНІШЕ за G; суперечність</text>
+</svg>

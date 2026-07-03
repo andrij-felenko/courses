@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="660" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="330.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Іоносферна сітка: поправка як карта затримок</text>
+<rect x="60.0" y="70.0" width="540.0" height="40.0" rx="8" fill="#eef2ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="330.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">шар іоносфери ≈ 350 км над Землею</text>
+<circle cx="120.0" cy="90.0" r="5.0" fill="#fff" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="210.0" cy="90.0" r="5.0" fill="#fff" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="300.0" cy="90.0" r="5.0" fill="#fff" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="390.0" cy="90.0" r="5.0" fill="#fff" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="480.0" cy="90.0" r="5.0" fill="#fff" stroke="#2457d6" stroke-width="1.8"/>
+<circle cx="570.0" cy="90.0" r="5.0" fill="#fff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="120.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">IGP: виміряна затримка у вузлі</text>
+<line x1="300.0" y1="360.0" x2="470.0" y2="130.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 4"/>
+<circle cx="393.0" cy="100.0" r="6.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="403.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">точка протику (pierce point)</text>
+<line x1="393.0" y1="100.0" x2="390.0" y2="90.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2 3"/>
+<line x1="393.0" y1="100.0" x2="480.0" y2="90.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2 3"/>
+<text x="435.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">інтерполяція</text>
+<circle cx="470.0" cy="130.0" r="11.0" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="486.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">супутник</text>
+<rect x="264.0" y="344.0" width="72.1" height="32.0" rx="6" fill="#fff7e6" stroke="#d98c00" stroke-width="1.5"/><text x="300.0" y="364.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">приймач</tspan></text>
+<rect x="20.0" y="380.0" width="620.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="330.0" y="396.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Затримка в іоносфері різна над різними місцями, тож поправка — не одне число, а карта:</tspan><tspan x="330.0" dy="15.6">SBAS дає затримку у вузлах сітки, приймач інтерполює її в точці протику променем.</tspan></text>
+</svg>

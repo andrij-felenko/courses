@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбір потоку без блокування: автомат по одному байту</text>
+<text x="40.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">UART: байти течуть без меж</text>
+<rect x="40.0" y="78.0" width="26.0" height="24.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="53.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">B5</text>
+<rect x="70.0" y="78.0" width="26.0" height="24.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="83.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">62</text>
+<rect x="100.0" y="78.0" width="26.0" height="24.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="113.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">01</text>
+<rect x="130.0" y="78.0" width="26.0" height="24.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="143.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">07</text>
+<rect x="160.0" y="78.0" width="26.0" height="24.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="173.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">..</text>
+<rect x="190.0" y="78.0" width="26.0" height="24.0" rx="3" fill="#f0f0f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="203.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">CK</text>
+<text x="228.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">→ по одному в автомат</text>
+<rect x="71.0" y="165.0" width="118.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="130.0" y="192.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">чекай</tspan><tspan x="130.0" dy="16.2">B5 62</tspan></text>
+<line x1="191.0" y1="196.0" x2="209.0" y2="196.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="211.0" y="165.0" width="118.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="270.0" y="192.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="270.0" dy="0.0">читай</tspan><tspan x="270.0" dy="16.2">class·id</tspan></text>
+<line x1="331.0" y1="196.0" x2="349.0" y2="196.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="351.0" y="165.0" width="118.0" height="62.0" rx="6" fill="#fef6e7" stroke="#e9d8a6" stroke-width="1.5"/><text x="410.0" y="192.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">читай</tspan><tspan x="410.0" dy="16.2">довжину</tspan></text>
+<line x1="471.0" y1="196.0" x2="489.0" y2="196.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="491.0" y="165.0" width="118.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="550.0" y="192.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="550.0" dy="0.0">набирай</tspan><tspan x="550.0" dy="16.2">дані</tspan></text>
+<line x1="611.0" y1="196.0" x2="629.0" y2="196.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="631.0" y="165.0" width="118.0" height="62.0" rx="6" fill="#eafaf1" stroke="#bfe6cf" stroke-width="1.5"/><text x="690.0" y="192.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">звір</tspan><tspan x="690.0" dy="16.2">суму</tspan></text>
+<line x1="690.0" y1="229.0" x2="690.0" y2="261.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="560.0" y="263.0" width="250.0" height="34.0" rx="6" fill="#eafaf1" stroke="#bfe6cf" stroke-width="1.5"/><text x="685.0" y="284.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="685.0" dy="0.0">валідний NAV-PVT → оцінювачу</tspan></text>
+<text x="71.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">збій (не той байт / сума) → назад у пошук сигнатури</text>
+</svg>

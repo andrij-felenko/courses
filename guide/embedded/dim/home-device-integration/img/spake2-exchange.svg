@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SPAKE2+: спільний ключ із пароля, самого пароля в ефірі немає</text>
+<rect x="32.0" y="60.0" width="236.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="80.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">ТЕЛЕФОН (prover) — знає passcode</tspan></text>
+<rect x="552.0" y="60.0" width="236.0" height="34.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="670.0" y="80.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">ПРИСТРІЙ (verifier) — знає w0, L</tspan></text>
+<text x="150.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">w0, w1  ←  PBKDF(passcode)</text>
+<text x="670.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">w0,  L = w1·P</text>
+<text x="670.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(w1 і passcode НЕ зберігає)</text>
+<text x="150.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">тягне випадкове x</text>
+<text x="670.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">тягне випадкове y</text>
+<rect x="50.0" y="192.0" width="200.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="213.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">X = x·P + w0·M</tspan></text>
+<rect x="570.0" y="192.0" width="200.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="670.0" y="213.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">Y = y·P + w0·N</tspan></text>
+<line x1="254.0" y1="200.0" x2="566.0" y2="200.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="566.0" y1="218.0" x2="254.0" y2="218.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">публічний обмін точками</text>
+<rect x="32.0" y="262.0" width="236.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="284.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Z = h·x·(Y − w0·N)</tspan><tspan x="150.0" dy="15.6">V = h·w1·(Y − w0·N)</tspan></text>
+<rect x="552.0" y="262.0" width="236.0" height="52.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="670.0" y="284.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">Z = h·y·(X − w0·M)</tspan><tspan x="670.0" dy="15.6">V = h·y·L</tspan></text>
+<text x="410.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="26" fill="#1a1a1a" text-anchor="middle" font-weight="700">=</text>
+<text x="410.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ті самі Z, V</text>
+<rect x="220.0" y="340.0" width="380.0" height="40.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="1.5"/><text x="410.0" y="363.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">K = Hash(транскрипт із Z, V) → ключ каналу + підтвердження</tspan></text>
+<line x1="40.0" y1="394.0" x2="780.0" y2="394.0" stroke="#dddddd" stroke-width="1.0" stroke-dasharray="4 4"/>
+<circle cx="90.0" cy="426.0" r="22.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="90.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle">👂</text>
+<text x="150.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">ПІДСЛУХОВУВАЧ бачить лише:</text>
+<text x="150.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">точки X і Y на кривій P-256 — і все.</text>
+<text x="150.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Щоб добути passcode, треба обернути P-256 (задача дискретного логарифма) — не по кишені.</text>
+</svg>

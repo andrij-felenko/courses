@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія автовиявлення: топік config і машина доступності</text>
+<text x="390.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">1. Розбір описового топіка на сегменти</text>
+<rect x="40.0" y="92.0" width="132.0" height="40.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="2.0"/>
+<text x="106.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">homeassistant</text>
+<text x="106.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="106.0" dy="0.0">префікс:</tspan><tspan x="106.0" dy="13.0">тут HA слухає</tspan></text>
+<rect x="196.0" y="92.0" width="96.0" height="40.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="244.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">climate</text>
+<text x="244.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="244.0" dy="0.0">тип сутності</tspan></text>
+<text x="184.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">/</text>
+<rect x="316.0" y="92.0" width="118.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="375.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">livingroom_th</text>
+<text x="375.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="375.0" dy="0.0">ід вузла</tspan></text>
+<text x="304.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">/</text>
+<rect x="458.0" y="92.0" width="96.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="506.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">config</text>
+<text x="506.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="506.0" dy="0.0">«це опис,</tspan><tspan x="506.0" dy="13.0">не значення»</tspan></text>
+<text x="446.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">/</text>
+<line x1="40.0" y1="172.0" x2="740.0" y2="172.0" stroke="#dddddd" stroke-width="1.0"/>
+<text x="390.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">2. Три топіки тримають картку живою</text>
+<circle cx="92.0" cy="300.0" r="40.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="92.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="92.0" dy="0.0">ВУЗОЛ</tspan><tspan x="92.0" dy="14.3">термостат</tspan></text>
+<rect x="300.0" y="204.0" width="160.0" height="192.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="380.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">БРОКЕР MQTT</text>
+<rect x="312.0" y="241.0" width="136.0" height="30.0" rx="5" fill="#fff7e6" stroke="#b8860b" stroke-width="1.6"/>
+<text x="380.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">…/config</text>
+<text x="380.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">retain=1</text>
+<rect x="312.0" y="285.0" width="136.0" height="30.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="380.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">…/status</text>
+<text x="380.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">LWT / birth</text>
+<rect x="312.0" y="331.0" width="136.0" height="30.0" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="380.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">…/state</text>
+<text x="380.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">qos=1</text>
+<line x1="132.0" y1="260.0" x2="300.0" y2="256.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="132.0" y1="300.0" x2="300.0" y2="300.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="132.0" y1="340.0" x2="300.0" y2="346.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="600.0" y="240.0" width="128.0" height="120.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="664.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="664.0" dy="0.0">Home</tspan><tspan x="664.0" dy="16.9">Assistant</tspan></text>
+<text x="664.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">будує картку</text>
+<text x="664.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">стежить за</text>
+<text x="664.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">availability</text>
+<line x1="460.0" y1="280.0" x2="600.0" y2="280.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="340.0" x2="460.0" y2="370.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="528.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">homeassistant/status: HA кричить «online» —</text>
+<text x="528.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">вузол переоголошується</text>
+</svg>

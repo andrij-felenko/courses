@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок від сторожа до розпізнавача</text>
+<rect x="60.0" y="70.0" width="360.0" height="200.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="240.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ДЕТЕКТОР ПОДІЙ (VAD)</text>
+<text x="240.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="240.0" dy="0.0">2 дешеві числа на кадр:</tspan><tspan x="240.0" dy="14.3">енергія + нуль-перетини</tspan></text>
+<text x="240.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">питання:</text>
+<text x="240.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">«зараз щось звучить?»</text>
+<text x="240.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">відповідь: так / ні</text>
+<text x="240.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кілька порівнянь</text>
+<line x1="428.0" y1="170.0" x2="508.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="468.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">важче</text>
+<rect x="520.0" y="70.0" width="360.0" height="200.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="700.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">РОЗПІЗНАВАЧ СЛІВ (KWS)</text>
+<text x="700.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="700.0" dy="0.0">десятки ознак + навчена</tspan><tspan x="700.0" dy="14.3">модель (крихітна CNN)</tspan></text>
+<text x="700.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">питання:</text>
+<text x="700.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">«ЯКЕ саме слово?»</text>
+<text x="700.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">«вперед» / «стоп» / шум</text>
+<text x="700.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">один прохід мережі</text>
+<text x="450.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">той самий стрибок, що від «є об'єкт у кадрі» до «ЩО це за об'єкт»</text>
+</svg>

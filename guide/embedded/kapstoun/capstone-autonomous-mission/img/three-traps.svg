@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">три тихі пастки завантажувача — і як їх обходить робочий код</text>
+<rect x="20.0" y="60.0" width="286.7" height="340.0" rx="10" fill="#ffffff" stroke="#dfe3e8" stroke-width="1.3"/>
+<text x="163.3" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">координата у float</text>
+<rect x="32.0" y="106.0" width="262.7" height="132.0" rx="7" fill="#fdf1f0" stroke="#c0392b" stroke-width="1.4"/>
+<text x="42.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a5281b" text-anchor="start" font-weight="700">✗ пастка</text>
+<text x="42.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">lat = float(row[0])</text>
+<text x="42.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">→ округлення до ~1 м</text>
+<text x="42.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">на самій землі,</text>
+<text x="42.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">ще до передачі</text>
+<rect x="32.0" y="254.0" width="262.7" height="132.0" rx="7" fill="#eef7ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="42.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e7d42" text-anchor="start" font-weight="700">✓ ліки</text>
+<rect x="38.0" y="284.0" width="250.7" height="92.0" rx="6" fill="#eef7ee" stroke="none" stroke-width="1.5"/><text x="163.3" y="313.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="163.3" dy="0.0">тримай int 10⁻⁷°</tspan><tspan x="163.3" dy="13.7">від CSV до відправки;</tspan><tspan x="163.3" dy="13.7">у градуси — лише</tspan><tspan x="163.3" dy="13.7">для друку людині</tspan></text>
+<rect x="326.7" y="60.0" width="286.7" height="340.0" rx="10" fill="#ffffff" stroke="#dfe3e8" stroke-width="1.3"/>
+<text x="470.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">немає таймауту</text>
+<rect x="338.7" y="106.0" width="262.7" height="132.0" rx="7" fill="#fdf1f0" stroke="#c0392b" stroke-width="1.4"/>
+<text x="348.7" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a5281b" text-anchor="start" font-weight="700">✗ пастка</text>
+<text x="348.7" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">recv_match(blocking=</text>
+<text x="348.7" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  True)  # без timeout</text>
+<text x="348.7" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">загубився пакет →</text>
+<text x="348.7" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">висне НАЗАВЖДИ</text>
+<rect x="338.7" y="254.0" width="262.7" height="132.0" rx="7" fill="#eef7ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="348.7" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e7d42" text-anchor="start" font-weight="700">✓ ліки</text>
+<rect x="344.7" y="284.0" width="250.7" height="92.0" rx="6" fill="#eef7ee" stroke="none" stroke-width="1.5"/><text x="470.0" y="313.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">timeout=0.25 на кожен</tspan><tspan x="470.0" dy="13.7">recv_match; порожньо →</tspan><tspan x="470.0" dy="13.7">повтор; tries==5 →</tspan><tspan x="470.0" dy="13.7">скасувати, не висіти</tspan></text>
+<rect x="633.3" y="60.0" width="286.7" height="340.0" rx="10" fill="#ffffff" stroke="#dfe3e8" stroke-width="1.3"/>
+<text x="776.7" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">звірка частки</text>
+<rect x="645.3" y="106.0" width="262.7" height="132.0" rx="7" fill="#fdf1f0" stroke="#c0392b" stroke-width="1.4"/>
+<text x="655.3" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a5281b" text-anchor="start" font-weight="700">✗ пастка</text>
+<text x="655.3" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">зчитав 3 з 6,</text>
+<text x="655.3" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">звірив 3 —</text>
+<text x="655.3" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">«усе збіглося»,</text>
+<text x="655.3" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">а місія неповна</text>
+<rect x="645.3" y="254.0" width="262.7" height="132.0" rx="7" fill="#eef7ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="655.3" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e7d42" text-anchor="start" font-weight="700">✓ ліки</text>
+<rect x="651.3" y="284.0" width="250.7" height="92.0" rx="6" fill="#eef7ee" stroke="none" stroke-width="1.5"/><text x="776.7" y="313.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="776.7" dy="0.0">спершу переконайся</tspan><tspan x="776.7" dy="13.7">len(got) == count;</tspan><tspan x="776.7" dy="13.7">інакше НЕ звіряй —</tspan><tspan x="776.7" dy="13.7">частковий список бреше</tspan></text>
+</svg>

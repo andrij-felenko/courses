@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">UART_STATUS_REG ESP32: один регістр, два прочитання</text>
+<rect x="70.0" y="100.0" width="90.5" height="40.0" rx="3" fill="#f0f0f3" stroke="#6b7280" stroke-width="1.8"/>
+<text x="116.2" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">лінії TX</text>
+<text x="116.2" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">[31–28]</text>
+<rect x="162.5" y="100.0" width="90.5" height="40.0" rx="3" fill="#fbf3e0" stroke="#8a6a1e" stroke-width="1.8"/>
+<text x="208.8" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6a1e" text-anchor="middle" font-weight="700">UTX</text>
+<text x="208.8" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">[27–24]</text>
+<rect x="255.0" y="100.0" width="183.0" height="40.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="347.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">TXFIFO_CNT</text>
+<text x="347.5" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">[23–16]</text>
+<rect x="440.0" y="100.0" width="90.5" height="40.0" rx="3" fill="#f0f0f3" stroke="#6b7280" stroke-width="1.8"/>
+<text x="486.2" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">лінії RX</text>
+<text x="486.2" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">[15–12]</text>
+<rect x="532.5" y="100.0" width="90.5" height="40.0" rx="3" fill="#fbf3e0" stroke="#8a6a1e" stroke-width="1.8"/>
+<text x="578.8" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6a1e" text-anchor="middle" font-weight="700">URX</text>
+<text x="578.8" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">[11–8]</text>
+<rect x="625.0" y="100.0" width="183.0" height="40.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="717.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">RXFIFO_CNT</text>
+<text x="717.5" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">[7–0]</text>
+<text x="70.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="start">біт 31 (старший)</text>
+<text x="810.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end">біт 0 (молодший)</text>
+<text x="440.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">розкладку бітів диктує datasheet — вона фіксована й однакова для всіх</text>
+<rect x="70.0" y="250.0" width="360.0" height="150.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="250.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Явні маски й зсуви</text>
+<text x="250.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">над volatile-словом</text>
+<text x="90.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">w = UART0-&gt;status;</text>
+<text x="90.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">rx = (w &gt;&gt; 0) &amp; 0xFF;</text>
+<text x="90.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">tx = (w &gt;&gt; 16) &amp; 0xFF;</text>
+<text x="250.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">читає рівно ті біти, що в datasheet</text>
+<rect x="470.0" y="250.0" width="360.0" height="150.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="650.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Наївні бітові поля</text>
+<text x="650.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">накладені на регістр</text>
+<text x="490.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">struct { uint32_t rx:8;</text>
+<text x="510.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">... tx:8; } *S;</text>
+<text x="490.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">S-&gt;rx;  // де насправді?</text>
+<text x="650.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">порядок бітів — на розсуд компілятора</text>
+<text x="440.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Маски над словом і datasheet говорять про біти однаково.</text>
+<text x="440.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Бітове поле «rx:8» може лягти в старші біти, а не в [7:0] — і код тихо читає не те.</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Родина змішувань: чим різняться mixup, Cutout, CutMix</text>
+<rect x="55.0" y="74.0" width="150.0" height="130.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><rect x="55.0" y="74.0" width="150.0" height="130.0" rx="6" fill="#c0392b" fill-opacity="0.600"/><rect x="55.0" y="74.0" width="150.0" height="130.0" rx="6" fill="#2457d6" fill-opacity="0.400"/>
+<text x="130.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">mixup</text>
+<text x="130.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">усюди прозоро</text>
+<text x="130.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">накладені два кадри</text>
+<rect x="55.0" y="250.0" width="150.0" height="32.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="130.0" y="269.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">ỹ = 0.6·кіт + 0.4·пес</tspan></text>
+<rect x="305.0" y="74.0" width="150.0" height="130.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/>
+<rect x="354.0" y="113.0" width="52.0" height="52.0" rx="4" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="380.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cutout</text>
+<text x="380.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">вирізаний</text>
+<text x="380.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">чорний квадрат</text>
+<rect x="305.0" y="250.0" width="150.0" height="32.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="269.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">y = кіт (не змінився)</tspan></text>
+<rect x="555.0" y="74.0" width="150.0" height="130.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/>
+<rect x="643.0" y="142.0" width="52" height="52" rx="4" fill="#2457d6" fill-opacity="0.85"/>
+<text x="630.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">CutMix</text>
+<text x="630.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">вставлена латка</text>
+<text x="630.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">з чужого кадру</text>
+<rect x="555.0" y="250.0" width="150.0" height="32.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="630.0" y="269.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="630.0" dy="0.0">ỹ = 0.75·кіт + 0.25·пес</tspan></text>
+</svg>

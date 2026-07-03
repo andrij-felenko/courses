@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три способи ділити одну лінію — і що стається при зіткненні</text>
+<text x="400.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">чому push-pull двох ведучих небезпечний, а open-drain і три-стан — ні</text>
+<rect x="20.0" y="70.0" width="246.0" height="236.0" rx="6" fill="#ffffff" stroke="#dddddd" stroke-width="1.2"/>
+<text x="143.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">push-pull: двоє ведучих</text>
+<line x1="50.0" y1="236.0" x2="236.0" y2="236.0" stroke="#1a1a1a" stroke-width="2.6"/>
+<rect x="60.0" y="128.0" width="46.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="83.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">A → 1</text>
+<line x1="83.0" y1="168.0" x2="83.0" y2="236.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="54.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">+3.3</text>
+<rect x="180.0" y="128.0" width="46.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="203.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">B → 0</text>
+<line x1="203.0" y1="168.0" x2="203.0" y2="236.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="232.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">0 В</text>
+<text x="143.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">I = 3.3 / 2R_on  ⇒  коротке</text>
+<rect x="287.0" y="70.0" width="246.0" height="236.0" rx="6" fill="#ffffff" stroke="#dddddd" stroke-width="1.2"/>
+<text x="410.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c7a4b" text-anchor="middle" font-weight="700">open-drain + підтяжка</text>
+<text x="493.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2c7a4b" text-anchor="middle" font-weight="700">Vcc</text>
+<line x1="493.0" y1="122.0" x2="493.0" y2="138.0" stroke="#2c7a4b" stroke-width="1.6"/>
+<rect x="480.0" y="138.0" width="26.0" height="15.0" rx="6" fill="#ffffff" stroke="#2c7a4b" stroke-width="1.6"/>
+<text x="513.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2c7a4b" text-anchor="start">R</text>
+<line x1="493.0" y1="153.0" x2="493.0" y2="236.0" stroke="#2c7a4b" stroke-width="1.6"/>
+<line x1="317.0" y1="236.0" x2="493.0" y2="236.0" stroke="#1a1a1a" stroke-width="2.6"/>
+<rect x="331.0" y="150.0" width="46.0" height="38.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="354.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">тягне 0</text>
+<line x1="354.0" y1="188.0" x2="354.0" y2="236.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="417.0" y="150.0" width="46.0" height="38.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="440.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">відпущ.</text>
+<line x1="440.0" y1="188.0" x2="440.0" y2="236.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="3,3"/>
+<text x="410.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">хтось тягне 0 ⇒ лінія 0</text>
+<rect x="554.0" y="70.0" width="246.0" height="236.0" rx="6" fill="#ffffff" stroke="#dddddd" stroke-width="1.2"/>
+<text x="677.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">три-стан (шина даних)</text>
+<line x1="584.0" y1="236.0" x2="770.0" y2="236.0" stroke="#1a1a1a" stroke-width="2.6"/>
+<rect x="594.0" y="150.0" width="46.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="617.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">OE=1</text>
+<line x1="617.0" y1="188.0" x2="617.0" y2="236.0" stroke="#c0392b" stroke-width="2.2"/>
+<rect x="674.0" y="150.0" width="42.0" height="38.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="695.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">OE=0</text>
+<line x1="695.0" y1="188.0" x2="695.0" y2="236.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="3,3"/>
+<rect x="726.0" y="150.0" width="42.0" height="38.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="747.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">OE=0</text>
+<line x1="747.0" y1="188.0" x2="747.0" y2="236.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="3,3"/>
+<text x="677.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">лише один OE=1; решта Hi-Z</text>
+<rect x="20.0" y="320.0" width="246.0" height="28.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/><text x="143.0" y="337.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="143.0" dy="0.0">штовхачі б'ються — каскад згорає</tspan></text>
+<rect x="287.0" y="320.0" width="246.0" height="28.0" rx="6" fill="#eafaf1" stroke="#2c7a4b" stroke-width="1.2"/><text x="410.0" y="337.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">зіткнення немає за побудовою</tspan></text>
+<rect x="554.0" y="320.0" width="246.0" height="28.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.1"/><text x="677.0" y="337.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="677.0" dy="0.0">веде рівно один за чергою</tspan></text>
+<rect x="20.0" y="356.0" width="760.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#e0e0e0" stroke-width="1.0"/><text x="400.0" y="373.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Спільна лінія жива, лише коли її ставить хтось один: або жорстка черга (три-стан), або конструкція, де зіткнення неможливе за побудовою (open-drain — усі тягнуть тільки вниз).</tspan></text>
+</svg>

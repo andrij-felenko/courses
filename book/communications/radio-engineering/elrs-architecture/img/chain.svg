@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наскрізний ланцюг керування</text>
+<rect x="24.0" y="90.0" width="128.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="88.0" y="119.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="88.0" dy="0.0">Пульт</tspan><tspan x="88.0" dy="15.6">(EdgeTX/OpenTX)</tspan></text>
+<rect x="190.0" y="90.0" width="128.0" height="66.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="254.0" y="119.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="254.0" dy="0.0">Передавач ELRS</tspan><tspan x="254.0" dy="15.6">MCU + радіочип</tspan></text>
+<rect x="470.0" y="90.0" width="128.0" height="66.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="534.0" y="119.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="534.0" dy="0.0">Приймач ELRS</tspan><tspan x="534.0" dy="15.6">MCU + радіочип</tspan></text>
+<rect x="636.0" y="90.0" width="128.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="119.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">Політник</tspan><tspan x="700.0" dy="16.9">(FC)</tspan></text>
+<line x1="156.0" y1="123.0" x2="186.0" y2="123.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="171.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">CRSF</text>
+<text x="171.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дріт у пульті</text>
+<line x1="324.0" y1="115.0" x2="464.0" y2="115.0" stroke="#c0392b" stroke-width="2.6" marker-end="url(#arrow)"/>
+<line x1="464.0" y1="133.0" x2="324.0" y2="133.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="394.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">керування ↑</text>
+<text x="394.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">телеметрія ↓</text>
+<text x="394.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">радіоефір · FHSS</text>
+<text x="394.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">2.4 ГГц або 900 МГц</text>
+<line x1="602.0" y1="123.0" x2="632.0" y2="123.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="617.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">CRSF</text>
+<text x="617.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дріт у дроні</text>
+<text x="380.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ELRS — це лише дві коробки й ефір між ними; з обох боків той самий серійний CRSF.</text>
+</svg>

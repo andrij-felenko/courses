@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гістерезис: два пороги замість одного гасять брязкіт реле</text>
+<line x1="96.0" y1="130.0" x2="616.0" y2="130.0" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="5 5"/>
+<text x="622.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">поріг</text>
+<line x1="96.0" y1="88.0" x2="616.0" y2="88.0" stroke="#2457d6" stroke-width="1.6" stroke-dasharray="3 4"/>
+<text x="622.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">set + Δ</text>
+<line x1="96.0" y1="172.0" x2="616.0" y2="172.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3 4"/>
+<text x="622.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">set − Δ</text>
+<rect x="96.0" y="88.0" width="520.0" height="84.0" rx="0" fill="#f4f6f8" stroke="none" stroke-width="0.0"/>
+<text x="104.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">мертва зона 2Δ</text>
+<path d="M 96.0 166.0 L 182.7 92.0 L 269.3 168.0 L 356.0 92.0 L 442.7 168.0 L 529.3 92.0 L 616.0 168.0" fill="none" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="136.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-style="italic">температура</text>
+<circle cx="182.7" cy="92.0" r="4.5" fill="#2457d6" stroke="#fff" stroke-width="1.5"/>
+<circle cx="269.3" cy="168.0" r="4.5" fill="#c0392b" stroke="#fff" stroke-width="1.5"/>
+<circle cx="356.0" cy="92.0" r="4.5" fill="#2457d6" stroke="#fff" stroke-width="1.5"/>
+<circle cx="442.7" cy="168.0" r="4.5" fill="#c0392b" stroke="#fff" stroke-width="1.5"/>
+<circle cx="529.3" cy="92.0" r="4.5" fill="#2457d6" stroke="#fff" stroke-width="1.5"/>
+<text x="226.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">у зоні реле НЕ чіпаємо —</text>
+<text x="226.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">тримаємо те, що було</text>
+<text x="84.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">ON</text>
+<text x="84.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">OFF</text>
+<line x1="96.0" y1="374.0" x2="616.0" y2="374.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="356.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">час →</text>
+<path d="M 96.0 320.0 L 182.7 320.0 L 182.7 360.0 L 269.3 360.0 L 269.3 320.0 L 356.0 320.0 L 356.0 360.0 L 442.7 360.0 L 442.7 320.0 L 529.3 320.0 L 529.3 360.0 L 616.0 360.0" fill="none" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="182.7" y1="84.0" x2="182.7" y2="374.0" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="2 4"/>
+<line x1="269.3" y1="84.0" x2="269.3" y2="374.0" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="2 4"/>
+<line x1="356.0" y1="84.0" x2="356.0" y2="374.0" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="2 4"/>
+<line x1="442.7" y1="84.0" x2="442.7" y2="374.0" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="2 4"/>
+<line x1="529.3" y1="84.0" x2="529.3" y2="374.0" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="2 4"/>
+<text x="356.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">перемикань мало — лише на краях зони, не на кожному тремтінні</text>
+</svg>

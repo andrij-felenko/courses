@@ -1,0 +1,72 @@
+/* manifest — «Давачі» (тип "catalog"). Схема — AUTHORING.md §2 (v6). Заведено з hardware-інвентарю. */
+(window.__BOOKS__ = window.__BOOKS__ || []).push({
+  type: "catalog", slug: "sensors", title: "Давачі",
+  sections: [
+    { slug: "series", title: "Серії/родини модулів", scope: "Оглядові статті родин модулів (спільна історія, архітектура, як обрати варіант).",
+      topics: [
+        { slug: "ky-series", title: "KY-серія (Keyes 37-в-1)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "gy-series", title: "GY-серія (брейкаут-модулі)", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+    { slug: "environment", title: "Довкілля", scope: "Давачі середовища: температура, вологість, час, атмосферні явища.",
+      topics: [
+        { slug: "dht11", title: "DHT11 — температура/вологість", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "gy-21", title: "GY-21 (Si7021/HTU21D) — температура/вологість", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ds1302-rtc", title: "DS1302 — RTC-модуль (CR2032)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "as3935-lightning", title: "DFRobot SEN0290 (AS3935) — давач блискавок", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+    { slug: "motion", title: "Рух і орієнтація", scope: "Відстань, рух, нахил, вібрація, магнітне поле, орієнтація.",
+      topics: [
+        { slug: "hc-sr04", title: "HC-SR04 — ультразвуковий далекомір", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "tof250", title: "TOF250 — лазерний далекомір", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "hc-sr501", title: "HC-SR501 — PIR-давач руху", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "adxl335", title: "GY-61 ADXL335 — 3-осьовий акселерометр", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "pololu-imu", title: "Pololu IMU (LSM6DS33 / MinIMU-9)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "hmc5883l", title: "GY-271 / HMC5883L — компас/магнетометр", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "sw-520d", title: "SW-520D — давач нахилу/вібрації", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-002-vibration", title: "KY-002 — давач вібрації (SW-18020P)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-020-tilt", title: "KY-020 — давач нахилу", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-021-reed", title: "KY-021 — міні герконовий давач", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-025-reed", title: "KY-025 — геркон у скляній колбі", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-003-hall", title: "KY-003 / KY-024 — давач Голла", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+    { slug: "light-sound", title: "Світло і звук", scope: "Освітленість, полумʼя, звук, дотик, оптичні переривачі.",
+      topics: [
+        { slug: "ky-018-photoresistor", title: "KY-018 — фоторезистор", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-026-flame", title: "KY-026 — давач полумʼя", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "sound-lm393", title: "Звуковий давач з мікрофоном (LM393)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-038-mic", title: "KY-038 — мікрофонний давач звуку", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-037-mic", title: "KY-037 — давач звуку (великий мікрофон)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ttp223-touch", title: "TTP223 — сенсорний давач дотику", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-010-interrupter", title: "KY-010 — оптичний переривач", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+    { slug: "temp-gas", title: "Температура і гази", scope: "Температура контактно, гази, біометрія (пульс/SpO2).",
+      topics: [
+        { slug: "ky-013-thermistor", title: "KY-013 — аналоговий давач температури (термістор)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-028-temp", title: "KY-028 — цифровий давач температури", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "mq-gas", title: "MQ — давач газу (Keyes K869051)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "max30102", title: "GY-MAX30102 — давач пульсу/SpO2", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-039-pulse", title: "KY-039 — давач пульсу", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+    { slug: "water-soil", title: "Вода і ґрунт", scope: "Вологість ґрунту, рівень води, дощ.",
+      topics: [
+        { slug: "soil-moisture", title: "Давач вологості ґрунту (+LM393)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "hw-038-water-level", title: "HW-038 — давач рівня води", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "funduino-rain", title: "Funduino — давач дощу (+LM358)", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+    { slug: "optical", title: "Оптичні/ІЧ", scope: "Виявлення перешкод, стук.",
+      topics: [
+        { slug: "ir-obstacle", title: "IR-давачі перешкод (FC-51 / KY-032)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-031-knock", title: "KY-031 — давач стуку", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+    { slug: "input", title: "Ввід (HMI)", scope: "Органи керування: кнопки, клавіатури, енкодери, джойстики, потенціометри.",
+      topics: [
+        { slug: "keypad-4x4-membrane", title: "Матрична клавіатура 4×4 (мембранна)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "keypad-4x4-tactile", title: "Матрична клавіатура 4×4 (тактильна)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-023-joystick", title: "KY-023 — джойстик-модуль", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-040-encoder", title: "KY-040 — поворотний енкодер", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "tactile-buttons", title: "Тактильні кнопки з ковпачками", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "potentiometer", title: "Поворотний потенціометр", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ky-004-button", title: "KY-004 — тактильна кнопка на платі", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+  ]
+});

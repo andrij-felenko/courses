@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один лічильник seq ловить три біди лінка</text>
+<line x1="60.0" y1="130.0" x2="740.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="732.0" y1="130.0" x2="760.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="758.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">кадри, що ПРИЙШЛИ</text>
+<circle cx="120.0" cy="130.0" r="15.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.4"/>
+<text x="120.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">7</text>
+<circle cx="210.0" cy="130.0" r="15.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.4"/>
+<text x="210.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">8</text>
+<circle cx="300.0" cy="130.0" r="15.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.4"/>
+<text x="300.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">10</text>
+<circle cx="420.0" cy="130.0" r="15.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.4"/>
+<text x="420.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">10</text>
+<circle cx="540.0" cy="130.0" r="15.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.4"/>
+<text x="540.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">11</text>
+<circle cx="630.0" cy="130.0" r="15.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.4"/>
+<text x="630.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">12</text>
+<text x="300.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">очікували 9, прийшло 10</text>
+<text x="300.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">→ втрата кадру 9</text>
+<text x="420.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">seq не зріс (10 = 10)</text>
+<text x="420.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">→ дубль, ВІДКИНУТИ</text>
+<line x1="40.0" y1="210.0" x2="800.0" y2="210.0" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="50.0" y="226.0" width="240.0" height="96.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="170.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">ВТРАТА (seq перескочив)</tspan><tspan x="170.0" dy="13.0">у lockstep НЕ буває:</tspan><tspan x="170.0" dy="13.0">модель шле наступний кадр</tspan><tspan x="170.0" dy="13.0">лише отримавши ЕХО.</tspan><tspan x="170.0" dy="13.0">Буває лиш на СТАРТІ й після</tspan><tspan x="170.0" dy="13.0">скидання — тоді ре-синхрон.</tspan></text>
+<rect x="300.0" y="226.0" width="240.0" height="96.0" rx="6" fill="#fdf4e6" stroke="#27ae60" stroke-width="1.6"/><text x="420.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">ДУБЛЬ (seq не зріс):</tspan><tspan x="420.0" dy="13.0">мовчки ВІДКИНУТИ кадр —</tspan><tspan x="420.0" dy="13.0">не робити другий крок на</tspan><tspan x="420.0" dy="13.0">тому самому t_us, бо це</tspan><tspan x="420.0" dy="13.0">двічі проінтегрує фізику й</tspan><tspan x="420.0" dy="13.0">заб'є оцінку положення.</tspan></text>
+<rect x="550.0" y="226.0" width="240.0" height="96.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="670.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">РОЗСИНХРОН (t_us стрибнув</tspan><tspan x="670.0" dy="13.0">назад або зник вперед):</tspan><tspan x="670.0" dy="13.0">мітка часу не монотонна —</tspan><tspan x="670.0" dy="13.0">ВІДКИНУТИ кадр і чекати</tspan><tspan x="670.0" dy="13.0">монотонного. Так захищаємо</tspan><tspan x="670.0" dy="13.0">Δt фільтра від від'ємного.</tspan></text>
+<line x1="40.0" y1="344.0" x2="800.0" y2="344.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="420.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Правило одне на всі три: приймай кадр, ЛИШЕ якщо seq зріс рівно на 1 І t_us строго більший.</text>
+<text x="420.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Інакше — тихо відкинь і лишись на старому стані: краще пропустити крок, ніж зробити хибний.</text>
+<text x="420.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">У lockstep це майже ніколи не спрацьовує (черга з одного кадру), але коштує кілька рядків — і рятує від зависань.</text>
+</svg>

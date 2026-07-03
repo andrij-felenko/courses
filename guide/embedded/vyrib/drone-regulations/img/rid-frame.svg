@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Координата в ефір іде цілим числом у полі сталого розміру</text>
+<text x="150.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">з GPS-приймача</text>
+<rect x="85.0" y="80.2" width="130.0" height="47.6" rx="6" fill="#fff4e0" stroke="#c9820f" stroke-width="1.6"/><text x="150.0" y="100.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">широта</tspan><tspan x="150.0" dy="15.6">50.4501°</tspan></text>
+<text x="150.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">дробові градуси (float)</text>
+<line x1="228.0" y1="104.0" x2="318.0" y2="104.0" stroke="#4a6fa5" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="273.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4a6fa5" text-anchor="middle" font-weight="700">× 10⁷</text>
+<text x="273.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">→ ціле</text>
+<rect x="395.0" y="80.2" width="150.0" height="47.6" rx="6" fill="#eef3fb" stroke="#4a6fa5" stroke-width="1.6"/><text x="470.0" y="100.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">lat_1e7</tspan><tspan x="470.0" dy="15.6">504501000</tspan></text>
+<text x="470.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">int32 — однакове на будь-якому приймачі</text>
+<text x="640.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">4 байти на дроті</text>
+<rect x="574.0" y="90.0" width="30.0" height="28.0" rx="3" fill="#f0f4fa" stroke="#4a6fa5" stroke-width="1.3"/>
+<text x="589.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">08</text>
+<rect x="608.0" y="90.0" width="30.0" height="28.0" rx="3" fill="#f0f4fa" stroke="#4a6fa5" stroke-width="1.3"/>
+<text x="623.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">17</text>
+<rect x="642.0" y="90.0" width="30.0" height="28.0" rx="3" fill="#f0f4fa" stroke="#4a6fa5" stroke-width="1.3"/>
+<text x="657.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">13</text>
+<rect x="676.0" y="90.0" width="30.0" height="28.0" rx="3" fill="#f0f4fa" stroke="#4a6fa5" stroke-width="1.3"/>
+<text x="691.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1E</text>
+<text x="640.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">little-endian, як лежить у пам'яті</text>
+<text x="400.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одне повідомлення — рівно 25 байтів, поля на фіксованих місцях</text>
+<rect x="70.0" y="210.0" width="26.4" height="40.0" rx="4" fill="#fff4e0" stroke="#c9820f" stroke-width="1.5"/>
+<rect x="70.0" y="210.0" width="26.4" height="40.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="83.2" y="233.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="83.2" dy="0.0">тип</tspan></text>
+<rect x="96.4" y="210.0" width="528.0" height="40.0" rx="4" fill="#eef3fb" stroke="#4a6fa5" stroke-width="1.5"/>
+<rect x="96.4" y="210.0" width="528.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="360.4" y="233.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="360.4" dy="0.0">ID оператора (20)</tspan></text>
+<rect x="624.4" y="210.0" width="105.6" height="40.0" rx="4" fill="#eef1f4" stroke="#9aa4b0" stroke-width="1.5"/>
+<rect x="624.4" y="210.0" width="105.6" height="40.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="677.2" y="233.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="677.2" dy="0.0">резерв</tspan></text>
+<text x="70.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0</text>
+<text x="730.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">25</text>
+<text x="400.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">приймач знає розмір і місце кожного поля наперед — тому читає без «домовлянь»</text>
+<text x="400.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(це лише Basic ID; поруч так само пакуються Location із координатами й Operator ID)</text>
+</svg>

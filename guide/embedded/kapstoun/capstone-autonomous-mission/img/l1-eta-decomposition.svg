@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">команду формують ДВА доданки: куди летіти (η₁) і як гасити зближення (η₂)</text>
+<rect x="40.0" y="60.0" width="420.0" height="250.0" rx="10" fill="#faf6ff" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="250.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#8e44ad" text-anchor="middle" font-weight="700">η₁ — геометрія: «де ціль»</text>
+<circle cx="150.0" cy="220.0" r="8.0" fill="#eaf3ff" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="150.0" y1="220.0" x2="280.0" y2="212.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="284.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">V</text>
+<line x1="150.0" y1="220.0" x2="270.0" y2="275.0" stroke="#8e44ad" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="270.0" cy="275.0" r="6.0" fill="#fff6e6" stroke="#d98218" stroke-width="2.0"/>
+<text x="278.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b56c12" text-anchor="start">L1_ref</text>
+<text x="212.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#8e44ad" text-anchor="middle" font-weight="700">η₁</text>
+<rect x="60.0" y="262.0" width="380.0" height="38.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="250.0" y="283.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">η₁ = asin(відхилення / L1) — кут між швидкістю й напрямом на опорну точку</tspan></text>
+<rect x="480.0" y="60.0" width="420.0" height="250.0" rx="10" fill="#eef7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="690.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e7d42" text-anchor="middle" font-weight="700">η₂ — гасіння: «як швидко зближаюсь»</text>
+<line x1="540.0" y1="250.0" x2="850.0" y2="250.0" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="590.0" cy="210.0" r="8.0" fill="#eaf3ff" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="590.0" y1="210.0" x2="700.0" y2="210.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="704.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">V∥</text>
+<line x1="590.0" y1="210.0" x2="590.0" y2="250.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="582.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">V⊥</text>
+<rect x="500.0" y="262.0" width="380.0" height="38.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="690.0" y="283.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">η₂ = atan2(V⊥, V∥) — реагує на ШВИДКІСТЬ зближення, а не лише на відстань</tspan></text>
+<rect x="220.8" y="330.5" width="498.3" height="39.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="470.0" y="355.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">η = η₁ + η₂        →        a_cmd = 2·V²/L1 · sin η</tspan></text>
+<text x="470.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">довжина огляду масштабується зі швидкістю — тому «період» петлі сталий:</text>
+<rect x="151.1" y="425.5" width="637.8" height="39.0" rx="6" fill="#eaf3ff" stroke="#2457d6" stroke-width="1.5"/><text x="470.0" y="450.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">L1 = (1/π) · ζ · T · V        ζ = NAVL1_DAMPING,  T = NAVL1_PERIOD</tspan></text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скільки бітів займає число на кожному кроці</text>
+<line x1="256.0" y1="58.0" x2="256.0" y2="292.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="256.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">16</text>
+<line x1="376.0" y1="58.0" x2="376.0" y2="292.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="376.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">31</text>
+<line x1="384.0" y1="58.0" x2="384.0" y2="292.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="384.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">32</text>
+<line x1="632.0" y1="58.0" x2="632.0" y2="292.0" stroke="#d0d5dd" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="632.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">63</text>
+<text x="386.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">межа int32</text>
+<rect x="128.0" y="78.0" width="512.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="128.0" y="78.0" width="128.0" height="26.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="118.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">відлік</text>
+<text x="263.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">16 біт</text>
+<rect x="128.0" y="118.0" width="512.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="128.0" y="118.0" width="248.0" height="26.0" rx="6" fill="#e9eefb" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="118.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">×</text>
+<text x="383.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">≈31 біт: влазить у int32</text>
+<rect x="128.0" y="158.0" width="512.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="128.0" y="158.0" width="328.0" height="26.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="118.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">+…</text>
+<text x="463.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">≈41 біт: ПЕРЕЛИВ int32</text>
+<rect x="128.0" y="198.0" width="512.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="128.0" y="198.0" width="328.0" height="26.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="118.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">int64</text>
+<text x="463.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">41 біт: вільно</text>
+<rect x="160.3" y="247.5" width="379.5" height="29.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="350.0" y="265.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="350.0" dy="0.0">сума L≈1024 добутків додає ~log₂(1024)=10 бітів згори</tspan></text>
+</svg>

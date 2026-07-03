@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приєднання Matter: чотири фази й що в кожній летить</text>
+<rect x="60.0" y="46.0" width="680.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="400.0" y="64.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">секрет (passcode) працює лише у фазі 2 і НІКОЛИ не йде дротом:</tspan><tspan x="400.0" dy="15.6">обидва рахують спільний ключ, знаючи його; далі — операційні сертифікати</tspan></text>
+<line x1="234.0" y1="191.0" x2="246.0" y2="191.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="414.0" y1="191.0" x2="426.0" y2="191.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="594.0" y1="191.0" x2="606.0" y2="191.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="66.0" y="116.0" width="168.0" height="150.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="150.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. Виявлення</text>
+<text x="150.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">скан QR-коду</text>
+<text x="150.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">→ discriminator</text>
+<text x="150.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">12 біт (0..4095)</text>
+<rect x="246.0" y="116.0" width="168.0" height="150.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="330.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">2. PASE</text>
+<text x="330.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SPAKE2+ з passcode</text>
+<text x="330.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">27 біт (1..99999998)</text>
+<text x="330.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">на пристрої — лише</text>
+<text x="330.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">verifier, не сам код</text>
+<rect x="426.0" y="116.0" width="168.0" height="150.0" rx="8" fill="#fff7e6" stroke="#b8860b" stroke-width="2.0"/>
+<text x="510.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">3. Атестація</text>
+<text x="510.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">пристрій показує DAC</text>
+<text x="510.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ланцюг DAC←PAI←PAA</text>
+<text x="510.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">«я справжній,</text>
+<text x="510.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">не підробка»</text>
+<rect x="606.0" y="116.0" width="168.0" height="150.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="690.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">4. CASE</text>
+<text x="690.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">видано NOC у фабрику</text>
+<text x="690.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">fabric-id + node-id</text>
+<text x="690.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">далі — робоча</text>
+<text x="690.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">мережа, не BLE</text>
+<line x1="60.0" y1="320.0" x2="760.0" y2="320.0" stroke="#dddddd" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="70.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">канал BLE</text>
+<text x="70.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">робоча мережа</text>
+<line x1="150.0" y1="266.0" x2="150.0" y2="328.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="2 3"/>
+<circle cx="150.0" cy="334.0" r="6.0" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="330.0" y1="266.0" x2="330.0" y2="328.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="2 3"/>
+<circle cx="330.0" cy="334.0" r="6.0" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="510.0" y1="266.0" x2="510.0" y2="328.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="2 3"/>
+<circle cx="510.0" cy="334.0" r="6.0" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="690.0" y1="266.0" x2="690.0" y2="372.0" stroke="#27ae60" stroke-width="1.4" stroke-dasharray="2 3"/>
+<circle cx="690.0" cy="378.0" r="6.0" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+</svg>

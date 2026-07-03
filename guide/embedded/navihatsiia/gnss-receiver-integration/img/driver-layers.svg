@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Драйвер GNSS як конвеєр шарів: від байта на дроті до довіреного фікса</text>
+<rect x="150.0" y="62.0" width="520.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="164.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1 · ISR UART → кільцевий буфер</text>
+<text x="164.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">залізо складає прийняте саме; прошивку будить, коли є шматок</text>
+<line x1="410.0" y1="121.0" x2="410.0" y2="139.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="150.0" y="140.0" width="520.0" height="58.0" rx="6" fill="#fef6e7" stroke="#e9d8a6" stroke-width="1.8"/>
+<text x="164.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2 · цикл: годуй автомат по байту</text>
+<text x="164.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ubx_feed(byte) — неблокуючий; сума Флетчера копиться на льоту</text>
+<line x1="410.0" y1="199.0" x2="410.0" y2="217.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="150.0" y="218.0" width="520.0" height="58.0" rx="6" fill="#eafaf1" stroke="#bfe6cf" stroke-width="1.8"/>
+<text x="164.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">3 · декодер NAV-PVT за зсувами</text>
+<text x="164.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">memcpy кожного поля з буфера → без strict-aliasing і пакування</text>
+<line x1="410.0" y1="277.0" x2="410.0" y2="295.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="150.0" y="296.0" width="520.0" height="58.0" rx="6" fill="#bfe6cf" stroke="#c0392b" stroke-width="1.8"/>
+<text x="164.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">4 · ворота здоров'я фікса</text>
+<text x="164.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">fixType≥3 &amp; gnssFixOK &amp; numSV &amp; pDOP &amp; hAcc &amp; свіжість</text>
+<line x1="410.0" y1="355.0" x2="410.0" y2="373.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="240.0" y="374.0" width="340.0" height="36.0" rx="6" fill="#eafaf1" stroke="#bfe6cf" stroke-width="1.5"/><text x="410.0" y="395.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">оцінювач стану (фільтр Калмана) — злиття з IMU</tspan></text>
+<rect x="34.0" y="62.0" width="96.0" height="58.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="82.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="82.0" dy="0.0">СТАРТ:</tspan><tspan x="82.0" dy="13.0">конфіг по RX</tspan></text>
+<text x="82.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">MON-VER →</text>
+<text x="82.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">покоління?</text>
+<text x="82.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">M8: CFG-PRT/</text>
+<text x="82.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MSG/RATE/GNSS</text>
+<text x="82.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">M9/M10:</text>
+<text x="82.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CFG-VALSET</text>
+<text x="82.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">чекай ACK</text>
+<line x1="130.0" y1="91.0" x2="148.0" y2="169.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="410.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кожен шар має одну відповідальність; збій на будь-якому не валить сусідні. Довіру дає лише шар 4.</text>
+</svg>

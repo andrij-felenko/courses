@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Числовий опис проти двійкового</text>
+<rect x="30.0" y="70.0" width="360.0" height="250.0" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="210.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">SIFT — числовий вектор</text>
+<text x="50.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">окіл → 128 дійсних чисел</text>
+<text x="50.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">(сітка 4×4 × 8 напрямків градієнта)</text>
+<text x="50.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">≈ 512 байтів на точку</text>
+<text x="50.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">інваріантний, дуже розрізнюваний</text>
+<line x1="46.0" y1="246.0" x2="374.0" y2="246.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,3"/>
+<text x="210.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">звірити дві точки:</text>
+<rect x="54.0" y="282.0" width="312.0" height="30.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="210.0" y="301.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">евклід: ≈128 множень + 128 віднімань</tspan></text>
+<rect x="430.0" y="70.0" width="360.0" height="250.0" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.8"/>
+<text x="610.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#16a34a" text-anchor="middle" font-weight="700">ORB — двійковий рядок</text>
+<text x="450.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">окіл → 256 бітів</text>
+<text x="450.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">(256 тестів «яскравіше?»)</text>
+<text x="450.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">= 32 байти на точку</text>
+<text x="450.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">порівнянно точний, у сотні разів дешевший</text>
+<line x1="446.0" y1="246.0" x2="774.0" y2="246.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,3"/>
+<text x="610.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">звірити дві точки:</text>
+<rect x="454.0" y="282.0" width="312.0" height="30.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/><text x="610.0" y="301.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">Гаммінг: 8× (XOR + popcount)</tspan></text>
+<text x="410.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">≈ на два порядки швидше при близькій якості</text>
+</svg>

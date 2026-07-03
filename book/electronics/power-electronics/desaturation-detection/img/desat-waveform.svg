@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="90.0" y1="340.0" x2="90.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="340.0" x2="690.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="72.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">V_CE</text>
+<text x="680.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">час</text>
+<line x1="90.0" y1="165.0" x2="690.0" y2="165.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="6 5"/>
+<text x="692.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">9 В</text>
+<text x="572.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">поріг фолту</text>
+<line x1="90.0" y1="306.0" x2="690.0" y2="306.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<text x="692.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">~2 В</text>
+<line x1="240.0" y1="340.0" x2="240.0" y2="100.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="240.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">кінець бланку</text>
+<rect x="91" y="100" width="149" height="240" fill="#eaf0fd" opacity="0.55"/>
+<text x="165.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">сенсор</text>
+<text x="165.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">сліпий</text>
+<polyline points="90,110 130,110 185,306 690,306" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+<text x="390.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">норма: лишається в насиченні</text>
+<polyline points="90,110 130,110 185,220 240,190 390,159 430,159" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<text x="265.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">КЗ: V_CE лізе вгору</text>
+<circle cx="418.0" cy="165.0" r="6.0" fill="#fff" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="418.0" y1="159.0" x2="478.0" y2="105.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="458.0" y="69.0" width="190.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="553.0" y="94.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="553.0" dy="0.0">перетнув 9 В → фолт → м'яке вимкнення</tspan></text>
+<line x1="240.0" y1="366.0" x2="560.0" y2="366.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="240.0" y1="361.0" x2="240.0" y2="371.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="560.0" y1="361.0" x2="560.0" y2="371.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="400.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">весь захист має вкластися в ~10 мкс витримки КЗ</text>
+</svg>

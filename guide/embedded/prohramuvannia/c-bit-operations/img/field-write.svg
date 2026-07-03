@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запис поля (read-modify-write): прочитати → очистити маскою → вкласти зсунуте</text>
+<text x="422.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">розряди 7 … 0  (поле = біти 4–6)</text>
+<text x="270.0" y="60.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#6b7280" text-anchor="middle">7</text>
+<text x="313.0" y="60.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#6b7280" text-anchor="middle">6</text>
+<text x="356.0" y="60.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#6b7280" text-anchor="middle">5</text>
+<text x="399.0" y="60.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#6b7280" text-anchor="middle">4</text>
+<text x="442.0" y="60.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#6b7280" text-anchor="middle">3</text>
+<text x="485.0" y="60.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#6b7280" text-anchor="middle">2</text>
+<text x="528.0" y="60.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#6b7280" text-anchor="middle">1</text>
+<text x="571.0" y="60.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<text x="236.0" y="96.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#1a1a1a" text-anchor="end" font-weight="700">reg</text>
+<rect x="250.0" y="70.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="270.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="293.0" y="70.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#b8860b" stroke-width="2.6"/>
+<text x="313.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="336.0" y="70.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#b8860b" stroke-width="2.6"/>
+<text x="356.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="379.0" y="70.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#b8860b" stroke-width="2.6"/>
+<text x="399.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="422.0" y="70.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="442.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="465.0" y="70.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="485.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="508.0" y="70.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="528.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="551.0" y="70.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="571.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="614.0" y="96.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. поточне (поле = 010)</text>
+<text x="614.0" y="146.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">&amp;= ~DIV_MASK</text>
+<text x="236.0" y="188.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#2457d6" text-anchor="end" font-weight="700">→</text>
+<rect x="250.0" y="162.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="270.0" y="189.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="293.0" y="162.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#b8860b" stroke-width="2.6"/>
+<text x="313.0" y="189.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="336.0" y="162.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#b8860b" stroke-width="2.6"/>
+<text x="356.0" y="189.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="379.0" y="162.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#b8860b" stroke-width="2.6"/>
+<text x="399.0" y="189.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="422.0" y="162.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="442.0" y="189.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="465.0" y="162.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="485.0" y="189.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="508.0" y="162.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="528.0" y="189.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="551.0" y="162.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="571.0" y="189.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="614.0" y="188.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">2. поле очищене в 000</text>
+<text x="614.0" y="238.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">|= 5 &lt;&lt; 4</text>
+<text x="236.0" y="280.4" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#c0392b" text-anchor="end" font-weight="700">→</text>
+<rect x="250.0" y="254.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="270.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="293.0" y="254.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#b8860b" stroke-width="2.6"/>
+<text x="313.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="336.0" y="254.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#b8860b" stroke-width="2.6"/>
+<text x="356.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="379.0" y="254.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#b8860b" stroke-width="2.6"/>
+<text x="399.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="422.0" y="254.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="442.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="465.0" y="254.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="485.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="508.0" y="254.0" width="40.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="528.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<rect x="551.0" y="254.0" width="40.0" height="40.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="571.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="614.0" y="280.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">3. вкладено 101 (=5)</text>
+<rect x="40.0" y="424.0" width="820.0" height="32.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="450.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чужі біти (поза жовтою рамкою) недоторкані на всіх трьох кроках. Пропустиш крок 2 — нове змішається зі старим.</text>
+</svg>

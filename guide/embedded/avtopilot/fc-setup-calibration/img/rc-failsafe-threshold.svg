@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поріг failsafe: «прибрав газ» проти «зв'язок пропав»</text>
+<rect x="124.0" y="153.0" width="46.8" height="30" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<rect x="170.8" y="153.0" width="665.2" height="30" rx="5" fill="#eef7f0" stroke="#27ae60" stroke-width="1"/>
+<line x1="124.0" y1="168.0" x2="836.0" y2="168.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="140.2" y1="159.0" x2="140.2" y2="177.0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="140.2" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">≈ 900</text>
+<text x="140.2" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">приймач: втрата зв'язку</text>
+<line x1="170.8" y1="159.0" x2="170.8" y2="177.0" stroke="#1a1a1a" stroke-width="2.6"/>
+<text x="170.8" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">THR_FS_VALUE</text>
+<text x="170.8" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">поріг (950)</text>
+<line x1="272.7" y1="159.0" x2="272.7" y2="177.0" stroke="#2457d6" stroke-width="2.6"/>
+<text x="272.7" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">RCn_MIN</text>
+<text x="272.7" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">газ 0 (пілот)</text>
+<line x1="816.4" y1="159.0" x2="816.4" y2="177.0" stroke="#27ae60" stroke-width="2.6"/>
+<text x="816.4" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">RCn_MAX</text>
+<text x="816.4" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">газ повний</text>
+<text x="150.4" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">FAILSAFE</text>
+<text x="500.4" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">нормальний робочий діапазон газу</text>
+<rect x="171.2" y="276.4" width="617.6" height="47.3" rx="6" fill="#f7f7f9" stroke="#6b7280" stroke-width="1.4"/><text x="480.0" y="296.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Умова коректності: канал газу МУСИТЬ уміти впасти нижче за THR_FS_VALUE (зв'язок зник),</tspan><tspan x="480.0" dy="14.3">але при найнижчому газі пілота лишатися ВИЩЕ за нього. RCn_MIN газу занизько → хибний failsafe.</tspan></text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">завантаження ОДНОГО пункту: запит → чекай 250 мс → прийшов? далі : повтори</text>
+<circle cx="150.0" cy="130.0" r="66.0" fill="#eaf3ff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="150.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">ЗАПИТ</text>
+<text x="150.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">надіслати</tspan><tspan x="150.0" dy="13.7">REQUEST_INT(seq)</tspan></text>
+<circle cx="450.0" cy="130.0" r="66.0" fill="#fff8ee" stroke="#b56c12" stroke-width="2.2"/>
+<text x="450.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b56c12" text-anchor="middle" font-weight="700">ЧЕКАЮ</text>
+<text x="450.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">recv_match, timeout 250 мс</tspan><tspan x="450.0" dy="13.7">tries += 1</tspan></text>
+<circle cx="750.0" cy="130.0" r="66.0" fill="#eef7ee" stroke="#27ae60" stroke-width="2.2"/>
+<text x="750.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">ПРИЙНЯВ</text>
+<text x="750.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">потрібний seq?</tspan><tspan x="750.0" dy="13.7">зберегти, seq += 1</tspan></text>
+<line x1="216.0" y1="130.0" x2="384.0" y2="130.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="516.0" y1="130.0" x2="684.0" y2="130.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="600.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">прийшов, той самий seq</text>
+<line x1="450.0" y1="196.0" x2="450.0" y2="262.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5,4"/>
+<line x1="450.0" y1="262.0" x2="150.0" y2="262.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5,4"/>
+<line x1="150.0" y1="262.0" x2="150.0" y2="198.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="300.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">таймаут (тиша) АБО прийшов не той seq  →  повторити той самий запит</text>
+<line x1="750.0" y1="64.0" x2="750.0" y2="22.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="750.0" y1="22.0" x2="150.0" y2="22.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="150.0" y1="22.0" x2="150.0" y2="62.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="450.0" y="14.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">seq &lt; count  →  просити наступний пункт</text>
+<rect x="258.7" y="309.8" width="382.5" height="48.5" rx="6" fill="#fdf1f0" stroke="#c0392b" stroke-width="1.5"/><text x="450.0" y="330.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a5281b" text-anchor="middle"><tspan x="450.0" dy="0.0">tries == 5 (5 повторів марно)  →  СКАСУВАТИ операцію,</tspan><tspan x="450.0" dy="15.0">стара місія на борту лишається цілою — не піврозібраною</tspan></text>
+<line x1="450.0" y1="226.0" x2="450.0" y2="284.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3,3"/>
+</svg>

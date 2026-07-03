@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цикл k-середніх: присвоїти → пересунути → повторити</text>
+<rect x="40.0" y="125.0" width="180.0" height="49.9" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="130.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">1. Кинути k центрів</tspan><tspan x="130.0" dy="16.9">навмання</tspan></text>
+<rect x="260.0" y="116.6" width="180.0" height="66.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="137.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">2. Присвоїти кожну</tspan><tspan x="350.0" dy="16.9">точку найближчому</tspan><tspan x="350.0" dy="16.9">центру</tspan></text>
+<rect x="480.0" y="116.6" width="180.0" height="66.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="570.0" y="137.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">3. Пересунути центр</tspan><tspan x="570.0" dy="16.9">у середину своїх</tspan><tspan x="570.0" dy="16.9">точок</tspan></text>
+<line x1="220.0" y1="150.0" x2="260.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="150.0" x2="480.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<path d="M 570 190 Q 460 250 350 190" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="460.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">поки центри рухаються</text>
+</svg>

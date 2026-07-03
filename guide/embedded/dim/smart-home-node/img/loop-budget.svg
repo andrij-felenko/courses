@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бюджет часу витка: блокувальний виклик краде його весь</text>
+<text x="428.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">БЛОКУВАЛЬНО: один загальний цикл, кроки чекають один одного</text>
+<rect x="164.0" y="78.0" width="70.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="199.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">давач</text>
+<rect x="238.0" y="78.0" width="66.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="271.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">правило</text>
+<rect x="308.0" y="78.0" width="300.0" height="30.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="458.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">mqtt_connect / publish — ЧЕКАЄ</text>
+<text x="458.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">мережа зависла на секунди</text>
+<line x1="156.0" y1="116.0" x2="696.0" y2="116.0" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="148.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">loop()</text>
+<line x1="308.0" y1="130.0" x2="608.0" y2="130.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="308.0" y1="125.0" x2="308.0" y2="130.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="608.0" y1="125.0" x2="608.0" y2="130.0" stroke="#c0392b" stroke-width="1.4"/>
+<text x="458.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">тут давач не читається, реле не смикається — вузол глухне</text>
+<text x="428.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">НЕБЛОКУВАЛЬНО: швидка петля обмежена в часі, мережа лише зазирає</text>
+<rect x="164.0" y="272.0" width="44.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="186.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">керув.</text>
+<rect x="214.0" y="275.0" width="18.0" height="18.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="238.0" y="272.0" width="44.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="260.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">керув.</text>
+<rect x="288.0" y="275.0" width="18.0" height="18.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="312.0" y="272.0" width="44.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="334.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">керув.</text>
+<rect x="362.0" y="275.0" width="18.0" height="18.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="386.0" y="272.0" width="44.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="408.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">керув.</text>
+<rect x="436.0" y="275.0" width="18.0" height="18.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="460.0" y="272.0" width="44.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="482.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">керув.</text>
+<rect x="510.0" y="275.0" width="18.0" height="18.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="534.0" y="272.0" width="44.0" height="30.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="556.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">керув.</text>
+<rect x="584.0" y="275.0" width="18.0" height="18.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<line x1="156.0" y1="304.0" x2="696.0" y2="304.0" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="148.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">loop()</text>
+<text x="186.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">≤ T_max</text>
+<text x="616.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">мережа —</text>
+<text x="616.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">по краплі,</text>
+<text x="616.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">без чекання</text>
+<text x="428.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">найгірший виток обмежений зверху → watchdog можна ставити тісно</text>
+</svg>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">put_segments(): байт цифри → вісім реальних ніг через таблицю SEG[]</text>
+<text x="410.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">байт цифри «5» = 0b01101101   (1 = сегмент горить)</text>
+<text x="179.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">a</text>
+<text x="179.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біт 0</text>
+<rect x="146.0" y="118.0" width="62.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="179.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="245.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">b</text>
+<text x="245.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біт 1</text>
+<rect x="212.0" y="118.0" width="62.0" height="40.0" rx="4" fill="#eef2f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="245.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<text x="311.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">c</text>
+<text x="311.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біт 2</text>
+<rect x="278.0" y="118.0" width="62.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="311.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="377.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">d</text>
+<text x="377.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біт 3</text>
+<rect x="344.0" y="118.0" width="62.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="377.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="443.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">e</text>
+<text x="443.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біт 4</text>
+<rect x="410.0" y="118.0" width="62.0" height="40.0" rx="4" fill="#eef2f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="443.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<text x="509.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">f</text>
+<text x="509.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біт 5</text>
+<rect x="476.0" y="118.0" width="62.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="509.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="575.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">g</text>
+<text x="575.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біт 6</text>
+<rect x="542.0" y="118.0" width="62.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="575.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="641.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">dp</text>
+<text x="641.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">біт 7</text>
+<rect x="608.0" y="118.0" width="62.0" height="40.0" rx="4" fill="#eef2f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="641.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<text x="146.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">SEG[i] = { порт, нога }:</text>
+<text x="146.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">місток «логічний біт → фізична ніжка»</text>
+<line x1="179.0" y1="162.0" x2="179.0" y2="248.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="149.0" y="258.0" width="60.0" height="34.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="179.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PB0</text>
+<text x="179.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">↑1</text>
+<line x1="245.0" y1="162.0" x2="245.0" y2="248.0" stroke="#c9ced6" stroke-width="1.2"/>
+<rect x="215.0" y="258.0" width="60.0" height="34.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="245.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PB1</text>
+<text x="245.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">↓0</text>
+<line x1="311.0" y1="162.0" x2="311.0" y2="248.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="281.0" y="258.0" width="60.0" height="34.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="311.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PB2</text>
+<text x="311.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">↑1</text>
+<line x1="377.0" y1="162.0" x2="377.0" y2="248.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="347.0" y="258.0" width="60.0" height="34.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="377.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PD5</text>
+<text x="377.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">↑1</text>
+<line x1="443.0" y1="162.0" x2="443.0" y2="248.0" stroke="#c9ced6" stroke-width="1.2"/>
+<rect x="413.0" y="258.0" width="60.0" height="34.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="443.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PD6</text>
+<text x="443.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">↓0</text>
+<line x1="509.0" y1="162.0" x2="509.0" y2="248.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="479.0" y="258.0" width="60.0" height="34.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="509.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PD7</text>
+<text x="509.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">↑1</text>
+<line x1="575.0" y1="162.0" x2="575.0" y2="248.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="545.0" y="258.0" width="60.0" height="34.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="575.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PC0</text>
+<text x="575.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">↑1</text>
+<line x1="641.0" y1="162.0" x2="641.0" y2="248.0" stroke="#c9ced6" stroke-width="1.2"/>
+<rect x="611.0" y="258.0" width="60.0" height="34.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="641.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PC1</text>
+<text x="641.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">↓0</text>
+<rect x="171.1" y="370.2" width="477.7" height="59.6" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="410.0" y="389.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">біт i горить → ногу SEG[i] піднімаємо в «1»; біт погас → опускаємо в «0».</tspan><tspan x="410.0" dy="14.3">ноги навмисно розкидані по портах PB/PC/PD — перепаяв сегмент,</tspan><tspan x="410.0" dy="14.3">правиш ОДИН рядок таблиці, а логіка драйвера не міняється</tspan></text>
+</svg>

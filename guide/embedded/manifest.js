@@ -1,5 +1,5 @@
 /* manifest — «Вбудована електроніка й автономні системи» (тип "guide").
-   Схема v5: modules[] → chapters[] → steps[]; крок = { ref } (book-атом, 3 сегменти: книга/галузь/slug)
+   Схема v6: modules[] → chapters[] → steps[]; крок = { ref } (book-атом, 3 сегменти: книга/галузь/slug)
    або власна стаття курсу { slug, title, basic:{status}, detailed:{status}, hist/comp/math/proj }.
    Нумерація Модуль·Крок — з ПОРЯДКУ масивів (поле n — довідкове, рушій рахує сам).
    Структура — за планом guide/embedded/_restructure.md (застосовано 2026-07-02);
@@ -53,7 +53,7 @@
     { n: 2, slug: "kola", title: "Перші кола й інструменти", scope: "", chapters: [
       { title: "Схема як мова", steps: [
         { slug: "reading-schematics", title: "Читання схем", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-schematic-symbols.md", status: "done" }], math: [{ file: "math-pattern-values.md", status: "done" }], comp: [{ file: "comp-eda-schematic-capture.md", status: "done" }] },
-        { slug: "net-labels-buses", title: "З'єднання без дротів: мітки, шини й міжаркушеві зв'язки", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "net-labels-buses", title: "З'єднання без дротів: мітки, шини й міжаркушеві зв'язки", basic: { status: "done" }, detailed: { status: "empty" } },
       ] },
       { title: "Резистор у руках", steps: [
         { ref: "electronics/components/resistor", title: "Резистор" },
@@ -74,7 +74,7 @@
       { title: "Інструменти новачка", steps: [
         { ref: "electronics/metrology/multimeter", title: "Мультиметр" },
         { ref: "electronics/metrology/lab-power-supply", title: "Блок живлення" },
-        { slug: "breadboard-prototyping", title: "Макетка й перший монтаж", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "breadboard-prototyping", title: "Макетка й перший монтаж", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-breadboard.md", status: "done" }] },
         { ref: "electronics/metrology/kelvin-shunt", title: "Струмовимірювальний шунт" },
         { ref: "electronics/metrology/measurement-errors", title: "Похибки вимірювань" },
       ] },
@@ -232,7 +232,7 @@
         { ref: "electronics/electromechanics/relay-driver", title: "Реле і драйвер" },
       ] },
       { title: "Друкована плата: перше знайомство", steps: [
-        { slug: "pcb-intro", title: "Що таке друкована плата: шари, доріжки, перехідні отвори", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "pcb-intro", title: "Що таке друкована плата: шари, доріжки, перехідні отвори", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-trace-impedance.md", status: "done" }], proj: [{ file: "proj-copper-calc.md", status: "done" }] },
         { slug: "pcb-assembly-methods", title: "Методи монтажу плат (THT і SMD)", basic: { status: "done" }, detailed: { status: "empty" } },
         { slug: "smd-rework", title: "Ручне паяння SMD", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-leadfree.md", status: "done" }], comp: [{ file: "comp-hotair-station.md", status: "done" }] },
         { ref: "electronics/pcb/basic-soldering", title: "Мінімальна пайка" },
@@ -345,16 +345,16 @@
         { ref: "programming/computer-architecture/clock-frequency", title: "Частота процесора" },
       ] },
       { title: "Мова C: перші кроки", steps: [
-        { slug: "c-first-program", title: "Перша програма: пишемо, збираємо, запускаємо", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "c-variables-types", title: "Змінні й типи", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "c-control-flow", title: "Розгалуження й цикли", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "c-functions", title: "Функції", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "c-arrays-strings", title: "Масиви й рядки", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "c-structs-enums", title: "Структури й перелічення", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "c-pointers-intro", title: "Покажчики: перше знайомство", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "c-bit-operations", title: "Бітові операції", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "c-preprocessor-headers", title: "Препроцесор і заголовки", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "c-modules-build", title: "Модулі й збірка проєкту", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "c-first-program", title: "Перша програма: пишемо, збираємо, запускаємо", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-c-and-hello.md", status: "done" }] },
+        { slug: "c-variables-types", title: "Змінні й типи", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-typed-variables.md", status: "done" }] },
+        { slug: "c-control-flow", title: "Розгалуження й цикли", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-structured-programming.md", status: "done" }] },
+        { slug: "c-functions", title: "Функції", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-subroutine.md", status: "done" }, { file: "hist-recursion.md", status: "done" }] },
+        { slug: "c-arrays-strings", title: "Масиви й рядки", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-buffer-overflow.md", status: "done" }], proj: [{ file: "proj-safe-strings.md", status: "done" }, { file: "proj-ring-buffer.md", status: "done" }] },
+        { slug: "c-structs-enums", title: "Структури й перелічення", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-struct-evolution.md", status: "done" }], proj: [{ file: "proj-register-overlay.md", status: "done" }] },
+        { slug: "c-pointers-intro", title: "Покажчики: перше знайомство", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-billion-dollar-null.md", status: "done" }] },
+        { slug: "c-bit-operations", title: "Бітові операції", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-boolean.md", status: "done" }], proj: [{ file: "proj-bit-tricks.md", status: "done" }] },
+        { slug: "c-preprocessor-headers", title: "Препроцесор і заголовки", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-preprocessor-origins.md", status: "done" }], proj: [{ file: "proj-x-macros.md", status: "done" }] },
+        { slug: "c-modules-build", title: "Модулі й збірка проєкту", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-make-cmake.md", status: "done" }], proj: [{ file: "proj-generic-makefile.md", status: "done" }] },
       ] },
       { title: "Числа в C", steps: [
         { ref: "programming/computer-architecture/integer-types-c", title: "Цілі типи в C/C++" },
@@ -403,7 +403,7 @@
         { slug: "hal-ll-registers", title: "HAL, LL і голі регістри в STM32", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-stm32-libs.md", status: "done" }] },
         { ref: "programming/embedded-systems/flashing", title: "Прошивка у Flash" },
         { slug: "esptool-workflow", title: "esptool: прошивання й читання Flash", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-esptool-evolution.md", status: "done" }] },
-        { slug: "first-blink-project", title: "Перший проєкт: світлодіод блимає", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "first-blink-project", title: "Перший проєкт: світлодіод блимає", basic: { status: "done" }, detailed: { status: "empty" }, proj: [{ file: "proj-blink-nonblocking.md", status: "done" }] },
       ] },
       { title: "Зазирнути глибше", steps: [
         { slug: "custom-instruction", title: "Кастомні інструкції процесора", basic: { status: "done" }, detailed: { status: "empty" }, proj: [{ file: "proj-riscv-custom.md", status: "done" }] },
@@ -465,7 +465,7 @@
     ] },
     { n: 12, slug: "peryferiia", title: "Шини й з'єднання", scope: "", chapters: [
       { title: "Навіщо шини", steps: [
-        { slug: "why-buses", title: "Як чипи розмовляють: навіщо шини", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "why-buses", title: "Як чипи розмовляють: навіщо шини", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-bus-word.md", status: "done" }] },
         { ref: "electronics/metrology/logic-analyzer", title: "Логічний аналізатор" },
         { ref: "electronics/digital/level-shifter", title: "Перетворювач рівнів" },
       ] },
@@ -534,7 +534,7 @@
       { title: "Безпека пристрою", steps: [
         { ref: "programming/security/secure-boot", title: "Secure boot" },
         { slug: "tpm-trustzone", title: "TPM і TrustZone: апаратний корінь довіри", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-trusted-computing.md", status: "done" }], proj: [{ file: "proj-esp32-secure-boot.md", status: "done" }] },
-        { slug: "tls-embedded", title: "TLS на мікроконтролері", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "tls-embedded", title: "TLS на мікроконтролері", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-ssl-to-tls.md", status: "done" }, { file: "hist-mbedtls.md", status: "done" }], math: [{ file: "math-key-schedule.md", status: "done" }], proj: [{ file: "proj-mbedtls-tuning.md", status: "done" }] },
       ] },
       { title: "Сон і енергоощадність", steps: [
         { ref: "programming/embedded-systems/sleep-modes", title: "Режими сну" },
@@ -562,7 +562,7 @@
         { slug: "current-profiler-tools", title: "Вимірювання профілю струму", basic: { status: "done" }, detailed: { status: "empty" }, comp: [{ file: "comp-power-profiler-instruments.md", status: "done" }] },
       ] },
       { title: "Пошук несправностей", steps: [
-        { slug: "troubleshooting-methodology", title: "Систематичний пошук несправності", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "troubleshooting-methodology", title: "Систематичний пошук несправності", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-debugging.md", status: "done" }, { file: "hist-method-crucis.md", status: "done" }], proj: [{ file: "proj-bisection-debug.md", status: "done" }] },
         { slug: "fault-injection-testing", title: "Тестування відмовостійкості: fault injection", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-fault-injection.md", status: "done" }] },
       ] },
     ] },
@@ -582,8 +582,8 @@
         { ref: "programming/software-engineering/assert-panic", title: "Assert і паніка" },
         { ref: "programming/software-engineering/defensive-programming", title: "Захисне програмування" },
         { ref: "programming/software-engineering/sitl-simulation", title: "SITL" },
-        { slug: "firmware-ci", title: "CI для прошивки", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "hil-testing", title: "HIL-стенд", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "firmware-ci", title: "CI для прошивки", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-ci.md", status: "done" }], math: [{ file: "math-critical-path.md", status: "done" }], proj: [{ file: "proj-ci-pipeline.md", status: "done" }, { file: "proj-selfhosted-runner.md", status: "done" }] },
+        { slug: "hil-testing", title: "HIL-стенд", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-hil-origins.md", status: "done" }], math: [{ file: "math-latency-budget.md", status: "done" }], proj: [{ file: "proj-lockstep-protocol.md", status: "done" }] },
       ] },
       { title: "Надійність як дисципліна", steps: [
         { slug: "fmea-embedded", title: "FMEA у вбудованих системах", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-mil-nasa.md", status: "done" }] },
@@ -598,7 +598,7 @@
         { slug: "display-classes", title: "Класи дисплеїв", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-lcd.md", status: "done" }], math: [{ file: "math-alt-pleshko.md", status: "done" }], proj: [{ file: "proj-oled-compensation.md", status: "done" }] },
         { slug: "display-selection", title: "Вибір дисплея", basic: { status: "done" }, detailed: { status: "done" }, comp: [{ file: "comp-display-module.md", status: "done" }, { file: "comp-memory-lcd.md", status: "done" }], math: [{ file: "math-ambient-contrast.md", status: "done" }], proj: [{ file: "proj-decision-matrix.md", status: "done" }] },
         { slug: "gram-init-sequence", title: "Ініціалізація контролера дисплея", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-magic-numbers.md", status: "done" }], proj: [{ file: "proj-init-driver.md", status: "done" }] },
-        { slug: "framebuffer-basics", title: "Кадр у пам'яті: framebuffer і RGB565", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "framebuffer-basics", title: "Кадр у пам'яті: framebuffer і RGB565", basic: { status: "done" }, detailed: { status: "done" }, proj: [{ file: "proj-blit-window.md", status: "done" }], hist: [{ file: "hist-high-color.md", status: "done" }] },
         { slug: "display-lifecycle", title: "Керування життєвим циклом дисплея", basic: { status: "done" }, detailed: { status: "empty" } },
         { slug: "color-management", title: "Управління кольором: колірні профілі та гама", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-gamma-srgb.md", status: "done" }], comp: [{ file: "comp-gamma-table.md", status: "done" }] },
       ] },
@@ -763,17 +763,17 @@
       ] },
       { title: "Цифровий звук", steps: [
         { ref: "communications/buses/i2s-bus", title: "Шина I2S" },
-        { slug: "audio-capture-pipeline", title: "Захоплення звуку: від мікрофона до буфера", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "audio-playback-path", title: "Відтворення: I2S/ЦАП/PDM-виходи", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "audio-capture-pipeline", title: "Захоплення звуку: від мікрофона до буфера", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-audio-rates.md", status: "done" }], math: [{ file: "math-dc-blocker.md", status: "done" }], proj: [{ file: "proj-pdm-decimation.md", status: "done" }] },
+        { slug: "audio-playback-path", title: "Відтворення: I2S/ЦАП/PDM-виходи", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-i2s-origins.md", status: "done" }], math: [{ file: "math-dither-noise-shaping.md", status: "done" }], comp: [{ file: "comp-i2s-audio-amp.md", status: "done" }], proj: [{ file: "proj-pdm-encoder.md", status: "done" }] },
       ] },
       { title: "Обробка звуку", steps: [
-        { slug: "audio-processing-basics", title: "Обробка на МК: фільтрація, рівень, AGC", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "audio-events-detection", title: "Детекція подій у звуці (VAD, пороги, енергія)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "audio-processing-basics", title: "Обробка на МК: фільтрація, рівень, AGC", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-agc.md", status: "done" }], proj: [{ file: "proj-agc-vad-coupled.md", status: "done" }] },
+        { slug: "audio-events-detection", title: "Детекція подій у звуці (VAD, пороги, енергія)", basic: { status: "done" }, detailed: { status: "done" }, proj: [{ file: "proj-vad-module.md", status: "done" }] },
         { ref: "algorithms/signal-robotics/audio-time-scaling", title: "Зміна темпу без зміни висоти тону" },
       ] },
       { title: "Стиснення й запис", steps: [
-        { slug: "audio-recording-storage", title: "Запис звуку: WAV, кільцевий буфер, SD", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "audio-compression-mcu", title: "Стиснення звуку на МК: ADPCM, Opus", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "audio-recording-storage", title: "Запис звуку: WAV, кільцевий буфер, SD", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-wav-riff.md", status: "done" }] },
+        { slug: "audio-compression-mcu", title: "Стиснення звуку на МК: ADPCM, Opus", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-adpcm-opus.md", status: "done" }], math: [{ file: "math-companding.md", status: "done" }], proj: [{ file: "proj-adpcm-codec.md", status: "done" }] },
       ] },
     ] },
     { n: 23, slug: "zobrazhennia", title: "Зображення й відео", scope: "", chapters: [
@@ -781,7 +781,7 @@
         { ref: "electronics/optoelectronics/image-sensor", title: "Сенсор зображення" },
         { ref: "electronics/optoelectronics/cmos-matrix", title: "CMOS-матриця" },
         { ref: "electronics/optoelectronics/rolling-shutter", title: "Рядкова заслінка" },
-        { slug: "camera-interfaces-mcu", title: "Підключення камери до МК: DVP, MIPI-CSI, SPI-камери", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "camera-interfaces-mcu", title: "Підключення камери до МК: DVP, MIPI-CSI, SPI-камери", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-sccb.md", status: "done" }, { file: "hist-mipi-csi.md", status: "done" }, { file: "hist-arducam-spi.md", status: "done" }] },
       ] },
       { title: "Від сирих даних до картинки", steps: [
         { ref: "algorithms/computer-vision/bayer-demosaic", title: "Демозаїка" },
@@ -855,8 +855,8 @@
         { ref: "algorithms/computer-vision/nn-detectors", title: "Нейродетектори" },
         { slug: "model-zoo", title: "Зоопарк моделей детекції", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-yolo-redmon.md", status: "done" }], proj: [{ file: "proj-choose-by-budget.md", status: "done" }] },
         { ref: "algorithms/computer-vision/tracking", title: "Трекінг" },
-        { slug: "audio-kws", title: "Ключові слова й події у звуці (KWS)", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "vibration-anomaly-ml", title: "Аномалії вібрацій через ML", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "audio-kws", title: "Ключові слова й події у звуці (KWS)", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-kws.md", status: "done" }], math: [{ file: "math-mfcc.md", status: "done" }, { file: "math-posterior-smoothing.md", status: "done" }], proj: [{ file: "proj-kws-loop.md", status: "done" }, { file: "proj-streaming-cnn.md", status: "done" }] },
+        { slug: "vibration-anomaly-ml", title: "Аномалії вібрацій через ML", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-condition-monitoring.md", status: "done" }], math: [{ file: "math-reconstruction-threshold.md", status: "done" }, { file: "math-mle-gaussian-mse.md", status: "done" }] },
       ] },
     ] },
     { n: 26, slug: "avtopilot", title: "Автопілот: бортовий мозок", scope: "", chapters: [
@@ -875,8 +875,8 @@
       ] },
       { title: "Налаштування й діагностика", steps: [
         { ref: "programming/embedded-systems/params-gcs", title: "Параметри й GCS" },
-        { slug: "fc-setup-calibration", title: "Первинне налаштування: калібрування давачів і радіо", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "flight-log-analysis", title: "Аналіз логів польоту/поїздки", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "fc-setup-calibration", title: "Первинне налаштування: калібрування давачів і радіо", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-compass-dance.md", status: "done" }], math: [{ file: "math-ellipsoid-fit.md", status: "done" }, { file: "math-declination-model.md", status: "done" }], proj: [{ file: "proj-accel-cal.md", status: "done" }] },
+        { slug: "flight-log-analysis", title: "Аналіз логів польоту/поїздки", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-blackbox.md", status: "done" }], proj: [{ file: "proj-log-parser.md", status: "done" }] },
         { ref: "programming/software-engineering/preflight-checklists", title: "Передпольотні чеклисти" },
       ] },
     ] },
@@ -899,7 +899,7 @@
         { ref: "communications/protocols/mavlink-packet", title: "Пакет MAVLink" },
         { slug: "mavlink-commands", title: "Команди MAVLink", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-mavlink-origin.md", status: "done" }], proj: [{ file: "proj-command-ack-loop.md", status: "done" }] },
         { slug: "mavlink-from-ground", title: "MAVLink із землі", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-mavlink-birth.md", status: "done" }], proj: [{ file: "proj-command-loop.md", status: "done" }, { file: "proj-heartbeat-watchdog.md", status: "done" }] },
-        { slug: "python-ground-scripts", title: "Python для наземних скриптів", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "python-ground-scripts", title: "Python для наземних скриптів", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-python-name.md", status: "done" }], proj: [{ file: "proj-safe-ground-script.md", status: "done" }] },
         { slug: "pymavlink", title: "pymavlink", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-link-budget-rates.md", status: "done" }], proj: [{ file: "proj-robust-loop.md", status: "done" }] },
         { slug: "mission-planner-qgc", title: "Mission Planner і QGroundControl: порівняння GCS", basic: { status: "done" }, detailed: { status: "empty" }, proj: [{ file: "proj-dual-gcs-workflow.md", status: "done" }] },
         { ref: "communications/radio-engineering/telemetry-link", title: "Канал земля-борт" },
@@ -907,7 +907,7 @@
     ] },
     { n: 28, slug: "navihatsiia", title: "Навігація й місії", scope: "", chapters: [
       { title: "Позиція: GNSS глибше", steps: [
-        { slug: "gnss-receiver-integration", title: "GNSS-приймач у прошивці: NMEA і UBX", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "gnss-receiver-integration", title: "GNSS-приймач у прошивці: NMEA і UBX", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-nmea-ublox.md", status: "done" }], proj: [{ file: "proj-ubx-driver.md", status: "done" }] },
         { ref: "communications/synchronization/sbas-corrections", title: "Супутникові системи доповнення (SBAS)" },
         { ref: "algorithms/signal-robotics/rtk-integer-ambiguity", title: "Розв'язання цілочислової неоднозначності RTK" },
         { ref: "communications/synchronization/pps-pulse", title: "PPS-імпульс" },
@@ -923,8 +923,8 @@
       ] },
       { title: "Маршрут", steps: [
         { ref: "algorithms/graph-algorithms/dijkstra", title: "Алгоритм Дейкстри" },
-        { slug: "path-planning-grid", title: "Планування шляху: сітка і A*", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "obstacle-avoidance", title: "Обхід перешкод", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "path-planning-grid", title: "Планування шляху: сітка і A*", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-a-star-shakey.md", status: "done" }], math: [{ file: "math-heuristic-admissibility.md", status: "done" }, { file: "math-jps-symmetry.md", status: "done" }], proj: [{ file: "proj-a-star-grid.md", status: "done" }] },
+        { slug: "obstacle-avoidance", title: "Обхід перешкод", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-obstacle-avoidance.md", status: "done" }], math: [{ file: "math-potential-field.md", status: "done" }, { file: "math-velocity-obstacles.md", status: "done" }], proj: [{ file: "proj-vfh.md", status: "done" }, { file: "proj-dwa.md", status: "done" }] },
         { ref: "algorithms/signal-robotics/pure-pursuit-navigation", title: "Навігація pure pursuit" },
       ] },
       { title: "Місії й автономія", steps: [
@@ -935,24 +935,24 @@
     ] },
     { n: 29, slug: "dim", title: "Платформа: стаціонарні пристрої і розумний дім", scope: "", chapters: [
       { title: "Домашній вузол", steps: [
-        { slug: "smart-home-node", title: "Вузол розумного дому: давач + MQTT + автономна логіка", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "smart-home-node", title: "Вузол розумного дому: давач + MQTT + автономна логіка", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-backoff-jitter.md", status: "done" }], proj: [{ file: "proj-hysteresis-control.md", status: "done" }, { file: "proj-offline-buffer.md", status: "done" }, { file: "proj-connection-fsm.md", status: "done" }] },
         { ref: "communications/networks/esp-now", title: "ESP-NOW" },
-        { slug: "device-provisioning", title: "Перше налаштування пристрою: SoftAP і BLE-провізіонування", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "device-provisioning", title: "Перше налаштування пристрою: SoftAP і BLE-провізіонування", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-wps-dpp.md", status: "done" }], math: [{ file: "math-ecdh-pop.md", status: "done" }], proj: [{ file: "proj-softap-provisioning.md", status: "done" }] },
       ] },
       { title: "Інтеграція і побут", steps: [
-        { slug: "home-device-integration", title: "Інтеграція: Home Assistant і Matter", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "home-device-power", title: "Живлення побутового пристрою: від мережі, безпечно, з малим standby", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "home-device-integration", title: "Інтеграція: Home Assistant і Matter", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-home-assistant.md", status: "done" }, { file: "hist-matter.md", status: "done" }], math: [{ file: "math-spake2.md", status: "done" }], proj: [{ file: "proj-discovery-payload.md", status: "done" }, { file: "proj-matter-min-endpoint.md", status: "done" }] },
+        { slug: "home-device-power", title: "Живлення побутового пристрою: від мережі, безпечно, з малим standby", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-standby-power.md", status: "done" }] },
       ] },
     ] },
     { n: 30, slug: "nazemni", title: "Платформа: наземні (ровер, НРК)", scope: "", chapters: [
       { title: "Шасі і привід", steps: [
-        { slug: "ugv-platform", title: "Шасі ровера/НРК: компонування, прохідність, енергетика", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "differential-drive-kinematics", title: "Кінематика диференціального приводу", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ugv-platform", title: "Шасі ровера/НРК: компонування, прохідність, енергетика", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-rocker-bogie.md", status: "done" }], math: [{ file: "math-slope-traction.md", status: "done" }, { file: "math-tipover-stability.md", status: "done" }], proj: [{ file: "proj-tank-mixer.md", status: "done" }, { file: "proj-tipover-guard.md", status: "done" }] },
+        { slug: "differential-drive-kinematics", title: "Кінематика диференціального приводу", basic: { status: "done" }, detailed: { status: "done" } },
         { ref: "electronics/electromechanics/gears-transmission", title: "Редуктори" },
       ] },
       { title: "Керування рухом", steps: [
         { ref: "algorithms/signal-robotics/rover-steering", title: "Ровер" },
-        { slug: "teleoperation-latency", title: "Телекерування: затримки, відеоканал, втрата лінка", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "teleoperation-latency", title: "Телекерування: затримки, відеоканал, втрата лінка", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-teleautomaton.md", status: "done" }], math: [{ file: "math-delay-margin.md", status: "done" }], proj: [{ file: "proj-failsafe-fsm.md", status: "done" }] },
       ] },
       { title: "Інші середовища", steps: [
         { ref: "algorithms/signal-robotics/boat-underwater", title: "Човен і підводний" },
@@ -966,7 +966,7 @@
         { ref: "physics/mechanics/frame-configurations", title: "Рами й конфігурації" },
       ] },
       { title: "Пропульсія", steps: [
-        { slug: "propulsion-sizing", title: "Підбір пропульсії: мотор + гвинт + батарея під злітну масу", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "propulsion-sizing", title: "Підбір пропульсії: мотор + гвинт + батарея під злітну масу", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-disk-loading.md", status: "done" }, { file: "math-kv-kt.md", status: "done" }, { file: "math-endurance-limit.md", status: "done" }, { file: "math-thermal-limit.md", status: "done" }] },
       ] },
       { title: "Перший політ", steps: [
         { ref: "programming/embedded-systems/manual-stabilized-modes", title: "Ручні режими" },
@@ -975,7 +975,7 @@
       ] },
       { title: "Літак і VTOL", steps: [
         { ref: "physics/mechanics/fixed-wing-lift", title: "Літак" },
-        { slug: "fixed-wing-control-surfaces", title: "Керування літаком: елерони, руль, мікшування", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "fixed-wing-control-surfaces", title: "Керування літаком: елерони, руль, мікшування", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-three-axis-control.md", status: "done" }], math: [{ file: "math-turn-physics.md", status: "done" }] },
         { ref: "physics/mechanics/vtol-transition", title: "VTOL-гібриди" },
       ] },
     ] },
@@ -983,29 +983,29 @@
       { title: "Фінальний проєкт", steps: [
         { ref: "programming/embedded-systems/capstone-task", title: "Капстоун" },
         { ref: "programming/embedded-systems/end-to-end-mission", title: "Місія від початку до кінця" },
-        { slug: "capstone-autonomous-mission", title: "Капстоун на обраній платформі: дім / ровер / коптер / літак", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "project-documentation", title: "Документація проєкту: README, схема, BOM, журнал змін", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "capstone-autonomous-mission", title: "Капстоун на обраній платформі: дім / ровер / коптер / літак", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-mission-protocol.md", status: "done" }], math: [{ file: "math-l1-navigation.md", status: "done" }], proj: [{ file: "proj-mission-upload-verify.md", status: "done" }] },
+        { slug: "project-documentation", title: "Документація проєкту: README, схема, BOM, журнал змін", basic: { status: "done" }, detailed: { status: "empty" } },
       ] },
     ] },
     { n: 33, slug: "vyrib", title: "Виріб: плата, серія, сертифікація", scope: "", chapters: [
       { title: "Плата всерйоз", steps: [
-        { slug: "pcb-layout-flow", title: "Від схеми до замовлення: розводка, гербери, виробник", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "pcb-layout-flow", title: "Від схеми до замовлення: розводка, гербери, виробник", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-gerber-format.md", status: "done" }] },
         { ref: "electronics/pcb/common-ground", title: "Спільна земля" },
         { ref: "electronics/pcb/ground-loops", title: "Земляні петлі" },
         { ref: "electronics/pcb/shielding", title: "Екранування" },
       ] },
       { title: "Мала серія", steps: [
-        { slug: "dfm-basics", title: "DFM: проєктувати так, щоб можна було виготовити", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "factory-provisioning", title: "Заводське прошивання й провізіонування", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "test-jig-design", title: "Тест-джиг", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "dfm-basics", title: "DFM: проєктувати так, щоб можна було виготовити", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-dfm-origin.md", status: "done" }], math: [{ file: "math-area-ratio.md", status: "done" }, { file: "math-tombstone-balance.md", status: "done" }], proj: [{ file: "proj-board-rev-strap.md", status: "done" }] },
+        { slug: "factory-provisioning", title: "Заводське прошивання й провізіонування", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-mac-address.md", status: "done" }, { file: "hist-efuse-otp.md", status: "done" }], proj: [{ file: "proj-provision-record.md", status: "done" }, { file: "proj-serial-allocation.md", status: "done" }] },
+        { slug: "test-jig-design", title: "Тест-джиг", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-bed-of-nails.md", status: "done" }], math: [{ file: "math-contact-mechanics.md", status: "done" }], proj: [{ file: "proj-jig-selftest.md", status: "done" }] },
       ] },
       { title: "Корпус і механіка", steps: [
-        { slug: "enclosure-ip-rating", title: "Корпус, IP-захист, роз'єми", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "enclosure-ip-rating", title: "Корпус, IP-захист, роз'єми", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-ip-code.md", status: "done" }], comp: [{ file: "comp-pressure-vent.md", status: "done" }], math: [{ file: "math-sealed-box-pressure.md", status: "done" }] },
       ] },
       { title: "Сертифікація й регуляції", steps: [
         { ref: "communications/radio-engineering/emc-certification", title: "Модульна сертифікація: FCC, CE та EMC-випроби" },
-        { slug: "drone-regulations", title: "Регуляції БпЛА", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "functional-safety-overview", title: "Функційна безпека: огляд стандартів", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "drone-regulations", title: "Регуляції БпЛА", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-chicago-article-8.md", status: "done" }], comp: [{ file: "comp-remote-id-module.md", status: "done" }], math: [{ file: "math-sora-risk.md", status: "done" }], proj: [{ file: "proj-remote-id-broadcaster.md", status: "done" }] },
+        { slug: "functional-safety-overview", title: "Функційна безпека: огляд стандартів", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-out-of-control.md", status: "done" }], math: [{ file: "math-sil-numbers.md", status: "done" }] },
       ] },
     ] },
   ]

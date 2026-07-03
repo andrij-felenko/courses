@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Від коду до виводу: sysfs · mmap · libgpiod</text>
+<text x="450.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Три способи керувати GPIO з коду під Linux</text>
+<circle cx="87.0" cy="402.0" r="7.0" fill="#111" stroke="#111" stroke-width="1.0"/>
+<circle cx="372.0" cy="402.0" r="7.0" fill="#111" stroke="#111" stroke-width="1.0"/>
+<circle cx="657.0" cy="402.0" r="7.0" fill="#111" stroke="#111" stroke-width="1.0"/>
+<text x="450.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">вивід гребінки (кремній)</text>
+<rect x="40.0" y="80.0" width="250.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.0"/><text x="165.0" y="105.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">sysfs</tspan></text>
+<text x="165.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">/sys/class/gpio</text>
+<rect x="110.0" y="154.0" width="110.0" height="22.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="165.0" y="168.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">застарілий</tspan></text>
+<rect x="325.0" y="80.0" width="250.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.0"/><text x="450.0" y="105.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">mmap у регістри</tspan></text>
+<text x="450.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">bcm2835</text>
+<rect x="395.0" y="154.0" width="110.0" height="22.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="450.0" y="168.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">непереносний</tspan></text>
+<rect x="610.0" y="80.0" width="250.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.0"/><text x="735.0" y="105.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="735.0" dy="0.0">libgpiod</tspan></text>
+<text x="735.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">/dev/gpiochipN</text>
+<rect x="680.0" y="154.0" width="110.0" height="22.0" rx="6" fill="#eef6ee" stroke="#27ae60" stroke-width="1.4"/><text x="735.0" y="168.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="735.0" dy="0.0">живий</tspan></text>
+<rect x="36.0" y="250.0" width="258.0" height="34.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="87.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">ядро Linux</text>
+<rect x="606.0" y="250.0" width="258.0" height="34.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="657.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">ядро Linux</text>
+<line x1="87.0" y1="188.0" x2="87.0" y2="246.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="99.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">текст-файли</text>
+<line x1="87.0" y1="284.0" x2="87.0" y2="390.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="99.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">вивід нічий,</text>
+<text x="99.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">«висить»</text>
+<line x1="372.0" y1="188.0" x2="372.0" y2="390.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="384.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">повз ядро,</text>
+<text x="384.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">в регістри</text>
+<text x="384.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">ядро не знає</text>
+<line x1="657.0" y1="188.0" x2="657.0" y2="246.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="669.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">ioctl-запит</text>
+<line x1="657.0" y1="284.0" x2="657.0" y2="390.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="669.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">власник-процес,</text>
+<text x="669.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">ядро прибере</text>
+</svg>

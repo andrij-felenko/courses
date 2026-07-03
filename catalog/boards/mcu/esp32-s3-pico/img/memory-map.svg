@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="70.0" y="80.0" width="300.0" height="250.0" rx="10" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="220.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">SRAM на кристалі</text>
+<text x="220.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">512 КБ · швидка</text>
+<text x="220.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">доступ за такти CPU</text>
+<text x="90.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• стек, .bss, .data</text>
+<text x="90.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• малі об'єкти</text>
+<text x="90.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• malloc() за замовч.</text>
+<text x="90.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• DMA-буфери</text>
+<rect x="450.0" y="80.0" width="300.0" height="250.0" rx="10" fill="#fdf6e3" stroke="#c0392b" stroke-width="2.0"/>
+<text x="600.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">PSRAM (у корпусі R2)</text>
+<text x="600.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">2 МБ · quad-SPI</text>
+<text x="600.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">через кеш, повільніша</text>
+<text x="470.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• ps_malloc() сюди</text>
+<text x="470.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• кадри з камери</text>
+<text x="470.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• буфер дисплея</text>
+<text x="470.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">• великі масиви / JSON</text>
+<line x1="370.0" y1="205.0" x2="448.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="448.0" y1="235.0" x2="370.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кеш</text>
+<text x="410.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">QSPI</text>
+<rect x="70.0" y="348.0" width="680.0" height="40.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="410.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">кадр RGB565 320×240 = 320 · 240 · 2 = 153 600 Б ≈ 150 КБ — влазить у SRAM; 640×480 ≈ 600 КБ — лише в PSRAM</text>
+</svg>

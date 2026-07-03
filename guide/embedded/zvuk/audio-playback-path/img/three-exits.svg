@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три дороги від чисел у RAM до звуку</text>
+<rect x="30.0" y="175.0" width="130.0" height="80.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="95.0" y="202.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="95.0" dy="0.0">Буфер відліків</tspan><tspan x="95.0" dy="16.9">у RAM</tspan><tspan x="95.0" dy="16.9">(PCM, числа)</tspan></text>
+<rect x="190.0" y="190.0" width="90.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="219.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="235.0" dy="0.0">DMA</tspan></text>
+<line x1="160.0" y1="215.0" x2="190.0" y2="215.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="215.0" x2="305.0" y2="215.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="305.0" y1="70.0" x2="305.0" y2="330.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="305.0" y1="70.0" x2="330.0" y2="70.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="200.0" x2="330.0" y2="200.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="305.0" y1="330.0" x2="330.0" y2="330.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="330.0" y="28.0" width="250.0" height="84.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="455.0" y="58.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="455.0" dy="0.0">Внутрішній ЦАП + підсилювач</tspan><tspan x="455.0" dy="15.6">8 біт на ніжці GPIO25/26 →</tspan><tspan x="455.0" dy="15.6">аналог → зовнішній підсилювач</tspan></text>
+<line x1="580.0" y1="70.0" x2="620.0" y2="70.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="330.0" y="158.0" width="250.0" height="84.0" rx="6" fill="#fff8e6" stroke="#b8860b" stroke-width="1.5"/><text x="455.0" y="188.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="455.0" dy="0.0">I2S → зовнішній ЦАП/кодек</tspan><tspan x="455.0" dy="15.6">цифрою в мікросхему: ЦАП + класу D</tspan><tspan x="455.0" dy="15.6">в одному корпусі (напр. MAX98357A)</tspan></text>
+<line x1="580.0" y1="200.0" x2="620.0" y2="200.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="330.0" y="288.0" width="250.0" height="84.0" rx="6" fill="#fdecf0" stroke="#c0392b" stroke-width="1.5"/><text x="455.0" y="318.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="455.0" dy="0.0">PDM — 1-бітний потік</tspan><tspan x="455.0" dy="15.6">щільність імпульсів = амплітуда →</tspan><tspan x="455.0" dy="15.6">ФНЧ або PDM-підсилювач</tspan></text>
+<line x1="580.0" y1="330.0" x2="620.0" y2="330.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="620.0" y1="70.0" x2="620.0" y2="330.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="620.0" y1="200.0" x2="648.0" y2="200.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<path d="M650 185 L650 215 L682 232 L682 168 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+<text x="666.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">динамік</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ghosting: чому порядок «погасити → виставити → відкрити» — священний</text>
+<text x="235.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">НЕПРАВИЛЬНО: виставив → відкрив</text>
+<text x="625.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПРАВИЛЬНО: погасив → виставив → відкрив</text>
+<line x1="70.0" y1="100.0" x2="400.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="460.0" y1="100.0" x2="790.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="400.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">час →</text>
+<text x="790.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">час →</text>
+<rect x="74.0" y="112.0" width="102.0" height="44.0" rx="5" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="125.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">put_segments(«2»)</text>
+<text x="125.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">нові сегменти</text>
+<rect x="184.0" y="112.0" width="102.0" height="44.0" rx="5" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="235.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">digit_on(next)</text>
+<text x="235.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">перемкнули розряд</text>
+<rect x="294.0" y="112.0" width="102.0" height="44.0" rx="5" fill="#f7f9fb" stroke="#6b7280" stroke-width="1.4"/>
+<text x="345.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">чекаємо тик</text>
+<text x="345.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"></text>
+<line x1="180.0" y1="112.0" x2="180.0" y2="192.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4,3"/>
+<rect x="99.6" y="196.5" width="270.8" height="43.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="235.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">тут DIG1 ще відкритий, а сегменти вже «2»</tspan><tspan x="235.0" dy="13.0">→ на 1-й цифрі мигнула ЧУЖА «2» блідою тінню</tspan></text>
+<rect x="464.0" y="112.0" width="102.0" height="44.0" rx="5" fill="#f7f9fb" stroke="#27ae60" stroke-width="1.4"/>
+<text x="515.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">all_digits_off()</text>
+<text x="515.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">усе погасили</text>
+<rect x="574.0" y="112.0" width="102.0" height="44.0" rx="5" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="625.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">put_segments(«2»)</text>
+<text x="625.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">міняємо в темряві</text>
+<rect x="684.0" y="112.0" width="102.0" height="44.0" rx="5" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="735.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">digit_on(next)</text>
+<text x="735.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">відкрили потрібний</text>
+<rect x="483.9" y="196.5" width="282.2" height="43.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="625.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="625.0" dy="0.0">доки міняємо сегменти, ЖОДЕН розряд не світить</tspan><tspan x="625.0" dy="13.0">→ на екран не потрапляє нічого чужого</tspan></text>
+<rect x="155.5" y="407.4" width="509.1" height="45.3" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="410.0" y="426.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">різниця — лише в тому, що «погасити все» стоїть ПЕРШИМ:</tspan><tspan x="410.0" dy="14.3">перекриття «старий розряд відкритий + нові сегменти» зникає, а з ним і примара</tspan></text>
+</svg>
