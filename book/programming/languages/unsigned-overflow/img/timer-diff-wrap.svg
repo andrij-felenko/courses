@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Різниця беззнакових таймерів правдива навіть після перекоту лічильника</text>
+<text x="360.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">now − start  переживає переповнення лічильника</text>
+<circle cx="200.0" cy="224.0" r="104.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<text x="200.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<circle cx="200.0" cy="120.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<circle cx="157.6" cy="129.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="222.7" cy="122.5" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="82.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">start</text>
+<text x="82.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">…FFF0</text>
+<text x="318.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">now</text>
+<text x="318.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x05</text>
+<line x1="157.6" y1="129.0" x2="194.0" y2="122.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="206.0" y1="122.0" x2="222.7" y2="122.5" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="200.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#27ae60" text-anchor="middle" font-weight="700">21</text>
+<text x="200.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кроків</text>
+<text x="552.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">закон різниці</text>
+<text x="402.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">0x05 − 0xFFF0  (mod 2³²)</text>
+<text x="402.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">= 5 − 65520 + 65536</text>
+<text x="402.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">= 21  — точний проміжок</text>
+<text x="402.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">(16 до кінця кола + 5 після 0)</text>
+<rect x="396.0" y="226.0" width="300.0" height="100.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="546.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="546.0" dy="0.0">правда, ПОКИ проміжок</tspan><tspan x="546.0" dy="15.6">коротший за період (2ᴺ):</tspan><tspan x="546.0" dy="15.6">коло не лічить повні оберти.</tspan><tspan x="546.0" dy="15.6">абсолютне now ≥ deadline</tspan><tspan x="546.0" dy="15.6">тут збрехало б</tspan></text>
+</svg>

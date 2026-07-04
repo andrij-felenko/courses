@@ -60,6 +60,7 @@
         { slug: "carson-rule", title: "Правило Карсона", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "chirp-coding", title: "Чирп і кодований сигнал", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "rs422-rs485", title: "RS-422 і RS-485: диференційний послідовний зв'язок", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "carrier-ir-modulation", title: "Модуляція несучої для відсіву перешкод (38 кГц як у ІЧ-пультах)", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "signal-processing", title: "Обробка сигналів", scope: "Перетворення, фільтрація та виявлення сигналів у цифровій і аналоговій формі.",
       topics: [
@@ -76,6 +77,7 @@
         { slug: "bandwidth", title: "Смуга пропускання", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "h264-hardware-codec", title: "Апаратний кодек H.264", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "decimation", title: "Проріджування (decimation): фільтр і зниження частоти відліків", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "sensor-fusion", title: "Сенсорне злиття (fusion): комплементарний фільтр і Калман", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
     { slug: "propagation", title: "Поширення хвиль", scope: "Поведінка електромагнітних хвиль у середовищі: загасання, відбиття, завмирання, дальність.",
       topics: [
@@ -323,6 +325,7 @@
         { slug: "quad-spi", title: "Quad-SPI (QSPI)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "usb3-physical", title: "USB 3.x фізично: SuperSpeed і вище", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "usb-device-basics", title: "Пристрій на шині USB: хост, енумерація, кінцеві точки, класи", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "one-wire", title: "1-Wire — шина на одному дроті", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
     { slug: "radio", title: "Радіо", scope: "Радіочастотні діапазони, канальні плани й бездротові лінки конкретних застосувань.",
       topics: [

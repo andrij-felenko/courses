@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">KY-024: відхилення від нульової лінії → сила й полюс</text>
+<rect x="210.0" y="196.0" width="670.0" height="48.0" rx="6" fill="#eef0f3" stroke="none" stroke-width="0.0"/>
+<line x1="210.0" y1="90.0" x2="210.0" y2="350.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="204.0" y1="90.0" x2="210.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="198.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">1023</text>
+<line x1="204.0" y1="220.0" x2="210.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="198.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">≈512</text>
+<line x1="204.0" y1="350.0" x2="210.0" y2="350.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="198.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">0</text>
+<line x1="210.0" y1="220.0" x2="880.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="280.0" y1="196.0" x2="280.0" y2="116.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="244.0" x2="280.0" y2="324.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="304.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">delta &gt; 0</text>
+<text x="304.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">один полюс (N-бік): напруга росте</text>
+<text x="304.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">мертва зона (шум АЦП)</text>
+<text x="304.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">|delta| малий → «нема поля»</text>
+<text x="304.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">delta &lt; 0</text>
+<text x="304.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">протилежний полюс (S-бік): напруга падає</text>
+<line x1="120.0" y1="392.0" x2="880.0" y2="392.0" stroke="#e5e7eb" stroke-width="1.0"/>
+<text x="500.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">delta = analogRead(A0) − baseline   ·   |delta| = сила поля,   знак = полюс</text>
+</svg>

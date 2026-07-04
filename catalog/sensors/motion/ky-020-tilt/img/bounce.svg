@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Брязкіт кульки: один нахил дає чергу коротких стрибків «0↔1»</text>
+<text x="88.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">1</text>
+<text x="88.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">0</text>
+<line x1="110.0" y1="90.0" x2="760.0" y2="90.0" stroke="#dfe3e8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="110.0" y1="150.0" x2="760.0" y2="150.0" stroke="#dfe3e8" stroke-width="1.0" stroke-dasharray="4,4"/>
+<polyline points="250.0,90.0 250.0,150.0 266.0,150.0 266.0,90.0 275.0,90.0 275.0,150.0 287.0,150.0 287.0,90.0 294.0,90.0 294.0,150.0 307.0,150.0 307.0,90.0 313.0,90.0 313.0,150.0 323.0,150.0 323.0,150.0 580.0,150.0" fill="none" stroke="#1a1a1a" stroke-width="2.4"/>
+<rect x="250.0" y="72.0" width="73.0" height="96.0" rx="4" fill="none" stroke="#c0392b" stroke-width="1.2"/>
+<text x="286.5" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">брязкіт (кулька підстрибує, ~кілька мс)</text>
+<line x1="250.0" y1="50.0" x2="250.0" y2="210.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="250.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">нахилили</text>
+<text x="451.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">усталений «0»</text>
+<line x1="610.0" y1="50.0" x2="610.0" y2="210.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+<rect x="616.0" y="78.0" width="180.0" height="44.0" rx="6" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.5"/><text x="706.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="706.0" dy="0.0">наївний код нарахує</tspan><tspan x="706.0" dy="13.0">багато «спрацювань»</tspan></text>
+<rect x="616.0" y="135.0" width="180.0" height="44.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="706.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="706.0" dy="0.0">після гасіння (20–50 мс</tspan><tspan x="706.0" dy="13.0">сталого) — ОДНА подія</tspan></text>
+<rect x="143.7" y="327.9" width="552.7" height="44.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="346.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">debounce: приймати новий рівень лише коли він протримався сталим певний час (довше за всі</tspan><tspan x="420.0" dy="13.7">підстрибування) — тоді з усього деренчання лишається рівно одне чисте спрацювання</tspan></text>
+</svg>

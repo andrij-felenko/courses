@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рукостискання: пін смикнувся вгору — код чекає, читає причину, розгалужується</text>
+<rect x="40.0" y="62.0" width="200.0" height="96.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="1.9"/>
+<text x="140.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1 · IRQ ↑</text>
+<text x="140.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">чіп підняв пін</text>
+<text x="140.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">МК будиться</text>
+<text x="140.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">по фронту</text>
+<line x1="240.0" y1="110.0" x2="300.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="320.0" y="62.0" width="220.0" height="96.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.9"/>
+<text x="430.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2 · пауза ~2 мс</text>
+<text x="430.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">чіп ще досипає</text>
+<text x="430.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">статистику;</text>
+<text x="430.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">читати рано — брехня</text>
+<line x1="540.0" y1="110.0" x2="600.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="630.0" y="62.0" width="200.0" height="96.0" rx="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.9"/>
+<text x="730.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3 · читаємо 0x03</text>
+<text x="730.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">беремо біти INT[3:0]</text>
+<text x="730.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">— причину події</text>
+<text x="730.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">в одному байті</text>
+<line x1="730.0" y1="158.0" x2="730.0" y2="196.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="730.0" y1="210.0" x2="150.0" y2="210.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="150.0" y1="210.0" x2="150.0" y2="238.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="450.0" y1="210.0" x2="450.0" y2="238.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="730.0" y1="210.0" x2="730.0" y2="238.0" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="30.0" y="240.0" width="240.0" height="120.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.9"/>
+<text x="150.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">0x01</text>
+<text x="150.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">шум зависокий</text>
+<text x="150.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">поріг шуму мал.</text>
+<text x="150.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">→ підняти рівень</text>
+<text x="150.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">або перенести давач</text>
+<rect x="330.0" y="240.0" width="240.0" height="120.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.9"/>
+<text x="450.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">0x04</text>
+<text x="450.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">завада (disturber)</text>
+<text x="450.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">техніка поруч</text>
+<text x="450.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">→ маскувати</text>
+<text x="450.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">або ігнорувати</text>
+<rect x="610.0" y="240.0" width="240.0" height="120.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.9"/>
+<text x="730.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">0x08</text>
+<text x="730.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">БЛИСКАВКА</text>
+<text x="730.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">читай 0x07 — км</text>
+<text x="730.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">і 0x04–0x06 —</text>
+<text x="730.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">енергію розряду</text>
+<rect x="69.5" y="394.5" width="741.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="413.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">один і той самий пін IRQ означає три різні речі — саме байт 0x03 каже, ЩО сталося; діяти можна лише прочитавши його</tspan></text>
+</svg>

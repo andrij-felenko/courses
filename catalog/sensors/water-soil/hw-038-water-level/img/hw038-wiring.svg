@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підключення HW-038: S→АЦП, −→GND, а «+» краще від цифрової ніжки (вмикати лише на читання)</text>
+<rect x="70.0" y="120.0" width="190.0" height="250.0" rx="12" fill="#eef6ef" stroke="#27ae60" stroke-width="1.9"/>
+<text x="165.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Мікроконтролер</text>
+<text x="246.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">+5 В / 3.3 В</text>
+<circle cx="260.0" cy="186.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="246.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">D7 (цифрова)</text>
+<circle cx="260.0" cy="236.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="246.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">A0 (АЦП)</text>
+<circle cx="260.0" cy="294.0" r="4.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="246.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-weight="700">GND</text>
+<circle cx="260.0" cy="340.0" r="4.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="620.0" y="150.0" width="200.0" height="190.0" rx="12" fill="#eef3fb" stroke="#2457d6" stroke-width="1.9"/>
+<text x="720.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">HW-038</text>
+<text x="720.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">три ніжки: + / S / −</text>
+<text x="636.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">+  (VCC)</text>
+<circle cx="620.0" cy="230.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="636.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">S  (OUT)</text>
+<circle cx="620.0" cy="274.0" r="4.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="636.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">−  (GND)</text>
+<circle cx="620.0" cy="318.0" r="4.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="260.0" y1="294.0" x2="620.0" y2="274.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="260.0" y1="340.0" x2="620.0" y2="318.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="260.0" y1="186.0" x2="400.0" y2="186.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<line x1="400.0" y1="186.0" x2="400.0" y2="230.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<line x1="400.0" y1="230.0" x2="620.0" y2="230.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<text x="268.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">A) прямо на живлення:</text>
+<text x="268.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">просто, але доріжки роз'їдає</text>
+<line x1="260.0" y1="236.0" x2="470.0" y2="236.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="470.0" y1="236.0" x2="470.0" y2="242.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="470.0" y1="242.0" x2="620.0" y2="242.0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="268.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Б) від D7 — вмикай лише</text>
+<text x="268.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">на мить виміру → менше корозії</text>
+<path d="M 650.0 346.0 L 790.0 346.0 L 776.0 416.0 L 664.0 416.0 Z" fill="#eaf6fb" stroke="#3aa6d0" stroke-width="1.6"/>
+<line x1="656.0" y1="368.0" x2="784.0" y2="368.0" stroke="#3aa6d0" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="720.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2a86a8" text-anchor="middle" font-weight="700">вода</text>
+<line x1="700.0" y1="340.0" x2="700.0" y2="386.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="740.0" y1="340.0" x2="740.0" y2="386.0" stroke="#c0392b" stroke-width="2.0"/>
+</svg>

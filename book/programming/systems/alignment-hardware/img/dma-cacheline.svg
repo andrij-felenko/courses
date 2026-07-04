@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">DMA хоче вирівнювання на рядок кешу — інакше рядок ділиться з CPU</text>
+<text x="120.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">пам'ять, розмічена рядками кешу (тут — по 8 байтів):</text>
+<rect x="60.0" y="104.0" width="840.0" height="92.0" rx="12" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.7"/>
+<text x="78.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">✓ Буфер вирівняний на рядок кешу — DMA володіє цілими рядками</text>
+<rect x="120.0" y="140.0" width="168.0" height="34.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="204.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">рядок 0</text>
+<rect x="288.0" y="140.0" width="168.0" height="34.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="372.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">рядок 1</text>
+<rect x="456.0" y="140.0" width="168.0" height="34.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="540.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">рядок 2</text>
+<rect x="624.0" y="140.0" width="168.0" height="34.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="708.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">рядок 3</text>
+<rect x="288.0" y="140.0" width="336.0" height="34.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.4"/>
+<text x="456.0" y="162.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">DMA-буфер</text>
+<rect x="60.0" y="254.0" width="840.0" height="150.0" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="78.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">✗ Буфер зсунутий — його краї ділять рядки з чужими даними</text>
+<rect x="120.0" y="290.0" width="168.0" height="34.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<rect x="288.0" y="290.0" width="168.0" height="34.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<rect x="456.0" y="290.0" width="168.0" height="34.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<rect x="624.0" y="290.0" width="168.0" height="34.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<rect x="204.0" y="290.0" width="336.0" height="34.0" rx="4" fill="#f7c9c0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="372.0" y="312.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">DMA-буфер</text>
+<rect x="120.0" y="290.0" width="84.0" height="34.0" rx="4" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.6"/>
+<rect x="540.0" y="290.0" width="84.0" height="34.0" rx="4" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.6"/>
+<text x="162.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b8860b" text-anchor="middle" font-weight="700">чужі</text>
+<text x="582.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b8860b" text-anchor="middle" font-weight="700">чужі</text>
+<text x="480.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">invalidate рядка викидає й чужі байти в ньому: втратиш свіжий запис CPU або отримаєш старе від DMA.</text>
+<text x="480.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Той самий рядок кешу не може бути водночас «за CPU» і «за DMA» — межа мусить збігтися з рядком.</text>
+</svg>

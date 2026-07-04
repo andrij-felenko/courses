@@ -185,9 +185,60 @@ def fig_decision():
            title="Який тип входу під яку задачу")
 
 
+# ───────────────────────────────────────────────────────────────────────────
+# 5. Історія вхідних каскадів: спільна вісь часу трьох родин (для hist-вставки)
+# ───────────────────────────────────────────────────────────────────────────
+def fig_hist_timeline():
+    # Вертикальний час: три колонки-родини, згори вниз — по три віхи.
+    # Жодних наскрізних ліній крізь написи, колонки не наскакують.
+    W, H = 760, 440
+    f = []
+    cols = [
+        ("Біполярні (BJT)", POS, [
+            (1952, "K2-W", "лампова класика (Philbrick)"),
+            (1964, "µA702", "перший монолітний IC-ОП"),
+            (1968, "µA741", "внутрішня корекція"),
+        ]),
+        ("Польові p-n (JFET)", "#b8860b", [
+            (1965, "варактор / модулі", "вхідний струм < 1 пА"),
+            (1974, "BiFET", "JFET і BJT на кристалі"),
+            (1978, "LF356 / TL07x", "масовий JFET-ОП"),
+        ]),
+        ("МОН (CMOS)", FIELD, [
+            (1963, "патент CMOS", "Ф. Ванласс, Fairchild"),
+            (1974, "CA3130", "MOSFET-вхід (BiMOS)"),
+            (1976, "ICL7611", "повний CMOS-ОП"),
+        ]),
+    ]
+    cw = 230
+    gap = 20
+    xL = (W - (cw * 3 + gap * 2)) / 2
+    ytop, ystep = 116, 100
+    for ci, (name, c, evs) in enumerate(cols):
+        cx = xL + ci * (cw + gap) + cw / 2
+        # заголовок-родина
+        f.append(rect(cx - cw / 2, 50, cw, 34, fill=c, stroke=c, rx=8))
+        f.append(text(cx, 72, name, size=14, bold=True, color="white"))
+        # вертикальна вісь колонки — ЗЛІВА від написів (не крізь них)
+        axx = cx - cw / 2 + 26
+        f.append(line(axx, ytop - 8, axx, ytop + 2 * ystep + 30, color=c, sw=2))
+        for ei, (yr, big, small) in enumerate(evs):
+            ey = ytop + ei * ystep
+            f.append(circle(axx, ey, 6, fill=c, stroke=c))
+            f.append(text(axx - 14, ey + 5, str(yr), size=13, bold=True, anchor="end", color=c))
+            # підписи — праворуч від осі, у власних рамках (текст не вилазить)
+            f.append(fitbox(axx + 12, ey - 16, cw / 2 + 62, 22, big, size=12,
+                            bold=True, fill="#fbfcfd", stroke=c, rx=5))
+            f.append(fitbox(axx + 12, ey + 8, cw / 2 + 62, 20, small, size=10,
+                            color=MUTED, fill="none", stroke="none"))
+    render(os.path.join(IMG, "hist-timeline.svg"), W, H, *f,
+           title="Народження трьох родин входів ОП (роки веб-звірені)")
+
+
 if __name__ == "__main__":
     fig_three_inputs()
     fig_bias_scale()
     fig_why_matters()
     fig_decision()
-    print("OK: 4 фігури записано в", IMG)
+    fig_hist_timeline()
+    print("OK: 5 фігур записано в", IMG)

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві дії Tcl над кожним рядком: підстановка, тоді виклик</text>
+<rect x="40.0" y="56.0" width="700.0" height="44.0" rx="8" fill="#13202a" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="390.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#eef6ef" text-anchor="middle" font-weight="700">set b [expr {$a + 2}]</text>
+<text x="390.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">один рядок — одна команда</text>
+<text x="60.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Крок 1 — поділ на слова, тоді підстановки [ ] і $</text>
+<rect x="60.0" y="164.0" width="50.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="85.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">set</text>
+<rect x="126.0" y="164.0" width="32.7" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="142.4" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">b</text>
+<rect x="174.7" y="164.0" width="154.2" height="34.0" rx="6" fill="#f6f4ec" stroke="#a98a2a" stroke-width="2.0"/>
+<text x="251.8" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7a6312" text-anchor="middle" font-weight="700">[expr {$a + 2}]</text>
+<text x="251.8" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">виконати вкладену команду →</text>
+<line x1="251.8" y1="226.0" x2="251.8" y2="246.0" stroke="#a98a2a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="217.8" y="250.0" width="68.0" height="30.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="251.8" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">5</text>
+<text x="311.8" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">(при a = 3)</text>
+<text x="60.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Крок 2 — перше слово — ім'я команди, решта — аргументи</text>
+<rect x="60.0" y="314.0" width="250.0" height="40.0" rx="8" fill="#13202a" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="76.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#8fd0ff" text-anchor="start" font-weight="700">set</text>
+<text x="150.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#eef6ef" text-anchor="start" font-weight="700">b</text>
+<text x="190.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#7fe0a0" text-anchor="start" font-weight="700">5</text>
+<text x="330.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">→  b дістає значення «5»</text>
+<text x="76.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8fd0ff" text-anchor="start">команда</text>
+<text x="150.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">два аргументи-рядки</text>
+</svg>

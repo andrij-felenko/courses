@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підключення: підтяжка тримає «1», кулька замикає на GND → на піні «0»</text>
+<line x1="120.0" y1="90.0" x2="700.0" y2="90.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="120.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">VCC (3.3 або 5 В)</text>
+<line x1="120.0" y1="380.0" x2="700.0" y2="380.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="120.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">GND</text>
+<rect x="286.0" y="104.0" width="28.0" height="66.0" rx="4" fill="#fff6e6" stroke="#c8901f" stroke-width="1.6"/>
+<text x="342.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6410" text-anchor="start" font-weight="700">R підтяжки</text>
+<text x="342.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">10 кОм</text>
+<line x1="300.0" y1="170.0" x2="300.0" y2="235.0" stroke="#c8901f" stroke-width="2.0"/>
+<circle cx="300.0" cy="235.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<line x1="300.0" y1="235.0" x2="560.0" y2="235.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="300.0" y1="235.0" x2="300.0" y2="261.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="270.0" y="261.0" width="60.0" height="40.0" rx="8" fill="#eef1f4" stroke="#5f6368" stroke-width="1.6"/>
+<circle cx="288.0" cy="281.0" r="11.0" fill="#9aa0a6" stroke="#5f6368" stroke-width="1.5"/>
+<text x="370.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">SW-520D</text>
+<text x="370.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(кулька)</text>
+<line x1="300.0" y1="301.0" x2="300.0" y2="380.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="560.0" y="150.0" width="170.0" height="170.0" rx="10" fill="#eef2f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="645.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">мікроконтролер</text>
+<text x="645.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Arduino / ESP32)</text>
+<rect x="556.0" y="224.0" width="8.0" height="22.0" rx="2" fill="#fff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="584.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">GPIO</text>
+<text x="584.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">вхід</text>
+<rect x="109.7" y="405.9" width="600.5" height="44.1" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="410.0" y="424.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">спокій: кулька розімкнена, підтяжка тягне пін до VCC → читаємо «1». струс/нахил: кулька замикає</tspan><tspan x="410.0" dy="13.7">пін на GND → «0». логіка ІНВЕРСНА (активний нуль). внутрішня INPUT_PULLUP МК замінює зовнішній R.</tspan></text>
+</svg>

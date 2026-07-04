@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">release і acquire — однобічні бар'єри, що зшивають два потоки</text>
+<line x1="200.0" y1="70.0" x2="200.0" y2="380.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="560.0" y1="70.0" x2="560.0" y2="380.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="200.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Потік A</text>
+<text x="560.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Потік B</text>
+<text x="50.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">час ↓</text>
+<rect x="45.0" y="90.0" width="150.0" height="32.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="110.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">data = 42</tspan></text>
+<rect x="45.0" y="132.0" width="150.0" height="32.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="152.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">cfg = ok</tspan></text>
+<rect x="25.0" y="186.0" width="170.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="110.0" y="200.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">ready.store(1,</tspan><tspan x="110.0" dy="15.6"> release)</tspan></text>
+<line x1="185.0" y1="176.0" x2="255.0" y2="176.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="260.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">↑ записи не спускаються нижче release</text>
+<rect x="565.0" y="240.0" width="175.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="652.5" y="254.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="652.5" dy="0.0">ready.load(</tspan><tspan x="652.5" dy="15.6"> acquire) == 1</tspan></text>
+<line x1="505.0" y1="284.0" x2="575.0" y2="284.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="500.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">читання не піднімаються вище acquire ↓</text>
+<rect x="565.0" y="300.0" width="150.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="640.0" y="320.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">use(data) → 42</tspan></text>
+<rect x="565.0" y="340.0" width="150.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="640.0" y="360.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">use(cfg) → ok</tspan></text>
+<line x1="205.0" y1="204.0" x2="555.0" y2="258.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="390.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700" font-style="italic">synchronizes-with</text>
+<line x1="60.0" y1="398.0" x2="720.0" y2="398.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="390.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Побачив ready через acquire → усе, що A написав перед release, вже видиме B</text>
+</svg>

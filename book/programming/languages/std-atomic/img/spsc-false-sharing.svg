@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">false sharing: head і tail в одній кеш-лінії пінг-понгують</text>
+<text x="70.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">разом (одна 64-байтова лінія)</text>
+<rect x="70.0" y="92.0" width="84.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="112.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">head</text>
+<rect x="160.0" y="92.0" width="84.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="202.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">tail</text>
+<rect x="250.0" y="92.0" width="84.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="292.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">…</text>
+<rect x="340.0" y="92.0" width="84.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="382.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">…</text>
+<rect x="66.0" y="88.0" width="362.0" height="54.0" rx="8" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<text x="444.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">ОДНА лінія</text>
+<text x="110.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">ядро-продюсер</text>
+<text x="310.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">ядро-консюмер</text>
+<line x1="160.0" y1="158.0" x2="310.0" y2="158.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="182.0" x2="160.0" y2="182.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="241.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">лінія «літає» туди-сюди на КОЖЕН крок</text>
+<text x="70.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">рознесено (alignas — кожен у своїй лінії)</text>
+<rect x="70.0" y="260.0" width="84.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="112.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">head</text>
+<rect x="70.0" y="264.0" width="84.0" height="46.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/>
+<rect x="160.0" y="260.0" width="84.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="202.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">набивка</text>
+<rect x="66.0" y="256.0" width="182.0" height="54.0" rx="8" fill="none" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="270.0" y="260.0" width="84.0" height="46.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="312.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">tail</text>
+<rect x="360.0" y="260.0" width="84.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="402.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">набивка</text>
+<rect x="266.0" y="256.0" width="182.0" height="54.0" rx="8" fill="none" stroke="#27ae60" stroke-width="2.0"/>
+<text x="168.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">лінія A</text>
+<text x="368.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">лінія B</text>
+<rect x="93.4" y="357.0" width="613.2" height="30.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="400.0" y="376.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">кожен покажчик у СВОЇЙ лінії → ядра не знеправлюють чужу лінію, пінг-понг зникає</tspan></text>
+</svg>

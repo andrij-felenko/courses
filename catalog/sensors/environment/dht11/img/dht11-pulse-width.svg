@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Серце ручного драйвера: біт — це ширина високого імпульсу</text>
+<line x1="60.0" y1="250.0" x2="750.0" y2="250.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="746.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">час →</text>
+<text x="112.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">50 мкс низько</text>
+<line x1="70.0" y1="250.0" x2="154.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="154.0" y1="250.0" x2="154.0" y2="120.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="154.0" y1="120.0" x2="194.0" y2="120.0" stroke="#2457d6" stroke-width="3.0"/>
+<line x1="194.0" y1="120.0" x2="194.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="154.0" y1="104.0" x2="194.0" y2="104.0" stroke="#2457d6" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text x="174.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">≈26 мкс → 0</text>
+<line x1="194.0" y1="250.0" x2="220.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="262.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">50 мкс низько</text>
+<line x1="220.0" y1="250.0" x2="304.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="304.0" y1="250.0" x2="304.0" y2="120.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="304.0" y1="120.0" x2="414.0" y2="120.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="414.0" y1="120.0" x2="414.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="304.0" y1="104.0" x2="414.0" y2="104.0" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text x="359.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">≈70 мкс → 1</text>
+<line x1="414.0" y1="250.0" x2="440.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="154.0" y1="120.0" x2="154.0" y2="80.0" stroke="#2457d6" stroke-width="1.1" stroke-dasharray="3 3"/>
+<line x1="194.0" y1="120.0" x2="194.0" y2="80.0" stroke="#2457d6" stroke-width="1.1" stroke-dasharray="3 3"/>
+<text x="150.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end">t0=micros()</text>
+<text x="198.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">t1=micros()</text>
+<text x="174.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">ширина = t1 − t0</text>
+<rect x="70.0" y="306.0" width="670.0" height="96.0" rx="8" fill="#fbfbfd" stroke="#333333" stroke-width="1.4"/>
+<text x="405.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рішення за одним числом</text>
+<text x="405.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="405.0" dy="0.0">фронт угору → засік micros(); фронт униз → знову micros().</tspan><tspan x="405.0" dy="14.3">різниця мала (&lt; ≈50 мкс) — біт 0, велика — біт 1.</tspan><tspan x="405.0" dy="14.3">абсолютні числа не важать: важить, який високий імпульс довший.</tspan></text>
+</svg>

@@ -162,7 +162,7 @@
         { ref: "electronics/analog/bjt-switch", title: "BJT-ключ" },
         { slug: "bjt-load-driving", title: "BJT: навантаження", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-tr1-sony.md", status: "done" }], math: [{ file: "math-ebers-moll.md", status: "done" }], comp: [{ file: "comp-darlington-uln.md", status: "done" }], proj: [{ file: "proj-base-drive-firmware.md", status: "done" }] },
         { slug: "darlington-vs-sziklai", title: "Пара Дарлінгтона проти Sziklai", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-darlington-sziklai.md", status: "done" }] },
-        { slug: "datasheet-bjt", title: "Практикум даташитів: BJT", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-jellybean-npn.md", status: "pending" }], math: [{ file: "math-soa-derating.md", status: "pending" }] },
+        { slug: "datasheet-bjt", title: "Практикум даташитів: BJT", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-jellybean-npn.md", status: "done" }], math: [{ file: "math-soa-derating.md", status: "done" }] },
       ] },
       { title: "MOSFET і CMOS", steps: [
         { ref: "electronics/microelectronics/mosfet-structure", title: "Будова MOSFET" },
@@ -178,7 +178,7 @@
       { title: "Крихкість і захист", steps: [
         { ref: "electronics/microelectronics/esd-damage", title: "Електростатичний розряд" },
         { slug: "flyback-protection", title: "Захист flyback", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-rlc-spike.md", status: "done" }], comp: [{ file: "comp-ideal-diode-controller.md", status: "done" }] },
-        { slug: "surge-protection-cascade", title: "Каскадний захист від перенапруги", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-cascade.md", status: "pending" }] },
+        { slug: "surge-protection-cascade", title: "Каскадний захист від перенапруги", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-cascade.md", status: "done" }] },
       ] },
       { title: "Нові матеріали", steps: [
         { slug: "sic-gan-comparison", title: "SiC і GaN: відмінності від кремнію", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-wbg-origins.md", status: "done" }] },
@@ -191,7 +191,7 @@
         { ref: "electronics/analog/inverting-noninverting", title: "Інвертуючий підсилювач" },
         { slug: "kcl-opamp-analysis", title: "KCL у вузлах схем на ОП", basic: { status: "done" }, detailed: { status: "empty" } },
         { ref: "electronics/analog/real-opamp-limits", title: "Реальний ОП" },
-        { slug: "opamp-input-types", title: "Типи входів ОП: BJT, JFET, CMOS", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-input-stages.md", status: "pending" }] },
+        { slug: "opamp-input-types", title: "Типи входів ОП: BJT, JFET, CMOS", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-input-stages.md", status: "done" }] },
         { slug: "single-supply-opamp", title: "ОП на однополярному живленні", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-single-supply.md", status: "done" }] },
       ] },
       { title: "Компаратор і поріг", steps: [
@@ -200,18 +200,18 @@
       ] },
       { title: "Зворотний зв'язок і каскади", steps: [
         { slug: "feedback-topologies", title: "Топології зворотного зв'язку", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-black-feedback.md", status: "done" }] },
-        { slug: "dc-ac-bias", title: "DC-зміщення і AC-сигнал у підсилювачі", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-bias-origin.md", status: "pending" }] },
+        { slug: "dc-ac-bias", title: "DC-зміщення і AC-сигнал у підсилювачі", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-bias-origin.md", status: "done" }] },
         { slug: "multistage-amplifier", title: "Багатокаскадний підсилювач", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-opamp-cascade.md", status: "done" }] },
         { slug: "tail-current-source", title: "Джерело струму хвоста: від резистора до каскоду", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-widlar-wilson.md", status: "done" }] },
         { ref: "electronics/analog/instrumentation-amp", title: "Інструментальний підсилювач" },
-        { slug: "signal-conditioning", title: "Кондиціонування сигналу", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-current-loop.md", status: "pending" }] },
+        { slug: "signal-conditioning", title: "Кондиціонування сигналу", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-current-loop.md", status: "done" }] },
       ] },
       { title: "Генератори й тактові опори", steps: [
         { ref: "electronics/analog/relaxation-oscillator", title: "Релаксаційний генератор" },
         { ref: "electronics/analog/555-astable", title: "555 астабільний" },
         { ref: "electronics/components/crystal", title: "Кварц" },
         { ref: "electronics/components/quartz-rlc-model", title: "RLC-модель кварцу" },
-        { slug: "pierce-oscillator-design", title: "Генератор Пірса: схема й розрахунок обв'язки кварцу", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-pierce-vittoz.md", status: "pending" }] },
+        { slug: "pierce-oscillator-design", title: "Генератор Пірса: схема й розрахунок обв'язки кварцу", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-pierce-vittoz.md", status: "done" }] },
         { slug: "ceramic-mems-resonators", title: "Керамічні резонатори", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-pzt-ceramic.md", status: "done" }], math: [{ file: "math-electrostatic-transduction.md", status: "done" }], comp: [{ file: "comp-mems-vs-quartz.md", status: "done" }] },
         { slug: "tcxo-ocxo", title: "TCXO та OCXO", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-tcxo-compensation.md", status: "done" }], comp: [{ file: "comp-tcxo.md", status: "done" }], proj: [{ file: "proj-dcxo-compensation.md", status: "done" }] },
       ] },
@@ -223,7 +223,7 @@
       { title: "Даташити", steps: [
         { slug: "datasheet-practice", title: "Практикум даташитів", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-switching-loss.md", status: "done" }], comp: [{ file: "comp-component-tester.md", status: "done" }], proj: [{ file: "proj-selection-checklist.md", status: "done" }] },
         { ref: "electronics/metrology/min-typ-max", title: "Min/typ/max" },
-        { slug: "energy-density-comparison", title: "Щільність енергії та потужності: конденсатор, суперконденсатор, акумулятор", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-ragone-plot.md", status: "pending" }] },
+        { slug: "energy-density-comparison", title: "Щільність енергії та потужності: конденсатор, суперконденсатор, акумулятор", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-ragone-plot.md", status: "done" }] },
       ] },
       { title: "Захисні компоненти", steps: [
         { slug: "fuses-ptc", title: "Запобіжники", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-fuse.md", status: "done" }, { file: "hist-pptc.md", status: "done" }] },
@@ -394,7 +394,7 @@
         { ref: "programming/embedded-systems/esp32-architecture", title: "Архітектура ESP32" },
         { slug: "pic-architecture", title: "Архітектура PIC", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-pic-genesis.md", status: "done" }], proj: [{ file: "proj-bank-switching.md", status: "done" }] },
         { slug: "fpga-vs-mcu", title: "FPGA чи МК", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-latency-jitter.md", status: "done" }, { file: "math-breakeven-volume.md", status: "done" }], proj: [{ file: "proj-edge-pulse.md", status: "done" }] },
-        { slug: "datasheet-mcu", title: "Практикум даташитів: мікроконтролер", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-datasheet-vs-manual.md", status: "pending" }] },
+        { slug: "datasheet-mcu", title: "Практикум даташитів: мікроконтролер", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-datasheet-vs-manual.md", status: "done" }] },
         { slug: "mcu-selection", title: "Вибір МК", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-arm.md", status: "done" }] },
         { slug: "mcu-checklist", title: "Чеклист вибору МК", basic: { status: "done" }, detailed: { status: "empty" }, math: [{ file: "math-decision-matrix.md", status: "done" }] },
       ] },

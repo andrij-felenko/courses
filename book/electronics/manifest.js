@@ -908,6 +908,7 @@
       ] },
     { slug: "sensors", title: "Сенсорика", scope: "Прилади перетворення фізичних величин у вимірюваний електричний сигнал.",
       topics: [
+        { slug: "electret-microphone", title: "Електретний мікрофон", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "touch-controller", title: "Сенсорний контролер", basic: { status: "done" }, detailed: { status: "empty" } },
         { slug: "ntc-thermistor", title: "NTC-термістор", basic: { status: "done" }, detailed: { status: "pending" } },
         { slug: "photo-sensors", title: "Фотодавачі", basic: { status: "done" }, detailed: { status: "pending" } },
@@ -1014,6 +1015,10 @@
     { slug: "signals", title: "Сигнали", scope: "Форми, рівні й тайминг електричних сигналів — від кодування інформації у формі коливання до стандартів їхнього подання.",
       topics: [
         { slug: "composite-video", title: "Композитний відеосигнал (CVBS)", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
+    { slug: "buses", title: "Шини", scope: "Провідні інтерфейси зв'язку між мікросхемами: рівні, арбітраж, адресація, тайминг послідовних і паралельних шин.",
+      topics: [
+        { slug: "i2c", title: "Шина I²C", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
   ]
 });

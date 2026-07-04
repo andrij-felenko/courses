@@ -12,6 +12,7 @@
       topics: [
         { slug: "yp-08-power", title: "YP-08 — модуль живлення", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "dcdc-buck-boost", title: "Програмований DC-DC buck-boost (DPS/DPH)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "xc6206", title: "XC6206 (662K) — LDO-регулятор 3.3 В", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "drivers-relays", title: "Драйвери й реле", scope: "Ключі навантаження: реле, драйвери моторів/крокових.",
       topics: [

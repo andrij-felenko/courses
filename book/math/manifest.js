@@ -107,6 +107,10 @@
         { slug: "pythagorean-theorem", title: "Теорема Піфагора", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "surface-normal", title: "Нормаль до поверхні", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
+    { slug: "trigonometry", title: "Тригонометрія", scope: "Тригонометричні функції, тотожності та обернені функції, кутові співвідношення в прямокутному трикутнику й на колі.",
+      topics: [
+        { slug: "atan2", title: "atan2 — чотиричвертний арктангенс", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
     { slug: "topology", title: "Топологія", scope: "Властивості просторів, інваріантні щодо неперервних деформацій, та їхні алгебраїчні інваріанти.",
       topics: [
       ] },

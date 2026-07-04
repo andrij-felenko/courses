@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Неблокувальний дебаунс: перший фронт запускає вікно — дрижання всередині ігнорується</text>
+<line x1="80.0" y1="190.0" x2="800.0" y2="190.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="80.0" y1="138.0" x2="800.0" y2="138.0" stroke="#6b7280" stroke-width="0.6" stroke-dasharray="3,3"/>
+<text x="66.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0</text>
+<text x="66.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">1</text>
+<text x="808.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">пін (активний нуль)</text>
+<polyline points="80.0,138.0 200.0,138.0 212.0,190.0 227.0,138.0 239.0,190.0 251.0,138.0 266.0,190.0 281.0,138.0 290.0,190.0 299.0,138.0 314.0,190.0 326.0,138.0 341.0,190.0 356.0,138.0 360.0,190.0 360.0,190.0 470.0,190.0 480.0,138.0 493.0,190.0 506.0,138.0 516.0,190.0 526.0,138.0 536.0,190.0 549.0,138.0 560.0,190.0 560.0,138.0 800.0,138.0" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="200.0" y1="116.0" x2="200.0" y2="212.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4,3"/>
+<text x="200.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">перший фронт</text>
+<text x="200.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">t = 0: приймаємо подію</text>
+<rect x="200.0" y="216.0" width="240.0" height="40.0" rx="6" fill="#f0eef6" stroke="#8a6bd6" stroke-width="1.4"/>
+<text x="320.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#5b3ea8" text-anchor="middle" font-weight="700">ВІКНО: ігноруємо пін ~40 мс</text>
+<line x1="200.0" y1="216.0" x2="200.0" y2="256.0" stroke="#8a6bd6" stroke-width="1.2"/>
+<line x1="440.0" y1="216.0" x2="440.0" y2="256.0" stroke="#8a6bd6" stroke-width="1.2"/>
+<line x1="600.0" y1="286.0" x2="634.0" y2="286.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="286.0" x2="694.0" y2="286.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="720.0" y1="286.0" x2="754.0" y2="286.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="660.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">loop() не блокується — код тим часом працює далі</text>
+<rect x="133.7" y="407.9" width="612.5" height="44.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="426.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">delay() зупиняє ВСЮ програму — так не можна в реальному пристрої. натомість: запам'ятали millis()</tspan><tspan x="440.0" dy="13.7">першого фронту → приймаємо подію → доки (millis − t0) &lt; 40 мс, пін НЕ читаємо. loop крутиться далі.</tspan></text>
+</svg>

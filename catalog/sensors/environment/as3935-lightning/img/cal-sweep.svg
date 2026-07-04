@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Калібрування антени: перебираємо 16 ємностей, міряємо частоту LCO, лишаємо найближчу до 500 кГц</text>
+<rect x="60.0" y="78.0" width="300.0" height="300.0" rx="12" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="210.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">для tune = 0 … 15:</text>
+<circle cx="90.0" cy="142.0" r="11.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="90.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="112.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">setTuningCaps(tune·8)</text>
+<text x="112.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">додаємо tune·8 пФ до антени</text>
+<circle cx="90.0" cy="198.0" r="11.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="90.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2</text>
+<text x="112.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">setIRQOutputSource(3)</text>
+<text x="112.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">вивести LCO на пін IRQ</text>
+<circle cx="90.0" cy="254.0" r="11.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="90.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<text x="112.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">міряємо частоту на IRQ</text>
+<text x="112.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">рахуємо фронти за час</text>
+<circle cx="90.0" cy="310.0" r="11.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="90.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4</text>
+<text x="112.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">|f − 500 кГц| менша?</text>
+<text x="112.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">запам'ятати цю tune</text>
+<path d="M 84.0 320.0 q -26 0 -26 -89.0 q 0 -89.0 20 -89.0" fill="none" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="635.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">промах частоти LCO від 500 кГц (менше — краще)</text>
+<line x1="430.0" y1="346.0" x2="840.0" y2="346.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="430.0" y1="96.0" x2="430.0" y2="346.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="441.3" y="134.4" width="28.7" height="211.6" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="455.6" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">0</text>
+<rect x="492.5" y="194.2" width="28.7" height="151.8" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="506.9" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">1</text>
+<rect x="543.8" y="244.8" width="28.7" height="101.2" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="558.1" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">2</text>
+<rect x="595.0" y="281.6" width="28.7" height="64.4" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="609.4" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">3</text>
+<rect x="646.3" y="313.8" width="28.7" height="32.2" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="660.6" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">4</text>
+<rect x="697.5" y="336.8" width="28.7" height="9.2" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="711.9" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">5</text>
+<text x="711.9" y="326.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">лишаємо</text>
+<rect x="748.8" y="304.6" width="28.7" height="41.4" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="763.1" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">6</text>
+<rect x="800.0" y="263.2" width="28.7" height="82.8" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="814.4" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">7</text>
+<text x="635.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">значення tune (кожне = +8 пФ ємності)</text>
+<line x1="430.0" y1="346.0" x2="840.0" y2="346.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="-5.9" y="416.8" width="911.8" height="30.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="450.0" y="435.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">manualCal робить це перебором усередині; після нього LCO прибирають з піна (setIRQOutputSource(0)), інакше IRQ смикатиметься 500 000 разів за секунду</tspan></text>
+</svg>

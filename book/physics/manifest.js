@@ -78,6 +78,10 @@
         { slug: "humidity-measurement", title: "Вимірювання вологості", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "dew-point", title: "Точка роси і конденсація", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
+    { slug: "thermodynamics", title: "Термодинаміка (прикладна)", scope: "Прикладні атмосферні й вологісні величини для давачів середовища.",
+      topics: [
+        { slug: "relative-humidity", title: "Відносна вологість повітря", basic: { status: "pending" }, detailed: { status: "empty" } },
+      ] },
     { slug: "electromagnetism", title: "Електромагнетизм", scope: "Заряди й поля, струм і провідність, магнетизм та індукція, зведені в рівняння Максвелла.",
       topics: [
         { slug: "electric-charge", title: "Заряд", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-millikan.md", status: "done" }, { file: "hist-electricity.md", status: "done" }] },

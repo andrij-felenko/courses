@@ -235,6 +235,60 @@ def fig_load_line():
     render(os.path.join(IMG, "load-line.svg"), W, H, *f)
 
 
+# ── фігура 4 (до вставки hist): класи A/B/C — це просто де сидить зміщення ─────
+def fig_bias_classes():
+    """Три панелі: та сама синусоїда на вході, але рівень зміщення (поріг відсічки)
+    сидить у різних місцях → прилад проводить різну частку періоду. Це і є класи."""
+    W, H = 820, 340
+    f = [text(W / 2, 24, "Класи підсилення — це лише різна висота зміщення: скільки періоду прилад узагалі проводить",
+              size=13.5, bold=True)]
+
+    panel_w = 250
+    gap = 15
+    x0 = 20
+    top = 70
+    bot = 250
+    mid = (top + bot) / 2
+    amp = (bot - top) / 2 * 0.92
+
+    def panel(ox, title, thr_frac, sub, tcol):
+        # thr_frac: положення порога відсічки в частках амплітуди від середини,
+        #   +1 = поріг угорі (проводить лише вершечок), 0 = посередині, -1 = унизу (весь період).
+        left = ox + 20
+        right = ox + panel_w - 12
+        # рамка-заголовок
+        f.append(fitbox(ox, 40, panel_w, 24, title, size=12, bold=True,
+                        fill="#eef1f5", stroke=tcol, color=INK))
+        # вісь часу (нульова лінія сигналу вже НЕ головна — головний поріг)
+        thr_y = mid - thr_frac * amp     # рівень порога відсічки (де прилад «оживає»)
+        # заштрихована зона провідності (над порогом = прилад відкритий)
+        f.append(rect(left, top - 6, right - left, thr_y - (top - 6),
+                      fill="#eaf3ec", stroke="none"))
+        f.append(line(left, thr_y, right, thr_y, color=FIELD, sw=1.6, dash="5,3"))
+        f.append(text(right, thr_y - 5, "поріг", size=9, color=FIELD, anchor="end"))
+        # повна вхідна синусоїда (тонка, сіра) — щоб видно, що вхід той самий
+        f.append(sine(left, right, mid, amp, 1.5, MUTED, sw=1.3))
+        # частина, що ПРОВОДИТЬ (жирна, кольорова) — синус, обрізаний знизу порогом
+        f.append(sine(left, right, mid, amp, 1.5, tcol, sw=3.0, clip_lo=thr_y))
+        # підпис-частка провідності
+        f.append(text(ox + panel_w / 2, bot + 22, sub, size=10.5, color=tcol, bold=True))
+
+    panel(x0,                 "Клас A", -1.0,
+          "проводить весь період (360°)", FIELD)
+    panel(x0 + panel_w + gap, "Клас B",  0.0,
+          "проводить половину (180°)", POS)
+    panel(x0 + 2 * (panel_w + gap), "Клас C", 0.45,
+          "проводить менше половини (<180°)", NEG)
+
+    note = ("Вхід (сірий) усюди однаковий. Змінюємо тільки одне — рівень зміщення, тобто де стоїть поріг відсічки (зелений пунктир).\n"
+            "Опустиш поріг під сигнал — прилад відкритий завжди (клас A, чисто, але марнотратно). Піднімеш до середини — лише півперіод (клас B, "
+            "удвічі ощадніше, треба другого в пару). Ще вище — лише вершечки (клас C, найощадніше, для радіопередавачів). Один параметр — уся родина класів.")
+    f.append(fitbox(x0, bot + 34, W - 2 * x0, 44, note, size=10, fill="#f6f7f9",
+                    stroke=MUTED, color=INK))
+
+    render(os.path.join(IMG, "bias-classes.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_bias_plus_signal()
     print("OK: img/bias-plus-signal.svg")
@@ -242,3 +296,5 @@ if __name__ == "__main__":
     print("OK: img/superposition.svg")
     fig_load_line()
     print("OK: img/load-line.svg")
+    fig_bias_classes()
+    print("OK: img/bias-classes.svg")

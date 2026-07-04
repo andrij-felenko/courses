@@ -115,7 +115,54 @@ def fig_level_shift():
     render(os.path.join(OUT, "level-shift.svg"), W, H, *f)
 
 
+# ── Фігура 3 (вставка hist): дві шкали — 3–15 psi і 4–20 мА — один родовід ────
+def fig_live_zero():
+    W, H = 820, 480
+    f = []
+    f.append(text(W / 2, 30, "Одна логіка, дві доби: 3–15 psi → 4–20 мА", size=17, bold=True))
+
+    # Спільна геометрія двох вертикальних шкал.
+    top = 78          # y повної шкали (верх стовпчика)
+    bot = 330         # y живого нуля (низ робочого стовпчика)
+    zero = 388        # y мертвого нуля (0 psi / 0 мА)
+
+    def scale(cx, lo_lbl, hi_lbl, unit, color, zero_lbl):
+        bw = 62
+        x = cx - bw / 2
+        # робоча смуга: живий нуль → повна шкала (кольорова)
+        f.append(rect(x, top, bw, bot - top, fill="#eafaf0", stroke=color, sw=1.8))
+        # зона відмови: нижче живого нуля до нуля (штрихована червона)
+        f.append(rect(x, bot, bw, zero - bot, fill="#fdecea", stroke=POS, sw=1.4, rx=0))
+        f.append(line(x, bot, x + bw, bot, POS, 2.2))     # межа живого нуля
+        # підписи справа від стовпчика
+        f.append(text(cx + bw / 2 + 10, top + 6, hi_lbl, size=13, anchor="start", bold=True, color=color))
+        f.append(text(cx + bw / 2 + 10, top + 24, "повна шкала", size=10.5, anchor="start", color=MUTED))
+        f.append(text(cx + bw / 2 + 10, bot + 5, lo_lbl, size=13, anchor="start", bold=True, color=POS))
+        f.append(text(cx + bw / 2 + 10, bot + 22, "живий нуль", size=10.5, anchor="start", color=POS))
+        f.append(text(cx + bw / 2 + 10, zero + 5, zero_lbl, size=12, anchor="start", color=MUTED))
+        # підпис одиниці зверху
+        f.append(text(cx, top - 14, unit, size=13, bold=True))
+        # відношення 5:1 усередині смуги
+        f.append(mtext(cx, (top + bot) / 2 - 6, ["робочий", "діапазон", "5 : 1"], size=11, color=MUTED, lh=1.25))
+
+    scale(200, "3 psi", "15 psi", "Пневматика (з 1930-х)", "#b9770e", "0 psi — трубка лопнула")
+    scale(560, "4 мА", "20 мА", "Струм (з 1950-х)", NEG, "0 мА — обрив дроту")
+
+    # стрілка спадкоємності між шкалами
+    f.append('<line x1="262" y1="204" x2="528" y2="204" stroke="%s" stroke-width="2.2" marker-end="url(#arrow)"/>' % INK)
+    f.append(text(395, 194, "та сама ідея", size=12, bold=True))
+    f.append(text(395, 222, "живий нуль + 5:1", size=11, color=MUTED))
+
+    # нижня смуга-висновок (два рядки — щоб шрифт не падав нижче 8)
+    f.append(fitbox(50, zero + 24, W - 100, 60,
+        "Червона зона внизу — не «нуль шкали», а ВІДМОВА:\n"
+        "справний контур туди не заходить, тож один погляд відрізняє «нуль» від «зламалося».",
+        size=13, fill="#fdf4f2", stroke=POS))
+    render(os.path.join(OUT, "live-zero.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_chain()
     fig_level_shift()
+    fig_live_zero()
     print("figs done")

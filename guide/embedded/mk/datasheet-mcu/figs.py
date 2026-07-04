@@ -132,8 +132,60 @@ def fig_subsystem_route():
     render(os.path.join(IMG, "subsystem_route.svg"), W, H, *f)
 
 
+# ── 4. Історія: як один аркуш розрісся в полицю (для hist-вставки) ───────────
+def fig_doc_timeline():
+    W, H = 720, 360
+    f = [text(W / 2, 26, "Півстоліття нашарувань: як аркуш даних став полицею", size=15.5, bold=True)]
+
+    # горизонтальна вісь часу (позначки самі кажуть, що це час — окремий підпис зайвий)
+    ax, ay, aw = 60, 300, 600
+    f.append(line(ax, ay, ax + aw, ay, color=INK, sw=1.8))
+    marks = [(0.02, "1930-ті"), (0.30, "1970-ті"), (0.55, "1980-ті"),
+             (0.72, "1994"), (0.98, "сьогодні")]
+    for fr, lbl in marks:
+        mx = ax + aw * fr
+        f.append(line(mx, ay - 5, mx, ay + 5, color=INK, sw=1.5))
+        f.append(text(mx, ay + 20, lbl, size=10, color=MUTED))
+
+    # шари, що додаються один за одним; кожен «стартує» на своїй позначці й тягнеться далі
+    def layer(y, x_start_fr, name, note, fill, col):
+        xs = ax + aw * x_start_fr
+        xe = ax + aw * 0.985
+        f.append(rect(xs, y, xe - xs, 34, fill=fill, stroke=col, sw=1.6, rx=8))
+        f.append(text(xs + 12, y + 15, name, size=11.5, color=col, bold=True, anchor="start"))
+        fs = fit_font(note, (xe - xs) - 24, 10)
+        f.append(text(xs + 12, y + 29, note, size=fs, color=INK, anchor="start"))
+
+    layer(54, 0.02, "Data sheet (аркуш даних)",
+          "паспорт замість виміру: межі, крива, типова схема — спершу буквально один аркуш",
+          "#eaf0fd", BLU)
+    layer(98, 0.30, "Datasheet vs Reference manual",
+          "опис розділили за роллю читача: «чи годиться» окремо від «як програмувати»",
+          "#eafaf1", GRN)
+    layer(142, 0.55, "Errata: листок помилок кремнію",
+          "де кремній розходиться з паспортом, плюс обхід",
+          "#fdf1dc", "#b8860b")
+
+    # маркер FDIV — поворотна точка: вертикаль на осі + callout ЛІВОРУЧ, що клеарить лінію,
+    # і короткий поводок від рамки до точки на осі
+    fx = ax + aw * 0.72
+    f.append(line(fx, 234, fx, ay - 6, color=RED, sw=1.5, dash="4 3"))
+    f.append(circle(fx, ay, 4, fill=RED, stroke=RED, sw=1))
+    bcx = fx - 96
+    b, bw, bh = textbox(bcx, 214, "1994: Pentium FDIV —\nerrata стає ПУБЛІЧНОЮ", size=10,
+                        fill="#fdecea", stroke=RED, color=RED)
+    f.append(line(bcx + bw / 2, 214, fx, 234, color=RED, sw=1.2))  # поводок до вертикалі
+    f.append(b)
+
+    f.append(text(W / 2, H - 12,
+                  "Кожен шар додала конкретна незручність; полиця не задум, а наросла історія",
+                  size=10.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "doc_timeline.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_docfamily()
     fig_power_burst()
     fig_subsystem_route()
-    print("OK: 3 figures ->", IMG)
+    fig_doc_timeline()
+    print("OK: 4 figures ->", IMG)

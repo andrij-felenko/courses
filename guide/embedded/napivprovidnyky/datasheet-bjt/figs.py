@@ -224,9 +224,259 @@ def fig_soa():
     render(os.path.join(IMG, "soa.svg"), W, H, *f)
 
 
+# ── 5. Дератинг: пряма Ptot(T), нахил = −1/Rθ ────────────────────────────────
+def fig_derating():
+    import math
+    W, H = 720, 380
+    f = [text(W / 2, 26, "Крива дератингу — це пряма з нахилом −1/Rθ", size=16, bold=True)]
+    # осі
+    ox0, oy0 = 96, 300
+    ox1, oy1 = 620, 72
+    f.append(line(ox0, oy0, ox1, oy0, color=INK, sw=1.6))   # T →
+    f.append(line(ox0, oy0, ox0, oy1, color=INK, sw=1.6))   # P ↑
+    f.append(text((ox0 + ox1) / 2, oy0 + 34, "температура корпусу T (°C) →", size=11.5, color=INK, bold=True))
+    f.append(text(ox0 - 66, (oy0 + oy1) / 2 - 6, "дозволена", size=10.5, color=INK, bold=True, anchor="start"))
+    f.append(text(ox0 - 66, (oy0 + oy1) / 2 + 8, "Ptot (мВт)", size=10.5, color=INK, bold=True, anchor="start"))
+    # шкала T: 25..150
+    Tmin, Tmax = 25.0, 150.0
+    Pmax = 625.0
+
+    def X(T):
+        return ox0 + (ox1 - ox0) * (T - Tmin) / (Tmax - Tmin)
+
+    def Y(P):
+        return oy0 - (oy0 - oy1) * (P / Pmax)
+    for T in (25, 50, 75, 100, 125, 150):
+        f.append(line(X(T), oy0, X(T), oy0 + 5, color=MUTED, sw=1))
+        f.append(text(X(T), oy0 + 18, str(T), size=9.5, color=MUTED))
+    for P in (0, 125, 250, 375, 500, 625):
+        f.append(line(ox0 - 5, Y(P), ox0, Y(P), color=MUTED, sw=1))
+        f.append(text(ox0 - 9, Y(P) + 4, str(P), size=9, color=MUTED, anchor="end"))
+    # пряма дератингу від (25, 625) до (150, 0)
+    f.append(line(X(25), Y(625), X(150), Y(0), color=NEG, sw=2.6))
+    f.append(text(X(30), Y(625) - 10, "625 мВт при 25 °C", size=10.5, color=NEG, bold=True, anchor="start"))
+    f.append(text(X(150) - 4, Y(0) - 10, "0 при Tj(max)=150 °C", size=10, color=NEG, anchor="end"))
+    # робоча точка: T=85 °C → P = 5·(150−85) = 325 мВт
+    Tw, Pw = 85.0, 325.0
+    f.append(line(X(Tw), oy0, X(Tw), Y(Pw), color=FIELD, sw=1.4, dash="4 3"))
+    f.append(line(ox0, Y(Pw), X(Tw), Y(Pw), color=FIELD, sw=1.4, dash="4 3"))
+    f.append(circle(X(Tw), Y(Pw), 5, fill=FIELD, stroke=BG, sw=1.6))
+    b, bw, bh = textbox(X(Tw) + 92, Y(Pw) - 24,
+                        "твоя плата: T=85 °C\n→ лише 325 мВт,\nа не 625",
+                        size=10.5, fill="#eafaf1", stroke=FIELD, color=INK, bold=False)
+    f.append(b)
+    # нахил = −1/Rθ
+    f.append(text(X(110), Y(180) + 4, "нахил = −5 мВт/°C = −1/Rθ", size=10.5, color=MUTED, italic=True, anchor="start"))
+    render(os.path.join(IMG, "derating.svg"), W, H, *f)
+
+
+# ── 6. Тепловий опір: перехід → корпус → радіатор → повітря (послідовні Rθ) ────
+def fig_thermal_stack():
+    W, H = 720, 340
+    f = [text(W / 2, 26, "Тепловий шлях — послідовні опори, Rθ додаються", size=16, bold=True)]
+    # ланцюг «резисторів» зліва направо
+    xs = 70
+    boxw, gap = 118, 42
+    y = 120
+    stages = [
+        ("кристал\n(перехід)", "Tj", "#fdecea", POS),
+        ("корпус", "Tc", "#fdf1dc", "#b8860b"),
+        ("радіатор", "Ts", "#eaf0fd", NEG),
+        ("повітря", "Ta", "#eafaf1", FIELD),
+    ]
+    res = [("Rθjc", "перехід→корпус"), ("Rθcs", "корпус→радіатор"), ("Rθsa", "радіатор→повітря")]
+    cx = []
+    for i, (nm, node, fill, col) in enumerate(stages):
+        x = xs + i * (boxw + gap)
+        cx.append(x + boxw / 2)
+        f.append(fitbox(x, y, boxw, 56, nm, size=12, fill=fill, stroke=col, sw=1.8, color=col, bold=True))
+        f.append(text(x + boxw / 2, y - 10, node, size=12, color=col, bold=True))
+    # опори між вузлами: з'єднувальна лінія НИЖЧЕ рівня плашки-опору,
+    # сама плашка Rθ підведена вгору (щоб лінія не різала напис)
+    for i, (rn, rl) in enumerate(res):
+        x0 = xs + i * (boxw + gap) + boxw
+        xm = x0 + gap / 2
+        f.append(line(x0, y + 40, x0 + gap, y + 40, color=INK, sw=1.6))
+        rb, rbw, rbh = textbox(xm, y + 18, rn, size=11, fill=BG, stroke=INK, color=INK, bold=True)
+        f.append(rb)
+        f.append(text(xm, y + 76, rl, size=9, color=MUTED))
+    # стрілка теплового потоку зверху
+    f.append(arrow(cx[0], y - 34, cx[-1], y - 34, color=MUTED, sw=1.6))
+    f.append(text((cx[0] + cx[-1]) / 2, y - 40, "потік тепла P →", size=10.5, color=MUTED, italic=True))
+    # формула під ланцюгом
+    b, bw, bh = textbox(W / 2, 250,
+                        "Tj − Ta = P · (Rθjc + Rθcs + Rθsa)      →      P(доз) = (Tj(max) − Ta) / ΣRθ",
+                        size=12.5, fill=FILL, stroke=INK, color=INK, bold=True)
+    f.append(b)
+    f.append(text(W / 2, 296, "більший радіатор ⇒ менший Rθsa ⇒ менша сума ⇒ більша дозволена потужність",
+                  size=10.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "thermal-stack.svg"), W, H, *f)
+
+
+# ── 7. SOA з робочою точкою і запасами до кожної межі ────────────────────────
+def fig_soa_point():
+    import math
+    W, H = 720, 400
+    f = [text(W / 2, 24, "Запас у SOA рахують до НАЙБЛИЖЧОЇ межі, не до потужності", size=15, bold=True)]
+    ox0, oy0 = 96, 320
+    ox1, oy1 = 620, 72
+    f.append(line(ox0, oy0, ox1, oy0, color=INK, sw=1.6))
+    f.append(line(ox0, oy0, ox0, oy1, color=INK, sw=1.6))
+    f.append(text((ox0 + ox1) / 2, oy0 + 30, "Vce (лог) →", size=11.5, color=INK, bold=True))
+    f.append(text(ox0 - 52, (oy0 + oy1) / 2, "Ic (лог) ↑", size=11.5, color=INK, bold=True, anchor="start"))
+    XL, XR = ox0 + 6, ox1 - 6
+    YB, YT = oy0 - 6, oy1 + 6
+
+    def X(t):
+        return XL + (XR - XL) * t
+
+    def Y(t):
+        return YB - (YB - YT) * t
+    # межі: Ic(max) горизонталь
+    icmax_t = 0.88
+    f.append(line(X(0.04), Y(icmax_t), X(0.30), Y(icmax_t), color=RED, sw=2.4))
+    f.append(text(X(0.16), Y(icmax_t) - 8, "Ic(max)", size=10.5, color=RED, bold=True))
+    # гіпербола P (нахил -1), пунктир
+    hyp = []
+    for k in range(0, 101):
+        t = 0.16 + 0.78 * k / 100.0
+        ic = icmax_t - 1.0 * (t - 0.16)
+        if ic < 0.05:
+            break
+        hyp.append((t, ic))
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.0" stroke-dasharray="6 4"/>'
+             % (" ".join("%.1f,%.1f" % (X(t), Y(ic)) for t, ic in hyp), MUTED))
+    f.append(text(X(0.52), Y(0.60) - 8, "P = Vce·Ic (гіпербола)", size=10, color=MUTED, italic=True))
+    # другий пробій — крутіший зріз праворуч
+    sb = []
+    for k in range(0, 101):
+        t = 0.52 + 0.44 * k / 100.0
+        ic = (icmax_t - 1.0 * (0.52 - 0.16)) - 2.1 * (t - 0.52)
+        if ic < 0.05:
+            break
+        sb.append((t, ic))
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6"/>'
+             % (" ".join("%.1f,%.1f" % (X(t), Y(ic)) for t, ic in sb), RED))
+    # суцільна межа SOA до зламу
+    border = [(0.04, icmax_t), (0.30, icmax_t)]
+    for t, ic in hyp:
+        if 0.30 <= t <= 0.52:
+            border.append((t, ic))
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6"/>'
+             % (" ".join("%.1f,%.1f" % (X(t), Y(ic)) for t, ic in border), RED))
+    # Vceo вертикаль
+    f.append(line(X(0.93), Y(0.05), X(0.93), Y(0.30), color=RED, sw=2.4))
+    f.append(text(X(0.93) + 4, Y(0.18), "Vceo", size=10.5, color=RED, bold=True, anchor="start"))
+    f.append(text(X(0.70), Y(0.42), "другий пробій", size=10.5, color=RED, bold=True, anchor="start"))
+    # РОБОЧА ТОЧКА на високій напрузі, під гіперболою, але близько до зрізу пробою
+    wt, wi = 0.63, 0.30
+    f.append(circle(X(wt), Y(wi), 6, fill=FIELD, stroke=BG, sw=1.8))
+    f.append(text(X(wt) - 8, Y(wi) + 4, "робоча точка", size=10.5, color=FIELD, bold=True, anchor="end"))
+    # запас ВГОРУ до гіперболи (виглядає великий) — вертикаль ліворуч від точки,
+    # підпис ще лівіше, щоб лінія не різала напис
+    ic_hyp = icmax_t - 1.0 * (wt - 0.16)
+    f.append(line(X(wt), Y(wi), X(wt), Y(ic_hyp), color=MUTED, sw=1.3, dash="3 3"))
+    f.append(text(X(wt) - 6, (Y(wi) + Y(ic_hyp)) / 2, "запас по P", size=9, color=MUTED, anchor="end"))
+    # запас управо до другого пробою (близько!) — по горизонталі до кривої sb на рівні wi
+    # sb: ic = (icmax_t-1.0*0.36) - 2.1*(t-0.52); розв'язати t при ic=wi
+    t_sb = 0.52 + ((icmax_t - 0.36) - wi) / 2.1
+    f.append(line(X(wt), Y(wi), X(t_sb), Y(wi), color=POS, sw=1.6))
+    # підпис справжнього запасу — праворуч від вертикалі (anchor start за X(wt)),
+    # у два рядки під горизонтальною лінією, щоб її не перетнути
+    f.append(text(X(wt) + 8, Y(wi) + 16, "справжній запас", size=9.5, color=POS, bold=True, anchor="start"))
+    f.append(text(X(wt) + 8, Y(wi) + 29, "(до пробою — мізерний)", size=9, color=POS, anchor="start"))
+    # зелена зона підпис
+    f.append(text(X(0.12), Y(0.28), "можна", size=12, color=GRN, bold=True))
+    render(os.path.join(IMG, "soa-margin.svg"), W, H, *f)
+
+
+# ── 8. [hist] Родовід желейних NPN: від металу до дешевого пластику ───────────
+def fig_jellybean_timeline():
+    W, H = 720, 320
+    f = [text(W / 2, 26, "Родовід желейних NPN: дешевший корпус — ширше поширення", size=15, bold=True)]
+    # горизонтальна вісь часу
+    ax0, ax1, ay = 70, 650, 250
+    f.append(line(ax0, ay, ax1, ay, color=MUTED, sw=1.4))
+    f.append(arrow(ax1 - 2, ay, ax1 + 8, ay, color=MUTED, sw=1.4))
+    f.append(text(ax1 + 4, ay + 16, "час", size=10, color=MUTED, anchor="end"))
+    # чотири віхи; y-висота плашки кодує «дешевизну/поширеність» (нижче = дешевше/ширше)
+    nodes = [
+        (0.06, "2N2222", "1962 · TO-18", "метал\n(бляшанка)", "#eaf0fd", NEG, 96),
+        (0.34, "2N2222A", "1964 · TO-18", "поліпшений\nметал", "#eaf0fd", NEG, 118),
+        (0.62, "PN2222", "TO-92", "той самий кристал\nу пластику;\nвиводи E/C\nдзеркальні!", "#fdf1dc", "#b8860b", 150),
+        (0.90, "2N3904", "сер. 1960-х · TO-92", "від народження\nпластик —\nнайдешевший", "#eafaf1", FIELD, 182),
+    ]
+    for t, nm, sub, note, fill, col, drop in nodes:
+        x = ax0 + (ax1 - ax0) * t
+        f.append(line(x, ay, x, ay - 6, color=MUTED, sw=1.2))
+        # плашка над віссю
+        by = ay - drop
+        f.append(fitbox(x - 66, by, 132, drop - 30, note, size=10, fill=fill, stroke=col, sw=1.7, color=INK))
+        f.append(text(x, by - 8, nm, size=13, color=col, bold=True))
+        f.append(text(x, ay + 18, sub, size=9.5, color=MUTED))
+    # підпис-стрілка «дешевшає» вниз ліворуч
+    f.append(text(ax0 - 8, ay - 150, "дешевшає", size=10, color=MUTED, italic=True, anchor="start"))
+    f.append(text(ax0 - 8, ay - 137, "ширшає", size=10, color=MUTED, italic=True, anchor="start"))
+    f.append(arrow(ax0 - 2, ay - 128, ax0 - 2, ay - 40, color=MUTED, sw=1.3))
+    render(os.path.join(IMG, "jellybean-timeline.svg"), W, H, *f)
+
+
+# ── 9. [hist] Дві культури імен: JEDEC (порядковий) vs Pro Electron (значущий) ─
+def fig_naming_systems():
+    W, H = 720, 360
+    f = [text(W / 2, 26, "Дві культури імен транзистора", size=16, bold=True)]
+    colw, top = 320, 56
+    lx, rx = 40, 40 + colw + 20
+    # ЛІВА: JEDEC 2N2222 — порядковий номер
+    f.append(rect(lx, top, colw, 268, fill="#eaf0fd", stroke=NEG, sw=1.7, rx=10))
+    f.append(text(lx + colw / 2, top + 24, "JEDEC (США): 2N2222", size=13.5, bold=True, color=NEG))
+    f.append(text(lx + colw / 2, top + 44, "ім'я = квиток у черзі реєстрації", size=10.5, color=MUTED, italic=True))
+    # розбір «2N2222»
+    f.append(text(lx + 40, top + 92, "2N", size=20, bold=True, color=INK, anchor="start"))
+    f.append(text(lx + 96, top + 92, "2222", size=20, bold=True, color=MUTED, anchor="start"))
+    f.append(text(lx + 18, top + 128, "2N — це «транзистор»", size=11, color=INK, anchor="start"))
+    f.append(text(lx + 18, top + 150, "2222 — просто № за порядком", size=11, color=INK, anchor="start"))
+    b1, _, _ = textbox(lx + colw / 2, top + 208,
+                       "саме ім'я не каже НІЧОГО\nпро матеріал, функцію, β —\nусе лише в таблиці даташита",
+                       size=10.5, fill=BG, stroke=NEG, color=INK)
+    f.append(b1)
+    # ПРАВА: Pro Electron BC547C — значущий код
+    f.append(rect(rx, top, colw, 268, fill="#eafaf1", stroke=FIELD, sw=1.7, rx=10))
+    f.append(text(rx + colw / 2, top + 24, "Pro Electron (Європа): BC547C", size=12.5, bold=True, color=FIELD))
+    f.append(text(rx + colw / 2, top + 44, "ім'я = стиснутий рядок даташита", size=10.5, color=MUTED, italic=True))
+    # розбір по літерах з підписами
+    parts = [("B", "кремній", "#b8860b"),
+             ("C", "малосигнальний", NEG),
+             ("547", "модель", MUTED),
+             ("C", "клас β≥420", POS)]
+    px = rx + 30
+    baseY = top + 92
+    for ch, lab, col in parts:
+        w = text_width(ch, 20, True) + 10
+        f.append(text(px, baseY, ch, size=20, bold=True, color=col, anchor="start"))
+        px += w + 4
+    # підписи-виноски під кодом
+    labs = [("B → кремній (A = германій)", "#b8860b"),
+            ("C → малопотужний малосигнальний", NEG),
+            ("547 → номер моделі", MUTED),
+            ("C → клас підсилення: β ≥ 420", POS)]
+    for i, (s, col) in enumerate(labs):
+        f.append(text(rx + 18, top + 132 + i * 24, "• " + s, size=10.5, color=col, anchor="start", bold=True))
+    b2, _, _ = textbox(rx + colw / 2, top + 244,
+                       "глянув на ім'я — уже знаєш тип і гарантію β",
+                       size=10, fill=BG, stroke=FIELD, color=INK)
+    f.append(b2)
+    render(os.path.join(IMG, "naming-systems.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_rows()
     fig_beta_spread()
     fig_vcesat()
     fig_soa()
-    print("OK: 4 figures ->", IMG)
+    fig_derating()
+    fig_thermal_stack()
+    fig_soa_point()
+    fig_jellybean_timeline()
+    fig_naming_systems()
+    print("OK: 9 figures ->", IMG)

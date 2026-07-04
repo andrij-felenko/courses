@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 392" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="392" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атомарне оновлення: пиши поруч, перемикайся однією дією</text>
+<text x="390.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">чинний слот недоторканий, поки в запасному не з'явиться повний запис із більшим seq і зійденою сумою</text>
+<text x="195.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">було</text>
+<rect x="120.0" y="92.0" width="150.0" height="70.0" rx="10" fill="#eef7ee" stroke="#27ae60" stroke-width="2.2"/>
+<text x="195.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">слот A</text>
+<text x="195.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">seq = 7</text>
+<rect x="136.0" y="142.0" width="118.0" height="16.0" rx="4" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/><text x="195.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="195.0" dy="0.0">ЧИННИЙ · CRC ✓</tspan></text>
+<rect x="510.0" y="92.0" width="150.0" height="70.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="585.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">слот B</text>
+<text x="585.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">seq = 6</text>
+<rect x="526.0" y="142.0" width="118.0" height="16.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="585.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="585.0" dy="0.0">старий, запасний</tspan></text>
+<line x1="284.0" y1="127.0" x2="496.0" y2="127.0" stroke="#2457d6" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="390.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">пишемо в запасний</text>
+<text x="390.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">слот A цілий — старі дані живі</text>
+<text x="195.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">стало</text>
+<rect x="120.0" y="216.0" width="150.0" height="70.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="195.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">слот A</text>
+<text x="195.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">seq = 7</text>
+<rect x="136.0" y="266.0" width="118.0" height="16.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="195.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="195.0" dy="0.0">тепер старий</tspan></text>
+<rect x="510.0" y="216.0" width="150.0" height="70.0" rx="10" fill="#eef7ee" stroke="#27ae60" stroke-width="2.4"/>
+<text x="585.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">слот B</text>
+<text x="585.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">seq = 8</text>
+<rect x="526.0" y="266.0" width="118.0" height="16.0" rx="4" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/><text x="585.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="585.0" dy="0.0">ЧИННИЙ · CRC ✓</tspan></text>
+<line x1="284.0" y1="251.0" x2="496.0" y2="251.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="390.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">зійшовся за CRC</text>
+<text x="390.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">і seq більший → чинний</text>
+<rect x="50.0" y="316.0" width="680.0" height="60.0" rx="10" fill="#fff8e8" stroke="#caa24a" stroke-width="1.6"/>
+<text x="390.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зміна поколінь — не мить запису байтів, а мить, коли новий слот УПЕРШЕ сходиться за CRC й переважає за seq.</text>
+<text x="390.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обрив живлення раніше — читач бачить старий цілий слот; пізніше — новий цілий; напівстану нема ніде.</text>
+</svg>

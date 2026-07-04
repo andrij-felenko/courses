@@ -212,9 +212,60 @@ def fig_full_node():
     return render(os.path.join(IMG, "full-node.svg"), W, H, *f)
 
 
+# ── 5. Історія: як каскад накопичувався сто років (для hist-вставки) ──────────
+def fig_timeline():
+    W, H = 780, 540
+    f = []
+    f.append(text(W / 2, 30, "Каскад накопичувався сто років — не винайшли за раз", size=15, bold=True))
+
+    # горизонтальна вісь часу — посередині, картки розходяться вгору й вниз
+    xL, xR = 80, 700
+    yA = 275
+    f.append(line(xL, yA, xR, yA, color=INK, sw=2.4))
+    f.append(arrow(xR - 4, yA, xR + 2, yA, color=INK, sw=2.4))
+    f.append(text(xR + 8, yA + 5, "час", size=11, color=MUTED, anchor="start"))
+
+    bw, bh = 122, 46
+    # віхи: (частка 0..1, рік, назва, хто, колір, «вгору»)  — картки чергуються бік
+    milestones = [
+        (0.02, "1847",   "іскровий\nпроміжок",         "Henry, телеграф",         MUTED,     True),
+        (0.20, "~1890",  "вугільний блок\n+ котушка",  "Bell: напруга + струм",   RED,       False),
+        (0.42, "1930-ті","варистор SiC",               "Grisdale (Bell),\nThyrite (GE)", "#8a5a00", True),
+        (0.62, "1968",   "варистор ZnO",               "Matsuoka,\nMatsushita",   FIELD,     False),
+        (0.80, "~1970-ті","TVS-діод",                  "лавинний,\nTransZorb",    NEG,       True),
+        (0.97, "нині",   "узгоджений\nкаскад",         "IEC 61643",               INK,       False),
+    ]
+    for frac, yr, name, who, col, up in milestones:
+        x = xL + frac * (xR - xL)
+        f.append(circle(x, yA, 6, fill=col, stroke=col, sw=1.6))
+        # рік коло осі, з протилежного від картки боку
+        f.append(text(x, yA + (18 if up else -12), yr, size=12, color=col, bold=True))
+        # картка: вгору (низ картки на yA-58) або вниз (верх на yA+58)
+        if up:
+            by = yA - 58 - bh          # низ картки = yA-58
+            f.append(line(x, yA - 6, x, by + bh, color=col, sw=1.3, dash="3,3"))
+            f.append(fitbox(x - bw / 2, by, bw, bh, name, size=11.5,
+                            fill="#fff", stroke=col, color=col, bold=True))
+            f.append(mtext(x, by - 12, who, size=9.5, color=MUTED))
+        else:
+            by = yA + 58               # верх картки = yA+58
+            f.append(line(x, yA + 6, x, by, color=col, sw=1.3, dash="3,3"))
+            f.append(fitbox(x - bw / 2, by, bw, bh, name, size=11.5,
+                            fill="#fff", stroke=col, color=col, bold=True))
+            f.append(mtext(x, by + bh + 20, who, size=9.5, color=MUTED))
+
+    # нижній підпис-думка (двома рядками — щоб шрифт не тиснувся)
+    f.append(fitbox(xL, H - 66, xR - xL, 48,
+                    "Кожна віха додала свій щабель під СВОЮ межу: грубий терпить струм,\n"
+                    "тонкий дає точність. Одного «батька» в каскаду немає.",
+                    size=12.5, fill=FILL, stroke=MUTED, color=INK))
+    return render(os.path.join(IMG, "timeline.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_tradeoff()
     fig_decoupling()
     fig_letthrough()
     fig_full_node()
+    fig_timeline()
     print("OK: figures written to", IMG)

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підключення KY-004: три дроти — сигнал, живлення в середині, земля</text>
+<rect x="80.0" y="92.0" width="260.0" height="250.0" rx="14" fill="#eef3fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="210.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">KY-004</text>
+<text x="210.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кнопка на платі</text>
+<rect x="188.0" y="162.0" width="44.0" height="44.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="210.0" cy="184.0" r="12.0" fill="#fdf4ec" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="340.0" cy="242.0" r="6.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="322.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="end" font-weight="700">S</text>
+<circle cx="340.0" cy="282.0" r="6.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.2"/>
+<text x="322.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="end" font-weight="700">+</text>
+<circle cx="340.0" cy="322.0" r="6.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="322.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="end" font-weight="700">−</text>
+<text x="322.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end">(середній = +)</text>
+<rect x="620.0" y="92.0" width="240.0" height="250.0" rx="14" fill="#f7f9fc" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="740.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">плата (Arduino / ESP32…)</text>
+<circle cx="620.0" cy="242.0" r="6.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="636.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">D2</text>
+<text x="636.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">цифровий вхід (INPUT)</text>
+<circle cx="620.0" cy="282.0" r="6.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.2"/>
+<text x="636.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">3.3–5 В</text>
+<text x="636.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">під логіку плати</text>
+<circle cx="620.0" cy="322.0" r="6.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="636.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">GND</text>
+<text x="636.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">земля</text>
+<line x1="346.0" y1="242.0" x2="614.0" y2="242.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="346.0" y1="282.0" x2="614.0" y2="282.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="346.0" y1="322.0" x2="614.0" y2="322.0" stroke="#2457d6" stroke-width="2.4"/>
+<rect x="160.8" y="387.9" width="618.5" height="44.1" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="406.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Підтяжка вже на платі → пін як INPUT (не INPUT_PULLUP). Полярність (спокій «0» чи «1») звір виміром.</tspan><tspan x="470.0" dy="13.7">Живлення бери під логіку плати: рівень на S дорівнює VCC, тож 5 В б'є по 3.3-вольтовому входу.</tspan></text>
+</svg>
