@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">«Відкрито для розширення» — двома способами</text>
+<line x1="470.0" y1="54.0" x2="470.0" y2="482.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6,6"/>
+<text x="235.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Меєр (1988): успадкувати клас</text>
+<text x="235.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">implementation inheritance</text>
+<rect x="105.0" y="112.0" width="260.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="235.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Клієнт лінкується з класом</tspan></text>
+<rect x="105.0" y="190.0" width="260.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/><text x="235.0" y="212.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">class Report  (робочий)</tspan><tspan x="235.0" dy="16.2">поля + код усередині</tspan></text>
+<line x1="235.0" y1="152.0" x2="235.0" y2="188.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="373.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">лінкується</text>
+<rect x="139.0" y="300.0" width="192.0" height="48.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.8"/><text x="235.0" y="320.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="235.0" dy="0.0">class PdfReport</tspan><tspan x="235.0" dy="15.6">: Report  + нове</tspan></text>
+<line x1="235.0" y1="300.0" x2="235.0" y2="244.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="339.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-style="italic">успадковує</text>
+<text x="339.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-style="italic">реалізацію</text>
+<circle cx="325.0" cy="300.0" r="10.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="325.0" y="304.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="235.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">нащадок знає НУТРО предка</text>
+<text x="235.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">→ зчеплення з реалізацією</text>
+<text x="705.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Мартін (1996): абстрактний інтерфейс</text>
+<text x="705.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">polymorphic substitution</text>
+<rect x="575.0" y="112.0" width="260.0" height="40.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="705.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">Клієнт викликає інтерфейс</tspan></text>
+<rect x="575.0" y="190.0" width="260.0" height="46.0" rx="6" fill="#f2ecfb" stroke="#7c3aed" stroke-width="2.0"/><text x="705.0" y="217.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">abstract Report  (лише контракт)</tspan></text>
+<line x1="705.0" y1="152.0" x2="705.0" y2="188.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="843.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">залежить від</text>
+<line x1="563.0" y1="300.0" x2="705.0" y2="236.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="705.0" y1="300.0" x2="705.0" y2="236.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="847.0" y1="300.0" x2="705.0" y2="236.0" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="503.0" y="300.0" width="120.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="563.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="563.0" dy="0.0">PdfReport</tspan></text>
+<rect x="645.0" y="300.0" width="120.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="705.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">HtmlReport</tspan></text>
+<rect x="787.0" y="300.0" width="120.0" height="46.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.8"/><text x="847.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="847.0" dy="0.0">…новаReport</tspan></text>
+<circle cx="901.0" cy="300.0" r="10.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="901.0" y="304.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="705.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">реалізації взаємозамінні,</text>
+<text x="705.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">клієнт про них не знає</text>
+<text x="235.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">слова Меєра, механізм — конкретне успадкування</text>
+<text x="705.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ті самі слова, механізм — абстракція (ця версія в SOLID)</text>
+</svg>

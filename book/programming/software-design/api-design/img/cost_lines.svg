@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вартість зміни від числа викликів N: адитивна ≈ 0, ламка росте як N·c</text>
+<line x1="110.0" y1="380.0" x2="770.0" y2="380.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="110.0" y1="380.0" x2="110.0" y2="80.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="770.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">N — кількість місць-викликів (call sites)</text>
+<text x="34.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" transform="rotate(-90 34.0 230.0)">вартість зміни (год-люд)</text>
+<line x1="110.0" y1="380.0" x2="730.0" y2="110.0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="724.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">ламка зміна:  C(N) = N · c</text>
+<circle cx="389.0" cy="258.5" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="401.0" y="262.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">нахил = c (ціна одного виклику)</text>
+<line x1="110.0" y1="374.0" x2="730.0" y2="374.0" stroke="#27ae60" stroke-width="2.6" stroke-dasharray="8,5"/>
+<text x="726.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">адитивна зміна:  C ≈ 0 (старі виклики дійсні)</text>
+<line x1="556.4" y1="380.0" x2="556.4" y2="185.6" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,4"/>
+<circle cx="556.4" cy="185.6" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="556.4" cy="374.0" r="4.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="556.4" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">те саме N</text>
+<text x="564.4" y="282.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">↕ розрив = ціна ламкості</text>
+<text x="430.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Обидві дії стартують з однієї точки, та адитивна лишається на підлозі, а ламка тим вища, чим більше N.</text>
+</svg>

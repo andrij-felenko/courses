@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обхід у глибину трьома кольорами: цикл = ребро в сіру вершину</text>
+<text x="60.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Стан вершини:</text>
+<circle cx="72.0" cy="92.0" r="12.0" fill="#ffffff" stroke="#333333" stroke-width="1.6"/>
+<text x="94.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">білий — ще не заходили</text>
+<circle cx="72.0" cy="132.0" r="12.0" fill="#cfd4da" stroke="#333333" stroke-width="1.6"/>
+<text x="94.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">сірий — у ланцюжку зараз</text>
+<circle cx="72.0" cy="172.0" r="12.0" fill="#333333" stroke="#333333" stroke-width="1.6"/>
+<text x="94.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">чорний — вийдено остаточно</text>
+<line x1="470.0" y1="136.0" x2="470.0" y2="181.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="496.0" y1="210.0" x2="591.0" y2="210.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="236.0" x2="620.0" y2="301.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="450.3" y1="226.9" x2="352.0" y2="311.1" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<path d="M 646.0 324.0 C 740.0 290.0, 590.0 240.0, 496.0 218.0" fill="none" stroke="#c0392b" stroke-width="2.6" stroke-dasharray="7 4" marker-end="url(#arrow)"/>
+<text x="748.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">зворотне</text>
+<text x="748.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">ребро → цикл</text>
+<circle cx="470.0" cy="110.0" r="26.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<text x="470.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="470.0" cy="210.0" r="26.0" fill="#cfd4da" stroke="#333333" stroke-width="2.0"/>
+<text x="470.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="620.0" cy="210.0" r="26.0" fill="#cfd4da" stroke="#333333" stroke-width="2.0"/>
+<text x="620.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<circle cx="620.0" cy="330.0" r="26.0" fill="#cfd4da" stroke="#333333" stroke-width="2.0"/>
+<text x="620.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">D</text>
+<circle cx="330.0" cy="330.0" r="26.0" fill="#333333" stroke="#333333" stroke-width="2.0"/>
+<text x="330.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#ffffff" text-anchor="middle" font-weight="700">E</text>
+</svg>

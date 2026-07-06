@@ -30,7 +30,7 @@ html[data-density="compact"] .sm-chip { border-radius: 3px; }
    ════════════════════════════════════════════════════════════════════════ */
 
 /* ── Hero → статус-бар: [Мої книги] ─────────── [сегмент | лічильники] ── */
-html[data-density="compact"] .lib-hero { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; padding: 0.55rem 1rem; }
+html[data-density="compact"] .lib-hero { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; min-height: var(--topbar-h); padding: 0 9.6rem 0 1rem; }   /* висота = смуга кнопок */
 html[data-density="compact"] .lib-hero-row { flex: 1 1 auto; max-width: none; margin: 0; align-items: center; gap: 0.9rem; }
 html[data-density="compact"] .lib-hero .kicker { display: none; }
 html[data-density="compact"] .lib-hero h1 { font-size: 1.02rem; margin: 0; letter-spacing: 0.02em; }
@@ -120,7 +120,7 @@ html[data-density="compact"] .lib-card:hover .lib-cta::after { color: var(--acce
    ════════════════════════════════════════════════════════════════════════ */
 
 /* Обкладинка книги → статус-бар: [НАЗВА] ··· [лічильники в рядок] */
-html[data-density="compact"] .cover-hero { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; padding: 0.65rem 2rem; }
+html[data-density="compact"] .cover-hero { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; min-height: var(--topbar-h); padding: 0 9.6rem 0 2rem; }   /* висота = смуга кнопок */
 html[data-density="compact"] .cover-hero .kicker { display: none; }
 html[data-density="compact"] .cover-hero h1 { font-size: 1.08rem; margin: 0; max-width: none; }
 html[data-density="compact"] .cover-hero p { display: none; }
@@ -138,9 +138,12 @@ html[data-density="compact"] .module-head {
   align-items: center; gap: 0.5rem;
 }
 html[data-density="compact"] .module-head .m-caret { font-size: 0.65rem; }
-html[data-density="compact"] .module-head .m-ttl { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--h2-color); }
-html[data-density="compact"] .module-head .m-num { font-size: 0.66rem; }
-html[data-density="compact"] .module-head .m-prog { font-size: 0.7rem; font-family: var(--mono); }
+html[data-density="compact"] .module-head .m-ttl {
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--h2-color);
+  flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;   /* довга назва не наїжджає на лічильник */
+}
+html[data-density="compact"] .module-head .m-num { font-size: 0.66rem; flex-shrink: 0; }
+html[data-density="compact"] .module-head .m-prog { font-size: 0.7rem; font-family: var(--mono); flex-shrink: 0; margin-left: auto; }
 html[data-density="compact"] .module-block.collapsed .module-head { border-bottom: 1px solid var(--border); }
 html[data-density="compact"] .ch-list { gap: 0; border: 1px solid var(--border); border-top: 0; background: var(--bg); }
 html[data-density="compact"] .ch-item { border: 0; border-bottom: 1px solid var(--border); border-radius: 0; background: var(--bg); }
@@ -150,12 +153,15 @@ html[data-density="compact"] .ch-item.pending { background: var(--bg-alt); borde
 html[data-density="compact"] .ch-row { padding: 0.26rem 0.6rem; }
 html[data-density="compact"] .ch-open .c-ttl { font-size: 0.84rem; }
 html[data-density="compact"] .ch-item.pending .c-ttl { font-size: 0.84rem; }
-html[data-density="compact"] .ch-open .c-go { font-size: 0.8rem; }
+html[data-density="compact"] .ch-open .c-go { font-size: 0.8rem; flex-shrink: 0; }
+html[data-density="compact"] .ch-exp { flex-shrink: 0; white-space: nowrap; }   /* лічильник тем не підминається під довгу назву */
 
 /* Плитка: hairline-сітка без радіусів, ховер — інверсія комірки */
 html[data-density="compact"] .toc.map-grid .ch-list { display: grid; gap: 1px; background: var(--border); padding: 1px; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); }
 html[data-density="compact"] .toc.map-grid .ch-item { border: 0; }
 html[data-density="compact"] .toc.map-grid .ch-row { padding: 0.42rem 0.55rem; }
+html[data-density="compact"] .toc.map-grid .ch-open { gap: 0.25rem; }
+html[data-density="compact"] .toc.map-grid .ch-open .c-go { display: none; }   /* стрілка займала окремий рядок тайла — клікабельність показує ховер */
 html[data-density="compact"] .toc.map-grid .module-block.collapsed .ch-list { display: none; }
 
 /* Сайдбар: щільні пункти */

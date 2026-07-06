@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один пул-реквест: рішення і код проходять одні очі</text>
+<rect x="60.0" y="56.0" width="640.0" height="150.0" rx="6" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="78.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Pull request #482  —  «Гроші: перехід на Decimal»</text>
+<rect x="78.0" y="100.0" width="293.0" height="88.0" rx="6" fill="#e7f7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="90.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">+ doc/adr/0011-…decimal.md</text>
+<text x="90.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">чому міняємо, які сили,</text>
+<text x="90.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">що віддаємо натомість</text>
+<text x="90.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">→ ПРИЧИНА рішення</text>
+<rect x="389.0" y="100.0" width="293.0" height="88.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="401.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">~ src/money.hpp</text>
+<text x="401.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">struct Money { Decimal v; };</text>
+<text x="401.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">// заміна int64 → Decimal</text>
+<text x="401.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">→ ВТІЛЕННЯ рішення</text>
+<text x="380.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Рецензент читає причину й зміну разом; історію «хто/коли/чому» дає сам git</text>
+<text x="380.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">— безкоштовно, без окремої вікі</text>
+</svg>

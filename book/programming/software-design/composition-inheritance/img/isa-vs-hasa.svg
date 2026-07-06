@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Успадкувати — і протекло зайве; тримати всередині — і видно лише потрібне</text>
+<line x1="500.0" y1="78.0" x2="500.0" y2="444.0" stroke="#d0d5db" stroke-width="1.2" stroke-dasharray="5,5"/>
+<text x="250.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">is-a: Stack успадковує Vector</text>
+<rect x="105.0" y="102.2" width="290.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/><text x="250.0" y="122.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">Vector</tspan><tspan x="250.0" dy="15.6">get(i) insert(i) remove(i) …</tspan></text>
+<rect x="105.0" y="238.2" width="290.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/><text x="250.0" y="258.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">Stack</tspan><tspan x="250.0" dy="15.6">push()  pop()</tspan></text>
+<line x1="250.0" y1="238.0" x2="250.0" y2="168.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="250.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">▷</text>
+<text x="316.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">is-a</text>
+<text x="250.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">успадкував УСЕ публічне Vector:</text>
+<text x="250.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">s.get(2) лізе в середину — LIFO зламано</text>
+<text x="250.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">база змінилась → Stack може впасти</text>
+<text x="750.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">has-a: Stack тримає Vector усередині</text>
+<rect x="590.0" y="126.2" width="320.0" height="47.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="750.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">Stack</tspan><tspan x="750.0" dy="15.6">push()  pop()   ← лише це назовні</tspan></text>
+<rect x="625.0" y="245.3" width="250.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.4"/><text x="750.0" y="264.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">private Vector v</tspan><tspan x="750.0" dy="14.3">(схований, назовні не видно)</tspan></text>
+<line x1="750.0" y1="176.0" x2="750.0" y2="244.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="802.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-style="italic">has-a</text>
+<text x="750.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">get(i) НЕ видно — контракт цілий</text>
+<text x="750.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Vector можна підмінити — клієнт не помітить</text>
+</svg>

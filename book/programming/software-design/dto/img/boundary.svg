@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">DTO живе на межі, домен — усередині</text>
+<rect x="65.0" y="139.7" width="230.0" height="100.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="180.0" y="160.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Модель домену</tspan><tspan x="180.0" dy="16.9"></tspan><tspan x="180.0" dy="16.9">Order</tspan><tspan x="180.0" dy="16.9">поведінка + правила</tspan><tspan x="180.0" dy="16.9">інваріанти</tspan></text>
+<text x="180.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">багата, з поведінкою</text>
+<line x1="400.0" y1="70.0" x2="400.0" y2="300.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="400.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">межа процесу</text>
+<rect x="535.0" y="139.7" width="210.0" height="100.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="640.0" y="160.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">DTO</tspan><tspan x="640.0" dy="16.9"></tspan><tspan x="640.0" dy="16.9">OrderDto</tspan><tspan x="640.0" dy="16.9">самі поля</tspan><tspan x="640.0" dy="16.9">без поведінки</tspan></text>
+<text x="640.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">пласка, серіалізовна</text>
+<line x1="300.0" y1="165.0" x2="535.0" y2="165.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="417.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">збірка</text>
+<line x1="535.0" y1="215.0" x2="300.0" y2="215.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="417.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">розбір</text>
+</svg>

@@ -4,6 +4,7 @@
    та розширені обкладинкою, мапою курсу й станами завантаження.
    ========================================================================== */
 :root {
+  --topbar-h: 3.6rem;   /* верхня панель = смуга fixed-кнопок: 0.6rem + 2.4rem + 0.6rem (однакова в обох щільностях) */
   --bg: #ffffff;
   --bg-alt: #f8f9fa;
   --text: #1a1a2e;
@@ -206,17 +207,21 @@ body {
 /* ─── Chapter header ────────────────────────────────────────────────────── */
 .ch-header {
   background: linear-gradient(135deg, #09192e 0%, #0f2744 40%, #1d4e8a 100%);
-  padding: 1.45rem 4rem 1.15rem;   /* ~45% нижчий за попередній 3.5/3rem */
+  height: var(--topbar-h);   /* ТОЧНА висота = смуга кнопок; однакова в затишній і компактній */
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 9.6rem 0 4rem;   /* права — щоб текст не заїжджав під кнопки (щільність/лупа/тема) */
   color: #fff;
 }
 .ch-label {
   font-size: 0.64rem; font-weight: 800;
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: #60a5c8; margin-bottom: 0.35rem;
+  color: #60a5c8; margin-bottom: 0.25rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .ch-header h1 {
-  font-size: 1.6rem; font-weight: 900;
-  line-height: 1.18; margin-bottom: 0.35rem; color: #fff;
+  font-size: 1.5rem; font-weight: 900;
+  line-height: 1.18; margin-bottom: 0; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .ch-intro { font-size: 1.02rem; line-height: 1.85; color: #95bfd8; max-width: 720px; }
 .ch-intro strong { color: #cfe3f1; }
@@ -233,12 +238,12 @@ body {
   background: var(--bg);
   background: color-mix(in srgb, var(--book-accent, #808080) 10%, var(--bg));
   border-bottom: 2px solid var(--book-accent, var(--border));
-  padding: 0.65rem 5rem 0.55rem 4rem;
+  padding: 0 9.6rem 0 4rem;   /* висота й вертикальне центрування — з .ch-header */
 }
 .ch-header.ch-header-book .ch-label { color: var(--book-accent, var(--accent)); margin-bottom: 0.1rem; }
 .ch-header.ch-header-book h1 { font-size: 1.4rem; color: var(--text); margin-bottom: 0; line-height: 1.2; }
 @media (max-width: 680px) {
-  .ch-header.ch-header-book { padding: 0.55rem 3.6rem 0.5rem 4.1rem; }
+  .ch-header.ch-header-book { padding: 0 3.6rem 0 4.1rem; }
   .ch-header.ch-header-book h1 { font-size: 1.18rem; }
 }
 /* Посилання між короткою й повною (-d) версіями статті */
@@ -663,6 +668,7 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 @media (max-width: 980px) {
   :root { --sidebar-w: 256px; }
   .ch-header, .sec, .hist-art-header, .cover-hero, .toc { padding-left: 2.5rem; padding-right: 2.5rem; }
+  .ch-header { padding-right: 9.6rem; }   /* права лишається під fixed-кнопки */
 }
 @media (max-width: 680px) {
   #sidebar { transform: translateX(-100%); transition: transform 0.25s; width: 84%; max-width: 320px; }
@@ -670,7 +676,8 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   #sidebar.open ~ #scrim { display: block; }
   #content { margin-left: 0; }
   #menu-btn { display: flex; }
-  .ch-header { padding: 2.3rem 1.4rem 1.2rem; }
+  .ch-header { padding: 0 3.6rem 0 4.1rem; }   /* зліва — кнопка меню, справа — кнопки теми/пошуку */
+  .ch-header h1 { font-size: 1.15rem; }
   .cover-hero { padding: 4rem 1.4rem 2.5rem; }
   .cover-hero h1 { font-size: 1.95rem; }
   .sec, .hist-art-header, .toc { padding-left: 1.4rem; padding-right: 1.4rem; }

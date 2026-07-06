@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">Ті самі контейнери — але показано ПОРЯДОК викликів</text>
+<rect x="30.0" y="130.0" width="140.0" height="58.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="100.0" y="155.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">Веб-</tspan><tspan x="100.0" dy="15.6">застосунок</tspan></text>
+<rect x="220.0" y="130.0" width="140.0" height="58.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="290.0" y="163.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="290.0" dy="0.0">API</tspan></text>
+<rect x="410.0" y="130.0" width="140.0" height="58.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="480.0" y="155.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Сервіс</tspan><tspan x="480.0" dy="15.6">авторизації</tspan></text>
+<rect x="600.0" y="130.0" width="140.0" height="58.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="670.0" y="163.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">База даних</tspan></text>
+<line x1="100.0" y1="130.0" x2="100.0" y2="88.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="100.0" y1="88.0" x2="290.0" y2="88.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="88.0" x2="290.0" y2="130.0" stroke="#c0392b" stroke-width="1.6"/>
+<circle cx="195.0" cy="88.0" r="12.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="195.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<line x1="290.0" y1="130.0" x2="290.0" y2="52.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="290.0" y1="52.0" x2="480.0" y2="52.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="480.0" y1="52.0" x2="480.0" y2="130.0" stroke="#c0392b" stroke-width="1.6"/>
+<circle cx="385.0" cy="52.0" r="12.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="385.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2</text>
+<line x1="480.0" y1="130.0" x2="480.0" y2="88.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="480.0" y1="88.0" x2="670.0" y2="88.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="670.0" y1="88.0" x2="670.0" y2="130.0" stroke="#c0392b" stroke-width="1.6"/>
+<circle cx="575.0" cy="88.0" r="12.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="575.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3</text>
+<line x1="290.0" y1="188.0" x2="290.0" y2="232.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="290.0" y1="232.0" x2="100.0" y2="232.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="100.0" y1="232.0" x2="100.0" y2="188.0" stroke="#c0392b" stroke-width="1.6"/>
+<circle cx="195.0" cy="232.0" r="12.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="195.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">4</text>
+<text x="390.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">1 запит логіну   2 перевірка облікових даних   3 читання з бази   4 відповідь користувачу</text>
+</svg>

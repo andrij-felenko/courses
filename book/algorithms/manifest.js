@@ -37,6 +37,9 @@
         { slug: "write-amplification", title: "Write Amplification Factor", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "flash-garbage-collection", title: "Garbage collection у Flash-сховищах", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "abstract-syntax-tree", title: "Абстрактне синтаксичне дерево (AST)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "lsm-tree", title: "B-tree vs LSM-tree / log-structured", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "consistent-hashing", title: "Консистентне хешування", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "merkle-tree", title: "Дерево Меркла", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "graph-algorithms", title: "Графові", scope: "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.",
       topics: [
@@ -291,6 +294,12 @@
         { slug: "gesture-recognition", title: "Розпізнавання жестів", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "edf-scheduling", title: "EDF-планування", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "monitor-sync", title: "Монітори й умовні змінні", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "amdahls-law", title: "Закон Амдала", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "lamport-clocks", title: "Чому wall-clock бреше (дрейф, NTP-стрибки) і **годинник Лампорта**", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "vector-clocks", title: "Векторні годинники й обходи розбіжності", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "consensus-problem", title: "Задача консенсусу і чому вона важка (FLP оглядово); коли потрібен консенсус, а коли ні (дорого)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "raft", title: "Raft", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "two-phase-commit", title: "Двофазний коміт і його страх", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
   ]
 });

@@ -203,6 +203,7 @@
         { slug: "poisson-process", title: "Пуассонівський процес", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "order-statistics", title: "Порядкові статистики", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "independent-trials", title: "Незалежні спроби", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "littles-law", title: "Закон Літтла", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "statistics", title: "Статистика", scope: "Висновки з даних — оцінювання, перевірка гіпотез, регресія та байєсів підхід.",
       topics: [
@@ -229,6 +230,7 @@
         { slug: "goodness-of-fit", title: "Якість підгонки", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "weighted-least-squares", title: "Зважений МНК", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "chi-squared-test", title: "Критерій χ² Пірсона", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "percentiles-quantiles", title: "Перцентилі й хвости", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "optimization", title: "Оптимізація", scope: "Пошук екстремумів за обмежень — лінійне, опукле й дискретне програмування; включає теорію керування: системи зі зворотним зв'язком.",
       topics: [

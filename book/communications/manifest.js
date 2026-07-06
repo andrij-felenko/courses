@@ -193,6 +193,7 @@
         { slug: "wpa-security", title: "WPA2 і WPA3: захист бездротового ефіру", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "dhcp", title: "DHCP: динамічне призначення IP-адрес", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "auto-negotiation", title: "Автопогодження Ethernet", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "anycast", title: "Anycast і глобальне балансування", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "protocols", title: "Протоколи", scope: "Правила обміну й керування з'єднанням: стеки, рівні, контроль потоку й помилок.",
       topics: [
@@ -266,6 +267,7 @@
       topics: [
         { slug: "mavlink-security", title: "Безпека MAVLink", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "public-key-crypto", title: "Криптографія з відкритим ключем: ключі, підпис, ланцюг сертифікатів", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "tls", title: "TLS", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "buses", title: "Шини", scope: "Провідний обмін між пристроями на коротких відстанях: послідовні й паралельні інтерфейси.",
       topics: [
