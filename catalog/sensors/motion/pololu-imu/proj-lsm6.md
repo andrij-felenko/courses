@@ -35,6 +35,7 @@
 
 ### Робочий скетч: шість осей у термінал
 
+:::tabs
 ```cpp
 #include <Wire.h>
 #include <LSM6.h>
@@ -65,6 +66,37 @@ void loop() {
   delay(100);                  // 10 разів на секунду — вистачить, щоб дивитись очима
 }
 ```
+```micropython
+from machine import I2C, Pin
+import struct, time
+
+ADDR = 0x6B                     # адреса LSM6DS33 (0x6A, якщо SA0 до землі)
+WHO_AM_I, CTRL1_XL, CTRL2_G, OUTX_L_G = 0x0F, 0x10, 0x11, 0x22
+
+i2c = I2C(0, scl=Pin(22), sda=Pin(21))   # підніми свою шину зі своїми ніжками
+
+def init():                     # знайти чип; False = його на шині немає
+    return ADDR in i2c.scan() and i2c.readfrom_mem(ADDR, WHO_AM_I, 1)[0] == 0x69
+
+def enable_default():           # акселерометр (±2 g) і гіроскоп (±245 °/с)
+    i2c.writeto_mem(ADDR, CTRL1_XL, b'\x80')   # 1.66 кГц, ±2 g
+    i2c.writeto_mem(ADDR, CTRL2_G,  b'\x80')   # 1.66 кГц, ±245 °/с
+
+def read():                     # свіжі виміри обох давачів; вертає (g, a) як int16
+    raw = i2c.readfrom_mem(ADDR, OUTX_L_G | 0x80, 12)  # гіро + аксель, 6 int16 LE
+    return struct.unpack('<6h', raw)           # gx,gy,gz, ax,ay,az
+
+if not init():                  # знайти чип; False = його на шині немає
+    raise SystemExit("LSM6DS33 не знайдено — перевір дроти, живлення, підтяжки")
+enable_default()                # увімкнути акселерометр і гіроскоп
+
+while True:
+    gx, gy, gz, ax, ay, az = read()  # оновити відліки руху
+    # {:6d} — шестизнакове поле, щоб стовпчики не «стрибали»
+    print("A: {:6d} {:6d} {:6d}   G: {:6d} {:6d} {:6d}".format(ax, ay, az, gx, gy, gz))
+    time.sleep_ms(100)          # 10 разів на секунду — вистачить, щоб дивитись очима
+```
+:::
 
 Залий, відкрий термінал на 9600 — і поповзуть шість чисел. Полеж плату рівно на столі: у стовпчику `A` два числа будуть близькі до нуля, а одне (та вісь, що дивиться вгору) — близько ±16384; це на неї тисне земне тяжіння. Похитай плату — акселерометр заворушиться. Крутни її на місці — заворушиться гіроскоп у стовпчику `G`, а в спокої його числа повернуться майже до нуля (з дрібним ненульовим «сидінням» — це нормальний зсув, який калібрують окремо).
 
@@ -96,6 +128,7 @@ void loop() {
 
 Тепер зіллємо все — обидва чипи, дев'ять осей — в одну програму. Обидва об'єкти живуть на **тій самій шині I²C** (одні дроти SCL/SDA), просто мають різні адреси, тож звертаються по черзі й не заважають один одному.
 
+:::tabs
 ```cpp
 #include <Wire.h>
 #include <LSM6.h>
@@ -136,6 +169,49 @@ void loop() {
   delay(100);
 }
 ```
+```micropython
+from machine import I2C, Pin
+import struct, time
+
+IMU = 0x6B                      # LSM6DS33: акселерометр + гіроскоп
+MAG = 0x1E                      # LIS3MDL:  магнетометр — інший чип, інша адреса
+
+i2c = I2C(0, scl=Pin(22), sda=Pin(21))   # одна шина на обидва чипи
+
+def imu_init():
+    return IMU in i2c.scan() and i2c.readfrom_mem(IMU, 0x0F, 1)[0] == 0x69
+def imu_enable():               # аксель (±2 g) + гіро (±245 °/с)
+    i2c.writeto_mem(IMU, 0x10, b'\x80')
+    i2c.writeto_mem(IMU, 0x11, b'\x80')
+def imu_read():                 # (gx,gy,gz, ax,ay,az) — рух
+    return struct.unpack('<6h', i2c.readfrom_mem(IMU, 0x22 | 0x80, 12))
+
+def mag_init():
+    return MAG in i2c.scan() and i2c.readfrom_mem(MAG, 0x0F, 1)[0] == 0x3D
+def mag_enable():               # магнетометр: висока якість, 10 Гц, ±4 гауси
+    i2c.writeto_mem(MAG, 0x20, b'\x70')
+    i2c.writeto_mem(MAG, 0x21, b'\x00')
+    i2c.writeto_mem(MAG, 0x22, b'\x00')
+    i2c.writeto_mem(MAG, 0x23, b'\x0C')
+def mag_read():                 # (mx,my,mz) — поле
+    return struct.unpack('<3h', i2c.readfrom_mem(MAG, 0x28 | 0x80, 6))
+
+if not imu_init():
+    raise SystemExit("LSM6DS33 не знайдено")
+imu_enable()
+
+if not mag_init():
+    raise SystemExit("LIS3MDL не знайдено")
+mag_enable()
+
+while True:
+    gx, gy, gz, ax, ay, az = imu_read()   # a.* та g.* — рух
+    mx, my, mz = mag_read()               # m.*        — поле
+    print("A:{:6d} {:6d} {:6d}  G:{:6d} {:6d} {:6d}  M:{:6d} {:6d} {:6d}".format(
+          ax, ay, az, gx, gy, gz, mx, my, mz))
+    time.sleep_ms(100)
+```
+:::
 
 Дев'ять чисел у рядку — повний портрет руху й орієнтації в сирому вигляді. Піднеси магніт до плати — стовпчик `M` різко змінить числа; прибери — повернуться до фонового земного поля. Це швидка перевірка, що магнетометр живий і не переплутаний з рештою.
 
@@ -167,6 +243,7 @@ void loop() {
 
 ### Робочий скетч: живі g, °/с і гауси
 
+:::tabs
 ```cpp
 #include <Wire.h>
 #include <LSM6.h>
@@ -219,6 +296,44 @@ void loop() {
   delay(100);
 }
 ```
+```micropython
+from machine import I2C, Pin
+import struct, time
+
+IMU, MAG = 0x6B, 0x1E
+i2c = I2C(0, scl=Pin(22), sda=Pin(21))
+
+# Чутливості для налаштувань за замовчуванням enable_default():
+ACC_G     = 0.000061      # g на відлік        (±2 g)
+GYRO_DPS  = 0.00875       # °/с на відлік      (±245 °/с)
+MAG_GAUSS = 1.0 / 6842    # гаус на відлік     (±4 гауси)
+
+def imu_read():
+    return struct.unpack('<6h', i2c.readfrom_mem(IMU, 0x22 | 0x80, 12))
+def mag_read():
+    return struct.unpack('<3h', i2c.readfrom_mem(MAG, 0x28 | 0x80, 6))
+
+if IMU not in i2c.scan() or MAG not in i2c.scan():
+    raise SystemExit("давач не знайдено — перевір I2C")
+i2c.writeto_mem(IMU, 0x10, b'\x80'); i2c.writeto_mem(IMU, 0x11, b'\x80')
+i2c.writeto_mem(MAG, 0x20, b'\x70'); i2c.writeto_mem(MAG, 0x23, b'\x0C')
+
+while True:
+    gx, gy, gz, ax, ay, az = imu_read()
+    mx, my, mz = mag_read()
+
+    # сире (int16) → фізичне (float), кожну вісь на свою чутливість:
+    ax, ay, az = ax * ACC_G,    ay * ACC_G,    az * ACC_G
+    gx, gy, gz = gx * GYRO_DPS, gy * GYRO_DPS, gz * GYRO_DPS
+    mx, my, mz = mx * MAG_GAUSS, my * MAG_GAUSS, mz * MAG_GAUSS
+
+    print("a[g]: {:.2f} {:.2f} {:.2f}".format(ax, ay, az), end='')
+    print("   g[dps]: {:.1f} {:.1f} {:.1f}".format(gx, gy, gz), end='')
+    print("   m[Gs]: {:.3f} {:.3f} {:.3f}".format(mx, my, mz))
+
+    time.sleep_ms(100)
+```
+:::
 
 Тепер числа читаються як фізика. Плата рівно на столі — вісь, що дивиться вгору, показує близько `1.00` g, дві інші близько `0`; повний вектор прискорення в спокої має довжину рівно 1 g (це земне тяжіння, зручна вбудована перевірка справності). Гіроскоп у спокої — біля `0.0` °/с, при повороті стрибає до десятків-сотень. Магнетометр — десяті долі гауса (земне поле ≈ 0.25–0.65 гауса залежно від місця).
 
@@ -230,11 +345,18 @@ void loop() {
 
 **Приклад: перевірити, що вісь Z справді показує 1 g.** Плата лежить рівно, Z дивиться вгору, шкала ±2 g:
 
-```c
+:::tabs
+```cpp
 int16_t raw = imu.a.z;          // сирий відлік, у спокої ≈ 16384
 float   g   = raw * 0.000061f;  // × чутливість ±2 g
 // raw = 16384  →  g = 16384 × 0.000061 ≈ 0.9994 ≈ 1.00
 ```
+```micropython
+raw = imu_read()[5]             # сирий відлік a.z, у спокої ≈ 16384
+g   = raw * 0.000061            # × чутливість ±2 g
+# raw = 16384  →  g = 16384 × 0.000061 ≈ 0.9994 ≈ 1.00
+```
+:::
 
 Число 16384 не випадкове: при чутливості 0.061 мг/LSB одному g відповідає рівно 1/0.000061 ≈ 16384 відліки, тож повна шкала ±2 g лягає точно в ±32768 — увесь діапазон `int16_t`. Ось чому важливо тримати сирі значення саме в **знаковому** типі (пастка 4): половина діапазону — від'ємна (вісь дивиться вниз — прискорення −1 g), і без знака ці −1 g перетворяться на абсурдні 65535-подібні числа.
 

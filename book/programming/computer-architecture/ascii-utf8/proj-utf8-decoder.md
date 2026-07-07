@@ -31,30 +31,103 @@
 
 Гаряча операція — дістати **одну** код-точку з потоку. Читаємо провідний байт, за його префіксом дізнаємося довжину й початкові біти, тоді добираємо потрібне число байтів-продовжень, щоразу перевіряючи їхній префікс `10` і пришиваючи 6 біт навантаження:
 
-```
-function decode_one(bytes, i):        # i — позиція в потоці
-    b0 = bytes[i]
+:::tabs
+```py
+# повертає (код-точку, наступну позицію) або (None, позиція ресинку)
+MIN_FOR_LENGTH = {1: 0x80, 2: 0x800, 3: 0x10000}
+
+def decode_one(data, i):              # i — позиція в потоці
+    b0 = data[i]
     if b0 < 0x80:                     # 0xxxxxxx — ASCII, 1 байт
         return (b0, i + 1)
-    else if (b0 & 0xE0) == 0xC0:      # 110xxxxx — 2 байти
-        cp = b0 & 0x1F;  n = 1
-    else if (b0 & 0xF0) == 0xE0:      # 1110xxxx — 3 байти
-        cp = b0 & 0x0F;  n = 2
-    else if (b0 & 0xF8) == 0xF0:      # 11110xxx — 4 байти
-        cp = b0 & 0x07;  n = 3
+    elif (b0 & 0xE0) == 0xC0:         # 110xxxxx — 2 байти
+        cp, n = b0 & 0x1F, 1
+    elif (b0 & 0xF0) == 0xE0:         # 1110xxxx — 3 байти
+        cp, n = b0 & 0x0F, 2
+    elif (b0 & 0xF8) == 0xF0:         # 11110xxx — 4 байти
+        cp, n = b0 & 0x07, 3
     else:
-        return ERROR(i + 1)           # 10xxxxxx як перший — биття/збій
+        return (None, i + 1)          # 10xxxxxx як перший — биття/збій
 
-    for k in 1 .. n:                  # добираємо байти-продовження
-        bk = bytes[i + k]
+    for k in range(1, n + 1):         # добираємо байти-продовження
+        bk = data[i + k]
         if (bk & 0xC0) != 0x80:       # кожен мусить бути 10xxxxxx
-            return ERROR(i + 1)       # збій — шукаємо новий старт
+            return (None, i + 1)      # збій — шукаємо новий старт
         cp = (cp << 6) | (bk & 0x3F)  # пришиваємо 6 біт навантаження
 
-    if cp < min_for_length[n]:        # відкинути overlong (див. нижче)
-        return ERROR(i + 1)
+    if cp < MIN_FOR_LENGTH[n]:        # відкинути overlong (див. нижче)
+        return (None, i + 1)
     return (cp, i + n + 1)
 ```
+```go
+// повертає код-точку, наступну позицію та ok=false на збої (позиція — ресинк)
+var minForLength = [...]rune{1: 0x80, 2: 0x800, 3: 0x10000}
+
+func decodeOne(data []byte, i int) (rune, int, bool) { // i — позиція в потоці
+    b0 := data[i]
+    var cp rune
+    var n int
+    switch {
+    case b0 < 0x80: // 0xxxxxxx — ASCII, 1 байт
+        return rune(b0), i + 1, true
+    case b0&0xE0 == 0xC0: // 110xxxxx — 2 байти
+        cp, n = rune(b0&0x1F), 1
+    case b0&0xF0 == 0xE0: // 1110xxxx — 3 байти
+        cp, n = rune(b0&0x0F), 2
+    case b0&0xF8 == 0xF0: // 11110xxx — 4 байти
+        cp, n = rune(b0&0x07), 3
+    default:
+        return 0, i + 1, false // 10xxxxxx як перший — биття/збій
+    }
+
+    for k := 1; k <= n; k++ { // добираємо байти-продовження
+        bk := data[i+k]
+        if bk&0xC0 != 0x80 { // кожен мусить бути 10xxxxxx
+            return 0, i + 1, false // збій — шукаємо новий старт
+        }
+        cp = cp<<6 | rune(bk&0x3F) // пришиваємо 6 біт навантаження
+    }
+
+    if cp < minForLength[n] { // відкинути overlong (див. нижче)
+        return 0, i + 1, false
+    }
+    return cp, i + n + 1, true
+}
+```
+```cpp
+// повертає код-точку, наступну позицію та ok=false на збої (позиція — ресинк)
+struct Decoded { uint32_t cp; size_t next; bool ok; };
+
+Decoded decode_one(const uint8_t *bytes, size_t i) { // i — позиція в потоці
+    static const uint32_t min_for_length[] = {0, 0x80, 0x800, 0x10000};
+    uint8_t b0 = bytes[i];
+    uint32_t cp;
+    int n;
+    if (b0 < 0x80) {                    // 0xxxxxxx — ASCII, 1 байт
+        return {b0, i + 1, true};
+    } else if ((b0 & 0xE0) == 0xC0) {   // 110xxxxx — 2 байти
+        cp = b0 & 0x1F;  n = 1;
+    } else if ((b0 & 0xF0) == 0xE0) {   // 1110xxxx — 3 байти
+        cp = b0 & 0x0F;  n = 2;
+    } else if ((b0 & 0xF8) == 0xF0) {   // 11110xxx — 4 байти
+        cp = b0 & 0x07;  n = 3;
+    } else {
+        return {0, i + 1, false};       // 10xxxxxx як перший — биття/збій
+    }
+
+    for (int k = 1; k <= n; ++k) {      // добираємо байти-продовження
+        uint8_t bk = bytes[i + k];
+        if ((bk & 0xC0) != 0x80)        // кожен мусить бути 10xxxxxx
+            return {0, i + 1, false};   // збій — шукаємо новий старт
+        cp = (cp << 6) | (bk & 0x3F);   // пришиваємо 6 біт навантаження
+    }
+
+    if (cp < min_for_length[n])         // відкинути overlong (див. нижче)
+        return {0, i + 1, false};
+    return {cp, i + n + 1, true};
+}
+```
+:::
 
 Маски тут — пряме відображення схеми префіксів: `0xE0`/`0xC0` перевіряють префікс `110`, `0x1F` лишає 5 біт навантаження, `0x3F` лишає 6 біт продовження, а `<< 6` між кроками й зсуває вже накопичене, щоб звільнити місце під наступну шістку. Перетворення в інший бік (код-точка → байти) — дзеркальне: ділимо число на групи по 6 біт із хвоста й дописуємо префікси.
 

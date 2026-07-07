@@ -57,6 +57,7 @@ GND   земля
 
 Найперший крок — підняти enable-пін перед ініціалізацією USB-стека:
 
+:::tabs
 ```cpp
 // ESP32-S3: підняти VBUS-enable ДО старту USB-host стека
 #define VBUS_EN_PIN 12          // DEV_VBUS_EN на платах S3-USB-OTG класу
@@ -67,6 +68,17 @@ void setup() {
     // далі — ініціалізація USB-host стека (USB.begin() або аналог для вашого фреймворку)
 }
 ```
+```micropython
+# ESP32-S3: підняти VBUS-enable ДО старту USB-host стека
+from machine import Pin
+
+VBUS_EN_PIN = 12                # DEV_VBUS_EN на платах S3-USB-OTG класу
+
+vbus_en = Pin(VBUS_EN_PIN, Pin.OUT)
+vbus_en.value(1)                # +5 В з'являється на Type-A гнізді
+# далі — ініціалізація USB-host стека (залежить від прошивки/фреймворку)
+```
+:::
 
 Сам запуск стека залежить від фреймворку; тут важливо, що **enable-пін треба підняти першим** — інакше периферія не отримає живлення і підключення не буде зафіксовано.
 

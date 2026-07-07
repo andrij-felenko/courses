@@ -64,52 +64,141 @@
 
 **Умова.** Логічна модель має два контейнери — `api` і `db`. Треба описати їхнє розгортання у двох середовищах: `dev` (по одній копії, усе на одному вузлі) і `prod` (три копії `api` за балансувальником, одна `db` на окремому вузлі). Код має чесно розрізняти **логічний контейнер** і **кількість його копій** — бо саме ця відмінність і є суть в'ю розгортання.
 
-```c
-#include <stdint.h>
-#include <string.h>
+:::tabs
+```cpp
+#include <cstdint>
+#include <string_view>
+#include <vector>
 
 // Логічний контейнер зі статичної моделі — те, що на статиці одна «коробка».
-typedef struct {
-    const char *name;   // "api" або "db" — назва з логічної моделі
-} Container;
+struct Container {
+    std::string_view name;   // "api" або "db" — назва з логічної моделі
+};
 
 // Вузол розгортання — місце, де крутяться копії (сервер / VM / контейнер).
-typedef struct {
-    const char *node;        // напр. "eu-node-1"
-    const Container *of;      // ЯКИЙ логічний контейнер тут живе
-    uint8_t         replicas; // СКІЛЬКИ копій — ось чого немає на статиці
-} Deployment;
+struct Deployment {
+    std::string_view node;      // напр. "eu-node-1"
+    const Container  *of;       // ЯКИЙ логічний контейнер тут живе
+    std::uint8_t      replicas; // СКІЛЬКИ копій — ось чого немає на статиці
+};
 
 // Скільки всього копій цього контейнера піднято в цьому середовищі.
-uint16_t total_replicas(const Deployment *dep, int n, const char *name) {
-    uint16_t sum = 0;
-    for (int i = 0; i < n; i++)
-        if (strcmp(dep[i].of->name, name) == 0)  // той самий логічний контейнер...
-            sum += dep[i].replicas;               // ...сумуємо копії по всіх вузлах
+std::uint16_t total_replicas(const std::vector<Deployment>& deps, std::string_view name) {
+    std::uint16_t sum = 0;
+    for (const auto& d : deps)
+        if (d.of->name == name)   // той самий логічний контейнер...
+            sum += d.replicas;    // ...сумуємо копії по всіх вузлах
     return sum;
 }
 ```
+```python
+from dataclasses import dataclass
+
+# Логічний контейнер зі статичної моделі — те, що на статиці одна «коробка».
+@dataclass(frozen=True)
+class Container:
+    name: str   # "api" або "db" — назва з логічної моделі
+
+# Вузол розгортання — місце, де крутяться копії (сервер / VM / контейнер).
+@dataclass(frozen=True)
+class Deployment:
+    node: str            # напр. "eu-node-1"
+    of: Container        # ЯКИЙ логічний контейнер тут живе
+    replicas: int        # СКІЛЬКИ копій — ось чого немає на статиці
+
+# Скільки всього копій цього контейнера піднято в цьому середовищі.
+def total_replicas(deps: list[Deployment], name: str) -> int:
+    # той самий логічний контейнер → сумуємо копії по всіх вузлах
+    return sum(d.replicas for d in deps if d.of.name == name)
+```
+```go
+package deploy
+
+// Container — логічний контейнер зі статичної моделі, те, що на статиці одна «коробка».
+type Container struct {
+	Name string // "api" або "db" — назва з логічної моделі
+}
+
+// Deployment — вузол розгортання, місце, де крутяться копії (сервер / VM / контейнер).
+type Deployment struct {
+	Node     string     // напр. "eu-node-1"
+	Of       *Container // ЯКИЙ логічний контейнер тут живе
+	Replicas uint8      // СКІЛЬКИ копій — ось чого немає на статиці
+}
+
+// TotalReplicas — скільки всього копій цього контейнера піднято в цьому середовищі.
+func TotalReplicas(deps []Deployment, name string) uint16 {
+	var sum uint16
+	for _, d := range deps {
+		if d.Of.Name == name { // той самий логічний контейнер...
+			sum += uint16(d.Replicas) // ...сумуємо копії по всіх вузлах
+		}
+	}
+	return sum
+}
+```
+:::
 
 Тепер два середовища описуються тими самими логічними контейнерами, але **різним розкладом копій**:
 
-```c
-static const Container API = { "api" };
-static const Container DB  = { "db"  };
+:::tabs
+```cpp
+static const Container API{ "api" };
+static const Container DB { "db"  };
 
 // dev: усе на одному вузлі, по одній копії.
-static const Deployment DEV[] = {
+const std::vector<Deployment> DEV = {
     { "laptop", &API, 1 },
     { "laptop", &DB,  1 },
 };
 
 // prod: три копії api на трьох вузлах, одна db окремо.
-static const Deployment PROD[] = {
+const std::vector<Deployment> PROD = {
     { "eu-node-1", &API, 1 },
     { "eu-node-2", &API, 1 },
     { "eu-node-3", &API, 1 },
     { "eu-db-1",   &DB,  1 },
 };
 ```
+```python
+API = Container("api")
+DB  = Container("db")
+
+# dev: усе на одному вузлі, по одній копії.
+DEV = [
+    Deployment("laptop", API, 1),
+    Deployment("laptop", DB,  1),
+]
+
+# prod: три копії api на трьох вузлах, одна db окремо.
+PROD = [
+    Deployment("eu-node-1", API, 1),
+    Deployment("eu-node-2", API, 1),
+    Deployment("eu-node-3", API, 1),
+    Deployment("eu-db-1",   DB,  1),
+]
+```
+```go
+var (
+	API = Container{Name: "api"}
+	DB  = Container{Name: "db"}
+)
+
+// dev: усе на одному вузлі, по одній копії.
+var DEV = []Deployment{
+	{Node: "laptop", Of: &API, Replicas: 1},
+	{Node: "laptop", Of: &DB, Replicas: 1},
+}
+
+// prod: три копії api на трьох вузлах, одна db окремо.
+var PROD = []Deployment{
+	{Node: "eu-node-1", Of: &API, Replicas: 1},
+	{Node: "eu-node-2", Of: &API, Replicas: 1},
+	{Node: "eu-node-3", Of: &API, Replicas: 1},
+	{Node: "eu-db-1", Of: &DB, Replicas: 1},
+}
+```
+:::
 
 Порахуймо, що бачить кожне середовище:
 

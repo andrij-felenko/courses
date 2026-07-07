@@ -25,7 +25,7 @@
 
 Усе тримається на одному числі — **тривалості символа** Tsym (англ. *symbol time*). Це час, за який один чирп проїжджає всю смугу від краю до краю. Виводиться він прямо з означення модуляції. Чирп має розрізнити 2^SF стартових позицій у смузі завширшки BW (англ. *bandwidth* — ширина смуги). За теорією, щоб укласти 2^SF розрізнюваних кроків у смугу BW, чирпові потрібен час, обернений до «ширини одного кроку»: смугу BW ділимо на 2^SF позицій, отримуємо крок BW/2^SF герц, а тривалість — обернена до нього:
 
-```
+```formula
 Tsym = 2^SF / BW
 ```
 
@@ -113,12 +113,12 @@ airtime    = 401.4 + 753.7          ≈ 1155 мс  ≈ 1.16 с
 
 Ось ця сама арифметика рядком у код — функція, яку можна залити в реальну прошивку. Вона навмисне написана на цілих числах, без `float`, бо багато LPWAN-вузлів стоять на дешевих мікроконтролерах без апаратного блоку дійсних чисел, де `float` — це повільна емуляція. Працюємо в мікросекундах і використовуємо цілочисельну стелю замість `ceil()`:
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
+:::tabs
+```cpp
+#include <cstdint>
 
 // Параметри пакета й радіо для розрахунку airtime.
-typedef struct {
+struct LoraCfg {
     uint8_t  sf;          // коефіцієнт розширення, 7..12
     uint32_t bw_hz;       // ширина смуги в Гц (напр. 125000)
     uint8_t  payload;     // довжина корисних даних, байтів
@@ -126,46 +126,89 @@ typedef struct {
     uint8_t  preamble;    // символів преамбули (типово 8)
     bool     explicit_hdr;// true = явний заголовок, false = неявний
     bool     crc;         // true = додано CRC
-} lora_cfg_t;
+};
 
 // Цілочисельна стеля цілого ділення: ⌈a / b⌉ для a >= 0, b > 0.
-static inline int32_t ceil_div(int32_t a, int32_t b) {
+static constexpr int32_t ceil_div(int32_t a, int32_t b) {
     return (a + b - 1) / b;
 }
 
 // Час одного символа в наносекундах: Tsym = 2^SF / BW.
 // Наносекунди дають запас точності навіть на найшвидших SF без float.
 static uint64_t symbol_time_ns(uint8_t sf, uint32_t bw_hz) {
-    uint64_t two_pow_sf = (uint64_t)1u << sf;               // 2^SF
+    uint64_t two_pow_sf = uint64_t{1} << sf;                // 2^SF
     return (two_pow_sf * 1000000000ULL) / bw_hz;            // 2^SF / BW, нс
 }
 
 // Повний час пакета в ефірі (time on air) у мікросекундах.
-uint32_t lora_airtime_us(const lora_cfg_t *c) {
-    uint64_t tsym_ns = symbol_time_ns(c->sf, c->bw_hz);
+uint32_t lora_airtime_us(const LoraCfg &c) {
+    uint64_t tsym_ns = symbol_time_ns(c.sf, c.bw_hz);
 
     // DE (low data rate optimize) вмикається, коли символ довший за 16 мс.
-    int de = (tsym_ns > 16000000ULL) ? 1 : 0;               // 16 мс = 16e6 нс
-    int ih = c->explicit_hdr ? 0 : 1;                       // implicit header
-    int crc = c->crc ? 1 : 0;
+    int de = (tsym_ns > 16000000ULL) ? 1 : 0;              // 16 мс = 16e6 нс
+    int ih = c.explicit_hdr ? 0 : 1;                       // implicit header
+    int crc = c.crc ? 1 : 0;
 
     // Число символів пакета за формулою Semtech.
-    int32_t num = 8 * (int32_t)c->payload - 4 * (int32_t)c->sf
+    int32_t num = 8 * static_cast<int32_t>(c.payload) - 4 * static_cast<int32_t>(c.sf)
                   + 28 + 16 * crc - 20 * ih;
-    int32_t den = 4 * ((int32_t)c->sf - 2 * de);
-    int32_t groups = ceil_div(num, den) * ((int32_t)c->cr + 4);
-    if (groups < 0) groups = 0;                             // max(..., 0)
+    int32_t den = 4 * (static_cast<int32_t>(c.sf) - 2 * de);
+    int32_t groups = ceil_div(num, den) * (static_cast<int32_t>(c.cr) + 4);
+    if (groups < 0) groups = 0;                            // max(..., 0)
     int32_t payload_symb = 8 + groups;
 
     // Преамбула: (n + 4.25) символів. 4.25 = 17/4 → рахуємо в чвертях символа.
     // символів·4 + 17 чвертей, тоді ділимо на 4 у наносекундах.
-    uint64_t preamble_q = (uint64_t)c->preamble * 4 + 17;   // (n + 4.25) у чвертях
+    uint64_t preamble_q = uint64_t{c.preamble} * 4 + 17;   // (n + 4.25) у чвертях
     uint64_t t_preamble_ns = preamble_q * tsym_ns / 4;
-    uint64_t t_payload_ns  = (uint64_t)payload_symb * tsym_ns;
+    uint64_t t_payload_ns  = uint64_t{payload_symb} * tsym_ns;
 
-    return (uint32_t)((t_preamble_ns + t_payload_ns) / 1000ULL); // нс → мкс
+    return static_cast<uint32_t>((t_preamble_ns + t_payload_ns) / 1000ULL); // нс → мкс
 }
 ```
+```python
+import math
+from dataclasses import dataclass
+
+# Параметри пакета й радіо для розрахунку airtime.
+@dataclass
+class LoraCfg:
+    sf: int              # коефіцієнт розширення, 7..12
+    bw_hz: int           # ширина смуги в Гц (напр. 125000)
+    payload: int         # довжина корисних даних, байтів
+    cr: int              # кодова швидкість: 1..4  (1 = 4/5 ... 4 = 4/8)
+    preamble: int = 8    # символів преамбули (типово 8)
+    explicit_hdr: bool = True  # True = явний заголовок, False = неявний
+    crc: bool = True     # True = додано CRC
+
+
+# Час одного символа в наносекундах: Tsym = 2^SF / BW.
+def symbol_time_ns(sf, bw_hz):
+    return (1 << sf) * 1_000_000_000 // bw_hz
+
+
+# Повний час пакета в ефірі (time on air) у мікросекундах.
+def lora_airtime_us(c):
+    tsym_ns = symbol_time_ns(c.sf, c.bw_hz)
+
+    # DE (low data rate optimize) вмикається, коли символ довший за 16 мс.
+    de = 1 if tsym_ns > 16_000_000 else 0     # 16 мс
+    ih = 0 if c.explicit_hdr else 1           # implicit header
+    crc = 1 if c.crc else 0
+
+    # Число символів пакета за формулою Semtech.
+    num = 8 * c.payload - 4 * c.sf + 28 + 16 * crc - 20 * ih
+    den = 4 * (c.sf - 2 * de)
+    groups = max(math.ceil(num / den) * (c.cr + 4), 0)
+    payload_symb = 8 + groups
+
+    # Преамбула: (n + 4.25) символів.
+    t_preamble_ns = (c.preamble + 4.25) * tsym_ns
+    t_payload_ns = payload_symb * tsym_ns
+
+    return round((t_preamble_ns + t_payload_ns) / 1000)  # нс → мкс
+```
+:::
 
 Зверни увагу на два рішення, що відрізняють робочий код від навчального. По-перше, **наносекунди як проміжна одиниця**: вони дають достатньо значущих цифр, щоб і на SF7 (1024 нс на символ — рахуємо точно), і на SF12 не втратити точність при цілочисельному діленні. По-друге, **4.25 як 17/4**: щоб не тягнути `float` заради чверті символа, ми переводимо преамбулу в «чверті символа» (множимо на 4, додаємо 17) і ділимо назад. Дрібний прийом, але саме такі прийоми тримають розрахунок коректним на голому цілочисельному ядрі.
 

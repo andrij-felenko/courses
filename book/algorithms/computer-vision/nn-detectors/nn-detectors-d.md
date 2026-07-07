@@ -39,7 +39,8 @@ IoU = площа(перетин) / площа(об'єднання)
 
 🔧 **Worked-приклад: IoU двох рамок A = [10, 20, 90, 130] і B = [50, 60, 130, 180].**
 
-```c
+:::tabs
+```cpp
 // рамка: x1,y1 — лівий верх; x2,y2 — правий низ
 typedef struct { float x1, y1, x2, y2; } box_t;
 
@@ -63,6 +64,33 @@ float iou(box_t a, box_t b) {
     return inter / uni;
 }
 ```
+```python
+from typing import NamedTuple
+
+# рамка: x1,y1 — лівий верх; x2,y2 — правий низ
+class Box(NamedTuple):
+    x1: float; y1: float; x2: float; y2: float
+
+def area(b: Box) -> float:
+    return (b.x2 - b.x1) * (b.y2 - b.y1)
+
+def iou(a: Box, b: Box) -> float:
+    # перетин: правіший лівий край ... лівіший правий край
+    ix1 = max(a.x1, b.x1)                     # max(x1)
+    iy1 = max(a.y1, b.y1)                     # max(y1)
+    ix2 = min(a.x2, b.x2)                     # min(x2)
+    iy2 = min(a.y2, b.y2)                     # min(y2)
+
+    iw = ix2 - ix1                            # ширина перетину
+    ih = iy2 - iy1                            # висота перетину
+    if iw <= 0.0 or ih <= 0.0:               # не торкаються
+        return 0.0
+    inter = iw * ih
+
+    uni = area(a) + area(b) - inter          # об'єднання без подвійного рахунку
+    return inter / uni
+```
+:::
 
 Підставмо числа й пройдімо рукою:
 
@@ -155,7 +183,8 @@ box_t decode_box(const float *out, int cell_x, int cell_y, int a,
 
 🔧 **Worked-приклад: NMS над масивом box_t із полем score.**
 
-```c
+:::tabs
+```cpp
 typedef struct { float x1, y1, x2, y2, score; int cls; } det_t;
 
 // сортування за спаданням упевненості (проста бульбашка — масивів тут небагато)
@@ -194,6 +223,40 @@ int nms(det_t *d, int n, float iou_thr, int *keep) {
     return kept;
 }
 ```
+```python
+from typing import NamedTuple
+
+class Det(NamedTuple):
+    x1: float; y1: float; x2: float; y2: float
+    score: float
+    cls: int
+
+def iou_det(a: Det, b: Det) -> float:
+    ix1, iy1 = max(a.x1, b.x1), max(a.y1, b.y1)
+    ix2, iy2 = min(a.x2, b.x2), min(a.y2, b.y2)
+    iw, ih = ix2 - ix1, iy2 - iy1
+    if iw <= 0 or ih <= 0:
+        return 0.0
+    inter = iw * ih
+    uni = (a.x2-a.x1)*(a.y2-a.y1) + (b.x2-b.x1)*(b.y2-b.y1) - inter
+    return inter / uni
+
+def nms(dets, iou_thr):
+    dets = sorted(dets, key=lambda d: d.score, reverse=True)  # за спаданням упевненості
+    keep = [True] * len(dets)
+    for i in range(len(dets)):
+        if not keep[i]:                          # вже придушена сильнішою
+            continue
+        for j in range(i + 1, len(dets)):
+            if not keep[j]:
+                continue
+            if dets[j].cls != dets[i].cls:       # різні класи не конкурують
+                continue
+            if iou_det(dets[i], dets[j]) > iou_thr:   # двійник — геть
+                keep[j] = False
+    return [d for d, k in zip(dets, keep) if k]  # лишені рамки
+```
+:::
 
 Пройдімо логіку. Спершу масив сортуємо за спаданням упевненості — тоді перша ж незаймана рамка в кожному колі автоматично найвпевненіша, і окремий пошук максимуму не потрібен. Зовнішній цикл бере чергового «переможця» `i` (якщо його ще не придушили); внутрішній проходить **усі дальші** рамки й гасить ті, що того ж класу й перекриваються понад поріг. Дві деталі тут навмисні. `d[j].cls != d[i].cls → continue`: рамки **різних** класів не повинні душити одна одну — авто й людина можуть законно стояти впритул, NMS не має викидати одну через другу (це робить NMS «класовим»). І `keep[j] = 0` лише позначає, не стирає, — щоб не возитися з ущільненням масиву всередині циклу; реальні рамки збираємо потім за прапорцем `keep`.
 

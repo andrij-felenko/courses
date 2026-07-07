@@ -1,0 +1,393 @@
+# Codelang: apply-backlog (:::tabs ще не застосовано)
+
+Файли, де реаудит вирішив «треба вкладки», Write-фаза ще НЕ виконана. **365 файлів**. guide/embedded зведено до C/C++ (python/go/js прибрано як недоречні для firmware-курсу; знятих див. `_codelang-embedded-demoted.txt`).
+
+## book/algorithms (57)
+
+- [ ] `book/algorithms/computer-vision/aruco-apriltag/aruco-apriltag.md` — cpp+python — маркер-декодування — загальний CV-алгоритм
+- [ ] `book/algorithms/computer-vision/aruco-apriltag/proj-aruco-decode.md` — cpp+python — гомографія й декодування ArUco — портовний алгоритм
+- [ ] `book/algorithms/computer-vision/bayer-demosaic/bayer-demosaic-d.md` — cpp+python — демозаїк — загальний алгоритм із numpy-аналогом
+- [ ] `book/algorithms/computer-vision/bayer-demosaic/bayer-demosaic.md` — cpp+python — той самий демозаїк-алгоритм, портовний
+- [ ] `book/algorithms/computer-vision/convolution-filters/convolution-filters-d.md` — cpp+python — гаусове/білатеральне розмиття — класичний алгоритм
+- [ ] `book/algorithms/computer-vision/convolution-filters/proj-separable-blur.md` — cpp+python — розділюваний гаус — портовний алгоритм
+- [ ] `book/algorithms/computer-vision/edge-detection/edge-detection-d.md` — cpp+python — Sobel/NMS/субпіксель — класичний CV-алгоритм
+- [ ] `book/algorithms/computer-vision/edge-detection/proj-canny-c.md` — cpp+python — повний Canny pipeline — портовний алгоритм
+- [ ] `book/algorithms/computer-vision/feature-matching/proj-orb-match-c.md` — cpp+python — Гемінг-відстань і зіставлення дескрипторів
+- [ ] `book/algorithms/computer-vision/histogram/histogram-d.md` — cpp+python — гістограма/CDF-вирівнювання
+- [ ] `book/algorithms/computer-vision/histogram/proj-histogram-lut.md` — cpp+python — той самий LUT-алгоритм вирівнювання
+- [ ] `book/algorithms/computer-vision/image-as-data/image-as-data-d.md` — cpp+python — RGB/HSV/YCbCr конвертації
+- [ ] `book/algorithms/computer-vision/image-as-data/image-as-data.md` — cpp+python — grayscale-конверсія
+- [ ] `book/algorithms/computer-vision/image-as-data/proj-rgb-hsv-convert.md` — cpp+python — RGB<->HSV
+- [ ] `book/algorithms/computer-vision/object-detection/proj-color-blob.md` — cpp+python — поріг/морфологія/моменти
+- [ ] `book/algorithms/computer-vision/optical-flow/math-optical-flow-constraint.md` — cpp+python — Лукас-Канаде оптичний потік
+- [ ] `book/algorithms/computer-vision/threshold-morphology/math-otsu-derivation.md` — cpp+python — Otsu-поріг
+- [ ] `book/algorithms/computer-vision/threshold-morphology/proj-threshold-morphology-pipeline.md` — cpp+python — адаптивний поріг через інтегральне зображення
+- [ ] `book/algorithms/computer-vision/threshold-morphology/threshold-morphology-d.md` — cpp+python — морфологія/hit-miss/скелетизація
+- [ ] `book/algorithms/computer-vision/threshold-morphology/threshold-morphology.md` — cpp+python — поріг/ерозія/дилатація
+- [ ] `book/algorithms/computer-vision/tracking/proj-sort-tracker.md` — cpp+python — SORT-трекер із Калманом
+- [ ] `book/algorithms/computer-vision/tracking/tracking-d.md` — cpp+python — Калман-трекінг/MOTA/MOTP
+- [ ] `book/algorithms/computer-vision/white-balance/proj-auto-white-balance.md` — cpp+python — сірий світ/біла пляма
+- [ ] `book/algorithms/data-compression/asymmetric-numeral-systems/asymmetric-numeral-systems.md` — cpp+python — ANS-кодування
+- [ ] `book/algorithms/data-compression/huffman-coding/huffman-coding-d.md` — cpp+python — побудова дерева Гаффмана
+- [ ] `book/algorithms/data-compression/lz77/lz77.md` — cpp+python — LZ77-декодер
+- [ ] `book/algorithms/data-compression/lzw/lzw-d.md` — cpp+python — LZW кодування/декодування
+- [ ] `book/algorithms/machine-learning/cross-validation/proj-kfold-c.md` — cpp+python — k-fold крос-валідація
+- [ ] `book/algorithms/machine-learning/data-augmentation/data-augmentation.md` — cpp+python — аугментація кадру
+- [ ] `book/algorithms/machine-learning/data-augmentation/math-mixup.md` — cpp+python — MixUp
+- [ ] `book/algorithms/machine-learning/inference-latency/inference-latency.md` — cpp+python+go — прогрів + worst/mean замір латентності — типовий бенчмарк-патерн
+- [ ] `book/algorithms/machine-learning/knowledge-distillation/proj-distill-mnist-c.md` — cpp+python — softmax/дистиляція
+- [ ] `book/algorithms/machine-learning/loss-functions/loss-functions.md` — cpp+python — MSE/Huber/CE
+- [ ] `book/algorithms/machine-learning/model-quantization/math-affine-quant.md` — cpp+python — афінне квантування
+- [ ] `book/algorithms/machine-learning/regularization/math-l1-sparsity.md` — cpp+python — proximal L1/L2 кроки
+- [ ] `book/algorithms/machine-learning/regularization/regularization.md` — cpp+python — L1/L2-регуляризація
+- [ ] `book/algorithms/machine-learning/reinforcement-learning/reinforcement-learning.md` — cpp+python — Q-навчання
+- [ ] `book/algorithms/machine-learning/weight-pruning/weight-pruning.md` — cpp+python — прорідження ваг
+- [ ] `book/algorithms/signal-robotics/audio-time-scaling/proj-wsola-c.md` — cpp+python — WSOLA time-scaling
+- [ ] `book/algorithms/signal-robotics/band-filters/band-filters.md` — cpp+python — розрахунок біквад notch-фільтра
+- [ ] `book/algorithms/signal-robotics/band-filters/math-type-transformations.md` — cpp+python — спектральна інверсія фільтра
+- [ ] `book/algorithms/signal-robotics/boat-underwater/proj-depth-hold-c.md` — cpp+python — PID-утримання глибини
+- [ ] `book/algorithms/signal-robotics/complementary-filter/proj-complementary-c.md` — cpp+python — комплементарний фільтр
+- [ ] `book/algorithms/signal-robotics/ema/ema.md` — cpp+python — експоненційне згладжування
+- [ ] `book/algorithms/signal-robotics/ema/proj-ema-c.md` — cpp+python — EMA/DEMA варіанти
+- [ ] `book/algorithms/signal-robotics/fir-filter/proj-fir-c.md` — cpp+python — КІХ-фільтр
+- [ ] `book/algorithms/signal-robotics/fixed-point-implementation/fixed-point-implementation.md` — cpp+python+go+micropython — Q15 fixed-point FIR crок — загальний алгоритм цілої арифметики
+- [ ] `book/algorithms/signal-robotics/iir-filter/proj-biquad-c.md` — cpp+python — біквад БІХ-фільтр
+- [ ] `book/algorithms/signal-robotics/latency-sync/latency-sync.md` — cpp+python — часова синхронізація потоків
+- [ ] `book/algorithms/signal-robotics/motor-mixer/motor-mixer.md` — cpp+python — мікшер квадро-X
+- [ ] `book/algorithms/signal-robotics/pure-pursuit-navigation/math-pursuit-geometry.md` — cpp+python — геометрія pure pursuit
+- [ ] `book/algorithms/signal-robotics/quaternion-attitude-control/proj-error-quaternion-c.md` — cpp+python — кватерніонне керування орієнтацією
+- [ ] `book/algorithms/signal-robotics/quaternion-attitude-control/quaternion-attitude-control.md` — cpp+python — той самий кватерніонний алгоритм
+- [ ] `book/algorithms/signal-robotics/roll-pitch-yaw-control/roll-pitch-yaw-control.md` — cpp+python — три ПІД + мікшер
+- [ ] `book/algorithms/signal-robotics/rover-steering/proj-pure-pursuit.md` — cpp+python — pure pursuit навігація
+- [ ] `book/algorithms/signal-robotics/rover-steering/rover-steering.md` — cpp+python — diff-drive мікшер
+- [ ] `book/algorithms/signal-robotics/rtk-integer-ambiguity/rtk-integer-ambiguity.md` — cpp+python — розрахунок фазової відстані
+
+## book/communications (29)
+
+- [ ] `book/communications/buses/async-serial/async-serial.md` — cpp+micropython — бітбенг UART через gpio_write/delay_us — високорівневий MCU-патерн
+- [ ] `book/communications/buses/i2c-addressing/comp-i2c-mux.md` — cpp+micropython — Arduino Wire.h mux_select/scan — типовий високорівневий MCU-API
+- [ ] `book/communications/buses/spi-speed/spi-speed.md` — cpp+python+js+go — чисте обчислення пропускної здатності кадру — без заліза
+- [ ] `book/communications/buses/start-stop-ack/start-stop-ack.md` — cpp+python+js+go — i2c_read_ticks/micros — арифметика, без регістрів
+- [ ] `book/communications/buses/uart-frame/proj-frame-in-code.md` — cpp+python — парність/кадрування UART
+- [ ] `book/communications/buses/uart-frame/uart-frame.md` — cpp+python — той самий портативний зсув/маска для кадру 8N1
+- [ ] `book/communications/networks/bluetooth-spp/proj-command-parser.md` — cpp+python — збирач рядка й розбір команд — загальний, портативний патерн
+- [ ] `book/communications/networks/channel-band-packet/proj-listen-before-talk.md` — cpp+python — CSMA/CA backoff
+- [ ] `book/communications/networks/esp-now/esp-now.md` — cpp+micropython — високорівневий MCU-API espnow, є прямий MicroPython-модуль
+- [ ] `book/communications/networks/ip-routing/ip-routing.md` — cpp+micropython — WiFi.config — аналог network.WLAN.ifconfig у MicroPython
+- [ ] `book/communications/networks/mac-ip-arp/mac-ip-arp.md` — cpp+micropython — WiFi+UDP API — прямий аналог network/socket у MicroPython
+- [ ] `book/communications/networks/wifi/wifi.md` — cpp+micropython — WiFi.begin/status — прямий аналог network.WLAN у MicroPython
+- [ ] `book/communications/protocols/ble-gatt/ble-gatt.md` — cpp+micropython — high-level BLE GATT service/characteristic API has MicroPython aioble analog
+- [ ] `book/communications/protocols/ble-gatt/proj-cccd-notify.md` — cpp+micropython — BLE CCCD descriptor/notify setup mirrors MicroPython aioble API
+- [ ] `book/communications/protocols/crsf-protocol/crsf-protocol.md` — cpp+python — розпаковка бітів CRSF + CRC8
+- [ ] `book/communications/protocols/crsf-protocol/proj-crsf-parser.md` — cpp+python — парсер CRSF-кадру, CRC8-таблиця
+- [ ] `book/communications/protocols/flow-control/proj-ring-buffer.md` — cpp+python — кільцевий буфер
+- [ ] `book/communications/protocols/mavlink-packet/mavlink-packet.md` — cpp+python — Розбір байтів кадру протоколу — портативний алгоритм
+- [ ] `book/communications/protocols/packet-design/packet-design.md` — cpp+python — CRC-8 та збірка/перевірка кадру
+- [ ] `book/communications/protocols/packet-design/proj-crc-table.md` — cpp+python — табличний CRC-8
+- [ ] `book/communications/protocols/rc-failsafe-modes/rc-failsafe-modes.md` — cpp+python — trivial general bit-flag check function, no hardware specifics
+- [ ] `book/communications/protocols/rc-link/proj-sbus-decode.md` — cpp+python — розпаковка 11-бітних каналів SBUS
+- [ ] `book/communications/protocols/rc-link/rc-link.md` — cpp+python+js — Trivial linear-mapping formula, portable to any language
+- [ ] `book/communications/protocols/rc-signal-protocol/proj-sbus-frame-parser.md` — cpp+python — повний парсер SBUS-кадру з автоматом станів
+- [ ] `book/communications/protocols/rc-signal-protocol/rc-signal-protocol.md` — cpp+python+js — Bit-mask/scale functions are general, no hardware specifics
+- [ ] `book/communications/protocols/reliable-link/proj-stop-and-wait.md` — cpp+python — stop-and-wait ARQ
+- [ ] `book/communications/protocols/reliable-link/reliable-link.md` — cpp+python — той самий ARQ-алгоритм
+- [ ] `book/communications/radio-engineering/telemetry-link/telemetry-link.md` — cpp+python — розрахунок бюджету лінії (FSPL)
+- [ ] `book/communications/synchronization/gnss/gnss.md` — cpp+python — розрахунок дальності з часу польоту
+
+## book/electronics (139)
+
+- [ ] `book/electronics/analog/active-filters/active-filters.md` — cpp+python — розрахунок номіналів Саллена-Кі
+- [ ] `book/electronics/analog/capacitive-sensing/capacitive-sensing.md` — cpp+python — алгоритм відстеження базової лінії дотику
+- [ ] `book/electronics/analog/class-d-amplifier/class-d-amplifier.md` — cpp+python — sample_to_pwm і розрахунок ККД — загальний алгоритм ШІМ, легко на Python
+- [ ] `book/electronics/analog/cmrr/cmrr.md` — cpp+python+js+go — dB→ratio формула, загальна математика
+- [ ] `book/electronics/analog/colpitts-oscillator/math-startup-condition.md` — cpp+python+js+go — розрахунок запасу запуску — загальна формула
+- [ ] `book/electronics/analog/common-mode-noise/math-mode-conversion.md` — cpp+python+js+go — проста арифметика поділу напруги, портативно
+- [ ] `book/electronics/analog/current-loop-4-20ma/proj-galvanic-isolation.md` — cpp+python+go — двоточкова калібрувальна математика, універсальна
+- [ ] `book/electronics/analog/current-mirror/comp-mirror-variants.md` — cpp+python+js+go — формула Відлара, одна функція, загальна математика
+- [ ] `book/electronics/analog/current-source/proj-jfet-current-source.md` — cpp+python+go — формули й ітеративний розв'язок, без заліза
+- [ ] `book/electronics/analog/esr-capacitor/esr-capacitor.md` — cpp+python+js+go — I²·ESR — тривіальна загальна формула
+- [ ] `book/electronics/analog/esr-capacitor/math-impedance-curve.md` — cpp+python+js+go — z_mag() — загальна формула |Z|, портативно
+- [ ] `book/electronics/analog/filter-pole-q/filter-pole-q.md` — cpp+python+js+go — sallen_key_q() — одна загальна формула
+- [ ] `book/electronics/analog/filter-pole-q/math-pole-location.md` — cpp+python+js+go — peak_params() — обчислення за формулою, загальне
+- [ ] `book/electronics/analog/filter-pole-q/proj-biquad-coeffs.md` — cpp+python — розрахунок і каскад біквад-фільтрів
+- [ ] `book/electronics/analog/group-delay/group-delay.md` — cpp+python+go — Group-delay from phase array — general numeric DSP algorithm
+- [ ] `book/electronics/analog/group-delay/math-allpass-equalize.md` — cpp+python+go — Allpass group-delay math — general signal-processing formulas
+- [ ] `book/electronics/analog/harmonic-distortion/math-fourier-harmonics.md` — cpp+python+js — THD-from-harmonics — portable numeric signal-processing algorithm
+- [ ] `book/electronics/analog/opamp-integrator-differentiator/opamp-integrator-differentiator.md` — cpp+python — цифровий ПІД інтегратор/диференціатор
+- [ ] `book/electronics/analog/opamp-output-stage/opamp-output-stage.md` — cpp+python+js — тривіальна формула P=V·I, без заліза
+- [ ] `book/electronics/analog/opamp-stability/comp-decompensated-opamps.md` — cpp+python+js — чиста арифметика підсилень, жодного заліза
+- [ ] `book/electronics/analog/opamp-stability/opamp-stability.md` — cpp+python+js — обчислення частоти зрізу за формулою, цикл по масиву
+- [ ] `book/electronics/analog/parallel-resonance/math-parallel-resonance.md` — cpp+python+go — числові формули резонансу через sqrt/pow
+- [ ] `book/electronics/analog/phase-inversion-opamp/phase-inversion-opamp.md` — cpp+python+go — Bounds-check and stuck-value watchdog counter are generic algorithms
+- [ ] `book/electronics/analog/phase-locked-loop/comp-pfd-charge-pump.md` — cpp+micropython — послідовність high-level PLL-periph API викликів
+- [ ] `book/electronics/analog/phase-locked-loop/phase-locked-loop.md` — cpp+python — програмна модель PLL
+- [ ] `book/electronics/analog/pll-fractional-n/math-delta-sigma-shaping.md` — cpp+python — обчислення NTF через sin/pow/log10 — чиста математика
+- [ ] `book/electronics/analog/pll-fractional-n/pll-fractional-n.md` — cpp+python — дробовий акумулятор дільника PLL
+- [ ] `book/electronics/analog/pll-sync/pll-sync.md` — cpp+python — цифрова рядкова петля синхронізації
+- [ ] `book/electronics/analog/power-sequencing/comp-sequencer-ic.md` — cpp+python+micropython — читання PMBus — протокольний high-level API
+- [ ] `book/electronics/analog/ptat-current-source/math-ptat-derivation.md` — cpp+python+js — чисті float-формули, без заліза
+- [ ] `book/electronics/analog/quantization-noise/proj-requantize.md` — cpp+python — дизер/noise shaping реквантизації
+- [ ] `book/electronics/analog/safe-operating-area/safe-operating-area.md` — cpp+python — простий float-калькулятор SOA
+- [ ] `book/electronics/analog/sigma-delta-adc/sigma-delta-adc.md` — cpp+micropython+python — high-level SPI ADC API — MicroPython аналог
+- [ ] `book/electronics/analog/sigma-delta-pwm/proj-firmware-modulator.md` — cpp+python — DDS-генератор синуса + сигма-дельта модулятор
+- [ ] `book/electronics/analog/sigma-delta-pwm/sigma-delta-pwm.md` — cpp+python — сигма-дельта модулятор
+- [ ] `book/electronics/analog/spice-simulation/spice-simulation.md` — cpp+python — метод Ньютона для робочої точки
+- [ ] `book/electronics/analog/supernode/math-supernode-system.md` — cpp+python — розв'язання СЛАР методом Гаусса
+- [ ] `book/electronics/analog/transimpedance-amplifier/math-tia-stability.md` — cpp+python+js+go — Bisection search for crossover frequency — generic numerical algorithm
+- [ ] `book/electronics/analog/two-port-network/math-parameter-conversion.md` — cpp+python+js+go — 2x2 matrix inversion and cascade multiplication — generic algorithm
+- [ ] `book/electronics/digital/address-decoding/address-decoding.md` — cpp+python+go+js — Зсув+порівняння бітів адреси — портовний алгоритм
+- [ ] `book/electronics/digital/aperture-jitter/aperture-jitter.md` — cpp+python+js+go — Формула SNR/ENOB — портовна числова функція
+- [ ] `book/electronics/digital/aperture-jitter/math-jitter-snr.md` — cpp+python+js+go — Обернена формула джиттера — портовний розрахунок
+- [ ] `book/electronics/digital/arithmetic-logic-unit/arithmetic-logic-unit.md` — cpp+python — ALU додавання/віднімання з переносом
+- [ ] `book/electronics/digital/async-fifo/proj-ring-buffer.md` — cpp+python — кільцевий буфер (у т.ч. atomics)
+- [ ] `book/electronics/digital/bus-arbitration/bus-arbitration.md` — cpp+python — бітовий арбітраж шини
+- [ ] `book/electronics/digital/clock-data-recovery/clock-data-recovery.md` — cpp+python — пошук найкращої точки відліку біта
+- [ ] `book/electronics/digital/config-memory/config-memory.md` — cpp+micropython+python — wait_fpga_ready — generic GPIO poll-with-timeout, trivial MicroPython analog
+- [ ] `book/electronics/digital/contact-debounce/proj-debounce.md` — cpp+micropython+python — counter/timestamp/FSM debounce — generic algorithm, digitalRead/millis have direct MicroPython analogs
+- [ ] `book/electronics/digital/counters/counters.md` — cpp+python+js+go — generic toggle/mod-N event counter, no HW registers
+- [ ] `book/electronics/digital/d-flip-flop/d-flip-flop.md` — cpp+python+js+go — generic rising-edge-capture state simulation, no HW
+- [ ] `book/electronics/digital/encoder/encoder.md` — cpp+python — пріоритетний енкодер
+- [ ] `book/electronics/digital/finite-state-machines/finite-state-machines.md` — cpp+python — автомат Мура (світлофор)
+- [ ] `book/electronics/digital/finite-state-machines/proj-fsm-in-code.md` — cpp+python — табличний автомат станів
+- [ ] `book/electronics/digital/flash-wear-leveling/flash-wear-leveling.md` — cpp+python — вибір блока за зносом
+- [ ] `book/electronics/digital/gates-to-functions/gates-to-functions.md` — cpp+python — розряд АЛП
+- [ ] `book/electronics/digital/gates-to-functions/proj-alu-slice.md` — cpp+python — n-бітний АЛП з прапорцями
+- [ ] `book/electronics/digital/lfsr/lfsr.md` — cpp+python — LFSR
+- [ ] `book/electronics/digital/lfsr/math-max-length.md` — cpp+python — порядок многочлена / LFSR
+- [ ] `book/electronics/digital/line-coding/line-coding.md` — cpp+python — манчестерське кодування/декодування
+- [ ] `book/electronics/digital/logic-subfamilies/logic-subfamilies.md` — cpp+python+js — hc_fanout() is pure capacitance/current arithmetic, no hardware calls
+- [ ] `book/electronics/digital/lut/lut.md` — cpp+python — LUT-інтерполяція синуса
+- [ ] `book/electronics/digital/memory-hierarchy/memory-hierarchy.md` — cpp+python — середній час доступу + порядок циклу
+- [ ] `book/electronics/digital/memory-training/proj-training-search.md` — cpp+python — пошук найширшого вікна
+- [ ] `book/electronics/digital/mmu/mmu.md` — cpp+python — трансляція адреси сторінки
+- [ ] `book/electronics/digital/multiplexer/proj-mux-lut-c.md` — cpp+python — мультиплексор як обчислювач булевих функцій
+- [ ] `book/electronics/digital/nand-ecc/math-bch.md` — cpp+python — BCH-декодування через поле Галуа
+- [ ] `book/electronics/digital/nand-ecc/nand-ecc.md` — cpp+python — код Геммінга(7,4)
+- [ ] `book/electronics/digital/noise-shaping/noise-shaping.md` — cpp+python — формувач шуму 1-го порядку
+- [ ] `book/electronics/digital/noise-shaping/proj-error-feedback.md` — cpp+python — формувачі шуму 1/2-го порядку
+- [ ] `book/electronics/digital/oversampling-decimation/oversampling-decimation.md` — cpp+python — усереднення з децимацією
+- [ ] `book/electronics/digital/oversampling-decimation/proj-decimate-c.md` — cpp+python — блоковий дециматор і ковзне усереднення
+- [ ] `book/electronics/digital/parallel-to-serial/parallel-to-serial.md` — cpp+python — зсувний вивід/уведення бітів
+- [ ] `book/electronics/digital/pipeline-adc/math-redundancy.md` — cpp+python — 1.5-бітний щабель з корекцією
+- [ ] `book/electronics/digital/pipeline-adc/proj-stage-assembly.md` — cpp+python — конвеєрний АЦП зі складанням коду
+- [ ] `book/electronics/digital/pipeline-hazard/proj-hazard-detect-forward.md` — cpp+python — симулятор конвеєра CPU
+- [ ] `book/electronics/digital/prescaler/math-pulse-swallow.md` — cpp+python — розклад коефіцієнта ділення pulse-swallow
+- [ ] `book/electronics/digital/protocol-decoder-internals/protocol-decoder-internals.md` — cpp+python — мажоритарне голосування 2-з-3
+- [ ] `book/electronics/digital/register-file/register-file.md` — cpp+python — регістровий файл із пересиланням
+- [ ] `book/electronics/digital/ring-counter/comp-4017.md` — cpp+micropython+python+go — GPIO-послідовність чипа й чистий цикл ділення частоти
+- [ ] `book/electronics/digital/sd-card/sd-card.md` — cpp+micropython+python+go — Протокол SD-over-SPI — є канонічний MicroPython sdcard.py
+- [ ] `book/electronics/digital/serdes/serdes.md` — cpp+python — серіалізація/десеріалізація байта
+- [ ] `book/electronics/digital/shift-register-clocked/math-fir-tapped-delay.md` — cpp+python — FIR-фільтр з лінією затримки
+- [ ] `book/electronics/digital/shift-register-clocked/shift-register-clocked.md` — cpp+python — той самий FIR-алгоритм
+- [ ] `book/electronics/digital/shift-register/shift-register.md` — cpp+micropython — SIPO bit-bang/SPI shift-out is a classic MicroPython 74HC595 recipe
+- [ ] `book/electronics/digital/spread-spectrum-clocking/spread-spectrum-clocking.md` — cpp+python+go — Pure dB/log10 arithmetic calculation, no hardware, trivially portable
+- [ ] `book/electronics/digital/synchronous-counter/comp-sync-counter-ics.md` — cpp+python — модель кроку синхронного лічильника
+- [ ] `book/electronics/digital/synchronous-counter/math-max-frequency.md` — cpp+python+go — fmax formulas are pure floating-point arithmetic, no hardware
+- [ ] `book/electronics/digital/synchronous-counter/synchronous-counter.md` — cpp+python — крок синхронного лічильника з керуванням
+- [ ] `book/electronics/digital/t-flip-flop/t-flip-flop.md` — cpp+python — T-тригер / дільник на 2
+- [ ] `book/electronics/digital/time-borrowing/time-borrowing.md` — cpp+python+js+go — Булева логіка фронт-проти-рівня — портативний алгоритм, без регістрів
+- [ ] `book/electronics/digital/twos-complement/twos-complement.md` — cpp+python — доповняльний код
+- [ ] `book/electronics/digital/wired-or/wired-or.md` — cpp+micropython — digitalRead-стиль опитування давачів — high-level MCU API
+- [ ] `book/electronics/digital/wishbone-bus/wishbone-bus.md` — cpp+python+go — Протокол рукостискання STB/ACK — явний кандидат на Python/Go
+- [ ] `book/electronics/displays/color-formats/color-formats.md` — cpp+python — пакування RGB565/альфа-змішування
+- [ ] `book/electronics/displays/color-formats/math-rgb565.md` — cpp+python — конвертація RGB888<->RGB565
+- [ ] `book/electronics/displays/eink-refresh/eink-refresh.md` — cpp+python+micropython — Generic full/partial refresh counter calling display API
+- [ ] `book/electronics/displays/fonts/fonts.md` — cpp+python — блітинг гліфа шрифту
+- [ ] `book/electronics/displays/framebuffer/framebuffer.md` — cpp+python — адресація пікселя у framebuffer
+- [ ] `book/electronics/displays/primitives-raster/primitives-raster.md` — cpp+python — алгоритм Брезенхема для лінії
+- [ ] `book/electronics/electromechanics/acoustic-enclosure/math-box-tuning.md` — cpp+python+js+go — Pure physics/math formulas, no hardware, fully portable
+- [ ] `book/electronics/electromechanics/gearmotor/gearmotor.md` — cpp+python+js+go — Pure arithmetic torque-check function, no hardware
+- [ ] `book/electronics/electromechanics/gears-transmission/gears-transmission.md` — cpp+python+js+go — Pure arithmetic torque-check function, no hardware
+- [ ] `book/electronics/electromechanics/motor-current-stall-heat/motor-current-stall-heat.md` — cpp+python+micropython+go — generic threshold+timeout debounce algorithm
+- [ ] `book/electronics/metrology/measurement-errors/measurement-errors.md` — cpp+python+micropython+go — generic ADC averaging + offset correction
+- [ ] `book/electronics/microelectronics/mosfet-threshold/math-square-law.md` — cpp+python+js+go — pure math function, trivially portable
+- [ ] `book/electronics/microelectronics/testing-binning/testing-binning-d.md` — cpp+python — класифікація кристалів за сортами
+- [ ] `book/electronics/optoelectronics/addressable-leds/addressable-leds.md` — cpp+micropython — high-level NeoPixel-style board API
+- [ ] `book/electronics/pcb/esd-packaging/comp-ionizer.md` — cpp+python+micropython+go — generic threshold-hold polling loop
+- [ ] `book/electronics/power-electronics/battery-thermal-model/battery-thermal-model.md` — cpp+python+micropython — simple generic guard/threshold logic
+- [ ] `book/electronics/power-electronics/battery-to-controller/proj-brownout-monitor.md` — cpp+python — медіанний фільтр і автомат станів живлення
+- [ ] `book/electronics/power-electronics/bldc-commutation/proj-six-step-table.md` — cpp+python — таблиця шестикрокової комутації BLDC
+- [ ] `book/electronics/power-electronics/bms/bms.md` — cpp+python — пасивне балансування комірок
+- [ ] `book/electronics/power-electronics/bootstrap-capacitor/math-bootstrap-sizing.md` — cpp+python+go+js — чиста числова формула (struct+функції), без заліза
+- [ ] `book/electronics/power-electronics/control-loop-compensation/control-loop-compensation.md` — cpp+python — K-factor розрахунок компенсатора
+- [ ] `book/electronics/power-electronics/converter-measure/comp-electronic-load.md` — cpp+python+js — sweep+ККД через SDK-виклики load.*, ідіоматично й Python
+- [ ] `book/electronics/power-electronics/converter-measure/proj-efficiency-sweep.md` — cpp+python+go — SCPI over serial/UART — protocol automation, natural Python (PyVISA/pyserial) analog
+- [ ] `book/electronics/power-electronics/dc-motor-driver/dc-motor-driver.md` — cpp+micropython+python — H-bridge PWM drive via ledcWrite — high-level MCU PWM API, direct MicroPython PWM analog
+- [ ] `book/electronics/power-electronics/dickson-charge-pump/dickson-charge-pump.md` — cpp+python+js — Pure stdio/math formula calculator, zero hardware dependency, trivially portable
+- [ ] `book/electronics/power-electronics/efuse/efuse.md` — cpp+python — детектор стійкої аварії за ковзним вікном
+- [ ] `book/electronics/power-electronics/fast-charging/fast-charging.md` — cpp+python — таблиця сходинок швидкого заряду
+- [ ] `book/electronics/power-electronics/flyback-dcm-ccm/math-flyback-modes.md` — cpp+python — класифікація режиму DCM/BCM/CCM
+- [ ] `book/electronics/power-electronics/fuel-gauge/fuel-gauge.md` — cpp+micropython+python — I2C register read driver (MAX17048) — classic MicroPython i2c.readfrom_mem pattern
+- [ ] `book/electronics/power-electronics/interleaved-converter/interleaved-converter.md` — cpp+python — балансування фаз багатофазного перетворювача
+- [ ] `book/electronics/power-electronics/led-driver/led-driver.md` — cpp+micropython — simple ESP32 LEDC brightness API, MicroPython equivalent natural
+- [ ] `book/electronics/power-electronics/led-driver/proj-pwm-led-current.md` — cpp+python — гамма-корекція яскравості через LUT
+- [ ] `book/electronics/power-electronics/module-power-supply/proj-supply-monitor.md` — cpp+python — автомат станів гістерезису живлення
+- [ ] `book/electronics/power-electronics/motor-current-sense/motor-current-sense.md` — cpp+python — перетворення коду АЦП фази у струм
+- [ ] `book/electronics/power-electronics/motor-current-sense/proj-single-shunt-reconstruction.md` — cpp+python — реконструкція трифазного струму з одного шунта
+- [ ] `book/electronics/power-electronics/peukert-effect/peukert-effect.md` — cpp+python — модель Пойкерта ємності батареї
+- [ ] `book/electronics/power-electronics/phase-control-dimmer/phase-control-dimmer.md` — cpp+micropython+python — затримка від нуля до імпульсу — простий MCU-таймінг
+- [ ] `book/electronics/power-electronics/smbus-smart-battery/smbus-smart-battery.md` — cpp+python+go — протокол SMBus/I2C — ідіоматично на smbus2/Go
+- [ ] `book/electronics/power-electronics/specific-on-resistance/math-ron-a-derivation.md` — cpp+python — чистий фізичний розрахунок формули, без заліза
+- [ ] `book/electronics/power-electronics/specific-on-resistance/specific-on-resistance.md` — cpp+python — чистий розрахунок Ron·A і порівняння матеріалів
+- [ ] `book/electronics/power-electronics/state-of-charge/proj-coulomb-counting.md` — cpp+python — кулонометрія SoC
+- [ ] `book/electronics/power-electronics/stepper-driver/stepper-driver.md` — cpp+micropython+python — високорівневий STEP/DIR GPIO-API кроковика
+- [ ] `book/electronics/power-electronics/zero-cross-switching/proj-burst-control.md` — cpp+python — розподіл Брезенхема для burst-керування
+- [ ] `book/electronics/sensors/mems-microphone/proj-pdm-decimation.md` — cpp+python — CIC-фільтр децимації PDM з popcount
+- [ ] `book/electronics/sensors/optical-incremental-encoder/optical-incremental-encoder.md` — cpp+python — квадратурний декодер по таблиці переходів
+- [ ] `book/electronics/sensors/sensor-characteristics/sensor-characteristics.md` — cpp+python — LUT-інтерполяція калібрування давача
+
+## book/math (23)
+
+- [ ] `book/math/algebra/crc/crc.md` — cpp+python — побітовий CRC
+- [ ] `book/math/complex-analysis/impedance/impedance.md` — cpp+python — розрахунок комплексного імпедансу
+- [ ] `book/math/complex-analysis/phasors/phasors.md` — cpp+python — додавання фазорів
+- [ ] `book/math/geometry/power-triangle/power-triangle.md` — cpp+python — розрахунок трикутника потужностей
+- [ ] `book/math/information-theory/hamming-distance/proj-popcount-distance.md` — cpp+python — popcount/відстань Геммінга
+- [ ] `book/math/linear-algebra/dot-product/dot-product.md` — cpp+python — скалярний добуток і кут між векторами
+- [ ] `book/math/linear-algebra/gauss-elimination/gauss-elimination.md` — cpp+python — метод Гаусса
+- [ ] `book/math/linear-algebra/linear-systems/linear-systems.md` — cpp+python — розв'язання системи 2x2
+- [ ] `book/math/linear-algebra/matrices-as-operations/matrices-as-operations.md` — cpp+python — множення матриці на вектор
+- [ ] `book/math/linear-algebra/rotation-matrices/rotation-matrices.md` — cpp+python — матриця повороту 2D
+- [ ] `book/math/linear-algebra/vector-components/vector-components.md` — cpp+python — модуль і кут вектора
+- [ ] `book/math/number-theory/address-space/address-space.md` — cpp+python — розрахунок розміру адресного простору
+- [ ] `book/math/number-theory/twos-complement/math-modular-arithmetic.md` — cpp+python — модулярна арифметика доповняльного коду
+- [ ] `book/math/numerical-analysis/ieee754/ieee754.md` — cpp+python — декодування IEEE754 float
+- [ ] `book/math/real-analysis/half-power/half-power.md` — cpp+python — розрахунок частоти зрізу RC
+- [ ] `book/math/real-analysis/logarithms/logarithms.md` — cpp+python — переведення потужності в децибели
+- [ ] `book/math/real-analysis/rms/rms.md` — cpp+python — розрахунок RMS блоку відліків
+- [ ] `book/math/real-analysis/sine-derivative/sine-derivative.md` — cpp+python — похідна синуса
+- [ ] `book/math/real-analysis/windowing-leakage/windowing-leakage.md` — cpp+python — вікно Ганна для ШПФ
+- [ ] `book/math/statistics/averaging-gain/averaging-gain.md` — cpp+python — усереднення АЦП для зниження шуму
+- [ ] `book/math/statistics/averaging/averaging.md` — cpp+python — ковзне середнє
+- [ ] `book/math/statistics/least-squares/least-squares.md` — cpp+python — інкрементна лінійна регресія
+- [ ] `book/math/statistics/poisson-statistics/poisson-statistics.md` — cpp+python — оцінка похибки за Пуассоном
+
+## book/physics (3)
+
+- [ ] `book/physics/mechanics/propeller-geometry/math-blade-element.md` — cpp+python — теорія елемента лопаті з ітеративним розв'язком
+- [ ] `book/physics/mechanics/propeller-geometry/propeller-geometry.md` — cpp+python — розрахунок тяги гвинта й кута лопаті
+- [ ] `book/physics/mechanics/reaction-torque/proj-yaw-mixer.md` — cpp+python — мікшер квадрокоптера з насиченням
+
+## book/programming (65)
+
+- [ ] `book/programming/architecture-discipline/architecture-erosion/proj-dependency-checker.md` — cpp+python — граф залежностей + DFS-пошук циклів
+- [ ] `book/programming/architecture-discipline/architecture-review/proj-review-checklist.md` — cpp+python — перевірка завершеності рев'ю
+- [ ] `book/programming/architecture-discipline/architecture-views/architecture-views.md` — cpp+python — фільтрація моделі в різні в'ю
+- [ ] `book/programming/architecture-discipline/atam-lite/proj-lite-session.md` — cpp+python — аварійний автомат станів поза чергою
+- [ ] `book/programming/architecture-discipline/availability-tactics/availability-tactics.md` — cpp+python — монітор серцебиття
+- [ ] `book/programming/architecture-discipline/availability-tactics/proj-failover-with-heartbeat.md` — cpp+python — автомат відмовостійкості з орендою й гістерезисом
+- [ ] `book/programming/architecture-discipline/c4-model/c4-model.md` — cpp+python — модель контейнерів-черг за C4
+- [ ] `book/programming/architecture-discipline/finops-levers/proj-commitment-breakeven.md` — cpp+python — розрахунок точки беззбитковості commitment
+- [ ] `book/programming/architecture-discipline/legacy-archaeology/proj-characterization-test.md` — cpp+python — техніка швів і golden-master тестів
+- [ ] `book/programming/architecture-discipline/modifiability-tactics/modifiability-tactics.md` — cpp+python — інкапсуляція формату дати
+- [ ] `book/programming/architecture-discipline/team-topologies/team-topologies.md` — cpp+python — абстракція API платформи publish/subscribe
+- [ ] `book/programming/architecture-discipline/testability-tactics/testability-tactics.md` — cpp+python — ін'єкція залежностей для тестованості
+- [ ] `book/programming/architecture-discipline/tradeoff-analysis/tradeoff-analysis.md` — cpp+python — кільцевий буфер і кеш
+- [ ] `book/programming/architecture-discipline/viewpoints-perspectives/viewpoints-perspectives.md` — cpp+python — потоки/м'ютекс як приклад в'ю
+- [ ] `book/programming/architecture-discipline/walking-skeleton/walking-skeleton.md` — cpp+micropython+python+go — Sensor-read + byte-frame packing over UART — protocol framing, natural in MicroPython/Python
+- [ ] `book/programming/computer-architecture/bits-bytes-endianness/bits-bytes-endianness.md` — cpp+python — збирання числа з байтів незалежно від endianness
+- [ ] `book/programming/computer-architecture/bits-bytes-endianness/comp-sensor-byte-order.md` — cpp+python — розпаковка байтів давача
+- [ ] `book/programming/computer-architecture/bits-bytes-endianness/proj-serialization.md` — cpp+python — серіалізація big-endian
+- [ ] `book/programming/computer-architecture/branch-prediction/proj-branchless.md` — cpp+python — безгілкове програмування
+- [ ] `book/programming/computer-architecture/cache-coherence/cache-coherence.md` — cpp+python — хибне спільне використання й вирівнювання
+- [ ] `book/programming/computer-architecture/cache-coherence/proj-false-sharing.md` — cpp+python — бенчмарк false sharing з потоками
+- [ ] `book/programming/computer-architecture/control-unit-design/control-unit-design.md` — cpp+python — симулятор мікропрограмного автомата
+- [ ] `book/programming/computer-architecture/control-unit/control-unit.md` — cpp+python — декодер опкоду
+- [ ] `book/programming/computer-architecture/control-unit/proj-control-decoder.md` — cpp+python — симулятор автомата керування CPU
+- [ ] `book/programming/computer-architecture/dsp-architecture/proj-fir-mac.md` — cpp+python — FIR-фільтр на кільцевому буфері з MAC
+- [ ] `book/programming/computer-architecture/half-precision/half-precision.md` — cpp+python — конвертація float16/bfloat16
+- [ ] `book/programming/computer-architecture/half-precision/proj-half-precision-convert.md` — cpp+python — повна конвертація IEEE754 float16
+- [ ] `book/programming/computer-architecture/instruction-cycle-detail/proj-pipeline-sim.md` — cpp+python — симулятор 5-стадійного конвеєра CPU
+- [ ] `book/programming/computer-architecture/isa-encoding/isa-encoding.md` — cpp+python — розбір бітових полів RISC-V команди
+- [ ] `book/programming/computer-architecture/isa-encoding/math-immediate-split.md` — cpp+python — розклад числа на lui/addi
+- [ ] `book/programming/computer-architecture/isa/isa.md` — cpp+python — розбір навчальної системи команд
+- [ ] `book/programming/computer-architecture/mmu-address-window/proj-bank-window.md` — cpp+python — банкове вікно пам'яті з тіньовим регістром
+- [ ] `book/programming/computer-architecture/overflow-wraparound/proj-overflow-checks.md` — cpp+python — перевірка переповнення додавання/множення
+- [ ] `book/programming/computer-architecture/pipeline/pipeline.md` — cpp+python — безгілкова заміна умовного додавання
+- [ ] `book/programming/embedded-systems/ardupilot-layers/ardupilot-layers.md` — cpp+python — розрахунок інтервалу планувальника задач
+- [ ] `book/programming/embedded-systems/arming-checks/arming-checks.md` — cpp+python — таблиця pre-arm перевірок і автомат станів
+- [ ] `book/programming/embedded-systems/arming-checks/comp-safety-switch.md` — cpp+python — автомат кнопки безпеки з утриманням
+- [ ] `book/programming/embedded-systems/battery-budget/math-battery-math.md` — cpp+python — розрахунок середнього струму й часу життя батареї
+- [ ] `book/programming/embedded-systems/data-serialization/proj-framing.md` — cpp+python+go+js — byte-stuffing FSM framing + CRC, general algorithm not HW-bound
+- [ ] `book/programming/embedded-systems/data-serialization/proj-varint.md` — cpp+python+go+js — varint/zigzag/protobuf tag encoding, identical across languages
+- [ ] `book/programming/embedded-systems/double-buffering/proj-ring-buffer.md` — cpp+python+go+js — кільцевий буфер — класичний загальний алгоритм, не апаратно-специфічний
+- [ ] `book/programming/embedded-systems/module-model/module-model.md` — cpp+micropython — читання дискретного давача через GPIO — типовий MCU-API
+- [ ] `book/programming/embedded-systems/module-model/proj-key-matrix.md` — cpp+micropython — сканування матриці — алгоритм + GPIO MCU-API
+- [ ] `book/programming/embedded-systems/nonblocking-time/nonblocking-time.md` — cpp+micropython+python+js — millis-патерн — портовний алгоритм таймера
+- [ ] `book/programming/embedded-systems/nrf-radio-mcu/comp-nrf-modules.md` — cpp+micropython — тривіальний блимач GPIO — високорівневий MCU-API плати
+- [ ] `book/programming/embedded-systems/params-gcs/proj-param-protocol.md` — cpp+python+go — протокол MAVLink — портовна логіка запит/повтор
+- [ ] `book/programming/embedded-systems/partition-table/proj-partition-table.md` — cpp+micropython — esp_partition query API — MicroPython esp32.Partition has same find/info calls
+- [ ] `book/programming/embedded-systems/stream-parser/stream-parser.md` — cpp+python+go+micropython — загальний FSM-розбір потоку — портується на будь-яку мову
+- [ ] `book/programming/embedded-systems/super-loop/proj-cooperative-loop.md` — cpp+python+js+micropython — таблиця задач за millis() — загальний патерн планувальника
+- [ ] `book/programming/embedded-systems/wear-leveling/wear-leveling.md` — cpp+python+go — Ring buffer + seq/crc validity algorithm, hardware stubbed via extern
+- [ ] `book/programming/embedded-systems/why-persist/proj-flash-ring-log.md` — cpp+python+go — Ring log with seq/crc recovery, general algorithm over stubbed I/O
+- [ ] `book/programming/embedded-systems/write-integrity/proj-atomic-config.md` — cpp+python+go — A/B slot atomic commit-last pattern, general algorithm over stubbed I/O
+- [ ] `book/programming/languages/abi-calling-convention/proj-struct-packing.md` — cpp+python+go+js — manual little-endian byte packing has idiomatic struct/binary equivalents
+- [ ] `book/programming/languages/lexer-design/lexer-design.md` — cpp+python+js+go — general tokenizer/longest-match algorithm, idiomatic everywhere
+- [ ] `book/programming/networking/web-server-mcu/web-server-mcu-d.md` — cpp+python+js+go+micropython — HTTP routes/REST/WebSocket — universal server pattern
+- [ ] `book/programming/networking/web-server-mcu/web-server-mcu.md` — cpp+python+js+go+micropython — basic HTTP GET/JSON handler — same universal pattern
+- [ ] `book/programming/peripherals/usb-host/comp-otg.md` — cpp+micropython — plain GPIO enable pin, direct MicroPython Pin analog
+- [ ] `book/programming/software-design/dependency-inversion/dependency-inversion.md` — cpp+python+go — мовно-незалежний патерн DIP через virtual/interface
+- [ ] `book/programming/software-design/type-driven-design/type-driven-design.md` — cpp+rust+typescript+python — сума-типи/новотип/parse-don't-validate — класика для крос-мовного показу
+- [ ] `book/programming/software-engineering/behavioral-subtyping/behavioral-subtyping.md` — cpp+python+java+typescript — класичний LSP Square/Rectangle — стандартний крос-мовний приклад
+- [ ] `book/programming/software-engineering/loop-invariants/loop-invariants.md` — cpp+python+go+js — двійковий пошук з assert — класичний загальний алгоритм, ідіоматичний в кожній мові
+- [ ] `book/programming/systems/log-structured-storage/log-structured-storage.md` — cpp+python+go+js+micropython — portable append-only log kernel, array+linear-scan, no hardware ties
+- [ ] `book/programming/systems/task-ipc/proj-deadlock.md` — cpp+python+go — дисципліна порядку захоплення замків — універсальний патерн
+- [ ] `book/programming/systems/task-ipc/proj-queue-pattern.md` — cpp+go+python — share-nothing/actor-модель — канонічний патерн, ідіоматичний у Go channels, Python queue
+- [ ] `book/programming/systems/task-ipc/task-ipc.md` — cpp+python+go — фінальний producer-consumer через чергу+м'ютекс — загальний патерн
+
+## catalog/boards (7)
+
+- [ ] `catalog/boards/expansion/i2c-lcd-adapter/proj-lcd-i2c-api.md` — cpp+micropython — high-level Wire/LiquidCrystal_I2C API — MicroPython I2C.scan()/I2cLcd has direct analog
+- [ ] `catalog/boards/mcu/arduino-nano/arduino-nano.md` — cpp+micropython — Blink і pot+PWM — типовий високорівневий MCU-API з аналогом у MicroPython
+- [ ] `catalog/boards/mcu/arduino-uno/arduino-uno.md` — cpp+micropython — Кнопка+світлодіод — базовий MCU GPIO API з аналогом у MicroPython
+- [ ] `catalog/boards/mcu/esp-01s/proj-blink-wifi.md` — cpp+micropython — GPIO blink, WiFi connect, HTTP-сервер — типовий high-level MCU API
+- [ ] `catalog/boards/mcu/esp32-s3-pico/esp32-s3-pico.md` — cpp+micropython — короткий приклад WiFi+NeoPixel — high-level API з MicroPython-аналогом
+- [ ] `catalog/boards/mcu/esp32-s3-supermini/esp32-s3-supermini.md` — cpp+micropython — короткий NeoPixel+I2C приклад — high-level API з прямим MicroPython-аналогом
+- [ ] `catalog/boards/mcu/esp32-s3-supermini/proj-esp32-s3-supermini-api.md` — cpp+micropython — I2C-сканер, читання регістра, NeoPixel, ADC — усе high-level MCU API
+
+## catalog/sensors (42)
+
+- [ ] `catalog/sensors/environment/dht11/dht11.md` — cpp+micropython — короткий приклад бібліотеки DHT — типовий high-level давач-API
+- [ ] `catalog/sensors/environment/gy-bmp280/math-compensation.md` — cpp+python+micropython — Fixed/float compensation polynomial is a general algorithm, portable sensor driver
+- [ ] `catalog/sensors/input/keypad-4x4-membrane/keypad-4x4-membrane.md` — cpp+micropython — Bare GPIO matrix-scan loop is a general algorithm, portable
+- [ ] `catalog/sensors/input/keypad-4x4-tactile/proj-keypad-scan.md` — cpp+micropython — Bitmask scan+debounce is a general algorithm, portable GPIO pattern
+- [ ] `catalog/sensors/input/ky-004-button/ky-004-button.md` — cpp+micropython — Simple digitalRead polarity-agnostic button read, portable GPIO API
+- [ ] `catalog/sensors/input/ky-004-button/proj-ky004-button.md` — cpp+python+micropython — Non-blocking debounce state machine is a general algorithm, widely reimplemented
+- [ ] `catalog/sensors/input/ky-023-joystick/ky-023-joystick.md` — cpp+micropython — analogRead/digitalRead joystick reading is a portable high-level sensor API
+- [ ] `catalog/sensors/input/ky-023-joystick/proj-ky023-driver.md` — cpp+python+micropython — Calibration, deadzone, scaling, tank-mix math is general algorithm, portable
+- [ ] `catalog/sensors/input/ky-040-encoder/ky-040-encoder.md` — cpp+micropython — Interrupt-based CLK/DT quadrature read is a general algorithm, portable
+- [ ] `catalog/sensors/input/ky-040-encoder/proj-ky040.md` — cpp+python+micropython — Table-driven quadrature FSM decoder is a hardware-independent general algorithm
+- [ ] `catalog/sensors/input/potentiometer/potentiometer.md` — cpp+micropython — простий analogRead+map — загальний патерн читання АЦП
+- [ ] `catalog/sensors/input/tactile-buttons/tactile-buttons.md` — cpp+micropython — digitalRead+INPUT_PULLUP+delay-антибрязкіт — типовий GPIO-патерн
+- [ ] `catalog/sensors/light-sound/ky-010-interrupter/ky-010-interrupter.md` — cpp+micropython — калібрування полярності й підрахунок фронтів — загальний GPIO-патерн
+- [ ] `catalog/sensors/light-sound/ky-018-photoresistor/ky-018-photoresistor.md` — cpp+micropython — простий analogRead і поріг з LED — загальний патерн
+- [ ] `catalog/sensors/light-sound/ky-026-flame/ky-026-flame.md` — cpp+micropython — digitalRead/analogRead з порогом — загальний GPIO-патерн
+- [ ] `catalog/sensors/light-sound/ky-037-mic/ky-037-mic.md` — cpp+micropython — min/max-вікно гучності й поріг DO — загальний алгоритмічний патерн
+- [ ] `catalog/sensors/motion/adxl335/proj-adxl335.md` — cpp+python+micropython — портовна математика: atan2-нахил, IIR/ковзне середнє, поріг поштовху — не залізо
+- [ ] `catalog/sensors/motion/hc-sr04/hc-sr04.md` — cpp+micropython+python — TRIG/ECHO pulseIn-патерн — типовий ідіоматичний MicroPython-давач
+- [ ] `catalog/sensors/motion/hmc5883l/proj-hmc5883l.md` — cpp+python+micropython+go — I2C-протокол + atan2-математика — портується природно
+- [ ] `catalog/sensors/motion/ky-020-tilt/proj-ky020-driver.md` — cpp+micropython — Debounce FSM/ISR-flag читання піна — портативний GPIO/IRQ патерн
+- [ ] `catalog/sensors/motion/ky-021-reed/ky-021-reed.md` — cpp+micropython — Простий digitalRead геркона — тривіальний high-level GPIO аналог
+- [ ] `catalog/sensors/motion/ky-021-reed/proj-ky021.md` — cpp+micropython — Дебаунс/лічба/переривання — генеричний алгоритм, портативний API
+- [ ] `catalog/sensors/motion/ky-025-reed/ky-025-reed.md` — cpp+micropython — digitalRead геркона з компаратором — простий портативний зчит
+- [ ] `catalog/sensors/motion/ky-025-reed/proj-reed-firmware.md` — cpp+micropython — Дебаунс/край/переривання — той самий портативний GPIO-патерн
+- [ ] `catalog/sensors/motion/mpu6050/mpu6050.md` — cpp+micropython — I2C-протокол читання регістрів — стандартний Python/MicroPython аналог
+- [ ] `catalog/sensors/motion/pololu-imu/pololu-imu.md` — cpp+micropython — Ручний I2C-регістровий доступ — типовий протокольний Python-аналог
+- [ ] `catalog/sensors/motion/pololu-imu/proj-lsm6.md` — cpp+micropython — Високорівневий давач-API init/enable/read — переносний патерн
+- [ ] `catalog/sensors/motion/sw-520d/proj-sw520d.md` — cpp+micropython — Дебаунс/лічильник/переривання кнопки — портативний GPIO-алгоритм
+- [ ] `catalog/sensors/motion/sw-520d/sw-520d.md` — cpp+micropython — generic debounced GPIO pin read, portable pattern
+- [ ] `catalog/sensors/motion/tof250/tof250.md` — cpp+micropython+python — I2C register read for distance, portable protocol op
+- [ ] `catalog/sensors/temp-gas/ds18b20/ds18b20.md` — cpp+micropython — high-level OneWire/Dallas library read, MicroPython has onewire/ds18x20
+- [ ] `catalog/sensors/temp-gas/ky-039-pulse/proj-ky039-driver.md` — cpp+python+micropython — EMA filter + zero-crossing peak detection, generic DSP algorithm
+- [ ] `catalog/sensors/temp-gas/max30102/proj-max30102.md` — cpp+micropython — High-level I2C sensor API (begin/setup/getIR/checkForBeat) has real MicroPython analog
+- [ ] `catalog/sensors/temp-gas/mq-gas/proj-mq-driver.md` — cpp+python+micropython — ADC-to-resistance math, power-curve calibration, hysteresis — general algorithm
+- [ ] `catalog/sensors/water-soil/capacitive-soil/capacitive-soil.md` — cpp+micropython — Simple analogRead+map+threshold pump control — general sensor-read pattern
+- [ ] `catalog/sensors/water-soil/capacitive-soil/proj-capacitive-soil.md` — cpp+python+micropython — EMA filter, hysteresis, ADS1115 I2C driver — general algorithms + high-level API
+- [ ] `catalog/sensors/water-soil/funduino-rain/funduino-rain.md` — cpp+micropython — DO/AO threshold read — general sensor pattern
+- [ ] `catalog/sensors/water-soil/funduino-rain/proj-funduino-rain.md` — cpp+python+micropython — Non-blocking hysteresis on millis, ADC calibration, polarity detection — general algorithms
+- [ ] `catalog/sensors/water-soil/hw-038-water-level/hw-038-water-level.md` — cpp+micropython — analogRead + power-pin control — general sensor-read pattern
+- [ ] `catalog/sensors/water-soil/hw-038-water-level/proj-hw038-driver.md` — cpp+python+micropython — Multi-point calibration interpolation table, hysteresis, averaging — general algorithms
+- [ ] `catalog/sensors/water-soil/soil-moisture/proj-soil-moisture.md` — cpp+python+micropython — Median filter, EEPROM calibration, hysteresis, deep sleep — general algorithms + API
+- [ ] `catalog/sensors/water-soil/soil-moisture/soil-moisture.md` — cpp+micropython — analogRead + threshold with hysteresis — general sensor-read pattern
+

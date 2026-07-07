@@ -42,7 +42,45 @@
 
 Запустивши ArduPilot SITL (наприклад, `sim_vehicle.py -v ArduCopter`), дістаємо апарат, що слухає MAVLink на UDP-порту. Скрипт під'єднується до цього порту — і далі не знає й не мусить знати, що на тому кінці модель, а не залізо:
 
-```python
+:::tabs
+```cpp
+#include <mavsdk/mavsdk.h>
+#include <mavsdk/plugins/action/action.h>
+#include <mavsdk/plugins/telemetry/telemetry.h>
+#include <iostream>
+
+using namespace mavsdk;
+
+int main() {
+    Mavsdk mavsdk{Mavsdk::Configuration{Mavsdk::ComponentType::GroundStation}};
+
+    // під'єднуємось до SITL рівно так, як під'єдналися б до справжнього дрона:
+    // змінився б ЛИШЕ цей рядок (порт замість радіо) — решта коду та сама
+    mavsdk.add_any_connection("udpin://127.0.0.1:14550");
+
+    // знайомство: чекаємо, поки апарат з'явиться на лінії
+    std::shared_ptr<System> system;
+    while (mavsdk.systems().empty()) { /* чекаємо heartbeat */ }
+    system = mavsdk.systems().at(0);
+    std::cout << "апарат на лінії\n";
+
+    Action action{system};
+    Telemetry telemetry{system};
+
+    action.set_takeoff_altitude(10.0f);      // цільова висота 10 м
+    action.arm();                            // озброїти мотори (режим — автоматично GUIDED/Offboard)
+    action.takeoff();                        // команда злетіти
+
+    // стежимо за висотою з телеметрії — апарат справді «злітає» в моделі
+    telemetry.subscribe_position([](Telemetry::Position pos) {
+        std::cout << "висота: " << pos.relative_altitude_m << " м\n";
+    });
+
+    while (telemetry.position().relative_altitude_m < 9.5f) { /* чекаємо набору висоти */ }
+    return 0;
+}
+```
+```py
 from pymavlink import mavutil
 
 # під'єднуємось до SITL рівно так, як під'єдналися б до справжнього дрона:
@@ -69,6 +107,7 @@ while True:
     if alt > 9.5:
         break
 ```
+:::
 
 Вирішальне тут — **один** рядок підключення. Поміняй `'udpin:127.0.0.1:14550'` на серійний порт реального апарата — і той **самісінький** скрипт керуватиме справжнім дроном, бо з обох боків ті самі [команди](guide:embedded/mavlink-commands), та сама адресація, та сама телеметрія. Саме це робить SITL **повноцінним стендом**: місію, реакцію на подію, автоматику зльоту й посадки ти пишеш і відлагоджуєш на симуляторі, а потім переносиш на залізо **без переписування**. І навпаки — діагностичний скрипт, написаний для польоту, можна спокійно ганяти на SITL, перевіряючи його логіку без апарата в небі.
 

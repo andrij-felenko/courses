@@ -48,6 +48,7 @@
 
 Почнімо з того, що монітор показує назовні. Добрий інтерфейс читається як опис задачі: видно, що це «монітор входу живлення з класифікацією», ще до того, як зазирнеш усередину.
 
+:::tabs
 ```c
 // power_monitor.h — монітор захищеної шини живлення:
 //   вимір напруги дільником+АЦП, гістерезис, класифікація аварії, реакція.
@@ -115,6 +116,67 @@ bool       pm_fault_latched(const pm_channel_t *ch); // чи була аварі
 
 #endif
 ```
+```python
+# power_monitor.py — монітор захищеної шини живлення:
+#   вимір напруги дільником+АЦП, гістерезис, класифікація аварії, реакція.
+#   Той самий фіксований буфер і жодних блокувань — придатне і для MicroPython.
+from enum import IntEnum
+from dataclasses import dataclass, field
+from typing import Callable, Optional
+
+# Клас стану входу живлення — саме те, заради чого монітор існує.
+class PmClass(IntEnum):
+    OK        = 0     # шина в нормі, живлення дійшло
+    SAG       = 1     # просад: живлення є, але нижче норми (слабке джерело/кабель)
+    DEAD      = 2     # мертва шина: ≈0 В (обрив або згорілий запобіжник)
+    BODYDIODE = 3     # струм крізь body-діод: FET недовідкрився (реверс/низький Vin)
+
+# Незмінна конфігурація — заповнюється раз під конкретну плату (frozen = const).
+@dataclass(frozen=True)
+class PmConfig:
+    div_num: int; div_den: int       # коефіцієнт дільника: Vшини = Vадц * num/den
+    vref_mv: int                     # опора АЦП у мВ (повна шкала)
+    adc_full: int                    # максимальний код АЦП (напр. 4095 для 12 біт)
+
+    v_nominal_mv: int                # очікувана напруга шини в нормі, мВ
+    v_dead_mv: int                   # нижче цього шина вважається мертвою
+    v_sag_trip_mv: int               # нижче цього — просад (спрацювання)
+    v_sag_heal_mv: int               # вище цього — просад знято (відпускання) > trip
+    diode_drop_mv: int               # падіння body-діода (для розпізнавання, ~600 мВ)
+    diode_tol_mv: int                # допуск навколо «Vвх − diode_drop»
+
+    confirm_dead: int                # скільки поганих поспіль → DEAD (мало)
+    confirm_sag: int                 # скільки поганих поспіль → SAG (більше)
+    confirm_ok: int                  # скільки добрих поспіль → назад у OK (велике)
+
+# Робочий стан — значення за замовчуванням означають «холодний, ще не міряли».
+@dataclass
+class PmChannel:
+    cfg: PmConfig
+    st: PmClass = PmClass.OK           # поточний клас
+    bus_mv: int = 0                    # останнє усереднене значення шини, мВ
+    _sum: int = 0                      # біжуча сума кільцевого буфера
+    _buf: list = field(default_factory=lambda: [0] * 8)  # буфер сирих кодів АЦП
+    _head: int = 0                     # курсор буфера
+    _count: int = 0                    # наповнення буфера
+    bad_run: int = 0                   # поганих поспіль (для гістерезису)
+    good_run: int = 0                  # добрих поспіль (для гістерезису)
+    flag_latched: bool = False         # «була аварія» — липкий прапорець для сервісу
+
+# Функція вимірювання: read_adc() -> int повертає сирий код АЦП шини.
+# Так модуль не прив'язаний до конкретного АЦП (STM32, ESP32, будь-що).
+ReadAdc = Callable[[], int]
+
+# Реакції-callback: монітор кличе їх у МОМЕНТ переходу, з контексту poll().
+@dataclass
+class PmActions:
+    save_state: Optional[Callable[[], None]] = None   # зберегти критичне у NVM
+    set_load: Optional[Callable[[bool], None]] = None # зняти/подати навантаження (ключ)
+    on_class: Optional[Callable[[PmClass], None]] = None  # новий клас (індикація/лог)
+
+# Публічні pm_init / pm_poll / pm_class / pm_bus_mv / pm_fault_latched — нижче.
+```
+:::
 
 Три рішення в інтерфейсі варті слова, бо вони не випадкові.
 
@@ -128,6 +190,7 @@ bool       pm_fault_latched(const pm_channel_t *ch); // чи була аварі
 
 Тепер нутро. Читаймо згори вниз рівно так, як міркували: спершу перетворення сирого коду у вольти, тоді усереднення, тоді класифікатор, тоді сама машина з гістерезисом і реакціями.
 
+:::tabs
 ```c
 // power_monitor.c
 #include "power_monitor.h"
@@ -161,9 +224,36 @@ static uint16_t ring_avg(pm_channel_t *ch, uint16_t code) {
     return (uint16_t)(ch->sum / ch->count);
 }
 ```
+```python
+# power_monitor.py (продовження)
+
+def pm_init(cfg: PmConfig) -> PmChannel:
+    # Створити свіжий канал: доки не доведено погане — вважаємо норму (PM_OK).
+    return PmChannel(cfg=cfg)   # решта полів — за замовчуванням (буфер нулів тощо)
+
+# Сирий код АЦП → напруга шини в мілівольтах, з урахуванням дільника.
+# Порядок множень навмисний: спершу *vref, тоді дільник — щоб не втратити
+# точність на цілих (Python int безмежний, тож переповнення тут не боїмось).
+def _code_to_bus_mv(c: PmConfig, code: int) -> int:
+    v_adc = code * c.vref_mv // c.adc_full     # напруга на нозі
+    v_bus = v_adc * c.div_num // c.div_den     # назад до шини
+    return min(v_bus, 0xFFFF)
+
+# Кільцевий буфер: один новий відлік за виклик, миттєве середнє по 8.
+def _ring_avg(ch: PmChannel, code: int) -> int:
+    ch._sum -= ch._buf[ch._head]
+    ch._buf[ch._head] = code
+    ch._sum += code
+    ch._head = (ch._head + 1) & 7               # & 7 == % 8 (степінь двійки)
+    if ch._count < 8:
+        ch._count += 1
+    return ch._sum // ch._count
+```
+:::
 
 Перетворення коду у вольти й усереднення — знайомі прийоми; новина попереду, у класифікаторі. Він відповідає на питання «який почерк у цього числа?» — і робить це **без пам'яті**, дивлячись лише на поточну усереднену напругу. Пам'ять (підтвердження, гістерезис) живе окремо, у машині станів: це те саме розділення двох часових масштабів, що рятувало нас у детекторі відмови давача.
 
+:::tabs
 ```c
 // Класифікатор БЕЗ пам'яті: за однією напругою шини — який це почерк.
 // Гістерезис і підтвердження застосовує ВИЩЕ, машина станів.
@@ -188,11 +278,35 @@ static pm_class_t classify(const pm_config_t *c, uint16_t bus_mv, pm_class_t cur
     return (bus_mv < c->v_sag_trip_mv) ? PM_SAG : PM_OK;
 }
 ```
+```python
+# Класифікатор БЕЗ пам'яті: за однією напругою шини — який це почерк.
+# Гістерезис і підтвердження застосовує ВИЩЕ, машина станів.
+def _classify(c: PmConfig, bus_mv: int, cur: PmClass) -> PmClass:
+    # 1. Мертва шина: майже нуль. Найгрубіший і найдешевший діагноз.
+    if bus_mv < c.v_dead_mv:
+        return PmClass.DEAD
+
+    # 2. Почерк body-діода: шина тримається біля «номінал − діод-падіння».
+    #    Це вужче вікно, і воно має перевагу над «просто просадом»,
+    #    бо каже про КОНКРЕТНУ несправність захисту, а не про слабке живлення.
+    bd_center = c.v_nominal_mv - c.diode_drop_mv if c.v_nominal_mv > c.diode_drop_mv else 0
+    if bd_center - c.diode_tol_mv < bus_mv < bd_center + c.diode_tol_mv:
+        return PmClass.BODYDIODE
+
+    # 3. Просад — з гістерезисом: пороги спрацювання й відпускання різні.
+    #    Якщо ЗАРАЗ уже просад — тримаємось у ньому, поки не піднялись вище heal.
+    if cur == PmClass.SAG:
+        return PmClass.OK if bus_mv >= c.v_sag_heal_mv else PmClass.SAG
+    # Якщо ЗАРАЗ норма — оголошуємо просад лише впавши нижче trip (нижчий поріг).
+    return PmClass.SAG if bus_mv < c.v_sag_trip_mv else PmClass.OK
+```
+:::
 
 Зверніть увагу на дві тонкощі класифікатора. Перша: **порядок діагнозів — за спаданням упевненості**. Мертва шина (майже нуль) — найгрубіший факт, його перевіряємо першим. Почерк body-діода — вужчий і **специфічніший**: він каже про конкретну несправність, тож має перевагу над розмитим «просадом»; якби ми спершу спитали «нижче за номінал?», body-діодний випадок теж дав би «так» і ми втратили б точний діагноз. Друга: **гістерезис вбудований у сам класифікатор просаду** — рішення залежить не лише від напруги, а й від поточного стану `cur`. Уже в просаді ми тримаємось у ньому аж до вищого порога `heal`; у нормі — падаємо в просад лише нижче нижчого порога `trip`. Зазор між `trip` і `heal` і є те, що не дає стану миготіти на межі.
 
 Тепер сама машина — `pm_poll`. Вона склеює все докупи: виміряти, усереднити, класифікувати, підтвердити серією, і на **переході** — покликати реакції.
 
+:::tabs
 ```c
 void pm_poll(pm_channel_t *ch, pm_read_adc_t read, const pm_actions_t *act) {
     const pm_config_t *c = ch->cfg;
@@ -250,6 +364,66 @@ pm_class_t pm_class(const pm_channel_t *ch)        { return ch->st; }
 uint16_t   pm_bus_mv(const pm_channel_t *ch)       { return ch->bus_mv; }
 bool       pm_fault_latched(const pm_channel_t *ch){ return ch->flag_latched; }
 ```
+```python
+def pm_poll(ch: PmChannel, read: ReadAdc, act: PmActions) -> None:
+    c = ch.cfg
+
+    code = read()                      # один сирий відлік
+    avg = _ring_avg(ch, code)          # усереднений код
+    ch.bus_mv = _code_to_bus_mv(c, avg)  # напруга шини, мВ
+
+    want = _classify(c, ch.bus_mv, ch.st)
+
+    # Підтвердження серією: різні класи мають різну «терплячість».
+    # OK — це «добре», будь-яка аварія — «погано».
+    if want == PmClass.OK:
+        ch.bad_run = 0
+        if ch.good_run < 0xFF:
+            ch.good_run += 1
+    else:
+        ch.good_run = 0
+        if ch.bad_run < 0xFF:
+            ch.bad_run += 1
+
+    # Скільки підтверджень треба саме для ЦЬОГО переходу.
+    if want == PmClass.DEAD:
+        need = c.confirm_dead          # мертву ловимо швидко
+    elif want == PmClass.BODYDIODE:
+        need = c.confirm_dead          # так само швидко
+    elif want == PmClass.SAG:
+        need = c.confirm_sag           # просад — терплячіше
+    else:
+        need = c.confirm_ok            # назад у норму — нехотя
+
+    # Перехід стається лише коли серія добігла потрібної довжини
+    # І новий клас відрізняється від поточного.
+    enough = ch.good_run >= need if want == PmClass.OK else ch.bad_run >= need
+    if not enough or want == ch.st:
+        return                         # ще не впевнені або нема зміни
+
+    # ── ПЕРЕХІД: тут і тільки тут смикаємо реакції ──────────────────────────
+    ch.st = want
+
+    if want != PmClass.OK:
+        # Входимо в будь-яку аварію: спершу — рятуємо, тоді роз'єднуємо.
+        ch.flag_latched = True         # липкий прапорець для сервісу
+        if act.save_state:
+            act.save_state()           # поки є заряд у C
+        if act.set_load:
+            act.set_load(False)        # зняти навантаження
+    else:
+        # Повертаємось у норму з аварії: знову дозволяємо навантаження.
+        if act.set_load:
+            act.set_load(True)
+    if act.on_class:
+        act.on_class(want)             # індикація/лог завжди
+
+
+def pm_class(ch: PmChannel) -> PmClass:      return ch.st
+def pm_bus_mv(ch: PmChannel) -> int:         return ch.bus_mv
+def pm_fault_latched(ch: PmChannel) -> bool: return ch.flag_latched
+```
+:::
 
 Розберімо три місця, де код навмисно стриманий, бо саме ця стриманість його рятує.
 
@@ -263,6 +437,7 @@ bool       pm_fault_latched(const pm_channel_t *ch){ return ch->flag_latched; }
 
 Збоку монітор виглядає так, як ми й хотіли: платформозалежні лише вимір і реакції, решта універсальна. Ось збірка для 5-вольтової плати з ключем навантаження й записом у FRAM.
 
+:::tabs
 ```c
 // Пороги під 5-вольтову шину (усе в мВ). Один конфіг = одна плата.
 static const pm_config_t CFG_5V = {
@@ -316,6 +491,55 @@ void power_mon_loop(void) {
     // ... решта роботи пристрою ...
 }
 ```
+```python
+# Пороги під 5-вольтову шину (усе в мВ). Один конфіг = одна плата.
+CFG_5V = PmConfig(
+    div_num=3, div_den=1,          # дільник 3:1 → 5 В на нозі стає ~1.67 В
+    vref_mv=3300, adc_full=4095,
+
+    v_nominal_mv=5000,             # очікуємо 5.0 В
+    v_dead_mv=500,                 # < 0.5 В — мертва шина
+    v_sag_trip_mv=4500,            # < 4.5 В — оголосити просад
+    v_sag_heal_mv=4750,            # > 4.75 В — просад знято (зазор 250 мВ)
+    diode_drop_mv=600,             # body-діод ~0.6 В
+    diode_tol_mv=200,              # вікно ±0.2 В навколо 5.0−0.6 = 4.4 В
+
+    confirm_dead=3,                # мертву/body-діод — за 3 відліки
+    confirm_sag=10,                # просад терпимо довше (кидки струму — норма)
+    confirm_ok=30,                 # назад у норму — за 30 добрих поспіль
+)
+
+vin_mon = pm_init(CFG_5V)
+
+# Платформний шматок: прочитати канал АЦП шини (сирий код).
+# Вибірку тримаємо ПОВІЛЬНОЮ: дільник високоомний, швидкий відлік занизить.
+def read_vin_adc() -> int:
+    return adc_read_raw_slow(ADC_CH_VIN)     # довгий SamplingTime
+
+# Реакції плати.
+def save_critical() -> None:      fram_store_context()      # швидкий запис
+def switch_load(on: bool) -> None: gpio_write(LOAD_EN, on)  # ключ навантаження
+def report_class(c: PmClass) -> None:
+    if c == PmClass.OK:
+        led_set(LED_GREEN);   log_line("power OK")
+    elif c == PmClass.SAG:
+        led_blink(LED_AMBER); log_line("power SAG")
+    elif c == PmClass.DEAD:
+        led_set(LED_RED);     log_line("power DEAD (fuse?)")
+    elif c == PmClass.BODYDIODE:
+        led_blink(LED_RED);   log_line("REVERSE? FET body-diode")
+
+ACT = PmActions(
+    save_state=save_critical,
+    set_load=switch_load,
+    on_class=report_class,
+)
+
+def power_mon_loop() -> None:
+    pm_poll(vin_mon, read_vin_adc, ACT)      # раз на 1–5 мс (таймер/головний цикл)
+    # ... решта роботи пристрою ...
+```
+:::
 
 Уся капризність аналогового виміру й тонкість класифікації сховані. Решта пристрою бачить лише клас, який можна спитати будь-коли (`pm_class`), і реакції, що спрацьовують самі на переходах. `PM_BODYDIODE` тепер вмикає червоне блимання й пише в лог «REVERSE?» — і той монтажник із початку історії бачить сигнал «переверни штекер» замість того, щоб віднести справну плату в брак.
 

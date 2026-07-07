@@ -97,27 +97,84 @@ ENOB ≈ (84 − 1.76) / 6.02 ≈ 13.7 розряду
 
 Зробімо код, який рахує цю стелю прямо у прошивці — корисно, щоб на етапі вибору деталей одразу бачити межу:
 
-```c
-#include <math.h>
+:::tabs
+```cpp
+#include <cmath>
 
 // Стеля SNR (дБ) від апертурного джиттера
 // f_hz    — частота вхідного сигналу, Гц
 // tj_sec  — RMS-джиттер такту, с
-float jitter_snr_db(float f_hz, float tj_sec)
+double jitter_snr_db(double f_hz, double tj_sec)
 {
-    float x = 2.0f * (float)M_PI * f_hz * tj_sec;
-    return -20.0f * log10f(x);
+    double x = 2.0 * M_PI * f_hz * tj_sec;
+    return -20.0 * std::log10(x);
 }
 
 // Скільки ефективних розрядів (ENOB) лишає ця стеля
-float jitter_enob(float f_hz, float tj_sec)
+double jitter_enob(double f_hz, double tj_sec)
 {
-    float snr = jitter_snr_db(f_hz, tj_sec);
-    return (snr - 1.76f) / 6.02f;      // SNR ≈ 6.02·ENOB + 1.76
+    double snr = jitter_snr_db(f_hz, tj_sec);
+    return (snr - 1.76) / 6.02;        // SNR ≈ 6.02·ENOB + 1.76
 }
 
-// приклад: jitter_snr_db(10e6f, 1e-12f) ≈ 84.0;  jitter_enob(...) ≈ 13.7
+// приклад: jitter_snr_db(10e6, 1e-12) ≈ 84.0;  jitter_enob(...) ≈ 13.7
 ```
+```python
+import math
+
+# Стеля SNR (дБ) від апертурного джиттера
+# f_hz    — частота вхідного сигналу, Гц
+# tj_sec  — RMS-джиттер такту, с
+def jitter_snr_db(f_hz, tj_sec):
+    x = 2.0 * math.pi * f_hz * tj_sec
+    return -20.0 * math.log10(x)
+
+# Скільки ефективних розрядів (ENOB) лишає ця стеля
+def jitter_enob(f_hz, tj_sec):
+    snr = jitter_snr_db(f_hz, tj_sec)
+    return (snr - 1.76) / 6.02        # SNR ≈ 6.02·ENOB + 1.76
+
+# приклад: jitter_snr_db(10e6, 1e-12) ≈ 84.0;  jitter_enob(...) ≈ 13.7
+```
+```js
+// Стеля SNR (дБ) від апертурного джиттера
+// fHz   — частота вхідного сигналу, Гц
+// tjSec — RMS-джиттер такту, с
+function jitterSnrDb(fHz, tjSec) {
+    const x = 2.0 * Math.PI * fHz * tjSec;
+    return -20.0 * Math.log10(x);
+}
+
+// Скільки ефективних розрядів (ENOB) лишає ця стеля
+function jitterEnob(fHz, tjSec) {
+    const snr = jitterSnrDb(fHz, tjSec);
+    return (snr - 1.76) / 6.02;        // SNR ≈ 6.02·ENOB + 1.76
+}
+
+// приклад: jitterSnrDb(10e6, 1e-12) ≈ 84.0;  jitterEnob(...) ≈ 13.7
+```
+```go
+package jitter
+
+import "math"
+
+// Стеля SNR (дБ) від апертурного джиттера
+// fHz   — частота вхідного сигналу, Гц
+// tjSec — RMS-джиттер такту, с
+func SNRdB(fHz, tjSec float64) float64 {
+	x := 2.0 * math.Pi * fHz * tjSec
+	return -20.0 * math.Log10(x)
+}
+
+// Скільки ефективних розрядів (ENOB) лишає ця стеля
+func ENOB(fHz, tjSec float64) float64 {
+	snr := SNRdB(fHz, tjSec)
+	return (snr - 1.76) / 6.02 // SNR ≈ 6.02·ENOB + 1.76
+}
+
+// приклад: SNRdB(10e6, 1e-12) ≈ 84.0;  ENOB(...) ≈ 13.7
+```
+:::
 
 > 🔧 **Навіщо це.** Такий розрахунок роблять **до** покупки. Знаєте найвищу частоту сигналу й потрібну розрядність — обертаєте формулу й дістаєте, який джиттер такту допустимий: t_j = 1 / (2π·f·2^ENOB) з точністю до сталої. Виходить, наприклад, «щоб отримати 14 чесних розрядів на 10 МГц, потрібен такт із джиттером не гірше за пікосекунду» — і це одразу відсіює цілі класи дешевих генераторів ще до розведення плати.
 

@@ -49,7 +49,8 @@ U3 / V30           гарантує  >= 30 МБ/с   -> вистачає із з
 
 Розбудження йде так. Спершу, **тримаючи лінію вибору високою**, шлють щонайменше 74 такти на повільній частоті (100–400 кГц) — картці треба «прокрутити» внутрішній лічильник, перш ніж вона взагалі почне слухати. Тоді `CMD0` переводить її в стан очікування й у SPI-режим. `CMD8` перевіряє, чи це сучасна картка (SDHC/SDXC) і чи згодна вона на наше живлення. Далі в циклі шлють `ACMD41`, доки картка не повідомить, що ініціалізацію завершено. Нарешті `CMD58` читає регістр умов, звідки видно головне: адресує картка **блоками** (номер сектора) чи байтами — від цього залежить, як рахувати адресу при читанні.
 
-```c
+:::tabs
+```cpp
 // SPI-режим SD: послати команду (6 байтів) і дочекатися байта-відповіді R1.
 // spi_xchg(b) — обміняти один байт по SPI; CS_LOW/CS_HIGH — лінія вибору картки.
 static uint8_t sd_cmd(uint8_t cmd, uint32_t arg, uint8_t crc) {
@@ -88,10 +89,152 @@ int sd_init(void) {
     return -1;                            // картка так і не вийшла з idle
 }
 ```
+```micropython
+# SPI-режим SD на MicroPython. spi — об'єкт machine.SPI; cs — Pin вибору картки.
+# _xchg(b) — обміняти один байт: віддати b, забрати відповідь.
+
+def _xchg(spi, b):
+    r = bytearray(1)
+    spi.write_readinto(bytes([b]), r)     # один байт туди й назад
+    return r[0]
+
+def sd_cmd(spi, cmd, arg, crc):
+    _xchg(spi, 0xFF)                      # такт «вхолосту» перед командою
+    _xchg(spi, 0x40 | cmd)               # стартові біти + номер команди
+    _xchg(spi, (arg >> 24) & 0xFF); _xchg(spi, (arg >> 16) & 0xFF)
+    _xchg(spi, (arg >> 8) & 0xFF);  _xchg(spi, arg & 0xFF)  # 4 байти, старший першим
+    _xchg(spi, crc | 0x01)               # CRC потрібен лише для CMD0/CMD8
+    for _ in range(8):                   # відповідь приходить за кілька тактів
+        r = _xchg(spi, 0xFF)
+        if (r & 0x80) == 0:              # старший біт 0 -> це валідна R1
+            return r
+    return 0xFF                          # картка не відповіла
+
+# Розбудити картку й перевести її в SPI-режим. Повертає 0, якщо вдалося.
+def sd_init(spi, cs):
+    spi.init(baudrate=200_000)           # 100-400 кГц на час ініціалізації
+    cs.value(1)
+    for _ in range(10):                  # >= 74 тактів, CS високий
+        _xchg(spi, 0xFF)
+
+    cs.value(0)
+    if sd_cmd(spi, 0, 0x00000000, 0x94) != 0x01:  # CMD0: idle
+        cs.value(1); return -1
+    sd_cmd(spi, 8, 0x000001AA, 0x86)     # CMD8: перевірка діапазону живлення (+ 4 байти R7)
+    for _ in range(4):
+        _xchg(spi, 0xFF)
+
+    for _ in range(1000):                # ACMD41 у циклі — чекаємо готовності
+        sd_cmd(spi, 55, 0, 0xFF)         # ACMD = CMD55, потім сама команда
+        if sd_cmd(spi, 41, 0x40000000, 0xFF) == 0x00:  # біт HCS=1 (підтримка SDHC)
+            cs.value(1)
+            spi.init(baudrate=25_000_000)  # готово -> можна на повну частоту
+            return 0
+    cs.value(1)
+    return -1                            # картка так і не вийшла з idle
+```
+```python
+# SPI-режим SD через spidev на Linux (Raspberry Pi тощо).
+# spi — spidev.SpiDev; xchg(b) — обміняти один байт: віддати b, забрати відповідь.
+
+def xchg(spi, b):
+    return spi.xfer2([b])[0]              # один байт туди й назад
+
+def sd_cmd(spi, cmd, arg, crc):
+    xchg(spi, 0xFF)                       # такт «вхолосту» перед командою
+    xchg(spi, 0x40 | cmd)                 # стартові біти + номер команди
+    xchg(spi, (arg >> 24) & 0xFF); xchg(spi, (arg >> 16) & 0xFF)
+    xchg(spi, (arg >> 8) & 0xFF);  xchg(spi, arg & 0xFF)  # 4 байти, старший першим
+    xchg(spi, crc | 0x01)                 # CRC потрібен лише для CMD0/CMD8
+    for _ in range(8):                    # відповідь приходить за кілька тактів
+        r = xchg(spi, 0xFF)
+        if (r & 0x80) == 0:               # старший біт 0 -> це валідна R1
+            return r
+    return 0xFF                           # картка не відповіла
+
+# Розбудити картку й перевести її в SPI-режим. Повертає 0, якщо вдалося.
+def sd_init(spi, cs):
+    spi.max_speed_hz = 200_000            # 100-400 кГц на час ініціалізації
+    cs.high()
+    for _ in range(10):                   # >= 74 тактів, CS високий
+        xchg(spi, 0xFF)
+
+    cs.low()
+    if sd_cmd(spi, 0, 0x00000000, 0x94) != 0x01:  # CMD0: idle
+        cs.high(); return -1
+    sd_cmd(spi, 8, 0x000001AA, 0x86)      # CMD8: перевірка діапазону живлення (+ 4 байти R7)
+    for _ in range(4):
+        xchg(spi, 0xFF)
+
+    for _ in range(1000):                 # ACMD41 у циклі — чекаємо готовності
+        sd_cmd(spi, 55, 0, 0xFF)          # ACMD = CMD55, потім сама команда
+        if sd_cmd(spi, 41, 0x40000000, 0xFF) == 0x00:  # біт HCS=1 (підтримка SDHC)
+            cs.high()
+            spi.max_speed_hz = 25_000_000  # готово -> можна на повну частоту
+            return 0
+    cs.high()
+    return -1                             # картка так і не вийшла з idle
+```
+```go
+// SPI-режим SD. dev — драйвер SPI; csHigh/csLow керують лінією вибору картки.
+// xchg обмінює один байт: віддає b, повертає відповідь.
+func xchg(dev *SPI, b byte) byte {
+    rx := make([]byte, 1)
+    dev.Tx([]byte{b}, rx)             // один байт туди й назад
+    return rx[0]
+}
+
+func sdCmd(dev *SPI, cmd byte, arg uint32, crc byte) byte {
+    xchg(dev, 0xFF)                   // такт «вхолосту» перед командою
+    xchg(dev, 0x40|cmd)              // стартові біти + номер команди
+    xchg(dev, byte(arg>>24)); xchg(dev, byte(arg>>16))
+    xchg(dev, byte(arg>>8));  xchg(dev, byte(arg)) // 4 байти, старший першим
+    xchg(dev, crc|0x01)             // CRC потрібен лише для CMD0/CMD8
+    for i := 0; i < 8; i++ {        // відповідь приходить за кілька тактів
+        r := xchg(dev, 0xFF)
+        if r&0x80 == 0 {            // старший біт 0 -> це валідна R1
+            return r
+        }
+    }
+    return 0xFF                     // картка не відповіла
+}
+
+// Розбудити картку й перевести її в SPI-режим. Повертає nil, якщо вдалося.
+func sdInit(dev *SPI, csHigh, csLow func()) error {
+    dev.SetClock(200_000)            // 100-400 кГц на час ініціалізації
+    csHigh()
+    for i := 0; i < 10; i++ {        // >= 74 тактів, CS високий
+        xchg(dev, 0xFF)
+    }
+
+    csLow()
+    if sdCmd(dev, 0, 0x00000000, 0x94) != 0x01 { // CMD0: idle
+        csHigh()
+        return errNoIdle
+    }
+    sdCmd(dev, 8, 0x000001AA, 0x86)  // CMD8: перевірка діапазону живлення (+ 4 байти R7)
+    for i := 0; i < 4; i++ {
+        xchg(dev, 0xFF)
+    }
+
+    for tries := 0; tries < 1000; tries++ { // ACMD41 у циклі — чекаємо готовності
+        sdCmd(dev, 55, 0, 0xFF)      // ACMD = CMD55, потім сама команда
+        if sdCmd(dev, 41, 0x40000000, 0xFF) == 0x00 { // біт HCS=1 (підтримка SDHC)
+            csHigh()
+            dev.SetClock(25_000_000) // готово -> можна на повну частоту
+            return nil
+        }
+    }
+    csHigh()
+    return errNoIdle                 // картка так і не вийшла з idle
+}
+```
+:::
 
 Коли картка прокинулась, читання одного сектора стає майже тривіальним: команда `CMD17` із номером сектора, тоді чекаємо байт-маркер початку даних `0xFE`, забираємо рівно **512 байтів** і два байти контрольної суми (які в SPI можна відкинути).
 
-```c
+:::tabs
+```cpp
 // Прочитати один 512-байтовий сектор у buf. lba — номер сектора.
 // Для SDHC/SDXC адреса = номер сектора; для старих SDSC було б lba*512.
 int sd_read_block(uint32_t lba, uint8_t *buf) {
@@ -106,6 +249,66 @@ int sd_read_block(uint32_t lba, uint8_t *buf) {
     return 0;                             // сектор у buf
 }
 ```
+```micropython
+# Прочитати один 512-байтовий сектор у buf (bytearray на 512). lba — номер сектора.
+# Для SDHC/SDXC адреса = номер сектора; для старих SDSC було б lba*512.
+def sd_read_block(spi, cs, lba, buf):
+    cs.value(0)
+    if sd_cmd(spi, 17, lba, 0xFF) != 0x00:            # CMD17: read single block
+        cs.value(1); return -1
+    token = 0xFF                                      # чекаємо маркер початку даних
+    while token == 0xFF:
+        token = _xchg(spi, 0xFF)
+    if token != 0xFE:                                 # 0xFE = дані пішли
+        cs.value(1); return -2
+    spi.readinto(buf, 0xFF)                           # рівно 512 байтів у buf
+    _xchg(spi, 0xFF); _xchg(spi, 0xFF)                # два байти CRC -> у SPI відкидаємо
+    cs.value(1)
+    return 0                                          # сектор у buf
+```
+```python
+# Прочитати один 512-байтовий сектор. lba — номер сектора; повертає bytes на 512.
+# Для SDHC/SDXC адреса = номер сектора; для старих SDSC було б lba*512.
+def sd_read_block(spi, cs, lba):
+    cs.low()
+    if sd_cmd(spi, 17, lba, 0xFF) != 0x00:            # CMD17: read single block
+        cs.high(); raise IOError("CMD17 failed")
+    token = 0xFF                                      # чекаємо маркер початку даних
+    while token == 0xFF:
+        token = xchg(spi, 0xFF)
+    if token != 0xFE:                                 # 0xFE = дані пішли
+        cs.high(); raise IOError("bad data token")
+    buf = bytes(spi.readbytes(512))                   # рівно 512 байтів
+    xchg(spi, 0xFF); xchg(spi, 0xFF)                  # два байти CRC -> у SPI відкидаємо
+    cs.high()
+    return buf                                        # сектор
+```
+```go
+// Прочитати один 512-байтовий сектор у buf (зріз на 512). lba — номер сектора.
+// Для SDHC/SDXC адреса = номер сектора; для старих SDSC було б lba*512.
+func sdReadBlock(dev *SPI, csHigh, csLow func(), lba uint32, buf []byte) error {
+    csLow()
+    if sdCmd(dev, 17, lba, 0xFF) != 0x00 {   // CMD17: read single block
+        csHigh()
+        return errCmd17
+    }
+    var token byte = 0xFF                     // чекаємо маркер початку даних
+    for token == 0xFF {
+        token = xchg(dev, 0xFF)
+    }
+    if token != 0xFE {                        // 0xFE = дані пішли
+        csHigh()
+        return errBadToken
+    }
+    for i := 0; i < 512; i++ {                // рівно 512 байтів
+        buf[i] = xchg(dev, 0xFF)
+    }
+    xchg(dev, 0xFF); xchg(dev, 0xFF)          // два байти CRC -> у SPI відкидаємо
+    csHigh()
+    return nil                                // сектор у buf
+}
+```
+:::
 
 Тут і видно всю обіцянку картки: складна фізика NAND лишилася всередині, а ваш код оперує простим «дай сектор номер N — ось 512 байтів». Поверх цих двох функцій уже кладуть драйвер файлової системи, який із сирих секторів складає файли.
 

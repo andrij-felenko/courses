@@ -72,43 +72,76 @@
 
 **Умова.** Є модель системи: елементи (сервіси, бази, вузли) і зв'язки трьох родів — статична залежність (`DEPENDS`), виклик у часі (`CALLS`) і розміщення на вузлі (`DEPLOYED`). Треба, щоб «намалювати логічний в'ю» означало не окрему картинку, а вибірку саме статичних зв'язків із тієї самої моделі — тоді жоден в'ю не суперечить іншому.
 
-```c
-#include <stdio.h>
-#include <string.h>
+:::tabs
+```cpp
+#include <array>
+#include <iostream>
 
-typedef enum { DEPENDS, CALLS, DEPLOYED } Kind;   // рід зв'язку = вимір в'ю
+enum Kind { DEPENDS, CALLS, DEPLOYED };            // рід зв'язку = вимір в'ю
 
-typedef struct {
+struct Edge {
     const char *from;
     const char *to;
     Kind kind;
-} Edge;
+};
 
 // Одна модель — усі факти про систему разом, без поділу на діаграми.
-static const Edge MODEL[] = {
+static const std::array<Edge, 5> MODEL = {{
     { "orders",  "prices",  DEPENDS  },   // orders статично залежить від prices
     { "orders",  "prices",  CALLS    },   // і в часі його викликає
     { "orders",  "node-eu", DEPLOYED },   // а розгорнутий orders на вузлі EU
     { "prices",  "node-us", DEPLOYED },   // prices — на іншому вузлі, US!
     { "prices",  "cache",   DEPENDS  },
-};
-static const int N = sizeof(MODEL) / sizeof(MODEL[0]);
+}};
 
 // «Намалювати в'ю» = профільтрувати одну модель за родом зв'язку.
 void render_view(const char *name, Kind k) {
-    printf("В'ю: %s\n", name);
-    for (int i = 0; i < N; i++)
-        if (MODEL[i].kind == k)
-            printf("  %-8s -> %-8s\n", MODEL[i].from, MODEL[i].to);
+    std::cout << "В'ю: " << name << '\n';
+    for (const Edge &e : MODEL)
+        if (e.kind == k)
+            std::printf("  %-8s -> %-8s\n", e.from, e.to);
 }
 
-int main(void) {
+int main() {
     render_view("логічний (залежності)", DEPENDS);
     render_view("процесний (виклики)",   CALLS);
     render_view("розгортання (вузли)",   DEPLOYED);
     return 0;
 }
 ```
+```python
+from enum import Enum
+
+
+class Kind(Enum):                                 # рід зв'язку = вимір в'ю
+    DEPENDS = 1
+    CALLS = 2
+    DEPLOYED = 3
+
+
+# Одна модель — усі факти про систему разом, без поділу на діаграми.
+MODEL = [
+    ("orders", "prices",  Kind.DEPENDS),   # orders статично залежить від prices
+    ("orders", "prices",  Kind.CALLS),     # і в часі його викликає
+    ("orders", "node-eu", Kind.DEPLOYED),  # а розгорнутий orders на вузлі EU
+    ("prices", "node-us", Kind.DEPLOYED),  # prices — на іншому вузлі, US!
+    ("prices", "cache",   Kind.DEPENDS),
+]
+
+
+# «Намалювати в'ю» = профільтрувати одну модель за родом зв'язку.
+def render_view(name, kind):
+    print(f"В'ю: {name}")
+    for src, dst, k in MODEL:
+        if k == kind:
+            print(f"  {src:<8} -> {dst:<8}")
+
+
+render_view("логічний (залежності)", Kind.DEPENDS)
+render_view("процесний (виклики)",   Kind.CALLS)
+render_view("розгортання (вузли)",   Kind.DEPLOYED)
+```
+:::
 
 Що тут відбувається на очах:
 

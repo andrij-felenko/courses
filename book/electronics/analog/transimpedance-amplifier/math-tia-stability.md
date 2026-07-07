@@ -211,68 +211,262 @@ f(−3дБ) = 1/(2π·Rf·Cf) = √( f_GBW / (2π·Rf·Cin) )
 
 **Запас фази й перевірка компенсації.** За Rf, Cin, f_GBW і Cf знайдімо частоту перетину петлі, тоді запас фази, і скажімо, чи схема стійка.
 
-```c
-#include <math.h>
+:::tabs
+```cpp
+#include <cmath>
 
-#define TWO_PI (2.0f * (float)M_PI)
+constexpr float TWO_PI = 2.0f * static_cast<float>(M_PI);
 
-typedef struct {
+struct Tia {
     float Rf;       // резистор перетворення, Ом
     float Cin;      // повна вхідна ємність (діод + ОП + монтаж), Ф
     float Cf;       // конденсатор компенсації, Ф
     float f_gbw;    // добуток підсилення на смугу ОП, Гц
-} Tia;
+};
 
 // Частоти зламів коефіцієнта зворотного зв'язку
-static float fz_of(const Tia *t) {            // нуль 1/β від вхідної ємності
-    return 1.0f / (TWO_PI * t->Rf * (t->Cin + t->Cf));
+static float fz_of(const Tia &t) {            // нуль 1/β від вхідної ємності
+    return 1.0f / (TWO_PI * t.Rf * (t.Cin + t.Cf));
 }
-static float fp_of(const Tia *t) {            // полюс 1/β від Cf = смуга −3 дБ
-    return 1.0f / (TWO_PI * t->Rf * t->Cf);
+static float fp_of(const Tia &t) {            // полюс 1/β від Cf = смуга −3 дБ
+    return 1.0f / (TWO_PI * t.Rf * t.Cf);
 }
 
 // |A|·β = 1: ОП з одним домінантним полюсом має |A(f)| ≈ f_gbw / f.
 // 1/β(f) на полиці прямує до (Cin+Cf)/Cf; точну криву беремо з полюса й нуля.
-static float crossover_hz(const Tia *t) {
+static float crossover_hz(const Tia &t) {
     float fz = fz_of(t), fp = fp_of(t);
     // |A(f)| = f_gbw/f;  |1/β(f)| = sqrt(1+(f/fz)^2) / sqrt(1+(f/fp)^2)
     // шукаємо f, де f_gbw/f = |1/β|, простим діленням навпіл по логарифму
-    float lo = fp * 0.05f, hi = t->f_gbw;     // перетин гарантовано в цьому вікні
+    float lo = fp * 0.05f, hi = t.f_gbw;      // перетин гарантовано в цьому вікні
     for (int i = 0; i < 60; ++i) {
-        float f  = sqrtf(lo * hi);            // середина в лог-масштабі
-        float A  = t->f_gbw / f;
-        float ib = sqrtf(1.0f + (f/fz)*(f/fz)) / sqrtf(1.0f + (f/fp)*(f/fp));
+        float f  = std::sqrt(lo * hi);        // середина в лог-масштабі
+        float A  = t.f_gbw / f;
+        float ib = std::sqrt(1.0f + (f/fz)*(f/fz)) / std::sqrt(1.0f + (f/fp)*(f/fp));
         if (A > ib) lo = f; else hi = f;      // |A| ще вище за 1/β → перетин правіше
     }
-    return sqrtf(lo * hi);
+    return std::sqrt(lo * hi);
 }
 
 // Запас фази (градуси) при поточному Cf
-static float phase_margin_deg(const Tia *t) {
+static float phase_margin_deg(const Tia &t) {
     float fz = fz_of(t), fp = fp_of(t), fc = crossover_hz(t);
-    float deg = 180.0f / (float)M_PI;
+    constexpr float deg = 180.0f / static_cast<float>(M_PI);
     // фаза петлі: −90° (полюс ОП) − atan(fc/fz) (нуль 1/β) + atan(fc/fp) (полюс 1/β)
-    float phase = -90.0f - atanf(fc/fz)*deg + atanf(fc/fp)*deg;
+    float phase = -90.0f - std::atan(fc/fz)*deg + std::atan(fc/fp)*deg;
     return 180.0f + phase;                    // запас до −180°
 }
 
 // Cf-орієнтир максимально плоского відгуку (полюс у геом. середині fz та f_gbw)
 static float cf_butterworth(float Rf, float Cin, float f_gbw) {
-    return sqrtf(Cin / (TWO_PI * Rf * f_gbw));
+    return std::sqrt(Cin / (TWO_PI * Rf * f_gbw));
 }
 
 // Приклад: Rf = 1 МОм, Cin = 60 пФ, f_gbw = 10 МГц
-void check_example(void) {
-    Tia t = { .Rf = 1.0e6f, .Cin = 60.0e-12f, .f_gbw = 10.0e6f };
+void check_example() {
+    Tia t{ .Rf = 1.0e6f, .Cin = 60.0e-12f, .Cf = 0.0f, .f_gbw = 10.0e6f };
     t.Cf = cf_butterworth(t.Rf, t.Cin, t.f_gbw);   // ≈ 0.98 пФ
-    float pm = phase_margin_deg(&t);               // ≈ 45° — мінімально безпечно
-    float bw = fp_of(&t);                          // смуга −3 дБ ≈ 162 кГц
+    float pm = phase_margin_deg(t);                // ≈ 45° — мінімально безпечно
+    float bw = fp_of(t);                           // смуга −3 дБ ≈ 162 кГц
     if (pm < 45.0f) {
         // запас замалий: побільшити Cf (нижчий полюс, тихіше) або взяти швидший ОП
     }
     (void)pm; (void)bw;
 }
 ```
+```python
+import math
+from dataclasses import dataclass
+
+TWO_PI = 2.0 * math.pi
+
+
+@dataclass
+class Tia:
+    Rf: float       # резистор перетворення, Ом
+    Cin: float      # повна вхідна ємність (діод + ОП + монтаж), Ф
+    f_gbw: float    # добуток підсилення на смугу ОП, Гц
+    Cf: float = 0.0  # конденсатор компенсації, Ф
+
+
+# Частоти зламів коефіцієнта зворотного зв'язку
+def fz_of(t: Tia) -> float:                   # нуль 1/β від вхідної ємності
+    return 1.0 / (TWO_PI * t.Rf * (t.Cin + t.Cf))
+
+
+def fp_of(t: Tia) -> float:                   # полюс 1/β від Cf = смуга −3 дБ
+    return 1.0 / (TWO_PI * t.Rf * t.Cf)
+
+
+# |A|·β = 1: ОП з одним домінантним полюсом має |A(f)| ≈ f_gbw / f.
+# 1/β(f) на полиці прямує до (Cin+Cf)/Cf; точну криву беремо з полюса й нуля.
+def crossover_hz(t: Tia) -> float:
+    fz, fp = fz_of(t), fp_of(t)
+    # |A(f)| = f_gbw/f;  |1/β(f)| = sqrt(1+(f/fz)^2) / sqrt(1+(f/fp)^2)
+    # шукаємо f, де f_gbw/f = |1/β|, простим діленням навпіл по логарифму
+    lo, hi = fp * 0.05, t.f_gbw               # перетин гарантовано в цьому вікні
+    for _ in range(60):
+        f = math.sqrt(lo * hi)                # середина в лог-масштабі
+        A = t.f_gbw / f
+        ib = math.sqrt(1.0 + (f/fz)**2) / math.sqrt(1.0 + (f/fp)**2)
+        if A > ib:                            # |A| ще вище за 1/β → перетин правіше
+            lo = f
+        else:
+            hi = f
+    return math.sqrt(lo * hi)
+
+
+# Запас фази (градуси) при поточному Cf
+def phase_margin_deg(t: Tia) -> float:
+    fz, fp, fc = fz_of(t), fp_of(t), crossover_hz(t)
+    # фаза петлі: −90° (полюс ОП) − atan(fc/fz) (нуль 1/β) + atan(fc/fp) (полюс 1/β)
+    phase = -90.0 - math.degrees(math.atan(fc/fz)) + math.degrees(math.atan(fc/fp))
+    return 180.0 + phase                      # запас до −180°
+
+
+# Cf-орієнтир максимально плоского відгуку (полюс у геом. середині fz та f_gbw)
+def cf_butterworth(Rf: float, Cin: float, f_gbw: float) -> float:
+    return math.sqrt(Cin / (TWO_PI * Rf * f_gbw))
+
+
+# Приклад: Rf = 1 МОм, Cin = 60 пФ, f_gbw = 10 МГц
+def check_example() -> None:
+    t = Tia(Rf=1.0e6, Cin=60.0e-12, f_gbw=10.0e6)
+    t.Cf = cf_butterworth(t.Rf, t.Cin, t.f_gbw)   # ≈ 0.98 пФ
+    pm = phase_margin_deg(t)                       # ≈ 45° — мінімально безпечно
+    bw = fp_of(t)                                  # смуга −3 дБ ≈ 162 кГц
+    if pm < 45.0:
+        pass  # запас замалий: побільшити Cf (нижчий полюс) або взяти швидший ОП
+    _ = (pm, bw)
+```
+```js
+const TWO_PI = 2.0 * Math.PI;
+
+// t = { Rf, Cin, Cf, f_gbw }
+//   Rf    — резистор перетворення, Ом
+//   Cin   — повна вхідна ємність (діод + ОП + монтаж), Ф
+//   Cf    — конденсатор компенсації, Ф
+//   f_gbw — добуток підсилення на смугу ОП, Гц
+
+// Частоти зламів коефіцієнта зворотного зв'язку
+function fzOf(t) {                             // нуль 1/β від вхідної ємності
+  return 1.0 / (TWO_PI * t.Rf * (t.Cin + t.Cf));
+}
+function fpOf(t) {                             // полюс 1/β від Cf = смуга −3 дБ
+  return 1.0 / (TWO_PI * t.Rf * t.Cf);
+}
+
+// |A|·β = 1: ОП з одним домінантним полюсом має |A(f)| ≈ f_gbw / f.
+// 1/β(f) на полиці прямує до (Cin+Cf)/Cf; точну криву беремо з полюса й нуля.
+function crossoverHz(t) {
+  const fz = fzOf(t), fp = fpOf(t);
+  // |A(f)| = f_gbw/f;  |1/β(f)| = sqrt(1+(f/fz)^2) / sqrt(1+(f/fp)^2)
+  // шукаємо f, де f_gbw/f = |1/β|, простим діленням навпіл по логарифму
+  let lo = fp * 0.05, hi = t.f_gbw;           // перетин гарантовано в цьому вікні
+  for (let i = 0; i < 60; ++i) {
+    const f = Math.sqrt(lo * hi);             // середина в лог-масштабі
+    const A = t.f_gbw / f;
+    const ib = Math.sqrt(1.0 + (f/fz)**2) / Math.sqrt(1.0 + (f/fp)**2);
+    if (A > ib) lo = f; else hi = f;          // |A| ще вище за 1/β → перетин правіше
+  }
+  return Math.sqrt(lo * hi);
+}
+
+// Запас фази (градуси) при поточному Cf
+function phaseMarginDeg(t) {
+  const fz = fzOf(t), fp = fpOf(t), fc = crossoverHz(t);
+  const deg = 180.0 / Math.PI;
+  // фаза петлі: −90° (полюс ОП) − atan(fc/fz) (нуль 1/β) + atan(fc/fp) (полюс 1/β)
+  const phase = -90.0 - Math.atan(fc/fz)*deg + Math.atan(fc/fp)*deg;
+  return 180.0 + phase;                       // запас до −180°
+}
+
+// Cf-орієнтир максимально плоского відгуку (полюс у геом. середині fz та f_gbw)
+function cfButterworth(Rf, Cin, f_gbw) {
+  return Math.sqrt(Cin / (TWO_PI * Rf * f_gbw));
+}
+
+// Приклад: Rf = 1 МОм, Cin = 60 пФ, f_gbw = 10 МГц
+function checkExample() {
+  const t = { Rf: 1.0e6, Cin: 60.0e-12, Cf: 0.0, f_gbw: 10.0e6 };
+  t.Cf = cfButterworth(t.Rf, t.Cin, t.f_gbw);  // ≈ 0.98 пФ
+  const pm = phaseMarginDeg(t);                // ≈ 45° — мінімально безпечно
+  const bw = fpOf(t);                          // смуга −3 дБ ≈ 162 кГц
+  if (pm < 45.0) {
+    // запас замалий: побільшити Cf (нижчий полюс, тихіше) або взяти швидший ОП
+  }
+  void pm; void bw;
+}
+```
+```go
+package tia
+
+import "math"
+
+const twoPi = 2.0 * math.Pi
+
+type Tia struct {
+	Rf    float64 // резистор перетворення, Ом
+	Cin   float64 // повна вхідна ємність (діод + ОП + монтаж), Ф
+	Cf    float64 // конденсатор компенсації, Ф
+	Fgbw  float64 // добуток підсилення на смугу ОП, Гц
+}
+
+// Частоти зламів коефіцієнта зворотного зв'язку
+func fzOf(t Tia) float64 { // нуль 1/β від вхідної ємності
+	return 1.0 / (twoPi * t.Rf * (t.Cin + t.Cf))
+}
+func fpOf(t Tia) float64 { // полюс 1/β від Cf = смуга −3 дБ
+	return 1.0 / (twoPi * t.Rf * t.Cf)
+}
+
+// |A|·β = 1: ОП з одним домінантним полюсом має |A(f)| ≈ Fgbw / f.
+// 1/β(f) на полиці прямує до (Cin+Cf)/Cf; точну криву беремо з полюса й нуля.
+func crossoverHz(t Tia) float64 {
+	fz, fp := fzOf(t), fpOf(t)
+	// |A(f)| = Fgbw/f;  |1/β(f)| = sqrt(1+(f/fz)^2) / sqrt(1+(f/fp)^2)
+	// шукаємо f, де Fgbw/f = |1/β|, простим діленням навпіл по логарифму
+	lo, hi := fp*0.05, t.Fgbw // перетин гарантовано в цьому вікні
+	for i := 0; i < 60; i++ {
+		f := math.Sqrt(lo * hi) // середина в лог-масштабі
+		A := t.Fgbw / f
+		ib := math.Sqrt(1.0+(f/fz)*(f/fz)) / math.Sqrt(1.0+(f/fp)*(f/fp))
+		if A > ib { // |A| ще вище за 1/β → перетин правіше
+			lo = f
+		} else {
+			hi = f
+		}
+	}
+	return math.Sqrt(lo * hi)
+}
+
+// Запас фази (градуси) при поточному Cf
+func phaseMarginDeg(t Tia) float64 {
+	fz, fp, fc := fzOf(t), fpOf(t), crossoverHz(t)
+	deg := 180.0 / math.Pi
+	// фаза петлі: −90° (полюс ОП) − atan(fc/fz) (нуль 1/β) + atan(fc/fp) (полюс 1/β)
+	phase := -90.0 - math.Atan(fc/fz)*deg + math.Atan(fc/fp)*deg
+	return 180.0 + phase // запас до −180°
+}
+
+// Cf-орієнтир максимально плоского відгуку (полюс у геом. середині fz та Fgbw)
+func cfButterworth(Rf, Cin, Fgbw float64) float64 {
+	return math.Sqrt(Cin / (twoPi * Rf * Fgbw))
+}
+
+// Приклад: Rf = 1 МОм, Cin = 60 пФ, Fgbw = 10 МГц
+func checkExample() {
+	t := Tia{Rf: 1.0e6, Cin: 60.0e-12, Fgbw: 10.0e6}
+	t.Cf = cfButterworth(t.Rf, t.Cin, t.Fgbw) // ≈ 0.98 пФ
+	pm := phaseMarginDeg(t)                    // ≈ 45° — мінімально безпечно
+	bw := fpOf(t)                              // смуга −3 дБ ≈ 162 кГц
+	if pm < 45.0 {
+		// запас замалий: побільшити Cf (нижчий полюс, тихіше) або взяти швидший ОП
+	}
+	_, _ = pm, bw
+}
+```
+:::
 
 Логіка коду — це логіка виведення, перекладена на числа. Спершу знаходимо два злами 1/β (нуль від Cin, полюс від Cf). Тоді чисельно ловимо частоту перетину f_c, де |A| опускається до 1/β — діленням навпіл у логарифмічному масштабі, бо саме там петля замикається. Нарешті складаємо фазу з трьох внесків і віднімаємо від 180°. Якщо при оптимальному Cf запас виходить близько 45°, а нам треба гладший відгук — функція `cf_butterworth` дає лише старт; помноживши її результат на 1.4–1.6, посунемо полюс нижче й піднімемо запас до 60–64°, заплативши частиною смуги. Цей самий код у приладі може перебрати каталог ОП і обрати той, що дає і потрібну смугу, і запас ≥ 45° — точно те рішення, яке інакше робили б олівцем на Bode-графіку.
 

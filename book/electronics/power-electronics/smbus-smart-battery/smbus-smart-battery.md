@@ -68,7 +68,8 @@ SBS-стандарт не просто чіпляє батарею на шину
 
 **Умова:** хост прочитав регістр 0x09 (Voltage) і отримав по шині два байти: спершу 0x24, потім 0x1F. Що це за напруга?
 
-```c
+:::tabs
+```cpp
 // SMBus Read Word: код 0x09 → два байти LSB-перший
 uint8_t  cmd = 0x09;            // Voltage()
 uint8_t  raw[2];               // [0]=молодший, [1]=старший
@@ -80,6 +81,37 @@ uint16_t mv = (uint16_t)raw[0] | ((uint16_t)raw[1] << 8);
 float volts = mv / 1000.0f;    // одиниця регістра — мілівольти
 // volts ≈ 7.97 В  → двобанковий Li-ion пакет
 ```
+```python
+from smbus2 import SMBus
+
+# SMBus Read Word: код 0x09 → два байти LSB-перший
+BATT_ADDR7 = 0x0B
+cmd = 0x09                      # Voltage()
+
+with SMBus(1) as bus:
+    mv = bus.read_word_data(BATT_ADDR7, cmd)  # smbus2 сам збирає LSB-перший
+# для сирого запиту {0x24, 0x1F} → mv = 0x1F24 = 7972
+
+volts = mv / 1000.0             # одиниця регістра — мілівольти
+# volts ≈ 7.97 В  → двобанковий Li-ion пакет
+```
+```go
+// SMBus Read Word: код 0x09 → два байти LSB-перший
+const battAddr7 = 0x0B
+const cmd = 0x09 // Voltage()
+
+raw, err := dev.ReadWordData(cmd) // raw[0]=молодший, raw[1]=старший
+if err != nil {
+    log.Fatal(err)
+}
+
+mv := uint16(raw[0]) | uint16(raw[1])<<8
+// raw = {0x24, 0x1F} → mv = 0x24 | (0x1F << 8) = 0x1F24 = 7972
+
+volts := float64(mv) / 1000.0 // одиниця регістра — мілівольти
+// volts ≈ 7.97 В  → двобанковий Li-ion пакет
+```
+:::
 
 Ключове тут — **одиниця**. Стандарт жорстко фіксує, у чому виражений кожен регістр, і драйвер мусить це знати наперед, бо в самих байтах одиниці немає. Напруга — у **мілівольтах**. Струм — у **мілі-амперах** (і це **число зі знаком**: додатне — заряджання, від'ємне — розряджання). Температура — у **десятих частках кельвіна** (щоб перейти в градуси Цельсія: поділити на 10 і відняти 273.15). Ємність — у **мА·год**. Відсоток заряду — просто ціле від 0 до 100.
 
@@ -113,7 +145,8 @@ float volts = mv / 1000.0f;    // одиниця регістра — мілів
 
 **BatteryStatus (0x16)** — не число, а **бітове поле тривог і режимів**. Окремі біти означають «перегрів», «перезаряд», «розряджено вщент», «повністю заряджено». Прошивка хоста читає це слово й перевіряє біти маскою:
 
-```c
+:::tabs
+```cpp
 uint16_t st = smbus_read_word_u16(BATT_ADDR7, 0x16);  // BatteryStatus()
 
 #define OVER_TEMP_ALARM   (1u << 12)
@@ -123,6 +156,37 @@ uint16_t st = smbus_read_word_u16(BATT_ADDR7, 0x16);  // BatteryStatus()
 if (st & OVER_TEMP_ALARM)  stop_everything();   // перегрів — вимикаємо
 if (st & TERMINATE_CHARGE) charger_off();       // батарея каже: досить
 ```
+```python
+st = bus.read_word_data(BATT_ADDR7, 0x16)  # BatteryStatus()
+
+OVER_TEMP_ALARM  = 1 << 12
+TERMINATE_CHARGE = 1 << 14   # «годі заряджати»
+OVER_CHARGED     = 1 << 15
+
+if st & OVER_TEMP_ALARM:   stop_everything()   # перегрів — вимикаємо
+if st & TERMINATE_CHARGE:  charger_off()       # батарея каже: досить
+```
+```go
+raw, err := dev.ReadWordData(0x16) // BatteryStatus()
+if err != nil {
+    log.Fatal(err)
+}
+st := uint16(raw[0]) | uint16(raw[1])<<8
+
+const (
+    overTempAlarm   = 1 << 12
+    terminateCharge = 1 << 14 // «годі заряджати»
+    overCharged     = 1 << 15
+)
+
+if st&overTempAlarm != 0 {
+    stopEverything() // перегрів — вимикаємо
+}
+if st&terminateCharge != 0 {
+    chargerOff() // батарея каже: досить
+}
+```
+:::
 
 Ось де видно різницю між «розумною» батареєю й звичайною банкою: батарея не чекає, поки хост здогадається про біду, — вона **сама виставляє прапорець тривоги**, і відповідальний хост зобов'язаний його прочитати й зреагувати.
 

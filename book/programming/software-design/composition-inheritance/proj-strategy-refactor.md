@@ -23,6 +23,7 @@
 
 Тут і криється пастка, у яку так легко впасти. Оскільки зброя й броня незалежні, а поведінка залежить від **обох**, окремий тип доводиться заводити на кожну їхню **комбінацію**. Не «меченосець», а «меченосець-у-легкій» і «меченосець-у-важкій» — окремо. Ось цей код, чесно доведений до кінця:
 
+:::tabs
 ```cpp
 #include <cstdio>
 
@@ -56,11 +57,37 @@ public:
     int defend() const override { return 7; }    // важка
 };
 ```
+```python
+from abc import ABC, abstractmethod
+
+# Базовий ворог: обіцяє два числа — завдану й поглинуту шкоду.
+class Enemy(ABC):
+    @abstractmethod
+    def attack(self): ...   # скільки шкоди завдає
+    @abstractmethod
+    def defend(self): ...   # скільки шкоди тримає
+
+# Кожна КОМБІНАЦІЯ зброя×броня — окремий клас.
+class SwordLight(Enemy):
+    def attack(self): return 10   # меч
+    def defend(self): return 2    # легка
+class SwordHeavy(Enemy):
+    def attack(self): return 10   # меч
+    def defend(self): return 7    # важка
+class BowLight(Enemy):
+    def attack(self): return 6    # лук
+    def defend(self): return 2    # легка
+class BowHeavy(Enemy):
+    def attack(self): return 6    # лук
+    def defend(self): return 7    # важка
+```
+:::
 
 Два види зброї, дві броні — **чотири** класи. Код компілюється, працює, і на цьому масштабі навіть виглядає невинно. Але вже тут видно перший тривожний знак: подивись, скільки разів повторилося число `10`. Меч завдає десять і в `SwordLight`, і в `SwordHeavy` — та сама логіка меча продубльована в кожному класі, де меч зустрічається. Зміниш баланс меча на `12` — правити доведеться у **двох** місцях, а забудеш одне — дістанеш ворога, що б'є мечем по-різному залежно від броні. Це вже прямий підрив [принципу DRY](book:programming/dry-kiss-yagni): та сама істина про меч живе у двох копіях, і копії розповзаються.
 
 Тепер додаймо третю вісь — **броню «магічна»** — і порахуймо, що станеться.
 
+:::tabs
 ```cpp
 // Додаємо ОДНУ броню — а класів доводиться дописати стільки,
 // скільки є видів зброї:
@@ -76,6 +103,18 @@ public:
 };
 // Було 4 → стало 6. Одна нова броня коштувала ДВА класи.
 ```
+```python
+# Додаємо ОДНУ броню — а класів доводиться дописати стільки,
+# скільки є видів зброї:
+class SwordMagic(Enemy):
+    def attack(self): return 10
+    def defend(self): return 5
+class BowMagic(Enemy):
+    def attack(self): return 6
+    def defend(self): return 5
+# Було 4 → стало 6. Одна нова броня коштувала ДВА класи.
+```
+:::
 
 Ось воно, серце проблеми, у голих числах. Одна нова броня додала не один клас, а **стільки класів, скільки є видів зброї**. Бо кожен новий різновид однієї осі мусить одружитися з **кожним** наявним різновидом усіх інших осей. Кількість класів — це не сума видів по осях, це їхній **добуток**:
 
@@ -117,6 +156,7 @@ public:
 
 Ось те саме, переписане на стратегії. Зверни увагу, як зникло дублювання: число «шкода меча = 10» тепер живе в **одному** місці — у класі `Sword`, — хоч би скільки осей ми додали згодом.
 
+:::tabs
 ```cpp
 #include <cstdio>
 #include <memory>
@@ -174,11 +214,53 @@ public:
     }
 };
 ```
+```python
+# ── Вісь «зброя»: інтерфейс + різновиди (по одному класу на вид) ──
+class Weapon:
+    def hit(self):  ...   # скільки шкоди завдає
+    def name(self): ...
+class Sword(Weapon):
+    def hit(self):  return 10        # логіка меча — В ОДНОМУ місці
+    def name(self): return "меч"
+class Bow(Weapon):
+    def hit(self):  return 6
+    def name(self): return "лук"
+
+# ── Вісь «броня»: інтерфейс + різновиди ──
+class Armor:
+    def block(self): ...   # скільки шкоди тримає
+    def name(self):  ...
+class Light(Armor):
+    def block(self): return 2
+    def name(self):  return "легка"
+class Heavy(Armor):
+    def block(self): return 7
+    def name(self):  return "важка"
+class Magic(Armor):
+    def block(self): return 5
+    def name(self):  return "магічна"
+
+# ── Ворог НЕ успадковує осі — він їх ТРИМАЄ полями ──
+class Enemy:
+    def __init__(self, weapon, armor):
+        self.weapon = weapon        # яка зброя зараз
+        self.armor  = armor         # яка броня зараз
+
+    # Делегувальні обгортки: ворог не рахує сам, а перепитує деталь.
+    def attack(self): return self.weapon.hit()
+    def defend(self): return self.armor.block()
+
+    def describe(self):
+        print(f"ворог: {self.weapon.name()} + {self.armor.name()} → "
+              f"атака {self.attack()}, захист {self.defend()}")
+```
+:::
 
 Порахуймо тепер те, що коштувало 6 класів у спадковій версії. Тут — `Weapon`, `Sword`, `Bow` (три сутності на вісь зброї) і `Armor`, `Light`, `Heavy`, `Magic` (чотири на вісь броні). Формально це більше **іменованих** типів, ніж 6, — і чесний спостерігач мусить це визнати, а не замовчати. Але дивись, що станеться далі, коли осі почнуть рости, — саме там ховається справжня різниця.
 
 Складання конкретного ворога — це не оголошення нового класу, а звичайний вираз, який пишуть **під час роботи**:
 
+:::tabs
 ```cpp
 int main() {
     // Будь-яка комбінація збирається на місці — БЕЗ нового типу.
@@ -192,6 +274,17 @@ int main() {
     return 0;
 }
 ```
+```python
+# Будь-яка комбінація збирається на місці — БЕЗ нового типу.
+knight = Enemy(Sword(), Heavy())
+archer = Enemy(Bow(),   Light())
+mage   = Enemy(Sword(), Magic())
+
+knight.describe()   # ворог: меч + важка → атака 10, захист 7
+archer.describe()   # ворог: лук + легка → атака 6,  захист 2
+mage.describe()     # ворог: меч + магічна → атака 10, захист 5
+```
+:::
 
 Три різні вороги — жодного нового класу. У спадковій версії кожен із цих рядків вимагав би окремого типу, оголошеного заздалегідь; тут вони — просто три різні набори деталей, зібрані на льоту.
 
@@ -203,6 +296,7 @@ int main() {
 
 У **композиційній** — це означає дописати рівно один новий інтерфейс і три його реалізації:
 
+:::tabs
 ```cpp
 // Нова вісь — новий інтерфейс + по одному класу на вид. І ВСЕ.
 struct Element {
@@ -223,9 +317,26 @@ struct Ice : Element {
     const char* name() const override { return "крига"; }
 };
 ```
+```python
+# Нова вісь — новий інтерфейс + по одному класу на вид. І ВСЕ.
+class Element:
+    def bonus(self): ...   # додаткова шкода від стихії
+    def name(self):  ...
+class Plain(Element):
+    def bonus(self): return 0
+    def name(self):  return "звичайна"
+class Fire(Element):
+    def bonus(self): return 4
+    def name(self):  return "вогонь"
+class Ice(Element):
+    def bonus(self): return 3
+    def name(self):  return "крига"
+```
+:::
 
 А в самому ворогові — одне нове поле й один допис у делегуванні:
 
+:::tabs
 ```cpp
 class Enemy {
     std::unique_ptr<Weapon>  weapon;
@@ -241,6 +352,18 @@ public:
     int defend() const { return armor->block(); }
 };
 ```
+```python
+class Enemy:
+    def __init__(self, weapon, armor, element):
+        self.weapon  = weapon
+        self.armor   = armor
+        self.element = element    # ← нове поле
+
+    # атака тепер = базова шкода зброї + бонус стихії
+    def attack(self): return self.weapon.hit() + self.element.bonus()
+    def defend(self): return self.armor.block()
+```
+:::
 
 Порахуймо різницю прямо, бо саме заради неї весь рефакторинг:
 
@@ -259,6 +382,7 @@ public:
 
 Композиція знімає це обмеження задарма — бо вид тепер не в типі, а в **полі**, а поле можна перепризначити. Додаймо ворогові зброю, що ламається в бою й міняється на іншу:
 
+:::tabs
 ```cpp
 class Enemy {
     std::unique_ptr<Weapon> weapon;
@@ -283,6 +407,25 @@ int main() {
     return 0;
 }
 ```
+```python
+class Enemy:
+    def __init__(self, weapon, armor):
+        self.weapon = weapon
+        self.armor  = armor
+
+    def attack(self): return self.weapon.hit()
+    def defend(self): return self.armor.block()
+
+    # Підміна стратегії НА ЛЬОТУ — той самий об'єкт, інша поведінка.
+    def rearm(self, w): self.weapon = w
+
+foe = Enemy(Sword(), Heavy())
+print(f"до: атака {foe.attack()}")      # до: атака 10
+
+foe.rearm(Bow())                        # меч зламався — беремо лук
+print(f"після: атака {foe.attack()}")   # після: атака 6
+```
+:::
 
 Той самий `foe` — той самий об'єкт за тією самою адресою — щойно бив мечем на 10, а тепер б'є луком на 6. Жодного нового типу, жодного знищення об'єкта; змінилося лише те, що лежить у полі `weapon`. Це і є пряма винагорода за «має» замість «є»: поведінка стала **даними**, які можна підмінити, а не властивістю типу, яку намертво відлито при створенні. Той самий важіль «розширювати, не переписуючи наявне» лежить в основі [принципу відкритості-закритості](book:programming/open-closed): нову зброю додаєш новим класом `Weapon`, старого ворога не чіпаєш, а перемкнути його на цю зброю можна навіть під час бою.
 

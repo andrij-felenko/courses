@@ -43,7 +43,7 @@
 
 **Той самий прапорець із ISR: чому release кешує, а debug — ні.** Візьмімо реальний фрагмент прошивки ESP32 — кнопку на перериванні, що має розбудити цикл очікування:
 
-```
+```cpp
 volatile bool pressed = false;        // спільна з ISR → volatile
 
 void IRAM_ATTR onButton() {           // обробник переривання GPIO
@@ -95,7 +95,7 @@ void waitForPress() {
 
 **Зависання без volatile проти робочого коду з ним.**
 
-```
+```cpp
 // --- БЕЗ volatile: зависає назавжди ---
 bool flag = false;
 void IRAM_ATTR isr() { flag = true; }

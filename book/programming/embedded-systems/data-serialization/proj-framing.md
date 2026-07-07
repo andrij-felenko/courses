@@ -64,6 +64,7 @@ UART, TCP-сокет, радіоканал віддають те саме — **
 
 Ось повний приймач у справжньому C — саме такий лягає у прошивку. Стан і буфер тримає одна структура, годуємо її по байту:
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stddef.h>
@@ -137,9 +138,186 @@ void frame_rx_byte(frame_rx_t *rx, uint8_t b) {
     }
 }
 ```
+```python
+FLAG = 0x7E       # межа кадру (прапорець HDLC/PPP)
+ESC  = 0x7D       # байт екранування
+XOR  = 0x20       # маска перекручування екранованого байта
+MAX_FRAME = 64    # стеля тіла кадру
+
+ST_WAIT, ST_DATA, ST_ESC = range(3)
+
+class FrameRx:
+    def __init__(self):
+        self.state = ST_WAIT
+        self.buf   = bytearray()     # скільки байтів уже в buf = len(self.buf)
+
+    # згодувати один прийнятий байт; викликати на кожен октет з UART
+    def rx_byte(self, b):
+        if self.state == ST_WAIT:            # шукаємо початок кадру
+            if b == FLAG:                    # знайшли межу — відкриваємо кадр
+                self.buf.clear()
+                self.state = ST_DATA
+            # будь-що інше — сміття, мовчки викидаємо (ресинхронізація)
+
+        elif self.state == ST_DATA:
+            if b == FLAG:                    # межа: кадр скінчився
+                self._complete()            # звірити CRC й, якщо ок, віддати
+                self.buf.clear()             # готуємось до наступного кадру
+                self.state = ST_WAIT
+            elif b == ESC:                   # далі — екранований байт
+                self.state = ST_ESC
+            else:                            # звичайний байт даних
+                if len(self.buf) < MAX_FRAME:
+                    self.buf.append(b)
+                else:
+                    self.state = ST_WAIT     # ПЕРЕПОВНЕННЯ: скидаємо кадр
+                    self.buf.clear()
+
+        elif self.state == ST_ESC:           # попередній байт був ESC
+            if b == FLAG:                    # ESC перед межею — кадр порваний
+                self.state = ST_WAIT         # відкидаємо, чекаємо нового
+                self.buf.clear()
+            else:
+                d = b ^ XOR                  # перекрутити назад: 0x5E→0x7E, 0x5D→0x7D
+                if len(self.buf) < MAX_FRAME:
+                    self.buf.append(d)
+                    self.state = ST_DATA     # повертаємось у тіло кадру
+                else:
+                    self.state = ST_WAIT     # переповнення й тут
+                    self.buf.clear()
+```
+```go
+const (
+    FLAG      = 0x7E // межа кадру (прапорець HDLC/PPP)
+    ESC       = 0x7D // байт екранування
+    XORMask   = 0x20 // маска перекручування екранованого байта
+    MaxFrame  = 64   // стеля тіла кадру
+)
+
+type rxState int
+
+const (
+    stWait rxState = iota
+    stData
+    stEsc
+)
+
+type FrameRx struct {
+    state rxState
+    buf   []byte // скільки байтів уже в buf = len(buf)
+}
+
+// згодувати один прийнятий байт; викликати на кожен октет з UART
+func (rx *FrameRx) RxByte(b byte) {
+    switch rx.state {
+
+    case stWait: // шукаємо початок кадру
+        if b == FLAG { // знайшли межу — відкриваємо кадр
+            rx.buf = rx.buf[:0]
+            rx.state = stData
+        }
+        // будь-що інше — сміття, мовчки викидаємо (ресинхронізація)
+
+    case stData:
+        if b == FLAG { // межа: кадр скінчився
+            rx.complete()      // звірити CRC й, якщо ок, віддати
+            rx.buf = rx.buf[:0] // готуємось до наступного кадру
+            rx.state = stWait
+        } else if b == ESC { // далі — екранований байт
+            rx.state = stEsc
+        } else { // звичайний байт даних
+            if len(rx.buf) < MaxFrame {
+                rx.buf = append(rx.buf, b)
+            } else {
+                rx.state = stWait // ПЕРЕПОВНЕННЯ: скидаємо кадр
+                rx.buf = rx.buf[:0]
+            }
+        }
+
+    case stEsc: // попередній байт був ESC
+        if b == FLAG { // ESC перед межею — кадр порваний
+            rx.state = stWait // відкидаємо, чекаємо нового
+            rx.buf = rx.buf[:0]
+        } else {
+            d := b ^ XORMask // перекрутити назад: 0x5E→0x7E, 0x5D→0x7D
+            if len(rx.buf) < MaxFrame {
+                rx.buf = append(rx.buf, d)
+                rx.state = stData // повертаємось у тіло кадру
+            } else {
+                rx.state = stWait // переповнення й тут
+                rx.buf = rx.buf[:0]
+            }
+        }
+    }
+}
+```
+```js
+const FLAG = 0x7E;      // межа кадру (прапорець HDLC/PPP)
+const ESC  = 0x7D;      // байт екранування
+const XOR  = 0x20;      // маска перекручування екранованого байта
+const MAX_FRAME = 64;   // стеля тіла кадру
+
+const ST_WAIT = 0, ST_DATA = 1, ST_ESC = 2;
+
+class FrameRx {
+  constructor() {
+    this.state = ST_WAIT;
+    this.buf = [];            // скільки байтів уже в buf = this.buf.length
+  }
+
+  // згодувати один прийнятий байт; викликати на кожен октет з UART
+  rxByte(b) {
+    switch (this.state) {
+
+      case ST_WAIT:                       // шукаємо початок кадру
+        if (b === FLAG) {                 // знайшли межу — відкриваємо кадр
+          this.buf.length = 0;
+          this.state = ST_DATA;
+        }
+        // будь-що інше — сміття, мовчки викидаємо (ресинхронізація)
+        break;
+
+      case ST_DATA:
+        if (b === FLAG) {                 // межа: кадр скінчився
+          this._complete();               // звірити CRC й, якщо ок, віддати
+          this.buf.length = 0;            // готуємось до наступного кадру
+          this.state = ST_WAIT;
+        } else if (b === ESC) {           // далі — екранований байт
+          this.state = ST_ESC;
+        } else {                          // звичайний байт даних
+          if (this.buf.length < MAX_FRAME) {
+            this.buf.push(b);
+          } else {
+            this.state = ST_WAIT;         // ПЕРЕПОВНЕННЯ: скидаємо кадр
+            this.buf.length = 0;
+          }
+        }
+        break;
+
+      case ST_ESC:                        // попередній байт був ESC
+        if (b === FLAG) {                 // ESC перед межею — кадр порваний
+          this.state = ST_WAIT;           // відкидаємо, чекаємо нового
+          this.buf.length = 0;
+        } else {
+          const d = b ^ XOR;              // перекрутити назад: 0x5E→0x7E, 0x5D→0x7D
+          if (this.buf.length < MAX_FRAME) {
+            this.buf.push(d);
+            this.state = ST_DATA;         // повертаємось у тіло кадру
+          } else {
+            this.state = ST_WAIT;         // переповнення й тут
+            this.buf.length = 0;
+          }
+        }
+        break;
+    }
+  }
+}
+```
+:::
 
 Тіло кадру закінчується двобайтовим CRC-16 — його вклав відправник по всіх байтах даних, що йдуть перед ним. Приймач, зібравши кадр, відділяє ці два байти, рахує CRC по решті й порівнює. Розкладемо `frame_complete`:
 
+:::tabs
 ```c
 // Мінімальний CRC-16/CCITT (поліном 0x1021) — для прикладу побайтово.
 // У прошивці частіше беруть табличний варіант заради швидкості.
@@ -170,6 +348,105 @@ static void frame_complete(frame_rx_t *rx) {
     // не зійшлася — тихо відкидаємо: приймач уже в WAIT, чекає наступного FLAG
 }
 ```
+```python
+# Мінімальний CRC-16/CCITT (поліном 0x1021) — для прикладу побайтово.
+# У прошивці частіше беруть табличний варіант заради швидкості.
+def crc16_ccitt(data):
+    crc = 0xFFFF
+    for byte in data:
+        crc ^= byte << 8
+        for _ in range(8):
+            crc = ((crc << 1) ^ 0x1021) if (crc & 0x8000) else (crc << 1)
+            crc &= 0xFFFF                 # тримаємо 16 біт (Python-int безмежний)
+    return crc
+
+# сюди приймач кладе те, що робити з валідним кадром
+def handle_frame(data):
+    ...
+
+# метод класу FrameRx з попередньої вкладки
+def _complete(self):
+    if len(self.buf) < 3:                # кадр коротший за 1 байт даних + 2 CRC — брак
+        return
+
+    body = len(self.buf) - 2             # тіло без двох байтів CRC
+    got  = (self.buf[body] << 8) | self.buf[body + 1]  # CRC із кадру (big-endian)
+    calc = crc16_ccitt(self.buf[:body])                # рахуємо самі
+
+    if got == calc:                      # сума зійшлася — кадр цілий
+        handle_frame(bytes(self.buf[:body]))  # віддаємо тіло логіці
+    # не зійшлася — тихо відкидаємо: приймач уже в WAIT, чекає наступного FLAG
+```
+```go
+// Мінімальний CRC-16/CCITT (поліном 0x1021) — для прикладу побайтово.
+// У прошивці частіше беруть табличний варіант заради швидкості.
+func crc16CCITT(p []byte) uint16 {
+    crc := uint16(0xFFFF)
+    for _, b := range p {
+        crc ^= uint16(b) << 8
+        for k := 0; k < 8; k++ {
+            if crc&0x8000 != 0 {
+                crc = (crc << 1) ^ 0x1021
+            } else {
+                crc <<= 1
+            }
+        }
+    }
+    return crc
+}
+
+// сюди приймач кладе те, що робити з валідним кадром
+func handleFrame(data []byte) { /* ... */ }
+
+// метод FrameRx з попередньої вкладки
+func (rx *FrameRx) complete() {
+    if len(rx.buf) < 3 { // кадр коротший за 1 байт даних + 2 CRC — брак
+        return
+    }
+
+    body := len(rx.buf) - 2 // тіло без двох байтів CRC
+    got := uint16(rx.buf[body])<<8 | uint16(rx.buf[body+1]) // CRC із кадру (big-endian)
+    calc := crc16CCITT(rx.buf[:body])                       // рахуємо самі
+
+    if got == calc { // сума зійшлася — кадр цілий
+        handleFrame(rx.buf[:body]) // віддаємо тіло логіці
+    }
+    // не зійшлася — тихо відкидаємо: приймач уже в WAIT, чекає наступного FLAG
+}
+```
+```js
+// Мінімальний CRC-16/CCITT (поліном 0x1021) — для прикладу побайтово.
+// У прошивці частіше беруть табличний варіант заради швидкості.
+function crc16Ccitt(data) {
+  let crc = 0xFFFF;
+  for (const byte of data) {
+    crc ^= byte << 8;
+    for (let k = 0; k < 8; k++) {
+      crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
+      crc &= 0xFFFF;                  // тримаємо 16 біт
+    }
+  }
+  return crc;
+}
+
+// сюди приймач кладе те, що робити з валідним кадром
+function handleFrame(data) { /* ... */ }
+
+// метод класу FrameRx з попередньої вкладки
+_complete() {
+  if (this.buf.length < 3)             // кадр коротший за 1 байт даних + 2 CRC — брак
+    return;
+
+  const body = this.buf.length - 2;    // тіло без двох байтів CRC
+  const got  = (this.buf[body] << 8) | this.buf[body + 1];  // CRC із кадру (big-endian)
+  const calc = crc16Ccitt(this.buf.slice(0, body));         // рахуємо самі
+
+  if (got === calc)                    // сума зійшлася — кадр цілий
+    handleFrame(this.buf.slice(0, body));  // віддаємо тіло логіці
+  // не зійшлася — тихо відкидаємо: приймач уже в WAIT, чекає наступного FLAG
+}
+```
+:::
 
 Три речі тут — прямий наслідок усього сказаного. **Приймач ніде не блокується**: `frame_rx_byte` з'їдає рівно один байт і повертається, тож його можна кликати хоч із ISR по перериванню «прийнято байт», хоч із головного циклу опитуванням, — між байтами прошивка вільна. **CRC перевіряється перед видачею**: жоден кадр не протече в `handle_frame`, поки сума не зійшлася, тож і випадковий `0x7E` серед сміття, і побитий у каналі байт відсіюються. **Переповнення буфера не псує пам'ять**: перевищивши `MAX_FRAME`, приймач скидає кадр і йде в `WAIT`, а не пише за межі масиву — про це окремо нижче, бо це найпідступніша з пасток.
 

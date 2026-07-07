@@ -220,29 +220,50 @@ NTF_MASH(L) = (1 − z⁻¹)^L
 
 Користуємось формою S_φ(f) ∝ [2·sin(π·f/f_оп)]^(2(L−1)). На малому відступі 2·sin(π·f/f_оп) ≈ 2π·f/f_оп, тож відношення шуму двох порядків у тій самій точці f — це сам формувальний множник у потрібному степені.
 
-```c
-#include <math.h>
-#include <stdio.h>
+:::tabs
+```cpp
+#include <cmath>
+#include <cstdio>
 
 // Наскільки тихіший вищий порядок коло несучої на даному відступі.
 // S_phi(f) ~ [2*sin(pi*f/fref)]^(2(L-1)); беремо відношення L=3 до L=2.
 
-int main(void) {
-    double f_ref = 26.0e6;     // опора 26 МГц
-    double f_off = 10.0e3;     // відступ 10 кГц
+int main() {
+    const double f_ref = 26.0e6;   // опора 26 МГц
+    const double f_off = 10.0e3;   // відступ 10 кГц
 
-    double s = 2.0 * sin(M_PI * f_off / f_ref);   // формувальний множник |NTF|
+    const double s = 2.0 * std::sin(M_PI * f_off / f_ref);   // формувальний множник |NTF|
 
     // показник фазового шуму = 2*(L-1):  L=2 -> степінь 2;  L=3 -> степінь 4
-    double pn_L2 = pow(s, 2.0);    // ~ [2 sin]^2
-    double pn_L3 = pow(s, 4.0);    // ~ [2 sin]^4
+    const double pn_L2 = std::pow(s, 2.0);    // ~ [2 sin]^2
+    const double pn_L3 = std::pow(s, 4.0);    // ~ [2 sin]^4
 
-    double ratio_db = 10.0 * log10(pn_L3 / pn_L2);   // у децибелах
-    printf("|NTF| = %.6f\n", s);
-    printf("3-й порядок тихіший за 2-й на %.1f дБ\n", -ratio_db);
+    const double ratio_db = 10.0 * std::log10(pn_L3 / pn_L2);   // у децибелах
+    std::printf("|NTF| = %.6f\n", s);
+    std::printf("3-й порядок тихіший за 2-й на %.1f дБ\n", -ratio_db);
     return 0;
 }
 ```
+```python
+import math
+
+# Наскільки тихіший вищий порядок коло несучої на даному відступі.
+# S_phi(f) ~ [2*sin(pi*f/fref)]^(2(L-1)); беремо відношення L=3 до L=2.
+
+f_ref = 26.0e6     # опора 26 МГц
+f_off = 10.0e3     # відступ 10 кГц
+
+s = 2.0 * math.sin(math.pi * f_off / f_ref)   # формувальний множник |NTF|
+
+# показник фазового шуму = 2*(L-1):  L=2 -> степінь 2;  L=3 -> степінь 4
+pn_L2 = s ** 2    # ~ [2 sin]^2
+pn_L3 = s ** 4    # ~ [2 sin]^4
+
+ratio_db = 10.0 * math.log10(pn_L3 / pn_L2)   # у децибелах
+print(f"|NTF| = {s:.6f}")
+print(f"3-й порядок тихіший за 2-й на {-ratio_db:.1f} дБ")
+```
+:::
 
 Простежмо обчислення вручну:
 

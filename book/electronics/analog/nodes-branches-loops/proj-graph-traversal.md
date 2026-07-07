@@ -26,6 +26,7 @@
 
 > 🔧 **Навіщо це.** Саме цей код стоїть за фразою «симулятор знайшов контури». Дерево дає опорні вузли для закону струмів, хорди — готовий список контурів для закону напруг, і далі лишається [скласти та розв'язати систему](guide:embedded/circuit-analysis). Без обходу машина не знала б, які з гілок брати за незалежні, — і написала б забагато або замало рівнянь.
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stdbool.h>
@@ -85,6 +86,64 @@ static uint8_t dfs(uint8_t start) {
     return seen;
 }
 ```
+```python
+from dataclasses import dataclass, field
+
+
+@dataclass
+class Branch:
+    """Гілка з'єднує вузли a та b (номер гілки = індекс у списку)."""
+    a: int
+    b: int
+
+
+@dataclass
+class Graph:
+    n: int
+    # список суміжності: для вузла v — пари (сусід, номер гілки)
+    adj: list[list[tuple[int, int]]] = field(init=False)
+    visited: list[bool] = field(init=False)      # вузол уже відкрито?
+    br_done: set[int] = field(default_factory=set)   # гілку вже класифіковано?
+    parent_node: list[int] = field(init=False)   # батьківський вузол (-1 = корінь)
+    parent_br: list[int] = field(init=False)     # гілка до батька
+    chord: list[int] = field(default_factory=list)   # список хорд
+    n_tree: int = 0
+
+    def __post_init__(self):
+        self.adj = [[] for _ in range(self.n)]
+        self.visited = [False] * self.n
+        self.parent_node = [-1] * self.n
+        self.parent_br = [0] * self.n
+
+    def add_edge(self, br: int, a: int, b: int) -> None:
+        self.adj[a].append((b, br))
+        self.adj[b].append((a, br))              # граф неорієнтований
+
+    def dfs(self, start: int) -> int:
+        """Обхід углиб від start; повертає, скільки вузлів охоплено."""
+        stack = [start]
+        self.visited[start] = True               # вузол відкриваємо при ВХОДІ
+        self.parent_node[start] = -1
+        seen = 1
+
+        while stack:
+            v = stack.pop()                      # беремо з вершини стека
+            for u, br in self.adj[v]:
+                if br in self.br_done:           # кожну гілку класифікуємо РАЗ
+                    continue
+                self.br_done.add(br)
+                if not self.visited[u]:          # веде в новий вузол → гілка дерева
+                    self.visited[u] = True
+                    seen += 1
+                    self.parent_node[u] = v
+                    self.parent_br[u] = br
+                    self.n_tree += 1
+                    stack.append(u)              # у стек кладемо лише НОВІ вузли
+                else:                            # веде в уже відкритий вузол → хорда
+                    self.chord.append(br)
+        return seen
+```
+:::
 
 Покажемо, що тут до чого. Стек — це звичайний масив із вершиною `sp`; `push` — це `stack[sp++] = x`, `pop` — це `stack[--sp]`. Замість рекурсії ми тримаємо стек **самі**, у пам'яті, тож глибина обходу обмежена розміром масиву, а не апаратним стеком процесора. Два моменти варті уваги. По-перше, вузол ми позначаємо відвіданим **щойно кладемо** його в стек, а не коли дістаємо, — інакше вузол із двома гілками від старту потрапив би у стек двічі й обидві гілки хибно пішли б у дерево. По-друге, масив `br_done[br]` гарантує, що кожну гілку ми класифікуємо **рівно раз**: граф неорієнтований, тож кожна гілка лежить у списках суміжності **двічі** (з боку обох вузлів), і без цієї позначки ту саму хорду порахувало б двічі — з кожного її кінця. Рядок `if (br_done[br]) continue;` саме це й відсікає.
 
@@ -92,6 +151,7 @@ static uint8_t dfs(uint8_t start) {
 
 Тепер головне, заради чого все робилося, — **дістати контур із хорди**. Хорда з'єднує два вузли; шлях між ними вже є в дереві, треба лише піднятися по `parent`-вказівниках від кожного кінця до спільного предка:
 
+:::tabs
 ```c
 /* надрукувати фундаментальний контур, який замикає хорда br = (a,b) */
 static void print_loop(uint8_t br, Branch *branches) {
@@ -110,11 +170,42 @@ static void print_loop(uint8_t br, Branch *branches) {
     /* pa == pb — спільний предок; контур = a→…→предок→…→b + хорда (a,b) */
 }
 ```
+```python
+    def print_loop(self, br: int, branches: list[Branch]) -> None:
+        """Надрукувати фундаментальний контур, який замикає хорда br = (a,b)."""
+        a, b = branches[br].a, branches[br].b
+
+        # глибина кожного вузла від кореня дерева
+        da = db = 0
+        x = a
+        while x != -1:
+            x = self.parent_node[x]
+            da += 1
+        x = b
+        while x != -1:
+            x = self.parent_node[x]
+            db += 1
+
+        # підняти глибший кінець, доки рівні; тоді йти разом до зустрічі
+        pa, pb = a, b
+        while da > db:
+            pa = self.parent_node[pa]
+            da -= 1
+        while db > da:
+            pb = self.parent_node[pb]
+            db -= 1
+        while pa != pb:
+            pa = self.parent_node[pa]
+            pb = self.parent_node[pb]
+        # pa == pb — спільний предок; контур = a→…→предок→…→b + хорда (a,b)
+```
+:::
 
 ### Worked-приклад: канонічне коло з трьома вузлами
 
 **Умова.** Коло з трьох вузлів A, B, C та чотирьох гілок: джерело V між C і A, R₃ між A і C, R₁ між A і B, R₂ між B і C. Занумеруймо вузли A = 0, B = 1, C = 2, а гілки — 0…3. Очікуємо N = 3, B = 4, отже L = B − N + 1 = 2 хорди. Подаймо це в код і подивімось, що він виловить.
 
+:::tabs
 ```c
 int main(void) {
     Branch branches[] = {
@@ -138,6 +229,31 @@ int main(void) {
                       && n_chords == (B - N + 1)) ? 0 : 1;
 }
 ```
+```python
+def main() -> int:
+    branches = [
+        Branch(2, 0),   # 0: V  — C–A
+        Branch(0, 2),   # 1: R3 — A–C
+        Branch(0, 1),   # 2: R1 — A–B
+        Branch(1, 2),   # 3: R2 — B–C
+    ]
+    N, B = 3, 4
+
+    g = Graph(N)
+    for i, br in enumerate(branches):
+        g.add_edge(i, br.a, br.b)
+
+    seen = g.dfs(0)                 # старт із вузла A = 0
+
+    # seen         == 3  → граф зв'язний (охопив усі 3 вузли)
+    # g.n_tree     == N - 1     == 2 гілки в кістяковому дереві
+    # len(g.chord) == B - N + 1 == 2 хорди, кожна замикає свій контур
+    # g.chord[0:2] → самі хорди (тут — R3 і R2)
+    ok = (seen == N and g.n_tree == (N - 1)
+          and len(g.chord) == (B - N + 1))
+    return 0 if ok else 1
+```
+:::
 
 Прогін углиб від A = 0 ставить у дерево перші гілки, якими він уперше дістається нових вузлів (тут — V до C і R₁ до B), а дві гілки, що ведуть у вже відвідані вузли, лишаються хордами. Підрахунок сходиться: `seen` = 3 (граф зв'язний), у дереві рівно N−1 = 2 гілки, хорд рівно B − N + 1 = 2. Кожна хорда через `print_loop` розгортається у свій замкнений шлях — і це той самий результат, що дає формула, тільки тепер машина не **порахувала**, а **знайшла** конкретні контури, готові до закону напруг.
 

@@ -14,6 +14,8 @@
 
 Той самий сирий пакет, але вже через бібліотеку, виглядає так:
 
+:::tabs
+
 ```cpp
 #include <Wire.h>
 #include <MPU6050.h>     // бібліотека Джеффа Роуберґа (i2cdevlib)
@@ -50,6 +52,46 @@ void loop() {
     delay(20);
 }
 ```
+
+```python
+from machine import I2C, Pin
+from time import sleep_ms
+from struct import unpack_from
+
+MPU = 0x68          # адреса за замовчуванням (AD0 на землі)
+PWR_MGMT_1 = 0x6B
+WHO_AM_I   = 0x75
+ACCEL_XOUT = 0x3B   # звідси йдуть 14 байтів: 6 акс + 2 темп + 6 гіро
+
+i2c = I2C(0, scl=Pin(22), sda=Pin(21))   # ніжки — під свою плату
+
+def setup():
+    i2c.writeto_mem(MPU, PWR_MGMT_1, b'\x00')   # розбудити (зняти біт SLEEP)
+    sleep_ms(100)
+    # Перше, що робимо ЗАВЖДИ — питаємо, чи це взагалі наш чип.
+    if i2c.readfrom_mem(MPU, WHO_AM_I, 1)[0] == 0x68:
+        print("MPU-6050 на місці")
+    else:
+        raise RuntimeError("MPU-6050 НЕ відповідає — перевір пайку/адресу/клон")
+
+def loop():
+    # Одне читання забирає всі шість осей одним пакетом по I2C.
+    b = i2c.readfrom_mem(MPU, ACCEL_XOUT, 14)
+    # >hhh h hhh — big-endian int16: ax,ay,az, temp, gx,gy,gz
+    ax, ay, az = unpack_from(">hhh", b, 0)
+    gx, gy, gz = unpack_from(">hhh", b, 8)
+
+    acc_x = ax / 16384.0    # g   (при діапазоні ±2g)
+    gyr_x = gx / 131.0      # °/s (при діапазоні ±250°/s)
+    print(acc_x, gyr_x)
+    sleep_ms(20)
+
+setup()
+while True:
+    loop()
+```
+
+:::
 
 Порівняйте з голим варіантом — зникли `beginTransmission`, ручні зсуви байтів, `requestFrom`. Один `getMotion6()` робить усе те саме: посилає адресу регістра `ACCEL_XOUT_H`, робить повторний старт, забирає чотирнадцять байтів і розкладає їх на шість `int16_t` у правильному порядку (старший байт уперед). Це не «магія» — усередині той самий трафік, просто написаний раз і назавжди. Ділити на чутливість усе одно доводиться самому: бібліотека віддає **сирі** числа, бо не знає, який діапазон вам треба (за замовчуванням `initialize()` ставить ±2g і ±250 °/s, звідси константи 16384 і 131).
 
@@ -173,6 +215,8 @@ roll_gyro = roll_попередній + gx · dt      // gx у °/s, dt у се�
 
 Ось робоча прошивка комплементарного фільтра на голому `Wire` (щоб було видно кожну цифру), із вимірюванням реального `dt`:
 
+:::tabs
+
 ```cpp
 #include <Wire.h>
 #include <MPU6050.h>
@@ -224,6 +268,60 @@ void loop() {
 }
 ```
 
+```python
+from machine import I2C, Pin
+from time import ticks_us, ticks_diff
+from struct import unpack_from
+from math import atan2, sqrt, pi
+
+MPU = 0x68
+ACCEL_XOUT = 0x3B
+
+i2c = I2C(0, scl=Pin(22), sda=Pin(21))
+
+roll = 0.0
+pitch = 0.0
+gyro_bias_x = 0.0
+gyro_bias_y = 0.0     # нуль гіроскопа (з калібрування)
+
+ALPHA = 0.98          # вага гіроскопа у злитті
+
+def read6():
+    b = i2c.readfrom_mem(MPU, ACCEL_XOUT, 14)
+    ax, ay, az = unpack_from(">hhh", b, 0)
+    gx, gy, gz = unpack_from(">hhh", b, 8)
+    return ax, ay, az, gx, gy, gz
+
+calibrate_gyro()          # виміряти нуль гіроскопа (див. нижче)
+t_prev = ticks_us()
+
+while True:
+    ax, ay, az, gx, gy, gz = read6()
+
+    # Реальний крок часу в секундах (ticks_us() — мікросекунди).
+    now = ticks_us()
+    dt = ticks_diff(now, t_prev) * 1e-6
+    t_prev = now
+
+    # --- кут з акселерометра (абсолютний, шумний) ---
+    axg, ayg, azg = ax / 16384.0, ay / 16384.0, az / 16384.0
+    roll_acc  = atan2(ayg, azg) * 180.0 / pi
+    pitch_acc = atan2(-axg, sqrt(ayg*ayg + azg*azg)) * 180.0 / pi
+
+    # --- кутова швидкість з гіроскопа, з відрахованим нулем (°/s) ---
+    rate_x = (gx - gyro_bias_x) / 131.0
+    rate_y = (gy - gyro_bias_y) / 131.0
+
+    # --- комплементарне злиття ---
+    roll  = ALPHA * (roll  + rate_x * dt) + (1.0 - ALPHA) * roll_acc
+    pitch = ALPHA * (pitch + rate_y * dt) + (1.0 - ALPHA) * pitch_acc
+
+    print("roll", round(roll, 1), " pitch", round(pitch, 1))
+    # БЕЗ sleep: точність фільтра залежить від частого, рівного циклу.
+```
+
+:::
+
 **Приклад: як фільтр гасить поштовх.** Плата лежить рівно (`roll ≈ 0`), і хтось стукнув по столу. Акселерометр на мить показав, ніби плата хитнулась на 30° (`rollAcc = 30`), хоча вона не рухалась. Гіроскоп при цьому мовчить (`rateX ≈ 0`), бо реального обертання не було.
 
 ```c
@@ -252,6 +350,8 @@ void loop() {
 
 Знайти зсув просто: покласти плату **нерухомо**, зняти сотні-тисячі зразків і **усереднити** — те, що лишилось, і є нуль, який треба віднімати завжди.
 
+:::tabs
+
 ```cpp
 void calibrateGyro() {
     const int N = 2000;              // скільки зразків усереднити
@@ -276,6 +376,29 @@ void calibrateGyro() {
 }
 ```
 
+```python
+def calibrate_gyro():
+    global gyro_bias_x, gyro_bias_y
+    N = 2000                          # скільки зразків усереднити
+    sum_x = sum_y = sum_z = 0
+
+    print("Калібрую гіроскоп — НЕ РУХАЙ плату 5 секунд...")
+    sleep_ms(1000)                    # дати руці прибратись, платі — заспокоїтись
+
+    for _ in range(N):
+        _, _, _, gx, gy, gz = read6()
+        sum_x += gx;  sum_y += gy;  sum_z += gz
+        sleep_ms(2)                   # ~2 мс між зразками
+
+    gyro_bias_x = sum_x / N           # середнє = сталий зсув нуля
+    gyro_bias_y = sum_y / N
+    # gyro_bias_z = sum_z / N         # за потреби
+
+    print("Зсув нуля гіроскопа:", gyro_bias_x, gyro_bias_y)
+```
+
+:::
+
 Три застереження, кожне з крові:
 
 - **Плата мусить бути справді нерухома.** Усереднюємо в припущенні «істинна швидкість = 0». Ворухнули під час калібрування — і в зсув затесається реальне обертання, після чого фільтр «знатиме» хибний нуль і дрейфуватиме гірше, ніж без калібрування взагалі.
@@ -294,6 +417,8 @@ void calibrateGyro() {
 
 Що з цим робити на практиці:
 
+:::tabs
+
 ```cpp
 uint8_t who = mpu.getDeviceID();   // читає біти 6:1 регістра WHO_AM_I (0x75)
 
@@ -304,6 +429,19 @@ if (who == 0x34) {                 // getDeviceID повертає саме ці
     Serial.println(who, HEX);      // 0x00 → мертвий/непідключений; інше → клон
 }
 ```
+
+```python
+# Повний байт WHO_AM_I у MicroPython читаємо напряму — тут це 0x68.
+who = i2c.readfrom_mem(MPU, 0x75, 1)[0]   # регістр WHO_AM_I (0x75)
+
+if who == 0x68:                    # повний байт регістра справжнього чипа
+    print("WHO_AM_I збігся — чип родини на місці")
+else:
+    # 0x00 → мертвий/непідключений; інше → клон
+    print("WHO_AM_I підозрілий: 0x{:02X}".format(who))
+```
+
+:::
 
 Тут іще одна тонкість неймінгу, на якій спотикаються: метод `getDeviceID()` бібліотеки повертає **не** 0x68, а **0x34** — бо він віддає ті самі біти 6:1 **вирівняними праворуч** (0x68 зсунуте на один біт: 0x68 = `0110 1000`, біти 6:1 = `011 0100` = 0x34). А `testConnection()` порівнює саме з цим 0x34 усередині. Тобто «0x68» — це повний байт регістра, а «0x34» — та ж інформація, вже зсунута; обидва числа правильні, просто в різних місцях бібліотеки.
 

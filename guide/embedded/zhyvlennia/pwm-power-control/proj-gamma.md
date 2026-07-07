@@ -28,6 +28,7 @@ duty = round( (x/255)^γ · maxDuty ),  γ ≈ 2.2
 
 **Блок 1 — генерація LUT і рантайм-формула:**
 
+:::tabs
 ```cpp
 #include <math.h>
 
@@ -50,11 +51,28 @@ void buildLUT() {
     }
 }
 ```
+```micropython
+import math
+
+GAMMA    = 2.2
+PWM_BITS = 12
+MAX_DUTY = (1 << PWM_BITS) - 1  # 4095
+
+# Для розуміння: формула одного значення
+def gamma_runtime(level):
+    return round((level / 255.0) ** GAMMA * MAX_DUTY)
+
+# Таблиця: 12 біт ≤ 4095, влазить у звичайний int Python;
+# 256 готових значень, порахованих один раз.
+gamma_lut = [gamma_runtime(i) for i in range(256)]  # рахуємо ОДИН раз
+```
+:::
 
 Формула точна, але float-`powf` коштує; саме тому ми виносимо її в стадію ініціалізації — і більше ніколи не викликаємо в основному циклі.
 
 **Блок 2 — застосування: setup() і ефект «дихання»:**
 
+:::tabs
 ```cpp
 const int PIN = 5;
 
@@ -75,6 +93,24 @@ void loop() {
     }
 }
 ```
+```micropython
+from machine import Pin, PWM
+from time import sleep_ms
+
+PIN = 5
+led = PWM(Pin(PIN), freq=5000)  # LUT побудовано вище, в setup-фазі модуля
+
+while True:
+    # дихання: 0→255→0
+    for level in range(256):
+        # duty_u16 бере 0..65535; наш 12-бітний LUT масштабуємо зсувом <<4
+        led.duty_u16(gamma_lut[level] << 4)  # ЛИШЕ індексація, жодного float
+        sleep_ms(8)
+    for level in range(255, -1, -1):
+        led.duty_u16(gamma_lut[level] << 4)
+        sleep_ms(8)
+```
+:::
 
 Порівняйте з варіантом `ledcWrite(PIN, level << 4)` (лінійне масштабування без гамми): перші десятки кроків майже невидимі, потім яскравість різко злітає — «дихання» виглядає нерівним. З LUT діод розгорається рівномірно для ока від першого кроку.
 

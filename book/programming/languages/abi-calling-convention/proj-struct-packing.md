@@ -162,6 +162,7 @@ warning: taking address of packed member of 'struct SensorPacketPacked'
 
 Ось надійний серіалізатор для нашого пакета. Він приймає **звичайну** структуру (з набивкою — байдуже, ми її не шлемо як блок) і викладає 8 байтів у буфер у форматі **little-endian** (молодший байт першим — так домовилися обидва боки):
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stddef.h>
@@ -189,9 +190,57 @@ size_t pack_sensor(const struct SensorPacket *p, uint8_t *out) {
     return 8;
 }
 ```
+```python
+import struct
+
+# Серіалізація: поля → рівно 8 байтів дроту. Порядок і розрядність — наші.
+# Формат "<B I h B": < — little-endian, БЕЗ набивки/вирівнювання;
+# B=uint8, I=uint32, h=int16 (temperature знакове ×100).
+def pack_sensor(msg_id, timestamp, temperature, flags):
+    return struct.pack("<B I h B", msg_id, timestamp, temperature, flags)
+```
+```go
+package sensor
+
+import "encoding/binary"
+
+type SensorPacket struct {
+	MsgID       uint8
+	Timestamp   uint32
+	Temperature int16
+	Flags       uint8
+}
+
+// Серіалізація: структура → рівно 8 байтів дроту. Порядок і розрядність — наші.
+// binary.LittleEndian кладе молодший байт уперед; байти пишемо по одному —
+// жодного припущення про розкладку структури в пам'яті.
+func PackSensor(p SensorPacket, out []byte) int {
+	out[0] = p.MsgID                                            // 1 байт
+	binary.LittleEndian.PutUint32(out[1:], p.Timestamp)        // 4 байти
+	binary.LittleEndian.PutUint16(out[5:], uint16(p.Temperature)) // 2 байти
+	out[7] = p.Flags                                            // 1 байт
+	return 8
+}
+```
+```js
+// Серіалізація: поля → рівно 8 байтів дроту. Порядок і розрядність — наші.
+// DataView з прапорцем littleEndian=true кладе молодший байт уперед;
+// setInt16 знакове (temperature ×100).
+function packSensor(msgId, timestamp, temperature, flags) {
+  const buf = new Uint8Array(8);
+  const dv = new DataView(buf.buffer);
+  dv.setUint8(0, msgId);                 // 1 байт
+  dv.setUint32(1, timestamp, true);      // 4 байти
+  dv.setInt16(5, temperature, true);     // 2 байти
+  dv.setUint8(7, flags);                 // 1 байт
+  return buf;
+}
+```
+:::
 
 І симетричний розбір на приймачі — теж байт за байтом, з жодним припущенням про розкладку структури відправника:
 
+:::tabs
 ```c
 static uint32_t get_u32_le(const uint8_t *buf) {
     return  (uint32_t)buf[0]
@@ -212,6 +261,45 @@ void unpack_sensor(const uint8_t *in, struct SensorPacket *p) {
     p->flags       = in[7];
 }
 ```
+```python
+import struct
+
+# Десеріалізація: 8 байтів дроту → кортеж полів. Той самий формат "<B I h B".
+# h повертає знакове int16 (temperature ×100) автоматично.
+def unpack_sensor(data):
+    msg_id, timestamp, temperature, flags = struct.unpack("<B I h B", data)
+    return msg_id, timestamp, temperature, flags
+```
+```go
+package sensor
+
+import "encoding/binary"
+
+// Десеріалізація: 8 байтів дроту → структура. Читаємо побайтово,
+// binary.LittleEndian збирає багатобайтові числа з молодшого байта.
+func UnpackSensor(in []byte) SensorPacket {
+	return SensorPacket{
+		MsgID:       in[0],
+		Timestamp:   binary.LittleEndian.Uint32(in[1:]),
+		Temperature: int16(binary.LittleEndian.Uint16(in[5:])),
+		Flags:       in[7],
+	}
+}
+```
+```js
+// Десеріалізація: 8 байтів дроту → об'єкт полів. littleEndian=true;
+// getInt16 повертає знакове (temperature ×100).
+function unpackSensor(data) {
+  const dv = new DataView(data.buffer, data.byteOffset, data.byteLength);
+  return {
+    msgId:       dv.getUint8(0),
+    timestamp:   dv.getUint32(1, true),
+    temperature: dv.getInt16(5, true),
+    flags:       dv.getUint8(7),
+  };
+}
+```
+:::
 
 Розберімо, чому це — правильна відповідь, а не просто «довший спосіб зробити те саме».
 

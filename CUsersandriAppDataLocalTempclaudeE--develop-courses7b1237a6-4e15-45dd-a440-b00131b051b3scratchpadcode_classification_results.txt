@@ -1,0 +1,110 @@
+CLASSIFICATION RESULTS FOR FILES 201-210
+==========================================
+
+FILE 1: book/algorithms/signal-robotics/rtk-integer-ambiguity/hist-lambda.md
+- Code blocks: ASCII diagram (lines 29-39)
+  • Type: NOT code (ASCII-схема) - SKIP
+
+FILE 2: book/algorithms/signal-robotics/rtk-integer-ambiguity/math-double-difference.md
+- Code blocks: Multiple formulas and pseudocode (lines 9-11, 33-36, 41-42, 46-56, 66-80, 89-93, 105-128, 151-159, 164-168, 174-175)
+  • Type: NOT code (формули, дамп виводу, ASCII-діаграми) - SKIP
+
+FILE 3: book/algorithms/signal-robotics/rtk-integer-ambiguity/rtk-integer-ambiguity.md
+- Code blocks: formula (lines 15-18, 31-36)
+  • Type: NOT code (формули) - SKIP
+
+FILE 4: book/algorithms/signal-robotics/sensor-fusion/sensor-fusion.md
+- Code blocks: C++ and Python (lines 59-67, 69-78)
+  • BLOCK 1 (lines 60-68):
+    Purpose: Complementary filter for tilt angle estimation
+    Lang: cpp
+    Level: api (IMU algorithm, library-level API)
+    Domain: embedded
+  
+  • BLOCK 2 (lines 69-78):
+    Purpose: Complementary filter for tilt angle estimation
+    Lang: py
+    Level: api (IMU algorithm, library-level API)
+    Domain: embedded
+  
+- Code blocks: Calculation example (lines 81-90)
+  • Type: NOT code (дамп виводу/обчислення) - SKIP
+
+FILE 5: book/algorithms/signal-robotics/sensor-insufficiency/hist-draper.md
+- No code blocks found
+
+FILE 6: book/algorithms/signal-robotics/sensor-insufficiency/sensor-insufficiency.md
+- Code blocks: C function (lines 50-69)
+  • BLOCK 1 (lines 50-69):
+    Purpose: Fuse altitude estimate from inertia and barometer
+    Lang: c
+    Level: api (sensor fusion algorithm, standard library API)
+    Domain: embedded
+
+FILE 7: book/algorithms/signal-robotics/signal-noise/math-snr.md
+- Code blocks: formulas (lines 9-11, 28-30, 34-36, 42-47)
+  • Type: NOT code (формули) - SKIP
+
+- Code blocks: C++ (lines 57-73)
+  • BLOCK 1 (lines 57-73):
+    Purpose: Calculate RMS noise and SNR from sensor samples
+    Lang: cpp
+    Level: general (signal processing algorithm, standard math)
+    Domain: general
+
+FILE 8: book/algorithms/signal-robotics/signal-noise/signal-noise.md
+- Code blocks: C++ (lines 43-50)
+  • BLOCK 1 (lines 43-50):
+    Purpose: Calculate signal-to-noise ratio from amplitude and sigma
+    Lang: cpp
+    Level: general (math calculation, standard algorithm)
+    Domain: general
+
+FILE 9: book/algorithms/signal-robotics/smoothing-vs-lag/smoothing-vs-lag.md
+- Code blocks: formula (line 36), pseudocode (lines 59-62, 70-72)
+  • Type: NOT code (формули, псевдокод) - SKIP
+
+FILE 10: book/algorithms/signal-robotics/stabilization-cascade/stabilization-cascade.md
+- Code blocks: C struct and functions (lines 87-130)
+  • BLOCK 1 (lines 87-94):
+    Purpose: PID controller state structure definition
+    Lang: c
+    Level: api (discrete-time control library API)
+    Domain: systems
+  
+  • BLOCK 2 (lines 96-108):
+    Purpose: Single step of discrete PID controller update
+    Lang: c
+    Level: api (discrete-time control library API)
+    Domain: systems
+  
+  • BLOCK 3 (lines 112-130):
+    Purpose: Cascade stabilization loop combining angle and rate control
+    Lang: c
+    Level: general (control system algorithm, high-level logic)
+    Domain: systems
+  
+  • BLOCK 4 (lines 140-149):
+    Purpose: Example numerical calculation of cascade control step
+    Lang: c
+    Level: general (worked example, algorithm walkthrough)
+    Domain: systems
+    Note: This is marked with backticks but contains pseudocode/walkthrough
+
+SUMMARY
+=======
+Total files processed: 10
+Files with code blocks: 6
+Total code blocks to classify: 10
+  - C/C++ blocks: 7
+  - Python blocks: 1
+  - Generic calculations: 2
+
+Levels breakdown:
+  - api: 5 blocks
+  - general: 5 blocks
+
+Domains breakdown:
+  - embedded: 3 blocks
+  - general: 4 blocks
+  - systems: 3 blocks

@@ -24,6 +24,7 @@ Stop-and-wait зручно бачити як крихітний скінченн
 
 Спершу синхронний кістяк — він найясніше показує логіку (а нижче зробимо неблокуючий варіант для головного циклу прошивки):
 
+:::tabs
 ```cpp
 #include <stdint.h>
 
@@ -42,9 +43,23 @@ bool sendReliable(uint8_t seq, const Cmd& cmd) {
     return false;                              // 4) MAX_TRIES марно → обрив
 }
 ```
+```python
+# Шлю критичну команду stop-and-wait. True — підтверджено, False — зв'язок мертвий.
+def send_reliable(seq, cmd):
+    for _ in range(MAX_TRIES):
+        send_packet(seq, cmd)                  # 1) передаю (чи повторно — той самий seq)
+        t0 = millis()
+        while millis() - t0 < ACK_TIMEOUT:     # 2) чекаю ACK саме з цим номером
+            if got_ack_for(seq):
+                return True                    #    дійшло й підтверджено
+        # 3) тиша до таймауту → наступна ітерація повторить той самий seq
+    return False                               # 4) MAX_TRIES марно → обрив
+```
+:::
 
 Бік приймача — дзеркальний, і саме тут живе захист від дубліката:
 
+:::tabs
 ```cpp
 static int16_t lastSeq = -1;                   // останній виконаний номер (−1 = ще жодного)
 
@@ -56,6 +71,18 @@ void onPacket(uint8_t seq, const Cmd& cmd) {
     sendAck(seq);                              // ACK шлемо ЗАВЖДИ — і на дублікат теж,
 }                                              //   бо попередній ACK міг загубитися
 ```
+```python
+last_seq = -1                                  # останній виконаний номер (−1 = ще жодного)
+
+def on_packet(seq, cmd):
+    global last_seq
+    if seq != last_seq:                        # новий номер — це нова команда
+        execute(cmd)                           #   виконати РІВНО раз
+        last_seq = seq
+    send_ack(seq)                              # ACK шлемо ЗАВЖДИ — і на дублікат теж,
+                                               #   бо попередній ACK міг загубитися
+```
+:::
 
 Те, що `sendAck` стоїть **поза** перевіркою номера, — не випадковість, а суть схеми: повторний ACK на дублікат і є тим, що дає відправникові нарешті вийти з WAIT_ACK, коли перший ACK не дійшов.
 
@@ -94,6 +121,7 @@ t=1000 мс 5 спроб марно → return false → викликаємо fa
 
 Синхронний `sendReliable` має одну хибу для прошивки: цикл `while` усередині **блокує** головний цикл на час очікування ACK, а він зайнятий стабілізацією й блокуватися не сміє. Тому в реальному коді stop-and-wait розгортають у той самий автомат, але **без очікування** — на перевірці часу через `millis()`, як [неблокуючий патерн](book:programming/nonblocking-time):
 
+:::tabs
 ```cpp
 enum LinkState { IDLE, WAIT_ACK };
 LinkState st = IDLE;
@@ -117,6 +145,33 @@ void linkTick() {                              // викликати щотак�
     }
 }
 ```
+```python
+IDLE, WAIT_ACK = 0, 1
+
+st = IDLE
+cur_seq = 0
+cur_cmd = None
+sent_at = 0
+tries = 0
+
+def start_send(seq, cmd):                      # поставити команду в чергу
+    global st, cur_seq, cur_cmd, sent_at, tries
+    cur_seq, cur_cmd = seq, cmd
+    send_packet(cur_seq, cur_cmd); sent_at = millis(); tries = 1
+    st = WAIT_ACK
+
+def link_tick():                               # викликати щотакту з головного циклу
+    global st, sent_at, tries
+    if st != WAIT_ACK:
+        return
+    if got_ack_for(cur_seq):                   # підтверджено
+        st = IDLE; return
+    if millis() - sent_at >= ACK_TIMEOUT:
+        if tries >= MAX_TRIES:                 # здаюся
+            st = IDLE; failsafe(); return
+        send_packet(cur_seq, cur_cmd); sent_at = millis(); tries += 1  # повтор
+```
+:::
 
 Логіка та сама — номер незмінний, повтори лічаться, стеля веде у failsafe, — але `linkTick()` повертається миттєво, лишаючи головному циклу час на все інше. Це той варіант, що справді живе в прошивці.
 

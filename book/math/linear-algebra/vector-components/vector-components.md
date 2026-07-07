@@ -96,7 +96,8 @@ a = aₓ · î + a_y · ĵ
 
 Реальний C-код для МК (C99, `<math.h>`):
 
-```c
+:::tabs
+```cpp
 #include <math.h>
 
 float vec_magnitude(float x, float y, float z) {
@@ -107,6 +108,16 @@ float tilt_deg(float ax, float ay) {    /* кут від осі x, чверть-
     return atan2f(ay, ax) * 180.0f / (float)M_PI;
 }
 ```
+```python
+import math
+
+def vec_magnitude(x, y, z):
+    return math.sqrt(x*x + y*y + z*z)
+
+def tilt_deg(ax, ay):    # кут від осі x, чверть-коректно
+    return math.atan2(ay, ax) * 180.0 / math.pi
+```
+:::
 
 Зверніть увагу: `atan2f`, а не `atan` і не `atanf(ay/ax)`. По-перше, ділення на ax при ax ≈ 0 дає нескінченність. По-друге, навіть при ненульовому ax звичайний atan губить чверть. По-третє, `sqrtf` і `atan2f` — float-версії, що відповідають типам на мікроконтролері; підмішати `double` туди, де очікується `float`, — типова пастка.
 

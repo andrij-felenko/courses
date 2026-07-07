@@ -105,6 +105,7 @@ P **ініціалізують** широко на швидкостях. У мо
 
 > 🔧 **Навіщо це.** Широка початкова P по швидкості — те, що рятує трек у перші кадри. Якби ми сказали фільтру «я впевнений, що швидкість нульова» (мала P), він би вперто не вірив першим вимірам руху й кілька кадрів тримав ціль на місці, поки вона вже поїхала. Велика початкова невпевненість каже «вір вимірам, поки сам не зрозумієш рух» — і трек швидко «чіпляється» за реальну траєкторію.
 
+:::tabs
 ```c
 #define NS 8     /* розмір стану */
 #define NM 4     /* розмір виміру */
@@ -148,6 +149,42 @@ void kf_init(KF *f, float cx, float cy, float w, float h, float dt) {
     f->R[2][2]=f->R[3][3] = 4.0f;    /* розмір ±2 px */
 }
 ```
+```python
+import numpy as np
+
+NS = 8   # розмір стану
+NM = 4   # розмір виміру
+
+
+class KF:
+    """Фільтр Калмана для бокс-трекера: стан [x y w h vx vy vw vh]."""
+
+    def __init__(self, cx, cy, w, h, dt):
+        # стан: положення з детекції, швидкості — нуль (ще не знаємо)
+        self.x = np.zeros(NS)
+        self.x[:4] = [cx, cy, w, h]
+
+        # F = одинична + Δt на блоці положення←швидкість
+        self.F = np.eye(NS)
+        self.F[0, 4] = self.F[1, 5] = self.F[2, 6] = self.F[3, 7] = dt
+
+        # H вибирає перші 4 компоненти (рамку)
+        self.H = np.zeros((NM, NS))
+        self.H[0, 0] = self.H[1, 1] = self.H[2, 2] = self.H[3, 3] = 1.0
+
+        # P: помірно по положенню, ШИРОКО по швидкості (її ще не знаємо)
+        p_pos, p_vel = 10.0, 1000.0
+        self.P = np.diag([p_pos] * 4 + [p_vel] * 4)
+
+        # Q: малий шум процесу; на швидкостях трохи більший (там «живе» прискорення)
+        q_pos, q_vel = 1.0, 10.0
+        self.Q = np.diag([q_pos] * 4 + [q_vel] * 4)
+
+        # R: ВИМІРЯНО на нерухомій цілі — дрижання рамки в пікселях²
+        #   центр ±1 px, розмір ±2 px
+        self.R = np.diag([1.0, 1.0, 4.0, 4.0])
+```
+:::
 
 Числа тут — типовий старт, не догма: p_vel завелике для повільної камери стеження, замале для шаленого дрону; q_vel крутять, дивлячись на гладкість. Але **структура** правильна завжди: P широка по швидкості, R виміряна, Q підібрана.
 
@@ -202,6 +239,7 @@ cost[i][j] = 1 − IoU( прогноз_треку_i , детекція_j )
 
 Випишемо структуру треку й кістяк оновлення — це серце будь-якого MOT-трекера:
 
+:::tabs
 ```c
 typedef enum { TENTATIVE, CONFIRMED, DELETED } TrackState;
 
@@ -241,6 +279,49 @@ void update_tracks(Track *tracks, int n, const Rect *dets, const int *matched,
         з детекцій, що лишились без пари — див. proj-sort-tracker) */
 }
 ```
+```python
+from enum import Enum
+
+
+class TrackState(Enum):
+    TENTATIVE = 0
+    CONFIRMED = 1
+    DELETED = 2
+
+
+class Track:
+    def __init__(self, track_id, kf):
+        self.id = track_id          # стійкий номер об'єкта
+        self.kf = kf                # фільтр Калмана зі станом цілі
+        self.state = TrackState.TENTATIVE
+        self.hits = 0               # скільки разів поспіль був збіг
+        self.misses = 0             # скільки кадрів поспіль без детекції
+        self.age = 0                # скільки кадрів живе всього
+
+
+def update_tracks(tracks, dets, matched, min_hits, max_missed):
+    """Один кадр: tracks[] уже мають прогноз (predict зроблено),
+    matched[i] = індекс детекції для треку i або -1 (без пари)."""
+    for i, t in enumerate(tracks):
+        t.age += 1
+
+        if matched[i] >= 0:                       # є детекція → update фільтра
+            t.kf.update(dets[matched[i]])
+            t.hits += 1
+            t.misses = 0
+            if t.state is TrackState.TENTATIVE and t.hits >= min_hits:
+                t.state = TrackState.CONFIRMED    # проба витримала → підтверджено
+        else:                                      # пари немає → ведемо наосліп
+            t.misses += 1
+            if t.state is TrackState.TENTATIVE:
+                t.state = TrackState.DELETED      # проба зірвалась одразу
+            elif t.misses > max_missed:
+                t.state = TrackState.DELETED      # підтверджений жив, та зник надовго
+
+    # (окремим проходом: викинути DELETED і завести нові TENTATIVE
+    #  з детекцій, що лишились без пари — див. proj-sort-tracker)
+```
+:::
 
 Уся логіка тут — це лічильники hits і misses плюс три пороги (min_hits, max_missed, IoU-поріг прив'язки), що крутять характер трекера: швидше підтверджувати чи обережніше, довше тримати втрачені чи рішучіше ховати. Повну реалізацію з прив'язкою, народженням нових і вибиранням мертвих зібрано в [проєкті SORT-трекера](book:algorithms/tracking/proj-sort-tracker.md).
 

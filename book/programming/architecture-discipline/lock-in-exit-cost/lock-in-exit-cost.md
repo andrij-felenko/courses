@@ -103,6 +103,7 @@
 
 Ось як цей шов виглядає в C++. Спершу — **свій** інтерфейс, у твоїх поняттях, нічого про конкретного постачальника:
 
+:::tabs
 ```cpp
 // Свій контракт: рівно те, що потрібно системі.
 // Жодних типів вендора тут немає — це і є шов.
@@ -117,9 +118,37 @@ public:
     virtual bool consume(std::string& out, int timeout_ms) = 0;
 };
 ```
+```go
+// Свій контракт: рівно те, що потрібно системі.
+// Жодних типів вендора тут немає — це і є шов.
+type MessageQueue interface {
+	Publish(topic, payload string) error
+
+	// повертає ("", false, nil), якщо за timeout нічого не прийшло;
+	// err — саме збій доступу
+	Consume(timeout time.Duration) (payload string, ok bool, err error)
+}
+```
+```python
+from abc import ABC, abstractmethod
+
+# Свій контракт: рівно те, що потрібно системі.
+# Жодних типів вендора тут немає — це і є шов.
+class MessageQueue(ABC):
+    @abstractmethod
+    def publish(self, topic: str, payload: str) -> None:
+        ...
+
+    # повертає None, якщо за timeout нічого не прийшло
+    @abstractmethod
+    def consume(self, timeout_ms: int) -> str | None:
+        ...
+```
+:::
 
 Адаптер під конкретного вендора реалізує цей контракт і **лишається єдиним місцем**, що знає його SDK:
 
+:::tabs
 ```cpp
 // Уся прив'язка до постачальника A замкнена ТУТ.
 // Жоден інший файл не бачить vendora::*.
@@ -144,9 +173,64 @@ public:
     }
 };
 ```
+```go
+// Уся прив'язка до постачальника A замкнена ТУТ.
+// Жоден інший файл не бачить vendora.*.
+type VendorAQueue struct {
+	cli *vendora.Client // тип вендора — лише всередині
+}
+
+func NewVendorAQueue(url string) (*VendorAQueue, error) {
+	cli, err := vendora.Dial(url)
+	if err != nil {
+		return nil, err
+	}
+	return &VendorAQueue{cli: cli}, nil
+}
+
+func (q *VendorAQueue) Publish(topic, payload string) error {
+	m := vendora.Message{} // деталь вендора не витікає назовні
+	m.SetChannel(topic)
+	m.SetBody(payload)
+	return q.cli.Send(m)
+}
+
+func (q *VendorAQueue) Consume(timeout time.Duration) (string, bool, error) {
+	m, err := q.cli.Poll(timeout)
+	if err == vendora.ErrTimeout {
+		return "", false, nil
+	}
+	if err != nil {
+		return "", false, err
+	}
+	return m.Body(), true, nil
+}
+```
+```python
+# Уся прив'язка до постачальника A замкнена ТУТ.
+# Жоден інший файл не бачить vendora.
+class VendorAQueue(MessageQueue):
+    def __init__(self, url: str) -> None:
+        self._cli = vendora.Client(url)  # тип вендора — лише всередині
+
+    def publish(self, topic: str, payload: str) -> None:
+        m = vendora.Message()            # деталь вендора не витікає назовні
+        m.channel = topic
+        m.body = payload
+        if self._cli.send(m) != vendora.OK:
+            raise RuntimeError("vendorA publish failed")
+
+    def consume(self, timeout_ms: int) -> str | None:
+        m = vendora.Message()
+        if self._cli.poll(m, timeout_ms) != vendora.OK:
+            return None
+        return m.body
+```
+:::
 
 Решта системи працює лише з `MessageQueue&` і навіть не здогадується, хто там під сподом:
 
+:::tabs
 ```cpp
 // Бізнес-логіка сліпа до вендора — говорить тільки зі швом.
 void ship_order(MessageQueue& q, const Order& o) {
@@ -159,6 +243,33 @@ int main() {
     // і написати новий адаптер. Ship_order не змінюється взагалі.
 }
 ```
+```go
+// Бізнес-логіка сліпа до вендора — говорить тільки зі швом.
+func shipOrder(q MessageQueue, o Order) error {
+	return q.Publish("orders", serialize(o))
+}
+
+func main() {
+	queue, err := NewVendorAQueue("amqp://broker") // вибір вендора — в одному місці
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Переїзд на вендора B = замінити цей рядок на NewVendorBQueue
+	// і написати новий адаптер. shipOrder не змінюється взагалі.
+	_ = queue
+}
+```
+```python
+# Бізнес-логіка сліпа до вендора — говорить тільки зі швом.
+def ship_order(q: MessageQueue, o: Order) -> None:
+    q.publish("orders", serialize(o))
+
+def main() -> None:
+    queue = VendorAQueue("amqp://broker")  # вибір вендора — в одному рядку
+    # Переїзд на вендора B = замінити цей рядок на VendorBQueue
+    # і написати новий адаптер. ship_order не змінюється взагалі.
+```
+:::
 
 Прив'язка не зникла — вона **зібрана в одну точку**, яку видно й якою можна керувати. Це і є суть: не втекти від чужого коду, а не дати йому розповзтися.
 

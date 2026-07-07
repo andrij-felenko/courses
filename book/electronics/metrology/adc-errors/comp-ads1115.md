@@ -62,6 +62,7 @@ Vin = raw × FSR / 32768       (raw — знаковий int16)
 
 Реальний компільований фрагмент для ESP32 (Arduino-core, `Wire`):
 
+:::tabs
 ```cpp
 #include <Wire.h>
 constexpr uint8_t ADS_ADDR = 0x48;   // ADDR -> GND
@@ -91,6 +92,24 @@ int16_t raw = (int16_t)adsRead16(0x00);   // reg 0x00 — Conversion, знако
 float fsr   = 4.096f;                      // має збігатись із PGA у CFG (±4.096 В)
 float volts = raw * fsr / 32768.0f;        // ±FS = ±32768 кодів
 ```
+```python
+import board
+import busio
+import adafruit_ads1x15.ads1115 as ADS
+from adafruit_ads1x15.ads1115 import Mode
+from adafruit_ads1x15.analog_in import AnalogIn
+
+i2c = busio.I2C(board.SCL, board.SDA)
+ads = ADS.ADS1115(i2c, address=0x48)   # ADDR -> GND
+ads.gain = 1                            # PGA ±4.096 В (той самий FSR, що в CFG)
+ads.mode = Mode.SINGLE                  # single-shot; драйвер сам чекає 1/DR
+
+chan = AnalogIn(ads, ADS.P0)            # A0 проти GND (несиметрично)
+
+raw = chan.value        # 16-бітний код зі знаком; читання саме запускає перетворення
+volts = chan.voltage    # драйвер уже множить на FSR/32768 і повертає вольти
+```
+:::
 
 «Перший байт» — записати Config і прочитати Conversion. Код знаковий (`int16_t`): диференційний вхід легко дає від'ємні значення. Множник — `FSR/32768`, а **не** `Vref/4095` — це принципова відмінність від вбудованого [ратіометричного](book:electronics/voltage-reference) АЦП.
 

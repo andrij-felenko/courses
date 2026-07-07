@@ -152,7 +152,8 @@ roll  = atan2( ay , √(ax² + az²) )   // нахил ліворуч-право
 
 `atan2` повертає радіани — переведемо в градуси множенням на `180/π`:
 
-```c
+:::tabs
+```cpp
 #include <math.h>
 
 // Кути нахилу (градуси) з трьох прискорень у g.
@@ -176,6 +177,48 @@ void loop() {
     delay(50);
 }
 ```
+```python
+import math
+import time
+
+# Кути нахилу (градуси) з трьох прискорень у g.
+def tilt_angles(ax, ay, az):
+    pitch = math.degrees(math.atan2(ax, math.hypot(ay, az)))
+    roll  = math.degrees(math.atan2(ay, math.hypot(ax, az)))
+    return pitch, roll
+
+while True:
+    ax = read_g(0, 0)
+    ay = read_g(1, 1)
+    az = read_g(2, 2)
+
+    pitch, roll = tilt_angles(ax, ay, az)
+
+    print("pitch={:.1f}  roll={:.1f}".format(pitch, roll))
+    time.sleep(0.05)
+```
+```micropython
+import math
+import time
+
+# Кути нахилу (градуси) з трьох прискорень у g.
+def tilt_angles(ax, ay, az):
+    RAD2DEG = 57.29578                           # 180 / π
+    pitch = math.atan2(ax, math.sqrt(ay*ay + az*az)) * RAD2DEG
+    roll  = math.atan2(ay, math.sqrt(ax*ax + az*az)) * RAD2DEG
+    return pitch, roll
+
+while True:
+    ax = read_g(0, 0)
+    ay = read_g(1, 1)
+    az = read_g(2, 2)
+
+    pitch, roll = tilt_angles(ax, ay, az)
+
+    print("pitch={:.1f}  roll={:.1f}".format(pitch, roll))
+    time.sleep_ms(50)
+```
+:::
 
 > 🔧 **Навіщо atan2, а не asin.** `atan2` бере два аргументи — «протилежний» і «прилеглий» катети — і тому знає **обидва знаки**. Це дає йому дві переваги, яких немає в `asin`: він розрізняє всі чотири чверті (нахил уперед проти назад, а не лише «на скільки»), і він **не вибухає** біля 90°, бо там працює за тангенсом, а не за синусом. Для будь-якого кута з проєкцій вектора — завжди `atan2`.
 
@@ -195,7 +238,8 @@ void loop() {
 
 Найзрозуміліший фільтр — [ковзне середнє](book:algorithms/moving-average): тримаємо останні N вимірів і щоразу видаємо їхнє середнє. Кожен новий відлік входить у вікно, найстаріший випадає. Це буквально та сама ідея, що й усереднення при читанні, тільки рознесена в часі й безперервна.
 
-```c
+:::tabs
+```cpp
 // Ковзне середнє на кільцевому буфері (для однієї осі).
 #define WIN 8
 struct MovAvg {
@@ -221,6 +265,53 @@ float maStep(MovAvg* m, float x) {
     return m->sum / n;
 }
 ```
+```python
+from collections import deque
+
+# Ковзне середнє на кільцевому буфері (для однієї осі).
+WIN = 8
+
+class MovAvg:
+    def __init__(self):
+        self.buf = deque([0.0] * WIN, maxlen=WIN)  # найстаріше саме випадає
+        self.sum = 0.0
+        self.filled = False
+        self.count = 0
+
+    def step(self, x):
+        oldest = self.buf[0] if len(self.buf) == WIN else 0.0
+        self.sum -= oldest          # прибрати найстаріше
+        self.buf.append(x)          # покласти нове на його місце
+        self.sum += x
+        if self.count < WIN:
+            self.count += 1
+        n = self.count              # поки буфер не повний — ділимо на стільки, скільки є
+        return self.sum / n
+```
+```micropython
+# Ковзне середнє на кільцевому буфері (для однієї осі).
+WIN = const(8)
+
+class MovAvg:
+    def __init__(self):
+        self.buf = [0.0] * WIN
+        self.idx = 0
+        self.sum = 0.0
+        self.filled = False
+
+    def step(self, x):
+        self.sum -= self.buf[self.idx]   # прибрати найстаріше
+        self.buf[self.idx] = x           # покласти нове на його місце
+        self.sum += x
+        self.idx = (self.idx + 1) % WIN
+        if self.idx == 0:
+            self.filled = True
+        n = WIN if self.filled else self.idx  # поки буфер не повний — ділимо на стільки, скільки є
+        if n == 0:
+            n = WIN
+        return self.sum / n
+```
+:::
 
 Хитрість тут — **не переусереднювати весь буфер щоразу**. Ми тримаємо біжучу суму: віднімаємо те, що випадає, додаємо те, що входить. Тож один крок — це одне віднімання й одне додавання, скільки б не було вікно. Вікно N душить білий шум у √N разів (те саме правило), але коштує **затримки**: середнє N відліків «відстає» від сигналу приблизно на пів-вікна. N = 8 при циклі 20 мс дає ≈ 80 мс запізнення — непомітно для нахилу рукою, відчутно для швидкого керування. Ширше вікно — тихіше, але повільніше; це прямий компроміс.
 
@@ -234,7 +325,8 @@ y ← y + α · (x − y)          рівнозначно   y ← (1−α) · y 
 
 Прочитайте це як фізику, а не як формулу. `x − y` — це «наскільки новий вимір відбіг від того, що ми вважали правдою». Ми рушаємо своє `y` в бік `x`, але не стрибаємо туди повністю, а лише на частку α. Мале α (0.05) — важкий, інертний фільтр: тихий, але повільний. Велике α (0.5) — легкий і швидкий, але пропускає більше шуму. Це той самий RC-фільтр нижніх частот, тільки в дискретному коді: α грає роль «як швидко конденсатор наздоганяє вхід».
 
-```c
+:::tabs
+```cpp
 // Однополюсний IIR (експоненційне згладжування), стан — одне float.
 struct Iir { float y; bool init; };
 
@@ -244,6 +336,22 @@ float iirStep(Iir* f, float x, float alpha) {
     return f->y;
 }
 ```
+```python
+# Однополюсний IIR (експоненційне згладжування), стан — одне float.
+# Той самий код працює і на CPython, і на MicroPython.
+class Iir:
+    def __init__(self):
+        self.y = 0.0
+        self.init = False
+
+    def step(self, x, alpha):
+        if not self.init:            # перший вимір — як є, без розгону
+            self.y = x
+            self.init = True
+        self.y += alpha * (x - self.y)
+        return self.y
+```
+:::
 
 Порада з практики: **фільтруйте g, не кут**. Спокусливо згладити вже готовий `pitch`, але кут — це нелінійна функція проєкцій (`atan2`), і згладжування після нелінійності спотворює менше очевидно. Чистіше: відфільтрувати три `ax/ay/az`, а вже з тихих проєкцій рахувати кут. Тоді нелінійність працює з чистим входом, і кут виходить і тихий, і без викривлення.
 

@@ -103,6 +103,7 @@ VCC і GND — живлення: модуль хоче **5 вольтів** і �
 Робота з модулем у прошивці зводиться до трьох дій, які повторюєш у циклі: смикнути TRIG, зміряти ширину ECHO, поділити на 58. Ось найпростіший робочий приклад для Arduino — без бібліотек, «як воно є всередині»:
 
 **Один вимір відстані в сантиметрах**
+:::tabs
 ```cpp
 const int TRIG_PIN = 9;
 const int ECHO_PIN = 10;
@@ -136,6 +137,79 @@ void loop() {
     delay(60);                       // пауза між вимірами ≥ 60 мс
 }
 ```
+```micropython
+from machine import Pin, time_pulse_us
+from time import sleep_ms, sleep_us
+
+TRIG = Pin(9, Pin.OUT)
+ECHO = Pin(10, Pin.IN)
+
+def measure_cm():
+    # 1. Спусковий імпульс: 10 мкс високого рівня на TRIG
+    TRIG.low()
+    sleep_us(2)
+    TRIG.high()
+    sleep_us(10)
+    TRIG.low()
+
+    # 2. Ширина високого імпульсу на ECHO = час польоту в мкс.
+    #    Тайм-аут 30000 мкс, щоб не зависнути, коли луни немає.
+    t = time_pulse_us(ECHO, 1, 30000)
+
+    if t < 0:                    # нічого не почули (порожньо/далеко)
+        return -1
+    return t // 58              # мкс → см
+
+while True:
+    cm = measure_cm()
+    if cm < 0:
+        print("out of range")
+    else:
+        print(cm, "cm")
+    sleep_ms(60)                 # пауза між вимірами ≥ 60 мс
+```
+```python
+import time
+import RPi.GPIO as GPIO
+
+TRIG_PIN = 9
+ECHO_PIN = 10
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(TRIG_PIN, GPIO.OUT)
+GPIO.setup(ECHO_PIN, GPIO.IN)
+
+def measure_cm():
+    # 1. Спусковий імпульс: 10 мкс високого рівня на TRIG
+    GPIO.output(TRIG_PIN, GPIO.LOW)
+    time.sleep(2e-6)
+    GPIO.output(TRIG_PIN, GPIO.HIGH)
+    time.sleep(10e-6)
+    GPIO.output(TRIG_PIN, GPIO.LOW)
+
+    # 2. Ширина високого імпульсу на ECHO = час польоту в мкс.
+    #    Тайм-аут 30000 мкс, щоб не зависнути, коли луни немає.
+    deadline = time.monotonic() + 0.030
+    while GPIO.input(ECHO_PIN) == 0:
+        if time.monotonic() > deadline:
+            return -1            # нічого не почули (порожньо/далеко)
+    start = time.monotonic()
+    while GPIO.input(ECHO_PIN) == 1:
+        if time.monotonic() > deadline:
+            return -1
+    t = (time.monotonic() - start) * 1_000_000  # с → мкс
+
+    return int(t // 58)          # мкс → см
+
+while True:
+    cm = measure_cm()
+    if cm < 0:
+        print("out of range")
+    else:
+        print(cm, "cm")
+    time.sleep(0.060)            # пауза між вимірами ≥ 60 мс
+```
+:::
 
 Тут `pulseIn` робить головне — вимірює, скільки мікросекунд ECHO протримався високим, і повертає цей час. Три речі, які **обов'язково** мусять бути на місці, інакше модуль поводитиметься дивно:
 

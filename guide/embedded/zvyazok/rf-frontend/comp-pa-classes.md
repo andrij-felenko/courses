@@ -63,6 +63,7 @@ PAE = (P_RF,вих − P_RF,вх) / P_DC
 η(−6dB) = 50 % × 0.25 = 12.5 %
 ```
 
+:::tabs
 ```c
 // Drain efficiency класу A на заданому відступі від піку
 #include <math.h>
@@ -73,6 +74,16 @@ float eff_class_a(float peak_eff_pct, float backoff_db) {
 }
 // eff_class_a(50.0f, 6.0f) -> 12.5 %
 ```
+```python
+# Drain efficiency класу A на заданому відступі від піку
+
+def eff_class_a(peak_eff_pct, backoff_db):
+    p_ratio = 10.0 ** (-backoff_db / 10.0)  # 6 dB -> 0.25
+    return peak_eff_pct * p_ratio           # η ∝ потужності
+
+# eff_class_a(50.0, 6.0) -> 12.5 %
+```
+:::
 
 Дванадцять із половиною відсотків. Решта 87.5 % енергії з батареї — у тепло, нагрівати корпус. Саме тому клас A на потужному передавачі з відступом нежиттєздатний: він спалив би батарею й розплавився б. Його місце — там, де сигнал малий, а чистота понад усе.
 
@@ -96,6 +107,7 @@ float eff_class_a(float peak_eff_pct, float backoff_db) {
 η(−6dB) = 78.5 % × 0.5 ≈ 39.3 %
 ```
 
+:::tabs
 ```c
 // Drain efficiency класу B на заданому відступі від піку
 #include <math.h>
@@ -106,6 +118,16 @@ float eff_class_b(float peak_eff_pct, float backoff_db) {
 }
 // eff_class_b(78.5f, 6.0f) -> 39.3 %
 ```
+```python
+# Drain efficiency класу B на заданому відступі від піку
+
+def eff_class_b(peak_eff_pct, backoff_db):
+    v_ratio = 10.0 ** (-backoff_db / 20.0)  # 6 dB -> 0.5 (напруга!)
+    return peak_eff_pct * v_ratio           # η ∝ амплітуді
+
+# eff_class_b(78.5, 6.0) -> 39.3 %
+```
+:::
 
 Порівняй із класом A: на тому самому відступі 6 dB клас B дає **39.3 %** проти жалюгідних **12.5 %** у класу A — утричі ефективніше саме там, де реально працює сигнал із PAPR. Зверни увагу на показник у формулі: для класу A це `/10` (бо ∝ потужності), для класу B — `/20` (бо ∝ напрузі). Один символ у коді — а за ним уся різниця в характері згасання.
 

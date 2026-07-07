@@ -59,6 +59,7 @@ COMMAND_LONG (структура полів)
 
 **Складання команди «злети на 10 м» для апарата з адресою 1:**
 
+:::tabs
 ```cpp
 // MAV_CMD_NAV_TAKEOFF — команда взльоту; висота йде в param7.
 mavlink_command_long_t cmd = {0};      // обнуляємо всі поля
@@ -76,6 +77,26 @@ int len = mavlink_msg_to_send_buffer(buf, &msg);        // готові байт
 serial_write(buf, len);                                 // у радіоканал
 // далі — чекаємо COMMAND_ACK і дивимося cmd_ack.result
 ```
+```python
+# MAV_CMD_NAV_TAKEOFF — команда взльоту; висота йде в param7 (pymavlink).
+from pymavlink import mavutil
+
+# з'єднання зі станції 255/190; бібліотека сама складе кадр і CRC
+master = mavutil.mavlink_connection("/dev/ttyUSB0", baud=57600,
+                                    source_system=255, source_component=190)
+
+master.mav.command_long_send(
+    1,                                        # target_system — якому апарату
+    1,                                        # target_component — автопілоту
+    mavutil.mavlink.MAV_CMD_NAV_TAKEOFF,      # яка команда
+    0,                                        # confirmation — перша відправка
+    0, 0, 0, 0, 0, 0,                         # param1..param6 — не вжиті
+    10.0)                                     # param7 — цільова висота, метри
+
+# далі — чекаємо COMMAND_ACK і дивимося ack.result
+ack = master.recv_match(type="COMMAND_ACK", blocking=True)
+```
+:::
 
 Зверни увагу: ми **не складаємо байти руками** й не рахуємо контрольну суму самотужки. Функції `..._encode` і `..._to_send_buffer` — частина бібліотеки, **згенерованої** зі словника MAVLink; вони самі розкладуть поля по місцях, додадуть заголовок і порахують контрольну суму. Нам лишається заповнити змістовні поля.
 

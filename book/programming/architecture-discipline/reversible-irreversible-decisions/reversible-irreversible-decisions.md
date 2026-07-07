@@ -62,6 +62,7 @@
 
 Погляньмо, як шов працює в коді. Ось прямий доступ до бази — однобічні двері: тип бібліотеки бази протік у логіку, і кожне таке місце доведеться правити при зміні сховища.
 
+:::tabs
 ```cpp
 // БЕЗ ШВА: конкретна база протекла в бізнес-логіку
 #include <pqxx/pqxx>   // тип PostgreSQL просочився сюди
@@ -73,9 +74,43 @@ double order_total(pqxx::connection& db, int order_id) {
     return row[0].as<double>();     // і синтаксис, і тип — від PostgreSQL
 }
 ```
+```py
+# БЕЗ ШВА: конкретна база протекла в бізнес-логіку
+import psycopg2                    # тип PostgreSQL просочився сюди
+
+def order_total(db: psycopg2.extensions.connection, order_id: int) -> float:
+    with db.cursor() as cur:
+        cur.execute(
+            "SELECT total FROM orders WHERE id = %s", (order_id,))
+        row = cur.fetchone()
+        return float(row[0])        # і драйвер, і курсор — від PostgreSQL
+```
+```go
+// БЕЗ ШВА: конкретна база протекла в бізнес-логіку
+import "github.com/jackc/pgx/v5"   // тип PostgreSQL просочився сюди
+
+func orderTotal(db *pgx.Conn, orderID int) float64 {
+    var total float64
+    db.QueryRow(context.Background(),
+        "SELECT total FROM orders WHERE id = $1", orderID).Scan(&total)
+    return total                    // і тип з'єднання, і плейсхолдер — від PostgreSQL
+}
+```
+```ts
+// БЕЗ ШВА: конкретна база протекла в бізнес-логіку
+import { Client } from "pg";       // тип PostgreSQL просочився сюди
+
+async function orderTotal(db: Client, orderId: number): Promise<number> {
+    const res = await db.query(
+        "SELECT total FROM orders WHERE id = $1", [orderId]);
+    return Number(res.rows[0].total); // і клієнт, і формат рядків — від PostgreSQL
+}
+```
+:::
 
 А тепер той самий вибір за швом. Логіка знає лише інтерфейс `OrderRepo`; яка саме база під ним — її не обходить:
 
+:::tabs
 ```cpp
 // ЗІ ШВОМ: логіка знає тільки інтерфейс, база — за адаптером
 struct OrderRepo {                       // порт: контракт без бази
@@ -93,6 +128,54 @@ struct PgOrderRepo : OrderRepo {         // сьогодні PostgreSQL...
 };
 // Завтра інша база — новий адаптер, а order_total і виклики не міняються.
 ```
+```py
+# ЗІ ШВОМ: логіка знає тільки інтерфейс, база — за адаптером
+from abc import ABC, abstractmethod
+
+class OrderRepo(ABC):                     # порт: контракт без бази
+    @abstractmethod
+    def total(self, order_id: int) -> float: ...
+
+def order_total(repo: OrderRepo, order_id: int) -> float:
+    return repo.total(order_id)           # жодного сліду конкретної бази
+
+# Конкретна база живе в ОДНОМУ місці — в адаптері:
+class PgOrderRepo(OrderRepo):             # сьогодні PostgreSQL...
+    def total(self, order_id: int) -> float: ...  # psycopg2-запит саме тут
+# Завтра інша база — новий адаптер, а order_total і виклики не міняються.
+```
+```go
+// ЗІ ШВОМ: логіка знає тільки інтерфейс, база — за адаптером
+type OrderRepo interface {                // порт: контракт без бази
+    Total(orderID int) float64
+}
+
+func orderTotal(repo OrderRepo, orderID int) float64 {
+    return repo.Total(orderID)            // жодного сліду конкретної бази
+}
+
+// Конкретна база живе в ОДНОМУ місці — в адаптері:
+type PgOrderRepo struct{ db *pgx.Conn }  // сьогодні PostgreSQL...
+func (r PgOrderRepo) Total(orderID int) float64 { /* pgx-запит саме тут */ }
+// Завтра інша база — новий адаптер, а orderTotal і виклики не міняються.
+```
+```ts
+// ЗІ ШВОМ: логіка знає тільки інтерфейс, база — за адаптером
+interface OrderRepo {                     // порт: контракт без бази
+    total(orderId: number): Promise<number>;
+}
+
+function orderTotal(repo: OrderRepo, orderId: number): Promise<number> {
+    return repo.total(orderId);           // жодного сліду конкретної бази
+}
+
+// Конкретна база живе в ОДНОМУ місці — в адаптері:
+class PgOrderRepo implements OrderRepo {  // сьогодні PostgreSQL...
+    async total(orderId: number): Promise<number> { /* pg-запит саме тут */ return 0; }
+}
+// Завтра інша база — новий адаптер, а orderTotal і виклики не міняються.
+```
+:::
 
 Двері з однобічних стали двобічними: щоб змінити базу, тепер пишуть новий клас-адаптер, а вся система вище шва лишається на місці.
 

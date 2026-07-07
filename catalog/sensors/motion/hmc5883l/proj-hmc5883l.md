@@ -189,6 +189,7 @@ void loop() {
 
 Коли не можна тягнути `Wire` (свій HAL на STM32, ESP-IDF, робота під RTOS чи bare-metal), логіка та сама, але транзакції ідуть через власні примітиви шини. Покажу на прикладі HMC5883L з абстрактними `i2c_write_reg` / `i2c_read_regs`, які ти підставиш зі свого фреймворку. Суть — той самий порядок X-Z-Y і та сама обробка −4096, тільки без Arduino-обгортки.
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stdbool.h>
@@ -244,6 +245,218 @@ float hmc_to_gauss(int16_t raw) {
     return (float)raw / HMC_LSB_PER_GAUSS;
 }
 ```
+```cpp
+#include <cstdint>
+#include <optional>
+#include <array>
+
+// ── Ці дві функції реалізуєш під свою платформу (STM32 HAL, ESP-IDF, тощо) ──
+// Записати один байт val у регістр reg пристрою addr. Повернути 0 при успіху.
+extern int i2c_write_reg(std::uint8_t addr, std::uint8_t reg, std::uint8_t val);
+// Прочитати n байтів у buf, починаючи з reg. Повернути 0 при успіху.
+extern int i2c_read_regs(std::uint8_t addr, std::uint8_t reg,
+                         std::uint8_t* buf, std::uint8_t n);
+
+class Hmc5883l {
+public:
+    static constexpr std::uint8_t ADDR      = 0x1E;
+    static constexpr std::uint8_t CONFIG_A  = 0x00;
+    static constexpr std::uint8_t CONFIG_B  = 0x01;
+    static constexpr std::uint8_t MODE      = 0x02;
+    static constexpr std::uint8_t DATA      = 0x03;  // X(H,L) Z(H,L) Y(H,L)
+    static constexpr std::uint8_t ID_A      = 0x0A;  // 'H' (0x48)
+    // Підсилення для типового ±1.3 Гаус (Config B = 0x20): 1090 LSb/Gauss
+    static constexpr float LSB_PER_GAUSS = 1090.0f;
+
+    struct Axes { std::int16_t x, y, z; };
+
+    // true, якщо чип на 0x1E справді HMC5883L (ID = 'H','4','3')
+    static bool detect() {
+        std::array<std::uint8_t, 3> id{};
+        if (i2c_read_regs(ADDR, ID_A, id.data(), 3) != 0) return false;
+        return id[0] == 'H' && id[1] == '4' && id[2] == '3';  // 0x48 0x34 0x33
+    }
+
+    static void init() {
+        i2c_write_reg(ADDR, CONFIG_A, 0x70);   // 8 усереднень, 15 Гц
+        i2c_write_reg(ADDR, CONFIG_B, 0x20);   // ±1.3 Гаус
+        i2c_write_reg(ADDR, MODE,     0x00);   // безперервний вимір
+    }
+
+    // Три осі, або std::nullopt при переповненні / помилці шини.
+    static std::optional<Axes> read_raw() {
+        std::uint8_t b[6];
+        if (i2c_read_regs(ADDR, DATA, b, 6) != 0) return std::nullopt;
+        // Порядок у чипі: X, Z, Y — big-endian (старший байт першим)
+        Axes a;
+        a.x = static_cast<std::int16_t>((b[0] << 8) | b[1]);
+        a.z = static_cast<std::int16_t>((b[2] << 8) | b[3]);
+        a.y = static_cast<std::int16_t>((b[4] << 8) | b[5]);
+        // -4096 (0xF000) = ADC-переповнення: поле сильніше за обраний діапазон
+        if (a.x == -4096 || a.y == -4096 || a.z == -4096) return std::nullopt;
+        return a;
+    }
+
+    // Перевести сирий відлік у Гауси (для діагностики / нахилокомпенсації)
+    static float to_gauss(std::int16_t raw) {
+        return static_cast<float>(raw) / LSB_PER_GAUSS;
+    }
+};
+```
+```python
+import struct
+
+# ── Об'єкт шини реалізуєш під свою платформу (SMBus, periphery, тощо) ──
+# bus.write_reg(addr, reg, val)          -> запис одного байта
+# bus.read_regs(addr, reg, n) -> bytes   -> читання n байтів з автоінкрементом
+
+HMC_ADDR = 0x1E
+
+# Регістри HMC5883L
+HMC_CONFIG_A = 0x00
+HMC_CONFIG_B = 0x01
+HMC_MODE     = 0x02
+HMC_DATA     = 0x03   # далі 6 байтів: X(H,L) Z(H,L) Y(H,L)
+HMC_ID_A     = 0x0A   # 'H' (0x48)
+
+# Підсилення для типового ±1.3 Гаус (Config B = 0x20): 1090 LSb/Gauss
+HMC_LSB_PER_GAUSS = 1090.0
+
+
+def hmc_detect(bus) -> bool:
+    """True, якщо чип на 0x1E справді HMC5883L (ID = 'H','4','3')."""
+    ident = bus.read_regs(HMC_ADDR, HMC_ID_A, 3)
+    return ident == b'H43'   # 0x48 0x34 0x33
+
+
+def hmc_init(bus) -> None:
+    bus.write_reg(HMC_ADDR, HMC_CONFIG_A, 0x70)   # 8 усереднень, 15 Гц
+    bus.write_reg(HMC_ADDR, HMC_CONFIG_B, 0x20)   # ±1.3 Гаус
+    bus.write_reg(HMC_ADDR, HMC_MODE,     0x00)   # безперервний вимір
+
+
+def hmc_read_raw(bus):
+    """Кортеж (x, y, z) або None при переповненні / помилці шини."""
+    b = bus.read_regs(HMC_ADDR, HMC_DATA, 6)
+    if len(b) != 6:
+        return None
+    # Порядок у чипі: X, Z, Y — big-endian (старший байт першим)
+    x, z, y = struct.unpack('>hhh', b)
+    # -4096 (0xF000) = ADC-переповнення: поле сильніше за обраний діапазон
+    if -4096 in (x, y, z):
+        return None
+    return x, y, z
+
+
+def hmc_to_gauss(raw: int) -> float:
+    """Перевести сирий відлік у Гауси (для діагностики / нахилокомпенсації)."""
+    return raw / HMC_LSB_PER_GAUSS
+```
+```micropython
+import struct
+
+HMC_ADDR = 0x1E
+
+# Регістри HMC5883L
+HMC_CONFIG_A = 0x00
+HMC_CONFIG_B = 0x01
+HMC_MODE     = 0x02
+HMC_DATA     = 0x03   # далі 6 байтів: X(H,L) Z(H,L) Y(H,L)
+HMC_ID_A     = 0x0A   # 'H' (0x48)
+
+HMC_LSB_PER_GAUSS = 1090.0
+
+
+def hmc_detect(i2c):
+    # True, якщо чип на 0x1E справді HMC5883L (ID = 'H','4','3')
+    ident = i2c.readfrom_mem(HMC_ADDR, HMC_ID_A, 3)
+    return ident == b'H43'   # 0x48 0x34 0x33
+
+
+def hmc_init(i2c):
+    i2c.writeto_mem(HMC_ADDR, HMC_CONFIG_A, bytes([0x70]))  # 8 усереднень, 15 Гц
+    i2c.writeto_mem(HMC_ADDR, HMC_CONFIG_B, bytes([0x20]))  # ±1.3 Гаус
+    i2c.writeto_mem(HMC_ADDR, HMC_MODE,     bytes([0x00]))  # безперервний вимір
+
+
+def hmc_read_raw(i2c):
+    # Кортеж (x, y, z) або None при переповненні / помилці шини
+    b = i2c.readfrom_mem(HMC_ADDR, HMC_DATA, 6)
+    # Порядок у чипі: X, Z, Y — big-endian (старший байт першим)
+    x, z, y = struct.unpack('>hhh', b)
+    # -4096 (0xF000) = ADC-переповнення: поле сильніше за обраний діапазон
+    if x == -4096 or y == -4096 or z == -4096:
+        return None
+    return x, y, z
+
+
+def hmc_to_gauss(raw):
+    # Перевести сирий відлік у Гауси (для діагностики / нахилокомпенсації)
+    return raw / HMC_LSB_PER_GAUSS
+```
+```go
+package compass
+
+import "encoding/binary"
+
+// Bus реалізуєш під свою платформу (periph.io, golang.org/x/exp/io/i2c, тощо).
+type Bus interface {
+	WriteReg(addr, reg, val uint8) error
+	ReadRegs(addr, reg uint8, n int) ([]byte, error)
+}
+
+const (
+	hmcAddr     = 0x1E
+	hmcConfigA  = 0x00
+	hmcConfigB  = 0x01
+	hmcMode     = 0x02
+	hmcData     = 0x03 // далі 6 байтів: X(H,L) Z(H,L) Y(H,L)
+	hmcIDA      = 0x0A // 'H' (0x48)
+	hmcLSBGauss = 1090.0
+)
+
+// HMCDetect: true, якщо чип на 0x1E справді HMC5883L (ID = 'H','4','3').
+func HMCDetect(bus Bus) bool {
+	id, err := bus.ReadRegs(hmcAddr, hmcIDA, 3)
+	if err != nil {
+		return false
+	}
+	return string(id) == "H43" // 0x48 0x34 0x33
+}
+
+func HMCInit(bus Bus) error {
+	if err := bus.WriteReg(hmcAddr, hmcConfigA, 0x70); err != nil { // 8 усереднень, 15 Гц
+		return err
+	}
+	if err := bus.WriteReg(hmcAddr, hmcConfigB, 0x20); err != nil { // ±1.3 Гаус
+		return err
+	}
+	return bus.WriteReg(hmcAddr, hmcMode, 0x00) // безперервний вимір
+}
+
+// HMCReadRaw повертає три осі; ok=false при переповненні або помилці шини.
+func HMCReadRaw(bus Bus) (x, y, z int16, ok bool) {
+	b, err := bus.ReadRegs(hmcAddr, hmcData, 6)
+	if err != nil || len(b) != 6 {
+		return 0, 0, 0, false
+	}
+	// Порядок у чипі: X, Z, Y — big-endian (старший байт першим)
+	x = int16(binary.BigEndian.Uint16(b[0:2]))
+	z = int16(binary.BigEndian.Uint16(b[2:4]))
+	y = int16(binary.BigEndian.Uint16(b[4:6]))
+	// -4096 (0xF000) = ADC-переповнення: поле сильніше за обраний діапазон
+	if x == -4096 || y == -4096 || z == -4096 {
+		return 0, 0, 0, false
+	}
+	return x, y, z, true
+}
+
+// HMCToGauss переводить сирий відлік у Гауси (для діагностики / нахилокомпенсації).
+func HMCToGauss(raw int16) float64 {
+	return float64(raw) / hmcLSBGauss
+}
+```
+:::
 
 Тут кожен байт на видноті. `hmc_detect` дочитує три ASCII-байти ідентифікації й порівнює з `H43` — це фінальна певність, що на 0x1E саме HMC, а не якийсь інший пристрій, що випадково зайняв цю адресу. `hmc_read_raw` явно розкладає шість байтів у порядку X-Z-Y (не X-Y-Z!) і перевіряє кожну вісь на маркер −4096.
 
@@ -251,6 +464,7 @@ float hmc_to_gauss(int16_t raw) {
 
 Для QMC5883L власна гілка симетрична, лише інші регістри й little-endian:
 
+:::tabs
 ```c
 #define QMC_ADDR    0x0D
 #define QMC_DATA    0x00   // X(L,H) Y(L,H) Z(L,H) — LSB першим
@@ -282,6 +496,149 @@ bool qmc_read_raw(int16_t *x, int16_t *y, int16_t *z) {
     return true;
 }
 ```
+```cpp
+class Qmc5883l {
+public:
+    static constexpr std::uint8_t ADDR    = 0x0D;
+    static constexpr std::uint8_t DATA    = 0x00;  // X(L,H) Y(L,H) Z(L,H) — LSB першим
+    static constexpr std::uint8_t STATUS  = 0x06;  // біт0=DRDY, біт1=OVL
+    static constexpr std::uint8_t CONFIG1 = 0x09;
+    static constexpr std::uint8_t RESET   = 0x0B;
+    // ±2 Гаус → 12000 LSb/Gauss; ±8 Гаус → 3000 LSb/Gauss (datasheet QST)
+    static constexpr float LSB_PER_GAUSS = 12000.0f;
+
+    struct Axes { std::int16_t x, y, z; };
+
+    static void init() {
+        i2c_write_reg(ADDR, 0x0A, 0x80);    // м'яке скидання
+        // (у власному HAL тут коротка пауза ~5 мс)
+        i2c_write_reg(ADDR, RESET, 0x01);   // SET/RESET Period — ОБОВ'ЯЗКОВО
+        i2c_write_reg(ADDR, CONFIG1, 0x1D); // 512x, ±2G, 200Гц, безперервний
+    }
+
+    static std::optional<Axes> read_raw() {
+        std::uint8_t st;
+        if (i2c_read_regs(ADDR, STATUS, &st, 1) != 0) return std::nullopt;
+        if (!(st & 0x01)) return std::nullopt;  // DRDY=0 → нових даних ще немає
+        std::uint8_t b[6];
+        if (i2c_read_regs(ADDR, DATA, b, 6) != 0) return std::nullopt;
+        // little-endian: молодший байт першим
+        Axes a;
+        a.x = static_cast<std::int16_t>((b[1] << 8) | b[0]);
+        a.y = static_cast<std::int16_t>((b[3] << 8) | b[2]);
+        a.z = static_cast<std::int16_t>((b[5] << 8) | b[4]);
+        if (st & 0x02) return std::nullopt;     // OVL=1 → переповнення діапазону
+        return a;
+    }
+};
+```
+```python
+QMC_ADDR    = 0x0D
+QMC_DATA    = 0x00   # X(L,H) Y(L,H) Z(L,H) — LSB першим
+QMC_STATUS  = 0x06   # біт 0 = DRDY (дані готові), біт 1 = OVL (переповнення)
+QMC_CONFIG1 = 0x09
+QMC_RESET   = 0x0B
+
+# ±2 Гаус → 12000 LSb/Gauss; ±8 Гаус → 3000 LSb/Gauss (datasheet QST)
+QMC_LSB_PER_GAUSS = 12000.0
+
+
+def qmc_init(bus) -> None:
+    bus.write_reg(QMC_ADDR, 0x0A, 0x80)         # м'яке скидання
+    # (у власному HAL тут коротка пауза ~5 мс)
+    bus.write_reg(QMC_ADDR, QMC_RESET, 0x01)    # SET/RESET Period — ОБОВ'ЯЗКОВО
+    bus.write_reg(QMC_ADDR, QMC_CONFIG1, 0x1D)  # 512x, ±2G, 200Гц, безперервний
+
+
+def qmc_read_raw(bus):
+    """Кортеж (x, y, z) або None: немає даних / переповнення / помилка шини."""
+    st = bus.read_regs(QMC_ADDR, QMC_STATUS, 1)[0]
+    if not (st & 0x01):        # DRDY=0 → нових даних ще немає
+        return None
+    b = bus.read_regs(QMC_ADDR, QMC_DATA, 6)
+    if len(b) != 6:
+        return None
+    # little-endian: молодший байт першим
+    x, y, z = struct.unpack('<hhh', b)
+    if st & 0x02:              # OVL=1 → переповнення діапазону
+        return None
+    return x, y, z
+```
+```micropython
+QMC_ADDR    = 0x0D
+QMC_DATA    = 0x00   # X(L,H) Y(L,H) Z(L,H) — LSB першим
+QMC_STATUS  = 0x06   # біт 0 = DRDY (дані готові), біт 1 = OVL (переповнення)
+QMC_CONFIG1 = 0x09
+QMC_RESET   = 0x0B
+
+QMC_LSB_PER_GAUSS = 12000.0
+
+
+def qmc_init(i2c):
+    i2c.writeto_mem(QMC_ADDR, 0x0A, bytes([0x80]))         # м'яке скидання
+    time.sleep_ms(5)                                       # коротка пауза
+    i2c.writeto_mem(QMC_ADDR, QMC_RESET, bytes([0x01]))    # SET/RESET — ОБОВ'ЯЗКОВО
+    i2c.writeto_mem(QMC_ADDR, QMC_CONFIG1, bytes([0x1D]))  # 512x, ±2G, 200Гц, безпер.
+
+
+def qmc_read_raw(i2c):
+    # Кортеж (x, y, z) або None: немає даних / переповнення / помилка шини
+    st = i2c.readfrom_mem(QMC_ADDR, QMC_STATUS, 1)[0]
+    if not (st & 0x01):        # DRDY=0 → нових даних ще немає
+        return None
+    b = i2c.readfrom_mem(QMC_ADDR, QMC_DATA, 6)
+    # little-endian: молодший байт першим
+    x, y, z = struct.unpack('<hhh', b)
+    if st & 0x02:              # OVL=1 → переповнення діапазону
+        return None
+    return x, y, z
+```
+```go
+const (
+	qmcAddr     = 0x0D
+	qmcData     = 0x00 // X(L,H) Y(L,H) Z(L,H) — LSB першим
+	qmcStatus   = 0x06 // біт 0 = DRDY (дані готові), біт 1 = OVL (переповнення)
+	qmcConfig1  = 0x09
+	qmcReset    = 0x0B
+	qmcLSBGauss = 12000.0 // ±2G; ±8G → 3000 LSb/Gauss (datasheet QST)
+)
+
+func QMCInit(bus Bus) error {
+	if err := bus.WriteReg(qmcAddr, 0x0A, 0x80); err != nil { // м'яке скидання
+		return err
+	}
+	time.Sleep(5 * time.Millisecond) // коротка пауза
+	if err := bus.WriteReg(qmcAddr, qmcReset, 0x01); err != nil { // SET/RESET — ОБОВ'ЯЗКОВО
+		return err
+	}
+	return bus.WriteReg(qmcAddr, qmcConfig1, 0x1D) // 512x, ±2G, 200Гц, безперервний
+}
+
+// QMCReadRaw: ok=false — немає даних / переповнення / помилка шини.
+func QMCReadRaw(bus Bus) (x, y, z int16, ok bool) {
+	stBuf, err := bus.ReadRegs(qmcAddr, qmcStatus, 1)
+	if err != nil {
+		return 0, 0, 0, false
+	}
+	st := stBuf[0]
+	if st&0x01 == 0 { // DRDY=0 → нових даних ще немає
+		return 0, 0, 0, false
+	}
+	b, err := bus.ReadRegs(qmcAddr, qmcData, 6)
+	if err != nil || len(b) != 6 {
+		return 0, 0, 0, false
+	}
+	// little-endian: молодший байт першим
+	x = int16(binary.LittleEndian.Uint16(b[0:2]))
+	y = int16(binary.LittleEndian.Uint16(b[2:4]))
+	z = int16(binary.LittleEndian.Uint16(b[4:6]))
+	if st&0x02 != 0 { // OVL=1 → переповнення діапазону
+		return 0, 0, 0, false
+	}
+	return x, y, z, true
+}
+```
+:::
 
 Різниця чипів тепер розкладена по поличках так, що видно кожну відмінність поряд:
 
@@ -320,6 +677,7 @@ LSB/Гаус (типово)   1090 (±1.3G)          12000 (±2G)
 
 **8. Невиконане калібрування — компас стабільно бреше.** Це не помилка коду, а пропущений крок, без якого «правильний» азимут усе одно неправильний. Поле Землі — не єдине, що ловить давач: власне залізо пристрою (батарея, мотори, саморізи, доріжки зі струмом) спотворює його. **Тверде залізо** (постійні магніти поруч) додає сталий зсув — коло вимірів з'їжджає з нуля. **М'яке залізо** (феромагнетик, що сам не магніт) розтягує коло в еліпс. Без компенсації азимут може брехати на десятки градусів, причому по-різному в різні боки. Мінімальний рецепт для найчастішого випадку (тверде залізо, компас у горизонті) — знайти зсув і відняти його перед `atan2`:
 
+:::tabs
 ```c
 // Калібрування твердого заліза: крутимо пристрій повний оберт, ловимо min/max
 int16_t xmin=32767, xmax=-32768, ymin=32767, ymax=-32768;
@@ -335,6 +693,88 @@ float heading_calibrated(int16_t x, int16_t y, float declination_deg) {
     return compass_heading(x - xoff, y - yoff, declination_deg);
 }
 ```
+```cpp
+// Калібрування твердого заліза: крутимо пристрій повний оберт, ловимо min/max
+class HardIronCalib {
+    std::int16_t xmin = 32767, xmax = -32768;
+    std::int16_t ymin = 32767, ymax = -32768;
+public:
+    void update(std::int16_t x, std::int16_t y) {   // виклик у циклі під час обертання
+        xmin = std::min(xmin, x);  xmax = std::max(xmax, x);
+        ymin = std::min(ymin, y);  ymax = std::max(ymax, y);
+    }
+
+    float heading(std::int16_t x, std::int16_t y, float declination_deg) const {
+        std::int16_t xoff = (xmax + xmin) / 2;  // центр кола по X = зсув твердого заліза
+        std::int16_t yoff = (ymax + ymin) / 2;
+        return compass_heading(x - xoff, y - yoff, declination_deg);
+    }
+};
+```
+```python
+# Калібрування твердого заліза: крутимо пристрій повний оберт, ловимо min/max
+class HardIronCalib:
+    def __init__(self):
+        self.xmin = self.ymin = 32767
+        self.xmax = self.ymax = -32768
+
+    def update(self, x, y):   # виклик у циклі під час обертання
+        self.xmin = min(self.xmin, x);  self.xmax = max(self.xmax, x)
+        self.ymin = min(self.ymin, y);  self.ymax = max(self.ymax, y)
+
+    def heading(self, x, y, declination_deg):
+        xoff = (self.xmax + self.xmin) // 2   # центр кола по X = зсув твердого заліза
+        yoff = (self.ymax + self.ymin) // 2
+        return compass_heading(x - xoff, y - yoff, declination_deg)
+```
+```micropython
+# Калібрування твердого заліза: крутимо пристрій повний оберт, ловимо min/max
+class HardIronCalib:
+    def __init__(self):
+        self.xmin = self.ymin = 32767
+        self.xmax = self.ymax = -32768
+
+    def update(self, x, y):   # виклик у циклі під час обертання
+        self.xmin = min(self.xmin, x);  self.xmax = max(self.xmax, x)
+        self.ymin = min(self.ymin, y);  self.ymax = max(self.ymax, y)
+
+    def heading(self, x, y, declination_deg):
+        xoff = (self.xmax + self.xmin) // 2   # центр кола по X = зсув твердого заліза
+        yoff = (self.ymax + self.ymin) // 2
+        return compass_heading(x - xoff, y - yoff, declination_deg)
+```
+```go
+// Калібрування твердого заліза: крутимо пристрій повний оберт, ловимо min/max
+type HardIronCalib struct {
+	xmin, xmax, ymin, ymax int16
+}
+
+func NewHardIronCalib() *HardIronCalib {
+	return &HardIronCalib{xmin: 32767, xmax: -32768, ymin: 32767, ymax: -32768}
+}
+
+func (c *HardIronCalib) Update(x, y int16) { // виклик у циклі під час обертання
+	if x < c.xmin {
+		c.xmin = x
+	}
+	if x > c.xmax {
+		c.xmax = x
+	}
+	if y < c.ymin {
+		c.ymin = y
+	}
+	if y > c.ymax {
+		c.ymax = y
+	}
+}
+
+func (c *HardIronCalib) Heading(x, y int16, declinationDeg float64) float64 {
+	xoff := (c.xmax + c.xmin) / 2 // центр кола по X = зсув твердого заліза
+	yoff := (c.ymax + c.ymin) / 2
+	return CompassHeading(x-xoff, y-yoff, declinationDeg)
+}
+```
+:::
 
 Калібрувати треба **на зібраному пристрої**, з усім залізом на місці, — бо саме це залізо ми й компенсуємо; калібрування «голого» модуля на столі нічого не варте, коли потім прикрутиш його до дрона. Різниця між каліброваним і сирим компасом — між похибкою в 1–2° і похибкою в 30°. Повніша компенсація (м'яке залізо, еліпс → коло, нахилокомпенсація через акселерометр) — це вже [оцінка орієнтації](guide:embedded/attitude-estimation), окрема велика тема; тут головне зрозуміти, що **без бодай зсуву твердого заліза компас не працює як компас**.
 

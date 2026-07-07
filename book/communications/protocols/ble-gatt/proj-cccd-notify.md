@@ -42,6 +42,7 @@
 
 На периферії пастка одна, зате підступна: оголосити властивість `NOTIFY` мало — до характеристики треба ще **додати сам CCCD**. У ESP32 (Arduino BLE) його втілює готовий клас `BLE2902`:
 
+:::tabs
 ```cpp
 BLECharacteristic* temp = env->createCharacteristic(
     (uint16_t)0x2A6E,                                  // Temperature
@@ -50,21 +51,37 @@ BLECharacteristic* temp = env->createCharacteristic(
 
 temp->addDescriptor(new BLE2902());                    // ← без цього рядка notify мовчить
 ```
+```micropython
+# aioble сама доклеїть CCCD (0x2902), щойно вказано notify=True
+temp = aioble.Characteristic(
+    env,
+    bluetooth.UUID(0x2A6E),                            # Temperature
+    read=True,
+    notify=True)                                       # ← дозвіл + автоматичний CCCD
+```
+:::
 
 Забув `addDescriptor(new BLE2902())` — клієнтові **нема куди** записати свій намір, тож сповіщення не ввімкнути в принципі: характеристика обіцяє notify, але вимикача на ній немає. Це і є та одна забута стрічка, через яку «все ніби правильно, а не працює».
 
 Сам виклик `notify()` після цього безпечний навіть тоді, коли ніхто не підписався: стек просто нічого не надішле, бо CCCD у нулі. Тож штовхати оновлення можна спокійно з будь-якою періодичністю — зайвого радіо воно не розбудить, поки нема підписника:
 
+:::tabs
 ```cpp
 int16_t celsius_x100 = (int16_t)(read_temperature() * 100);  // 0x2A6E: sint16, крок 0.01 °C
 temp->setValue((uint8_t*)&celsius_x100, sizeof(celsius_x100));
 temp->notify();                                              // піде лише підписаним клієнтам
 ```
+```micropython
+celsius_x100 = int(read_temperature() * 100)                 # 0x2A6E: sint16, крок 0.01 °C
+temp.write(struct.pack("<h", celsius_x100), send_update=True)  # send_update → notify підписаним
+```
+:::
 
 ### Бік центрального: увімкнути потік явно
 
 Коли ESP32 виступає **клієнтом** (читає чужий давач), увімкнути потік треба вже самому — знайти CCCD характеристики й записати в нього одиницю. Багато хто чіпляє обробник і чекає даних, забувши цей крок:
 
+:::tabs
 ```cpp
 // знайшли характеристику remoteChar, що вміє notify
 remoteChar->registerForNotify(onNotifyCallback);            // повісили обробник подій
@@ -74,6 +91,16 @@ BLERemoteDescriptor* cccd = remoteChar->getDescriptor(BLEUUID((uint16_t)0x2902))
 uint8_t on[] = {0x01, 0x00};
 cccd->writeValue(on, 2, true);                             // тепер сервер почне слати
 ```
+```micropython
+# знайшли характеристику remote_char, що вміє notify
+# subscribe() САМА запише 0x0001 у дескриптор 0x2902 — інакше потоку не буде
+await remote_char.subscribe(notify=True)                   # тепер сервер почне слати
+
+while True:
+    data = await remote_char.notified()                    # чекаємо чергове сповіщення
+    on_notify(data)
+```
+:::
 
 Пропустиш цей запис — `registerForNotify` повісить обробник, який **ніколи не покличеться**: підписки на боці сервера так і не з'явилося, бо ти про неї не попросив. Обробник є, даних нема.
 

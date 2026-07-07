@@ -86,6 +86,7 @@
 
 Розберемо це на коді. Уявіть систему, що покладається на зовнішній платіжний сервіс, — джерело серйозного ризику (він може бути повільним, впасти, змінити відповідь). Наївний код зшиває цей ризик намертво з логікою:
 
+:::tabs
 ```cpp
 // РИЗИК ВШИТО: зовнішній виклик прямо в бізнес-логіці, без страховки
 double charge_customer(int customer_id, double amount) {
@@ -95,9 +96,42 @@ double charge_customer(int customer_id, double amount) {
     return r.body_as_double();   // а якщо таймаут? а якщо 500? а якщо повільно?
 }
 ```
+```py
+# РИЗИК ВШИТО: зовнішній виклик прямо в бізнес-логіці, без страховки
+def charge_customer(customer_id: int, amount: float) -> float:
+    # прямий синхронний виклик чужого сервісу — якщо він ляже, ляжемо ми
+    r = requests.post("https://pay.example.com/charge",
+                      json={"customer_id": customer_id, "amount": amount})
+    return float(r.text)   # а якщо таймаут? а якщо 500? а якщо повільно?
+```
+```go
+// РИЗИК ВШИТО: зовнішній виклик прямо в бізнес-логіці, без страховки
+func chargeCustomer(customerID int, amount float64) float64 {
+	// прямий синхронний виклик чужого сервісу — якщо він ляже, ляжемо ми
+	resp, _ := http.PostForm("https://pay.example.com/charge",
+		url.Values{"customer_id": {strconv.Itoa(customerID)},
+			"amount": {fmt.Sprint(amount)}})
+	body, _ := io.ReadAll(resp.Body) // а якщо таймаут? а якщо 500? а якщо повільно?
+	v, _ := strconv.ParseFloat(string(body), 64)
+	return v
+}
+```
+```ts
+// РИЗИК ВШИТО: зовнішній виклик прямо в бізнес-логіці, без страховки
+async function chargeCustomer(customerId: number, amount: number): Promise<number> {
+  // прямий синхронний виклик чужого сервісу — якщо він ляже, ляжемо ми
+  const r = await fetch("https://pay.example.com/charge", {
+    method: "POST",
+    body: JSON.stringify({ customerId, amount }),
+  });
+  return Number(await r.text()); // а якщо таймаут? а якщо 500? а якщо повільно?
+}
+```
+:::
 
 Тут ризик прийнято наосліп: жодної відповіді на нього не закладено. Тепер той самий виклик, але з **явними** відповідями на ризик — зменшенням (таймаут, повтори, запасний хід) і зворотністю (виклик за швом, щоб постачальника можна було замінити):
 
+:::tabs
 ```cpp
 // РИЗИК НАЗВАНО Й ЗМЕНШЕНО: таймаут + повтор + запасний хід, і все за швом
 struct PaymentGateway {                 // шов: логіка знає лише інтерфейс
@@ -116,6 +150,63 @@ PayResult charge_customer(PaymentGateway& gw, int customer_id, double amount) {
 // Постачальник за швом → якщо цей сервіс виявиться поганим, міняємо адаптер,
 // а charge_customer і виклики не чіпаємо. Це відповідь на «невідоме невідоме».
 ```
+```py
+from typing import Protocol
+
+# РИЗИК НАЗВАНО Й ЗМЕНШЕНО: таймаут + повтор + запасний хід, і все за швом
+class PaymentGateway(Protocol):         # шов: логіка знає лише інтерфейс
+    def charge(self, customer_id: int, amount: float) -> PayResult: ...
+
+def charge_customer(gw: PaymentGateway, customer_id: int, amount: float) -> PayResult:
+    for _attempt in range(3):                # зменшуємо ЙМОВІРНІСТЬ збою
+        r = gw.charge(customer_id, amount)   # (таймаут — усередині адаптера)
+        if r.ok:
+            return r
+    # запасний хід зменшує ВТРАТУ: не валимо все, а ставимо платіж у чергу
+    return PayResult.queued_for_retry(customer_id, amount)
+# Постачальник за швом → якщо цей сервіс виявиться поганим, міняємо адаптер,
+# а charge_customer і виклики не чіпаємо. Це відповідь на «невідоме невідоме».
+```
+```go
+// РИЗИК НАЗВАНО Й ЗМЕНШЕНО: таймаут + повтор + запасний хід, і все за швом
+type PaymentGateway interface { // шов: логіка знає лише інтерфейс
+	Charge(customerID int, amount float64) PayResult
+}
+
+func chargeCustomer(gw PaymentGateway, customerID int, amount float64) PayResult {
+	for attempt := 0; attempt < 3; attempt++ { // зменшуємо ЙМОВІРНІСТЬ збою
+		r := gw.Charge(customerID, amount) // (таймаут — усередині адаптера)
+		if r.OK {
+			return r
+		}
+	}
+	// запасний хід зменшує ВТРАТУ: не валимо все, а ставимо платіж у чергу
+	return QueuedForRetry(customerID, amount)
+}
+
+// Постачальник за швом → якщо цей сервіс виявиться поганим, міняємо адаптер,
+// а chargeCustomer і виклики не чіпаємо. Це відповідь на «невідоме невідоме».
+```
+```ts
+// РИЗИК НАЗВАНО Й ЗМЕНШЕНО: таймаут + повтор + запасний хід, і все за швом
+interface PaymentGateway {              // шов: логіка знає лише інтерфейс
+  charge(customerId: number, amount: number): Promise<PayResult>;
+}
+
+async function chargeCustomer(
+  gw: PaymentGateway, customerId: number, amount: number,
+): Promise<PayResult> {
+  for (let attempt = 0; attempt < 3; attempt++) { // зменшуємо ЙМОВІРНІСТЬ збою
+    const r = await gw.charge(customerId, amount); // (таймаут — усередині адаптера)
+    if (r.ok) return r;
+  }
+  // запасний хід зменшує ВТРАТУ: не валимо все, а ставимо платіж у чергу
+  return PayResult.queuedForRetry(customerId, amount);
+}
+// Постачальник за швом → якщо цей сервіс виявиться поганим, міняємо адаптер,
+// а chargeCustomer і виклики не чіпаємо. Це відповідь на «невідоме невідоме».
+```
+:::
 
 Другий варіант довший — і в цьому вся суть. Ця зайва довжина є не ускладненням заради ускладнення, а **матеріалізованою відповіддю на ризик**: кожен зайвий рядок гасить конкретну приховану скелю. Перший варіант коротший рівно тому, що всі скелі в ньому просто проігноровано.
 

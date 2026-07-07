@@ -63,6 +63,7 @@ UDP — це чистий [«як вийде» (best-effort)](book:communication
 
 **Умова:** з ESP32 (фреймворк Arduino) надіслати одну команду так, щоб вона гарантовано дійшла, і окремо — потік телеметрії, де втрата окремого значення не страшна.
 
+:::tabs
 ```cpp
 // надійно (TCP): кожен байт дійде, по порядку
 WiFiClient tcp;
@@ -75,6 +76,19 @@ udp.beginPacket(serverIP, port);
 udp.write(telemetry, len);     // може загубитись — і байдуже
 udp.endPacket();
 ```
+```python
+import socket
+
+# надійно (TCP): кожен байт дійде, по порядку
+tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+tcp.connect((server_ip, 1883))
+tcp.sendall(command)           # з'єднання й повтори — усередині
+
+# швидко (UDP): шлеш і не чекаєш
+udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+udp.sendto(telemetry, (server_ip, port))  # може загубитись — і байдуже
+```
+:::
 
 Уся різниця характеру схована за двома класами: `WiFiClient` тягне на собі рукостискання, підтвердження й упорядкування, а `WiFiUDP` лише пакує байти в датаграму й кидає в мережу.
 

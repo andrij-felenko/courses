@@ -18,7 +18,7 @@
 
 Для системи, яку ти будуєш, підводна частина розкладається на чотири струмки, і жоден із них не видно в момент рішення:
 
-```
+```text
 ПОБУДУВАТИ   — розробка, інтеграція, міграція даних, навчання команди
 ЕКСПЛУАТУВАТИ — сервери, трафік, сховище, чергування 24/7, підтримка
 МІНЯТИ       — кожна правка коштує тим більше, чим гірша структура
@@ -63,20 +63,42 @@
 
 **Умова.** Мільйон активних користувачів, кожен породжує в середньому 20 подій на день. Зовнішній сервіс бере 0.0000004 долара за виклик (40 центів за мільйон). Бюджет на цей сервіс — 2000 доларів на місяць. Питання: слати кожну подію окремо чи пачками по 50, і чи проходимо ми поріг?
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
+:::tabs
+```cpp
+#include <cstdint>
 
 // Вартість одного місяця для заданого розміру пачки.
 // batch=1 означає «кожну подію окремим викликом».
-double monthly_cost_usd(uint64_t users, uint32_t events_per_day,
-                        uint32_t batch, double price_per_call) {
-    uint64_t events_month = users * events_per_day * 30ULL;   // подій за місяць
+double monthly_cost_usd(std::uint64_t users, std::uint32_t events_per_day,
+                        std::uint32_t batch, double price_per_call) {
+    std::uint64_t events_month = users * events_per_day * 30ULL;  // подій за місяць
     // Скільки викликів: пачка на 50 подій — це 1 виклик замість 50.
-    uint64_t calls_month  = (events_month + batch - 1) / batch;
-    return (double)calls_month * price_per_call;              // рахунок за місяць
+    std::uint64_t calls_month  = (events_month + batch - 1) / batch;
+    return static_cast<double>(calls_month) * price_per_call;    // рахунок за місяць
 }
 ```
+```python
+import math
+
+# Вартість одного місяця для заданого розміру пачки.
+# batch=1 означає «кожну подію окремим викликом».
+def monthly_cost_usd(users, events_per_day, batch, price_per_call):
+    events_month = users * events_per_day * 30          # подій за місяць
+    # Скільки викликів: пачка на 50 подій — це 1 виклик замість 50.
+    calls_month = math.ceil(events_month / batch)
+    return calls_month * price_per_call                 # рахунок за місяць
+```
+```go
+// Вартість одного місяця для заданого розміру пачки.
+// batch=1 означає «кожну подію окремим викликом».
+func monthlyCostUSD(users uint64, eventsPerDay, batch uint32, pricePerCall float64) float64 {
+	eventsMonth := users * uint64(eventsPerDay) * 30 // подій за місяць
+	// Скільки викликів: пачка на 50 подій — це 1 виклик замість 50.
+	callsMonth := (eventsMonth + uint64(batch) - 1) / uint64(batch)
+	return float64(callsMonth) * pricePerCall // рахунок за місяць
+}
+```
+:::
 
 Підставмо два варіанти й порівняймо з порогом:
 

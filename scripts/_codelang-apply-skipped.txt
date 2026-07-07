@@ -1,0 +1,19 @@
+1. book/algorithms/computer-vision/threshold-morphology/proj-threshold-morphology-pipeline.md  — Стаття про embedded C без malloc; Python не лягає
+2. book/algorithms/computer-vision/white-balance/proj-auto-white-balance.md  — No-FPU fixed-point embedded C; Python betrays thesis, C++ near-identical.
+3. book/algorithms/data-compression/huffman-coding/huffman-coding-d.md  — Розділ «Реалізація на C»: проза C-специфічна (вказівники, uint32_t, МК) — тягти Python недоречно
+4. book/algorithms/signal-robotics/audio-time-scaling/proj-wsola-c.md  — MCU integer-only C; Python misfits, C++ identical to original
+5. book/electronics/analog/filter-pole-q/proj-biquad-coeffs.md  — Firmware-C article: MCU/interrupt/fixed-point thesis; Python doesn't fit
+6. book/electronics/analog/sigma-delta-pwm/proj-firmware-modulator.md  — MCU-firmware C only; ISR/GPIO/uint-wraparound don't map to idiomatic Python
+7. book/electronics/digital/twos-complement/twos-complement.md  — Fixed-width C semantics; Python misfits. Tagged 3 fences cpp.
+8. book/electronics/power-electronics/led-driver/proj-pwm-led-current.md  — ESP-IDF hardware API; Python/MicroPython can't express fade/shadow-regs/hpoint
+9. book/electronics/power-electronics/motor-current-sense/proj-single-shunt-reconstruction.md  — Hardware-register STM32 C; no idiomatic cpp/python fit
+10. book/programming/architecture-discipline/atam-lite/proj-lite-session.md  — Bare-metal C MCU firmware; Python does not fit ISR/PWM code.
+11. book/programming/architecture-discipline/legacy-archaeology/proj-characterization-test.md  — Стаття навмисне про живу C++-функцію; проза прив'язана до C++-ідіом
+12. book/programming/computer-architecture/branch-prediction/proj-branchless.md  — C-only firmware idioms (uint16 masks, __builtin_expect); Python does not fit
+13. book/programming/computer-architecture/cache-coherence/proj-false-sharing.md  — C/C++ memory-layout topic; false sharing inexpressible in idiomatic Python
+14. book/programming/computer-architecture/control-unit/proj-control-decoder.md  — Проза прив'язана до C-конструкцій (switch/enum/case, c={0}); firmware-C — предмет, не мова-агностик
+15. book/programming/computer-architecture/dsp-architecture/proj-fir-mac.md  — C/DSP-specific semantics (fixed-width types, casts); Python doesn't fit
+16. book/programming/computer-architecture/instruction-cycle-detail/proj-pipeline-sim.md  — Стаття навмисне про C-для-прошивки: struct, точні ширини int, без класів
+17. book/programming/computer-architecture/mmu-address-window/proj-bank-window.md  — C-firmware-specific (volatile, far ptr, __interrupt); Python doesn't fit
+
+total skipped: 17 | done: 336 | tabsAdded: 713

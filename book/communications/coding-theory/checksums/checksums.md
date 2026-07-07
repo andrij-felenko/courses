@@ -13,6 +13,7 @@
 
 **Приклад (проста сума в C).** Порахуймо контрольну суму для тих самих чотирьох байтів `0x12 0x34 0x56 0x78`.
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stddef.h>
@@ -24,6 +25,14 @@ uint8_t simple_sum(const uint8_t *data, size_t len) {
     return sum;
 }
 ```
+```python
+def simple_sum(data: bytes) -> int:
+    total = 0
+    for b in data:
+        total += b
+    return total & 0xFF          # обрізаємо явно — Python-int не переповнюється
+```
+:::
 ```
 0x12 + 0x34 + 0x56 + 0x78 = 0x114
 0x114 mod 256 = 0x14          // лишається молодший байт

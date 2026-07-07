@@ -428,6 +428,7 @@ void loop() {
 
 Аж тепер, розібравши все руками, візьмемо бібліотеку — і оцінимо, скільки вона ховає. Класична — **`Adafruit_BMP085`** (попри «085» у назві, вона повністю працює й з BMP180 — давачі програмно однакові; ставиться з менеджера бібліотек Arduino IDE за назвою «Adafruit BMP085 Unified» або старіша «Adafruit BMP085 Library»). Те саме, що ми писали сторінку, тут виглядає так:
 
+:::tabs
 ```cpp
 #include <Wire.h>
 #include <Adafruit_BMP085.h>
@@ -451,6 +452,22 @@ void loop() {
   delay(1000);
 }
 ```
+```python
+import time
+import board
+import bmp180
+
+i2c = board.I2C()          # на ESP32/Pico — busio.I2C зі своїми ніжками
+bmp = bmp180.BMP180(i2c)   # читає 0x55, тягне всі 11 коефіцієнтів
+
+while True:
+    print("T = {} C   P = {} hPa   h = {} m".format(
+        bmp.temperature,   # °C, float
+        bmp.pressure,      # гПа (у CircuitPython — уже гектопаскалі, не Па!)
+        bmp.altitude))     # м
+    time.sleep(1)
+```
+:::
 
 Три виклики — `readTemperature()`, `readPressure()`, `readAltitude()` — і всередині кожного заховане рівно те, що ми розписали: `begin()` перевіряє `0x55` і читає всі одинадцять коефіцієнтів у правильних типах; `readPressure()` виконує весь цілочисловий ланцюжок Bosch, який ми проходили по рядку. Різниця з нашим кодом суто в тому, що це вивірено, супроводжується й ховає нудні дрібниці.
 

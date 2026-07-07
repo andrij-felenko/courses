@@ -175,11 +175,12 @@ BV  ∝  Nd^(1/4)         =  Nd^(1/4 − 1)  =  Nd^(−3/4)
 
 **Задача: 600-вольтовий кремнієвий ключ на межі — порахувати d, Nd і Ron·A напряму.**
 
-```c
-#include <math.h>
-#include <stdio.h>
+:::tabs
+```cpp
+#include <cmath>
+#include <cstdio>
 
-int main(void) {
+int main() {
     // Сталі кремнію (в системі см, В, Кл, Ф)
     const double eps0 = 8.854e-14;   // Ф/см — проникність вакууму
     const double epsSi = 11.7;       // відносна проникність кремнію
@@ -195,14 +196,37 @@ int main(void) {
     double sigma = q * mu * Nd;                // провідність, (Ом·см)^-1
     double ronA  = d / sigma;                  // Ом·см²
 
-    printf("d    = %.1f мкм\n", d * 1e4);
-    printf("Nd   = %.3e см^-3\n", Nd);
-    printf("rho  = %.1f Ом·см\n", 1.0 / sigma);
-    printf("Ron*A(формула) = %.4f Ом·см²\n", 4.0*BV*BV/(mu*eps*Ec*Ec*Ec));
-    printf("Ron*A(d/sigma) = %.4f Ом·см²\n", ronA);
+    std::printf("d    = %.1f мкм\n", d * 1e4);
+    std::printf("Nd   = %.3e см^-3\n", Nd);
+    std::printf("rho  = %.1f Ом·см\n", 1.0 / sigma);
+    std::printf("Ron*A(формула) = %.4f Ом·см²\n", 4.0*BV*BV/(mu*eps*Ec*Ec*Ec));
+    std::printf("Ron*A(d/sigma) = %.4f Ом·см²\n", ronA);
     return 0;
 }
 ```
+```python
+# Сталі кремнію (в системі см, В, Кл, Ф)
+eps0  = 8.854e-14      # Ф/см — проникність вакууму
+eps_r = 11.7           # відносна проникність кремнію
+eps   = eps0 * eps_r   # Ф/см
+q     = 1.602e-19      # Кл — заряд електрона
+mu    = 1350.0         # см²/(В·с) — рухливість електронів
+Ec    = 0.30e6         # В/см — критичне поле кремнію
+
+BV = 600.0             # В — потрібна пробійна напруга
+
+d     = 2.0 * BV / Ec                    # товщина шару, см
+Nd    = eps * Ec**2 / (2.0 * q * BV)     # легування, см^-3
+sigma = q * mu * Nd                      # провідність, (Ом·см)^-1
+ron_a = d / sigma                        # Ом·см²
+
+print(f"d    = {d * 1e4:.1f} мкм")
+print(f"Nd   = {Nd:.3e} см^-3")
+print(f"rho  = {1.0 / sigma:.1f} Ом·см")
+print(f"Ron*A(формула) = {4.0 * BV**2 / (mu * eps * Ec**3):.4f} Ом·см²")
+print(f"Ron*A(d/sigma) = {ron_a:.4f} Ом·см²")
+```
+:::
 
 ```
 d    = 40.0 мкм

@@ -1,0 +1,3433 @@
+[
+ {
+  "file": "book/algorithms/computer-vision/aruco-apriltag/aruco-apriltag.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "маркер-декодування — загальний CV-алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/aruco-apriltag/proj-aruco-decode.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "гомографія й декодування ArUco — портовний алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/bayer-demosaic/bayer-demosaic-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "демозаїк — загальний алгоритм із numpy-аналогом",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/bayer-demosaic/bayer-demosaic.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "той самий демозаїк-алгоритм, портовний",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/convolution-filters/convolution-filters-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "гаусове/білатеральне розмиття — класичний алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/convolution-filters/proj-separable-blur.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розділюваний гаус — портовний алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/edge-detection/edge-detection-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "Sobel/NMS/субпіксель — класичний CV-алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/edge-detection/proj-canny-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "повний Canny pipeline — портовний алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/feature-matching/proj-orb-match-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "Гемінг-відстань і зіставлення дескрипторів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/histogram/histogram-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "гістограма/CDF-вирівнювання",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/histogram/proj-histogram-lut.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "той самий LUT-алгоритм вирівнювання",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/image-as-data/image-as-data-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "RGB/HSV/YCbCr конвертації",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/image-as-data/image-as-data.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "grayscale-конверсія",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/image-as-data/proj-rgb-hsv-convert.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "RGB<->HSV",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/object-detection/proj-color-blob.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "поріг/морфологія/моменти",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/optical-flow/math-optical-flow-constraint.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "Лукас-Канаде оптичний потік",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/threshold-morphology/math-otsu-derivation.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "Otsu-поріг",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/threshold-morphology/proj-threshold-morphology-pipeline.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "адаптивний поріг через інтегральне зображення",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/threshold-morphology/threshold-morphology-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "морфологія/hit-miss/скелетизація",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/threshold-morphology/threshold-morphology.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "поріг/ерозія/дилатація",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/tracking/proj-sort-tracker.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "SORT-трекер із Калманом",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/tracking/tracking-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "Калман-трекінг/MOTA/MOTP",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/computer-vision/white-balance/proj-auto-white-balance.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "сірий світ/біла пляма",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/data-compression/asymmetric-numeral-systems/asymmetric-numeral-systems.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "ANS-кодування",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/data-compression/huffman-coding/huffman-coding-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "побудова дерева Гаффмана",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/data-compression/lz77/lz77.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "LZ77-декодер",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/data-compression/lzw/lzw-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "LZW кодування/декодування",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/cross-validation/proj-kfold-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "k-fold крос-валідація",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/data-augmentation/data-augmentation.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "аугментація кадру",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/data-augmentation/math-mixup.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "MixUp",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/inference-latency/inference-latency.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "прогрів + worst/mean замір латентності — типовий бенчмарк-патерн",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/knowledge-distillation/proj-distill-mnist-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "softmax/дистиляція",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/loss-functions/loss-functions.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "MSE/Huber/CE",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/model-quantization/math-affine-quant.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "афінне квантування",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/regularization/math-l1-sparsity.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "proximal L1/L2 кроки",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/regularization/regularization.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "L1/L2-регуляризація",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/reinforcement-learning/reinforcement-learning.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "Q-навчання",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/machine-learning/weight-pruning/weight-pruning.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "прорідження ваг",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/audio-time-scaling/proj-wsola-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "WSOLA time-scaling",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/band-filters/band-filters.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок біквад notch-фільтра",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/band-filters/math-type-transformations.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "спектральна інверсія фільтра",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/boat-underwater/proj-depth-hold-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "PID-утримання глибини",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/complementary-filter/proj-complementary-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "комплементарний фільтр",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/ema/ema.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "експоненційне згладжування",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/ema/proj-ema-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "EMA/DEMA варіанти",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/fir-filter/proj-fir-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "КІХ-фільтр",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/fixed-point-implementation/fixed-point-implementation.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "micropython"
+  ],
+  "why": "Q15 fixed-point FIR crок — загальний алгоритм цілої арифметики",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/iir-filter/proj-biquad-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "біквад БІХ-фільтр",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/latency-sync/latency-sync.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "часова синхронізація потоків",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/motor-mixer/motor-mixer.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "мікшер квадро-X",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/pure-pursuit-navigation/math-pursuit-geometry.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "геометрія pure pursuit",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/quaternion-attitude-control/proj-error-quaternion-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "кватерніонне керування орієнтацією",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/quaternion-attitude-control/quaternion-attitude-control.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "той самий кватерніонний алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/roll-pitch-yaw-control/roll-pitch-yaw-control.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "три ПІД + мікшер",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/rover-steering/proj-pure-pursuit.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "pure pursuit навігація",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/rover-steering/rover-steering.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "diff-drive мікшер",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/algorithms/signal-robotics/rtk-integer-ambiguity/rtk-integer-ambiguity.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок фазової відстані",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/buses/async-serial/async-serial.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "бітбенг UART через gpio_write/delay_us — високорівневий MCU-патерн",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/buses/i2c-addressing/comp-i2c-mux.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Arduino Wire.h mux_select/scan — типовий високорівневий MCU-API",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/buses/spi-speed/spi-speed.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "чисте обчислення пропускної здатності кадру — без заліза",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/buses/start-stop-ack/start-stop-ack.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "i2c_read_ticks/micros — арифметика, без регістрів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/buses/uart-frame/proj-frame-in-code.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "парність/кадрування UART",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/buses/uart-frame/uart-frame.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "той самий портативний зсув/маска для кадру 8N1",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/networks/bluetooth-spp/proj-command-parser.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "збирач рядка й розбір команд — загальний, портативний патерн",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/networks/channel-band-packet/proj-listen-before-talk.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "CSMA/CA backoff",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/networks/esp-now/esp-now.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "високорівневий MCU-API espnow, є прямий MicroPython-модуль",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/networks/ip-routing/ip-routing.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "WiFi.config — аналог network.WLAN.ifconfig у MicroPython",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/networks/mac-ip-arp/mac-ip-arp.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "WiFi+UDP API — прямий аналог network/socket у MicroPython",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/networks/wifi/wifi.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "WiFi.begin/status — прямий аналог network.WLAN у MicroPython",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/ble-gatt/ble-gatt.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "high-level BLE GATT service/characteristic API has MicroPython aioble analog",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/ble-gatt/proj-cccd-notify.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "BLE CCCD descriptor/notify setup mirrors MicroPython aioble API",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/crsf-protocol/crsf-protocol.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розпаковка бітів CRSF + CRC8",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/crsf-protocol/proj-crsf-parser.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "парсер CRSF-кадру, CRC8-таблиця",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/flow-control/proj-ring-buffer.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "кільцевий буфер",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/mavlink-packet/mavlink-packet.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "Розбір байтів кадру протоколу — портативний алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/packet-design/packet-design.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "CRC-8 та збірка/перевірка кадру",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/packet-design/proj-crc-table.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "табличний CRC-8",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/rc-failsafe-modes/rc-failsafe-modes.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "trivial general bit-flag check function, no hardware specifics",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/rc-link/proj-sbus-decode.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розпаковка 11-бітних каналів SBUS",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/rc-link/rc-link.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "Trivial linear-mapping formula, portable to any language",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/rc-signal-protocol/proj-sbus-frame-parser.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "повний парсер SBUS-кадру з автоматом станів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/rc-signal-protocol/rc-signal-protocol.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "Bit-mask/scale functions are general, no hardware specifics",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/reliable-link/proj-stop-and-wait.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "stop-and-wait ARQ",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/protocols/reliable-link/reliable-link.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "той самий ARQ-алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/radio-engineering/telemetry-link/telemetry-link.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок бюджету лінії (FSPL)",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/communications/synchronization/gnss/gnss.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок дальності з часу польоту",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/active-filters/active-filters.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок номіналів Саллена-Кі",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/capacitive-sensing/capacitive-sensing.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "алгоритм відстеження базової лінії дотику",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/class-d-amplifier/class-d-amplifier.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "sample_to_pwm і розрахунок ККД — загальний алгоритм ШІМ, легко на Python",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/cmrr/cmrr.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "dB→ratio формула, загальна математика",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/colpitts-oscillator/math-startup-condition.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "розрахунок запасу запуску — загальна формула",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/common-mode-noise/math-mode-conversion.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "проста арифметика поділу напруги, портативно",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/current-loop-4-20ma/proj-galvanic-isolation.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "двоточкова калібрувальна математика, універсальна",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/current-mirror/comp-mirror-variants.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "формула Відлара, одна функція, загальна математика",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/current-source/proj-jfet-current-source.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "формули й ітеративний розв'язок, без заліза",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/esr-capacitor/esr-capacitor.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "I²·ESR — тривіальна загальна формула",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/esr-capacitor/math-impedance-curve.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "z_mag() — загальна формула |Z|, портативно",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/filter-pole-q/filter-pole-q.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "sallen_key_q() — одна загальна формула",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/filter-pole-q/math-pole-location.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "peak_params() — обчислення за формулою, загальне",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/filter-pole-q/proj-biquad-coeffs.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок і каскад біквад-фільтрів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/group-delay/group-delay.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "Group-delay from phase array — general numeric DSP algorithm",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/group-delay/math-allpass-equalize.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "Allpass group-delay math — general signal-processing formulas",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/harmonic-distortion/math-fourier-harmonics.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "THD-from-harmonics — portable numeric signal-processing algorithm",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/opamp-integrator-differentiator/opamp-integrator-differentiator.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "цифровий ПІД інтегратор/диференціатор",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/opamp-output-stage/opamp-output-stage.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "тривіальна формула P=V·I, без заліза",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/opamp-stability/comp-decompensated-opamps.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "чиста арифметика підсилень, жодного заліза",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/opamp-stability/opamp-stability.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "обчислення частоти зрізу за формулою, цикл по масиву",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/parallel-resonance/math-parallel-resonance.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "числові формули резонансу через sqrt/pow",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/phase-inversion-opamp/phase-inversion-opamp.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "Bounds-check and stuck-value watchdog counter are generic algorithms",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/phase-locked-loop/comp-pfd-charge-pump.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "послідовність high-level PLL-periph API викликів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/phase-locked-loop/phase-locked-loop.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "програмна модель PLL",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/pll-fractional-n/math-delta-sigma-shaping.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "обчислення NTF через sin/pow/log10 — чиста математика",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/pll-fractional-n/pll-fractional-n.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "дробовий акумулятор дільника PLL",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/pll-sync/pll-sync.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "цифрова рядкова петля синхронізації",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/power-sequencing/comp-sequencer-ic.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "читання PMBus — протокольний high-level API",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/ptat-current-source/math-ptat-derivation.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "чисті float-формули, без заліза",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/quantization-noise/proj-requantize.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "дизер/noise shaping реквантизації",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/safe-operating-area/safe-operating-area.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "простий float-калькулятор SOA",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/sigma-delta-adc/sigma-delta-adc.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python"
+  ],
+  "why": "high-level SPI ADC API — MicroPython аналог",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/sigma-delta-pwm/proj-firmware-modulator.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "DDS-генератор синуса + сигма-дельта модулятор",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/sigma-delta-pwm/sigma-delta-pwm.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "сигма-дельта модулятор",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/spice-simulation/spice-simulation.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "метод Ньютона для робочої точки",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/supernode/math-supernode-system.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розв'язання СЛАР методом Гаусса",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/transimpedance-amplifier/math-tia-stability.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "Bisection search for crossover frequency — generic numerical algorithm",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/analog/two-port-network/math-parameter-conversion.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "2x2 matrix inversion and cascade multiplication — generic algorithm",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/address-decoding/address-decoding.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "js"
+  ],
+  "why": "Зсув+порівняння бітів адреси — портовний алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/aperture-jitter/aperture-jitter.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "Формула SNR/ENOB — портовна числова функція",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/aperture-jitter/math-jitter-snr.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "Обернена формула джиттера — портовний розрахунок",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/arithmetic-logic-unit/arithmetic-logic-unit.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "ALU додавання/віднімання з переносом",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/async-fifo/proj-ring-buffer.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "кільцевий буфер (у т.ч. atomics)",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/bus-arbitration/bus-arbitration.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "бітовий арбітраж шини",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/clock-data-recovery/clock-data-recovery.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "пошук найкращої точки відліку біта",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/config-memory/config-memory.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python"
+  ],
+  "why": "wait_fpga_ready — generic GPIO poll-with-timeout, trivial MicroPython analog",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/contact-debounce/proj-debounce.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python"
+  ],
+  "why": "counter/timestamp/FSM debounce — generic algorithm, digitalRead/millis have direct MicroPython analogs",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/counters/counters.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "generic toggle/mod-N event counter, no HW registers",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/d-flip-flop/d-flip-flop.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "generic rising-edge-capture state simulation, no HW",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/encoder/encoder.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "пріоритетний енкодер",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/finite-state-machines/finite-state-machines.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "автомат Мура (світлофор)",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/finite-state-machines/proj-fsm-in-code.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "табличний автомат станів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/flash-wear-leveling/flash-wear-leveling.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "вибір блока за зносом",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/gates-to-functions/gates-to-functions.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розряд АЛП",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/gates-to-functions/proj-alu-slice.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "n-бітний АЛП з прапорцями",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/lfsr/lfsr.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "LFSR",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/lfsr/math-max-length.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "порядок многочлена / LFSR",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/line-coding/line-coding.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "манчестерське кодування/декодування",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/logic-subfamilies/logic-subfamilies.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "hc_fanout() is pure capacitance/current arithmetic, no hardware calls",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/lut/lut.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "LUT-інтерполяція синуса",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/memory-hierarchy/memory-hierarchy.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "середній час доступу + порядок циклу",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/memory-training/proj-training-search.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "пошук найширшого вікна",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/mmu/mmu.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "трансляція адреси сторінки",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/multiplexer/proj-mux-lut-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "мультиплексор як обчислювач булевих функцій",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/nand-ecc/math-bch.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "BCH-декодування через поле Галуа",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/nand-ecc/nand-ecc.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "код Геммінга(7,4)",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/noise-shaping/noise-shaping.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "формувач шуму 1-го порядку",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/noise-shaping/proj-error-feedback.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "формувачі шуму 1/2-го порядку",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/oversampling-decimation/oversampling-decimation.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "усереднення з децимацією",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/oversampling-decimation/proj-decimate-c.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "блоковий дециматор і ковзне усереднення",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/parallel-to-serial/parallel-to-serial.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "зсувний вивід/уведення бітів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/pipeline-adc/math-redundancy.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "1.5-бітний щабель з корекцією",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/pipeline-adc/proj-stage-assembly.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "конвеєрний АЦП зі складанням коду",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/pipeline-hazard/proj-hazard-detect-forward.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "симулятор конвеєра CPU",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/prescaler/math-pulse-swallow.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розклад коефіцієнта ділення pulse-swallow",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/protocol-decoder-internals/protocol-decoder-internals.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "мажоритарне голосування 2-з-3",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/register-file/register-file.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "регістровий файл із пересиланням",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/ring-counter/comp-4017.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python",
+   "go"
+  ],
+  "why": "GPIO-послідовність чипа й чистий цикл ділення частоти",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/sd-card/sd-card.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python",
+   "go"
+  ],
+  "why": "Протокол SD-over-SPI — є канонічний MicroPython sdcard.py",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/serdes/serdes.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "серіалізація/десеріалізація байта",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/shift-register-clocked/math-fir-tapped-delay.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "FIR-фільтр з лінією затримки",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/shift-register-clocked/shift-register-clocked.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "той самий FIR-алгоритм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/shift-register/shift-register.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "SIPO bit-bang/SPI shift-out is a classic MicroPython 74HC595 recipe",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/spread-spectrum-clocking/spread-spectrum-clocking.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "Pure dB/log10 arithmetic calculation, no hardware, trivially portable",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/synchronous-counter/comp-sync-counter-ics.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "модель кроку синхронного лічильника",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/synchronous-counter/math-max-frequency.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "fmax formulas are pure floating-point arithmetic, no hardware",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/synchronous-counter/synchronous-counter.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "крок синхронного лічильника з керуванням",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/t-flip-flop/t-flip-flop.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "T-тригер / дільник на 2",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/time-borrowing/time-borrowing.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "Булева логіка фронт-проти-рівня — портативний алгоритм, без регістрів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/twos-complement/twos-complement.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "доповняльний код",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/wired-or/wired-or.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "digitalRead-стиль опитування давачів — high-level MCU API",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/digital/wishbone-bus/wishbone-bus.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "Протокол рукостискання STB/ACK — явний кандидат на Python/Go",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/displays/color-formats/color-formats.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "пакування RGB565/альфа-змішування",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/displays/color-formats/math-rgb565.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "конвертація RGB888<->RGB565",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/displays/eink-refresh/eink-refresh.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "Generic full/partial refresh counter calling display API",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/displays/fonts/fonts.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "блітинг гліфа шрифту",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/displays/framebuffer/framebuffer.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "адресація пікселя у framebuffer",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/displays/primitives-raster/primitives-raster.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "алгоритм Брезенхема для лінії",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/electromechanics/acoustic-enclosure/math-box-tuning.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "Pure physics/math formulas, no hardware, fully portable",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/electromechanics/gearmotor/gearmotor.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "Pure arithmetic torque-check function, no hardware",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/electromechanics/gears-transmission/gears-transmission.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "Pure arithmetic torque-check function, no hardware",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/electromechanics/motor-current-stall-heat/motor-current-stall-heat.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython",
+   "go"
+  ],
+  "why": "generic threshold+timeout debounce algorithm",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/metrology/measurement-errors/measurement-errors.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython",
+   "go"
+  ],
+  "why": "generic ADC averaging + offset correction",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/microelectronics/mosfet-threshold/math-square-law.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "pure math function, trivially portable",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/microelectronics/testing-binning/testing-binning-d.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "класифікація кристалів за сортами",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/optoelectronics/addressable-leds/addressable-leds.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "high-level NeoPixel-style board API",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/pcb/esd-packaging/comp-ionizer.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython",
+   "go"
+  ],
+  "why": "generic threshold-hold polling loop",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/battery-thermal-model/battery-thermal-model.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "simple generic guard/threshold logic",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/battery-to-controller/proj-brownout-monitor.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "медіанний фільтр і автомат станів живлення",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/bldc-commutation/proj-six-step-table.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "таблиця шестикрокової комутації BLDC",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/bms/bms.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "пасивне балансування комірок",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/bootstrap-capacitor/math-bootstrap-sizing.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "js"
+  ],
+  "why": "чиста числова формула (struct+функції), без заліза",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/control-loop-compensation/control-loop-compensation.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "K-factor розрахунок компенсатора",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/converter-measure/comp-electronic-load.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "sweep+ККД через SDK-виклики load.*, ідіоматично й Python",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/converter-measure/proj-efficiency-sweep.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "SCPI over serial/UART — protocol automation, natural Python (PyVISA/pyserial) analog",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/dc-motor-driver/dc-motor-driver.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python"
+  ],
+  "why": "H-bridge PWM drive via ledcWrite — high-level MCU PWM API, direct MicroPython PWM analog",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/dickson-charge-pump/dickson-charge-pump.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js"
+  ],
+  "why": "Pure stdio/math formula calculator, zero hardware dependency, trivially portable",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/efuse/efuse.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "детектор стійкої аварії за ковзним вікном",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/fast-charging/fast-charging.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "таблиця сходинок швидкого заряду",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/flyback-dcm-ccm/math-flyback-modes.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "класифікація режиму DCM/BCM/CCM",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/fuel-gauge/fuel-gauge.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python"
+  ],
+  "why": "I2C register read driver (MAX17048) — classic MicroPython i2c.readfrom_mem pattern",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/interleaved-converter/interleaved-converter.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "балансування фаз багатофазного перетворювача",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/led-driver/led-driver.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "simple ESP32 LEDC brightness API, MicroPython equivalent natural",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/led-driver/proj-pwm-led-current.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "гамма-корекція яскравості через LUT",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/module-power-supply/proj-supply-monitor.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "автомат станів гістерезису живлення",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/motor-current-sense/motor-current-sense.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "перетворення коду АЦП фази у струм",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/motor-current-sense/proj-single-shunt-reconstruction.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "реконструкція трифазного струму з одного шунта",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/peukert-effect/peukert-effect.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "модель Пойкерта ємності батареї",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/phase-control-dimmer/phase-control-dimmer.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python"
+  ],
+  "why": "затримка від нуля до імпульсу — простий MCU-таймінг",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/smbus-smart-battery/smbus-smart-battery.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "протокол SMBus/I2C — ідіоматично на smbus2/Go",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/specific-on-resistance/math-ron-a-derivation.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "чистий фізичний розрахунок формули, без заліза",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/specific-on-resistance/specific-on-resistance.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "чистий розрахунок Ron·A і порівняння матеріалів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/state-of-charge/proj-coulomb-counting.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "кулонометрія SoC",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/stepper-driver/stepper-driver.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python"
+  ],
+  "why": "високорівневий STEP/DIR GPIO-API кроковика",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/power-electronics/zero-cross-switching/proj-burst-control.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розподіл Брезенхема для burst-керування",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/sensors/mems-microphone/proj-pdm-decimation.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "CIC-фільтр децимації PDM з popcount",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/sensors/optical-incremental-encoder/optical-incremental-encoder.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "квадратурний декодер по таблиці переходів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/electronics/sensors/sensor-characteristics/sensor-characteristics.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "LUT-інтерполяція калібрування давача",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/algebra/crc/crc.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "побітовий CRC",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/complex-analysis/impedance/impedance.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок комплексного імпедансу",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/complex-analysis/phasors/phasors.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "додавання фазорів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/geometry/power-triangle/power-triangle.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок трикутника потужностей",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/information-theory/hamming-distance/proj-popcount-distance.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "popcount/відстань Геммінга",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/linear-algebra/dot-product/dot-product.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "скалярний добуток і кут між векторами",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/linear-algebra/gauss-elimination/gauss-elimination.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "метод Гаусса",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/linear-algebra/linear-systems/linear-systems.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розв'язання системи 2x2",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/linear-algebra/matrices-as-operations/matrices-as-operations.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "множення матриці на вектор",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/linear-algebra/rotation-matrices/rotation-matrices.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "матриця повороту 2D",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/linear-algebra/vector-components/vector-components.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "модуль і кут вектора",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/number-theory/address-space/address-space.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок розміру адресного простору",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/number-theory/twos-complement/math-modular-arithmetic.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "модулярна арифметика доповняльного коду",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/numerical-analysis/ieee754/ieee754.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "декодування IEEE754 float",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/real-analysis/half-power/half-power.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок частоти зрізу RC",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/real-analysis/logarithms/logarithms.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "переведення потужності в децибели",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/real-analysis/rms/rms.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок RMS блоку відліків",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/real-analysis/sine-derivative/sine-derivative.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "похідна синуса",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/real-analysis/windowing-leakage/windowing-leakage.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "вікно Ганна для ШПФ",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/statistics/averaging-gain/averaging-gain.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "усереднення АЦП для зниження шуму",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/statistics/averaging/averaging.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "ковзне середнє",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/statistics/least-squares/least-squares.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "інкрементна лінійна регресія",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/math/statistics/poisson-statistics/poisson-statistics.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "оцінка похибки за Пуассоном",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/physics/mechanics/propeller-geometry/math-blade-element.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "теорія елемента лопаті з ітеративним розв'язком",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/physics/mechanics/propeller-geometry/propeller-geometry.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок тяги гвинта й кута лопаті",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/physics/mechanics/reaction-torque/proj-yaw-mixer.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "мікшер квадрокоптера з насиченням",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/architecture-erosion/proj-dependency-checker.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "граф залежностей + DFS-пошук циклів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/architecture-review/proj-review-checklist.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "перевірка завершеності рев'ю",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/architecture-views/architecture-views.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "фільтрація моделі в різні в'ю",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/atam-lite/proj-lite-session.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "аварійний автомат станів поза чергою",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/availability-tactics/availability-tactics.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "монітор серцебиття",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/availability-tactics/proj-failover-with-heartbeat.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "автомат відмовостійкості з орендою й гістерезисом",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/c4-model/c4-model.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "модель контейнерів-черг за C4",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/finops-levers/proj-commitment-breakeven.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок точки беззбитковості commitment",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/legacy-archaeology/proj-characterization-test.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "техніка швів і golden-master тестів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/modifiability-tactics/modifiability-tactics.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "інкапсуляція формату дати",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/team-topologies/team-topologies.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "абстракція API платформи publish/subscribe",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/testability-tactics/testability-tactics.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "ін'єкція залежностей для тестованості",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/tradeoff-analysis/tradeoff-analysis.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "кільцевий буфер і кеш",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/viewpoints-perspectives/viewpoints-perspectives.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "потоки/м'ютекс як приклад в'ю",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/architecture-discipline/walking-skeleton/walking-skeleton.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python",
+   "go"
+  ],
+  "why": "Sensor-read + byte-frame packing over UART — protocol framing, natural in MicroPython/Python",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/bits-bytes-endianness/bits-bytes-endianness.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "збирання числа з байтів незалежно від endianness",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/bits-bytes-endianness/comp-sensor-byte-order.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розпаковка байтів давача",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/bits-bytes-endianness/proj-serialization.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "серіалізація big-endian",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/branch-prediction/proj-branchless.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "безгілкове програмування",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/cache-coherence/cache-coherence.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "хибне спільне використання й вирівнювання",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/cache-coherence/proj-false-sharing.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "бенчмарк false sharing з потоками",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/control-unit-design/control-unit-design.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "симулятор мікропрограмного автомата",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/control-unit/control-unit.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "декодер опкоду",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/control-unit/proj-control-decoder.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "симулятор автомата керування CPU",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/dsp-architecture/proj-fir-mac.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "FIR-фільтр на кільцевому буфері з MAC",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/half-precision/half-precision.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "конвертація float16/bfloat16",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/half-precision/proj-half-precision-convert.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "повна конвертація IEEE754 float16",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/instruction-cycle-detail/proj-pipeline-sim.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "симулятор 5-стадійного конвеєра CPU",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/isa-encoding/isa-encoding.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розбір бітових полів RISC-V команди",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/isa-encoding/math-immediate-split.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розклад числа на lui/addi",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/isa/isa.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розбір навчальної системи команд",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/mmu-address-window/proj-bank-window.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "банкове вікно пам'яті з тіньовим регістром",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/overflow-wraparound/proj-overflow-checks.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "перевірка переповнення додавання/множення",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/computer-architecture/pipeline/pipeline.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "безгілкова заміна умовного додавання",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/ardupilot-layers/ardupilot-layers.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок інтервалу планувальника задач",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/arming-checks/arming-checks.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "таблиця pre-arm перевірок і автомат станів",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/arming-checks/comp-safety-switch.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "автомат кнопки безпеки з утриманням",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/battery-budget/math-battery-math.md",
+  "langs": [
+   "cpp",
+   "python"
+  ],
+  "why": "розрахунок середнього струму й часу життя батареї",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/data-serialization/proj-framing.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "js"
+  ],
+  "why": "byte-stuffing FSM framing + CRC, general algorithm not HW-bound",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/data-serialization/proj-varint.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "js"
+  ],
+  "why": "varint/zigzag/protobuf tag encoding, identical across languages",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/double-buffering/proj-ring-buffer.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "js"
+  ],
+  "why": "кільцевий буфер — класичний загальний алгоритм, не апаратно-специфічний",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/module-model/module-model.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "читання дискретного давача через GPIO — типовий MCU-API",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/module-model/proj-key-matrix.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "сканування матриці — алгоритм + GPIO MCU-API",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/nonblocking-time/nonblocking-time.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python",
+   "js"
+  ],
+  "why": "millis-патерн — портовний алгоритм таймера",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/nrf-radio-mcu/comp-nrf-modules.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "тривіальний блимач GPIO — високорівневий MCU-API плати",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/params-gcs/proj-param-protocol.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "протокол MAVLink — портовна логіка запит/повтор",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/partition-table/proj-partition-table.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "esp_partition query API — MicroPython esp32.Partition has same find/info calls",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/stream-parser/stream-parser.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "micropython"
+  ],
+  "why": "загальний FSM-розбір потоку — портується на будь-яку мову",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/super-loop/proj-cooperative-loop.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "micropython"
+  ],
+  "why": "таблиця задач за millis() — загальний патерн планувальника",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/wear-leveling/wear-leveling.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "Ring buffer + seq/crc validity algorithm, hardware stubbed via extern",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/why-persist/proj-flash-ring-log.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "Ring log with seq/crc recovery, general algorithm over stubbed I/O",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/embedded-systems/write-integrity/proj-atomic-config.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "A/B slot atomic commit-last pattern, general algorithm over stubbed I/O",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/languages/abi-calling-convention/proj-struct-packing.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "js"
+  ],
+  "why": "manual little-endian byte packing has idiomatic struct/binary equivalents",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/languages/lexer-design/lexer-design.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go"
+  ],
+  "why": "general tokenizer/longest-match algorithm, idiomatic everywhere",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/networking/web-server-mcu/web-server-mcu-d.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go",
+   "micropython"
+  ],
+  "why": "HTTP routes/REST/WebSocket — universal server pattern",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/networking/web-server-mcu/web-server-mcu.md",
+  "langs": [
+   "cpp",
+   "python",
+   "js",
+   "go",
+   "micropython"
+  ],
+  "why": "basic HTTP GET/JSON handler — same universal pattern",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/peripherals/usb-host/comp-otg.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "plain GPIO enable pin, direct MicroPython Pin analog",
+  "src": "reaudit-main"
+ },
+ {
+  "file": "book/programming/software-design/dependency-inversion/dependency-inversion.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "мовно-незалежний патерн DIP через virtual/interface",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "book/programming/software-design/type-driven-design/type-driven-design.md",
+  "langs": [
+   "cpp",
+   "rust",
+   "typescript",
+   "python"
+  ],
+  "why": "сума-типи/новотип/parse-don't-validate — класика для крос-мовного показу",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "book/programming/software-engineering/behavioral-subtyping/behavioral-subtyping.md",
+  "langs": [
+   "cpp",
+   "python",
+   "java",
+   "typescript"
+  ],
+  "why": "класичний LSP Square/Rectangle — стандартний крос-мовний приклад",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "book/programming/software-engineering/loop-invariants/loop-invariants.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "js"
+  ],
+  "why": "двійковий пошук з assert — класичний загальний алгоритм, ідіоматичний в кожній мові",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "book/programming/systems/log-structured-storage/log-structured-storage.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go",
+   "js",
+   "micropython"
+  ],
+  "why": "portable append-only log kernel, array+linear-scan, no hardware ties",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "book/programming/systems/task-ipc/proj-deadlock.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "дисципліна порядку захоплення замків — універсальний патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "book/programming/systems/task-ipc/proj-queue-pattern.md",
+  "langs": [
+   "cpp",
+   "go",
+   "python"
+  ],
+  "why": "share-nothing/actor-модель — канонічний патерн, ідіоматичний у Go channels, Python queue",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "book/programming/systems/task-ipc/task-ipc.md",
+  "langs": [
+   "cpp",
+   "python",
+   "go"
+  ],
+  "why": "фінальний producer-consumer через чергу+м'ютекс — загальний патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/boards/expansion/i2c-lcd-adapter/proj-lcd-i2c-api.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "high-level Wire/LiquidCrystal_I2C API — MicroPython I2C.scan()/I2cLcd has direct analog",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/boards/mcu/arduino-nano/arduino-nano.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Blink і pot+PWM — типовий високорівневий MCU-API з аналогом у MicroPython",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/boards/mcu/arduino-uno/arduino-uno.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Кнопка+світлодіод — базовий MCU GPIO API з аналогом у MicroPython",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/boards/mcu/esp-01s/proj-blink-wifi.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "GPIO blink, WiFi connect, HTTP-сервер — типовий high-level MCU API",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/boards/mcu/esp32-s3-pico/esp32-s3-pico.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "короткий приклад WiFi+NeoPixel — high-level API з MicroPython-аналогом",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/boards/mcu/esp32-s3-supermini/esp32-s3-supermini.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "короткий NeoPixel+I2C приклад — high-level API з прямим MicroPython-аналогом",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/boards/mcu/esp32-s3-supermini/proj-esp32-s3-supermini-api.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "I2C-сканер, читання регістра, NeoPixel, ADC — усе high-level MCU API",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/environment/dht11/dht11.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "короткий приклад бібліотеки DHT — типовий high-level давач-API",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/environment/gy-bmp280/math-compensation.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "Fixed/float compensation polynomial is a general algorithm, portable sensor driver",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/keypad-4x4-membrane/keypad-4x4-membrane.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Bare GPIO matrix-scan loop is a general algorithm, portable",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/keypad-4x4-tactile/proj-keypad-scan.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Bitmask scan+debounce is a general algorithm, portable GPIO pattern",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/ky-004-button/ky-004-button.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Simple digitalRead polarity-agnostic button read, portable GPIO API",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/ky-004-button/proj-ky004-button.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "Non-blocking debounce state machine is a general algorithm, widely reimplemented",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/ky-023-joystick/ky-023-joystick.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "analogRead/digitalRead joystick reading is a portable high-level sensor API",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/ky-023-joystick/proj-ky023-driver.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "Calibration, deadzone, scaling, tank-mix math is general algorithm, portable",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/ky-040-encoder/ky-040-encoder.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Interrupt-based CLK/DT quadrature read is a general algorithm, portable",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/ky-040-encoder/proj-ky040.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "Table-driven quadrature FSM decoder is a hardware-independent general algorithm",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/potentiometer/potentiometer.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "простий analogRead+map — загальний патерн читання АЦП",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/input/tactile-buttons/tactile-buttons.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "digitalRead+INPUT_PULLUP+delay-антибрязкіт — типовий GPIO-патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/light-sound/ky-010-interrupter/ky-010-interrupter.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "калібрування полярності й підрахунок фронтів — загальний GPIO-патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/light-sound/ky-018-photoresistor/ky-018-photoresistor.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "простий analogRead і поріг з LED — загальний патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/light-sound/ky-026-flame/ky-026-flame.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "digitalRead/analogRead з порогом — загальний GPIO-патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/light-sound/ky-037-mic/ky-037-mic.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "min/max-вікно гучності й поріг DO — загальний алгоритмічний патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/adxl335/proj-adxl335.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "портовна математика: atan2-нахил, IIR/ковзне середнє, поріг поштовху — не залізо",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/hc-sr04/hc-sr04.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python"
+  ],
+  "why": "TRIG/ECHO pulseIn-патерн — типовий ідіоматичний MicroPython-давач",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/hmc5883l/proj-hmc5883l.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython",
+   "go"
+  ],
+  "why": "I2C-протокол + atan2-математика — портується природно",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/ky-020-tilt/proj-ky020-driver.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Debounce FSM/ISR-flag читання піна — портативний GPIO/IRQ патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/ky-021-reed/ky-021-reed.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Простий digitalRead геркона — тривіальний high-level GPIO аналог",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/ky-021-reed/proj-ky021.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Дебаунс/лічба/переривання — генеричний алгоритм, портативний API",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/ky-025-reed/ky-025-reed.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "digitalRead геркона з компаратором — простий портативний зчит",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/ky-025-reed/proj-reed-firmware.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Дебаунс/край/переривання — той самий портативний GPIO-патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/mpu6050/mpu6050.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "I2C-протокол читання регістрів — стандартний Python/MicroPython аналог",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/pololu-imu/pololu-imu.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Ручний I2C-регістровий доступ — типовий протокольний Python-аналог",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/pololu-imu/proj-lsm6.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Високорівневий давач-API init/enable/read — переносний патерн",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/sw-520d/proj-sw520d.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Дебаунс/лічильник/переривання кнопки — портативний GPIO-алгоритм",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/sw-520d/sw-520d.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "generic debounced GPIO pin read, portable pattern",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/motion/tof250/tof250.md",
+  "langs": [
+   "cpp",
+   "micropython",
+   "python"
+  ],
+  "why": "I2C register read for distance, portable protocol op",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/temp-gas/ds18b20/ds18b20.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "high-level OneWire/Dallas library read, MicroPython has onewire/ds18x20",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/temp-gas/ky-039-pulse/proj-ky039-driver.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "EMA filter + zero-crossing peak detection, generic DSP algorithm",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/temp-gas/max30102/proj-max30102.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "High-level I2C sensor API (begin/setup/getIR/checkForBeat) has real MicroPython analog",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/temp-gas/mq-gas/proj-mq-driver.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "ADC-to-resistance math, power-curve calibration, hysteresis — general algorithm",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/water-soil/capacitive-soil/capacitive-soil.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "Simple analogRead+map+threshold pump control — general sensor-read pattern",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/water-soil/capacitive-soil/proj-capacitive-soil.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "EMA filter, hysteresis, ADS1115 I2C driver — general algorithms + high-level API",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/water-soil/funduino-rain/funduino-rain.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "DO/AO threshold read — general sensor pattern",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/water-soil/funduino-rain/proj-funduino-rain.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "Non-blocking hysteresis on millis, ADC calibration, polarity detection — general algorithms",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/water-soil/hw-038-water-level/hw-038-water-level.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "analogRead + power-pin control — general sensor-read pattern",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/water-soil/hw-038-water-level/proj-hw038-driver.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "Multi-point calibration interpolation table, hysteresis, averaging — general algorithms",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/water-soil/soil-moisture/proj-soil-moisture.md",
+  "langs": [
+   "cpp",
+   "python",
+   "micropython"
+  ],
+  "why": "Median filter, EEPROM calibration, hysteresis, deep sleep — general algorithms + API",
+  "src": "reaudit-tail"
+ },
+ {
+  "file": "catalog/sensors/water-soil/soil-moisture/soil-moisture.md",
+  "langs": [
+   "cpp",
+   "micropython"
+  ],
+  "why": "analogRead + threshold with hysteresis — general sensor-read pattern",
+  "src": "reaudit-tail"
+ }
+]

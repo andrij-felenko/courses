@@ -52,6 +52,7 @@ particleSensor.setup(powerLevel, sampleAverage, ledMode, sampleRate, pulseWidth,
 
 Ось повний скетч, що знаходить чип, налаштовує його і безперервно друкує інфрачервоне й червоне числа. Це ваш перший інструмент — «осцилограф для пальця»:
 
+:::tabs
 ```cpp
 #include <Wire.h>
 #include "MAX30105.h"
@@ -91,6 +92,43 @@ void loop() {
   Serial.println();
 }
 ```
+```micropython
+from machine import I2C, Pin
+from max30102 import MAX30102          # порт SparkFun-логіки на MicroPython
+import time
+
+# Спершу задаємо свої ніжки шини (тут — типові для ESP32), 400 кГц.
+i2c = I2C(0, sda=Pin(21), scl=Pin(22), freq=400000)
+
+# Конструктор ШУКАЄ чип: звертається за 0x57 і читає ідентифікатор.
+sensor = MAX30102(i2c=i2c)
+if sensor.i2c_address not in i2c.scan() or not sensor.check_part_id():
+    print("Чип не знайдено. Перевір живлення, дроти SDA/SCL, підтяжки.")
+    while True:                        # далі рухатись немає сенсу
+        pass
+print("Чип знайдено. Прикладіть палець рівно, без натиску.")
+
+# Налаштовуємо явно свій набір, а не мовчазні замовчування.
+sensor.setup_sensor()
+sensor.set_led_mode(2)                 # 2 = червоний + інфрачервоний (треба для SpO2)
+sensor.set_active_leds_amplitude(0x1F) # ~6.4 мА, спокійний старт
+sensor.set_sample_rate(400)            # 400 фіз. відліків/с
+sensor.set_pulse_width(411)            # довгий спалах — краще розрізнення
+sensor.set_sample_average(4)           # усереднити по 4 — тихіший сигнал
+sensor.set_adc_range(4096)             # межа шкали АЦП
+
+while True:
+    sensor.check()                     # підкачати FIFO з чипа
+    if sensor.available():
+        red = sensor.pop_red_from_storage()   # миттєве червоне число
+        ir  = sensor.pop_ir_from_storage()    # миттєве інфрачервоне число
+
+        line = "IR={} RED={}".format(ir, red)
+        if ir < 50000:
+            line += "   — пальця немає?"       # поріг присутності
+        print(line)
+```
+:::
 
 Залийте, відкрийте монітор порту на 115200. Спершу без пальця числа малі й «мертві». Приклали палець — інфрачервоне різко підскакує (типово в сотні тисяч) і, головне, починає **дихати**: сотні одиниць туди-сюди в такт серцю. Оце дихання і є ваша пульсова хвиля. Якщо ввімкнути «плоттер» в Arduino IDE, ви побачите справжню криву з піками-ударами — і це найкраще підтвердження, що все живе.
 
@@ -116,6 +154,7 @@ BPM = 60000 / (t_цей_удар − t_попередній_удар)     // ч�
 
 ### Робочий детектор пульсу
 
+:::tabs
 ```cpp
 #include <Wire.h>
 #include "MAX30105.h"
@@ -172,6 +211,56 @@ void loop() {
   Serial.println();
 }
 ```
+```micropython
+from machine import I2C, Pin
+from max30102 import MAX30102
+from heartrate import check_for_beat   # детектор ударів (PBA)
+import time
+
+RATE_SIZE = 4                          # по скількох останніх BPM усереднюємо
+rates = [0] * RATE_SIZE                # кільцевий буфер значень
+rate_spot = 0
+last_beat = 0                          # час попереднього удару, мс
+
+beats_per_minute = 0.0
+beat_avg = 0
+
+i2c = I2C(0, sda=Pin(21), scl=Pin(22), freq=400000)
+sensor = MAX30102(i2c=i2c)
+if not sensor.check_part_id():
+    print("Чип не знайдено. Перевір живлення/дроти.")
+    while True:
+        pass
+print("Прикладіть палець з рівним, легким натиском.")
+
+sensor.setup_sensor()                       # типові налаштування достатні
+sensor.set_pulse_amplitude_red(0x0A)        # тьмяний червоний — індикатор «живе»
+# зеленого на MAX30102 немає — нічого й не вмикаємо
+
+while True:
+    sensor.check()
+    if not sensor.available():
+        continue
+    ir_value = sensor.pop_ir_from_storage()
+
+    if check_for_beat(ir_value):            # щойно стався удар?
+        delta = time.ticks_diff(time.ticks_ms(), last_beat)
+        last_beat = time.ticks_ms()
+
+        beats_per_minute = 60000.0 / delta  # миттєвий пульс
+
+        if 20 < beats_per_minute < 255:     # відсіяти дурню
+            rates[rate_spot] = int(beats_per_minute)
+            rate_spot = (rate_spot + 1) % RATE_SIZE   # рух по кільцю
+
+            beat_avg = sum(rates) // RATE_SIZE        # середнє по буферу
+
+    line = "IR={} BPM={} AvgBPM={}".format(ir_value, beats_per_minute, beat_avg)
+    if ir_value < 50000:
+        line += "   — пальця немає?"
+    print(line)
+```
+:::
 
 Кілька рішень у цьому коді варті окремого слова, бо вони не випадкові.
 
@@ -208,6 +297,7 @@ void loop() {
 
 ### Робочий рахунок SpO2 і пульсу
 
+:::tabs
 ```cpp
 #include <Wire.h>
 #include "MAX30105.h"
@@ -287,6 +377,73 @@ void loop() {
   }
 }
 ```
+```micropython
+from machine import I2C, Pin
+from max30102 import MAX30102
+from spo2 import spo2_and_heart_rate   # пакетний алгоритм по вікну
+import time
+
+BUFFER_LENGTH = 100                    # розмір вікна (≈1 с при 100 відл./с)
+# На MicroPython 18-бітні відліки просто лежать у списках цілих —
+# без ручного вибору ширини типу, як на 8-бітних AVR.
+ir_buffer  = []
+red_buffer = []
+
+i2c = I2C(0, sda=Pin(21), scl=Pin(22), freq=400000)
+sensor = MAX30102(i2c=i2c)
+if not sensor.check_part_id():
+    print("Чип не знайдено.")
+    while True:
+        pass
+
+# Явний набір під SpO2: два світлодіоди, 100 відл./с назовні (400/4)
+sensor.setup_sensor()
+sensor.set_active_leds_amplitude(0x1F)
+sensor.set_sample_average(4)
+sensor.set_led_mode(2)
+sensor.set_sample_rate(400)
+sensor.set_pulse_width(411)
+sensor.set_adc_range(4096)
+print("Прикладіть палець нерухомо.")
+
+
+def next_sample():
+    """Дочекатись однієї пари з FIFO й повернути (red, ir)."""
+    while not sensor.available():      # чекаємо новий відлік…
+        sensor.check()                 # …підкачуючи FIFO з чипа
+    return sensor.pop_red_from_storage(), sensor.pop_ir_from_storage()
+
+
+# 1. НАБРАТИ перше вікно: 100 пар відліків
+for _ in range(BUFFER_LENGTH):
+    red, ir = next_sample()
+    red_buffer.append(red)
+    ir_buffer.append(ir)
+
+# 2. ПОРАХУВАТИ по повному вікну. Функція ПОВЕРТАЄ кортеж —
+#    жодних адрес, як у C: значення просто приходять назад.
+spo2, valid_spo2, heart_rate, valid_hr = spo2_and_heart_rate(
+    ir_buffer, BUFFER_LENGTH, red_buffer)
+
+# 3. Далі — ковзне вікно: викидаємо 25 найстаріших, добираємо 25 свіжих,
+#    перераховуємо. Оновлення ~4 рази/с без пауз між вимірами.
+while True:
+    ir_buffer  = ir_buffer[25:]        # зсунути хвіст уперед
+    red_buffer = red_buffer[25:]
+    for _ in range(25):                # добрати 25 нових у кінець
+        red, ir = next_sample()
+        red_buffer.append(red)
+        ir_buffer.append(ir)
+
+    spo2, valid_spo2, heart_rate, valid_hr = spo2_and_heart_rate(
+        ir_buffer, BUFFER_LENGTH, red_buffer)
+
+    # Показуємо лише те, чому алгоритм довіряє
+    hr_text   = "{}".format(heart_rate) if valid_hr else "--"
+    spo2_text = "{} %".format(spo2) if valid_spo2 else "-- %"
+    print("HR={} bpm, SpO2={}".format(hr_text, spo2_text))
+```
+:::
 
 Тут працює прийом, що варто засвоїти назавжди: **ковзне вікно**. Перший вимір потребує повної секунди — набрати всі 100 відліків. Але щоразу викидати вікно й секунду чекати нового було б болісно повільно. Тому після першого разу ми не набираємо все заново, а лише **зсуваємо**: викидаємо 25 найстаріших відліків, добираємо 25 найсвіжіших, лишаючи 75 спільних, і рахуємо по оновленому вікну. Виходить свіже число десь чотири рази на секунду — плавно, — хоча кожне спирається на цілу секунду історії. Класична розмінка «затримка проти плавності»: перше число з'явиться через ~секунду, зате далі течуть густо.
 

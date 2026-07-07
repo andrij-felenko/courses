@@ -71,50 +71,103 @@ Vth = V₁ + I₁·Rth
 
 Самі обчислення тривіальні, тож їх легко доручити прошивці. МК перемикає два навантаження ключами (транзисторами), читає напругу на клемах через АЦП і рахує еквівалент. Ось закінчена функція мовою C — рівно та сама арифметика, що в прикладі вище:
 
-```c
-#include <stdint.h>
-
-#define R1_OHM      10.0f      // легке навантаження, Ом
-#define R2_OHM      2.7f       // важче навантаження, Ом
-#define ADC_VREF    3.30f      // опорна напруга АЦП, В
-#define ADC_MAX     4095.0f    // 12-бітний АЦП
-#define SETTLE_MS   50u        // пауза на встановлення після перемикання
-#define N_AVG       16u        // скільки відліків усереднити
-
-typedef struct { float vth; float rth; } thevenin_t;
+:::tabs
+```cpp
+#include <cstdint>
 
 // заглушки під вашу платформу:
-extern uint16_t adc_read_raw(void);     // один сирий відлік АЦП
-extern void     load_select(uint8_t n); // 1 → ввімкнути R1, 2 → R2, 0 → відключити
-extern void     delay_ms(uint32_t ms);
+extern std::uint16_t adc_read_raw();          // один сирий відлік АЦП
+extern void          load_select(std::uint8_t n); // 1 → R1, 2 → R2, 0 → відключити
+extern void          delay_ms(std::uint32_t ms);
 
-// усереднене читання напруги на клемах (у вольтах)
-static float read_terminal_v(void) {
-    uint32_t acc = 0;
-    for (uint8_t i = 0; i < N_AVG; i++)
-        acc += adc_read_raw();
-    return ((float)acc / N_AVG) * (ADC_VREF / ADC_MAX);
+struct Thevenin { float vth; float rth; };
+
+namespace {
+    constexpr float R1_OHM   = 10.0f;    // легке навантаження, Ом
+    constexpr float R2_OHM   = 2.7f;     // важче навантаження, Ом
+    constexpr float ADC_VREF = 3.30f;    // опорна напруга АЦП, В
+    constexpr float ADC_MAX  = 4095.0f;  // 12-бітний АЦП
+    constexpr std::uint32_t SETTLE_MS = 50;  // пауза на встановлення після перемикання
+    constexpr std::uint8_t  N_AVG     = 16;  // скільки відліків усереднити
+
+    // усереднене читання напруги на клемах (у вольтах)
+    float read_terminal_v() {
+        std::uint32_t acc = 0;
+        for (std::uint8_t i = 0; i < N_AVG; ++i)
+            acc += adc_read_raw();
+        return (static_cast<float>(acc) / N_AVG) * (ADC_VREF / ADC_MAX);
+    }
 }
 
-thevenin_t measure_thevenin(void) {
+Thevenin measure_thevenin() {
     load_select(1);                 // легке навантаження
     delay_ms(SETTLE_MS);            // дочекатися встановлення
-    float v1 = read_terminal_v();
-    float i1 = v1 / R1_OHM;
+    const float v1 = read_terminal_v();
+    const float i1 = v1 / R1_OHM;
 
     load_select(2);                 // важче навантаження
     delay_ms(SETTLE_MS);
-    float v2 = read_terminal_v();
-    float i2 = v2 / R2_OHM;
+    const float v2 = read_terminal_v();
+    const float i2 = v2 / R2_OHM;
 
     load_select(0);                 // зняти навантаження — не гріти джерело
 
-    thevenin_t r;
+    Thevenin r;
     r.rth = (v1 - v2) / (i2 - i1);  // нахил прямої = внутрішній опір
     r.vth = v1 + i1 * r.rth;        // екстраполяція до I = 0
     return r;
 }
 ```
+```python
+import time
+from dataclasses import dataclass
+
+import pyvisa  # автоматизація стендового вимірювача (DMM + комутатор навантажень)
+
+R1_OHM = 10.0    # легке навантаження, Ом
+R2_OHM = 2.7     # важче навантаження, Ом
+SETTLE_S = 0.05  # пауза на встановлення після перемикання, с
+N_AVG = 16       # скільки відліків усереднити
+
+
+@dataclass
+class Thevenin:
+    vth: float
+    rth: float
+
+
+def read_terminal_v(dmm) -> float:
+    """Усереднене читання напруги на клемах (у вольтах)."""
+    samples = (float(dmm.query("MEAS:VOLT:DC?")) for _ in range(N_AVG))
+    return sum(samples) / N_AVG
+
+
+def measure_thevenin(dmm, load) -> Thevenin:
+    load.select(1)                  # легке навантаження
+    time.sleep(SETTLE_S)            # дочекатися встановлення
+    v1 = read_terminal_v(dmm)
+    i1 = v1 / R1_OHM
+
+    load.select(2)                  # важче навантаження
+    time.sleep(SETTLE_S)
+    v2 = read_terminal_v(dmm)
+    i2 = v2 / R2_OHM
+
+    load.select(0)                  # зняти навантаження — не гріти джерело
+
+    rth = (v1 - v2) / (i2 - i1)     # нахил прямої = внутрішній опір
+    vth = v1 + i1 * rth             # екстраполяція до I = 0
+    return Thevenin(vth, rth)
+
+
+if __name__ == "__main__":
+    rm = pyvisa.ResourceManager()
+    dmm = rm.open_resource("USB0::0x0000::0x0000::INSTR")   # ваш мультиметр
+    load = LoadSwitch(rm)                                   # комутатор R1/R2/off
+    result = measure_thevenin(dmm, load)
+    print(f"Vth = {result.vth:.2f} В,  Rth = {result.rth:.2f} Ом")
+```
+:::
 
 Підставте в розум платні значення з прикладу — функція поверне ті самі 4.02 В і 0.32 Ω. Саме так влаштовані тестери акумуляторів і вимірювачі внутрішнього опору: прошивка сама прикладає навантаження, читає напругу й видає пару чисел.
 

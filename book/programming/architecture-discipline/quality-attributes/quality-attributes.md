@@ -23,7 +23,7 @@
 
 Кілька класичних пар, що тягнуться в різні боки:
 
-```
+```c
 швидкість   ⇄  свіжість даних   (кеш пришвидшує, але дані відстають)
 безпека     ⇄  зручність        (кожна перевірка — ще один крок для користувача)
 надійність  ⇄  вартість         (резерв, репліки, дубль — усе коштує грошей)
@@ -83,6 +83,7 @@
 
 **Умова.** Кеш віддає збережене значення, поки воно «свіже» — не старіше за задане вікно. Треба, щоб код не просто пришвидшував, а *чесно* показував межу свіжості, інакше атрибут «свіжість» деградує непомітно.
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stdbool.h>
@@ -105,6 +106,68 @@ bool cache_get(const Cache *c, uint32_t now_ms,
     return true;
 }
 ```
+```cpp
+#include <cstdint>
+#include <optional>
+
+struct Cache {
+    std::uint32_t value       = 0;      // збережена відповідь
+    std::uint32_t stored_at_ms = 0;     // коли поклали в кеш
+    bool          valid       = false;  // чи є що віддавати
+};
+
+// max_age_ms — контракт свіжості: наскільки застарілі дані ми ще
+// згодні віддавати. Це ЧИСЛО зі сценарію атрибута, а не випадкова стала.
+// std::optional — природний аналог «bool + out-параметр».
+std::optional<std::uint32_t> cache_get(const Cache& c, std::uint32_t now_ms,
+                                       std::uint32_t max_age_ms) {
+    if (!c.valid)
+        return std::nullopt;                // кеш порожній — доведеться рахувати
+    if (now_ms - c.stored_at_ms > max_age_ms)
+        return std::nullopt;                // застаріло понад дозволене — теж рахувати
+    return c.value;                         // свіже — швидкий шлях
+}
+```
+```python
+from dataclasses import dataclass
+
+@dataclass
+class Cache:
+    value: int = 0          # збережена відповідь
+    stored_at_ms: int = 0   # коли поклали в кеш
+    valid: bool = False     # чи є що віддавати
+
+# max_age_ms — контракт свіжості: наскільки застарілі дані ми ще
+# згодні віддавати. Це ЧИСЛО зі сценарію атрибута, а не випадкова стала.
+# Повертаємо int | None — пітонічний аналог «bool + out-параметр».
+def cache_get(c: Cache, now_ms: int, max_age_ms: int) -> int | None:
+    if not c.valid:
+        return None                         # кеш порожній — доведеться рахувати
+    if now_ms - c.stored_at_ms > max_age_ms:
+        return None                         # застаріло понад дозволене — теж рахувати
+    return c.value                          # свіже — швидкий шлях
+```
+```go
+// max_age_ms — контракт свіжості: наскільки застарілі дані ми ще
+// згодні віддавати. Це ЧИСЛО зі сценарію атрибута, а не випадкова стала.
+type Cache struct {
+    Value       uint32 // збережена відповідь
+    StoredAtMs  uint32 // коли поклали в кеш
+    Valid       bool   // чи є що віддавати
+}
+
+// Повертаємо (значення, ok) — канонічний Go-аналог «bool + out-параметр».
+func (c *Cache) Get(nowMs, maxAgeMs uint32) (uint32, bool) {
+    if !c.Valid {
+        return 0, false // кеш порожній — доведеться рахувати
+    }
+    if nowMs-c.StoredAtMs > maxAgeMs {
+        return 0, false // застаріло понад дозволене — теж рахувати
+    }
+    return c.Value, true // свіже — швидкий шлях
+}
+```
+:::
 
 Розберемо, що тут насправді відбувається на очах:
 

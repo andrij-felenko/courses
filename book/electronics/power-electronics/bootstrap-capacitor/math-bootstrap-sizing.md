@@ -194,12 +194,12 @@ Cbs(max)        = 1e-6 / 10            = 100 нФ (!)
 
 Тепер зберемо повний розрахунок у робочий C-код — такий, що його можна покласти в утиліту вибору компонентів чи в самоперевірку прошивки. Він рахує обидві межі й чесно попереджає, коли вилка порожня.
 
-```c
-#include <stdio.h>
-#include <stdbool.h>
+:::tabs
+```cpp
+#include <cstdio>
 
 // Усі величини — у базових одиницях СІ: кулони, ампери, фаради, секунди, вольти.
-typedef struct {
+struct BootParams {
     double Qg;          // заряд затвора верхнього ключа, Кл (з даташита MOSFET)
     double Qls;         // заряд зсуву рівня за такт, Кл (з даташита драйвера)
     double Qrr;         // зворотний заряд відновлення діода, Кл (0 для Шотткі)
@@ -212,34 +212,34 @@ typedef struct {
     double R_charge;    // сумарний послідовний опір доливу, Ом
     double dcbias_derate; // частка ємності, що лишається під напругою (напр. 0.5)
     double margin;      // додатковий запас (пуск, розкид), напр. 3.0
-} boot_params;
+};
 
 // Нижня межа: скільки ємності треба, щоб не просісти за найдовший відкритий такт.
-double cbs_min(const boot_params *p, double *q_total_out) {
-    double t_on   = p->duty_max / p->f;                 // найдовший відкритий час
-    double q_once = p->Qg + p->Qls + p->Qrr;            // разові порції
-    double i_flow = p->Iqbs + p->Icbs_leak + p->Ig_leak;
+double cbs_min(const BootParams &p, double *q_total_out = nullptr) {
+    double t_on   = p.duty_max / p.f;                   // найдовший відкритий час
+    double q_once = p.Qg + p.Qls + p.Qrr;              // разові порції
+    double i_flow = p.Iqbs + p.Icbs_leak + p.Ig_leak;
     double q_flow = i_flow * t_on;                      // цівки × час
     double q_total = q_once + q_flow;
     if (q_total_out) *q_total_out = q_total;
-    return q_total / p->dV_allow;                       // Cbs >= Qвитрат / ΔV
+    return q_total / p.dV_allow;                        // Cbs >= Qвитрат / ΔV
 }
 
 // Верхня межа: більше цієї ємності не встигне долитися за паузу t_off (5·τ).
-double cbs_max(const boot_params *p) {
-    double t_off = (1.0 - p->duty_max) / p->f;          // закрита частина періоду
+double cbs_max(const BootParams &p) {
+    double t_off = (1.0 - p.duty_max) / p.f;            // закрита частина періоду
     double tau_allow = t_off / 5.0;                     // 5 сталих часу на долив
-    return tau_allow / p->R_charge;                     // Cbs_max = t_off / (5·R)
+    return tau_allow / p.R_charge;                      // Cbs_max = t_off / (5·R)
 }
 
 // Номінал, який реально ставимо: підлогу ділимо на DC-bias і множимо на запас.
-double cbs_pick(const boot_params *p) {
-    double lo = cbs_min(p, NULL);
-    return lo / p->dcbias_derate * p->margin;           // компенсуємо DC-bias і запас
+double cbs_pick(const BootParams &p) {
+    double lo = cbs_min(p);
+    return lo / p.dcbias_derate * p.margin;             // компенсуємо DC-bias і запас
 }
 
-int main(void) {
-    boot_params p = {
+int main() {
+    BootParams p{
         .Qg = 50e-9, .Qls = 5e-9, .Qrr = 2e-9,
         .Iqbs = 230e-6, .Icbs_leak = 50e-6, .Ig_leak = 0.3e-6,
         .f = 20e3, .duty_max = 0.90, .dV_allow = 0.5,
@@ -247,9 +247,9 @@ int main(void) {
     };
 
     double q_total;
-    double lo = cbs_min(&p, &q_total);
-    double hi = cbs_max(&p);
-    double pick = cbs_pick(&p);
+    double lo = cbs_min(p, &q_total);
+    double hi = cbs_max(p);
+    double pick = cbs_pick(p);
 
     printf("Qвитрат   = %.1f нКл\n", q_total * 1e9);
     printf("Cbs(min)  = %.0f нФ   (нижня межа з балансу заряду)\n", lo * 1e9);
@@ -263,6 +263,206 @@ int main(void) {
     return 0;
 }
 ```
+```python
+from dataclasses import dataclass
+
+# Усі величини — у базових одиницях СІ: кулони, ампери, фаради, секунди, вольти.
+@dataclass
+class BootParams:
+    Qg: float            # заряд затвора верхнього ключа, Кл (з даташита MOSFET)
+    Qls: float           # заряд зсуву рівня за такт, Кл (з даташита драйвера)
+    Qrr: float           # зворотний заряд відновлення діода, Кл (0 для Шотткі)
+    Iqbs: float          # струм спокою верхнього боку, А (макс із даташита)
+    Icbs_leak: float     # витік плаваючої шини драйвера + конденсатора, А
+    Ig_leak: float       # витік затвора + зсуву рівня в статиці, А
+    f: float             # частота ШІМ, Гц
+    duty_max: float      # максимальна робоча шпаруватість, 0..1
+    dV_allow: float      # дозволене просідання VB-VS, В
+    R_charge: float      # сумарний послідовний опір доливу, Ом
+    dcbias_derate: float # частка ємності, що лишається під напругою (напр. 0.5)
+    margin: float        # додатковий запас (пуск, розкид), напр. 3.0
+
+
+# Нижня межа: скільки ємності треба, щоб не просісти за найдовший відкритий такт.
+def cbs_min(p):
+    t_on   = p.duty_max / p.f                       # найдовший відкритий час
+    q_once = p.Qg + p.Qls + p.Qrr                   # разові порції
+    i_flow = p.Iqbs + p.Icbs_leak + p.Ig_leak
+    q_flow = i_flow * t_on                          # цівки × час
+    q_total = q_once + q_flow
+    return q_total / p.dV_allow, q_total            # Cbs >= Qвитрат / ΔV
+
+
+# Верхня межа: більше цієї ємності не встигне долитися за паузу t_off (5·τ).
+def cbs_max(p):
+    t_off = (1.0 - p.duty_max) / p.f                # закрита частина періоду
+    tau_allow = t_off / 5.0                         # 5 сталих часу на долив
+    return tau_allow / p.R_charge                   # Cbs_max = t_off / (5·R)
+
+
+# Номінал, який реально ставимо: підлогу ділимо на DC-bias і множимо на запас.
+def cbs_pick(p):
+    lo, _ = cbs_min(p)
+    return lo / p.dcbias_derate * p.margin          # компенсуємо DC-bias і запас
+
+
+def main():
+    p = BootParams(
+        Qg=50e-9, Qls=5e-9, Qrr=2e-9,
+        Iqbs=230e-6, Icbs_leak=50e-6, Ig_leak=0.3e-6,
+        f=20e3, duty_max=0.90, dV_allow=0.5,
+        R_charge=10.0, dcbias_derate=0.5, margin=3.0,
+    )
+
+    lo, q_total = cbs_min(p)
+    hi = cbs_max(p)
+    pick = cbs_pick(p)
+
+    print(f"Qвитрат   = {q_total * 1e9:.1f} нКл")
+    print(f"Cbs(min)  = {lo * 1e9:.0f} нФ   (нижня межа з балансу заряду)")
+    print(f"Cbs(max)  = {hi * 1e9:.0f} нФ   (верхня межа з перезаряду)")
+    print(f"ставимо   ~ {pick * 1e6:.2f} мкФ  (з DC-bias і запасом)")
+
+    if pick > hi:
+        print("УВАГА: потрібна ємність не долиється за паузу!")
+        print("  → знизь R доливу, зменш стелю шпаруватості або візьми зарядову помпу.")
+
+
+if __name__ == "__main__":
+    main()
+```
+```go
+package main
+
+import "fmt"
+
+// Усі величини — у базових одиницях СІ: кулони, ампери, фаради, секунди, вольти.
+type BootParams struct {
+	Qg           float64 // заряд затвора верхнього ключа, Кл (з даташита MOSFET)
+	Qls          float64 // заряд зсуву рівня за такт, Кл (з даташита драйвера)
+	Qrr          float64 // зворотний заряд відновлення діода, Кл (0 для Шотткі)
+	Iqbs         float64 // струм спокою верхнього боку, А (макс із даташита)
+	IcbsLeak     float64 // витік плаваючої шини драйвера + конденсатора, А
+	IgLeak       float64 // витік затвора + зсуву рівня в статиці, А
+	F            float64 // частота ШІМ, Гц
+	DutyMax      float64 // максимальна робоча шпаруватість, 0..1
+	DVAllow      float64 // дозволене просідання VB-VS, В
+	RCharge      float64 // сумарний послідовний опір доливу, Ом
+	DcbiasDerate float64 // частка ємності, що лишається під напругою (напр. 0.5)
+	Margin       float64 // додатковий запас (пуск, розкид), напр. 3.0
+}
+
+// Нижня межа: скільки ємності треба, щоб не просісти за найдовший відкритий такт.
+func cbsMin(p BootParams) (cbs, qTotal float64) {
+	tOn := p.DutyMax / p.F                    // найдовший відкритий час
+	qOnce := p.Qg + p.Qls + p.Qrr            // разові порції
+	iFlow := p.Iqbs + p.IcbsLeak + p.IgLeak
+	qFlow := iFlow * tOn                      // цівки × час
+	qTotal = qOnce + qFlow
+	return qTotal / p.DVAllow, qTotal         // Cbs >= Qвитрат / ΔV
+}
+
+// Верхня межа: більше цієї ємності не встигне долитися за паузу tOff (5·τ).
+func cbsMax(p BootParams) float64 {
+	tOff := (1.0 - p.DutyMax) / p.F           // закрита частина періоду
+	tauAllow := tOff / 5.0                    // 5 сталих часу на долив
+	return tauAllow / p.RCharge               // Cbs_max = t_off / (5·R)
+}
+
+// Номінал, який реально ставимо: підлогу ділимо на DC-bias і множимо на запас.
+func cbsPick(p BootParams) float64 {
+	lo, _ := cbsMin(p)
+	return lo / p.DcbiasDerate * p.Margin     // компенсуємо DC-bias і запас
+}
+
+func main() {
+	p := BootParams{
+		Qg: 50e-9, Qls: 5e-9, Qrr: 2e-9,
+		Iqbs: 230e-6, IcbsLeak: 50e-6, IgLeak: 0.3e-6,
+		F: 20e3, DutyMax: 0.90, DVAllow: 0.5,
+		RCharge: 10.0, DcbiasDerate: 0.5, Margin: 3.0,
+	}
+
+	lo, qTotal := cbsMin(p)
+	hi := cbsMax(p)
+	pick := cbsPick(p)
+
+	fmt.Printf("Qвитрат   = %.1f нКл\n", qTotal*1e9)
+	fmt.Printf("Cbs(min)  = %.0f нФ   (нижня межа з балансу заряду)\n", lo*1e9)
+	fmt.Printf("Cbs(max)  = %.0f нФ   (верхня межа з перезаряду)\n", hi*1e9)
+	fmt.Printf("ставимо   ~ %.2f мкФ  (з DC-bias і запасом)\n", pick*1e6)
+
+	if pick > hi {
+		fmt.Println("УВАГА: потрібна ємність не долиється за паузу!")
+		fmt.Println("  → знизь R доливу, зменш стелю шпаруватості або візьми зарядову помпу.")
+	}
+}
+```
+```js
+// Усі величини — у базових одиницях СІ: кулони, ампери, фаради, секунди, вольти.
+// p — об'єкт параметрів із полями:
+//   Qg        заряд затвора верхнього ключа, Кл (з даташита MOSFET)
+//   Qls       заряд зсуву рівня за такт, Кл (з даташита драйвера)
+//   Qrr       зворотний заряд відновлення діода, Кл (0 для Шотткі)
+//   Iqbs      струм спокою верхнього боку, А (макс із даташита)
+//   IcbsLeak  витік плаваючої шини драйвера + конденсатора, А
+//   IgLeak    витік затвора + зсуву рівня в статиці, А
+//   f         частота ШІМ, Гц
+//   dutyMax   максимальна робоча шпаруватість, 0..1
+//   dVAllow   дозволене просідання VB-VS, В
+//   Rcharge   сумарний послідовний опір доливу, Ом
+//   dcbiasDerate  частка ємності, що лишається під напругою (напр. 0.5)
+//   margin    додатковий запас (пуск, розкид), напр. 3.0
+
+// Нижня межа: скільки ємності треба, щоб не просісти за найдовший відкритий такт.
+function cbsMin(p) {
+  const tOn   = p.dutyMax / p.f;                    // найдовший відкритий час
+  const qOnce = p.Qg + p.Qls + p.Qrr;              // разові порції
+  const iFlow = p.Iqbs + p.IcbsLeak + p.IgLeak;
+  const qFlow = iFlow * tOn;                        // цівки × час
+  const qTotal = qOnce + qFlow;
+  return { cbs: qTotal / p.dVAllow, qTotal };       // Cbs >= Qвитрат / ΔV
+}
+
+// Верхня межа: більше цієї ємності не встигне долитися за паузу tOff (5·τ).
+function cbsMax(p) {
+  const tOff = (1.0 - p.dutyMax) / p.f;             // закрита частина періоду
+  const tauAllow = tOff / 5.0;                      // 5 сталих часу на долив
+  return tauAllow / p.Rcharge;                      // Cbs_max = t_off / (5·R)
+}
+
+// Номінал, який реально ставимо: підлогу ділимо на DC-bias і множимо на запас.
+function cbsPick(p) {
+  const { cbs: lo } = cbsMin(p);
+  return lo / p.dcbiasDerate * p.margin;            // компенсуємо DC-bias і запас
+}
+
+function main() {
+  const p = {
+    Qg: 50e-9, Qls: 5e-9, Qrr: 2e-9,
+    Iqbs: 230e-6, IcbsLeak: 50e-6, IgLeak: 0.3e-6,
+    f: 20e3, dutyMax: 0.90, dVAllow: 0.5,
+    Rcharge: 10.0, dcbiasDerate: 0.5, margin: 3.0,
+  };
+
+  const { cbs: lo, qTotal } = cbsMin(p);
+  const hi = cbsMax(p);
+  const pick = cbsPick(p);
+
+  console.log(`Qвитрат   = ${(qTotal * 1e9).toFixed(1)} нКл`);
+  console.log(`Cbs(min)  = ${(lo * 1e9).toFixed(0)} нФ   (нижня межа з балансу заряду)`);
+  console.log(`Cbs(max)  = ${(hi * 1e9).toFixed(0)} нФ   (верхня межа з перезаряду)`);
+  console.log(`ставимо   ~ ${(pick * 1e6).toFixed(2)} мкФ  (з DC-bias і запасом)`);
+
+  if (pick > hi) {
+    console.log("УВАГА: потрібна ємність не долиється за паузу!");
+    console.log("  → знизь R доливу, зменш стелю шпаруватості або візьми зарядову помпу.");
+  }
+}
+
+main();
+```
+:::
 
 Цей код і є вивід статті, перекладений у машину: `cbs_min` збирає всі шість членів балансу, `cbs_max` рахує стелю з RC-перезаряду, `cbs_pick` піднімає підлогу під DC-bias і запас, а фінальна перевірка `pick > hi` ловить рівно ту порожню вилку, на яку ми наткнулися в прикладі. Прогнавши його на наших числах, ви побачите Cbs(min) ≈ 140 нФ, Cbs(max) ≈ 100 нФ і попередження — тобто програма сама скаже, що при 90 % і 10 Ом бутстреп треба або «полагодити» опором/шпаруватістю, або замінити помпою. Саме так має працювати чесний розрахунок: не видавати одне число, а показувати обидві межі й попереджати, коли вони не сходяться.
 

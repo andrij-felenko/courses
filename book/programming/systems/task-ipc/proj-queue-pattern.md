@@ -33,6 +33,7 @@
 
 *Показуємо, від чого тікаємо: глобальні змінні між задачами й приховані перегони.*
 
+:::tabs
 ```cpp
 // ─── антиприклад — НЕ робити так ────────────────────────────────────
 volatile bool g_hasData   = false;   // ← перегін: Sensor пише, Control читає
@@ -63,11 +64,78 @@ void taskControl(void*) {
     }
 }
 ```
+```go
+// ─── антиприклад — НЕ робити так ────────────────────────────────────
+var gHasData bool // ← перегін: Sensor пише, Control читає
+var gSample int   // ← перегін без м'ютекса
+
+type Cmd struct {
+    RelayOn bool
+    Level   uint8
+}
+
+var gCommand Cmd // ← перегін: Control пише, Actuator читає
+
+// Якби боялись перегонів — довелось би ставити окремий м'ютекс
+// на кожну зі змінних: var mxData, mxCmd sync.Mutex
+// і Lock/Unlock у кожній ґорутині. Це й є той «спагеті».
+
+func taskSensor() {
+    for {
+        gSample = analogRead(pinA) // пише без захисту
+        gHasData = true            // пише без захисту ← перегін!
+        time.Sleep(100 * time.Millisecond)
+    }
+}
+
+func taskControl() {
+    for {
+        if gHasData { // читає без захисту ← перегін!
+            gHasData = false
+            gCommand.RelayOn = gSample > 512 // пише без захисту
+        }
+        time.Sleep(10 * time.Millisecond)
+    }
+}
+```
+```python
+# ─── антиприклад — НЕ робити так ────────────────────────────────────
+g_has_data = False  # ← перегін: Sensor пише, Control читає
+g_sample = 0        # ← перегін без м'ютекса
+
+@dataclass
+class Cmd:
+    relay_on: bool = False
+    level: int = 0
+
+g_command = Cmd()   # ← перегін: Control пише, Actuator читає
+
+# Якби боялись перегонів — довелось би ставити окремий м'ютекс
+# на кожну зі змінних: mx_data, mx_cmd = Lock(), Lock()
+# і брати/давати у кожному потоці. Це й є той «спагеті».
+
+def task_sensor() -> None:
+    global g_sample, g_has_data
+    while True:
+        g_sample = analog_read(PIN_A)  # пише без захисту
+        g_has_data = True              # пише без захисту ← перегін!
+        time.sleep(0.100)
+
+def task_control() -> None:
+    global g_has_data
+    while True:
+        if g_has_data:                 # читає без захисту ← перегін!
+            g_has_data = False
+            g_command.relay_on = g_sample > 512  # пише без захисту
+        time.sleep(0.010)
+```
+:::
 
 ### Головне — усе через чергу
 
 *`taskSensor` і `taskButton` — два виробники в одну `qEvents`; `taskControl` — споживач + виробник; `taskActuator` — кінцевий виконавець. Стан режиму — локальна змінна всередині `taskControl`, не глобальна.*
 
+:::tabs
 ```cpp
 // ─── тип повідомлення — єдиний «конверт» для будь-яких даних ─────────
 enum MsgType : uint8_t { MSG_SAMPLE, MSG_BUTTON, MSG_SETMODE };
@@ -152,6 +220,156 @@ void loop() { vTaskDelay(portMAX_DELAY); }
 // ЖОДНОЇ спільної змінної між задачами — лише черги.
 // Кожну задачу читаємо як окрему просту послідовну програму.
 ```
+```go
+// ─── тип повідомлення — єдиний «конверт» для будь-яких даних ─────────
+type MsgType uint8
+
+const (
+    MsgSample MsgType = iota
+    MsgButton
+    MsgSetMode
+)
+
+type Msg struct {
+    Type  MsgType
+    Value int32
+}
+
+// ─── PRODUCER 1: давач ────────────────────────────────────────────────
+func taskSensor(qEvents chan<- Msg) {
+    for {
+        qEvents <- Msg{MsgSample, analogRead(pinA)} // канал передає КОПІЮ — жодної спільної змінної
+        time.Sleep(100 * time.Millisecond)
+    }
+}
+
+// ─── PRODUCER 2: кнопка (fan-in у ту саму qEvents) ───────────────────
+func taskButton(qEvents chan<- Msg) {
+    for {
+        if digitalRead(pinBtn) == low {
+            qEvents <- Msg{MsgButton, 1}
+            time.Sleep(50 * time.Millisecond) // debounce
+        }
+        time.Sleep(10 * time.Millisecond)
+    }
+}
+
+// ─── CONSUMER + PRODUCER: логіка керування ───────────────────────────
+func taskControl(qEvents <-chan Msg, qActuator chan<- Msg) {
+    mode := 0 // ← стан ПРИВАТНИЙ всередині ґорутини, не глобальний!
+    //            жодного м'ютекса не потрібно
+    for m := range qEvents { // спить, поки немає пошти
+        switch m.Type {
+        case MsgSample:
+            if m.Value > 512 {
+                qActuator <- Msg{MsgSample, 1}
+            }
+        case MsgButton:
+            mode = (mode + 1) % 3
+        case MsgSetMode:
+            mode = int(m.Value)
+        }
+    }
+}
+
+// ─── CONSUMER: виконавець на залізі ──────────────────────────────────
+func taskActuator(qActuator <-chan Msg) {
+    for m := range qActuator {
+        // Якщо реле на спільній шині SPI — лише тут беремо м'ютекс на шину
+        // busMutex.Lock()
+        digitalWrite(pinRelay, m.Value != 0)
+        // busMutex.Unlock()
+    }
+}
+
+// ─── Ініціалізація ────────────────────────────────────────────────────
+func main() {
+    qEvents := make(chan Msg, 8) // fan-in: Sensor + Button → Control
+    qActuator := make(chan Msg, 4) // Control → Actuator
+
+    go taskSensor(qEvents)
+    go taskButton(qEvents)
+    go taskControl(qEvents, qActuator)
+    go taskActuator(qActuator)
+    select {} // блокуємось назавжди
+
+    // ЖОДНОЇ спільної змінної між ґорутинами — лише канали.
+    // Кожну ґорутину читаємо як окрему просту послідовну програму.
+}
+```
+```python
+import queue
+import threading
+import time
+from dataclasses import dataclass
+from enum import IntEnum
+
+# ─── тип повідомлення — єдиний «конверт» для будь-яких даних ─────────
+class MsgType(IntEnum):
+    SAMPLE = 0
+    BUTTON = 1
+    SETMODE = 2
+
+@dataclass
+class Msg:
+    type: MsgType
+    value: int
+
+# ─── PRODUCER 1: давач ────────────────────────────────────────────────
+def task_sensor(q_events: "queue.Queue[Msg]") -> None:
+    while True:
+        q_events.put(Msg(MsgType.SAMPLE, analog_read(PIN_A)))  # кладемо об'єкт — жодної спільної змінної
+        time.sleep(0.100)
+
+# ─── PRODUCER 2: кнопка (fan-in у ту саму q_events) ──────────────────
+def task_button(q_events: "queue.Queue[Msg]") -> None:
+    while True:
+        if digital_read(PIN_BTN) == LOW:
+            q_events.put(Msg(MsgType.BUTTON, 1))
+            time.sleep(0.050)  # debounce
+        time.sleep(0.010)
+
+# ─── CONSUMER + PRODUCER: логіка керування ───────────────────────────
+def task_control(q_events: "queue.Queue[Msg]", q_actuator: "queue.Queue[Msg]") -> None:
+    mode = 0  # ← стан ПРИВАТНИЙ всередині потоку, не глобальний!
+    #            жодного м'ютекса не потрібно
+    while True:
+        m = q_events.get()  # спить, поки немає пошти
+        if m.type == MsgType.SAMPLE:
+            if m.value > 512:
+                q_actuator.put(Msg(MsgType.SAMPLE, 1))
+        elif m.type == MsgType.BUTTON:
+            mode = (mode + 1) % 3
+        elif m.type == MsgType.SETMODE:
+            mode = m.value
+
+# ─── CONSUMER: виконавець на залізі ──────────────────────────────────
+def task_actuator(q_actuator: "queue.Queue[Msg]") -> None:
+    while True:
+        m = q_actuator.get()
+        # Якщо реле на спільній шині SPI — лише тут беремо м'ютекс на шину
+        # with bus_lock:
+        digital_write(PIN_RELAY, bool(m.value))
+
+# ─── Ініціалізація ────────────────────────────────────────────────────
+def main() -> None:
+    q_events: "queue.Queue[Msg]" = queue.Queue(maxsize=8)   # fan-in: Sensor + Button → Control
+    q_actuator: "queue.Queue[Msg]" = queue.Queue(maxsize=4) # Control → Actuator
+
+    for target, args in (
+        (task_sensor, (q_events,)),
+        (task_button, (q_events,)),
+        (task_control, (q_events, q_actuator)),
+        (task_actuator, (q_actuator,)),
+    ):
+        threading.Thread(target=target, args=args, daemon=True).start()
+
+    threading.Event().wait()  # блокуємось назавжди
+
+# ЖОДНОЇ спільної змінної між потоками — лише черги.
+# Кожен потік читаємо як окрему просту послідовну програму.
+```
+:::
 
 ### Передавання великих буферів вказівником
 

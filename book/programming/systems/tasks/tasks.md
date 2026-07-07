@@ -97,7 +97,7 @@ void setup() {
 
 **Приклад ([той самий сценарій super-loop](guide:embedded/super-loop-limits), переписаний на задачах).** Ті самі три справи — але кожна окрема й проста.
 
-```
+```cpp
 void taskBlink(void *p)  { for(;;){ toggleLed(); vTaskDelay(500); } }   // блимати
 void taskSensor(void *p) { for(;;){ readSensor();      // блокує 50 мс —
                                     vTaskDelay(1000); } }                //   та лише ЦЮ задачу

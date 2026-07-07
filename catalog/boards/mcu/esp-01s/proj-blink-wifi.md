@@ -39,6 +39,7 @@ Upload Speed: 115200 ← починайте з поміркованої; вищ�
 
 Ось цей скетч. Він уже враховує головну тонкість плати — світлодіод на GPIO2 світиться **навпаки**:
 
+:::tabs
 ```cpp
 // Найдрібніший скетч: блимаємо вбудованим синім LED на ESP-01S.
 // LED сидить на GPIO2 і УВІМКНЕНО ЗА НИЗЬКИМ РІВНЕМ:
@@ -58,6 +59,24 @@ void loop() {
   delay(500);
 }
 ```
+```micropython
+# Найдрібніший скрипт: блимаємо вбудованим синім LED на ESP-01S.
+# LED сидить на GPIO2 і УВІМКНЕНО ЗА НИЗЬКИМ РІВНЕМ:
+#   value(0) → світиться,   value(1) → гасне.
+
+from machine import Pin
+from time import sleep_ms
+
+led = Pin(2, Pin.OUT)      # GPIO2 — до нього припаяно синій світлодіод
+led.value(1)               # старт із погашеним (1 = вимкнено!)
+
+while True:
+    led.value(0)           # світиться
+    sleep_ms(500)          # 0.5 с
+    led.value(1)           # гасне
+    sleep_ms(500)
+```
+:::
 
 Зверніть увагу на `digitalWrite(LED, HIGH)` як стан «вимкнено». Той, хто звик до звичайних плат, де `HIGH` світить, тут отримає світлодіод, що горить, коли має бути темно, і навпаки, — і півгодини шукатиме проблему в коді, якої там немає. **Активний низький рівень** (active-low): струм тече через LED, коли ніжка тягне його до землі, тож нуль — це «увімкнено». Ця дрібниця повторюється в кожному скетчі для ESP-01S, тож звикайте одразу.
 
@@ -118,6 +137,7 @@ esptool --port COM4 --baud 115200 write_flash 0x0 firmware.bin
 
 Ось скелет, який під'єднується до вашої точки доступу й **блимає світлодіодом, поки триває під'єднання** — зручний живий індикатор: миготить швидко → ще шукає мережу; засвітився рівно → у мережі.
 
+:::tabs
 ```cpp
 #include <ESP8266WiFi.h>
 
@@ -158,6 +178,36 @@ void loop() {
   // поки нічого — уся робота попереду, у веб-сервері
 }
 ```
+```micropython
+import network                           # бібліотека Wi-Fi
+from machine import Pin
+from time import sleep_ms
+
+SSID = "ВашаМережа"                       # ім'я вашої Wi-Fi
+PASS = "ВашПароль"                        # пароль WPA/WPA2
+
+led = Pin(2, Pin.OUT)                     # GPIO2, активний НИЗЬКИЙ
+led.value(1)                             # погашено
+
+wlan = network.WLAN(network.STA_IF)      # режим клієнта (station), не точки доступу
+wlan.active(True)
+wlan.connect(SSID, PASS)                  # почати під'єднання
+
+print("Під'єднуюсь до", SSID, end="")
+
+# чекаємо мережу, блимаючи LED, поки статус не стане «під'єднано»
+while not wlan.isconnected():
+    led.value(0)                         # блимнути (0 = світиться)
+    sleep_ms(100)
+    led.value(1)
+    sleep_ms(100)
+    print(".", end="")
+
+led.value(0)                             # у мережі — лишаємо LED засвіченим
+print(" готово!")
+print("IP-адреса:", wlan.ifconfig()[0])  # ось за цією адресою нас видно в мережі
+```
+:::
 
 Розберімо, що тут насправді відбувається, бо за трьома рядками ховається чимала машинерія.
 
@@ -179,6 +229,7 @@ void loop() {
 
 Ось повний робочий скетч. Він під'єднується до мережі (як вище) і піднімає сервер із двома кнопками:
 
+:::tabs
 ```cpp
 #include <ESP8266WiFi.h>
 
@@ -252,6 +303,75 @@ void loop() {
   client.stop();                         // закрити з'єднання
 }
 ```
+```micropython
+import network
+import socket
+from machine import Pin
+
+SSID = "ВашаМережа"
+PASS = "ВашПароль"
+
+led = Pin(2, Pin.OUT)                    # GPIO2, активний НИЗЬКИЙ
+led.value(1)                             # старт: погашено
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(SSID, PASS)
+while not wlan.isconnected():
+    pass
+
+print()
+print("Відкрий у браузері: http://" + wlan.ifconfig()[0])  # ось цю адресу — в адресний рядок
+
+# сервер на 80-му порту (HTTP)
+server = socket.socket()
+server.bind(("", 80))
+server.listen(1)                         # почати слухати з'єднання
+
+while True:
+    client, addr = server.accept()       # хтось під'єднався (блокуюче очікування)
+
+    # читаємо ПЕРШИЙ рядок запиту — у ньому весь потрібний нам зміст:
+    #   "GET /on HTTP/1.1"  →  шлях "/on"
+    req = client.readline()
+
+    # за шляхом вирішуємо, що робити зі світлодіодом
+    # (пам'ятаємо: 0 = світиться, 1 = гасне)
+    if req.find(b"/on") != -1:
+        led.value(0)                     # увімкнути
+        on = True
+    elif req.find(b"/off") != -1:
+        led.value(1)                     # вимкнути
+        on = False
+    else:
+        on = (led.value() == 0)          # просто "/" — лишити як є, показати стан
+
+    # проковтуємо решту заголовків запиту, поки браузер їх шле
+    while True:
+        line = client.readline()
+        if not line or line == b"\r\n":
+            break
+
+    # ── відповідь: спершу HTTP-заголовок, потім HTML-сторінка ──
+    client.send(
+        "HTTP/1.1 200 OK\r\n"
+        "Content-Type: text/html; charset=utf-8\r\n"
+        "Connection: close\r\n"
+        "\r\n")                          # порожній рядок = кінець заголовків
+
+    client.send("<!DOCTYPE html><html><head><meta charset='utf-8'>")
+    client.send("<meta name='viewport' content='width=device-width'>")
+    client.send("<title>ESP-01S</title></head><body>")
+    client.send("<h2>Світлодіод зараз: ")
+    client.send("<b>увімкнено</b>" if on else "<b>вимкнено</b>")
+    client.send("</h2>")
+    client.send("<p><a href='/on'>Увімкнути</a> &nbsp; ")
+    client.send("<a href='/off'>Вимкнути</a></p>")
+    client.send("</body></html>")
+
+    client.close()                       # закрити з'єднання
+```
+:::
 
 Пройдімо ключові місця, бо кожне ховає урок.
 

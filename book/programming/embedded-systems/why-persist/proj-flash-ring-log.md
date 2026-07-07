@@ -44,6 +44,7 @@ append(подія):
 
 Кожен запис починає **наскрізний номер** `seq` (що лише росте), а завершує `crc` — мітка цілості над тілом. Вільний сектор виказує себе тим, що його `seq` дорівнює `0xFFFFFFFF` (стерте слово). Найновіший запис — той, у кого `seq` найбільший і `crc` сходиться.
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stdbool.h>
@@ -109,6 +110,142 @@ void log_init(void) {
     }
 }
 ```
+```python
+import struct
+
+SECTOR    = 4096            # розмір сектора Flash (типово 4 КБ)
+N_SECTORS = 16              # скільки секторів під лог
+EMPTY_SEQ = 0xFFFFFFFF      # стерте слово = вільний сектор
+PAYLOAD   = SECTOR - 8      # тіло запису; 8 байтів — на seq + crc
+
+# --- апаратні примітиви Flash (надає драйвер платформи) ---
+# flash_read(sector) -> bytes    (повертає SECTOR байтів)
+# flash_erase(sector)            -> усі біти в 0xFF
+# flash_write(sector, data)      (data — рівно SECTOR байтів)
+# crc32(data) -> int
+
+head = 0                    # індекс сектора-голови
+next_seq = 1                # номер для наступного запису
+
+# Дописати подію. O(1): майже завжди це лише запис у голову.
+def log_append(event: bytes) -> None:
+    global head, next_seq
+    if len(event) > PAYLOAD:                     # не влазить
+        return
+
+    ahead = (head + 1) % N_SECTORS               # сектор попереду голови
+    flash_erase(ahead)                           # стираємо наперед — губимо найдавніше
+
+    payload = event + b"\xFF" * (PAYLOAD - len(event))  # лишок — як стертий
+    seq = next_seq
+    next_seq += 1
+    crc = crc32(payload)                         # мітка ставиться ОСТАННЬОЮ
+    rec = struct.pack("<II", seq, crc) + payload
+
+    flash_write(head, rec)                       # запис у голову
+    head = ahead                                 # голова посунулась по колу
+
+# Відновлення при старті: знайти голову й продовжити нумерацію. O(n).
+def log_init() -> None:
+    global head, next_seq
+    best_seq = 0
+    best_idx = 0
+    found = False
+
+    for i in range(N_SECTORS):
+        rec = flash_read(i)
+        seq, crc = struct.unpack_from("<II", rec)
+        payload = rec[8:SECTOR]
+        if seq == EMPTY_SEQ:                      # вільний — пропустити
+            continue
+        if crc != crc32(payload):                 # обірваний запис —
+            continue                              # мітка не сходиться
+        if not found or seq > best_seq:           # шукаємо найбільший №
+            best_seq, best_idx, found = seq, i, True
+
+    if not found:                    # чистий Flash: лог іще порожній
+        head, next_seq = 0, 1
+    else:                            # голова — одразу за найновішим записом
+        head = (best_idx + 1) % N_SECTORS
+        next_seq = best_seq + 1
+```
+```go
+package ringlog
+
+import "encoding/binary"
+
+const (
+	sectorSize = 4096       // розмір сектора Flash (типово 4 КБ)
+	nSectors   = 16         // скільки секторів під лог
+	emptySeq   = 0xFFFFFFFF // стерте слово = вільний сектор
+	payloadLen = sectorSize - 8
+)
+
+// --- апаратні примітиви Flash (надає драйвер платформи) ---
+// flashRead(sector) []byte       — повертає sectorSize байтів
+// flashErase(sector)             — усі біти в 0xFF
+// flashWrite(sector, data)       — data рівно sectorSize байтів
+// crc32(data) uint32
+
+var (
+	head    uint32 // індекс сектора-голови
+	nextSeq uint32 // номер для наступного запису
+)
+
+// Дописати подію. O(1): майже завжди це лише запис у голову.
+func logAppend(event []byte) {
+	if len(event) > payloadLen { // не влазить
+		return
+	}
+
+	ahead := (head + 1) % nSectors // сектор попереду голови
+	flashErase(ahead)              // стираємо наперед — губимо найдавніше
+
+	rec := make([]byte, sectorSize)
+	for i := range rec { // лишок payload — як стертий
+		rec[i] = 0xFF
+	}
+	seq := nextSeq
+	nextSeq++
+	copy(rec[8:], event)
+	crc := crc32(rec[8:]) // мітка ставиться ОСТАННЬОЮ
+	binary.LittleEndian.PutUint32(rec[0:], seq)
+	binary.LittleEndian.PutUint32(rec[4:], crc)
+
+	flashWrite(head, rec) // запис у голову
+	head = ahead          // голова посунулась по колу
+}
+
+// Відновлення при старті: знайти голову й продовжити нумерацію. O(n).
+func logInit() {
+	var bestSeq, bestIdx uint32
+	found := false
+
+	for i := uint32(0); i < nSectors; i++ {
+		rec := flashRead(i)
+		seq := binary.LittleEndian.Uint32(rec[0:])
+		crc := binary.LittleEndian.Uint32(rec[4:])
+		payload := rec[8:sectorSize]
+		if seq == emptySeq { // вільний — пропустити
+			continue
+		}
+		if crc != crc32(payload) { // обірваний запис —
+			continue // мітка не сходиться
+		}
+		if !found || seq > bestSeq { // шукаємо найбільший №
+			bestSeq, bestIdx, found = seq, i, true
+		}
+	}
+
+	if !found { // чистий Flash: лог іще порожній
+		head, nextSeq = 0, 1
+	} else { // голова — одразу за найновішим записом
+		head = (bestIdx + 1) % nSectors
+		nextSeq = bestSeq + 1
+	}
+}
+```
+:::
 
 Порядок дій у `log_append` не випадковий, а **захищає від збою живлення**. Тіло пишуть, а `crc` лягає **в межах того самого запису сектора** — отже, якщо живлення зникло посеред `flash_write`, сектор лишиться без коректної мітки, і відновлення його просто **відкине**. Стирання ж робимо **наперед** (`ahead`), затираючи найдавніше; обірветься воно — пропаде лише старий, уже непотрібний запис, а свіжі вціліють.
 

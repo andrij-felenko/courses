@@ -55,6 +55,7 @@
 
 Порівняймо два стани одного модуля. Ось як задумано: логіка знає лише порт, конкретна база захована за швом.
 
+:::tabs
 ```cpp
 // ЗАДУМАНО: логіка залежить від порту, не від бази.
 struct OrderRepository {                     // порт: контракт без бази
@@ -67,9 +68,23 @@ int order_total(OrderRepository& repo, int id) {
     return o.total();
 }
 ```
+```python
+# ЗАДУМАНО: логіка залежить від порту, не від бази.
+from abc import ABC, abstractmethod
+
+class OrderRepository(ABC):                  # порт: контракт без бази
+    @abstractmethod
+    def load(self, order_id: int) -> Order: ...
+
+def order_total(repo: OrderRepository, order_id: int) -> int:
+    order = repo.load(order_id)              # жодного сліду бази
+    return order.total()
+```
+:::
 
 А ось те саме після однієї поступки під тиском — «швидше напряму, порт обійду»:
 
+:::tabs
 ```cpp
 // ЕРОДОВАНО: логіка тягне базу напряму, в обхід порту.
 #include <postgres.h>                        // тип бази просочився сюди
@@ -80,6 +95,17 @@ int order_total(PGconn* db, int id) {
     return parse_total(r);
 }
 ```
+```python
+# ЕРОДОВАНО: логіка тягне базу напряму, в обхід порту.
+import psycopg2                              # тип бази просочився сюди
+
+def order_total(db: psycopg2.extensions.connection, order_id: int) -> int:
+    # "тимчасово" смикаємо базу прямо з логіки
+    cur = db.cursor()
+    cur.execute("SELECT ...")               # прибито до Postgres
+    return parse_total(cur.fetchone())
+```
+:::
 
 Різниця в одному рядку `#include` — і вона вирішальна. У першому варіанті замінити базу означає написати новий адаптер порту; логіка не ворухнеться. У другому база **протекла** в логіку: тепер логіку не можна ні перенести, ні протестувати без живого Postgres, а заміна бази — хірургія по всіх таких місцях. Одна поступка перетворила зворотне рішення на незворотне. Помножте це на сотні файлів і роки — і отримаєте систему, у якій усе знає про все, тобто [«велику грудку багна»](book:programming/architecture-erosion/hist-erosion-term.md): структуру, у якій межі стерлися до непомітності.
 

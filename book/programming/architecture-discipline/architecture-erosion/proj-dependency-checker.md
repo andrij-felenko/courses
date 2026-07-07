@@ -34,6 +34,7 @@
 
 Спершу — типи, якими описуємо граф. Модуль позначаємо цілим індексом (швидше й компактніше, ніж рядком-ключем усюди), а рядкові імена тримаємо окремо для звіту.
 
+:::tabs
 ```cpp
 #include <string>
 #include <vector>
@@ -62,11 +63,34 @@ struct DepGraph {
     }
 };
 ```
+```python
+from pathlib import Path
+import re
+
+# Граф: вершина = модуль (індекс), ребро X→Y = "X вмикає заголовок Y".
+class DepGraph:
+    def __init__(self):
+        self.name: list[str] = []          # індекс → людське ім'я модуля
+        self.id: dict[str, int] = {}       # ім'я → індекс (щоб не дублювати)
+        self.adj: list[list[int]] = []     # список суміжності: adj[X] = кого тягне X
+
+    def intern(self, n: str) -> int:       # повернути індекс модуля, завести за потреби
+        i = self.id.get(n)
+        if i is not None:
+            return i
+        i = len(self.name)
+        self.id[n] = i
+        self.name.append(n)
+        self.adj.append([])
+        return i
+```
+:::
 
 `intern` — ключова дрібниця: вона гарантує, що кожен модуль дістане **рівно один** індекс, скільки б файлів на нього не посилалося. Перший, хто згадав `db/postgres`, заводить вершину; решта дістають той самий індекс. Так граф не роздвоюється.
 
 Тепер зведення імені файлу до **імені модуля**. Це рішення, від якого залежить, що ми взагалі вважаємо «залежністю модуль→модуль». Найпростіше й найкорисніше — модуль = **папка верхнього рівня** відносно кореня вихідників: `domain/order.cpp` і `domain/order.h` обидва належать модулю `domain`. Тоді ребро `domain → db` виникає, щойно **будь-який** файл із `domain/` вмикає будь-який заголовок із `db/`, — а це рівно те, що нас цікавить на рівні шарів.
 
+:::tabs
 ```cpp
 // Ім'я модуля = перший сегмент шляху відносно кореня: "domain/svc/order.cpp" → "domain".
 std::string module_of(const fs::path& root, const fs::path& file) {
@@ -75,9 +99,17 @@ std::string module_of(const fs::path& root, const fs::path& file) {
     return (it != rel.end()) ? it->string() : rel.string();
 }
 ```
+```python
+# Ім'я модуля = перший сегмент шляху відносно кореня: "domain/svc/order.cpp" → "domain".
+def module_of(root: Path, file: Path) -> str:
+    rel = file.relative_to(root)
+    return rel.parts[0] if rel.parts else str(rel)
+```
+:::
 
 І сам сканер: обійти дерево, у кожному вихіднику знайти рядки `#include "..."`, і на кожен додати ребро від модуля-власника файлу до модуля включеного заголовка.
 
+:::tabs
 ```cpp
 // Тягнемо ТІЛЬКИ #include "..." (проєктні); кутові <...> — це система/бібліотеки, їх ігноруємо.
 static const std::regex INCLUDE_RE(R"(^\s*#\s*include\s*"([^"]+)")");
@@ -111,6 +143,36 @@ void scan_tree(DepGraph& g, const fs::path& root) {
     }
 }
 ```
+```python
+# Тягнемо ТІЛЬКИ #include "..." (проєктні); кутові <...> — це система/бібліотеки, їх ігноруємо.
+INCLUDE_RE = re.compile(r'^\s*#\s*include\s*"([^"]+)"')
+
+SRC_EXT = {".h", ".hpp", ".cpp", ".cc"}
+
+def scan_tree(g: DepGraph, root: Path) -> None:
+    for file in root.rglob("*"):
+        if not file.is_file() or file.suffix not in SRC_EXT:
+            continue
+
+        frm = module_of(root, file)
+        fi = g.intern(frm)
+
+        for ln in file.read_text(errors="ignore").splitlines():
+            m = INCLUDE_RE.match(ln)
+            if not m:
+                continue
+
+            # m[1] — те, що в лапках, напр. "db/postgres.h".
+            # Модуль цілі — знову перший сегмент цього шляху.
+            inc = Path(m.group(1))
+            to = inc.parts[0] if inc.parts else str(inc)
+            if to == frm:                          # включення в межах модуля — не ребро
+                continue
+
+            ti = g.intern(to)
+            g.adj[fi].append(ti)                   # ребро from → to
+```
+:::
 
 Три рішення тут варто назвати вголос, бо кожне — свідоме спрощення. Ми беремо **лише** `#include "..."` (у лапках) і навмисне **пропускаємо** `#include <...>` (у кутах): кутові — це система і сторонні бібліотеки (`<vector>`, `<postgres.h>` з системного шляху), а нас цікавить **внутрішня** структура проєкту, не залежність від STL. Ми відкидаємо ребра **в межах одного модуля** (`to == from`): файли всередині `domain/` природно тягнуть одне одного, це не міжмодульна залежність і для карти шарів шуму додало б. І ми групуємо по **папці-шару**, а не по файлу, — бо питання, яке ми ставимо, звучить «чи тягне domain базу», а не «чи тягне цей конкретний .cpp той конкретний .h».
 
@@ -133,6 +195,7 @@ void scan_tree(DepGraph& g, const fs::path& root) {
 
 Читається просто: `ui` має право залежати лише від `domain`; `domain` — лише від `ports`; `db` — теж лише від `ports`; `ports` не залежить ні від кого (це чисті контракти). Отже `domain → db` у цьому списку **немає** — і будь-яке таке ребро в графі є порушенням. Щоб не тягти в приклад цілий JSON-парсер (він не про суть задачі), покажемо карту як готову структуру в пам'яті; підстановку реального читання з файлу зробить кожен під свій формат.
 
+:::tabs
 ```cpp
 #include <set>
 // Дозволені пари "шар-джерело → шар-ціль". Усе поза множиною — заборонено.
@@ -154,6 +217,26 @@ std::vector<Violation> check_layers(const DepGraph& g, const LayerMap& allowed) 
     return bad;
 }
 ```
+```python
+from typing import NamedTuple
+
+# Дозволені пари "шар-джерело → шар-ціль". Усе поза множиною — заборонено.
+LayerMap = set[tuple[str, str]]
+
+class Violation(NamedTuple):
+    frm: str   # модулі-кінці забороненого ребра
+    to: str
+
+def check_layers(g: DepGraph, allowed: LayerMap) -> list[Violation]:
+    bad: list[Violation] = []
+    for x, targets in enumerate(g.adj):
+        for y in targets:
+            edge = (g.name[x], g.name[y])
+            if edge not in allowed:
+                bad.append(Violation(g.name[x], g.name[y]))   # ребро не дозволене
+    return bad
+```
+:::
 
 Уся перевірка — це подвійний прохід по ребрах із одним запитом до множини на кожне ребро. Локальність тут повна: щоб винести вирок ребру `x → y`, не треба знати нічого, крім двох його кінців і карти. Саме тому порушення шарів дешеве й швидке — і саме тому його зручно ставити на ворота: воно рахується миттєво навіть на великому дереві.
 
@@ -176,6 +259,7 @@ std::vector<Violation> check_layers(const DepGraph& g, const LayerMap& allowed) 
 
 Ось чому три кольори, а не два. Простого «відвіданий / невідвіданий» замало: вершина, у яку ми вже заходили й **вийшли** (чорна), — це геть не те саме, що вершина, у якій ми **зараз перебуваємо** (сіра). Стрілка в першу — нормальний повторний прихід у вже пройдений вузол (у напрямленому графі так буває без жодного циклу — два шляхи сходяться в одну вершину). Стрілка в другу — цикл. Змішати ці два стани в один колір — і алгоритм або проґавить справжні цикли, або нафантазує неіснуючі.
 
+:::tabs
 ```cpp
 enum Color { WHITE = 0, GRAY, BLACK };
 
@@ -215,6 +299,39 @@ struct CycleFinder {
     }
 };
 ```
+```python
+WHITE, GRAY, BLACK = 0, 1, 2
+
+class CycleFinder:
+    def __init__(self, g: DepGraph):
+        self.g = g
+        self.color = [WHITE] * len(g.adj)
+        self.stack: list[int] = []            # поточний ланцюжок занурення (сірі вершини)
+        self.cycles: list[list[int]] = []     # знайдені цикли (списки вершин)
+
+    def dfs(self, x: int) -> None:
+        self.color[x] = GRAY                  # входимо: вершина тепер у ланцюжку
+        self.stack.append(x)
+
+        for y in self.g.adj[x]:
+            if self.color[y] == GRAY:
+                # ребро x→y веде в СІРУ вершину — зворотне ребро, є цикл.
+                # Вирізаємо зі стеку хвіст від y до x — це і є коло.
+                i = self.stack.index(y)
+                self.cycles.append(self.stack[i:])
+            elif self.color[y] == WHITE:
+                self.dfs(y)                    # ще не ходили — крок углиб
+            # color[y] == BLACK — гілка вже вийдена, пропускаємо
+
+        self.color[x] = BLACK                 # виходимо: вершина й нащадки пройдені
+        self.stack.pop()
+
+    def run(self) -> None:
+        for x in range(len(self.g.adj)):
+            if self.color[x] == WHITE:        # ліс: запускаємо з кожної недосяжної вершини
+                self.dfs(x)
+```
+:::
 
 Два місця варто розібрати. Перше — коли ми впіймали зворотне ребро `x → y` (обидва сірі), сам цикл лежить **у стеку**: це відрізок від `y` (де коло входить) до `x` (звідки стрілка замикає) включно. `std::find` знаходить `y` у стеку, і хвіст `[y … x]` — і є послідовність модулів у циклі, готова до звіту («`domain → services → repo → domain`»). Друге — зовнішній цикл у `run()`: граф залежностей майже завжди **не** зв'язний одним коренем (є вершини, у які ніхто не входить, — верхні шари), тому DFS треба запустити з **кожної** ще білої вершини. Це не окремий обхід щоразу, а один прохід «лісом» — сумарно кожну вершину пофарбуємо один раз.
 
@@ -243,6 +360,7 @@ struct CycleFinder {
 
 Лишилось з'єднати частини у програму, яка повертає **код виходу**: нуль — коли порушень немає, ненуль — коли є. Саме код виходу читає конвеєр складання, щоб пропустити комміт або завалити його.
 
+:::tabs
 ```cpp
 #include <cstdio>
 int main(int argc, char** argv) {
@@ -276,6 +394,42 @@ int main(int argc, char** argv) {
     return total == 0 ? 0 : 1;                        // 0 — пропустити, 1 — завалити збірку
 }
 ```
+```python
+import sys
+
+def main(argv: list[str]) -> int:
+    if len(argv) < 2:
+        print("usage: depcheck <src-root>", file=sys.stderr)
+        return 2
+    root = Path(argv[1])
+
+    g = DepGraph()
+    scan_tree(g, root)                               # 1. читаємо #include → граф
+
+    # 2. карта шарів (у житті — з JSON поряд із кодом)
+    allowed: LayerMap = {
+        ("ui", "domain"), ("domain", "ports"), ("db", "ports"),
+    }
+    bad = check_layers(g, allowed)                   # 3. заборонені ребра
+
+    cf = CycleFinder(g)
+    cf.run()                                         # 4. цикли
+
+    # 5. звіт
+    for v in bad:
+        print(f"[layer]  {v.frm} -> {v.to}  (заборонено картою)")
+    for cyc in cf.cycles:
+        chain = " -> ".join(g.name[i] for i in cyc)
+        print(f"[cycle]  {chain} -> {g.name[cyc[0]]}")   # замкнути коло у звіті
+
+    total = len(bad) + len(cf.cycles)               # 6. число-міра ерозії
+    print(f"erosion: {total} violation(s)")
+    return 0 if total == 0 else 1                    # 0 — пропустити, 1 — завалити збірку
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
+```
+:::
 
 `total` — те саме єдине число, з якого ми починали: міра ерозії просто зараз. У конвеєрі складання цей інструмент стає окремим кроком **перед** самою збіркою чи одразу після: у GitHub Actions, GitLab CI чи будь-де ще додається крок, який запускає `depcheck src/`; ненульовий код виходу зупиняє конвеєр і не дає влити комміт. Механіка ідентична запуску тестів — конвеєр однаково реагує на код виходу, тож жодної особливої інтеграції не треба.
 

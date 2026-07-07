@@ -70,30 +70,52 @@ e_rms = q / √12 ≈ 0.289 · q
 
 **Порівняти шум квантування 12-бітного АЦП із тепловим шумом давача.** Давач має вихідний опір 10 кОм, слухаємо смугу 20 кГц при кімнатній температурі; його оцифровує 12-бітний АЦП на діапазоні 3.3 В. Що шумить гучніше — квантування чи сам опір давача? І скільки шуму разом?
 
-```c
-#include <stdio.h>
-#include <math.h>
+:::tabs
+```cpp
+#include <cstdio>
+#include <cmath>
 
-int main(void) {
+int main() {
     // --- шум квантування 12-бітного АЦП ---
-    const int   N   = 12;
-    const float Vfs = 3.3f;
-    float q     = Vfs / (float)(1u << N);      // крок: 3.3/4096 ≈ 0.806 мВ
-    float e_quant = q / sqrtf(12.0f);          // q/√12 ≈ 0.233 мВ rms
+    const int    N   = 12;
+    const double Vfs = 3.3;
+    double q       = Vfs / (double)(1u << N);    // крок: 3.3/4096 ≈ 0.806 мВ
+    double e_quant = q / std::sqrt(12.0);        // q/√12 ≈ 0.233 мВ rms
 
     // --- тепловий шум опору давача √(4kTRB) ---
-    const float k = 1.38e-23f, T = 300.0f, R = 10000.0f, B = 20000.0f;
-    float e_therm = sqrtf(4.0f * k * T * R * B);   // ≈ 1.82 мкВ rms
+    const double k = 1.38e-23, T = 300.0, R = 10000.0, B = 20000.0;
+    double e_therm = std::sqrt(4.0 * k * T * R * B);   // ≈ 1.82 мкВ rms
 
     // --- складаємо незалежні шуми коренем із суми квадратів ---
-    float e_total = sqrtf(e_quant*e_quant + e_therm*e_therm);
+    double e_total = std::sqrt(e_quant*e_quant + e_therm*e_therm);
 
-    printf("шум квантування = %.3f мВ rms\n", e_quant * 1e3f);   // 0.233
-    printf("тепловий шум    = %.4f мВ rms\n", e_therm * 1e3f);   // 0.0018
-    printf("разом           = %.3f мВ rms\n", e_total * 1e3f);   // ≈ 0.233
+    std::printf("шум квантування = %.3f мВ rms\n", e_quant * 1e3);   // 0.233
+    std::printf("тепловий шум    = %.4f мВ rms\n", e_therm * 1e3);   // 0.0018
+    std::printf("разом           = %.3f мВ rms\n", e_total * 1e3);   // ≈ 0.233
     return 0;
 }
 ```
+```python
+import math
+
+# --- шум квантування 12-бітного АЦП ---
+N   = 12
+Vfs = 3.3
+q       = Vfs / (1 << N)          # крок: 3.3/4096 ≈ 0.806 мВ
+e_quant = q / math.sqrt(12.0)     # q/√12 ≈ 0.233 мВ rms
+
+# --- тепловий шум опору давача √(4kTRB) ---
+k, T, R, B = 1.38e-23, 300.0, 10000.0, 20000.0
+e_therm = math.sqrt(4.0 * k * T * R * B)   # ≈ 1.82 мкВ rms
+
+# --- складаємо незалежні шуми коренем із суми квадратів ---
+e_total = math.hypot(e_quant, e_therm)
+
+print(f"шум квантування = {e_quant * 1e3:.3f} мВ rms")   # 0.233
+print(f"тепловий шум    = {e_therm * 1e3:.4f} мВ rms")   # 0.0018
+print(f"разом           = {e_total * 1e3:.3f} мВ rms")   # ≈ 0.233
+```
+:::
 
 Вивід:
 

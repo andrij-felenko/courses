@@ -23,6 +23,7 @@ F(A,B,C,D) = Σ m(0, 2, 6, 8, 10, 14)
 
 Зручне подання кожного доданка — пара чисел: `bits` (значення сталих бітів) і `mask` (де стоять прочерки). Біт «байдуже» позначаємо одиницею в `mask`. Тоді два доданки склеюються, якщо їхні `mask` однакові, а `bits` різняться **рівно одним** бітом — і той біт переходить у нову маску:
 
+:::tabs
 ```c
 // різниця двох наборів — рівно один біт?
 static int one_bit_apart(unsigned a, unsigned b) {
@@ -30,6 +31,13 @@ static int one_bit_apart(unsigned a, unsigned b) {
     return diff && (diff & (diff - 1)) == 0;   // степінь двійки → один біт
 }
 ```
+```python
+# різниця двох наборів — рівно один біт?
+def one_bit_apart(a, b):
+    diff = a ^ b
+    return diff != 0 and (diff & (diff - 1)) == 0   # степінь двійки → один біт
+```
+:::
 
 Вираз `diff & (diff - 1)` обнуляє наймолодший установлений біт; якщо результат нуль, а сам `diff` ненульовий, то у `diff` був рівно один біт — класичний прийом для перевірки «лишилася одна одиниця».
 
@@ -37,6 +45,7 @@ static int one_bit_apart(unsigned a, unsigned b) {
 
 Повна реалізація для функцій до 16 змінних. Доданок — структура `Imp` з полями `bits`, `mask` і прапорцем «уже склеєний» (такий уже не є простим імплікантом). Код навмисно тримається простих масивів, без динамічної пам'яті, щоб його легко було покласти в офлайн-утиліту чи навіть прошивку.
 
+:::tabs
 ```c
 #include <stdio.h>
 #include <string.h>
@@ -141,10 +150,98 @@ int main(void) {
     return 0;
 }
 ```
+```python
+NVARS = 4
+
+
+class Imp:
+    __slots__ = ("bits", "mask", "used")
+
+    def __init__(self, bits, mask):
+        self.bits = bits   # значення сталих бітів
+        self.mask = mask   # 1 там, де прочерк «-» (змінна випала)
+        self.used = False  # True, якщо доданок поглинувся в більшу склейку
+
+
+def one_bit_apart(a, b):
+    diff = a ^ b
+    return diff != 0 and (diff & (diff - 1)) == 0
+
+
+# чи накриває імплікант мінтерм m? (поза прочерками біти мають збігтися)
+def covers(imp, m):
+    return ((m ^ imp.bits) & ~imp.mask) == 0
+
+
+# КРОК 1: усі прості імпліканти
+def prime_implicants(minterms):
+    cur = [Imp(m, 0) for m in minterms]   # початковий шар — самі мінтерми
+    prime = []
+
+    while cur:
+        nxt = []
+        for i in range(len(cur)):
+            for j in range(i + 1, len(cur)):
+                if cur[i].mask == cur[j].mask and \
+                        one_bit_apart(cur[i].bits, cur[j].bits):
+                    d = cur[i].bits ^ cur[j].bits
+                    merged = Imp(cur[i].bits & ~d, cur[i].mask | d)
+                    cur[i].used = cur[j].used = True   # обидва поглинулися
+                    # не додавати дублікат у наступний шар
+                    if not any(x.bits == merged.bits and x.mask == merged.mask
+                               for x in nxt):
+                        nxt.append(merged)
+        for imp in cur:                    # що не склеїлося — простий імплікант
+            if not imp.used:
+                prime.append(imp)
+        cur = nxt
+    return prime
+
+
+# доданок як C·D̄ … (старший біт = A)
+def format_imp(imp):
+    names = "ABCD"
+    out = []
+    for b in range(NVARS - 1, -1, -1):
+        bit = 1 << b
+        if imp.mask & bit:                 # прочерк — змінна випала
+            continue
+        out.append(names[NVARS - 1 - b] + ("" if imp.bits & bit else "'"))
+    return "".join(out) if out else "1"
+
+
+def main():
+    minterms = [0, 2, 6, 8, 10, 14]
+    prime = prime_implicants(minterms)
+
+    # КРОК 2: жадібне покриття (для невеликих задач дає мінімум)
+    covered = [False] * len(minterms)
+    remaining = len(minterms)
+    terms = []
+    while remaining > 0:
+        best, best_cnt = None, 0            # імплікант, що накриває найбільше нового
+        for p in prime:
+            cnt = sum(1 for i, m in enumerate(minterms)
+                      if not covered[i] and covers(p, m))
+            if cnt > best_cnt:
+                best_cnt, best = cnt, p
+        if best is None:
+            break
+        for i, m in enumerate(minterms):
+            if not covered[i] and covers(best, m):
+                covered[i] = True
+                remaining -= 1
+        terms.append(format_imp(best))
+    print("F = " + " + ".join(terms))
+
+
+main()
+```
+:::
 
 Прогін друкує:
 
-```
+```math
 F = B'D' + CD'
 ```
 

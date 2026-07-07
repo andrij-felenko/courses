@@ -24,26 +24,58 @@
 
 Серце всього — десяток рядків. Решта зі «100» — оголошення масивів, завантаження програми та друк стану; справжній **двигун** ось:
 
-```
-r[4] = {0}            // регістри загального призначення
-mem[256] = {0}        // пам'ять для даних
-code[]                // програма: потік байтів-команд
-ip = 0                // лічильник команд PC
-running = 1
+:::tabs
+```c
+uint8_t r[4]    = {0};   // регістри загального призначення
+uint8_t mem[256] = {0};  // пам'ять для даних
+uint8_t code[]  = { … };  // програма: потік байтів-команд
+int ip = 0;              // лічильник команд PC
+int running = 1;
 
-while (running):                       // ── серцебиття ──
-    op = code[ip]; ip = ip + 1         // ВИБІРКА: байт за PC, PC += 1
-                                       // ДЕКОДУВАННЯ + ВИКОНАННЯ:
-    switch (op):
-        case LD:  d=code[ip++]; n=code[ip++];  r[d] = n
-        case LDM: d=code[ip++]; a=code[ip++];  r[d] = mem[a]
-        case ST:  s=code[ip++]; a=code[ip++];  mem[a] = r[s]
-        case ADD: d=code[ip++]; s=code[ip++];  r[d] = r[d] + r[s]
-        case SUB: d=code[ip++]; s=code[ip++];  r[d] = r[d] - r[s]
-        case JMP: a=code[ip++];                ip = a
-        case JNZ: s=code[ip++]; a=code[ip++];  if r[s] != 0: ip = a
-        case HLT:                              running = 0
+while (running) {                          // ── серцебиття ──
+    uint8_t op = code[ip++];               // ВИБІРКА: байт за PC, PC += 1
+    int d, s, a, n;                        // ДЕКОДУВАННЯ + ВИКОНАННЯ:
+    switch (op) {
+        case LD:  d=code[ip++]; n=code[ip++];  r[d] = n;          break;
+        case LDM: d=code[ip++]; a=code[ip++];  r[d] = mem[a];     break;
+        case ST:  s=code[ip++]; a=code[ip++];  mem[a] = r[s];     break;
+        case ADD: d=code[ip++]; s=code[ip++];  r[d] = r[d]+r[s];  break;
+        case SUB: d=code[ip++]; s=code[ip++];  r[d] = r[d]-r[s];  break;
+        case JMP: a=code[ip++];                ip = a;            break;
+        case JNZ: s=code[ip++]; a=code[ip++];  if (r[s]) ip = a;  break;
+        case HLT:                              running = 0;       break;
+    }
+}
 ```
+```py
+r    = [0] * 4          # регістри загального призначення
+mem  = [0] * 256        # пам'ять для даних
+code = [ ... ]          # програма: потік байтів-команд
+ip = 0                  # лічильник команд PC
+running = True
+
+while running:                             # ── серцебиття ──
+    op = code[ip]; ip += 1                 # ВИБІРКА: байт за PC, PC += 1
+                                           # ДЕКОДУВАННЯ + ВИКОНАННЯ:
+    if op == LD:
+        d = code[ip]; ip += 1; n = code[ip]; ip += 1; r[d] = n
+    elif op == LDM:
+        d = code[ip]; ip += 1; a = code[ip]; ip += 1; r[d] = mem[a]
+    elif op == ST:
+        s = code[ip]; ip += 1; a = code[ip]; ip += 1; mem[a] = r[s]
+    elif op == ADD:
+        d = code[ip]; ip += 1; s = code[ip]; ip += 1; r[d] = r[d] + r[s]
+    elif op == SUB:
+        d = code[ip]; ip += 1; s = code[ip]; ip += 1; r[d] = r[d] - r[s]
+    elif op == JMP:
+        a = code[ip]; ip += 1; ip = a
+    elif op == JNZ:
+        s = code[ip]; ip += 1; a = code[ip]; ip += 1
+        if r[s] != 0: ip = a
+    elif op == HLT:
+        running = False
+```
+:::
 
 Придивися, як кожна гілка — дослівний переклад фази «виконання». ADD бере два регістри й кладе суму назад — це наша АЛП. JMP пише нову адресу в `ip` — це той самий «стрибок є запис у PC». JNZ робить це **за умовою** (`r[s] != 0`) — і ось вам розгалуження й цикли, на яких тримається будь-який алгоритм. Усе, що було стрілками на схемі, тепер виконується присвоєннями.
 

@@ -171,6 +171,7 @@ L_eff = L_phys + 0.85·(2r)·(кількість відкритих кінців
 
 **Умова: динамік f_s = 40 Гц, V_as = 20 л, Q_ts = 0.35; ціль Q_tc = 0.707 (Батерворт).**
 
+:::tabs
 ```c
 #include <stdio.h>
 #include <math.h>
@@ -212,6 +213,156 @@ int main(void)
     return 0;
 }
 ```
+```cpp
+#include <cmath>
+#include <print>
+
+// Параметри Тіле–Смолла — просто з даташита
+struct Driver {
+    float fs;      // власна частота, Гц
+    float vas;     // еквівалентний об'єм, літри
+    float qts;     // повна добротність
+};
+
+// Об'єм закритого ящика під бажану Q_tc.
+// Виводиться з V_box = V_as / (α² − 1), де α = Q_tc/Q_ts.
+float sealed_volume_litres(const Driver& d, float qtc_target)
+{
+    float alpha = qtc_target / d.qts;       // у скільки разів піднімаємо Q
+    float denom = alpha * alpha - 1.0f;     // α² − 1
+    if (denom <= 0.0f) return -1.0f;        // Q_tc ≤ Q_ts недосяжна в ЗАКРИТОМУ ящику
+    return d.vas / denom;
+}
+
+// Частота −3 дБ (для Батерворта Q_tc=0.707 вона дорівнює f_c).
+float closed_box_fc(const Driver& d, float vbox_litres)
+{
+    return d.fs * std::sqrt(1.0f + d.vas / vbox_litres);
+}
+
+int main()
+{
+    Driver woofer{ .fs = 40.0f, .vas = 20.0f, .qts = 0.35f };
+
+    float qtc  = 0.707f;
+    float vbox = sealed_volume_litres(woofer, qtc);
+    float fc   = closed_box_fc(woofer, vbox);
+
+    std::println("Ціль Q_tc = {:.3f}", qtc);
+    std::println("Об'єм коробки V_box = {:.1f} л", vbox);
+    std::println("Частота в ящику f_c = {:.1f} Гц", fc);
+}
+```
+```python
+import math
+from dataclasses import dataclass
+
+
+@dataclass
+class Driver:
+    fs: float   # власна частота, Гц
+    vas: float  # еквівалентний об'єм, літри
+    qts: float  # повна добротність
+
+
+def sealed_volume_litres(d: Driver, qtc_target: float) -> float:
+    """Об'єм закритого ящика під бажану Q_tc.
+
+    Виводиться з V_box = V_as / (α² − 1), де α = Q_tc/Q_ts.
+    """
+    alpha = qtc_target / d.qts       # у скільки разів піднімаємо Q
+    denom = alpha * alpha - 1.0      # α² − 1
+    if denom <= 0.0:
+        return -1.0                  # Q_tc ≤ Q_ts недосяжна в ЗАКРИТОМУ ящику
+    return d.vas / denom
+
+
+def closed_box_fc(d: Driver, vbox_litres: float) -> float:
+    """Частота −3 дБ (для Батерворта Q_tc=0.707 вона дорівнює f_c)."""
+    return d.fs * math.sqrt(1.0 + d.vas / vbox_litres)
+
+
+woofer = Driver(fs=40.0, vas=20.0, qts=0.35)
+
+qtc = 0.707
+vbox = sealed_volume_litres(woofer, qtc)
+fc = closed_box_fc(woofer, vbox)
+
+print(f"Ціль Q_tc = {qtc:.3f}")
+print(f"Об'єм коробки V_box = {vbox:.1f} л")
+print(f"Частота в ящику f_c = {fc:.1f} Гц")
+```
+```js
+// Параметри Тіле–Смолла — просто з даташита: { fs, vas, qts }
+
+// Об'єм закритого ящика під бажану Q_tc.
+// Виводиться з V_box = V_as / (α² − 1), де α = Q_tc/Q_ts.
+function sealedVolumeLitres(d, qtcTarget) {
+  const alpha = qtcTarget / d.qts;   // у скільки разів піднімаємо Q
+  const denom = alpha * alpha - 1.0; // α² − 1
+  if (denom <= 0.0) return -1.0;     // Q_tc ≤ Q_ts недосяжна в ЗАКРИТОМУ ящику
+  return d.vas / denom;
+}
+
+// Частота −3 дБ (для Батерворта Q_tc=0.707 вона дорівнює f_c).
+function closedBoxFc(d, vboxLitres) {
+  return d.fs * Math.sqrt(1.0 + d.vas / vboxLitres);
+}
+
+const woofer = { fs: 40.0, vas: 20.0, qts: 0.35 };
+
+const qtc = 0.707;
+const vbox = sealedVolumeLitres(woofer, qtc);
+const fc = closedBoxFc(woofer, vbox);
+
+console.log(`Ціль Q_tc = ${qtc.toFixed(3)}`);
+console.log(`Об'єм коробки V_box = ${vbox.toFixed(1)} л`);
+console.log(`Частота в ящику f_c = ${fc.toFixed(1)} Гц`);
+```
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+// Driver — параметри Тіле–Смолла, просто з даташита.
+type Driver struct {
+	fs  float64 // власна частота, Гц
+	vas float64 // еквівалентний об'єм, літри
+	qts float64 // повна добротність
+}
+
+// sealedVolumeLitres — об'єм закритого ящика під бажану Q_tc.
+// Виводиться з V_box = V_as / (α² − 1), де α = Q_tc/Q_ts.
+func sealedVolumeLitres(d Driver, qtcTarget float64) float64 {
+	alpha := qtcTarget / d.qts // у скільки разів піднімаємо Q
+	denom := alpha*alpha - 1.0 // α² − 1
+	if denom <= 0.0 {
+		return -1.0 // Q_tc ≤ Q_ts недосяжна в ЗАКРИТОМУ ящику
+	}
+	return d.vas / denom
+}
+
+// closedBoxFc — частота −3 дБ (для Батерворта Q_tc=0.707 вона дорівнює f_c).
+func closedBoxFc(d Driver, vboxLitres float64) float64 {
+	return d.fs * math.Sqrt(1.0+d.vas/vboxLitres)
+}
+
+func main() {
+	woofer := Driver{fs: 40.0, vas: 20.0, qts: 0.35}
+
+	qtc := 0.707
+	vbox := sealedVolumeLitres(woofer, qtc)
+	fc := closedBoxFc(woofer, vbox)
+
+	fmt.Printf("Ціль Q_tc = %.3f\n", qtc)
+	fmt.Printf("Об'єм коробки V_box = %.1f л\n", vbox)
+	fmt.Printf("Частота в ящику f_c = %.1f Гц\n", fc)
+}
+```
+:::
 
 Проженемо числа руками, щоб побачити фізику за кодом:
 
@@ -238,6 +389,7 @@ L_eff = c² · A / ( (2π·f_b)² · V )
 
 а фізичну ріжемо коротшою на кінцеву поправку. Код:
 
+:::tabs
 ```c
 #include <stdio.h>
 #include <math.h>
@@ -268,6 +420,114 @@ int main(void)
     return 0;
 }
 ```
+```cpp
+#include <cmath>
+#include <numbers>
+#include <print>
+
+constexpr float C_SOUND = 343.0f;    // швидкість звуку при 20 °C, м/с
+constexpr float PI = std::numbers::pi_v<float>;
+
+// Довжина круглого порту (метри) під настройку fb.
+// V_litres — об'єм коробки; d_m — діаметр порту в метрах.
+float port_length_m(float fb, float V_litres, float d_m)
+{
+    float V = V_litres * 1e-3f;              // літри → м³
+    float r = d_m * 0.5f;
+    float A = PI * r * r;                    // площа перерізу, м²
+    float w = 2.0f * PI * fb;                // кутова частота
+
+    float L_eff  = C_SOUND * C_SOUND * A / (w * w * V);  // ефективна довжина
+    float L_end  = 2.0f * 0.85f * r;         // поправка: ~0.85·d, обидва кінці
+    float L_phys = L_eff - L_end;            // стільки різати трубу
+    return L_phys;
+}
+
+int main()
+{
+    float fb = 35.0f, V = 30.0f, d = 0.05f;
+    float L = port_length_m(fb, V, d);
+    std::println("Фізична довжина порту = {:.1f} см", L * 100.0f);
+}
+```
+```python
+import math
+
+C_SOUND = 343.0    # швидкість звуку при 20 °C, м/с
+
+
+def port_length_m(fb: float, v_litres: float, d_m: float) -> float:
+    """Довжина круглого порту (метри) під настройку fb.
+
+    v_litres — об'єм коробки; d_m — діаметр порту в метрах.
+    """
+    V = v_litres * 1e-3          # літри → м³
+    r = d_m * 0.5
+    A = math.pi * r * r          # площа перерізу, м²
+    w = 2.0 * math.pi * fb       # кутова частота
+
+    l_eff = C_SOUND * C_SOUND * A / (w * w * V)  # ефективна довжина
+    l_end = 2.0 * 0.85 * r       # поправка: ~0.85·d, обидва кінці
+    l_phys = l_eff - l_end       # стільки різати трубу
+    return l_phys
+
+
+fb, V, d = 35.0, 30.0, 0.05
+L = port_length_m(fb, V, d)
+print(f"Фізична довжина порту = {L * 100.0:.1f} см")
+```
+```js
+const C_SOUND = 343.0; // швидкість звуку при 20 °C, м/с
+
+// Довжина круглого порту (метри) під настройку fb.
+// vLitres — об'єм коробки; dM — діаметр порту в метрах.
+function portLengthM(fb, vLitres, dM) {
+  const V = vLitres * 1e-3;        // літри → м³
+  const r = dM * 0.5;
+  const A = Math.PI * r * r;       // площа перерізу, м²
+  const w = 2.0 * Math.PI * fb;    // кутова частота
+
+  const lEff = (C_SOUND * C_SOUND * A) / (w * w * V); // ефективна довжина
+  const lEnd = 2.0 * 0.85 * r;     // поправка: ~0.85·d, обидва кінці
+  const lPhys = lEff - lEnd;       // стільки різати трубу
+  return lPhys;
+}
+
+const fb = 35.0, V = 30.0, d = 0.05;
+const L = portLengthM(fb, V, d);
+console.log(`Фізична довжина порту = ${(L * 100.0).toFixed(1)} см`);
+```
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+const cSound = 343.0 // швидкість звуку при 20 °C, м/с
+
+// portLengthM — довжина круглого порту (метри) під настройку fb.
+// vLitres — об'єм коробки; dM — діаметр порту в метрах.
+func portLengthM(fb, vLitres, dM float64) float64 {
+	V := vLitres * 1e-3   // літри → м³
+	r := dM * 0.5
+	A := math.Pi * r * r  // площа перерізу, м²
+	w := 2.0 * math.Pi * fb // кутова частота
+
+	lEff := cSound * cSound * A / (w * w * V) // ефективна довжина
+	lEnd := 2.0 * 0.85 * r                    // поправка: ~0.85·d, обидва кінці
+	lPhys := lEff - lEnd                      // стільки різати трубу
+	return lPhys
+}
+
+func main() {
+	fb, V, d := 35.0, 30.0, 0.05
+	L := portLengthM(fb, V, d)
+	fmt.Printf("Фізична довжина порту = %.1f см\n", L*100.0)
+}
+```
+:::
 
 Арифметика вручну:
 

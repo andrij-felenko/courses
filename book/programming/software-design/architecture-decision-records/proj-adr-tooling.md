@@ -199,6 +199,7 @@ $ git push -u origin money-decimal
 
 Код, що дотримується рішення, замикає коло — короткий коментар-місток від рядка коду до причини:
 
+:::tabs
 ```cpp
 // Гроші тримаємо в Decimal (не int64, не double).
 // Причини, відкинуті варіанти й ціна: doc/adr/0011-money-as-decimal.md
@@ -220,6 +221,94 @@ struct Money {
 // прочитає ADR-0011 і побачить, ЧОМУ від int64 свідомо пішли — і не
 // повторить уже пройдену помилку.
 ```
+```python
+# Гроші тримаємо в Decimal (не int-копійки, не float).
+# Причини, відкинуті варіанти й ціна: doc/adr/0011-money-as-decimal.md
+# (це рішення замінило ADR-0007 «int64 у копійках» — див. посилання там).
+#
+# Коротко: int-копійки не вмістили валют із трьома знаками й податкових
+# правил зі складним округленням; float заборонений через похибку на дробах.
+
+from dataclasses import dataclass
+from decimal import Decimal
+
+@dataclass(frozen=True)
+class Money:
+    amount: Decimal                       # десятковий тип, точний на дробах
+
+    def __add__(self, o: "Money") -> "Money":
+        return Money(self.amount + o.amount)
+
+    def __mul__(self, scale: int) -> "Money":
+        return Money(self.amount * scale)
+
+# Наступний, хто захоче «повернути на int-копійки для швидкості», спершу
+# прочитає ADR-0011 і побачить, ЧОМУ від них свідомо пішли — і не
+# повторить уже пройдену помилку.
+```
+```go
+// Гроші тримаємо в Decimal (не int64, не float64).
+// Причини, відкинуті варіанти й ціна: doc/adr/0011-money-as-decimal.md
+// (це рішення замінило ADR-0007 «int64 у копійках» — див. посилання там).
+//
+// Коротко: int64-копійки не вмістили валют із трьома знаками й податкових
+// правил зі складним округленням; float64 заборонений через похибку на дробах.
+
+import "github.com/shopspring/decimal" // де-факто десятковий тип для Go
+
+type Money struct {
+	Amount decimal.Decimal // десятковий тип, точний на дробах
+}
+
+// У Go немає перевантаження операторів, а decimal.Decimal рахує
+// методами Add/Mul — тож обгортаємо їх у методи Money:
+func (m Money) Add(o Money) Money {
+	return Money{m.Amount.Add(o.Amount)}
+}
+
+func (m Money) Mul(scale int) Money {
+	return Money{m.Amount.Mul(decimal.NewFromInt(int64(scale)))}
+}
+
+// Наступний, хто захоче «повернути на int64 для швидкості», спершу
+// прочитає ADR-0011 і побачить, ЧОМУ від int64 свідомо пішли — і не
+// повторить уже пройдену помилку.
+```
+```rust
+// Гроші тримаємо в Decimal (не i64, не f64).
+// Причини, відкинуті варіанти й ціна: doc/adr/0011-money-as-decimal.md
+// (це рішення замінило ADR-0007 «i64 у копійках» — див. посилання там).
+//
+// Коротко: i64-копійки не вмістили валют із трьома знаками й податкових
+// правил зі складним округленням; f64 заборонений через похибку на дробах.
+
+use rust_decimal::Decimal; // де-факто десятковий тип для Rust
+
+#[derive(Clone, Copy)]
+struct Money {
+    amount: Decimal, // десятковий тип, точний на дробах
+}
+
+// Decimal реалізує трейти Add і Mul, тож оператори + і * працюють:
+impl std::ops::Add for Money {
+    type Output = Money;
+    fn add(self, o: Money) -> Money {
+        Money { amount: self.amount + o.amount }
+    }
+}
+
+impl std::ops::Mul<i64> for Money {
+    type Output = Money;
+    fn mul(self, scale: i64) -> Money {
+        Money { amount: self.amount * Decimal::from(scale) }
+    }
+}
+
+// Наступний, хто захоче «повернути на i64 для швидкості», спершу
+// прочитає ADR-0011 і побачить, ЧОМУ від i64 свідомо пішли — і не
+// повторить уже пройдену помилку.
+```
+:::
 
 Один рядок-посилання в коментарі перетворює журнал із паперу на живий інструмент: він з'єднує **що** написано в коді з **чому** — і робить це за один клік, а не через археологію в чиїйсь пам'яті.
 

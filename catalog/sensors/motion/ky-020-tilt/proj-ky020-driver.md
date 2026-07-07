@@ -10,6 +10,7 @@
 
 Ліки прості й дисциплінувальні: **ніде в коді не читай пін голим `digitalRead`, читай через обгортку, яка вже перевернула логіку**. Тоді інверсія живе рівно в одному місці, а решта програми оперує чесним булевим `tilted` — «нахилено чи ні», без жодних `HIGH`/`LOW` під ногами.
 
+:::tabs
 ```cpp
 const uint8_t TILT = 2;    // пін S давача
 
@@ -28,6 +29,24 @@ void loop() {
     delay(200);
 }
 ```
+```micropython
+from machine import Pin
+import time
+
+TILT = 2                                # пін S давача
+
+# підтяжка вже на модулі; PULL_UP теж годиться, гірше не буде
+tilt = Pin(TILT, Pin.IN, Pin.PULL_UP)
+
+def is_tilted():
+    # Уся інверсія — ТУТ, і більше ніде. 0 = кулька сіла на землю = нахил.
+    return tilt.value() == 0
+
+while True:
+    print("нахил" if is_tilted() else "рівно")
+    time.sleep_ms(200)
+```
+:::
 
 Чому `INPUT`, а не `INPUT_PULLUP`? На готовому модулі KY-020 різистор 10 кОм уже тягне сигнал до плюса, тож зовнішня підтяжка не потрібна, і `INPUT` працює. Але `INPUT_PULLUP` теж безпечний і навіть кращий як звичка: він докидає внутрішню підтяжку МК (у AVR це 20–50 кОм) паралельно до тієї, що на платі. Дві підтяжки в паралель дають трохи менший сумарний опір і трохи певніший «1» — жодної шкоди. А головне, звичка завжди вмикати `INPUT_PULLUP` рятує в той день, коли тобі трапиться клон KY-020 **без** різистора на платі: голий контакт без підтяжки лишить вхід висіти в повітрі, і давач читатиметься як випадкове сміття. З `INPUT_PULLUP` він працюватиме однаково — бо підтяжку дасть сам МК.
 
@@ -43,6 +62,7 @@ void loop() {
 
 Найчистіше це виражається як **скінченний автомат** (англ. *finite state machine*) з чотирьох станів, і саме такий погляд варто прийняти, бо він відразу знімає плутанину «а що зараз — реальний перехід чи ще брязкіт?». Стани: `STEADY_LEVEL` (усе спокійно, рівень тримається), `SETTLING` (рівень щойно смикнувся, чекаємо, поки вгамується). Але на практиці зручніше тримати не явний enum, а дві величини — останнє *сире* читання й час його останньої зміни, — і виводити рішення з них. Ось надійний, неблокувальний варіант на `millis()`:
 
+:::tabs
 ```cpp
 const uint8_t TILT  = 2;
 const unsigned long SETTLE = 30;   // мс: скільки рівень має протриматися, щоб повірити
@@ -82,6 +102,42 @@ void loop() {
     // тут може крутитися решта програми — tiltEdge() нічого не блокує
 }
 ```
+```micropython
+from machine import Pin
+import time
+
+TILT   = 2
+SETTLE = 30                         # мс: скільки рівень має протриматися, щоб повірити
+
+tilt = Pin(TILT, Pin.IN, Pin.PULL_UP)
+
+last_raw        = 1                 # попереднє СИРЕ читання (1 = рівно)
+stable_state    = 1                 # усталений, «прийнятий» стан
+last_change_ms  = 0                 # коли сире читання востаннє смикнулось
+tilt_count      = 0                 # лічильник СПРАВЖНІХ нахилів
+
+last_raw = stable_state = tilt.value()
+
+# Повертає True рівно в ту ітерацію, коли усталений стан перейшов у «нахил».
+def tilt_edge():
+    global last_raw, stable_state, last_change_ms
+    raw = tilt.value()
+    if raw != last_raw:                     # сире читання щойно смикнулось —
+        last_change_ms = time.ticks_ms()    # перезапускаємо відлік «тиші»
+        last_raw = raw
+    # рівень протримався сталим довше за SETTLE і відрізняється від прийнятого?
+    if time.ticks_diff(time.ticks_ms(), last_change_ms) > SETTLE and raw != stable_state:
+        stable_state = raw                  # приймаємо новий усталений стан
+        return stable_state == 0            # True, лише якщо перейшли САМЕ в нахил
+    return False
+
+while True:
+    if tilt_edge():
+        tilt_count += 1
+        print("нахилів:", tilt_count)
+    # тут може крутитися решта програми — tilt_edge() нічого не блокує
+```
+:::
 
 Механізм читається як історія. Щоразу, коли сире читання стрибає (кулька підскочила), ми перезапускаємо секундомір `lastChangeMs`. Поки стрибки йдуть один за одним, секундомір раз за разом обнуляється й ніколи не набирає 30 мс — тож ми нічого не приймаємо. Щойно кулька вгамувалась і рівень завмер, стрибки припиняються, секундомір нарешті докручує до 30 мс тиші, і ми ухвалюємо новий стан. З усієї бурі народжується рівно одна чиста подія. А `return (stableState == LOW)` віддає `true` лише на переході саме в нахил — не на поверненні в спокій, — тож лічильник рахує перекидання, а не всі зміни поспіль.
 
@@ -95,6 +151,7 @@ void loop() {
 
 Отже, тривогу треба вішати не на факт нахилу, а на **тривалість** нахилу: підняти її, лише коли давач протримався в нахилі довше за поріг — скажімо, 800 мс. Це той самий прийом «вір лише сталому», але з іншим, довшим порогом і з іншою метою: тут ми не гасимо брязкіт (30 мс), а відсіюємо короткі струси від справжнього падіння (сотні мс). Обидва пороги живуть в одному коді й не заважають один одному.
 
+:::tabs
 ```cpp
 const uint8_t TILT  = 2;
 const uint8_t BUZZ  = 8;               // зумер / реле (окрема нога, не S!)
@@ -136,6 +193,49 @@ void loop() {
     }
 }
 ```
+```micropython
+from machine import Pin
+import time
+
+TILT     = 2
+BUZZ     = 8                             # зумер / реле (окрема нога, не S!)
+SETTLE   = 30                           # мс: гасіння брязкоту
+ALARM_MS = 800                          # мс: скільки НАХИЛ має триматися до тривоги
+
+tilt = Pin(TILT, Pin.IN, Pin.PULL_UP)
+buzz = Pin(BUZZ, Pin.OUT)
+
+last_raw = stable_state = tilt.value()
+last_change_ms  = 0
+tilted_since_ms = 0                      # коли розпочався ПОТОЧНИЙ усталений нахил
+alarm_on = False
+
+while True:
+    now = time.ticks_ms()
+
+    # 1) гасіння брязкоту → чистий stable_state
+    raw = tilt.value()
+    if raw != last_raw:
+        last_change_ms = now
+        last_raw = raw
+    if time.ticks_diff(now, last_change_ms) > SETTLE and raw != stable_state:
+        stable_state = raw
+        if stable_state == 0:
+            tilted_since_ms = now       # нахил тільки-но став усталеним
+
+    # 2) тривога — лише якщо усталений нахил тримається довше за ALARM_MS
+    long_tilt = (stable_state == 0 and
+                 time.ticks_diff(now, tilted_since_ms) > ALARM_MS)
+    if long_tilt and not alarm_on:
+        alarm_on = True
+        buzz.value(1)
+        print("ТРИВОГА: пристрій лежить набік!")
+    elif not long_tilt and alarm_on and stable_state == 1:
+        alarm_on = False                # підняли назад — знімаємо тривогу
+        buzz.value(0)
+        print("норма: пристрій вирівняно")
+```
+:::
 
 Тут дві витримки працюють ланцюжком. Спершу 30-мілісекундне гасіння перетворює брязкучий пін на чистий `stableState`. Далі, щойно `stableState` стає нахилом, ми запам'ятовуємо мить `tiltedSinceMs` і починаємо відлік уже другого порога. Тривога зривається, тільки якщо від початку усталеного нахилу минуло понад 800 мс, — тобто пристрій не просто смикнувся, а лежить набік майже секунду. Короткий струс до `stableState`-нахилу може й дійти (якщо кулька торкалась контактів понад 30 мс), але `tiltedSinceMs` тут-таки обнулиться при поверненні в спокій, і другий поріг ніколи не добіжить до 800 мс. Так струс відсіюється, а падіння ловиться.
 
@@ -151,6 +251,7 @@ void loop() {
 
 **Шлях перший — гібрид: ISR ловить лише факт, гасіння живе в `loop()`.** Обробник не рахує й не вирішує — він робить одне: ставить прапорець «щось смикнулось» і виходить. А вже головний цикл, побачивши прапорець, застосовує звичне гасіння на `millis()` й ухвалює рішення. Так ISR лишається блискавичною, а брязкіт відсіюється у спокійному місці.
 
+:::tabs
 ```cpp
 const uint8_t TILT = 2;                 // на AVR переривання лише D2 і D3
 const unsigned long SETTLE = 30;
@@ -187,6 +288,42 @@ void loop() {
     }
 }
 ```
+```micropython
+from machine import Pin
+import time
+
+TILT   = 2
+SETTLE = 30
+
+pin_changed    = False                  # прапорець з ISR
+last_change_ms = 0
+tilt_count     = 0
+
+tilt = Pin(TILT, Pin.IN, Pin.PULL_UP)
+last_raw = stable_state = tilt.value()
+
+def on_edge(pin):                        # ISR — коротка, як постріл
+    global pin_changed
+    pin_changed = True                   # жодного print, читання-логіки, sleep тут!
+
+# на будь-який фронт
+tilt.irq(trigger=Pin.IRQ_RISING | Pin.IRQ_FALLING, handler=on_edge)
+
+while True:
+    if pin_changed:                      # ISR щось помітила
+        pin_changed = False
+        raw = tilt.value()
+        if raw != last_raw:
+            last_change_ms = time.ticks_ms()
+            last_raw = raw
+    # гасіння крутиться в циклі, спокійно
+    if time.ticks_diff(time.ticks_ms(), last_change_ms) > SETTLE and last_raw != stable_state:
+        stable_state = last_raw
+        if stable_state == 0:
+            tilt_count += 1
+            print("нахилів:", tilt_count)
+```
+:::
 
 Два слова цей код кричить окремо. Перше — **`volatile`** на прапорці `pinChanged`. Без нього оптимізатор компілятора має право вирішити, що `pinChanged` у `loop()` ніхто не міняє (він же не бачить, що його міняє ISR), і закешувати значення в регістрі — тоді `loop()` ніколи не помітить зміну. `volatile` наказує щоразу читати змінну з пам'яті. Будь-яка змінна, яку торкає і ISR, і головний код, **мусить** бути `volatile` — це не порада, а умова коректності. Друге — **ISR має бути короткою**. Усередині обробника не можна `delay()` (таймери в перериванні часто стоять), небезпечно `Serial.print` (він сам на перериваннях і може зависнути), не варто важких обчислень. Правило: у ISR — лише поставити прапорець чи інкремент лічильника, усе інше — в `loop()`.
 
@@ -237,6 +374,7 @@ fₒ = 1 / (2π · R · C) = 1 / (2π · 10·10³ · 100·10⁻⁹) ≈ 159 Гц
 
 Зібравши всі чотири поправки, ось робочий скетч під ESP32 — гібрид «ISR ставить прапорець, гасіння в циклі», уже з `IRAM_ATTR`, звичайною ногою з підтяжкою й живленням від 3.3 В:
 
+:::tabs
 ```cpp
 // ESP32: живлення давача — 3.3 В! Сигнал S — на звичайну ногу з підтяжкою.
 const uint8_t TILT = 14;               // звичайний GPIO (НЕ 34–39): має INPUT_PULLUP
@@ -273,6 +411,42 @@ void loop() {
     }
 }
 ```
+```micropython
+# ESP32 (MicroPython): живлення давача — 3.3 В! Сигнал S — на звичайну ногу з підтяжкою.
+from machine import Pin
+import micropython, time
+micropython.alloc_emergency_exception_buf(100)   # аби бачити помилки з ISR
+
+TILT   = 14                             # звичайний GPIO (НЕ 34–39): має PULL_UP
+SETTLE = 30
+
+pin_changed    = False                  # спільна з ISR
+last_change_ms = 0
+tilt_count     = 0
+
+tilt = Pin(TILT, Pin.IN, Pin.PULL_UP)   # на GPIO14 підтяжка є; на 34–39 її НЕ буде
+last_raw = stable_state = tilt.value()
+
+def on_edge(pin):                        # у MicroPython обробник уже в IRAM — IRAM_ATTR не потрібен
+    global pin_changed
+    pin_changed = True                   # лише прапорець, нічого важкого
+
+tilt.irq(trigger=Pin.IRQ_RISING | Pin.IRQ_FALLING, handler=on_edge)
+
+while True:
+    if pin_changed:
+        pin_changed = False
+        raw = tilt.value()
+        if raw != last_raw:
+            last_change_ms = time.ticks_ms()
+            last_raw = raw
+    if time.ticks_diff(time.ticks_ms(), last_change_ms) > SETTLE and last_raw != stable_state:
+        stable_state = last_raw
+        if stable_state == 0:
+            tilt_count += 1
+            print("нахилів:", tilt_count)
+```
+:::
 
 Порівняй його з AVR-версією гібрида вище — тіло логіки те саме до літери. Відрізняються рівно чотири речі, і всі вони не про алгоритм, а про залізо ESP32: нога `14` замість `2` (бо треба звичайну з підтяжкою й переривання тут не обмежене двома ногами), `IRAM_ATTR` перед `onEdge`, швидкість порту 115200 (звична для ESP32) і невимовлена, але головна умова — давач живиться від 3.3 В. Хто тримає ці чотири поправки в голові, той переносить будь-який KY-020-скетч між платами без сюрпризів.
 

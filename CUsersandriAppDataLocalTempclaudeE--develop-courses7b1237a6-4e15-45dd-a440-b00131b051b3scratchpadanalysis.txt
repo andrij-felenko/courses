@@ -1,0 +1,98 @@
+FILE: guide/embedded/komponenty/pcb-intro/math-trace-impedance.md
+Domain: embedded/hardware
+Status: Code blocks contain formulas and mathematical expressions, NOT code
+
+ANALYSIS:
+Lines 15-17: Z₀ = U / I — formula (Unicode, not code)
+Lines 41-44: L′ = L / довжина (Гн/м) — formula with definitions (not code)
+Lines 58-60: Z₀ = jωΔL + ( 1/(jωΔC) ∥ Z₀ ) — impedance equation (not code)
+Lines 64-66: Z₀² = ΔL / ΔC = (L′·Δx) / (C′·Δx) = L′ / C′ — derivation (not code)
+Lines 70-74: Z₀ = √(L′/C′) — boxed formula result (not code)
+Lines 86-89: ∂u/∂x = −L′ · ∂i/∂t, ∂i/∂x = −C′ · ∂u/∂t — PDEs (not code)
+Lines 93-95: ∂²u/∂x² = L′C′ · ∂²u/∂t² — wave equation (not code)
+Lines 99-101: v = 1 / √(L′C′) — formula (not code)
+Lines 109-111: v = c / √εeff — formula (not code)
+Lines 126-128: εeff = (εr + 1)/2 + (εr − 1)/2 · 1/√(1 + 12·h/W) — empirical formula (not code)
+Lines 132-134: Z₀ ≈ (87 / √(εr + 1.41)) · ln( 5.98·h / (0.8·W + t) ) — IPC-2141 formula (not code)
+Lines 140-157: Worked calculation example with arithmetic (not code - dashed lines, text calculation)
+Lines 161-164: v = c/√εeff = ... затримка: t_зат = 1/v = 6.0 пс — worked example (not code)
+Lines 172-178: L′ = Z₀ / v = ... перевірка Z₀: √(L′/C′) = ... — arithmetic verification (not code)
+Lines 184-186: Z₀ ≈ (60 / √εr) · ln( 1.9·(2h + t) / (0.8·W + t) ) — stripline formula (not code)
+Lines 198-202: Γ = (Z_L − Z₀)/(Z_L + Z₀) — boxed formula (not code)
+Lines 211-215: Three cases of Γ with values (not code - text enumeration)
+
+CONCLUSION: No code blocks. All are formulas, derivations, or worked calculations.
+codeBlocks: []
+
+---
+
+FILE: guide/embedded/komponenty/pcb-intro/pcb-intro-d.md
+Domain: embedded/hardware
+Status: Code blocks contain formulas, NOT code
+
+ANALYSIS:
+Lines 40-42: v ≈ c / √εᵣ = 3·10⁸ / 2.07 ≈ 1.45·10⁸ м/с — calculation (not code)
+Lines 56-58: R = ρ · L / A — formula (not code)
+Lines 62-64: R = ρ · L / (W · t) — formula (not code)
+Lines 68-70: R = (ρ / t) · (L / W) — formula derivation (not code)
+Lines 74-76: Rs = ρ / t = 1.68·10⁻⁸ / 35·10⁻⁶ ≈ 4.8·10⁻⁴ Ом ≈ 0.48 мОм — calculation (not code)
+Lines 81-84: Worked calculation for trace (кількість «квадратів», опір) (not code)
+Lines 91-94: Pasting temperature rise formula: доріжка гріється струмом → її опір росте → ... (not code - prose)
+Lines 98-100: R(T) = R₀ · (1 + α·ΔT) = R₀ · (1 + 0.00393 · 50) = R₀ · 1.197 — calculation (not code)
+Lines 123-125: I = k · ΔT⁰·⁴⁴ · A⁰·⁷²⁵ — IPC-2221 formula (not code)
+Lines 136-142: Worked comparison with calculations (not code - text calculations)
+Lines 162-164: U = L · (ΔI / Δt) = 20·10⁻⁹ · (0.02 / 1·10⁻⁹) = 20·10⁻⁹ · 2·10⁷ = 0.4 В — calculation (not code)
+Lines 192-200: via calculation with diagram, area, resistance (not code - dimensions/arithmetic)
+
+CONCLUSION: No code blocks. All formulas and worked calculations.
+codeBlocks: []
+
+---
+
+FILE: guide/embedded/komponenty/pcb-intro/proj-copper-calc.md
+Domain: embedded/hardware
+Status: Contains actual C code
+
+ANALYSIS:
+Lines 94-113: C header with #include, #define, static function ipc2221_current()
+  - This is ACTUAL CODE (C language)
+  - apparentLang: c
+  - level: api (high-level IPC-2221 formula implementation)
+  - purpose: Calculate allowed current from IPC-2221 empirical formula
+  - anchor: #include <math.h>
+
+Lines 117-131: C function via_barrel_area_mils2()
+  - ACTUAL CODE (C)
+  - apparentLang: c
+  - level: api (geometric calculation for via cross-section)
+  - purpose: Calculate via barrel cross-section area in square mils
+  - anchor: double via_barrel_area_mils2(double drill_mm, double plating_um)
+
+Lines 135-152: C function via_current_a()
+  - ACTUAL CODE (C)
+  - apparentLang: c
+  - level: api (wrapper combining geometry and formula)
+  - purpose: Calculate current for single via with internal/external model
+  - anchor: double via_current_a(double drill_mm, double plating_um,
+
+Lines 156-179: C function via_count_for_current()
+  - ACTUAL CODE (C)
+  - apparentLang: c
+  - level: api (high-level function for practical application)
+  - purpose: Calculate required number of vias for target current with safety margin
+  - anchor: int via_count_for_current(double target_a, double drill_mm, double plating_um,
+
+Lines 185-199: C code snippet and verification
+  - This is PSEUDO-CODE comment showing calculation flow, NOT actual compilable code
+  - Mixed prose and arithmetic (один via: ≈ 0.90 А, raw = ceil(...))
+  - NOT actual code, more like worked example
+  - Skip this
+
+Lines 195-199: C function call for verification
+  - ACTUAL CODE snippet (C function calls and comments)
+  - apparentLang: c
+  - level: api (test/verification of functions)
+  - purpose: Verify via current calculation consistency
+  - anchor: double per = via_current_a(0.3, 25.0, 10.0, false);
+
+CONCLUSION: 5 code blocks in C

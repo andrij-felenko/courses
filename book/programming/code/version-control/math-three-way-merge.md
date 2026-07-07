@@ -45,26 +45,85 @@
 
 Зведімо це в один компактний розбір. Ось як виглядав би сам осередок рішення, якби ми писали його на C — вхід три рядки, вихід одна з чотирьох доль:
 
-```c
-typedef enum { TAKE_BASE, TAKE_OURS, TAKE_THEIRS, CONFLICT } verdict_t;
+:::tabs
+```cpp
+enum class Verdict { TakeBase, TakeOurs, TakeTheirs, Conflict };
 
 // base, ours, theirs — три версії одного рядка (порівнюємо як рядки)
-verdict_t decide_line(const char *base,
-                      const char *ours,
-                      const char *theirs)
+Verdict decide_line(std::string_view base,
+                    std::string_view ours,
+                    std::string_view theirs)
 {
-    int ours_changed   = strcmp(ours,   base) != 0;   // наше рухалося?
-    int theirs_changed = strcmp(theirs, base) != 0;   // їхнє рухалося?
+    bool ours_changed   = ours   != base;   // наше рухалося?
+    bool theirs_changed = theirs != base;   // їхнє рухалося?
 
-    if (!ours_changed && !theirs_changed) return TAKE_BASE;   // випадок 1
-    if ( ours_changed && !theirs_changed) return TAKE_OURS;   // випадок 2
-    if (!ours_changed &&  theirs_changed) return TAKE_THEIRS; // випадок 2 (дзеркало)
+    if (!ours_changed && !theirs_changed) return Verdict::TakeBase;   // випадок 1
+    if ( ours_changed && !theirs_changed) return Verdict::TakeOurs;   // випадок 2
+    if (!ours_changed &&  theirs_changed) return Verdict::TakeTheirs; // випадок 2 (дзеркало)
 
     // тут обидва рухалися:
-    if (strcmp(ours, theirs) == 0) return TAKE_OURS;  // випадок 3: збіглися → одне значення
-    return CONFLICT;                                  // випадок 4: розійшлися
+    if (ours == theirs) return Verdict::TakeOurs;  // випадок 3: збіглися → одне значення
+    return Verdict::Conflict;                      // випадок 4: розійшлися
 }
 ```
+```py
+from enum import Enum
+
+class Verdict(Enum):
+    TAKE_BASE = 1
+    TAKE_OURS = 2
+    TAKE_THEIRS = 3
+    CONFLICT = 4
+
+# base, ours, theirs — три версії одного рядка (порівнюємо як рядки)
+def decide_line(base: str, ours: str, theirs: str) -> Verdict:
+    ours_changed   = ours   != base   # наше рухалося?
+    theirs_changed = theirs != base   # їхнє рухалося?
+
+    if not ours_changed and not theirs_changed:
+        return Verdict.TAKE_BASE      # випадок 1
+    if ours_changed and not theirs_changed:
+        return Verdict.TAKE_OURS      # випадок 2
+    if not ours_changed and theirs_changed:
+        return Verdict.TAKE_THEIRS    # випадок 2 (дзеркало)
+
+    # тут обидва рухалися:
+    if ours == theirs:
+        return Verdict.TAKE_OURS      # випадок 3: збіглися → одне значення
+    return Verdict.CONFLICT           # випадок 4: розійшлися
+```
+```go
+type Verdict int
+
+const (
+    TakeBase Verdict = iota
+    TakeOurs
+    TakeTheirs
+    Conflict
+)
+
+// base, ours, theirs — три версії одного рядка (порівнюємо як рядки)
+func decideLine(base, ours, theirs string) Verdict {
+    oursChanged := ours != base     // наше рухалося?
+    theirsChanged := theirs != base // їхнє рухалося?
+
+    switch {
+    case !oursChanged && !theirsChanged:
+        return TakeBase   // випадок 1
+    case oursChanged && !theirsChanged:
+        return TakeOurs   // випадок 2
+    case !oursChanged && theirsChanged:
+        return TakeTheirs // випадок 2 (дзеркало)
+    }
+
+    // тут обидва рухалися:
+    if ours == theirs {
+        return TakeOurs // випадок 3: збіглися → одне значення
+    }
+    return Conflict // випадок 4: розійшлися
+}
+```
+:::
 
 Придивіться, на чому все тримається: **обидві ключові перевірки — `!= base`.** Рішення народжується не з `strcmp(ours, theirs)` (це порівняння двох кінців стоїть аж останнім і лише розрізняє випадки 3 і 4), а з двох незалежних питань «чи зрушила ця сторона з бази». Приберіть базу — і `ours_changed`/`theirs_changed` обчислити нічим; лишиться сама відмінність кінців, з якої, як ми з'ясували, долю не вивести. Тому база — не одна з трьох рівноправних версій, а **система відліку**: наше й їхнє — це вектори, а база — нуль, від якого їх міряють.
 

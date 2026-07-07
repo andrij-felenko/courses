@@ -56,6 +56,7 @@
 
 **Маємо кільце з N секторів і лічильник, що часто зростає. Замість стирати той самий сектор — записуємо нове значення в наступний по колу, а свіжість позначаємо номером покоління (seq), що лише росте.** Кожен запис у вільну, уже стерту комірку коштує лише саме стирання раз на повний оберт кільця, а знос лягає на всі N секторів порівну:
 
+:::tabs
 ```c
 // Кільце з N секторів; у кожному — один запис {seq, value, crc}.
 // «Жива» комірка та, у якої найбільший seq; писати треба в наступну за нею.
@@ -101,6 +102,113 @@ static void counter_save(uint32_t base_addr, uint32_t value) {
     g_slot = next; g_seq += 1u;                    // тепер «жива» комірка — ця
 }
 ```
+```python
+import struct
+
+# Кільце з N секторів; у кожному — один запис {seq, value, crc}.
+# «Жива» комірка та, у якої найбільший seq; писати треба в наступну за нею.
+N_SECT    = 64          # скільки секторів ділять знос
+SECT_SIZE = 4096        # розмір сектора Flash, байтів
+MAGIC     = 0xC0FFEE
+
+# один слот = одна фізична комірка: magic, seq, value, crc — чотири uint32 LE
+_REC = struct.Struct("<4I")     # magic, seq, value, crc
+
+# апаратура застабована ззовні: flash_read/flash_write/flash_erase_sector, crc32
+
+class Counter:
+    def __init__(self, base_addr):
+        self.base = base_addr
+        self.seq  = 0           # seq останнього запису
+        self.slot = 0           # індекс сектора з останнім записом
+
+    # Знайти найсвіжіший запис серед усіх секторів (виклик раз, на старті).
+    def mount(self):
+        best_seq = 0
+        value = 0
+        found = False
+        for i in range(N_SECT):
+            raw = flash_read(self.base + i * SECT_SIZE, _REC.size)
+            magic, seq, val, crc = _REC.unpack(raw)
+            if magic != MAGIC:                        # порожній/стертий сектор
+                continue
+            if crc32(raw[:-4]) != crc:                # битий запис — пропустити
+                continue
+            if not found or seq > best_seq:           # запам'ятати найсвіжіший
+                best_seq, self.slot, value, found = seq, i, val, True
+        self.seq = best_seq if found else 0
+        return (found, value)
+
+    # Записати нове значення — у НАСТУПНИЙ сектор по колу (ось і все вирівнювання).
+    def save(self, value):
+        nxt  = (self.slot + 1) % N_SECT               # ротація: наступний сектор
+        addr = self.base + nxt * SECT_SIZE
+        flash_erase_sector(addr)                      # одне стирання раз на оберт
+        body = struct.pack("<3I", MAGIC, self.seq + 1, value)  # новий seq — на одиницю більший
+        rec  = body + struct.pack("<I", crc32(body))
+        flash_write(addr, rec)                        # дописуємо у вільну комірку
+        self.slot, self.seq = nxt, self.seq + 1       # тепер «жива» комірка — ця
+```
+```go
+package wearleveling
+
+import "encoding/binary"
+
+// Кільце з N секторів; у кожному — один запис {seq, value, crc}.
+// «Жива» комірка та, у якої найбільший seq; писати треба в наступну за нею.
+const (
+	nSect    = 64   // скільки секторів ділять знос
+	sectSize = 4096 // розмір сектора Flash, байтів
+	magic    = 0xC0FFEE
+	recSize  = 16 // один слот = magic, seq, value, crc — чотири uint32
+)
+
+// апаратура застабована ззовні: flashRead/flashWrite/flashEraseSector, crc32
+
+type Counter struct {
+	base uint32
+	seq  uint32 // seq останнього запису
+	slot uint32 // індекс сектора з останнім записом
+}
+
+// Знайти найсвіжіший запис серед усіх секторів (виклик раз, на старті).
+func (c *Counter) Mount() (found bool, value uint32) {
+	var bestSeq uint32
+	for i := uint32(0); i < nSect; i++ {
+		r := flashRead(c.base+i*sectSize, recSize)
+		if binary.LittleEndian.Uint32(r[0:]) != magic { // порожній/стертий сектор
+			continue
+		}
+		if crc32(r[:recSize-4]) != binary.LittleEndian.Uint32(r[12:]) { // битий запис — пропустити
+			continue
+		}
+		if seq := binary.LittleEndian.Uint32(r[4:]); !found || seq > bestSeq { // запам'ятати найсвіжіший
+			bestSeq, c.slot, value, found = seq, i, binary.LittleEndian.Uint32(r[8:]), true
+		}
+	}
+	if found {
+		c.seq = bestSeq
+	} else {
+		c.seq = 0
+	}
+	return found, value
+}
+
+// Записати нове значення — у НАСТУПНИЙ сектор по колу (ось і все вирівнювання).
+func (c *Counter) Save(value uint32) {
+	next := (c.slot + 1) % nSect     // ротація: наступний сектор
+	addr := c.base + next*sectSize
+	flashEraseSector(addr)           // одне стирання раз на оберт
+	var r [recSize]byte
+	binary.LittleEndian.PutUint32(r[0:], magic)
+	binary.LittleEndian.PutUint32(r[4:], c.seq+1) // новий seq — на одиницю більший
+	binary.LittleEndian.PutUint32(r[8:], value)
+	binary.LittleEndian.PutUint32(r[12:], crc32(r[:recSize-4]))
+	flashWrite(addr, r[:])           // дописуємо у вільну комірку
+	c.slot, c.seq = next, c.seq+1    // тепер «жива» комірка — ця
+}
+```
+:::
 
 Уся різниця зі згубним «писати на місці» — в одному `% N_SECT`: індекс сектора щоразу зсувається на один, тож за повний прохід кільця кожен сектор отримує **рівно один** запис. Свіжість визначає не позиція, а `seq`, тож на старті `counter_mount` просто бере запис із найбільшим номером покоління, а биті комірки відсіює за `crc`. Це і є вся суть динамічного вирівнювання в мініатюрі — справжні NVS чи файлова система додають згори лише облік вільного місця та списання мертвих секторів.
 

@@ -24,7 +24,7 @@
 
 **Приклад (C → IR).** Ось функція й те, що з неї робить LLVM:
 
-```
+```c
 // як ви написали — C
 int add_scaled(int a, int b) {
     int t = a * 4;
@@ -32,7 +32,7 @@ int add_scaled(int a, int b) {
 }
 ```
 
-```
+```llvm
 ; проміжне подання LLVM (IR)
 define i32 @add_scaled(i32 %a, i32 %b) {
   %t   = mul i32 %a, 4        ; помножити a на 4

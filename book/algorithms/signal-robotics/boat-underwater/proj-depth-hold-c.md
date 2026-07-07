@@ -67,7 +67,8 @@ h = (P − P_атм) / (ρ · g)
 
 Спершу — перерахунок тиску в глибину з таруванням. Тримаємо все в структурі, бо запам'ятований поверхневий тиск і стан згладжувача мусять пережити виклики:
 
-```c
+:::tabs
+```cpp
 #include <stdint.h>
 
 /* --- Перерахунок тиску (Па) у глибину (м) з обнуленням на поверхні --- */
@@ -105,10 +106,35 @@ float depth_from_pressure(DepthSensor *d, float p_abs)
     return d->depth_f;
 }
 ```
+```python
+# --- Перерахунок тиску (Па) у глибину (м) з обнуленням на поверхні ---
+class DepthSensor:
+    def __init__(self, rho, g, ema_alpha):
+        self.rho_g = rho * g          # напр. 1025·9.81 для морської води
+        self.p_surface = 101325.0     # доки не протаровано — стандартна атм.
+        self.depth_f = 0.0            # згладжена глибина, м (стан EMA)
+        self.ema_alpha = ema_alpha    # коеф. згладжування 0<α≤1 (1 = без фільтра)
+        self.tared = False            # чи вже обнулено на поверхні
+
+    def tare(self, p_abs):
+        """Викликати РАЗ, поки апарат ще на поверхні й нерухомий."""
+        self.p_surface = p_abs        # цей тиск = «нуль глибини»
+        self.depth_f = 0.0
+        self.tared = True
+
+    def depth_from_pressure(self, p_abs):
+        """Сирий абсолютний тиск (Па) → згладжена глибина (м, вниз додатна)."""
+        depth_raw = (p_abs - self.p_surface) / self.rho_g   # h = (P−P₀)/(ρg)
+        # EMA: тягне збережену глибину до свіжого виміру на частку α
+        self.depth_f += (depth_raw - self.depth_f) * self.ema_alpha
+        return self.depth_f
+```
+:::
 
 Тепер сам вертикальний контур. Це дискретний ПІД, але з двома акцентами під глибину: **похідну беремо від виміряної глибини**, а не від помилки (щоб стрибок заданої глибини не давав поштовху в рушії), і **інтеграл затискаємо** відразу після оновлення — це антивіндап, критичний саме тут, бо вертикальні рушії часто впираються в межу. Повний розбір усіх захистів дискретного регулятора — у [робочому ПІД-модулі на C](book:algorithms/discrete-pid/proj-pid-c.md); тут показано ту саму механіку, загострену під вертикаль:
 
-```c
+:::tabs
+```cpp
 /* --- Вертикальний контур утримання глибини --- */
 typedef struct {
     /* параметри регулятора */
@@ -174,12 +200,64 @@ float depth_pid_step(DepthPID *c, float target, float measured, float dt)
     return u;
 }
 ```
+```python
+# --- Вертикальний контур утримання глибини ---
+def clampf(x, lo, hi):
+    return lo if x < lo else hi if x > hi else x
+
+
+class DepthPID:
+    def __init__(self, kp, ki, kd, tau_d, i_min, i_max, u_min, u_max):
+        # параметри регулятора
+        self.kp, self.ki, self.kd = kp, ki, kd  # коеф. П, І, Д (для осі глибини)
+        self.tau_d = tau_d          # стала фільтра похідної, с
+        self.i_min, self.i_max = i_min, i_max   # межі інтеграла (антивіндап)
+        self.u_min, self.u_max = u_min, u_max   # межі виходу = межі тяги, −1..+1
+        # стан
+        self.integral = 0.0         # накопичена тяга проти сталої плавучості
+        self.depth_prev = 0.0       # глибина на попередньому такті
+        self.deriv_f = 0.0          # згладжена вертикальна швидкість
+
+    def reset(self, depth_now):
+        """Скидання перед вмиканням режиму: щоб перша похідна не «вистрелила»,
+        а інтеграл не тягнув накопичене за простою."""
+        self.integral = 0.0
+        self.depth_prev = depth_now   # перша похідна = 0, не сплеск
+        self.deriv_f = 0.0
+
+    def step(self, target, measured, dt):
+        """Один такт. target/measured — глибина в метрах (вниз додатна).
+        Повертає нормовану вертикальну тягу u ∈ [u_min, u_max]:
+        u>0 — гребти ВНИЗ (глибше), u<0 — гребти ВГОРУ (до поверхні)."""
+        e = target - measured                    # глибше цілі → e<0
+
+        # I: накопичуємо й ОДРАЗУ затискаємо (антивіндап)
+        self.integral += e * dt
+        self.integral = clampf(self.integral, self.i_min, self.i_max)
+
+        # D: від ВИМІРУ (не від помилки) → нема поштовху на зміну target.
+        # (depth_prev − measured)/dt = мінус вертикальна швидкість.
+        deriv = (self.depth_prev - measured) / dt
+        a = dt / (dt + self.tau_d)               # коеф. ФНЧ на похідну
+        self.deriv_f += (deriv - self.deriv_f) * a
+
+        # сума трьох складових
+        u = self.kp * e + self.ki * self.integral + self.kd * self.deriv_f
+
+        # межі вертикальної тяги (насичення рушіїв)
+        u = clampf(u, self.u_min, self.u_max)
+
+        self.depth_prev = measured
+        return u
+```
+:::
 
 Порядок дій — не косметика. Інтеграл затискаємо **до** складання `u`: інакше роздутий за насичення інтеграл устиг би просочитися у вихід ще цього такту. Похідну рахуємо від `measured`, тож стрибок `target` (оператор задав нову глибину) не б'є поштовхом у рушії — важливо, бо різкий сплеск вертикальної тяги хитає весь апарат і збиває камеру. А `depth_pid_reset` ставить `depth_prev = depth_now`, щоб у перший такт після вмикання режиму похідна була нулем, а не фальшивим `(0 − depth)/dt`.
 
 Лишається зшити все докупи в такт прошивки. Мінус перед `u` у команді рушіям — питання домовленості про знак; тут `u>0` означає «гребти вниз», і саме таку тягу кладемо на вертикальні рушії через [мікшер, що розкладає осі керування на конкретні рушії](book:algorithms/motor-mixer):
 
-```c
+:::tabs
+```cpp
 /* --- Склеювання: один такт режиму Depth Hold --- */
 static DepthSensor g_ds;
 static DepthPID    g_pid;
@@ -211,6 +289,37 @@ float depth_hold_step(float dt)
     return u;   /* → на вертикальні рушії через мікшер */
 }
 ```
+```python
+# --- Склеювання: один такт режиму Depth Hold ---
+g_ds = None
+g_pid = None
+g_target_depth = 2.0   # задана глибина, м
+
+
+def depth_hold_setup():
+    global g_ds, g_pid
+    # морська вода; α=0.25 — помірне згладжування; τ_d=0.08 c
+    g_ds = DepthSensor(1025.0, 9.81, 0.25)
+    # kp,ki,kd підбирають під апарат; межі тяги −1..+1;
+    # інтеграл обмежуємо так, щоб він міг дати щонайбільше ~половину тяги
+    g_pid = DepthPID(4.0, 1.2, 2.5, 0.08,
+                     -0.5, 0.5, -1.0, 1.0)
+
+
+def depth_hold_arm(p_abs_now):
+    """Викликати на поверхні перед зануренням."""
+    g_ds.tare(p_abs_now)
+    g_pid.reset(0.0)
+
+
+def depth_hold_step(dt):
+    """Гарячий такт: dt — фактичний крок, с; read_pressure_pa() — ваш давач."""
+    p_abs = read_pressure_pa()                    # сирий тиск, Па
+    depth = g_ds.depth_from_pressure(p_abs)       # → згладжена глибина
+    u = g_pid.step(g_target_depth, depth, dt)
+    return u   # → на вертикальні рушії через мікшер
+```
+:::
 
 ## Worked-приклад: один такт на осілому апараті
 

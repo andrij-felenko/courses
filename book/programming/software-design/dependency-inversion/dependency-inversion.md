@@ -34,6 +34,7 @@ B. Абстракції не мають залежати від деталей.
 
 Візьмімо той самий обробник платежу. Спершу — «як пишеться саме собою», з прямою залежністю ядра від деталі:
 
+:::tabs
 ```cpp
 // Ядро прибите до конкретного HTTP-клієнта: стрілка «важливе → дрібне»
 #include "StripeHttpClient.h"          // деталь протекла у файл із логікою
@@ -47,9 +48,36 @@ public:
     }
 };
 ```
+```python
+# Ядро прибите до конкретного HTTP-клієнта: стрілка «важливе → дрібне»
+from stripe_http_client import StripeHttpClient  # деталь протекла у модуль із логікою
+
+class PaymentService:
+    def __init__(self):
+        self._http = StripeHttpClient()           # ядро ТРИМАЄ конкретну деталь
+
+    def charge(self, order):
+        body = build_stripe_json(order)           # логіка знає формат саме Stripe
+        self._http.post("https://api.stripe.com/charges", body)
+```
+```go
+// Ядро прибите до конкретного HTTP-клієнта: стрілка «важливе → дрібне»
+import "example.com/stripe" // деталь протекла у пакет із логікою
+
+type PaymentService struct {
+    http stripe.HttpClient // ядро ТРИМАЄ конкретну деталь
+}
+
+func (s *PaymentService) Charge(o Order) {
+    body := buildStripeJSON(o) // логіка знає формат саме Stripe
+    s.http.Post("https://api.stripe.com/charges", body)
+}
+```
+:::
 
 Тут `PaymentService` неможливо ні зібрати без бібліотеки Stripe, ні перевірити без справжнього мережевого виклику, ні перевести на іншого провайдера без правки самого класу. Деталь оселилася в ядрі. Тепер поставимо між ними абстракцію мовою верхнього шару:
 
+:::tabs
 ```cpp
 // Абстракція говорить БІЗНЕС-мовою: «списати кошти», а не «зробити POST»
 struct PaymentGateway {
@@ -69,9 +97,52 @@ public:
     }
 };
 ```
+```python
+from abc import ABC, abstractmethod
+
+# Абстракція говорить БІЗНЕС-мовою: «списати кошти», а не «зробити POST»
+class PaymentGateway(ABC):
+    @abstractmethod
+    def charge(self, amount: Money, card: Card) -> ChargeResult: ...
+
+# Ядро залежить ЛИШЕ від обіцянки — і не знає, хто її виконає
+class PaymentService:
+    def __init__(self, gateway: PaymentGateway):
+        self._gateway = gateway         # посилання на абстракцію
+
+    def charge(self, order):
+        r = self._gateway.charge(order.total(), order.card())
+        if not r.ok:
+            raise PaymentFailed(r.reason)
+```
+```go
+// Абстракція говорить БІЗНЕС-мовою: «списати кошти», а не «зробити POST»
+type PaymentGateway interface {
+    Charge(amount Money, card Card) ChargeResult
+}
+
+// Ядро залежить ЛИШЕ від обіцянки — і не знає, хто її виконає
+type PaymentService struct {
+    gateway PaymentGateway // посилання на абстракцію
+}
+
+func NewPaymentService(g PaymentGateway) *PaymentService {
+    return &PaymentService{gateway: g}
+}
+
+func (s *PaymentService) Charge(o Order) error {
+    r := s.gateway.Charge(o.Total(), o.Card())
+    if !r.OK {
+        return PaymentFailed{r.Reason}
+    }
+    return nil
+}
+```
+:::
 
 Конкретний Stripe тепер живе **збоку** й реалізує обіцянку — стрілка від нього йде вгору, до `PaymentGateway`:
 
+:::tabs
 ```cpp
 // Деталь ПІДЛАШТОВУЄТЬСЯ під абстракцію верхнього шару
 class StripeGateway : public PaymentGateway {
@@ -84,9 +155,34 @@ public:
     }
 };
 ```
+```python
+# Деталь ПІДЛАШТОВУЄТЬСЯ під абстракцію верхнього шару
+class StripeGateway(PaymentGateway):
+    def __init__(self):
+        self._http = StripeHttpClient()
+
+    def charge(self, amount: Money, card: Card) -> ChargeResult:
+        body = to_stripe_json(amount, card)
+        resp = self._http.post("https://api.stripe.com/charges", body)
+        return ChargeResult(ok=resp.status == 200, reason=resp.error_message())
+```
+```go
+// Деталь ПІДЛАШТОВУЄТЬСЯ під абстракцію верхнього шару
+type StripeGateway struct {
+    http stripe.HttpClient
+}
+
+func (g *StripeGateway) Charge(amount Money, card Card) ChargeResult {
+    body := toStripeJSON(amount, card)
+    resp := g.http.Post("https://api.stripe.com/charges", body)
+    return ChargeResult{OK: resp.Status == 200, Reason: resp.ErrorMessage()}
+}
+```
+:::
 
 Хто саме зшиває ядро з конкретною реалізацією? Не саме ядро — інакше воно знов би назвало деталь на ім'я. Це робить **зовнішній збирач**, у самій верхівці програми, де вже все дозволено знати:
 
+:::tabs
 ```cpp
 int main() {
     StripeGateway stripe;                 // обрали деталь ТУТ, на краю світу
@@ -94,9 +190,24 @@ int main() {
     // ... ядро працює, не відаючи слова "Stripe"
 }
 ```
+```python
+def main():
+    stripe = StripeGateway()              # обрали деталь ТУТ, на краю світу
+    payments = PaymentService(stripe)     # і подали її ядру ззовні
+    # ... ядро працює, не відаючи слова "Stripe"
+```
+```go
+func main() {
+    stripe := &StripeGateway{}                 // обрали деталь ТУТ, на краю світу
+    payments := NewPaymentService(stripe)      // і подали її ядру ззовні
+    _ = payments                               // ... ядро працює, не відаючи слова "Stripe"
+}
+```
+:::
 
 Ось і вся механіка. Ядро згадує лише `PaymentGateway`. Слово «Stripe» стоїть рівно в одному місці — у точці збірки, найдальшій від бізнес-правил. Щоб у тесті перевірити логіку, туди ж подають підробку:
 
+:::tabs
 ```cpp
 // Підробка замість мережі: тест ядра БЕЗ Stripe і без інтернету
 struct FakeGateway : PaymentGateway {
@@ -110,6 +221,34 @@ struct FakeGateway : PaymentGateway {
 // PaymentService payments(fake); charge(order);
 // перевіряємо: fake.lastAmount == order.total()  — за мілісекунди, без мережі
 ```
+```python
+# Підробка замість мережі: тест ядра БЕЗ Stripe і без інтернету
+class FakeGateway(PaymentGateway):
+    def __init__(self):
+        self.last_amount = None
+
+    def charge(self, amount: Money, card: Card) -> ChargeResult:
+        self.last_amount = amount         # просто запам'ятали, що просили
+        return ChargeResult(ok=True, reason="")  # і вдали успіх
+
+# PaymentService(fake).charge(order)
+# перевіряємо: fake.last_amount == order.total()  — за мілісекунди, без мережі
+```
+```go
+// Підробка замість мережі: тест ядра БЕЗ Stripe і без інтернету
+type FakeGateway struct {
+    lastAmount Money
+}
+
+func (g *FakeGateway) Charge(a Money, _ Card) ChargeResult {
+    g.lastAmount = a                      // просто запам'ятали, що просили
+    return ChargeResult{OK: true, Reason: ""} // і вдали успіх
+}
+
+// NewPaymentService(fake).Charge(order)
+// перевіряємо: fake.lastAmount == order.Total()  — за мілісекунди, без мережі
+```
+:::
 
 Те, що передавання залежності ззовні через конструктор має власну назву — **впровадження залежності (dependency injection)** — не збіг: це найпоширеніший спосіб *здійснити* інверсію на практиці. Тут легко сплутати два різні поняття, і плутають їх постійно.
 
@@ -119,6 +258,7 @@ struct FakeGateway : PaymentGateway {
 
 Побачити різницю найлегше на випадку, коли одне є без іншого. Можна впорснути залежність, порушивши інверсію, — якщо тип аргументу конкретний:
 
+:::tabs
 ```cpp
 // DI Є (передали ззовні), а DIP НЕМА (тип — конкретна деталь)
 class ReportBuilder {
@@ -127,6 +267,23 @@ public:
     explicit ReportBuilder(MySqlDatabase& db) : db_(db) {}
 };
 ```
+```python
+# DI Є (передали ззовні), а DIP НЕМА (тип — конкретна деталь)
+class ReportBuilder:
+    def __init__(self, db: MySqlDatabase):  # впорснули, але прив'язались до MySQL
+        self._db = db
+```
+```go
+// DI Є (передали ззовні), а DIP НЕМА (тип — конкретна деталь)
+type ReportBuilder struct {
+    db *MySqlDatabase // впорснули, але прив'язались до MySQL
+}
+
+func NewReportBuilder(db *MySqlDatabase) *ReportBuilder {
+    return &ReportBuilder{db: db}
+}
+```
+:::
 
 Тут залежність подано ззовні — і все одно ядро зчеплене з конкретною базою: заміни `MySqlDatabase` на абстрактний `Database`, щоб стрілка нарешті вперлася в обіцянку, а не в продукт. І навпаки — можна тримати інверсію без класичного впорскування, просто ховаючи вибір реалізації за [фабрикою](book:programming/factory-method), яка теж повертає абстракцію. Тож DIP каже, *на що* спиратися; DI — лише один зі способів це влаштувати. Поширений, зручний, але не єдиний і не сам принцип.
 

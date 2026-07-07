@@ -39,6 +39,7 @@
 
 Зберемо це в код. Тон — як у справжньому редакторі схем (це настільна програма на C++), тож структури тримають геометрію та імена, а union-find зводить усе докупи. Почнемо з типів і координатної арифметики на сітці.
 
+:::tabs
 ```cpp
 #include <cstdint>
 #include <string>
@@ -65,9 +66,48 @@ struct Pin  { Point at; int part, num; std::string name; };  // вивід де�
 enum class Scope { Local, Global };
 struct Label { Point at; std::string name; Scope scope; int sheet; };
 ```
+```python
+from dataclasses import dataclass
+from enum import Enum
+
+# Точка на аркуші — у КРОКАХ СІТКИ (цілі!), щоб «дотик» був точним ==, а не «майже».
+# frozen=True робить точку незмінною й хешованою — тож вона годиться в ключ dict/set,
+# а рівність двох точок — це збіг обох координат (Python дає __eq__/__hash__ даром).
+@dataclass(frozen=True)
+class Point:
+    x: int
+    y: int
+
+@dataclass
+class Wire:                              # відрізок дроту: два кінці
+    a: Point
+    b: Point
+
+@dataclass
+class Pin:                               # вивід деталі
+    at: Point
+    part: int
+    num: int
+    name: str
+
+# Мітка ланцюга. scope розрізняє радіус дії: локальна діє в межах аркуша,
+# глобальна — по всьому проєкту. Тому ключ збігу — ПАРА (ім'я, область).
+class Scope(Enum):
+    LOCAL = 0
+    GLOBAL = 1
+
+@dataclass
+class Label:
+    at: Point
+    name: str
+    scope: Scope
+    sheet: int
+```
+:::
 
 Координати — цілі кроки сітки, бо «дотик» мусить бути рівністю, а не наближенням. Тепер геометричний предикат — серце склеювання. Кінець дроту дотикається до іншого дроту або тоді, коли збігається з його кінцем, або коли **лежить на ньому всередині** (Т-дотик). Для ортогональних (горизонтальних/вертикальних) дротів — а на схемі такі майже всі — перевірка «точка на відрізку» зводиться до простого порівняння координат.
 
+:::tabs
 ```cpp
 // Чи лежить точка p на ВІДРІЗКУ дроту w (включно з кінцями)?
 // Дроти на схемі ортогональні, тож достатньо розглянути H- і V-випадки.
@@ -88,9 +128,31 @@ static bool point_on_wire(const Point& p, const Wire& w) {
         && p.y >= std::min(w.a.y, w.b.y) && p.y <= std::max(w.a.y, w.b.y);
 }
 ```
+```python
+# Чи лежить точка p на ВІДРІЗКУ дроту w (включно з кінцями)?
+# Дроти на схемі ортогональні, тож достатньо розглянути H- і V-випадки.
+def point_on_wire(p: Point, w: Wire) -> bool:
+    if w.a.y == w.b.y:                                     # горизонтальний
+        if p.y != w.a.y:
+            return False
+        return min(w.a.x, w.b.x) <= p.x <= max(w.a.x, w.b.x)
+    if w.a.x == w.b.x:                                     # вертикальний
+        if p.x != w.a.x:
+            return False
+        return min(w.a.y, w.b.y) <= p.y <= max(w.a.y, w.b.y)
+    # навскісний дріт — рідкість; повна перевірка колінеарності + меж:
+    cross = (p.x - w.a.x) * (w.b.y - w.a.y) \
+          - (p.y - w.a.y) * (w.b.x - w.a.x)
+    if cross != 0:
+        return False
+    return (min(w.a.x, w.b.x) <= p.x <= max(w.a.x, w.b.x)
+            and min(w.a.y, w.b.y) <= p.y <= max(w.a.y, w.b.y))
+```
+:::
 
 Тепер union-find. Він короткий, але саме він робить «склеювання»: спершу кожен об'єкт сам собі ланцюг, далі за кожним дотиком два ланцюги зливаються в один.
 
+:::tabs
 ```cpp
 struct DSU {
     std::vector<int> parent, rank_;
@@ -110,9 +172,33 @@ struct DSU {
     }
 };
 ```
+```python
+class DSU:
+    def __init__(self, n: int):
+        self.parent = list(range(n))     # кожен — сам собі корінь
+        self.rank = [0] * n
+
+    def find(self, x: int) -> int:
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]  # стиснення шляху
+            x = self.parent[x]
+        return x
+
+    def unite(self, a: int, b: int) -> None:             # злити два ланцюги
+        a, b = self.find(a), self.find(b)
+        if a == b:
+            return
+        if self.rank[a] < self.rank[b]:
+            a, b = b, a
+        self.parent[b] = a
+        if self.rank[a] == self.rank[b]:
+            self.rank[a] += 1
+```
+:::
 
 Зведімо геометрію. Кожному пінові й кожному кінцю дроту дамо **вузол** — індекс у DSU. Щоб не плодити вузлів-двійників на тих самих координатах, заведемо мапу `Point → вузол`: усе, що сходиться в одну точку сітки, дістає **той самий** вузол — і цим уже автоматично злите. Лишається додати Т-дотики, яких збігом координат не зловиш.
 
+:::tabs
 ```cpp
 struct NodeMap {
     std::unordered_map<Point, int, PointHash> id;
@@ -157,6 +243,49 @@ static DSU build_geometry(const std::vector<Wire>& wires,
     return dsu;
 }
 ```
+```python
+class NodeMap:
+    def __init__(self):
+        self.id: dict[Point, int] = {}       # точка → вузол
+        self.pt: list[Point] = []            # вузол → координата (для діагностики)
+
+    def node_at(self, p: Point) -> int:
+        n = self.id.get(p)
+        if n is not None:                    # уже є вузол на цій точці
+            return n
+        n = len(self.pt)
+        self.id[p] = n
+        self.pt.append(p)
+        return n                             # новий вузол на новій точці
+
+
+# Будуємо геометричні ланцюги: спільна координата → спільний вузол;
+# кінці кожного дроту зливаємо; Т-дотики ловимо окремим проходом.
+def build_geometry(wires: list[Wire], pins: list[Pin], nm: NodeMap) -> DSU:
+    # 1) Заводимо вузли на всіх кінцях дротів і всіх пінах (збіг точок = той самий вузол).
+    for w in wires:
+        nm.node_at(w.a)
+        nm.node_at(w.b)
+    for p in pins:
+        nm.node_at(p.at)
+
+    dsu = DSU(len(nm.pt))
+
+    # 2) Кінці того самого дроту — очевидно один ланцюг.
+    for w in wires:
+        dsu.unite(nm.node_at(w.a), nm.node_at(w.b))
+
+    # 3) Т-ДОТИКИ: вузол (пін чи кінець дроту), що лежить УСЕРЕДИНІ іншого дроту.
+    #    Без цього кроку трійник «кінець у середину» загубився б.
+    for v, p in enumerate(nm.pt):
+        for w in wires:
+            if p == w.a or p == w.b:         # кінці вже злиті в кроці 2
+                continue
+            if point_on_wire(p, w):          # p сидить на тілі дроту w
+                dsu.unite(v, nm.node_at(w.a))  # приєднати до того дроту
+    return dsu
+```
+:::
 
 Геометрія склеєна. Тепер **долити імена**. Збираємо мітки в групи за ключем «ім'я + радіус дії» і всередині кожної групи зливаємо вузли точок, на яких ці мітки висять. Локальні мітки додатково розрізняємо за номером аркуша — щоб `SDA` з аркуша 1 не злився з `SDA` з аркуша 2.
 

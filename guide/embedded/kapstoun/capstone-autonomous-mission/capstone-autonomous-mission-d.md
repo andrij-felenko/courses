@@ -55,6 +55,38 @@ dist(апарат, WP) < WP_RADIUS   →   пункт #k виконано, k := 
 
 Симетрично працює **вивантаження** (дозчитування) — і саме воно наша головна страховка перед польотом. GCS шле `MISSION_REQUEST_LIST`, борт відповідає `MISSION_COUNT`, далі GCS просить кожен `seq`, борт віддає `MISSION_ITEM_INT`. Ті самі таймаути й повтори, тільки ролі поміняні. Кістяк дозчитування з наступною звіркою (мовою прошивки для ясності послідовності; на практиці — pymavlink на землі):
 
+:::tabs
+```py
+# Крок 1: попросити борт вивантажити його ПОТОЧНУ місію (не ту, що ми «мали б» залити).
+master.mav.mission_request_list_send(
+    master.target_system, master.target_component,
+    mavutil.mavlink.MAV_MISSION_TYPE_MISSION)
+mc = master.recv_match(type='MISSION_COUNT', blocking=True, timeout=5)  # борт відповість MISSION_COUNT
+if mc is None:
+    return
+count = mc.count
+
+# Крок 2: по одному пункту, з таймаутом і обмеженим числом повторів.
+for seq in range(count):
+    it = None
+    for tries in range(5):
+        master.mav.mission_request_int_send(              # MISSION_REQUEST_INT(seq)
+            master.target_system, master.target_component, seq)
+        it = master.recv_match(type='MISSION_ITEM_INT', blocking=True, timeout=0.25)
+        if it is not None and it.seq == seq:
+            break
+        it = None
+    else:                                                 # здався — не звіряємо частковий список
+        abort_readback()
+        return
+
+    # Крок 3: звірити з тим, що ЗАДУМАНО, декодувавши цілі назад у градуси.
+    if it.command == mavutil.mavlink.MAV_CMD_NAV_WAYPOINT:
+        lat = it.x * 1e-7           # 10⁻⁷ градуса → градуси
+        lon = it.y * 1e-7
+        alt = it.z                  # метри — але В ЯКІЙ системі? див. it.frame нижче
+        print(f"#{seq}  {lat:.7f}, {lon:.7f}  alt={alt:.1f}  frame={it.frame}")
+```
 ```cpp
 // Крок 1: попросити борт вивантажити його ПОТОЧНУ місію (не ту, що ми «мали б» залити).
 mavlink_msg_mission_request_list_send(chan, tgt_sys, tgt_comp, MAV_MISSION_TYPE_MISSION);
@@ -78,6 +110,7 @@ for (uint16_t seq = 0; seq < count; seq++) {
     }
 }
 ```
+:::
 
 Зверни увагу на `tries < 5` і `abort_readback()`: це не декоративна обережність, а точне відтворення протокольної вимоги «повторюй за таймаутом, а після кількох невдач — здайся й не працюй із частковим результатом». Скрипт, що читає без таймауту, зависає назавжди на першому ж загубленому пакеті; скрипт, що звіряє напівзчитаний список, бреше тобі про вміст місії.
 
@@ -191,6 +224,24 @@ R = 18² / (9.81 · 0.577) = 324 / 5.66 ≈ 57 м
 
 Щоб «перевіряти одразу» під час автономного прогону, треба **бачити**, на якому пункті стоїть місія, у реальному часі. Борт сам повідомляє це повідомленням `MISSION_CURRENT` (поточний активний `seq`), а досягнення пункту — `MISSION_ITEM_REACHED`. Кістяк монітора на землі:
 
+:::tabs
+```py
+# Живий монітор прогресу: показує активний пункт і ловить момент досягнення.
+last_seq = None
+while True:
+    msg = master.recv_match(type=['MISSION_CURRENT', 'MISSION_ITEM_REACHED'],
+                            blocking=True, timeout=1.0)
+    if msg is None:                                  # тиша за секунду — перевір лінк
+        print("тиша від борту — перевір лінк")
+        continue
+
+    if msg.get_type() == 'MISSION_CURRENT':          # борт шле активний пункт
+        if msg.seq != last_seq:                      # індекс зрушив — покажемо перехід
+            print(f"активний пункт місії: #{msg.seq}")
+            last_seq = msg.seq
+    elif msg.get_type() == 'MISSION_ITEM_REACHED':   # борт підтвердив: пункт виконано
+        print(f"  досягнуто #{msg.seq} — перехід далі")
+```
 ```cpp
 // Живий монітор прогресу: показує активний пункт і ловить момент досягнення.
 // (Мовою прошивки для ясності; на практиці — pymavlink-цикл на землі.)
@@ -218,6 +269,7 @@ for (;;) {
     }
 }
 ```
+:::
 
 Саме цей монітор перетворює «дрон намотує кола» на конкретне «активний пункт застряг на `#2`, `ITEM_REACHED` не приходить» — тобто на діагноз недосяжної умови переходу, який ми розібрали на початку. Без нього ти дивишся на апарат і гадаєш; із ним — читаєш його думки в реальному часі.
 

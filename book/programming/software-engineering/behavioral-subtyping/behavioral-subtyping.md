@@ -42,33 +42,126 @@
 
 Хай прямокутник має незалежні ширину й висоту, і кожну можна виставити окремо. Постумова `set_width` тиха, але цілком конкретна: «ширина стала заданою, **висота не змінилась**». Саме на неї покладається код, написаний під прямокутник.
 
-```c
-typedef struct { uint16_t w, h; } rect_t;
-
-void   rect_set_width (rect_t *r, uint16_t w) { r->w = w; }   // висоту НЕ чіпає
-void   rect_set_height(rect_t *r, uint16_t h) { r->h = h; }
-uint32_t rect_area    (const rect_t *r)       { return (uint32_t)r->w * r->h; }
+:::tabs
+```cpp
+struct Rect {
+    uint16_t w, h;
+    void set_width (uint16_t nw) { w = nw; }   // висоту НЕ чіпає
+    void set_height(uint16_t nh) { h = nh; }
+    uint32_t area() const { return (uint32_t)w * h; }
+};
 ```
+```python
+class Rect:
+    def __init__(self, w: int, h: int):
+        self.w = w
+        self.h = h
+
+    def set_width(self, w: int) -> None:   # висоту НЕ чіпає
+        self.w = w
+
+    def set_height(self, h: int) -> None:
+        self.h = h
+
+    def area(self) -> int:
+        return self.w * self.h
+```
+```java
+class Rect {
+    protected int w, h;
+
+    public void setWidth(int w)  { this.w = w; }   // висоту НЕ чіпає
+    public void setHeight(int h) { this.h = h; }
+    public int  area()           { return w * h; }
+}
+```
+```typescript
+class Rect {
+    constructor(protected w: number, protected h: number) {}
+
+    setWidth(w: number): void  { this.w = w; }   // висоту НЕ чіпає
+    setHeight(h: number): void { this.h = h; }
+    area(): number             { return this.w * this.h; }
+}
+```
+:::
 
 Тепер «підтип» Квадрат. У квадрата є власний, **сильніший** інваріант: ширина завжди дорівнює висоті, `w == h`. Щоб його втримати, `set_width` змушений міняти **обидві** сторони — інакше квадрат перестане бути квадратом:
 
-```c
+:::tabs
+```cpp
 // «Квадрат як підтип Прямокутника»: щоб утримати w == h, set_width міняє й висоту.
-void square_set_width(rect_t *r, uint16_t w) { r->w = w; r->h = w; }   // ← і висота!
-void square_set_height(rect_t *r, uint16_t h){ r->w = h; r->h = h; }
+struct Square : Rect {
+    void set_width (uint16_t s) { w = s; h = s; }   // ← і висота!
+    void set_height(uint16_t s) { w = s; h = s; }
+};
 ```
+```python
+# «Квадрат як підтип Прямокутника»: щоб утримати w == h, set_width міняє й висоту.
+class Square(Rect):
+    def set_width(self, s: int) -> None:
+        self.w = s
+        self.h = s   # ← і висота!
+
+    def set_height(self, s: int) -> None:
+        self.w = s
+        self.h = s
+```
+```java
+// «Квадрат як підтип Прямокутника»: щоб утримати w == h, set_width міняє й висоту.
+class Square extends Rect {
+    @Override public void setWidth(int s)  { w = s; h = s; }   // ← і висота!
+    @Override public void setHeight(int s) { w = s; h = s; }
+}
+```
+```typescript
+// «Квадрат як підтип Прямокутника»: щоб утримати w == h, set_width міняє й висоту.
+class Square extends Rect {
+    setWidth(s: number): void  { this.w = s; this.h = s; }   // ← і висота!
+    setHeight(s: number): void { this.w = s; this.h = s; }
+}
+```
+:::
 
 А ось код, написаний **під прямокутник** — давно, не знаючи про квадрат. Він спирається рівно на ту постумову, що `set_width` не чіпає висоту:
 
-```c
+:::tabs
+```cpp
 // Викликач знає лише Прямокутник. Виставляє сторони незалежно
 // й чекає площу 5 × 4 = 20.
-uint32_t resize_and_area(rect_t *r) {
-    rect_set_height(r, 4);
-    rect_set_width (r, 5);          // постумова: висота лишилась 4
-    return rect_area(r);            // очікувано 20
+uint32_t resize_and_area(Rect &r) {
+    r.set_height(4);
+    r.set_width (5);          // постумова: висота лишилась 4
+    return r.area();          // очікувано 20
 }
 ```
+```python
+# Викликач знає лише Прямокутник. Виставляє сторони незалежно
+# й чекає площу 5 × 4 = 20.
+def resize_and_area(r: Rect) -> int:
+    r.set_height(4)
+    r.set_width(5)            # постумова: висота лишилась 4
+    return r.area()           # очікувано 20
+```
+```java
+// Викликач знає лише Прямокутник. Виставляє сторони незалежно
+// й чекає площу 5 × 4 = 20.
+int resizeAndArea(Rect r) {
+    r.setHeight(4);
+    r.setWidth (5);           // постумова: висота лишилась 4
+    return r.area();          // очікувано 20
+}
+```
+```typescript
+// Викликач знає лише Прямокутник. Виставляє сторони незалежно
+// й чекає площу 5 × 4 = 20.
+function resizeAndArea(r: Rect): number {
+    r.setHeight(4);
+    r.setWidth(5);            // постумова: висота лишилась 4
+    return r.area();          // очікувано 20
+}
+```
+:::
 
 Підставимо сюди квадрат — через спільний інтерфейс, де `set_width` указує на `square_set_width`. Виклик `set_width(5)` тихо переписав висоту на 5, і площа стала `5 × 5 = 25` замість очікуваних `20`. Функція `resize_and_area` не змінилася ні на рядок, а результат тепер хибний — бо підтип **послабив постумову** `set_width` (тепер вона вже не гарантує сталу висоту) і тим самим зламав те, на що розраховував викликач.
 

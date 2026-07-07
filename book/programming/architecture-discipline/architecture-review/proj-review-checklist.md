@@ -46,106 +46,180 @@
 
 Спершу опишемо, з чого складається сесія й окрема знахідка. Знахідка має **тип** — той самий четвертний поділ, що дає ATAM, і плутати ці типи не можна, бо вони вимагають різних дій:
 
-```c
-#include <stdint.h>
-#include <stddef.h>
+:::tabs
+```cpp
+#include <cstdint>
+#include <cstddef>
 
 // Тип знахідки — той самий поділ, що дає ATAM-аналіз.
 // Він не косметичний: кожен тип вимагає СВОЄЇ дії.
-typedef enum {
-    F_RISK,        // рішення МОЖЕ не витягти сценарій → зняти (вимір/прототип/перебудова)
-    F_NONRISK,     // сценарій тримається НАДІЙНО й обґрунтовано → тут НЕ сипати грошима
-    F_SENSITIVITY, // параметр, від якого сильно залежить ОДИН атрибут → не крутити наосліп
-    F_TRADEOFF     // та сама точка тягне КІЛЬКА атрибутів навхрест → свідомо обрати жертву
-} finding_kind_t;
+enum class FindingKind {
+    Risk,        // рішення МОЖЕ не витягти сценарій → зняти (вимір/прототип/перебудова)
+    NonRisk,     // сценарій тримається НАДІЙНО й обґрунтовано → тут НЕ сипати грошима
+    Sensitivity, // параметр, від якого сильно залежить ОДИН атрибут → не крутити наосліп
+    Tradeoff     // та сама точка тягне КІЛЬКА атрибутів навхрест → свідомо обрати жертву
+};
 
 // Стан ризику: живе, доки не доведений до «знято».
-typedef enum {
-    ST_OPEN,        // відкрито: ніхто ще не взявся
-    ST_MITIGATING,  // знімається: власник працює
-    ST_CLOSED       // знято: доведено до кінця (виміряно / перебудовано / прийнято свідомо)
-} finding_state_t;
+enum class FindingState {
+    Open,        // відкрито: ніхто ще не взявся
+    Mitigating,  // знімається: власник працює
+    Closed       // знято: доведено до кінця (виміряно / перебудовано / прийнято свідомо)
+};
 ```
+```python
+from enum import Enum, auto
+
+
+# Тип знахідки — той самий поділ, що дає ATAM-аналіз.
+# Він не косметичний: кожен тип вимагає СВОЄЇ дії.
+class FindingKind(Enum):
+    RISK = auto()         # рішення МОЖЕ не витягти сценарій → зняти (вимір/прототип/перебудова)
+    NON_RISK = auto()     # сценарій тримається НАДІЙНО й обґрунтовано → тут НЕ сипати грошима
+    SENSITIVITY = auto()  # параметр, від якого сильно залежить ОДИН атрибут → не крутити наосліп
+    TRADEOFF = auto()     # та сама точка тягне КІЛЬКА атрибутів навхрест → свідомо обрати жертву
+
+
+# Стан ризику: живе, доки не доведений до «знято».
+class FindingState(Enum):
+    OPEN = auto()        # відкрито: ніхто ще не взявся
+    MITIGATING = auto()  # знімається: власник працює
+    CLOSED = auto()      # знято: доведено до кінця (виміряно / перебудовано / прийнято свідомо)
+```
+:::
 
 Тепер сама знахідка. Ключове тут — **не текст, а поля, без яких знахідка мертва**: сценарій, що її народив; суть; тип; **власник**; стан; дедлайн. Порожній `owner` — це знахідка, за якою не стоїть ніхто, тобто вона помре мовчки:
 
-```c
-typedef struct {
-    const char     *scenario;  // сценарій із мірою, що народив знахідку
-    const char     *finding;   // чим саме структура може не витягти (одним реченням)
-    finding_kind_t  kind;      // ризик / неризик / чутливість / компроміс
-    const char     *owner;     // хто відповідає за зняття; NULL == нічий == мертвий
-    finding_state_t state;     // де знахідка зараз
-    uint16_t        due_day;   // дедлайн зняття, день від старту проєкту (0 == не призначено)
-} arch_finding_t;
+:::tabs
+```cpp
+struct ArchFinding {
+    std::string  scenario;  // сценарій із мірою, що народив знахідку
+    std::string  finding;   // чим саме структура може не витягти (одним реченням)
+    FindingKind  kind;      // ризик / неризик / чутливість / компроміс
+    std::string  owner;     // хто відповідає за зняття; порожній == нічий == мертвий
+    FindingState state;     // де знахідка зараз
+    std::uint16_t due_day;  // дедлайн зняття, день від старту проєкту (0 == не призначено)
+};
 ```
+```python
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class ArchFinding:
+    scenario: str           # сценарій із мірою, що народив знахідку
+    finding: str            # чим саме структура може не витягти (одним реченням)
+    kind: FindingKind       # ризик / неризик / чутливість / компроміс
+    owner: str | None       # хто відповідає за зняття; None == нічий == мертвий
+    state: FindingState     # де знахідка зараз
+    due_day: int = 0        # дедлайн зняття, день від старту проєкту (0 == не призначено)
+```
+:::
 
 А ось уся сесія як один об'єкт — метадані розбору плюс масив знахідок:
 
-```c
-typedef struct {
-    const char           *system;      // що ревʼюємо
-    uint16_t              review_day;  // день сесії від старту проєкту
-    const char           *facilitator; // хто вів (щоб знати, з кого спитати про сесію)
-    const arch_finding_t *findings;    // знахідки цієї сесії
-    size_t                count;       // скільки їх
-} arch_review_session_t;
+:::tabs
+```cpp
+struct ArchReviewSession {
+    std::string  system;      // що ревʼюємо
+    std::uint16_t review_day; // день сесії від старту проєкту
+    std::string  facilitator; // хто вів (щоб знати, з кого спитати про сесію)
+    std::vector<ArchFinding> findings; // знахідки цієї сесії
+    // (розмір несе сам вектор — окреме поле count зайве)
+};
 ```
+```python
+@dataclass(frozen=True)
+class ArchReviewSession:
+    system: str                    # що ревʼюємо
+    review_day: int                # день сесії від старту проєкту
+    facilitator: str               # хто вів (щоб знати, з кого спитати про сесію)
+    findings: list[ArchFinding]    # знахідки цієї сесії
+    # (розмір несе сам список — окреме поле count зайве)
+```
+:::
 
 Заповнена сесія — це буквально протокол того нашого прикладу з аварійним стопом:
 
-```c
-static const arch_finding_t may_findings[] = {
+:::tabs
+```cpp
+static const std::vector<ArchFinding> may_findings = {
     { "стоп на повному ході → мотор стоїть за < 200 мс",
       "стоп у спільній черзі з телеметрією; під піком спізнюється",
-      F_RISK, "Оля", ST_MITIGATING, 14 },
+      FindingKind::Risk, "Оля", FindingState::Mitigating, 14 },
 
     { "новий тип давача додається без правки ядра керування",
       "тип давача зашитий у 6 місцях замість одного",
-      F_RISK, "Тарас", ST_OPEN, 30 },
+      FindingKind::Risk, "Тарас", FindingState::Open, 30 },
 
     { "стоп на повному ході → мотор стоїть за < 200 мс",
       "апаратне переривання поза чергою — 200 мс тримаються завжди",
-      F_NONRISK, "Оля", ST_CLOSED, 0 },
+      FindingKind::NonRisk, "Оля", FindingState::Closed, 0 },
 
     { "синхронна копія журналу в друге сховище",
       "піднімає надійність, опускає латентність запису на ~30 мс",
-      F_TRADEOFF, NULL, ST_OPEN, 0 },   // ← навмисна діра: компроміс без власника
+      FindingKind::Tradeoff, "", FindingState::Open, 0 },   // ← навмисна діра: компроміс без власника
 };
 
-static const arch_review_session_t may_review = {
+static const ArchReviewSession may_review = {
     .system      = "контролер приводу v2",
     .review_day  = 3,
     .facilitator = "Ігор",
     .findings    = may_findings,
-    .count       = sizeof(may_findings) / sizeof(may_findings[0]),
 };
 ```
+```python
+may_findings = [
+    ArchFinding("стоп на повному ході → мотор стоїть за < 200 мс",
+                "стоп у спільній черзі з телеметрією; під піком спізнюється",
+                FindingKind.RISK, "Оля", FindingState.MITIGATING, 14),
+
+    ArchFinding("новий тип давача додається без правки ядра керування",
+                "тип давача зашитий у 6 місцях замість одного",
+                FindingKind.RISK, "Тарас", FindingState.OPEN, 30),
+
+    ArchFinding("стоп на повному ході → мотор стоїть за < 200 мс",
+                "апаратне переривання поза чергою — 200 мс тримаються завжди",
+                FindingKind.NON_RISK, "Оля", FindingState.CLOSED, 0),
+
+    ArchFinding("синхронна копія журналу в друге сховище",
+                "піднімає надійність, опускає латентність запису на ~30 мс",
+                FindingKind.TRADEOFF, None, FindingState.OPEN, 0),   # ← навмисна діра: компроміс без власника
+]
+
+may_review = ArchReviewSession(
+    system="контролер приводу v2",
+    review_day=3,
+    facilitator="Ігор",
+    findings=may_findings,
+)
+```
+:::
 
 ### Проста функція, що ловить незавершене рев'ю
 
 Тепер — заради чого все це. Найпоширеніша тиха поразка рев'ю — **знахідка без власника** й **ризик, який так і лишився відкритим**. Обидві вади механічні, тобто їх можна спіймати кодом, не покладаючись на людську пильність. Правило одне: **рев'ю не завершене, доки лишається хоч один відкритий ризик без власника** — тобто `owner == NULL` **або** ще `state == ST_OPEN`. Порахуймо такі:
 
-```c
+:::tabs
+```cpp
 // Скільки знахідок роблять рев'ю НЕзавершеним:
 // відкритий ризик, за яким ніхто не стоїть або який ще не зрушив з місця.
-// Рахуємо лише F_RISK: неризик за визначенням не треба нікому «знімати»,
+// Рахуємо лише Risk: неризик за визначенням не треба нікому «знімати»,
 // а чутливість/компроміс без обраної жертви — теж борг, тож ловимо і їх,
-// коли вони ще OPEN. Але СИГНАЛ провалу — саме безхазяйний або незрушений ризик.
-static size_t review_open_liabilities(const arch_review_session_t *s) {
-    size_t bad = 0;
-    for (size_t i = 0; i < s->count; ++i) {
-        const arch_finding_t *f = &s->findings[i];
+// коли вони ще Open. Але СИГНАЛ провалу — саме безхазяйний або незрушений ризик.
+static std::size_t review_open_liabilities(const ArchReviewSession &s) {
+    std::size_t bad = 0;
+    for (const ArchFinding &f : s.findings) {
 
         // Неризик закривати нікому не треба — пропускаємо.
-        if (f->kind == F_NONRISK)
+        if (f.kind == FindingKind::NonRisk)
             continue;
 
         // Ризик/чутливість/компроміс вважаємо боргом, якщо:
         //   немає власника  АБО  дедлайн не призначено  АБО  ще не зрушив.
-        int no_owner    = (f->owner == NULL || f->owner[0] == '\0');
-        int no_deadline = (f->due_day == 0 && f->state != ST_CLOSED);
-        int not_started = (f->state == ST_OPEN);
+        bool no_owner    = f.owner.empty();
+        bool no_deadline = (f.due_day == 0 && f.state != FindingState::Closed);
+        bool not_started = (f.state == FindingState::Open);
 
         if (no_owner || no_deadline || not_started)
             ++bad;
@@ -154,10 +228,40 @@ static size_t review_open_liabilities(const arch_review_session_t *s) {
 }
 
 // Рев'ю завершене лише коли боргів нуль.
-static int review_is_complete(const arch_review_session_t *s) {
+static bool review_is_complete(const ArchReviewSession &s) {
     return review_open_liabilities(s) == 0;
 }
 ```
+```python
+# Скільки знахідок роблять рев'ю НЕзавершеним:
+# відкритий ризик, за яким ніхто не стоїть або який ще не зрушив з місця.
+# Рахуємо лише RISK: неризик за визначенням не треба нікому «знімати»,
+# а чутливість/компроміс без обраної жертви — теж борг, тож ловимо і їх,
+# коли вони ще OPEN. Але СИГНАЛ провалу — саме безхазяйний або незрушений ризик.
+def review_open_liabilities(s: ArchReviewSession) -> int:
+    bad = 0
+    for f in s.findings:
+
+        # Неризик закривати нікому не треба — пропускаємо.
+        if f.kind is FindingKind.NON_RISK:
+            continue
+
+        # Ризик/чутливість/компроміс вважаємо боргом, якщо:
+        #   немає власника  АБО  дедлайн не призначено  АБО  ще не зрушив.
+        no_owner = not f.owner
+        no_deadline = f.due_day == 0 and f.state is not FindingState.CLOSED
+        not_started = f.state is FindingState.OPEN
+
+        if no_owner or no_deadline or not_started:
+            bad += 1
+    return bad
+
+
+# Рев'ю завершене лише коли боргів нуль.
+def review_is_complete(s: ArchReviewSession) -> bool:
+    return review_open_liabilities(s) == 0
+```
+:::
 
 Пуант — не в майстерності коду, а в тому, що **питання «чи завершене рев'ю?» стає механічним**. Прогнавши `may_review` крізь `review_open_liabilities`, дістанемо не нуль: обидва `F_RISK` ще не `ST_CLOSED` (`Оля` в процесі, `Тарас` навіть не почав), а `F_TRADEOFF` узагалі без власника й дедлайну. Функція чесно каже: **три борги, рев'ю не завершене**. І це правильна відповідь — сесія відбулася, але робота, яку вона породила, ще не зроблена; доти реліз не має права вважати архітектуру «переглянутою».
 

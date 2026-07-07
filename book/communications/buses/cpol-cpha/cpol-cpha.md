@@ -92,6 +92,7 @@ Mode 3  (CPOL=1, CPHA=1):  спокій 1, перший фронт = спада�
 
 Лишається виставити режим у програмі. У світі Arduino його задають разом зі швидкістю й порядком біт:
 
+:::tabs
 ```cpp
 // швидкість 8 МГц, старший біт першим, режим 0
 SPISettings cfg(8000000, MSBFIRST, SPI_MODE0);
@@ -99,6 +100,14 @@ SPI.beginTransaction(cfg);
 uint8_t r = SPI.transfer(0x9F);   // обмін: і пише, і читає одночасно
 SPI.endTransaction();
 ```
+```python
+from machine import SPI
+
+# швидкість 8 МГц, старший біт першим, режим 0 → polarity=0, phase=0
+spi = SPI(0, baudrate=8_000_000, firstbit=SPI.MSB, polarity=0, phase=0)
+r = spi.read(1, 0x9F)   # обмін: і пише, і читає одночасно
+```
+:::
 
 Константи `SPI_MODE0`…`SPI_MODE3` — це і є чотири пари (CPOL, CPHA): `SPI_MODE0` = (0,0), `SPI_MODE1` = (0,1), `SPI_MODE2` = (1,0), `SPI_MODE3` = (1,1). Жодної магії — той самий вибір двох біт, лише під зрозумілою назвою.
 

@@ -33,22 +33,48 @@ z₂ = R·sin(θ)        # друге гаусове, N(0, 1)
 
 Лишається загорнути ці чотири рядки у функцію, що віддає по одному числу на виклик:
 
-```
-має_запас = false          # один із двох виходів кешуємо
-запас     = 0.0
+:::tabs
+```c
+#include <stdlib.h>
+#include <math.h>
 
-function gauss():
-    if має_запас:
-        має_запас = false
-        return запас       # віддаємо раніше пораховане z₂
-    u1 = rand_0_1()        # рівномірне у [0, 1)
-    u2 = rand_0_1()        # рівномірне у (0, 1]
-    θ  = 2.0 * π * u1
-    R  = sqrt(-2.0 * ln(u2))
-    запас     = R * sin(θ) # z₂ — на потім
-    має_запас = true
-    return R * cos(θ)      # z₁ — зараз
+// рівномірне у (0, 1]: зсув на +1 гарантує, що нуль під ln не випаде
+static double rand_0_1(void) {
+    return (rand() + 1.0) / (RAND_MAX + 1.0);
+}
+
+double gauss(void) {
+    static int    has_spare = 0;   // один із двох виходів кешуємо
+    static double spare     = 0.0;
+    if (has_spare) {
+        has_spare = 0;
+        return spare;              // віддаємо раніше пораховане z₂
+    }
+    double u1 = rand_0_1();
+    double u2 = rand_0_1();
+    double theta = 2.0 * M_PI * u1;
+    double R     = sqrt(-2.0 * log(u2));
+    spare     = R * sin(theta);    // z₂ — на потім
+    has_spare = 1;
+    return R * cos(theta);         // z₁ — зараз
+}
 ```
+```python
+import math
+import random
+
+
+def gauss():
+    """Нескінченний потік N(0, 1): по одному числу на next()."""
+    while True:
+        u1 = random.random()                 # рівномірне у [0, 1)
+        u2 = 1.0 - random.random()           # рівномірне у (0, 1]: нуль під ln не випаде
+        theta = 2.0 * math.pi * u1
+        R     = math.sqrt(-2.0 * math.log(u2))
+        yield R * math.cos(theta)            # z₁ — зараз
+        yield R * math.sin(theta)            # z₂ — пара віддається наступним next()
+```
+:::
 
 Дрібниця з наслідком: Бокс—Мюллер народжує числа **парами**, тож друге значення гріх викидати — кешуємо його й віддаємо за наступним викликом. Так один логарифм і одна пара синус-косинус припадають на **два** гаусові числа.
 

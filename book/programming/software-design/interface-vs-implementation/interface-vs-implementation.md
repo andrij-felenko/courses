@@ -55,6 +55,7 @@ void     counter_free(Counter *c)     { free(c); }
 
 У C++ ту саму лінію проводять інакше — **чисто віртуальними методами**. Абстрактний клас оголошує обіцянку, а нащадки дають різні реалізації:
 
+:::tabs
 ```cpp
 // Обіцянка: будь-хто, хто вміє віддати температуру.
 struct SensorReader {
@@ -62,9 +63,20 @@ struct SensorReader {
     virtual ~SensorReader() = default;
 };
 ```
+```python
+from abc import ABC, abstractmethod
+
+# Обіцянка: будь-хто, хто вміє віддати температуру.
+class SensorReader(ABC):
+    @abstractmethod
+    def read(self) -> float:       # @abstractmethod : реалізації тут нема, лише контракт
+        ...
+```
+:::
 
 Той, хто користується `SensorReader`, тримає вказівник на обіцянку й не знає, який саме механізм за нею стоїть. А стоятиме будь-який:
 
+:::tabs
 ```cpp
 struct FakeSensor : SensorReader { float read() override { return 25.0f; } };     // для тесту
 struct I2cSensor  : SensorReader { float read() override { return i2c_read(); } };// реальний давач
@@ -73,6 +85,17 @@ void log_temperature(SensorReader& s) {   // працює з ОБІЦЯНКОЮ,
     printf("t = %.1f\n", s.read());
 }
 ```
+```python
+class FakeSensor(SensorReader):
+    def read(self) -> float: return 25.0        # для тесту
+
+class I2cSensor(SensorReader):
+    def read(self) -> float: return i2c_read()  # реальний давач
+
+def log_temperature(s: SensorReader) -> None:   # працює з ОБІЦЯНКОЮ, не з механізмом
+    print(f"t = {s.read():.1f}")
+```
+:::
 
 Функція `log_temperature` написана раз і працює з **усіма** реалізаціями: підставиш `FakeSensor` у тесті, `I2cSensor` у бойовому коді — код журналювання не змінюється ні на символ.
 

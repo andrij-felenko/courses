@@ -103,6 +103,7 @@
 
 **Умова: ESP32 під'єднується до Wi-Fi і шле UDP-пакет на пристрій із відомою IP. Жодного MAC у коді — його знайде ARP.**
 
+:::tabs
 ```cpp
 #include <WiFi.h>
 #include <WiFiUdp.h>
@@ -128,6 +129,28 @@ void loop() {
     delay(1000);
 }
 ```
+```micropython
+import network, socket, time, ubinascii
+
+target = ("192.168.1.42", 5000)      # знаємо IP цілі; MAC — ні, його з'ясує ARP
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect("my-ssid", "my-pass")   # підключення: роутер видасть нам IP по DHCP
+while not wlan.isconnected():
+    time.sleep_ms(200)
+
+# наша IP — її ПРИЗНАЧИЛА мережа (не вшита в чіп):
+print("my IP :", wlan.ifconfig()[0])
+# наша MAC — ВШИТА в залізо, стала:
+print("my MAC:", ubinascii.hexlify(wlan.config("mac"), ":").decode())
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+while True:
+    sock.sendto(b"ping", target)     # кажемо лише IP+порт; стек сам: ARP → MAC → кадр
+    time.sleep(1)
+```
+:::
 
 Перший раз, коли `endPacket()` спрацює на нову ціль, у мережі тихо проскочить ARP-запит, відповідь ляже в кеш — і далі кадри підуть без жодного крику, доки запис не застаріє. Усе це нижче за код: ти попросив «на IP» — стек подбав про «на MAC».
 

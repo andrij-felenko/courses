@@ -45,6 +45,7 @@
 
 Подивімося, як абстрагування джерела перетворює неперевірний код на перевірний. Ось логіка, яка сама лізе по час і по дані — і тому непіддатлива тесту:
 
+:::tabs
 ```cpp
 // НЕ протестувати передбачувано: функція сама дістає час і курс,
 // тест не може задати ні «яке зараз», ні «який курс».
@@ -56,9 +57,21 @@ double order_total(const Order& o) {
     return sum;
 }
 ```
+```python
+# НЕ протестувати передбачувано: функція сама дістає час і курс,
+# тест не може задати ні «яке зараз», ні «який курс».
+def order_total(order):
+    rate = fetch_rate_from_bank()             # мережа: щоразу інший результат
+    total = order.amount * rate
+    if is_weekend(datetime.now()):            # системний годинник: не задати
+        total *= 1.05                         # націнка вихідного дня
+    return total
+```
+:::
 
 Тут два джерела недосяжні для керування: курс приходить із мережі, а «сьогодні вихідний?» — із системного годинника. Тест не може ні зафіксувати курс, ні прикинутися, що зараз субота. Винесімо обидва входи назовні за інтерфейс:
 
+:::tabs
 ```cpp
 // Джерела стали параметрами через інтерфейси — тест підставить свої.
 struct RateSource { virtual double rate() = 0; };
@@ -71,9 +84,25 @@ double order_total(const Order& o, RateSource& rates, Clock& clock) {
     return sum;
 }
 ```
+```python
+# Джерела стали параметрами через інтерфейси — тест підставить свої.
+class RateSource(Protocol):
+    def rate(self) -> float: ...
+
+class Clock(Protocol):
+    def is_weekend(self) -> bool: ...
+
+def order_total(order, rates: RateSource, clock: Clock) -> float:
+    total = order.amount * rates.rate()
+    if clock.is_weekend():
+        total *= 1.05
+    return total
+```
+:::
 
 Тепер керованість з'явилася сама собою. У бою підставляють справжні реалізації, а тест подає підроблені з наперед відомими значеннями:
 
+:::tabs
 ```cpp
 // Підроблені джерела: курс і день задаємо ми — вхід під повним контролем.
 struct FakeRate  : RateSource { double rate() override { return 40.0; } };
@@ -87,6 +116,21 @@ void test_weekend_surcharge() {
     assert(std::abs(got - 4200.0) < 1e-9);
 }
 ```
+```python
+# Підроблені джерела: курс і день задаємо ми — вхід під повним контролем.
+class FakeRate:
+    def rate(self) -> float: return 40.0
+
+class SatClock:
+    def is_weekend(self) -> bool: return True
+
+def test_weekend_surcharge():
+    order = Order(amount=100.0)
+    got = order_total(order, FakeRate(), SatClock())
+    # 100 · 40 = 4000, вихідний → ×1.05 = 4200. Точне, відтворюване число.
+    assert abs(got - 4200.0) < 1e-9
+```
+:::
 
 Логіка не змінилася — змінилося те, що вхід тепер **подають**, а не дістають. Одне архітектурне рішення (залежність від інтерфейсу, а не від конкретного джерела) відкрило обидва важелі: керування — ми задаємо курс і день; спостереження — результат повертається назовні числом, яке можна звірити.
 

@@ -1,0 +1,52 @@
+ANALYSIS OF CODE BLOCKS (Lines 1801-1810)
+
+FILE: book/programming/embedded-systems/capstone-task/capstone-task.md
+- Line 28: ```c - REAL CODE: #define TICK_US and control loop - Purpose: Control loop timing - Level: api (taimer-based HAL) - Domain: embedded
+- Line 74: ```c - REAL CODE: ISR pulse counter with volatile/noInterrupts - Purpose: Atomic read from ISR - Level: low (critical ISR/memory) - Domain: embedded  
+- Line 102: ```c - REAL CODE: State machine enum and switch - Purpose: Mode transitions - Level: general (algorithm/logic) - Domain: embedded
+
+FILE: book/programming/embedded-systems/capture-compare/capture-compare.md
+NO CODE BLOCKS (only text and diagrams)
+
+FILE: book/programming/embedded-systems/capture-compare/proj-input-capture.md
+NO CODE BLOCKS (only text and diagrams)
+
+FILE: book/programming/embedded-systems/clock-power/clock-power.md
+NO CODE BLOCKS (only text and diagrams)
+
+FILE: book/programming/embedded-systems/clock-power/comp-crystal.md
+NO CODE BLOCKS (only text and diagrams)
+
+FILE: book/programming/embedded-systems/clock-power/math-clock-tree.md
+- Line 20: ```\n formula text - NOT CODE (formula dump) - SKIP
+- Line 42: ```\n formula text - NOT CODE (formula dump) - SKIP
+
+FILE: book/programming/embedded-systems/cortex-m/cortex-m-d.md
+- Line 11: ```\n memory map as text table - NOT CODE (data dump) - SKIP
+- Line 42: ```\n vector table as text/comments - NOT CODE (data dump) - SKIP
+- Line 70: ``` bitmap diagram - NOT CODE (ASCII diagram) - SKIP
+- Line 110: ``` stack frame diagram - NOT CODE (ASCII diagram) - SKIP
+- Line 146: ```c - REAL CODE: SysTick_Handler setup - Purpose: Timer configuration - Level: api (peripheral HAL) - Domain: embedded
+- Line 183: ```\n formula text - NOT CODE (formula dump) - SKIP
+- Line 193: ``` profile comparison table - NOT CODE (data table) - SKIP
+
+FILE: book/programming/embedded-systems/cortex-m/cortex-m.md
+- Line 26: ```c - REAL CODE: NVIC_SetPriority call + comparison comment - Purpose: Interrupt setup - Level: api (CMSIS API) - Domain: embedded
+
+FILE: book/programming/embedded-systems/current-paths/comp-sensor-standby.md
+- Line 48: ```\n wiring text diagram - NOT CODE (schematic text) - SKIP
+- Line 84: ```cpp - REAL CODE: Wire.h I2C sensor sleep - Purpose: Put sensors in sleep mode - Level: api (peripheral HAL) - Domain: embedded
+
+FILE: book/programming/embedded-systems/current-paths/current-paths.md
+- Line 29: ```\n formula text - NOT CODE (formula dump) - SKIP
+- Line 66: ```\n formula text - NOT CODE (formula dump) - SKIP
+- Line 76: ```cpp - REAL CODE: commented power calculation example - Purpose: Measurement cycle breakdown - Level: general (calculation logic) - Domain: embedded
+
+SUMMARY OF REAL CODE BLOCKS: 6 total
+1. capstone-task.md:28 - c - control loop
+2. capstone-task.md:74 - c - ISR atomic ops
+3. capstone-task.md:102 - c - state machine
+4. cortex-m-d.md:146 - c - SysTick init
+5. cortex-m.md:26 - c - NVIC setup
+6. comp-sensor-standby.md:84 - cpp - I2C sensor sleep
+7. current-paths.md:76 - cpp - power breakdown

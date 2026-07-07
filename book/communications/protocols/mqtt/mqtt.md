@@ -102,6 +102,7 @@
 
 **Умова: на ESP32 (Wi-Fi уже піднято) під'єднатися до брокера за адресою `mqtt://192.168.1.10`, після з'єднання підписатися на `home/room/cmd` і опублікувати температуру в `home/room/temp` із прапорцем retain (QoS 1); коли на топік команд прийде повідомлення — вивести його.**
 
+:::tabs
 ```c
 #include "mqtt_client.h"   // клієнт ESP-MQTT з ESP-IDF
 #include "esp_log.h"
@@ -163,6 +164,33 @@ void mqtt_start(void)
     esp_mqtt_client_start(client);   // під'єднатись і крутити обмін у фоні
 }
 ```
+```python
+# Той самий клієнт мовою Python — бібліотека paho-mqtt.
+import paho.mqtt.client as mqtt
+
+# на з'єднання: підписуємось на топік команд і публікуємо показання
+def on_connect(client, userdata, flags, rc):
+    client.subscribe("home/room/cmd", qos=1)          # 1) топік команд (QoS 1)
+    # 2) показання: QoS 1, retain=True (брокер запам'ятає як останнє значення)
+    client.publish("home/room/temp", "23.4", qos=1, retain=True)
+    print("під'єднано: підписались і опублікували")
+
+# прийшло повідомлення на топік, на який ми підписані
+def on_message(client, userdata, msg):
+    # тут payload — це bytes, тож декодуємо в рядок
+    print(f"топік {msg.topic} = {msg.payload.decode()}")
+
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+
+# "остання воля": брокер опублікує, якщо ми зникнемо раптово
+client.will_set("home/room/status", "offline", qos=1, retain=True)
+
+client.connect("192.168.1.10", 1883, keepalive=60)    # адреса брокера, keepalive 60 с
+client.loop_forever()   # під'єднатись і крутити обмін (пінги — сама бібліотека)
+```
+:::
 
 Пройдімо коло за кроком. `esp_mqtt_client_init` лише готує клієнта за конфігурацією: адреса брокера, заповіт (топік `home/room/status`, текст «offline», який брокер опублікує, якщо ми зникнемо), та інтервал keepalive 60 секунд. `esp_mqtt_client_start` під'єднується до брокера й далі сам, у фоні, тримає з'єднання та шле пінги — нам лишається тільки реагувати на події в `mqtt_event_handler`.
 

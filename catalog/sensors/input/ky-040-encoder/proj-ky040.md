@@ -97,6 +97,7 @@ void onClkFall() {
 
 Стани машини (для повнокрокового режиму — коли крок зараховуємо раз на клац):
 
+:::tabs
 ```cpp
 // прапорці напряму — у старших бітах результату
 #define DIR_NONE 0x00   // цикл ще не завершено
@@ -130,9 +131,77 @@ const uint8_t ttable[7][4] = {
   {R_CCW_NEXT,  R_CCW_FINAL, R_CCW_BEGIN, R_START},
 };
 ```
+```python
+# прапорці напряму — у старших бітах результату
+DIR_NONE = 0x00   # цикл ще не завершено
+DIR_CW   = 0x10   # завершено крок за годинниковою
+DIR_CCW  = 0x20   # завершено крок проти годинникової
+
+# стани самого автомата (проміжні кроки обходу кільця)
+R_START     = 0x0
+R_CW_FINAL  = 0x1
+R_CW_BEGIN  = 0x2
+R_CW_NEXT   = 0x3
+R_CCW_BEGIN = 0x4
+R_CCW_FINAL = 0x5
+R_CCW_NEXT  = 0x6
+
+# повнокрокова таблиця: рядок = стан, стовпець = зчитане (CLK<<1)|DT ∈ {0,1,2,3}
+TTABLE = (
+    # R_START:      00           01           10           11
+    (R_START,     R_CW_BEGIN,  R_CCW_BEGIN, R_START),
+    # R_CW_FINAL
+    (R_CW_NEXT,   R_START,     R_CW_FINAL,  R_START | DIR_CW),
+    # R_CW_BEGIN
+    (R_CW_NEXT,   R_CW_BEGIN,  R_START,     R_START),
+    # R_CW_NEXT
+    (R_CW_NEXT,   R_CW_BEGIN,  R_CW_FINAL,  R_START),
+    # R_CCW_BEGIN
+    (R_CCW_NEXT,  R_START,     R_CCW_BEGIN, R_START),
+    # R_CCW_FINAL
+    (R_CCW_NEXT,  R_CCW_FINAL, R_START,     R_START | DIR_CCW),
+    # R_CCW_NEXT
+    (R_CCW_NEXT,  R_CCW_FINAL, R_CCW_BEGIN, R_START),
+)
+```
+```micropython
+# прапорці напряму — у старших бітах результату
+DIR_NONE = const(0x00)   # цикл ще не завершено
+DIR_CW   = const(0x10)   # завершено крок за годинниковою
+DIR_CCW  = const(0x20)   # завершено крок проти годинникової
+
+# стани самого автомата (проміжні кроки обходу кільця)
+R_START     = const(0x0)
+R_CW_FINAL  = const(0x1)
+R_CW_BEGIN  = const(0x2)
+R_CW_NEXT   = const(0x3)
+R_CCW_BEGIN = const(0x4)
+R_CCW_FINAL = const(0x5)
+R_CCW_NEXT  = const(0x6)
+
+# повнокрокова таблиця: рядок = стан, стовпець = зчитане (CLK<<1)|DT ∈ {0,1,2,3}
+TTABLE = (
+    # R_START:      00           01           10           11
+    (R_START,     R_CW_BEGIN,  R_CCW_BEGIN, R_START),
+    # R_CW_FINAL
+    (R_CW_NEXT,   R_START,     R_CW_FINAL,  R_START | DIR_CW),
+    # R_CW_BEGIN
+    (R_CW_NEXT,   R_CW_BEGIN,  R_START,     R_START),
+    # R_CW_NEXT
+    (R_CW_NEXT,   R_CW_BEGIN,  R_CW_FINAL,  R_START),
+    # R_CCW_BEGIN
+    (R_CCW_NEXT,  R_START,     R_CCW_BEGIN, R_START),
+    # R_CCW_FINAL
+    (R_CCW_NEXT,  R_CCW_FINAL, R_START,     R_START | DIR_CCW),
+    # R_CCW_NEXT
+    (R_CCW_NEXT,  R_CCW_FINAL, R_CCW_BEGIN, R_START),
+)
+```
+:::
 
 Уся робота декодера тепер — **один рядок**:
 
+:::tabs
 ```cpp
 uint8_t processEncoder(uint8_t clk, uint8_t dt) {
   static uint8_t state = R_START;
@@ -141,6 +210,25 @@ uint8_t processEncoder(uint8_t clk, uint8_t dt) {
   return state & 0x30;                           // старші біти — DIR_CW / DIR_CCW / 0
 }
 ```
+```python
+_state = R_START
+
+def process_encoder(clk, dt):
+    global _state
+    pin = (clk << 1) | dt                        # пара як двобітне число 0..3
+    _state = TTABLE[_state & 0x0F][pin]          # низькі 4 біти — індекс стану
+    return _state & 0x30                         # старші біти — DIR_CW / DIR_CCW / 0
+```
+```micropython
+_state = R_START
+
+def process_encoder(clk, dt):
+    global _state
+    pin = (clk << 1) | dt                        # пара як двобітне число 0..3
+    _state = TTABLE[_state & 0x0F][pin]          # низькі 4 біти — індекс стану
+    return _state & 0x30                         # старші біти — DIR_CW / DIR_CCW / 0
+```
+:::
 
 Прочитаймо, що тут відбувається, бо це серце всього. Зчитали пару → склали двобітне число → зазирнули в таблицю по (поточний стан, це число) → отримали новий стан. У новому стані молодші 4 біти — куди перейшла машина далі; старші (`0x30`-маска) — прапорець: якщо `DIR_CW` чи `DIR_CCW`, то саме цим викликом завершився повний крок, час рухати лічильник. Якщо там нуль — крок ще триває або це був брязкіт, який машину нікуди не просунув.
 
@@ -350,6 +438,7 @@ void loop() {
 
 Іноді 20 клацань на оберт замало — хочеться реагувати не раз на фіксатор, а **двічі**: на кожен «півклац». Тоді беруть **півкрокову** таблицю: вона зараховує напрям на кожному переході через стани `00` і `11`, тобто дає два відліки на повний квадратурний цикл замість одного.
 
+:::tabs
 ```cpp
 // Півкрокові стани
 #define R_START      0x0
@@ -374,6 +463,55 @@ const uint8_t ttable_half[6][4] = {
   {R_START_M,           R_CCW_BEGIN_M, R_START_M,     R_START | DIR_CCW},
 };
 ```
+```python
+# Півкрокові стани
+R_START       = 0x0
+R_CCW_BEGIN   = 0x1
+R_CW_BEGIN    = 0x2
+R_START_M     = 0x3
+R_CW_BEGIN_M  = 0x4
+R_CCW_BEGIN_M = 0x5
+
+TTABLE_HALF = (
+    # R_START
+    (R_START_M,           R_CW_BEGIN,    R_CCW_BEGIN,   R_START),
+    # R_CCW_BEGIN
+    (R_START_M | DIR_CCW, R_START,       R_CCW_BEGIN,   R_START),
+    # R_CW_BEGIN
+    (R_START_M | DIR_CW,  R_CW_BEGIN,    R_START,       R_START),
+    # R_START_M (проміжний «спокій» усередині циклу)
+    (R_START_M,           R_CCW_BEGIN_M, R_CW_BEGIN_M,  R_START),
+    # R_CW_BEGIN_M
+    (R_START_M,           R_START_M,     R_CW_BEGIN_M,  R_START | DIR_CW),
+    # R_CCW_BEGIN_M
+    (R_START_M,           R_CCW_BEGIN_M, R_START_M,     R_START | DIR_CCW),
+)
+```
+```micropython
+# Півкрокові стани
+R_START       = const(0x0)
+R_CCW_BEGIN   = const(0x1)
+R_CW_BEGIN    = const(0x2)
+R_START_M     = const(0x3)
+R_CW_BEGIN_M  = const(0x4)
+R_CCW_BEGIN_M = const(0x5)
+
+TTABLE_HALF = (
+    # R_START
+    (R_START_M,           R_CW_BEGIN,    R_CCW_BEGIN,   R_START),
+    # R_CCW_BEGIN
+    (R_START_M | DIR_CCW, R_START,       R_CCW_BEGIN,   R_START),
+    # R_CW_BEGIN
+    (R_START_M | DIR_CW,  R_CW_BEGIN,    R_START,       R_START),
+    # R_START_M (проміжний «спокій» усередині циклу)
+    (R_START_M,           R_CCW_BEGIN_M, R_CW_BEGIN_M,  R_START),
+    # R_CW_BEGIN_M
+    (R_START_M,           R_START_M,     R_CW_BEGIN_M,  R_START | DIR_CW),
+    # R_CCW_BEGIN_M
+    (R_START_M,           R_CCW_BEGIN_M, R_START_M,     R_START | DIR_CCW),
+)
+```
+:::
 
 Логіка `process()` та сама — міняється лише таблиця й розмір масиву (`[6][4]`). Коли який режим брати:
 

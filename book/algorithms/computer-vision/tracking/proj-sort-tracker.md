@@ -23,7 +23,8 @@ SORT складають рівно чотири деталі, кожну з як
 
 Кожна координата рамки веде власний фільтр зі станом [значення, швидкість]. Це прямий код рівнянь predict/update для моделі сталої швидкості; усі матричні добутки для 2×2 розписано в скаляри, тож ні циклів, ні обернень матриць:
 
-```c
+:::tabs
+```cpp
 #include <stdint.h>
 #include <stdbool.h>
 #include <math.h>
@@ -64,12 +65,50 @@ static void kf1_update(KF1 *k, float z) {
     k->p00 = p00;  k->p01 = p01;  k->p11 = p11;
 }
 ```
+```python
+import math
+
+class KF1:
+    """Один канал: стан [v, vel], коваріація P (2x2 симетрична: p00,p01,p11)."""
+
+    def __init__(self, v0, q_pos, q_vel, r):
+        self.v = v0            # значення
+        self.vel = 0.0         # його швидкість
+        self.p00 = 10.0        # коваріація стану
+        self.p01 = 0.0
+        self.p11 = 1000.0      # P широка по швидкості
+        self.q_pos = q_pos     # шум процесу (положення)
+        self.q_vel = q_vel     # шум процесу (швидкість)
+        self.r = r             # шум виміру
+
+    # PREDICT: x ← F·x,  P ← F·P·Fᵀ + Q   (Δt = 1 кадр)
+    def predict(self):
+        self.v += self.vel                                    # v' = v + vel
+        self.p00 += 2.0 * self.p01 + self.p11 + self.q_pos    # розкручений F·P·Fᵀ
+        self.p01 += self.p11
+        self.p11 += self.q_vel
+
+    # UPDATE: стягнути стан до виміру z
+    def update(self, z):
+        y = z - self.v                    # нев'язка
+        s = self.p00 + self.r             # коваріація нев'язки
+        k0 = self.p00 / s                 # підсилення (положення)
+        k1 = self.p01 / s                 # підсилення (швидкість)
+        self.v += k0 * y
+        self.vel += k1 * y
+        p00 = (1.0 - k0) * self.p00       # P ← (I − K·H)·P
+        p01 = (1.0 - k0) * self.p01
+        p11 = self.p11 - k1 * self.p01
+        self.p00, self.p01, self.p11 = p00, p01, p11
+```
+:::
 
 ### Рамка, IoU і трек
 
 Рамку веде по одному фільтру на кожну з чотирьох координат (центр x, центр y, ширина, висота). Структура треку тримає ці чотири фільтри плюс лічильники життєвого циклу:
 
-```c
+:::tabs
+```cpp
 typedef struct { float x, y, w, h; } Rect;   /* центр (x,y) і розмір */
 
 typedef enum { TENTATIVE, CONFIRMED, DELETED } TrackState;
@@ -118,12 +157,68 @@ static void track_init(Track *t, int id, Rect d) {
     kf1_init(&t->fh, d.h, 1.0f, 10.0f, 4.0f);
 }
 ```
+```python
+from dataclasses import dataclass
+from enum import Enum
+
+
+@dataclass
+class Rect:               # центр (x,y) і розмір
+    x: float
+    y: float
+    w: float
+    h: float
+
+
+class TrackState(Enum):
+    TENTATIVE = 0
+    CONFIRMED = 1
+    DELETED = 2
+
+
+# перекриття двох рамок: перетин до об'єднання (0..1)
+def iou(a, b):
+    ax0, ax1 = a.x - a.w * 0.5, a.x + a.w * 0.5
+    ay0, ay1 = a.y - a.h * 0.5, a.y + a.h * 0.5
+    bx0, bx1 = b.x - b.w * 0.5, b.x + b.w * 0.5
+    by0, by1 = b.y - b.h * 0.5, b.y + b.h * 0.5
+    ix = max(0.0, min(ax1, bx1) - max(ax0, bx0))
+    iy = max(0.0, min(ay1, by1) - max(ay0, by0))
+    inter = ix * iy
+    uni = a.w * a.h + b.w * b.h - inter
+    return inter / uni if uni > 0.0 else 0.0
+
+
+class Track:
+    def __init__(self, id, d):
+        self.id = id                       # стійкий номер об'єкта
+        self.state = TrackState.TENTATIVE
+        self.hits = 1                      # збігів поспіль
+        self.misses = 0                    # кадрів поспіль без детекції
+        self.age = 1                       # усього кадрів живе
+        # шуми: положення точніше за розмір; підбирати під камеру
+        self.fx = KF1(d.x, 1.0, 10.0, 1.0)  # 4 незалежні канали фільтра
+        self.fy = KF1(d.y, 1.0, 10.0, 1.0)
+        self.fw = KF1(d.w, 1.0, 10.0, 4.0)
+        self.fh = KF1(d.h, 1.0, 10.0, 4.0)
+
+    def predict(self):                     # predict усіх каналів → прогноз рамки
+        self.fx.predict(); self.fy.predict()
+        self.fw.predict(); self.fh.predict()
+        return Rect(self.fx.v, self.fy.v, self.fw.v, self.fh.v)
+
+    def update(self, d):                   # update усіх каналів свіжою детекцією
+        self.fx.update(d.x); self.fy.update(d.y)
+        self.fw.update(d.w); self.fh.update(d.h)
+```
+:::
 
 ### Один кадр трекера
 
 Тут зведено всі чотири деталі. Порядок строгий: спершу **прогноз** усіх треків, тоді **прив'язка** до детекцій, тоді **оновлення** пар, **народження** нових треків із непов'язаних детекцій і **вибирання** мертвих:
 
-```c
+:::tabs
+```cpp
 #define MAX_TRACKS 64
 #define IOU_GATE   0.30f     /* поріг прив'язки: нижче — не пара */
 #define MIN_HITS   3         /* збігів до «підтверджено» */
@@ -197,6 +292,75 @@ void sort_step(Sort *s, const Rect *dets, int nd) {
     s->n = k;
 }
 ```
+```python
+MAX_TRACKS = 64
+IOU_GATE   = 0.30    # поріг прив'язки: нижче — не пара
+MIN_HITS   = 3       # збігів до «підтверджено»
+MAX_MISSED = 30      # пропусків до смерті (≈1 с при 30 к/с)
+
+
+class Sort:
+    def __init__(self):
+        self.tracks = []     # активні треки
+        self.next_id = 1     # лічильник видачі номерів
+
+    # Один кадр: dets — рамки від детектора. Після виклику self.tracks оновлено.
+    def step(self, dets):
+        n = len(self.tracks)
+        det_used = [False] * len(dets)      # чи вже прив'язана детекція
+        matched = [-1] * n                  # індекс детекції для треку або -1
+
+        # 1. ПРОГНОЗ кожного треку на цей кадр
+        pred = [t.predict() for t in self.tracks]
+
+        # 2. ЖАДІБНА ПРИВ'ЯЗКА: повторно беремо глобально найкращу пару (макс. IoU).
+        #    (Класичний SORT бере вінгерський алгоритм — оптимальніше при щільних цілях.)
+        while True:
+            best = IOU_GATE                 # нижче порога не приймаємо
+            bi = bj = -1
+            for i in range(n):
+                if matched[i] >= 0:
+                    continue
+                for j in range(len(dets)):
+                    if det_used[j]:
+                        continue
+                    v = iou(pred[i], dets[j])
+                    if v > best:
+                        best, bi, bj = v, i, j
+            if bi < 0:                      # більше пар над порогом немає
+                break
+            matched[bi] = bj
+            det_used[bj] = True
+
+        # 3. ОНОВИТИ треки за результатом прив'язки
+        for i, t in enumerate(self.tracks):
+            t.age += 1
+            if matched[i] >= 0:
+                t.update(dets[matched[i]])
+                t.hits += 1
+                t.misses = 0
+                if t.state == TrackState.TENTATIVE and t.hits >= MIN_HITS:
+                    t.state = TrackState.CONFIRMED
+            else:
+                t.misses += 1
+                if t.state == TrackState.TENTATIVE:      # проба зірвалась
+                    t.state = TrackState.DELETED
+                elif t.misses > MAX_MISSED:              # зник надовго
+                    t.state = TrackState.DELETED
+
+        # 4. НАРОДИТИ нові треки з детекцій, що лишились без пари
+        for j in range(len(dets)):
+            if len(self.tracks) >= MAX_TRACKS:
+                break
+            if det_used[j]:
+                continue
+            self.tracks.append(Track(self.next_id, dets[j]))
+            self.next_id += 1
+
+        # 5. ВИБРАТИ мертві треки
+        self.tracks = [t for t in self.tracks if t.state != TrackState.DELETED]
+```
+:::
 
 Усе. Близько ста семидесяти рядків — і це повний робочий трекер: подаєш рамки кадру в `sort_step`, читаєш `s->tracks` (беручи назовні лише `CONFIRMED`), номери `id` тримаються стабільно, короткі пропуски переживаються прогнозом фільтра.
 

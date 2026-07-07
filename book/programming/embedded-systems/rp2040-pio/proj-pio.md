@@ -28,6 +28,7 @@ PIO — це набір незалежних **скінченних автома
 
 Сам PIO-автомат програмують НЕ на C, а спеціальним міні-асемблером **pioasm** — рідною мовою PIO. C тут — лише драйвер навколо неї. Нижче — реальна pioasm-програма [WS2812](book:electronics/addressable-leds) з її жорстким таймінгом (~1.25 мкс/біт, T1H ≈ 0.8 мкс, T0H ≈ 0.4 мкс):
 
+:::tabs
 ```asm
 ; WS2812 — pioasm; clock divider → автомат на 20 МГц, 1 такт ≈ 50 нс
 ; один біт = 25 тактів ≈ 1.25 мкс
@@ -43,6 +44,25 @@ do0:
     jmp bitloop side 0 [7] ; біт «0»: LOW  +8 тактів   → T0H ≈ 400 нс
 .wrap
 ```
+```python
+# WS2812 — rp2.asm_pio; clock divider → автомат на 20 МГц, 1 такт ≈ 50 нс
+# один біт = 25 тактів ≈ 1.25 мкс
+import rp2
+from rp2 import PIO
+
+@rp2.asm_pio(sideset_init=PIO.OUT_LOW,
+             out_shiftdir=PIO.SHIFT_LEFT, autopull=True, pull_thresh=24)
+def ws2812():
+    wrap_target()
+    label("bitloop")
+    out(x, 1)             .side(0) [6]   # зсунути 1 біт у X; ніжка LOW  (7 тактів = 350 нс)
+    jmp(not_x, "do0")     .side(1) [3]   # якщо X==0 → do0; ніжка HIGH, фронт вгору (+4 такти)
+    jmp("bitloop")        .side(1) [11]  # біт «1»: HIGH ще +12 тактів → T1H ≈ 800 нс
+    label("do0")
+    jmp("bitloop")        .side(0) [7]   # біт «0»: LOW  +8 тактів   → T0H ≈ 400 нс
+    wrap()
+```
+:::
 
 Один автомат + ця програма = повноцінний драйвер WS2812, ядро не бере участі.
 
@@ -50,6 +70,7 @@ do0:
 
 **Приклад (драйвер WS2812 на PIO).**
 
+:::tabs
 ```c
 #include "pico/stdlib.h"
 #include "hardware/pio.h"
@@ -82,6 +103,25 @@ void ws2812_send_grb(uint32_t *pixels, uint n) {
         pio_sm_put_blocking(PIO_INST, SM, pixels[i] << 8u);
 }
 ```
+```python
+import rp2
+from machine import Pin
+
+WS2812_PIN = 16
+# autopull 24 біти (GRB) і напрям зсуву задано в декораторі @rp2.asm_pio(ws2812)
+
+# 1. залити програму + 2. ніжка DATA + 3. 20 МГц автомата (800 кГц × 25 тактів)
+sm = rp2.StateMachine(0, ws2812,
+                      freq=800_000 * 25,
+                      sideset_base=Pin(WS2812_PIN))
+sm.active(1)                                                    # 6. пуск
+
+def ws2812_send_grb(pixels):
+    # Ядро лише висипає пікселі у FIFO — далі автомат жене протокол сам
+    for px in pixels:
+        sm.put(px << 8)
+```
+:::
 
 C лише налаштовує автомат і надсилає байти до FIFO — далі автомат сам формує точні наносекундні фронти. Підключивши DMA на FIFO, ядро не торкається передачі взагалі.
 

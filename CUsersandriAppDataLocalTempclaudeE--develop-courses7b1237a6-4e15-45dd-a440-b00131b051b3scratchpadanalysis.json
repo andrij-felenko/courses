@@ -1,0 +1,172 @@
+{
+  "files": [
+    {
+      "file": "book/electronics/pcb/packaging/packaging.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "Сторона L = 10 мм, крок виводів 0.5 мм",
+          "purpose": "Calculate perimeter vs area coverage for I/O pads",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    },
+    {
+      "file": "book/electronics/pcb/shielding/shielding.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "(1) Мікрофон/давач, кабель 3 м, сигнал слабкий, частоти до кількох кГц:",
+          "purpose": "Example decision table for shield grounding schemes",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    },
+    {
+      "file": "book/electronics/pcb/twisted-pair/twisted-pair.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "пряма пара:   одна петля площею A = 0.01 м × 1 м = 0.01 м²",
+          "purpose": "Estimate noise attenuation by twisted pair geometry",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    },
+    {
+      "file": "book/electronics/power-electronics/backlight-driver/backlight-driver-d.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "Орієнтир межи CCM/DCM (спрощено, для оцінки):",
+          "purpose": "Estimate CCM/DCM boundary for inductor current ripple",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    },
+    {
+      "file": "book/electronics/power-electronics/batteries/batteries.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "напруга (номінал) = 4 × 3.7 В = 14.8 В",
+          "purpose": "Calculate battery energy for flight time estimation",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    },
+    {
+      "file": "book/electronics/power-electronics/battery-aging/battery-aging.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "Запас на деградацію (кінець життя = 80% ємності):",
+          "purpose": "Size battery accounting for capacity fade over product life",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    },
+    {
+      "file": "book/electronics/power-electronics/battery-aging/math-calendar-arrhenius.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "Δємність  ∝  √t          (втрата ємності від календарного старіння)",
+          "purpose": "Model calendar aging capacity loss as square root of time",
+          "apparentLang": "formula",
+          "level": "general"
+        },
+        {
+          "anchor": "k(T) = A · e^(−Ea / (R·T))",
+          "purpose": "Arrhenius equation for temperature dependence of reaction rate",
+          "apparentLang": "formula",
+          "level": "general"
+        },
+        {
+          "anchor": "k(T₂) / k(T₁) = e^( (Ea/R) · (1/T₁ − 1/T₂) )",
+          "purpose": "Calculate temperature coefficient from Arrhenius for aging rate",
+          "apparentLang": "formula",
+          "level": "general"
+        },
+        {
+          "anchor": "Крок 1. Хід у часі (корінь): 3 роки проти 1 року",
+          "purpose": "Extrapolate battery aging loss from short test to 3 years",
+          "apparentLang": "formula",
+          "level": "general"
+        },
+        {
+          "anchor": "SoC при зберіганні     відносний темп календарного старіння",
+          "purpose": "Reference table for state of charge effect on calendar aging",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    },
+    {
+      "file": "book/electronics/power-electronics/battery-formats/battery-formats.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "циліндр  — міцний, дешевий, стандартний;  гірше вкладається в об'єм",
+          "purpose": "Compare pros/cons of three battery format families",
+          "apparentLang": "formula",
+          "level": "general"
+        },
+        {
+          "anchor": "ICR — катод кобальтовий (LiCoO₂):   найбільше енергії, але вимогливий до безпеки",
+          "purpose": "Reference chart for lithium battery cathode chemistry codes",
+          "apparentLang": "formula",
+          "level": "general"
+        },
+        {
+          "anchor": "ємність     = 220 мА·год = 220 000 мкА·год",
+          "purpose": "Calculate lifetime of coin cell in RTC application",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    },
+    {
+      "file": "book/electronics/power-electronics/battery-impedance/battery-impedance.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "// Прогноз глибини просадки під імпульсом струму.",
+          "purpose": "Predict voltage sag under current pulse using AC-IR vs DCIR",
+          "apparentLang": "c",
+          "level": "api"
+        },
+        {
+          "anchor": "За AC-IR:  ΔV = 2000 мА · 36 мОм / 1000 = 72 мВ",
+          "purpose": "Compare voltage sag predictions from two impedance measurement methods",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    },
+    {
+      "file": "book/electronics/power-electronics/backlight-driver/backlight-driver.md",
+      "domain": "embedded",
+      "codeBlocks": [
+        {
+          "anchor": "U_FB = I_LED · Rₛ        (закон Ома на вимірювальному резисторі)",
+          "purpose": "Derive LED current from sense resistor voltage in constant-current driver",
+          "apparentLang": "formula",
+          "level": "general"
+        },
+        {
+          "anchor": "Резистор під заданий струм:",
+          "purpose": "Select sense resistor for desired LED current and verify output voltage",
+          "apparentLang": "formula",
+          "level": "general"
+        }
+      ]
+    }
+  ]
+}

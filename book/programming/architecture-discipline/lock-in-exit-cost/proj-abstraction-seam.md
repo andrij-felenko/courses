@@ -22,6 +22,7 @@
 
 Ось порт. Ключове тут — типи. У сигнатурах немає **жодного** типу вендора: лише `std::string`, `std::vector`, `std::optional` — рідні цеглинки мови. Це і є шов.
 
+:::tabs
 ```cpp
 #include <string>
 #include <vector>
@@ -46,9 +47,50 @@ public:
     virtual std::vector<std::string> list(const std::string& prefix) = 0;
 };
 ```
+```go
+// Свій порт: рівно потреба системи, у власних поняттях.
+// Жодного типу постачальника тут немає — саме тому це шов, а не
+// переодягнений SDK.
+type ObjectStore interface {
+	// Покласти байти під ключем. Повертає *StoreError при збої (див. нижче).
+	Put(key string, bytes []byte) error
+
+	// Дістати байти. found == false означає «такого ключа немає»
+	// (це НЕ помилка); ненульовий err — саме збій доступу.
+	Get(key string) (bytes []byte, found bool, err error)
+
+	// Перелічити ключі, що починаються з префікса.
+	List(prefix string) ([]string, error)
+}
+```
+```python
+from abc import ABC, abstractmethod
+
+# Свій порт: рівно потреба системи, у власних поняттях.
+# Жодного типу постачальника тут немає — саме тому це шов, а не
+# переодягнений SDK.
+class ObjectStore(ABC):
+    # Покласти байти під ключем. Кидає StoreError при збої (див. нижче).
+    @abstractmethod
+    def put(self, key: str, data: bytes) -> None:
+        ...
+
+    # Дістати байти. None означає «такого ключа немає»
+    # (це НЕ помилка); StoreError — саме збій доступу.
+    @abstractmethod
+    def get(self, key: str) -> bytes | None:
+        ...
+
+    # Перелічити ключі, що починаються з префікса.
+    @abstractmethod
+    def list(self, prefix: str) -> list[str]:
+        ...
+```
+:::
 
 Одну проєктну дрібницю варто назвати одразу, бо вона потім вистрелить: **«ключа немає»** ми зробили не помилкою, а `std::optional` без значення, і відокремили від справжнього збою доступу, який кидатиме `StoreError`. Це рішення контракту, а не вендора: ми **самі** вирішили, що відсутність обʼєкта — нормальний результат, і зобовʼязали кожен адаптер привести поведінку свого SDK до цього правила. Оголосимо й сам виняток — теж свій, не чужий:
 
+:::tabs
 ```cpp
 #include <stdexcept>
 
@@ -60,6 +102,24 @@ public:
         : std::runtime_error(what) {}
 };
 ```
+```go
+// Свій тип збою. Адаптер зобов'язаний перекласти будь-яку помилку
+// вендора в ЦЕЙ тип — щоб бізнес-логіка не ловила чужих типів.
+type StoreError struct {
+	msg string
+}
+
+func (e *StoreError) Error() string { return e.msg }
+
+func NewStoreError(what string) *StoreError { return &StoreError{msg: what} }
+```
+```python
+# Свій тип збою. Адаптер зобов'язаний перекласти будь-яку помилку
+# вендора в ЦЕЙ виняток — щоб бізнес-логіка не ловила чужих типів.
+class StoreError(Exception):
+    pass
+```
+:::
 
 ![Над швом — чистий інтерфейс put/get/list, у сигнатурах лише рідні типи; знизу крізь шов угору просочуються порядок читання після запису, семантика збою, ретраї та затримка — поведінка, якої в сигнатурах немає](/book/programming/architecture-discipline/lock-in-exit-cost/img/leaky-seam.svg)
 
@@ -71,6 +131,7 @@ public:
 
 Адаптер A. Уся привʼязка до постачальника A замкнена тут; жоден інший файл не бачить `vendora::*`.
 
+:::tabs
 ```cpp
 // --- adapter_a.cpp: єдине місце, що знає SDK вендора A ---
 #include <vendora/client.h>   // тип вендора живе ЛИШЕ в цьому файлі
@@ -104,9 +165,73 @@ public:
     }
 };
 ```
+```go
+// --- adapter_a.go: єдине місце, що знає SDK вендора A ---
+import "vendora" // тип вендора живе ЛИШЕ в цьому файлі
+
+type VendorAStore struct {
+	cli *vendora.Client
+}
+
+func NewVendorAStore(bucket string) *VendorAStore {
+	return &VendorAStore{cli: vendora.NewClient(bucket)}
+}
+
+func (s *VendorAStore) Put(key string, bytes []byte) error {
+	if st := s.cli.Write(key, bytes); st != vendora.OK {
+		return NewStoreError("vendorA put: " + vendora.Str(st))
+	}
+	return nil
+}
+
+func (s *VendorAStore) Get(key string) ([]byte, bool, error) {
+	buf, st := s.cli.Read(key)
+	if st == vendora.NotFound {
+		return nil, false, nil // не помилка!
+	}
+	if st != vendora.OK {
+		return nil, false, NewStoreError("vendorA get: " + vendora.Str(st))
+	}
+	return buf, true, nil
+}
+
+func (s *VendorAStore) List(prefix string) ([]string, error) {
+	var out []string
+	for _, obj := range s.cli.Enumerate(prefix) { // SDK сам гортає сторінки
+		out = append(out, obj.Key())
+	}
+	return out, nil
+}
+```
+```python
+# --- adapter_a.py: єдине місце, що знає SDK вендора A ---
+import vendora  # тип вендора живе ЛИШЕ в цьому файлі
+
+class VendorAStore(ObjectStore):
+    def __init__(self, bucket: str) -> None:
+        self._cli = vendora.Client(bucket)
+
+    def put(self, key: str, data: bytes) -> None:
+        st = self._cli.write(key, data)
+        if st != vendora.OK:
+            raise StoreError("vendorA put: " + vendora.str_status(st))
+
+    def get(self, key: str) -> bytes | None:
+        buf, st = self._cli.read(key)
+        if st == vendora.NOT_FOUND:
+            return None                       # не помилка!
+        if st != vendora.OK:
+            raise StoreError("vendorA get: " + vendora.str_status(st))
+        return buf
+
+    def list(self, prefix: str) -> list[str]:
+        return [obj.key for obj in self._cli.enumerate(prefix)]  # SDK гортає сам
+```
+:::
 
 Адаптер B. Той самий порт, але чужий SDK інакший: кидає власні винятки, «не знайдено» позначає окремим типом. Адаптер тихо перекладає це все у **нашу** мову.
 
+:::tabs
 ```cpp
 // --- adapter_b.cpp: єдине місце, що знає SDK вендора B ---
 #include <vendorb/blob.hpp>   // тип вендора живе ЛИШЕ в цьому файлі
@@ -144,9 +269,82 @@ public:
     }
 };
 ```
+```go
+// --- adapter_b.go: єдине місце, що знає SDK вендора B ---
+import (
+	"errors"
+	"vendorb" // тип вендора живе ЛИШЕ в цьому файлі
+)
+
+type VendorBStore struct {
+	svc *vendorb.BlobService
+}
+
+func NewVendorBStore(container string) (*VendorBStore, error) {
+	svc, err := vendorb.Connect(container)
+	if err != nil {
+		return nil, NewStoreError("vendorB connect: " + err.Error())
+	}
+	return &VendorBStore{svc: svc}, nil
+}
+
+func (s *VendorBStore) Put(key string, bytes []byte) error {
+	if err := s.svc.Upload(key, bytes); err != nil { // повертає err при збої
+		return NewStoreError("vendorB put: " + err.Error())
+	}
+	return nil
+}
+
+func (s *VendorBStore) Get(key string) ([]byte, bool, error) {
+	b, err := s.svc.Download(key)
+	if errors.Is(err, vendorb.ErrNotFound) {
+		return nil, false, nil // приводимо до нашого правила
+	}
+	if err != nil {
+		return nil, false, NewStoreError("vendorB get: " + err.Error())
+	}
+	return b.Bytes(), true, nil
+}
+
+func (s *VendorBStore) List(prefix string) ([]string, error) {
+	names, err := s.svc.ListBlobs(prefix)
+	if err != nil {
+		return nil, NewStoreError("vendorB list: " + err.Error())
+	}
+	return names, nil
+}
+```
+```python
+# --- adapter_b.py: єдине місце, що знає SDK вендора B ---
+import vendorb  # тип вендора живе ЛИШЕ в цьому файлі
+
+class VendorBStore(ObjectStore):
+    def __init__(self, container: str) -> None:
+        self._svc = vendorb.connect(container)
+
+    def put(self, key: str, data: bytes) -> None:
+        try:
+            self._svc.upload(key, data)              # кидає при збої
+        except vendorb.Error as e:
+            raise StoreError(f"vendorB put: {e}") from e
+
+    def get(self, key: str) -> bytes | None:
+        try:
+            blob = self._svc.download(key)
+            return blob.as_bytes()
+        except vendorb.NotFound:
+            return None                             # приводимо до нашого правила
+        except vendorb.Error as e:
+            raise StoreError(f"vendorB get: {e}") from e
+
+    def list(self, prefix: str) -> list[str]:
+        return list(self._svc.list_blobs(prefix))
+```
+:::
 
 Тепер — **бізнес-логіка, сліпа до вендора**. Вона працює лише з `ObjectStore&` і не має ані найменшого способу дізнатися, A там під сподом чи B. Ось, скажімо, збереження й читання квитанції замовлення:
 
+:::tabs
 ```cpp
 // --- логіка домену: жодної згадки про вендора, лише порт ---
 void save_receipt(ObjectStore& store, const Order& o) {
@@ -162,9 +360,47 @@ std::optional<Order> load_last_order(ObjectStore& store,
     return bytes ? std::optional<Order>(parse_order(*bytes)) : std::nullopt;
 }
 ```
+```go
+// --- логіка домену: жодної згадки про вендора, лише порт ---
+func saveReceipt(store ObjectStore, o Order) error {
+	return store.Put("orders/"+o.ID+"/receipt.json", renderReceipt(o))
+}
+
+func loadLastOrder(store ObjectStore, customer string) (*Order, error) {
+	keys, err := store.List("orders/" + customer + "/")
+	if err != nil {
+		return nil, err
+	}
+	if len(keys) == 0 {
+		return nil, nil
+	}
+	sort.Strings(keys) // ключі впорядкуємо самі
+	bytes, found, err := store.Get(keys[len(keys)-1])
+	if err != nil || !found {
+		return nil, err
+	}
+	order := parseOrder(bytes)
+	return &order, nil
+}
+```
+```python
+# --- логіка домену: жодної згадки про вендора, лише порт ---
+def save_receipt(store: ObjectStore, o: Order) -> None:
+    store.put(f"orders/{o.id}/receipt.json", render_receipt(o))
+
+def load_last_order(store: ObjectStore, customer: str) -> Order | None:
+    keys = store.list(f"orders/{customer}/")
+    if not keys:
+        return None
+    keys.sort()                          # ключі впорядкуємо самі
+    data = store.get(keys[-1])
+    return parse_order(data) if data is not None else None
+```
+:::
 
 Лишилася **одна точка вибору**. Це єдине місце в усій програмі, де взагалі згадано конкретного постачальника. Тут — фабрика (англ. *factory* — «фабрика», породжувач обʼєктів): за конфігом вона повертає той чи інший адаптер під спільним типом порту.
 
+:::tabs
 ```cpp
 #include <memory>
 
@@ -187,6 +423,59 @@ int main() {
     save_receipt(*store, some_order);
 }
 ```
+```go
+type Vendor int
+
+const (
+	VendorA Vendor = iota
+	VendorB
+)
+
+// Єдине місце, що знає обидва адаптери. Уся решта коду бачить лише
+// ObjectStore. Переїзд на іншого вендора = змінити конфіг, а не логіку.
+func MakeStore(v Vendor, target string) (ObjectStore, error) {
+	switch v {
+	case VendorA:
+		return NewVendorAStore(target), nil
+	case VendorB:
+		return NewVendorBStore(target)
+	}
+	return nil, NewStoreError("unknown vendor")
+}
+
+func main() {
+	store, err := MakeStore(VendorA, "orders-bucket") // ← лише тут
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Переїзд на B: MakeStore(VendorB, "orders-container").
+	// saveReceipt / loadLastOrder не змінюються ВЗАГАЛІ.
+	_ = saveReceipt(store, someOrder)
+}
+```
+```python
+from enum import Enum
+
+class Vendor(Enum):
+    A = "a"
+    B = "b"
+
+# Єдине місце, що знає обидва адаптери. Уся решта коду бачить лише
+# ObjectStore. Переїзд на іншого вендора = змінити конфіг, а не логіку.
+def make_store(v: Vendor, target: str) -> ObjectStore:
+    if v is Vendor.A:
+        return VendorAStore(target)
+    if v is Vendor.B:
+        return VendorBStore(target)
+    raise StoreError("unknown vendor")
+
+def main() -> None:
+    store = make_store(Vendor.A, "orders-bucket")  # ← лише тут
+    # Переїзд на B: make_store(Vendor.B, "orders-container").
+    # save_receipt / load_last_order не змінюються ВЗАГАЛІ.
+    save_receipt(store, some_order)
+```
+:::
 
 Ось і весь механізм. Привʼязка не зникла — вона **зібрана в три файли**: `adapter_a.cpp`, `adapter_b.cpp` і рядок у `make_store`. Решта коду говорить лише зі швом. Це головна перемога: вартість виходу впала з «переписати скрізь» до «дописати один адаптер».
 

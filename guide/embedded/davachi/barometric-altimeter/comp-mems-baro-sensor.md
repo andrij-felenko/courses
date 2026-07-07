@@ -58,7 +58,7 @@
 
 **Рішення перше: яка шина? Його визначає CSB.** Чип дивиться на вивід CSB відразу після подачі живлення й за ним обирає протокол. Логіка в усьому класі та сама:
 
-```
+```math
 CSB тримається на VDDIO (постійний HIGH)  →  чип у режимі I2C
 CSB смикається хостом (chip-select)        →  чип у режимі SPI
 ```
@@ -67,7 +67,7 @@ CSB смикається хостом (chip-select)        →  чип у реж
 
 **Рішення друге: під якою адресою? На I2C його задає SDO.** У SPI кожен чип має власну лінію CSB, тож питання адреси не стоїть. А от у I2C всі пристрої висять на **спільній парі** проводів, і кожен мусить мати унікальну адресу, щоб хост міг покликати саме його. Барометр дає тобі вибір з **двох** адрес, і перемикаєш ти його тим самим виводом SDO (який у SPI був виходом даних, а тут, за відсутності SPI, знову перевантажений):
 
-```
+```math
 SDO на GND       →  молодший біт адреси = 0   (напр. 0x76)
 SDO на VDDIO     →  молодший біт адреси = 1   (напр. 0x77)
 ```
@@ -115,6 +115,7 @@ SDO на VDDIO     →  молодший біт адреси = 1   (напр. 0x
 
 Ось цей кістяк у прошивці — навмисне узагальнено, у стилі класу, без прив'язки до партномера (реальні імена регістрів підставиш із даташита):
 
+:::tabs
 ```c
 // Перше знайомство з MEMS-барометром: від упізнання до тиску в паскалях.
 // Функції bus_read/bus_write абстрагують шину (I2C чи SPI — байдуже нижчому шару).
@@ -147,6 +148,93 @@ bool baro_read_pressure(baro_t *dev, float *pa) {
     return true;
 }
 ```
+```cpp
+// Перше знайомство з MEMS-барометром: від упізнання до тиску в паскалях.
+// Bus — абстракція шини (I2C чи SPI): методи read/write однакові нижчому шару.
+// Cal — коефіцієнти; compensatePressure проганяє сирі коди через них.
+
+class Barometer {
+public:
+    explicit Barometer(Bus bus) : bus_(bus) {}
+
+    bool init() {
+        // 1) упізнати чип за фіксованим підписом
+        if (bus_.read(REG_CHIP_ID) != EXPECTED_CHIP_ID)
+            return false;                          // не той чип / мертва шина
+
+        // 2) один раз вичитати заводські коефіцієнти в пам'ять МК
+        readCalibration(bus_, cal_);               // блок з ПЗП -> RAM
+
+        // 3) налаштувати передискретизацію (тиск точніше за температуру) і режим
+        bus_.write(REG_OSR, OSR_P_x16 | OSR_T_x2); // важке усереднення на p
+        bus_.write(REG_MODE, MODE_NORMAL | ODR_50HZ);
+        return true;
+    }
+
+    std::optional<float> readPressure() {
+        // 4) переконатися, що вимір свіжий
+        if (!(bus_.read(REG_STATUS) & STATUS_DATA_READY))
+            return std::nullopt;
+
+        // 5) забрати сирі коди: СПОЧАТКУ температура, ПОТІМ тиск (порядок важливий)
+        int32_t rawT = read24(bus_, REG_TEMP_RAW);  // 3 байти, 24 біти
+        int32_t rawP = read24(bus_, REG_PRESS_RAW);
+
+        // 6) компенсація: сирі коди + коефіцієнти -> справжній тиск, Pa
+        return compensatePressure(rawT, rawP, cal_);
+    }
+
+private:
+    Bus bus_;
+    Cal cal_;
+};
+```
+```micropython
+# Перше знайомство з MEMS-барометром: від упізнання до тиску в паскалях.
+# i2c — шина machine.I2C; readfrom_mem/writeto_mem абстрагують доступ до регістрів.
+# _read_calibration повертає коефіцієнти; _compensate_pressure проганяє сирі коди.
+
+class Barometer:
+    def __init__(self, i2c, addr=0x76):
+        self._i2c = i2c
+        self._addr = addr
+        self._cal = None
+
+    def init(self):
+        # 1) упізнати чип за фіксованим підписом
+        if self._reg(REG_CHIP_ID) != EXPECTED_CHIP_ID:
+            return False                            # не той чип / мертва шина
+
+        # 2) один раз вичитати заводські коефіцієнти в пам'ять МК
+        self._cal = self._read_calibration()        # блок з ПЗП -> RAM
+
+        # 3) налаштувати передискретизацію (тиск точніше за температуру) і режим
+        self._reg(REG_OSR, OSR_P_x16 | OSR_T_x2)    # важке усереднення на p
+        self._reg(REG_MODE, MODE_NORMAL | ODR_50HZ)
+        return True
+
+    def read_pressure(self):
+        # 4) переконатися, що вимір свіжий
+        if not (self._reg(REG_STATUS) & STATUS_DATA_READY):
+            return None
+
+        # 5) забрати сирі коди: СПОЧАТКУ температура, ПОТІМ тиск (порядок важливий)
+        raw_t = self._read24(REG_TEMP_RAW)          # 3 байти, 24 біти
+        raw_p = self._read24(REG_PRESS_RAW)
+
+        # 6) компенсація: сирі коди + коефіцієнти -> справжній тиск, Pa
+        return self._compensate_pressure(raw_t, raw_p, self._cal)
+
+    def _reg(self, reg, value=None):
+        if value is None:
+            return self._i2c.readfrom_mem(self._addr, reg, 1)[0]
+        self._i2c.writeto_mem(self._addr, reg, bytes([value]))
+
+    def _read24(self, reg):
+        b = self._i2c.readfrom_mem(self._addr, reg, 3)
+        return (b[0] << 16) | (b[1] << 8) | b[2]
+```
+:::
 
 Уся «особистість» класу видна в цих двох функціях. Ініціалізація — це **упізнати, прочитати паспорт, задати режим**, і робиться раз. Читання — **дочекатися свіжого, забрати два канали в правильному порядку, скомпенсувати**, і робиться в циклі. Помінявши лише кілька констант-адрес, той самий каркас оживить барометр будь-якого виробника.
 

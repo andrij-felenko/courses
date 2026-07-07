@@ -53,6 +53,7 @@ echo 1  > /sys/class/gpio/gpio17/value     # запалити
 
 У **гілці 1.x** робота була проста й пласка: відкрив чип, узяв **одну лінію** об'єктом, запросив її на вхід чи вихід, читав/писав прямо на цьому об'єкті лінії:
 
+:::tabs
 ```c
 // libgpiod v1.x — СТАРЕ API. Багато прикладів у мережі — саме таке.
 struct gpiod_chip *chip = gpiod_chip_open_by_name("gpiochip0");
@@ -60,6 +61,16 @@ struct gpiod_line *line = gpiod_chip_get_line(chip, 17);
 gpiod_line_request_output(line, "blink", 0);   // запит + напрям одним махом
 gpiod_line_set_value(line, 1);                  // писати прямо на лінію
 ```
+```py
+# libgpiod v1.x, прив'язка на Python — СТАРЕ API. У мережі його теж повно.
+import gpiod
+
+chip = gpiod.Chip("gpiochip0")
+line = chip.get_line(17)
+line.request(consumer="blink", type=gpiod.LINE_REQ_DIR_OUT)  # запит + напрям
+line.set_value(1)                                            # писати прямо на лінію
+```
+:::
 
 У **гілці 2.x** (сучасна, саме її ставить свіжа Raspberry Pi OS) усе переписали під об'єктну модель: окремо **налаштування лінії** (`line settings`), окремо **конфіг** (яка лінія які налаштування бере), окремо **запит** (`request`), і читаєте/пишете вже не «на лінію», а **на об'єкт-запит** за зсувом. Функцій `gpiod_chip_get_line`, `gpiod_line_request_output`, `gpiod_line_set_value` у 2.x **просто немає** — тому старий приклад і не збирається.
 
@@ -87,6 +98,7 @@ gpiod_line_set_value(line, 1);                  // писати прямо на 
 
 Ось повна, компільована програма під **libgpiod v2**. Вона знаходить потрібний чип за міткою, запитує лінію на вихід і блимає в циклі:
 
+:::tabs
 ```c
 // blink.c — блимаємо світлодіодом на GPIO17. libgpiod v2.
 // Збірка:  gcc blink.c -o blink -lgpiod
@@ -174,6 +186,60 @@ int main(void) {
     return 0;
 }
 ```
+```py
+# blink.py — блимаємо світлодіодом на GPIO17. Прив'язка gpiod v2 на Python.
+# Встановити:  sudo apt install python3-libgpiod   (або: pip install gpiod)
+import glob
+import time
+import gpiod
+from gpiod.line import Direction, Value
+
+LED_OFFSET = 17        # GPIO17 = фізичний штир 11 (номер BCM, не штир!)
+
+
+def open_header_chip():
+    # Знайти символьний пристрій контролера гребінки за міткою pinctrl-*.
+    # Повертає шлях /dev/gpiochipN або None — код не залежить від номера чипа.
+    for path in sorted(glob.glob("/dev/gpiochip*")):
+        with gpiod.Chip(path) as chip:
+            # Контролер гребінки має мітку pinctrl-* (bcm2711 на Pi4, rp1 на Pi5).
+            if chip.get_info().label.startswith("pinctrl"):
+                return path
+    return None
+
+
+def main():
+    path = open_header_chip()
+    if path is None:
+        print("не знайшов контролер гребінки (pinctrl-*)")
+        return 1
+
+    # Запит на володіння: напрям — вихід, старт із нуля (згашено),
+    # мітка-ім'я "blink" (її покаже gpioinfo). Одна дія замість набору об'єктів C.
+    with gpiod.request_lines(
+        path,
+        consumer="blink",
+        config={
+            LED_OFFSET: gpiod.LineSettings(
+                direction=Direction.OUTPUT,
+                output_value=Value.INACTIVE,
+            )
+        },
+    ) as request:
+        # Блимаємо: 10 разів, по 0.5 с у кожному стані.
+        for _ in range(10):
+            request.set_value(LED_OFFSET, Value.ACTIVE)
+            time.sleep(0.5)
+            request.set_value(LED_OFFSET, Value.INACTIVE)
+            time.sleep(0.5)
+    # Вихід із `with` сам звільняє лінію (ядро зробило б це й само при виході).
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+:::
 
 Прочитаймо, що тут відбувається, бо саме ця послідовність — весь v2. Спершу `open_header_chip()` перебирає `/dev/gpiochip*`, питає в кожного мітку й бере той, що починається на `pinctrl` — так ми **не хардкодимо номер** і код переносний між моделями. Далі — чотири об'єкти, і кожен має свою роль:
 
@@ -202,6 +268,7 @@ int main(void) {
 
 Ось програма, що читає кнопку на **GPIO27** (фізичний штир 13) із **внутрішньою підтяжкою до плюса** й друкує стан при кожній зміні. Функцію пошуку чипа беремо ту саму (`open_header_chip` з попереднього прикладу):
 
+:::tabs
 ```c
 // button.c — читаємо кнопку на GPIO27 з внутрішньою підтяжкою до плюса.
 // Кнопка: один контакт на GPIO27, другий на GND. Натиснуто = 0, відпущено = 1.
@@ -249,6 +316,51 @@ int main(void) {
     return 0;
 }
 ```
+```py
+# button.py — читаємо кнопку на GPIO27 з внутрішньою підтяжкою до плюса.
+# Кнопка: один контакт на GPIO27, другий на GND. Натиснуто = 0, відпущено = 1.
+# Прив'язка gpiod v2 на Python.
+import time
+import gpiod
+from gpiod.line import Direction, Bias, Value
+
+from blink import open_header_chip   # ту саму функцію пошуку чипа беремо з blink.py
+
+BTN_OFFSET = 27        # GPIO27 = фізичний штир 13
+
+
+def main():
+    path = open_header_chip()
+    if path is None:
+        print("немає контролера гребінки")
+        return 1
+
+    # Запит: вхід + внутрішня підтяжка до плюса (PULL_UP).
+    with gpiod.request_lines(
+        path,
+        consumer="button",
+        config={
+            BTN_OFFSET: gpiod.LineSettings(
+                direction=Direction.INPUT,
+                bias=Bias.PULL_UP,
+            )
+        },
+    ) as request:
+        # Опитуємо кнопку й друкуємо лише ЗМІНИ стану (щоб не залити термінал).
+        prev = Value.ACTIVE   # відпущено на старті
+        while True:
+            v = request.get_value(BTN_OFFSET)
+            if v != prev:
+                # ACTIVE = високий = 3.3 В = відпущено; INACTIVE = 0 = натиснуто.
+                print("натиснуто" if v == Value.INACTIVE else "відпущено")
+                prev = v
+            time.sleep(0.005)   # опитувати раз на 5 мс
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+:::
 
 Ключ тут — рядок `gpiod_line_settings_set_bias(settings, GPIOD_LINE_BIAS_PULL_UP)`. Це і є та сама внутрішня підтяжка, увімкнена **всередині чипа**, без жодного зовнішнього резистора. Значення підтяжки — з переліку `gpiod_line_bias`: `GPIOD_LINE_BIAS_PULL_UP` (до плюса), `GPIOD_LINE_BIAS_PULL_DOWN` (до землі), `GPIOD_LINE_BIAS_DISABLED` (без підтяжки), `GPIOD_LINE_BIAS_AS_IS` (не чіпати, лишити як є). Читаємо `gpiod_line_request_get_value`, що повертає `ACTIVE`/`INACTIVE` — і, оскільки кнопка активно-низька, `INACTIVE` (нуль на виводі) означає **натиснуто**.
 

@@ -30,6 +30,7 @@
 Спершу — дрібний «словник» приладу: відправити команду й зчитати відповідь-число. Деталі шини (UART) сховані за двома функціями `port_send()`/`port_readline()`, щоб видно було саму логіку.
 
 **Прошивка: один вузол сітки — задати, витримати, зчитати, порахувати.**
+:::tabs
 ```c
 #include <stdio.h>      // snprintf
 
@@ -61,10 +62,80 @@ float measure_point(float vin_set, float iout_set, float vout_nom)
     return (pin > 0.0f) ? (pout / pin) * 100.0f : -1.0f;
 }
 ```
+```python
+import time
+
+# --- тонкий шар приладу (SCPI текстом у порт) ---
+# port_send(line)  — дописує "\n" і шле в UART (pyserial)
+# port_query(line) — шле запит, парсить число з відповіді
+
+def psu_set_voltage(v):  port_send(f"VOLT {v:.3f}")
+def load_set_current(a): port_send(f"CURR {a:.3f}")
+
+# один вузол сітки: повертає ккд у % (або -1 при відмові DUT)
+def measure_point(vin_set, iout_set, vout_nom):
+    psu_set_voltage(vin_set);   port_send("OUTP ON")      # вхід під напругою
+    load_set_current(iout_set); port_send("INP ON")       # навантаження тримає струм
+
+    time.sleep(2.0)             # ЧЕКАТИ усталення: електрика + тепловий дрейф
+
+    vin  = port_query("MEAS:VOLT? PSU")   # Kelvin-відбір — окремі дроти на клемах
+    iin  = port_query("MEAS:CURR? PSU")
+    vout = port_query("MEAS:VOLT? LOAD")
+    iout = port_query("MEAS:CURR? LOAD")
+
+    if vout < vout_nom * 0.9:             # вихід просів > 10 % → DUT у захисті/відмові
+        port_send("INP OFF")             # негайно зняти струм, не палити плату
+        return -1.0
+
+    pin, pout = vin * iin, vout * iout
+    return (pout / pin) * 100.0 if pin > 0.0 else -1.0
+```
+```go
+import (
+	"fmt"
+	"time"
+)
+
+// --- тонкий шар приладу (SCPI текстом у порт) ---
+// portSend(line)  — дописує "\n" і шле в UART
+// portQuery(line) — шле запит, парсить число з відповіді
+
+func psuSetVoltage(v float64)  { portSend(fmt.Sprintf("VOLT %.3f", v)) }
+func loadSetCurrent(a float64) { portSend(fmt.Sprintf("CURR %.3f", a)) }
+
+// один вузол сітки: повертає ккд у % (або -1 при відмові DUT)
+func measurePoint(vinSet, ioutSet, voutNom float64) float64 {
+	psuSetVoltage(vinSet)
+	portSend("OUTP ON") // вхід під напругою
+	loadSetCurrent(ioutSet)
+	portSend("INP ON") // навантаження тримає струм
+
+	time.Sleep(2 * time.Second) // ЧЕКАТИ усталення: електрика + тепловий дрейф
+
+	vin := portQuery("MEAS:VOLT? PSU") // Kelvin-відбір — окремі дроти на клемах
+	iin := portQuery("MEAS:CURR? PSU")
+	vout := portQuery("MEAS:VOLT? LOAD")
+	iout := portQuery("MEAS:CURR? LOAD")
+
+	if vout < voutNom*0.9 { // вихід просів > 10 % → DUT у захисті/відмові
+		portSend("INP OFF") // негайно зняти струм, не палити плату
+		return -1.0
+	}
+
+	pin, pout := vin*iin, vout*iout
+	if pin > 0.0 {
+		return (pout / pin) * 100.0
+	}
+	return -1.0
+}
+```
+:::
 
 Тепер — самі дві петлі по сітці, «змійкою», з друком готових рядків кривої:
 
 **Прошивка: обхід усієї сітки Vвх × Iвих «змійкою».**
+:::tabs
 ```c
 void sweep_efficiency(void)
 {
@@ -91,6 +162,61 @@ void sweep_efficiency(void)
     port_send("OUTP OFF"); port_send("INP OFF");   // безпечне завершення
 }
 ```
+```python
+def sweep_efficiency():
+    vin  = [12.0, 14.4, 16.8]            # сітка по входу
+    iout = [0.1, 0.3, 1.0, 2.0, 3.0]     # сітка по навантаженню
+    VOUT_NOM = 5.0
+
+    port_send("CURR:PROT 4.0")           # ліміт струму БЖ за паспортом DUT — запобіжник
+    port_send("FUNC CURR")               # навантаження в режим стабілізації струму (CC)
+    print("Vin\tIout\tVout\teta%")
+
+    for r, v in enumerate(vin):
+        order = reversed(iout) if r & 1 else iout   # парний рядок — у зворотному порядку
+        for i_set in order:
+            eta = measure_point(v, i_set, VOUT_NOM)
+
+            if eta < 0.0:
+                print(f"# {v:.1f} V @ {i_set:.2f} A: DUT поза нормою")
+                continue
+            print(f"{v:.1f}\t{i_set:.2f}\t{VOUT_NOM:.3f}\t{eta:.1f}")
+        port_send("INP OFF")             # розвантажити DUT між рядками Vвх
+
+    port_send("OUTP OFF"); port_send("INP OFF")   # безпечне завершення
+```
+```go
+func sweepEfficiency() {
+	vin := []float64{12.0, 14.4, 16.8}           // сітка по входу
+	iout := []float64{0.1, 0.3, 1.0, 2.0, 3.0}   // сітка по навантаженню
+	const voutNom = 5.0
+
+	portSend("CURR:PROT 4.0") // ліміт струму БЖ за паспортом DUT — запобіжник
+	portSend("FUNC CURR")     // навантаження в режим стабілізації струму (CC)
+	fmt.Println("Vin\tIout\tVout\teta%")
+
+	for r, v := range vin {
+		for k := range iout {
+			idx := k
+			if r&1 == 1 { // парний рядок — у зворотному порядку
+				idx = len(iout) - 1 - k
+			}
+			iSet := iout[idx]
+			eta := measurePoint(v, iSet, voutNom)
+
+			if eta < 0.0 {
+				fmt.Printf("# %.1f V @ %.2f A: DUT поза нормою\n", v, iSet)
+				continue
+			}
+			fmt.Printf("%.1f\t%.2f\t%.3f\t%.1f\n", v, iSet, voutNom, eta)
+		}
+		portSend("INP OFF") // розвантажити DUT між рядками Vвх
+	}
+	portSend("OUTP OFF")
+	portSend("INP OFF") // безпечне завершення
+}
+```
+:::
 
 Підставимо в `measure_point()` одну реальну точку й пройдемо обчислення вручну — щоб видно було, що саме рахує прошивка. Нехай у вузлі (14.4 В, 2.0 А) прилади після усталення повернули такі чотири числа:
 

@@ -70,6 +70,7 @@ a·t² + b·t + c = 0,   де
 
 Дискримінант `b² − 4ac`: якщо від'ємний — коло цього відрізка не дістає, перетину немає. Якщо ні — два корені `t₁ ≤ t₂`; фізичний той, що лежить **на відрізку** (`0 ≤ t ≤ 1`) і **попереду за рухом**, тобто з **більшим** `t` (далі до кінця відрізка). Ось ця арифметика на C:
 
+:::tabs
 ```c
 #include <math.h>
 
@@ -106,9 +107,88 @@ static int seg_circle_forward(Vec2 a, Vec2 b, Vec2 c, float L, Vec2 *hit)
     return 1;
 }
 ```
+```cpp
+#include <cmath>
+#include <optional>
+
+struct Vec2 { float x, y; };
+
+// Перетин кола (центр c, радіус L) з відрізком [a,b].
+// Повертає точку огляду, якщо є перетин на відрізку;
+// бере корінь ПОПЕРЕДУ (більший t). Інакше — порожньо.
+std::optional<Vec2> seg_circle_forward(Vec2 a, Vec2 b, Vec2 c, float L)
+{
+    Vec2 d { b.x - a.x, b.y - a.y };
+    Vec2 f { a.x - c.x, a.y - c.y };
+
+    float A = d.x * d.x + d.y * d.y;      // |d|², завжди > 0 для невиродженого відрізка
+    float B = 2.0f * (f.x * d.x + f.y * d.y);
+    float C = f.x * f.x + f.y * f.y - L * L;
+
+    float disc = B * B - 4.0f * A * C;
+    if (disc < 0.0f) return std::nullopt; // коло не дістає цього відрізка
+    disc = std::sqrt(disc);
+
+    float t1 = (-B - disc) / (2.0f * A);
+    float t2 = (-B + disc) / (2.0f * A);
+
+    // беремо більший корінь (попереду), якщо він на відрізку;
+    // інакше пробуємо менший
+    float t = -1.0f;
+    if (t2 >= 0.0f && t2 <= 1.0f)      t = t2;
+    else if (t1 >= 0.0f && t1 <= 1.0f) t = t1;
+    if (t < 0.0f) return std::nullopt;
+
+    return Vec2{ a.x + t * d.x, a.y + t * d.y };
+}
+```
+```python
+import math
+from typing import NamedTuple, Optional
+
+
+class Vec2(NamedTuple):
+    x: float
+    y: float
+
+
+def seg_circle_forward(a: Vec2, b: Vec2, c: Vec2, L: float) -> Optional[Vec2]:
+    """Перетин кола (центр c, радіус L) з відрізком [a,b].
+
+    Повертає точку огляду, якщо є перетин на відрізку; бере корінь
+    ПОПЕРЕДУ (більший t). Інакше повертає None.
+    """
+    d = Vec2(b.x - a.x, b.y - a.y)
+    f = Vec2(a.x - c.x, a.y - c.y)
+
+    A = d.x * d.x + d.y * d.y            # |d|², завжди > 0 для невиродженого відрізка
+    B = 2.0 * (f.x * d.x + f.y * d.y)
+    C = f.x * f.x + f.y * f.y - L * L
+
+    disc = B * B - 4.0 * A * C
+    if disc < 0.0:                       # коло не дістає цього відрізка
+        return None
+    disc = math.sqrt(disc)
+
+    t1 = (-B - disc) / (2.0 * A)
+    t2 = (-B + disc) / (2.0 * A)
+
+    # беремо більший корінь (попереду), якщо він на відрізку;
+    # інакше пробуємо менший
+    if 0.0 <= t2 <= 1.0:
+        t = t2
+    elif 0.0 <= t1 <= 1.0:
+        t = t1
+    else:
+        return None
+
+    return Vec2(a.x + t * d.x, a.y + t * d.y)
+```
+:::
 
 Тепер — прохід по всьому шляху. Ровер уже проїхав частину лінії, тож шукати ціль треба **не з початку**, а від того відрізка, де машина зараз (індекс `seg0`), і йти вперед. Беремо **перший** відрізок, який коло перетинає попереду, — це й дає гладку, неперервно повзучу ціль замість стрибків від вершини до вершини:
 
+:::tabs
 ```c
 // Знайти точку огляду на шляху path[0..n-1], починаючи з відрізка seg0.
 // Повертає 1 і ціль у *goal; *seg — оновлений індекс поточного відрізка.
@@ -126,11 +206,44 @@ static int find_goal(const Vec2 *path, int n, Vec2 pos, float L,
     return 0;                            // перетину попереду немає
 }
 ```
+```cpp
+// Знайти точку огляду на шляху path[0..n-1], починаючи з відрізка seg0.
+// Повертає ціль і оновлений індекс поточного відрізка.
+// Повертає порожньо, якщо коло огляду вже не перетинає решти шляху
+// (типово — кінець шляху ближче, ніж L; обробляється окремо).
+std::optional<std::pair<Vec2, int>>
+find_goal(const std::vector<Vec2> &path, Vec2 pos, float L, int seg0)
+{
+    for (int i = seg0; i + 1 < static_cast<int>(path.size()); ++i) {
+        if (auto goal = seg_circle_forward(path[i], path[i + 1], pos, L)) {
+            return std::make_pair(*goal, i);   // ціль + де ми на шляху
+        }
+    }
+    return std::nullopt;                       // перетину попереду немає
+}
+```
+```python
+def find_goal(path: list[Vec2], pos: Vec2, L: float,
+              seg0: int) -> Optional[tuple[Vec2, int]]:
+    """Знайти точку огляду на шляху path, починаючи з відрізка seg0.
+
+    Повертає (ціль, індекс поточного відрізка) або None, якщо коло
+    огляду вже не перетинає решти шляху (типово — кінець шляху ближче,
+    ніж L; обробляється окремо).
+    """
+    for i in range(seg0, len(path) - 1):
+        goal = seg_circle_forward(path[i], path[i + 1], pos, L)
+        if goal is not None:
+            return goal, i                # ціль + де ми на шляху
+    return None                           # перетину попереду немає
+```
+:::
 
 > 🔧 **Навіщо це.** Індекс `seg0` — не оптимізація заради швидкості, а захист від **самоперетинів шляху**. Якщо лінія петляє чи підходить сама до себе (об'їзд, вісімка), коло огляду може влучити у **зовсім інший** відрізок, що випадково опинився за `L` від машини, — і ровер стрибне на чужу гілку. Пошук «лише вперед від поточного відрізка» тримає ціль на **тій самій** гілці, якою машина їде, і не дає їй телепортуватися.
 
 Далі — переклад цілі зі **світу** в систему машини, щоб дістати бічний зсув `x`. Шлях і позиція задані у світових координатах (метри на карті); формула кривини хоче `x` — зсув цілі вбік від курсу. Це стандартний поворот координат на кут `−θ` (курс машини):
 
+:::tabs
 ```c
 // Бічний зсув цілі в системі машини (вісь «вбік»).
 // pos — позиція машини, theta — курс [рад], goal — ціль у світі.
@@ -142,11 +255,35 @@ static float lateral_offset(Vec2 pos, float theta, Vec2 goal)
     return -sinf(theta) * dx + cosf(theta) * dy;
 }
 ```
+```cpp
+// Бічний зсув цілі в системі машини (вісь «вбік»).
+// pos — позиція машини, theta — курс [рад], goal — ціль у світі.
+float lateral_offset(Vec2 pos, float theta, Vec2 goal)
+{
+    float dx = goal.x - pos.x;
+    float dy = goal.y - pos.y;
+    // проєкція вектора машина→ціль на вісь «вбік» (поворот на -theta):
+    return -std::sin(theta) * dx + std::cos(theta) * dy;
+}
+```
+```python
+def lateral_offset(pos: Vec2, theta: float, goal: Vec2) -> float:
+    """Бічний зсув цілі в системі машини (вісь «вбік»).
+
+    pos — позиція машини, theta — курс [рад], goal — ціль у світі.
+    """
+    dx = goal.x - pos.x
+    dy = goal.y - pos.y
+    # проєкція вектора машина→ціль на вісь «вбік» (поворот на -theta):
+    return -math.sin(theta) * dx + math.cos(theta) * dy
+```
+:::
 
 Знак `x` каже сторону: додатний — ціль ліворуч, від'ємний — праворуч (залежно від того, як орієнтовано осі). І це **все**, що треба знати про геометрію шляху цього такту: складна лінія з десятків точок стиснулася в одне число.
 
 Зберемо повний такт. Стан машини (позиція, курс, швидкість) дала [одометрія](book:algorithms/odometry); шлях лежить масивом; індекс поточного відрізка `seg` живе між тактами. Вихід — кутова швидкість `ω` для диференційного привода:
 
+:::tabs
 ```c
 typedef struct {
     // налаштування
@@ -203,11 +340,121 @@ float pursuit_step(Pursuit *pp, const Vec2 *path, int n,
     return w;
 }
 ```
+```cpp
+struct Pursuit {
+    // налаштування
+    float k_look;      // коеф. випередження [с]: L = k_look·v
+    float L_min;       // мінімальне випередження [м] (щоб на v→0 не ділити на 0)
+    float w_max;       // межа кутової швидкості [рад/с]
+    float goal_tol;    // радіус «прибув» до кінця шляху [м]
+    // стан між тактами
+    int   seg      = 0;      // поточний відрізок шляху
+    bool  finished = false;  // true, коли шлях пройдено
+};
+
+// Один такт погоні. Повертає бажану кутову швидкість ω [рад/с];
+// v_cmd — бажану лінійну швидкість (модуль може її знизити на фініші).
+float pursuit_step(Pursuit &pp, const std::vector<Vec2> &path,
+                   Vec2 pos, float theta, float v, float &v_cmd)
+{
+    v_cmd = v;
+
+    // 1) випередження, пропорційне швидкості, з нижньою межею
+    float L = std::max(pp.k_look * v, pp.L_min);
+
+    // 2) знайти точку огляду на шляху (лише вперед від поточного відрізка)
+    Vec2 goal;
+    if (auto found = find_goal(path, pos, L, pp.seg)) {
+        goal    = found->first;
+        pp.seg  = found->second;
+    } else {
+        // 3) коло вже не перетинає шляху — типово кінець ближче, ніж L.
+        //    ціллю беремо останню точку; на підході гасимо швидкість.
+        goal = path.back();
+        float dx = goal.x - pos.x, dy = goal.y - pos.y;
+        float dist = std::sqrt(dx * dx + dy * dy);
+        if (dist < pp.goal_tol) {        // прибули
+            pp.finished = true;
+            v_cmd = 0.0f;
+            return 0.0f;                  // стоп, не крутити
+        }
+        // ще їдемо до фінішу: пригальмувати пропорційно решті шляху
+        if (dist < L) v_cmd = v * (dist / L);
+    }
+
+    // 4) бічний зсув цілі та кривина дуги
+    float x    = lateral_offset(pos, theta, goal);
+    float Leff = std::sqrt((goal.x - pos.x) * (goal.x - pos.x) +
+                           (goal.y - pos.y) * (goal.y - pos.y));  // фактична хорда
+    float kappa = 2.0f * x / (Leff * Leff);
+
+    // 5) кутова швидкість для диференційного привода
+    float w = v_cmd * kappa;
+    return std::clamp(w, -pp.w_max, pp.w_max);
+}
+```
+```python
+from dataclasses import dataclass
+
+
+@dataclass
+class Pursuit:
+    # налаштування
+    k_look: float      # коеф. випередження [с]: L = k_look·v
+    L_min: float       # мінімальне випередження [м] (щоб на v→0 не ділити на 0)
+    w_max: float       # межа кутової швидкості [рад/с]
+    goal_tol: float    # радіус «прибув» до кінця шляху [м]
+    # стан між тактами
+    seg: int = 0       # поточний відрізок шляху
+    finished: bool = False  # True, коли шлях пройдено
+
+
+def pursuit_step(pp: Pursuit, path: list[Vec2],
+                 pos: Vec2, theta: float, v: float) -> tuple[float, float]:
+    """Один такт погоні.
+
+    Повертає (ω, v_cmd): бажану кутову швидкість [рад/с] і бажану лінійну
+    швидкість (модуль може її знизити на фініші).
+    """
+    v_cmd = v
+
+    # 1) випередження, пропорційне швидкості, з нижньою межею
+    L = max(pp.k_look * v, pp.L_min)
+
+    # 2) знайти точку огляду на шляху (лише вперед від поточного відрізка)
+    found = find_goal(path, pos, L, pp.seg)
+    if found is not None:
+        goal, pp.seg = found
+    else:
+        # 3) коло вже не перетинає шляху — типово кінець ближче, ніж L.
+        #    ціллю беремо останню точку; на підході гасимо швидкість.
+        goal = path[-1]
+        dx, dy = goal.x - pos.x, goal.y - pos.y
+        dist = math.hypot(dx, dy)
+        if dist < pp.goal_tol:           # прибули
+            pp.finished = True
+            return 0.0, 0.0               # стоп, не крутити
+        # ще їдемо до фінішу: пригальмувати пропорційно решті шляху
+        if dist < L:
+            v_cmd = v * (dist / L)
+
+    # 4) бічний зсув цілі та кривина дуги
+    x = lateral_offset(pos, theta, goal)
+    Leff = math.hypot(goal.x - pos.x, goal.y - pos.y)  # фактична хорда
+    kappa = 2.0 * x / (Leff * Leff)
+
+    # 5) кутова швидкість для диференційного привода
+    w = v_cmd * kappa
+    w = max(-pp.w_max, min(pp.w_max, w))
+    return w, v_cmd
+```
+:::
 
 Три тонкощі варто підкреслити. По-перше, у кроці 4 я беру `Leff` — **фактичну** відстань машина→ціль, а не задане `L`. Коли ціль знайдено як перетин кола, вони збігаються; але на кінці шляху, коли ціллю стала остання точка **ближча за `L`**, кривину треба рахувати від справжньої хорди, інакше дуга буде неправильна. По-друге, кутова швидкість `ω = v_cmd·κ` бере вже **зменшену** на фініші швидкість — тоді на гальмуванні до точки ровер повертає узгоджено, а не рветься крутити на повній. По-третє, вихід затиснуто межею `w_max`: жоден мотор не крутиться нескінченно швидко, і різницю бортів однаково обмежить [мікшер](book:algorithms/motor-mixer), тож чесно обрізати вже тут.
 
 **Для Аккерманового ровера** останній крок інший — замість `ω` віддаємо кут керма:
 
+:::tabs
 ```c
     // 5′) той самий kappa → кут керма (велосипедна модель), із затиском
     float delta = atanf(pp->wheelbase * kappa);
@@ -215,6 +462,18 @@ float pursuit_step(Pursuit *pp, const Vec2 *path, int n,
     if (delta < -pp->delta_max) delta = -pp->delta_max;
     return delta;
 ```
+```cpp
+    // 5′) той самий kappa → кут керма (велосипедна модель), із затиском
+    float delta = std::atan(pp.wheelbase * kappa);
+    return std::clamp(delta, -pp.delta_max, pp.delta_max);
+```
+```python
+    # 5′) той самий kappa → кут керма (велосипедна модель), із затиском
+    delta = math.atan(pp.wheelbase * kappa)
+    delta = max(-pp.delta_max, min(pp.delta_max, delta))
+    return delta
+```
+:::
 
 Усе інше — пошук цілі, проєкція, кривина — **однакове**. Міняється лише переклад `κ` в останньому рядку: `ω = v·κ` для диференційного тіла, `δ = atan(wheelbase·κ)` для тіла з кермом.
 

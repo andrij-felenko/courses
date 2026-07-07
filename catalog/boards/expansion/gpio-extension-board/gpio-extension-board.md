@@ -75,6 +75,7 @@ UART     TXD (GPIO14), RXD(15) 8, 10           послідовний порт, 
 
 **Ідея.** Оскільки плата пасивна, `GPIO17` на макетці — це буквально `GPIO17` процесора, лише винесений на зручну точку. Тому код нічим не відрізняється від блимання прямо на голій гребінці Pi: просимо в ядра лінію 17 як вихід і смикаємо її. На Raspberry Pi 5 (і сучасних ядрах Pi 4) це роблять через бібліотеку `libgpiod`.
 
+:::tabs
 ```c
 // blink.c — блимаємо світлодіодом на GPIO17, виведеному платою на макетку
 // збірка:  gcc blink.c -o blink -lgpiod
@@ -114,6 +115,29 @@ int main(void)
     return 0;
 }
 ```
+```py
+# blink.py — блимаємо світлодіодом на GPIO17, виведеному платою на макетку
+# постановка:  sudo apt install python3-libgpiod   (пакет gpiod)
+import time
+import gpiod
+from gpiod.line import Direction, Value
+
+CHIP_PATH = "/dev/gpiochip0"   # гребінка Pi у свіжому ядрі
+LED_LINE  = 17                 # BCM-ім'я, надруковане на платі
+
+# with сам звільнить лінію й закриє чип на виході — заміна release/close
+with gpiod.request_lines(
+    CHIP_PATH,
+    consumer="blink",
+    config={LED_LINE: gpiod.LineSettings(direction=Direction.OUTPUT)},
+) as req:
+    for _ in range(20):
+        req.set_value(LED_LINE, Value.ACTIVE)
+        time.sleep(0.5)                 # горить 0.5 с
+        req.set_value(LED_LINE, Value.INACTIVE)
+        time.sleep(0.5)                 # згас 0.5 с
+```
+:::
 
 **Висновок.** Число в коді — `17` — це те саме, що надруковано на платі біля штиря (`GPIO17`), і це ж BCM-номер лінії в `libgpiod`. Плата вставилась у цю картину так гладко, що в коді про неї немає жодного сліду: ми керуємо тим самим GPIO17, лише фізично він тепер зручно винесений на макетку з підписом. Повніше про роботу з GPIO Raspberry Pi з коду — усі чотири типові задачі (вивід, кнопка, I2C-давач, диск) з граблями — у [проєкт-вставці цієї теми](book:boards/gpio-extension-board/proj-libgpiod-breadboard.md).
 

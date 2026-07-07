@@ -62,8 +62,9 @@
 
 **Умова.** Роздрібна ціна машини — 0.10 долара за годину, платиш лише за ввімкнені години. Річна обіцянка на таку саму машину дає знижку 30 %, тобто 0.07 долара за годину, **але списується за кожну годину року незалежно від того, ввімкнена машина чи ні** (спрощена модель резервування: обіцяв — плати за весь строк). За якого рівня завантаження — тобто якої частки годин, коли машина реально потрібна, — обіцянка стає вигіднішою за роздріб?
 
-```c
-#include <stdint.h>
+:::tabs
+```cpp
+#include <cstdint>
 
 // Рахунок за місяць на РОЗДРІБІ: платимо лише за ввімкнені години.
 double retail_cost(double retail_per_hour, double hours_used) {
@@ -83,6 +84,23 @@ double breakeven_utilization(double committed_per_hour, double retail_per_hour) 
     return committed_per_hour / retail_per_hour;   // частка годин (0..1)
 }
 ```
+```python
+# Рахунок за місяць на РОЗДРІБІ: платимо лише за ввімкнені години.
+def retail_cost(retail_per_hour, hours_used):
+    return retail_per_hour * hours_used
+
+# Рахунок за місяць на ОБІЦЯНЦІ: платимо за ВСІ години місяця,
+# байдуже, ввімкнена машина чи ні (знижена ставка × повний строк).
+def committed_cost(committed_per_hour, hours_in_month):
+    return committed_per_hour * hours_in_month
+
+# Поріг завантаження, за яким обіцянка зрівнюється з роздробом.
+# Прирівнюємо рахунки:  retail·H_used = committed·H_month
+#   →  H_used / H_month = committed / retail
+def breakeven_utilization(committed_per_hour, retail_per_hour):
+    return committed_per_hour / retail_per_hour   # частка годин (0..1)
+```
+:::
 
 Підставмо числа для місяця в 720 годин:
 

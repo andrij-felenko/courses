@@ -98,9 +98,10 @@
 
 **Обчислімо 2ᴺ байтів для N = 16 і N = 32 і виразимо у КіБ/ГіБ.**
 
-```c
-#include <stdint.h>
-#include <stdio.h>
+:::tabs
+```cpp
+#include <cstdint>
+#include <cstdio>
 
 // Розмір адресного простору в байтах для N ліній адреси (байтова адресація).
 // Для N = 32 результат не влазить у 32-бітне число (це РІВНО 2^32),
@@ -109,17 +110,27 @@ static uint64_t address_space_bytes(unsigned n) {
     return (uint64_t)1 << n;          // 2^N: один зсув ліворуч на N позицій
 }
 
-int main(void) {
-    unsigned widths[] = { 16, 32 };
-    for (int i = 0; i < 2; ++i) {
-        unsigned  n     = widths[i];
-        uint64_t  bytes = address_space_bytes(n);
-        printf("%u ліній -> 2^%u = %llu байтів\n",
-               n, n, (unsigned long long)bytes);
+int main() {
+    for (unsigned n : { 16u, 32u }) {
+        uint64_t bytes = address_space_bytes(n);
+        std::printf("%u ліній -> 2^%u = %llu байтів\n",
+                    n, n, (unsigned long long)bytes);
     }
     return 0;
 }
 ```
+```python
+# Розмір адресного простору в байтах для N ліній адреси (байтова адресація).
+# У Python цілі необмежені, тож 2^32 не переповнюється — зсув безпечний.
+def address_space_bytes(n):
+    return 1 << n                     # 2^N: один зсув ліворуч на N позицій
+
+
+for n in (16, 32):
+    bytes_ = address_space_bytes(n)
+    print(f"{n} ліній -> 2^{n} = {bytes_} байтів")
+```
+:::
 
 Покрокова арифметика, яку виконає цей код, — той самий розклад степеня по десятках показника:
 

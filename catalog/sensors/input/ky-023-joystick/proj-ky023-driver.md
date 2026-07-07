@@ -19,6 +19,7 @@
 
 Спокуса писати `analogRead` і магічні числа розкидано по всьому скетчу велика, і саме вона робить джойстик-код нечитабельним. Натомість замкнімо все знання про одну вісь у маленьку структуру: де її пін, який у неї виміряний центр, яка мертва зона, чи інвертувати. Тоді будь-яка задача — курсор, мотори, напрямки — працює з двома такими структурами й більше нічого про потенціометри не знає.
 
+:::tabs
 ```cpp
 struct Axis {
     uint8_t pin;        // аналоговий пін цієї осі (VRx або VRy)
@@ -28,6 +29,29 @@ struct Axis {
     bool    invert;     // true → міняємо знак виходу
 };
 ```
+```python
+from dataclasses import dataclass
+
+@dataclass
+class Axis:
+    pin: int             # аналоговий пін цієї осі (VRx або VRy)
+    center: int          # виміряний центр (заповнюємо на старті)
+    lo: int              # сирий нижній край ходу: 0
+    hi: int              # сирий верхній край ходу: ADC_MAX — залежить від плати
+    deadzone: int        # напівширина мертвої зони, в одиницях АЦП
+    invert: bool = False # True → міняємо знак виходу
+```
+```micropython
+class Axis:
+    def __init__(self, pin, center, lo, hi, deadzone, invert=False):
+        self.pin = pin           # об'єкт ADC цієї осі (VRx або VRy)
+        self.center = center     # виміряний центр (заповнюємо на старті)
+        self.lo = lo             # сирий нижній край ходу: 0
+        self.hi = hi             # сирий верхній край ходу: ADC_MAX — залежить від плати
+        self.deadzone = deadzone # напівширина мертвої зони, в одиницях АЦП
+        self.invert = invert     # True → міняємо знак виходу
+```
+:::
 
 Поле `hi` тут не випадкове й не косметичне — це те єдине місце, де 10-бітна Arduino відрізняється від 12-бітного ESP32. На Arduino `analogRead` віддає 0…1023, тож `hi = 1023`; на ESP32 — 0…4095, тож `hi = 4095`. Заведемо цю межу однією константою на весь скетч, і тоді ту саму логіку осі можна залити на обидві плати, змінивши один рядок:
 
@@ -50,6 +74,7 @@ struct Axis {
 
 Центр міряємо один раз, поки ручка гарантовано відпущена, — у `setup()`. Не беремо одне значення (воно шумить), а усереднюємо кілька десятків: сума ділена на кількість дає стабільний «нуль» саме цього екземпляра. Заразом можна перевірити, що ручку справді не чіпають: якщо розкид вимірів завеликий, хтось тримає джойстик, і центр вийде кривий.
 
+:::tabs
 ```cpp
 // Виміряти центр осі: N разів прочитати нерухому ручку й усереднити.
 void calibrateCenter(Axis &a, uint8_t samples = 64) {
@@ -61,6 +86,29 @@ void calibrateCenter(Axis &a, uint8_t samples = 64) {
     a.center = acc / samples;           // справжній «нуль» саме цього екземпляра
 }
 ```
+```python
+import time
+
+# Виміряти центр осі: N разів прочитати нерухому ручку й усереднити.
+def calibrate_center(a, samples=64):
+    acc = 0
+    for _ in range(samples):
+        acc += analog_read(a.pin)
+        time.sleep(0.003)               # дати АЦП і напрузі влягтися між вимірами
+    a.center = acc // samples           # справжній «нуль» саме цього екземпляра
+```
+```micropython
+import time
+
+# Виміряти центр осі: N разів прочитати нерухому ручку й усереднити.
+def calibrate_center(a, samples=64):
+    acc = 0
+    for _ in range(samples):
+        acc += a.pin.read()             # ADC.read() → сире число
+        time.sleep_ms(3)                # дати АЦП і напрузі влягтися між вимірами
+    a.center = acc // samples           # справжній «нуль» саме цього екземпляра
+```
+:::
 
 Чому усереднення, а не одне читання? Бо АЦП на кожному вимірі додає ±кілька одиниць шуму, і якщо схопити «нуль» одним пострілом, можна невдало влучити в піковий викид — і весь подальший відлік поїде на цю похибку. Тридцять-шістдесят вимірів, усереднені, гасять шум у корінь-із-N разів: із ±4 одиниць розкиду одного відліку виходить менш ніж ±1 на усередненому. Дешево і надійно.
 
@@ -74,6 +122,7 @@ void calibrateCenter(Axis &a, uint8_t samples = 64) {
 
 Зберемо все в одну функцію. Вона й є серце драйвера:
 
+:::tabs
 ```cpp
 // Сире число осі → −100..+100 із мертвою зоною біля нуля.
 int readAxis(const Axis &a) {
@@ -96,6 +145,55 @@ int readAxis(const Axis &a) {
     return a.invert ? -out : out;              // 3) інверсія осі, якщо треба
 }
 ```
+```python
+# Лінійна пропорція цілими числами, як Arduino map().
+def _map(v, from_lo, from_hi, to_lo, to_hi):
+    return (v - from_lo) * (to_hi - to_lo) // (from_hi - from_lo) + to_lo
+
+# Сире число осі → −100..+100 із мертвою зоною біля нуля.
+def read_axis(a):
+    raw = analog_read(a.pin)
+    d = raw - a.center                         # відхилення від центру, знакове
+
+    # 1) мертва зона: близько до центру — це строгий нуль
+    if -a.deadzone < d < a.deadzone:
+        return 0
+
+    if d > 0:
+        # додатний бік: від краю мертвої зони до верхнього краю ходу
+        out = _map(d, a.deadzone, a.hi - a.center, 0, 100)
+    else:
+        # від'ємний бік: від краю мертвої зони до нижнього краю ходу
+        out = _map(d, -a.deadzone, a.lo - a.center, 0, -100)
+
+    out = max(-100, min(100, out))             # не вилазити за діапазон
+    return -out if a.invert else out           # 3) інверсія осі, якщо треба
+```
+```micropython
+# Лінійна пропорція цілими числами, як Arduino map().
+def _map(v, from_lo, from_hi, to_lo, to_hi):
+    return (v - from_lo) * (to_hi - to_lo) // (from_hi - from_lo) + to_lo
+
+# Сире число осі → −100..+100 із мертвою зоною біля нуля.
+def read_axis(a):
+    raw = a.pin.read()                         # ADC.read() → сире число
+    d = raw - a.center                         # відхилення від центру, знакове
+
+    # 1) мертва зона: близько до центру — це строгий нуль
+    if -a.deadzone < d < a.deadzone:
+        return 0
+
+    if d > 0:
+        # додатний бік: від краю мертвої зони до верхнього краю ходу
+        out = _map(d, a.deadzone, a.hi - a.center, 0, 100)
+    else:
+        # від'ємний бік: від краю мертвої зони до нижнього краю ходу
+        out = _map(d, -a.deadzone, a.lo - a.center, 0, -100)
+
+    out = max(-100, min(100, out))             # не вилазити за діапазон
+    return -out if a.invert else out           # 3) інверсія осі, якщо треба
+```
+:::
 
 Тут `map(value, fromLo, fromHi, toLo, toHi)` — стандартна Arduino-функція, що лінійно перекладає число з одного діапазону в інший; вона робить пропорцію, ту саму `(value − fromLo)·(toHi − toLo)/(fromHi − fromLo) + toLo`, тільки цілими числами. А `constrain` затискає результат у межі: без нього, якщо конкретний потенціометр дотягує трохи далі за розрахунковий край, вихід міг би вискочити за ±100 і зіпсувати логіку, що на нього спирається.
 
@@ -103,6 +201,7 @@ int readAxis(const Axis &a) {
 
 Тепер про **обмін осей**. Інверсію ми сховали в поле `invert`, але буває, що джойстик стоїть боком, і рух «вправо» рукою крутить насправді вісь Y, а не X. Це не властивість осі — це властивість того, яку структуру ми питаємо для «горизонталі». Тому обмін робимо не в `readAxis`, а зовні, у тому, як задаємо осі. Досить завести дві іменовані ролі й прив'язати їх до потрібних структур:
 
+:::tabs
 ```cpp
 Axis vrx = { .pin = A0, .center = 512, .lo = 0, .hi = ADC_MAX,
              .deadzone = 24, .invert = false };
@@ -113,6 +212,25 @@ Axis vry = { .pin = A1, .center = 512, .lo = 0, .hi = ADC_MAX,
 Axis &horizontal = vrx;   // якщо боком — постав vry
 Axis &vertical   = vry;   // ... і сюди vrx
 ```
+```python
+vrx = Axis(pin=0, center=512, lo=0, hi=ADC_MAX, deadzone=24, invert=False)
+vry = Axis(pin=1, center=512, lo=0, hi=ADC_MAX, deadzone=24, invert=False)
+
+# Логічні ролі керування. Джойстик стоїть боком? — поміняй місцями тут.
+horizontal = vrx          # якщо боком — постав vry
+vertical   = vry          # ... і сюди vrx
+```
+```micropython
+from machine import ADC, Pin
+
+vrx = Axis(pin=ADC(Pin(36)), center=2048, lo=0, hi=ADC_MAX, deadzone=90, invert=False)
+vry = Axis(pin=ADC(Pin(39)), center=2048, lo=0, hi=ADC_MAX, deadzone=90, invert=False)
+
+# Логічні ролі керування. Джойстик стоїть боком? — поміняй місцями тут.
+horizontal = vrx          # якщо боком — постав vry
+vertical   = vry          # ... і сюди vrx
+```
+:::
 
 Отак усі три види «орієнтаційних» поправок — інверсія кожної осі, обмін осей, роздільний масштаб країв — лишаються даними (`invert`, яка структура куди прив'язана), а не розсипаним по коду `if`-лабіринтом. Змінив монтаж — правиш чотири рядки конфігурації, логіка керування не ворушиться.
 
@@ -122,6 +240,7 @@ Axis &vertical   = vry;   // ... і сюди vrx
 
 Чому саме так, а не «нахил = координата»? Бо хід джойстика короткий — пара сантиметрів, — а екран великий. Якби нахил задавав абсолютну позицію, увесь екран мусив би вміститися в ті два сантиметри ходу, і навести на дрібну ціль стало б неможливо: найменший дрож руки перестрибував би півекрана. А «нахил = швидкість» дає обидва режими одразу: ледь торкнувся — повзеш по пікселю, вихилив — летиш через увесь екран.
 
+:::tabs
 ```cpp
 int cursorX = 64, cursorY = 32;         // поточна позиція (напр. пікселі дисплея)
 
@@ -138,6 +257,39 @@ void moveCursor() {
     cursorY = constrain(cursorY,  0,  63);
 }
 ```
+```python
+cursor_x, cursor_y = 64, 32             # поточна позиція (напр. пікселі дисплея)
+
+def move_cursor():
+    global cursor_x, cursor_y
+    vx = read_axis(horizontal)          # −100..+100
+    vy = read_axis(vertical)
+
+    # швидкість у «пікселів за крок»: 100 на осі → 5 пікселів за виклик
+    cursor_x += int(vx / 20)
+    cursor_y += int(vy / 20)
+
+    # не давати курсору втекти за межі екрана 128×64
+    cursor_x = max(0, min(127, cursor_x))
+    cursor_y = max(0, min(63,  cursor_y))
+```
+```micropython
+cursor_x, cursor_y = 64, 32             # поточна позиція (напр. пікселі дисплея)
+
+def move_cursor():
+    global cursor_x, cursor_y
+    vx = read_axis(horizontal)          # −100..+100
+    vy = read_axis(vertical)
+
+    # швидкість у «пікселів за крок»: 100 на осі → 5 пікселів за виклик
+    cursor_x += int(vx / 20)
+    cursor_y += int(vy / 20)
+
+    # не давати курсору втекти за межі екрана 128×64
+    cursor_x = max(0, min(127, cursor_x))
+    cursor_y = max(0, min(63,  cursor_y))
+```
+:::
 
 Ділення `vx / 20` — це і є «чутливість»: більший дільник робить курсор повільнішим і точнішим, менший — швидшим і нервовішим. Оскільки `readAxis` уже віддає чесний нуль у спокої (завдяки мертвій зоні), відпущений джойстик додає рівно нуль, і курсор стоїть як укопаний — без «повзання», яким славляться наївні реалізації без калібрування.
 
@@ -149,6 +301,7 @@ void moveCursor() {
 
 Питання лише в тому, як дві осі джойстика лягають на дві швидкості. Найінтуїтивніший спосіб — **керування однією ручкою через змішування**: вісь Y (вперед-назад) задає спільний хід, вісь X (вліво-вправо) додає різницю. Змішуємо їх арифметично:
 
+:::tabs
 ```cpp
 // Танкове змішування: одна ручка → дві швидкості моторів (−100..+100 кожна).
 struct Motors { int left, right; };
@@ -165,6 +318,33 @@ Motors tankMix() {
     return { left, right };
 }
 ```
+```python
+# Танкове змішування: одна ручка → дві швидкості моторів (−100..+100 кожна).
+def tank_mix():
+    drive = read_axis(vertical)         # вперед/назад: спільна складова
+    turn  = read_axis(horizontal)       # ліворуч/праворуч: різницева складова
+
+    left  = drive + turn                # праворуч → лівий мотор швидше
+    right = drive - turn                # ... а правий повільніше
+
+    left  = max(-100, min(100, left))
+    right = max(-100, min(100, right))
+    return left, right
+```
+```micropython
+# Танкове змішування: одна ручка → дві швидкості моторів (−100..+100 кожна).
+def tank_mix():
+    drive = read_axis(vertical)         # вперед/назад: спільна складова
+    turn  = read_axis(horizontal)       # ліворуч/праворуч: різницева складова
+
+    left  = drive + turn                # праворуч → лівий мотор швидше
+    right = drive - turn                # ... а правий повільніше
+
+    left  = max(-100, min(100, left))
+    right = max(-100, min(100, right))
+    return left, right
+```
+:::
 
 Чому `left = drive + turn`, а не навпаки? Проведімо це руками, бо тут легко наплутати знак і потім довго дивуватися, чому робот крутить не туди. Хай `drive = 0` (стоїмо), а `turn = +100` (ручка вправо до кінця). Тоді `left = +100`, `right = −100`: ліве колесо крутиться вперед, праве назад — робот розвертається **праворуч** на місці. Саме те, що очікуєш від «ручка вправо». Якщо на твоєму залізі виходить дзеркально — не переписуй формулу, а інвертуй потрібний мотор у полі `invert` відповідної осі; логіка змішування має лишатися чистою.
 
@@ -178,6 +358,7 @@ Motors tankMix() {
 
 Ідея переходу від осей до напрямків — розбити площину навколо центру на сектори. Але робити це через кути (арктангенс, вимірювання градусів) — і повільно на дрібному мікроконтролері, і зайво. Значно простіше й надійніше — **звести кожну вісь до трьох станів** (−1, 0, +1) з тим самим порогом мертвої зони, а тоді з двох таких «трійкових» осей скласти напрямок. Двовимірна решітка 3×3 дає рівно дев'ять клітин: центральна — спокій, чотири бічні — прямі напрямки, чотири кутові — діагоналі.
 
+:::tabs
 ```cpp
 enum Dir { DIR_NONE, DIR_N, DIR_NE, DIR_E, DIR_SE,
            DIR_S, DIR_SW, DIR_W, DIR_NW };
@@ -201,6 +382,59 @@ Dir readDir() {
     return (hx == -1) ? DIR_W : DIR_E;      // hy == 0, hx ≠ 0
 }
 ```
+```python
+from enum import IntEnum
+
+class Dir(IntEnum):
+    NONE = 0; N = 1; NE = 2; E = 3; SE = 4
+    S = 5; SW = 6; W = 7; NW = 8
+
+# Звести вісь до знака −1/0/+1 за порогом (частка від повного ходу).
+def sign3(v, threshold=40):
+    if v >  threshold: return  1
+    if v < -threshold: return -1
+    return 0
+
+def read_dir():
+    hx = sign3(read_axis(horizontal))       # −1, 0, +1  (захід … схід)
+    hy = sign3(read_axis(vertical))         # −1, 0, +1  (південь … північ)
+
+    if hx == 0 and hy == 0:
+        return Dir.NONE
+
+    # 3×3 → напрямок; вважаємо +Y = північ (вгору), +X = схід (вправо)
+    if hy ==  1:
+        return Dir.NW if hx == -1 else Dir.NE if hx == 1 else Dir.N
+    if hy == -1:
+        return Dir.SW if hx == -1 else Dir.SE if hx == 1 else Dir.S
+    return Dir.W if hx == -1 else Dir.E     # hy == 0, hx ≠ 0
+```
+```micropython
+# Напрямки як прості константи (IntEnum на MicroPython зайвий).
+DIR_NONE, DIR_N, DIR_NE, DIR_E, DIR_SE = 0, 1, 2, 3, 4
+DIR_S, DIR_SW, DIR_W, DIR_NW = 5, 6, 7, 8
+
+# Звести вісь до знака −1/0/+1 за порогом (частка від повного ходу).
+def sign3(v, threshold=40):
+    if v >  threshold: return  1
+    if v < -threshold: return -1
+    return 0
+
+def read_dir():
+    hx = sign3(read_axis(horizontal))       # −1, 0, +1  (захід … схід)
+    hy = sign3(read_axis(vertical))         # −1, 0, +1  (південь … північ)
+
+    if hx == 0 and hy == 0:
+        return DIR_NONE
+
+    # 3×3 → напрямок; вважаємо +Y = північ (вгору), +X = схід (вправо)
+    if hy ==  1:
+        return DIR_NW if hx == -1 else DIR_NE if hx == 1 else DIR_N
+    if hy == -1:
+        return DIR_SW if hx == -1 else DIR_SE if hx == 1 else DIR_S
+    return DIR_W if hx == -1 else DIR_E     # hy == 0, hx ≠ 0
+```
+:::
 
 Поріг `threshold = 40` тут важливіший, ніж здається, і задає **розмір «мертвого хреста»** між напрямками. Візьми його замалим — і напрямки перемикатимуться від найменшого дотику, а на межі секторів команда тремтітиме між, скажімо, «північ» і «північний схід». Візьми завеликим — і доведеться хилити ручку майже до упору, щоб узагалі спрацювало. Сорок відсотків повного ходу — розумний початок: спокійна зона широка, а до країв усе однозначно.
 
@@ -219,6 +453,7 @@ Dir readDir() {
 
 Загорнемо кнопку в маленьку структуру, як робили з віссю, і винесемо з неї дві корисні події: `pressed` (рівно один імпульс у мить натискання) і `held` (рівний рівень «тримають зараз»). Саме `pressed` — те, що потрібне для лічби кліків і перемикання режимів.
 
+:::tabs
 ```cpp
 struct Button {
     uint8_t  pin;
@@ -259,6 +494,75 @@ void buttonUpdate(Button &b) {
 bool buttonPressed(Button &b) { return b.pressedEvent; }         // один імпульс
 bool buttonHeld(Button &b)    { return b.stable == LOW; }        // тримають зараз
 ```
+```python
+import time
+
+DEBOUNCE_MS = 25
+
+def _now_ms():
+    return time.monotonic_ns() // 1_000_000
+
+class Button:
+    def __init__(self, pin):
+        self.pin = pin
+        digital_pin_mode(pin, INPUT_PULLUP)  # на модулі підтяжки немає!
+        self.stable = True                   # спокій = HIGH (відпущено)
+        self.last_read = True                # останній миттєвий відлік
+        self.last_change = _now_ms()         # коли рівень востаннє змінився, мс
+        self.pressed_event = False           # один імпульс у мить натиску
+
+    # Викликати щоцикл. Оновлює стан; pressed_event — один імпульс на натиск.
+    def update(self):
+        self.pressed_event = False
+        now = digital_read(self.pin)         # HIGH = відпущено, LOW = натиснуто
+
+        if now != self.last_read:            # рівень смикнувся — перезапустити вікно
+            self.last_change = _now_ms()
+            self.last_read = now
+
+        # рівень протримався сталим досить довго — приймаємо його
+        if _now_ms() - self.last_change >= DEBOUNCE_MS and now != self.stable:
+            self.stable = now
+            if self.stable == LOW:           # перехід HIGH→LOW = справжній натиск
+                self.pressed_event = True
+
+    def pressed(self):  return self.pressed_event   # один імпульс
+    def held(self):     return self.stable == LOW   # тримають зараз
+```
+```micropython
+import time
+from machine import Pin
+
+DEBOUNCE_MS = 25
+
+class Button:
+    def __init__(self, pin_num):
+        self.pin = Pin(pin_num, Pin.IN, Pin.PULL_UP)  # на модулі підтяжки немає!
+        self.stable = True                   # спокій = HIGH (відпущено)
+        self.last_read = True                # останній миттєвий відлік
+        self.last_change = time.ticks_ms()   # коли рівень востаннє змінився, мс
+        self.pressed_event = False           # один імпульс у мить натиску
+
+    # Викликати щоцикл. Оновлює стан; pressed_event — один імпульс на натиск.
+    def update(self):
+        self.pressed_event = False
+        now = bool(self.pin.value())         # 1 = відпущено, 0 = натиснуто
+
+        if now != self.last_read:            # рівень смикнувся — перезапустити вікно
+            self.last_change = time.ticks_ms()
+            self.last_read = now
+
+        # рівень протримався сталим досить довго — приймаємо його
+        if time.ticks_diff(time.ticks_ms(), self.last_change) >= DEBOUNCE_MS \
+                and now != self.stable:
+            self.stable = now
+            if not self.stable:              # перехід HIGH→LOW = справжній натиск
+                self.pressed_event = True
+
+    def pressed(self):  return self.pressed_event   # один імпульс
+    def held(self):     return not self.stable      # тримають зараз
+```
+:::
 
 Прочитаймо логіку, бо вона хитріша за вигляд. Змінна `lastRead` стежить за **миттєвим** рівнем: щойно він відрізнився від попереднього — ми не робимо нічого, крім як заводимо годинник `lastChange` наново. Поки контакт деренчить, цей годинник раз у раз скидається й ніколи не встигає добігти до 25 мс — тож `stable` не рухається, брязкіт мовчить. Аж коли рівень нарешті вгамувався й протримався 25 мс без смикань, ми приймаємо його в `stable`; і саме в мить, коли `stable` уперше стало `LOW`, виставляємо `pressedEvent` на один цикл. Наступний виклик його погасить. Отак із брудної черги імпульсів народжується рівно одна чиста подія «натиснуто».
 

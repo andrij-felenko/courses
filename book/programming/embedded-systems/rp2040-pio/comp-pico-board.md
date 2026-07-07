@@ -36,7 +36,7 @@ RP2040 цінують за головну родзинку — програмо�
 
 ## Розпіновка й живлення
 
-```
+```txt
 VBUS    — 5 В прямо з USB (виходить від роз'єму, не регулюється)
 VSYS    — вхід живлення 1.8…5.5 В (сюди ж і buck-boost прийом)
 3V3     — вихід 3.3 В (живить RP2040 і периферію; до 300 мА)
@@ -80,6 +80,7 @@ SWDIO   — дані SWD
 
 Канонічний приклад — blink з Pico SDK (мова курсу — C):
 
+:::tabs
 ```c
 #include "pico/stdlib.h"
 
@@ -95,6 +96,18 @@ int main(void) {
     }
 }
 ```
+```python
+from machine import Pin
+from time import sleep_ms
+
+led = Pin("LED", Pin.OUT)   # "LED" = вбудований GP25 на Pico
+while True:
+    led.value(1)
+    sleep_ms(500)
+    led.value(0)
+    sleep_ms(500)
+```
+:::
 
 `gpio_init`, `gpio_set_dir`, `gpio_put`, `sleep_ms` — це реальне API Pico SDK; `PICO_DEFAULT_LED_PIN` — константа, яка для стандартної Pico дорівнює 25. Збірка через CMake дає `blink.uf2`: перетягнув на диск RPI-RP2, і через секунду світлодіод блимає. PIO-код у цій вставці не потрібен — він у окремій вставці ⚙️ [PIO](proj-pio.md).
 

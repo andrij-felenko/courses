@@ -59,7 +59,8 @@
 
 **Умова: змоделювати файл 32 × 32 з двома портами читання та синхронним записом; показати, чому без пересилання читання «того самого» дає старе.**
 
-```c
+:::tabs
+```cpp
 #include <stdint.h>
 
 static uint32_t regfile[32];   // 32 регістри по 32 біти
@@ -74,19 +75,42 @@ static inline void rf_write_on_edge(uint8_t addr, uint32_t data, int wen) {
     if (wen) regfile[addr & 31] = data;
 }
 ```
+```python
+regfile = [0] * 32                    # 32 регістри по 32 біти
+MASK32 = 0xFFFFFFFF
+
+# два порти читання — комбінаційні: просто дивимось у масив
+def rf_read(addr):
+    return regfile[addr & 31]         # 5-бітна адреса
+
+# порт запису — «спрацьовує» на фронті такту (виклик = фронт)
+def rf_write_on_edge(addr, data, wen):
+    if wen:
+        regfile[addr & 31] = data & MASK32
+```
+:::
 
 Один такт команди `add r5, r1, r2` виглядає так:
 
-```c
+:::tabs
+```cpp
 uint32_t a = rf_read(1);              // операнд A = r1  (початок такту)
 uint32_t b = rf_read(2);              // операнд B = r2
 uint32_t y = a + b;                   // АЛП рахує весь такт
 rf_write_on_edge(5, y, 1);            // запис у r5 — аж наприкінці (фронт)
 ```
+```python
+a = rf_read(1)                        # операнд A = r1  (початок такту)
+b = rf_read(2)                        # операнд B = r2
+y = (a + b) & MASK32                  # АЛП рахує весь такт
+rf_write_on_edge(5, y, 1)             # запис у r5 — аж наприкінці (фронт)
+```
+:::
 
 Тепер видно пастку в чистому вигляді. Якби наступна команда була `add r6, r5, r5`, а виконувалась вона **до** `rf_write_on_edge`, її `rf_read(5)` повернув би **стару** r5 — бо масив ще не оновлено. Пересилання — це просто перевірка перед читанням:
 
-```c
+:::tabs
+```cpp
 // читання з пересиланням: якщо цього такту пишемо в ту саму адресу — віддати нове
 static inline uint32_t rf_read_fwd(uint8_t raddr,
                                    uint8_t waddr, uint32_t wdata, int wen) {
@@ -95,6 +119,14 @@ static inline uint32_t rf_read_fwd(uint8_t raddr,
     return regfile[raddr & 31];       // інакше — з масиву
 }
 ```
+```python
+# читання з пересиланням: якщо цього такту пишемо в ту саму адресу — віддати нове
+def rf_read_fwd(raddr, waddr, wdata, wen):
+    if wen and (raddr & 31) == (waddr & 31):
+        return wdata & MASK32         # підсунули щойнообчислене
+    return regfile[raddr & 31]        # інакше — з масиву
+```
+:::
 
 Оце коротке `if` у кремнії — мультиплексор перед портом, і саме він рятує конвеєр від читання застарілих даних.
 

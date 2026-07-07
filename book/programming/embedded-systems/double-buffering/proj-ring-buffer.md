@@ -49,6 +49,7 @@ head = (head + 1) & (N − 1)  // якщо N — степінь двійки (ш
 
 **Базовий модуль: кільце байтів із лічильником**
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stddef.h>
@@ -85,6 +86,136 @@ static inline int rb_pop(ring_t *r, uint8_t *out) {
     return 1;
 }
 ```
+```cpp
+#include <cstdint>
+#include <cstddef>
+
+class Ring {
+    static constexpr uint16_t SIZE = 256;      // степінь двійки → швидка маска
+    static constexpr uint16_t MASK = SIZE - 1;
+
+    uint8_t buf_[SIZE];
+    volatile uint16_t head_ = 0;               // writer index
+    volatile uint16_t tail_ = 0;               // reader index
+    volatile uint16_t count_ = 0;              // зайнято байтів
+
+public:
+    // writer: true = записано, false = повно (політика «відкинути новий»)
+    bool push(uint8_t b) {
+        if (count_ == SIZE) return false;      // повно
+        buf_[head_] = b;                       // 1) дані
+        head_ = (head_ + 1) & MASK;            // 2) посунути голову
+        ++count_;
+        return true;
+    }
+
+    // reader: true = є байт (в out), false = порожньо
+    bool pop(uint8_t &out) {
+        if (count_ == 0) return false;         // порожньо
+        out = buf_[tail_];
+        tail_ = (tail_ + 1) & MASK;
+        --count_;
+        return true;
+    }
+};
+```
+```python
+RB_SIZE = 256                        # степінь двійки → швидка маска
+RB_MASK = RB_SIZE - 1
+
+
+class Ring:
+    def __init__(self):
+        self.buf = bytearray(RB_SIZE)
+        self.head = 0                # writer index
+        self.tail = 0                # reader index
+        self.count = 0              # зайнято байтів
+
+    # writer: True = записано, False = повно (політика «відкинути новий»)
+    def push(self, b):
+        if self.count == RB_SIZE:    # повно
+            return False
+        self.buf[self.head] = b                  # 1) дані
+        self.head = (self.head + 1) & RB_MASK    # 2) посунути голову
+        self.count += 1
+        return True
+
+    # reader: повертає байт або None, якщо порожньо
+    def pop(self):
+        if self.count == 0:          # порожньо
+            return None
+        b = self.buf[self.tail]
+        self.tail = (self.tail + 1) & RB_MASK
+        self.count -= 1
+        return b
+```
+```go
+const (
+	rbSize = 256 // степінь двійки → швидка маска
+	rbMask = rbSize - 1
+)
+
+type Ring struct {
+	buf   [rbSize]byte
+	head  uint16 // writer index
+	tail  uint16 // reader index
+	count uint16 // зайнято байтів
+}
+
+// writer: true = записано, false = повно (політика «відкинути новий»)
+func (r *Ring) Push(b byte) bool {
+	if r.count == rbSize { // повно
+		return false
+	}
+	r.buf[r.head] = b            // 1) дані
+	r.head = (r.head + 1) & rbMask // 2) посунути голову
+	r.count++
+	return true
+}
+
+// reader: повертає (байт, true) або (0, false), якщо порожньо
+func (r *Ring) Pop() (byte, bool) {
+	if r.count == 0 { // порожньо
+		return 0, false
+	}
+	b := r.buf[r.tail]
+	r.tail = (r.tail + 1) & rbMask
+	r.count--
+	return b, true
+}
+```
+```js
+const RB_SIZE = 256;                 // степінь двійки → швидка маска
+const RB_MASK = RB_SIZE - 1;
+
+class Ring {
+  constructor() {
+    this.buf = new Uint8Array(RB_SIZE);
+    this.head = 0;                   // writer index
+    this.tail = 0;                   // reader index
+    this.count = 0;                  // зайнято байтів
+  }
+
+  // writer: true = записано, false = повно (політика «відкинути новий»)
+  push(b) {
+    if (this.count === RB_SIZE) return false;   // повно
+    this.buf[this.head] = b;                     // 1) дані
+    this.head = (this.head + 1) & RB_MASK;       // 2) посунути голову
+    this.count++;
+    return true;
+  }
+
+  // reader: повертає байт або null, якщо порожньо
+  pop() {
+    if (this.count === 0) return null;           // порожньо
+    const b = this.buf[this.tail];
+    this.tail = (this.tail + 1) & RB_MASK;
+    this.count--;
+    return b;
+  }
+}
+```
+:::
 
 `volatile` на індексах і лічильнику позначає, що їх змінює інша сторона (докладно — у темах про [`volatile`](book:programming/volatile) та [переривання](book:programming/interrupts)); компілятор зобов'язаний перечитувати їх щоразу з пам'яті.
 
@@ -92,6 +223,7 @@ static inline int rb_pop(ring_t *r, uint8_t *out) {
 
 Ядро забирає не по одному байту, а великим шматком — бо саме так улаштоване передавання до наступного обробника. І тут виникає фізична пастка: блок може починатися поблизу кінця масиву й продовжуватися з його початку. Один логічний блок — два фізично несуміжних відрізки.
 
+:::tabs
 ```c
 #include <string.h>
 
@@ -107,6 +239,66 @@ static size_t rb_pop_block(ring_t *r, uint8_t *dst, size_t n) {
     return n;
 }
 ```
+```cpp
+#include <cstring>
+
+// забрати до n байтів суцільним блоком; повертає скільки реально віддав
+size_t Ring::popBlock(uint8_t *dst, size_t n) {
+    if (n > count_) n = count_;            // не більше, ніж є
+    size_t first = SIZE - tail_;          // до фізичного краю масиву
+    if (first > n) first = n;
+    std::memcpy(dst,         &buf_[tail_], first);    // частина 1: tail..край
+    std::memcpy(dst + first, &buf_[0],     n - first); // частина 2: з початку
+    tail_  = (tail_ + n) & MASK;
+    count_ -= static_cast<uint16_t>(n);
+    return n;
+}
+```
+```python
+    # забрати до n байтів суцільним блоком; повертає bytes, реально відданий
+    def pop_block(self, n):
+        if n > self.count:                 # не більше, ніж є
+            n = self.count
+        first = RB_SIZE - self.tail        # до фізичного краю масиву
+        if first > n:
+            first = n
+        out = bytes(self.buf[self.tail:self.tail + first])   # частина 1: tail..край
+        out += bytes(self.buf[0:n - first])                   # частина 2: з початку
+        self.tail = (self.tail + n) & RB_MASK
+        self.count -= n
+        return out
+```
+```go
+// забрати до n байтів суцільним блоком; повертає скільки реально віддав
+func (r *Ring) PopBlock(dst []byte, n int) int {
+	if n > int(r.count) { // не більше, ніж є
+		n = int(r.count)
+	}
+	first := rbSize - int(r.tail) // до фізичного краю масиву
+	if first > n {
+		first = n
+	}
+	copy(dst[:first], r.buf[r.tail:])       // частина 1: tail..край
+	copy(dst[first:n], r.buf[0:n-first])    // частина 2: з початку
+	r.tail = (r.tail + uint16(n)) & rbMask
+	r.count -= uint16(n)
+	return n
+}
+```
+```js
+  // забрати до n байтів суцільним блоком; повертає скільки реально віддав
+  popBlock(dst, n) {
+    if (n > this.count) n = this.count;    // не більше, ніж є
+    let first = RB_SIZE - this.tail;       // до фізичного краю масиву
+    if (first > n) first = n;
+    dst.set(this.buf.subarray(this.tail, this.tail + first), 0);   // частина 1: tail..край
+    dst.set(this.buf.subarray(0, n - first), first);               // частина 2: з початку
+    this.tail = (this.tail + n) & RB_MASK;
+    this.count -= n;
+    return n;
+  }
+```
+:::
 
 Якщо блок не перетинає край — `n - first == 0`, другий `memcpy` копіює нуль байтів, і це цілком коректно. Але якщо забути про другий відрізок, результат — обрізаний блок або вихід за межі масиву. Саме ця «розірваність» відрізняє кільцевий буфер від лінійного: суцільне читання чи запис завжди потребує двох відрізків у запасі.
 

@@ -44,6 +44,7 @@
 
 Один відлік несе відстань, силу відлуння й **мітку часу свого виміру** (не часу, коли його обробили, — від цього залежать ворота). Вихід фільтра — не голе число, а статус: свіже, тримаю старе чи відстань утрачено.
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stdbool.h>
@@ -89,11 +90,64 @@ typedef struct {
     uint8_t  drops, rejects; // поточні лічильники
 } RangeFilter;
 ```
+```python
+from dataclasses import dataclass, field
+from enum import Enum, auto
+
+
+@dataclass
+class Sample:
+    dist_mm: int = 0     # виміряна відстань, мм
+    strength: int = 0    # сила відлуння (напр. 0..1023); 0 = нема луни
+    t_ms: int = 0        # мітка часу САМОГО виміру, мс
+    valid: bool = False  # чи відлуння взагалі прийшло
+
+
+class RangeStatus(Enum):
+    FRESH = auto()   # свіжий достовірний вимір
+    HELD  = auto()   # тримаємо старе (короткий пропуск або відкинутий стрибок)
+    LOST  = auto()   # надто довго наосліп — відстань НЕВІДОМА (для уникання = небезпека)
+
+
+@dataclass
+class RangeResult:
+    status: RangeStatus
+    mm: int = 0         # згладжена за довірою оцінка
+    med_mm: int = 0     # гейтований медіан — крайо-зберігаючий, для безпекових рішень
+    conf: float = 0.0   # довіра до цього виміру, 0..1
+
+
+@dataclass
+class RangeFilter:
+    vmax_mm_s: int              # найгірша швидкість ЗБЛИЖЕННЯ, мм/с
+    floor: int                  # нижче — dropout
+    full: int                   # вище — повна довіра
+
+    ring: list = field(default_factory=lambda: [0, 0, 0])  # кільцевий буфер для медіани-3
+    head: int = 0               # куди писати
+    fill: int = 0               # скільки вже лягло (0..3)
+
+    last_mm: int = 0            # останнє ПРИЙНЯТЕ значення — опора воріт
+    last_ms: int = 0
+    have_last: bool = False
+
+    est: float = 0.0            # згладжена оцінка
+    have_est: bool = False
+
+    margin_mm: int = 15         # запас воріт на шум самого виміру
+    base_alpha: float = 0.6     # базова жвавість злиття при повній довірі
+    max_drops: int = 3          # скільки пропусків поспіль тримати старе, тоді LOST
+    max_rejects: int = 4        # скільки «неможливих» стрибків поспіль терпіти, тоді пере-захопити
+    drops: int = 0
+    rejects: int = 0            # поточні лічильники
+```
+:::
 
 ### Дві чисті функції: медіана-3 і довіра
 
 Медіану трьох беремо **без сортування й гілок** — як затиск середнього між меншим і більшим із двох:
 
+:::tabs
 ```c
 // median3 = clamp(c, min(a,b), max(a,b)) — середній з трьох.
 static inline uint16_t median3(uint16_t a, uint16_t b, uint16_t c) {
@@ -109,6 +163,21 @@ static float confidence(uint16_t s, uint16_t floor, uint16_t full) {
     return (float)(s - floor) / (float)(full - floor);
 }
 ```
+```python
+# median3 = середній з трьох.
+def median3(a: int, b: int, c: int) -> int:
+    return sorted((a, b, c))[1]
+
+
+# Сила відлуння → довіра [0..1]: лінійно між підлогою й стелею.
+def confidence(s: int, floor: int, full: int) -> float:
+    if s <= floor:
+        return 0.0
+    if s >= full:
+        return 1.0
+    return (s - floor) / (full - floor)
+```
+:::
 
 **Приклад (медіана вбиває привид).** У буфер лягли три сирі відстані, середня з яких — привид, що відбився манівцем:
 
@@ -123,6 +192,7 @@ static float confidence(uint16_t s, uint16_t floor, uint16_t full) {
 
 Уся логіка — в одній функції, що бере відлік і повертає рішення. Гілки йдуть точно в порядку щитів:
 
+:::tabs
 ```c
 RangeResult rf_update(RangeFilter *f, Sample s) {
     RangeResult r; r.conf = 0.0f;
@@ -198,6 +268,73 @@ void rf_init(RangeFilter *f, uint16_t vmax_mm_s, uint16_t floor, uint16_t full) 
     f->max_rejects = 4;         // 4 «неможливих» поспіль → пере-захоплення
 }
 ```
+```python
+def rf_update(f: RangeFilter, s: Sample) -> RangeResult:
+    r = RangeResult(status=RangeStatus.FRESH)
+
+    # 0. Пропуск (dropout): нема відлуння або сигнал нижче підлоги довіри.
+    if not s.valid or s.strength < f.floor:
+        f.drops += 1
+        if f.have_est and f.drops <= f.max_drops:   # коротка сліпота —
+            r.status = RangeStatus.HELD             # тримаємо останнє відоме
+            r.mm = r.med_mm = int(f.est + 0.5)
+            return r
+        f.have_last = False          # довга сліпота — рвемо опору воріт
+        r.status = RangeStatus.LOST  # і чесно кажемо «не знаю»
+        r.mm = r.med_mm = 0
+        return r                     # для уникання зіткнень це НЕБЕЗПЕКА, не «вільно»
+    f.drops = 0
+
+    # 1. Медіана-3 у кільцевому буфері — вбити поодинокий викид.
+    f.ring[f.head] = s.dist_mm
+    f.head = (f.head + 1) % 3
+    if f.fill < 3:
+        f.fill += 1
+    med = median3(*f.ring) if f.fill == 3 else s.dist_mm   # поки буфер не повний — беремо як є
+
+    # 2. Ворота швидкості: за Δt ціль не могла зрушити більш ніж на v_макс·Δt.
+    if f.have_last:
+        dt   = (s.t_ms - f.last_ms) & 0xFFFFFFFF   # маска uint32 коректна й на перевороті millis()
+        dmax = f.vmax_mm_s * dt // 1000 + f.margin_mm
+        jump = abs(med - f.last_mm)
+        if jump > dmax:
+            f.rejects += 1
+            if f.rejects <= f.max_rejects:   # фізично неможливий стрибок — викид
+                r.status = RangeStatus.HELD
+                r.mm = r.med_mm = int(f.est + 0.5)
+                return r
+            f.est = med   # стільки «неможливих» поспіль — це вже реальна зміна світу
+        #                 # (або ми застрягли на привиді): пере-захоплюємо
+    f.rejects = 0
+
+    # 3. Довіра за силою відлуння → вага [0..1].
+    conf = confidence(s.strength, f.floor, f.full)
+
+    # 4. Зважене злиття: крок до медіани пропорційний довірі.
+    if not f.have_est:
+        f.est = med
+        f.have_est = True
+    else:
+        alpha = f.base_alpha * conf     # кволий сигнал → майже не рухаємо оцінку
+        f.est += alpha * (med - f.est)
+
+    f.last_mm = med
+    f.last_ms = s.t_ms
+    f.have_last = True
+
+    r.status = RangeStatus.FRESH
+    r.conf   = conf
+    r.med_mm = med                  # крайо-зберігаючий вихід — для безпеки
+    r.mm     = int(f.est + 0.5)     # згладжений за довірою — для показу
+    return r
+
+
+def rf_init(vmax_mm_s: int, floor: int, full: int) -> RangeFilter:
+    # найгірша швидкість ЗБЛИЖЕННЯ (не лише ваша); floor — нижче dropout; full — вище повна довіра.
+    # margin_mm=15, base_alpha=0.6, max_drops=3, max_rejects=4 — з типових значень RangeFilter
+    return RangeFilter(vmax_mm_s=vmax_mm_s, floor=floor, full=full)
+```
+:::
 
 Зверніть увагу: на виході **два** числа. `med_mm` — гейтований медіан, що зберігає різкий край і майже не запізнюється; його беруть для безпекових рішень. `mm` — згладжена за довірою оцінка, гарна для показу й повільних петель. Плутати їх — окрема пастка, до якої повернемось.
 
@@ -272,6 +409,7 @@ void loop() {
 
 Коли сліпе місце одного давача має прикрити інший (ультразвук + оптика різної фізики), кожен жене **свій** фільтр, а їхні виходи зливають **зважено за довірою** — той, що зараз кволий, сам стишується:
 
+:::tabs
 ```c
 // Злиття двох незалежних далекомірів за їхньою довірою.
 bool fuse2(RangeResult a, RangeResult b, uint16_t *out_mm) {
@@ -283,6 +421,18 @@ bool fuse2(RangeResult a, RangeResult b, uint16_t *out_mm) {
     return true;
 }
 ```
+```python
+# Злиття двох незалежних далекомірів за їхньою довірою.
+# Повертає відстань у мм або None, якщо обидва наосліп.
+def fuse2(a: RangeResult, b: RangeResult) -> int | None:
+    wa = a.conf if a.status == RangeStatus.FRESH else 0.0   # не-свіжий голосу не має
+    wb = b.conf if b.status == RangeStatus.FRESH else 0.0
+    w  = wa + wb
+    if w < 1e-3:                                            # обидва наосліп → не знаємо
+        return None
+    return int((wa * a.med_mm + wb * b.med_mm) / w + 0.5)
+```
+:::
 
 **Приклад (сліпий давач стишується сам).** Ультразвук ловить кволе відлуння від м'якої цілі, оптика бачить чітку пляму:
 

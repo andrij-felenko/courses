@@ -85,29 +85,48 @@ Vout       = Vref · код / 2ᴺ = 3.3 · 200 / 256 = 2.578 В
 
 Тобто код 200 дає ≈ 2.58 В, а тонше за ≈ 13 мВ ця драбина виставити не може — між сусідніми кодами рівнів просто немає. У прошивці це звичайна арифметика, яку зручно тримати поряд із драйвером ЦАП:
 
-```c
-#include <stdint.h>
+:::tabs
+```cpp
+#include <cstdint>
 
 // Напруга на виході ідеальної R-2R лесенки для заданого коду.
 // vref — опорна напруга (В); bits — розрядність (напр. 8); code — 0..2^bits-1.
-float r2r_voltage(float vref, uint8_t bits, uint32_t code)
+double r2r_voltage(double vref, uint8_t bits, uint32_t code)
 {
     uint32_t full = (uint32_t)1 << bits;   // 2^bits = число рівнів
-    return vref * (float)code / (float)full;
+    return vref * (double)code / (double)full;
 }
 
 // Зворотна задача: який код узяти, щоб дістати бажану напругу (з округленням).
-uint32_t r2r_code(float vref, uint8_t bits, float v_target)
+uint32_t r2r_code(double vref, uint8_t bits, double v_target)
 {
     uint32_t full = (uint32_t)1 << bits;
-    float    raw  = v_target / vref * (float)full;   // дробовий «ідеальний» код
-    if (raw < 0.0f)        raw = 0.0f;               // не вийти за межі шкали
+    double   raw  = v_target / vref * (double)full;   // дробовий «ідеальний» код
+    if (raw < 0.0)         raw = 0.0;                 // не вийти за межі шкали
     if (raw > full - 1)    raw = full - 1;
-    return (uint32_t)(raw + 0.5f);                   // округлення до найближчого коду
+    return (uint32_t)(raw + 0.5);                     // округлення до найближчого коду
 }
-// r2r_voltage(3.3f, 8, 200) -> ~2.578 В
-// r2r_code(3.3f, 8, 2.578f) -> 200
+// r2r_voltage(3.3, 8, 200) -> ~2.578 В
+// r2r_code(3.3, 8, 2.578) -> 200
 ```
+```python
+# Напруга на виході ідеальної R-2R лесенки для заданого коду.
+# vref — опорна напруга (В); bits — розрядність (напр. 8); code — 0..2^bits-1.
+def r2r_voltage(vref, bits, code):
+    full = 1 << bits          # 2^bits = число рівнів
+    return vref * code / full
+
+# Зворотна задача: який код узяти, щоб дістати бажану напругу (з округленням).
+def r2r_code(vref, bits, v_target):
+    full = 1 << bits
+    raw  = v_target / vref * full            # дробовий «ідеальний» код
+    raw  = max(0.0, min(raw, full - 1))      # не вийти за межі шкали
+    return int(raw + 0.5)                    # округлення до найближчого коду
+
+# r2r_voltage(3.3, 8, 200) -> ~2.578 В
+# r2r_code(3.3, 8, 2.578) -> 200
+```
+:::
 
 Зверніть увагу: у коді теж немає опору R — він не потрібен. Достатньо Vref і розрядності, бо вся фізика драбини зведена до одного множника `код / 2ᴺ`. Саме за це інженери й люблять лесенку: складна на вигляд мережа поводиться як гранично проста формула.
 

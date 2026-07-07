@@ -48,7 +48,7 @@
 
 Відповідь на це питання й народила addr2line — і дав її конкретний інженер. Файл `addr2line.c` у дереві binutils має чесний підпис у шапці, який легко прочитати самому:
 
-```
+```c
 /* addr2line.c -- convert addresses to line number and function name
    Copyright 1997, 1998, ... Free Software Foundation, Inc.
    Contributed by Ulrich Lauther <Ulrich.Lauther@mchp.siemens.de>

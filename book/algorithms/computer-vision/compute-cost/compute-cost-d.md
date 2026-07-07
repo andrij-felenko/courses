@@ -212,27 +212,40 @@ v ≈ S · (q − Z)               (назад: int8 → float)
 
 Покажемо ефект на конкретиці — один легкий детектор у двох версіях. Спершу — як завантажують і міряють обидві версії в коді бортового зору:
 
-```c
+:::tabs
+```cpp
 // Порівняння float32 vs int8 одного детектора на одноплатнику з прискорювачем.
-// Міряємо РЕАЛЬНИЙ настінний час інференсу через clock_gettime (Linux).
-#include <time.h>
+// Міряємо РЕАЛЬНИЙ настінний час інференсу через <chrono>.
+#include <chrono>
+#include <cstdint>
 
-static double now_ms(void) {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec * 1000.0 + ts.tv_nsec / 1.0e6;
-}
-
-double bench(Model *m, const uint8_t *frame) {
-    double t0 = now_ms();
-    model_infer(m, frame);      // один прогін детектора
-    return now_ms() - t0;       // мс на кадр
+double bench(Model& m, const uint8_t* frame) {
+    auto t0 = std::chrono::steady_clock::now();
+    m.infer(frame);             // один прогін детектора
+    auto t1 = std::chrono::steady_clock::now();
+    return std::chrono::duration<double, std::milli>(t1 - t0).count();  // мс на кадр
 }
 
 // очікувані порядки для легкого детектора:
 //   float32: розмір ~ 7 МБ, інференс ~ 60 мс/кадр (~16 fps), mAP = базова
 //   int8   : розмір ~ 1.8 МБ, інференс ~ 12 мс/кадр (~80 fps), mAP −1..2%
 ```
+```python
+# Порівняння float32 vs int8 одного детектора на одноплатнику з прискорювачем.
+# Міряємо РЕАЛЬНИЙ настінний час інференсу через time.perf_counter.
+import time
+
+def bench(interpreter, frame):
+    interpreter.set_tensor(input_index, frame)
+    t0 = time.perf_counter()
+    interpreter.invoke()                          # один прогін детектора
+    return (time.perf_counter() - t0) * 1000.0    # мс на кадр
+
+# очікувані порядки для легкого детектора:
+#   float32: розмір ~ 7 МБ, інференс ~ 60 мс/кадр (~16 fps), mAP = базова
+#   int8   : розмір ~ 1.8 МБ, інференс ~ 12 мс/кадр (~80 fps), mAP −1..2%
+```
+:::
 
 Зведімо в табличку очікувані числа для типового легкого детектора:
 
@@ -284,6 +297,7 @@ int8        ~ 1.8 МБ        ~ 12 мс            ~80     базова − (1�
 
 Для керування це гірше, ніж стабільно низький FPS: алгоритми наведення розраховують на **рівний** темп кадрів, а коли він плаває, керування смикається. Тобто тротлінг б'є не лише по середній швидкості, а й по **стабільності**, від якої залежить плавність польоту.
 
+:::tabs
 ```c
 // Слідкувати за тротлінгом просто: міряй FPS вікнами по N кадрів,
 // а не одноразово на старті — і ти побачиш просідання, коли чип нагріється.
@@ -299,6 +313,24 @@ void on_frame(double frame_ms) {
     }
 }
 ```
+```python
+# Слідкувати за тротлінгом просто: міряй FPS вікнами по N кадрів,
+# а не одноразово на старті — і ти побачиш просідання, коли чип нагріється.
+WIN = 30
+_acc = 0.0
+_n = 0
+
+def on_frame(frame_ms):
+    global _acc, _n
+    _acc += frame_ms
+    _n += 1
+    if _n == WIN:
+        fps = 1000.0 * WIN / _acc            # середній FPS за вікно
+        print(f"FPS(вікно): {fps:.1f}")      # падає з часом → почався тротлінг
+        _acc = 0.0
+        _n = 0
+```
+:::
 
 > 🔧 **Навіщо це.** Ніколи не приймай рішення за FPS, виміряним у перші секунди на холодному чипі — заміряй **усталений** темп після прогріву під реальним навантаженням. Якщо усталений FPS просідає, рішення інженерні: радіатор і обдув (тепло має куди йти), нижча цільова частота кадрів із запасом, легша модель або менший кадр. Закладай у керування **той FPS, який чип тримає довго**, а не пікову цифру з паспорта.
 
@@ -329,35 +361,56 @@ void on_frame(double frame_ms) {
 
 Загальний FPS нічого не каже про те, **де** гальмує конвеєр. Щоб це побачити, профілюють **кожен етап** окремо тим самим лічильником часу. Ось скелет для одноплатника й для мікроконтролера — вони відрізняються лише джерелом часу.
 
-```c
+:::tabs
+```cpp
 // Профілювання конвеєра бортового зору поетапно.
-// На Linux/одноплатнику — clock_gettime (мікросекундна точність);
-// на STM32 — HAL_GetTick (мілісекунди). Принцип однаковий:
-// замикаємо кожен етап у пару «час до / час після».
+// На Linux/одноплатнику — std::chrono (мікросекундна точність).
+// Принцип: RAII-таймер міряє етап від конструктора до деструктора.
+#include <chrono>
+#include <cstdio>
 
-#include <time.h>
-static double us(void) {                 // настінний час у мс
-    struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t);
-    return t.tv_sec * 1000.0 + t.tv_nsec / 1.0e6;
-}
-#define STAGE(name, code) do {           \
-    double _t = us(); code;              \
-    printf("%-12s %6.2f ms\n", name, us() - _t); \
-} while (0)
+struct Stage {
+    const char* name;
+    std::chrono::steady_clock::time_point t0{std::chrono::steady_clock::now()};
+    explicit Stage(const char* n) : name(n) {}
+    ~Stage() {
+        auto dt = std::chrono::duration<double, std::milli>(
+                      std::chrono::steady_clock::now() - t0).count();
+        std::printf("%-12s %6.2f ms\n", name, dt);
+    }
+};
 
-void process_frame(void) {
+void process_frame() {
     Frame f; Roi r; Detections d; float angle;
-    STAGE("захоплення", capture(&f));        // камера → буфер
-    STAGE("ROI",        r = select_roi(&f)); // звузити ділянку
-    STAGE("класика",    preprocess(&r));     // поріг/фільтр/підготовка
-    STAGE("нейромережа", d = infer(&r));     // детектор (CPU або TPU)
-    STAGE("MAVLink",    angle = send_cmd(&d));// кут → політний контролер
+    { Stage s("захоплення");  capture(&f); }         // камера → буфер
+    { Stage s("ROI");         r = select_roi(&f); }  // звузити ділянку
+    { Stage s("класика");     preprocess(&r); }      // поріг/фільтр/підготовка
+    { Stage s("нейромережа"); d = infer(&r); }       // детектор (CPU або TPU)
+    { Stage s("MAVLink");     angle = send_cmd(&d); }// кут → політний контролер
 }
-
-// На STM32 заміни джерело часу:
-//   uint32_t t0 = HAL_GetTick(); code; printf("%lu ms", HAL_GetTick()-t0);
-// і прибери етап «нейромережа» — на МК його немає.
 ```
+```python
+# Профілювання конвеєра бортового зору поетапно.
+# time.perf_counter дає настінний час; контекстний менеджер
+# міряє етап від входу в `with` до виходу.
+import time
+from contextlib import contextmanager
+
+@contextmanager
+def stage(name):
+    t0 = time.perf_counter()
+    yield
+    dt = (time.perf_counter() - t0) * 1000.0
+    print(f"{name:<12} {dt:6.2f} ms")
+
+def process_frame():
+    with stage("захоплення"):  f = capture()           # камера → буфер
+    with stage("ROI"):         r = select_roi(f)       # звузити ділянку
+    with stage("класика"):     preprocess(r)           # поріг/фільтр/підготовка
+    with stage("нейромережа"): d = infer(r)            # детектор (CPU або TPU)
+    with stage("MAVLink"):     angle = send_cmd(d)     # кут → політний контролер
+```
+:::
 
 Запустивши це, бачиш не одне число, а **розклад затримки по етапах** — рівно те, що на діаграмі вище. І аж тоді стає видно, що лагодити: якщо левову частку з'їдає захоплення кадру — винна камера чи копіювання буфера, і нейромережу прискорювати марно; якщо нейромережа — пора квантувати чи ставити прискорювач; якщо класика на мікроконтролері — звужуй ROI чи ріж кадр. Профіль по етапах перетворює «повільно» на конкретну адресу, куди йти.
 

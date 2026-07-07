@@ -48,6 +48,7 @@
 
 Нам потрібні дві речі поряд: швидкий atomic-лічильник загального числа звернень (його чіпають на **кожен** виклик, тож він мусить бути дешевим і не блокувати) і повільніший реєстр «хто саме» (його читають рідко — лише коли хочемо піти достукатися до тих, хто лишився, тож тут можна дозволити собі замок).
 
+:::tabs
 ```cpp
 #include <atomic>
 #include <cstdint>
@@ -102,6 +103,76 @@ private:
     std::unordered_map<std::string, Entry> callers_;
 };
 ```
+```go
+package migration
+
+import (
+	"sync"
+	"sync/atomic"
+	"time"
+)
+
+// Entry — знімок одного викликальника: скільки разів і коли востаннє.
+type Entry struct {
+	Count    uint64
+	LastSeen time.Time
+}
+
+// DeprecationMeter — телеметрія одного застарілого шляху.
+// Живе стільки, скільки вікно міграції.
+type DeprecationMeter struct {
+	// Лічильник — гарячий шлях: лише атомарний інкремент, без замка.
+	// atomic.Uint64 дає ту саму неподільність, що LOCK XADD; порядку
+	// щодо іншої пам'яті нам не треба — це просто підрахунок.
+	hits atomic.Uint64
+
+	// Реєстр «хто саме» — холодний бік: рідко читаємо, можна під замком.
+	// Тут дані складніші за число, тож атоміком не обійтися.
+	mu      sync.Mutex
+	callers map[string]Entry
+}
+
+func NewDeprecationMeter() *DeprecationMeter {
+	return &DeprecationMeter{callers: make(map[string]Entry)}
+}
+
+// Record викликається на КОЖНЕ звернення до старого шляху — має бути дешевим.
+func (m *DeprecationMeter) Record(caller string) {
+	m.hits.Add(1) // гарячий шлях: атомарний інкремент без замка
+
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	e := m.callers[caller]
+	e.Count++
+	e.LastSeen = time.Now()
+	m.callers[caller] = e
+}
+
+// Hits — скільки разів старим шляхом скористалися за поточне вікно.
+func (m *DeprecationMeter) Hits() uint64 {
+	return m.hits.Load()
+}
+
+// Snapshot — знімок «хто ще ходить», щоб піти й допомогти саме цим клієнтам.
+func (m *DeprecationMeter) Snapshot() map[string]Entry {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	out := make(map[string]Entry, len(m.callers))
+	for k, v := range m.callers {
+		out[k] = v // копія під замком — безпечно віддати назовні
+	}
+	return out
+}
+
+// Reset обнуляє на початку нового вікна вимірювання (напр. щодоби).
+func (m *DeprecationMeter) Reset() {
+	m.hits.Store(0)
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	m.callers = make(map[string]Entry)
+}
+```
+:::
 
 Зверни увагу на **розділення двох боків** телеметрії. Лічильник `hits_` — atomic, його чіпає кожен виклик, і саме тому він не має замка: замок на гарячому шляху перетворив би паралельні запити на чергу. Реєстр `callers_` — під `std::mutex`, бо його структура (мапа рядок→запис) складніша, ніж уміє atomic, зате читають його рідко. Це типовий прийом: **гаряче й просте — атоміком, холодне й складне — під замком**. Спроба зробити навпаки (лічити під замком або тримати мапу без замка) або зруйнувала б продуктивність, або дала б гонку.
 
@@ -120,6 +191,7 @@ private:
 
 Оформимо це маленьким помічником, щоб один виклик ставив усі заголовки узгоджено й не давав припуститися головної помилки — поставити `Sunset` раніше за `Deprecation`.
 
+:::tabs
 ```cpp
 #include <ctime>
 
@@ -168,6 +240,48 @@ static void mark_deprecated(Response& res,
         "<" + docs_uri     + ">; rel=\"deprecation\"");
 }
 ```
+```go
+package migration
+
+import (
+	"fmt"
+	"net/http"
+	"strconv"
+	"time"
+)
+
+// httpDate форматує HTTP-дату (для Sunset): "Sun, 30 Jun 2024 23:59:59 GMT".
+// http.TimeFormat — це рівно RFC 1123 у GMT, стандартна форма для заголовків.
+func httpDate(t time.Time) string {
+	return t.UTC().Format(http.TimeFormat)
+}
+
+// markDeprecated ставить усі три заголовки застарілості узгоджено.
+// deprecatedSince / sunsetAt — момент застарівання й вимкнення.
+func markDeprecated(h http.Header,
+	deprecatedSince, sunsetAt time.Time,
+	successorURI, docsURI string) {
+
+	// ЗАЛІЗНЕ правило RFC 9745: sunset не раніший за deprecation.
+	// Ловимо помилку тут, а не в проді у вигляді дивних відповідей.
+	if sunsetAt.Before(deprecatedSince) {
+		sunsetAt = deprecatedSince // або повернути помилку — на смак команди
+	}
+
+	// RFC 9745: значення — структуроване поле-дата, Unix-час із префіксом '@'.
+	// НЕ "true" (то була рання чернетка).
+	h.Set("Deprecation", "@"+strconv.FormatInt(deprecatedSince.Unix(), 10))
+
+	// RFC 8594: HTTP-дата.
+	h.Set("Sunset", httpDate(sunsetAt))
+
+	// Куди переходити (successor-version) + людські доки (deprecation).
+	h.Set("Link", fmt.Sprintf(
+		`<%s>; rel="successor-version", <%s>; rel="deprecation"`,
+		successorURI, docsURI))
+}
+```
+:::
 
 Один виклик `mark_deprecated()` — і відповідь несе повний, узгоджений набір: відколи застаріло, коли зникне, куди йти по заміну й по пояснення. А перевірка `sunset_at < deprecated_since` не дає випустити відповідь, що суперечить стандартові, — краще підправити тут, ніж дивуватися в клієнта.
 
@@ -175,6 +289,7 @@ static void mark_deprecated(Response& res,
 
 Тепер серце — обидва обробники. Спершу **нова, повна** реалізація (джерело правди), потім **стара обгортка**, що делегує в неї, звужує формат і чіпляє попередження.
 
+:::tabs
 ```cpp
 #include <vector>
 
@@ -223,6 +338,112 @@ void handle_orders_v1(const Request& req, Response& res) {
     g_orders_v1_meter.record(identify_caller(req));
 }
 ```
+```go
+package migration
+
+import (
+	"net/http"
+	"time"
+)
+
+// Багата модель замовлення — те, що реально є в системі.
+type Money struct {
+	Value    int64  `json:"value"`
+	Currency string `json:"currency"`
+}
+type Order struct {
+	ID     uint64 `json:"id"`
+	Amount Money  `json:"amount"` // {value, currency}
+}
+
+func loadOrders(r *http.Request) []Order // спільне джерело даних
+
+// Проста сериалізація у форму, готову до JSON (заради стислості).
+func toJSONv2(os []Order) []byte
+func toJSONv1(os []Order) []byte
+
+// ── НОВИЙ ШЛЯХ: повна реалізація, джерело правди ────────────────────────────
+// GET /api/v2/orders  — формат v2: amount = {value, currency}
+func HandleOrdersV2(w http.ResponseWriter, r *http.Request) {
+	orders := loadOrders(r) // єдина логіка вибірки
+	w.WriteHeader(http.StatusOK)
+	w.Write(toJSONv2(orders)) // багатий формат
+}
+
+// ── СТАРИЙ ШЛЯХ: тонка обгортка над новим ───────────────────────────────────
+// GET /api/v1/orders — формат v1: amount = ціле (копійки), без валюти.
+// Делегує в спільну логіку, ЗВУЖУЄ результат, чіпляє попередження й лічить себе.
+var ordersV1Meter = NewDeprecationMeter() // телеметрія цього шляху
+
+func HandleOrdersV1(w http.ResponseWriter, r *http.Request) {
+	// 1. Спільна логіка — та сама, що в v2. Жодного дубля вибірки даних.
+	orders := loadOrders(r)
+
+	// 3. Попередження — відповідь валідна, але чесно каже «переходь».
+	//    Заголовки ставимо ДО WriteHeader/Write, інакше вони не потраплять.
+	markDeprecated(w.Header(),
+		time.Unix(1735689600, 0), // 2025-01-01
+		time.Unix(1798761600, 0), // 2027-01-01
+		"/api/v2/orders",
+		"https://api.example.com/deprecations/orders-v1")
+
+	// 2. ЗВУЖЕННЯ: багатий Order → бідний формат v1.
+	//    Валюту відкидаємо (v1 її не має), лишаємо ціле value.
+	//    Звузити повне до неповного — завжди можна; тут просто губимо currency.
+	w.WriteHeader(http.StatusOK)
+	w.Write(toJSONv1(orders))
+
+	// 4. Телеметрія: хтось іще ходить старим шляхом — рахуємо й записуємо, хто.
+	ordersV1Meter.Record(identifyCaller(r))
+}
+```
+```typescript
+import type { Request, Response } from "express";
+
+// Багата модель замовлення — те, що реально є в системі.
+interface Money { value: number; currency: string; }   // {value, currency}
+interface Order { id: number; amount: Money; }
+
+declare function loadOrders(req: Request): Order[];      // спільне джерело даних
+
+// Звуження до бідного формату v1: валюту відкидаємо, лишаємо ціле value.
+declare function toV1(orders: Order[]): unknown;
+
+// Телеметрія цього шляху (той самий DeprecationMeter, окремий модуль).
+const ordersV1Meter = new DeprecationMeter();
+
+// ── НОВИЙ ШЛЯХ: повна реалізація, джерело правди ────────────────────────────
+// GET /api/v2/orders  — формат v2: amount = {value, currency}
+export function handleOrdersV2(req: Request, res: Response): void {
+  const orders = loadOrders(req);   // єдина логіка вибірки
+  res.status(200).json(orders);     // багатий формат
+}
+
+// ── СТАРИЙ ШЛЯХ: тонка обгортка над новим ───────────────────────────────────
+// GET /api/v1/orders — формат v1: amount = ціле (копійки), без валюти.
+// Делегує в спільну логіку, ЗВУЖУЄ результат, чіпляє попередження й лічить себе.
+export function handleOrdersV1(req: Request, res: Response): void {
+  // 1. Спільна логіка — та сама, що в v2. Жодного дубля вибірки даних.
+  const orders = loadOrders(req);
+
+  // 2. ЗВУЖЕННЯ: багатий Order → бідний формат v1.
+  //    Звузити повне до неповного — завжди можна; тут просто губимо currency.
+  const body = toV1(orders);
+
+  // 3. Попередження — відповідь валідна, але чесно каже «переходь».
+  markDeprecated(res,
+    1735689600,                    // deprecated_since: 2025-01-01
+    1798761600,                    // sunset_at:        2027-01-01
+    "/api/v2/orders",
+    "https://api.example.com/deprecations/orders-v1");
+
+  res.status(200).json(body);
+
+  // 4. Телеметрія: хтось іще ходить старим шляхом — рахуємо й записуємо, хто.
+  ordersV1Meter.record(identifyCaller(req));
+}
+```
+:::
 
 Придивися, чого тут **немає**. У `handle_orders_v1` немає окремої вибірки замовлень — вона кличе те саме `load_orders`, що й v2. Немає окремої бізнес-логіки — лише **звуження** вже готового результату під старий формат (крок 2). Якщо завтра в `load_orders` виправлять баг чи додадуть фільтр — обидві версії дістануть виправлення автоматично, бо логіка **одна**. Стара версія відрізняється від нової рівно трьома речами: іншим серіалізатором (`to_json_v1` замість `to_json_v2`), доданими заголовками застарілості й рядком телеметрії. Оце і є «тонка обгортка».
 
@@ -232,6 +453,7 @@ void handle_orders_v1(const Request& req, Response& res) {
 
 Останній шматок — прапорець, що каже, коли вікно спорожніло. Наївна версія «лічильник == 0» майже правильна, але має дірку: один випадковий нуль нічого не доводить (може, це просто затишшя о третій ночі). Нам треба, щоб нуль **протримався** достатньо довго — тоді це вже не затишшя, а справжня відсутність користувачів.
 
+:::tabs
 ```cpp
 // Рішення прибирати ухвалюють НЕ за датою, а за цим — за порожнім вікном.
 class RemovalGate {
@@ -265,6 +487,50 @@ private:
     std::optional<std::chrono::steady_clock::time_point> zero_since_;
 };
 ```
+```go
+package migration
+
+import "time"
+
+// RemovalGate — рішення прибирати ухвалюють НЕ за датою, а за порожнім вікном.
+type RemovalGate struct {
+	meter       *DeprecationMeter
+	quietNeeded time.Duration
+	// zeroSince — момент, відколи триває тиша; nil, коли зараз є користувачі.
+	zeroSince *time.Time
+}
+
+func NewRemovalGate(m *DeprecationMeter, quietNeeded time.Duration) *RemovalGate {
+	if quietNeeded == 0 {
+		quietNeeded = 24 * 14 * time.Hour // два тижні за замовчуванням
+	}
+	return &RemovalGate{meter: m, quietNeeded: quietNeeded}
+}
+
+// Poll кличемо періодично (напр. раз на годину зі спостерігача).
+// Стежимо, чи лічильник ТРИМАЄ нуль достатньо довго.
+func (g *RemovalGate) Poll() {
+	if g.meter.Hits() == 0 {
+		if g.zeroSince == nil {
+			now := time.Now()
+			g.zeroSince = &now // нуль щойно почався
+		}
+		// інакше — нуль триває, момент початку не чіпаємо
+	} else {
+		g.zeroSince = nil // хтось прийшов — відлік скинуто
+	}
+	g.meter.Reset() // нове вікно вимірювання
+}
+
+// SafeToRemove: безпечно прибирати ⟺ нуль протримався не менше quietNeeded.
+func (g *RemovalGate) SafeToRemove() bool {
+	if g.zeroSince == nil {
+		return false // зараз є користувачі
+	}
+	return time.Since(*g.zeroSince) >= g.quietNeeded
+}
+```
+:::
 
 Логіка проста й чесна: `poll()` періодично дивиться на лічильник за минуле вікно й обнуляє його для наступного. Якщо було порожньо — запам'ятовує момент, відколи триває тиша (якщо ще не запам'ятав). Якщо хтось прийшов — скидає відлік тиші взагалі. А `safe_to_remove()` каже «так» лише коли тиша триває не менше заданого порога (тут — два тижні). Це прибирає хибний сигнал від одного нічного затишшя: два тижні поспіль нуль — це вже не випадковість, а факт.
 

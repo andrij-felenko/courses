@@ -18,6 +18,7 @@ EMA має **пам'ять** — одну згладжену оцінку, що 
 
 Спершу чесний `float`-варіант для ядер з апаратною комою. Стан — оцінка `y`, коефіцієнт `alpha` і прапорець, чи вже стартували першим відліком:
 
+:::tabs
 ```c
 #include <stdbool.h>
 
@@ -42,6 +43,39 @@ float ema_step(ema_t *f, float x) {
     return f->y;
 }
 ```
+```cpp
+struct Ema {
+    float alpha;                 // коефіцієнт згладжування, 0..1
+    float y     = 0.0f;          // поточна згладжена оцінка
+    bool  primed = false;        // чи ініціалізовано першим відліком
+
+    explicit Ema(float a) : alpha(a) {}   // y задамо першим же відліком
+
+    float step(float x) {
+        if (!primed) {           // старт біля істини, не від нуля
+            y = x;
+            primed = true;
+        } else {
+            y += alpha * (x - y);   // одне множення, одне додавання
+        }
+        return y;
+    }
+};
+```
+```python
+class Ema:
+    def __init__(self, alpha):
+        self.alpha = alpha        # коефіцієнт згладжування, 0..1
+        self.y = None             # y задамо першим же відліком
+
+    def step(self, x):
+        if self.y is None:        # старт біля істини, не від нуля
+            self.y = x
+        else:
+            self.y += self.alpha * (x - self.y)   # одне множення, одне додавання
+        return self.y
+```
+:::
 
 Коефіцієнт α не підбирають на око. Якщо звичніше думати «вікном» — згладжувати «як вікно N» дає α ≈ 2/(N+1):
 
@@ -51,6 +85,7 @@ float ema_step(ema_t *f, float x) {
 
 Тепер ціле ядро без коми. Тримаємо оцінку зсунутою вліво на `Q` біт (формат Qx.Q): справжнє значення — це `acc >> Q`, а дробові біти всередині `acc` накопичують ті самі крихітні кроки, що в коми округлилися б у нуль. Коефіцієнт задаємо як цілий чисельник `a_num` зі знаменником 256 (тобто α = a_num/256):
 
+:::tabs
 ```c
 #include <stdint.h>
 #include <stdbool.h>
@@ -79,11 +114,53 @@ int32_t ema_fx_step(ema_fx_t *f, int32_t x) {
     return f->acc >> EMA_Q;                   /* назовні — звичайне число */
 }
 ```
+```cpp
+#include <cstdint>
+
+class EmaFx {
+    static constexpr int Q = 8;      // стільки дробових біт тримає acc
+    std::int32_t acc = 0;            // оцінка у форматі з фіксованою комою (<<Q)
+    std::int32_t a_num;              // α = a_num / 256
+    bool primed = false;
+
+public:
+    explicit EmaFx(std::int32_t num) : a_num(num) {}  // напр. num=26 ≈ α 0.1
+
+    std::int32_t step(std::int32_t x) {
+        if (!primed) {
+            acc = x << Q;                    // старт першим відліком
+            primed = true;
+        } else {
+            std::int32_t err = (x << Q) - acc;  // різниця у тому ж масштабі
+            acc += (a_num * err) >> 8;          // + α·(x − y), знаменник 256
+        }
+        return acc >> Q;                     // назовні — звичайне число
+    }
+};
+```
+```python
+EMA_Q = 8                            # стільки дробових біт тримає acc
+
+class EmaFx:
+    def __init__(self, a_num):       # напр. a_num=26 ≈ α 0.1
+        self.a_num = a_num           # α = a_num / 256
+        self.acc = None              # оцінка у форматі з фіксованою комою (<<Q)
+
+    def step(self, x):
+        if self.acc is None:
+            self.acc = x << EMA_Q                    # старт першим відліком
+        else:
+            err = (x << EMA_Q) - self.acc            # різниця у тому ж масштабі
+            self.acc += (self.a_num * err) >> 8      # + α·(x − y), знаменник 256
+        return self.acc >> EMA_Q                     # назовні — звичайне число
+```
+:::
 
 Чому це не застрягає, а наївний цілий EMA застрягає? Наївний рахує `y += (a_num*(x − y))/256` просто в цілих: коли різниця `x − y` мала, добуток `a_num*(x − y)` менший за 256, ціле ділення дає нуль, і оцінка завмирає за кілька одиниць від мети — назавжди. Тут же різниця й оцінка живуть зсунутими на `Q` біт, тож «нуль» настає аж на роздільній здатності `1 >> Q`, а не `1`; крок лишається ненульовим набагато довше, і фільтр доходить.
 
 Якщо α взяти степенем половини, чисельник зникає зовсім — лишається голий зсув. Це найдешевший EMA, який існує:
 
+:::tabs
 ```c
 /* EMA без жодного множення: α = 1/2^SHIFT (напр. SHIFT=3 → α=1/8). */
 #define EMA_SHIFT 3
@@ -92,11 +169,28 @@ static int32_t ema_pow2(int32_t y, int32_t x) {
     return y + ((x - y) >> EMA_SHIFT);   /* одне віднімання, зсув, додавання */
 }
 ```
+```cpp
+// EMA без жодного множення: α = 1/2^SHIFT (напр. SHIFT=3 → α=1/8).
+constexpr int EMA_SHIFT = 3;
+
+constexpr std::int32_t ema_pow2(std::int32_t y, std::int32_t x) {
+    return y + ((x - y) >> EMA_SHIFT);   // одне віднімання, зсув, додавання
+}
+```
+```python
+# EMA без жодного множення: α = 1/2^SHIFT (напр. SHIFT=3 → α=1/8).
+EMA_SHIFT = 3
+
+def ema_pow2(y, x):
+    return y + ((x - y) >> EMA_SHIFT)    # одне віднімання, зсув, додавання
+```
+:::
 
 Один зсув замість множення — саме тому в кволих прошивках α так часто дорівнює 1/8 чи 1/16, а не 0.1.
 
 Тепер два корисні розширення. **Подвійне EMA** додає окрему оцінку **тренду** — куди й як швидко повзе величина, — щоб не відставати від рівномірного руху (одиночний EMA на лінійно наростальному сигналі завжди тягнеться позаду сталим відставанням; оцінка тренду це відставання компенсує):
 
+:::tabs
 ```c
 typedef struct {
     float level, trend;          /* оцінка рівня й оцінка тренду */
@@ -115,9 +209,50 @@ float dema_step(dema_t *f, float x) {
     return f->level;
 }
 ```
+```cpp
+struct Dema {
+    float alpha, beta;           // α — для рівня, β — для тренду
+    float level = 0.0f;          // оцінка рівня
+    float trend = 0.0f;          // оцінка тренду
+    bool  primed = false;
+
+    Dema(float a, float b) : alpha(a), beta(b) {}
+
+    float step(float x) {
+        if (!primed) {
+            level = x; trend = 0.0f; primed = true;
+            return level;
+        }
+        float prev = level;
+        level += alpha * (x - level) + trend;        // рівень + хід тренду
+        trend += beta  * ((level - prev) - trend);   // оновлюємо сам тренд
+        return level;
+    }
+};
+```
+```python
+class Dema:
+    def __init__(self, alpha, beta):
+        self.alpha = alpha        # α — для рівня
+        self.beta = beta          # β — для тренду
+        self.level = None         # оцінка рівня
+        self.trend = 0.0          # оцінка тренду
+
+    def step(self, x):
+        if self.level is None:
+            self.level = x
+            self.trend = 0.0
+            return self.level
+        prev = self.level
+        self.level += self.alpha * (x - self.level) + self.trend      # рівень + хід тренду
+        self.trend += self.beta * ((self.level - prev) - self.trend)  # оновлюємо сам тренд
+        return self.level
+```
+:::
 
 **Адаптивна α** елегантно обходить головний компроміс EMA. Ідея: стежити за різницею (x − y). Поки вона мала (давач спокійний) — тримати α малою й сильно згладжувати; щойно різниця підскочила (величина різко змінилась) — тимчасово збільшити α, щоб спритно встигнути за подією, і знову опустити, коли вляжеться:
 
+:::tabs
 ```c
 float ema_adaptive_step(ema_t *f, float x, float scale) {
     if (!f->primed) { f->y = x; f->primed = true; return f->y; }
@@ -128,6 +263,28 @@ float ema_adaptive_step(ema_t *f, float x, float scale) {
     return f->y;
 }
 ```
+```cpp
+float ema_adaptive_step(Ema &f, float x, float scale) {
+    if (!f.primed) { f.y = x; f.primed = true; return f.y; }
+    float err = x - f.y;
+    float d   = std::abs(err);                 // |x − y|
+    float a   = d / (d + scale);               // мала різниця → мала α; велика → α→1
+    f.y += a * err;
+    return f.y;
+}
+```
+```python
+def ema_adaptive_step(f, x, scale):
+    if f.y is None:
+        f.y = x
+        return f.y
+    err = x - f.y
+    d = abs(err)                               # |x − y|
+    a = d / (d + scale)                        # мала різниця → мала α; велика → α→1
+    f.y += a * err
+    return f.y
+```
+:::
 
 Тут `scale` задає, яка різниця вважається «великою»: при `d == scale` коефіцієнт виходить рівно 0.5. Так фільтр сам перемикається між «гладко в спокої» і «швидко на події», рухаючись по шкалі, замість сидіти в одній точці.
 

@@ -61,6 +61,7 @@
 
 **Умова: на ESP32 (Wi-Fi уже піднято, IP отримано) запустити HTTP-сервер, який на `GET /` віддає коротку HTML-сторінку, а на `GET /state` — поточну температуру у форматі JSON.**
 
+:::tabs
 ```cpp
 #include "esp_http_server.h"   // вбудований сервер ESP-IDF
 #include "esp_log.h"
@@ -113,6 +114,162 @@ httpd_handle_t start_web_server(void)
     return server;
 }
 ```
+```python
+# Той самий сервер на Flask (наприклад, на Raspberry Pi як «мозку»)
+from flask import Flask, Response
+
+app = Flask(__name__)
+
+# 1) Хендлер головної сторінки: віддаємо готовий HTML.
+#    (для прикладу — рядком; у житті частіше читають файл із диска)
+@app.route("/")                                # рядок таблиці: GET / → home
+def home():
+    page = (
+        "<!DOCTYPE html><html><body>"
+        "<h2>Мій пристрій</h2>"
+        "<p>Температура: <span id='t'>--</span> °C</p>"
+        "<script>"
+        "setInterval(async()=>{"               # раз на секунду питаємо /state
+        "  let r=await fetch('/state');"
+        "  let d=await r.json();"
+        "  document.getElementById('t').textContent=d.temp;"
+        "},1000);"
+        "</script></body></html>"
+    )
+    return Response(page, mimetype="text/html")  # кажемо браузеру: це сторінка
+
+# 2) Хендлер даних: збираємо свіже показання й віддаємо JSON.
+@app.route("/state")                           # рядок таблиці: GET /state → state
+def state():
+    temp = read_temperature()                  # реальне читання давача
+    json = '{"temp":%.1f}' % temp              # {"temp":24.3}
+    return Response(json, mimetype="application/json")  # кажемо: це JSON, не сторінка
+
+# 3) Запускаємо сервер (Flask сам крутить петлю «прийми запит → хендлер → відповідай»).
+def start_web_server():
+    app.run(host="0.0.0.0", port=80)
+```
+```micropython
+# Той самий сервер на «голому» сокеті — так пишуть на ESP32 під MicroPython
+import socket
+
+PAGE = (
+    "<!DOCTYPE html><html><body>"
+    "<h2>Мій пристрій</h2>"
+    "<p>Температура: <span id='t'>--</span> °C</p>"
+    "<script>"
+    "setInterval(async()=>{"                   # раз на секунду питаємо /state
+    "  let r=await fetch('/state');"
+    "  let d=await r.json();"
+    "  document.getElementById('t').textContent=d.temp;"
+    "},1000);"
+    "</script></body></html>"
+)
+
+def send(conn, ctype, body):                   # службова: зібрати HTTP-відповідь
+    conn.send("HTTP/1.1 200 OK\r\nContent-Type: %s\r\n\r\n" % ctype)
+    conn.send(body)
+
+# Запускаємо сервер: слухаємо сокет і руками розбираємо метод+шлях.
+def start_web_server():
+    s = socket.socket()
+    s.bind(("0.0.0.0", 80))
+    s.listen(1)
+    while True:                                # та сама петля «прийми запит → відповідай»
+        conn, _ = s.accept()
+        req = conn.recv(1024)                  # напр. b"GET /state HTTP/1.1 ..."
+        path = req.split()[1]                  # вичитуємо шлях (метод тут завжди GET)
+
+        if path == b"/":                       # рядок таблиці: GET / → сторінка
+            send(conn, "text/html", PAGE)      # віддаємо статику
+        elif path == b"/state":                # рядок таблиці: GET /state → JSON
+            temp = read_temperature()          # свіже показання давача
+            send(conn, "application/json", '{"temp":%.1f}' % temp)  # {"temp":24.3}
+        else:
+            conn.send("HTTP/1.1 404 Not Found\r\n\r\n")  # шляху нема в таблиці
+
+        conn.close()
+```
+```go
+// Той самий сервер на Go (наприклад, на роутері чи SBC)
+package main
+
+import (
+	"fmt"
+	"net/http"
+)
+
+// 1) Хендлер головної сторінки: віддаємо готовий HTML.
+func homeGet(w http.ResponseWriter, r *http.Request) {
+	page := "<!DOCTYPE html><html><body>" +
+		"<h2>Мій пристрій</h2>" +
+		"<p>Температура: <span id='t'>--</span> °C</p>" +
+		"<script>" +
+		"setInterval(async()=>{" + // раз на секунду питаємо /state
+		"  let r=await fetch('/state');" +
+		"  let d=await r.json();" +
+		"  document.getElementById('t').textContent=d.temp;" +
+		"},1000);" +
+		"</script></body></html>"
+
+	w.Header().Set("Content-Type", "text/html") // кажемо браузеру: це сторінка
+	fmt.Fprint(w, page)                         // віддаємо тіло
+}
+
+// 2) Хендлер даних: збираємо свіже показання й віддаємо JSON.
+func stateGet(w http.ResponseWriter, r *http.Request) {
+	temp := readTemperature()                        // реальне читання давача
+	w.Header().Set("Content-Type", "application/json") // кажемо: це JSON, не сторінка
+	fmt.Fprintf(w, `{"temp":%.1f}`, temp)            // {"temp":24.3}
+}
+
+// 3) Запускаємо сервер і РЕЄСТРУЄМО обидва маршрути в таблиці.
+func startWebServer() {
+	http.HandleFunc("/", homeGet)        // рядок таблиці: GET / → homeGet
+	http.HandleFunc("/state", stateGet)  // рядок таблиці: GET /state → stateGet
+	http.ListenAndServe(":80", nil)      // слухаємо мережу й крутимо петлю
+}
+```
+```js
+// Той самий сервер на Node.js (наприклад, на SBC чи в шлюзі)
+const http = require("http");
+
+// 1) Хендлер головної сторінки: віддаємо готовий HTML.
+function homeGet(req, res) {
+  const page =
+    "<!DOCTYPE html><html><body>" +
+    "<h2>Мій пристрій</h2>" +
+    "<p>Температура: <span id='t'>--</span> °C</p>" +
+    "<script>" +
+    "setInterval(async()=>{" +               // раз на секунду питаємо /state
+    "  let r=await fetch('/state');" +
+    "  let d=await r.json();" +
+    "  document.getElementById('t').textContent=d.temp;" +
+    "},1000);" +
+    "</script></body></html>";
+
+  res.setHeader("Content-Type", "text/html"); // кажемо браузеру: це сторінка
+  res.end(page);                              // віддаємо тіло
+}
+
+// 2) Хендлер даних: збираємо свіже показання й віддаємо JSON.
+function stateGet(req, res) {
+  const temp = readTemperature();             // реальне читання давача
+  res.setHeader("Content-Type", "application/json"); // кажемо: це JSON, не сторінка
+  res.end(`{"temp":${temp.toFixed(1)}}`);     // {"temp":24.3}
+}
+
+// 3) Запускаємо сервер і РЕЄСТРУЄМО обидва маршрути в таблиці.
+function startWebServer() {
+  const server = http.createServer((req, res) => {
+    if (req.url === "/") homeGet(req, res);          // рядок таблиці: GET / → homeGet
+    else if (req.url === "/state") stateGet(req, res); // рядок таблиці: GET /state → stateGet
+    else { res.statusCode = 404; res.end(); }        // шляху нема в таблиці
+  });
+  server.listen(80);                          // слухаємо мережу й крутимо петлю
+}
+```
+:::
 
 Пройдімо коло за кроком. `httpd_start` піднімає сам сервер — відкриває TCP-сокет, починає слухати мережу й крутити ту саму петлю «прийми запит → знайди хендлер → відповідай». Два виклики `httpd_register_uri_handler` **заповнюють таблицю маршрутів**: перший рядок прив'язує `GET /` до функції `home_get`, другий — `GET /state` до `state_get`. Це і є реєстрація URI-хендлера — буквально додавання рядка в таблицю з малюнка.
 

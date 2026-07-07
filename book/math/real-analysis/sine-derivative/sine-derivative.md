@@ -178,6 +178,7 @@ dt
 
 Те саме в коді — порахувати миттєву швидкість синусоїди в довільну мить:
 
+:::tabs
 ```cpp
 #include <math.h>
 
@@ -188,6 +189,16 @@ float signal_rate(float A, float omega, float t) {
     return A * omega * cosf(omega * t);   // похідна A*sin(omega*t) = A*omega*cos(omega*t)
 }
 ```
+```python
+from math import cos
+
+# Миттєва швидкість зміни сигналу A*sin(omega*t) у момент t.
+# omega — кутова частота (рад/с), A — амплітуда. Повертає dx/dt у тих самих
+# одиницях сигналу за секунду.
+def signal_rate(A, omega, t):
+    return A * omega * cos(omega * t)   # похідна A*sin(omega*t) = A*omega*cos(omega*t)
+```
+:::
 
 Один рядок — і весь зміст похідної синуса в роботі: швидкість коливання — це косинус тієї ж фази, помножений на частоту й амплітуду.
 

@@ -96,6 +96,7 @@ SW  →  будь-який цифровий пін, у коді — INPUT_PULLUP
 
 **Умова.** CLK KY-040 — на D2 Arduino Uno (пін із перериванням), DT — на D3, кнопка SW — на D4. Живлення 5 В. Крутимо ручку — у Serial повзе число, натиск кнопки скидає його в нуль.
 
+:::tabs
 ```cpp
 const uint8_t PIN_CLK = 2;       // квадратурна доріжка A
 const uint8_t PIN_DT  = 3;       // квадратурна доріжка B
@@ -126,6 +127,38 @@ void loop() {
   if (digitalRead(PIN_SW) == LOW) counter = 0;   // натиск = скидання (LOW, бо pull-up)
 }
 ```
+```micropython
+from machine import Pin
+
+PIN_CLK = 2                      # квадратурна доріжка A
+PIN_DT  = 3                      # квадратурна доріжка B
+PIN_SW  = 4                      # кнопка під валом
+
+clk = Pin(PIN_CLK, Pin.IN)       # на платі вже є підтяжка на CLK
+dt  = Pin(PIN_DT,  Pin.IN)       # і на DT
+sw  = Pin(PIN_SW,  Pin.IN, Pin.PULL_UP)  # а на кнопці підтяжки НЕМА — вмикаємо внутрішню
+
+counter = 0                      # накопичене значення (змінюється в перериванні)
+
+def on_clk_fall(pin):
+    # спрацювало на спадному краї CLK: у цю мить рівень DT каже напрям
+    global counter
+    if dt.value():               # DT ще «1» → за годинниковою
+        counter += 1
+    else:                        # DT уже «0» → проти
+        counter -= 1
+
+clk.irq(trigger=Pin.IRQ_FALLING, handler=on_clk_fall)
+
+shown = 0
+while True:
+    if counter != shown:         # друкуємо, лише коли значення змінилось
+        shown = counter
+        print(shown)
+    if sw.value() == 0:          # натиск = скидання (LOW, бо pull-up)
+        counter = 0
+```
+:::
 
 Цей код передає ідею й на повільному кручінні працює. Але він **наївний до брязкоту**: конденсаторів на платі немає, тож один клац ручки нерідко дасть кілька країв поспіль, і `counter` стрибне на 2–3 замість 1, а часом і смикнеться в обидва боки. Побачити це просто — покрути жвавіше й подивись, як число «тремтить».
 

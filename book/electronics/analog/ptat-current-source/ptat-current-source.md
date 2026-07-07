@@ -108,27 +108,47 @@ R ≈ 5380 Ом   →   беремо 5.4 кОм
 
 Перевірити проєктну арифметику зручно прямо в коді прошивки — наприклад, коли калібруємо вузол або рахуємо очікуваний струм для самоперевірки:
 
-```c
-#include <math.h>
+:::tabs
+```cpp
+#include <cmath>
 
 // Тепловий потенціал k*T/q при заданій абсолютній температурі (К), у вольтах.
-float thermal_voltage(float T_kelvin)
+double thermal_voltage(double T_kelvin)
 {
-    const float k = 1.380649e-23f;   // стала Больцмана, Дж/К
-    const float q = 1.602177e-19f;   // заряд електрона, Кл
-    return k * T_kelvin / q;         // U_T = k*T/q
+    constexpr double k = 1.380649e-23;   // стала Больцмана, Дж/К
+    constexpr double q = 1.602177e-19;   // заряд електрона, Кл
+    return k * T_kelvin / q;             // U_T = k*T/q
 }
 
 // PTAT-струм ΔU_BE-джерела: I = U_T*ln(N)/R.
 // N — відношення площ переходів, R — резистор у емітері (Ом).
-float ptat_current(float T_kelvin, float N, float R_ohm)
+double ptat_current(double T_kelvin, double N, double R_ohm)
 {
-    float u_t = thermal_voltage(T_kelvin);
-    return u_t * logf(N) / R_ohm;          // ∝ T, бо U_T ∝ T
+    double u_t = thermal_voltage(T_kelvin);
+    return u_t * std::log(N) / R_ohm;    // ∝ T, бо U_T ∝ T
 }
-// ptat_current(300.0f, 8.0f, 5400.0f) -> ~9.96 мкА при 300 K (27 °C)
-// ptat_current(398.0f, 8.0f, 5400.0f) -> ~13.2 мкА при 398 K (125 °C)
+// ptat_current(300.0, 8.0, 5400.0) -> ~9.96 мкА при 300 K (27 °C)
+// ptat_current(398.0, 8.0, 5400.0) -> ~13.2 мкА при 398 K (125 °C)
 ```
+```python
+import math
+
+# Тепловий потенціал k*T/q при заданій абсолютній температурі (К), у вольтах.
+def thermal_voltage(T_kelvin):
+    k = 1.380649e-23   # стала Больцмана, Дж/К
+    q = 1.602177e-19   # заряд електрона, Кл
+    return k * T_kelvin / q   # U_T = k*T/q
+
+# PTAT-струм ΔU_BE-джерела: I = U_T*ln(N)/R.
+# N — відношення площ переходів, R — резистор у емітері (Ом).
+def ptat_current(T_kelvin, N, R_ohm):
+    u_t = thermal_voltage(T_kelvin)
+    return u_t * math.log(N) / R_ohm   # ∝ T, бо U_T ∝ T
+
+# ptat_current(300.0, 8.0, 5400.0) -> ~9.96 мкА при 300 K (27 °C)
+# ptat_current(398.0, 8.0, 5400.0) -> ~13.2 мкА при 398 K (125 °C)
+```
+:::
 
 Зверніть увагу на два останні рядки: підняли температуру з 300 K до 398 K (на коефіцієнт 1.327) — і струм виріс рівно в стільки ж разів. Це і є PTAT у дії.
 

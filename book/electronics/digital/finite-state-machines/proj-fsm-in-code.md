@@ -24,7 +24,8 @@
 
 Рушій табличного автомата вкладається в кілька рядків — і саме ця стислість і є його головна перевага. Таблицю кладемо в `const` (тобто у flash), а зберігається лише змінна `state`:
 
-```c
+:::tabs
+```cpp
 #include <stdint.h>
 
 typedef enum { LOCKED, OPEN, STATE_COUNT } state_t;
@@ -60,6 +61,41 @@ void fsm_dispatch(event_t ev) {
     state = c.next;
 }
 ```
+```python
+from enum import IntEnum
+
+class State(IntEnum):
+    LOCKED = 0
+    OPEN   = 1
+
+class Event(IntEnum):
+    COIN = 0
+    PUSH = 1
+
+# клітинка: (новий стан, дія переходу — модель Мілі; None — нічого)
+# уся поведінка — тут, як дані; рядок = стан, стовпець = подія
+table = {
+    #                COIN                        PUSH
+    State.LOCKED: {Event.COIN: (State.OPEN,   unlock), Event.PUSH: (State.LOCKED, None)},
+    State.OPEN:   {Event.COIN: (State.OPEN,   None),   Event.PUSH: (State.LOCKED, lock)},
+}
+
+state = State.LOCKED
+
+def fsm_dispatch(ev):
+    global state
+    if ev not in table[state]:         # чужа / невалідна подія
+        state = SAFE_STATE             # failsafe: куди завжди безпечно впасти
+        return
+    nxt, action = table[state][ev]     # один індекс — O(1)
+    if action:                         # дія НА переході — модель Мілі
+        action()
+    if nxt != state:                   # перехід СПРАВДІ змінює стан?
+        on_exit(state)                 # дії «на виході» зі старого…
+        on_enter(nxt)                  # …і «на вході» в новий — модель Мура
+    state = nxt
+```
+:::
 
 Зверніть увагу на дві деталі. Виклик `c.action()` **на переході** — це модель **Мілі** (дія прив'язана до стрілки); пара `on_enter`/`on_exit`, прив'язана до стану, — це модель **Мура**. Реальний код часто змішує обидві, і це нормально, доки ви свідомо вирішили, **що** до чого прив'язуєте.
 

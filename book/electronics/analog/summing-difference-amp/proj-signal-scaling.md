@@ -23,10 +23,26 @@ Vout = m · Vin + b
 
 Методика — два рядки арифметики:
 
+:::tabs
+```cpp
+struct Map { float m; float b; };   // Vout = m·Vin + b
+
+// знайти масштаб і зсув із двох кінців діапазону
+Map find_map(float vin_lo, float vin_hi, float vout_lo, float vout_hi) {
+    Map s;
+    s.m = (vout_hi - vout_lo) / (vin_hi - vin_lo);  // масштаб (нахил прямої)
+    s.b = vout_lo - s.m * vin_lo;                   // зсув (підняти/опустити)
+    return s;
+}
 ```
-m = (Vout_hi − Vout_lo) / (Vin_hi − Vin_lo)     # масштаб (нахил прямої)
-b = Vout_lo − m · Vin_lo                          # зсув (підняти/опустити)
+```python
+def find_map(vin_lo, vin_hi, vout_lo, vout_hi):
+    """Знайти масштаб і зсув із двох кінців діапазону: Vout = m·Vin + b."""
+    m = (vout_hi - vout_lo) / (vin_hi - vin_lo)  # масштаб (нахил прямої)
+    b = vout_lo - m * vin_lo                     # зсув (підняти/опустити)
+    return m, b
 ```
+:::
 
 Підставмо наші кінці (Vin: −5…+5, Vout: 0…3.3):
 

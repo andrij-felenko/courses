@@ -224,74 +224,123 @@ int pps_take(uint64_t *stamp_out, uint32_t *index_out) {
 
 Три поля, що нам потрібні: `towMS` дає, на яку **секунду** тижня став фронт (звідси й календарна мітка); `week` доповнює його до повного моменту; `qErr` несе поправку квантування в **пікосекундах**, і вона **знакова**. Ось код, що витягує кадр із байтового потоку й дістає ці поля. UBX іде **молодшим байтом уперед** (little-endian), тож збираємо числа вручну, зсувами, — не покладаючись на розкладку структур у пам'яті.
 
-```c
+:::tabs
+```cpp
 // Мала машина станів, що виловлює один кадр UBX-TIM-TP з потоку байтів.
 // Викликається на кожен прийнятий по UART байт (напр., із його ISR/черги).
+#include <array>
+#include <cstdint>
 
-#define UBX_SYNC1  0xB5
-#define UBX_SYNC2  0x62
-#define TIMTP_CLS  0x0D
-#define TIMTP_ID   0x01
-#define TIMTP_LEN  16
+class UbxTimTpParser {
+public:
+    struct TimTp {
+        std::uint32_t towMS;      // ціла частина часу тижня, мс
+        std::uint32_t towSubMS;   // дробова частина, пс × 2⁻³²
+        std::int32_t  qErr;       // помилка квантування, пс (знакова)
+        std::uint16_t week;       // номер тижня
+        std::uint8_t  flags;
+        std::uint8_t  refInfo;
+    };
 
-typedef struct {
-    uint32_t towMS;      // ціла частина часу тижня, мс
-    uint32_t towSubMS;   // дробова частина, пс × 2⁻³²
-    int32_t  qErr;       // помилка квантування, пс (знакова)
-    uint16_t week;       // номер тижня
-    uint8_t  flags;
-    uint8_t  refInfo;
-} timtp_t;
-
-// Останнє валідне повідомлення + прапорець свіжості (для головного циклу).
-static volatile timtp_t  timtp_msg;
-static volatile uint32_t timtp_count = 0;
-
-static uint32_t rd_u32(const uint8_t *p) {   // little-endian → uint32
-    return  (uint32_t)p[0]        | ((uint32_t)p[1] << 8)
-         | ((uint32_t)p[2] << 16) | ((uint32_t)p[3] << 24);
-}
-
-void ubx_feed(uint8_t b) {
-    static uint8_t  st = 0;          // стан машини
-    static uint8_t  cls, id, ck_a, ck_b;
-    static uint16_t len, idx;
-    static uint8_t  buf[TIMTP_LEN];
-
-    switch (st) {
-    case 0: if (b == UBX_SYNC1) st = 1;              break;  // чекаємо 0xB5
-    case 1: st = (b == UBX_SYNC2) ? 2 : 0;           break;  // потім 0x62
-    case 2: cls = b; ck_a = b; ck_b = ck_a; st = 3;  break;  // клас (старт CK)
-    case 3: id  = b; ck_a += b; ck_b += ck_a; st = 4; break; // номер
-    case 4: len = b;             ck_a += b; ck_b += ck_a; st = 5; break; // довжина LSB
-    case 5: len |= (uint16_t)b << 8; ck_a += b; ck_b += ck_a;             // довжина MSB
-            idx = 0;
+    // Згодувати один байт; true — щойно зібрано валідний кадр (у msg()).
+    bool feed(std::uint8_t b) {
+        switch (st_) {
+        case St::Sync1: if (b == kSync1) st_ = St::Sync2;          break;  // чекаємо 0xB5
+        case St::Sync2: st_ = (b == kSync2) ? St::Cls : St::Sync1; break;  // потім 0x62
+        case St::Cls:   cls_ = b; ckA_ = b; ckB_ = ckA_; st_ = St::Id;  break; // клас (старт CK)
+        case St::Id:    id_ = b;  addCk(b); st_ = St::LenLo;            break; // номер
+        case St::LenLo: len_ = b; addCk(b); st_ = St::LenHi;           break; // довжина LSB
+        case St::LenHi:                                                        // довжина MSB
+            len_ |= static_cast<std::uint16_t>(b) << 8; addCk(b);
+            idx_ = 0;
             // Беремо лише TIM-TP потрібної довжини; решту кадрів пропускаємо.
-            st = (cls == TIMTP_CLS && id == TIMTP_ID && len == TIMTP_LEN) ? 6 : 0;
+            st_ = (cls_ == kCls && id_ == kId && len_ == kLen) ? St::Body : St::Sync1;
             break;
-    case 6: buf[idx++] = b; ck_a += b; ck_b += ck_a;         // тіло навантаження
-            if (idx >= len) st = 7;
+        case St::Body:  buf_[idx_++] = b; addCk(b);                    // тіло навантаження
+            if (idx_ >= len_) st_ = St::CkA;
             break;
-    case 7: // перший байт контрольної суми: звірити CK_A
-            st = (b == ck_a) ? 8 : 0;
-            break;
-    case 8: // другий байт: звірити CK_B; якщо збіглось — кадр цілий
-            if (b == ck_b) {
-                timtp_t m;
-                m.towMS    = rd_u32(&buf[0]);
-                m.towSubMS = rd_u32(&buf[4]);
-                m.qErr     = (int32_t)rd_u32(&buf[8]);   // знакова!
-                m.week     = (uint16_t)(buf[12] | (buf[13] << 8));
-                m.flags    = buf[14];
-                m.refInfo  = buf[15];
-                timtp_msg  = m;
-                timtp_count++;                            // прийшло свіже повідомлення
+        case St::CkA:   st_ = (b == ckA_) ? St::CkB : St::Sync1;       break; // звірити CK_A
+        case St::CkB:                                                          // звірити CK_B
+            if (b == ckB_) {                                            // кадр цілий
+                msg_ = TimTp{ rdU32(0), rdU32(4),
+                              static_cast<std::int32_t>(rdU32(8)),      // знакова!
+                              static_cast<std::uint16_t>(buf_[12] | (buf_[13] << 8)),
+                              buf_[14], buf_[15] };
+                ++count_;                                              // свіже повідомлення
+                st_ = St::Sync1;
+                return true;
             }
-            st = 0;
+            st_ = St::Sync1;
             break;
+        }
+        return false;
     }
-}
+
+    const TimTp&  msg()   const { return msg_; }
+    std::uint32_t count() const { return count_; }
+
+private:
+    static constexpr std::uint8_t  kSync1 = 0xB5, kSync2 = 0x62;
+    static constexpr std::uint8_t  kCls = 0x0D, kId = 0x01;
+    static constexpr std::uint16_t kLen = 16;
+
+    enum class St { Sync1, Sync2, Cls, Id, LenLo, LenHi, Body, CkA, CkB };
+
+    void addCk(std::uint8_t b) { ckA_ += b; ckB_ += ckA_; }
+
+    std::uint32_t rdU32(std::size_t off) const {   // little-endian → uint32
+        return  static_cast<std::uint32_t>(buf_[off])
+             | (static_cast<std::uint32_t>(buf_[off + 1]) << 8)
+             | (static_cast<std::uint32_t>(buf_[off + 2]) << 16)
+             | (static_cast<std::uint32_t>(buf_[off + 3]) << 24);
+    }
+
+    St st_ = St::Sync1;
+    std::uint8_t  cls_ = 0, id_ = 0, ckA_ = 0, ckB_ = 0;
+    std::uint16_t len_ = 0, idx_ = 0;
+    std::array<std::uint8_t, kLen> buf_{};
+    TimTp msg_{};
+    std::uint32_t count_ = 0;   // лічильник валідних кадрів (для головного циклу)
+};
 ```
+```python
+# Виловлює кадри UBX-TIM-TP із серійного потоку (pyserial), поля дістає struct.
+# UBX іде little-endian; формат "<IIiHBB": towMS, towSubMS, qErr(знакова!),
+# week, flags, refInfo — саме те, що C-версія збирає зсувами вручну.
+import struct
+from collections import namedtuple
+
+SYNC = b"\xB5\x62"
+CLS, MID, PAYLEN = 0x0D, 0x01, 16
+TimTp = namedtuple("TimTp", "towMS towSubMS qErr week flags refInfo")
+
+def _fletcher(data: bytes) -> tuple[int, int]:
+    """8-бітна сума Флетчера UBX над діапазоном клас..кінець навантаження."""
+    ck_a = ck_b = 0
+    for byte in data:
+        ck_a = (ck_a + byte) & 0xFF
+        ck_b = (ck_b + ck_a) & 0xFF
+    return ck_a, ck_b
+
+def read_timtp(ser):
+    """Читати з порту, віддаючи кожен валідний кадр TIM-TP (генератор)."""
+    while True:
+        # Синхронізуватися на 0xB5 0x62.
+        if ser.read(1) != SYNC[:1] or ser.read(1) != SYNC[1:]:
+            continue
+        header = ser.read(4)                      # cls, id, len(LE u16)
+        cls, mid, length = header[0], header[1], header[2] | (header[3] << 8)
+        payload = ser.read(length)
+        ck_a, ck_b = ser.read(2)
+        # Звірити суму ПЕРЕД тим, як довіритись кадру; збитий байт → відкинути.
+        if (ck_a, ck_b) != _fletcher(header + payload):
+            continue
+        # Пропускаємо все, крім TIM-TP потрібної довжини.
+        if (cls, mid, length) != (CLS, MID, PAYLEN):
+            continue
+        yield TimTp._make(struct.unpack("<IIiHBB", payload))
+```
+:::
 
 Головне тут — три речі. По-перше, **контрольна сума**: UBX рахує 8-бітну суму Флетчера (два байти `CK_A`/`CK_B`) над діапазоном від класу до кінця навантаження, і ми звіряємо її перед тим, як довіритись кадру, — бо один збитий байт на UART інакше дав би тобі хибну мітку часу, гіршу за жодну. По-друге, `qErr` читаємо **як знакове** (`int32_t`): забудеш каст — і від'ємна поправка обернеться на величезне додатне число, а точність замість покращитись розлетиться. По-третє, ми свідомо **пропускаємо** всі кадри, крім `TIM-TP` потрібної довжини: у потоці йдуть десятки інших UBX-повідомлень, і машина має ковзати повз них, не спотикаючись.
 

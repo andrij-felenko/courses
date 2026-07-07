@@ -12,12 +12,23 @@
 
 На виході для кожної знайденої мітки хочемо структуру:
 
-```c
+:::tabs
+```cpp
 typedef struct {
     int      id;            // ID зі словника, або -1 якщо не мітка
     float    corner[4][2];  // 4 кути (x,y) у пікселях кадру, за годинниковою
 } Marker;
 ```
+```python
+from dataclasses import dataclass, field
+
+@dataclass
+class Marker:
+    id: int = -1                                   # ID зі словника, або -1 якщо не мітка
+    corner: list[list[float]] = field(            # 4 кути (x,y) у пікселях кадру, за годинниковою
+        default_factory=lambda: [[0.0, 0.0] for _ in range(4)])
+```
+:::
 
 Чотири кути потрібні не менше за ID: саме вони підуть далі у [відновлення пози](book:algorithms/pose-estimation) (задача PnP), щоб дістати відстань і нахил. Тож декодер зобов'язаний повернути кути **у сталому порядку** — інакше поза «перескакуватиме» на 90° щоразу, як мітку прочитають повернутою. Це вже підказує: оберт мітки — не дрібниця десь у кінці, а наскрізна турбота всього коду.
 
@@ -41,7 +52,8 @@ typedef struct {
 
 Наївно рахувати середнє по вікну w×w для кожного пікселя — це O(W·H·w²), для вікна 23×23 понад пів тисячі додавань на піксель. Рятує **інтегральне зображення** (англ. *summed-area table*): один прохід, і сума по будь-якому прямокутнику — це чотири звертання до таблиці. Деталі техніки — окрема тема ([бінаризація порогом](book:algorithms/threshold-morphology)); тут покажу компактну робочу реалізацію під прошивку.
 
-```c
+:::tabs
+```cpp
 // Адаптивний поріг ADAPTIVE_THRESH_MEAN_C через інтегральне зображення.
 // out[i] = 1, якщо піксель ТЕМНІШИЙ за (локальне середнє − C): це «чорнило» мітки.
 // win — сторона вікна (непарна), у OpenCV-aruco її беруть у діапазоні 3..23.
@@ -77,6 +89,33 @@ static void adaptive_threshold(const uint8_t *img, int W, int H,
     }
 }
 ```
+```python
+import numpy as np
+
+# Адаптивний поріг ADAPTIVE_THRESH_MEAN_C через інтегральне зображення.
+# Повертає маску: 1, де піксель ТЕМНІШИЙ за (локальне середнє − C) — «чорнило» мітки.
+# win — сторона вікна (непарна), у OpenCV-aruco її беруть у діапазоні 3..23.
+def adaptive_threshold(img, win, C):
+    H, W = img.shape
+    # 1) Інтегральне зображення з нульовими рядком і стовпцем (padding).
+    integ = np.zeros((H + 1, W + 1), dtype=np.int64)
+    integ[1:, 1:] = np.cumsum(np.cumsum(img.astype(np.int64), axis=0), axis=1)
+
+    r = win // 2
+    out = np.zeros((H, W), dtype=np.uint8)
+    for y in range(H):
+        y0, y1 = max(0, y - r), min(H - 1, y + r)
+        for x in range(W):
+            x0, x1 = max(0, x - r), min(W - 1, x + r)
+            area = (x1 - x0 + 1) * (y1 - y0 + 1)
+            # сума по прямокутнику [x0..x1]×[y0..y1] — чотири кути таблиці:
+            s = (integ[y1 + 1, x1 + 1] - integ[y0, x1 + 1]
+                 - integ[y1 + 1, x0] + integ[y0, x0])
+            mean = int(s // area)
+            out[y, x] = 1 if int(img[y, x]) < mean - C else 0   # темніше → «чорнило»
+    return out
+```
+:::
 
 Зверни увагу: `out` — це маска **чорнила** (одиниця там, де темно). Далі шукатимемо саме зв'язні чорні області — контур мітки — тож зручно, коли чорне = 1.
 
@@ -88,7 +127,8 @@ static void adaptive_threshold(const uint8_t *img, int W, int H,
 
 Щоб код лишався оглядним, покажу серце відбору — перевірку кандидата-чотирикутника — і винесу трасування контуру за дужки (його роль: дати масив точок межі `pts[n]` однієї чорної компоненти). Апроксимація до 4 вершин:
 
-```c
+:::tabs
+```cpp
 typedef struct { float x, y; } Pt;
 
 // Відстань точки p до прямої (a,b) — для Рамера–Дугласа–Пекера.
@@ -138,6 +178,51 @@ static int approx_quad(const Pt *pts, int n, float eps2, Pt quad[4]) {
     return 1;
 }
 ```
+```python
+# Точку зберігаємо як кортеж (x, y).
+
+# Квадрат відстані точки p до прямої (a,b) — для Рамера–Дугласа–Пекера.
+def perp_dist(p, a, b):
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    length = dx * dx + dy * dy
+    if length < 1e-6:                                   # a==b: відстань до точки
+        dx, dy = p[0] - a[0], p[1] - a[1]
+        return dx * dx + dy * dy
+    t = ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / length   # проєкція на відрізок
+    projx, projy = a[0] + t * dx, a[1] + t * dy
+    dx, dy = p[0] - projx, p[1] - projy
+    return dx * dx + dy * dy                             # квадрат відстані
+
+# Спростити замкнений контур pts до чотирикутника.
+# Повертає список із 4 вершин, якщо набралося 4 «сильні» кути; інакше None.
+def approx_quad(pts, eps2):
+    n = len(pts)
+    if n < 4:
+        return None
+    # 1) Дві найвіддаленіші точки — старт діагоналі (грубий, надійний засів).
+    i1 = max(range(1, n),
+             key=lambda i: (pts[i][0] - pts[0][0])**2 + (pts[i][1] - pts[0][1])**2)
+    i0 = max(range(n),
+             key=lambda i: (pts[i][0] - pts[i1][0])**2 + (pts[i][1] - pts[i1][1])**2)
+    # 2) На кожній із двох дуг між i0 та i1 шукаємо найвіддаленішу точку —
+    #    це ще дві вершини. Разом чотири кути квадрата.
+    lo, hi = min(i0, i1), max(i0, i1)
+    c1 = c2 = None
+    b1 = b2 = eps2
+    for i in range(lo + 1, hi):
+        d = perp_dist(pts[i], pts[lo], pts[hi])
+        if d > b1:
+            b1, c1 = d, i
+    for k in range(n - (hi - lo) - 1):
+        i = (hi + 1 + k) % n
+        d = perp_dist(pts[i], pts[hi], pts[lo])
+        if d > b2:
+            b2, c2 = d, i
+    if c1 is None or c2 is None:            # не набралося 4 сильних кутів → не квадрат
+        return None
+    return [pts[lo], pts[c1], pts[hi], pts[c2]]
+```
+:::
 
 `eps2` — це `(polygonalApproxAccuracyRate · периметр)²`; у OpenCV `polygonalApproxAccuracyRate = 0.03`. Тобто вершиною вважаємо тільки точку, що відхиляється від сторони більш ніж на 3% периметра — так дрібні зубці межі не породжують фальшивих кутів.
 
@@ -166,7 +251,8 @@ xᵢ·h₀ + yᵢ·h₁ + h₂                       − Xᵢ·xᵢ·h₆ − X�
 
 Чотири точки дають вісім таких рядків — матрицю A (8×8) і праву частину b (8). Розв'язуємо Гауссом. Ось робочий C: побудова системи для відображення **кутів кандидата → канонічний квадрат S×S** і розв'язання.
 
-```c
+:::tabs
+```cpp
 // Розв'язати A·x = b, A — n×n (рядки поспіль), методом Гаусса з вибором ведучого.
 // Повертає 0, якщо матриця вироджена (кандидат геть плаский — не мітка).
 static int solve_linear(double *A, double *b, double *x, int n) {
@@ -212,10 +298,55 @@ static int homography_to_square(const Pt src[4], int S, double H[9]) {
     return 1;
 }
 ```
+```python
+import numpy as np
+
+# Розв'язати A·x = b методом Гаусса з вибором ведучого. Повертає None,
+# якщо матриця вироджена (кандидат геть плаский — не мітка).
+def solve_linear(A, b):
+    A = A.astype(np.float64).copy()
+    b = b.astype(np.float64).copy()
+    n = len(b)
+    for col in range(n):
+        # вибір ведучого рядка (найбільший за модулем елемент у стовпці) — стійкість
+        piv = col + int(np.argmax(np.abs(A[col:, col])))
+        if abs(A[piv, col]) < 1e-9:
+            return None                          # вироджена → відкинути кандидата
+        if piv != col:                           # переставити рядки piv ↔ col
+            A[[col, piv]] = A[[piv, col]]
+            b[[col, piv]] = b[[piv, col]]
+        d = A[col, col]
+        for r in range(n):                       # виключити стовпець з решти рядків
+            if r == col:
+                continue
+            f = A[r, col] / d
+            A[r, col:] -= f * A[col, col:]
+            b[r] -= f * b[col]
+    return b / np.diag(A)                         # діагональ → розв'язок
+
+# Гомографія, що переводить 4 кути мітки src у квадрат [0..S]×[0..S].
+# Повертає H як 3×3 (h8=1) або None. S — сторона канонічного квадрата в пікселях.
+def homography_to_square(src, S):
+    dst = [(0, 0), (S, 0), (S, S), (0, S)]
+    A = np.zeros((8, 8))
+    b = np.zeros(8)
+    for i in range(4):
+        xs, ys = src[i]
+        X, Y = dst[i]
+        A[2 * i]     = [xs, ys, 1, 0,  0,  0, -X * xs, -X * ys]
+        A[2 * i + 1] = [0,  0,  0, xs, ys, 1, -Y * xs, -Y * ys]
+        b[2 * i], b[2 * i + 1] = X, Y
+    h = solve_linear(A, b)
+    if h is None:
+        return None
+    return np.append(h, 1.0).reshape(3, 3)
+```
+:::
 
 Тепер важливий поворот думки: нам **не треба** матеріалізувати розпрямлене зображення в окремий буфер, як це робить `warpPerspective`. Для прошивки з мізерною пам'яттю дешевше піти **навпаки**: для кожної клітинки канонічного квадрата беремо її центр (Xc,Yc), проганяємо через **обернену** гомографію назад у кадр і читаємо яскравість прямо звідти. Один буфер, жодного зайвого зображення. Обернену матрицю знайдемо тим самим `solve_linear`, розв'язавши H·p = e для трьох базових векторів (тобто інвертувавши 3×3).
 
-```c
+:::tabs
+```cpp
 // Інвертувати 3×3 (гомографію) через приєднану матрицю — коротко й без циклу Гаусса.
 static int invert3x3(const double H[9], double Hi[9]) {
     double det = H[0]*(H[4]*H[8]-H[5]*H[7])
@@ -241,6 +372,31 @@ static int sample_canonical(const uint8_t *img, int W, int H_img,
     return img[sy * W + sx];
 }
 ```
+```python
+import numpy as np
+
+# Інвертувати 3×3 (гомографію). Повертає None, якщо матриця вироджена.
+def invert3x3(H):
+    det = np.linalg.det(H)
+    if abs(det) < 1e-12:
+        return None
+    return np.linalg.inv(H)
+
+# Яскравість кадру в точці канонічного квадрата (Xc,Yc) — через обернену гомографію.
+# Найближчий сусід (INTER_NEAREST, як у OpenCV-aruco); межі кадру перевіряємо.
+# Повертає -1, якщо точка вилізла за кадр.
+def sample_canonical(img, Hi, Xc, Yc):
+    H_img, W = img.shape
+    w = Hi[2, 0] * Xc + Hi[2, 1] * Yc + Hi[2, 2]
+    if abs(w) < 1e-12:
+        return 0
+    sx = int((Hi[0, 0] * Xc + Hi[0, 1] * Yc + Hi[0, 2]) / w + 0.5)
+    sy = int((Hi[1, 0] * Xc + Hi[1, 1] * Yc + Hi[1, 2]) / w + 0.5)
+    if sx < 0 or sx >= W or sy < 0 or sy >= H_img:
+        return -1                                   # вилізли за кадр
+    return int(img[sy, sx])
+```
+:::
 
 ## Крок 4 — прочитати біти сітки
 
@@ -248,7 +404,8 @@ static int sample_canonical(const uint8_t *img, int W, int H_img,
 
 Порогувати клітинку абсолютним 128 — знову крихко (та сама тінь). Правильніше: зібрати середні яскравості всіх клітинок і розділити їх **власним** порогом за методом Оцу — він сам знаходить провал між «темними» й «світлими» клітинками цієї конкретної мітки. (Метод Оцу як такий — окрема тема; тут вистачить його суті: поріг, що максимально розводить два класи яскравості.) Але для компактної прошивки часто достатньо середини між мінімальним і максимальним значенням клітинок — покажу цей стійкий і дешевий варіант.
 
-```c
+:::tabs
+```cpp
 #define GRID 6                          // мітка 6×6 (рамка + 4×4 даних)
 #define CANON 48                        // S: 8 пікселів на клітинку (GRID*8) — з запасом
 #define IGN   0.13                      // відступ від краю клітинки (як у OpenCV)
@@ -287,6 +444,43 @@ static void cells_to_bits(const int cells[GRID][GRID], uint8_t bit[GRID][GRID]) 
             bit[gy][gx] = cells[gy][gx] > thr ? 1 : 0;   // світліше за поріг → біле
 }
 ```
+```python
+GRID = 6                                # мітка 6×6 (рамка + 4×4 даних)
+CANON = 48                              # S: 8 пікселів на клітинку (GRID*8) — з запасом
+IGN = 0.13                              # відступ від краю клітинки (як у OpenCV)
+
+# Прочитати сітку GRID×GRID: cells[gy][gx] — середня яскравість серединки клітинки.
+def read_grid(img, Hi):
+    cell = CANON / GRID
+    m = cell * IGN                                  # поле, яке ігноруємо
+    cells = [[0] * GRID for _ in range(GRID)]
+    for gy in range(GRID):
+        for gx in range(GRID):
+            x0, x1 = gx * cell + m, (gx + 1) * cell - m
+            y0, y1 = gy * cell + m, (gy + 1) * cell - m
+            total = cnt = 0
+            Yc = y0 + 0.5
+            while Yc < y1:
+                Xc = x0 + 0.5
+                while Xc < x1:
+                    v = sample_canonical(img, Hi, Xc, Yc)
+                    if v >= 0:
+                        total += v
+                        cnt += 1
+                    Xc += 1.0
+                Yc += 1.0
+            cells[gy][gx] = total // cnt if cnt else 0
+    return cells
+
+# Перетворити яскравості клітинок на біти (1 = біле) спільним порогом.
+# Поріг — середина між найтемнішою й найсвітлішою клітинками (стійко до світла).
+def cells_to_bits(cells):
+    flat = [v for row in cells for v in row]
+    thr = (min(flat) + max(flat)) // 2
+    return [[1 if cells[gy][gx] > thr else 0       # світліше за поріг → біле
+             for gx in range(GRID)] for gy in range(GRID)]
+```
+:::
 
 ## Крок 5 — рамка, чотири оберти, Гемінг: серце декодера
 
@@ -298,7 +492,8 @@ static void cells_to_bits(const int cells[GRID][GRID], uint8_t bit[GRID][GRID]) 
 
 **Гемінг і виправлення.** Зіставлення — не «збіглося / ні», а **за [відстанню Гемінга](book:communications/hamming-distance)**: скільки бітів різняться. Для кожного слова словника й кожного з чотирьох обертів рахуємо відстань; беремо глобальний мінімум. Якщо він **≤ порога виправлення** — мітку впізнано, і виправлено рівно ті хибні біти. У OpenCV поріг = `maxCorrectionBits · errorCorrectionRate`, де `errorCorrectionRate = 0.6`; тобто виправляють до 60% теоретичного запасу словника. Перевищив поріг — це чуже, повертаємо −1. Саме цей поріг рятує від найпідступнішого: **впевненого хибного ID**. Без нього зашумлений квадрат «причепився» б до найближчого коду й видав дрону неправильний майданчик.
 
-```c
+:::tabs
+```cpp
 // Порахувати 16-бітний код із матриці внутрішніх 4×4 бітів (рядок за рядком).
 static uint16_t bits4x4_to_code(const uint8_t bit[GRID][GRID]) {
     uint16_t code = 0;
@@ -356,6 +551,60 @@ static int identify(const uint8_t bit[GRID][GRID], const Dict *dict, int *rot) {
     return -1;                                       // задалеко від усіх → чуже
 }
 ```
+```python
+from dataclasses import dataclass
+
+# Порахувати 16-бітний код із матриці внутрішніх 4×4 бітів (рядок за рядком).
+def bits4x4_to_code(bit):
+    code = 0
+    for gy in range(1, 5):                          # внутрішні клітинки 1..4
+        for gx in range(1, 5):
+            code = (code << 1) | (bit[gy][gx] & 1)
+    return code
+
+# Повернути матрицю 4×4 бітів на 90° за годинниковою: dst[x][3-y] = src[y][x].
+def rot90_4x4(src):
+    dst = [[0] * 4 for _ in range(4)]
+    for y in range(4):
+        for x in range(4):
+            dst[x][3 - y] = src[y][x]
+    return dst
+
+def hamming16(a, b):
+    return bin(a ^ b).count("1")                    # XOR, тоді порахувати одиниці
+
+# Словник: коди у ЖОРСТКОМУ порядку рамка-чорна, лише внутрішні 4×4.
+# (реальний ArUco зберігає всі 4 оберти заздалегідь; ми обертаємо матрицю на льоту)
+@dataclass
+class Dict:
+    code: list[int]
+    max_correct: int
+
+# Звірити прочитані біти зі словником по 4 обертах.
+# Повертає (id, rot), де rot — на скільки *90° мітка повернута (0..3),
+# щоб викликач упорядкував кути; або (-1, 0), якщо мітку не впізнано.
+def identify(bit, dct):
+    m = [[bit[y + 1][x + 1] for x in range(4)] for y in range(4)]   # внутрішні 4×4
+
+    best_id, best_dist, best_rot = -1, 0x7fffffff, 0
+    for k in range(4):                              # чотири оберти
+        # зібрати код поточного оберту
+        code = 0
+        for y in range(4):
+            for x in range(4):
+                code = (code << 1) | (m[y][x] & 1)
+        # мінімальний Гемінг до всіх слів словника
+        for i, word in enumerate(dct.code):
+            d = hamming16(code, word)
+            if d < best_dist:
+                best_dist, best_id, best_rot = d, i, k
+        m = rot90_4x4(m)                            # повернути на наступні 90°
+
+    if best_dist <= dct.max_correct:                # у межах виправлення → впізнано
+        return best_id, best_rot
+    return -1, 0                                     # задалеко від усіх → чуже
+```
+:::
 
 `max_correct` тут — уже готовий поріг (`⌊maxCorrectionBits · 0.6⌋`), який рахують раз при завантаженні словника з його мінімальної міжкодової відстані d як ⌊(d−1)/2 · 0.6⌋. Для типового `DICT_6X6_250` (250 міток, мінімальна відстань між кодами близько 5–6) це дає запас на 1–2 хибні біти — рівно те, що витримує відблиск чи легке розмиття, не пускаючи справжнє сміття.
 
@@ -363,7 +612,8 @@ static int identify(const uint8_t bit[GRID][GRID], const Dict *dict, int *rot) {
 
 Тепер п'ять кроків склеюються. Функція проходить кандидатів (їх дає трасування контурів по масці порогу), для кожного будує гомографію, читає сітку, звіряє зі словником, і на успіху впорядковує кути під знайдений оберт.
 
-```c
+:::tabs
+```cpp
 // Один кандидат quad[4] → заповнена структура Marker (id=-1, якщо не мітка).
 static void decode_candidate(const uint8_t *img, int W, int Himg,
                              const Pt quad[4], const Dict *dict, Marker *out) {
@@ -416,6 +666,58 @@ int aruco_decode(const uint8_t *img, int W, int Himg,
     return found;
 }
 ```
+```python
+# Один кандидат quad (4 точки) → структура Marker (id=-1, якщо не мітка).
+def decode_candidate(img, quad, dct):
+    out = Marker()
+    Hm = homography_to_square(quad, CANON)
+    if Hm is None:                                  # вироджений кандидат
+        return out
+    Hi = invert3x3(Hm)
+    if Hi is None:
+        return out
+
+    cells = read_grid(img, Hi)
+    bit = cells_to_bits(cells)
+
+    # рамка: рахуємо білі клітинки в зовнішньому кільці, поріг 35%
+    border_white = border_total = 0
+    for g in range(GRID):
+        for gx, gy in ((g, 0), (g, GRID - 1), (0, g), (GRID - 1, g)):
+            border_total += 1
+            border_white += bit[gy][gx]
+    if border_white * 100 > border_total * 35:      # рамка світла → не мітка
+        return out
+
+    id_, rot = identify(bit, dct)
+    if id_ < 0:
+        return out
+
+    # упорядкувати кути під знайдений оберт: циклічний зсув на rot позицій
+    out.id = id_
+    for i in range(4):
+        out.corner[i][0] = quad[(i + rot) & 3][0]
+        out.corner[i][1] = quad[(i + rot) & 3][1]
+    return out
+
+# Головний вхід: кадр → список міток. find_quads дає крок контурів (крок 2).
+def aruco_decode(img, dct):
+    # Крок 1 — поріг у маску чорнила. Вікно 23, C=7 (типові для aruco).
+    binmask = adaptive_threshold(img, 23, 7)
+
+    # Крок 2 — контури по масці → чотирикутники-кандидати. (трасування опущено;
+    #           find_quads повертає список quad-ів по масках)
+    cands = find_quads(binmask)                     # заглушка інтерфейсу
+
+    # Крок 3–5 — довести кожного кандидата до ID або відкинути.
+    markers = []
+    for quad in cands:
+        m = decode_candidate(img, quad, dct)
+        if m.id >= 0:
+            markers.append(m)
+    return markers
+```
+:::
 
 Крок 2 (`find_quads`) навмисно лишено інтерфейсом-заглушкою: повне трасування контурів Сузукі — окрема тема ([аналіз плям](book:algorithms/blob-analysis)), а вся суть **декодування** — у кроках 3–5, які тут робочі повністю. Підстав будь-яке трасування, що дає масив точок межі кожної чорної компоненти, прожени через `approx_quad`, і `decode_candidate` доведе кожен чотирикутник до ID або відкине.
 

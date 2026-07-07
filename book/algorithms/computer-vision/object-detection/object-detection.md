@@ -56,21 +56,44 @@
 
 > ⚙️ **Worked-приклад: IoU двох рамок і крок NMS.** Рамка — `{x, y, w, h}` (ліво, верх, ширина, висота, у пікселях). Рахуємо перекриття двох знахідок і вирішуємо, чи це дублікат.
 
-```c
-typedef struct { int x, y, w, h; float score; } Box;
+:::tabs
+```cpp
+#include <algorithm>
 
-float iou(Box a, Box b) {
-    int x1 = a.x > b.x ? a.x : b.x;            // ліва межа перетину
-    int y1 = a.y > b.y ? a.y : b.y;            // верхня
-    int x2 = (a.x+a.w) < (b.x+b.w) ? a.x+a.w : b.x+b.w;  // права
-    int y2 = (a.y+a.h) < (b.y+b.h) ? a.y+a.h : b.y+b.h;  // нижня
+struct Box { int x, y, w, h; float score; };
+
+float iou(const Box &a, const Box &b) {
+    int x1 = std::max(a.x, b.x);                    // ліва межа перетину
+    int y1 = std::max(a.y, b.y);                    // верхня
+    int x2 = std::min(a.x + a.w, b.x + b.w);        // права
+    int y2 = std::min(a.y + a.h, b.y + b.h);        // нижня
     int iw = x2 - x1, ih = y2 - y1;
-    if (iw <= 0 || ih <= 0) return 0.0f;       // не перетинаються
-    float inter = (float)iw * ih;
-    float uni   = (float)a.w*a.h + (float)b.w*b.h - inter;
+    if (iw <= 0 || ih <= 0) return 0.0f;            // не перетинаються
+    float inter = static_cast<float>(iw) * ih;
+    float uni   = static_cast<float>(a.w) * a.h + static_cast<float>(b.w) * b.h - inter;
     return inter / uni;
 }
 ```
+```python
+from dataclasses import dataclass
+
+@dataclass
+class Box:
+    x: int; y: int; w: int; h: int; score: float
+
+def iou(a: Box, b: Box) -> float:
+    x1 = max(a.x, b.x)                       # ліва межа перетину
+    y1 = max(a.y, b.y)                       # верхня
+    x2 = min(a.x + a.w, b.x + b.w)           # права
+    y2 = min(a.y + a.h, b.y + b.h)           # нижня
+    iw, ih = x2 - x1, y2 - y1
+    if iw <= 0 or ih <= 0:
+        return 0.0                           # не перетинаються
+    inter = iw * ih
+    uni   = a.w * a.h + b.w * b.h - inter
+    return inter / uni
+```
+:::
 
 Хай детектор м'яча видав дві рамки: `A = {100, 100, 50, 50, score 0.92}` і `B = {110, 108, 50, 50, score 0.81}`.
 

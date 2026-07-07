@@ -72,66 +72,69 @@ I_n  = V_oc / R_n                   ← екстраполяція вправо,
 
 Сама арифметика тривіальна — три рядки, — тож головна вага коду не в ній, а в **акуратному вимірі**: усереднити шум АЦП, дочекатися встановлення після перемикання, перевірити, що точки досить різні. Ось закінчена функція мовою C: та сама арифметика, що в прикладі, плюс захист від типових пасток.
 
-```c
-#include <stdint.h>
-#include <math.h>
+:::tabs
+```cpp
+#include <cstdint>
+#include <cmath>
 
-#define R1_OHM      10.0f      // легке навантаження, Ом
-#define R2_OHM      2.7f       // важче навантаження, Ом
-#define ADC_VREF    3.30f      // опорна напруга АЦП, В
-#define ADC_MAX     4095.0f    // 12-бітний АЦП
-#define ADC_GAIN    11.0f      // подільник входу: 10:1 (1+10k/1k) → діапазон до ~36 В
-#define SETTLE_MS   50u        // пауза на встановлення після перемикання
-#define N_AVG       32u        // скільки відліків усереднити
-#define MIN_DI_A    0.10f      // мінімальна різниця струмів (інакше шум з'їсть знаменник)
+namespace {
+    constexpr float R1_OHM   = 10.0f;    // легке навантаження, Ом
+    constexpr float R2_OHM   = 2.7f;     // важче навантаження, Ом
+    constexpr float ADC_VREF = 3.30f;    // опорна напруга АЦП, В
+    constexpr float ADC_MAX  = 4095.0f;  // 12-бітний АЦП
+    constexpr float ADC_GAIN = 11.0f;    // подільник входу: 10:1 (1+10k/1k) → діапазон до ~36 В
+    constexpr std::uint32_t SETTLE_MS = 50;    // пауза на встановлення після перемикання
+    constexpr std::uint8_t  N_AVG     = 32;    // скільки відліків усереднити
+    constexpr float MIN_DI_A = 0.10f;    // мінімальна різниця струмів (інакше шум з'їсть знаменник)
+}
 
-typedef enum {                 // результат вимірювання
-    NORTON_OK = 0,
-    NORTON_ERR_DI_TOO_SMALL,   // I₂−I₁ потонуло в шумі — точки замалі різні
-    NORTON_ERR_NONLINEAR       // R_n вийшов від'ємним/безглуздим
-} norton_status_t;
+enum class NortonStatus {          // результат вимірювання
+    Ok,
+    ErrDiTooSmall,                 // I₂−I₁ потонуло в шумі — точки замалі різні
+    ErrNonlinear                   // R_n вийшов від'ємним/безглуздим
+};
 
-typedef struct {
-    float i_n;                 // струм Нортона (струм КЗ), А — дістаний екстраполяцією
-    float r_n;                 // опір Нортона (= R_th), Ом
-    float v_oc;                // напруга холостого ходу, В — проміжне число
-    norton_status_t status;
-} norton_t;
+struct Norton {
+    float i_n = 0.0f;              // струм Нортона (струм КЗ), А — дістаний екстраполяцією
+    float r_n = 0.0f;             // опір Нортона (= R_th), Ом
+    float v_oc = 0.0f;            // напруга холостого ходу, В — проміжне число
+    NortonStatus status = NortonStatus::Ok;
+};
 
 // заглушки під вашу платформу:
-extern uint16_t adc_read_raw(void);     // один сирий відлік АЦП
-extern void     load_select(uint8_t n); // 1 → R1, 2 → R2, 0 → відключити геть
-extern void     delay_ms(uint32_t ms);
+extern std::uint16_t adc_read_raw();            // один сирий відлік АЦП
+extern void          load_select(std::uint8_t n); // 1 → R1, 2 → R2, 0 → відключити геть
+extern void          delay_ms(std::uint32_t ms);
 
 // усереднене читання напруги на клемах (у вольтах), з урахуванням подільника входу
-static float read_terminal_v(void) {
-    uint32_t acc = 0;
-    for (uint8_t i = 0; i < N_AVG; i++)
+static float read_terminal_v() {
+    std::uint32_t acc = 0;
+    for (std::uint8_t i = 0; i < N_AVG; ++i)
         acc += adc_read_raw();
-    float v_adc = ((float)acc / N_AVG) * (ADC_VREF / ADC_MAX);
+    const float v_adc = (static_cast<float>(acc) / N_AVG) * (ADC_VREF / ADC_MAX);
     return v_adc * ADC_GAIN;            // назад до напруги на клемах
 }
 
 // зняти одну точку (I, V) під заданим навантаженням
-static void measure_point(uint8_t load, float r_ohm, float *v, float *i) {
+static void measure_point(std::uint8_t load, float r_ohm, float &v, float &i) {
     load_select(load);                  // під'єднати навантаження ключем
     delay_ms(SETTLE_MS);                // дочекатися сталого рівня
-    *v = read_terminal_v();
-    *i = *v / r_ohm;                    // струм точки — навантаження ж відоме
+    v = read_terminal_v();
+    i = v / r_ohm;                      // струм точки — навантаження ж відоме
 }
 
-norton_t measure_norton(void) {
-    norton_t out = {0};
+Norton measure_norton() {
+    Norton out;
 
     float v1, i1, v2, i2;
-    measure_point(1, R1_OHM, &v1, &i1); // легке навантаження → мала просадка
-    measure_point(2, R2_OHM, &v2, &i2); // важче навантаження → більша просадка
+    measure_point(1, R1_OHM, v1, i1);   // легке навантаження → мала просадка
+    measure_point(2, R2_OHM, v2, i2);   // важче навантаження → більша просадка
     load_select(0);                     // зняти навантаження — не гріти джерело!
 
     // запобіжник №1: точки мають давати ДОСИТЬ різні струми,
     // інакше знаменник (i2 − i1) тоне в шумі АЦП і R_n стрибає в безглуздя.
-    if (fabsf(i2 - i1) < MIN_DI_A) {
-        out.status = NORTON_ERR_DI_TOO_SMALL;
+    if (std::fabs(i2 - i1) < MIN_DI_A) {
+        out.status = NortonStatus::ErrDiTooSmall;
         return out;                     // повторити з помітніше різними навантаженнями
     }
 
@@ -141,15 +144,84 @@ norton_t measure_norton(void) {
     // запобіжник №2: на справді лінійному джерелі R_n > 0; від'ємний/нуль —
     // ознака грубого збою (переплутані навантаження, шум, нелінійність).
     if (out.r_n <= 0.0f) {
-        out.status = NORTON_ERR_NONLINEAR;
+        out.status = NortonStatus::ErrNonlinear;
         return out;
     }
 
     out.i_n  = out.v_oc / out.r_n;      // екстраполяція вправо, до V = 0 → струм КЗ
-    out.status = NORTON_OK;
+    out.status = NortonStatus::Ok;
     return out;
 }
 ```
+```python
+import time
+from dataclasses import dataclass
+
+import pyvisa  # автоматизація стендового вимірювача (DMM + комутатор навантажень)
+
+R1_OHM   = 10.0    # легке навантаження, Ом
+R2_OHM   = 2.7     # важче навантаження, Ом
+SETTLE_S = 0.05    # пауза на встановлення після перемикання, с
+N_AVG    = 32      # скільки відліків усереднити
+MIN_DI_A = 0.10    # мінімальна різниця струмів (інакше шум з'їсть знаменник)
+
+
+class MeasurementError(Exception):
+    """Вимір не вдався — точки замалі різні або джерело нелінійне."""
+
+
+@dataclass
+class Norton:
+    i_n: float    # струм Нортона (струм КЗ), А — дістаний екстраполяцією
+    r_n: float    # опір Нортона (= R_th), Ом
+    v_oc: float   # напруга холостого ходу, В — проміжне число
+
+
+def read_terminal_v(dmm) -> float:
+    """Усереднене читання напруги на клемах (у вольтах)."""
+    samples = (float(dmm.query("MEAS:VOLT:DC?")) for _ in range(N_AVG))
+    return sum(samples) / N_AVG
+
+
+def measure_point(dmm, load, sel: int, r_ohm: float) -> tuple[float, float]:
+    """Зняти одну точку (V, I) під заданим навантаженням."""
+    load.select(sel)                    # під'єднати навантаження ключем
+    time.sleep(SETTLE_S)                # дочекатися сталого рівня
+    v = read_terminal_v(dmm)
+    i = v / r_ohm                       # струм точки — навантаження ж відоме
+    return v, i
+
+
+def measure_norton(dmm, load) -> Norton:
+    v1, i1 = measure_point(dmm, load, 1, R1_OHM)  # легке навантаження → мала просадка
+    v2, i2 = measure_point(dmm, load, 2, R2_OHM)  # важче навантаження → більша просадка
+    load.select(0)                      # зняти навантаження — не гріти джерело!
+
+    # запобіжник №1: точки мають давати ДОСИТЬ різні струми,
+    # інакше знаменник (i2 − i1) тоне в шумі й R_n стрибає в безглуздя.
+    if abs(i2 - i1) < MIN_DI_A:
+        raise MeasurementError("I₂−I₁ замале — повторіть з різнішими навантаженнями")
+
+    r_n  = (v1 - v2) / (i2 - i1)        # нахил прямої = внутрішній опір
+    v_oc = v1 + i1 * r_n               # екстраполяція вліво, до I = 0
+
+    # запобіжник №2: на справді лінійному джерелі R_n > 0; від'ємний/нуль —
+    # ознака грубого збою (переплутані навантаження, шум, нелінійність).
+    if r_n <= 0.0:
+        raise MeasurementError("R_n ≤ 0 — джерело нелінійне або переплутані навантаження")
+
+    i_n = v_oc / r_n                   # екстраполяція вправо, до V = 0 → струм КЗ
+    return Norton(i_n=i_n, r_n=r_n, v_oc=v_oc)
+
+
+if __name__ == "__main__":
+    rm = pyvisa.ResourceManager()
+    dmm = rm.open_resource("USB0::0x0000::0x0000::INSTR")   # ваш мультиметр
+    load = LoadSwitch(rm)                                   # комутатор R1/R2/off
+    result = measure_norton(dmm, load)
+    print(f"I_n = {result.i_n:.1f} А,  R_n = {result.r_n:.2f} Ом")
+```
+:::
 
 Підставте в розум платні значення з прикладу — функція поверне ті самі 12.6 А і 0.32 Ω, не наблизивши джерело до короткого замикання ні на крок. Три речі в коді варті окремого слова, бо саме вони відрізняють робочий вимір від наївного.
 

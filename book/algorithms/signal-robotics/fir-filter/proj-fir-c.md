@@ -16,7 +16,8 @@
 
 Спершу `float`-версія з кільцевим буфером — коли FPU є, вона найпрозоріша:
 
-```c
+:::tabs
+```cpp
 #include <stdint.h>
 
 #define NTAPS 31                 /* непарне: є центральний відвід */
@@ -48,10 +49,33 @@ float firf_step(FirF *f, float x)
     return acc;
 }
 ```
+```python
+NTAPS = 31                       # непарне: є центральний відвід
+
+class FirF:
+    def __init__(self, taps):
+        self.b = list(taps)            # коефіцієнти (імпульсна характеристика)
+        self.buf = [0.0] * NTAPS       # кільцевий буфер відліків
+        self.head = 0                  # індекс найновішого відліку
+
+    def step(self, x):
+        self.buf[self.head] = x        # новий відлік у голову
+
+        acc = 0.0
+        idx = self.head
+        for k in range(NTAPS):
+            acc += self.b[k] * self.buf[idx]      # згортка b[k]·x[n−k]
+            idx = NTAPS - 1 if idx == 0 else idx - 1   # назад по колу
+
+        self.head = (self.head + 1) % NTAPS        # голова — вперед по колу
+        return acc
+```
+:::
 
 Тепер симетрія. Дзеркальні відліки складаємо **до** множення — і робимо вдвічі менше множень. Щоб не блукати кільцем туди-сюди, тут зручніше тримати лінійний буфер зі зсувом (для коротких фільтрів зсув дешевший за подвійну індексацію по колу):
 
-```c
+:::tabs
+```cpp
 /* лінійно-фазовий КІХ: buf[0] — найновіший, buf[NTAPS-1] — найстаріший */
 float firf_sym_step(FirF *f, float x)
 {
@@ -67,10 +91,25 @@ float firf_sym_step(FirF *f, float x)
     return acc;
 }
 ```
+```python
+def firf_sym_step(f, x):
+    """лінійно-фазовий КІХ: buf[0] — найновіший, buf[NTAPS-1] — найстаріший"""
+    f.buf[1:] = f.buf[:-1]           # зсув на один (короткий фільтр)
+    f.buf[0] = x
+
+    acc = 0.0
+    half = NTAPS // 2
+    for k in range(half):
+        acc += f.b[k] * (f.buf[k] + f.buf[NTAPS - 1 - k])   # пара на один множник
+    acc += f.b[half] * f.buf[half]   # центральний відвід — окремо
+    return acc
+```
+:::
 
 І `Q15`-версія для МК без FPU. Тут уся суть — у **ширині акумулятора**: `int16 × int16 → int32`, сума в `int64`, стиск назад на 15 біт лише наприкінці:
 
-```c
+:::tabs
+```cpp
 #include <stdint.h>
 
 #define QSHIFT 15                /* формат Q15: 1.0 == 32768 */
@@ -99,6 +138,31 @@ int16_t firq_step(FirQ *f, int16_t x)
     return (int16_t)acc;
 }
 ```
+```python
+QSHIFT = 15                      # формат Q15: 1.0 == 32768
+
+class FirQ:
+    def __init__(self, taps):
+        self.b = list(taps)            # коефіцієнти у Q15
+        self.buf = [0] * NTAPS
+        self.head = 0
+
+    def step(self, x):
+        self.buf[self.head] = x
+
+        acc = 0                        # Python int безмежний — проти переповнення
+        idx = self.head
+        for k in range(NTAPS):
+            acc += self.b[k] * self.buf[idx]    # int16·int16 → широкий int
+            idx = NTAPS - 1 if idx == 0 else idx - 1
+        self.head = (self.head + 1) % NTAPS
+
+        acc >>= QSHIFT                 # стиск Q15 назад у масштаб відліків
+        if acc >  32767: acc =  32767  # насичення замість загортання
+        if acc < -32768: acc = -32768
+        return acc
+```
+:::
 
 ## Числовий прогон одного такту
 

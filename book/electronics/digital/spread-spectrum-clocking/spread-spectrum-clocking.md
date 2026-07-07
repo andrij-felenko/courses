@@ -79,6 +79,7 @@
 
 **Приклад (порахувати виграш і безпечний розмах).** Хай маємо тактовий генератор 100 МГц; проблемна гармоніка — п'ята, на 500 МГц, і на випробуванні вона на 6 дБ вища за межу. Приймач CISPR має RBW = 120 кГц. Ставимо down spread на 0.5 %. Порахуймо, чи вистачить.
 
+:::tabs
 ```c
 #include <stdio.h>
 #include <math.h>
@@ -106,6 +107,62 @@ int main(void) {
     return 0;
 }
 ```
+```python
+import math
+
+f0       = 100e6    # такт, Гц
+harmonic = 5        # проблемна гармоніка
+spread   = 0.005    # 0.5 %  розмаз униз
+rbw      = 120e3    # вікно приймача CISPR, Гц
+
+f_harm  = harmonic * f0            # 500 МГц — де стоїть спиця
+df      = spread * f_harm          # абсолютний обшир розмазу на цій гармоніці
+gain_dB = 10.0 * math.log10(df / rbw)  # наближене падіння піку
+
+print(f"гармоніка : {f_harm / 1e6:.0f} МГц")
+print(f"розмаз Δf  : {df / 1e6:.2f} МГц ({spread * 100:.1f} % від гармоніки)")
+print(f"вікно RBW  : {rbw / 1e3:.0f} кГц")
+print(f"падіння піку ~ {gain_dB:.1f} дБ")
+
+margin_before = -6.0               # було: на 6 дБ ВИЩЕ межі
+margin_after  = margin_before + gain_dB
+verdict = "(проходить)" if margin_after > 0 else "(усе ще завалено)"
+print(f"запас до межі: {margin_before:.1f} дБ → {margin_after:.1f} дБ  {verdict}")
+```
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	f0 := 100e6      // такт, Гц
+	harmonic := 5    // проблемна гармоніка
+	spread := 0.005  // 0.5 %  розмаз униз
+	rbw := 120e3     // вікно приймача CISPR, Гц
+
+	fHarm := float64(harmonic) * f0     // 500 МГц — де стоїть спиця
+	df := spread * fHarm                // абсолютний обшир розмазу на цій гармоніці
+	gainDB := 10.0 * math.Log10(df/rbw) // наближене падіння піку
+
+	fmt.Printf("гармоніка : %.0f МГц\n", fHarm/1e6)
+	fmt.Printf("розмаз Δf  : %.2f МГц (%.1f %% від гармоніки)\n", df/1e6, spread*100)
+	fmt.Printf("вікно RBW  : %.0f кГц\n", rbw/1e3)
+	fmt.Printf("падіння піку ~ %.1f дБ\n", gainDB)
+
+	marginBefore := -6.0 // було: на 6 дБ ВИЩЕ межі
+	marginAfter := marginBefore + gainDB
+	verdict := "(усе ще завалено)"
+	if marginAfter > 0 {
+		verdict = "(проходить)"
+	}
+	fmt.Printf("запас до межі: %.1f дБ → %.1f дБ  %s\n",
+		marginBefore, marginAfter, verdict)
+}
+```
+:::
 
 ```
 гармоніка : 500 МГц

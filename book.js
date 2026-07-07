@@ -265,12 +265,32 @@
       var line = lines[i];
       if (/^\s*$/.test(line)) { i++; continue; }
 
+      // групи «те саме кількома мовами»: :::tabs … фенси з мовою … :::
+      var tabsOpen = line.match(/^\s*:::\s*(?:tabs|code)\s*$/);
+      if (tabsOpen) {
+        i++;
+        var tabsArr = [];
+        while (i < n && !/^\s*:::\s*$/.test(lines[i])) {
+          var f = lines[i].match(/^\s*```(.*)$/);
+          if (f) {
+            var cbuf = []; i++;
+            while (i < n && !/^\s*```\s*$/.test(lines[i])) { cbuf.push(lines[i]); i++; }
+            i++; // закривний ```
+            tabsArr.push({ lang: f[1].trim(), code: cbuf.join("\n") });
+          } else { i++; } // пропускаємо порожні/сторонні рядки між фенсами
+        }
+        i++; // закривний :::
+        if (tabsArr.length > 1) blocks.push({ type: "codetabs", tabs: tabsArr });
+        else if (tabsArr.length === 1) blocks.push({ type: "pre", code: tabsArr[0].code, lang: tabsArr[0].lang });
+        continue;
+      }
+
       var fence = line.match(/^\s*```(.*)$/);
       if (fence) {
         var buf = []; i++;
         while (i < n && !/^\s*```\s*$/.test(lines[i])) { buf.push(lines[i]); i++; }
         i++;
-        blocks.push({ type: "pre", code: buf.join("\n") });
+        blocks.push({ type: "pre", code: buf.join("\n"), lang: fence[1].trim() });
         continue;
       }
       var h = line.match(reHeading);
@@ -315,13 +335,115 @@
       while (i < n) {
         var l = lines[i];
         if (/^\s*$/.test(l)) break;
-        if (reHeading.test(l) || /^\s*```/.test(l) || reHr.test(l) || reImg.test(l) ||
+        if (reHeading.test(l) || /^\s*```/.test(l) || /^\s*:::/.test(l) || reHr.test(l) || reImg.test(l) ||
             /^\s*>/.test(l) || reListItem.test(l)) break;
         pbuf.push(l); i++;
       }
       blocks.push({ type: "para", text: pbuf.join(" ") });
     }
     return blocks;
+  }
+
+  /* ════════════════════════════════════════════════════════════════════
+     2.5) КОД: підсвітка синтаксису + вкладки «те саме кількома мовами»
+     ════════════════════════════════════════════════════════════════════ */
+  var CODE_KW = ("if else elif for while do switch case default break continue return goto yield " +
+    "function func fn def lambda class struct enum union interface trait impl namespace module mod package template typename typedef type " +
+    "public private protected static const constexpr final abstract virtual override inline extern mutable volatile register " +
+    "let var val auto new delete this self super sizeof typeof instanceof operator using include import from export as with " +
+    "try catch except finally throw throws raise defer panic recover match when where in of is and or not xor async await go select chan " +
+    "void int uint long short char float double bool boolean unsigned signed string str byte rune usize isize " +
+    "true false null nil none None True False undefined nullptr NULL pub crate dyn ref move Box Vec Option Result Some Ok Err " +
+    "pass global nonlocal del assert print println printf cout cin endl std namespace static_cast reinterpret_cast dynamic_cast const_cast")
+    .split(/\s+/).reduce(function (m, w) { m[w] = 1; return m; }, {});
+
+  var LANG_LABELS = {
+    c: "C", h: "C", cpp: "C++", "c++": "C++", cxx: "C++", cc: "C++", hpp: "C++",
+    py: "Python", python: "Python", micropython: "MicroPython", upy: "MicroPython", js: "JavaScript", javascript: "JavaScript", jsx: "JavaScript",
+    ts: "TypeScript", typescript: "TypeScript", tsx: "TypeScript", go: "Go", golang: "Go",
+    rust: "Rust", rs: "Rust", java: "Java", kt: "Kotlin", kotlin: "Kotlin", swift: "Swift",
+    cs: "C#", csharp: "C#", rb: "Ruby", ruby: "Ruby", php: "PHP", sh: "Shell", bash: "Bash", zsh: "Shell",
+    sql: "SQL", html: "HTML", css: "CSS", json: "JSON", yaml: "YAML", yml: "YAML", toml: "TOML",
+    lua: "Lua", r: "R", scala: "Scala", dart: "Dart", asm: "Asm", llvm: "LLVM IR", ir: "IR", vhdl: "VHDL", verilog: "Verilog"
+  };
+  function langKey(l) { return (l || "").toLowerCase().replace(/^\./, ""); }
+  function langLabel(l) {
+    var k = langKey(l);
+    return LANG_LABELS[k] || (l ? l.charAt(0).toUpperCase() + l.slice(1) : "код");
+  }
+
+  // регекс-токенайзер: коментарі / рядки / числа / ключові / виклики. Працює на сирому тексті,
+  // кожен шматок екрануємо окремо (тому «<», «>» усередині коду не ламають розмітку).
+  function highlight(src, lang) {
+    var k = langKey(lang);
+    var hashCmt = /^(py|python|micropython|upy|sh|bash|zsh|rb|ruby|r|toml|yaml|yml)$/.test(k);
+    var semiCmt = /^(asm|llvm|ir)$/.test(k);
+    var out = "", i = 0, N = src.length;
+    function span(cls, s) { return '<span class="tok-' + cls + '">' + escapeHtml(s) + "</span>"; }
+    var wordCh = /[A-Za-z0-9_$]/, wordStart = /[A-Za-z_$]/, digit = /[0-9]/, numCh = /[0-9a-fA-FxXoObB_.]/;
+    while (i < N) {
+      var c = src[i], c2 = src[i + 1];
+      if (c === "/" && c2 === "/") { var j = src.indexOf("\n", i); if (j < 0) j = N; out += span("cmt", src.slice(i, j)); i = j; continue; }
+      if (hashCmt && c === "#") { var j = src.indexOf("\n", i); if (j < 0) j = N; out += span("cmt", src.slice(i, j)); i = j; continue; }
+      if (semiCmt && c === ";") { var j = src.indexOf("\n", i); if (j < 0) j = N; out += span("cmt", src.slice(i, j)); i = j; continue; }
+      if (c === "/" && c2 === "*") { var j = src.indexOf("*/", i + 2); j = j < 0 ? N : j + 2; out += span("cmt", src.slice(i, j)); i = j; continue; }
+      if (c === '"' || c === "'" || c === "`") {
+        var q = c, j = i + 1;
+        while (j < N) { if (src[j] === "\\") { j += 2; continue; } if (src[j] === q) { j++; break; } j++; }
+        out += span("str", src.slice(i, j)); i = j; continue;
+      }
+      if (digit.test(c) || (c === "." && digit.test(c2 || ""))) {
+        var j = i + 1; while (j < N && numCh.test(src[j])) j++;
+        out += span("num", src.slice(i, j)); i = j; continue;
+      }
+      if (wordStart.test(c)) {
+        var j = i + 1; while (j < N && wordCh.test(src[j])) j++;
+        var w = src.slice(i, j);
+        if (CODE_KW[w]) out += span("kw", w);
+        else if (src[j] === "(") out += span("fn", w);
+        else out += escapeHtml(w);
+        i = j; continue;
+      }
+      out += escapeHtml(c); i++;
+    }
+    return out;
+  }
+
+  function renderCode(code, lang) {
+    return '<pre class="code"><code class="lang-' + escapeHtml(langKey(lang)) + '">' + highlight(code, lang) + "</code></pre>";
+  }
+  function renderCodeTabs(tabs) {
+    var bar = "", body = "";
+    for (var k = 0; k < tabs.length; k++) {
+      var t = tabs[k], on = k === 0, lc = langKey(t.lang);
+      bar += '<button class="codetabs__tab' + (on ? " on" : "") + '" type="button" role="tab" data-lang="' +
+        escapeHtml(lc) + '" aria-selected="' + (on ? "true" : "false") + '">' + escapeHtml(langLabel(t.lang)) + "</button>";
+      body += '<div class="codetabs__panel"' + (on ? "" : " hidden") + ' role="tabpanel">' + renderCode(t.code, t.lang) + "</div>";
+    }
+    return '<div class="codetabs"><div class="codetabs__bar" role="tablist">' + bar + "</div>" + body + "</div>";
+  }
+
+  /* вибір мови — спільний на всю сторінку (й попапи), із пам'яттю в localStorage */
+  var CODELANG = (function () { try { return localStorage.getItem("courses-codelang") || ""; } catch (e) { return ""; } })();
+  function syncCodeTabs() {
+    var boxes = document.querySelectorAll(".codetabs");
+    for (var b = 0; b < boxes.length; b++) {
+      var box = boxes[b], tabs = box.querySelectorAll(".codetabs__tab"), panels = box.querySelectorAll(".codetabs__panel");
+      var idx = -1;
+      for (var t = 0; t < tabs.length; t++) { if (tabs[t].getAttribute("data-lang") === CODELANG) { idx = t; break; } }
+      if (idx < 0) idx = 0;
+      for (var t = 0; t < tabs.length; t++) {
+        var on = t === idx;
+        tabs[t].classList.toggle("on", on);
+        tabs[t].setAttribute("aria-selected", on ? "true" : "false");
+        if (panels[t]) panels[t].hidden = !on;
+      }
+    }
+  }
+  function pickCodeLang(lang) {
+    CODELANG = lang;
+    try { localStorage.setItem("courses-codelang", lang); } catch (e) {}
+    syncCodeTabs();
   }
 
   /* ════════════════════════════════════════════════════════════════════
@@ -335,7 +457,9 @@
         case "heading":
           html += renderHeading(t, ctx, sections); break;
         case "pre":
-          html += "<pre><code>" + escapeHtml(t.code) + "</code></pre>"; break;
+          html += renderCode(t.code, t.lang); break;
+        case "codetabs":
+          html += renderCodeTabs(t.tabs); break;
         case "hr":
           html += "<hr>"; break;
         case "figure":
@@ -1134,6 +1258,7 @@
   }
   function setLayerHtml(el, inner) {
     el.innerHTML = inner;
+    syncCodeTabs();                                // вкладки коду в попапі — на збережену мову
     var sc = el.querySelector(".hist-modal-scroll"); if (sc) sc.scrollTop = 0;
     refreshModalChrome();                          // оновити кнопку «✕/←» уже після підвантаження
   }
@@ -1245,7 +1370,7 @@
     anchors.forEach(function (a) { spy.observe(a); });
   }
 
-  function setContent(html) { $content.innerHTML = html; }
+  function setContent(html) { $content.innerHTML = html; syncCodeTabs(); }
   function setSidebar(html) { $sidebar.innerHTML = html; }
   function closeMobileSidebar() { $sidebar.classList.remove("open"); }
 
@@ -1264,6 +1389,8 @@
     }
     // делеговані кліки: відкрити/закрити/поділитися попапом
     document.addEventListener("click", function (e) {
+      var ct = e.target.closest && e.target.closest(".codetabs__tab");       // вкладка мови в код-блоці
+      if (ct) { e.preventDefault(); pickCodeLang(ct.getAttribute("data-lang")); return; }
       var mv = e.target.closest && e.target.closest("[data-map-view]");      // список ⇄ плитка (мапа книги)
       if (mv) { e.preventDefault(); NAV.view = mv.getAttribute("data-map-view"); saveNav(); applyMapView(); return; }
       var ca = e.target.closest && e.target.closest("[data-collapse-all]");  // згорнути/розгорнути всі галузі

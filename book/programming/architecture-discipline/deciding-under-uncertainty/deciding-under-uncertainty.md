@@ -60,35 +60,66 @@
 
 **Умова: перевірити гіпотезу «брокер тримає 10 000 повідомлень/с при p99 < 50 мс», перш ніж будувати на ньому пів-системи.**
 
-```c
+:::tabs
+```cpp
 // Спайк: одноразова проба ОДНІЄЇ небезпеки — пропускної здатності.
 // Мета не «код у прод», а факт: витримує чи ні. Після заміру — викинути.
-#include <stdint.h>
-#include <stdbool.h>
+#include <cstdint>
 
-typedef struct {
-    uint32_t target_rate;   // цільовий потік, повідомлень/с
-    uint32_t observed_rate; // що показав замір під навантаженням
-    double   observed_p99;  // 99-й перцентиль затримки, мс
-} SpikeResult;
+struct SpikeResult {
+    std::uint32_t target_rate;   // цільовий потік, повідомлень/с
+    std::uint32_t observed_rate; // що показав замір під навантаженням
+    double        observed_p99;  // 99-й перцентиль затримки, мс
+};
 
-// Пороги — з бюджету якісних атрибутів, а не «на око".
-#define RATE_BUDGET  10000u   // менше — гіпотеза провалена
-#define P99_BUDGET   50.0     // більше — теж провал
+// Пороги — з бюджету якісних атрибутів, а не «на око».
+constexpr std::uint32_t RATE_BUDGET = 10000;   // менше — гіпотеза провалена
+constexpr double        P99_BUDGET  = 50.0;    // більше — теж провал
 
-bool hypothesis_holds(const SpikeResult *r) {
-    return (r->observed_rate >= RATE_BUDGET)
-        && (r->observed_p99  <= P99_BUDGET);
+bool hypothesis_holds(const SpikeResult &r) {
+    return (r.observed_rate >= RATE_BUDGET)
+        && (r.observed_p99  <= P99_BUDGET);
 }
 
 // Рішення керує не думка, а результат спайка:
-void decide_broker(const SpikeResult *r) {
+void decide_broker(const SpikeResult &r) {
     if (hypothesis_holds(r))
         commit_broker();          // факт підтвердив — будуємо на ньому
     else
         reject_and_try_next(r);   // факт спростував — гілка закрита за день
 }
 ```
+```go
+// Спайк: одноразова проба ОДНІЄЇ небезпеки — пропускної здатності.
+// Мета не «код у прод», а факт: витримує чи ні. Після заміру — викинути.
+
+type SpikeResult struct {
+	TargetRate   uint32  // цільовий потік, повідомлень/с
+	ObservedRate uint32  // що показав замір під навантаженням
+	ObservedP99  float64 // 99-й перцентиль затримки, мс
+}
+
+// Пороги — з бюджету якісних атрибутів, а не «на око».
+const (
+	RateBudget uint32  = 10000 // менше — гіпотеза провалена
+	P99Budget  float64 = 50.0  // більше — теж провал
+)
+
+func hypothesisHolds(r SpikeResult) bool {
+	return r.ObservedRate >= RateBudget &&
+		r.ObservedP99 <= P99Budget
+}
+
+// Рішення керує не думка, а результат спайка:
+func decideBroker(r SpikeResult) {
+	if hypothesisHolds(r) {
+		commitBroker() // факт підтвердив — будуємо на ньому
+	} else {
+		rejectAndTryNext(r) // факт спростував — гілка закрита за день
+	}
+}
+```
+:::
 
 Суть коду не в конкретних порогах — вони в кожного проєкту свої, і беруться з бюджету якісних атрибутів. Суть у тому, що вибір брокера перестав бути ставкою на чуття й став **наслідком заміру**: гіпотезу або підтвердив факт із живого, або факт її закрив — і то за день, а не за квартал переробок.
 

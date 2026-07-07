@@ -295,22 +295,23 @@ LSB = Vref / 2ᴺ = 3.3 / 256 = 0.0129 В = 12.9 мВ
 
 тонше за 12.9 мВ ця драбина виставити не може. У прошивці й розрахунок ваг, і перевірку зручно тримати поряд із драйвером ЦАП:
 
-```c
-#include <stdint.h>
+:::tabs
+```cpp
+#include <cstdint>
 
 // Внесок одного біта k у вихід ідеальної R-2R лесенки (режим напруги).
 // k = 0 — молодший біт, k = bits-1 — старший. Вага = Vref / 2^(bits - k).
-float r2r_bit_weight(float vref, uint8_t bits, uint8_t k)
+double r2r_bit_weight(double vref, uint8_t bits, uint8_t k)
 {
     uint8_t shift = (uint8_t)(bits - k);     // N - k
-    return vref / (float)((uint32_t)1 << shift);
+    return vref / (double)((uint32_t)1 << shift);
 }
 
 // Вихід через суму ваг увімкнених бітів — пряме втілення суперпозиції.
-// Має збігтися з компактною формулою vref*code/2^bits до похибки float.
-float r2r_voltage_by_bits(float vref, uint8_t bits, uint32_t code)
+// Має збігтися з компактною формулою vref*code/2^bits до похибки double.
+double r2r_voltage_by_bits(double vref, uint8_t bits, uint32_t code)
 {
-    float v = 0.0f;
+    double v = 0.0;
     for (uint8_t k = 0; k < bits; ++k)
         if (code & ((uint32_t)1 << k))       // біт k увімкнений?
             v += r2r_bit_weight(vref, bits, k);
@@ -318,13 +319,34 @@ float r2r_voltage_by_bits(float vref, uint8_t bits, uint32_t code)
 }
 
 // Та сама величина одним множенням — те, що довели на крокax 7-8.
-float r2r_voltage(float vref, uint8_t bits, uint32_t code)
+double r2r_voltage(double vref, uint8_t bits, uint32_t code)
 {
-    return vref * (float)code / (float)((uint32_t)1 << bits);
+    return vref * (double)code / (double)((uint32_t)1 << bits);
 }
-// r2r_voltage_by_bits(3.3f, 8, 200) -> ~2.578 В  (1.650 + 0.825 + 0.103)
-// r2r_voltage       (3.3f, 8, 200) -> ~2.578 В
+// r2r_voltage_by_bits(3.3, 8, 200) -> ~2.578 В  (1.650 + 0.825 + 0.103)
+// r2r_voltage       (3.3, 8, 200) -> ~2.578 В
 ```
+```python
+# Внесок одного біта k у вихід ідеальної R-2R лесенки (режим напруги).
+# k = 0 — молодший біт, k = bits-1 — старший. Вага = Vref / 2^(bits - k).
+def r2r_bit_weight(vref, bits, k):
+    shift = bits - k                 # N - k
+    return vref / (1 << shift)
+
+# Вихід через суму ваг увімкнених бітів — пряме втілення суперпозиції.
+# Має збігтися з компактною формулою vref*code/2^bits.
+def r2r_voltage_by_bits(vref, bits, code):
+    return sum(r2r_bit_weight(vref, bits, k)
+               for k in range(bits) if code & (1 << k))   # біт k увімкнений?
+
+# Та сама величина одним множенням — те, що довели на кроках 7-8.
+def r2r_voltage(vref, bits, code):
+    return vref * code / (1 << bits)
+
+# r2r_voltage_by_bits(3.3, 8, 200) -> ~2.578 В  (1.650 + 0.825 + 0.103)
+# r2r_voltage       (3.3, 8, 200) -> ~2.578 В
+```
+:::
 
 Перша функція складає ваги біт за бітом — це суперпозиція, перенесена в код один-в-один. Друга рахує те саме одним множенням. Що вони завжди дають однакове число — і є практичний доказ усього виведення: складна на вигляд мережа звелася до формули `код/2ᴺ`, і ані опір R, ані положення внутрішніх вузлів у тій формулі не лишилося.
 

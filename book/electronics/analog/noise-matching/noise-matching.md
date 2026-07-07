@@ -50,30 +50,52 @@ F(Ys) = Fmin + (Rn / Gs) · |Ys − Yopt|²
 
 **Штраф за неоптимальне джерело.** LNA на 1 ГГц має Fmin = 0.6 дБ, шумовий опір Rn = 30 Ом, оптимальну провідність Yopt = (8 − j·6) мСм (тобто Gopt = 8 мСм, Bopt = −6 мСм). Антена через узгоджувач дає на вхід провідність Ys = (12 − j·2) мСм. На скільки погіршиться коефіцієнт шуму проти Fmin?
 
-```c
-#include <math.h>
-#include <complex.h>
+:::tabs
+```cpp
+#include <cmath>
+#include <complex>
+
+using cplx = std::complex<float>;
 
 // Коефіцієнт шуму за провідністю джерела (формула Роте — Дальке).
 // Fmin задано в РАЗАХ (не дБ); провідності — у сименсах.
-float noise_factor(float Fmin, float Rn,
-                   float complex Yopt, float complex Ys) {
-    float Gs = crealf(Ys);                 // дійсна частина провідності джерела
-    float complex d = Ys - Yopt;           // відхід від оптимуму
-    float dist2 = crealf(d)*crealf(d)       // |Ys − Yopt|²
-                + cimagf(d)*cimagf(d);
+float noise_factor(float Fmin, float Rn, cplx Yopt, cplx Ys) {
+    float Gs = Ys.real();                   // дійсна частина провідності джерела
+    cplx d = Ys - Yopt;                     // відхід від оптимуму
+    float dist2 = std::norm(d);             // |Ys − Yopt|²
     return Fmin + (Rn / Gs) * dist2;
 }
 
 // 0.6 дБ у разах:  10^(0.6/10) = 1.148
 float Fmin = 1.148f;
 float Rn   = 30.0f;
-float complex Yopt = 8e-3f  - 6e-3f * I;    // (8 − j6) мСм
-float complex Ys   = 12e-3f - 2e-3f * I;    // (12 − j2) мСм
+cplx Yopt{ 8e-3f, -6e-3f};                  // (8 − j6) мСм
+cplx Ys  {12e-3f, -2e-3f};                  // (12 − j2) мСм
 
 float F  = noise_factor(Fmin, Rn, Yopt, Ys);  // ≈ 1.228 (разів)
-float dB = 10.0f * log10f(F);                  // ≈ 0.89 дБ
+float dB = 10.0f * std::log10(F);              // ≈ 0.89 дБ
 ```
+```python
+import cmath, math
+
+# Коефіцієнт шуму за провідністю джерела (формула Роте — Дальке).
+# Fmin задано в РАЗАХ (не дБ); провідності — у сименсах.
+def noise_factor(Fmin, Rn, Yopt, Ys):
+    Gs = Ys.real                        # дійсна частина провідності джерела
+    d = Ys - Yopt                       # відхід від оптимуму
+    dist2 = abs(d)**2                   # |Ys − Yopt|²
+    return Fmin + (Rn / Gs) * dist2
+
+# 0.6 дБ у разах:  10^(0.6/10) = 1.148
+Fmin = 1.148
+Rn   = 30.0
+Yopt = 8e-3  - 6e-3j                    # (8 − j6) мСм
+Ys   = 12e-3 - 2e-3j                    # (12 − j2) мСм
+
+F  = noise_factor(Fmin, Rn, Yopt, Ys)  # ≈ 1.228 (разів)
+dB = 10.0 * math.log10(F)              # ≈ 0.89 дБ
+```
+:::
 
 Порахуймо руками, щоб побачити, де народжується штраф:
 

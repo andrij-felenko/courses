@@ -51,7 +51,8 @@
 Ось серце алгоритму — два кроки — реальним кодом на C. Точки двовимірні (`x`, `y`); `assign[i]` — до якого центру причеплено точку `i`:
 
 **Крок присвоєння: причепити кожну точку до найближчого центру.**
-```c
+:::tabs
+```cpp
 // pts[N] — точки, cent[K] — центри, assign[N] — вихід
 // повертає, скільки точок змінили групу (0 => можна спинятись)
 int assign_step(const Pt *pts, int N, const Pt *cent, int K, int *assign) {
@@ -70,11 +71,25 @@ int assign_step(const Pt *pts, int N, const Pt *cent, int K, int *assign) {
     return changed;
 }
 ```
+```python
+import numpy as np
+
+# pts[N,2] — точки, cent[K,2] — центри, assign[N] — попереднє присвоєння
+# повертає нове присвоєння і скільки точок змінили групу (0 => можна спинятись)
+def assign_step(pts, cent, assign):
+    # квадрати відстаней кожної точки до кожного центру; корінь зайвий — порядок той самий
+    d2 = np.sum((pts[:, None, :] - cent[None, :, :]) ** 2, axis=2)
+    best = np.argmin(d2, axis=1)       # найближчий центр для кожної точки
+    changed = int(np.sum(best != assign))
+    return best, changed
+```
+:::
 
 Зверни увагу: відстань беремо як **суму квадратів** різниць, без квадратного кореня. Корінь — монотонний, він не змінює, хто ближчий, зате коштує обчислень. Дрібниця, а на мільйонах точок економить помітно.
 
 **Крок оновлення: пересунути кожен центр у середину своїх точок.**
-```c
+:::tabs
+```cpp
 void update_step(const Pt *pts, int N, Pt *cent, int K, const int *assign) {
     double sx[K], sy[K];  int cnt[K];
     for (int c = 0; c < K; c++) { sx[c] = sy[c] = 0.0; cnt[c] = 0; }
@@ -92,14 +107,33 @@ void update_step(const Pt *pts, int N, Pt *cent, int K, const int *assign) {
     }
 }
 ```
+```python
+def update_step(pts, cent, assign):
+    K = len(cent)
+    for c in range(K):
+        mask = assign == c            # точки, причеплені до центру c
+        if np.any(mask):              # центр = середнє своїх точок
+            cent[c] = pts[mask].mean(axis=0)
+        # інакше — «порожній» центр: нікого не притягнув, лишаємо на місці
+```
+:::
 
 А головний цикл просто ганяє ці два кроки, доки присвоєння не перестане мінятися:
-```c
+:::tabs
+```cpp
 for (int iter = 0; iter < MAX_ITER; iter++) {
     if (assign_step(pts, N, cent, K, assign) == 0) break;  // ніхто не перебіг — стоп
     update_step(pts, N, cent, K, assign);
 }
 ```
+```python
+for _ in range(MAX_ITER):
+    assign, changed = assign_step(pts, cent, assign)
+    if changed == 0:                 # ніхто не перебіг — стоп
+        break
+    update_step(pts, cent, assign)
+```
+:::
 
 Дюжина рядків — а перед тобою робочий кластеризатор. Оце і є навчання без учителя в найчистішому вигляді: жодних відповідей на вході, лише точки — а на виході готове розбиття на групи.
 

@@ -37,6 +37,7 @@
 
 **Друкуємо причину скидання одразу на старті — щоб бачити, чи це brownout під час Wi-Fi.**
 
+:::tabs
 ```cpp
 #include "esp_system.h"
 #include <stdio.h>
@@ -50,6 +51,20 @@ void app_main(void) {
     }
 }
 ```
+```python
+import machine
+
+cause = machine.reset_cause()
+if cause == machine.PWRON_RESET:
+    print("старт: подали живлення / EN")
+elif cause == machine.BROWNOUT_RESET:
+    print("старт: ПРОСІВ живлення (brownout)!")
+elif cause == machine.SOFT_RESET:
+    print("старт: програмне перезавантаження")
+else:
+    print("старт: інша причина")
+```
+:::
 
 Якщо в монітор раз по раз сиплеться рядок про `brownout` саме тоді, коли вмикається радіо, — діагноз готовий: плата перезавантажується від просідання напруги, і шукати треба кабель та живлення, а не баг у коді.
 

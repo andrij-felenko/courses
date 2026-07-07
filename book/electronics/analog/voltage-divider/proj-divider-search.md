@@ -20,18 +20,75 @@
 
 ### Псевдокод
 
+:::tabs
+```python
+from bisect import bisect_left
+
+def nearest(sorted_e, x):
+    """Найближче до x значення у відсортованій таблиці ряду (двійковий пошук)."""
+    i = bisect_left(sorted_e, x)
+    if i == 0:
+        return sorted_e[0]
+    if i == len(sorted_e):
+        return sorted_e[-1]
+    lo, hi = sorted_e[i - 1], sorted_e[i]
+    return hi if hi - x < x - lo else lo
+
+def find_pair(target, e_series):
+    """target = бажане R1/R2 = (1−k)/k з потрібного виходу.
+       e_series — усі значення E24 по декадах (відсортовані)."""
+    best, best_err = None, float("inf")
+    for r2 in e_series:
+        r1_ideal = target * r2
+        r1 = nearest(e_series, r1_ideal)              # двійковий пошук
+        err = abs(r1 - target * r2) / (target * r2)   # відносна похибка (без ділення R1/R2)
+        if err < best_err:
+            best_err, best = err, (r1, r2)
+    return best, best_err
 ```
-ціль  ← бажане R1/R2            # = (1−k)/k з потрібного виходу
-E     ← усі значення E24 по декадах (відсортовані)
-best  ← none;  best_err ← ∞
-для кожного R2 у E:
-    R1_ідеал ← ціль · R2
-    R1 ← найближче до R1_ідеал у E   # двійковий пошук
-    err ← |R1·1 − ціль·R2| / (ціль·R2)   # відносна похибка (без ділення R1/R2)
-    якщо err < best_err:
-        best_err ← err;  best ← (R1, R2)
-повернути best, best_err
+```cpp
+#include <cstdint>
+#include <cstddef>
+#include <utility>
+
+// e_series — усі значення E24 по декадах (відсортовані), в омах.
+// target задаємо дробом num/den (бажане R1/R2), щоб уникнути плаваючої коми.
+struct Pair { std::uint32_t r1, r2; };
+
+// Найближче до x значення у відсортованій таблиці ряду (двійковий пошук).
+static std::uint32_t nearest(const std::uint32_t* e, std::size_t n, std::uint64_t x) {
+    std::size_t lo = 0, hi = n;
+    while (lo < hi) {                      // нижня межа: перший e[i] >= x
+        std::size_t mid = lo + (hi - lo) / 2;
+        if (e[mid] < x) lo = mid + 1; else hi = mid;
+    }
+    if (lo == 0) return e[0];
+    if (lo == n) return e[n - 1];
+    return (e[lo] - x < x - e[lo - 1]) ? e[lo] : e[lo - 1];
+}
+
+Pair find_pair(std::uint32_t num, std::uint32_t den,
+               const std::uint32_t* e, std::size_t n) {
+    Pair best{0, 0};
+    std::uint64_t best_num = 1, best_den = 0;          // best_err = best_num/best_den = ∞
+    for (std::size_t j = 0; j < n; ++j) {
+        std::uint32_t r2 = e[j];
+        std::uint64_t r1_ideal = (std::uint64_t)num * r2 / den;   // ціль · R2
+        std::uint32_t r1 = nearest(e, n, r1_ideal);               // двійковий пошук
+        // err = |r1·den − num·r2| / (num·r2); порівнюємо дроби навхрест, без ділення
+        std::uint64_t goal = (std::uint64_t)num * r2;
+        std::uint64_t diff = (std::uint64_t)r1 * den;
+        std::uint64_t err_num = diff > goal ? diff - goal : goal - diff;
+        std::uint64_t err_den = goal;                             // спільний масштаб den·r2
+        // err_num/err_den < best_num/best_den  ⟺  err_num·best_den < best_num·err_den
+        if (err_num * best_den < best_num * err_den) {
+            best_num = err_num; best_den = err_den; best = Pair{r1, r2};
+        }
+    }
+    return best;
+}
 ```
+:::
 
 Кожна ітерація — це O(log N) на двійковий пошук, разом **O(N log N)**: для N~150 це сотні операцій, миттєво навіть на восьмибітному МК.
 

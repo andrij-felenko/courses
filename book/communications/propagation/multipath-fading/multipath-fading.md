@@ -49,16 +49,37 @@
 
 **Приклад (чи переживе лінк завмирання).** Нехай на столі бюджет лінії дає прийнятий рівень −70 дБм, а чутливість приймача −90 дБм — запас 20 дБ. Глибина завмирання, яку треба перекрити для надійного зв'язку в кімнаті, — 15 дБ. Прошивка може сама вирішити, чи варто піднімати швидкість (а отже, і потрібну чутливість), порівнявши наявний запас із потрібним:
 
-```c
+:::tabs
+```cpp
 // чи лишається зв'язок над порогом при заданій глибині провалу
-int link_survives_fade(int rx_dbm, int sensitivity_dbm, int fade_depth_db) {
+bool link_survives_fade(int rx_dbm, int sensitivity_dbm, int fade_depth_db) {
     int margin = rx_dbm - sensitivity_dbm;   // запас бюджету, дБ
-    return margin >= fade_depth_db;          // 1 = провал не дотягнеться до порога
+    return margin >= fade_depth_db;          // true = провал не дотягнеться до порога
 }
 
-// rx=-70, sens=-90 -> margin=20; fade=15 -> 20>=15 -> 1 (переживе)
-int ok = link_survives_fade(-70, -90, 15);   // ok == 1
+// rx=-70, sens=-90 -> margin=20; fade=15 -> 20>=15 -> true (переживе)
+bool ok = link_survives_fade(-70, -90, 15);  // ok == true
 ```
+```py
+# чи лишається зв'язок над порогом при заданій глибині провалу
+def link_survives_fade(rx_dbm, sensitivity_dbm, fade_depth_db):
+    margin = rx_dbm - sensitivity_dbm    # запас бюджету, дБ
+    return margin >= fade_depth_db       # True = провал не дотягнеться до порога
+
+# rx=-70, sens=-90 -> margin=20; fade=15 -> 20>=15 -> True (переживе)
+ok = link_survives_fade(-70, -90, 15)    # ok == True
+```
+```js
+// чи лишається зв'язок над порогом при заданій глибині провалу
+function linkSurvivesFade(rxDbm, sensitivityDbm, fadeDepthDb) {
+    const margin = rxDbm - sensitivityDbm;   // запас бюджету, дБ
+    return margin >= fadeDepthDb;            // true = провал не дотягнеться до порога
+}
+
+// rx=-70, sens=-90 -> margin=20; fade=15 -> 20>=15 -> true (переживе)
+const ok = linkSurvivesFade(-70, -90, 15);   // ok === true
+```
+:::
 
 Запас 20 дБ більший за глибину провалу 15 дБ, тож звичайне завмирання лінк переживе. Якби приймач підняв швидкість і його чутливість погіршала до −78 дБм, запас упав би до 8 дБ — менше за 15, і провали почали б рвати зв'язок. Звідси практичне правило: вища швидкість коштує запасу на завмирання, і цей розмін треба рахувати, а не вгадувати.
 

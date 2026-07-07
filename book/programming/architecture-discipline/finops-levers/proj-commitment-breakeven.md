@@ -61,53 +61,91 @@ u         = c / r
 
 Перекладімо виведення в код. Це буде функція з очевидною складністю **O(1)** — одне ділення, ніяких циклів, ніякої залежності від розміру профілю. Але щоб код був чесний, а не іграшковий, зробімо його прошивково-строгим: гроші й ставки — у **цілих**, бо `double` у рахунках накопичує похибку заокруглення й одного дня дає «рахунок 49.99999997», яке негарно порівнювати. Ставки тримаємо в **мілідоларах за годину** (тисячні долара), гроші — в мілідоларах. Тоді 0.10 $/год — це 100, 0.07 $/год — це 70, і все ділиться рівно.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
+:::tabs
+```cpp
+#include <cstdint>
 
 // Усі ставки — у мілідоларах за годину (1 $ = 1000).
 // Гроші — у мілідоларах. Цілі, щоб не тягнути float у рахунок.
 
 // ── Рахунок за період на РОЗДРІБІ: платимо лише за ввімкнені години ──────
 // used_hours — реально ввімкнені години за період.
-uint64_t retail_cost_md(uint32_t retail_md_per_h, uint32_t used_hours)
+std::uint64_t retail_cost_md(std::uint32_t retail_md_per_h, std::uint32_t used_hours)
 {
-    return (uint64_t)retail_md_per_h * used_hours;
+    return static_cast<std::uint64_t>(retail_md_per_h) * used_hours;
 }
 
 // ── Рахунок за період на ОБІЦЯНЦІ: платимо за ВСІ години строку ──────────
 // period_hours — усього годин у періоді (місяць ≈ 720), байдуже до завантаження.
-uint64_t committed_cost_md(uint32_t committed_md_per_h, uint32_t period_hours)
+std::uint64_t committed_cost_md(std::uint32_t committed_md_per_h, std::uint32_t period_hours)
 {
-    return (uint64_t)committed_md_per_h * period_hours;
+    return static_cast<std::uint64_t>(committed_md_per_h) * period_hours;
 }
 ```
+```python
+# Усі ставки — у мілідоларах за годину (1 $ = 1000).
+# Гроші — у мілідоларах. Цілі, щоб не тягнути float у рахунок.
+# (Python має необмежені int — переповнення не загрожує.)
+
+# ── Рахунок за період на РОЗДРІБІ: платимо лише за ввімкнені години ──────
+# used_hours — реально ввімкнені години за період.
+def retail_cost_md(retail_md_per_h: int, used_hours: int) -> int:
+    return retail_md_per_h * used_hours
+
+
+# ── Рахунок за період на ОБІЦЯНЦІ: платимо за ВСІ години строку ──────────
+# period_hours — усього годин у періоді (місяць ≈ 720), байдуже до завантаження.
+def committed_cost_md(committed_md_per_h: int, period_hours: int) -> int:
+    return committed_md_per_h * period_hours
+```
+:::
 
 Тепер сам поріг. Пряме `u = c / r` дало б дробове число від 0 до 1, а ділити цілі й одержати «0» — не те, що нам треба. Тому не рахуймо частку — рахуймо **поріг у годинах** для конкретного періоду: скільки годин на місяць машина має бути ввімкнена, щоб обіцянка зрівнялася з роздробом. Це те саме `u`, лише помножене на `H`, і воно виходить цілим множенням до ділення:
 
-```c
+:::tabs
+```cpp
 // ── Поріг завантаження В ГОДИНАХ: скільки годин/період машина має ────────
 // пропрацювати, щоб обіцянка зрівнялася з роздробом.
 //   рівність:  retail·H_used = committed·H_period
 //     →  H_used = committed·H_period / retail
-uint32_t breakeven_hours(uint32_t committed_md_per_h,
-                         uint32_t retail_md_per_h,
-                         uint32_t period_hours)
+std::uint32_t breakeven_hours(std::uint32_t committed_md_per_h,
+                              std::uint32_t retail_md_per_h,
+                              std::uint32_t period_hours)
 {
     // множимо ДО ділення — інакше цілочислове ділення занулить результат
-    uint64_t num = (uint64_t)committed_md_per_h * period_hours;
-    return (uint32_t)(num / retail_md_per_h);
+    std::uint64_t num = static_cast<std::uint64_t>(committed_md_per_h) * period_hours;
+    return static_cast<std::uint32_t>(num / retail_md_per_h);
 }
 
 // ── Порада: чи варто обіцянка при очікуваному завантаженні? ──────────────
 // expected_used — скільки годин/період машина реально працюватиме.
-bool commitment_pays(uint32_t committed_md_per_h, uint32_t retail_md_per_h,
-                    uint32_t period_hours, uint32_t expected_used)
+bool commitment_pays(std::uint32_t committed_md_per_h, std::uint32_t retail_md_per_h,
+                     std::uint32_t period_hours, std::uint32_t expected_used)
 {
     return expected_used >= breakeven_hours(committed_md_per_h,
                                             retail_md_per_h, period_hours);
 }
 ```
+```python
+# ── Поріг завантаження В ГОДИНАХ: скільки годин/період машина має ────────
+# пропрацювати, щоб обіцянка зрівнялася з роздробом.
+#   рівність:  retail·H_used = committed·H_period
+#     →  H_used = committed·H_period / retail
+def breakeven_hours(committed_md_per_h: int, retail_md_per_h: int,
+                    period_hours: int) -> int:
+    # множимо ДО ділення й беремо цілочислове // — інакше втратимо ціле
+    num = committed_md_per_h * period_hours
+    return num // retail_md_per_h
+
+
+# ── Порада: чи варто обіцянка при очікуваному завантаженні? ──────────────
+# expected_used — скільки годин/період машина реально працюватиме.
+def commitment_pays(committed_md_per_h: int, retail_md_per_h: int,
+                    period_hours: int, expected_used: int) -> bool:
+    return expected_used >= breakeven_hours(committed_md_per_h,
+                                            retail_md_per_h, period_hours)
+```
+:::
 
 Прогорнімо це числами зі статті, щоб побачити поріг на власні очі:
 
@@ -146,60 +184,112 @@ breakeven_hours(70, 100, 720):
 
 Тепер — код. Профіль задамо як масив погодинного попиту (скільки машин потрібно щогодини за добу). Розкрій — дві межі: `base_level` (машин, що завжди тримаємо на обіцянці) і `spot_cap` (стеля спота; усе понад неї — роздріб). Для кожної години рахуємо, скільки машино-годин потрапляє в кожну смугу, і множимо на відповідний цінник. Ключова тонкість — у розрізанні стовпчика години на три частини без прогалин і без подвійного рахунку.
 
-```c
-#include <stdint.h>
+:::tabs
+```cpp
+#include <cstdint>
+#include <vector>
 
 // Ставки — мілідолари за машино-годину. Гроші — мілідолари.
-typedef struct {
-    uint32_t committed_md;   // ставка обіцянки (база)
-    uint32_t spot_md;        // ставка спота (сплеск)
-    uint32_t retail_md;      // роздрібна ставка (пік)
-    uint32_t base_level;     // машин на обіцянці (низ, що завжди ввімкнений)
-    uint32_t spot_cap;       // стеля спота: усе понад неї йде на роздріб
-    uint32_t period_hours;   // годин у періоді (для оплати ВСІХ годин обіцянки)
-} MixPlan;
+struct MixPlan {
+    std::uint32_t committed_md;   // ставка обіцянки (база)
+    std::uint32_t spot_md;        // ставка спота (сплеск)
+    std::uint32_t retail_md;      // роздрібна ставка (пік)
+    std::uint32_t base_level;     // машин на обіцянці (низ, що завжди ввімкнений)
+    std::uint32_t spot_cap;       // стеля спота: усе понад неї йде на роздріб
+    std::uint32_t period_hours;   // годин у періоді (для оплати ВСІХ годин обіцянки)
+};
 
 // Внесок кожного тарифу окремо — щоб бачити структуру рахунку, не лише суму.
-typedef struct {
-    uint64_t committed_md;   // за базу: ставка × base_level × ВСІ години періоду
-    uint64_t spot_md;        // за сплеск: спот-машино-години
-    uint64_t retail_md;      // за пік: роздрібні машино-години
-    uint64_t total_md;       // сума трьох
-} MixBill;
+struct MixBill {
+    std::uint64_t committed_md;   // за базу: ставка × base_level × ВСІ години періоду
+    std::uint64_t spot_md;        // за сплеск: спот-машино-години
+    std::uint64_t retail_md;      // за пік: роздрібні машино-години
+    std::uint64_t total_md;       // сума трьох
+};
 
 // ── Розкласти профіль по трьох тарифах і порахувати рахунок ──────────────
 // demand[h] — скільки машин потрібно на годину h (h = 0..hours-1).
-MixBill mixed_bill(const uint32_t *demand, uint32_t hours, MixPlan p)
+MixBill mixed_bill(const std::vector<std::uint32_t> &demand, const MixPlan &p)
 {
     MixBill b = {0, 0, 0, 0};
 
     // БАЗА оплачується наперед за ВЕСЬ строк, байдуже до погодинного попиту:
     // base_level машин × committed-ставка × усі години періоду.
-    b.committed_md = (uint64_t)p.committed_md * p.base_level * p.period_hours;
+    b.committed_md = static_cast<std::uint64_t>(p.committed_md) * p.base_level * p.period_hours;
 
     // СПЛЕСК і ПІК рахуємо погодинно — лише за реально спожите понад базу.
-    for (uint32_t h = 0; h < hours; ++h) {
-        uint32_t d = demand[h];
+    for (std::uint32_t d : demand) {
         if (d <= p.base_level)
             continue;                       // усе покрила база — понад неї нуль
 
-        uint32_t above_base = d - p.base_level;         // скільки понад базу
+        std::uint32_t above_base = d - p.base_level;    // скільки понад базу
 
         // спот покриває від бази до spot_cap; понад spot_cap — роздріб
-        uint32_t spot_ceiling = (p.spot_cap > p.base_level)
-                              ? (p.spot_cap - p.base_level) : 0;
+        std::uint32_t spot_ceiling = (p.spot_cap > p.base_level)
+                                   ? (p.spot_cap - p.base_level) : 0;
 
-        uint32_t on_spot   = (above_base < spot_ceiling) ? above_base : spot_ceiling;
-        uint32_t on_retail = above_base - on_spot;      // залишок понад стелю спота
+        std::uint32_t on_spot   = (above_base < spot_ceiling) ? above_base : spot_ceiling;
+        std::uint32_t on_retail = above_base - on_spot; // залишок понад стелю спота
 
-        b.spot_md   += (uint64_t)p.spot_md   * on_spot;   // 1 година кожної машини
-        b.retail_md += (uint64_t)p.retail_md * on_retail;
+        b.spot_md   += static_cast<std::uint64_t>(p.spot_md)   * on_spot;  // 1 година кожної машини
+        b.retail_md += static_cast<std::uint64_t>(p.retail_md) * on_retail;
     }
 
     b.total_md = b.committed_md + b.spot_md + b.retail_md;
     return b;
 }
 ```
+```python
+from dataclasses import dataclass
+from collections.abc import Sequence
+
+# Ставки — мілідолари за машино-годину. Гроші — мілідолари.
+@dataclass
+class MixPlan:
+    committed_md: int    # ставка обіцянки (база)
+    spot_md: int         # ставка спота (сплеск)
+    retail_md: int       # роздрібна ставка (пік)
+    base_level: int      # машин на обіцянці (низ, що завжди ввімкнений)
+    spot_cap: int        # стеля спота: усе понад неї йде на роздріб
+    period_hours: int    # годин у періоді (для оплати ВСІХ годин обіцянки)
+
+
+# Внесок кожного тарифу окремо — щоб бачити структуру рахунку, не лише суму.
+@dataclass
+class MixBill:
+    committed_md: int    # за базу: ставка × base_level × ВСІ години періоду
+    spot_md: int         # за сплеск: спот-машино-години
+    retail_md: int       # за пік: роздрібні машино-години
+    total_md: int        # сума трьох
+
+
+# ── Розкласти профіль по трьох тарифах і порахувати рахунок ──────────────
+# demand[h] — скільки машин потрібно на годину h (h = 0..hours-1).
+def mixed_bill(demand: Sequence[int], p: MixPlan) -> MixBill:
+    # БАЗА оплачується наперед за ВЕСЬ строк, байдуже до погодинного попиту:
+    # base_level машин × committed-ставка × усі години періоду.
+    committed = p.committed_md * p.base_level * p.period_hours
+
+    # спот покриває від бази до spot_cap; понад spot_cap — роздріб
+    spot_ceiling = max(p.spot_cap - p.base_level, 0)
+
+    spot = 0
+    retail = 0
+    # СПЛЕСК і ПІК рахуємо погодинно — лише за реально спожите понад базу.
+    for d in demand:
+        if d <= p.base_level:
+            continue                        # усе покрила база — понад неї нуль
+
+        above_base = d - p.base_level       # скільки понад базу
+        on_spot = min(above_base, spot_ceiling)
+        on_retail = above_base - on_spot    # залишок понад стелю спота
+
+        spot += p.spot_md * on_spot         # 1 година кожної машини
+        retail += p.retail_md * on_retail
+
+    return MixBill(committed, spot, retail, committed + spot + retail)
+```
+:::
 
 Розкрій стовпчика — серце функції, тож проговорімо його на одній піковій годині. Нехай попит `d = 8` машин, база `base_level = 3`, стеля спота `spot_cap = 7`. База покриває нижні 3 (їх уже оплачено наперед, у циклі їх пропускаємо). Понад базу лишається `above_base = 5`. Спот тягнеться від бази до стелі — це `spot_ceiling = 7 − 3 = 4` машини. З наших 5 понадбазових спот бере `on_spot = 4`, а `on_retail = 5 − 4 = 1` машина лягає на роздріб. Стовпчик розсічено рівно: 3 (база) + 4 (спот) + 1 (роздріб) = 8, без прогалин і без подвійного рахунку.
 

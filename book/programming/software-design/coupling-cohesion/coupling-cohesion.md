@@ -27,6 +27,7 @@
 
 Ось як виглядає низька зв'язність у коді — клас-звалище, що зшив докупи три непов'язані обов'язки:
 
+:::tabs
 ```cpp
 // Випадкова зв'язність: три різні причини для зміни в одному класі
 class OrderManager {
@@ -36,15 +37,34 @@ public:
     void   sendEmail(const Order& o);     // пошта: SMTP, шаблон листа
 };
 ```
+```python
+# Випадкова зв'язність: три різні причини для зміни в одному класі
+class OrderManager:
+    def calc_total(self, order: Order) -> float: ...   # бізнес-правило: як рахувати суму
+    def save_to_db(self, order: Order) -> None: ...     # база даних: SQL, з'єднання
+    def send_email(self, order: Order) -> None: ...     # пошта: SMTP, шаблон листа
+```
+:::
 
 Тут кожен метод міняється зі своєї причини: змінили ставку податку — чіпаєш `calcTotal`; перейшли з MySQL на Postgres — чіпаєш `saveToDb`; змінили поштового провайдера — `sendEmail`. Три причини, один клас. Розкладемо за справжніми справами:
 
+:::tabs
 ```cpp
 // Кожен клас — одна причина для зміни; висока зв'язність
 class PricingPolicy { public: double calcTotal(const Order& o); };
 class OrderRepository { public: void save(const Order& o); };
 class OrderNotifier  { public: void notify(const Order& o); };
 ```
+```python
+# Кожен клас — одна причина для зміни; висока зв'язність
+class PricingPolicy:
+    def calc_total(self, order: Order) -> float: ...
+class OrderRepository:
+    def save(self, order: Order) -> None: ...
+class OrderNotifier:
+    def notify(self, order: Order) -> None: ...
+```
+:::
 
 Тепер зміна податку живе в `PricingPolicy` й нікого поруч не турбує. Три причини для зміни отримали три різні домівки.
 
@@ -60,6 +80,7 @@ class OrderNotifier  { public: void notify(const Order& o); };
 
 Найпоказовіший щабель для щоденної практики — **керівне зчеплення**, бо його легко впустити не помітивши. Прапорець-команда виглядає безневинно:
 
+:::tabs
 ```cpp
 // Керівне зчеплення: аргумент керує ЧУЖОЮ логікою, розгалужуючи її надвоє
 void render(const Doc& d, bool draft) {
@@ -67,14 +88,30 @@ void render(const Doc& d, bool draft) {
     else       { drawFullRes(d); embedFonts(); }     // зовсім інша поведінка
 }
 ```
+```python
+# Керівне зчеплення: аргумент керує ЧУЖОЮ логікою, розгалужуючи її надвоє
+def render(doc: Doc, draft: bool) -> None:
+    if draft:                                        # одна поведінка
+        draw_watermark(); draw_low_res(doc)
+    else:                                            # зовсім інша поведінка
+        draw_full_res(doc); embed_fonts()
+```
+:::
 
 Виклик `render(doc, true)` у місці виклику нічого не говорить — читач мусить піти в тіло `render` і знати, що `true` вмикає чернетку. Гірше: дві несумісні поведінки живуть в одній функції, і клієнт тепер керує внутрішнім вибором. Розчепимо на дві чесні функції:
 
+:::tabs
 ```cpp
 // За даними: кожна функція робить одне, місце виклику самодокументоване
 void renderDraft(const Doc& d) { drawWatermark(); drawLowRes(d); }
 void renderFinal(const Doc& d) { drawFullRes(d);  embedFonts(); }
 ```
+```python
+# За даними: кожна функція робить одне, місце виклику самодокументоване
+def render_draft(doc: Doc) -> None: draw_watermark(); draw_low_res(doc)
+def render_final(doc: Doc) -> None: draw_full_res(doc); embed_fonts()
+```
+:::
 
 Тепер `renderDraft(doc)` каже сам за себе, і жоден прапорець не керує чужою логікою зсередини.
 
@@ -86,15 +123,24 @@ void renderFinal(const Doc& d) { drawFullRes(d);  embedFonts(); }
 
 Розглянь класичний приклад — формат дати, який «знають» усюди:
 
+:::tabs
 ```cpp
 // Формат розповзся: той самий шаблон повторено в кожному клієнті
 std::string report = std::to_string(d.day)+"."+std::to_string(d.month)+"."+std::to_string(d.year);
 std::string ui     = std::to_string(d.day)+"."+std::to_string(d.month)+"."+std::to_string(d.year);
 std::string log    = std::to_string(d.day)+"."+std::to_string(d.month)+"."+std::to_string(d.year);
 ```
+```python
+# Формат розповзся: той самий шаблон повторено в кожному клієнті
+report = f"{d.day}.{d.month}.{d.year}"
+ui     = f"{d.day}.{d.month}.{d.year}"
+log    = f"{d.day}.{d.month}.{d.year}"
+```
+:::
 
 Кожен клієнт зчеплений із форматом безпосередньо. Вимога «переходимо на ISO-формат» тягне правку в кожному з них — і легко забути один. Сховаємо формат за єдиною функцією:
 
+:::tabs
 ```cpp
 // Єдина точка правди: формат знає рівно одна функція
 std::string fmtDate(const Date& d) {
@@ -106,12 +152,27 @@ std::string report = fmtDate(d);
 std::string ui     = fmtDate(d);
 std::string log    = fmtDate(d);
 ```
+```python
+# Єдина точка правди: формат знає рівно одна функція
+def fmt_date(d: Date) -> str:
+    return f"{d.day:02d}.{d.month:02d}.{d.year:04d}"
+
+report = fmt_date(d)
+ui     = fmt_date(d)
+log    = fmt_date(d)
+```
+:::
 
 Тепер перехід на ISO — це правка **однієї** реалізації:
 
+:::tabs
 ```cpp
 std::snprintf(buf, sizeof buf, "%04d-%02d-%02d", d.year, d.month, d.day);  // хвиля не пішла нікуди
 ```
+```python
+return f"{d.year:04d}-{d.month:02d}-{d.day:02d}"   # хвиля не пішла нікуди
+```
+:::
 
 Той самий хід масштабується вгору. Коли зчеплення не між функціями, а між великими шматками системи, інкапсуляцію роблять **інверсією залежностей**: замість того щоб модуль високого рівня знав конкретний нижній, обидва спираються на спільний інтерфейс, а конкретну реалізацію підставляють ззовні. Цьому присвячений окремий [принцип інверсії залежностей (DIP)](book:programming/dependency-inversion) — він і є зчеплення-послаблення, доведене до архітектурного рівня. А коли два модулі говорять несумісними мовами й прямий зв'язок отруїв би обидва, між ними ставлять перекладач-ізолятор — [антикорупційний шар](book:programming/anti-corruption-layer), що не пускає чужі поняття всередину.
 

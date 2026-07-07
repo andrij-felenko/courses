@@ -37,7 +37,8 @@
 
 **Блимання без delay (і ще одне діло поряд).**
 
-```
+:::tabs
+```cpp
 unsigned long lastBlink = 0;
 unsigned long lastRead  = 0;
 const unsigned long blinkInterval = 500;   // мс
@@ -60,6 +61,83 @@ void loop() {
   // кнопки й будь-що інше — теж тут, нічого не блокує
 }
 ```
+```micropython
+import time
+from machine import Pin
+
+led = Pin(2, Pin.OUT)
+led_state = 0
+
+last_blink = 0
+last_read  = 0
+blink_interval = 500   # мс
+read_interval  = 100   # мс
+
+while True:
+    now = time.ticks_ms()
+
+    if time.ticks_diff(now, last_blink) >= blink_interval:   # діло 1: блимати
+        last_blink = time.ticks_add(last_blink, blink_interval)
+        led_state = not led_state
+        led.value(led_state)
+
+    if time.ticks_diff(now, last_read) >= read_interval:     # діло 2: опитати давач
+        last_read = time.ticks_add(last_read, read_interval)
+        read_sensor()
+
+    # кнопки й будь-що інше — теж тут, нічого не блокує
+```
+```python
+import time
+
+def millis():
+    return time.monotonic_ns() // 1_000_000   # мс від старту
+
+last_blink = 0
+last_read  = 0
+blink_interval = 500   # мс
+read_interval  = 100   # мс
+
+while True:
+    now = millis()
+
+    if now - last_blink >= blink_interval:   # діло 1: блимати
+        last_blink += blink_interval
+        led_state = not led_state
+        set_led(led_state)
+
+    if now - last_read >= read_interval:     # діло 2: опитати давач
+        last_read += read_interval
+        read_sensor()
+
+    # кнопки й будь-що інше — теж тут, нічого не блокує
+```
+```js
+let lastBlink = 0;
+let lastRead  = 0;
+const blinkInterval = 500;   // мс
+const readInterval  = 100;   // мс
+
+function loop() {
+  const now = performance.now();   // мс від старту
+
+  if (now - lastBlink >= blinkInterval) {   // діло 1: блимати
+    lastBlink += blinkInterval;
+    ledState = !ledState;
+    setLed(ledState);
+  }
+
+  if (now - lastRead >= readInterval) {     // діло 2: опитати давач
+    lastRead += readInterval;
+    readSensor();
+  }
+
+  // кнопки й будь-що інше — теж тут, нічого не блокує
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+```
+:::
 
 Двоє слів про оновлення мітки. Запис `last += interval` зсуває мітку рівно на інтервал, тож середній ритм лишається **точним** навіть якщо окремий прохід трохи спізнився, — добре для рівних періодів. Запис `last = millis()` простіший і «самовирівнюється» (відлік завжди від теперішнього моменту), та може накопичувати дрібний дрейф. Обидва робочі: для строгого ритму беруть `+=`, для невибагливих пауз — `= millis()`. Єдине, чого слід стерегтися з `+=`: якщо `loop()` надовго відлучився й пропустив кілька інтервалів, умова може спрацювати кілька разів поспіль, «надолужуючи» — інколи це треба окремо обмежити.
 

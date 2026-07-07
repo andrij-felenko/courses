@@ -10,6 +10,7 @@
 
 **Задача.** У проєкті завівся `SensorUtils` — тека, куди пів року складали все, що «дотичне до давачів і не мало іншого дому». Спершу дві функції, тепер одинадцять. Кожен програміст, якому не було куди подіти хелпер, доклав свій. Тепер це виглядає так:
 
+:::tabs
 ```cpp
 // SensorUtils: звалище. Що спільного? Слово "sensor" у назві файлу — і все.
 class SensorUtils {
@@ -23,6 +24,24 @@ public:
     // …ще п'ять таких самих різнорідних
 };
 ```
+```python
+# SensorUtils: звалище. Що спільного? Слово "sensor" у назві файлу — і все.
+class SensorUtils:
+    @staticmethod
+    def celsius_from_raw(raw: int) -> float: ...      # математика перетворення
+    @staticmethod
+    def crc8(data: bytes) -> int: ...                 # контрольна сума I²C
+    @staticmethod
+    def log_reading(t: float) -> None: ...            # запис у кільцевий буфер
+    @staticmethod
+    def is_plausible(t: float) -> bool: ...           # перевірка діапазону
+    @staticmethod
+    def millis_since_boot() -> int: ...               # обгортка над таймером
+    @staticmethod
+    def blink_error(code: int) -> None: ...           # блимання світлодіодом
+    # …ще п'ять таких самих різнорідних
+```
+:::
 
 **Ідея.** Випадкова зв'язність (найнижчий щабель) означає, що речі складено докупи **без причини** — назва файлу не причина. Рух проти неї один: **розкласти за причиною зміни**. Не «за темою», не «за схожістю» — саме за тим, **що змусить це поле правити**. Функції, що змінюються з однієї причини, ідуть в один дім; що з різних — у різні. Ось де живе справжня причина кожного шматка:
 
@@ -33,6 +52,7 @@ public:
 
 **Крок правки.** Розтягуємо звалище за цими причинами. Кожна купка стає класом із власним іменем, що каже, **чому** він існує:
 
+:::tabs
 ```cpp
 // Дім для знання про конкретний давач — правиться при зміні давача
 class Tmp117 {
@@ -53,6 +73,26 @@ public:
     void append(float celsius);
 };
 ```
+```python
+# Дім для знання про конкретний давач — правиться при зміні давача
+class Tmp117:
+    @staticmethod
+    def celsius(raw: int) -> float:
+        return raw * 0.0078125          # 7.8125 м°C/LSB
+    @staticmethod
+    def plausible(c: float) -> bool:
+        return -40.0 < c < 125.0
+
+# Дім для знання про шину — правиться при зміні протоколу
+class I2cFrame:
+    @staticmethod
+    def crc8(data: bytes) -> int: ...   # поліном 0x07, як у SMBus
+
+# Дім для логу — правиться при зміні формату/носія
+class ReadingLog:
+    def append(self, celsius: float) -> None: ...
+```
+:::
 
 `blinkError`/`millisSinceBoot` переїжджають у платформний `Board` — вони не про давач узагалі.
 
@@ -95,6 +135,7 @@ void SensorTask::poll() {
 
 **Задача.** Функція калібрування бере поправку й пише її в лог. Хтось колись передав їй увесь об'єкт `Reading` — «щоб було під рукою», — і відтоді вона знає про всю його форму:
 
+:::tabs
 ```cpp
 struct Reading {
     float    celsius;
@@ -113,23 +154,53 @@ float applyCalibration(const Reading& r, const CalTable& tbl) {
     // решта Reading тут не використана — але функція від неї залежить
 }
 ```
+```python
+@dataclass
+class Reading:
+    celsius: float
+    raw: int
+    timestamp: int
+    sensor_id: int
+    crc: int
+    rssi: int           # сила сигналу, якщо давач бездротовий
+    # …структура росте, її чіпають з десятка причин
+
+# Зчеплення за зліпком: бере всю структуру, використовує ДВА поля
+def apply_calibration(r: Reading, tbl: CalTable) -> float:
+    offset = tbl.lookup(r.sensor_id)         # потрібне поле 1
+    return r.celsius + offset                # потрібне поле 2
+    # решта Reading тут не використана — але функція від неї залежить
+```
+:::
 
 **Ідея.** Зчеплення за зліпком (**stamp**) означає: модулю передали **цілу складену структуру**, а йому потрібні лічені поля. Тепер він зайво знає про всю форму `Reading` — і кожна зміна цієї форми потенційно тягнеться до нього, хоч по суті не стосується. Рух проти: **передавати рівно потрібне** — ті два скалярні параметри, і нічого більше. Функція перестає залежати від структури, від якої не залежить її логіка.
 
 **Крок правки.** Звужуємо сигнатуру до справжніх потреб:
 
+:::tabs
 ```cpp
 // За даними: рівно те, що використано. Про Reading функція більше не знає.
 float applyCalibration(float celsius, uint8_t sensorId, const CalTable& tbl) {
     return celsius + tbl.lookup(sensorId);
 }
 ```
+```python
+# За даними: рівно те, що використано. Про Reading функція більше не знає.
+def apply_calibration(celsius: float, sensor_id: int, tbl: CalTable) -> float:
+    return celsius + tbl.lookup(sensor_id)
+```
+:::
 
 Точка виклику розпаковує потрібне сама — і робить це видимим:
 
+:::tabs
 ```cpp
 r.celsius = applyCalibration(r.celsius, r.sensorId, calTable_);
 ```
+```python
+r.celsius = apply_calibration(r.celsius, r.sensor_id, cal_table)
+```
+:::
 
 **Хвиля правки.** Вимога: **«додаємо в `Reading` поле `humidity` й прибираємо застаріле `rssi`».**
 

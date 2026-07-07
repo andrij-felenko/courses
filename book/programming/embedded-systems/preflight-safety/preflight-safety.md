@@ -63,6 +63,7 @@
 
 Спершу — окрема перевірка. Кожна має однакову форму: подивитися на свій шматок стану й повернути присуд разом із причиною.
 
+:::tabs
 ```c
 typedef struct {
     bool        pass;         // умова виконана?
@@ -92,9 +93,68 @@ prearm_result_t check_battery(void) {
     return (prearm_result_t){ true, NULL };
 }
 ```
+```cpp
+struct PrearmResult {
+    bool        pass;         // умова виконана?
+    const char *reason;       // якщо ні — що саме сказати оператору
+};
+
+// Кожна перевірка звіряє ОДНЕ припущення, яким політ потім довіриться.
+PrearmResult check_compass() {
+    if (!compass_calibrated())  return { false, "компас не скалібровано" };
+    if (!compass_healthy())     return { false, "компас не відповідає" };
+    if (compass_disagree_deg() > 45.0f)                 // два компаси — згода?
+        return { false, "компаси не згодні між собою" };
+    return { true, nullptr };
+}
+
+PrearmResult check_gps() {
+    if (gps_fix_type() < GPS_FIX_3D)
+        return { false, "немає 3D-фіксації GPS" };
+    if (gps_hdop() > 2.0f)                               // точність позиції
+        return { false, "низька точність GPS" };
+    return { true, nullptr };
+}
+
+PrearmResult check_battery() {
+    if (battery_voltage() < FS_BATT_VOLTAGE)            // поріг failsafe
+        return { false, "низька напруга батареї" };
+    return { true, nullptr };
+}
+```
+```python
+from dataclasses import dataclass
+
+@dataclass
+class PrearmResult:
+    passed: bool               # умова виконана?
+    reason: str | None = None  # якщо ні — що саме сказати оператору
+
+# Кожна перевірка звіряє ОДНЕ припущення, яким політ потім довіриться.
+def check_compass() -> PrearmResult:
+    if not compass_calibrated():  return PrearmResult(False, "компас не скалібровано")
+    if not compass_healthy():     return PrearmResult(False, "компас не відповідає")
+    if compass_disagree_deg() > 45.0:                   # два компаси — згода?
+        return PrearmResult(False, "компаси не згодні між собою")
+    return PrearmResult(True)
+
+def check_gps() -> PrearmResult:
+    if gps_fix_type() < GPS_FIX_3D:
+        return PrearmResult(False, "немає 3D-фіксації GPS")
+    if gps_hdop() > 2.0:                                # точність позиції
+        return PrearmResult(False, "низька точність GPS")
+    return PrearmResult(True)
+
+def check_battery() -> PrearmResult:
+    if battery_voltage() < FS_BATT_VOLTAGE:            # поріг failsafe
+        return PrearmResult(False, "низька напруга батареї")
+    return PrearmResult(True)
+```
+:::
 
 Зверніть увагу на **форму**: перевірка не «щось робить», а лише **звітує про придатність** свого припущення, і в разі «ні» одразу дає текст, який побачить оператор. Складність не в кожній окремій перевірці — вона тривіальна, — а в тому, що їх **багато й вони незалежні**. Тож зберімо їх у таблицю й проженімо всі:
 
+:::tabs
 ```c
 // Таблиця передпольотних умов. Додати нову перевірку — дописати рядок.
 static prearm_result_t (*const PREARM_CHECKS[])(void) = {
@@ -119,9 +179,56 @@ const char *prearm_first_failure(void) {
     return NULL;   // усі припущення підтверджені
 }
 ```
+```cpp
+#include <array>
+
+// Таблиця передпольотних умов. Додати нову перевірку — дописати рядок.
+static constexpr std::array PREARM_CHECKS = {
+    check_compass,
+    check_gps,
+    check_battery,
+    check_ekf_converged,   // оцінка стану збіглася?
+    check_rc_link,         // канал керування живий?
+    // ... решта перевірок апарата
+};
+
+// Прогнати всі; повернути ПЕРШУ причину відмови (або nullptr, якщо все гаразд).
+const char *prearm_first_failure() {
+    for (auto check : PREARM_CHECKS) {
+        PrearmResult r = check();
+        if (!r.pass) {
+            gcs_send_text("PreArm: %s", r.reason);   // назвати причину оператору
+            return r.reason;
+        }
+    }
+    return nullptr;   // усі припущення підтверджені
+}
+```
+```python
+# Таблиця передпольотних умов. Додати нову перевірку — дописати рядок.
+PREARM_CHECKS = (
+    check_compass,
+    check_gps,
+    check_battery,
+    check_ekf_converged,   # оцінка стану збіглася?
+    check_rc_link,         # канал керування живий?
+    # ... решта перевірок апарата
+)
+
+# Прогнати всі; повернути ПЕРШУ причину відмови (або None, якщо все гаразд).
+def prearm_first_failure() -> str | None:
+    for check in PREARM_CHECKS:
+        r = check()
+        if not r.passed:
+            gcs_send_text(f"PreArm: {r.reason}")   # назвати причину оператору
+            return r.reason
+    return None   # усі припущення підтверджені
+```
+:::
 
 Тепер сам **шлюз** — функція, що вирішує долю переходу. Вона крихітна саме тому, що вся її суть — це два незалежні замки з нашого шлюзу, зведені в один `if`:
 
+:::tabs
 ```c
 static bool s_armed = false;
 
@@ -146,6 +253,55 @@ bool try_arm(bool operator_requested) {
 
 bool is_armed(void) { return s_armed; }
 ```
+```cpp
+static bool s_armed = false;
+
+// Спроба озброїтися. Обидві застави мусять пропустити.
+bool try_arm(bool operator_requested) {
+    // Застава 2: чи цього СВІДОМО хтось захотів (стік/кнопка/вимикач)?
+    if (!operator_requested)         return false;
+    if (!safety_switch_pressed())    return false;   // апаратний запобіжник
+
+    // Застава 1: чи система ПРИДАТНА (усі передпольотні перевірки)?
+    const char *why = prearm_first_failure();
+    if (why != nullptr) {
+        // Відмова — не попередження: лишаємось обеззброєними, причина названа.
+        return false;                // s_armed НЕ змінюємо
+    }
+
+    s_armed = true;                  // єдине місце, де апарат стає озброєним
+    motors_enable();                 // тільки тепер двигуни можуть крутитися
+    gcs_send_text("Armed");
+    return true;
+}
+
+bool is_armed() { return s_armed; }
+```
+```python
+_armed = False
+
+# Спроба озброїтися. Обидві застави мусять пропустити.
+def try_arm(operator_requested: bool) -> bool:
+    global _armed
+    # Застава 2: чи цього СВІДОМО хтось захотів (стік/кнопка/вимикач)?
+    if not operator_requested:       return False
+    if not safety_switch_pressed():  return False   # апаратний запобіжник
+
+    # Застава 1: чи система ПРИДАТНА (усі передпольотні перевірки)?
+    why = prearm_first_failure()
+    if why is not None:
+        # Відмова — не попередження: лишаємось обеззброєними, причина названа.
+        return False                 # _armed НЕ змінюємо
+
+    _armed = True                    # єдине місце, де апарат стає озброєним
+    motors_enable()                  # тільки тепер двигуни можуть крутитися
+    gcs_send_text("Armed")
+    return True
+
+def is_armed() -> bool:
+    return _armed
+```
+:::
 
 Розгляньмо, **чому код саме такий**. Прапорець `s_armed` міняється рівно **в одному місці** — і тільки після того, як обидві застави пропустили; це робить перехід передбачуваним і таким, що його легко перевірити очима. Порядок теж не випадковий: спершу дешевий замок наміру (`operator_requested`, `safety_switch_pressed`), і лише потім дорожчий прогін усіх передпольотних перевірок — не варто ганяти давачі, поки ніхто й не просив злітати. А `motors_enable()` стоїть **після** `s_armed = true`, а не деінде: доступ двигунів до тяги — прямий наслідок озброєння, а не окрема, розсинхронізована з ним дія.
 

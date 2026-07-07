@@ -29,7 +29,7 @@
 
 **Брама озброєння: пустити в armed лише коли ВСІ умови істинні.**
 
-```
+```c
 // Кожна перевірка повертає true = «моя умова в нормі».
 // Озброєння дозволене, лише якщо всі до єдиної повернули true.
 bool arming_allowed(char *reason, size_t n) {
@@ -80,7 +80,7 @@ bool try_arm(void) {
 
 **Автомат місії: один крок повільного годинника.**
 
-```
+```c
 typedef enum {
     ST_BOOT, ST_READY, ST_ARMED, ST_FLYING, ST_LANDING, ST_DISARMED
 } mission_state_t;

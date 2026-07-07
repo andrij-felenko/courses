@@ -40,6 +40,7 @@ Content-Length: 13
 
 Третя — **витягування параметрів**. Браузер часто чіпляє до шляху рядок запиту: `GET /led?state=on`. Усе, що після `?`, — це **параметри запиту** (англ. *query string* — «рядок запиту»): пари «ключ=значення». Сервер дає функції, щоб їх дістати: ти питаєш значення ключа `state` і отримуєш `on`. Те саме стосується заголовків: хендлер може спитати будь-який заголовок запиту — скажімо, прочитати `Content-Type` тіла чи токен авторизації.
 
+:::tabs
 ```cpp
 // Хендлер на гілку /static/* — один обробник віддає будь-який файл звідти.
 static esp_err_t static_get(httpd_req_t *req)
@@ -65,6 +66,65 @@ static esp_err_t led_get(httpd_req_t *req)
     return ESP_OK;
 }
 ```
+```python
+# Хендлери на Flask: гілка /static/* і параметр запиту /led?state=on.
+from flask import request
+
+@app.route("/static/<path:name>")           # <path:...> ловить усю гілку
+def static_get(name):                        # name = "app.js" — уже без префікса
+    return send_file_from_fs(name)           # читаємо файл і віддаємо (нижче)
+
+@app.route("/led")                           # /led?state=on
+def led_get():
+    state = request.args.get("state")        # окремий ключ query string
+    if state is not None:
+        set_led(state == "on")               # вмикаємо/вимикаємо
+    return "ok"
+```
+```js
+// Хендлери на Express: гілка /static/* і параметр запиту /led?state=on.
+app.get("/static/*", (req, res) => {         // '*' ловить усю гілку
+  const name = req.params[0];                // "app.js" — уже без префікса
+  sendFileFromFs(res, name);                 // читаємо файл і віддаємо (нижче)
+});
+
+app.get("/led", (req, res) => {              // /led?state=on
+  const state = req.query.state;             // окремий ключ query string
+  if (state !== undefined)
+    setLed(state === "on");                  // вмикаємо/вимикаємо
+  res.send("ok");
+});
+```
+```go
+// Хендлери на net/http: гілка /static/ і параметр запиту /led?state=on.
+func staticGet(w http.ResponseWriter, r *http.Request) {
+    // r.URL.Path = "/static/app.js" → відрізаємо префікс, лишається "app.js"
+    name := strings.TrimPrefix(r.URL.Path, "/static/")
+    sendFileFromFS(w, name) // читаємо файл і віддаємо (нижче)
+}
+
+func ledGet(w http.ResponseWriter, r *http.Request) { // /led?state=on
+    state := r.URL.Query().Get("state") // окремий ключ query string
+    if state != "" {
+        setLED(state == "on") // вмикаємо/вимикаємо
+    }
+    io.WriteString(w, "ok")
+}
+```
+```micropython
+# MicroPython на Microdot: гілка /static/* і параметр запиту /led?state=on.
+@app.route("/static/<path:name>")            # <path:...> ловить усю гілку
+def static_get(req, name):                   # name = "app.js" — без префікса
+    return send_file_from_fs(name)           # читаємо файл і віддаємо (нижче)
+
+@app.route("/led")                           # /led?state=on
+def led_get(req):
+    state = req.args.get("state")            # окремий ключ query string
+    if state is not None:
+        set_led(state == "on")               # вмикаємо/вимикаємо
+    return "ok"
+```
+:::
 
 Тут видно, як сервер віддає хендлерові **сам запит** об'єктом `req`, а той дістає з нього все потрібне: повний шлях через `req->uri`, рядок параметрів через пару викликів `..._query_len` / `..._query_str`, окремий ключ через `httpd_query_key_value`. Жодного ручного розбору рядків — лише акуратні питання до об'єкта запиту.
 
@@ -74,6 +134,7 @@ static esp_err_t led_get(httpd_req_t *req)
 
 Повний хендлер віддачі файлу робить три речі: відкриває файл, визначає його **тип за розширенням** (щоб поставити правильний `Content-Type`) і віддає вміст **порціями**, бо цілий файл у пам'ять може й не влізти:
 
+:::tabs
 ```cpp
 // Віддати файл path із файлової системи (примонтованої в /spiffs).
 static esp_err_t send_file_from_fs(httpd_req_t *req, const char *name)
@@ -103,6 +164,111 @@ static esp_err_t send_file_from_fs(httpd_req_t *req, const char *name)
     return ESP_OK;
 }
 ```
+```python
+# Віддати файл name зі статичної теки, порціями через генератор.
+import os
+from flask import Response, abort
+
+TYPES = {".html": "text/html", ".css": "text/css",
+         ".js": "application/javascript"}
+
+def send_file_from_fs(name):
+    full = os.path.join("/spiffs", name)
+    if not os.path.isfile(full):                # нема файлу — чесний 404
+        abort(404)
+
+    ext = os.path.splitext(name)[1]             # тип за розширенням
+    ctype = TYPES.get(ext, "text/plain")
+
+    def chunks():                               # ПОРЦІЯМИ: не тримаємо файл у пам'яті
+        with open(full, "rb") as f:
+            while True:
+                data = f.read(512)              # кожна порція — окремим шматком
+                if not data:
+                    break                       # файл скінчився
+                yield data
+
+    return Response(chunks(), mimetype=ctype)
+```
+```js
+// Віддати файл name зі статичної теки, порціями через потік.
+const fs = require("fs");
+const path = require("path");
+
+const TYPES = { ".html": "text/html", ".css": "text/css",
+                ".js": "application/javascript" };
+
+function sendFileFromFs(res, name) {
+  const full = path.join("/spiffs", name);
+  if (!fs.existsSync(full)) {                   // нема файлу — чесний 404
+    res.status(404).end();
+    return;
+  }
+
+  const ext = path.extname(name);               // тип за розширенням
+  res.type(TYPES[ext] || "text/plain");
+
+  // ПОРЦІЯМИ: потік читає файл шматками, не тримаючи його в пам'яті цілком
+  fs.createReadStream(full, { highWaterMark: 512 }).pipe(res);
+}
+```
+```go
+// Віддати файл name із файлової системи, порціями через io.Copy.
+var types = map[string]string{
+    ".html": "text/html", ".css": "text/css",
+    ".js": "application/javascript",
+}
+
+func sendFileFromFS(w http.ResponseWriter, name string) {
+    full := filepath.Join("/spiffs", name)
+    f, err := os.Open(full)
+    if err != nil { // нема файлу — чесний 404
+        http.Error(w, "not found", http.StatusNotFound)
+        return
+    }
+    defer f.Close()
+
+    ctype, ok := types[filepath.Ext(name)] // тип за розширенням
+    if !ok {
+        ctype = "text/plain"
+    }
+    w.Header().Set("Content-Type", ctype)
+
+    // ПОРЦІЯМИ: io.Copy жене файл шматками, не тримаючи його в пам'яті цілком
+    io.Copy(w, f)
+}
+```
+```micropython
+# MicroPython на Microdot: віддати файл name порціями через генератор.
+import os
+from microdot import Response
+
+TYPES = {".html": "text/html", ".css": "text/css",
+         ".js": "application/javascript"}
+
+def send_file_from_fs(name):
+    full = "/spiffs/" + name
+    try:
+        f = open(full, "rb")
+    except OSError:                             # нема файлу — чесний 404
+        return "not found", 404
+
+    ext = "." + name.rsplit(".", 1)[-1]         # тип за розширенням
+    ctype = TYPES.get(ext, "text/plain")
+
+    def chunks():                               # ПОРЦІЯМИ: не тримаємо файл у пам'яті
+        try:
+            while True:
+                data = f.read(512)              # кожна порція — окремим шматком
+                if not data:
+                    break                       # файл скінчився
+                yield data
+        finally:
+            f.close()
+
+    return Response(chunks(), headers={"Content-Type": ctype})
+```
+:::
 
 Найважливіше тут — **порційна віддача** (англ. *chunked transfer* — «передавання шматками»). Замість того щоб прочитати цілий файл у буфер і віддати одним викликом (на що пам'яті може не вистачити), хендлер крутить цикл: прочитав 512 байтів — віддав шматком, ще 512 — ще шматок, і так до кінця файлу. Завершальний порожній шматок `httpd_resp_send_chunk(req, NULL, 0)` каже браузерові «це все». Так пристрій віддає й сторінку на десятки кілобайтів, маючи буфер лише на півкілобайта.
 
@@ -124,6 +290,7 @@ DELETE /log         → стерти журнал
 
 Хендлер `POST` відрізняється від `GET` тим, що мусить **прочитати тіло** запиту:
 
+:::tabs
 ```cpp
 // POST /led з тілом {"on":true} — прочитати тіло й перемкнути світло.
 static esp_err_t led_post(httpd_req_t *req)
@@ -146,6 +313,57 @@ static esp_err_t led_post(httpd_req_t *req)
     return ESP_OK;
 }
 ```
+```python
+# POST /led з тілом {"on":true} — прочитати тіло й перемкнути світло.
+from flask import request, jsonify, abort
+
+@app.route("/led", methods=["POST"])
+def led_post():
+    if request.content_length and request.content_length >= 64:
+        abort(400, "тіло завелике")             # захист від завеликого тіла
+    data = request.get_json(silent=True) or {}  # нормальний розбір JSON
+    on = bool(data.get("on"))
+    set_led(on)
+    return jsonify(led=on)                       # Content-Type виставиться сам
+```
+```js
+// POST /led з тілом {"on":true} — прочитати тіло й перемкнути світло.
+app.post("/led", express.json({ limit: 64 }),   // захист від завеликого тіла
+  (req, res) => {
+    const on = Boolean(req.body.on);            // тіло вже розібране як JSON
+    setLed(on);
+    res.json({ led: on });                      // Content-Type виставиться сам
+  });
+```
+```go
+// POST /led з тілом {"on":true} — прочитати тіло й перемкнути світло.
+func ledPost(w http.ResponseWriter, r *http.Request) {
+    r.Body = http.MaxBytesReader(w, r.Body, 64) // захист від завеликого тіла
+    var data struct {
+        On bool `json:"on"`
+    }
+    if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
+        http.Error(w, "тіло завелике", http.StatusBadRequest)
+        return
+    }
+    setLED(data.On)
+
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(map[string]bool{"led": data.On})
+}
+```
+```micropython
+# MicroPython на Microdot: POST /led — прочитати тіло й перемкнути світло.
+@app.route("/led", methods=["POST"])
+def led_post(req):
+    if req.content_length and req.content_length >= 64:
+        return "тіло завелике", 400             # захист від завеликого тіла
+    data = req.json or {}                        # нормальний розбір JSON
+    on = bool(data.get("on"))
+    set_led(on)
+    return {"led": on}                           # dict → JSON автоматично
+```
+:::
 
 Тут важлива деталь — `req->content_len` і **перевірка розміру перед читанням**. Сервер каже хендлерові, скільки байтів тіла обіцяв клієнт; хендлер зобов'язаний переконатися, що це влізе в його буфер, **перш ніж** читати, інакше зловмисний (чи просто помилковий) велетенський `POST` переповнить пам'ять. На великій машині про це думає фреймворк; на МК буфери крихітні, тож обмеження розміру тіла — твоя пряма відповідальність.
 
@@ -161,6 +379,7 @@ static esp_err_t led_post(httpd_req_t *req)
 
 Дані в WebSocket їдуть не текстовими HTTP-повідомленнями, а короткими **кадрами** (англ. *frame* — «кадр»): кожен кадр має крихітну шапку (тип — текст чи двійкові дані, довжина) і саме корисне навантаження. Накладні витрати кадру — лічені байти проти десятків рядків HTTP-шапки, тож гнати десятки оновлень на секунду стає дешево. У ESP-IDF той самий `esp_http_server` уміє WebSocket: ти реєструєш хендлер із прапорцем `is_websocket = true`, і він ловить кадри від браузера; а щоб **самому штовхнути** дані клієнтові, сервер дає виклик, що шле кадр у вибране з'єднання.
 
+:::tabs
 ```cpp
 // WebSocket-хендлер: ловить кадр від браузера й відповідає.
 static esp_err_t ws_handler(httpd_req_t *req)
@@ -186,6 +405,93 @@ void ws_push_temperature(httpd_handle_t server, int fd, float t)
     httpd_ws_send_frame_async(server, fd, &frame);  // пристрій сам ініціює відправку
 }
 ```
+```python
+# WebSocket на websockets: ловить кадр і сам штовхає показання.
+import asyncio, json
+import websockets
+
+clients = set()
+
+async def ws_handler(ws):                        # рукостискання вже позаду
+    clients.add(ws)
+    try:
+        async for frame in ws:                   # кожен кадр від браузера
+            handle(frame)                        # ... обробити ...
+    finally:
+        clients.discard(ws)
+
+# Штовхнути свіже показання ВСІМ підключеним клієнтам (з іншої задачі).
+async def ws_push_temperature(t):
+    msg = json.dumps({"temp": round(t, 1)})
+    for ws in clients:                           # сервер сам ініціює відправку
+        await ws.send(msg)
+```
+```js
+// WebSocket на ws: ловить кадр і сам штовхає показання.
+const { WebSocketServer } = require("ws");
+const wss = new WebSocketServer({ server });     // поверх того самого сервера
+
+wss.on("connection", (ws) => {                   // рукостискання вже позаду
+  ws.on("message", (frame) => handle(frame));    // кожен кадр від браузера
+});
+
+// Штовхнути свіже показання ВСІМ підключеним клієнтам (з іншої задачі).
+function wsPushTemperature(t) {
+  const msg = JSON.stringify({ temp: Number(t.toFixed(1)) });
+  for (const ws of wss.clients)                  // сервер сам ініціює відправку
+    ws.send(msg);
+}
+```
+```go
+// WebSocket на gorilla/websocket: ловить кадр і сам штовхає показання.
+var upgrader = websocket.Upgrader{}
+var clients = map[*websocket.Conn]bool{} // множина підключених
+
+func wsHandler(w http.ResponseWriter, r *http.Request) {
+    ws, _ := upgrader.Upgrade(w, r, nil) // рукостискання: HTTP → WebSocket
+    clients[ws] = true
+    defer delete(clients, ws)
+    for {
+        _, frame, err := ws.ReadMessage() // кожен кадр від браузера
+        if err != nil {
+            break
+        }
+        handle(frame) // ... обробити ...
+    }
+}
+
+// Штовхнути свіже показання ВСІМ підключеним клієнтам (з іншої ґорутини).
+func wsPushTemperature(t float64) {
+    msg, _ := json.Marshal(map[string]float64{"temp": t})
+    for ws := range clients { // сервер сам ініціює відправку
+        ws.WriteMessage(websocket.TextMessage, msg)
+    }
+}
+```
+```micropython
+# MicroPython на Microdot: WebSocket ловить кадр і сам штовхає показання.
+from microdot.websocket import with_websocket
+
+clients = set()
+
+@app.route("/ws")
+@with_websocket
+async def ws_handler(req, ws):                   # рукостискання вже позаду
+    clients.add(ws)
+    try:
+        while True:
+            frame = await ws.receive()           # кожен кадр від браузера
+            handle(frame)                        # ... обробити ...
+    finally:
+        clients.discard(ws)
+
+# Штовхнути свіже показання ВСІМ підключеним клієнтам (з іншої задачі).
+async def ws_push_temperature(t):
+    msg = '{"temp":%.1f}' % t
+    for ws in clients:                           # пристрій сам ініціює відправку
+        await ws.send(msg)
+```
+:::
 
 Різниця в моделі розмови — суть усього. Звичайний HTTP: пристрій **мовчить, доки його не спитають**. WebSocket: пристрій **сам штовхає** нове показання тієї ж миті, коли воно з'явилося. Платня — з'єднання, що **весь час зайняте**: на МК із його лічильником сокетів кожна відкрита веб-розетка — це постійно витрачений сокет і буфер. Тому WebSocket лишають саме для **справді живих** потоків (графіки реального часу, телеметрія, події), а рідкісні показання чудово обслуговує дешевий `GET /state`, що звільняє сокет одразу після відповіді.
 
@@ -200,6 +506,7 @@ void ws_push_temperature(httpd_handle_t server, int fd, float t)
 
 Звідси й «магія». Телефон під'єднався до мережі пристрою → запитав свою контрольну адресу → DNS пристрою збрехав, що цей сайт живе за адресою самого пристрою → телефон постукав туди → веб-сервер на **будь-який** шлях відповів перенаправленням (`HTTP 302`) на `/` зі сторінкою налаштувань. Телефон бачить, що замість очікуваного «все гаразд» прийшло перенаправлення, вирішує «це мережа з полоном» — і сам відкриває цю сторінку спливним вікном. Користувачеві лишається заповнити форму.
 
+:::tabs
 ```cpp
 // Будь-який невідомий шлях під час налаштування → перенаправлення на форму.
 static esp_err_t redirect_to_portal(httpd_req_t *req, httpd_err_code_t err)
@@ -212,6 +519,38 @@ static esp_err_t redirect_to_portal(httpd_req_t *req, httpd_err_code_t err)
 // реєструємо як обробник «не знайдено», щоб ловити геть усі чужі шляхи:
 // httpd_register_err_handler(server, HTTPD_404_NOT_FOUND, redirect_to_portal);
 ```
+```python
+# Будь-який невідомий шлях під час налаштування → перенаправлення на форму.
+from flask import redirect
+
+@app.errorhandler(404)                           # ловить геть усі чужі шляхи
+def redirect_to_portal(err):
+    return redirect("http://192.168.4.1/", code=302)  # адреса пристрою-AP
+```
+```js
+// Будь-який невідомий шлях під час налаштування → перенаправлення на форму.
+// Ставимо ОСТАННІМ, щоб він ловив геть усі чужі шляхи:
+app.use((req, res) => {
+  res.redirect(302, "http://192.168.4.1/");      // адреса пристрою-AP
+});
+```
+```go
+// Будь-який невідомий шлях під час налаштування → перенаправлення на форму.
+// Хендлер на "/" ловить геть усі чужі шляхи (найширший префікс).
+func redirectToPortal(w http.ResponseWriter, r *http.Request) {
+    http.Redirect(w, r, "http://192.168.4.1/", http.StatusFound) // адреса AP
+}
+```
+```micropython
+# MicroPython на Microdot: невідомий шлях → перенаправлення на форму.
+from microdot import Response
+
+@app.errorhandler(404)                           # ловить геть усі чужі шляхи
+def redirect_to_portal(req):
+    return Response(status_code=302,
+                    headers={"Location": "http://192.168.4.1/"})  # адреса AP
+```
+:::
 
 Так під'єднання нового пристрою зводиться до «приєднайся до його мережі — заповни форму, що сама відкрилась», без жодного застосунку й без жодної адреси напам'ять. Дрібний DNS-сервер, що на все відповідає своєю адресою, плюс перенаправлення з обробника `404` — і пристрій сам приводить телефон до своєї сторінки. Це найхарактерніше застосування веб-сервера на МК узагалі.
 

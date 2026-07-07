@@ -93,7 +93,8 @@ A·sin(ω·t + φ) = Im( A·e^(i·φ) · e^(i·ω·t) )
 
 У коді прошивки, що рахує таку суму, фазор природно лягає на структуру з двох чисел — дійсної та уявної частин:
 
-```c
+:::tabs
+```cpp
 #include <math.h>
 
 typedef struct { float re, im; } Phasor;   /* фазор у прямокутній формі */
@@ -115,6 +116,25 @@ Phasor sum = phasor_add(i1, i2);
 float amp   = hypotf(sum.re, sum.im);   /* = 5.0 А     */
 float phase = atan2f(sum.im, sum.re);   /* ≈ 0.927 рад ≈ 53.13° */
 ```
+```python
+import cmath
+from math import radians
+
+# фазор — це просто вбудоване комплексне число
+
+def phasor_from(amp, phase):
+    """з амплітуди й фази (рад) — у складові"""
+    return cmath.rect(amp, phase)          # amp·(cos φ + i·sin φ)
+
+# використання: 3∠0° + 4∠90°
+i1 = phasor_from(3.0, 0.0)
+i2 = phasor_from(4.0, radians(90))
+total = i1 + i2                            # складові додаються поосьово
+
+amp = abs(total)                           # = 5.0 А
+phase = cmath.phase(total)                 # ≈ 0.927 рад ≈ 53.13°
+```
+:::
 
 Дві суми — `re + re` і `im + im` — і ніякої тригонометрії суми кутів. `hypotf(re, im)` повертає `√(re² + im²)`, `atan2f(im, re)` — фазу в правильній чверті від −π до π.
 

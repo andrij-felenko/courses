@@ -48,6 +48,7 @@
 
 **Приклад (повний побайтовий автомат-розбирач кадру на C).** Кадр: преамбула `0xAA`, байт довжини, рівно стільки байтів даних, далі однобайтовий CRC. Функцію `feed()` викликають на кожен прийнятий байт; вона робить крихітну роботу й виходить.
 
+:::tabs
 ```c
 #include <stdint.h>
 #define SYNC   0xAA
@@ -87,6 +88,132 @@ void feed(uint8_t b) {
     }
 }
 ```
+```python
+SYNC   = 0xAA
+MAXLEN = 32
+
+WAIT_SYNC, GET_LEN, GET_DATA, GET_CRC = range(4)
+
+
+class Parser:
+    # весь стан — у полях; він переживає між викликами feed()
+    def __init__(self, on_packet):
+        self.st = WAIT_SYNC
+        self.buf = bytearray()
+        self.length = 0
+        self.crc = 0
+        self.on_packet = on_packet
+
+    def feed(self, b):
+        if self.st == WAIT_SYNC:
+            if b == SYNC:
+                self.st = GET_LEN          # інакше просто ігноруємо
+        elif self.st == GET_LEN:
+            if b == 0 or b > MAXLEN:       # захист: 0 або завелика довжина
+                self.st = WAIT_SYNC
+                return
+            self.length = b
+            self.buf = bytearray()
+            self.crc = b                   # CRC накриває й байт довжини
+            self.st = GET_DATA
+        elif self.st == GET_DATA:
+            self.buf.append(b)
+            self.crc ^= b                  # CRC рахуємо на льоту
+            if len(self.buf) == self.length:
+                self.st = GET_CRC
+        elif self.st == GET_CRC:
+            if b == self.crc:
+                self.on_packet(bytes(self.buf))  # цілий пакет — у роботу
+            self.st = WAIT_SYNC            # у будь-якому разі — наново
+```
+```micropython
+SYNC   = const(0xAA)
+MAXLEN = const(32)
+
+WAIT_SYNC, GET_LEN, GET_DATA, GET_CRC = 0, 1, 2, 3
+
+# стан живе в модульних змінних — переживає між викликами feed()
+_st  = WAIT_SYNC
+_buf = bytearray(MAXLEN)
+_len = 0
+_idx = 0
+_crc = 0
+
+def feed(b):
+    global _st, _len, _idx, _crc
+    if _st == WAIT_SYNC:
+        if b == SYNC:
+            _st = GET_LEN                  # інакше просто ігноруємо
+    elif _st == GET_LEN:
+        if b == 0 or b > MAXLEN:           # захист: 0 або завелика довжина
+            _st = WAIT_SYNC
+            return
+        _len = b; _idx = 0; _crc = b       # CRC накриває й байт довжини
+        _st = GET_DATA
+    elif _st == GET_DATA:
+        _buf[_idx] = b; _idx += 1
+        _crc ^= b                          # CRC рахуємо на льоту
+        if _idx == _len:
+            _st = GET_CRC
+    elif _st == GET_CRC:
+        if b == _crc:
+            handle_packet(_buf, _len)      # цілий пакет — у роботу
+        _st = WAIT_SYNC                    # у будь-якому разі — наново
+```
+```go
+const (
+	sync   = 0xAA
+	maxLen = 32
+)
+
+type state int
+
+const (
+	waitSync state = iota
+	getLen
+	getData
+	getCRC
+)
+
+// весь стан — у полях; він переживає між викликами Feed()
+type Parser struct {
+	st       state
+	buf      []byte
+	length   int
+	crc      byte
+	onPacket func([]byte)
+}
+
+func (p *Parser) Feed(b byte) {
+	switch p.st {
+	case waitSync:
+		if b == sync {
+			p.st = getLen // інакше просто ігноруємо
+		}
+	case getLen:
+		if b == 0 || int(b) > maxLen { // захист: 0 або завелика довжина
+			p.st = waitSync
+			return
+		}
+		p.length = int(b)
+		p.buf = p.buf[:0]
+		p.crc = b // CRC накриває й байт довжини
+		p.st = getData
+	case getData:
+		p.buf = append(p.buf, b)
+		p.crc ^= b // CRC рахуємо на льоту
+		if len(p.buf) == p.length {
+			p.st = getCRC
+		}
+	case getCRC:
+		if b == p.crc {
+			p.onPacket(p.buf) // цілий пакет — у роботу
+		}
+		p.st = waitSync // у будь-якому разі — наново
+	}
+}
+```
+:::
 
 Прослідкуймо за станом на нашому пакеті `AA 03 41 42 43 43`, де останній байт — це CRC, рівний 03 ^ 41 ^ 42 ^ 43 = 0x43:
 

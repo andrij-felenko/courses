@@ -97,6 +97,7 @@ ESP32-S3-Pico        Давач (приклад, 3.3 В)
 
 У коді підняти світлодіод і Wi-Fi — кілька рядків. Ось найкоротша перевірка, що плата жива (Arduino-стиль):
 
+:::tabs
 ```cpp
 #include <WiFi.h>
 #include <Adafruit_NeoPixel.h>
@@ -119,6 +120,25 @@ void setup() {
 
 void loop() {}
 ```
+```micropython
+import network, time
+from machine import Pin
+from neopixel import NeoPixel
+
+led = NeoPixel(Pin(21), 1)          # 1 діод на GPIO21
+led[0] = (0, 40, 0)                 # тьмяно-зелений
+led.write()                         # «плата ожила»
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect("SSID", "пароль")
+while not wlan.isconnected():
+    time.sleep_ms(300)
+    print(".", end="")
+
+print("\nПідключено, IP:", wlan.ifconfig()[0])
+```
+:::
 
 Повніший розбір — як налаштувати I²C і SPI на довільних ногах, як тримати кадри й буфери в PSRAM, як завести рідний USB як послідовний порт і на що зважати з бібліотеками — винесено в окрему добірку прикладів: [підключення й код для ESP32-S3-Pico](book:boards/esp32-s3-pico/proj-quickstart.md).
 

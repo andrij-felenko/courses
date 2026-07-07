@@ -73,6 +73,7 @@ BLE, середній ~10 мкА    : 220 мА·год / 0.01 мА  ≈ 22 000 �
 
 Зробити ESP32 BLE-периферією нескладно: піднімаєш **сервіс** із кількома **характеристиками**, задаєш їм значення й властивості — і телефон уже може їх читати чи підписатися. Ось мінімальний сервіс оточення з однією характеристикою температури, що вміє і read, і notify:
 
+:::tabs
 ```cpp
 // ESP32 (Arduino BLE): сервіс оточення + характеристика температури
 BLEServer*         server = BLEDevice::createServer();
@@ -87,14 +88,39 @@ temp->addDescriptor(new BLE2902());                    // CCCD — без ньо
 env->start();
 BLEDevice::startAdvertising();                          // почали рекламувати себе
 ```
+```micropython
+# ESP32 (MicroPython aioble): сервіс оточення + характеристика температури
+import aioble, bluetooth
+
+_ENV_SENSE = bluetooth.UUID(0x181A)                     # Environmental Sensing
+_TEMP      = bluetooth.UUID(0x2A6E)                     # Temperature
+
+env  = aioble.Service(_ENV_SENSE)
+temp = aioble.Characteristic(
+    env, _TEMP,
+    read=True,                                          # дозволяємо читати
+    notify=True)                                        # ...і сповіщати
+                                                        # CCCD aioble заводить сам
+aioble.register_services(env)
+
+await aioble.advertise(250_000, services=[_ENV_SENSE]) # почали рекламувати себе
+```
+:::
 
 А далі, коли давач дав нове число, периферія сама штовхає його підписаним центральним:
 
+:::tabs
 ```cpp
 int16_t celsius_x100 = (int16_t)(read_temperature() * 100);  // 23.40 °C → 2340
 temp->setValue((uint8_t*)&celsius_x100, sizeof(celsius_x100));
 temp->notify();                                              // штовхнули оновлення
 ```
+```micropython
+import struct
+celsius_x100 = int(read_temperature() * 100)                 # 23.40 °C → 2340
+temp.write(struct.pack("<h", celsius_x100), send_update=True) # штовхнули оновлення
+```
+:::
 
 Радіо прокидається лише на цей короткий `notify()`, а між викликами пристрій спить — звідси й роки автономності.
 

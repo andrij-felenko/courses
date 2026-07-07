@@ -57,6 +57,7 @@
 
 **Приклад (ручний лексер простих виразів).** Читаємо вхідний рядок і по одному видаємо токени:
 
+:::tabs
 ```c
 #include <ctype.h>   // isspace, isdigit, isalpha, isalnum
 #include <string.h>
@@ -112,16 +113,271 @@ Token next_token(void) {
     return t;
 }
 ```
+```cpp
+#include <cctype>
+#include <string>
+#include <string_view>
+
+enum class Kind { Num, Ident, Plus, Minus,
+                  Star, LParen, RParen, End };
+
+struct Token {
+    Kind        kind  = Kind::End;
+    int         value = 0;     // для Num — розібране число
+    std::string text;          // для Ident — саме ім'я (лексема)
+};
+
+class Lexer {
+    std::string_view src_;
+    size_t           pos_ = 0;   // поточна позиція у вхідному тексті
+
+    char peek() const { return pos_ < src_.size() ? src_[pos_] : '\0'; }
+
+public:
+    explicit Lexer(std::string_view src) : src_(src) {}
+
+    Token next() {
+        while (std::isspace((unsigned char)peek()))   // 1) проковтнути пробіли
+            ++pos_;
+
+        if (peek() == '\0')                           // кінець вводу
+            return { Kind::End };
+
+        if (std::isdigit((unsigned char)peek())) {    // 2) НАЙДОВШЕ число
+            int v = 0;
+            while (std::isdigit((unsigned char)peek()))   // тягнемо цифри, доки йдуть
+                v = v * 10 + (src_[pos_++] - '0');        // тут-таки рахуємо значення
+            return { Kind::Num, v };
+        }
+
+        if (std::isalpha((unsigned char)peek())) {    // 3) НАЙДОВШЕ ім'я
+            std::string text;
+            while (std::isalnum((unsigned char)peek()))
+                text += src_[pos_++];                 // тягнемо буквоцифри
+            return { Kind::Ident, 0, std::move(text) };  // (ключові слова — нижче)
+        }
+
+        switch (src_[pos_++]) {                       // 4) односимвольні оператори й дужки
+            case '+': return { Kind::Plus };
+            case '-': return { Kind::Minus };
+            case '*': return { Kind::Star };
+            case '(': return { Kind::LParen };
+            case ')': return { Kind::RParen };
+            default:  return { Kind::End };            // невідомий символ — тут спрощено
+        }
+    }
+};
+```
+```python
+from dataclasses import dataclass, field
+from enum import Enum, auto
+
+
+class Kind(Enum):
+    NUM = auto(); IDENT = auto(); PLUS = auto(); MINUS = auto()
+    STAR = auto(); LPAREN = auto(); RPAREN = auto(); END = auto()
+
+
+@dataclass
+class Token:
+    kind: Kind
+    value: int = 0        # для NUM — розібране число
+    text: str = ""        # для IDENT — саме ім'я (лексема)
+
+
+class Lexer:
+    def __init__(self, src: str):
+        self.src = src
+        self.pos = 0       # поточна позиція у вхідному тексті
+
+    def _peek(self) -> str:
+        return self.src[self.pos] if self.pos < len(self.src) else "\0"
+
+    def next(self) -> Token:
+        while self._peek().isspace():          # 1) проковтнути пробіли
+            self.pos += 1
+
+        if self._peek() == "\0":               # кінець вводу
+            return Token(Kind.END)
+
+        if self._peek().isdigit():             # 2) НАЙДОВШЕ число
+            v = 0
+            while self._peek().isdigit():      # тягнемо цифри, доки йдуть
+                v = v * 10 + (ord(self.src[self.pos]) - ord("0"))  # рахуємо значення
+                self.pos += 1
+            return Token(Kind.NUM, value=v)
+
+        if self._peek().isalpha():             # 3) НАЙДОВШЕ ім'я
+            start = self.pos
+            while self._peek().isalnum():      # тягнемо буквоцифри
+                self.pos += 1
+            return Token(Kind.IDENT, text=self.src[start:self.pos])  # (ключові слова — нижче)
+
+        ch = self.src[self.pos]                # 4) односимвольні оператори й дужки
+        self.pos += 1
+        singles = {"+": Kind.PLUS, "-": Kind.MINUS, "*": Kind.STAR,
+                   "(": Kind.LPAREN, ")": Kind.RPAREN}
+        return Token(singles.get(ch, Kind.END))  # невідомий символ — тут спрощено
+```
+```js
+const Kind = Object.freeze({
+  NUM: "NUM", IDENT: "IDENT", PLUS: "PLUS", MINUS: "MINUS",
+  STAR: "STAR", LPAREN: "LPAREN", RPAREN: "RPAREN", END: "END",
+});
+
+class Lexer {
+  constructor(src) {
+    this.src = src;
+    this.pos = 0;                    // поточна позиція у вхідному тексті
+  }
+
+  #peek() {
+    return this.pos < this.src.length ? this.src[this.pos] : "\0";
+  }
+
+  next() {
+    while (/\s/.test(this.#peek())) this.pos++;   // 1) проковтнути пробіли
+
+    if (this.#peek() === "\0")                    // кінець вводу
+      return { kind: Kind.END };
+
+    if (/[0-9]/.test(this.#peek())) {             // 2) НАЙДОВШЕ число
+      let v = 0;
+      while (/[0-9]/.test(this.#peek()))          // тягнемо цифри, доки йдуть
+        v = v * 10 + (this.src.charCodeAt(this.pos++) - 48);  // рахуємо значення
+      return { kind: Kind.NUM, value: v };
+    }
+
+    if (/[a-zA-Z]/.test(this.#peek())) {          // 3) НАЙДОВШЕ ім'я
+      const start = this.pos;
+      while (/[a-zA-Z0-9]/.test(this.#peek()))    // тягнемо буквоцифри
+        this.pos++;
+      return { kind: Kind.IDENT, text: this.src.slice(start, this.pos) }; // (ключові — нижче)
+    }
+
+    const singles = { "+": Kind.PLUS, "-": Kind.MINUS, "*": Kind.STAR,
+                      "(": Kind.LPAREN, ")": Kind.RPAREN };
+    const ch = this.src[this.pos++];              // 4) односимвольні оператори й дужки
+    return { kind: singles[ch] ?? Kind.END };     // невідомий символ — тут спрощено
+  }
+}
+```
+```go
+package lexer
+
+import "unicode"
+
+type Kind int
+
+const (
+	Num Kind = iota
+	Ident
+	Plus
+	Minus
+	Star
+	LParen
+	RParen
+	End
+)
+
+type Token struct {
+	Kind  Kind
+	Value int    // для Num — розібране число
+	Text  string // для Ident — саме ім'я (лексема)
+}
+
+type Lexer struct {
+	src []rune
+	pos int // поточна позиція у вхідному тексті
+}
+
+func New(src string) *Lexer { return &Lexer{src: []rune(src)} }
+
+func (l *Lexer) peek() rune {
+	if l.pos < len(l.src) {
+		return l.src[l.pos]
+	}
+	return 0
+}
+
+func (l *Lexer) Next() Token {
+	for unicode.IsSpace(l.peek()) { // 1) проковтнути пробіли
+		l.pos++
+	}
+
+	if l.peek() == 0 { // кінець вводу
+		return Token{Kind: End}
+	}
+
+	if unicode.IsDigit(l.peek()) { // 2) НАЙДОВШЕ число
+		v := 0
+		for unicode.IsDigit(l.peek()) { // тягнемо цифри, доки йдуть
+			v = v*10 + int(l.src[l.pos]-'0') // тут-таки рахуємо значення
+			l.pos++
+		}
+		return Token{Kind: Num, Value: v}
+	}
+
+	if unicode.IsLetter(l.peek()) { // 3) НАЙДОВШЕ ім'я
+		start := l.pos
+		for unicode.IsLetter(l.peek()) || unicode.IsDigit(l.peek()) {
+			l.pos++ // тягнемо буквоцифри
+		}
+		return Token{Kind: Ident, Text: string(l.src[start:l.pos])} // (ключові — нижче)
+	}
+
+	ch := l.src[l.pos] // 4) односимвольні оператори й дужки
+	l.pos++
+	switch ch {
+	case '+':
+		return Token{Kind: Plus}
+	case '-':
+		return Token{Kind: Minus}
+	case '*':
+		return Token{Kind: Star}
+	case '(':
+		return Token{Kind: LParen}
+	case ')':
+		return Token{Kind: RParen}
+	default:
+		return Token{Kind: End} // невідомий символ — тут спрощено
+	}
+}
+```
+:::
 
 Прочитаймо цей код очима правила найдовшого збігання. Спершу `while (isspace(...)) p++` **пропускає** пробіли — вони не токени. Далі, побачивши цифру, внутрішній `while` **не спиняється на першій**, а тягне всі цифри поспіль (`v = v*10 + цифра` тут-таки перетворює лексему `"123"` у число `123` — ось де токен дістає **значення**). Так само з іменем: другий `while` тягне всі буквоцифри, поки вони йдуть. І лише коли попереду **один** символ-оператор, `switch` бере його поодинці. Кожне повернення `next_token()` віддає наверх один готовий токен; хто його викликає (парсер), сам про пробіли й довжину чисел уже не думає.
 
 Щоб зробити з `if` ключове слово, досить після гілки з іменем додати перевірку по словнику — рівно той трюк, що описано вище:
 
+:::tabs
 ```c
     if (strcmp(t.text, "if") == 0)    t.kind = T_IF;
     else if (strcmp(t.text, "while") == 0) t.kind = T_WHILE;
     // ... решта зарезервованих слів; нема збігу — лишається T_IDENT
 ```
+```cpp
+    static const std::unordered_map<std::string, Kind> kKeywords = {
+        {"if", Kind::If}, {"while", Kind::While}, /* ... */
+    };
+    if (auto it = kKeywords.find(t.text); it != kKeywords.end())
+        t.kind = it->second;   // нема збігу — лишається Kind::Ident
+```
+```python
+    KEYWORDS = {"if": Kind.IF, "while": Kind.WHILE}  # ... решта
+    t.kind = KEYWORDS.get(t.text, t.kind)   # нема збігу — лишається IDENT
+```
+```js
+    const KEYWORDS = { if: Kind.IF, while: Kind.WHILE /* ... */ };
+    t.kind = KEYWORDS[t.text] ?? t.kind;    // нема збігу — лишається IDENT
+```
+```go
+    var keywords = map[string]Kind{"if": If, "while": While /* ... */}
+    if k, ok := keywords[t.Text]; ok {
+        t.Kind = k // нема збігу — лишається Ident
+    }
+```
+:::
 
 Оператор `>=` теж лягає в цю схему: замість `switch` на один символ — коротка перевірка «якщо після `>` іде `=`, відкуси обидва як `>=`, інакше сам `>`». Це і є найдовше збігання, записане руками.
 

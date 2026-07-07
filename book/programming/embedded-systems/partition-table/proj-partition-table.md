@@ -54,7 +54,8 @@ ota_1,     app,  ota_1,   ,         0x100000
 
 **Маємо розкладку з прикладу вище (factory на 0x20000, nvs на 0x9000 завдовжки 0x6000). Підтвердьмо це з коду на живому ESP32.**
 
-```c
+:::tabs
+```cpp
 #include "esp_partition.h"
 #include "esp_ota_ops.h"
 #include "esp_log.h"
@@ -76,6 +77,23 @@ void dump_layout(void) {
     }
 }
 ```
+```micropython
+from esp32 import Partition
+
+def dump_layout():
+    # 1) з якого app-розділу нас запустив завантажувач
+    run = Partition(Partition.RUNNING)
+    _, _, addr, size, label, _ = run.info()
+    print("виконуюсь із '%s' @ 0x%06x (%d КБ)" % (label, addr, size // 1024))
+
+    # 2) знайти розділ NVS за типом+підтипом (перший-ліпший)
+    found = Partition.find(Partition.TYPE_DATA, subtype=0x02)  # 0x02 = NVS
+    if found:
+        _, _, addr, size, _, _ = found[0].info()
+        end = addr + size                                 # верхня межа розділу
+        print("nvs @ 0x%06x..0x%06x" % (addr, end))
+```
+:::
 
 На нашій розкладці перший виклик надрукує `factory @ 0x020000 (1024 КБ)`, а другий — `nvs @ 0x009000..0x00f000`: адреса 0x9000 плюс розмір 0x6000 дає рівно 0xF000 — ту саму верхню межу, що ми порахували руками. Тобто `address` і `size` зі структури `esp_partition_t` — це буквально `offset` і `size` з вашого CSV, лише вже у двійковому вигляді. Зручно для самоперевірки: якщо число з коду розійшлося з очікуваним — десь у CSV з'їхав зсув.
 

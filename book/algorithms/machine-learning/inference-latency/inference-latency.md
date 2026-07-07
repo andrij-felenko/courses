@@ -85,6 +85,7 @@
 
 **Задача: зміряти латентність проходу моделі й отримати не лише середнє, а хвіст (максимум).**
 
+:::tabs
 ```c
 #include <stdint.h>
 
@@ -122,6 +123,116 @@ void measure_latency(void) {
     report(mean, worst);
 }
 ```
+```cpp
+#include <cstdint>
+#include <chrono>
+
+// Один прохід моделі та її вхід/вихід (реалізація залежить від платформи).
+void model_infer(const float *input, float *output);
+extern float g_input[INPUT_SIZE];
+extern float g_output[OUTPUT_SIZE];
+
+// Час у мікросекундах від монотонного годинника (не стрибає при зміні системного).
+static uint64_t now_us() {
+    using namespace std::chrono;
+    return duration_cast<microseconds>(steady_clock::now().time_since_epoch()).count();
+}
+
+void measure_latency() {
+    constexpr int N = 200;
+
+    // 1) Прогрів: перші прогони завжди повільніші (кеш холодний,
+    //    залізо ще не «розкрутилось»). Їх у статистику НЕ беремо.
+    for (int i = 0; i < 20; ++i)
+        model_infer(g_input, g_output);
+
+    // 2) Заміри: кожен прохід — окремо, щоб бачити РОЗКИД, не лише суму.
+    uint64_t worst = 0;
+    uint64_t sum   = 0;
+    for (int i = 0; i < N; ++i) {
+        uint64_t t0 = now_us();
+        model_infer(g_input, g_output);
+        uint64_t dt = now_us() - t0;      // латентність цього кадру
+
+        sum += dt;
+        worst = std::max(worst, dt);      // стежимо за ХВОСТОМ
+    }
+
+    uint64_t mean = sum / N;
+    // mean  — типова латентність; worst — найгірший кадр (наближення до p99).
+    // Для бюджету 30 к/с придатність вирішує саме worst, а не mean:
+    //   worst < 33000 мкс  →  укладаємось навіть у найгіршому кадрі.
+    report(mean, worst);
+}
+```
+```python
+import time
+
+# model_infer(input, output) — один прохід; g_input / g_output — вхід і вихід.
+# time.perf_counter_ns — монотонний годинник високої роздільності.
+
+def measure_latency():
+    N = 200
+
+    # 1) Прогрів: перші прогони завжди повільніші (кеш холодний,
+    #    залізо ще не «розкрутилось»). Їх у статистику НЕ беремо.
+    for _ in range(20):
+        model_infer(g_input, g_output)
+
+    # 2) Заміри: кожен прохід — окремо, щоб бачити РОЗКИД, не лише суму.
+    worst = 0
+    total = 0
+    for _ in range(N):
+        t0 = time.perf_counter_ns()
+        model_infer(g_input, g_output)
+        dt = (time.perf_counter_ns() - t0) // 1000   # латентність цього кадру, мкс
+
+        total += dt
+        worst = max(worst, dt)                        # стежимо за ХВОСТОМ
+
+    mean = total // N
+    # mean  — типова латентність; worst — найгірший кадр (наближення до p99).
+    # Для бюджету 30 к/с придатність вирішує саме worst, а не mean:
+    #   worst < 33000 мкс  →  укладаємось навіть у найгіршому кадрі.
+    report(mean, worst)
+```
+```go
+package main
+
+import "time"
+
+// model_infer робить один прохід; g_input / g_output — вхід і вихід моделі.
+
+func measureLatency() {
+    const N = 200
+
+    // 1) Прогрів: перші прогони завжди повільніші (кеш холодний,
+    //    залізо ще не «розкрутилось»). Їх у статистику НЕ беремо.
+    for i := 0; i < 20; i++ {
+        modelInfer(gInput, gOutput)
+    }
+
+    // 2) Заміри: кожен прохід — окремо, щоб бачити РОЗКИД, не лише суму.
+    var worst, sum time.Duration
+    for i := 0; i < N; i++ {
+        t0 := time.Now()
+        modelInfer(gInput, gOutput)
+        dt := time.Since(t0) // латентність цього кадру (монотонний годинник)
+
+        sum += dt
+        if dt > worst {
+            worst = dt // стежимо за ХВОСТОМ
+        }
+    }
+
+    mean := sum / N
+    // mean  — типова латентність; worst — найгірший кадр (наближення до p99).
+    // Для бюджету 30 к/с придатність вирішує саме worst, а не mean:
+    //   worst < 33*time.Millisecond  →  укладаємось навіть у найгіршому кадрі.
+    report(mean, worst)
+}
+```
+:::
 
 Три пастки, які цей код обходить. **Перша — прогрів**: якщо міряти з першого ж прогону, отримаєш завищене число (холодний кеш, залізо ще не на повній частоті), тож кілька прогонів роблять «на викид». **Друга — усереднення на льоту**: складати все в одну суму й ділити зручно, але тоді **зникає розкид** — а нам потрібен саме найгірший кадр, тому `worst` стежимо окремо. **Третя, найпідступніша, тут навмисно НЕ показана**: міряти лише `model_infer` — і забути, що реальна латентність кадру включає ще й підготовку та розбір виходу. Чесний замір бюджету обгортає таймером **увесь** ланцюг від кадру до команди, а не тільки прохід мережі.
 

@@ -285,6 +285,64 @@ IIP3 ≈ вхідна P1dB + 9.6 дБ      (груба прикидка, якщ�
 
 **Рівень IM3-завади за заданих IIP3 і рівня сусідів.** LNA: IIP3 = −10 дБм (по входу), підсилення 18 дБ, шумова підлога на виході −95 дБм. На вхід прийшли два сильні сусідні канали по −30 дБм кожен. На якій висоті сяде завада 2f₁−f₂ і наскільки вона над/під шумовою підлогою?
 
+:::tabs
+```cpp
+// Усе в дБ / дБм. Модель — третій порядок (нахили 1:1 і 3:1).
+struct LnaLin {
+    float iip3_dBm;            // точка перетину 3-го порядку, зведена до ВХОДУ
+    float gain_dB;             // підсилення каскаду
+    float noise_floor_out_dBm; // шумова підлога приймача на ВИХОДІ
+};
+
+// Наскільки завада IM3 нижча за корисний сигнал (у dBc), за рівня сусіда p_in:
+//   розрив = 2·(IIP3 − Pin)
+float im3_below_carrier_dBc(const LnaLin& d, float p_in_dBm)
+{
+    return 2.0f * (d.iip3_dBm - p_in_dBm);       // завжди додатне число дБ «вниз»
+}
+
+// Абсолютний рівень IM3-завади на ВИХОДІ (дБм):
+//   корисний на виході = Pin + G;  завада нижча за нього на розрив
+float im3_output_level_dBm(const LnaLin& d, float p_in_dBm)
+{
+    const float carrier_out = p_in_dBm + d.gain_dB;      // вихідний корисний тон
+    return carrier_out - im3_below_carrier_dBc(d, p_in_dBm);
+    // рівносильно: 3*Pin − 2*IIP3 + G
+}
+
+// Запас завади над шумовою підлогою (дБ): >0 — завада вилазить з-під підлоги (шкодить);
+//   <0 — тоне в шумі (нешкідлива на цьому рівні сусідів).
+float im3_margin_over_floor_dB(const LnaLin& d, float p_in_dBm)
+{
+    return im3_output_level_dBm(d, p_in_dBm) - d.noise_floor_out_dBm;
+}
+
+void demo()
+{
+    const LnaLin lna{
+        .iip3_dBm            = -10.0f,   // IIP3 = −10 дБм
+        .gain_dB             =  18.0f,   // G = 18 дБ
+        .noise_floor_out_dBm = -95.0f,   // підлога на виході
+    };
+    const float p_in = -30.0f;           // два сусіди по −30 дБм
+
+    const float below   = im3_below_carrier_dBc(lna, p_in);   // 2·(−10 −(−30)) = 40 дБ
+    const float im3_out = im3_output_level_dBm(lna, p_in);    // (−30+18) − 40 = −52 дБм
+    const float margin  = im3_margin_over_floor_dB(lna, p_in);// −52 −(−95) = +43 дБ
+
+    // below   ≈ 40 дБ   — завада на 40 дБ під корисним сигналом
+    // im3_out ≈ −52 дБм — абсолютний рівень завади на виході
+    // margin  ≈ +43 дБ  — завада НА 43 дБ ВИЩЕ підлоги → виразно шкодить!
+    (void)below; (void)im3_out; (void)margin;
+
+    // Який рівень сусідів каскад іще терпить? Прирівняймо заваду до підлоги:
+    //   3*Pin − 2*IIP3 + G = floor  →  Pin = (floor + 2*IIP3 − G)/3
+    const float p_in_max = (lna.noise_floor_out_dBm + 2.0f*lna.iip3_dBm - lna.gain_dB) / 3.0f;
+    // = (−95 + 2·(−10) − 18)/3 = (−95 −20 −18)/3 = −133/3 ≈ −44.3 дБм
+    // Тобто поки сусіди слабші за ≈ −44 дБм, завада сидить під підлогою.
+    (void)p_in_max;
+}
+```
 ```c
 #include <math.h>
 
@@ -344,6 +402,56 @@ void demo(void)
     (void)p_in_max;
 }
 ```
+```python
+from dataclasses import dataclass
+
+# Усе в дБ / дБм. Модель — третій порядок (нахили 1:1 і 3:1).
+@dataclass
+class LnaLin:
+    iip3_dBm: float            # точка перетину 3-го порядку, зведена до ВХОДУ
+    gain_dB: float             # підсилення каскаду
+    noise_floor_out_dBm: float # шумова підлога приймача на ВИХОДІ
+
+# Наскільки завада IM3 нижча за корисний сигнал (у dBc), за рівня сусіда p_in:
+#   розрив = 2·(IIP3 − Pin)
+def im3_below_carrier_dBc(d: LnaLin, p_in_dBm: float) -> float:
+    return 2.0 * (d.iip3_dBm - p_in_dBm)         # завжди додатне число дБ «вниз»
+
+# Абсолютний рівень IM3-завади на ВИХОДІ (дБм):
+#   корисний на виході = Pin + G;  завада нижча за нього на розрив
+def im3_output_level_dBm(d: LnaLin, p_in_dBm: float) -> float:
+    carrier_out = p_in_dBm + d.gain_dB           # вихідний корисний тон
+    return carrier_out - im3_below_carrier_dBc(d, p_in_dBm)
+    # рівносильно: 3*Pin − 2*IIP3 + G
+
+# Запас завади над шумовою підлогою (дБ): >0 — завада вилазить з-під підлоги (шкодить);
+#   <0 — тоне в шумі (нешкідлива на цьому рівні сусідів).
+def im3_margin_over_floor_dB(d: LnaLin, p_in_dBm: float) -> float:
+    return im3_output_level_dBm(d, p_in_dBm) - d.noise_floor_out_dBm
+
+def demo() -> None:
+    lna = LnaLin(
+        iip3_dBm            =-10.0,   # IIP3 = −10 дБм
+        gain_dB             = 18.0,  # G = 18 дБ
+        noise_floor_out_dBm =-95.0,  # підлога на виході
+    )
+    p_in = -30.0                     # два сусіди по −30 дБм
+
+    below   = im3_below_carrier_dBc(lna, p_in)   # 2·(−10 −(−30)) = 40 дБ
+    im3_out = im3_output_level_dBm(lna, p_in)    # (−30+18) − 40 = −52 дБм
+    margin  = im3_margin_over_floor_dB(lna, p_in)# −52 −(−95) = +43 дБ
+
+    # below   ≈ 40 дБ   — завада на 40 дБ під корисним сигналом
+    # im3_out ≈ −52 дБм — абсолютний рівень завади на виході
+    # margin  ≈ +43 дБ  — завада НА 43 дБ ВИЩЕ підлоги → виразно шкодить!
+
+    # Який рівень сусідів каскад іще терпить? Прирівняймо заваду до підлоги:
+    #   3*Pin − 2*IIP3 + G = floor  →  Pin = (floor + 2*IIP3 − G)/3
+    p_in_max = (lna.noise_floor_out_dBm + 2.0*lna.iip3_dBm - lna.gain_dB) / 3.0
+    # = (−95 + 2·(−10) − 18)/3 = (−95 −20 −18)/3 = −133/3 ≈ −44.3 дБм
+    # Тобто поки сусіди слабші за ≈ −44 дБм, завада сидить під підлогою.
+```
+:::
 
 Розберімо, що показав рахунок, бо в ньому — вся практика теми. Сусіди по −30 дБм народили заваду на −52 дБм, **на 43 дБ вище** за шумову підлогу −95 дБм. Це катастрофа: завада не просто видніється — вона гримить над підлогою, і якщо ваш кволий корисний сигнал стоїть на 999 МГц, він під нею похований. Останній рядок показує **межу терпіння**: щоб завада сховалася під підлогу, сусіди мають бути слабшими за ≈ −44 дБм. Між нашими −30 і дозволеними −44 — розрив 14 дБ, на які LNA «не дотягує» для цієї обстановки.
 

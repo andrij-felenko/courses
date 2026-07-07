@@ -59,7 +59,8 @@
 поріг у кодах:   N_thr = 0.100 / 0.000806 ≈ 124
 ```
 
-```c
+:::tabs
+```cpp
 // поле впало під безпечний поріг? (12-біт АЦП, 0.806 мВ/крок)
 #define ADC_THRESHOLD 124        // ≈ 100 В на поверхні
 #define SETTLE_MS     300        // підряд триматись нижче порогу
@@ -76,6 +77,61 @@ bool surface_is_safe(void) {
     return true;                 // тримається нижче порогу → нейтралізовано
 }
 ```
+```python
+# поле впало під безпечний поріг? (12-біт АЦП, 0.806 мВ/крок)
+ADC_THRESHOLD = 124              # ≈ 100 В на поверхні
+SETTLE_MS     = 300              # підряд триматись нижче порогу
+
+def surface_is_safe() -> bool:
+    below = 0
+    while below < SETTLE_MS:
+        if adc_read(FIELD_SENSOR) < ADC_THRESHOLD:
+            below += 10           # ще 10 мс «чисто»
+        else:
+            below = 0             # підскочило — лік спочатку
+        time.sleep_ms(10)
+    return True                   # тримається нижче порогу → нейтралізовано
+```
+```micropython
+# поле впало під безпечний поріг? (12-біт АЦП, 0.806 мВ/крок)
+from machine import ADC, Pin
+import time
+
+ADC_THRESHOLD = 124              # ≈ 100 В на поверхні
+SETTLE_MS     = 300              # підряд триматись нижче порогу
+field = ADC(Pin(34))            # польовий датчик
+
+def surface_is_safe():
+    below = 0
+    while below < SETTLE_MS:
+        if field.read() < ADC_THRESHOLD:
+            below += 10           # ще 10 мс «чисто»
+        else:
+            below = 0             # підскочило — лік спочатку
+        time.sleep_ms(10)
+    return True                   # тримається нижче порогу → нейтралізовано
+```
+```go
+// поле впало під безпечний поріг? (12-біт АЦП, 0.806 мВ/крок)
+const (
+    adcThreshold = 124                 // ≈ 100 В на поверхні
+    settle       = 300 * time.Millisecond // підряд триматись нижче порогу
+)
+
+func surfaceIsSafe() bool {
+    var below time.Duration
+    for below < settle {
+        if adcRead(fieldSensor) < adcThreshold {
+            below += 10 * time.Millisecond // ще 10 мс «чисто»
+        } else {
+            below = 0                      // підскочило — лік спочатку
+        }
+        time.Sleep(10 * time.Millisecond)
+    }
+    return true // тримається нижче порогу → нейтралізовано
+}
+```
+:::
 
 Висновок: контролер не відлічує «магічні секунди», а вимірює **факт** — поле під порогом і тримається там. Якщо датчик довго не сходить під 124, це той самий діагноз, що й повільний час спаду: потік слабкий або вістря брудні, і лінію треба зупинити, а не пропускати деталі наосліп.
 

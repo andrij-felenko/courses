@@ -49,23 +49,46 @@
 
 **Приймач отримав горизонтальний захисний рівень 12.4 м; чи можна довіряти фіксу для заходу на посадку з допуском 40 м?**
 
-```c
+:::tabs
+```cpp
 // Захисний рівень (HPL) приймач обчислює з даних цілісності SBAS —
 // це гарантована верхня межа горизонтальної похибки, у метрах.
 // Допуск (HAL) задає поточна задача: для цього заходу — 40 м.
-typedef struct { double hpl_m; double hal_m; } integrity_t;
+struct Integrity { double hpl_m; double hal_m; };
 
-bool position_trustworthy(const integrity_t *ig) {
-    return ig->hpl_m <= ig->hal_m;   // межа під допуском → довіряти можна
+bool position_trustworthy(const Integrity& ig) {
+    return ig.hpl_m <= ig.hal_m;   // межа під допуском → довіряти можна
 }
 
-integrity_t ig = { .hpl_m = 12.4, .hal_m = 40.0 };
-bool ok = position_trustworthy(&ig);  // 12.4 ≤ 40.0 → true: використовувати
+Integrity ig{ .hpl_m = 12.4, .hal_m = 40.0 };
+bool ok = position_trustworthy(ig);   // 12.4 ≤ 40.0 → true: використовувати
 
 // Якби похмура іоносфера роздула межу:
 ig.hpl_m = 47.0;
-ok = position_trustworthy(&ig);       // 47.0 ≤ 40.0 → false: НЕ використовувати
+ok = position_trustworthy(ig);        // 47.0 ≤ 40.0 → false: НЕ використовувати
 ```
+```python
+from dataclasses import dataclass
+
+# Захисний рівень (HPL) приймач обчислює з даних цілісності SBAS —
+# це гарантована верхня межа горизонтальної похибки, у метрах.
+# Допуск (HAL) задає поточна задача: для цього заходу — 40 м.
+@dataclass
+class Integrity:
+    hpl_m: float
+    hal_m: float
+
+def position_trustworthy(ig: Integrity) -> bool:
+    return ig.hpl_m <= ig.hal_m   # межа під допуском → довіряти можна
+
+ig = Integrity(hpl_m=12.4, hal_m=40.0)
+ok = position_trustworthy(ig)     # 12.4 ≤ 40.0 → True: використовувати
+
+# Якби похмура іоносфера роздула межу:
+ig.hpl_m = 47.0
+ok = position_trustworthy(ig)     # 47.0 ≤ 40.0 → False: НЕ використовувати
+```
+:::
 
 Зверни увагу: рішення тут — не про саму координату, а про **довіру** до неї. Приймач може мати гарний фікс і все одно оголосити «не використовувати», якщо не може **гарантувати** межу під допуском. Саме ця здатність вчасно сказати «мені зараз не вір» і робить SBAS придатним там, де ціна помилки — життя.
 
