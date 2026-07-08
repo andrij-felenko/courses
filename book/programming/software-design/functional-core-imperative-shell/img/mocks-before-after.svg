@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="620" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Куди чіпляються моки: переплетена функція проти плану ефектів</text>
+<text x="250.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">ДО: усе в одній функції</text>
+<text x="710.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">ПІСЛЯ: ядро повертає план</text>
+<line x1="480.0" y1="80.0" x2="480.0" y2="580.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<rect x="150.0" y="150.0" width="200.0" height="300.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="250.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">handleTx()</text>
+<text x="250.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">читає базу</text>
+<text x="250.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">рахує рішення</text>
+<text x="250.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">пише в базу</text>
+<text x="250.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">шле лист</text>
+<rect x="33.2" y="206.5" width="49.6" height="23.0" rx="6" fill="#fff4f2" stroke="#c0392b" stroke-width="1.4"/><text x="58.0" y="221.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="58.0" dy="0.0">мок БД</tspan></text>
+<line x1="86.8" y1="218.0" x2="146.0" y2="218.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="33.2" y="298.5" width="49.6" height="23.0" rx="6" fill="#fff4f2" stroke="#c0392b" stroke-width="1.4"/><text x="58.0" y="313.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="58.0" dy="0.0">мок БД</tspan></text>
+<line x1="86.8" y1="310.0" x2="146.0" y2="310.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="23.8" y="344.5" width="68.4" height="23.0" rx="6" fill="#fff4f2" stroke="#c0392b" stroke-width="1.4"/><text x="58.0" y="359.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="58.0" dy="0.0">мок пошти</tspan></text>
+<line x1="96.2" y1="356.0" x2="146.0" y2="356.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="167.0" y="471.4" width="166.0" height="41.3" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="488.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">3 моки, щоб перевірити</tspan><tspan x="250.0" dy="14.3">одне правило</tspan></text>
+<rect x="600.0" y="150.0" width="210.0" height="78.0" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="2.4"/>
+<text x="705.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">decide()</text>
+<text x="705.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">чиста функція</text>
+<rect x="600.0" y="300.0" width="210.0" height="96.0" rx="10" fill="#f2faf5" stroke="#27ae60" stroke-width="1.8"/>
+<text x="705.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПЛАН (дані)</text>
+<text x="705.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• запис у базу</text>
+<text x="705.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• надіслати лист</text>
+<line x1="705.0" y1="232.0" x2="705.0" y2="296.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="600.0" y="470.0" width="210.0" height="66.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="705.0" y="498.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">run(plan)</text>
+<text x="705.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">виконує описи</text>
+<line x1="705.0" y1="400.0" x2="705.0" y2="466.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="794.3" y="320.2" width="111.5" height="55.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="850.0" y="337.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">тест ядра</tspan><tspan x="850.0" dy="14.3">звіряє список.</tspan><tspan x="850.0" dy="14.3">нуль моків</tspan></text>
+<line x1="814.0" y1="348.0" x2="790.3" y2="348.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>

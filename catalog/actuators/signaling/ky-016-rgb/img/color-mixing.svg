@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адитивне змішування: три яскравості R·G·B складаються у мільйони відтінків</text>
+<g style="mix-blend-mode:screen">
+<circle cx="300.0" cy="148.0" r="92.0" fill="#c0392b" fill-opacity="0.72"/>
+<circle cx="246.1" cy="241.0" r="92.0" fill="#27ae60" fill-opacity="0.72"/>
+<circle cx="353.9" cy="241.0" r="92.0" fill="#2457d6" fill-opacity="0.72"/>
+</g>
+<circle cx="300.0" cy="148.0" r="92.0" fill="none" stroke="#c0392b" stroke-width="1.4"/>
+<circle cx="246.1" cy="241.0" r="92.0" fill="none" stroke="#27ae60" stroke-width="1.4"/>
+<circle cx="353.9" cy="241.0" r="92.0" fill="none" stroke="#2457d6" stroke-width="1.4"/>
+<text x="300.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">червоний</text>
+<text x="148.1" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">зелений</text>
+<text x="451.9" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">синій</text>
+<text x="300.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">усі троє → білий</text>
+<text x="600.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">analogWrite(R, G, B)  →  колір</text>
+<rect x="600.0" y="98.0" width="26.0" height="22.0" rx="4" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="636.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">255, 0, 0</text>
+<text x="750.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">червоний</text>
+<rect x="600.0" y="128.0" width="26.0" height="22.0" rx="4" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="636.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0, 255, 0</text>
+<text x="750.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">зелений</text>
+<rect x="600.0" y="158.0" width="26.0" height="22.0" rx="4" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="636.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0, 0, 255</text>
+<text x="750.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">синій</text>
+<rect x="600.0" y="188.0" width="26.0" height="22.0" rx="4" fill="#e6b800" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="636.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">255, 255, 0</text>
+<text x="750.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">жовтий (Ч+З)</text>
+<rect x="600.0" y="218.0" width="26.0" height="22.0" rx="4" fill="#17a2b8" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="636.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0, 255, 255</text>
+<text x="750.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">блакитний (З+С)</text>
+<rect x="600.0" y="248.0" width="26.0" height="22.0" rx="4" fill="#b52dbb" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="636.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">255, 0, 255</text>
+<text x="750.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">пурпуровий (Ч+С)</text>
+<rect x="600.0" y="278.0" width="26.0" height="22.0" rx="4" fill="#dddddd" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="636.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">255, 255, 255</text>
+<text x="750.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">білий (усі)</text>
+<rect x="600.0" y="308.0" width="26.0" height="22.0" rx="4" fill="#222222" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="636.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0, 0, 0</text>
+<text x="750.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">вимкнено</text>
+<rect x="95.5" y="407.9" width="409.0" height="44.1" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="300.0" y="426.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">Кожен колір має 256 рівнів яскравості (0…255 через PWM).</tspan><tspan x="300.0" dy="13.7">256 × 256 × 256 ≈ 16.7 млн комбінацій — звідси «повнокольоровий».</tspan></text>
+</svg>

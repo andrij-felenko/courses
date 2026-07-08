@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="600.0" y1="88.0" x2="600.0" y2="630.0" stroke="#d0d5db" stroke-width="1.2" stroke-dasharray="6,6"/>
+<text x="300.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">Телескопічний конструктор</text>
+<text x="300.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">щоразу довший список у дужках</text>
+<rect x="205.0" y="116.0" width="190.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="300.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Pizza(size)</text>
+<rect x="172.0" y="168.0" width="256.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="300.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Pizza(size, cheese)</text>
+<rect x="139.0" y="220.0" width="322.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="300.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Pizza(size, cheese, olives)</text>
+<rect x="106.0" y="272.0" width="388.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="300.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Pizza(size, cheese, olives, bacon)</text>
+<rect x="50.0" y="338.0" width="500.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="300.0" y="365.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">new Pizza(30, true, false, true)</tspan><tspan x="300.0" dy="16.9">що true? що false? — на око не скажеш</tspan></text>
+<text x="300.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">порядок і зміст аргументів — у голові</text>
+<text x="900.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">Будівельник</text>
+<text x="900.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">названі кроки, тоді один build()</text>
+<rect x="770.0" y="132.0" width="260.0" height="40.0" rx="6" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="900.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">.size(30)</text>
+<line x1="900.0" y1="172.0" x2="900.0" y2="192.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="770.0" y="192.0" width="260.0" height="40.0" rx="6" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="900.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">.cheese()</text>
+<line x1="900.0" y1="232.0" x2="900.0" y2="252.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="770.0" y="252.0" width="260.0" height="40.0" rx="6" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="900.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">.bacon()</text>
+<line x1="900.0" y1="312.0" x2="900.0" y2="332.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="770.0" y="341.5" width="260.0" height="33.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="900.0" y="362.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="900.0" dy="0.0">.build()  →  Pizza</tspan></text>
+<text x="900.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">кожен крок сам себе називає</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Правило збоку від даних vs правило разом із даними</text>
+<text x="250.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#c0392b" text-anchor="middle" font-weight="700">Знекровлена модель</text>
+<rect x="120.0" y="96.0" width="260.0" height="150.0" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="250.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Policy</text>
+<line x1="136.0" y1="136.0" x2="364.0" y2="136.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="142.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">status: string</text>
+<text x="142.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">balance: number</text>
+<text x="142.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">dueDate: Date</text>
+<text x="250.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">самі поля, нуль поведінки</text>
+<rect x="120.0" y="300.0" width="260.0" height="96.0" rx="9" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="250.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">PolicyService</text>
+<text x="250.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">enterGracePeriod(p)</text>
+<text x="250.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">правило живе ТУТ, окремо</text>
+<line x1="70.0" y1="420.0" x2="160.0" y2="222.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="79.6" y="448.4" width="140.8" height="43.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="150.0" y="466.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">p.status = «grace»</tspan><tspan x="150.0" dy="14.3">повз перевірку</tspan></text>
+<line x1="500.0" y1="84.0" x2="500.0" y2="530.0" stroke="#d0d5db" stroke-width="1.2" stroke-dasharray="6,6"/>
+<text x="750.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#27ae60" text-anchor="middle" font-weight="700">Багата модель</text>
+<rect x="620.0" y="96.0" width="260.0" height="210.0" rx="9" fill="#f2faf5" stroke="#27ae60" stroke-width="1.8"/>
+<text x="750.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Policy</text>
+<line x1="636.0" y1="136.0" x2="864.0" y2="136.0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="642.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">− status  (закрите)</text>
+<text x="642.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">− balance (закрите)</text>
+<line x1="636.0" y1="218.0" x2="864.0" y2="218.0" stroke="#cfe8d6" stroke-width="1.0"/>
+<text x="642.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">+ enterGracePeriod()</text>
+<text x="654.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">перевіряє стан і баланс</text>
+<text x="750.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-style="italic">правило й дані — за єдиними дверима</text>
+<line x1="590.0" y1="360.0" x2="620.0" y2="360.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="590.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="end" font-weight="700">✗</text>
+<rect x="659.9" y="378.4" width="120.3" height="43.3" rx="6" fill="#f2faf5" stroke="#27ae60" stroke-width="1.6"/><text x="720.0" y="396.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">у стан НЕ зайти</tspan><tspan x="720.0" dy="14.3">повз метод</tspan></text>
+</svg>

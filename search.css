@@ -25,8 +25,8 @@
 
 .sm-panel {
   position: relative;
-  width: min(680px, 94vw); max-height: min(80vh, 720px);
-  margin: 8vh auto 0;
+  width: min(680px, 94vw); max-height: min(84vh, 720px);
+  margin: 8vh auto;   /* нижнє поле — щоб панель не різалась на низькому вьюпорті/з клавіатурою */
   display: flex; flex-direction: column;
   background: var(--bg); color: var(--text);
   border: 1px solid var(--border); border-radius: 16px;
@@ -50,8 +50,19 @@
 }
 .sm-close:hover { background: var(--accent-light); color: var(--accent); }
 
-/* Фільтри */
-.sm-filters { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); }
+/* Режим «Глибше» (пошук у тексті) — окремий ряд під полем, не серед фільтрів */
+.sm-mode {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.55rem 1rem; border-bottom: 1px solid var(--border);
+  font-size: 0.86rem; color: var(--text-muted); cursor: pointer; user-select: none;
+}
+.sm-mode input { width: 1rem; height: 1rem; accent-color: var(--accent); cursor: pointer; }
+
+/* Сегмент типу (Усе/Книги/Курси/Каталоги) + scope-фільтри (у межах…) */
+.sm-types { padding: 0.6rem 1rem 0; }
+.sm-types:empty { display: none; }
+.sm-scope { padding: 0.55rem 1rem; }
+.sm-scope[hidden] { display: none; }
 .sm-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .sm-chips + .sm-chips { margin-top: 0.45rem; }
 .sm-chips[hidden] { display: none; }
@@ -64,21 +75,27 @@
 .sm-chip:hover { border-color: var(--accent); color: var(--accent); }
 .sm-chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-.sm-intext {
-  display: inline-flex; align-items: center; gap: 0.45rem;
-  margin-top: 0.7rem; font-size: 0.9rem; color: var(--text-muted); cursor: pointer; user-select: none;
-}
-.sm-intext input { width: 1rem; height: 1rem; accent-color: var(--accent); cursor: pointer; }
+/* Привітальний порожній стан (до вводу) */
+.sm-welcome { padding: 1.7rem 1.3rem; text-align: center; color: var(--text-muted); }
+.sm-w-ttl { font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
+.sm-w-txt { font-size: 0.86rem; line-height: 1.6; max-width: 34rem; margin: 0 auto 1.1rem; }
+.sm-w-keys { font-size: 0.78rem; display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; justify-content: center; }
+.sm-w-keys kbd { font: inherit; font-size: 0.72rem; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 5px; padding: 0.08rem 0.4rem; color: var(--text); }
+.sm-w-keys span { opacity: 0.45; }
 
 /* Результати */
 .sm-results { flex: 1 1 auto; overflow-y: auto; padding: 0.4rem; scrollbar-width: thin; }
 .sm-item { display: block; text-decoration: none; color: var(--text); padding: 0.55rem 0.7rem; border-radius: 10px; }
 .sm-item:hover, .sm-item.sm-active { background: var(--accent-light); }
 .sm-crumb { display: block; font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.02em; }
+.sm-kind { display: inline-block; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.04em; padding: 0.03rem 0.35rem; border-radius: 4px; margin-right: 0.4rem; vertical-align: 0.08em; }
+.sm-kind-guide { background: color-mix(in srgb, #16a34a 18%, transparent); color: #16a34a; }
+.sm-kind-book { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
+.sm-kind-catalog { background: color-mix(in srgb, #b0824a 22%, transparent); color: #9a6b34; }
 .sm-title { display: block; font-weight: 600; line-height: 1.3; }
 .sm-sub { display: block; font-size: 0.85rem; color: var(--text-muted); }
 .sm-inbody { font-style: italic; }
-.sm-item mark { background: transparent; color: var(--accent); font-weight: 700; padding: 0; }
+.sm-item mark { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent); font-weight: 700; padding: 0 0.12em; border-radius: 3px; }
 .sm-empty { padding: 1.2rem 1rem; color: var(--text-muted); text-align: center; }
 
 .sm-hint { padding: 0.55rem 1rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text-muted); min-height: 1.2rem; }
@@ -91,4 +108,17 @@
   .sm-backdrop, .sm-panel { transition: none; }
   .sm-panel { transform: none; }
   .sm-item { animation: none; }
+}
+
+/* ── Мобільний ── */
+@media (max-width: 640px) {
+  .sm-panel { width: 96vw; margin: 2vh auto; max-height: 94vh; border-radius: 12px; }
+  .sm-head { padding: 0.7rem 0.8rem; }
+  .sm-input { font-size: 1rem; }
+  .sm-mode { padding: 0.5rem 0.8rem; }
+  .sm-types { padding: 0.5rem 0.8rem 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .sm-scope { padding: 0.5rem 0.8rem; }
+  .sm-scope .sm-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .sm-results { padding: 0.3rem; }
+  .sm-welcome { padding: 1.2rem 1rem; }
 }

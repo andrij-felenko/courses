@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Транзакція — один шов над кількома сховищами</text>
+<rect x="300.0" y="78.0" width="300.0" height="74.0" rx="9" fill="#eaf7ef" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="450.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">PlaceOrder.run()</text>
+<text x="450.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">відкрив одиницю роботи → закрив</text>
+<rect x="150.0" y="210.0" width="600.0" height="150.0" rx="12" fill="#f7fbf8" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="150.0" y="210.0" width="600.0" height="150.0" rx="12" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="164.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">одна транзакція: або всі, або жоден</text>
+<rect x="210.0" y="250.0" width="200.0" height="70.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="310.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">OrderRepo</text>
+<text x="310.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">пише в orders</text>
+<rect x="490.0" y="250.0" width="200.0" height="70.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="590.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">StockRepo</text>
+<text x="590.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">пише в stock</text>
+<line x1="390.0" y1="152.0" x2="310.0" y2="248.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="152.0" x2="590.0" y2="248.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="254.5" y="394.8" width="391.1" height="50.5" rx="6" fill="#ffffff" stroke="#d0d5db" stroke-width="1.4"/><text x="450.0" y="416.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Хто відкриває шов — знає застосунок, а не домен.</tspan><tspan x="450.0" dy="15.0">Обидва сховища сідають на ОДНЕ з'єднання; commit — один.</tspan></text>
+</svg>

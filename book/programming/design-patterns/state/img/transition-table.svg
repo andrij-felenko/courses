@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 766 382" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="766" height="382" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="383.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таблиця дозволених переходів: рядок — стан, колонка — подія</text>
+<text x="383.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">зелена клітина веде далі; червона кидає; сіра тихо ігнорує</text>
+<rect x="24.0" y="46.0" width="126.0" height="46.0" rx="0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="87.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">стан \ подія</text>
+<rect x="150.0" y="46.0" width="148.0" height="46.0" rx="0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="224.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">pay()</text>
+<rect x="298.0" y="46.0" width="148.0" height="46.0" rx="0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="372.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ship()</text>
+<rect x="446.0" y="46.0" width="148.0" height="46.0" rx="0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="520.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">cancel()</text>
+<rect x="594.0" y="46.0" width="148.0" height="46.0" rx="0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="668.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">refund()</text>
+<rect x="24.0" y="92.0" width="126.0" height="46.0" rx="0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="87.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">New</text>
+<rect x="150.0" y="92.0" width="148.0" height="46.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="224.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">→ Paid</text>
+<rect x="298.0" y="92.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="372.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="446.0" y="92.0" width="148.0" height="46.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="520.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">→ Cancelled</text>
+<rect x="594.0" y="92.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="668.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="24.0" y="138.0" width="126.0" height="46.0" rx="0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="87.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Paid</text>
+<rect x="150.0" y="138.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="224.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="298.0" y="138.0" width="148.0" height="46.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="372.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">→ Shipped</text>
+<rect x="446.0" y="138.0" width="148.0" height="46.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="520.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">→ Refunded</text>
+<rect x="594.0" y="138.0" width="148.0" height="46.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="668.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">→ Refunded</text>
+<rect x="24.0" y="184.0" width="126.0" height="46.0" rx="0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="87.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Shipped</text>
+<rect x="150.0" y="184.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="224.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="298.0" y="184.0" width="148.0" height="46.0" rx="0" fill="#f1f2f4" stroke="#6b7280" stroke-width="1.4"/>
+<text x="372.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ігнор</text>
+<rect x="446.0" y="184.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="520.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="594.0" y="184.0" width="148.0" height="46.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="668.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">→ Refunded</text>
+<rect x="24.0" y="230.0" width="126.0" height="46.0" rx="0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="87.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cancelled</text>
+<rect x="150.0" y="230.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="224.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="298.0" y="230.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="372.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="446.0" y="230.0" width="148.0" height="46.0" rx="0" fill="#f1f2f4" stroke="#6b7280" stroke-width="1.4"/>
+<text x="520.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ігнор</text>
+<rect x="594.0" y="230.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="668.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="24.0" y="276.0" width="126.0" height="46.0" rx="0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="87.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Refunded</text>
+<rect x="150.0" y="276.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="224.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="298.0" y="276.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="372.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="446.0" y="276.0" width="148.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="520.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">кидок</text>
+<rect x="594.0" y="276.0" width="148.0" height="46.0" rx="0" fill="#f1f2f4" stroke="#6b7280" stroke-width="1.4"/>
+<text x="668.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ігнор</text>
+<text x="383.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">20 клітин = 5 станів × 4 події — рівно стільки правил має описати будь-яка реалізація</text>
+</svg>

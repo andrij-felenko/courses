@@ -33,7 +33,7 @@
       save(t); apply(t); paint();
     });
     paint();
-    document.body.appendChild(b);
+    (document.getElementById("reader-controls") || document.body).appendChild(b);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);

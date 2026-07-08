@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="365.0" y="171.8" width="210.0" height="66.5" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="3.0"/><text x="470.0" y="200.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Ядро + порт</tspan><tspan x="470.0" dy="19.5">ЗамовленняСховище</tspan></text>
+<text x="470.0" y="258.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">спільне для обох світів — не змінюється</text>
+<text x="150.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Точки збірки (край)</text>
+<rect x="40.0" y="91.0" width="205.0" height="58.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="142.5" y="124.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="142.5" dy="0.0">Прод-збірка</tspan></text>
+<line x1="245.0" y1="120.0" x2="357.0" y2="205.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="261.0" width="205.0" height="58.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="142.5" y="294.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="142.5" dy="0.0">Локальна збірка</tspan></text>
+<line x1="245.0" y1="290.0" x2="357.0" y2="205.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="795.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Адаптери одного порту</text>
+<rect x="690.0" y="91.0" width="205.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="792.5" y="115.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="792.5" dy="0.0">Сховище</tspan><tspan x="792.5" dy="18.2">Postgres</tspan></text>
+<line x1="583.0" y1="205.0" x2="690.0" y2="120.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="792.5" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">прод</text>
+<rect x="690.0" y="261.0" width="205.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="792.5" y="285.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="792.5" dy="0.0">Сховище</tspan><tspan x="792.5" dy="18.2">в памʼяті</tspan></text>
+<line x1="583.0" y1="205.0" x2="690.0" y2="290.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="792.5" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">локально / тест</text>
+<text x="470.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Вибір адаптера робить лише точка збірки; ядро й порт — ті самі</text>
+</svg>

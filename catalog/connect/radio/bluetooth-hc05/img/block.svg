@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Устрій HC-05/HC-06: платка-донька з чипом CSR на платі-носії</text>
+<rect x="30.0" y="165.0" width="118.0" height="70.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="89.0" y="190.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="89.0" dy="0.0">Ваш MCU</tspan><tspan x="89.0" dy="13.0">(Arduino, ESP32,</tspan><tspan x="89.0" dy="13.0">STM32…)</tspan></text>
+<rect x="210.0" y="70.0" width="470.0" height="280.0" rx="10" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.4"/>
+<text x="445.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">плата-носій (breakout: ZS-040 / JY-MCU)</text>
+<rect x="232.0" y="285.0" width="150.0" height="46.0" rx="6" fill="#fff8e1" stroke="#f0b429" stroke-width="1.2"/><text x="307.0" y="304.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="307.0" dy="0.0">регулятор 3.3 В</tspan><tspan x="307.0" dy="14.3">(тому VCC = 3.6…6 В)</tspan></text>
+<rect x="420.0" y="95.0" width="236.0" height="175.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="538.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">платка-донька (уся на 3.3 В)</text>
+<rect x="438.0" y="128.0" width="118.0" height="66.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/><text x="497.0" y="151.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="497.0" dy="0.0">CSR BC417</tspan><tspan x="497.0" dy="13.0">(радіо + ядро +</tspan><tspan x="497.0" dy="13.0">стек Bluetooth)</tspan></text>
+<rect x="438.0" y="210.0" width="118.0" height="40.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/><text x="497.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="497.0" dy="0.0">flash: прошивка</tspan><tspan x="497.0" dy="13.0">(HC-05 / HC-06)</tspan></text>
+<line x1="622.0" y1="150.0" x2="622.0" y2="205.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="622.0" y1="150.0" x2="608.0" y2="132.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="622.0" y1="150.0" x2="636.0" y2="132.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="622.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">антена
+на платі</text>
+<line x1="556.0" y1="161.0" x2="616.0" y2="161.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="148.0" y1="150.0" x2="210.0" y2="150.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="182.0" x2="148.0" y2="182.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="179.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">UART</text>
+<text x="179.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+ VCC / GND</text>
+<line x1="382.0" y1="150.0" x2="420.0" y2="150.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="401.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3.3 В</text>
+</svg>

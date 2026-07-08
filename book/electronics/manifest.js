@@ -4,6 +4,7 @@
   sections: [
     { slug: "analog", title: "Аналогова", scope: "Безперервне оброблення сигналів на підсилювальних і пасивних елементах разом із математичним апаратом теорії кіл — законами, методами аналізу та реакцією кіл на сигнали.",
       topics: [
+        { slug: "transistor-switch", title: "Транзистор як ключ", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "comparator", title: "Компаратор", basic: { status: "done" }, detailed: { status: "pending" }, comp: [{ file: "comp-comparator-ics.md", status: "done" }] },
         { slug: "opamp", title: "Оппідсилювач", basic: { status: "done" }, detailed: { status: "pending" } },
         { slug: "analog-mux", title: "Аналоговий мультиплексор", basic: { status: "done" }, detailed: { status: "empty" } },
@@ -177,6 +178,7 @@
         { slug: "guard-ring", title: "Guard ring і ведений екран", basic: { status: "done" }, detailed: { status: "empty" }, math: [{ file: "math-guard-residual.md", status: "done" }], proj: [{ file: "proj-guard-ring-layout.md", status: "done" }] },
         { slug: "common-mode-noise", title: "Синфазна і диференціальна завади", basic: { status: "done" }, detailed: { status: "empty" }, comp: [{ file: "comp-common-mode-choke.md", status: "done" }], math: [{ file: "math-mode-conversion.md", status: "done" }] },
         { slug: "anti-aliasing-filter", title: "Антиаліасинговий фільтр", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-sampling-theorem.md", status: "done" }] },
+        { slug: "pwm", title: "Широтно-імпульсна модуляція (ШІМ)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "pwm-dac-filter", title: "ШІМ як ЦАП: RC-фільтр і пульсації", basic: { status: "done" }, detailed: { status: "empty" }, math: [{ file: "math-ripple-derivation.md", status: "done" }] },
         { slug: "sigma-delta-pwm", title: "Sigma-delta ШІМ", basic: { status: "done" }, detailed: { status: "empty" }, math: [{ file: "math-noise-power.md", status: "done" }], proj: [{ file: "proj-firmware-modulator.md", status: "done" }] },
         { slug: "capacitive-sensing", title: "Ємнісне зондування", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-theremin-to-touch.md", status: "done" }] },

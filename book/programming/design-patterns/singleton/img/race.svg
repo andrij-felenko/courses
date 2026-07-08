@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві перевірки проскочили одночасно — і об'єктів стало два</text>
+<text x="250.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік A</text>
+<text x="560.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік B</text>
+<line x1="250.0" y1="78.0" x2="250.0" y2="91.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="250.0" y1="139.0" x2="250.0" y2="231.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="250.0" y1="279.0" x2="250.0" y2="348.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="560.0" y1="78.0" x2="560.0" y2="161.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="560.0" y1="209.0" x2="560.0" y2="301.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="187.3" y="93.2" width="125.4" height="43.6" rx="6" fill="#fff8e1" stroke="#d9a400" stroke-width="1.5"/><text x="250.0" y="111.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">1. бачить</tspan><tspan x="250.0" dy="15.6">instance == null</tspan></text>
+<rect x="497.3" y="163.2" width="125.4" height="43.6" rx="6" fill="#fff8e1" stroke="#d9a400" stroke-width="1.5"/><text x="560.0" y="181.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">2. теж бачить</tspan><tspan x="560.0" dy="15.6">instance == null</tspan></text>
+<rect x="207.8" y="233.2" width="84.4" height="43.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="251.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">3. створює</tspan><tspan x="250.0" dy="15.6">об'єкт #1</tspan></text>
+<rect x="517.8" y="303.2" width="84.4" height="43.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="560.0" y="321.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">4. створює</tspan><tspan x="560.0" dy="15.6">об'єкт #2</tspan></text>
+<line x1="90.0" y1="78.0" x2="90.0" y2="348.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="90.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">час</text>
+<text x="380.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-style="italic">Обидва пройшли перевірку, поки жоден ще не записав instance — гарантія «один» зламана.</text>
+</svg>

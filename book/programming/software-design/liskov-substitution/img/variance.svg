@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сигнатура нащадка: вхід ширший, вихід вужчий</text>
+<rect x="35.0" y="169.9" width="200.0" height="60.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="135.0" y="195.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">Клієнт</tspan><tspan x="135.0" dy="18.2">знає лише тип T</tspan></text>
+<text x="520.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">тип АРГУМЕНТУ — контраваріантний</text>
+<rect x="315.0" y="95.0" width="170.0" height="53.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="118.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">база приймає</tspan><tspan x="400.0" dy="16.9">U</tspan></text>
+<rect x="555.0" y="95.0" width="210.0" height="53.9" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/><text x="660.0" y="118.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">нащадок мусить</tspan><tspan x="660.0" dy="16.9">U або ШИРШЕ</tspan></text>
+<line x1="492.0" y1="122.0" x2="550.0" y2="122.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">клієнт шле аргумент типу U — нащадок мусить його стерпіти</text>
+<text x="520.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">тип РЕЗУЛЬТАТУ — коваріантний</text>
+<rect x="315.0" y="287.1" width="170.0" height="53.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="310.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">база обіцяє</tspan><tspan x="400.0" dy="16.9">R</tspan></text>
+<rect x="555.0" y="287.1" width="210.0" height="53.9" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/><text x="660.0" y="310.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">нащадок може</tspan><tspan x="660.0" dy="16.9">R або ВУЖЧЕ</tspan></text>
+<line x1="492.0" y1="314.0" x2="550.0" y2="314.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">клієнт чекає результат типу R — вужчий результат теж підходить</text>
+<line x1="200.0" y1="178.0" x2="312.0" y2="132.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="200.0" y1="222.0" x2="312.0" y2="304.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+</svg>

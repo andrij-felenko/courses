@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що всередині BE-182: чип сам рахує координати й віддає їх по UART</text>
+<text x="390.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">сигнали супутників (GPS · BeiDou · Galileo · QZSS)</text>
+<line x1="120.0" y1="66.0" x2="195.0" y2="132.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,4"/>
+<line x1="195.0" y1="66.0" x2="195.0" y2="132.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,4"/>
+<line x1="270.0" y1="66.0" x2="195.0" y2="132.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,4"/>
+<rect x="120.0" y="134.0" width="470.0" height="190.0" rx="10" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.4"/>
+<text x="355.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">модуль BE-182 (одна плата)</text>
+<rect x="140.0" y="190.0" width="110.0" height="66.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/><text x="195.0" y="212.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="195.0" dy="0.0">керамічна</tspan><tspan x="195.0" dy="14.3">латка-антена</tspan><tspan x="195.0" dy="14.3">+ LNA</tspan></text>
+<rect x="300.0" y="188.0" width="150.0" height="74.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.8"/><text x="375.0" y="214.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="375.0" dy="0.0">чип u-blox M10</tspan><tspan x="375.0" dy="14.3">(UBX-M10050)</tspan><tspan x="375.0" dy="14.3">рахує координати</tspan></text>
+<line x1="250.0" y1="223.0" x2="300.0" y2="223.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="500.0" y="198.0" width="74.0" height="54.0" rx="6" fill="#fff8e1" stroke="#f0b429" stroke-width="1.4"/><text x="537.0" y="221.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="537.0" dy="0.0">UART</tspan><tspan x="537.0" dy="14.3">TX / RX</tspan></text>
+<line x1="450.0" y1="225.0" x2="500.0" y2="225.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="630.0" y="190.0" width="120.0" height="66.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="690.0" y="212.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">Ваш MCU /</tspan><tspan x="690.0" dy="14.3">політний</tspan><tspan x="690.0" dy="14.3">контролер</tspan></text>
+<line x1="574.0" y1="216.0" x2="630.0" y2="216.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="236.0" x2="574.0" y2="236.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="690.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">готові рядки
+з координатами</text>
+<line x1="175.0" y1="344.0" x2="545.0" y2="344.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="355.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">живлення 3.6–5.5 В (типово 5 В)</text>
+</svg>

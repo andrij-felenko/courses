@@ -104,12 +104,43 @@
     return '<div class="map-tools">' +
       '<button type="button" class="map-collapse-all" data-collapse-all>' + (allCol ? "Розгорнути галузі" : "Згорнути галузі") + "</button>" + view + "</div>";
   }
-  // Обгортки згортуваної галузі в сайдбарі (label + контейнер лінків).
-  function sbGroupOpen(key, labelHtml) {
+  // Обгортки згортуваної галузі в сайдбарі (label + опційний лічильник + контейнер лінків).
+  function sbGroupOpen(key, labelHtml, countHtml) {
     return '<div class="sb-group-label' + (isCollapsed(key) ? " collapsed" : "") + '" data-collapse-group="' + escapeAttr(key) + '">' +
-      '<span class="sb-caret" aria-hidden="true">▾</span><span class="sb-gl-txt">' + labelHtml + "</span></div><div class=\"sb-group\">";
+      '<span class="sb-caret" aria-hidden="true">▾</span><span class="sb-gl-txt">' + labelHtml + "</span>" + (countHtml || "") + "</div><div class=\"sb-group\">";
   }
   function sbGroupClose() { return "</div>"; }
+  // Акордеон сайдбару КУРСУ: згорнуто все, крім активного модуля. Стан — сесійний SB_OPEN (НЕ персист,
+  // окремий data-атрибут, щоб не чіпати спільний із мапою-обкладинкою courses-collapsed/toggleGroup).
+  var SB_OPEN = new Set();
+  function sbAccGroupOpen(key, labelHtml, countHtml, activeKey) {
+    var open = !activeKey || (key === activeKey) || SB_OPEN.has(key);   // без активного — відкрити всі (безпечний фолбек)
+    return '<div class="sb-group-label' + (open ? "" : " collapsed") + '" data-sb-acc="' + escapeAttr(key) + '">' +
+      '<span class="sb-caret" aria-hidden="true">▾</span><span class="sb-gl-txt">' + labelHtml + "</span>" + (countHtml || "") + "</div><div class=\"sb-group\">";
+  }
+  // Хлібні крихти вгорі сайдбару: [{label, href?}] — ОСТАННІЙ сегмент = поточний (жирний), проміжні з href — лінки.
+  function sbCrumbs(segs) {
+    var h = '<nav class="sb-crumbs">';
+    for (var i = 0; i < segs.length; i++) {
+      if (i) h += '<span class="sb-cr-sep">›</span>';
+      var last = i === segs.length - 1;
+      if (segs[i].href && !last) h += '<a class="sb-cr" href="' + segs[i].href + '">' + escapeHtml(segs[i].label) + "</a>";
+      else h += '<span class="sb-cr' + (last ? " sb-cr-cur" : "") + '">' + escapeHtml(segs[i].label) + "</span>";
+    }
+    return h + "</nav>";
+  }
+  // Лічильник «прочитано/усього» на групі (з наявного READ-набору).
+  function grpCount(readN, total) { return total ? '<span class="sb-gl-count" title="прочитано / усього">' + readN + "/" + total + "</span>" : ""; }
+  // Розділи (§) ПОТОЧНОЇ статті — вставляються під активним рядком (data-target → scroll-spy підсвічує поточний §).
+  function sbSections(chap, sections) {
+    if (!sections || !sections.length) return "";
+    var h = '<a class="sb-link sb-sec" data-target="top" href="#ch=' + chap.slug + '&at=top">↑ Початок</a>';
+    for (var i = 0; i < sections.length; i++) {
+      var sec = sections[i];
+      h += '<a class="sb-link sb-sec" data-target="' + sec.id + '" href="#ch=' + chap.slug + "&at=" + sec.id + '">§ ' + sec.num + " — " + escapeHtml(sec.title) + "</a>";
+    }
+    return h;
+  }
 
   function applyMapView() {
     var toc = document.querySelector(".toc");
@@ -264,6 +295,22 @@
     while (i < n) {
       var line = lines[i];
       if (/^\s*$/.test(line)) { i++; continue; }
+
+      // блок «Перед читанням»: <preknowlist> … список передумов … </preknowlist> → згорнутий <details>
+      if (/^\s*<preknowlist>\s*$/i.test(line)) {
+        i++;
+        var pkItems = [];
+        while (i < n && !/^\s*<\/preknowlist>\s*$/i.test(lines[i])) {
+          var pl = lines[i]; i++;
+          if (/^\s*$/.test(pl)) continue;
+          if (reListItem.test(pl)) pkItems.push(pl.replace(reListItem, ""));
+          else if (pkItems.length) pkItems[pkItems.length - 1] += " " + pl.trim();   // продовження елемента
+          else pkItems.push(pl.trim());
+        }
+        i++; // закривний </preknowlist>
+        blocks.push({ type: "preknow", items: pkItems });
+        continue;
+      }
 
       // групи «те саме кількома мовами»: :::tabs … фенси з мовою … :::
       var tabsOpen = line.match(/^\s*:::\s*(?:tabs|code)\s*$/);
@@ -423,14 +470,25 @@
     return '<div class="codetabs"><div class="codetabs__bar" role="tablist">' + bar + "</div>" + body + "</div>";
   }
 
-  /* вибір мови — спільний на всю сторінку (й попапи), із пам'яттю в localStorage */
-  var CODELANG = (function () { try { return localStorage.getItem("courses-codelang") || ""; } catch (e) { return ""; } })();
+  /* вибір мови коду — СПИСОК ПРІОРИТЕТІВ (топ-1/2/3), спільний на всю сторінку (й попапи),
+     із пам'яттю в localStorage. Кнопку-меню пріоритетів додає codelang.js; тут — застосування. */
+  function readCodeLangPrio() {
+    try {
+      var raw = localStorage.getItem("courses-codelang-prio");
+      if (raw) { var a = JSON.parse(raw); if (a && typeof a.length === "number") return [].slice.call(a).filter(Boolean); }
+      var one = localStorage.getItem("courses-codelang");   // сумісність зі старим одиничним вибором
+      return one ? [one] : [];
+    } catch (e) { return []; }
+  }
+  var CODELANG_PRIO = readCodeLangPrio();
   function syncCodeTabs() {
     var boxes = document.querySelectorAll(".codetabs");
     for (var b = 0; b < boxes.length; b++) {
       var box = boxes[b], tabs = box.querySelectorAll(".codetabs__tab"), panels = box.querySelectorAll(".codetabs__panel");
       var idx = -1;
-      for (var t = 0; t < tabs.length; t++) { if (tabs[t].getAttribute("data-lang") === CODELANG) { idx = t; break; } }
+      // обрати НАЙВИЩУ доступну мову зі списку пріоритетів; якщо жодної нема — перша вкладка
+      for (var p = 0; p < CODELANG_PRIO.length && idx < 0; p++)
+        for (var t = 0; t < tabs.length; t++) { if (tabs[t].getAttribute("data-lang") === CODELANG_PRIO[p]) { idx = t; break; } }
       if (idx < 0) idx = 0;
       for (var t = 0; t < tabs.length; t++) {
         var on = t === idx;
@@ -441,10 +499,24 @@
     }
   }
   function pickCodeLang(lang) {
-    CODELANG = lang;
-    try { localStorage.setItem("courses-codelang", lang); } catch (e) {}
+    // клік по вкладці підіймає її мову на топ-1, решта пріоритетів зсуваються (макс. 3)
+    var next = [lang];
+    for (var i = 0; i < CODELANG_PRIO.length && next.length < 3; i++)
+      if (CODELANG_PRIO[i] !== lang) next.push(CODELANG_PRIO[i]);
+    CODELANG_PRIO = next;
+    try {
+      localStorage.setItem("courses-codelang-prio", JSON.stringify(next));
+      localStorage.setItem("courses-codelang", lang);   // сумісність
+    } catch (e) {}
     syncCodeTabs();
+    try { window.dispatchEvent(new CustomEvent("codelangchange", { detail: { prio: next, from: "tab" } })); } catch (e) {}
   }
+  // зовнішні зміни (меню пріоритетів у codelang.js) → перечитати й пересинхронити
+  window.addEventListener("codelangchange", function (e) {
+    if (e && e.detail && e.detail.from === "tab") return;   // власний клік уже застосовано
+    CODELANG_PRIO = readCodeLangPrio();
+    syncCodeTabs();
+  });
 
   /* ════════════════════════════════════════════════════════════════════
      3) ТОКЕНИ → HTML (+ збір секцій і прив'язок історій)
@@ -467,6 +539,20 @@
         case "list":
           var tag = t.ordered ? "ol" : "ul";
           html += "<" + tag + ">" + t.items.map(function (it) { return "<li>" + renderInline(it, ctx) + "</li>"; }).join("") + "</" + tag + ">";
+          break;
+        case "preknow":
+          if (t.items.length) {
+            html += '<details class="preknow">' +
+              '<summary class="preknow-sum">' +
+                '<svg class="preknow-ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 16.5l9 5 9-5"/></svg>' +
+                '<span class="preknow-ttl">Перед читанням</span>' +
+                '<span class="preknow-count">' + t.items.length + '</span>' +
+                '<svg class="preknow-caret" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>' +
+              '</summary>' +
+              '<ul class="preknow-list">' +
+              t.items.map(function (it) { return "<li>" + renderInline(it, ctx) + "</li>"; }).join("") +
+              '</ul></details>';
+          }
           break;
         case "table":
           html += renderTable(t.rows, ctx); break;
@@ -718,8 +804,8 @@
      6) САЙДБАР РОЗДІЛУ
      ════════════════════════════════════════════════════════════════════ */
   function buildChapterSidebar(chap, sections, attach, arts) {
-    if (BOOK.course) { return buildCourseChapterSidebar(chap); }
-    if (BOOK.type === "book") { return buildBookChapterSidebar(chap); }
+    if (BOOK.course) { return buildCourseChapterSidebar(chap, sections); }
+    if (BOOK.type === "book") { return buildBookChapterSidebar(chap, sections); }
     var titleByBase = {}; arts.forEach(function (a) { titleByBase[a.base] = a.title; });
     var attachedAfter = {}; var attachedSet = {};
     attach.forEach(function (a) {
@@ -739,9 +825,7 @@
     if (BOOK.libraryHref) s += '<a class="sb-home" href="' + BOOK.libraryHref + '">← Бібліотека (усі книги)</a>';
     s += '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Зміст книги</span>' +
       '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>";
-    s += '<a class="sb-back" href="#">← Усі модулі та розділи</a>';
-    s += '<div class="sb-group-label">Модуль ' + chap.module.n + "</div>";
-    s += '<div class="sb-chap">Розділ ' + chap.module.n + "." + chap.n + " — " + escapeHtml(chap.title) + "</div>";
+    s += sbCrumbs([{ label: (chap.module && chap.module.title) || ("Модуль " + chap.module.n), href: "#" }, { label: chap.title }]);
     s += '<a class="sb-link" data-target="top" href="#ch=' + slug + '&at=top">Вступ</a>';
     (attachedAfter[-1] || []).forEach(function (b) { s += subLink(b); });
     s += '<hr class="sb-divider">';
@@ -788,27 +872,30 @@
       if (c.status === "done") {
         return '<a href="#ch=' + c.slug + '"><span class="pg-dir">' + label + '</span><span class="pg-ttl">' + ttl + "</span></a>";
       }
-      return '<div style="display:block;background:#16242f;border:1px solid #28404f;border-radius:7px;padding:.55rem .75rem;opacity:.6">' +
+      return '<div class="pg-soon">' +
         '<span class="pg-dir">' + label + '</span><span class="pg-ttl">' + ttl + " · незабаром</span></div>";
     }
     return '<div class="sb-pager">' + cell(prev, "prev") + cell(next, "next") + "</div>";
   }
 
   // Сайдбар відкритої статті книги: галузі → теми (без номерів), поточна підсвічена, + пейджер.
-  function buildBookChapterSidebar(chap) {
+  function buildBookChapterSidebar(chap, sections) {
     var s = (BOOK.libraryHref ? '<a class="sb-home" href="' + BOOK.libraryHref + '">← Бібліотека (усі книги)</a>' : "") +
       '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Книга</span>' +
       '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>" +
-      '<a class="sb-back" href="#">← Усі галузі</a>';
+      sbCrumbs([{ label: (chap.module && chap.module.title) || "Галузь", href: "#" }, { label: chap.title }]);
     BOOK.modules.forEach(function (m) {
       if (!m.chapters.length) return;
-      s += sbGroupOpen(m.title, escapeHtml(m.title));
+      var real = m.chapters.filter(function (c) { return c.slug && c.status !== "empty"; });
+      var readN = real.filter(function (c) { return isRead(c.slug); }).length;
+      s += sbGroupOpen(m.title, escapeHtml(m.title), grpCount(readN, real.length));
       m.chapters.forEach(function (c) {
         if (c.status === "empty") return;
         if (c.slug) {
           s += '<a class="sb-link' + (c.slug === chap.slug ? " active" : "") + readClass(c.slug) + '" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
+          if (c.slug === chap.slug) s += sbSections(chap, sections);   // § поточної статті під активним рядком
         } else {
-          s += '<span class="sb-link" style="opacity:.4;cursor:default">' + escapeHtml(c.title) + "</span>";
+          s += '<span class="sb-link soon">' + escapeHtml(c.title) + "</span>";
         }
       });
       s += sbGroupClose();
@@ -852,14 +939,26 @@
   }
   function courseHome() { return "read.html?guide=" + encodeURIComponent(BOOK.course.slug); }
 
-  function buildCourseChapterSidebar(chap) {
+  function buildCourseChapterSidebar(chap, sections) {
+    var cur = courseSteps().filter(function (st) { return !st.bridge && st.subject === BOOK.bookSlug && st.top === chap.slug; })[0];
+    var crumbs = [{ label: "Курс", href: courseHome() }];
+    if (cur) { crumbs.push({ label: cur.mTitle }); if (cur.cTitle) crumbs.push({ label: cur.cTitle }); crumbs.push({ label: cur.title || chap.title }); }
+    else crumbs.push({ label: chap.title });
     var s = '<a class="sb-home" href="' + (BOOK.libraryHref || "index.html") + '">← Бібліотека</a>' +
       '<a class="sb-logo" href="' + courseHome() + '"><span class="sb-logo-kicker">Курс</span>' +
       '<span class="sb-logo-title">' + escapeHtml(BOOK.course.title) + "</span></a>" +
-      '<a class="sb-back" href="' + courseHome() + '">← Огляд курсу</a>';
+      sbCrumbs(crumbs);
     (BOOK.course.modules || []).forEach(function (m, mi) {
       var mn = m.n || (mi + 1);
-      s += sbGroupOpen(m.title, "Модуль " + mn + " · " + escapeHtml(m.title));   // згортувана панель модуля (як у книгах)
+      var mSteps = 0, mRead = 0;
+      (m.chapters || []).forEach(function (c) { (c.steps || []).forEach(function (st) {
+        if (st.bridge || (!st.ref && !st.slug)) return;
+        mSteps++;
+        var sj, tp;
+        if (st.ref) { var pr = String(st.ref).split("/"); sj = pr[0]; tp = pr[pr.length - 1]; } else { sj = BOOK.course.slug; tp = st.slug; }
+        if (READ.has(sj + "/" + tp)) mRead++;
+      }); });
+      s += sbAccGroupOpen(m.title, "Модуль " + mn + " · " + escapeHtml(m.title), grpCount(mRead, mSteps), cur && cur.mTitle);   // акордеон: відкрито лише активний модуль + лічильник прочитаних
       (m.chapters || []).forEach(function (c, ci) {
         var cn = mn + "." + (ci + 1);
         if (c.title) s += '<div class="sb-chap">' + cn + " · " + escapeHtml(c.title) + "</div>";
@@ -877,6 +976,7 @@
           var cur = (subj === BOOK.bookSlug && top === chap.slug) ? " active" : "";
           var rd = READ.has(subj + "/" + top) ? " read" : "";   // прочитано (ключ = книга-джерело/тема або курс/slug)
           s += '<a class="sb-link' + cur + rd + '" href="' + href + '"><span class="sb-kn">' + kn + "</span>" + escapeHtml(st.title || top) + "</a>";
+          if (cur) s += sbSections(chap, sections);   // § поточного кроку під активним рядком
         });
       });
       s += sbGroupClose();
@@ -960,8 +1060,8 @@
     var readable = FLAT.filter(function (c) { return c.slug; }).length;
     var fullCount = FLAT.filter(function (c) { return c.full; }).length;
     var live = BOOK.modules.filter(function (m) { return m.chapters.length; });
-    var h = '<header class="cover-hero"><div class="kicker">Книга · теорія за галузями</div>' +
-      "<h1>" + escapeHtml(BOOK.title) + "</h1>" + (BOOK.subtitle ? "<p>" + escapeHtml(BOOK.subtitle) + "</p>" : "") +
+    var h = '<header class="ch-header ch-header-guide"><div class="ch-label">Книга · теорія за галузями</div><h1>' + escapeHtml(BOOK.title) + '</h1></header>' +
+      '<header class="cover-hero cover-hero-guide">' + (BOOK.subtitle ? "<p>" + escapeHtml(BOOK.subtitle) + "</p>" : "") +
       '<div class="cover-stats">' + stat(live.length, "галузей") + stat(readable, "статей") + (fullCount ? stat(fullCount, "повних") : "") +
       "</div></header>" + mapToolbar(true) + '<div class="toc' + (NAV.view === "grid" ? " map-grid" : "") + '">';
     live.forEach(function (m) {
@@ -995,7 +1095,7 @@
       m.chapters.forEach(function (c) {
         if (c.status === "empty") return;
         if (c.slug) s += '<a class="sb-link' + readClass(c.slug) + '" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
-        else s += '<span class="sb-link" style="opacity:.4;cursor:default">' + escapeHtml(c.title) + "</span>";
+        else s += '<span class="sb-link soon">' + escapeHtml(c.title) + "</span>";
       });
       s += sbGroupClose();
     });
@@ -1004,8 +1104,8 @@
 
   function coverHtml(topics) {
     var doneCount = FLAT.filter(function (c) { return c.status === "done"; }).length;
-    var h = '<header class="cover-hero"><div class="kicker">Курс · ' + BOOK.modules.length + " модулів</div>" +
-      "<h1>" + escapeHtml(BOOK.title) + "</h1><p>" + escapeHtml(BOOK.subtitle) + "</p>" +
+    var h = '<header class="ch-header ch-header-guide"><div class="ch-label">' + (BOOK.type === "catalog" ? "Каталог · довідник заліза" : "Курс · " + BOOK.modules.length + " модулів") + '</div><h1>' + escapeHtml(BOOK.title) + '</h1></header>' +
+      '<header class="cover-hero cover-hero-guide"><p>' + escapeHtml(BOOK.subtitle) + "</p>" +
       '<div class="cover-stats">' +
       stat(BOOK.modules.length, "модулів") + stat(FLAT.length, "розділів") + stat(doneCount, "готових зараз") +
       "</div></header>";
@@ -1070,7 +1170,7 @@
         if (c.status === "done") {
           s += '<a class="sb-link' + readClass(c.slug) + '" href="#ch=' + c.slug + '">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</a>";
         } else {
-          s += '<span class="sb-link" style="opacity:.45;cursor:default">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</span>";
+          s += '<span class="sb-link soon">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</span>";
         }
       });
       s += sbGroupClose();
@@ -1371,7 +1471,11 @@
   }
 
   function setContent(html) { $content.innerHTML = html; syncCodeTabs(); }
-  function setSidebar(html) { $sidebar.innerHTML = html; }
+  function setSidebar(html) {
+    $sidebar.innerHTML = html;
+    var a = $sidebar.querySelector(".sb-link.active");   // автоскрол до активного рядка (курс на 600+ рядків)
+    if (a) { var top = a.getBoundingClientRect().top - $sidebar.getBoundingClientRect().top + $sidebar.scrollTop; $sidebar.scrollTop = top - $sidebar.clientHeight / 2 + a.offsetHeight / 2; }
+  }
   function closeMobileSidebar() { $sidebar.classList.remove("open"); }
 
   /* ── Глобальні елементи UI ──────────────────────────────────────────── */
@@ -1383,6 +1487,8 @@
     var top = document.getElementById("back-top");
     if (menu) menu.addEventListener("click", function () { $sidebar.classList.toggle("open"); });
     if (scrim) scrim.addEventListener("click", closeMobileSidebar);
+    var sclose = document.getElementById("sidebar-close");
+    if (sclose) sclose.addEventListener("click", closeMobileSidebar);
     if (top) {
       top.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
       window.addEventListener("scroll", function () { top.classList.toggle("vis", window.scrollY > 600); });
@@ -1395,6 +1501,15 @@
       if (mv) { e.preventDefault(); NAV.view = mv.getAttribute("data-map-view"); saveNav(); applyMapView(); return; }
       var ca = e.target.closest && e.target.closest("[data-collapse-all]");  // згорнути/розгорнути всі галузі
       if (ca) { e.preventDefault(); toggleAllGroups(); return; }
+      var acc = e.target.closest && e.target.closest("[data-sb-acc]");        // акордеон сайдбару курсу (сесійний, не персист)
+      if (acc) {
+        e.preventDefault();
+        var willCol = !acc.classList.contains("collapsed");
+        acc.classList.toggle("collapsed", willCol);
+        var ak = acc.getAttribute("data-sb-acc");
+        if (willCol) SB_OPEN.delete(ak); else SB_OPEN.add(ak);
+        return;
+      }
       var cg = e.target.closest && e.target.closest("[data-collapse-group]"); // згорнути одну галузь (мапа або сайдбар)
       if (cg) { e.preventDefault(); toggleGroup(cg.getAttribute("data-collapse-group")); return; }
       var sh = e.target.closest && e.target.closest("[data-share-token]");   // значок 🔗 на картці-вставці

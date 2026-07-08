@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл AT-режиму SiK-модуля (де саме ламається конфіг із коду)</text>
+<rect x="300.0" y="66.0" width="300.0" height="74.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="450.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e6b3a" text-anchor="middle" font-weight="700">ПРОЗОРА ТРУБА</text>
+<text x="450.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2f6b47" text-anchor="middle">байти летять наскрізь; AT не діють</text>
+<rect x="300.0" y="250.0" width="300.0" height="96.0" rx="6" fill="#e8f0ff" stroke="#3b6fd4" stroke-width="2.0"/>
+<text x="450.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#274b8f" text-anchor="middle" font-weight="700">РЕЖИМ КОМАНД</text>
+<text x="450.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#33517f" text-anchor="middle">ATI / ATI5 — читати</text>
+<text x="450.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#33517f" text-anchor="middle">ATSn=… — міняти в RAM</text>
+<text x="450.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#33517f" text-anchor="middle">RT… — той самий набір на віддалений</text>
+<line x1="370.0" y1="140.0" x2="370.0" y2="250.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="150.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e6b3a" text-anchor="middle" font-weight="700">1 с тиші  →  +++  →  1 с тиші</text>
+<text x="150.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">модуль відповідає «OK»</text>
+<line x1="530.0" y1="250.0" x2="530.0" y2="140.0" stroke="#3b6fd4" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="760.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#274b8f" text-anchor="middle" font-weight="700">ATO — вихід</text>
+<rect x="300.0" y="452.0" width="300.0" height="74.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="450.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e6b3a" text-anchor="middle" font-weight="700">ЗБЕРЕЖЕНО + ПЕРЕЗАПУЩЕНО</text>
+<text x="450.0" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2f6b47" text-anchor="middle">нові параметри діють; лінія піднялась заново</text>
+<line x1="450.0" y1="346.0" x2="450.0" y2="452.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="368.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e6b3a" text-anchor="end" font-weight="700">AT&amp;W → ATZ</text>
+<rect x="632.0" y="78.0" width="250.0" height="70.0" rx="6" fill="#fdeeee" stroke="#c0392b" stroke-width="1.6"/><text x="757.0" y="102.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="757.0" dy="0.0">ПАСТКА 1: +++ у трубі</tspan><tspan x="757.0" dy="14.3">не вийшли з потоку — +++</tspan><tspan x="757.0" dy="14.3">сприймуться як дані, «OK» нема</tspan></text>
+<rect x="18.0" y="250.0" width="250.0" height="70.0" rx="6" fill="#fdeeee" stroke="#c0392b" stroke-width="1.6"/><text x="143.0" y="274.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="143.0" dy="0.0">ПАСТКА 2: забули AT&amp;W</tspan><tspan x="143.0" dy="14.3">ATSn змінив лише RAM;</tspan><tspan x="143.0" dy="14.3">без запису ATZ усе поверне назад</tspan></text>
+<rect x="632.0" y="452.0" width="250.0" height="74.0" rx="6" fill="#fdeeee" stroke="#c0392b" stroke-width="1.6"/><text x="757.0" y="478.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="757.0" dy="0.0">ПАСТКА 3: ATZ рве зв'язок</tspan><tspan x="757.0" dy="14.3">порт відкриється заново;</tspan><tspan x="757.0" dy="14.3">старий serial-об'єкт треба закрити</tspan></text>
+</svg>

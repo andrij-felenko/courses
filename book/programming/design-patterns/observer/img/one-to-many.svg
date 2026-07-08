@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна зміна стану — усі залежні оновлюються самі</text>
+<rect x="55.0" y="118.8" width="190.0" height="62.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="150.0" y="145.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Суб'єкт</tspan><tspan x="150.0" dy="19.5">(джерело подій)</tspan></text>
+<text x="150.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">тримає список: observers[]</text>
+<text x="150.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">не знає їхніх класів</text>
+<rect x="460.0" y="61.9" width="200.0" height="56.2" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="85.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Спостерігач A</tspan><tspan x="560.0" dy="18.2">графік цін</tspan></text>
+<line x1="250.0" y1="150.0" x2="455.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="460.0" y="186.9" width="200.0" height="56.2" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="210.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Спостерігач B</tspan><tspan x="560.0" dy="18.2">журнал у файл</tspan></text>
+<line x1="250.0" y1="150.0" x2="455.0" y2="215.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="460.0" y="311.9" width="200.0" height="56.2" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="335.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Спостерігач C</tspan><tspan x="560.0" dy="18.2">сигнал тривоги</tspan></text>
+<line x1="250.0" y1="150.0" x2="455.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="400.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">notify(): для кожного observer.update()</text>
+<text x="380.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">суб'єкт викликає всіх через спільний інтерфейс Observer</text>
+</svg>

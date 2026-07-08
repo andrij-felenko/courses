@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві версії nRF24: гола плата й PA+LNA з роз'ємом антени</text>
+<rect x="40.0" y="70.0" width="300.0" height="230.0" rx="10" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.4"/>
+<text x="190.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гола плата (PCB-антена)</text>
+<rect x="80.0" y="100.0" width="140.0" height="70.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/><text x="150.0" y="124.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">чип nRF24L01+</tspan><tspan x="150.0" dy="14.3">+ доріжка-антена</tspan><tspan x="150.0" dy="14.3">на платі</tspan></text>
+<text x="255.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#c0392b" text-anchor="middle">〰〰</text>
+<rect x="70.0" y="200.0" width="240.0" height="80.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.2"/><text x="190.0" y="222.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">дальність: десятки метрів</tspan><tspan x="190.0" dy="14.3">пік TX: ~12 мА</tspan><tspan x="190.0" dy="14.3">живлення: 10 мкФ вистачає</tspan><tspan x="190.0" dy="14.3">маленька, дешева</tspan></text>
+<rect x="440.0" y="70.0" width="300.0" height="230.0" rx="10" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.4"/>
+<text x="590.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">PA+LNA (роз'єм SMA)</text>
+<rect x="470.0" y="100.0" width="150.0" height="70.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/><text x="545.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="545.0" dy="0.0">чип + підсилювач</tspan><tspan x="545.0" dy="13.0">PA/LNA (RFX2401C)</tspan><tspan x="545.0" dy="13.0">+ роз'єм антени</tspan></text>
+<line x1="690.0" y1="105.0" x2="690.0" y2="165.0" stroke="#c0392b" stroke-width="2.6"/>
+<line x1="690.0" y1="105.0" x2="676.0" y2="88.0" stroke="#c0392b" stroke-width="2.6"/>
+<line x1="690.0" y1="105.0" x2="704.0" y2="88.0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="690.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SMA</text>
+<rect x="462.0" y="200.0" width="256.0" height="80.0" rx="6" fill="#fff8e1" stroke="#f0b429" stroke-width="1.2"/><text x="590.0" y="222.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">дальність: сотні метрів — км</tspan><tspan x="590.0" dy="14.3">пік TX: до ~115 мА</tspan><tspan x="590.0" dy="14.3">живлення: треба 100–220 мкФ!</tspan><tspan x="590.0" dy="14.3">більша, гріється сильніше</tspan></text>
+<text x="390.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Виводи, SPI-керування й бібліотека — ті самі. Різниця лише в антені та апетиті струму.</text>
+</svg>

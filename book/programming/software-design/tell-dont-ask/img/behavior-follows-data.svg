@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Куди селиться логіка</text>
+<rect x="60.0" y="78.0" width="300.0" height="150.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="210.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">метод оплати</text>
+<rect x="80.0" y="118.0" width="260.0" height="92.0" rx="6" fill="#fff3f2" stroke="#c0392b" stroke-width="1.0"/><text x="210.0" y="144.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">acc.balance</tspan><tspan x="210.0" dy="15.6">acc.limit</tspan><tspan x="210.0" dy="15.6">acc.balance -= сума</tspan><tspan x="210.0" dy="15.6">(порпає ЧУЖІ поля)</tspan></text>
+<rect x="520.0" y="78.0" width="260.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="650.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">Рахунок (дані)</text>
+<rect x="540.0" y="118.0" width="220.0" height="92.0" rx="6" fill="#eceff1" stroke="#6b7280" stroke-width="1.0"/><text x="650.0" y="152.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="650.0" dy="0.0">balance</tspan><tspan x="650.0" dy="15.6">limit</tspan><tspan x="650.0" dy="15.6">(жодної поведінки)</tspan></text>
+<line x1="364.0" y1="148.0" x2="516.0" y2="153.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="364.0" y1="170.0" x2="516.0" y2="153.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="364.0" y1="192.0" x2="516.0" y2="153.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="440.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">тягне чужі дані</text>
+<line x1="440.0" y1="236.0" x2="440.0" y2="272.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="452.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">перенести поведінку до даних</text>
+<rect x="300.0" y="288.0" width="280.0" height="118.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="440.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Рахунок (поведінка)</text>
+<rect x="320.0" y="328.0" width="240.0" height="62.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/><text x="440.0" y="355.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">withdraw(сума):</tspan><tspan x="440.0" dy="15.6">  дані й правило — тут, разом</tspan></text>
+<rect x="60.0" y="330.5" width="140.0" height="33.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="130.0" y="351.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">викликач</tspan></text>
+<line x1="204.0" y1="347.0" x2="294.0" y2="347.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="250.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">withdraw()</text>
+</svg>

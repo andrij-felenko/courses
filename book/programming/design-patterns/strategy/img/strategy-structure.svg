@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кістяк стратегії</text>
+<text x="520.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">контекст делегує через інтерфейс, не знаючи реалізації</text>
+<rect x="63.0" y="169.4" width="290.0" height="81.2" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="208.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="208.0" dy="0.0">Order  (контекст)</tspan><tspan x="208.0" dy="16.2">policy: DiscountPolicy</tspan><tspan x="208.0" dy="16.2">finalPrice():</tspan><tspan x="208.0" dy="16.2">  total − policy.discount(this)</tspan></text>
+<text x="208.0" y="276.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">тримає ОДНЕ поле-стратегію</text>
+<text x="208.0" y="296.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">і делегує йому роботу</text>
+<rect x="504.8" y="125.6" width="280.0" height="48.8" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="644.8" y="146.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="644.8" dy="0.0">«interface» DiscountPolicy</tspan><tspan x="644.8" dy="16.2">discount(order): number</tspan></text>
+<line x1="353.0" y1="187.4" x2="504.8" y2="150.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,5"/>
+<text x="424.9" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">залежить лише</text>
+<text x="424.9" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">від інтерфейсу</text>
+<rect x="504.8" y="276.2" width="280.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="644.8" y="296.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="644.8" dy="0.0">NoDiscount</tspan><tspan x="644.8" dy="15.6">return 0</tspan></text>
+<line x1="504.8" y1="300.0" x2="474.8" y2="300.0" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="504.8" y="376.2" width="280.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="644.8" y="396.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="644.8" dy="0.0">VipDiscount</tspan><tspan x="644.8" dy="15.6">total × 0.20</tspan></text>
+<line x1="504.8" y1="400.0" x2="474.8" y2="400.0" stroke="#27ae60" stroke-width="1.3"/>
+<rect x="504.8" y="476.2" width="280.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="644.8" y="496.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="644.8" dy="0.0">SeasonalDiscount(rate)</tspan><tspan x="644.8" dy="15.6">total × rate</tspan></text>
+<line x1="504.8" y1="500.0" x2="474.8" y2="500.0" stroke="#27ae60" stroke-width="1.3"/>
+<line x1="474.8" y1="500.0" x2="474.8" y2="300.0" stroke="#27ae60" stroke-width="1.3"/>
+<line x1="474.8" y1="300.0" x2="474.8" y2="176.4" stroke="#27ae60" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="816.8" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">взаємозамінні</text>
+<text x="816.8" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">реалізації</text>
+<text x="816.8" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">одна операція —</text>
+<text x="816.8" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">кожна по-своєму</text>
+<line x1="40.0" y1="534.0" x2="1000.0" y2="534.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="520.0" y="554.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">setPolicy(інша) → контекст поводиться інакше, його код НЕ змінюється</text>
+</svg>

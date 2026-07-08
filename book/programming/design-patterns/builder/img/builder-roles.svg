@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 640" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="640" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Той самий процес — різні представлення</text>
+<text x="590.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Директор диктує кроки; хто їх виконує — підставляють</text>
+<rect x="93.8" y="151.2" width="190.0" height="97.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="188.8" y="171.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="188.8" dy="0.0">Директор</tspan><tspan x="188.8" dy="16.2">construct():</tspan><tspan x="188.8" dy="16.2">  addWalls()</tspan><tspan x="188.8" dy="16.2">  addRoof()</tspan><tspan x="188.8" dy="16.2">  addDoor()</tspan></text>
+<text x="188.8" y="274.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">знає ПОРЯДОК кроків,</text>
+<text x="188.8" y="292.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">не знає матеріалу</text>
+<rect x="447.8" y="151.2" width="190.0" height="97.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.7"/><text x="542.8" y="171.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="542.8" dy="0.0">«Будівельник»</tspan><tspan x="542.8" dy="16.2">addWalls()</tspan><tspan x="542.8" dy="16.2">addRoof()</tspan><tspan x="542.8" dy="16.2">addDoor()</tspan><tspan x="542.8" dy="16.2">getResult()</tspan></text>
+<text x="542.8" y="137.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">інтерфейс кроків</text>
+<line x1="283.8" y1="200.0" x2="447.8" y2="200.0" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="365.8" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">жене кроки</text>
+<rect x="839.0" y="111.8" width="210.0" height="32.5" rx="6" fill="#eef8f2" stroke="#27ae60" stroke-width="1.6"/><text x="944.0" y="132.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="944.0" dy="0.0">Будівельник дому</tspan></text>
+<line x1="637.8" y1="200.0" x2="839.0" y2="128.0" stroke="#27ae60" stroke-width="1.4" stroke-dasharray="5,5"/>
+<rect x="844.0" y="208.0" width="200.0" height="32.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.6"/><text x="944.0" y="228.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="944.0" dy="0.0">готовий Дім</tspan></text>
+<line x1="944.0" y1="144.2" x2="944.0" y2="208.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="839.0" y="323.8" width="210.0" height="32.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="944.0" y="344.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="944.0" dy="0.0">Будівельник макета</tspan></text>
+<line x1="637.8" y1="200.0" x2="839.0" y2="340.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="5,5"/>
+<rect x="844.0" y="420.0" width="200.0" height="32.0" rx="6" fill="#fbe0dc" stroke="#c0392b" stroke-width="1.6"/><text x="944.0" y="440.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="944.0" dy="0.0">картонний Макет</tspan></text>
+<line x1="944.0" y1="356.2" x2="944.0" y2="420.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="944.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">однакові виклики Директора —</text>
+<text x="944.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">різний матеріал на виході</text>
+<line x1="60.0" y1="566.0" x2="1120.0" y2="566.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="590.0" y="592.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Директор задає ЩО й у якому порядку · Будівельник вирішує З ЧОГО</text>
+<text x="590.0" y="614.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">підстав інший конкретний будівельник — той самий процес дасть інший продукт</text>
+</svg>

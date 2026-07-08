@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ручний декодер як автомат: кожен спад OUT — крок; вимірюємо час між спадами</text>
+<rect x="70.0" y="105.0" width="160.0" height="90.0" rx="6" fill="#eef1f5" stroke="#1a1a1a" stroke-width="1.5"/><text x="150.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">IDLE</tspan><tspan x="150.0" dy="15.6">чекаємо</tspan><tspan x="150.0" dy="15.6">преамбулу</tspan></text>
+<rect x="320.0" y="105.0" width="160.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="400.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">LEADER</tspan><tspan x="400.0" dy="15.6">бачили 9 мс</tspan><tspan x="400.0" dy="15.6">провал</tspan></text>
+<rect x="570.0" y="105.0" width="160.0" height="90.0" rx="6" fill="#eaf5ec" stroke="#1a1a1a" stroke-width="1.5"/><text x="650.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">BITS</tspan><tspan x="650.0" dy="15.6">збираємо</tspan><tspan x="650.0" dy="15.6">32 біти</tspan></text>
+<rect x="820.0" y="105.0" width="160.0" height="90.0" rx="6" fill="#fdecea" stroke="#1a1a1a" stroke-width="1.5"/><text x="900.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="900.0" dy="0.0">DONE</tspan><tspan x="900.0" dy="15.6">кадр</tspan><tspan x="900.0" dy="15.6">готовий</tspan></text>
+<line x1="232.0" y1="150.0" x2="318.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="275.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">провал ≈ 9 мс
+(старт кадру)</text>
+<line x1="482.0" y1="150.0" x2="568.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="525.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">пауза ≈ 4.5 мс
+(це команда)</text>
+<line x1="732.0" y1="150.0" x2="818.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="775.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">зібрано 32-й біт</text>
+<path d="M 590 110 q 60 -70 120 0" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="650.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">кожен наступний спад: зміряти паузу перед ним →
+коротка = 0, довга = 1; зсунути в результат</text>
+<rect x="250.0" y="330.0" width="210.0" height="74.0" rx="6" fill="#fff7e6" stroke="#b7791f" stroke-width="1.5"/><text x="355.0" y="356.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="355.0" dy="0.0">REPEAT</tspan><tspan x="355.0" dy="14.3">кнопку тримають —</tspan><tspan x="355.0" dy="14.3">та сама команда</tspan></text>
+<line x1="355.0" y1="196.0" x2="355.0" y2="328.0" stroke="#b7791f" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="235.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b7791f" text-anchor="end">пауза ≈ 2.25 мс
+(не 4.5) → повтор</text>
+<path d="M 900 196 q 0 120 -750 0" fill="none" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)" stroke-dasharray="4 4"/>
+<text x="900.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">далі: видати команду →
+повернутись у IDLE</text>
+<rect x="114.4" y="437.4" width="791.2" height="45.3" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="510.0" y="456.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Ключ до автомата — годинник micros(): на КОЖЕН спад OUT рахуємо, скільки часу минуло від попереднього спаду.</tspan><tspan x="510.0" dy="14.3">Довжина цього інтервалу й каже, у якому ми стані: ~13.5 мс — старт даних, ~11.25 мс — повтор, ~1.1 чи ~2.2 мс — біт 0 чи 1.</tspan></text>
+</svg>

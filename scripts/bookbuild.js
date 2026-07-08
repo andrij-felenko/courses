@@ -70,77 +70,131 @@
     // прочитані теми (той самий localStorage, що й у book.js; ключ = <книга|курс>/<slug>)
     var READ = (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-read") || "[]")); } catch (e) { return new Set(); } })();
 
-    function stepHtml(m, s, kn) {
-      if (s.ref) {
-        var pr = String(s.ref).split("/").filter(Boolean), subj = pr[0], top = pr[pr.length - 1];
-        var rd = READ.has(subj + "/" + top) ? " read" : "";
-        return '<li class="guide-step' + rd + '"><a href="read.html?course=' + encodeURIComponent(g.slug) + '&book=' + encodeURIComponent(subj) + '#ch=' + encodeURIComponent(top) + '">' +
-          '<span class="gs-num">' + kn + '</span><span class="gs-ico">📖</span><span class="gs-ttl">' + _esc(s.title || top) +
-          '</span><span class="gs-subj">' + _esc(subj) + '</span></a></li>';
-      }
-      var avail = !!(s.basic && s.basic.status === "done");
-      var rdo = READ.has(g.slug + "/" + s.slug) ? " read" : "";
-      return '<li class="guide-step own' + (avail ? '' : ' stub') + rdo + '"><a href="read.html?guide=' + encodeURIComponent(g.slug) + '&module=' + encodeURIComponent(m.slug) + '#ch=' + encodeURIComponent(s.slug) + '">' +
-        '<span class="gs-num">' + kn + '</span><span class="gs-ico">📘</span><span class="gs-ttl">' + _esc(s.title || s.slug) +
-        '</span><span class="gs-subj">' + (avail ? 'стаття курсу' : 'у роботі') + '</span></a></li>';
-    }
-
-    var h = '<header class="cover-hero"><div class="kicker">Курс · доріжка крізь книги</div><h1>' + _esc(g.title) + '</h1>' +
-      '<p>' + _esc(g.subtitle || "Кожен крок — або тема предметної книги, або власна стаття курсу, що спирається на пройдене.") + '</p>' +
-      '<div class="cover-stats"><div class="stat"><div class="num">' + mods.length + '</div><div class="lbl">модулів</div></div>' +
-      (hasChap ? '<div class="stat"><div class="num">' + nChap + '</div><div class="lbl">розділів</div></div>' : '') +
-      '<div class="stat"><div class="num">' + nStep + '</div><div class="lbl">тем</div></div></div></header><div class="toc guide-toc">';
-    mods.forEach(function (m, mi) {
-      var mn = mi + 1;
-      h += '<div class="module-block" id="gm-' + mn + '"><div class="module-head"><span class="m-num">Модуль ' + mn +
-        '</span><span class="m-ttl">' + _esc(m.title) + '</span></div>';
-      chaptersOf(m).forEach(function (c, ci) {
-        var cn = mn + "." + (ci + 1);   // нумерація Модуль·Розділ·Крок — розділ і крок з позиції в маніфесті
-        if (c.title) h += '<div class="guide-chap-head"><span class="gc-num">' + cn + '</span><span class="gc-ttl">' + _esc(c.title) + '</span></div>';
-        h += '<ol class="guide-steps">';
-        (c.steps || []).forEach(function (s, si) { h += stepHtml(m, s, (c.title ? cn : mn) + "." + (si + 1)); });
-        h += '</ol>';
-      });
-      h += '</div>';
-    });
-    if (host) host.innerHTML = h + '</div>';
-    if (sb) {
-      // згортувані панелі модулів (як у книгах); стан — той самий localStorage, що й у book.js
-      var COL = (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-collapsed") || "[]")); } catch (e) { return new Set(); } })();
-      var s = '<a class="sb-home" href="index.html">← Бібліотека (усі книги)</a>' +
-        '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Курс</span><span class="sb-logo-title">' + _esc(g.title) + '</span></a>';
-      mods.forEach(function (m, mi) {
-        var mn = mi + 1;
-        s += '<div class="sb-group-label' + (COL.has(m.title) ? ' collapsed' : '') + '" data-collapse-group="' + _esc(m.title) + '">' +
-          '<span class="sb-caret" aria-hidden="true">▾</span><span class="sb-gl-txt">Модуль ' + mn + ' · ' + _esc(m.title) + '</span></div><div class="sb-group">';
-        var k = 0;
-        chaptersOf(m).forEach(function (c) {
-          (c.steps || []).forEach(function (st) {
-            k++;
-            var kn = mn + '.' + k;
-            if (st.ref) {
-              var pr = String(st.ref).split('/').filter(Boolean), subj = pr[0], top = pr[pr.length - 1];
-              s += '<a class="sb-link' + (READ.has(subj + '/' + top) ? ' read' : '') + '" href="read.html?course=' + encodeURIComponent(g.slug) +
-                '&book=' + encodeURIComponent(subj) + '#ch=' + encodeURIComponent(top) + '"><span class="sb-kn">' + kn + '</span>' + _esc(st.title || top) + '</a>';
-            } else if (st.slug) {
-              s += '<a class="sb-link' + (READ.has(g.slug + '/' + st.slug) ? ' read' : '') + '" href="read.html?guide=' + encodeURIComponent(g.slug) +
-                '&module=' + encodeURIComponent(m.slug || '') + '#ch=' + encodeURIComponent(st.slug) + '"><span class="sb-kn">' + kn + '</span>' + _esc(st.title || st.slug) + '</a>';
-            } else {
-              s += '<span class="sb-link sb-bridge"><span class="sb-kn">' + kn + '</span>🔗 ' + _esc(st.title || 'місток') + '</span>';
-            }
+    // Статус «написано» для ref-кроків лежить у маніфесті книги-цілі → підвантажуємо їх,
+    // будуємо карту written["<книга>/<slug>"], і аж тоді малюємо (own-кроки мають статус у самому курсі).
+    var subjSet = {};
+    mods.forEach(function (m) { chaptersOf(m).forEach(function (c) { (c.steps || []).forEach(function (s) {
+      if (s.ref) { var sj = String(s.ref).split("/").filter(Boolean)[0]; if (sj) subjSet[sj] = 1; }
+    }); }); });
+    Promise.all(Object.keys(subjSet).map(function (sj) {
+      return loadOne("book/" + sj + "/manifest.js", "__BOOKS__")
+        .catch(function () { return loadOne("catalog/" + sj + "/manifest.js", "__BOOKS__").catch(function () { return null; }); })
+        .then(function (b) { return { sj: sj, book: b }; });
+    })).then(function (loaded) {
+      var written = {};   // "<книга>/<slug>" → true, якщо є написана версія (basic АБО detailed = done)
+      loaded.forEach(function (x) {
+        if (!x.book) return;
+        (x.book.sections || x.book.modules || []).forEach(function (sec) {
+          (sec.topics || []).forEach(function (t) {
+            if (t && t.slug && ((t.basic && t.basic.status === "done") || (t.detailed && t.detailed.status === "done"))) written[x.sj + "/" + t.slug] = true;
           });
         });
-        s += '</div>';
       });
-      sb.innerHTML = s;
-      sb.addEventListener('click', function (e) {
-        var cg = e.target.closest && e.target.closest('[data-collapse-group]');
-        if (!cg) return;
-        var key = cg.getAttribute('data-collapse-group');
-        if (COL.has(key)) COL.delete(key); else COL.add(key);
-        cg.classList.toggle('collapsed', COL.has(key));
-        try { localStorage.setItem('courses-collapsed', JSON.stringify(Array.from(COL))); } catch (err) {}
+      paint(written);
+    });
+
+    function isWritten(s, written) {
+      if (s.ref) { var pr = String(s.ref).split("/").filter(Boolean); return !!written[pr[0] + "/" + pr[pr.length - 1]]; }
+      if (s.slug) return (s.basic && s.basic.status === "done") || (s.detailed && s.detailed.status === "done");
+      return false;
+    }
+
+    function paint(written) {
+      // скільки написано / прочитано / усього статей (ref + власні; містки не рахуємо)
+      var nWritten = 0, nArt = 0, nRead = 0;
+      mods.forEach(function (m) { chaptersOf(m).forEach(function (c) { (c.steps || []).forEach(function (s) {
+        if (!(s.ref || s.slug)) return;
+        nArt++;
+        if (isWritten(s, written)) nWritten++;
+        var pr = s.ref ? String(s.ref).split("/").filter(Boolean) : null;
+        var rk = pr ? (pr[0] + "/" + pr[pr.length - 1]) : (g.slug + "/" + s.slug);
+        if (READ.has(rk)) nRead++;
+      }); }); });
+
+      function stepHtml(m, s, kn) {
+        var w = isWritten(s, written);
+        if (s.ref) {
+          var pr = String(s.ref).split("/").filter(Boolean), subj = pr[0], top = pr[pr.length - 1];
+          var rd = READ.has(subj + "/" + top) ? " read" : "";
+          return '<li class="guide-step' + (w ? '' : ' soon') + rd + '"><a href="read.html?course=' + encodeURIComponent(g.slug) + '&book=' + encodeURIComponent(subj) + '#ch=' + encodeURIComponent(top) + '">' +
+            '<span class="gs-num">' + kn + '</span><span class="gs-ico">📖</span><span class="gs-ttl">' + _esc(s.title || top) + '</span>' +
+            (w ? '<span class="gs-subj">' + _esc(subj) + '</span>' : '<span class="gs-soon">незабаром</span>') + '</a></li>';
+        }
+        if (s.slug) {
+          var rdo = READ.has(g.slug + "/" + s.slug) ? " read" : "";
+          return '<li class="guide-step own' + (w ? '' : ' soon') + rdo + '"><a href="read.html?guide=' + encodeURIComponent(g.slug) + '&module=' + encodeURIComponent(m.slug) + '#ch=' + encodeURIComponent(s.slug) + '">' +
+            '<span class="gs-num">' + kn + '</span><span class="gs-ico">📘</span><span class="gs-ttl">' + _esc(s.title || s.slug) + '</span>' +
+            (w ? '<span class="gs-subj gs-own">стаття курсу</span>' : '<span class="gs-soon">незабаром</span>') + '</a></li>';
+        }
+        return '<li class="guide-step bridge"><span class="gs-num">' + kn + '</span>🔗 ' + _esc(s.title || 'місток') + '</li>';
+      }
+
+      var h = '<header class="ch-header ch-header-guide"><div class="ch-label">Курс · доріжка крізь книги</div><h1>' + _esc(g.title) + '</h1></header>' +
+        '<header class="cover-hero cover-hero-guide">' +
+        '<p>' + _esc(g.subtitle || "Кожен крок — або тема предметної книги, або власна стаття курсу, що спирається на пройдене.") + '</p>' +
+        '<div class="cover-stats"><div class="stat"><div class="num">' + mods.length + '</div><div class="lbl">модулів</div></div>' +
+        (hasChap ? '<div class="stat"><div class="num">' + nChap + '</div><div class="lbl">розділів</div></div>' : '') +
+        '<div class="stat"><div class="num">' + nStep + '</div><div class="lbl">тем</div></div>' +
+        '<div class="stat stat-written"><div class="num">' + nWritten + '<span class="stat-of"> / ' + nArt + '</span></div><div class="lbl">написано</div></div>' +
+        '<div class="stat"><div class="num">' + nRead + '</div><div class="lbl">прочитано</div></div>' +
+        '</div></header><div class="toc guide-toc">';
+      mods.forEach(function (m, mi) {
+        var mn = mi + 1;
+        h += '<div class="module-block" id="gm-' + mn + '"><div class="module-head"><span class="m-num">Модуль ' + mn +
+          '</span><span class="m-ttl">' + _esc(m.title) + '</span></div>';
+        chaptersOf(m).forEach(function (c, ci) {
+          var cn = mn + "." + (ci + 1);   // нумерація Модуль·Розділ·Крок — розділ і крок з позиції в маніфесті
+          if (c.title) h += '<div class="guide-chap-head"><span class="gc-num">' + cn + '</span><span class="gc-ttl">' + _esc(c.title) + '</span></div>';
+          h += '<ol class="guide-steps">';
+          (c.steps || []).forEach(function (s, si) { h += stepHtml(m, s, (c.title ? cn : mn) + "." + (si + 1)); });
+          h += '</ol>';
+        });
+        h += '</div>';
       });
+      if (host) host.innerHTML = h + '</div>';
+      if (sb) {
+        // згортувані панелі модулів (як у книгах); стан — той самий localStorage, що й у book.js
+        var COL = (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-collapsed") || "[]")); } catch (e) { return new Set(); } })();
+        var s = '<a class="sb-home" href="index.html">← Бібліотека (усі книги)</a>' +
+          '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Курс</span><span class="sb-logo-title">' + _esc(g.title) + '</span></a>';
+        mods.forEach(function (m, mi) {
+          var mn = mi + 1;
+          s += '<div class="sb-group-label' + (COL.has(m.title) ? ' collapsed' : '') + '" data-collapse-group="' + _esc(m.title) + '">' +
+            '<span class="sb-caret" aria-hidden="true">▾</span><span class="sb-gl-txt">Модуль ' + mn + ' · ' + _esc(m.title) + '</span></div><div class="sb-group">';
+          var k = 0;
+          chaptersOf(m).forEach(function (c) {
+            (c.steps || []).forEach(function (st) {
+              k++;
+              var kn = mn + '.' + k, w = isWritten(st, written);
+              if (st.ref) {
+                var pr = String(st.ref).split('/').filter(Boolean), subj = pr[0], top = pr[pr.length - 1];
+                s += '<a class="sb-link' + (w ? '' : ' soon') + (READ.has(subj + '/' + top) ? ' read' : '') + '" href="read.html?course=' + encodeURIComponent(g.slug) +
+                  '&book=' + encodeURIComponent(subj) + '#ch=' + encodeURIComponent(top) + '"><span class="sb-kn">' + kn + '</span>' + _esc(st.title || top) + '</a>';
+              } else if (st.slug) {
+                s += '<a class="sb-link' + (w ? '' : ' soon') + (READ.has(g.slug + '/' + st.slug) ? ' read' : '') + '" href="read.html?guide=' + encodeURIComponent(g.slug) +
+                  '&module=' + encodeURIComponent(m.slug || '') + '#ch=' + encodeURIComponent(st.slug) + '"><span class="sb-kn">' + kn + '</span>' + _esc(st.title || st.slug) + '</a>';
+              } else {
+                s += '<span class="sb-link sb-bridge"><span class="sb-kn">' + kn + '</span>🔗 ' + _esc(st.title || 'місток') + '</span>';
+              }
+            });
+          });
+          s += '</div>';
+        });
+        sb.innerHTML = s;
+        sb.addEventListener('click', function (e) {
+          var cg = e.target.closest && e.target.closest('[data-collapse-group]');
+          if (!cg) return;
+          var key = cg.getAttribute('data-collapse-group');
+          if (COL.has(key)) COL.delete(key); else COL.add(key);
+          cg.classList.toggle('collapsed', COL.has(key));
+          try { localStorage.setItem('courses-collapsed', JSON.stringify(Array.from(COL))); } catch (err) {}
+        });
+        // меню-кнопка (☰) + scrim + ✕ на вузькому екрані: book.js на лендингу курсу НЕ вантажиться, тож вішаємо тут
+        var menuBtn = document.getElementById("menu-btn"), scrim = document.getElementById("scrim"), closeBtn = document.getElementById("sidebar-close");
+        if (menuBtn) menuBtn.onclick = function () { sb.classList.toggle("open"); };
+        if (scrim) scrim.onclick = function () { sb.classList.remove("open"); };
+        if (closeBtn) closeBtn.onclick = function () { sb.classList.remove("open"); };
+      }
     }
   }
 

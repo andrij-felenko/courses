@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бар'єр не дає публікації випередити заповнення полів</text>
+<rect x="287.4" y="80.0" width="205.2" height="49.9" rx="6" fill="#e8f7ee" stroke="#27ae60" stroke-width="1.5"/><text x="390.0" y="101.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">записати всі поля об'єкта</tspan><tspan x="390.0" dy="16.9">(конструктор до кінця)</tspan></text>
+<rect x="90.0" y="172.0" width="600.0" height="36.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="390.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">БАР'ЄР ПАМ'ЯТІ (release): нічого згори не перетне його вниз</text>
+<rect x="298.5" y="260.1" width="183.0" height="49.9" rx="6" fill="#fff8e1" stroke="#d9a400" stroke-width="1.5"/><text x="390.0" y="281.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">опублікувати посилання</tspan><tspan x="390.0" dy="16.9">helper = адреса</tspan></text>
+<line x1="390.0" y1="129.9" x2="390.0" y2="170.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="390.0" y1="210.0" x2="390.0" y2="260.1" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="390.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-style="italic">Хто прочитав ненульове helper, той (через парний acquire-бар'єр) бачить і всі поля.</text>
+<text x="390.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">volatile у Java (з JSR-133) і std::atomic у C++ ставлять цю пару бар'єрів за тебе.</text>
+</svg>

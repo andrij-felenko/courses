@@ -4,23 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Читач</title>
-<script>try{var d=document.documentElement;d.setAttribute('data-theme',localStorage.getItem('courses-theme')||'day');d.setAttribute('data-density',localStorage.getItem('courses-density')||'cozy')}catch(e){}</script>
-<link rel="stylesheet" href="book.css?v=24">
-<link rel="stylesheet" href="search.css?v=2">
-<link rel="stylesheet" href="dense.css?v=5">
+<script>try{var d=document.documentElement;d.setAttribute('data-theme',localStorage.getItem('courses-theme')||'day');d.setAttribute('data-density',localStorage.getItem('courses-density')||'cozy');if(localStorage.getItem('courses-sidebar-hidden')==='1')d.classList.add('sb-hidden')}catch(e){}</script>
+<link rel="stylesheet" href="book.css?v=40">
+<link rel="stylesheet" href="search.css?v=4">
+<link rel="stylesheet" href="dense.css?v=6">
 </head>
 <body>
 
 <button id="menu-btn" aria-label="Меню">☰</button>
+<button id="sidebar-close" aria-label="Закрити меню" title="Закрити">✕</button>
 <nav id="sidebar" aria-label="Навігація"></nav>
 <div id="scrim"></div>
 <main id="content"><div class="state"><div class="spinner"></div>Готуємо…</div></main>
 <button id="back-top" aria-label="Догори" title="Догори">↑</button>
+<div id="reader-controls" role="group" aria-label="Налаштування читача"></div>
 
 <noscript><div style="max-width:700px;margin:3rem auto;padding:0 1.5rem">Потрібен JavaScript.</div></noscript>
 
 <!-- Універсальний читач: ?book=<subject> (предметна книга) або ?guide=<course> (курс) -->
-<script src="scripts/bookbuild.js?v=12"></script>
+<script src="scripts/bookbuild.js?v=17"></script>
 <script>
 (function () {
   var p = new URLSearchParams(location.search);
@@ -34,7 +36,7 @@
       if (!b) { content.innerHTML = '<div class="state error">Книгу не знайдено</div>'; return; }
       if (courseSlug && arr[1]) b.course = { slug: courseSlug, title: arr[1].title, modules: arr[1].modules || arr[1].sections || [] };
       window.BOOK = b;
-      var s = document.createElement("script"); s.src = "book.js?v=23"; document.body.appendChild(s);
+      var s = document.createElement("script"); s.src = "book.js?v=31"; document.body.appendChild(s);
     });
   } else if (p.get("guide")) {
     var gslug = p.get("guide");
@@ -45,7 +47,7 @@
         if (!b) { content.innerHTML = '<div class="state error">Курс не знайдено</div>'; return; }
         b.course = { slug: gslug, title: g.title, modules: g.modules || g.sections || [] };   // курсовий сайдбар/навігація і для власних статей
         window.BOOK = b;
-        var s = document.createElement("script"); s.src = "book.js?v=23"; document.body.appendChild(s);
+        var s = document.createElement("script"); s.src = "book.js?v=31"; document.body.appendChild(s);
       });
     } else {
       loadGuide(gslug).then(function (g) { renderGuide(g); });   // лендинг курсу (доріжка модулів/кроків)
@@ -55,8 +57,10 @@
   }
 })();
 </script>
-<script src="search.js?v=4"></script>
+<script src="search.js?v=7"></script>
 <script src="theme.js?v=1"></script>
 <script src="density.js?v=1"></script>
+<script src="codelang.js?v=3"></script>
+<script src="sidebar-toggle.js?v=2"></script>
 </body>
 </html>

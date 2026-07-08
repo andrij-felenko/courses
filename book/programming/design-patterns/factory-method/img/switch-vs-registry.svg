@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="640" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="222.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">if / else ланцюг</text>
+<text x="222.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">вибір усередині гілок</text>
+<text x="600.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">таблиця-реєстр</text>
+<text x="600.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">вибір у даних (мапі)</text>
+<text x="978.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">самореєстрація</text>
+<text x="978.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">клас вписує себе сам</text>
+<line x1="400.0" y1="82.0" x2="400.0" y2="522.0" stroke="#d0d5db" stroke-width="1.1" stroke-dasharray="6,6"/>
+<line x1="800.0" y1="82.0" x2="800.0" y2="522.0" stroke="#d0d5db" stroke-width="1.1" stroke-dasharray="6,6"/>
+<rect x="72.0" y="96.0" width="300.0" height="214.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="222.0" y="173.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="222.0" dy="0.0">parserForFile(ext):</tspan><tspan x="222.0" dy="16.9">  if ext=='json' → new Json</tspan><tspan x="222.0" dy="16.9">  if ext=='csv'  → new Csv</tspan><tspan x="222.0" dy="16.9">  if ext=='xml'  → new Xml</tspan><tspan x="222.0" dy="16.9">  else → помилка</tspan></text>
+<text x="222.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">гілки ЖИВУТЬ у тілі функції</text>
+<rect x="450.0" y="96.0" width="300.0" height="116.0" rx="6" fill="#eef8f2" stroke="#27ae60" stroke-width="1.6"/><text x="600.0" y="133.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">PARSERS  (дані):</tspan><tspan x="600.0" dy="16.9">  json → JsonParser</tspan><tspan x="600.0" dy="16.9">  csv  → CsvParser</tspan><tspan x="600.0" dy="16.9">  xml  → XmlParser</tspan></text>
+<line x1="600.0" y1="214.0" x2="600.0" y2="236.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="450.0" y="238.0" width="300.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="600.0" y="267.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">parserForFile(ext):</tspan><tspan x="600.0" dy="16.2">  return PARSERS[ext]()   ← стала</tspan></text>
+<text x="600.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">функція мала й НЕ міняється</text>
+<rect x="828.0" y="105.8" width="300.0" height="32.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="978.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="978.0" dy="0.0">PARSERS  (порожній старт)</tspan></text>
+<rect x="828.0" y="176.0" width="300.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="978.0" y="196.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="978.0" dy="0.0">@parses('json')  Json</tspan></text>
+<line x1="1120.0" y1="180.0" x2="1120.0" y2="142.2" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="828.0" y="230.0" width="300.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="978.0" y="250.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="978.0" dy="0.0">@parses('csv')   Csv</tspan></text>
+<line x1="1120.0" y1="234.0" x2="1120.0" y2="142.2" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="828.0" y="284.0" width="300.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="978.0" y="304.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="978.0" dy="0.0">@parses('yaml')  Yaml</tspan></text>
+<line x1="1120.0" y1="288.0" x2="1120.0" y2="142.2" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="978.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">фабрика взагалі НЕ знає списку</text>
+<line x1="40.0" y1="530.0" x2="1160.0" y2="530.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="600.0" y="548.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Додаємо новий формат — де правка?</text>
+<text x="222.0" y="576.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">у ТІЛІ функції (+гілка)</text>
+<text x="600.0" y="576.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">один рядок у таблиці</text>
+<text x="978.0" y="576.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ніде — клас вписав себе</text>
+</svg>

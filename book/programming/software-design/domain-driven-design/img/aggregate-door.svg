@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Корінь агрегату — єдині двері до інваріанту</text>
+<rect x="120.0" y="92.0" width="800.0" height="372.0" rx="16" fill="#f2faf5" stroke="#27ae60" stroke-width="2.2"/>
+<text x="520.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Агрегат «Поліс»</text>
+<text x="520.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-style="italic">межа = те, що мусить бути істинним РАЗОМ; одна транзакція — один агрегат</text>
+<rect x="168.0" y="150.0" width="244.0" height="250.0" rx="11" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="290.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Policy  (корінь)</text>
+<line x1="182.0" y1="192.0" x2="398.0" y2="192.0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="186.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">− status  (закрите)</text>
+<text x="186.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">− premium (закрите)</text>
+<text x="186.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">− payments  (закриті)</text>
+<line x1="182.0" y1="298.0" x2="398.0" y2="298.0" stroke="#cfe8d6" stroke-width="1.0"/>
+<text x="186.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">+ addPayment(...)</text>
+<text x="186.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">+ enterGracePeriod()</text>
+<text x="194.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">тут тримається інваріант</text>
+<rect x="578.0" y="158.0" width="220.0" height="60.0" rx="8" fill="#eef7f0" stroke="#8fc9a3" stroke-width="1.6"/>
+<text x="688.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Payment #1</text>
+<text x="688.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">внутрішня частина</text>
+<line x1="420.0" y1="188.0" x2="570.0" y2="188.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="578.0" y="242.0" width="220.0" height="60.0" rx="8" fill="#eef7f0" stroke="#8fc9a3" stroke-width="1.6"/>
+<text x="688.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Payment #2</text>
+<text x="688.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">внутрішня частина</text>
+<line x1="420.0" y1="272.0" x2="570.0" y2="272.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="578.0" y="326.0" width="220.0" height="60.0" rx="8" fill="#eef7f0" stroke="#8fc9a3" stroke-width="1.6"/>
+<text x="688.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Payment #3</text>
+<text x="688.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">внутрішня частина</text>
+<line x1="420.0" y1="356.0" x2="570.0" y2="356.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="940.0" y1="450.5" x2="688.0" y2="224.0" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="7,5"/>
+<text x="708.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="start" font-weight="700">✗</text>
+<rect x="876.2" y="450.5" width="127.6" height="39.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="940.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="940.0" dy="0.0">напряму до частини</tspan><tspan x="940.0" dy="13.0">— зась</tspan></text>
+<text x="140.0" y="540.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">зовнішній код тримає посилання лише на корінь</text>
+</svg>

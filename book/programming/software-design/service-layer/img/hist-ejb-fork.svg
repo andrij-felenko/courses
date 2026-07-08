@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розвилка епохи J2EE: у чому втілити сервісний шар</text>
+<rect x="260.0" y="73.5" width="380.0" height="33.0" rx="6" fill="#fff7e6" stroke="#d68910" stroke-width="1.5"/><text x="450.0" y="94.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Сервісний шар: placeOrder(), …</tspan></text>
+<line x1="410.0" y1="116.0" x2="250.0" y2="168.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="116.0" x2="650.0" y2="168.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="80.0" y="176.0" width="340.0" height="190.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="250.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Сесійний бін (session bean)</text>
+<text x="250.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">транзакції веде контейнер</text>
+<text x="250.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">можна кликати здалеку</text>
+<text x="250.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">але: обʼєкти йдуть по мережі,</text>
+<text x="250.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">важче тестувати —</text>
+<text x="250.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">треба піднімати контейнер</text>
+<rect x="480.0" y="176.0" width="340.0" height="190.0" rx="10" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="650.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звичайний обʼєкт (POJO)</text>
+<text x="650.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">легко тестувати —</text>
+<text x="650.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">без контейнера, в памʼяті</text>
+<text x="650.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">але: складніше причепити</text>
+<text x="650.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">розподілені транзакції</text>
+<text x="650.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">контейнера</text>
+<text x="450.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">Порада Стаффорда: починай із локального — віддаленість додаси, якщо колись знадобиться</text>
+</svg>

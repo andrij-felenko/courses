@@ -17,6 +17,7 @@
   var BOOKS = window.SUBJECT_BOOKS || [];
   var GUIDES = window.GUIDE_COURSES || [];
   var CATALOGS = window.CATALOG_BOOKS || [];
+  var READ = (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-read") || "[]")); } catch (e) { return new Set(); } })();
   var ICON = { physics: "⚛️", math: "🧮", chemistry: "⚗️", electronics: "🔌", programming: "💻", communications: "📡", algorithms: "🧠", philosophy: "🦉" };
   var ACCENT = { physics: "#6b5b95", math: "#3a6b9c", chemistry: "#3a8f80", electronics: "#b06a5a", programming: "#5a5f9c", communications: "#4a8296", algorithms: "#a5648a", philosophy: "#9a7b4f" };
   var DESC = {
@@ -30,18 +31,24 @@
     philosophy: "Знання, буття, розум і добро — великі питання."
   };
   // Курси — власні іконка, колір і опис (щоб не були однаково-зелені).
-  var GUIDE_ICON = { embedded: "🤖", "basic-chemistry": "⚗️" };
-  var GUIDE_ACCENT = { embedded: "#c1683f", "basic-chemistry": "#2f9e8f" };
+  var GUIDE_ICON = { embedded: "🤖", "basic-chemistry": "⚗️", progarch: "🏛️" };
+  var GUIDE_ACCENT = { embedded: "#c1683f", "basic-chemistry": "#2f9e8f", progarch: "#5a6b9c" };
   var GUIDE_DESC = {
     embedded: "Від заряду й струму до власного пристрою: фізика, схемотехніка, мікроконтролери й автономні системи — крок за кроком.",
-    "basic-chemistry": "Хімія для початківців: від атома й періодичної таблиці до реакцій, розчинів, органіки та розрахунків задач."
+    "basic-chemistry": "Хімія для початківців: від атома й періодичної таблиці до реакцій, розчинів, органіки та розрахунків задач.",
+    progarch: "Архітектура програмних систем: модульність, межі, залежності й масштаб — як будувати та підтримувати великий код."
   };
-  // Каталоги — «залізні» акценти: текстоліт для плат, ефір для зв'язку.
-  var CAT_ICON = { boards: "🧩", connect: "📶" };
-  var CAT_ACCENT = { boards: "#3f7d52", connect: "#3d7d92" };
+  // Каталоги — «залізні» акценти й функційні іконки (за 7 родинами §1).
+  var CAT_ICON = { boards: "🧩", connect: "📶", sensors: "🌡️", power: "🔋", actuators: "⚙️", instruments: "🔬", components: "🔩" };
+  var CAT_ACCENT = { boards: "#3f7d52", connect: "#3d7d92", sensors: "#c0803a", power: "#b0563f", actuators: "#5f6b8c", instruments: "#3f8a76", components: "#8a7355" };
   var CAT_DESC = {
     boards: "Плати й модулі-розширення: що на борту, живлення, як під'єднати.",
-    connect: "Радіомодулі й канали передавання даних: характеристики та підключення."
+    connect: "Радіомодулі й канали передавання даних: характеристики та підключення.",
+    sensors: "Давачі: рух, середовище, світло, звук — що вимірюють і як під'єднати.",
+    power: "Живлення: перетворювачі, захист і акумулятори — струм і напруга під контролем.",
+    actuators: "Виконавчі механізми: мотори, серводвигуни, драйвери — рух і сила.",
+    instruments: "Вимірювальні прилади: мультиметри, генератори, аналізатори сигналів.",
+    components: "Дискретні компоненти: резистори, конденсатори, напівпровідники."
   };
 
   // Тема ІСНУЄ, якщо написана хоч одна версія (basic АБО detailed): статус не "empty"/"pending".
@@ -51,14 +58,14 @@
   function loadShelfItem(base, slug) {
     return fetchText(base + "/" + slug + "/manifest.js").then(function (src) {
       var b = manifestObj(src, "__BOOKS__");
-      var planned = 0, exist = 0;
+      var planned = 0, exist = 0, written = {};
       ((b && b.sections) || []).forEach(function (sec) {
         (sec.topics || []).forEach(function (t) {
           if (verPlanned(t.basic) || verPlanned(t.detailed)) planned++;
-          if (verReadable(t.basic) || verReadable(t.detailed)) exist++;
+          if (verReadable(t.basic) || verReadable(t.detailed)) { exist++; if (t.slug) written[t.slug] = 1; }
         });
       });
-      return { slug: slug, title: (b && b.title) || slug, branches: ((b && b.sections) || []).length, topics: planned, done: exist };
+      return { slug: slug, title: (b && b.title) || slug, branches: ((b && b.sections) || []).length, topics: planned, done: exist, written: written };
     });
   }
   function loadBook(slug) { return loadShelfItem("book", slug); }
@@ -68,12 +75,25 @@
     return fetchText("guide/" + slug + "/manifest.js").then(function (src) {
       var g = manifestObj(src, "__GUIDES__");
       var mods = (g && (g.sections || g.modules)) || [];
-      var steps = 0, chapters = 0;
+      var steps = 0, chapters = 0, art = 0, ownDone = 0, read = 0, refs = [];
+      function step(st) {
+        steps++;
+        if (st.ref) {
+          art++;
+          var pr = String(st.ref).split("/").filter(Boolean), subj = pr[0], sl = pr[pr.length - 1];
+          refs.push({ subj: subj, slug: sl });
+          if (READ.has(subj + "/" + sl)) read++;
+        } else if (st.slug) {
+          art++;
+          if ((st.basic && st.basic.status === "done") || (st.detailed && st.detailed.status === "done")) ownDone++;
+          if (READ.has(slug + "/" + st.slug)) read++;
+        }
+      }
       mods.forEach(function (m) {
-        if (m.chapters && m.chapters.length) m.chapters.forEach(function (c) { chapters++; steps += (c.steps || []).length; });
-        else steps += (m.topics || []).length;
+        if (m.chapters && m.chapters.length) m.chapters.forEach(function (c) { chapters++; (c.steps || []).forEach(step); });
+        else (m.topics || []).forEach(step);
       });
-      return { slug: slug, title: (g && g.title) || slug, modules: mods.length, chapters: chapters, steps: steps };
+      return { slug: slug, title: (g && g.title) || slug, modules: mods.length, chapters: chapters, steps: steps, art: art, ownDone: ownDone, read: read, refs: refs };
     });
   }
 
@@ -85,8 +105,9 @@
     var topicsVal = complete ? String(b.topics)                          // усе готово — лише всього, без галочки
       : ('<b>' + b.done + '</b> / ' + b.topics);                          // інакше — готово / всього (напр. 60 / 72)
     return '<a class="lib-card" href="read.html?book=' + esc(b.slug) + '" style="--accent:' + (ACCENT[b.slug] || "#1d6fa4") + '">' +
-      '<div class="lib-cover"><span class="lib-ico">' + (ICON[b.slug] || "📘") + '</span>' +
+      '<div class="lib-cover">' +
       '<span class="lib-cover-ttl">' + esc(b.title) + '</span></div>' +
+      '<span class="lib-ico">' + (ICON[b.slug] || "📘") + '</span>' +
       '<div class="lib-body"><p class="lib-desc">' + esc(DESC[b.slug] || "") + '</p>' +
       '<div class="lib-stats">' +
         '<div class="lib-stat-row"><span class="lib-stat-k">Галузі</span><span class="lib-stat-v">' + b.branches + '</span></div>' +
@@ -102,16 +123,20 @@
     var ico = GUIDE_ICON[g.slug] || "🎓";
     var desc = GUIDE_DESC[g.slug] || "Курс — доріжка крізь предметні книги, що веде темами по черзі й сплітає їх у навчання.";
     var chaptersRow = g.chapters ? '<div class="lib-stat-row"><span class="lib-stat-k">Розділи</span><span class="lib-stat-v">' + g.chapters + '</span></div>' : "";
+    var gComplete = g.art > 0 && g.written === g.art, gWPct = g.art ? Math.round(g.written / g.art * 100) : 0, gWPartial = g.written > 0 && !gComplete;
     return '<a class="lib-card lib-card-guide" href="read.html?guide=' + esc(g.slug) + '" style="--accent:' + accent + '">' +
-      '<div class="lib-cover"><span class="lib-kind">Курс</span><span class="lib-ico">' + ico + '</span>' +
+      '<div class="lib-cover"><span class="lib-kind">Курс</span>' +
       '<span class="lib-cover-ttl">' + esc(g.title) + '</span></div>' +
+      '<span class="lib-ico">' + ico + '</span>' +
       '<div class="lib-body"><p class="lib-desc">' + esc(desc) + '</p>' +
       '<div class="lib-stats">' +
         '<div class="lib-stat-row"><span class="lib-stat-k">Модулі</span><span class="lib-stat-v">' + g.modules + '</span></div>' +
         chaptersRow +
-        '<div class="lib-stat-row"><span class="lib-stat-k">Теми</span><span class="lib-stat-v">' + g.steps + '</span></div>' +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Написано</span><span class="lib-stat-v">' + (gComplete ? String(g.art) : '<b>' + g.written + '</b> / ' + g.art) + '</span></div>' +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Прочитано</span><span class="lib-stat-v">' + g.read + '</span></div>' +
       '</div>' +
-      '<div class="lib-foot"><span class="lib-modnote">Доріжка крізь книги</span>' +
+      (gWPartial ? '<div class="lib-bar" title="' + gWPct + '% написано"><span style="width:' + gWPct + '%"></span></div>' : '') +
+      '<div class="lib-foot"><span class="lib-modnote">' + (gComplete ? 'курс повний' : gWPct + '% написано') + '</span>' +
       '<span class="lib-cta">Пройти →</span></div></div></a>';
   }
   function catalogCard(c) {
@@ -119,8 +144,9 @@
     var partial = c.done > 0 && c.done < c.topics;
     var topicsVal = (c.topics > 0 && c.done === c.topics) ? String(c.topics) : ('<b>' + c.done + '</b> / ' + c.topics);
     return '<a class="lib-card lib-card-cat" href="read.html?book=' + esc(c.slug) + '" style="--accent:' + (CAT_ACCENT[c.slug] || "#5b6b7c") + '">' +
-      '<div class="lib-cover"><span class="lib-kind lib-kind-cat">Каталог</span><span class="lib-ico">' + (CAT_ICON[c.slug] || "🗂️") + '</span>' +
+      '<div class="lib-cover"><span class="lib-kind lib-kind-cat">Каталог</span>' +
       '<span class="lib-cover-ttl">' + esc(c.title) + '</span></div>' +
+      '<span class="lib-ico">' + (CAT_ICON[c.slug] || "🗂️") + '</span>' +
       '<div class="lib-body"><p class="lib-desc">' + esc(CAT_DESC[c.slug] || "") + '</p>' +
       '<div class="lib-stats">' +
         '<div class="lib-stat-row"><span class="lib-stat-k">Розділи</span><span class="lib-stat-v">' + c.branches + '</span></div>' +
@@ -269,6 +295,17 @@
     Promise.all(BOOKS.map(loadBook)),
     Promise.all(GUIDES.map(loadGuide)),
     Promise.all(CATALOGS.map(loadCatalog))
-  ]).then(function (r) { render(r[0], r[1], r[2]); })
+  ]).then(function (r) {
+    var books = r[0], guides = r[1], cats = r[2];
+    // карта написаних тем по книгах/каталогах → рахуємо «написано» для кожного курсу (ref-кроки + власні)
+    var WRITTEN = {};
+    books.concat(cats).forEach(function (x) { WRITTEN[x.slug] = x.written || {}; });
+    guides.forEach(function (g) {
+      var w = g.ownDone;
+      g.refs.forEach(function (rf) { if (WRITTEN[rf.subj] && WRITTEN[rf.subj][rf.slug]) w++; });
+      g.written = w;
+    });
+    render(books, guides, cats);
+  })
     .catch(function (e) { root.innerHTML = '<div class="state error"><h2>Помилка</h2><p><code>' + esc(e && e.message) + '</code></p></div>'; });
 })();

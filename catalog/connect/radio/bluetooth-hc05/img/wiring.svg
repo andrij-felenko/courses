@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підключення до 5-В MCU: дільник на RXD — головна пастка</text>
+<rect x="30.0" y="150.0" width="150.0" height="90.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="105.0" y="185.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">MCU на 5 В</tspan><tspan x="105.0" dy="13.0">(Arduino Uno/Nano)</tspan><tspan x="105.0" dy="13.0">TX і RX — 5-В логіка</tspan></text>
+<rect x="560.0" y="150.0" width="170.0" height="90.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/><text x="645.0" y="184.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">HC-05 / HC-06</tspan><tspan x="645.0" dy="14.3">живиться 5 В (VCC),</tspan><tspan x="645.0" dy="14.3">але RXD — лише 3.3 В</tspan></text>
+<line x1="560.0" y1="172.0" x2="180.0" y2="172.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="370.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">TXD (3.3 В) → RX MCU — напряму, ок</text>
+<line x1="180.0" y1="214.0" x2="300.0" y2="214.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="240.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">TX MCU (5 В)</text>
+<rect x="300.0" y="198.0" width="70.0" height="32.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/><text x="335.0" y="217.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">R1 1к</tspan></text>
+<line x1="370.0" y1="214.0" x2="400.0" y2="214.0" stroke="#2457d6" stroke-width="2.2"/>
+<circle cx="400.0" cy="214.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="365.0" y="240.0" width="70.0" height="32.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/><text x="400.0" y="259.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">R2 2к</tspan></text>
+<line x1="400.0" y1="214.0" x2="400.0" y2="240.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="400.0" y1="272.0" x2="400.0" y2="298.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="400.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">GND</text>
+<line x1="400.0" y1="214.0" x2="560.0" y2="214.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="480.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">≈3.3 В → RXD</text>
+<rect x="70.0" y="322.0" width="620.0" height="60.0" rx="6" fill="#fff8e1" stroke="#f0b429" stroke-width="1.2"/><text x="380.0" y="348.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Пастка: подати 5-В TX прямо на RXD → з часом псується вхід модуля.</tspan><tspan x="380.0" dy="14.3">Дільник 1к/2к опускає 5 В до ≈3.3 В; зустрічний бік (TXD→RX MCU) його не потребує.</tspan></text>
+</svg>

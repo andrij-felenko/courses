@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбір кадру MAVLink v1 з потоку: крок за кроком по байтах</text>
+<rect x="40.0" y="116.0" width="82.0" height="56.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/>
+<text x="81.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">FE</text>
+<text x="81.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">STX</text>
+<rect x="130.0" y="116.0" width="82.0" height="56.0" rx="6" fill="#fff7e6" stroke="#333333" stroke-width="1.5"/>
+<text x="171.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">09</text>
+<text x="171.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">LEN</text>
+<rect x="220.0" y="116.0" width="82.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="261.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SEQ</text>
+<text x="261.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">лічильник</text>
+<rect x="310.0" y="116.0" width="82.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="351.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SYS</text>
+<text x="351.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">апарат</text>
+<rect x="400.0" y="116.0" width="82.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="441.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">COMP</text>
+<text x="441.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">вузол</text>
+<rect x="490.0" y="116.0" width="82.0" height="56.0" rx="6" fill="#eef4ff" stroke="#333333" stroke-width="1.5"/>
+<text x="531.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">ID</text>
+<text x="531.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">тип</text>
+<rect x="580.0" y="116.0" width="210.0" height="56.0" rx="6" fill="#eafaf1" stroke="#333333" stroke-width="1.5"/>
+<text x="685.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">PAYLOAD</text>
+<text x="685.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рівно LEN байтів (тут 9)</text>
+<rect x="798.0" y="116.0" width="96.0" height="56.0" rx="6" fill="#fff7e6" stroke="#333333" stroke-width="1.5"/>
+<text x="846.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">CRC</text>
+<text x="846.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2 байти</text>
+<text x="81.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">1. ловимо 0xFE (старт)</text>
+<text x="171.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2. читаємо LEN</text>
+<text x="171.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(скільки даних)</text>
+<text x="396.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">3. чотири байти заголовка</text>
+<text x="396.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">SEQ · SYS · COMP · ID</text>
+<text x="685.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">4. рівно LEN байтів даних</text>
+<text x="685.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(за MSG ID знаємо, що всередині)</text>
+<line x1="846.0" y1="178.0" x2="846.0" y2="272.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="846.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">5. звірити CRC</text>
+<text x="846.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">зійшлась —</text>
+<text x="846.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кадр цілий</text>
+<text x="500.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Довжина кадру = 1 (STX) + 5 (заголовок) + LEN (дані) + 2 (CRC)</text>
+<text x="500.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">версія 2 (0xFD): заголовок 9 байтів, MSG ID — 3 байти, решта — та сама ідея</text>
+</svg>

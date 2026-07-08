@@ -14,7 +14,7 @@
   var INDEX = null, FULL = null, fullLoading = null;
   var indexLoading = fetchJSON("search-index.json").then(function (d) { INDEX = d || []; });
 
-  var state = { book: "", sec: "", inText: false, cur: -1 };
+  var state = { kind: "", book: "", sec: "", inText: false, cur: -1 };
   var el = {};   // посилання на елементи модалки
 
   function fetchJSON(name) {
@@ -42,6 +42,7 @@
 
   /* --- пошук: Рівень 1 (назви тем + заголовки), з фільтрами книга/розділ ----- */
   function passesFilter(e) {
+    if (state.kind && e.k !== state.kind) return false;
     if (state.book && e.b !== state.book) return false;
     if (state.sec && e.sec !== state.sec) return false;
     return true;
@@ -80,12 +81,20 @@
     return BASE + h;
   }
   function kindPri(e) { return e.k === "guide" ? 0 : 1; }   // курси — головне, тож попереду книг
-  function rankSort(a, b) { return kindPri(a.e) - kindPri(b.e) || b.rank - a.rank || norm(a.e.title).localeCompare(norm(b.e.title)); }
+  function rankSort(a, b) { return b.rank - a.rank || kindPri(a.e) - kindPri(b.e) || norm(a.e.title).localeCompare(norm(b.e.title)); }   // релевантність первинна; тип — тай-брейк
 
   /* --- фільтри: книги з індексу, розділи обраної книги ------------------------ */
-  function bookList() {
+  var KIND_LABEL = { book: "Книги", guide: "Курси", catalog: "Каталоги" };
+  var KIND_ONE = { book: "Книга", guide: "Курс", catalog: "Каталог" };
+  var KIND_ALL = { book: "Усі книги", guide: "Усі курси", catalog: "Усі каталоги" };
+  var KIND_ALLSEC = { book: "Усі розділи", guide: "Усі модулі", catalog: "Усі родини" };
+  function kindsPresent() {
+    var seen = {}; (INDEX || []).forEach(function (e) { if (e.k) seen[e.k] = 1; });
+    return ["guide", "book", "catalog"].filter(function (k) { return seen[k]; });
+  }
+  function bookList(kind) {
     var seen = {}, out = [];
-    (INDEX || []).forEach(function (e) { if (!seen[e.b]) { seen[e.b] = 1; out.push({ slug: e.b, title: e.bt }); } });
+    (INDEX || []).forEach(function (e) { if ((!kind || e.k === kind) && !seen[e.b]) { seen[e.b] = 1; out.push({ slug: e.b, title: e.bt }); } });
     out.sort(function (a, b) { return a.title.localeCompare(b.title); });
     return out;
   }
@@ -94,17 +103,29 @@
     (INDEX || []).forEach(function (e) { if (e.b === book && e.sec && !seen[e.sec]) { seen[e.sec] = 1; out.push(e.sec); } });
     return out;
   }
+  function bookKind(slug) { var e = (INDEX || []).filter(function (x) { return x.b === slug; })[0]; return e ? e.k : "book"; }
   function chip(label, active, dataAttr, dataVal) {
-    return '<button type="button" class="sm-chip' + (active ? ' on' : '') + '" ' + dataAttr + '="' + esc(dataVal) + '">' + esc(label) + '</button>';
+    return '<button type="button" class="sm-chip' + (active ? ' on' : '') + '" ' + dataAttr + '="' + esc(dataVal) + '" aria-pressed="' + (active ? 'true' : 'false') + '">' + esc(label) + '</button>';
   }
   function renderFilters() {
-    var books = bookList();
-    var bh = chip('Усі книги', !state.book, 'data-book', '');
+    // Рівень A — тип контенту (сегмент), лише якщо типів кілька
+    if (el.types) {
+      var kinds = kindsPresent(), th = "";
+      if (kinds.length > 1) {
+        th = chip('Усе', !state.kind, 'data-kind', '');
+        kinds.forEach(function (k) { th += chip(KIND_LABEL[k] || k, state.kind === k, 'data-kind', k); });
+      }
+      el.types.innerHTML = th;
+    }
+    // Рівень B — конкретна книга/курс/каталог у межах типу
+    var books = bookList(state.kind);
+    var bh = chip(state.kind ? (KIND_ALL[state.kind] || 'Усе') : 'Усе', !state.book, 'data-book', '');
     books.forEach(function (b) { bh += chip(b.title, state.book === b.slug, 'data-book', b.slug); });
     el.books.innerHTML = bh;
+    // Рівень C — розділ/модуль/родина (ярлик за типом)
     if (state.book) {
-      var secs = secList(state.book);
-      var sh = chip('Усі розділи', !state.sec, 'data-sec', '');
+      var secs = secList(state.book), kw = bookKind(state.book);
+      var sh = chip(KIND_ALLSEC[kw] || 'Усі розділи', !state.sec, 'data-sec', '');
       secs.forEach(function (s) { sh += chip(s, state.sec === s, 'data-sec', s); });
       el.secs.innerHTML = sh;
       el.secs.hidden = false;
@@ -112,28 +133,42 @@
   }
 
   /* --- рендер результатів ----------------------------------------------------- */
-  function renderResults(hits, words) {
+  function plural(n) {
+    var d = n % 10, dd = n % 100;
+    var w = (d === 1 && dd !== 11) ? 'результат' : (d >= 2 && d <= 4 && (dd < 12 || dd > 14)) ? 'результати' : 'результатів';
+    return n + ' ' + w;
+  }
+  function welcomeHtml() {
+    return '<div class="sm-welcome">' +
+      '<div class="sm-w-ttl">Пошук по бібліотеці</div>' +
+      '<div class="sm-w-txt">Почни писати — шукаю в назвах тем і заголовках. Обери тип угорі, щоб звузити до книг / курсів / каталогів; «Глибше» додасть пошук у тексті статей.</div>' +
+      '<div class="sm-w-keys"><kbd>/</kbd> відкрити <span>·</span> <kbd>↑</kbd><kbd>↓</kbd> вибір <span>·</span> <kbd>↵</kbd> перейти <span>·</span> <kbd>Esc</kbd> закрити</div>' +
+      '</div>';
+  }
+  function renderResults(hits, words, total) {
     state.cur = -1;
-    if (!words.length) { el.results.innerHTML = ''; el.hint.textContent = 'Почни писати — пошук по назвах тем і заголовках.'; return; }
+    if (!words.length) { el.results.innerHTML = welcomeHtml(); el.hint.textContent = ''; return; }
     if (!hits.length) { el.results.innerHTML = '<div class="sm-empty">Нічого не знайдено' + (state.inText ? '' : ' — спробуй увімкнути «шукати в тексті»') + '.</div>'; el.hint.textContent = ''; return; }
     var h = '';
     hits.forEach(function (hit, idx) {
       var e = hit.e;
-      var crumb = esc(e.bt) + (e.sec ? ' · ' + esc(e.sec) : '');
+      var crumb = (e.k ? '<span class="sm-kind sm-kind-' + esc(e.k) + '">' + esc(KIND_ONE[e.k] || e.k) + '</span>' : '') + esc(e.bt) + (e.sec ? ' · ' + esc(e.sec) : '');
       var sub = hit.head ? '<span class="sm-sub">↳ ' + highlight(hit.head.t, words) + '</span>'
         : (hit.lvl === 2 ? '<span class="sm-sub sm-inbody">знайдено в тексті статті</span>' : '');
-      h += '<a class="sm-item" role="option" data-idx="' + idx + '" href="' + esc(hrefFor(hit)) + '">' +
+      h += '<a class="sm-item" role="option" id="sm-opt-' + idx + '" aria-selected="false" data-idx="' + idx + '" href="' + esc(hrefFor(hit)) + '">' +
         '<span class="sm-crumb">' + crumb + '</span>' +
         '<span class="sm-title">' + highlight(e.title, words) + '</span>' + sub + '</a>';
     });
     el.results.innerHTML = h;
-    el.hint.textContent = hits.length + (hits.length === 1 ? ' результат' : (hits.length < 5 ? ' результати' : ' результатів'));
+    var tot = (total != null ? total : hits.length);
+    el.hint.textContent = plural(tot) + (tot > hits.length ? ' · показано ' + hits.length : '');
   }
 
   function run() {
-    if (!INDEX) { indexLoading.then(run); return; }
+    if (!INDEX) { if (el.input && norm(el.input.value.trim()).length >= 2 && el.hint) el.hint.textContent = 'Завантажую індекс…'; indexLoading.then(run); return; }
     var q = norm(el.input.value.trim());
     var words = q.length >= 2 ? q.split(/\s+/).filter(function (w) { return w.length >= 2; }) : [];
+    if (el.scope) el.scope.hidden = !words.length;   // scope-фільтри — лише коли є запит
     if (!words.length) { renderResults([], words); return; }
     var l1 = searchIndex(words).sort(rankSort);
     var hits = l1;
@@ -144,7 +179,7 @@
         hits = l1.concat(searchFull(words, taken).sort(rankSort));
       }
     }
-    renderResults(hits.slice(0, 60), words);
+    renderResults(hits.slice(0, 60), words, hits.length);
   }
   function loadFull() {
     if (FULL) return Promise.resolve();
@@ -163,6 +198,7 @@
     document.documentElement.style.overflow = 'hidden';
     if (!el.filtersReady && INDEX) { renderFilters(); el.filtersReady = true; }
     else indexLoading.then(function () { if (!el.filtersReady) { renderFilters(); el.filtersReady = true; } });
+    run();   // показати привітальний (або попередній) стан одразу
     setTimeout(function () { el.input.focus(); el.input.select(); }, 60);
   }
   function close() {
@@ -181,7 +217,7 @@
     btn.setAttribute('aria-label', 'Пошук по сайту');
     btn.title = 'Пошук (/)';
     btn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
-    document.body.appendChild(btn);
+    (document.getElementById("reader-controls") || document.body).appendChild(btn);
 
     var modal = document.createElement('div');
     modal.id = 'search-modal'; modal.hidden = true;
@@ -190,13 +226,14 @@
       '<div class="sm-panel" role="dialog" aria-modal="true" aria-label="Пошук по сайту">' +
         '<div class="sm-head">' +
           '<svg class="sm-mag" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>' +
-          '<input class="sm-input" type="search" autocomplete="off" spellcheck="false" placeholder="Тема, заголовок, ім’я…" aria-label="Запит">' +
+          '<input class="sm-input" type="search" autocomplete="off" spellcheck="false" placeholder="Тема, заголовок…" aria-label="Запит">' +
           '<button class="sm-close" type="button" aria-label="Закрити">✕</button>' +
         '</div>' +
-        '<div class="sm-filters">' +
+        '<label class="sm-mode"><input type="checkbox"><span>Глибше — шукати й у тексті статей</span></label>' +
+        '<div class="sm-chips sm-types" role="group" aria-label="Тип"></div>' +
+        '<div class="sm-scope" hidden>' +
           '<div class="sm-chips sm-books"></div>' +
           '<div class="sm-chips sm-secs" hidden></div>' +
-          '<label class="sm-intext"><input type="checkbox"><span>Шукати також у тексті статей</span></label>' +
         '</div>' +
         '<div class="sm-results" role="listbox"></div>' +
         '<div class="sm-hint"></div>' +
@@ -209,7 +246,9 @@
     el.hint = modal.querySelector('.sm-hint');
     el.books = modal.querySelector('.sm-books');
     el.secs = modal.querySelector('.sm-secs');
-    el.check = modal.querySelector('.sm-intext input');
+    el.types = modal.querySelector('.sm-types');
+    el.scope = modal.querySelector('.sm-scope');
+    el.check = modal.querySelector('.sm-mode input');
 
     btn.addEventListener('click', open);
     modal.querySelector('.sm-close').addEventListener('click', close);
@@ -232,18 +271,23 @@
       var c = ev.target.closest && ev.target.closest('[data-sec]'); if (!c) return;
       state.sec = c.getAttribute('data-sec'); renderFilters(); run();
     });
+    el.types.addEventListener('click', function (ev) {
+      var c = ev.target.closest && ev.target.closest('[data-kind]'); if (!c) return;
+      state.kind = c.getAttribute('data-kind'); state.book = ''; state.sec = ''; renderFilters(); run();
+    });
 
     // клавіатура в результатах
     el.input.addEventListener('keydown', function (ev) {
       var items = [].slice.call(el.results.querySelectorAll('.sm-item'));
       if (ev.key === 'Escape') { close(); return; }
+      if (ev.key === 'Enter') { var pick = state.cur >= 0 ? state.cur : 0; if (items[pick]) location.href = items[pick].getAttribute('href'); return; }
       if (!items.length) return;
       if (ev.key === 'ArrowDown') { ev.preventDefault(); state.cur = Math.min(state.cur + 1, items.length - 1); }
-      else if (ev.key === 'ArrowUp') { ev.preventDefault(); state.cur = Math.max(state.cur - 1, 0); }
-      else if (ev.key === 'Enter') { if (state.cur >= 0 && items[state.cur]) location.href = items[state.cur].getAttribute('href'); return; }
+      else if (ev.key === 'ArrowUp') { ev.preventDefault(); state.cur = Math.max(state.cur - 1, -1); }   // з першого — назад у поле
       else return;
-      items.forEach(function (it, i) { it.classList.toggle('sm-active', i === state.cur); });
-      if (items[state.cur]) items[state.cur].scrollIntoView({ block: 'nearest' });
+      items.forEach(function (it, i) { var on = i === state.cur; it.classList.toggle('sm-active', on); it.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      el.input.setAttribute('aria-activedescendant', state.cur >= 0 ? 'sm-opt-' + state.cur : '');
+      if (state.cur >= 0 && items[state.cur]) items[state.cur].scrollIntoView({ block: 'nearest' });
     });
 
     // глобальні гарячі клавіші: «/» або Ctrl/⌘+K відкривають; тільки поза полями вводу

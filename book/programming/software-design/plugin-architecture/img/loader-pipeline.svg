@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="210.0" y1="136.0" x2="210.0" y2="173.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="241.0" x2="210.0" y2="278.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="346.0" x2="210.0" y2="383.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="208.0" x2="460.0" y2="208.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="460.0" y1="208.0" x2="498.0" y2="208.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="313.0" x2="460.0" y2="313.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="460.0" y1="313.0" x2="498.0" y2="313.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="418.0" x2="460.0" y2="418.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="460.0" y1="418.0" x2="498.0" y2="418.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="500.0" y="175.0" width="320.0" height="66.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="660.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#a02419" text-anchor="middle" font-weight="700">не Python-модуль / биткий файл</text>
+<text x="660.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">виняток при завантаженні</text>
+<rect x="500.0" y="280.0" width="320.0" height="66.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="660.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#a02419" text-anchor="middle" font-weight="700">API 2, а ядро дає лише 3</text>
+<text x="660.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">несумісна версія контракту</text>
+<rect x="500.0" y="385.0" width="320.0" height="66.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="660.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#a02419" text-anchor="middle" font-weight="700">register кинув виняток</text>
+<text x="660.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">плагін упав під час реєстрації</text>
+<rect x="60.0" y="70.0" width="300.0" height="66.0" rx="8" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="210.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Сканувати plugins/</text>
+<text x="210.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">знайти файли-кандидати</text>
+<rect x="60.0" y="175.0" width="300.0" height="66.0" rx="8" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="210.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Завантажити модуль</text>
+<text x="210.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">importlib / import() / dlopen</text>
+<rect x="60.0" y="280.0" width="300.0" height="66.0" rx="8" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="210.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Звірити версію контракту</text>
+<text x="210.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">плагін.API == HOST_API?</text>
+<rect x="60.0" y="385.0" width="300.0" height="66.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.2"/>
+<text x="210.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. register(host)</text>
+<text x="210.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">плагін вписує себе в реєстр</text>
+<rect x="510.0" y="480.0" width="300.0" height="60.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="660.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">залогувати причину</text>
+<text x="660.0" y="525.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">і взяти НАСТУПНИЙ плагін</text>
+<line x1="660.0" y1="451.0" x2="660.0" y2="478.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="480.0" width="300.0" height="60.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="210.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e7a43" text-anchor="middle" font-weight="700">ядро працює далі</text>
+<text x="210.0" y="525.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">з тими, що завантажились</text>
+<line x1="210.0" y1="451.0" x2="210.0" y2="478.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

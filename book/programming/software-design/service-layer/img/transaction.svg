@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна операція сервісу — одна транзакція на всі кроки</text>
+<rect x="70.0" y="95.0" width="680.0" height="150.0" rx="10" fill="#f7fbff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="90.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">placeOrder(): одна транзакція</text>
+<rect x="120.0" y="148.4" width="140.0" height="63.2" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="190.0" y="168.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">списати</tspan><tspan x="190.0" dy="15.6">товар зі</tspan><tspan x="190.0" dy="15.6">складу</tspan></text>
+<line x1="262.0" y1="180.0" x2="308.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="310.0" y="156.2" width="140.0" height="47.6" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="380.0" y="176.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">створити</tspan><tspan x="380.0" dy="15.6">замовлення</tspan></text>
+<line x1="452.0" y1="180.0" x2="498.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="500.0" y="156.2" width="140.0" height="47.6" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="570.0" y="176.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">зняти</tspan><tspan x="570.0" dy="15.6">оплату</tspan></text>
+<text x="410.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">усе трьома кроками закріплюється разом — або жоден не лишається</text>
+<text x="410.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">оплата впала на кроці 3 → склад і замовлення відкочуються назад</text>
+</svg>

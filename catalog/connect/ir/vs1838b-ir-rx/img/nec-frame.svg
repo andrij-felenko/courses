@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1080" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр NEC на виводі OUT: активний нуль. Декодер вимірює ДОВЖИНУ провалів і пауз</text>
+<text x="52.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end" font-weight="700">1</text>
+<text x="52.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end" font-weight="700">0</text>
+<text x="1028.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">спокій (HIGH)</text>
+<text x="1028.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">несуча (LOW)</text>
+<text x="114.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">9 мс
+старт</text>
+<text x="195.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">4.5 мс
+пауза</text>
+<text x="240.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">0</text>
+<text x="276.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">1</text>
+<text x="312.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">0</text>
+<text x="348.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">1</text>
+<polyline points="60.0,130.0 60.0,200.0 168.0,200.0 168.0,130.0 222.0,130.0 222.0,200.0 234.0,200.0 234.0,130.0 246.0,130.0 246.0,200.0 258.0,200.0 258.0,130.0 294.0,130.0 294.0,200.0 306.0,200.0 306.0,130.0 318.0,130.0 318.0,200.0 330.0,200.0 330.0,130.0 366.0,130.0 366.0,130.0" fill="none" stroke="#1a1a1a" stroke-width="2.6"/>
+<line x1="60.0" y1="96.0" x2="222.0" y2="96.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="60.0" y1="96.0" x2="60.0" y2="102.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="222.0" y1="96.0" x2="222.0" y2="102.0" stroke="#c0392b" stroke-width="1.4"/>
+<text x="141.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ПРЕАМБУЛА: 9 мс LOW + 4.5 мс HIGH</text>
+<line x1="222.0" y1="260.0" x2="366.0" y2="260.0" stroke="#27ae60" stroke-width="1.4"/>
+<line x1="222.0" y1="254.0" x2="222.0" y2="260.0" stroke="#27ae60" stroke-width="1.4"/>
+<line x1="366.0" y1="254.0" x2="366.0" y2="260.0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="294.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">далі 32 біти: КОЖЕН = LOW 560 мкс + пауза (560 = 0, 1690 = 1)</text>
+<rect x="139.5" y="303.1" width="321.0" height="73.9" rx="6" fill="#eaf5ec" stroke="#27ae60" stroke-width="1.5"/><text x="300.0" y="322.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">Провал (LOW) у КОЖНОГО біта однаковий — 560 мкс.</tspan><tspan x="300.0" dy="14.3">Значення несе ПАУЗА після нього:</tspan><tspan x="300.0" dy="14.3">  560 мкс тиші  → нуль</tspan><tspan x="300.0" dy="14.3">  1690 мкс тиші → одиниця</tspan></text>
+<rect x="622.7" y="303.1" width="314.7" height="73.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="780.0" y="322.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">Вихід ІНВЕРТОВАНИЙ: «є світло» = 0, «тиша» = 1.</tspan><tspan x="780.0" dy="14.3">Тому старт — це ДОВГИЙ ПРОВАЛ у нуль (9 мс),</tspan><tspan x="780.0" dy="14.3">а не імпульс угору. Декодер, що чекає фронту</tspan><tspan x="780.0" dy="14.3">вгору, не побачить нічого.</tspan></text>
+<rect x="166.3" y="447.4" width="747.3" height="45.3" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="540.0" y="466.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Повний кадр = преамбула + 8 біт адреси + 8 біт ~адреси + 8 біт команди + 8 біт ~команди (усе молодшим бітом уперед),</tspan><tspan x="540.0" dy="14.3">і завершальний короткий LOW 560 мкс. Інверсні байти — це вбудована перевірка: адреса XOR ~адреси має дати 0xFF.</tspan></text>
+</svg>

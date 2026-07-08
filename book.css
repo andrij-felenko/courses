@@ -99,6 +99,73 @@ html[data-theme="night"] {
 #density-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
 #density-btn.on { background: var(--accent); }
 
+/* ── Панель кнопок читача: ЗАВЖДИ згорнута в «шестерню» (top-right).
+   Клік → модальна картка кнопок над напівпрозорим фоном; ніколи не накладається на текст шапки. ── */
+#reader-controls {
+  position: fixed; top: 0.6rem; right: 1rem; z-index: 400;
+  display: flex; flex-direction: row-reverse; align-items: center; gap: 0.4rem;   /* шестерня праворуч, панель розкривається ВЛІВО */
+}
+#reader-controls > #theme-btn,
+#reader-controls > #density-btn,
+#reader-controls > #search-btn,
+#reader-controls > #codelang-btn,
+#reader-controls > #sidebar-toggle,
+#reader-controls > #controls-toggle { position: static; top: auto; right: auto; }
+#reader-controls > :not(#controls-toggle) { display: none; }                 /* решта — сховані, доки не відкрито */
+#reader-controls.open {                                                       /* відкрито → картка над фоном */
+  padding: 0.45rem; border-radius: 12px;
+  background: var(--bg); border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+}
+#reader-controls.open > :not(#controls-toggle) { display: flex; }
+#reader-controls.open > #controls-toggle { margin: 0; }
+#rc-backdrop { position: fixed; inset: 0; z-index: 390; background: rgba(10,16,24,0.35); opacity: 0; pointer-events: none; transition: opacity 0.18s ease; }
+#rc-backdrop.show { opacity: 1; pointer-events: auto; }
+
+/* ── Кнопка «мова коду» (показує топ-1) ── */
+#codelang-btn {
+  height: 2.4rem; padding: 0 0.65rem; gap: 0.35rem;
+  display: flex; align-items: center; justify-content: center;
+  border: none; border-radius: 8px; background: var(--sidebar-bg); color: #fff;
+  font: inherit; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+  box-shadow: var(--shadow); transition: filter 0.15s, transform 0.1s;
+}
+#codelang-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
+#codelang-btn .cl-ico { opacity: 0.8; flex: none; }
+#codelang-btn .cl-lbl { max-width: 5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Попап пріоритетів мов коду ── */
+#codelang-pop {
+  position: fixed; z-index: 400; width: 15.5rem; max-width: calc(100vw - 1.6rem);
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow-lg);
+  padding: 0.85rem 0.9rem;
+}
+#codelang-pop[hidden] { display: none; }
+#codelang-pop .cl-ttl { font-weight: 800; font-size: 0.9rem; }
+#codelang-pop .cl-hint { font-size: 0.74rem; color: var(--text-muted); line-height: 1.4; margin: 0.15rem 0 0.7rem; }
+#codelang-pop .cl-row { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 0.45rem; }
+#codelang-pop .cl-row > span { font-size: 0.82rem; color: var(--text-muted); }
+#codelang-pop .cl-row select {
+  flex: 1; min-width: 0; max-width: 9.5rem; padding: 0.32rem 0.4rem;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg); color: var(--text); font: inherit; font-size: 0.82rem; cursor: pointer;
+}
+#codelang-pop .cl-reset {
+  margin-top: 0.4rem; width: 100%; padding: 0.42rem; border-radius: 6px; cursor: pointer;
+  border: 1px solid var(--border); background: transparent; color: var(--text-muted); font: inherit; font-size: 0.8rem;
+  transition: color 0.15s, border-color 0.15s;
+}
+#codelang-pop .cl-reset:hover { color: var(--text); border-color: var(--accent); }
+
+/* ── «Шестерня» — завжди видна; відкриває панель кнопок ── */
+#controls-toggle {
+  width: 2.4rem; height: 2.4rem; padding: 0; display: flex;
+  align-items: center; justify-content: center;
+  border: none; border-radius: 8px; background: var(--sidebar-bg); color: #fff;
+  cursor: pointer; box-shadow: var(--shadow); transition: filter 0.15s, transform 0.1s;
+}
+#controls-toggle:hover { filter: brightness(1.18); transform: translateY(-1px); }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -153,10 +220,18 @@ body {
   color: #3a6a85;
 }
 /* Згортувані галузі в сайдбарі (лише позначені data-collapse-group) */
-.sb-group-label[data-collapse-group] { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; }
-.sb-group-label[data-collapse-group]:hover { color: #6aa6c8; }
+.sb-group-label[data-collapse-group], .sb-group-label[data-sb-acc] { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+.sb-group-label[data-collapse-group]:hover, .sb-group-label[data-sb-acc]:hover { color: #6aa6c8; }
 .sb-caret { font-size: 0.6rem; line-height: 1; transition: transform 0.15s; flex-shrink: 0; }
 .sb-group-label.collapsed .sb-caret { transform: rotate(-90deg); }
+/* Хлібні крихти вгорі сайдбару: Книга/Курс/Каталог › Галузь/Модуль › поточне */
+.sb-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.3rem; padding: 0.45rem 1.25rem 0.65rem; font-size: 0.72rem; line-height: 1.4; }
+.sb-cr { color: #6aa6c8; text-decoration: none; }
+.sb-cr:hover { color: #a0bfd0; text-decoration: underline; }
+.sb-cr-sep { color: #3a5570; }
+.sb-cr-cur { color: #e2edf5; font-weight: 700; }
+/* Лічильник прочитано/усього на групі */
+.sb-gl-count { margin-left: auto; font-size: 0.66rem; font-weight: 700; color: #5a8099; font-variant-numeric: tabular-nums; flex-shrink: 0; padding-left: 0.4rem; }
 .sb-group-label.collapsed + .sb-group { display: none; }
 
 .sb-chap {
@@ -177,6 +252,10 @@ body {
 /* Прочитана тема — трохи зеленіша + ✓ */
 .sb-link.read:not(.active) { color: #83c9a2; }
 .sb-link.read::after { content: " ✓"; font-size: 0.82em; opacity: 0.8; }
+/* § поточної статті під активним рядком: індент, дрібніші, підсвітка поточного розділу (scroll-spy) */
+.sb-link.sb-sec { padding: 0.24rem 1.25rem 0.24rem 2.7rem; font-size: 0.74rem; color: #6d94b0; border-left: 2px solid transparent; }
+.sb-link.sb-sec:hover { color: #a0bfd0; background: var(--sidebar-hover); }
+.sb-link.sb-sec.active { color: #e2edf5; background: transparent; border-left-color: var(--accent, #3f9fdc); font-weight: 600; }
 
 .sb-sub {
   display: block;
@@ -198,18 +277,37 @@ body {
   padding: 0.55rem 0.75rem; transition: border-color 0.15s, background 0.15s;
 }
 .sb-pager a:hover { background: var(--sidebar-hover); border-color: #3a6a85; }
+.sb-pager .pg-soon { display: block; background: #16242f; border: 1px solid #28404f; border-radius: 7px; padding: 0.55rem 0.75rem; opacity: 0.6; }   /* «незабаром» у пейджері */
 .sb-pager .pg-dir { display: block; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: #4a7a9b; font-weight: 800; }
 .sb-pager .pg-ttl { display: block; font-size: 0.76rem; color: #cfe0ee; line-height: 1.35; margin-top: 0.25rem; }
 
 /* ─── Content wrapper ───────────────────────────────────────────────────── */
 #content { margin-left: var(--sidebar-w); min-height: 100vh; }
 
+/* Згортання лівого меню на ШИРОКОМУ екрані (тумблер #sidebar-toggle). Мобільну шухляду не чіпає (scoped). */
+@media (min-width: 681px) {
+  #sidebar { transition: transform 0.22s ease; }
+  #content { transition: margin-left 0.22s ease; }
+  html.sb-hidden #sidebar { transform: translateX(-100%); }
+  html.sb-hidden #content { margin-left: 0; }
+}
+#sidebar-toggle {
+  width: 2.4rem; height: 2.4rem; padding: 0; display: flex;
+  align-items: center; justify-content: center;
+  border: none; border-radius: 8px; background: var(--sidebar-bg); color: #fff;
+  cursor: pointer; box-shadow: var(--shadow); transition: filter 0.15s, transform 0.1s, background 0.15s;
+}
+#sidebar-toggle:hover { filter: brightness(1.18); transform: translateY(-1px); }
+#sidebar-toggle.on { background: var(--accent); }   /* меню зараз показане */
+@media (max-width: 680px) { #reader-controls #sidebar-toggle { display: none !important; } }   /* на вузькому — шухляда (☰), тумблер сайдбару не потрібен навіть у панелі */
+
 /* ─── Chapter header ────────────────────────────────────────────────────── */
 .ch-header {
+  position: sticky; top: 0; z-index: 80;   /* липка панель — в УСІХ статтях (книги/каталог/власні статті курсу) */
   background: linear-gradient(135deg, #09192e 0%, #0f2744 40%, #1d4e8a 100%);
   height: var(--topbar-h);   /* ТОЧНА висота = смуга кнопок; однакова в затишній і компактній */
   display: flex; flex-direction: column; justify-content: center;
-  padding: 0 9.6rem 0 4rem;   /* права — щоб текст не заїжджав під кнопки (щільність/лупа/тема) */
+  padding: 0 3.6rem 0 4rem;   /* права — щоб текст не заїжджав під кнопки (мова/щільність/лупа/тема) */
   color: #fff;
 }
 .ch-label {
@@ -238,12 +336,12 @@ body {
   background: var(--bg);
   background: color-mix(in srgb, var(--book-accent, #808080) 10%, var(--bg));
   border-bottom: 2px solid var(--book-accent, var(--border));
-  padding: 0 9.6rem 0 4rem;   /* висота й вертикальне центрування — з .ch-header */
+  padding: 0 3.6rem 0 4rem;   /* висота й вертикальне центрування — з .ch-header */
 }
 .ch-header.ch-header-book .ch-label { color: var(--book-accent, var(--accent)); margin-bottom: 0.1rem; }
 .ch-header.ch-header-book h1 { font-size: 1.4rem; color: var(--text); margin-bottom: 0; line-height: 1.2; }
 @media (max-width: 680px) {
-  .ch-header.ch-header-book { padding: 0 3.6rem 0 4.1rem; }
+  .ch-header.ch-header-book { padding-left: 4.1rem; }
   .ch-header.ch-header-book h1 { font-size: 1.18rem; }
 }
 /* Посилання між короткою й повною (-d) версіями статті */
@@ -376,6 +474,36 @@ figcaption strong { font-style: normal; color: var(--text); }
 
 /* ─── Misc content ──────────────────────────────────────────────────────── */
 .content-body hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+/* ── Блок «Перед читанням» (передумови) — згорнутий <details> угорі статті ── */
+.preknow {
+  margin: 0 0 1.7rem; border: 1px solid var(--border);
+  border-left: 3px solid var(--accent); border-radius: 8px;
+  background: var(--bg-alt, var(--bg)); overflow: hidden;
+}
+.preknow-sum {
+  display: flex; align-items: center; gap: 0.5rem; cursor: pointer;
+  padding: 0.62rem 0.9rem; list-style: none; user-select: none;
+  font-size: 0.78rem; font-weight: 800; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.07em;
+  transition: color 0.15s;
+}
+.preknow-sum::-webkit-details-marker { display: none; }
+.preknow-sum:hover { color: var(--text); }
+.preknow-ico { color: var(--accent); flex: none; }
+.preknow-count {
+  flex: none; font-size: 0.72rem; font-weight: 800; letter-spacing: 0; color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border-radius: 999px; padding: 0.04rem 0.5rem;
+}
+.preknow-caret { margin-left: auto; flex: none; color: var(--text-muted); transition: transform 0.2s; }
+.preknow[open] .preknow-caret { transform: rotate(180deg); }
+.preknow-list {
+  margin: 0; padding: 0.55rem 1.1rem 0.85rem 2.5rem;
+  border-top: 1px solid var(--border); list-style: disc;
+}
+.preknow-list li { margin: 0.5rem 0; font-size: 0.95rem; line-height: 1.62; color: var(--text); }
+.preknow-list li::marker { color: var(--accent); }
 .content-body ul, .content-body ol { padding-left: 1.5rem; margin-bottom: 1rem; }
 .content-body li { margin-bottom: 0.35rem; }
 .content-body a { color: var(--accent); text-decoration: none; }
@@ -529,6 +657,8 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   background: linear-gradient(135deg, #09192e 0%, #0f2744 45%, #1d4e8a 100%);
   color: #fff; padding: 4.5rem 4rem 4rem;
 }
+/* Лендинг курсу: заголовок винесено в липку .ch-header угорі, тож у геро — менший верхній відступ */
+.cover-hero.cover-hero-guide { padding-top: 2.2rem; }
 .cover-hero .kicker { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #60a5c8; margin-bottom: 1rem; }
 .cover-hero h1 { font-size: 2.6rem; font-weight: 900; line-height: 1.15; max-width: 16ch; margin-bottom: 1.25rem; }
 .cover-hero p { font-size: 1.06rem; line-height: 1.8; color: #a7cae0; max-width: 60ch; }
@@ -688,11 +818,12 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   font-size: 1.2rem; cursor: pointer; z-index: 300;
 }
 #scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 90; }
+#sidebar-close { display: none; }   /* ✕ закриття мобільного сайдбару — показ лише на вузькому екрані (нижче) */
 
 @media (max-width: 980px) {
   :root { --sidebar-w: 256px; }
   .ch-header, .sec, .hist-art-header, .cover-hero, .toc { padding-left: 2.5rem; padding-right: 2.5rem; }
-  .ch-header { padding-right: 9.6rem; }   /* права лишається під fixed-кнопки */
+  .ch-header { padding-right: 3.6rem; }   /* права лишається під «шестерню» */
 }
 @media (max-width: 680px) {
   #sidebar { transform: translateX(-100%); transition: transform 0.25s; width: 84%; max-width: 320px; }
@@ -700,7 +831,17 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   #sidebar.open ~ #scrim { display: block; }
   #content { margin-left: 0; }
   #menu-btn { display: flex; }
-  .ch-header { padding: 0 3.6rem 0 4.1rem; }   /* зліва — кнопка меню, справа — кнопки теми/пошуку */
+  /* сайдбар відкрито → ☰ ховаємо, показуємо ✕ праворуч угорі панелі (не зліва, не перекриває текст) */
+  #sidebar-close {
+    position: fixed; top: 0.6rem; left: min(calc(84vw - 2.9rem), 273px); z-index: 310;
+    width: 2.4rem; height: 2.4rem; align-items: center; justify-content: center;
+    border: none; border-radius: 8px; background: var(--sidebar-hover, rgba(255,255,255,0.16)); color: #fff;
+    font-size: 1.05rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow);
+  }
+  body:has(#sidebar.open) #menu-btn { display: none; }
+  body:has(#sidebar.open) #sidebar-close { display: flex; }
+  #sidebar .sb-home { padding-right: 3rem; }   /* лишити місце під ✕ */
+  .ch-header { padding-left: 4.1rem; }   /* зліва — кнопка меню; правий відступ — за співвідношенням сторін (нижче) */
   .ch-header h1 { font-size: 1.15rem; }
   .cover-hero { padding: 4rem 1.4rem 2.5rem; }
   .cover-hero h1 { font-size: 1.95rem; }
@@ -711,6 +852,11 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   .hist-modal-head { padding: 2.4rem 1.4rem 0; }
   .hist-modal .content-body { padding: 1.2rem 1.4rem 2rem; }
 }
+
+/* ── Вертикальний (портретний) режим: висота ≥ 1.15 × ширини → панель кнопок читача
+   згортається в одну «шестерню», решта розкриваються вертикально при натисканні.
+   aspect-ratio = ширина/висота; 20/23 = 0.8696 = 1/1.15. ── */
+/* (панель кнопок тепер згорнута в «шестерню» ЗАВЖДИ — див. базові #reader-controls вище) */
 
 /* ════════════════════════════════════════════════════════════════════════
    БІБЛІОТЕКА — стартова сторінка зі списком книг (index.html + library.js)
@@ -793,6 +939,7 @@ html[data-libview="one"] .lib-seg { display: none; }
   .lib-shelf.shelf-in { animation: none; }
 }
 .lib-card {
+  position: relative;   /* якір для .lib-ico (absolute у cozy) — іконка тепер поза .lib-cover */
   display: flex; flex-direction: column;
   background: var(--bg); border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
   text-decoration: none; color: inherit; box-shadow: var(--shadow);
@@ -841,7 +988,7 @@ html[data-libview="one"] .lib-seg { display: none; }
     repeating-linear-gradient(0deg,  rgba(255,255,255,0.08) 0 1px, transparent 1px 13px),
     repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 1px, transparent 1px 13px);
 }
-.lib-card-cat .lib-cover-ttl, .lib-card-cat .lib-ico, .lib-card-cat .lib-kind { position: relative; z-index: 1; }
+.lib-card-cat .lib-cover-ttl, .lib-card-cat .lib-kind { position: relative; z-index: 1; }
 .lib-card-cat .lib-kind { position: absolute; }
 .lib-card-cat .lib-cta { color: var(--accent); }
 
@@ -895,6 +1042,14 @@ html[data-libview="one"] .lib-seg { display: none; }
 .guide-step.read > a { background: color-mix(in srgb, #16a34a 5%, transparent); }
 .guide-step.read .gs-ttl::after { content: " ✓"; color: #16a34a; font-weight: 800; font-size: 0.82em; }
 .guide-step.read .gs-num { color: #16a34a; }
+/* «незабаром» — ще не написані кроки курсу: приглушений рядок + бурштиновий бейдж */
+.guide-step .gs-soon { font-size: 0.68rem; color: #b45309; background: #fffbeb; border: 1px solid #fde68a; padding: 0.06rem 0.5rem; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+.guide-step.soon > a { opacity: 0.62; }
+.guide-step.soon .gs-ttl { color: var(--text-muted); }
+.guide-step.soon > a:hover { background: var(--bg-alt); opacity: 0.85; }
+.guide-step.soon > a:hover .gs-ttl { color: var(--text); text-decoration: none; }
+.cover-stats .stat-written .stat-of { color: rgba(255,255,255,0.4); font-weight: 400; }
+.sb-link.soon { opacity: 0.5; cursor: default; }
 .sb-link.sb-mod { margin-top: 0.7rem; font-weight: 800; color: #cfe0ee; }
 .sb-link.sb-subchap { font-size: 0.82rem; padding-left: 1.5rem; }
 

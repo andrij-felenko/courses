@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що всередині nRF24: чип сам збирає пакет і підтверджує прийом</text>
+<rect x="30.0" y="165.0" width="120.0" height="74.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="90.0" y="191.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">Ваш MCU</tspan><tspan x="90.0" dy="14.3">(ESP32, STM32,</tspan><tspan x="90.0" dy="14.3">AVR…)</tspan></text>
+<rect x="210.0" y="70.0" width="420.0" height="270.0" rx="10" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.4"/>
+<text x="420.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">модуль (одна плата)</text>
+<rect x="240.0" y="130.0" width="180.0" height="96.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/><text x="330.0" y="157.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">Трансивер nRF24L01+</tspan><tspan x="330.0" dy="11.7">модем GFSK 2.4 ГГц</tspan><tspan x="330.0" dy="11.7">+ PA · LNA</tspan><tspan x="330.0" dy="11.7">+ Enhanced ShockBurst</tspan><tspan x="330.0" dy="11.7">(пакет · авто-ACK у залізі)</tspan></text>
+<rect x="250.0" y="262.0" width="130.0" height="40.0" rx="6" fill="#fff8e1" stroke="#f0b429" stroke-width="1.2"/><text x="315.0" y="285.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="315.0" dy="0.0">кварц 16 МГц</tspan></text>
+<line x1="320.0" y1="226.0" x2="315.0" y2="262.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="448.0" y="150.0" width="96.0" height="56.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.4"/><text x="496.0" y="168.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="496.0" dy="0.0">ланцюг</tspan><tspan x="496.0" dy="13.0">узгодження</tspan><tspan x="496.0" dy="13.0">+ фільтр</tspan></text>
+<line x1="420.0" y1="178.0" x2="448.0" y2="178.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="544.0" y1="178.0" x2="668.0" y2="178.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="118.0" x2="690.0" y2="200.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="690.0" y1="118.0" x2="674.0" y2="96.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="690.0" y1="118.0" x2="706.0" y2="96.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="690.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">антена 2.4 ГГц</text>
+<line x1="150.0" y1="150.0" x2="240.0" y2="150.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="240.0" y1="172.0" x2="150.0" y2="172.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="195.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">SPI</text>
+<line x1="150.0" y1="200.0" x2="240.0" y2="200.0" stroke="#8e44ad" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="195.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">CE</text>
+<text x="90.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+ живлення 3.3 В</text>
+</svg>

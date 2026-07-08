@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виклик планувальника: ядро → порт → адаптер/ACL → чужий рушій</text>
+<rect x="40.0" y="120.0" width="190.0" height="96.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.6"/><text x="135.0" y="155.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">PlanRoutesService</tspan><tspan x="135.0" dy="16.9">(застосунок ядра)</tspan><tspan x="135.0" dy="16.9">мова: Shipment, Route</tspan></text>
+<rect x="300.0" y="120.0" width="150.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="375.0" y="155.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="375.0" dy="0.0">порт</tspan><tspan x="375.0" dy="16.9">RoutePlanner</tspan><tspan x="375.0" dy="16.9">(інтерфейс)</tspan></text>
+<rect x="520.0" y="120.0" width="160.0" height="96.0" rx="6" fill="#fff7e6" stroke="#b7791f" stroke-width="2.0"/><text x="600.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">OrToolsPlanner</tspan><tspan x="600.0" dy="13.7">адаптер + ACL</tspan><tspan x="600.0" dy="13.7">перекладає туди й назад</tspan></text>
+<rect x="730.0" y="120.0" width="120.0" height="96.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3" stroke-dasharray="6 4"/>
+<text x="790.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">OR-Tools</tspan><tspan x="790.0" dy="16.2">(готовий</tspan><tspan x="790.0" dy="16.2">розв'язувач)</tspan></text>
+<line x1="234.0" y1="168.0" x2="296.0" y2="168.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="454.0" y1="168.0" x2="516.0" y2="168.0" stroke="#b7791f" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="684.0" y1="168.0" x2="726.0" y2="168.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="267.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кличе інтерфейс</text>
+<text x="705.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">чужий формат</text>
+<rect x="520.0" y="286.0" width="160.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/><text x="600.0" y="325.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">GreedyPlanner</tspan><tspan x="600.0" dy="11.7">простий дублер</tspan><tspan x="600.0" dy="11.7">для тестів / дешевого тарифу</tspan></text>
+<line x1="375.0" y1="216.0" x2="375.0" y2="334.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="375.0" y1="334.0" x2="516.0" y2="334.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="467.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">той самий порт — інша реалізація</text>
+<line x1="485.0" y1="86.0" x2="485.0" y2="396.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<text x="425.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">своє (ядро)</text>
+<text x="555.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">межа зі світом</text>
+<text x="440.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ядро знає лише порт; чуже живе за адаптером; ACL пускає всередину тільки поняття ядра</text>
+</svg>

@@ -61,7 +61,7 @@ function stripMd(t) {
 /* --- токенізація: унікальні слова (укр/лат/цифри), довжина ≥ 3 --------------- */
 function tokenize(text) {
   const seen = new Set();
-  const parts = String(text).toLowerCase().split(/[^0-9a-zа-яіїєґ]+/);
+  const parts = String(text).toLowerCase().replace(/['’ʼ`]/g, "").split(/[^0-9a-zа-яіїєґ]+/);   // прибрати апостроф ДО поділу (дзеркало norm() у search.js), інакше «зʼєднання» губиться
   for (const w of parts) if (w.length >= 3) seen.add(w);
   return seen;
 }

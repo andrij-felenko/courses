@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Посилання за id проти прямого об'єкта</text>
+<rect x="40.0" y="96.0" width="380.0" height="300.0" rx="16" fill="#fdf0ee" stroke="#c0392b" stroke-width="2.2"/>
+<text x="230.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">Прямий об'єкт</text>
+<text x="230.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">одна транзакція тягне все</text>
+<rect x="90.0" y="147.0" width="120.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="150.0" y="170.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Order</tspan></text>
+<rect x="250.0" y="147.0" width="120.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="310.0" y="170.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">Customer</tspan></text>
+<rect x="250.0" y="288.5" width="120.0" height="35.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="310.0" y="310.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">інші Order</tspan></text>
+<line x1="210.0" y1="166.0" x2="250.0" y2="166.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="185.0" x2="310.0" y2="288.5" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="230.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">усе в одній межі — усе злиплося</text>
+<rect x="520.0" y="120.0" width="170.0" height="150.0" rx="16" fill="#f0f6ff" stroke="#2457d6" stroke-width="2.2"/>
+<rect x="760.0" y="120.0" width="170.0" height="150.0" rx="16" fill="#f0f6ff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="605.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">Посилання за id</text>
+<text x="725.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">кожна межа — своя транзакція</text>
+<rect x="550.0" y="171.0" width="110.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="605.0" y="194.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="605.0" dy="0.0">Order</tspan></text>
+<rect x="790.0" y="171.0" width="110.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="845.0" y="194.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="845.0" dy="0.0">Customer</tspan></text>
+<line x1="694.0" y1="190.0" x2="756.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="725.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">customerId</text>
+<text x="725.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">межі цілі — зміни локальні</text>
+</svg>

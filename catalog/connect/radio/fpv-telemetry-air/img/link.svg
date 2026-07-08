@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="215.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="700">БОРТ (у повітрі)</text>
+<rect x="40.0" y="90.0" width="130.0" height="78.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="105.0" y="118.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="105.0" dy="0.0">Політний</tspan><tspan x="105.0" dy="14.3">контролер</tspan><tspan x="105.0" dy="14.3">(MAVLink по UART)</tspan></text>
+<rect x="210.0" y="82.0" width="250.0" height="300.0" rx="6" fill="#e8f0ff" stroke="#3b6fd4" stroke-width="2.0"/>
+<text x="335.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#274b8f" text-anchor="middle" font-weight="700">ПОВІТРЯНИЙ МОДУЛЬ</text>
+<rect x="232.0" y="128.0" width="92.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="278.0" y="146.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="278.0" dy="0.0">MCU</tspan><tspan x="278.0" dy="14.3">Si1000</tspan><tspan x="278.0" dy="14.3">(8051 + AT)</tspan></text>
+<rect x="346.0" y="128.0" width="92.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="392.0" y="146.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="392.0" dy="0.0">радіочип</tspan><tspan x="392.0" dy="14.3">Si4432</tspan><tspan x="392.0" dy="14.3">(модем)</tspan></text>
+<line x1="324.0" y1="157.0" x2="346.0" y2="157.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="232.0" y="210.0" width="92.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="278.0" y="231.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="278.0" dy="0.0">PA / LNA</tspan><tspan x="278.0" dy="14.3">підсил.</tspan></text>
+<rect x="346.0" y="210.0" width="92.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="392.0" y="231.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="392.0" dy="0.0">кварц</tspan><tspan x="392.0" dy="14.3">оп. частота</tspan></text>
+<line x1="392.0" y1="186.0" x2="392.0" y2="210.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="324.0" y1="235.0" x2="346.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="232.0" y="282.0" width="206.0" height="40.0" rx="6" fill="#fdeeee" stroke="#333333" stroke-width="1.5"/><text x="335.0" y="305.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">стабілізатор 5 В → 3.3 В  (внутр.)</tspan></text>
+<line x1="460.0" y1="232.0" x2="494.0" y2="232.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="494.0" y1="232.0" x2="494.0" y2="192.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="494.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ANT</text>
+<text x="190.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">TX/RX</text>
+<line x1="170.0" y1="129.0" x2="210.0" y2="129.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="145.0" x2="170.0" y2="145.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="500.0" y="158.0" width="214.0" height="148.0" rx="6" fill="#fff4e6" stroke="#e0a04a" stroke-width="1.4"/>
+<text x="607.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b06f1e" text-anchor="middle" font-weight="700">РАДІОКАНАЛ</text>
+<text x="607.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5a1a" text-anchor="middle">433 / 868 / 915 МГц (ISM)</text>
+<line x1="512.0" y1="236.0" x2="702.0" y2="236.0" stroke="#b06f1e" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="607.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5a1a" text-anchor="middle">телеметрія вниз →</text>
+<line x1="702.0" y1="272.0" x2="512.0" y2="272.0" stroke="#b06f1e" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="607.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5a1a" text-anchor="middle">← команди вгору</text>
+<text x="607.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5a1a" text-anchor="middle">одна пара, півдуплекс (TDM)</text>
+<text x="795.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="700">ЗЕМЛЯ (оператор)</text>
+<line x1="720.0" y1="232.0" x2="746.0" y2="232.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="746.0" y1="232.0" x2="746.0" y2="192.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="746.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ANT</text>
+<rect x="760.0" y="100.0" width="108.0" height="150.0" rx="6" fill="#e8f0ff" stroke="#3b6fd4" stroke-width="2.0"/><text x="814.0" y="155.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="814.0" dy="0.0">НАЗЕМНИЙ</tspan><tspan x="814.0" dy="15.6">МОДУЛЬ</tspan><tspan x="814.0" dy="15.6">(той самий</tspan><tspan x="814.0" dy="15.6">трансивер)</tspan></text>
+<text x="814.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">USB / UART</text>
+<line x1="814.0" y1="250.0" x2="814.0" y2="285.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="752.0" y="315.0" width="124.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="814.0" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="814.0" dy="0.0">наземна станція</tspan><tspan x="814.0" dy="13.0">(Mission Planner /</tspan><tspan x="814.0" dy="13.0">QGroundControl)</tspan></text>
+<text x="450.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Обидва модулі однакові й взаємозамінні — «повітряний» лише той, що на борту.</text>
+</svg>

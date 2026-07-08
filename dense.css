@@ -30,7 +30,7 @@ html[data-density="compact"] .sm-chip { border-radius: 3px; }
    ════════════════════════════════════════════════════════════════════════ */
 
 /* ── Hero → статус-бар: [Мої книги] ─────────── [сегмент | лічильники] ── */
-html[data-density="compact"] .lib-hero { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; min-height: var(--topbar-h); padding: 0 9.6rem 0 1rem; }   /* висота = смуга кнопок */
+html[data-density="compact"] .lib-hero { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; min-height: var(--topbar-h); padding: 0 12.5rem 0 1rem; }   /* права — під 4 кнопки (тема/пошук/щільність/вигляд) */
 html[data-density="compact"] .lib-hero-row { flex: 1 1 auto; max-width: none; margin: 0; align-items: center; gap: 0.9rem; }
 html[data-density="compact"] .lib-hero .kicker { display: none; }
 html[data-density="compact"] .lib-hero h1 { font-size: 1.02rem; margin: 0; letter-spacing: 0.02em; }
@@ -83,7 +83,7 @@ html[data-density="compact"] .lib-cover {
 }
 html[data-density="compact"] .lib-card-guide .lib-cover, html[data-density="compact"] .lib-card-cat .lib-cover { min-height: 0; background: none; }
 html[data-density="compact"] .lib-card-cat .lib-cover::before { display: none; }   /* міліметрівка — атрибут обкладинки */
-html[data-density="compact"] .lib-ico { position: static; font-size: 1rem; filter: none; line-height: 1; }
+html[data-density="compact"] .lib-ico { position: static; order: 1; flex: 0 0 auto; align-self: center; font-size: 1.05rem; filter: none; line-height: 1; margin: 0 0.6rem 0 0.3rem; }   /* іконка — праворуч рядка */
 html[data-density="compact"] .lib-cover-ttl {
   font-size: 0.86rem; font-weight: 700; color: var(--text); text-shadow: none;
   max-width: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -120,7 +120,7 @@ html[data-density="compact"] .lib-card:hover .lib-cta::after { color: var(--acce
    ════════════════════════════════════════════════════════════════════════ */
 
 /* Обкладинка книги → статус-бар: [НАЗВА] ··· [лічильники в рядок] */
-html[data-density="compact"] .cover-hero { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; min-height: var(--topbar-h); padding: 0 9.6rem 0 2rem; }   /* висота = смуга кнопок */
+html[data-density="compact"] .cover-hero { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; min-height: var(--topbar-h); padding: 0 14rem 0 2rem; }   /* права — під кнопки читача (пошук/мова/щільність/тема) */
 html[data-density="compact"] .cover-hero .kicker { display: none; }
 html[data-density="compact"] .cover-hero h1 { font-size: 1.08rem; margin: 0; max-width: none; }
 html[data-density="compact"] .cover-hero p { display: none; }

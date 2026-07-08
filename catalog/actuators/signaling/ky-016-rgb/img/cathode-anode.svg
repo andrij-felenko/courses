@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільний катод vs анод: та сама яскравість — дзеркальна шпаруватість на піні</text>
+<rect x="285.2" y="64.0" width="369.7" height="32.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="84.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">хочемо однакового: колір горить на ¾ яскравості</tspan></text>
+<text x="270.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">спільний КАТОД  (−  на GND)</text>
+<text x="270.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">колір вмикає «+» на піні</text>
+<line x1="120.0" y1="250.0" x2="420.0" y2="250.0" stroke="#d0d5db" stroke-width="1.0"/>
+<line x1="120.0" y1="216.0" x2="420.0" y2="216.0" stroke="#d0d5db" stroke-width="1.0"/>
+<text x="112.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">0</text>
+<text x="112.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">+</text>
+<polyline points="120.0,250.0 120.0,216.0 195.0,216.0 195.0,250.0 220.0,250.0 220.0,250.0 220.0,216.0 295.0,216.0 295.0,250.0 320.0,250.0 320.0,250.0 320.0,216.0 395.0,216.0 395.0,250.0 420.0,250.0" fill="none" stroke="#2457d6" stroke-width="2.6"/>
+<text x="270.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">пін «+» три чверті часу</text>
+<rect x="187.9" y="313.4" width="164.2" height="45.3" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="270.0" y="332.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">duty = 191  (¾ від 255)</tspan><tspan x="270.0" dy="14.3">analogWrite(pin, 191)</tspan></text>
+<text x="710.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">спільний АНОД  (+  на VCC)</text>
+<text x="710.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">колір вмикає «−» (низький рівень)</text>
+<line x1="560.0" y1="250.0" x2="860.0" y2="250.0" stroke="#d0d5db" stroke-width="1.0"/>
+<line x1="560.0" y1="216.0" x2="860.0" y2="216.0" stroke="#d0d5db" stroke-width="1.0"/>
+<text x="552.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">0</text>
+<text x="552.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">+</text>
+<polyline points="560.0,250.0 560.0,216.0 585.0,216.0 585.0,250.0 660.0,250.0 660.0,250.0 660.0,216.0 685.0,216.0 685.0,250.0 760.0,250.0 760.0,250.0 760.0,216.0 785.0,216.0 785.0,250.0 860.0,250.0" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<text x="710.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">пін «+» лише чверть часу</text>
+<rect x="615.4" y="313.4" width="189.3" height="45.3" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="710.0" y="332.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">duty = 64  (= 255 − 191)</tspan><tspan x="710.0" dy="14.3">analogWrite(pin, 255 − 191)</tspan></text>
+<line x1="432.0" y1="233.0" x2="548.0" y2="233.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="337.2" y="199.5" width="265.5" height="31.0" rx="6" fill="#fff8e6" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="218.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">прапорець common_anode → 255 − value</tspan></text>
+<rect x="-0.8" y="424.8" width="941.7" height="30.5" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="470.0" y="443.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Яскравість каналу однакова — а число, що йде в analogWrite, протилежне. Один прапорець (255 − value для анода) обслуговує обидві плати тим самим setColor.</tspan></text>
+</svg>

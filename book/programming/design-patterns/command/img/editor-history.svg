@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">History: маршрут команд між двома стопками</text>
+<text x="230.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">done — зроблене</text>
+<text x="670.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">undone — скасоване</text>
+<rect x="105.0" y="327.0" width="250.0" height="44.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="230.0" y="353.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">AddText(0,&quot;привіт&quot;)</tspan></text>
+<rect x="105.0" y="274.0" width="250.0" height="44.0" rx="6" fill="#fff4f4" stroke="#c0392b" stroke-width="1.5"/><text x="230.0" y="300.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">AddText(6,&quot; світе&quot;)</tspan></text>
+<rect x="545.0" y="327.0" width="250.0" height="44.0" rx="6" fill="#fff4f4" stroke="#c0392b" stroke-width="1.5"/><text x="670.0" y="353.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">DeleteLastWord()</tspan></text>
+<text x="373.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">верх</text>
+<text x="813.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">верх</text>
+<line x1="363.0" y1="244.0" x2="537.0" y2="244.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="450.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">undo(): зняти верх, .undo(), сюди</text>
+<line x1="537.0" y1="414.0" x2="363.0" y2="414.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="450.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">redo(): зняти верх, .execute(), сюди</text>
+<rect x="110.0" y="454.0" width="680.0" height="40.0" rx="6" fill="#fdf0f0" stroke="#c0392b" stroke-width="1.6"/><text x="450.0" y="478.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">run(нова команда): execute + покласти на done + СТЕРТИ undone (redo-гілку відрізано)</tspan></text>
+</svg>
