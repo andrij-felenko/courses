@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Читання гіроскопа по SPI: перший байт — команда, далі течуть дані</text>
+<text x="64.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">CS (PC0)</text>
+<line x1="70.0" y1="66.0" x2="90.0" y2="66.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="90.0" y1="66.0" x2="90.0" y2="88.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="90.0" y1="88.0" x2="820.0" y2="88.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="820.0" y1="88.0" x2="820.0" y2="66.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="820.0" y1="66.0" x2="840.0" y2="66.0" stroke="#2457d6" stroke-width="2.4"/>
+<text x="90.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-style="italic">↓ тягнемо в 0 — «слухай мене»</text>
+<text x="820.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="end" font-style="italic">↑ у 1 — кінець</text>
+<rect x="48.0" y="150.0" width="108.0" height="52.0" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.9"/>
+<text x="102.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="102.0" dy="0.0">команда</tspan><tspan x="102.0" dy="13.7">1 1 101000</tspan></text>
+<text x="102.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="102.0" dy="0.0">R=1 · AI=1</tspan><tspan x="102.0" dy="11.2">адреса 0x28</tspan></text>
+<text x="102.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">MOSI (ти→чип)</text>
+<rect x="164.0" y="150.0" width="108.0" height="52.0" rx="7" fill="#eef6ef" stroke="#27ae60" stroke-width="1.9"/>
+<text x="218.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="218.0" dy="0.0">XL</tspan></text>
+<text x="218.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="218.0" dy="0.0">OUT_X_L</tspan></text>
+<text x="218.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">◄──────────  MISO (чип→ти)  ──────────►</text>
+<rect x="280.0" y="150.0" width="108.0" height="52.0" rx="7" fill="#eef6ef" stroke="#27ae60" stroke-width="1.9"/>
+<text x="334.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="334.0" dy="0.0">XH</tspan></text>
+<text x="334.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="334.0" dy="0.0">OUT_X_H</tspan></text>
+<rect x="396.0" y="150.0" width="108.0" height="52.0" rx="7" fill="#eef1f5" stroke="#2457d6" stroke-width="1.9"/>
+<text x="450.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">YL</tspan></text>
+<text x="450.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="450.0" dy="0.0">OUT_Y_L</tspan></text>
+<rect x="512.0" y="150.0" width="108.0" height="52.0" rx="7" fill="#eef1f5" stroke="#2457d6" stroke-width="1.9"/>
+<text x="566.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="566.0" dy="0.0">YH</tspan></text>
+<text x="566.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="566.0" dy="0.0">OUT_Y_H</tspan></text>
+<rect x="628.0" y="150.0" width="108.0" height="52.0" rx="7" fill="#fef6e7" stroke="#b8860b" stroke-width="1.9"/>
+<text x="682.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="682.0" dy="0.0">ZL</tspan></text>
+<text x="682.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="682.0" dy="0.0">OUT_Z_L</tspan></text>
+<rect x="744.0" y="150.0" width="108.0" height="52.0" rx="7" fill="#fef6e7" stroke="#b8860b" stroke-width="1.9"/>
+<text x="798.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="798.0" dy="0.0">ZH</tspan></text>
+<text x="798.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle"><tspan x="798.0" dy="0.0">OUT_Z_H</tspan></text>
+<text x="48.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="48.0" dy="0.0">Старший байт команди — це два прапорці + 6-бітна адреса:</tspan></text>
+<rect x="161.5" y="280.5" width="73.0" height="39.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="198.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="198.0" dy="0.0">біт7 = R/W</tspan><tspan x="198.0" dy="13.0">1 = читаю</tspan></text>
+<rect x="371.5" y="274.0" width="73.0" height="52.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/><text x="408.0" y="290.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="408.0" dy="0.0">біт6 = AI</tspan><tspan x="408.0" dy="13.0">1 = адреса</tspan><tspan x="408.0" dy="13.0">сама росте</tspan></text>
+<rect x="597.2" y="280.5" width="101.5" height="39.0" rx="6" fill="#eef1f5" stroke="#1a1a1a" stroke-width="1.6"/><text x="648.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="648.0" dy="0.0">біти5..0 = 0x28</tspan><tspan x="648.0" dy="13.0">старт: OUT_X_L</tspan></text>
+<rect x="117.8" y="389.8" width="664.4" height="28.5" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="450.0" y="407.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Без AI=1 адреса не росте — прочитаєш той самий байт шість разів. Це найчастіша причина «сміття» з гіроскопа.</tspan></text>
+</svg>

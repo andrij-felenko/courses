@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок старту прошивки: що робить main() від скидання до блимання</text>
+<rect x="50.0" y="108.0" width="108.0" height="84.0" rx="9" fill="#eef1f5" stroke="#1a1a1a" stroke-width="1.9"/>
+<text x="104.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Reset</text>
+<text x="104.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="104.0" dy="0.0">ядро на HSI</tspan><tspan x="104.0" dy="12.0">8 МГц</tspan></text>
+<line x1="158.0" y1="150.0" x2="172.0" y2="150.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="172.0" y="108.0" width="108.0" height="84.0" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.9"/>
+<text x="226.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Flash: 1 wait</text>
+<text x="226.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="226.0" dy="0.0">перш ніж 48 МГц —</tspan><tspan x="226.0" dy="12.0">дозволь Flash чекати</tspan></text>
+<line x1="280.0" y1="150.0" x2="294.0" y2="150.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="294.0" y="108.0" width="108.0" height="84.0" rx="9" fill="#eef6ef" stroke="#27ae60" stroke-width="1.9"/>
+<text x="348.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">PLL ×12</text>
+<text x="348.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="348.0" dy="0.0">HSI/2 · 4 МГц</tspan><tspan x="348.0" dy="12.0">→ 48 МГц</tspan></text>
+<line x1="402.0" y1="150.0" x2="416.0" y2="150.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="416.0" y="108.0" width="108.0" height="84.0" rx="9" fill="#eef6ef" stroke="#27ae60" stroke-width="1.9"/>
+<text x="470.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">SW = PLL</text>
+<text x="470.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">перемкнути</tspan><tspan x="470.0" dy="12.0">системний такт</tspan></text>
+<line x1="524.0" y1="150.0" x2="538.0" y2="150.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="538.0" y="108.0" width="108.0" height="84.0" rx="9" fill="#fef6e7" stroke="#b8860b" stroke-width="1.9"/>
+<text x="592.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">такт GPIOC</text>
+<text x="592.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="592.0" dy="0.0">RCC-&gt;AHBENR</tspan><tspan x="592.0" dy="12.0">(без нього — німо)</tspan></text>
+<line x1="646.0" y1="150.0" x2="660.0" y2="150.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="660.0" y="108.0" width="108.0" height="84.0" rx="9" fill="#eef1f5" stroke="#1a1a1a" stroke-width="1.9"/>
+<text x="714.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PC6 = вихід</text>
+<text x="714.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="714.0" dy="0.0">MODER[6] = 01</tspan></text>
+<line x1="768.0" y1="150.0" x2="782.0" y2="150.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="782.0" y="108.0" width="108.0" height="84.0" rx="9" fill="#eef1f5" stroke="#1a1a1a" stroke-width="1.9"/>
+<text x="836.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">блимай</text>
+<text x="836.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="836.0" dy="0.0">ODR ^= (1&lt;&lt;6)</tspan><tspan x="836.0" dy="12.0">у циклі</tspan></text>
+<rect x="161.8" y="251.8" width="616.5" height="28.5" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="470.0" y="269.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Забув «такт GPIOC» — вивід ніби налаштований, а світлодіод мовчить: периферія без тактування мертва.</tspan></text>
+</svg>

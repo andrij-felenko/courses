@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дебаг — уже на платі (ST-LINK). Серійну консоль додає окремий CP2102</text>
+<rect x="55.0" y="150.0" width="150.0" height="90.0" rx="12" fill="#eef1f5" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="130.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПК</text>
+<text x="130.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="130.0" dy="0.0">Qt Creator, gdb,</tspan><tspan x="130.0" dy="13.0">термінал</tspan></text>
+<rect x="580.0" y="90.0" width="240.0" height="400.0" rx="14" fill="#eaf3f4" stroke="#27ae60" stroke-width="2.2"/>
+<text x="700.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">STM32F072B-DISCO</text>
+<rect x="626.2" y="146.3" width="147.6" height="43.3" rx="6" fill="#eef1f5" stroke="#1a1a1a" stroke-width="1.7"/><text x="700.0" y="164.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">ST-LINK/V2</tspan><tspan x="700.0" dy="14.3">(Mini-USB на платі)</tspan></text>
+<rect x="605.0" y="295.0" width="190.0" height="90.0" rx="8" fill="#20242a" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="700.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">STM32F072RB</text>
+<text x="700.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c9ccd1" text-anchor="middle">USART1:</text>
+<text x="700.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffd24d" text-anchor="middle" font-weight="700">PA9=TX · PA10=RX</text>
+<line x1="700.0" y1="189.7" x2="700.0" y2="295.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="712.0" y="246.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-style="italic">SWD (на платі)</text>
+<line x1="205.0" y1="170.0" x2="580.0" y2="168.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="392.5" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">USB①  прошивка + дебаг</text>
+<rect x="314.0" y="416.8" width="77.0" height="46.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="352.5" y="436.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="352.5" dy="0.0">CP2102</tspan><tspan x="352.5" dy="15.0">USB→UART</tspan></text>
+<line x1="95.0" y1="240.0" x2="322.0" y2="416.8" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="61.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-style="italic">USB②  серійний порт</text>
+<line x1="391.0" y1="430.0" x2="451.0" y2="430.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="451.0" y1="430.0" x2="451.0" y2="425.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="451.0" y1="425.0" x2="720.0" y2="425.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="720.0" y1="425.0" x2="720.0" y2="385.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="465.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="465.0" dy="0.0">3 дроти:</tspan><tspan x="465.0" dy="12.3">TX→PA10 (RX)</tspan><tspan x="465.0" dy="12.3">RX→PA9 (TX)</tspan><tspan x="465.0" dy="12.3">GND ↔ GND</tspan></text>
+<rect x="161.7" y="519.8" width="556.6" height="28.5" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="440.0" y="537.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">CP2102 має віддавати 3.3 В логіку (перемичка/варіант 3V3) — 5 В на вивід STM32 небезпечні.</tspan></text>
+</svg>

@@ -21,6 +21,7 @@
         { slug: "esp32-cam", title: "ESP32-CAM (OV2640 + microSD)", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-ov2640-cheap-cam.md", status: "done" }], proj: [{ file: "proj-cam-sdcard.md", status: "done" }] },
         { slug: "esp-01s", title: "ESP-01S (Wi-Fi, ESP8266)", basic: { status: "done" }, detailed: { status: "pending" }, proj: [{ file: "proj-blink-wifi.md", status: "done" }] },
         { slug: "esp-01", title: "ESP-01 (Wi-Fi, ESP8266)", basic: { status: "done" }, detailed: { status: "pending" }, proj: [{ file: "proj-flash-blink.md", status: "done" }] },
+        { slug: "stm32f072b-disco", title: "STM32F072B-DISCO (Discovery, Cortex-M0)", basic: { status: "done" }, detailed: { status: "pending" }, proj: [{ file: "proj-firmware.md", status: "done" }] },
       ] },
     { slug: "flight", title: "Польотні контролери", scope: "Автопілоти й супутні адаптери для дронів/роверів.",
       topics: [
@@ -37,6 +38,8 @@
         { slug: "led-matrix-8x8", title: "Світлодіодна матриця 8×8 (1588BS)", basic: { status: "done" }, detailed: { status: "pending" }, proj: [{ file: "proj-driver.md", status: "done" }] },
         { slug: "multifunction-shield", title: "Multi-function Shield для Arduino UNO", basic: { status: "done" }, detailed: { status: "pending" }, proj: [{ file: "proj-multifunction-shield-api.md", status: "done" }] },
         { slug: "gpio-extension-board", title: "GPIO Extension Board для Raspberry Pi", basic: { status: "done" }, detailed: { status: "pending" }, proj: [{ file: "proj-libgpiod-breadboard.md", status: "done" }] },
+        { slug: "oled-ssd1306", title: "OLED-дисплей 0.96″ SSD1306 (I2C, 128×64)", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-ssd1306.md", status: "done" }], proj: [{ file: "proj-ssd1306-api.md", status: "done" }] },
+        { slug: "cp2102-usb-uart", title: "USB-UART адаптер CP2102 (Micro-USB)", basic: { status: "done" }, detailed: { status: "empty" }, proj: [{ file: "proj-serial-console.md", status: "done" }] },
       ] },
   ]
 });

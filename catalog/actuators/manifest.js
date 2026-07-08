@@ -2,10 +2,11 @@
 (window.__BOOKS__ = window.__BOOKS__ || []).push({
   type: "catalog", slug: "actuators", title: "Виконавчі та сигнальні",
   sections: [
-    { slug: "motors", title: "Мотори", scope: "Двигуни постійного струму й безколекторні.",
+    { slug: "motors", title: "Мотори", scope: "Двигуни постійного струму, безколекторні та електромагнітні лінійні (соленоїдні) приводи.",
       topics: [
         { slug: "n20-motor", title: "N20 мікромотор з редуктором", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-n20-name.md", status: "done" }], math: [{ file: "math-gear-torque.md", status: "done" }], proj: [{ file: "proj-drive-n20.md", status: "done" }] },
         { slug: "bldc-motor", title: "Безколекторний мотор (BLDC)", basic: { status: "done" }, detailed: { status: "pending" }, proj: [{ file: "proj-esc-control.md", status: "done" }] },
+        { slug: "jf-0530b-solenoid", title: "Соленоїд JF-0530B (12 В, push-pull)", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-freewheeling-diode.md", status: "done" }], proj: [{ file: "proj-drive-solenoid.md", status: "done" }] },
       ] },
     { slug: "servos", title: "Серва", scope: "Сервоприводи з керуванням за положенням.",
       topics: [
