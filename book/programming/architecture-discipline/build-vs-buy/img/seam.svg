@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="250.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">зі швом — постачальник за портом</text>
+<text x="710.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">без шва — виклики розсипані</text>
+<line x1="485.0" y1="55.0" x2="485.0" y2="470.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="6 5"/>
+<rect x="185.0" y="62.5" width="130.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="250.0" y="82.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">ваше ядро</tspan></text>
+<rect x="155.0" y="141.1" width="190.0" height="47.9" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.2"/><text x="250.0" y="161.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">порт (ваш інтерфейс):</tspan><tspan x="250.0" dy="16.9">Notifier.notify(...)</tspan></text>
+<line x1="250.0" y1="100.0" x2="250.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="95.0" y="266.1" width="110.0" height="47.9" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/><text x="150.0" y="286.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">адаптер</tspan><tspan x="150.0" dy="16.9">SendGrid</tspan></text>
+<rect x="305.0" y="266.1" width="110.0" height="47.9" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/><text x="360.0" y="286.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">адаптер</tspan><tspan x="360.0" dy="16.9">SMTP</tspan></text>
+<line x1="224.0" y1="190.0" x2="168.0" y2="262.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="286.0" y1="190.0" x2="350.0" y2="262.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="95.0" y="389.5" width="110.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/><text x="150.0" y="409.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">SendGrid</tspan></text>
+<rect x="305.0" y="381.1" width="110.0" height="47.9" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/><text x="360.0" y="401.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">поштовий</tspan><tspan x="360.0" dy="16.9">сервер</tspan></text>
+<line x1="150.0" y1="318.0" x2="150.0" y2="378.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="318.0" x2="360.0" y2="378.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="250.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-style="italic">зміна постачальника — лише адаптер</text>
+<rect x="610.0" y="97.6" width="200.0" height="64.8" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.0"/><text x="710.0" y="117.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">ваше ядро</tspan><tspan x="710.0" dy="16.9">(виклики SendGrid</tspan><tspan x="710.0" dy="16.9">розсипані всередині)</tspan></text>
+<rect x="645.0" y="389.5" width="130.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/><text x="710.0" y="409.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">SendGrid</tspan></text>
+<line x1="650.0" y1="178.0" x2="686.0" y2="378.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="178.0" x2="700.0" y2="378.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="730.0" y1="178.0" x2="714.0" y2="378.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="178.0" x2="726.0" y2="378.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="560.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="560.0" dy="0.0">прямі виклики</tspan><tspan x="560.0" dy="15.6">чужого API</tspan><tspan x="560.0" dy="15.6">×багато місць</tspan></text>
+</svg>

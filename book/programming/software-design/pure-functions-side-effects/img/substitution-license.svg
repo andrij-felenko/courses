@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прозорість за посиланням відмикає оптимізації</text>
+<rect x="310.0" y="81.0" width="120.0" height="58.0" rx="8" fill="#f2faf5" stroke="#27ae60" stroke-width="2.0"/>
+<text x="370.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#27ae60" text-anchor="middle" font-weight="700">f(a)</text>
+<rect x="570.0" y="81.0" width="160.0" height="58.0" rx="8" fill="#eef4ff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="650.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">значення v</text>
+<text x="500.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">замінити на значення</text>
+<text x="500.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="34" fill="#1a1a1a" text-anchor="middle" font-weight="700">⇄</text>
+<text x="500.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">лише якщо f чиста</text>
+<line x1="500.0" y1="176.0" x2="500.0" y2="210.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="500.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">тоді вільно:</text>
+<line x1="500.0" y1="244.0" x2="118.0" y2="293.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="244.0" x2="308.0" y2="293.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="244.0" x2="500.0" y2="293.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="244.0" x2="700.0" y2="293.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="244.0" x2="895.0" y2="293.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="62.1" y="298.2" width="111.8" height="43.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="118.0" y="316.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="118.0" dy="0.0">memo / кеш:</tspan><tspan x="118.0" dy="15.6">порахувати раз</tspan></text>
+<rect x="255.5" y="298.2" width="104.9" height="43.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="308.0" y="316.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="308.0" dy="0.0">CSE:</tspan><tspan x="308.0" dy="15.6">спільне — раз</tspan></text>
+<rect x="440.7" y="298.2" width="118.6" height="43.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="500.0" y="316.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">hoisting:</tspan><tspan x="500.0" dy="15.6">винести з циклу</tspan></text>
+<rect x="633.9" y="298.2" width="132.3" height="43.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="700.0" y="316.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">лінивість, DCE:</tspan><tspan x="700.0" dy="15.6">не рахувати зайве</tspan></text>
+<rect x="828.9" y="298.2" width="132.3" height="43.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="895.0" y="316.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="895.0" dy="0.0">паралельно:</tspan><tspan x="895.0" dy="15.6">будь-який порядок</tspan></text>
+<text x="510.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">порядок обчислення не змінює результату — це конфлюентність (Черч — Россер, 1936)</text>
+<rect x="219.6" y="428.0" width="580.9" height="32.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.4"/><text x="510.0" y="448.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Уся ця свобода — з одного дозволу: виклик чистої функції дорівнює своєму значенню.</tspan></text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1240" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відкрита рекурсія проти обірваного self</text>
+<text x="620.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">коли метод усередині кличе this.read()</text>
+<line x1="620.0" y1="92.0" x2="620.0" y2="656.0" stroke="#d0d5db" stroke-width="1.2" stroke-dasharray="6,6"/>
+<text x="312.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">Спадкування</text>
+<text x="312.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">self = весь об'єкт → перекриття виграє</text>
+<rect x="78.0" y="164.0" width="468.0" height="232.0" rx="12" fill="#f4fbf7" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="312.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">один об'єкт (нащадок)</text>
+<rect x="112.0" y="208.0" width="400.0" height="50.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="312.0" y="237.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="312.0" dy="0.0">readAll() { … this.read() … }</tspan></text>
+<rect x="112.0" y="300.0" width="400.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="312.0" y="329.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="312.0" dy="0.0">read()  ← перекрито: ВЕЛИКА</tspan></text>
+<line x1="528.0" y1="258.0" x2="528.0" y2="300.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="312.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">this.read() → перекритий read()</text>
+<text x="312.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">✓ readAll() теж дає ВЕЛИКІ</text>
+<text x="928.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">Делегування (декоратор)</text>
+<text x="928.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">self = внутрішній → decorate обійдено</text>
+<rect x="706.0" y="154.0" width="304.0" height="48.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="858.0" y="182.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="858.0" dy="0.0">D.readAll()  — делегує вниз</tspan></text>
+<rect x="706.0" y="244.0" width="304.0" height="48.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="858.0" y="272.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="858.0" dy="0.0">C.readAll() { this.read() }</tspan></text>
+<rect x="706.0" y="334.0" width="304.0" height="48.0" rx="6" fill="#eef2f6" stroke="#6b7280" stroke-width="1.5"/><text x="858.0" y="362.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="858.0" dy="0.0">this.read() = C.read()</tspan></text>
+<rect x="706.0" y="424.0" width="304.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="858.0" y="452.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="858.0" dy="0.0">→ малі літери  ✗</tspan></text>
+<line x1="858.0" y1="202.0" x2="858.0" y2="244.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="858.0" y1="292.0" x2="858.0" y2="334.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="858.0" y1="382.0" x2="858.0" y2="424.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="1016.0" y="156.0" width="208.0" height="58.0" rx="8" fill="#fbfcfd" stroke="#c0392b" stroke-width="1.4"/><text x="1120.0" y="181.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1120.0" dy="0.0">D.read() ВЕЛИКА</tspan><tspan x="1120.0" dy="15.0">не викликана</tspan></text>
+<line x1="1012.0" y1="184.0" x2="1016.0" y2="184.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="928.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">перекритий read() у D — поза шляхом виклику</text>
+</svg>

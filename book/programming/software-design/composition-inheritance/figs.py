@@ -333,10 +333,267 @@ def fig_two_threads_timeline():
            title=None)
 
 
+# ── Природа зв'язку: спадкування застигло на компіляції, композиція живе в runtime ──
+def fig_static_vs_dynamic_bond():
+    """Ключова відмінність ГЛИБШОГО рівня: спадкування вирішує зв'язок компілятором
+    і вплавляє в тип назавжди; композиція тримає зв'язок у полі-вказівнику,
+    який під час роботи можна навести на іншу деталь."""
+    W, H = 1040, 450
+    frags = []
+    frags.append(line(W / 2, 82, W / 2, H - 24, color="#d0d5db", sw=1.2, dash="5,5"))
+
+    # ── ЛІВОРУЧ: спадкування — застигле на компіляції ──────────────────────
+    lcx = 255
+    frags.append(text(lcx, 56, "Спадкування: застигло на компіляції",
+                      size=14, bold=True, color=POS))
+    shp, _, _ = textbox(lcx, 112, "Shape", size=13, bold=True,
+                        fill="#fdecea", stroke=POS, sw=1.7, min_w=150)
+    frags.append(shp)
+    cir, _, _ = textbox(lcx, 236, "Circle", size=13, bold=True,
+                        fill="#fdecea", stroke=POS, sw=1.7, min_w=150)
+    frags.append(cir)
+    # стрілка спадкування Circle → Shape
+    frags.append(arrow(lcx, 218, lcx, 132, color=POS, sw=2.0))
+    frags.append(text(lcx + 40, 180, "is-a", size=12, italic=True, color=POS))
+    # пояснення
+    frags.append(text(lcx, 296, "вирішує КОМПІЛЯТОР", size=12, bold=True, color=INK))
+    frags.append(text(lcx, 320, "вплавлено в тип — назавжди", size=12, color=MUTED))
+    frags.append(text(lcx, 344, "змінити = переписати клас", size=12, color=MUTED))
+
+    # ── ПРАВОРУЧ: композиція — живе під час роботи ─────────────────────────
+    rcx = 785
+    frags.append(text(rcx, 56, "Композиція: живе під час роботи",
+                      size=14, bold=True, color=FIELD))
+    ply, _, _ = textbox(700, 126, ["player", "weapon →"], size=12, bold=True,
+                        fill="#eafaf0", stroke=FIELD, sw=1.8, min_w=170)
+    frags.append(ply)  # x 615..785, y ~100..152
+    frags.append(fitbox(860, 190, 120, 34, "Sword", size=12, bold=True,
+                        fill=FILL, stroke=FIELD, sw=1.4))
+    frags.append(fitbox(860, 288, 120, 34, "Bow", size=12, bold=True,
+                        fill=FILL, stroke=FIELD, sw=1.4))
+    # суцільна — поточна деталь; пунктирна — перепризначення поля
+    frags.append(arrow(788, 142, 856, 200, color=FIELD, sw=1.8))
+    frags.append(line(788, 150, 856, 300, color=MUTED, sw=1.5, dash="5,4"))
+    frags.append(text(992, 306, "перемкнути", size=12, italic=True,
+                      color=FIELD, anchor="end"))
+    # пояснення
+    frags.append(text(rcx, 372, "вирішує ЗБІРКА об'єктів", size=12, bold=True, color=INK))
+    frags.append(text(rcx, 396, "той самий об'єкт — інша деталь", size=12, color=MUTED))
+
+    render(os.path.join(IMG, 'static-vs-dynamic-bond.svg'), W, H, *frags,
+           title=None)
+
+
+# ── Проблема ромба: глухий кут множинного успадкування, якого композиція не має ──
+def fig_diamond_problem():
+    """Ромб успадкування зводить два шляхи до спільного предка й породжує
+    три неоднозначності; кожна мова винайшла окремий механізм. Композиція
+    вузол НЕ створює — просто тримає обидві сутності полями."""
+    W, H = 1160, 560
+    frags = []
+    frags.append(line(615, 70, 615, H - 30, color="#d0d5db", sw=1.2, dash="5,5"))
+
+    # ── ЛІВОРУЧ: сам ромб ──────────────────────────────────────────────────
+    frags.append(text(310, 52, "Множинне успадкування реалізації",
+                      size=14, bold=True, color=INK))
+    a, _, _ = textbox(310, 96, ["A", "поле x · метод m()"], size=12, bold=True,
+                      fill=FILL, stroke=INK, sw=1.7, min_w=220)
+    frags.append(a)  # y ~70..122
+    b, _, _ = textbox(190, 252, ["B", "override m()"], size=11, bold=True,
+                      fill=FILL, stroke=INK, sw=1.5, min_w=145)
+    frags.append(b)  # y ~228..276
+    c, _, _ = textbox(432, 252, ["C", "override m()"], size=11, bold=True,
+                      fill=FILL, stroke=INK, sw=1.5, min_w=145)
+    frags.append(c)
+    d, _, _ = textbox(310, 408, ["D", "успадковує B і C"], size=12, bold=True,
+                      fill="#fdecea", stroke=POS, sw=1.8, min_w=220)
+    frags.append(d)  # y ~384..432
+    # стрілки успадкування (нащадок → предок)
+    frags.append(arrow(205, 228, 278, 126, color=INK, sw=1.6))   # B → A
+    frags.append(arrow(417, 228, 344, 126, color=INK, sw=1.6))   # C → A
+    frags.append(arrow(278, 384, 205, 278, color=INK, sw=1.6))   # D → B
+    frags.append(arrow(344, 384, 417, 278, color=INK, sw=1.6))   # D → C
+    # три питання неоднозначності — під ромбом
+    frags.append(text(310, 476, "Скільки копій A всередині D?", size=12, color=POS))
+    frags.append(text(310, 500, "Чий m() успадкувати?", size=12, color=POS))
+    frags.append(text(310, 524, "Який порядок предків?", size=12, color=POS))
+
+    # ── ПРАВОРУЧ: відповіді мов + композиція ───────────────────────────────
+    rcx = 885
+    frags.append(text(rcx, 52, "Кожна мова — свій винахід проти вузла",
+                      size=14, bold=True, color=INK))
+    ans = [
+        (165, ["C++: virtual-успадкування", "→ одна спільна A на всі шляхи"]),
+        (250, ["Python: C3-лінеаризація (MRO)", "предки — в один несуперечливий ряд"]),
+        (335, ["Java: заборонив множинне", "успадкування класів (лише інтерфейси)"]),
+    ]
+    for cy, lines in ans:
+        bx, _, _ = textbox(rcx, cy, lines, size=11, bold=True,
+                           fill=FILL, stroke=NEG, sw=1.5, min_w=370)
+        frags.append(bx)
+    comp, _, _ = textbox(rcx, 452, ["Композиція: D просто ТРИМАЄ B і C полями",
+                                    "ромба нема — нема спільного предка"],
+                         size=12, bold=True, fill="#eafaf0", stroke=FIELD,
+                         sw=1.8, min_w=400)
+    frags.append(comp)
+
+    render(os.path.join(IMG, 'diamond-problem.svg'), W, H, *frags, title=None)
+
+
+# ── Два ґатунки «має»: володіння (композиція) проти посилання (агрегація) ─────
+def fig_aggregation_vs_composition():
+    """«Має» розпадається на два режими за правом на життя деталі:
+    володіння (деталь гине з цілим) і посилання (деталь живе окремо).
+    Смуги життя внизу роблять різницю наочною."""
+    W, H = 1080, 430
+    frags = []
+    frags.append(line(W / 2, 72, W / 2, H - 22, color="#d0d5db", sw=1.2, dash="5,5"))
+
+    # ── ЛІВОРУЧ: композиція = володіння ────────────────────────────────────
+    lcx = 270
+    frags.append(text(lcx, 52, "Композиція: ціле ВОЛОДІЄ деталлю",
+                      size=14, bold=True, color=FIELD))
+    car, _, _ = textbox(lcx, 108, "Car", size=12, bold=True,
+                        fill="#eafaf0", stroke=FIELD, sw=1.7, min_w=150)
+    frags.append(car)  # y ~91..125
+    eng, _, _ = textbox(lcx, 196, "Engine", size=12, bold=True,
+                        fill=FILL, stroke=FIELD, sw=1.4, min_w=150)
+    frags.append(eng)  # y ~179..213
+    frags.append(line(lcx, 126, lcx, 178, color=FIELD, sw=2.0))
+    frags.append(text(lcx + 40, 156, "◆ володіє", size=12, italic=True,
+                      color=FIELD, anchor="start"))
+    # смуги життя — починаються й кінчаються РАЗОМ
+    frags.append(text(150, 272, "життя:", size=11, color=INK, anchor="start"))
+    frags.append(rect(214, 288, 150, 13, fill=FIELD, stroke=FIELD, sw=1, rx=3))
+    frags.append(rect(214, 312, 150, 13, fill=FIELD, stroke=FIELD, sw=1, rx=3))
+    frags.append(text(206, 298, "Car", size=10, color=MUTED, anchor="end"))
+    frags.append(text(206, 322, "Engine", size=10, color=MUTED, anchor="end"))
+    frags.append(text(lcx, 356, "деталь живе й гине разом із цілим",
+                      size=11, italic=True, color=INK))
+
+    # ── ПРАВОРУЧ: агрегація = посилання ────────────────────────────────────
+    frags.append(text(810, 52, "Агрегація: ціле лише ПОСИЛАЄТЬСЯ",
+                      size=14, bold=True, color=NEG))
+    uni, _, _ = textbox(710, 130, "University", size=12, bold=True,
+                        fill=FILL, stroke=NEG, sw=1.6, min_w=170)
+    frags.append(uni)  # x 625..795
+    stu, _, _ = textbox(925, 130, "Student", size=12, bold=True,
+                        fill=FILL, stroke=NEG, sw=1.6, min_w=150)
+    frags.append(stu)  # x 850..1000
+    frags.append(arrow(797, 130, 848, 130, color=NEG, sw=1.7))
+    frags.append(text(812, 116, "◇", size=15, color=NEG))
+    # смуги життя — студент починається раніше й тягнеться далі
+    frags.append(rect(668, 288, 150, 13, fill=NEG, stroke=NEG, sw=1, rx=3))
+    frags.append(rect(618, 312, 300, 13, fill=NEG, stroke=NEG, sw=1, rx=3))
+    frags.append(text(660, 298, "Univ.", size=10, color=MUTED, anchor="end"))
+    frags.append(text(610, 322, "Stud.", size=10, color=MUTED, anchor="end"))
+    frags.append(text(810, 356, "деталь живе окремо — може пережити ціле",
+                      size=11, italic=True, color=INK))
+    frags.append(text(810, 380, "уб'ють раніше → зависле посилання",
+                      size=11, color=POS))
+
+    render(os.path.join(IMG, 'aggregation-vs-composition.svg'), W, H, *frags,
+           title=None)
+
+
+def _cpath(d, color, sw=2.0, head=True):
+    """Довільна крива (Bézier) як фрагмент; за потреби — зі стрілкою-наконечником."""
+    he = ' marker-end="url(#arrow)"' if head else ''
+    return ('<path d="%s" fill="none" stroke="%s" stroke-width="%.1f"%s/>'
+            % (d, color, sw, he))
+
+
+# ── Куди прилітає внутрішній self-виклик бази: вгору в нащадка чи в деталь ────
+def fig_self_call_bend():
+    """Той самий addAll([a,b,c]). Спадкування: базин this.add згинається ВГОРУ, у
+    перевизначений add нащадка → лічильник += ще 3 → 6. Композиція: self-виклик
+    s.add замикається ВСЕРЕДИНІ деталі й до обгортки не дотягується → лишається 3."""
+    W, H = 1180, 410
+    frags = []
+    frags.append(line(W / 2, 92, W / 2, H - 26, color="#d0d5db", sw=1.2, dash="5,5"))
+
+    # ── ЛІВОРУЧ: спадкування — self-виклик згинається вгору ────────────────
+    lcx = 300
+    frags.append(text(lcx, 52, "Спадкування: self-виклик згинається ВГОРУ",
+                      size=15, bold=True, color=POS))
+
+    ent, _, _ = textbox(lcx + 55, 96, "виклик: addAll([a, b, c])",
+                        size=12, bold=True, fill=FILL, stroke=INK, sw=1.5, min_w=210)
+    frags.append(ent)  # низ ~112
+
+    # шар нащадка: два перевизначення поряд
+    frags.append(fitbox(120, 152, 160, 50, ["add(e)", "addCount++"],
+                        size=12, bold=True, fill="#fdecea", stroke=POS, sw=1.6))
+    frags.append(fitbox(340, 152, 190, 50, ["addAll(c)", "addCount += 3"],
+                        size=12, bold=True, fill="#fdecea", stroke=POS, sw=1.6))
+    frags.append(text(lcx, 224, "шар нащадка (перевизначення)",
+                      size=11, italic=True, color=MUTED))
+
+    # успадкований шар бази
+    frags.append(fitbox(140, 262, 320, 52,
+                        ["HashSet.addAll — успадкований",
+                         "для кожного e:  this.add(e)"],
+                        size=12, bold=True, fill=FILL, stroke=MUTED, sw=1.5))
+
+    # виклик → addAll-нащадка
+    frags.append(arrow(lcx + 60, 114, 435, 150, color=INK, sw=1.6))
+    # addAll-нащадка → база (super.addAll)
+    frags.append(arrow(415, 202, 350, 260, color=POS, sw=1.7))
+    frags.append(text(470, 236, "super.addAll", size=11, italic=True,
+                      color=POS, anchor="start"))
+    # база → add-нащадка: БЕНД УГОРУ (self-виклик б'є в перевизначений add)
+    frags.append(_cpath("M 175 260 C 95 224, 82 196, 150 204", POS, sw=2.2))
+    frags.append(text(lcx, 336, "внутрішній this.add бази б'є в перевизначений add нащадка",
+                      size=11, bold=True, color=POS))
+    frags.append(text(lcx, 362, "addCount = 6   ✗   (пачку порахували двічі)",
+                      size=13, bold=True, color=POS))
+
+    # ── ПРАВОРУЧ: композиція — self-виклик замикається в деталі ────────────
+    rcx = 880
+    frags.append(text(rcx, 52, "Композиція: self-виклик замикається В ДЕТАЛІ",
+                      size=15, bold=True, color=FIELD))
+
+    ent2, _, _ = textbox(rcx + 55, 96, "виклик: addAll([a, b, c])",
+                         size=12, bold=True, fill=FILL, stroke=INK, sw=1.5, min_w=210)
+    frags.append(ent2)
+
+    # шар обгортки
+    frags.append(fitbox(700, 152, 160, 50, ["add(e)", "addCount++"],
+                        size=12, bold=True, fill="#eafaf0", stroke=FIELD, sw=1.6))
+    frags.append(fitbox(920, 152, 190, 50, ["addAll(c)", "addCount += 3"],
+                        size=12, bold=True, fill="#eafaf0", stroke=FIELD, sw=1.6))
+    frags.append(text(rcx, 224, "шар обгортки (InstrumentedSet)",
+                      size=11, italic=True, color=MUTED))
+
+    # окрема деталь-компонент
+    frags.append(fitbox(720, 262, 320, 52,
+                        ["s : HashSet — ОКРЕМА деталь",
+                         "для кожного e:  s.add(e)"],
+                        size=12, bold=True, fill=FILL, stroke=INK, sw=1.6))
+
+    frags.append(arrow(rcx + 60, 114, 1015, 150, color=INK, sw=1.6))
+    frags.append(arrow(995, 202, 940, 260, color=FIELD, sw=1.7))
+    frags.append(text(1050, 236, "s.addAll", size=11, italic=True,
+                      color=FIELD, anchor="start"))
+    # самопетля всередині деталі: s.add кличе add тієї самої деталі
+    frags.append(_cpath("M 1040 276 C 1104 270, 1104 306, 1042 300", FIELD, sw=2.2))
+    frags.append(text(rcx, 336, "s.add замикається в деталі — до обгортки не дістає",
+                      size=11, bold=True, color=FIELD))
+    frags.append(text(rcx, 362, "addCount = 3   ✓   (порахували рівно раз)",
+                      size=13, bold=True, color=FIELD))
+
+    render(os.path.join(IMG, 'self-call-bend.svg'), W, H, *frags,
+           title=None)
+
+
 if __name__ == "__main__":
     fig_explosion_vs_composition()
     fig_isa_vs_hasa()
     fig_class_count_growth()
     fig_delegation_cost()
     fig_two_threads_timeline()
+    fig_static_vs_dynamic_bond()
+    fig_diamond_problem()
+    fig_aggregation_vs_composition()
+    fig_self_call_bend()
     print("figures written to", IMG)

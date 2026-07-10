@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один виклик замикається в коло: униз із перекладом входу, угору — виходу</text>
+<rect x="95.0" y="170.1" width="230.0" height="49.9" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="210.0" y="191.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">Клієнт</tspan><tspan x="210.0" dy="16.9">бачить лише Target</tspan></text>
+<rect x="510.0" y="125.0" width="300.0" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/><text x="660.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">«interface» Target</tspan><tspan x="660.0" dy="16.9">charge(amount, currency)</tspan></text>
+<rect x="510.0" y="340.1" width="300.0" height="49.9" rx="6" fill="#fff8f0" stroke="#c0392b" stroke-width="2.0"/><text x="660.0" y="361.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">StripeAdapter</tspan><tspan x="660.0" dy="16.9">реалізує Target</tspan></text>
+<rect x="920.0" y="340.1" width="200.0" height="49.9" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="1020.0" y="361.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1020.0" dy="0.0">StripeClient</tspan><tspan x="1020.0" dy="16.9">(чужий)</tspan></text>
+<line x1="329.0" y1="183.0" x2="506.0" y2="158.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="417.5" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">(1) charge(499, «UAH»)</text>
+<line x1="660.0" y1="340.1" x2="660.0" y2="174.9" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="6,5"/>
+<text x="682.0" y="257.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">(2) виклик виконує Adapter</text>
+<line x1="814.0" y1="341.0" x2="916.0" y2="341.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="865.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">(3) createCharge( f_in )</text>
+<line x1="916.0" y1="393.0" x2="814.0" y2="393.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="865.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">(4) сирий результат</text>
+<line x1="506.0" y1="373.0" x2="319.0" y2="227.9" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="340.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">(5) f_out(result)</text>
+</svg>

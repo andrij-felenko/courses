@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">RCU: відкладене вивільнення старої версії</text>
+<rect x="150.0" y="139.0" width="370.0" height="22.0" rx="8" fill="#f0f4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="138.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">r1</text>
+<rect x="195.0" y="189.0" width="435.0" height="22.0" rx="8" fill="#f0f4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="183.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">r2</text>
+<rect x="475.0" y="239.0" width="305.0" height="22.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="627.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">r3 — новий читач</text>
+<line x1="430.0" y1="130.0" x2="430.0" y2="430.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6,5"/>
+<text x="442.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">публікація vN+1</text>
+<line x1="660.0" y1="300.0" x2="660.0" y2="430.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="6,5"/>
+<text x="672.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">звільнити стару vN — безпечно</text>
+<rect x="430.0" y="330.0" width="230.0" height="26.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="545.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">період відкладення (grace period)</text>
+<line x1="120.0" y1="430.0" x2="900.0" y2="430.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="895.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">час</text>
+<text x="490.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="490.0" dy="0.0">стару версію звільняють лише коли її вже не тримає жоден ДОЧАСНИЙ читач;</tspan><tspan x="490.0" dy="15.6">новий читач r3 бачить одразу нову версію. GC чи лічильник роблять це відкладення за нас.</tspan></text>
+</svg>

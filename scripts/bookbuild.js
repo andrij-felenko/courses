@@ -198,6 +198,81 @@
     }
   }
 
+  /* ── Затиснути (або правий клік) лінк статті → попап «позначити прочитано/непрочитано».
+     Спільний для читача й лендингу курсу (book.js не потрібен). Ключ виводиться з href;
+     book.js тримає свій READ-набір у синхроні через подію "courses-read-change". ── */
+  (function () {
+    var LS = "courses-read";
+    function rset() { try { return new Set(JSON.parse(localStorage.getItem(LS) || "[]")); } catch (e) { return new Set(); } }
+    function keyFromHref(href) {
+      if (!href) return null;
+      var m = href.match(/#ch=([^&]+)/); if (!m) return null;
+      var slug = decodeURIComponent(m[1]);
+      var bm = href.match(/[?&]book=([^&#]+)/); if (bm) return decodeURIComponent(bm[1]) + "/" + slug;   // і course-лінки: книга-джерело
+      var gm = href.match(/[?&]guide=([^&#]+)/); if (gm) return decodeURIComponent(gm[1]) + "/" + slug;  // власна стаття курсу
+      var B = global.BOOK;   // короткий "#ch=…" — контекст поточної книги (читач)
+      return B ? ((B.bookSlug || B.type || "book") + "/" + slug) : null;
+    }
+    function applyDom(key, on) {
+      [].forEach.call(document.querySelectorAll("a[href]"), function (a) {
+        if (keyFromHref(a.getAttribute("href")) !== key) return;
+        if (a.classList.contains("sb-link")) a.classList.toggle("read", on);
+        var it = a.closest ? a.closest(".ch-item") : null; if (it) it.classList.toggle("read", on);
+        var gs = a.closest ? a.closest(".guide-step") : null; if (gs) gs.classList.toggle("read", on);
+      });
+    }
+    function toggle(key) {
+      var set = rset(), on = !set.has(key);
+      if (on) set.add(key); else set.delete(key);
+      try { localStorage.setItem(LS, JSON.stringify(Array.from(set))); } catch (e) {}
+      applyDom(key, on);
+      try { window.dispatchEvent(new CustomEvent("courses-read-change", { detail: { key: key, on: on } })); } catch (e) {}
+    }
+    var pop = null, timer = null, suppress = false;
+    function close() { if (pop) { pop.remove(); pop = null; } }
+    function show(x, y, key) {
+      close();
+      var on = rset().has(key);
+      pop = document.createElement("div"); pop.className = "read-pop";
+      var b = document.createElement("button"); b.type = "button";
+      b.textContent = on ? "✕ Зняти позначку «прочитано»" : "✓ Позначити прочитаною";
+      b.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); toggle(key); close(); });
+      pop.appendChild(b); document.body.appendChild(pop);
+      var r = pop.getBoundingClientRect();
+      pop.style.left = Math.max(8, Math.min(x, window.innerWidth - r.width - 8)) + "px";
+      pop.style.top = Math.max(8, Math.min(y, window.innerHeight - r.height - 8)) + "px";
+    }
+    document.addEventListener("pointerdown", function (e) {
+      if (pop && pop.contains(e.target)) return;   // тап по самому попапу — не закривати до кліку
+      close();
+      var a = e.target.closest && e.target.closest("a[href]");
+      var key = a ? keyFromHref(a.getAttribute("href")) : null;
+      if (!key) return;
+      var x = e.clientX, y = e.clientY;
+      function fin() { if (timer) { clearTimeout(timer); timer = null; } document.removeEventListener("pointerup", fin); document.removeEventListener("pointercancel", fin); document.removeEventListener("pointermove", mv); }
+      function mv(ev) { if (Math.abs(ev.clientX - x) > 8 || Math.abs(ev.clientY - y) > 8) fin(); }   // потягнув — це скрол, не затискання
+      timer = setTimeout(function () { timer = null; suppress = true; show(x, y, key); fin(); }, 550);
+      document.addEventListener("pointerup", fin);
+      document.addEventListener("pointercancel", fin);
+      document.addEventListener("pointermove", mv);
+    });
+    // клік одразу ПІСЛЯ спрацьованого затискання — це відпускання пальця, не перехід за лінком
+    document.addEventListener("click", function (e) {
+      if (suppress) { suppress = false; e.preventDefault(); e.stopPropagation(); return; }
+      if (pop && !pop.contains(e.target)) close();
+    }, true);
+    // правий клік (десктоп) і довгий тап Android теж ведуть сюди
+    document.addEventListener("contextmenu", function (e) {
+      var a = e.target.closest && e.target.closest("a[href]");
+      var key = a ? keyFromHref(a.getAttribute("href")) : null;
+      if (!key) return;
+      e.preventDefault();
+      if (timer) { clearTimeout(timer); timer = null; }
+      show(e.clientX, e.clientY, key);
+    });
+    window.addEventListener("scroll", close, { passive: true });
+  })();
+
   global.adaptSubjectBook = adaptSubjectBook;
   global.loadSubjectBook = loadSubjectBook;
   global.loadGuide = loadGuide;

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві різні «єдиності»: один обʼєкт проти одного спільного стану</text>
+<line x1="460.0" y1="46.0" x2="460.0" y2="344.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="235.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">СІНГЛТОН</text>
+<line x1="120.0" y1="118.0" x2="210.1" y2="217.9" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="118.0" x2="235.0" y2="217.9" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="118.0" x2="259.9" y2="217.9" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="82.6" y="86.0" width="74.7" height="32.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="106.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">клієнт 1</tspan></text>
+<rect x="197.6" y="86.0" width="74.7" height="32.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="235.0" y="106.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">клієнт 2</tspan></text>
+<rect x="312.6" y="86.0" width="74.7" height="32.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="350.0" y="106.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">клієнт 3</tspan></text>
+<rect x="199.0" y="223.9" width="72.1" height="52.2" rx="6" fill="#e8f7ee" stroke="#27ae60" stroke-width="2.5"/><text x="235.0" y="245.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="235.0" dy="0.0">єдиний</tspan><tspan x="235.0" dy="18.2">обʼєкт</tspan></text>
+<text x="235.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">одна ідентичність — один стан</text>
+<text x="690.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">МОНОСТЕЙТ (Borg)</text>
+<line x1="560.0" y1="118.0" x2="662.8" y2="219.1" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="118.0" x2="690.0" y2="219.1" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="820.0" y1="118.0" x2="717.2" y2="219.1" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="522.6" y="86.0" width="74.7" height="32.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="560.0" y="106.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">обʼєкт A</tspan></text>
+<rect x="652.6" y="86.0" width="74.7" height="32.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="690.0" y="106.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">обʼєкт B</tspan></text>
+<rect x="782.6" y="86.0" width="74.7" height="32.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="820.0" y="106.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">обʼєкт C</tspan></text>
+<rect x="603.4" y="225.1" width="173.1" height="49.9" rx="6" fill="#fff8e1" stroke="#d9a400" stroke-width="2.5"/><text x="690.0" y="246.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">спільний стан</tspan><tspan x="690.0" dy="16.9">(static-поля класу)</tspan></text>
+<text x="690.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">різні ідентичності — ОДИН спільний стан</text>
+<text x="460.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Сінглтон обмежує кількість обʼєктів; моностейт — кількість станів. Обидва лишаються глобальним станом.</text>
+</svg>

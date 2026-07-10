@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевикористати номер поля: ті самі байти, інший сенс</text>
+<rect x="348.0" y="187.0" width="50.0" height="36.0" rx="6" fill="#fdf6e3" stroke="#d68910" stroke-width="1.5"/>
+<text x="373.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">18</text>
+<rect x="406.0" y="187.0" width="50.0" height="36.0" rx="6" fill="#fdf6e3" stroke="#d68910" stroke-width="1.5"/>
+<text x="431.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">9B</text>
+<rect x="464.0" y="187.0" width="50.0" height="36.0" rx="6" fill="#fdf6e3" stroke="#d68910" stroke-width="1.5"/>
+<text x="489.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">C3</text>
+<rect x="522.0" y="187.0" width="50.0" height="36.0" rx="6" fill="#fdf6e3" stroke="#d68910" stroke-width="1.5"/>
+<text x="547.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1E</text>
+<text x="464.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">збережене повідомлення (диск, логи, старий клієнт)</text>
+<text x="373.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">18 = поле 3, varint</text>
+<text x="547.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">9B C3 1E = 500123</text>
+<rect x="53.0" y="84.2" width="250.0" height="47.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="178.0" y="104.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="178.0" dy="0.0">схема v1:</tspan><tspan x="178.0" dy="15.6">поле 3 = legacy_ref (int64)</tspan></text>
+<line x1="348.0" y1="195.0" x2="250.0" y2="128.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="178.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">legacy_ref = 500123   правильно</text>
+<rect x="53.0" y="290.4" width="250.0" height="63.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="178.0" y="310.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="178.0" dy="0.0">схема-порушник:</tspan><tspan x="178.0" dy="15.6">поле 3 ПЕРЕВИКОРИСТАНО</tspan><tspan x="178.0" dy="15.6">= warehouse_id (int64)</tspan></text>
+<line x1="348.0" y1="216.0" x2="250.0" y2="300.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="178.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">warehouse_id = 500123   тихо неправильно</text>
+<text x="470.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">Ті самі байти розшифрувалися як інше поле: замовлення тихо приписане складу №500123.</text>
+<text x="470.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">reserved 3;  reserved &quot;legacy_ref&quot;;  — компілятор не дасть посадити нове поле на мертвий номер.</text>
+</svg>

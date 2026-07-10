@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мутабельність зведена в одну видну точку</text>
+<rect x="165.0" y="66.0" width="190.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="260.0" y="92.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">вхід: подія / запит</tspan></text>
+<line x1="260.0" y1="112.0" x2="260.0" y2="150.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="110.0" y="152.0" width="300.0" height="150.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="260.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Незмінне ядро</text>
+<text x="260.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">чисті обчислення</text>
+<text x="260.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">над незмінними значеннями</text>
+<rect x="560.0" y="165.0" width="210.0" height="140.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="665.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комірка стану</text>
+<text x="665.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ЄДИНА мінлива точка</text>
+<text x="665.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">посилання → vN</text>
+<line x1="558.0" y1="200.0" x2="412.0" y2="200.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="485.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">знімок vN (читання)</text>
+<line x1="412.0" y1="274.0" x2="558.0" y2="274.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="485.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">нова vN+1 → CAS</text>
+<text x="665.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">зміна лише тут</text>
+<text x="410.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Читач бере незмінний знімок без замків; писар підміняє посилання однією атомарною дією.</text>
+</svg>

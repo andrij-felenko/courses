@@ -253,10 +253,365 @@ def fig_attack_surface():
            title="П'ять дверей до другого екземпляра — і що кожні замикає")
 
 
+# ── фігури детальної статті ──────────────────────────────────────────────────
+
+def fig_design_matrix():
+    """Дві осі проєктного простору: кардинальність × досяжність. Сінглтон — лише одна клітина."""
+    W, H = 860, 478
+    frags = []
+    c1x, c2x, cw = 190, 505, 300
+    r1y, r2y, ch = 95, 230, 120
+
+    frags.append(fitbox(c1x, r1y, cw, ch,
+                        ["Єдиний екземпляр,", "переданий явно", "(здоровий випадок)"],
+                        size=13, fill="#e8f7ee", stroke=FIELD))
+    frags.append(fitbox(c2x, r1y, cw, ch,
+                        ["СІНГЛТОН", "«один» + доступ звідусіль", "(патерн GoF)"],
+                        size=13, fill="#fdecea", stroke=POS, sw=2.6))
+    frags.append(fitbox(c1x, r2y, cw, ch,
+                        ["Звичайні обʼєкти", "(буденне ООП)"],
+                        size=13, fill="#eef2ff", stroke=NEG))
+    frags.append(fitbox(c2x, r2y, cw, ch,
+                        ["Глобальний реєстр,", "розсіяний спільний стан"],
+                        size=13, fill="#fff8e1", stroke="#d9a400"))
+
+    frags.append(text(105, 82, "КІЛЬКІСТЬ", size=12, bold=True, color=MUTED))
+    frags.append(text(105, r1y + ch / 2 + 5, "ОДИН", size=13, bold=True))
+    frags.append(text(105, r2y + ch / 2 + 5, "БАГАТО", size=13, bold=True))
+
+    coly = r2y + ch + 24
+    frags.append(text(c1x + cw / 2, coly, "передають руками", size=13))
+    frags.append(text(c2x + cw / 2, coly, "доступний глобально", size=13))
+    frags.append(text(W / 2, coly + 28, "ДОСЯЖНІСТЬ", size=12, bold=True, color=MUTED))
+
+    frags.append(text(W / 2, 456,
+                      "Сінглтон — лише одна клітина; у рядку «один» ліворуч стоїть здоровіша заміна — єдиний обʼєкт, переданий руками.",
+                      size=12.5, italic=True, color=MUTED))
+
+    render(os.path.join(OUT, 'design-matrix.svg'), W, H, *frags,
+           title="Дві незалежні осі: скільки екземплярів і як до них дотягуються")
+
+
+def fig_scope_ladder():
+    """«Один» — відносно якої межі: від потоку до кластера static тримає «один» лише вузько."""
+    W, H = 900, 500
+    frags = []
+    bx, bw, bh, gap, y0 = 150, 690, 60, 16, 66
+    bands = [
+        (["потік (thread-local)",
+          "по одному екземпляру на КОЖЕН потік — «один» лише в межах потоку"],
+         "#e8f7ee", FIELD),
+        (["завантажувач класів / бібліотека .so",
+          "сюди дістає static: рівно один на кожен loader — кілька loader-ів дають кілька «єдиних»"],
+         "#e8f7ee", FIELD),
+        (["процес",
+          "звична мовчазна умова сінглтона: «один» — якщо в процесі один завантажувач"],
+         "#eef2ff", NEG),
+        (["машина / хост — кілька процесів",
+          "кожен процес тримає свою копію: «один» уже не тримається"],
+         "#fff8e1", "#d9a400"),
+        (["кластер — багато машин",
+          "спільної памʼяті немає зовсім → потрібна зовнішня координація (вибір лідера)"],
+         "#fdecea", POS),
+    ]
+    for i, (lines, fill, stroke) in enumerate(bands):
+        y = y0 + i * (bh + gap)
+        frags.append(fitbox(bx, y, bw, bh, lines, size=12.5, fill=fill, stroke=stroke))
+
+    ytop, ybot = y0 + 6, y0 + 4 * (bh + gap) + bh - 6
+    frags.append(arrow(95, ytop, 95, ybot, color=INK, sw=1.6))
+    frags.append(text(95, ytop - 12, "вужче", size=11, color=MUTED))
+    frags.append(text(95, ybot + 20, "ширше", size=11, color=MUTED))
+
+    frags.append(text(W / 2, ybot + 48,
+                      "static дає один екземпляр лише в межах одного завантажувача класів; ширші межі «один» не тримають.",
+                      size=12.5, italic=True, color=MUTED))
+
+    render(os.path.join(OUT, 'scope-ladder.svg'), W, H, *frags,
+           title="Межа єдиності: у яких рамках «один» справді один")
+
+
+def fig_identity_state():
+    """Сінглтон обмежує ідентичність (один обʼєкт); моностейт — стан (один спільний на багато обʼєктів)."""
+    W, H = 920, 400
+    frags = []
+
+    def border_pt(bx, by, bw, bh, tx, ty, pad=0):
+        dx, dy = tx - bx, ty - by
+        hw, hh = bw / 2 + pad, bh / 2 + pad
+        if dx == 0 and dy == 0:
+            return bx, by
+        sx = hw / abs(dx) if dx else float('inf')
+        sy = hh / abs(dy) if dy else float('inf')
+        s = min(sx, sy)
+        return bx + dx * s, by + dy * s
+
+    frags.append(line(460, 46, 460, 344, color=MUTED, sw=1.2, dash="5 5"))
+
+    # ── ліворуч: СІНГЛТОН ──
+    frags.append(text(235, 58, "СІНГЛТОН", size=15, bold=True))
+    cboxes = []
+    for i, cx in enumerate([120, 235, 350]):
+        b, w, h = textbox(cx, 102, ["клієнт %d" % (i + 1)], size=12, fill="#eef2ff", stroke=NEG)
+        cboxes.append((cx, 102, w, h))
+    ob, ow, oh = textbox(235, 250, ["єдиний", "обʼєкт"], size=14, bold=True,
+                         fill="#e8f7ee", stroke=FIELD, sw=2.5)
+    for cx, cy, w, h in cboxes:
+        ex, ey = border_pt(235, 250, ow, oh, cx, cy, pad=6)
+        frags.append(arrow(cx, cy + h / 2, ex, ey, color=MUTED, sw=1.5))
+    for cx, cy, w, h in cboxes:
+        b, _, _ = textbox(cx, cy, ["клієнт %d" % ([120, 235, 350].index(cx) + 1)],
+                          size=12, fill="#eef2ff", stroke=NEG)
+        frags.append(b)
+    frags.append(ob)
+    frags.append(text(235, 305, "одна ідентичність — один стан", size=12.5, italic=True, color=MUTED))
+
+    # ── праворуч: МОНОСТЕЙТ ──
+    frags.append(text(690, 58, "МОНОСТЕЙТ (Borg)", size=15, bold=True))
+    oboxes = []
+    for i, cx in enumerate([560, 690, 820]):
+        oboxes.append((cx, 102, "ABC"[i]))
+    sb, sw_, sh = textbox(690, 250, ["спільний стан", "(static-поля класу)"], size=13, bold=True,
+                          fill="#fff8e1", stroke="#d9a400", sw=2.5)
+    for cx, cy, letter in oboxes:
+        b, w, h = textbox(cx, cy, ["обʼєкт %s" % letter], size=12, fill="#eef2ff", stroke=NEG)
+        ex, ey = border_pt(690, 250, sw_, sh, cx, cy, pad=6)
+        frags.append(arrow(cx, cy + h / 2, ex, ey, color=MUTED, sw=1.5))
+    for cx, cy, letter in oboxes:
+        b, w, h = textbox(cx, cy, ["обʼєкт %s" % letter], size=12, fill="#eef2ff", stroke=NEG)
+        frags.append(b)
+    frags.append(sb)
+    frags.append(text(690, 305, "різні ідентичності — ОДИН спільний стан", size=12.5, italic=True, color=MUTED))
+
+    frags.append(text(W / 2, 378,
+                      "Сінглтон обмежує кількість обʼєктів; моностейт — кількість станів. Обидва лишаються глобальним станом.",
+                      size=12.5, italic=True, color=MUTED))
+
+    render(os.path.join(OUT, 'identity-state.svg'), W, H, *frags,
+           title="Дві різні «єдиності»: один обʼєкт проти одного спільного стану")
+
+
+def fig_init_order_fiasco():
+    """Фіаско порядку статичної ініціалізації: A у конструкторі читає ще не збудований B."""
+    W, H = 820, 372
+    frags = []
+
+    a, aw, ah = textbox(230, 140, ["глобальний обʼєкт A", "(файл a.cpp)"], size=13,
+                        fill="#eef2ff", stroke=NEG)
+    b, bw2, bh2 = textbox(590, 140, ["глобальний обʼєкт B", "(файл b.cpp)"], size=13,
+                          fill="#e8f7ee", stroke=FIELD)
+
+    frags.append(text(410, 116, "конструктор A читає B", size=12, color=INK))
+    frags.append(arrow(230 + aw / 2, 140, 590 - bw2 / 2, 140, color=INK, sw=1.6))
+    frags.append(a)
+    frags.append(b)
+
+    ban, banw, banh = textbox(410, 232, ["Порядок ініціалізації A і B між файлами",
+                                          "стандартом C++ НЕ визначений"],
+                              size=13, fill="#fdecea", stroke=POS, sw=2)
+    frags.append(ban)
+
+    fix, fw, fh = textbox(410, 320, ["Ліки: сінглтон Меєрса — B живе у функції як локальний static",
+                                      "й будується при першому зверненні (construct-on-first-use)"],
+                          size=12.5, fill="#e8f7ee", stroke=FIELD)
+    frags.append(fix)
+
+    render(os.path.join(OUT, 'init-order-fiasco.svg'), W, H, *frags,
+           title="Якщо B ще не збудований, конструктор A читає порожнечу")
+
+
+# ── фігури вставки proj-multiton-registry ────────────────────────────────────
+
+def fig_one_to_many():
+    """Сінглтон — одне статичне поле; мультитон — словник ключ→екземпляр."""
+    W, H = 900, 430
+    frags = []
+
+    # ── ліворуч: сінглтон ──
+    frags.append(text(215, 62, "СІНГЛТОН", size=15, bold=True))
+    a, aw, ah = textbox(215, 128, ["getInstance()"], size=13, fill="#eef2ff", stroke=NEG)
+    b, bw, bh = textbox(215, 236, ["єдиний", "екземпляр"], size=13, bold=True,
+                        fill="#e8f7ee", stroke=FIELD, sw=2.2)
+    frags.append(arrow(215, 128 + ah / 2, 215, 236 - bh / 2, color=MUTED))
+    frags.append(a)
+    frags.append(b)
+    frags.append(text(215, 316, "одне статичне поле на весь клас", size=12, italic=True, color=MUTED))
+
+    # роздільник
+    frags.append(line(445, 46, 445, 372, color=MUTED, sw=1.2, dash="5 5"))
+
+    # ── праворуч: мультитон / реєстр ──
+    frags.append(text(670, 62, "МУЛЬТИТОН / РЕЄСТР", size=15, bold=True))
+    hdr, hw, hh = textbox(670, 122, ["getInstance(ключ)"], size=13, fill="#eef2ff", stroke=NEG)
+    frags.append(hdr)
+    frags.append(arrow(670, 122 + hh / 2, 670, 170, color=MUTED))
+
+    rows = [("«orders»", "Logger #1"), ("«billing»", "Logger #2"), ("«auth»", "Logger #3")]
+    ys = [192, 252, 312]
+    kx, ix = 585, 782
+    for (k, inst), y in zip(rows, ys):
+        kb, kw, kh = textbox(kx, y, [k], size=12, fill="#fff8e1", stroke="#d9a400")
+        ib, iw, ih = textbox(ix, y, [inst], size=12, bold=True, fill="#e8f7ee", stroke=FIELD)
+        frags.append(arrow(kx + kw / 2, y, ix - iw / 2, y, color=MUTED))
+        frags.append(kb)
+        frags.append(ib)
+
+    frags.append(text(W / 2, 410,
+                      "Один екземпляр на КОЖЕН ключ: та сама «єдиність», лише проіндексована іменем.",
+                      size=13, italic=True, color=MUTED))
+
+    render(os.path.join(OUT, 'one-to-many.svg'), W, H, *frags,
+           title="Від «одного» до «одного на ключ»")
+
+
+def fig_get_or_create():
+    """Наївний get-or-create гониться на однаковому ключі; атомарний дає один."""
+    W, H = 900, 470
+    frags = []
+    frags.append(line(450, 60, 450, 388, color=MUTED, sw=1.2, dash="5 5"))
+
+    # ── ліворуч: наївно (два кроки) ──
+    frags.append(fitbox(60, 70, 340, 50,
+                        ["Наївно: «глянути, потім створити»", "— два окремі кроки"],
+                        size=13, fill="#fdecea", stroke=POS, bold=True))
+    a1, a1w, a1h = textbox(160, 168, ["потік A:", "ключа нема"], size=12, fill="#fff8e1", stroke="#d9a400")
+    b1, b1w, b1h = textbox(320, 168, ["потік B:", "ключа нема"], size=12, fill="#fff8e1", stroke="#d9a400")
+    frags.append(a1)
+    frags.append(b1)
+    a2, a2w, a2h = textbox(160, 258, ["A створює", "pool"], size=12, fill="#eef2ff", stroke=NEG)
+    b2, b2w, b2h = textbox(320, 258, ["B створює", "pool"], size=12, fill="#eef2ff", stroke=NEG)
+    frags.append(arrow(160, 168 + a1h / 2, 160, 258 - a2h / 2, color=MUTED))
+    frags.append(arrow(320, 168 + b1h / 2, 320, 258 - b2h / 2, color=MUTED))
+    frags.append(a2)
+    frags.append(b2)
+    res, rw, rh = textbox(240, 346, ["два пули на одну БД —", "ліміт з'єднань подвоєно"],
+                          size=12.5, fill="#fdecea", stroke=POS, sw=2)
+    frags.append(arrow(160, 258 + a2h / 2, 240 - rw / 2 + 24, 346 - rh / 2, color=MUTED))
+    frags.append(arrow(320, 258 + b2h / 2, 240 + rw / 2 - 24, 346 - rh / 2, color=MUTED))
+    frags.append(res)
+
+    # ── праворуч: атомарно ──
+    frags.append(fitbox(510, 70, 340, 50,
+                        ["Атомарно: перевірка й створення", "— одним неподільним кроком"],
+                        size=13, fill="#e8f7ee", stroke=FIELD, bold=True))
+    c1, c1w, c1h = textbox(680, 175, ["computeIfAbsent(ключ, build)"], size=12.5,
+                           fill="#eef2ff", stroke=NEG)
+    c2, c2w, c2h = textbox(680, 258, ["перевірка + створення", "під одним замком"], size=12.5,
+                           fill="#fff8e1", stroke="#d9a400")
+    c3, c3w, c3h = textbox(680, 346, ["рівно один pool", "на ключ"], size=12.5, bold=True,
+                           fill="#e8f7ee", stroke=FIELD, sw=2)
+    frags.append(arrow(680, 175 + c1h / 2, 680, 258 - c2h / 2, color=MUTED))
+    frags.append(arrow(680, 258 + c2h / 2, 680, 346 - c3h / 2, color=MUTED))
+    frags.append(c1)
+    frags.append(c2)
+    frags.append(c3)
+
+    frags.append(text(W / 2, 444,
+                      "Гонитва сінглтона вертається на кожен ключ; лікують її тим самим — атомарним get-or-create.",
+                      size=12.5, italic=True, color=MUTED))
+
+    render(os.path.join(OUT, 'get-or-create.svg'), W, H, *frags,
+           title="Get-or-create: наївно двоїть, атомарно — один")
+
+
+def fig_unbounded_growth():
+    """Обмежені ключі — мапа мала; необмежені — росте без меж (витік)."""
+    W, H = 900, 462
+    frags = []
+    frags.append(line(450, 60, 450, 360, color=MUTED, sw=1.2, dash="5 5"))
+
+    # ── ліворуч: обмежені ключі ──
+    frags.append(fitbox(70, 70, 320, 46, ["Обмежені ключі: БД, модулі"],
+                        size=13, bold=True, fill="#e8f7ee", stroke=FIELD))
+    mx, my, mw = 240, 150, 250
+    frags.append(rect(mx - mw / 2, my, mw, 118, fill="#f4f6f8", stroke=FIELD, sw=1.8))
+    for i, k in enumerate(["orders  →  pool", "billing  →  pool", "auth  →  pool"]):
+        yy = my + 16 + i * 32
+        frags.append(fitbox(mx - mw / 2 + 14, yy, mw - 28, 24, [k],
+                            size=12, fill="#ffffff", stroke=MUTED))
+    frags.append(text(240, 300, "скінченна множина — мапа лишається малою",
+                      size=12, italic=True, color=MUTED))
+
+    # ── праворуч: необмежені ключі ──
+    frags.append(fitbox(510, 70, 320, 46, ["Необмежені ключі: на юзера / запит"],
+                        size=13, bold=True, fill="#fdecea", stroke=POS))
+    mx2, my2, mw2 = 690, 128, 260
+    frags.append(rect(mx2 - mw2 / 2, my2, mw2, 196, fill="#f4f6f8", stroke=POS, sw=1.8))
+    labels = ["user:1041 → pool", "user:1042 → pool", "user:1043 → pool",
+              "user:1044 → pool", "…  росте без меж"]
+    for i, k in enumerate(labels):
+        yy = my2 + 16 + i * 33
+        st = POS if i == len(labels) - 1 else MUTED
+        frags.append(fitbox(mx2 - mw2 / 2 + 14, yy, mw2 - 28, 24, [k],
+                            size=12, fill="#ffffff", stroke=st))
+    frags.append(text(690, 348, "кожен колись побачений ключ лишається назавжди → витік",
+                      size=11.5, italic=True, color=POS))
+
+    # ── нижня смуга: ліки ──
+    frags.append(fitbox(90, 388, 720, 54,
+                        ["Ліки: евікція — LRU / межа розміру / TTL. І при видаленні ЗАКРИВАТИ ресурс",
+                         "(pool.close, файл, сокет), а не лише кидати посилання — інакше витік дескрипторів."],
+                        size=12.5, fill="#eef2ff", stroke=NEG))
+
+    render(os.path.join(OUT, 'unbounded-growth.svg'), W, H, *frags,
+           title="Мультитон живе вічно: обмежені ключі — дрібниця, необмежені — витік")
+
+
+def fig_registry_di():
+    """Купа прихованих сінглтонів проти одного реєстру, переданого явно."""
+    W, H = 940, 470
+    frags = []
+    frags.append(line(470, 56, 470, 400, color=MUTED, sw=1.2, dash="5 5"))
+
+    # ── ліворуч: приховані глобальні ──
+    frags.append(fitbox(60, 70, 360, 46, ["Купа прихованих сінглтонів"],
+                        size=13.5, bold=True, fill="#fdecea", stroke=POS))
+    svcs = [("OrderSvc", 130), ("BillingSvc", 245), ("AuthSvc", 360)]
+    sboxes = []
+    for name, x in svcs:
+        b, w, h = textbox(x, 165, [name], size=12, fill="#eef2ff", stroke=NEG)
+        sboxes.append((x, w, h))
+        frags.append(b)
+    globs = [("Logger.get(k)", 130), ("Config.get()", 245), ("Clock.get()", 360)]
+    for (name, x), (sx, sw_, sh) in zip(globs, sboxes):
+        gb, gw, gh = textbox(x, 300, [name], size=12, fill="#fff8e1", stroke="#d9a400")
+        frags.append(arrow(x, 165 + sh / 2, x, 300 - gh / 2, color=POS, sw=1.4))
+        frags.append(gb)
+    frags.append(text(245, 356, "3 приховані залежності · 0 точок підміни",
+                      size=12, italic=True, color=POS))
+
+    # ── праворуч: один реєстр ──
+    frags.append(fitbox(510, 70, 370, 46, ["Один реєстр, переданий явно"],
+                        size=13.5, bold=True, fill="#e8f7ee", stroke=FIELD))
+    root, rtw, rth = textbox(705, 150, ["корінь збірки"], size=12, fill="#eef2ff", stroke=NEG)
+    reg, regw, regh = textbox(705, 228, ["LoggerRegistry", "(один на програму)"], size=12,
+                              bold=True, fill="#e8f7ee", stroke=FIELD, sw=2.2)
+    frags.append(arrow(705, 150 + rth / 2, 705, 228 - regh / 2, color=MUTED))
+    frags.append(root)
+    frags.append(reg)
+    for name, x in [("OrderSvc", 595), ("BillingSvc", 705), ("AuthSvc", 815)]:
+        b, w, h = textbox(x, 332, [name], size=12, fill="#eef2ff", stroke=NEG)
+        frags.append(arrow(705, 228 + regh / 2, x, 332 - h / 2, color=FIELD, sw=1.4))
+        frags.append(b)
+    frags.append(text(705, 388, "одна точка збірки · у тесті — один fakeRegistry",
+                      size=12, italic=True, color=FIELD))
+
+    render(os.path.join(OUT, 'registry-di.svg'), W, H, *frags,
+           title="N прихованих сінглтонів → один реєстр як залежність")
+
+
 if __name__ == '__main__':
     fig_two_jobs()
     fig_race()
     fig_reorder_writes()
     fig_barrier()
     fig_attack_surface()
+    fig_design_matrix()
+    fig_scope_ladder()
+    fig_identity_state()
+    fig_init_order_fiasco()
+    fig_one_to_many()
+    fig_get_or_create()
+    fig_unbounded_growth()
+    fig_registry_di()
     print('figures written to', OUT)

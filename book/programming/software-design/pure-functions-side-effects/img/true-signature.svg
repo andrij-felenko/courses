@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нечиста функція — це чиста функція від (аргументи, світ)</text>
+<text x="450.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Оголошена сигнатура — те, що бачить читач</text>
+<rect x="375.0" y="88.0" width="150.0" height="80.0" rx="10" fill="#f2faf5" stroke="#27ae60" stroke-width="2.2"/>
+<text x="450.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="34" fill="#27ae60" text-anchor="middle" font-weight="700">f</text>
+<line x1="250.0" y1="128.0" x2="371.0" y2="128.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="305.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">аргументи</text>
+<line x1="529.0" y1="128.0" x2="650.0" y2="128.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="597.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">значення</text>
+<text x="450.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">world не бере участі → залежить лише від аргументів</text>
+<line x1="80.0" y1="240.0" x2="820.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6,6"/>
+<text x="450.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Справжня сигнатура нечистої — те, що є насправді</text>
+<rect x="375.0" y="320.0" width="150.0" height="110.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="450.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="34" fill="#c0392b" text-anchor="middle" font-weight="700">f</text>
+<line x1="250.0" y1="352.0" x2="371.0" y2="352.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="305.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">аргументи</text>
+<line x1="529.0" y1="352.0" x2="650.0" y2="352.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="597.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">значення</text>
+<line x1="250.0" y1="400.0" x2="371.0" y2="400.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="300.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">світ до</text>
+<line x1="529.0" y1="400.0" x2="650.0" y2="400.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="600.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">світ після</text>
+<rect x="238.2" y="476.2" width="423.6" height="47.6" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.4"/><text x="450.0" y="496.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">світ до — усе, що f таємно ЧИТАЄ: годинник, глобалі, файли.</tspan><tspan x="450.0" dy="15.6">світ після — усе, що вона таємно ЗМІНИЛА: лог, мутації, БД.</tspan></text>
+</svg>

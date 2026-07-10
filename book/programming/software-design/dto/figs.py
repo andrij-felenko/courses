@@ -208,6 +208,312 @@ def fig_assembler():
     render(os.path.join(IMG, "assembler.svg"), W, H, *frags)
 
 
+def fig_cost_regimes():
+    """Ціна межі — долина, а не схил: стіна латентності ліворуч, стіна пропускної праворуч."""
+    W, H = 820, 440
+    frags = []
+    frags.append(text(W / 2, 30, "Ціна межі має долину: «більше за раз» краще лише до дна", size=16, bold=True))
+
+    # осі
+    ox, oy = 110, 360           # початок координат
+    frags.append(arrow(ox, oy, 750, oy, color=INK, sw=2))      # вісь X
+    frags.append(arrow(ox, oy, ox, 90, color=INK, sw=2))       # вісь Y
+    frags.append(text(430, 398, "дані за один перетин межі →", size=12, color=MUTED))
+    frags.append(text(ox + 6, 84, "загальний час", size=11, color=MUTED, anchor="start"))
+
+    # крива-долина: y = ybottom - a*(x-x0)^2 (у екранних координатах низ долини = велике y)
+    x0, ybottom, a = 410, 300, 0.0023
+    pts = []
+    x = 155
+    while x <= 685:
+        y = ybottom - a * (x - x0) ** 2
+        pts.append("%.1f,%.1f" % (x, y))
+        x += 20
+    frags.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6"/>'
+                 % (" ".join(pts), INK))
+    frags.append(circle(x0, ybottom, 5, fill=FIELD, stroke=FIELD))   # дно долини
+
+    # ліва стіна — надто дрібно
+    lb, _, _ = textbox(215, 122, "надто дрібно:\nбагато перетинів,\nстіна латентності",
+                       size=11, stroke=POS, min_w=150)
+    frags.append(lb)
+    # права стіна — надто грубо
+    rb, _, _ = textbox(620, 118, "надто грубо:\nнадвибірка,\nстіна пропускної\nздатності",
+                       size=11, stroke=POS, min_w=150)
+    frags.append(rb)
+    # дно — золота середина
+    mb, _, _ = textbox(410, 208, "золота середина:\nрівно потрібні поля",
+                       size=11, stroke=FIELD, fill="#eafaf1", min_w=160)
+    frags.append(mb)
+    frags.append(arrow(x0, 236, x0, 291, color=FIELD, sw=2))   # стрілка від підпису до дна
+
+    render(os.path.join(IMG, "cost-regimes.svg"), W, H, *frags)
+
+
+def fig_evolution():
+    """Розширення-звуження: нове поле поруч зі старим, тоді старе прибирається, слот резервується."""
+    W, H = 940, 390
+    frags = []
+    frags.append(text(W / 2, 28, "Розширення-звуження: змінити форму, нікого не зламавши", size=16, bold=True))
+
+    # вісь часу
+    frags.append(arrow(110, 66, 845, 66, color=INK, sw=1.8))
+    frags.append(text(840, 58, "версії в часі →", size=11, color=MUTED, anchor="end"))
+
+    cols = [185, 400, 615, 830]
+    for cx, name in zip(cols, ["v1", "v2", "v3", "v4"]):
+        frags.append(text(cx, 96, name, size=14, bold=True, color=INK))
+
+    # верхній слот (#2: поле name) і нижній слот (#5: поле fullName) — по колонках
+    TOP, BOT = 155, 252
+    # v1: лише name
+    b, _, _ = textbox(cols[0], TOP, "name", size=13, min_w=150); frags.append(b)
+    # v2: name живий + fullName нове
+    b, _, _ = textbox(cols[1], TOP, "name", size=13, min_w=150); frags.append(b)
+    b, _, _ = textbox(cols[1], BOT, "fullName\n← нове", size=12, fill="#eafaf1", stroke=FIELD, min_w=150); frags.append(b)
+    # v3: name застаріле + fullName
+    b, _, _ = textbox(cols[2], TOP, "name\n(застаріле)", size=12, stroke=MUTED, color=MUTED, min_w=150); frags.append(b)
+    b, _, _ = textbox(cols[2], BOT, "fullName", size=13, min_w=150); frags.append(b)
+    # v4: reserved слот + fullName
+    b, _, _ = textbox(cols[3], TOP, "reserved #2", size=12, fill="#fdecea", stroke=POS, color=POS, min_w=150); frags.append(b)
+    b, _, _ = textbox(cols[3], BOT, "fullName", size=13, min_w=150); frags.append(b)
+
+    # фази між колонками
+    frags.append(text((cols[0] + cols[1]) / 2, 202, "expand", size=12, bold=True, color=FIELD))
+    frags.append(text((cols[1] + cols[2]) / 2, 202, "migrate", size=12, bold=True, color=INK))
+    frags.append(text((cols[2] + cols[3]) / 2, 202, "contract", size=12, bold=True, color=POS))
+
+    # смуга сумісності: старий читач працює, поки name живий (v1..v3)
+    frags.append(line(cols[0], 315, cols[2], 315, color=FIELD, sw=2.6))
+    frags.append(line(cols[0], 308, cols[0], 322, color=FIELD, sw=2.6))
+    frags.append(line(cols[2], 308, cols[2], 322, color=FIELD, sw=2.6))
+    frags.append(text((cols[0] + cols[2]) / 2, 340,
+                      "старий читач (знає лише name) працює, поки name живий", size=11, color=FIELD))
+    frags.append(text(W / 2, 373,
+                      "слот #2 після видалення — reserved назавжди: перевикористати номер = зламати старі дані",
+                      size=11, color=MUTED, italic=True))
+    render(os.path.join(IMG, "evolution.svg"), W, H, *frags)
+
+
+def fig_shapes():
+    """Одне поняття — багато форм на різних межах, тиски яких суперечать."""
+    W, H = 960, 380
+    frags = []
+    frags.append(text(W / 2, 28, "Одне поняття — багато форм, кожна під своїм тиском", size=16, bold=True))
+
+    # центр — доменне поняття
+    core, _, _ = textbox(480, 92, "Order — доменне поняття\n(правила, інваріанти)", size=13,
+                         fill="#eafaf1", stroke=FIELD, min_w=340)
+    frags.append(core)
+
+    cols = [145, 373, 601, 829]
+    boxes = ["RequestDto\nвхід", "ResponseDto\nвихід", "Рядок БД\nзберігання", "ViewModel\nекран"]
+    press = ["часткове, optional,\nвалідація на вході",
+             "обчислене, повне,\nлише дозволене",
+             "стовпці, типи схеми,\nіндекси",
+             "форматоване,\nзлите з джерел"]
+    for cx, bx, pr in zip(cols, boxes, press):
+        frags.append(arrow(480, 120, cx, 208, color=MUTED, sw=1.6))
+        b, _, _ = textbox(cx, 235, bx, size=13, min_w=190)
+        frags.append(b)
+        frags.append(mtext(cx, 285, pr, size=11, color=MUTED))
+
+    frags.append(text(W / 2, 356,
+                      "Одне поняття — багато форм. Спільний клас на всіх злива межі назад в одну.",
+                      size=12, color=INK, italic=True))
+    render(os.path.join(IMG, "shapes.svg"), W, H, *frags)
+
+
+def fig_compat_matrix():
+    """Флот читачів різних версій проти проводу різних версій: безпечна смуга + кути, що не співіснують у часі."""
+    W, H = 1000, 470
+    frags = []
+    frags.append(text(W / 2, 30, "Флот читачів проти проводу: безпечно скрізь, де версії співіснують у часі",
+                      size=16, bold=True))
+
+    col_cx = [300, 495, 690, 885]
+    col_hdr = ["провід v1\nemail(3)", "провід v2\n+ id(4)", "провід v3\nдубль-запис", "провід v4\nemail знято"]
+    for cx, h in zip(col_cx, col_hdr):
+        frags.append(mtext(cx, 76, h, size=12, color=INK, bold=True))
+
+    row_cy = [170, 275, 380]
+    row_hdr = ["читач A\n(бере email)", "читач B\n(email + id)", "читач C\n(лише id)"]
+    for cy, h in zip(row_cy, row_hdr):
+        frags.append(mtext(112, cy - 6, h, size=12, color=INK, bold=True))
+
+    #        W1     W2     W3     W4
+    grid = [
+        ["ok", "ok", "ok", "na"],   # читач A (збірка v1)
+        ["ok", "ok", "ok", "ok"],   # читач B (збірка v2–v3)
+        ["na", "na", "ok", "ok"],   # читач C (збірка v4)
+    ]
+    verdict = {
+        (0, 0): "OK", (0, 1): "OK\nполе 4 повз", (0, 2): "OK\nбере email", (0, 3): "—",
+        (1, 0): "OK\nid порожній\n→ email", (1, 1): "OK", (1, 2): "OK", (1, 3): "OK\nбере id",
+        (2, 0): "—", (2, 1): "—", (2, 2): "OK", (2, 3): "OK",
+    }
+    for r, cy in enumerate(row_cy):
+        for c, cx in enumerate(col_cx):
+            if grid[r][c] == "ok":
+                b, _, _ = textbox(cx, cy, verdict[(r, c)], size=12, min_w=150,
+                                  fill="#eafaf1", stroke=FIELD, color=INK)
+            else:
+                b, _, _ = textbox(cx, cy, "не співіснує\nв часі", size=11, min_w=150,
+                                  fill="#f4f6f8", stroke=LINE, color=MUTED)
+            frags.append(b)
+
+    frags.append(rect(238, 432, 22, 14, fill="#eafaf1", stroke=FIELD))
+    frags.append(text(268, 443, "безпечно: пряма + зворотна сумісність тримається",
+                      size=11, color=INK, anchor="start"))
+    frags.append(rect(716, 432, 22, 14, fill="#f4f6f8", stroke=LINE))
+    frags.append(text(746, 443, "читача виведено до звуження", size=11, color=MUTED, anchor="start"))
+    render(os.path.join(IMG, "compat-matrix.svg"), W, H, *frags)
+
+
+def fig_number_reuse():
+    """Перевикористаний номер поля: ті самі байти читаються як інше поле — тиха корупція."""
+    W, H = 940, 430
+    frags = []
+    frags.append(text(W / 2, 30, "Перевикористати номер поля: ті самі байти, інший сенс", size=16, bold=True))
+
+    # збережені байти: поле 3, varint, значення 500123 → 18 9B C3 1E
+    bytes_hex = ["18", "9B", "C3", "1E"]
+    bx0, byy = 348, 205
+    for i, h in enumerate(bytes_hex):
+        x = bx0 + i * 58
+        frags.append(rect(x, byy - 18, 50, 36, fill="#fdf6e3", stroke="#d68910"))
+        frags.append(text(x + 25, byy + 6, h, size=15, bold=True, color=INK))
+    frags.append(text(bx0 + 116, byy - 30, "збережене повідомлення (диск, логи, старий клієнт)",
+                      size=11, color=MUTED))
+    frags.append(text(bx0 + 25, byy + 36, "18 = поле 3, varint", size=10, color=MUTED))
+    frags.append(text(bx0 + 3 * 58 + 25, byy + 36, "9B C3 1E = 500123", size=10, color=MUTED))
+
+    # верхній шлях — чесна схема
+    up, _, _ = textbox(178, 108, "схема v1:\nполе 3 = legacy_ref (int64)", size=12,
+                       fill="#eafaf1", stroke=FIELD, min_w=250)
+    frags.append(up)
+    frags.append(arrow(348, 195, 250, 128, color=FIELD, sw=2))
+    frags.append(text(178, 158, "legacy_ref = 500123   правильно", size=11, color=FIELD, bold=True))
+
+    # нижній шлях — порушник
+    dn, _, _ = textbox(178, 322, "схема-порушник:\nполе 3 ПЕРЕВИКОРИСТАНО\n= warehouse_id (int64)", size=12,
+                       fill="#fdecea", stroke=POS, min_w=250)
+    frags.append(dn)
+    frags.append(arrow(348, 216, 250, 300, color=POS, sw=2))
+    frags.append(text(178, 262, "warehouse_id = 500123   тихо неправильно", size=11, color=POS, bold=True))
+
+    frags.append(text(W / 2, 384,
+                      "Ті самі байти розшифрувалися як інше поле: замовлення тихо приписане складу №500123.",
+                      size=12, color=INK, italic=True))
+    frags.append(text(W / 2, 410,
+                      "reserved 3;  reserved \"legacy_ref\";  — компілятор не дасть посадити нове поле на мертвий номер.",
+                      size=12, color=POS, bold=True))
+    render(os.path.join(IMG, "number-reuse.svg"), W, H, *frags)
+
+
+def fig_marginal():
+    """Формальне дно долини: гранична економія на латентності (∝1/k²) проти сталої плати t."""
+    W, H = 820, 460
+    frags = []
+    frags.append(text(W / 2, 30, "Дно долини: де гранична економія зрівнюється з граничною платою",
+                      size=15, bold=True))
+
+    ox, oy = 110, 380
+    frags.append(arrow(ox, oy, 770, oy, color=INK, sw=2))        # вісь X
+    frags.append(arrow(ox, oy, ox, 80, color=INK, sw=2))         # вісь Y
+    frags.append(text(500, 414, "k — полів у DTO за один перетин →", size=12, color=MUTED))
+    frags.append(text(ox + 6, 74, "гранична вартість доданого поля", size=11, color=MUTED, anchor="start"))
+
+    # спадна крива граничної економії: value = 585/k² (екранні координати)
+    pts = []
+    k = 1.5
+    while k <= 9.0:
+        pts.append("%.1f,%.1f" % (110 + 70 * k, oy - 585.0 / (k * k)))
+        k += 0.25
+    frags.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6"/>'
+                 % (" ".join(pts), FIELD))
+
+    # стала лінія граничної плати t
+    frags.append(line(215, 300, 745, 300, color=POS, sw=2.4))
+
+    # перетин k* — дно долини
+    frags.append(circle(299, 300, 6, fill=BG, stroke=INK, sw=2.4))
+    frags.append(line(299, 300, 299, oy, color=MUTED, sw=1.2, dash="4 4"))
+    frags.append(text(299, 400, "k* = √(u·(L+m)/t)", size=13, bold=True, color=INK))
+
+    b, _, _ = textbox(392, 150, "гранична економія\nна латентності\n∝ (L+m)/k²",
+                      size=12, stroke=FIELD, min_w=170); frags.append(b)
+    b, _, _ = textbox(632, 268, "= t\nплата за 1 зайве поле",
+                      size=12, stroke=POS, min_w=150); frags.append(b)
+    b, _, _ = textbox(210, 345, "тут DTO росте\nз користю",
+                      size=11, stroke=FIELD, fill="#eafaf1", min_w=140); frags.append(b)
+    b, _, _ = textbox(600, 210, "далі — надвибірка:\nплата > економія",
+                      size=11, stroke=POS, fill="#fdecea", min_w=150); frags.append(b)
+    render(os.path.join(IMG, "marginal.svg"), W, H, *frags)
+
+
+def fig_rho_ladder():
+    """ρ = (L+m)/t зростає на порядки з дорожчанням межі — і разом з ним виграш DTO."""
+    W, H = 860, 440
+    frags = []
+    frags.append(text(W / 2, 30, "Що дорожча межа, то більший ρ = (L+m)/t — і виграш DTO",
+                      size=15, bold=True))
+
+    frags.append(arrow(64, 90, 64, 360, color=INK, sw=1.8))
+    frags.append(mtext(30, 205, "межа\nдорожчає", size=11, color=MUTED))
+
+    rows = [
+        ("виклик функції (той самий процес)\nL+m ≈ 5 нс · t ≈ 1 нс",
+         "ρ ≈ 5\nмежі майже нема:\nDTO — сама ціна", POS, "#fdecea"),
+        ("інший процес (IPC на машині)\nL+m ≈ 10 мкс · t ≈ 0.1 мкс",
+         "ρ ≈ 100\nвиграш помітний", MUTED, FILL),
+        ("мережа, той самий ЦОД (RTT)\nL+m ≈ 500 мкс · t ≈ 1 мкс",
+         "ρ ≈ 500\nDTO окупається", FIELD, "#eafaf1"),
+        ("інший континент (RTT)\nL+m ≈ 150 мс · t ≈ 1 мкс",
+         "ρ ≈ 150 000\nбери якнайгрубіше", FIELD, "#eafaf1"),
+    ]
+    for (lft, rgt, col, fillc), yy in zip(rows, [98, 180, 262, 344]):
+        b, _, _ = textbox(255, yy, lft, size=12, min_w=300); frags.append(b)
+        frags.append(arrow(425, yy, 515, yy, color=MUTED, sw=1.8))
+        b, _, _ = textbox(660, yy, rgt, size=12, stroke=col, fill=fillc, min_w=220); frags.append(b)
+    frags.append(text(W / 2, 420,
+                      "ρ = (L+m)/t — скільки полів «коштує» один похід через межу; що твердіша межа, то більший ρ",
+                      size=11, color=MUTED, italic=True))
+    render(os.path.join(IMG, "rho-ladder.svg"), W, H, *frags)
+
+
+def fig_chattiness():
+    """Читомість C — вимірна: перетинів на задачу; час росте лінійно T = C·(L+m)."""
+    W, H = 820, 440
+    frags = []
+    frags.append(text(W / 2, 30, "Читомість C: перетинів на задачу; час росте лінійно T = C·(L+m)",
+                      size=15, bold=True))
+
+    ox, oy = 110, 380
+    frags.append(arrow(ox, oy, 770, oy, color=INK, sw=2))
+    frags.append(arrow(ox, oy, ox, 80, color=INK, sw=2))
+    frags.append(text(500, 414, "читомість C = перетинів на задачу →", size=12, color=MUTED))
+    frags.append(text(ox + 6, 74, "час на задачу T (RTT межі 80 мс)", size=11, color=MUTED, anchor="start"))
+
+    def px(C):
+        return 110 + 13.5 * C
+
+    def py(C):
+        return oy - 5.9 * C
+
+    frags.append(line(px(0), py(0), px(48), py(48), color=INK, sw=2.6))
+
+    for C, col in [(1, FIELD), (12, MUTED), (47, POS)]:
+        frags.append(circle(px(C), py(C), 6, fill=BG, stroke=col, sw=2.6))
+
+    b, _, _ = textbox(250, 150, "нахил = L+m\n(латентність межі)", size=12, stroke=INK, min_w=170)
+    frags.append(b)
+    b, _, _ = textbox(250, 255, "C=12\n0.96 с", size=12, stroke=MUTED, min_w=120); frags.append(b)
+    b, _, _ = textbox(600, 120, "C=47: наївний екран\n3.76 с", size=12, stroke=POS, min_w=150); frags.append(b)
+    frags.append(text(300, 372, "C=1 (BFF): 80 мс", size=11, color=FIELD, bold=True))
+    render(os.path.join(IMG, "chattiness.svg"), W, H, *frags)
+
+
 if __name__ == "__main__":
     fig_roundtrips()
     fig_boundary()
@@ -215,4 +521,12 @@ if __name__ == "__main__":
     fig_hist_timeline()
     fig_hist_localdto()
     fig_assembler()
+    fig_cost_regimes()
+    fig_evolution()
+    fig_shapes()
+    fig_compat_matrix()
+    fig_number_reuse()
+    fig_marginal()
+    fig_rho_ladder()
+    fig_chattiness()
     print("ok")

@@ -259,8 +259,324 @@ def fig_java_io_explosion():
     render(os.path.join(IMG, 'java-io-explosion.svg'), W, H, *frags)
 
 
+# ── (детальна) SELF-проблема: відкрита рекурсія проти обірваного self ─────────
+def fig_self_problem():
+    W, H = 1240, 700
+    f = []
+    f.append(text(W / 2, 34, "Відкрита рекурсія проти обірваного self",
+                  size=18, bold=True, color=INK))
+    f.append(text(W / 2, 58, "коли метод усередині кличе this.read()",
+                  size=12.5, color=MUTED))
+    f.append(line(W / 2, 92, W / 2, H - 44, color="#d0d5db", sw=1.2, dash="6,6"))
+
+    # ── ЛІВОРУЧ: спадкування ─────────────────────────────
+    lx = 312
+    f.append(text(lx, 122, "Спадкування", size=16, bold=True, color=FIELD))
+    f.append(text(lx, 144, "self = весь об'єкт → перекриття виграє",
+                  size=11.5, color=MUTED))
+    f.append(rect(78, 164, 468, 232, fill="#f4fbf7", stroke=INK, sw=1.6, rx=12))
+    f.append(text(lx, 190, "один об'єкт (нащадок)", size=12.5, bold=True, color=INK))
+    f.append(fitbox(112, 208, 400, 50, "readAll() { … this.read() … }",
+                    size=13, fill=BG, stroke=LINE, sw=1.4))
+    f.append(fitbox(112, 300, 400, 50, "read()  ← перекрито: ВЕЛИКА",
+                    size=13, bold=True, fill="#fdecea", stroke=POS, sw=1.5))
+    f.append(arrow(528, 258, 528, 300, color=FIELD, sw=1.7))
+    f.append(text(lx, 384, "this.read() → перекритий read()", size=11.5, color=INK))
+    f.append(text(lx, 438, "✓ readAll() теж дає ВЕЛИКІ", size=13, bold=True, color=FIELD))
+
+    # ── ПРАВОРУЧ: делегування ─────────────────────────────
+    rx = 928
+    f.append(text(rx, 122, "Делегування (декоратор)", size=16, bold=True, color=POS))
+    f.append(text(rx, 144, "self = внутрішній → decorate обійдено",
+                  size=11.5, color=MUTED))
+    cx = 858
+    steps = [
+        ("D.readAll()  — делегує вниз", BG, LINE, 178),
+        ("C.readAll() { this.read() }", BG, LINE, 268),
+        ("this.read() = C.read()", "#eef2f6", MUTED, 358),
+        ("→ малі літери  ✗", "#fdecea", POS, 448),
+    ]
+    for s, fill, col, y in steps:
+        f.append(fitbox(cx - 152, y - 24, 304, 48, s, size=12.5,
+                        bold=(col == POS), fill=fill, stroke=col, sw=1.5))
+    for y in (202, 292, 382):
+        f.append(arrow(cx, y, cx, y + 42, color=MUTED, sw=1.6))
+    f.append(fitbox(1016, 156, 208, 58, ["D.read() ВЕЛИКА", "не викликана"],
+                    size=11.5, bold=True, fill="#fbfcfd", stroke=POS, sw=1.4, rx=8))
+    f.append(arrow(1012, 184, 1016, 184, color=POS, sw=1.5))
+    f.append(text(rx, 516, "перекритий read() у D — поза шляхом виклику",
+                  size=12, color=INK))
+
+    render(os.path.join(IMG, 'self-problem.svg'), W, H, *f)
+
+
+# ── (детальна) Онієн: що шар робить навколо делегації ────────────────────────
+def fig_onion_model():
+    W, H = 1180, 600
+    f = []
+    f.append(text(W / 2, 34, "Що шар декоратора робить навколо делегації",
+                  size=18, bold=True, color=INK))
+    f.append(text(W / 2, 58, "перед викликом · після · замість — інтерфейс незмінний",
+                  size=12.5, color=MUTED))
+
+    # ── ЛІВОРУЧ: онієн ───────────────────────────────────
+    ocx = 300
+    f.append(rect(120, 150, 360, 300, fill="#fdecea", stroke=POS, sw=1.8, rx=16))
+    f.append(text(ocx, 178, "шар-декоратор", size=13, bold=True, color=POS))
+    f.append(rect(212, 268, 176, 120, fill=FILL, stroke=LINE, sw=1.6, rx=10))
+    f.append(text(ocx, 322, "компонент", size=12.5, bold=True, color=INK))
+    f.append(text(ocx, 344, "справжня робота", size=11, color=MUTED))
+    f.append(text(ocx, 234, "1 · ДО делегації", size=12, bold=True, color=INK))
+    f.append(text(ocx, 424, "3 · ПІСЛЯ делегації", size=12, bold=True, color=INK))
+    f.append(arrow(ocx, 116, ocx, 150, color=MUTED, sw=1.7))
+    f.append(text(ocx, 108, "виклик", size=11, color=MUTED))
+    f.append(arrow(ocx, 450, ocx, 486, color=MUTED, sw=1.7))
+    f.append(text(ocx, 506, "результат", size=11, color=MUTED))
+    f.append(arrow(168, 250, 168, 268, color=POS, sw=1.4))
+    f.append(arrow(432, 388, 432, 406, color=POS, sw=1.4))
+
+    # ── ПРАВОРУЧ: чотири режими ──────────────────────────
+    modes = [
+        ("ДО", "перевірити вхід, залогувати, старт таймера", FIELD, 148),
+        ("ПІСЛЯ", "змінити чи перевірити результат, стоп таймера", FIELD, 224),
+        ("НАВКОЛО", "змінити аргументи на вході І відповідь на виході", NEG, 300),
+        ("ЗАМІСТЬ (short-circuit)", "не делегувати: кеш-влучення, відмова доступу", POS, 376),
+    ]
+    for tag, desc, col, y in modes:
+        f.append(rect(560, y, 500, 60, fill="#fbfcfd", stroke=col, sw=1.5, rx=8))
+        f.append(text(582, y + 26, tag, size=13, bold=True, color=col, anchor="start"))
+        f.append(text(582, y + 48, desc, size=11.5, color=INK, anchor="start"))
+    f.append(text(810, 474, "усі чотири лишають інтерфейс незмінним",
+                  size=12.5, bold=True, color=INK))
+    render(os.path.join(IMG, 'onion-model.svg'), W, H, *f)
+
+
+# ── (детальна) Декоратор серед структурних сусідів ──────────────────────────
+def fig_pattern_neighbors():
+    W, H = 1260, 560
+    f = []
+    f.append(text(W / 2, 36, "Декоратор серед структурних сусідів",
+                  size=18, bold=True, color=INK))
+    f.append(text(W / 2, 60, "однаковий кістяк-обгортка — різний намір",
+                  size=12.5, color=MUTED))
+
+    cols = [("Патерн", 168), ("Інтерфейс", 200), ("Скільки обгортає", 244), ("Намір", 560)]
+    x0, y0, rowh = 40, 96, 66
+    cx = x0
+    for name, w in cols:
+        f.append(fitbox(cx, y0, w, 44, name, size=13, bold=True,
+                        fill="#eef2f6", stroke=INK, sw=1.4))
+        cx += w
+    rows = [
+        ("Декоратор", "зберігає", "один", "додає поведінку, шарами", True),
+        ("Проксі", "зберігає", "один", "керує доступом: лінь, права, мережа", False),
+        ("Компонувальник", "зберігає", "багато (дерево)", "збирає однотипні в одне ціле", False),
+        ("Адаптер", "ЗМІНЮЄ", "один", "конвертує чужий інтерфейс у потрібний", False),
+        ("Стратегія", "інша вісь", "вкладений алгоритм", "підмінює нутро, не обгортає", False),
+    ]
+    ry = y0 + 48
+    for pat, iface, card, intent, hot in rows:
+        cx = x0
+        for (name, w), v in zip(cols, (pat, iface, card, intent)):
+            f.append(fitbox(cx, ry, w, rowh - 8, v, size=12,
+                            bold=(hot and name == "Патерн"),
+                            fill="#f4fbf7" if hot else BG,
+                            stroke=FIELD if hot else LINE, sw=1.4 if hot else 1.1))
+            cx += w
+        ry += rowh
+    f.append(text(W / 2, ry + 20,
+                  "адаптер міняє інтерфейс; стратегія — плагін нутра; решта — обгортки того самого інтерфейсу",
+                  size=11.5, color=MUTED))
+    render(os.path.join(IMG, 'pattern-neighbors.svg'), W, H, *f)
+
+
+# ── (proj) Стос HTTP-middleware: виконання онієном і два обриви ─────────────
+def fig_middleware_onion():
+    W, H = 1260, 482
+    f = []
+    f.append(text(W / 2, 34, "Стос HTTP-middleware: виконання онієном і два обриви",
+                  size=18, bold=True, color=INK))
+    f.append(text(W / 2, 58,
+                  "кожен шар робить «ДО», делегує глибше, тоді «ПІСЛЯ» — та Auth і Cache можуть обірвати ланцюг",
+                  size=12.5, color=MUTED))
+
+    # «до»-стрілка згори
+    f.append(arrow(60, 100, 1180, 100, color=FIELD, sw=2))
+    f.append(text(60, 90, "запит → всередину: «ДО», тоді next()",
+                  size=12, color=FIELD, anchor="start", bold=True))
+
+    names = [
+        ("Recover", "паніка → 500", POS),
+        ("Logger", "метод, шлях", INK),
+        ("Timer", "старт годинника", INK),
+        ("Auth", "право? ні → 401", POS),
+        ("Gzip", "стиснути тіло", NEG),
+        ("Cache", "влучив → віддай", FIELD),
+    ]
+    bx, by, bw, bh, step = 60, 125, 150, 130, 160
+    for i, (nm, role, col) in enumerate(names):
+        x = bx + i * step
+        f.append(rect(x, by, bw, bh, fill="#fbfcfd", stroke=col, sw=1.8, rx=12))
+        f.append(text(x + bw / 2, by + 60, nm, size=15, bold=True, color=col))
+        f.append(text(x + bw / 2, by + 84, role, size=11, color=MUTED))
+    hx = bx + 6 * step
+    f.append(rect(hx, by, bw, bh, fill="#eef2f6", stroke=INK, sw=2, rx=12))
+    f.append(text(hx + bw / 2, by + 60, "Діловий", size=14, bold=True, color=INK))
+    f.append(text(hx + bw / 2, by + 82, "обробник", size=14, bold=True, color=INK))
+
+    # «після»-стрілка знизу
+    f.append(arrow(1180, 285, 60, 285, color=NEG, sw=2))
+    f.append(text(1180, 305, "відповідь ← назовні: «ПІСЛЯ»",
+                  size=12, color=NEG, anchor="end", bold=True))
+
+    # обрив 1 — Auth (червоний): відвід від коробки + стрілка назад уліво
+    ax = bx + 3 * step + bw / 2
+    f.append(line(ax, by + bh, ax, 356, color=POS, sw=1.6))
+    f.append(arrow(ax, 356, 70, 356, color=POS, sw=1.8))
+    f.append(text(80, 336,
+                  "Auth: 401 — next() не викликано; Cache, Gzip, обробник запиту не бачать",
+                  size=11, color=POS, anchor="start", bold=True))
+
+    # обрив 2 — Cache (зелений)
+    kx = bx + 5 * step + bw / 2
+    f.append(line(kx, by + bh, kx, 406, color=FIELD, sw=1.6))
+    f.append(arrow(kx, 406, 70, 406, color=FIELD, sw=1.8))
+    f.append(text(80, 386,
+                  "Cache: влучення — тіло з кешу; обробник (похід у базу) не виконується",
+                  size=11, color=FIELD, anchor="start", bold=True))
+
+    f.append(text(W / 2, 452,
+                  "обрив = шар сам вертає відповідь і не кличе next(); хто зовні — той дістає шанс обірвати першим",
+                  size=12, color=INK, bold=True))
+    render(os.path.join(IMG, 'middleware-onion.svg'), W, H, *f)
+
+
+# ── (proj) Порядок шарів важить: Auth зовні/всередині за Cache ──────────────
+def fig_order_matters():
+    W, H = 1120, 502
+    f = []
+    f.append(text(W / 2, 34, "Порядок шарів — не смак, а правильність",
+                  size=18, bold=True, color=INK))
+    f.append(text(W / 2, 58, "той самий набір middleware, дві розстановки Auth і Cache",
+                  size=12.5, color=MUTED))
+
+    def stack(cx, head, hcol, layers, hi):
+        f.append(text(cx, 92, head, size=15, bold=True, color=hcol))
+        y = 112
+        for i, nm in enumerate(layers):
+            isH = (nm == "Обробник")
+            hot = hi.get(i)
+            if isH:
+                fill, stroke, tcol, bold, sw = "#eef2f6", INK, INK, True, 1.8
+            elif hot == "g":
+                fill, stroke, tcol, bold, sw = "#f4fbf7", FIELD, FIELD, True, 1.8
+            elif hot == "gl":
+                fill, stroke, tcol, bold, sw = "#f4fbf7", FIELD, INK, False, 1.8
+            elif hot == "r":
+                fill, stroke, tcol, bold, sw = "#fdecea", POS, POS, True, 1.8
+            elif hot == "rl":
+                fill, stroke, tcol, bold, sw = "#fdecea", POS, INK, False, 1.8
+            else:
+                fill, stroke, tcol, bold, sw = BG, LINE, INK, False, 1.1
+            f.append(rect(cx - 130, y, 260, 38, fill=fill, stroke=stroke, sw=sw, rx=8))
+            f.append(text(cx, y + 25, nm, size=13.5, bold=bold, color=tcol))
+            y += 46
+
+    stack(300, "ПРАВИЛЬНО", FIELD,
+          ["Recover", "Logger", "Auth", "Cache", "Обробник"],
+          {2: "g", 3: "gl"})
+    stack(820, "НЕБЕЗПЕЧНО", POS,
+          ["Recover", "Logger", "Cache", "Auth", "Обробник"],
+          {2: "r", 3: "rl"})
+
+    f.append(fitbox(140, 366, 320, 82,
+                    "Auth зовні за Cache:\nкеш віддає відповідь лише тому,\nкого авторизація вже пропустила.",
+                    size=12, fill="#f4fbf7", stroke=FIELD, sw=1.5))
+    f.append(fitbox(660, 366, 320, 82,
+                    "Cache зовні за Auth: влучення\nповертає збережене ДО перевірки прав —\nчужий бачить чужі дані.",
+                    size=12, fill="#fdecea", stroke=POS, sw=1.5))
+    render(os.path.join(IMG, 'order-matters.svg'), W, H, *f)
+
+
+# ── (math) Коли шари комутують: квадрат замикається / гілки розходяться ──────
+def fig_commute_square():
+    W, H = 1240, 600
+    f = []
+    f.append(text(W / 2, 38, "Коли два шари можна переставити місцями",
+                  size=17, bold=True, color=INK))
+    f.append(text(W / 2, 60, "переставні тоді й лише тоді, коли комутують їхні функції-ефекти",
+                  size=12.5, color=MUTED))
+    f.append(line(W / 2, 92, W / 2, H - 64, color="#d0d5db", sw=1.2, dash="6,6"))
+
+    def node(cx, cy, s, col=LINE, fill=FILL):
+        b, w, h = textbox(cx, cy, s, size=13, bold=True, fill=fill,
+                          stroke=col, sw=1.6, min_w=66)
+        f.append(b)
+
+    # ═══ ЛІВОРУЧ: ціна — квадрат замикається (комутують) ═══
+    lcx = 316
+    f.append(text(lcx, 122, "Ціна напою", size=15, bold=True, color=FIELD))
+    f.append(text(lcx, 143, "(ℤ, +) — комутативна група", size=11.5, color=MUTED))
+
+    TLx, TRx, TYy, BYy = 196, 436, 210, 410
+    node(TLx, TYy, "20")
+    node(TRx, TYy, "25")
+    node(TLx, BYy, "23")
+    node(TRx, BYy, "28", col=FIELD, fill="#eaf7ef")
+    f.append(arrow(TLx + 33, TYy, TRx - 33, TYy, color=MUTED, sw=1.6))     # верх
+    f.append(arrow(TLx + 33, BYy, TRx - 33, BYy, color=MUTED, sw=1.6))     # низ
+    f.append(arrow(TLx, TYy + 20, TLx, BYy - 20, color=MUTED, sw=1.6))     # ліворуч
+    f.append(arrow(TRx, TYy + 20, TRx, BYy - 20, color=MUTED, sw=1.6))     # праворуч
+    f.append(text(lcx, TYy - 22, "+5 (молоко)", size=11, color=INK))
+    f.append(text(lcx, BYy + 30, "+5 (молоко)", size=11, color=INK))
+    f.append(text(TLx - 14, (TYy + BYy) / 2 + 4, "+3 (кориця)", size=11,
+                  color=INK, anchor="end"))
+    f.append(text(TRx + 14, (TYy + BYy) / 2 + 4, "+3 (кориця)", size=11,
+                  color=INK, anchor="start"))
+    f.append(text(lcx, 472, "обидва порядки → 28", size=12.5, bold=True, color=FIELD))
+    f.append(text(lcx, 494, "d₁ ∘ d₂ = d₂ ∘ d₁   ✓", size=12.5, bold=True, color=INK))
+
+    # ═══ ПРАВОРУЧ: опис — гілки розходяться (не комутують) ═══
+    rcx = 924
+    f.append(text(rcx, 122, "Опис напою", size=15, bold=True, color=POS))
+    f.append(text(rcx, 143, "Σ*, · — вільний моноїд (некомутативний)",
+                  size=11.5, color=MUTED))
+
+    Sx, Sy = 742, 308
+    n1x, n1y = 906, 214
+    n2x, n2y = 1086, 214
+    n3x, n3y = 906, 402
+    n4x, n4y = 1086, 402
+    node(Sx, Sy, "s")
+    node(n1x, n1y, "s·m")
+    node(n2x, n2y, "s·m·c", col=POS, fill="#fdecea")
+    node(n3x, n3y, "s·c")
+    node(n4x, n4y, "s·c·m", col=POS, fill="#fdecea")
+    f.append(arrow(Sx + 30, Sy - 12, n1x - 38, n1y + 16, color=MUTED, sw=1.5))
+    f.append(arrow(n1x + 38, n1y, n2x - 38, n2y, color=MUTED, sw=1.5))
+    f.append(arrow(Sx + 30, Sy + 12, n3x - 38, n3y - 16, color=MUTED, sw=1.5))
+    f.append(arrow(n3x + 38, n3y, n4x - 38, n4y, color=MUTED, sw=1.5))
+    f.append(text(800, 262, "·m", size=12, bold=True, color=INK))
+    f.append(text(996, 196, "·c", size=12, bold=True, color=INK))
+    f.append(text(800, 356, "·c", size=12, bold=True, color=INK))
+    f.append(text(996, 424, "·m", size=12, bold=True, color=INK))
+    f.append(text(n2x, (n2y + n4y) / 2 + 10, "≠", size=30, bold=True, color=POS))
+    f.append(text(rcx, 472, "s — опис;  m = « + молоко»,  c = « + кориця»",
+                  size=11, color=MUTED))
+    f.append(text(rcx, 494, "s·m·c ≠ s·c·m   →   переставити НЕ можна   ✗",
+                  size=12.5, bold=True, color=POS))
+
+    render(os.path.join(IMG, 'commute-square.svg'), W, H, *f)
+
+
 if __name__ == '__main__':
     fig_decorator_wrapping()
     fig_inherit_vs_decorate()
     fig_java_io_explosion()
+    fig_self_problem()
+    fig_onion_model()
+    fig_pattern_neighbors()
+    fig_middleware_onion()
+    fig_order_matters()
+    fig_commute_square()
     print("figs done")

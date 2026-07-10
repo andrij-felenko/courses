@@ -7,17 +7,17 @@
   modules: [
     { n: 1, slug: "mindset", title: "Що таке архітектурне рішення", scope: "", chapters: [
       { title: "Архітектура як потік значущих рішень", steps: [
-        { slug: "what-is-architecture", title: "Архітектура", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "what-is-architecture", title: "Архітектура", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-big-ball-of-mud.md", status: "done" }, { file: "hist-expensive-to-change.md", status: "done" }] },
         { ref: "programming/architecture-discipline/architect-role", title: "Роль архітектора" },
         { ref: "programming/software-design/technical-debt", title: "Технічний борг і вартість зміни" },
-        { slug: "dh-v0-one-sensor", title: "Digital Homes v0", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "dh-v0-one-sensor", title: "Digital Homes v0", basic: { status: "done" }, detailed: { status: "empty" }, proj: [{ file: "proj-dh-v0.md", status: "done" }] },
       ] },
       { title: "Якісні атрибути й сценарії", steps: [
         { ref: "programming/architecture-discipline/quality-attributes", title: "Якісні атрибути («-ilities»)" },
         { ref: "programming/architecture-discipline/attribute-scenarios", title: "Сценарії атрибутів" },
         { ref: "programming/architecture-discipline/stakeholders", title: "Стейкхолдери та їхні системи" },
         { ref: "programming/architecture-discipline/architectural-drivers", title: "Архітектурні драйвери" },
-        { slug: "dh-utility-tree", title: "Дерево корисності Digital Homes", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "dh-utility-tree", title: "Дерево корисності Digital Homes", basic: { status: "done" }, detailed: { status: "empty" }, proj: [{ file: "proj-dh-utility-tree.md", status: "done" }] },
       ] },
       { title: "Trade-off і його ціна", steps: [
         { ref: "programming/architecture-discipline/tradeoff-analysis", title: "Trade-off-аналіз" },
@@ -25,34 +25,34 @@
         { ref: "programming/architecture-discipline/architectural-tactics", title: "Тактика проти патерна" },
         { ref: "programming/architecture-discipline/modifiability-tactics", title: "Тактики змінюваності" },
         { ref: "programming/architecture-discipline/back-of-envelope", title: "Прикидка «на серветці»" },
-        { slug: "dh-v0-scenario-audit", title: "Перше рев'ю", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "variant-block-anatomy", title: "Анатомія варіантного блоку", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "dh-v0-scenario-audit", title: "Перше рев'ю", basic: { status: "done" }, detailed: { status: "empty" }, proj: [{ file: "proj-v0-audit-run.md", status: "done" }] },
+        { slug: "variant-block-anatomy", title: "Анатомія варіантного блоку", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-steelman.md", status: "done" }] },
       ] },
     ] },
     { n: 2, slug: "decisions-under-uncertainty", title: "Рішення під невизначеністю та ризиком", scope: "", chapters: [
       { title: "Зворотні й незворотні рішення", steps: [
         { ref: "programming/architecture-discipline/reversible-irreversible-decisions", title: "Зворотні й незворотні рішення" },
         { ref: "programming/architecture-discipline/last-responsible-moment", title: "Останній відповідальний момент" },
-        { slug: "what-makes-irreversible", title: "Що робить рішення незворотним", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "what-makes-irreversible", title: "Що робить рішення незворотним", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-hyrum-law.md", status: "done" }], proj: [{ file: "proj-expand-contract.md", status: "done" }, { file: "proj-key-rotation.md", status: "done" }] },
       ] },
       { title: "Купівля інформації", steps: [
         { ref: "programming/architecture-discipline/deciding-under-uncertainty", title: "Рішення під невизначеністю" },
         { ref: "programming/architecture-discipline/walking-skeleton", title: "Walking skeleton" },
-        { slug: "cost-of-delay", title: "Вартість зволікання проти вартості помилки", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "cost-of-delay", title: "Вартість зволікання проти вартості помилки", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-cost-of-delay.md", status: "done" }], math: [{ file: "math-value-of-information.md", status: "done" }, { file: "math-wsjf.md", status: "done" }], proj: [{ file: "proj-cod-model.md", status: "done" }] },
       ] },
       { title: "Ризик-мислення", steps: [
         { ref: "programming/architecture-discipline/risk-thinking", title: "Ризик-мислення" },
         { ref: "programming/architecture-discipline/risk-register", title: "Ризик-реєстр як живий артефакт" },
-        { slug: "dh-risk-register", title: "Ризик-реєстр Digital Homes", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "dh-risk-register", title: "Ризик-реєстр Digital Homes", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-smarthome-risks-realized.md", status: "done" }], proj: [{ file: "proj-risk-register.md", status: "done" }] },
       ] },
       { title: "Коли НЕ будувати", steps: [
         { ref: "programming/software-design/dry-kiss-yagni", title: "**YAGNI за замовчуванням**, DRY і його межа (передчасне узагальнення), KISS; складність як пасив/борг; вартість передчасної абстракції" },
         { ref: "programming/architecture-discipline/evolutionary-architecture", title: "Еволюційна архітектура як дефолт" },
         { ref: "programming/architecture-discipline/build-vs-buy", title: "**Build vs buy** (і оренда/SaaS/adopt)" },
         { ref: "programming/architecture-discipline/cost-as-attribute", title: "Вартість як атрибут" },
-        { slug: "dh-not-building", title: "DH", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "assumptions-vs-facts", title: "Припущення проти фактів як дисципліна", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "dh-decisions-under-uncertainty", title: "DH під невизначеністю", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "dh-not-building", title: "DH", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-biometric-privacy.md", status: "done" }], proj: [{ file: "proj-broker-cost-model.md", status: "done" }] },
+        { slug: "assumptions-vs-facts", title: "Припущення проти фактів як дисципліна", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-assumption-discipline.md", status: "done" }], math: [{ file: "math-value-of-information.md", status: "done" }], proj: [{ file: "proj-assumption-register.md", status: "done" }] },
+        { slug: "dh-decisions-under-uncertainty", title: "DH під невизначеністю", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-smart-home-standards-war.md", status: "done" }], proj: [{ file: "proj-dh-radio-spike.md", status: "done" }] },
       ] },
     ] },
     { n: 3, slug: "views-and-communication", title: "В'ю та комунікація архітектури", scope: "", chapters: [
@@ -62,7 +62,7 @@
         { ref: "programming/architecture-discipline/deployment-view", title: "В'ю розгортання і динамічні в'ю" },
         { ref: "programming/architecture-discipline/diagrams-as-code", title: "Діаграми як код" },
         { ref: "programming/architecture-discipline/viewpoints-perspectives", title: "Viewpoints і perspectives (Rozanski/Woods)" },
-        { slug: "dh-v2-views", title: "DH на папері", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "dh-v2-views", title: "DH на папері", basic: { status: "done" }, detailed: { status: "empty" }, proj: [{ file: "proj-dh-structurizr.md", status: "done" }] },
       ] },
       { title: "Письмові рішення: ADR / RFC / design-doc", steps: [
         { ref: "programming/software-design/architecture-decision-records", title: "Журнал архітектурних рішень (ADR)" },

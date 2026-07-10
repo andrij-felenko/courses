@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фабричний метод — одна діра у незмінному скелеті</text>
+<text x="520.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">каркас пише алгоритм один раз; нащадок заповнює лише одну ланку</text>
+<rect x="300.0" y="96.0" width="440.0" height="240.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="520.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">newDocument()  ·  незмінний скелет</text>
+<line x1="312.0" y1="134.0" x2="728.0" y2="134.0" stroke="#d0d5db" stroke-width="1.0"/>
+<rect x="314.0" y="146.0" width="412.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="520.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">① doc = createDocument()   ← ДІРА</text>
+<rect x="314.0" y="196.0" width="412.0" height="36.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.2"/>
+<text x="520.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">② doc.open()</text>
+<rect x="314.0" y="236.0" width="412.0" height="36.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.2"/>
+<text x="520.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">③ registerInRecent(doc)</text>
+<rect x="314.0" y="276.0" width="412.0" height="36.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.2"/>
+<text x="520.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">④ return doc</text>
+<line x1="768.0" y1="171.0" x2="730.0" y2="171.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="774.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">цю ланку —</text>
+<text x="774.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">і лише її — заповнює нащадок</text>
+<rect x="215.0" y="424.4" width="250.0" height="63.2" rx="6" fill="#fbeeec" stroke="#c0392b" stroke-width="1.5"/><text x="340.0" y="444.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">DrawingApp</tspan><tspan x="340.0" dy="15.6">createDocument():</tspan><tspan x="340.0" dy="15.6">return new DrawingDocument()</tspan></text>
+<line x1="340.0" y1="424.4" x2="520.0" y2="336.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="575.0" y="424.4" width="250.0" height="63.2" rx="6" fill="#fbeeec" stroke="#c0392b" stroke-width="1.5"/><text x="700.0" y="444.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">SpreadsheetApp</tspan><tspan x="700.0" dy="15.6">createDocument():</tspan><tspan x="700.0" dy="15.6">return new SpreadsheetDocument()</tspan></text>
+<line x1="700.0" y1="424.4" x2="520.0" y2="336.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="520.0" y="542.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Голлівудський принцип — «не дзвоніть нам, ми подзвонимо вам»:</text>
+<text x="520.0" y="562.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">не ти кличеш каркас, а каркас у потрібну мить кличе твій createDocument().</text>
+</svg>

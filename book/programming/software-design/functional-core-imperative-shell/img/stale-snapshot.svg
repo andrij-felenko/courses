@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вікно між планом і дією: застарілий знімок</text>
+<rect x="30.0" y="200.0" width="230.0" height="80.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="145.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">оболонка читає</text>
+<text x="145.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">версія = 5</text>
+<rect x="284.0" y="200.0" width="230.0" height="80.0" rx="10" fill="#f2faf5" stroke="#27ae60" stroke-width="2.0"/>
+<text x="399.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ЯДРО вирішує</text>
+<text x="399.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">план на v5</text>
+<rect x="538.0" y="200.0" width="230.0" height="80.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="653.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">оболонка пише</text>
+<text x="653.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">«якщо ще v5»</text>
+<rect x="792.0" y="200.0" width="230.0" height="80.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="907.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">конфлікт →</text>
+<text x="907.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">перечитати, повторити</text>
+<line x1="262.0" y1="240.0" x2="282.0" y2="240.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="516.0" y1="240.0" x2="536.0" y2="240.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="240.0" x2="790.0" y2="240.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="466.9" y="71.3" width="118.3" height="41.3" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/><text x="526.0" y="88.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="526.0" dy="0.0">чужа транзакція</tspan><tspan x="526.0" dy="14.3">версія = 6</tspan></text>
+<line x1="526.0" y1="114.7" x2="526.0" y2="194.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="399.0" y1="300.0" x2="653.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="399.0" y1="292.0" x2="399.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="653.0" y1="292.0" x2="653.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="406.5" y="319.5" width="239.1" height="25.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/><text x="526.0" y="335.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="526.0" dy="0.0">ВІКНО (TOCTOU): знімок застаріває</tspan></text>
+<rect x="267.2" y="430.0" width="505.6" height="32.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.4"/><text x="520.0" y="450.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Оптимістична версія закриває вікно: пиши умовно, на конфлікті перечитай</tspan></text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1140" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="130.0" y="110.6" width="210.0" height="48.8" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.7"/><text x="235.0" y="131.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">СТВОРЮЄТЬСЯ</tspan><tspan x="235.0" dy="16.2">(дороге народження)</tspan></text>
+<rect x="560.0" y="110.6" width="210.0" height="48.8" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.7"/><text x="665.0" y="131.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">ВІЛЬНИЙ</tspan><tspan x="665.0" dy="16.2">(на полиці, чистий)</tspan></text>
+<rect x="560.0" y="455.6" width="210.0" height="48.8" rx="6" fill="#fdf0ea" stroke="#c0392b" stroke-width="1.7"/><text x="665.0" y="476.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">ЗАЙНЯТИЙ</tspan><tspan x="665.0" dy="16.2">(виданий назовні)</tspan></text>
+<rect x="130.0" y="455.6" width="210.0" height="48.8" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.7"/><text x="235.0" y="476.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">НА ЗЛАМ</tspan><tspan x="235.0" dy="16.2">(знищується)</tspan></text>
+<line x1="344.0" y1="135.0" x2="556.0" y2="135.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="450.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">готовий до видачі</text>
+<line x1="665.0" y1="161.4" x2="720.0" y2="161.4" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="720.0" y1="161.4" x2="720.0" y2="453.6" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="720.0" y1="453.6" x2="772.0" y2="453.6" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="732.0" y="299.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">acquire</text>
+<text x="732.0" y="315.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">+ валідація</text>
+<line x1="665.0" y1="453.6" x2="605.0" y2="453.6" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="605.0" y1="453.6" x2="605.0" y2="161.4" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="605.0" y1="161.4" x2="558.0" y2="161.4" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="593.0" y="299.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end">release</text>
+<text x="593.0" y="315.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end">+ reset</text>
+<line x1="558.0" y1="159.4" x2="346.0" y2="453.6" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="455.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">простій &gt; idle-timeout</text>
+<text x="455.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">або не пройшов валідацію</text>
+<line x1="558.0" y1="480.0" x2="342.0" y2="480.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="460.0" y="506.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">release, але вік &gt; max-lifetime → на злам</text>
+<line x1="128.0" y1="480.0" x2="145.0" y2="480.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,5"/>
+<line x1="145.0" y1="480.0" x2="145.0" y2="135.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,5"/>
+<line x1="145.0" y1="135.0" x2="128.0" y2="135.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="139.0" y="299.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end">поповнити</text>
+<text x="139.0" y="315.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end">до min-idle</text>
+<text x="570.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Живі стани — лише «вільний» і «зайнятий»; решта — старіння й оновлення</text>
+</svg>

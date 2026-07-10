@@ -188,6 +188,7 @@
       ] },
     { slug: "probability", title: "Імовірність", scope: "Математична теорія випадковості — випадкові величини, процеси та граничні теореми.",
       topics: [
+        { slug: "probability-basics", title: "Імовірність як міра непевності", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "mean-variance", title: "Середнє й дисперсія", basic: { status: "done" }, detailed: { status: "pending" } },
         { slug: "central-limit", title: "Центральна гранична теорема", basic: { status: "done" }, detailed: { status: "pending" } },
         { slug: "thermal-fluctuations", title: "Теплові флуктуації", basic: { status: "done" }, detailed: { status: "pending" } },

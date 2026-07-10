@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна незворотна зміна схеми = ланцюг окремо зворотних кроків</text>
+<text x="440.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">розгорнути → мігрувати → згорнути; лише останній крок незворотний</text>
+<rect x="185.0" y="60.0" width="242.0" height="356.0" rx="4" fill="#eef9f1" stroke="#eef9f1" stroke-width="1.5"/>
+<rect x="430.0" y="60.0" width="217.0" height="356.0" rx="4" fill="#eef9f1" stroke="#eef9f1" stroke-width="1.5"/>
+<rect x="650.0" y="60.0" width="192.0" height="356.0" rx="4" fill="#fdf0ee" stroke="#fdf0ee" stroke-width="1.5"/>
+<rect x="191.0" y="66.0" width="230.0" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="307.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1 · РОЗГОРНУТИ</text>
+<text x="307.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(expand)</text>
+<rect x="436.0" y="66.0" width="205.0" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="540.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2 · МІГРУВАТИ</text>
+<text x="540.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(migrate)</text>
+<rect x="656.0" y="66.0" width="177.0" height="30.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="746.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3 · ЗГОРНУТИ</text>
+<text x="746.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(contract)</text>
+<text x="171.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">стара форма</text>
+<text x="171.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">колонка total</text>
+<rect x="185.0" y="123.0" width="465.0" height="24.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="417.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">жива — читати можна будь-коли</text>
+<text x="746.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">прибрано: DROP COLUMN</text>
+<line x1="658.0" y1="135.0" x2="836.0" y2="135.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="171.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">нова форма</text>
+<text x="171.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">amount_minor</text>
+<rect x="185.0" y="173.0" width="657.0" height="24.0" rx="6" fill="#e7f7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="417.5" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">додано (NULL) → заповнено → єдина</text>
+<line x1="185.0" y1="228.0" x2="650.0" y2="228.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="185.0" y1="228.0" x2="185.0" y2="222.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="650.0" y1="228.0" x2="650.0" y2="222.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="417.5" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">інваріант: обидві форми дійсні одночасно</text>
+<text x="307.5" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">писати в ОБИДВІ</text>
+<text x="307.5" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">читати стару</text>
+<text x="540.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">заднє заповнення пакетами</text>
+<text x="540.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">читати обидві + звіряти</text>
+<text x="540.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">перевести читання на нову</text>
+<text x="746.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">читати/писати</text>
+<text x="746.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">лише нову</text>
+<text x="171.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">відкіт кроку:</text>
+<line x1="369.5" y1="366.0" x2="245.5" y2="366.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="307.5" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">прибрати нову колонку</text>
+<line x1="602.0" y1="366.0" x2="478.0" y2="366.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="540.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">читання назад на стару</text>
+<text x="746.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">незворотно ⟶</text>
+<text x="746.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">нове вже доведено</text>
+<text x="440.0" y="482.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Кожен крок відкотний окремо; система замикається лише на останньому — коли нове вже перевірене живими даними</text>
+</svg>

@@ -36,7 +36,21 @@
   --shadow: 0 2px 8px rgba(0,0,0,0.12);
   --shadow-lg: 0 10px 30px rgba(15,39,68,0.18);
   --sidebar-w: 288px;
+  /* Смуги прокрутки — похідні від теми (див. глобальне правило нижче) */
+  --sb-thumb: color-mix(in srgb, var(--text-muted) 42%, transparent);
+  --sb-thumb-hover: color-mix(in srgb, var(--text-muted) 72%, transparent);
+  --sb-track: transparent;
+  --sb-sidebar-thumb: color-mix(in srgb, var(--sidebar-text) 32%, transparent);
+  --sb-sidebar-thumb-hover: color-mix(in srgb, var(--sidebar-text) 60%, transparent);
 }
+
+/* ── Смуги прокрутки під тему (thumb похідний від --text-muted; сайдбар — від --sidebar-text) ── */
+* { scrollbar-width: thin; scrollbar-color: var(--sb-thumb) var(--sb-track); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--sb-track); }
+::-webkit-scrollbar-thumb { background: var(--sb-thumb); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: var(--sb-thumb-hover); }
+::-webkit-scrollbar-corner { background: transparent; }
 
 /* ── Вечірній «сепія»: старий папір + сепія-чорнило + бурштиновий акцент.
    Три чіткі рівні поверхонь (bg → bg-alt → sidebar), тепла бокова панель
@@ -185,10 +199,11 @@ body {
   overflow-y: auto; z-index: 100;
   padding-bottom: 2rem;
   scrollbar-width: thin;
-  scrollbar-color: #3a5570 transparent;
+  scrollbar-color: var(--sb-sidebar-thumb) transparent;
 }
-#sidebar::-webkit-scrollbar { width: 5px; }
-#sidebar::-webkit-scrollbar-thumb { background: #3a5570; border-radius: 2px; }
+#sidebar::-webkit-scrollbar { width: 8px; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--sb-sidebar-thumb); border-radius: 4px; }
+#sidebar::-webkit-scrollbar-thumb:hover { background: var(--sb-sidebar-thumb-hover); }
 
 .sb-logo {
   display: block;
@@ -820,6 +835,46 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 #scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 90; }
 #sidebar-close { display: none; }   /* ✕ закриття мобільного сайдбару — показ лише на вузькому екрані (нижче) */
 
+/* ── Кнопка «на рівень вище» (зліва зверху; нема лише в бібліотеці):
+   стаття → зміст книги / лендинг курсу; зміст/лендинг → бібліотека ── */
+#up-btn {
+  position: fixed; top: 0.6rem; left: calc(var(--sidebar-w) + 0.85rem); z-index: 300;
+  width: 2.4rem; height: 2.4rem; display: flex; align-items: center; justify-content: center;
+  background: var(--sidebar-bg); color: #fff; border-radius: 8px; text-decoration: none;
+  font-size: 1.15rem; line-height: 1; box-shadow: var(--shadow);
+  transition: filter 0.15s, transform 0.1s, left 0.22s ease;
+}
+#up-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
+
+/* ── «Сховати меню» — кнопка на самому сайдбарі (широкий екран; на вузькому це робить ✕) ── */
+#sb-hide {
+  display: none; position: fixed; top: 0.6rem; left: calc(var(--sidebar-w) - 3.25rem); z-index: 210;
+  width: 2.4rem; height: 2.4rem; align-items: center; justify-content: center;
+  border: none; border-radius: 8px; background: var(--sidebar-hover, rgba(255,255,255,0.14)); color: #cfe0ee;
+  font-size: 1.05rem; line-height: 1; cursor: pointer; transition: background 0.15s;
+}
+#sb-hide:hover { background: rgba(255,255,255,0.24); color: #fff; }
+@media (min-width: 681px) {
+  html:not(.sb-hidden) #sb-hide { display: flex; }
+  #sidebar .sb-home { padding-right: 3.4rem; }        /* місце під кнопку «сховати» */
+  html.sb-hidden #menu-btn { display: flex; }         /* меню сховане → ☰ повертає його */
+  html.sb-hidden #up-btn { left: 3.6rem; }            /* стаємо праворуч від ☰ */
+  html.sb-hidden .ch-header { padding-left: 6.4rem; } /* шапка не залазить під ☰ і ← */
+}
+
+/* ── Попап «прочитано/непрочитано» (затиснути або правий клік на лінку статті) ── */
+.read-pop {
+  position: fixed; z-index: 700; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 0.3rem;
+}
+.read-pop button {
+  display: block; width: 100%; border: none; background: none; font: inherit;
+  font-size: 0.86rem; font-weight: 600; color: var(--text); padding: 0.5rem 0.85rem;
+  border-radius: 7px; cursor: pointer; text-align: left; white-space: nowrap;
+}
+.read-pop button:hover { background: var(--bg-alt); color: var(--accent); }
+.sb-link, .ch-open, .guide-step > a { -webkit-touch-callout: none; }   /* iOS: довгий тап — наш попап, не системний */
+
 @media (max-width: 980px) {
   :root { --sidebar-w: 256px; }
   .ch-header, .sec, .hist-art-header, .cover-hero, .toc { padding-left: 2.5rem; padding-right: 2.5rem; }
@@ -841,7 +896,9 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   body:has(#sidebar.open) #menu-btn { display: none; }
   body:has(#sidebar.open) #sidebar-close { display: flex; }
   #sidebar .sb-home { padding-right: 3rem; }   /* лишити місце під ✕ */
-  .ch-header { padding-left: 4.1rem; }   /* зліва — кнопка меню; правий відступ — за співвідношенням сторін (нижче) */
+  #up-btn { left: 3.6rem; }                    /* праворуч від ☰ */
+  body:has(#sidebar.open) #up-btn { display: none; }   /* шухляду відкрито — не плутати з ✕ */
+  .ch-header { padding-left: 6.4rem; }   /* зліва — кнопки меню і «вище»; правий відступ — за співвідношенням сторін (нижче) */
   .ch-header h1 { font-size: 1.15rem; }
   .cover-hero { padding: 4rem 1.4rem 2.5rem; }
   .cover-hero h1 { font-size: 1.95rem; }

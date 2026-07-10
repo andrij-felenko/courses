@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поверхнева незмінність: заморожено лише верх</text>
+<rect x="70.0" y="96.0" width="200.0" height="64.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="170.0" y="124.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">обгортка</tspan><tspan x="170.0" dy="16.9">(поля const)</tspan></text>
+<rect x="350.0" y="96.0" width="220.0" height="64.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="460.0" y="124.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="460.0" dy="0.0">внутрішній список</tspan><tspan x="460.0" dy="16.9">МІНЛИВИЙ</tspan></text>
+<line x1="272.0" y1="128.0" x2="348.0" y2="128.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="310.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">поле →</text>
+<rect x="640.0" y="104.0" width="150.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="715.0" y="132.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">чужий код</tspan></text>
+<line x1="638.0" y1="128.0" x2="572.0" y2="128.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="606.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">пише</text>
+<text x="460.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">⚡ правка протікає</text>
+<text x="410.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">правка сусіда протікає крізь «незмінну» обгортку</text>
+<line x1="40.0" y1="262.0" x2="780.0" y2="262.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,5"/>
+<text x="410.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глибока (транзитивна) незмінність: заморожено до дна</text>
+<rect x="70.0" y="350.0" width="200.0" height="64.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="170.0" y="378.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">обгортка</tspan><tspan x="170.0" dy="16.9">(поля const)</tspan></text>
+<rect x="350.0" y="350.0" width="220.0" height="64.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="460.0" y="378.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="460.0" dy="0.0">внутрішній список</tspan><tspan x="460.0" dy="16.9">теж незмінний</tspan></text>
+<line x1="272.0" y1="382.0" x2="348.0" y2="382.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="310.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">поле →</text>
+<rect x="640.0" y="358.0" width="150.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="715.0" y="386.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">чужий код</tspan></text>
+<line x1="638.0" y1="382.0" x2="572.0" y2="382.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="606.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">лише читає</text>
+<text x="410.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">мутувати нічого — ділити безпечно на будь-яку глибину</text>
+</svg>

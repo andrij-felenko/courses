@@ -73,6 +73,13 @@
     try { localStorage.setItem("courses-read", JSON.stringify(Array.from(READ))); } catch (e) {}
     [].forEach.call(document.querySelectorAll(".sb-link.active"), function (a) { a.classList.add("read"); });   // підсвітити наживо
   }
+  // Попап «прочитано/непрочитано» (bookbuild.js) міняє localStorage сам — тримаємо НАШ набір у синхроні,
+  // і на обкладинці перемальовуємо лічильники «прочитано / усього».
+  window.addEventListener("courses-read-change", function (e) {
+    var d = (e && e.detail) || {}; if (!d.key) return;
+    if (d.on) READ.add(d.key); else READ.delete(d.key);
+    if (!currentSlug) renderCover();
+  });
   var readSpy = null, readTimer = null;
   var READ_DWELL_MS = 7000;   // просто доскролити мало: треба ПРОБУТИ внизу 7 с поспіль
   function setupReadTracking(slug) {
@@ -1213,9 +1220,18 @@
 
   var appliedAt = null;     // який якір уже застосовано (щоб не стрибати догори при закритті попапа)
 
+  // Кнопка «на рівень вище» (зліва зверху): стаття → зміст книги / лендинг курсу; зміст → бібліотека
+  function updateUpBtn(view) {
+    var up = document.getElementById("up-btn");
+    if (!up) return;
+    if (view === "chapter") up.setAttribute("href", BOOK.course ? courseHome() : "#");
+    else up.setAttribute("href", BOOK.libraryHref || "index.html");
+  }
+
   function route() {
     var r = parseHash();
     closeMobileSidebar();
+    updateUpBtn(r.view);
     if (r.view === "cover") { syncModals([]); currentSlug = null; appliedAt = null; renderCover(); window.scrollTo(0, 0); return; }
     var chap = CH_BY_SLUG[r.slug];
     if (!chap) {

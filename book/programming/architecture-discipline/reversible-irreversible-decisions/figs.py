@@ -204,9 +204,520 @@ def fig_lineage():
     render(os.path.join(OUT, "lineage.svg"), W, H, *p)
 
 
+def poly(pts, color=INK, sw=2.0, dash=None, fill="none"):
+    d = ' stroke-dasharray="%s"' % dash if dash else ''
+    pstr = " ".join("%.1f,%.1f" % (x, y) for x, y in pts)
+    return ('<polyline points="%s" fill="%s" stroke="%s" stroke-width="%.1f" '
+            'stroke-linejoin="round" stroke-linecap="round"%s/>' % (pstr, fill, color, sw, d))
+
+
+# ── 5. Анатомія вартості відкату: добуток осей, розмір серед них немає ──────────
+# Три рішення як профілі з пʼятьох осей. «Переписати модуль» велике, та відкат
+# малий; «формат даних» дрібне, та відкат величезний — бо важить не розмір, а осі.
+def fig_anatomy():
+    W, H = 900, 470
+    p = []
+    p.append(text(W / 2, 24, "Вартість відкату — добуток кількох осей; розміру рішення серед них немає",
+                  size=14, bold=True))
+
+    # легенда: три рішення
+    leg = [(60, "A · перейменувати змінну", FIELD),
+           (340, "B · переписати цілий модуль", NEG),
+           (650, "C · формат даних у проді", POS)]
+    for lx, lbl, col in leg:
+        p.append(circle(lx, 50, 6, fill=col, stroke=col, sw=2))
+        p.append(text(lx + 12, 54, lbl, size=11, color=INK, anchor="start"))
+
+    rows = [
+        ("радіус вибуху — скільки залежить",      0.06, 0.85, 0.45),
+        ("жорсткість — чи є шов",                 0.05, 0.20, 0.35),
+        ("гравітація даних — накопичений стан",   0.02, 0.05, 0.95),
+        ("зовнішня обіцянка — видно чужим",       0.03, 0.05, 0.30),
+        ("затримка звороту — коли помітиш",       0.08, 0.22, 0.85),
+    ]
+    ys = [120, 175, 230, 285, 340]
+    tx0, tx1 = 270, 760
+
+    def X(f):
+        return tx0 + f * (tx1 - tx0)
+
+    for (lbl, a, b, c), y in zip(rows, ys):
+        p.append(text(250, y + 4, lbl, size=10.5, color=INK, anchor="end"))
+        p.append(line(tx0, y, tx1, y, color=MUTED, sw=1.2))
+        p.append(circle(X(a), y - 8, 5, fill=FIELD, stroke=FIELD, sw=1.5))
+        p.append(circle(X(b), y,     5, fill=NEG,   stroke=NEG,   sw=1.5))
+        p.append(circle(X(c), y + 8, 5, fill=POS,   stroke=POS,   sw=1.5))
+
+    p.append(text((tx0 + tx1) / 2, 372, "низька  ←  вартість осі  →  висока",
+                  size=10, color=MUTED))
+
+    # Σ смуга: сумарна вартість відкату (добуток), розмір ні до чого
+    p.append(text(60, 412, "сумарна вартість відкату:", size=11, bold=True, anchor="start"))
+    p.append(rect(270, 400, 16, 12, fill=FIELD, stroke=FIELD, sw=1, rx=2))
+    p.append(text(294, 410, "≈ 0 — двобічні", size=10, color=INK, anchor="start"))
+    p.append(rect(270, 420, 64, 12, fill=NEG, stroke=NEG, sw=1, rx=2))
+    p.append(text(342, 430, "мала — двобічні (хоча рішення велике)", size=10, color=INK, anchor="start"))
+    p.append(rect(270, 440, 300, 12, fill=POS, stroke=POS, sw=1, rx=2))
+    p.append(text(578, 450, "величезна — однобічні", size=10, color=INK, anchor="start"))
+
+    render(os.path.join(OUT, "anatomy.svg"), W, H, *p)
+
+
+# ── 6. Цінність зворотності: обрати ПІСЛЯ того, як дізнався ─────────────────────
+# Два рівноймовірні майбутні. Жорсткий вибір усереднено дає 6; гнучкий бере
+# найкраще в кожному світі — 9. Різниця 3 — грошова цінність зворотності.
+def fig_option():
+    W, H = 820, 440
+    p = []
+    p.append(text(W / 2, 24, "Чому зворотність коштує грошей: обрати ПІСЛЯ того, як дізнався — цінніше",
+                  size=13.5, bold=True))
+    p.append(text(W / 2, 44, "Два рівноймовірні майбутні (по ½); цінність рішення — умовні бали",
+                  size=10.5, color=MUTED))
+
+    base = 330
+    sc = 22  # px на бал
+
+    def bar(xc, v, col):
+        h = v * sc
+        return rect(xc - 27, base - h, 54, h, fill=col, stroke=col, sw=1, rx=3)
+
+    def outline(xc, v):
+        h = v * sc
+        return rect(xc - 27, base - h, 54, h, fill="none", stroke=INK, sw=3, rx=3)
+
+    # Панель L: попит низький — просте 9, масштабоване 3
+    p.append(text(210, 78, "майбутнє L: попит низький", size=11.5, bold=True))
+    p.append(bar(177, 9, NEG)); p.append(bar(241, 3, FIELD))
+    p.append(outline(177, 9))
+    p.append(text(177, base - 9 * sc - 8, "9", size=12, bold=True, color=NEG))
+    p.append(text(241, base - 3 * sc - 8, "3", size=12, bold=True, color=FIELD))
+    p.append(line(140, base, 282, base, color=INK, sw=1.5))
+    p.append(text(177, 348, "просте", size=9.5, color=INK))
+    p.append(text(241, 348, "масштаб.", size=9.5, color=INK))
+
+    # Панель H: попит зростає — просте 3, масштабоване 9
+    p.append(text(520, 78, "майбутнє H: попит зростає", size=11.5, bold=True))
+    p.append(bar(487, 3, NEG)); p.append(bar(551, 9, FIELD))
+    p.append(outline(551, 9))
+    p.append(text(487, base - 3 * sc - 8, "3", size=12, bold=True, color=NEG))
+    p.append(text(551, base - 9 * sc - 8, "9", size=12, bold=True, color=FIELD))
+    p.append(line(450, base, 590, base, color=INK, sw=1.5))
+    p.append(text(487, 348, "просте", size=9.5, color=INK))
+    p.append(text(551, 348, "масштаб.", size=9.5, color=INK))
+
+    # Панель підсумку
+    p.append(rect(620, 84, 190, 210, fill=FILL, stroke=MUTED, sw=1.4))
+    p.append(text(715, 108, "усереднено:", size=11, bold=True))
+    p.append(text(632, 136, "жорстко A:  (9+3)/2 = 6", size=10.5, color=INK, anchor="start"))
+    p.append(text(632, 162, "жорстко B:  (3+9)/2 = 6", size=10.5, color=INK, anchor="start"))
+    p.append(text(632, 188, "гнучко:     (9+9)/2 = 9", size=10.5, color=FIELD, bold=True, anchor="start"))
+    p.append(line(632, 206, 798, 206, color=MUTED, sw=1))
+    p.append(text(715, 232, "цінність зворотності", size=10.5, bold=True))
+    p.append(text(715, 256, "= 9 − 6 = 3", size=13, bold=True, color=FIELD))
+
+    p.append(text(W / 2, 380,
+                  "Жорсткий вибір мусить угадати наперед; гнучкий вирішує, коли туман розвіявся — різниця і є ціна зворотності.",
+                  size=10.5, italic=True, color=INK))
+    p.append(text(W / 2, 400, "Гнучкий бере вищий стовпчик у кожному майбутньому (обведено).",
+                  size=10, italic=True, color=MUTED))
+    render(os.path.join(OUT, "option-value.svg"), W, H, *p)
+
+
+# ── 7. Зворотність тане: двобічні двері тихо стають однобічними ─────────────────
+# Без нагляду зворотність спадає й перетинає поріг (тихе замкнення). Fitness-
+# функція ловить кожен витік на білді (храповик) і тримає двері широкими.
+def fig_erosion():
+    W, H = 820, 430
+    p = []
+    p.append(text(W / 2, 24, "Зворотність — актив, що тане: двобічні двері тихо стають однобічними",
+                  size=13.5, bold=True))
+
+    x0, x1 = 90, 710
+    thr = 210
+    # зони
+    p.append(rect(x0, 70, x1 - x0, thr - 70, fill="#eafaf1", stroke="#d5efe0", sw=1, rx=0))
+    p.append(rect(x0, thr, x1 - x0, 350 - thr, fill="#fdecea", stroke="#f6d7d2", sw=1, rx=0))
+    p.append(line(x0, thr, x1, thr, color=INK, sw=1.4, dash="6,4"))
+    p.append(text(716, 150, "двобічні", size=11, bold=True, color=FIELD, anchor="start"))
+    p.append(text(716, 285, "однобічні", size=11, bold=True, color=POS, anchor="start"))
+
+    # осі
+    p.append(line(x0, 350, x1, 350, color=INK, sw=1.5))
+    p.append(arrow(x1 - 4, 350, x1 + 8, 350, color=INK, sw=1.5))
+    p.append(line(x0, 350, x0, 70, color=INK, sw=1.5))
+    p.append(arrow(x0, 82, x0, 66, color=INK, sw=1.5))
+    p.append(text(706, 368, "час →", size=10.5, color=INK, anchor="end"))
+    p.append(text(96, 62, "зворотність", size=10.5, color=INK, anchor="start"))
+
+    # крива 1: тане
+    c1 = [(x0 + (x1 - x0) * (i / 24.0), 95 + 225 * (i / 24.0) ** 1.3) for i in range(25)]
+    p.append(poly(c1, color=POS, sw=2.6))
+    p.append(circle(460, thr, 5, fill=POS, stroke=POS, sw=1.5))
+    p.append(text(150, 300, "тихе замкнення", size=11, bold=True, color=POS, anchor="start"))
+    p.append(arrow(252, 294, 453, 216, color=INK, sw=1.5))
+
+    # крива 2: тримається (храповик)
+    c2 = [(90, 100), (175, 150), (175, 112), (300, 150), (300, 118),
+          (430, 152), (430, 120), (560, 154), (560, 122), (690, 150), (710, 132)]
+    p.append(poly(c2, color=FIELD, sw=2.4))
+
+    # легенда знизу
+    p.append(line(110, 392, 140, 392, color=POS, sw=3))
+    p.append(text(148, 396, "без нагляду — залежності наростають, шов протікає",
+                  size=10, color=INK, anchor="start"))
+    p.append(line(110, 412, 140, 412, color=FIELD, sw=3))
+    p.append(text(148, 416, "з fitness-функцією — витік ловить білд, двері тримаються",
+                  size=10, color=INK, anchor="start"))
+
+    render(os.path.join(OUT, "erosion.svg"), W, H, *p)
+
+
+# ── 8. Паралельна зміна: одна незворотна зміна = ланцюг зворотних кроків ──────
+# Для вставки proj-expand-contract.md. Три фази на часовій смузі; зелене — зворотні
+# кроки (стара й нова форми живі), червоне — єдиний незворотний крок (згорнути).
+def fig_phases():
+    W, H = 880, 500
+    p = []
+    p.append(text(W / 2, 26, "Одна незворотна зміна схеми = ланцюг окремо зворотних кроків", size=14, bold=True))
+    p.append(text(W / 2, 46, "розгорнути → мігрувати → згорнути; лише останній крок незворотний", size=10.5, color=MUTED))
+
+    x0, xA, xB, x1 = 185, 430, 650, 842
+
+    # Фонові плитки фаз: зелене — зворотні фази, червоне — незворотна.
+    p.append(rect(x0, 60, xA - x0 - 3, 356, fill="#eef9f1", stroke="#eef9f1", rx=4))
+    p.append(rect(xA, 60, xB - xA - 3, 356, fill="#eef9f1", stroke="#eef9f1", rx=4))
+    p.append(rect(xB, 60, x1 - xB, 356, fill="#fdf0ee", stroke="#fdf0ee", rx=4))
+
+    # Заголовки фаз
+    heads = [(x0, xA, "1 · РОЗГОРНУТИ", "expand", FIELD),
+             (xA, xB, "2 · МІГРУВАТИ", "migrate", FIELD),
+             (xB, x1, "3 · ЗГОРНУТИ", "contract", POS)]
+    for a, b, t, en, col in heads:
+        p.append(rect(a + 6, 66, b - a - 15, 30, fill="#ffffff", stroke=col, sw=1.5))
+        p.append(text((a + b) / 2, 78, t, size=12, bold=True, color=col))
+        p.append(text((a + b) / 2, 91, "(" + en + ")", size=9, color=MUTED))
+
+    # Лінія життя старої форми: жива в expand+migrate, гине в contract
+    yOld = 135
+    p.append(text(x0 - 14, yOld - 3, "стара форма", size=10.5, bold=True, anchor="end"))
+    p.append(text(x0 - 14, yOld + 12, "колонка total", size=9, color=MUTED, anchor="end"))
+    p.append(rect(x0, yOld - 12, xB - x0, 24, fill="#eef2fb", stroke=NEG, sw=1.6))
+    p.append(text((x0 + xB) / 2, yOld + 4, "жива — читати можна будь-коли", size=10, color=NEG))
+    p.append(text((xB + x1) / 2, yOld - 18, "прибрано: DROP COLUMN", size=9.5, bold=True, color=POS))
+    p.append(line(xB + 8, yOld, x1 - 6, yOld, color=MUTED, sw=1.2, dash="5,4"))
+
+    # Лінія життя нової форми: народжується в expand, лишається назавжди
+    yNew = 185
+    p.append(text(x0 - 14, yNew - 3, "нова форма", size=10.5, bold=True, anchor="end"))
+    p.append(text(x0 - 14, yNew + 12, "amount_minor", size=9, color=MUTED, anchor="end"))
+    p.append(rect(x0, yNew - 12, x1 - x0, 24, fill="#e7f7ee", stroke=FIELD, sw=1.6))
+    p.append(text((x0 + xB) / 2, yNew + 4, "додано (NULL) → заповнено → єдина", size=10, color=FIELD))
+
+    # Дужка перекриття
+    yb = 228
+    p.append(line(x0, yb, xB, yb, color=INK, sw=1.4))
+    p.append(line(x0, yb, x0, yb - 6, color=INK, sw=1.4))
+    p.append(line(xB, yb, xB, yb - 6, color=INK, sw=1.4))
+    p.append(text((x0 + xB) / 2, yb + 17, "інваріант: обидві форми дійсні одночасно", size=10.5, bold=True, color=INK))
+
+    # Стан читань/записів у кожній фазі
+    ys = 272
+    col_states = [
+        ((x0 + xA) / 2, ["писати в ОБИДВІ", "читати стару"]),
+        ((xA + xB) / 2, ["заднє заповнення пакетами", "читати обидві + звіряти", "перевести читання на нову"]),
+        ((xB + x1) / 2, ["читати/писати", "лише нову"]),
+    ]
+    for cx, lines in col_states:
+        for i, ln in enumerate(lines):
+            p.append(text(cx, ys + i * 15, ln, size=9.5, color=INK))
+
+    # Рядок відкату
+    yr = 366
+    p.append(text(x0 - 14, yr + 3, "відкіт кроку:", size=10.5, bold=True, anchor="end"))
+    cE, cM, cC = (x0 + xA) / 2, (xA + xB) / 2, (xB + x1) / 2
+    p.append(arrow(cE + 62, yr, cE - 62, yr, color=FIELD, sw=1.8))
+    p.append(text(cE, yr + 20, "прибрати нову колонку", size=9.5, color=FIELD, bold=True))
+    p.append(arrow(cM + 62, yr, cM - 62, yr, color=FIELD, sw=1.8))
+    p.append(text(cM, yr + 20, "читання назад на стару", size=9.5, color=FIELD, bold=True))
+    p.append(text(cC, yr - 4, "незворотно ⟶", size=10, color=POS, bold=True))
+    p.append(text(cC, yr + 20, "нове вже доведено", size=9.5, color=INK))
+
+    p.append(text(W / 2, H - 18,
+                  "Кожен крок відкотний окремо; система замикається лише на останньому — коли нове вже перевірене живими даними",
+                  size=10.5, italic=True, color=INK))
+    render(os.path.join(OUT, "phases.svg"), W, H, *p)
+
+
+# ── 9. Подвійний запис і подвійне читання зі звірянням ───────────────────────
+def fig_dual_rw():
+    W, H = 900, 450
+    p = []
+    p.append(text(W / 2, 26, "Подвійний запис і подвійне читання зі звірянням тримають інваріант", size=14, bold=True))
+    p.append(text(W / 2, 46, "поки живуть обидві форми: кожен запис оновлює дві, кожне читання їх звіряє", size=10.5, color=MUTED))
+
+    # ── ЛІВОРУЧ: подвійний запис ──
+    p.append(text(240, 84, "ПОДВІЙНИЙ ЗАПИС", size=12, bold=True, color=NEG))
+    b, _, _ = textbox(240, 122, "застосунок пише\nзамовлення", size=11, fill="#eef2fb", stroke=NEG, color=INK)
+    p.append(b)
+    b, _, _ = textbox(150, 250, "стара:\ntotal", size=10.5, fill="#eef2fb", stroke=NEG, bold=True)
+    p.append(b)
+    b, _, _ = textbox(340, 250, "нова:\namount_minor", size=10.5, fill="#e7f7ee", stroke=FIELD, bold=True)
+    p.append(b)
+    p.append(arrow(212, 146, 165, 226, color=INK, sw=1.7))
+    p.append(arrow(268, 146, 330, 226, color=INK, sw=1.7))
+    p.append(text(245, 302, "amount_minor = round(total · 100)", size=10, color=INK))
+    p.append(text(245, 324, "один запис торкає обидві — не розходяться", size=9.5, italic=True, color=MUTED))
+
+    # роздільник
+    p.append(line(455, 106, 455, 360, color=MUTED, sw=1, dash="4,4"))
+
+    # ── ПРАВОРУЧ: подвійне читання + звіряння ──
+    p.append(text(672, 84, "ПОДВІЙНЕ ЧИТАННЯ + ЗВІРЯННЯ", size=12, bold=True, color=FIELD))
+    b, _, _ = textbox(672, 122, "застосунок читає", size=11, fill=FILL, stroke=INK)
+    p.append(b)
+    b, _, _ = textbox(590, 188, "total", size=10.5, fill="#eef2fb", stroke=NEG)
+    p.append(b)
+    b, _, _ = textbox(758, 188, "amount_minor", size=10.5, fill="#e7f7ee", stroke=FIELD)
+    p.append(b)
+    p.append(arrow(648, 140, 600, 172, color=INK, sw=1.5))
+    p.append(arrow(700, 140, 752, 172, color=INK, sw=1.5))
+    b, _, _ = textbox(672, 256, "minor == round(total·100)?", size=10.5, fill=FILL, stroke=INK, bold=True)
+    p.append(b)
+    p.append(arrow(598, 204, 652, 242, color=INK, sw=1.5))
+    p.append(arrow(756, 204, 700, 242, color=INK, sw=1.5))
+    b, _, _ = textbox(586, 338, "збіг →\nвіддати нову", size=10, fill="#e7f7ee", stroke=FIELD)
+    p.append(b)
+    b, _, _ = textbox(782, 338, "розбіжність →\nтривога, стоп", size=10, fill="#fdecea", stroke=POS)
+    p.append(b)
+    p.append(arrow(650, 274, 600, 314, color=FIELD, sw=1.6))
+    p.append(arrow(694, 274, 764, 314, color=POS, sw=1.6))
+
+    p.append(text(W / 2, H - 16,
+                  "Звіряння робить із «сподіваюся, збігається» — «виміряно, що збігається»; саме воно дає право згортати",
+                  size=10.5, italic=True, color=INK))
+    render(os.path.join(OUT, "dual-rw.svg"), W, H, *p)
+
+
+# ── 10. Межа: доки вистачає паралельної зміни, а де потрібен strangler-fig ────
+def fig_scale():
+    W, H = 820, 320
+    p = []
+    p.append(text(W / 2, 26, "Доки вистачає паралельної зміни, а де потрібен strangler-fig", size=14, bold=True))
+    p.append(text(W / 2, 46, "той самий прийом — але масштаб однобічних дверей вирішує форму", size=10.5, color=MUTED))
+
+    axy = 150
+    ax0, ax1 = 80, 760
+    p.append(line(ax0, axy, ax1, axy, color=INK, sw=1.6))
+    p.append(arrow(ax1 - 2, axy, ax1 + 10, axy, color=INK, sw=1.6))
+
+    nodes = [(130, "колонка"), (275, "таблиця"), (415, "схема"),
+             (565, "контракт\nміж сервісами"), (712, "успадкований\nзастосунок")]
+    for x, lbl in nodes:
+        p.append(circle(x, axy, 6, fill=INK, stroke=INK, sw=1.5))
+        lines = lbl.split("\n")
+        base = axy - 16 - (len(lines) - 1) * 13
+        for i, ln in enumerate(lines):
+            p.append(text(x, base + i * 13, ln, size=10, color=INK, bold=True))
+
+    # межа власності / розгортання
+    thr = 490
+    p.append(line(thr, 96, thr, 210, color=POS, sw=1.4, dash="5,4"))
+    p.append(text(thr, 88, "межа власності / розгортання", size=9.5, color=POS, bold=True))
+
+    # дужки під віссю
+    def bracket(a, b, y, title, sub, col):
+        p.append(line(a, y, b, y, color=col, sw=1.6))
+        p.append(line(a, y, a, y - 6, color=col, sw=1.6))
+        p.append(line(b, y, b, y - 6, color=col, sw=1.6))
+        p.append(text((a + b) / 2, y + 17, title, size=10.5, bold=True, color=col))
+        p.append(text((a + b) / 2, y + 33, sub, size=9.5, color=MUTED))
+
+    bracket(ax0 + 10, thr - 8, 232, "паралельна зміна: expand → migrate → contract",
+            "один власник, одна БД — цього досить", FIELD)
+    bracket(thr + 8, ax1, 232, "потрібен strangler-fig",
+            "нове росте навколо старого за фасадом", POS)
+
+    render(os.path.join(OUT, "scale.svg"), W, H, *p)
+
+
+# ── 11. Премія = розрив Єнсена на опуклій функції виграшу (math-real-options) ───
+# Дві дії-прямі; їхній max — опукла галочка V(s). Хорда між крайніми станами лежить
+# на рівні E[V]; прогин обгортки в середній точці — V(E[s]). Розрив між ними = премія.
+def fig_jensen():
+    W, H = 840, 500
+    p = []
+    p.append(text(W / 2, 30, "Премія за зворотність = розрив Єнсена: E[V] мінус V(E[s])",
+                  size=13.5, bold=True))
+
+    xL, xR = 200, 690
+    yTop, yBot = 130, 380
+
+    def Y(v):                       # v ∈ [3,9] → координата
+        return yBot - (v - 3) / 6.0 * (yBot - yTop)
+
+    def X(s):                       # s ∈ [0,1] → координата
+        return xL + s * (xR - xL)
+
+    ax_y = yBot + 34
+    p.append(line(xL - 40, ax_y, xR + 22, ax_y, color=INK, sw=1.4))
+    p.append(arrow(xR + 12, ax_y, xR + 28, ax_y, color=INK, sw=1.4))
+    p.append(text(xR + 24, ax_y - 8, "стан s →", size=10.5, color=INK, anchor="end"))
+    p.append(line(xL - 40, ax_y, xL - 40, yTop - 12, color=INK, sw=1.4))
+    p.append(arrow(xL - 40, yTop, xL - 40, yTop - 18, color=INK, sw=1.4))
+    p.append(text(xL - 40, yTop - 24, "виграш V", size=10.5, color=INK, anchor="middle"))
+    for v in (3, 6, 9):
+        p.append(line(xL - 44, Y(v), xL - 40, Y(v), color=MUTED, sw=1))
+        p.append(text(xL - 48, Y(v) + 4, str(v), size=10, color=MUTED, anchor="end"))
+
+    p.append(line(X(0), Y(9), X(1), Y(3), color=NEG, sw=1.6, dash="5,4"))    # просте — спадає
+    p.append(line(X(0), Y(3), X(1), Y(9), color=FIELD, sw=1.6, dash="5,4"))  # масштабоване — зростає
+    p.append(text(X(0.17), Y(9 - 0.17 * 6) - 20, "дія «просте»", size=10.5, color=NEG, anchor="start"))
+    p.append(text(X(0.17), Y(3 + 0.17 * 6) + 22, "дія «масштабоване»", size=10.5, color=FIELD, anchor="start"))
+
+    p.append(poly([(X(0), Y(9)), (X(0.5), Y(6)), (X(1), Y(9))], color=INK, sw=3.2))
+
+    p.append(line(X(0), Y(9), X(1), Y(9), color=POS, sw=1.6, dash="2,3"))
+    p.append(text(X(0.80), Y(9) - 10, "хорда: E[V(s)] = 9", size=10.5, color=POS))
+
+    xm = X(0.5)
+    p.append(line(xm, Y(6), xm, Y(9), color=POS, sw=2.6))
+    p.append(circle(xm, Y(9), 4, fill=POS, stroke=POS, sw=1))
+    p.append(circle(xm, Y(6), 4, fill=INK, stroke=INK, sw=1))
+    p.append(circle(X(0), Y(9), 4, fill=INK, stroke=INK, sw=1))
+    p.append(circle(X(1), Y(9), 4, fill=INK, stroke=INK, sw=1))
+    p.append(text(xm + 8, Y(8.7), "Π = 9 − 6 = 3", size=11.5, color=POS, bold=True, anchor="start"))
+    p.append(text(xm + 8, Y(8.7) + 16, "= премія зворотності", size=9.5, color=POS, anchor="start"))
+
+    p.append(line(xm, Y(6) + 4, xm, Y(6) + 37, color=MUTED, sw=1))
+    p.append(text(xm, Y(6) + 52, "V(E[s]) = 6  (жорсткий вибір)", size=10.5, color=INK))
+
+    for s, lbl in [(0.0, "s_L (низький попит)"), (0.5, "E[s]"), (1.0, "s_H (високий попит)")]:
+        p.append(line(X(s), ax_y, X(s), ax_y + 5, color=INK, sw=1))
+        p.append(text(X(s), ax_y + 20, lbl, size=9.5, color=MUTED))
+
+    render(os.path.join(OUT, "jensen-gap.svg"), W, H, *p)
+
+
+# ── 12. Премія росте з дисперсією: обидві горбами тягнуться до p=½ ──────────────
+def fig_premium_variance():
+    W, H = 820, 440
+    p = []
+    p.append(text(W / 2, 30, "Премія за зворотність росте з невизначеністю — як і дисперсія стану",
+                  size=13.5, bold=True))
+
+    x0, x1 = 130, 700
+    yb, yt = 350, 110
+
+    def X(pp):
+        return x0 + pp * (x1 - x0)
+
+    def Y(val):                     # val ∈ [0,1], пік нормовано до 1
+        return yb - val * (yb - yt)
+
+    p.append(line(x0, yb, x1 + 16, yb, color=INK, sw=1.4))
+    p.append(arrow(x1 + 6, yb, x1 + 22, yb, color=INK, sw=1.4))
+    p.append(text(x1 + 18, yb + 20, "p →", size=10.5, color=INK, anchor="end"))
+    p.append(line(x0, yb, x0, yt - 6, color=INK, sw=1.4))
+    p.append(text(x0 - 4, yt - 8, "величина", size=10.5, color=INK, anchor="start"))
+    for pp, lbl in [(0.0, "0"), (0.5, "½"), (1.0, "1")]:
+        p.append(line(X(pp), yb, X(pp), yb + 5, color=INK, sw=1))
+        p.append(text(X(pp), yb + 20, lbl, size=10, color=MUTED))
+
+    p.append(poly([(X(0), Y(0)), (X(0.5), Y(1.0)), (X(1), Y(0))], color=FIELD, sw=3.0))
+    par = [(X(i / 40.0), Y(4 * (i / 40.0) * (1 - i / 40.0))) for i in range(41)]
+    p.append(poly(par, color=NEG, sw=2.4, dash="6,4"))
+
+    p.append(line(X(0.5), yb, X(0.5), Y(1.0), color=MUTED, sw=1, dash="3,3"))
+    p.append(text(X(0.5), Y(1.0) - 12, "p = ½: пік невизначеності — пік премії", size=10.5, color=INK))
+    p.append(text(X(0.03), yb - 12, "певність", size=9.5, color=MUTED, anchor="start"))
+    p.append(text(X(0.97), yb - 12, "певність", size=9.5, color=MUTED, anchor="end"))
+
+    p.append(line(160, 398, 194, 398, color=FIELD, sw=3))
+    p.append(text(202, 402, "премія гнучкості  ∝  min(p, 1 − p)", size=10.5, color=INK, anchor="start"))
+    p.append(line(160, 420, 194, 420, color=NEG, sw=3, dash="6,4"))
+    p.append(text(202, 424, "дисперсія стану  ∝  p · (1 − p)", size=10.5, color=INK, anchor="start"))
+
+    render(os.path.join(OUT, "premium-variance.svg"), W, H, *p)
+
+
+# ── 13. Правило 70% строго: перетин граничних кривих і повнота знання ───────────
+def fig_timing():
+    import math
+    W, H = 860, 500
+    p = []
+    p.append(text(W / 2, 28, "Правило 70%: чекай, доки цінність знання більша за ціну зволікання",
+                  size=13.5, bold=True))
+
+    x0, x1 = 120, 720
+    tMax, lam, k = 4.0, 1.0, 0.30
+
+    def X(t):
+        return x0 + (t / tMax) * (x1 - x0)
+
+    tstar = -math.log(k) / lam            # e^(−λt)=k → t*≈1.204
+    t90 = -math.log(0.1) / lam            # I=0.9 → t≈2.303
+
+    yb1, yt1 = 236, 92
+
+    def Y1(v):
+        return yb1 - v * (yb1 - yt1)
+
+    p.append(line(x0, yb1, x1 + 14, yb1, color=INK, sw=1.3))
+    p.append(arrow(x1 + 4, yb1, x1 + 20, yb1, color=INK, sw=1.3))
+    p.append(text(x1 + 16, yb1 + 18, "час →", size=10, color=INK, anchor="end"))
+    p.append(line(x0, yb1, x0, yt1 - 4, color=INK, sw=1.3))
+
+    mb = [(X(i * tMax / 60.0), Y1(math.exp(-lam * i * tMax / 60.0))) for i in range(61)]
+    p.append(poly(mb, color=FIELD, sw=2.6))
+    p.append(line(x0, Y1(k), x1, Y1(k), color=POS, sw=2.2))
+    p.append(line(X(tstar), yb1, X(tstar), Y1(k), color=MUTED, sw=1.2, dash="4,3"))
+    p.append(circle(X(tstar), Y1(k), 4.5, fill=INK, stroke=INK, sw=1))
+
+    p.append(text(X(tstar) - 46, 110, "ЧЕКАЙ", size=11, color=FIELD, bold=True, anchor="end"))
+    p.append(text(X(tstar) + 46, 110, "ВИРІШУЙ", size=11, color=POS, bold=True, anchor="start"))
+    p.append(text(430, 120, "гранична цінність очікування  ρ₀λ·e^(−λt)", size=10, color=FIELD, anchor="start"))
+    p.append(text(x1 - 4, Y1(k) - 8, "гранична ціна зволікання  k", size=10, color=POS, anchor="end"))
+    p.append(text(X(tstar), yb1 + 18, "t* — останній відповідальний момент", size=10, color=INK))
+
+    yb2, yt2 = 432, 300
+
+    def Y2(v):
+        return yb2 - v * (yb2 - yt2)
+
+    p.append(line(x0, yb2, x1 + 14, yb2, color=INK, sw=1.3))
+    p.append(arrow(x1 + 4, yb2, x1 + 20, yb2, color=INK, sw=1.3))
+    p.append(text(x1 + 16, yb2 + 18, "час →", size=10, color=INK, anchor="end"))
+    p.append(line(x0, yb2, x0, yt2 - 4, color=INK, sw=1.3))
+    p.append(text(x0 - 4, yt2 - 6, "повнота знання I(t)", size=10, color=INK, anchor="start"))
+
+    it = [(X(i * tMax / 60.0), Y2(1 - math.exp(-lam * i * tMax / 60.0))) for i in range(61)]
+    p.append(poly(it, color=NEG, sw=2.6))
+    p.append(line(x0, Y2(0.7), x1, Y2(0.7), color=MUTED, sw=1, dash="3,3"))
+    p.append(line(x0, Y2(0.9), x1, Y2(0.9), color=MUTED, sw=1, dash="3,3"))
+    p.append(text(x0 - 6, Y2(0.7) + 4, "70%", size=9.5, color=INK, anchor="end"))
+    p.append(text(x0 - 6, Y2(0.9) + 4, "90%", size=9.5, color=INK, anchor="end"))
+    p.append(line(X(tstar), yb2, X(tstar), Y2(0.7), color=MUTED, sw=1.2, dash="4,3"))
+    p.append(circle(X(tstar), Y2(0.7), 4.5, fill=NEG, stroke=NEG, sw=1))
+    p.append(line(X(t90), yb2, X(t90), Y2(0.9), color=MUTED, sw=1.2, dash="4,3"))
+    p.append(circle(X(t90), Y2(0.9), 4.5, fill=MUTED, stroke=MUTED, sw=1))
+    p.append(text(X(tstar) + 10, yt2 + 6, "t* дає ~70% знання", size=10, color=NEG, anchor="start"))
+    p.append(text(X(t90) + 10, Y2(0.9) - 10, "90% — дорогий плаский хвіст", size=10, color=MUTED, anchor="start"))
+
+    render(os.path.join(OUT, "waiting-time.svg"), W, H, *p)
+
+
 if __name__ == "__main__":
     fig_spectrum()
     fig_seam()
     fig_mistakes()
     fig_lineage()
+    fig_anatomy()
+    fig_option()
+    fig_erosion()
+    fig_phases()
+    fig_dual_rw()
+    fig_scale()
+    fig_jensen()
+    fig_premium_variance()
+    fig_timing()
     print("figs done")
