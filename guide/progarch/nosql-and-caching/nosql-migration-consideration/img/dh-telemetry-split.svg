@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1100" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="66.0" width="380.0" height="384.0" rx="6" fill="#fbfcfd" stroke="#333333" stroke-width="1.8"/>
+<text x="230.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна реляційна база — до</text>
+<rect x="66.0" y="112.0" width="328.0" height="62.0" rx="6" fill="#eef2f6" stroke="#333333" stroke-width="1.5"/><text x="230.0" y="139.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">ядро — домівки, люди,</tspan><tspan x="230.0" dy="16.2">пристрої, рахунки, правила</tspan></text>
+<rect x="66.0" y="190.0" width="328.0" height="210.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="230.0" y="278.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#7a231a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">телеметрія</tspan><tspan x="230.0" dy="22.1"></tspan><tspan x="230.0" dy="22.1">260 млрд рядків</tspan></text>
+<text x="230.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">одна таблиця душить решту</text>
+<line x1="430.0" y1="250.0" x2="522.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.6" marker-end="url(#arrow)"/>
+<text x="476.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">розділити</text>
+<rect x="560.0" y="78.0" width="500.0" height="150.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.8"/>
+<text x="810.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1c6b3a" text-anchor="middle" font-weight="700">Реляційна база (лишається)</text>
+<rect x="586.0" y="120.0" width="448.0" height="52.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="810.0" y="150.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">ядро — з'єднання + транзакції ACID</tspan></text>
+<text x="810.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1c6b3a" text-anchor="middle" font-style="italic">те, за що платимо, — тут потрібне</text>
+<rect x="560.0" y="258.0" width="500.0" height="178.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="810.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1c3a8a" text-anchor="middle" font-weight="700">Ширококолонкове сховище часових рядів (нове)</text>
+<rect x="586.0" y="300.0" width="448.0" height="62.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="810.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">телеметрія — дописуй ·</tspan><tspan x="810.0" dy="17.6">читай за вікном · видаляй за строком</tspan></text>
+<text x="810.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1c3a8a" text-anchor="middle" font-style="italic">нічого реляційного не треба; запис розкидається по вузлах</text>
+<line x1="522.0" y1="240.0" x2="560.0" y2="150.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="522.0" y1="262.0" x2="560.0" y2="330.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="210.0" y="486.0" width="680.0" height="46.0" rx="6" fill="#eef2f6" stroke="#333333" stroke-width="1.5"/><text x="550.0" y="514.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="550.0" dy="0.0">Поліглотне зберігання: мігрує ЗАДАЧА, а не компанія</tspan></text>
+</svg>

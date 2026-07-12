@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві частини — одне число</text>
+<rect x="110.0" y="120.0" width="675.0" height="76.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="447.5" y="153.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="447.5" dy="0.0">фізичний час  l</tspan><tspan x="447.5" dy="19.5">(старші 48 бітів)</tspan></text>
+<rect x="785.0" y="120.0" width="225.0" height="76.0" rx="6" fill="#fff8e6" stroke="#c0392b" stroke-width="1.5"/><text x="897.5" y="154.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="897.5" dy="0.0">c</tspan><tspan x="897.5" dy="16.9">16 біт</tspan></text>
+<text x="447.5" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">≈ мілісекунди настінного часу</text>
+<text x="897.5" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0 … 65535</text>
+<text x="110.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">біт 63</text>
+<text x="1010.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">біт 0</text>
+<text x="560.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">pack = (l ≪ 16) | c   →   одне 64-бітове число; порядок = звичайне порівняння uint64</text>
+<text x="560.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Пакування різне: MongoDB clusterTime — 32 + 32 біти; CockroachDB тримає wall (int64) і logical (int32) окремо.</text>
+</svg>

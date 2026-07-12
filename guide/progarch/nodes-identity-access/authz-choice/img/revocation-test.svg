@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 452" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="452" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тест поширення відкликання: вікно застарілості — TTL проти push-інвалідації</text>
+<line x1="150.0" y1="96.0" x2="908.0" y2="96.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="208.0" y1="90.0" x2="208.0" y2="102.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="208.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">t0 = 09:00</text>
+<text x="208.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">can()=true — тепло</text>
+<line x1="366.0" y1="90.0" x2="366.0" y2="102.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="366.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">revoke()</text>
+<text x="366.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">центр правди оновлено</text>
+<line x1="486.0" y1="90.0" x2="486.0" y2="102.0" stroke="#6b7280" stroke-width="1.6"/>
+<text x="486.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">+5 c</text>
+<text x="486.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">advance(5s)</text>
+<line x1="760.0" y1="90.0" x2="760.0" y2="102.0" stroke="#6b7280" stroke-width="1.6"/>
+<text x="760.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">+60 c</text>
+<text x="760.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">TTL сплив</text>
+<line x1="366.0" y1="96.0" x2="366.0" y2="386.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text x="142.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">лише TTL</text>
+<rect x="150.0" y="148.0" width="216.0" height="44.0" rx="5" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="366.0" y="148.0" width="394.0" height="44.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="760.0" y="148.0" width="148.0" height="44.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="258.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">allow ✓</text>
+<text x="563.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">can()=true ✗ ЗАСТАРІЛО</text>
+<text x="834.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">deny ✓</text>
+<text x="142.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">push на revoke</text>
+<rect x="150.0" y="298.0" width="216.0" height="44.0" rx="5" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="366.0" y="298.0" width="14.0" height="44.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="380.0" y="298.0" width="528.0" height="44.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="258.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">allow ✓</text>
+<text x="657.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">can()=false ✓ — deny ОДРАЗУ (вікно ≈ 0)</text>
+<text x="563.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">виключений гість ще відчиняє</text>
+<text x="500.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Той самий revoke: лише-TTL лишає дозвіл на весь TTL; подія на revoke стискає вікно до ≈0.</text>
+</svg>

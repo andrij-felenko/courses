@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три рантайми: що вони роблять із часом</text>
+<line x1="340.0" y1="48.0" x2="340.0" y2="442.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,5"/>
+<line x1="680.0" y1="48.0" x2="680.0" y2="442.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,5"/>
+<text x="170.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потоки + спільна пам'ять</text>
+<text x="510.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цикл подій</text>
+<text x="850.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Актори</text>
+<rect x="62.0" y="102.0" width="66.0" height="32.0" rx="6" fill="#eef2fb" stroke="#333333" stroke-width="1.5"/><text x="95.0" y="122.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="95.0" dy="0.0">потік</tspan></text>
+<rect x="137.0" y="102.0" width="66.0" height="32.0" rx="6" fill="#eef2fb" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="122.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">потік</tspan></text>
+<rect x="212.0" y="102.0" width="66.0" height="32.0" rx="6" fill="#eef2fb" stroke="#333333" stroke-width="1.5"/><text x="245.0" y="122.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">потік</tspan></text>
+<rect x="122.0" y="198.0" width="96.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="170.0" y="218.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">замок</tspan></text>
+<rect x="110.0" y="287.1" width="120.0" height="49.9" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="170.0" y="308.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">спільний</tspan><tspan x="170.0" dy="16.9">стан</tspan></text>
+<line x1="95.0" y1="137.0" x2="150.0" y2="196.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="170.0" y1="137.0" x2="170.0" y2="196.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="245.0" y1="137.0" x2="190.0" y2="196.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="170.0" y1="233.0" x2="170.0" y2="288.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="170.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">усі ядра одразу,</text>
+<text x="170.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">та замок ставить у чергу</text>
+<circle cx="468.0" cy="148.0" r="34.0" fill="#eef2fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="468.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1 потік</text>
+<text x="468.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">петля</text>
+<rect x="390.0" y="226.2" width="156.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="468.0" y="246.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="468.0" dy="0.0">черга готових</tspan><tspan x="468.0" dy="15.6">подій</tspan></text>
+<line x1="468.0" y1="184.0" x2="468.0" y2="224.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="569.0" y="89.0" width="66.0" height="30.0" rx="6" fill="#eef1f4" stroke="#6b7280" stroke-width="1.5"/><text x="602.0" y="107.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="602.0" dy="0.0">сокет</tspan></text>
+<rect x="569.0" y="122.0" width="66.0" height="30.0" rx="6" fill="#eef1f4" stroke="#6b7280" stroke-width="1.5"/><text x="602.0" y="140.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="602.0" dy="0.0">сокет</tspan></text>
+<rect x="569.0" y="155.0" width="66.0" height="30.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="602.0" y="173.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="602.0" dy="0.0">сокет</tspan></text>
+<rect x="569.0" y="188.0" width="66.0" height="30.0" rx="6" fill="#eef1f4" stroke="#6b7280" stroke-width="1.5"/><text x="602.0" y="206.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="602.0" dy="0.0">сокет</tspan></text>
+<rect x="569.0" y="221.0" width="66.0" height="30.0" rx="6" fill="#eef1f4" stroke="#6b7280" stroke-width="1.5"/><text x="602.0" y="239.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="602.0" dy="0.0">сокет</tspan></text>
+<text x="602.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">сплять</text>
+<line x1="569.0" y1="176.0" x2="548.0" y2="244.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="510.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">тисячі сплячих зʼєднань</text>
+<text x="510.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">дешево, але одне ядро</text>
+<rect x="741.0" y="105.3" width="98.0" height="45.3" rx="6" fill="#f3eefb" stroke="#7c4dbf" stroke-width="1.5"/><text x="790.0" y="124.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">стан</tspan><tspan x="790.0" dy="14.3">+ пошта</tspan></text>
+<rect x="861.0" y="105.3" width="98.0" height="45.3" rx="6" fill="#f3eefb" stroke="#7c4dbf" stroke-width="1.5"/><text x="910.0" y="124.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="910.0" dy="0.0">стан</tspan><tspan x="910.0" dy="14.3">+ пошта</tspan></text>
+<rect x="801.0" y="227.3" width="98.0" height="45.3" rx="6" fill="#f3eefb" stroke="#7c4dbf" stroke-width="1.5"/><text x="850.0" y="246.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">стан</tspan><tspan x="850.0" dy="14.3">+ пошта</tspan></text>
+<line x1="840.0" y1="128.0" x2="860.0" y2="128.0" stroke="#7c4dbf" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="152.0" x2="832.0" y2="224.0" stroke="#7c4dbf" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="900.0" y1="152.0" x2="868.0" y2="224.0" stroke="#7c4dbf" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="850.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c4dbf" text-anchor="middle">лист</text>
+<text x="850.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ізоляція + нагляд,</text>
+<text x="850.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">та копія повідомлення</text>
+</svg>

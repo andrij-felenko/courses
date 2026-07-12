@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 452" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="452" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сітка стереже СТАЛІСТЬ поведінки, а не її ПРАВИЛЬНІСТЬ</text>
+<line x1="470.0" y1="66.0" x2="470.0" y2="408.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="4 5"/>
+<text x="255.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">рефакторинг ЗМІНИВ поведінку</text>
+<rect x="115.0" y="118.0" width="280.0" height="56.0" rx="6" fill="#fbfcfd" stroke="#1a1a1a" stroke-width="1.8"/><text x="255.0" y="150.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">код: інші кишки</tspan></text>
+<rect x="115.0" y="210.0" width="280.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="255.0" y="240.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">вихід: було 42 → стало 37</tspan></text>
+<line x1="255.0" y1="262.0" x2="255.0" y2="298.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="115.0" y="300.0" width="280.0" height="56.0" rx="6" fill="#eef2f6" stroke="#2457d6" stroke-width="1.5"/><text x="255.0" y="332.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">золоте значення: 42</tspan></text>
+<text x="255.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">СІТКА ЧЕРВОНА — зміну спіймано</text>
+<text x="685.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">поведінка від початку НЕПРАВИЛЬНА</text>
+<rect x="545.0" y="118.0" width="280.0" height="56.0" rx="6" fill="#fbfcfd" stroke="#1a1a1a" stroke-width="1.8"/><text x="685.0" y="150.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">код: той самий баг</tspan></text>
+<rect x="545.0" y="210.0" width="280.0" height="52.0" rx="6" fill="#fff6e6" stroke="#e08a1e" stroke-width="1.5"/><text x="685.0" y="240.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">вихід: 42 = 42, хоч це БАГ</tspan></text>
+<line x1="685.0" y1="262.0" x2="685.0" y2="298.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="545.0" y="300.0" width="280.0" height="56.0" rx="6" fill="#eef2f6" stroke="#2457d6" stroke-width="1.5"/><text x="685.0" y="332.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">золоте значення: 42</tspan></text>
+<text x="685.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">СІТКА ЗЕЛЕНА — баг пришпилено теж</text>
+</svg>

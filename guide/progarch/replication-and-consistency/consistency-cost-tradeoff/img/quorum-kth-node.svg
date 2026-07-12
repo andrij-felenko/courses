@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кворум чекає на k-й найближчий вузол: затримка = 2-й підтверджувач</text>
+<rect x="300.0" y="96.0" width="306.0" height="284.0" rx="0" fill="#fdf0ee" stroke="none" stroke-width="0.0"/>
+<text x="453.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">операція заблокована — кворуму k=2 ще нема</text>
+<text x="300.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">усі 3 запити летять паралельно з t=0</text>
+<line x1="300.0" y1="380.0" x2="943.0" y2="380.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="380.0" x2="300.0" y2="386.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="300.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="470.0" y1="380.0" x2="470.0" y2="386.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="470.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">50</text>
+<line x1="640.0" y1="380.0" x2="640.0" y2="386.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="640.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">100</text>
+<line x1="810.0" y1="380.0" x2="810.0" y2="386.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="810.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">150</text>
+<text x="937.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">мс</text>
+<text x="286.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Франкфурт (локальна)</text>
+<line x1="300.0" y1="175.0" x2="303.4" y2="175.0" stroke="#2457d6" stroke-width="2.6"/>
+<circle cx="303.4" cy="175.0" r="6.0" fill="#2457d6"/>
+<text x="315.4" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">1-й: ~1 мс</text>
+<text x="286.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Вірджинія (2-й найближчий)</text>
+<line x1="300.0" y1="235.0" x2="606.0" y2="235.0" stroke="#c0392b" stroke-width="2.6"/>
+<circle cx="606.0" cy="235.0" r="6.0" fill="#c0392b"/>
+<text x="618.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">2-й: ~90 мс — набрано k=2</text>
+<text x="286.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Сінгапур (3-й)</text>
+<line x1="300.0" y1="295.0" x2="878.0" y2="295.0" stroke="#6b7280" stroke-width="2.6"/>
+<circle cx="878.0" cy="295.0" r="6.0" fill="#6b7280"/>
+<text x="890.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">3-й: ~170 мс (не чекаємо)</text>
+<line x1="606.0" y1="150.0" x2="606.0" y2="380.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6,5"/>
+<rect x="622.0" y="150.0" width="250.0" height="54.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="747.0" y="166.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="747.0" dy="0.0">кворум k=2 виконано</tspan><tspan x="747.0" dy="14.3">→ відповідь на 90 мс</tspan><tspan x="747.0" dy="14.3">(локальний 1 мс не врятував)</tspan></text>
+</svg>

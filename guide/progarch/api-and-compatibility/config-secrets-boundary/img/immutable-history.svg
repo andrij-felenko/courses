@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому git rm не рятує: історію не переписати</text>
+<text x="530.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">«Прибрати» — це додати НОВИЙ коміт (C4); старий (C2) нікуди не зникає.</text>
+<line x1="180.0" y1="170.0" x2="350.0" y2="170.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="170.0" x2="580.0" y2="170.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="640.0" y1="170.0" x2="810.0" y2="170.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="150.0" cy="170.0" r="30.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.6"/>
+<text x="150.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">C1</text>
+<text x="150.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">початок</text>
+<circle cx="380.0" cy="170.0" r="30.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.6"/>
+<text x="380.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">C2</text>
+<text x="380.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">секрет!</text>
+<circle cx="610.0" cy="170.0" r="30.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.6"/>
+<text x="610.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">C3</text>
+<text x="610.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">…</text>
+<circle cx="840.0" cy="170.0" r="30.0" fill="#eef7f0" stroke="#27ae60" stroke-width="2.6"/>
+<text x="840.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">C4</text>
+<text x="840.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">git rm</text>
+<rect x="795.8" y="79.0" width="88.4" height="32.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="840.0" y="99.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">гілка main</tspan></text>
+<line x1="840.0" y1="111.0" x2="840.0" y2="138.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="153.7" y="326.2" width="122.6" height="47.6" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="215.0" y="346.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">досяжний за SHA</tspan><tspan x="215.0" dy="15.6">(a1b2c3…)</tspan></text>
+<line x1="215.0" y1="326.2" x2="350.3" y2="204.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="359.2" y="326.2" width="81.6" height="47.6" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="400.0" y="346.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">у кожному</tspan><tspan x="400.0" dy="15.6">форку</tspan></text>
+<line x1="400.0" y1="326.2" x2="383.6" y2="204.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="540.8" y="326.2" width="88.4" height="47.6" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="585.0" y="346.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">у лозі</tspan><tspan x="585.0" dy="15.6">GH Archive</tspan></text>
+<line x1="585.0" y1="326.2" x2="416.9" y2="204.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="530.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Секрет у C2 лишається живим — за SHA, у форках, у вічному журналі подій.</text>
+<text x="530.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">git rm / rebase / force-push воюють із рядком; шкода вже на іншому рівні.</text>
+</svg>

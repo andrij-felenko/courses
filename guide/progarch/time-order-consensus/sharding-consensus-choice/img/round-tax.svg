@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="680" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Податок раундів: локальна операція проти рішення консенсусом</text>
+<text x="600.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ціна однієї операції на спільній осі часу (RTT у ДЦ ≈ 1 мс)</text>
+<line x1="150.0" y1="250.0" x2="1000.0" y2="250.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="150.0" y1="246.0" x2="150.0" y2="254.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="150.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="400.0" y1="246.0" x2="400.0" y2="254.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="400.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1 мс</text>
+<line x1="650.0" y1="246.0" x2="650.0" y2="254.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="650.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2 мс</text>
+<line x1="900.0" y1="246.0" x2="900.0" y2="254.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="900.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">3 мс</text>
+<text x="150.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Щабель 0 · локальна операція</text>
+<rect x="150.0" y="120.0" width="50.0" height="28.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="214.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">≈ 0.2 мс · 0 мережевих раундів</text>
+<line x1="200.0" y1="148.0" x2="200.0" y2="172.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,5"/>
+<line x1="200.0" y1="190.0" x2="200.0" y2="196.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,5"/>
+<text x="150.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Щабель 2 · рішення консенсусом</text>
+<rect x="150.0" y="196.0" width="125.0" height="28.0" rx="6" fill="#fff8ec" stroke="#c9922e" stroke-width="1.6"/>
+<rect x="275.0" y="196.0" width="250.0" height="28.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="525.0" y="196.0" width="225.0" height="28.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="750.0" y1="224.0" x2="750.0" y2="250.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="3,4"/>
+<text x="760.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">≈ кілька мс</text>
+<text x="212.5" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">fsync лідера</text>
+<text x="400.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">1 RTT до живої більшості</text>
+<text x="637.5" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">коміт</text>
+<text x="600.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">Локальна операція фінішує там, де консенсус лише починає роздавати пропозицію.</text>
+<line x1="120.0" y1="330.0" x2="1080.0" y2="330.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,6"/>
+<text x="600.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому додати вузлів не робить консенсус швидшим</text>
+<text x="178.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">N=3</text>
+<circle cx="250.0" cy="418.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="250.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L</text>
+<circle cx="308.0" cy="418.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="366.0" cy="418.0" r="15.0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="337.0" y1="388.0" x2="337.0" y2="448.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<text x="772.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">кворум 2 · чекає 1 акк</text>
+<text x="178.0" y="504.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">N=5</text>
+<circle cx="250.0" cy="500.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="250.0" y="504.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L</text>
+<circle cx="308.0" cy="500.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="366.0" cy="500.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="424.0" cy="500.0" r="15.0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="482.0" cy="500.0" r="15.0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="395.0" y1="470.0" x2="395.0" y2="530.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<text x="772.0" y="504.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">кворум 3 · чекає 2 акки</text>
+<text x="178.0" y="586.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">N=7</text>
+<circle cx="250.0" cy="582.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="250.0" y="586.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L</text>
+<circle cx="308.0" cy="582.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="366.0" cy="582.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="424.0" cy="582.0" r="15.0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="482.0" cy="582.0" r="15.0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="540.0" cy="582.0" r="15.0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="598.0" cy="582.0" r="15.0" fill="#eef1f4" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="453.0" y1="552.0" x2="453.0" y2="612.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<text x="772.0" y="586.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">кворум 4 · чекає 3 акки</text>
+<text x="337.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">поріг: останній потрібний акк</text>
+<line x1="337.0" y1="448.0" x2="453.0" y2="552.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="600.0" y="646.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">Кворум = ⌊N/2⌋+1: більше вузлів → більший кворум → останній потрібний акк лише пізніше. +Вузли = витривалість, не швидкість; лідер із логом лишається один.</text>
+</svg>

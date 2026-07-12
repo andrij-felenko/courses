@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1240" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервісний сторож: три перевірки, будь-яка валить збірку</text>
+<rect x="40.0" y="208.0" width="250.0" height="134.0" rx="6" fill="#fbf1e0" stroke="#c77d0a" stroke-width="2.4"/>
+<text x="165.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">topology</tspan><tspan x="165.0" dy="18.1">(розгортання + шви)</tspan><tspan x="165.0" dy="18.1">+ сканер коду сервісів</tspan></text>
+<rect x="470.0" y="72.0" width="384.0" height="100.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="672.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 · ребро поза мапою</text>
+<text x="672.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">video → core</text>
+<text x="506.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="23" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<line x1="292.0" y1="275.0" x2="466.0" y2="122.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="856.0" y1="122.0" x2="1000.0" y2="275.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="470.0" y="235.0" width="384.0" height="100.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="672.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2 · чужа база</text>
+<text x="672.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">gateway → telemetry_db</text>
+<text x="506.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="23" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<line x1="292.0" y1="275.0" x2="466.0" y2="285.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="856.0" y1="285.0" x2="1000.0" y2="275.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="470.0" y="398.0" width="384.0" height="100.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="672.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3 · async-шов + синхронний виклик</text>
+<text x="672.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">core → telemetry</text>
+<text x="506.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="23" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<line x1="292.0" y1="275.0" x2="466.0" y2="448.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="856.0" y1="448.0" x2="1000.0" y2="275.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="1002.0" y="203.0" width="212.0" height="144.0" rx="6" fill="#c0392b" stroke="#c0392b" stroke-width="2.0"/>
+<text x="1108.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700"><tspan x="1108.0" dy="0.0">ЗБІРКА ЧЕРВОНА</tspan><tspan x="1108.0" dy="19.5">exit 1</tspan><tspan x="1108.0" dy="19.5">merge заблоковано</tspan></text>
+<line x1="470.0" y1="532.0" x2="856.0" y2="532.0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="663.0" y="526.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">жодного ✗  →  топологія DH тримається</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 640" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="640" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Беззбитковість: коли pull дорожчає за push</text>
+<rect x="180.0" y="120.0" width="307.8" height="425.0" rx="0" fill="#eef7f0" stroke="#ffffff" stroke-width="0.0"/>
+<rect x="487.8" y="120.0" width="547.2" height="425.0" rx="0" fill="#eef2fc" stroke="#ffffff" stroke-width="0.0"/>
+<line x1="180.0" y1="545.0" x2="1035.0" y2="545.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="180.0" y1="545.0" x2="180.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="607.5" y="585.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">частота змін E (подій/с на спостерігача)</text>
+<text x="186.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">вартість / с  (одиниці)</text>
+<path d="M 180.0 403.3 L 1035.0 403.3" fill="none" stroke="#2457d6" stroke-width="2.8"/>
+<text x="864.0" y="391.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ПОЛЛІНГ: f·q — не залежить від E</text>
+<path d="M 180.0 530.8 L 1035.0 176.7" fill="none" stroke="#c0392b" stroke-width="2.8"/>
+<text x="693.0" y="338.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">PUSH: i + E·d</text>
+<line x1="487.8" y1="545.0" x2="487.8" y2="403.3" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="5,5"/>
+<circle cx="487.8" cy="403.3" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="487.8" y="387.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">E* ≈ f·(q/d)</text>
+<text x="308.2" y="233.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="308.2" dy="0.0">push дешевший</tspan><tspan x="308.2" dy="15.6">→ ВЕБХУК</tspan></text>
+<text x="804.1" y="176.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="804.1" dy="0.0">поллінг дешевший</tspan><tspan x="804.1" dy="15.6">(коалесує) → ПОЛЛІНГ</tspan></text>
+<circle cx="200.5" cy="522.3" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="231.3" y="332.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start"><tspan x="231.3" dy="0.0">DH прошивка: ~1 подія</tspan><tspan x="231.3" dy="13.0">на ~18 опитувань —</tspan><tspan x="231.3" dy="13.0">глибоко в зоні push</tspan></text>
+</svg>

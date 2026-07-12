@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Подія на кожному переході — контексти реагують, не лізучи в пристрій</text>
+<rect x="380.0" y="118.0" width="210.0" height="184.0" rx="6" fill="#fbfbfc" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="485.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">шина подій</text>
+<text x="485.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">DeviceCommissioned</text>
+<text x="485.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">DeviceWentOffline</text>
+<text x="485.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">DeviceReconnected</text>
+<text x="485.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">DeviceRetired</text>
+<line x1="226.0" y1="210.0" x2="374.0" y2="210.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="300.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">записує й публікує</text>
+<line x1="596.0" y1="190.0" x2="741.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="686.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Commissioned</text>
+<line x1="596.0" y1="236.0" x2="741.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="686.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Retired</text>
+<rect x="60.0" y="183.9" width="160.0" height="52.2" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="140.0" y="205.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Пристрій</tspan><tspan x="140.0" dy="18.2">(агрегат стану)</tspan></text>
+<rect x="747.0" y="107.0" width="210.0" height="49.9" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/><text x="852.0" y="128.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="852.0" dy="0.0">Білінг</tspan><tspan x="852.0" dy="16.9">рахує від Commissioned</tspan></text>
+<rect x="747.0" y="275.1" width="210.0" height="49.9" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/><text x="852.0" y="296.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="852.0" dy="0.0">Телеметрія</tspan><tspan x="852.0" dy="16.9">спиняє прийом від Retired</tspan></text>
+<text x="500.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">інші контексти РЕАГУЮТЬ на події; стрілки лише від пристрою — досередини не веде жодна</text>
+</svg>

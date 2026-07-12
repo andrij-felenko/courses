@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кеш членства: вікно застарілості на відкликанні = TTL, поки подія його не стисне</text>
+<text x="70.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">стратегія A — лише TTL</text>
+<text x="495.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">виключений ВСЕ ЩЕ відчиняє — вікно = TTL</text>
+<rect x="300.0" y="136.0" width="390.0" height="28.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="70.0" y1="150.0" x2="890.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="860.0" y1="150.0" x2="892.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="100.0" x2="300.0" y2="215.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 4"/>
+<line x1="690.0" y1="100.0" x2="690.0" y2="215.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="792.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">→ deny ✓</text>
+<text x="300.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">t0: мешканця виключено</text>
+<text x="690.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">t0 + TTL: кеш протух</text>
+<text x="70.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">стратегія B — інвалідація на подію revoke</text>
+<text x="600.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">вікно ≈ 0 — виключений одразу не відчиняє ✓</text>
+<rect x="288.0" y="366.0" width="24.0" height="28.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="70.0" y1="380.0" x2="890.0" y2="380.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="860.0" y1="380.0" x2="892.0" y2="380.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="330.0" x2="300.0" y2="405.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="300.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">t0: подія revoke → кеш викинуто</text>
+<text x="480.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="480.0" dy="0.0">Застарілість на боці ВІДКЛИКАННЯ небезпечніша за застарілість на боці видачі:</tspan><tspan x="480.0" dy="14.3">виключений, що ще відчиняє, — це вже діра; тому revoke чистить кеш подією, не TTL.</tspan></text>
+</svg>

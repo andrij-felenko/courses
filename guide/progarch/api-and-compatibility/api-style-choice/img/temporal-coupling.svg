@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зв'язок у часі</text>
+<text x="490.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронно — REST / gRPC / GraphQL</text>
+<rect x="166.1" y="118.0" width="67.9" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="200.0" y="139.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">клієнт</tspan></text>
+<rect x="746.1" y="118.0" width="67.9" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="780.0" y="139.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">сервер</tspan></text>
+<line x1="238.0" y1="124.0" x2="722.0" y2="124.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="490.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">запит →</text>
+<line x1="722.0" y1="146.0" x2="238.0" y2="146.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="490.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">← відповідь</text>
+<text x="490.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">обидва боки живі в один момент; клієнт блокований, поки чекає</text>
+<line x1="70.0" y1="224.0" x2="910.0" y2="224.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,6"/>
+<text x="490.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асинхронно — черга / брокер (MQTT)</text>
+<rect x="135.4" y="303.5" width="79.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="324.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">продюсер</tspan></text>
+<rect x="454.1" y="295.1" width="71.9" height="49.9" rx="6" fill="#eef7f0" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="316.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">брокер</tspan><tspan x="490.0" dy="16.9">(черга)</tspan></text>
+<rect x="770.4" y="303.5" width="79.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="810.0" y="324.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">споживач</tspan></text>
+<line x1="219.0" y1="320.0" x2="449.0" y2="320.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="334.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">поклав і пішов</text>
+<line x1="531.0" y1="320.0" x2="765.0" y2="320.0" stroke="#6b7280" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="648.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">забрав пізніше</text>
+<text x="490.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">у часі роз'єднані: брокер тримає, поки споживач готовий</text>
+</svg>

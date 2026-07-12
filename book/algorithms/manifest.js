@@ -40,6 +40,7 @@
         { slug: "lsm-tree", title: "B-tree vs LSM-tree / log-structured", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "consistent-hashing", title: "Консистентне хешування", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "merkle-tree", title: "Дерево Меркла", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "bloom-filter", title: "Фільтр Блума", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "graph-algorithms", title: "Графові", scope: "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.",
       topics: [
@@ -300,6 +301,7 @@
         { slug: "consensus-problem", title: "Задача консенсусу і чому вона важка (FLP оглядово); коли потрібен консенсус, а коли ні (дорого)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "raft", title: "Raft", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "two-phase-commit", title: "Двофазний коміт і його страх", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "crdt", title: "Безконфліктні типи даних (CRDT)", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
   ]
 });

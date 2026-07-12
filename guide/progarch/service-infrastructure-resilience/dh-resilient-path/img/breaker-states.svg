@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три стани запобіжника</text>
+<line x1="302.7" y1="178.0" x2="427.1" y2="178.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="375.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">N відмов поспіль</text>
+<line x1="692.9" y1="178.0" x2="819.0" y2="178.0" stroke="#c77800" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="745.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c77800" text-anchor="middle" font-weight="700">минув час охолодження</text>
+<text x="560.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">пробний ✓  →  назад у ЗАКРИТИЙ</text>
+<line x1="930.0" y1="146.0" x2="930.0" y2="108.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="930.0" y1="108.0" x2="190.0" y2="108.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="190.0" y1="108.0" x2="190.0" y2="146.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="745.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">пробний ✗  →  знову ВІДКРИТИЙ</text>
+<line x1="930.0" y1="234.0" x2="930.0" y2="300.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="930.0" y1="300.0" x2="560.0" y2="300.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="560.0" y1="300.0" x2="560.0" y2="234.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="83.3" y="165.1" width="213.4" height="49.9" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.2"/><text x="190.0" y="186.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">ЗАКРИТИЙ</tspan><tspan x="190.0" dy="16.9">викликає, лічить відмови</tspan></text>
+<rect x="433.1" y="165.1" width="253.7" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/><text x="560.0" y="186.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">ВІДКРИТИЙ</tspan><tspan x="560.0" dy="16.9">не викликає — миттєвий фолбек</tspan></text>
+<rect x="825.0" y="165.1" width="210.0" height="49.9" rx="6" fill="#fff4e0" stroke="#c77800" stroke-width="2.2"/><text x="930.0" y="186.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c77800" text-anchor="middle" font-weight="700"><tspan x="930.0" dy="0.0">НАПІВВІДКРИТИЙ</tspan><tspan x="930.0" dy="16.9">пропускає ОДИН пробний</tspan></text>
+<text x="560.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Відкритий запобіжник дає вмирущому сервісу відхекатися, а викличнику — не марнувати таймаут на кожен виклик.</text>
+</svg>

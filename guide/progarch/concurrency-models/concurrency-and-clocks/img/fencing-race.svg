@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="95.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">робітник А</text>
+<line x1="110.0" y1="150.0" x2="720.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<text x="95.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">робітник Б</text>
+<line x1="110.0" y1="330.0" x2="720.0" y2="330.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="175.0" cy="150.0" r="7.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="175.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">бере лізу · жетон 33</text>
+<rect x="215.0" y="94.0" width="250.0" height="32.0" rx="6" fill="#fdf3e7" stroke="#e08a3c" stroke-width="1.5"/>
+<text x="340.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e08a3c" text-anchor="middle">пауза GC (stop-the-world)</text>
+<line x1="430.0" y1="166.0" x2="430.0" y2="205.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="430.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">ліза збігла</text>
+<circle cx="560.0" cy="150.0" r="7.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="560.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">прокинувся · write(33)</text>
+<line x1="568.0" y1="150.0" x2="568.0" y2="208.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="568.0" y1="208.0" x2="748.0" y2="208.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="658.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">33 &lt; 34  ✗ відкинуто</text>
+<circle cx="300.0" cy="330.0" r="7.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="300.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">бере лізу · жетон 34</text>
+<circle cx="470.0" cy="330.0" r="7.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="470.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">write(34)</text>
+<line x1="478.0" y1="330.0" x2="478.0" y2="258.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="478.0" y1="258.0" x2="748.0" y2="258.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="613.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">34  ✓ прийнято</text>
+<rect x="753.0" y="184.0" width="194.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="850.0" y="219.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">СХОВИЩЕ</tspan><tspan x="850.0" dy="16.9">бачений максимум</tspan><tspan x="850.0" dy="16.9">жетон = 34</tspan></text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одне джерело топології — сторож і картинка з тих самих даних</text>
+<rect x="100.0" y="180.0" width="300.0" height="240.0" rx="6" fill="#fbf1e0" stroke="#c77d0a" stroke-width="2.6"/>
+<text x="250.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c77d0a" text-anchor="middle" font-weight="700">topology</text>
+<text x="250.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">одне джерело правди</text>
+<text x="250.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">9 розгортань + свої бази</text>
+<text x="250.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">кожен шов + СТИЛЬ</text>
+<text x="250.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">async-шви + топіки</text>
+<text x="250.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c77d0a" text-anchor="middle" font-style="italic">(стиль — поле в даних)</text>
+<rect x="727.0" y="88.0" width="356.0" height="160.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/>
+<text x="905.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">СТОРОЖ — валить збірку</text>
+<text x="905.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">✗  ребро поза мапою</text>
+<text x="905.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">✗  чужа база (не своя)</text>
+<text x="905.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">✗  async-шов + синхронний виклик</text>
+<text x="905.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">exit 1 → merge заблоковано</text>
+<rect x="727.0" y="358.0" width="356.0" height="160.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="905.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">SVG-топологія</text>
+<line x1="753.0" y1="416.0" x2="801.0" y2="416.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="813.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">суцільна = синхронно</text>
+<line x1="753.0" y1="450.0" x2="801.0" y2="450.0" stroke="#1a1a1a" stroke-width="2.0" stroke-dasharray="7,6"/>
+<text x="813.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">пунктир = асинхронно</text>
+<text x="905.0" y="498.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">дах стрілки — зі СТИЛЮ в даних</text>
+<line x1="402.0" y1="254.0" x2="723.0" y2="194.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="566.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">стереже</text>
+<line x1="402.0" y1="346.0" x2="723.0" y2="412.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="566.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">малює</text>
+<text x="600.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="600.0" dy="0.0">Зміниш стиль шва в даних — зрушаться обоє: і пунктир на картинці, і вимога сторожа.</tspan><tspan x="600.0" dy="16.2">Розійтися нема куди ні наявності стрілки, ні її стилю.</tspan></text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка зміни змісту: тип той самий, сенс різний</text>
+<rect x="381.7" y="64.8" width="216.6" height="54.5" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.8"/><text x="490.0" y="87.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">{ &quot;at&quot;: 1719003600000 }</tspan><tspan x="490.0" dy="19.5">тип: number</tspan></text>
+<text x="490.0" y="139.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">однакове для обох</text>
+<line x1="445.0" y1="119.2" x2="255.0" y2="206.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="535.0" y1="119.2" x2="725.0" y2="206.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="70.0" y="210.0" width="330.0" height="176.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="235.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Старий клієнт</text>
+<text x="235.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">намір: СЕКУНДИ</text>
+<rect x="95.0" y="278.0" width="280.0" height="30.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="235.0" y="297.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">new Date(at * 1000)</tspan></text>
+<text x="235.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">→ рік 56443</text>
+<text x="235.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">виняток НЕ кинуто</text>
+<rect x="580.0" y="210.0" width="330.0" height="176.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="745.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Новий клієнт</text>
+<text x="745.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">намір: мілісекунди</text>
+<rect x="605.0" y="278.0" width="280.0" height="30.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="745.0" y="297.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="745.0" dy="0.0">new Date(at)</tspan></text>
+<text x="745.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">→ 2024-06-21</text>
+<text x="745.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">правильно</text>
+<rect x="70.0" y="406.0" width="840.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="490.0" y="425.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Тип обох боків — number: ані компілятор, ані схема нічого не позначать.</tspan><tspan x="490.0" dy="16.9">Різниця лише в НАМІРІ (секунди чи мілісекунди), якого в типі не видно.</tspan></text>
+</svg>

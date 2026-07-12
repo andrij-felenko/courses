@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кеш — повзунок ефективної ціни між живим читанням і матеріалізацією</text>
+<rect x="244.0" y="110.0" width="470.0" height="116.7" rx="6" fill="#fff2cc" stroke="#fff2cc" stroke-width="0.0"/>
+<line x1="250.0" y1="84.0" x2="250.0" y2="486.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="234.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700"><tspan x="234.0" dy="0.0">ефективна</tspan><tspan x="234.0" dy="15.6">ціна одного</tspan><tspan x="234.0" dy="15.6">читання (log)</tspan></text>
+<text x="234.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">дешевше ↓</text>
+<line x1="250.0" y1="110.0" x2="290.0" y2="110.0" stroke="#c0392b" stroke-width="3.0"/>
+<circle cx="250.0" cy="110.0" r="5.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.4"/>
+<text x="302.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">LIVE  ·  h = 0</text>
+<text x="302.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ефективна ціна = C_r  — повний перерахунок щоразу</text>
+<line x1="250.0" y1="145.1" x2="290.0" y2="145.1" stroke="#c9a93b" stroke-width="3.0"/>
+<circle cx="250.0" cy="145.1" r="5.0" fill="#ffffff" stroke="#c9a93b" stroke-width="2.4"/>
+<text x="302.0" y="141.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c9a93b" text-anchor="start" font-weight="700">кеш  h = 0.5</text>
+<text x="302.0" y="159.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">→ 0.5 · C_r</text>
+<line x1="250.0" y1="226.7" x2="290.0" y2="226.7" stroke="#c9a93b" stroke-width="3.0"/>
+<circle cx="250.0" cy="226.7" r="5.0" fill="#ffffff" stroke="#c9a93b" stroke-width="2.4"/>
+<text x="302.0" y="222.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c9a93b" text-anchor="start" font-weight="700">кеш  h = 0.9</text>
+<text x="302.0" y="240.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">→ 0.1 · C_r</text>
+<line x1="250.0" y1="343.3" x2="290.0" y2="343.3" stroke="#c9a93b" stroke-width="3.0"/>
+<circle cx="250.0" cy="343.3" r="5.0" fill="#ffffff" stroke="#c9a93b" stroke-width="2.4"/>
+<text x="302.0" y="339.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c9a93b" text-anchor="start" font-weight="700">кеш  h = 0.99</text>
+<text x="302.0" y="357.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">→ 0.01 · C_r   (лише за рідкісних записів)</text>
+<line x1="250.0" y1="446.7" x2="290.0" y2="446.7" stroke="#27ae60" stroke-width="3.0"/>
+<circle cx="250.0" cy="446.7" r="5.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.4"/>
+<text x="302.0" y="442.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">МАТЕРІАЛІЗАЦІЯ</text>
+<text x="302.0" y="460.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">читання з готового ≈ C_d — підлога для всіх ключів</text>
+<line x1="170.0" y1="226.7" x2="660.0" y2="226.7" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="7,5"/>
+<text x="660.0" y="217.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">стеля влучності від записів/TTL</text>
+<text x="660.0" y="241.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end">нижче кеш не пускають записи — див. модуль 13</text>
+</svg>

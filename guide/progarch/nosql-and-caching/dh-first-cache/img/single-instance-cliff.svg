@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1160" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="580.0" y1="40.0" x2="580.0" y2="384.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 5"/>
+<text x="300.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один процес — скид долітає</text>
+<rect x="80.0" y="84.0" width="400.0" height="214.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="150.0" y="118.0" width="260.0" height="54.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="280.0" y="149.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">кеш · копія реєстру</tspan></text>
+<text x="280.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">запис → цей самий процес скидає копію</text>
+<text x="280.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">наступне читання → свіже  ✓</text>
+<rect x="80.0" y="320.0" width="400.0" height="44.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="280.0" y="346.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">копія і джерело сходяться</tspan></text>
+<text x="862.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два процеси за балансувальником</text>
+<rect x="762.0" y="82.0" width="200.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="862.0" y="110.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="862.0" dy="0.0">балансувальник</tspan></text>
+<line x1="822.0" y1="130.0" x2="722.0" y2="170.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="902.0" y1="130.0" x2="1000.0" y2="170.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="620.0" y="174.0" width="200.0" height="122.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="650.0" y="196.0" width="140.0" height="42.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="221.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">кеш A</tspan></text>
+<text x="720.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">скинув копію  ✓</text>
+<line x1="576.0" y1="232.0" x2="618.0" y2="232.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="568.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">запис</text>
+<rect x="900.0" y="174.0" width="200.0" height="122.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="930.0" y="196.0" width="140.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="1000.0" y="221.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1000.0" dy="0.0">кеш B</tspan></text>
+<text x="1000.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">стара копія  ✗</text>
+<text x="1000.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">живе до свого TTL</text>
+<rect x="620.0" y="320.0" width="480.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="860.0" y="346.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="860.0" dy="0.0">скид не долетів — копії розійшлися</tspan></text>
+<rect x="80.0" y="410.0" width="1020.0" height="50.0" rx="6" fill="#eef2f6" stroke="#6b7280" stroke-width="1.5"/><text x="590.0" y="439.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">In-process кеш припускає ОДИН процес. Горизонталь ламає скид-на-запис — і саме тут починається розподілений кеш.</tspan></text>
+</svg>

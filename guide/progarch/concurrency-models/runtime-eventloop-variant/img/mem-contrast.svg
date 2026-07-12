@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мільйон з'єднань, майже завжди мовчать</text>
+<line x1="480.0" y1="66.0" x2="480.0" y2="410.0" stroke="#d7dbe0" stroke-width="1.4" stroke-dasharray="7 7"/>
+<text x="240.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік на кожну розмову</text>
+<rect x="150.0" y="80.0" width="180.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="240.0" y="100.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">потік · стек ≈ 1 МБ</tspan></text>
+<rect x="150.0" y="118.0" width="180.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="240.0" y="138.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">потік · стек ≈ 1 МБ</tspan></text>
+<rect x="150.0" y="156.0" width="180.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="240.0" y="176.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">потік · стек ≈ 1 МБ</tspan></text>
+<rect x="150.0" y="194.0" width="180.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="240.0" y="214.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">потік · стек ≈ 1 МБ</tspan></text>
+<text x="240.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">⋮   × 10⁶ з'єднань</text>
+<text x="240.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">майже всі просто сплять</text>
+<rect x="52.0" y="292.0" width="376.0" height="104.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="240.0" y="330.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">10⁶ × 1 МБ ≈ 1 ТБ RAM</tspan><tspan x="240.0" dy="18.2">— на розмови, що мовчать</tspan><tspan x="240.0" dy="18.2">+ ОС тасує 10⁶ потоків</tspan></text>
+<text x="720.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один цикл подій</text>
+<rect x="645.0" y="80.0" width="150.0" height="44.0" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="98.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">1 потік</tspan><tspan x="720.0" dy="16.9">(цикл подій)</tspan></text>
+<rect x="628.0" y="138.0" width="184.0" height="38.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="720.0" y="161.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">epoll: хто готовий?</tspan></text>
+<line x1="720.0" y1="176.0" x2="720.0" y2="190.0" stroke="#6b7280" stroke-width="1.3"/>
+<circle cx="662.0" cy="202.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="691.0" cy="202.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="720.0" cy="202.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="749.0" cy="202.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="778.0" cy="202.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="662.0" cy="224.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="691.0" cy="224.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="720.0" cy="224.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="749.0" cy="224.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="778.0" cy="224.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="662.0" cy="246.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="691.0" cy="246.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="720.0" cy="246.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="749.0" cy="246.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="778.0" cy="246.0" r="6.0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="720.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">стан з'єднання ≈ кілька КБ  ·  × 10⁶</text>
+<rect x="532.0" y="292.0" width="376.0" height="104.0" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="330.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">10⁶ × ~4 КБ ≈ 4 ГБ RAM</tspan><tspan x="720.0" dy="18.2">— влазить в одну коробку</tspan><tspan x="720.0" dy="18.2">один потік, без тасування</tspan></text>
+</svg>

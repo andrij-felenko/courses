@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">«Рівно один раз»: дубль команди — одне відчинення</text>
+<line x1="120.0" y1="88.0" x2="120.0" y2="452.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="360.0" y1="88.0" x2="360.0" y2="452.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="610.0" y1="88.0" x2="610.0" y2="452.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="780.0" y1="88.0" x2="780.0" y2="452.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="55.0" y="44.0" width="130.0" height="40.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="120.0" y="68.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">апка</tspan></text>
+<rect x="295.0" y="44.0" width="130.0" height="40.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="360.0" y="68.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">хмара</tspan></text>
+<rect x="545.0" y="44.0" width="130.0" height="40.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="610.0" y="68.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">хаб</tspan></text>
+<rect x="715.0" y="44.0" width="130.0" height="40.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/><text x="780.0" y="68.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">замок</tspan></text>
+<line x1="120.0" y1="135.0" x2="360.0" y2="135.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="240.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">«відчинити» · id=c-42</text>
+<line x1="360.0" y1="185.0" x2="610.0" y2="185.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="485.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">cmd c-42 (MQTT)</text>
+<line x1="610.0" y1="235.0" x2="780.0" y2="235.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="695.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">актуювати</text>
+<circle cx="780.0" cy="235.0" r="6.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="792.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">① відчинено</text>
+<line x1="610.0" y1="295.0" x2="470.0" y2="295.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="540.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ack губиться</text>
+<line x1="360.0" y1="355.0" x2="610.0" y2="355.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="485.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">повтор c-42 (таймаут ack)</text>
+<text x="695.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">бачив c-42 → дубль</text>
+<line x1="610.0" y1="425.0" x2="705.0" y2="425.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="675.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">актуації нема ②</text>
+<rect x="180.0" y="462.0" width="560.0" height="40.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.6"/><text x="460.0" y="486.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="460.0" dy="0.0">Замок відчинено РІВНО РАЗ, хоч команда прийшла двічі.</tspan></text>
+</svg>

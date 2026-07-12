@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двоє дверей ділять один стан</text>
+<rect x="340.0" y="225.0" width="300.0" height="150.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="490.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">HubService — одна правда</text>
+<text x="490.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">heating = True</text>
+<text x="490.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">cfg.threshold = 25</text>
+<text x="490.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">devices = [ lock@спальня ]</text>
+<line x1="165.0" y1="134.9" x2="360.0" y2="221.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="130.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">tick(): пише heating,</text>
+<text x="130.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">читає cfg + давач</text>
+<line x1="815.0" y1="134.9" x2="620.0" y2="221.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="850.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end">set-threshold 25:</text>
+<text x="850.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end">пише cfg</text>
+<line x1="490.0" y1="483.5" x2="490.0" y2="379.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="510.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">GET /state: лише читає — нуль правок ядра</text>
+<rect x="99.4" y="85.0" width="131.1" height="49.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="165.0" y="106.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">Двері 1</tspan><tspan x="165.0" dy="16.9">Автономний цикл</tspan></text>
+<rect x="779.1" y="85.0" width="71.9" height="49.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="815.0" y="106.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">Двері 2</tspan><tspan x="815.0" dy="16.9">CLI</tspan></text>
+<rect x="394.8" y="483.5" width="190.4" height="33.0" rx="6" fill="#f2f2f2" stroke="#6b7280" stroke-width="1.5"/><text x="490.0" y="504.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Двері 3 — HTTP (завтра)</tspan></text>
+<text x="490.0" y="542.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">що записала одна двер, наступне читання іншої вже бачить — бо hub один</text>
+</svg>

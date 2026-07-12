@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скільки коштує координація проти самої роботи (порядок величини)</text>
+<line x1="470.0" y1="84.0" x2="470.0" y2="364.0" stroke="#d9dee5" stroke-width="1.2"/>
+<text x="470.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1 нс</text>
+<line x1="582.0" y1="84.0" x2="582.0" y2="364.0" stroke="#d9dee5" stroke-width="1.2"/>
+<text x="582.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">10 нс</text>
+<line x1="694.0" y1="84.0" x2="694.0" y2="364.0" stroke="#d9dee5" stroke-width="1.2"/>
+<text x="694.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">100 нс</text>
+<line x1="806.0" y1="84.0" x2="806.0" y2="364.0" stroke="#d9dee5" stroke-width="1.2"/>
+<text x="806.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1000 нс</text>
+<text x="448.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">влучення в L1-кеш</text>
+<rect x="470.0" y="92.0" width="9.0" height="28.0" rx="4" fill="#6b7280" stroke="#6b7280" stroke-width="1.0"/>
+<text x="489.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">≈1 нс</text>
+<text x="448.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">зіставити ордер — корисна робота</text>
+<rect x="470.0" y="150.0" width="190.3" height="28.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="670.3" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">≈50 нс</text>
+<text x="448.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">промах кешу → головна пам'ять</text>
+<rect x="470.0" y="208.0" width="224.0" height="28.0" rx="4" fill="#6b7280" stroke="#6b7280" stroke-width="1.0"/>
+<text x="704.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">≈100 нс</text>
+<text x="448.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">лінія кешу скаче між ядрами</text>
+<rect x="470.0" y="266.0" width="243.7" height="28.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="723.7" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">≈150 нс</text>
+<text x="448.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">захоплений замок / зміна контексту</text>
+<rect x="470.0" y="324.0" width="369.7" height="28.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="849.7" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">≈2000 нс</text>
+<rect x="298.0" y="400.0" width="16.0" height="16.0" rx="3" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="320.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">корисна робота</text>
+<rect x="510.0" y="400.0" width="16.0" height="16.0" rx="3" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="532.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">координація й трафік пам'яті</text>
+<text x="470.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">кожна декада праворуч — це ×10; координація коштує на порядки більше за роботу</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гібрид: центр роздає правило, сервіс оцінює локально — а ціна в затримці</text>
+<rect x="150.0" y="62.0" width="300.0" height="84.0" rx="6" fill="#fbf1dc" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="300.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ЦЕНТР ПОЛІТИКИ</text>
+<text x="300.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">одне правило (підписаний бандл)</tspan><tspan x="300.0" dy="14.3">роздається в кожен сервіс</tspan></text>
+<rect x="560.0" y="62.0" width="300.0" height="84.0" rx="6" fill="#fbf1dc" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="710.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ЦЕНТР ЗВ'ЯЗКІВ</text>
+<text x="710.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">наскрізне членство, ролі поза сервісом</tspan><tspan x="710.0" dy="14.3">(Богдан ∈ дім 7)</tspan></text>
+<rect x="878.0" y="58.0" width="110.0" height="78.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="933.0" y="86.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="933.0" dy="0.0">подія</tspan><tspan x="933.0" dy="14.3">«виключити</tspan><tspan x="933.0" dy="14.3">Богдана»</tspan></text>
+<line x1="876.0" y1="98.0" x2="862.0" y2="98.0" stroke="#c0392b" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="870.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">revoke</text>
+<rect x="250.0" y="326.0" width="470.0" height="168.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="485.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервіс пристроїв — один процес</text>
+<rect x="274.0" y="370.0" width="252.0" height="60.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.0"/><text x="400.0" y="396.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">локальний оцінювач</tspan><tspan x="400.0" dy="15.6">can() — вердикт У ПРОЦЕСІ</tspan></text>
+<rect x="548.0" y="370.0" width="148.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="622.0" y="396.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="622.0" dy="0.0">кеш</tspan><tspan x="622.0" dy="15.6">членства</tspan></text>
+<text x="485.0" y="464.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">рішення тут: allow ✓ — без стрибка на кожне натискання</text>
+<rect x="792.0" y="392.0" width="152.0" height="104.0" rx="6" fill="#f7f9fb" stroke="#6b7280" stroke-width="1.4"/>
+<text x="868.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="868.0" dy="0.0">· · ·</tspan><tspan x="868.0" dy="15.0">інші сервіси —</tspan><tspan x="868.0" dy="15.0">роздача та сама</tspan></text>
+<line x1="320.0" y1="148.0" x2="372.0" y2="322.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end"><tspan x="300.0" dy="0.0">роздача</tspan><tspan x="300.0" dy="13.7">правил</tspan></text>
+<line x1="660.0" y1="148.0" x2="610.0" y2="322.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="690.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start"><tspan x="690.0" dy="0.0">факт</tspan><tspan x="690.0" dy="13.7">+ кеш</tspan></text>
+<rect x="28.0" y="356.0" width="126.0" height="74.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="91.0" y="381.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="91.0" dy="0.0">запит</tspan><tspan x="91.0" dy="15.6">«відчинити</tspan><tspan x="91.0" dy="15.6">замок #42»</tspan></text>
+<line x1="156.0" y1="393.0" x2="272.0" y2="393.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="212.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle"><tspan x="212.0" dy="0.0">у процесі,</tspan><tspan x="212.0" dy="13.0">без стрибка</tspan></text>
+<line x1="834.0" y1="148.0" x2="834.0" y2="300.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="7 5"/>
+<line x1="834.0" y1="300.0" x2="700.0" y2="360.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="7 5"/>
+<line x1="712.0" y1="354.0" x2="698.0" y2="362.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="846.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start"><tspan x="846.0" dy="0.0">затримка</tspan><tspan x="846.0" dy="13.7">роздачі</tspan></text>
+<rect x="220.0" y="512.0" width="560.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="500.0" y="533.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="500.0" dy="0.0">поки подія в дорозі — кеш ще каже «можна»: ВІКНО ЗАСТАРІЛОСТІ на відкликанні</tspan></text>
+</svg>

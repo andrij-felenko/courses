@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ротація = підміна знімка: цілісний читач переживає її, торн-читач ні</text>
+<rect x="461.1" y="68.2" width="197.8" height="47.6" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="560.0" y="88.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">SIGHUP / вийшов TTL</tspan><tspan x="560.0" dy="15.6">→ resolve() будує знімок B</tspan></text>
+<line x1="560.0" y1="118.0" x2="560.0" y2="150.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="560.0" y1="150.0" x2="560.0" y2="512.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,6"/>
+<line x1="120.0" y1="214.0" x2="930.0" y2="214.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="922.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">час →</text>
+<rect x="150.0" y="186.0" width="398.0" height="56.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="349.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">поточний → знімок A</text>
+<text x="349.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">pass = ●●●  (v1)</text>
+<rect x="572.0" y="186.0" width="338.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="741.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">поточний → знімок B</text>
+<text x="741.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">pass = ●●●  (v2)</text>
+<text x="574.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">атомна підміна</text>
+<text x="574.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">одного посилання</text>
+<text x="546.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">fail-static:</text>
+<text x="546.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">збій → лишається A</text>
+<text x="140.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">R1: знімок = поточний()  ОДИН раз</text>
+<rect x="360.0" y="368.0" width="400.0" height="32.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="560.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">тримає A на весь запит</text>
+<circle cx="400.0" cy="384.0" r="4.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="720.0" cy="384.0" r="4.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="796.7" y="360.2" width="122.6" height="47.6" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="858.0" y="380.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="858.0" dy="0.0">A.host + A.pass</tspan><tspan x="858.0" dy="15.6">узгоджено</tspan></text>
+<text x="140.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">R2: читає поле-за-полем через await</text>
+<line x1="470.0" y1="484.0" x2="650.0" y2="484.0" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="3,5"/>
+<circle cx="470.0" cy="484.0" r="4.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="470.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">.host → з A</text>
+<circle cx="650.0" cy="484.0" r="4.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="650.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">.pass → з B</text>
+<text x="560.0" y="504.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">await перетнув підміну</text>
+<rect x="796.7" y="460.2" width="122.6" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="858.0" y="480.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="858.0" dy="0.0">A.host + B.pass</tspan><tspan x="858.0" dy="15.6">розʼїхалось</tspan></text>
+</svg>

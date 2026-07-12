@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1240" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Де годинник стає тригером: навесні дірка, восени складка</text>
+<text x="110.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="start" font-weight="700">ВЕСНА — переведення вперед</text>
+<text x="372.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">cron чекає на 02:00 → момент не настає</text>
+<line x1="372.0" y1="126.0" x2="372.0" y2="166.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="190.0" x2="298.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="446.0" y1="190.0" x2="782.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="150.0" y1="184.0" x2="150.0" y2="196.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="150.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">01:00</text>
+<line x1="295.0" y1="184.0" x2="295.0" y2="196.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="295.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">01:59</text>
+<rect x="298.0" y="168.0" width="148.0" height="44.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="310.0" y1="170.0" x2="300.0" y2="210.0" stroke="#c0392b" stroke-width="0.8"/>
+<text x="372.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">02:00 — НЕ існує</text>
+<line x1="446.0" y1="184.0" x2="446.0" y2="196.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="446.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">03:00</text>
+<line x1="594.0" y1="184.0" x2="594.0" y2="196.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="594.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">04:00</text>
+<text x="372.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">→ нічна агрегація НЕ запускається, графік із діркою</text>
+<rect x="822.0" y="165.6" width="150.0" height="48.8" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="897.0" y="186.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="897.0" dy="0.0">локальна доба</tspan><tspan x="897.0" dy="16.2">= 23 години</tspan></text>
+<line x1="70.0" y1="300.0" x2="1170.0" y2="300.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="7,7"/>
+<text x="110.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="start" font-weight="700">ОСІНЬ — переведення назад</text>
+<text x="372.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">cron бачить 02:00 ДВІЧІ → запуск двічі → подвоєння</text>
+<line x1="298.0" y1="396.0" x2="298.0" y2="436.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="446.0" y1="396.0" x2="446.0" y2="436.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="458.0" x2="782.0" y2="458.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="150.0" y1="452.0" x2="150.0" y2="464.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="150.0" y="486.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">01:00</text>
+<line x1="298.0" y1="450.0" x2="298.0" y2="466.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="298.0" y="487.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">02:00</text>
+<line x1="446.0" y1="450.0" x2="446.0" y2="466.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="446.0" y="487.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">02:00</text>
+<line x1="594.0" y1="452.0" x2="594.0" y2="464.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="594.0" y="486.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">03:00</text>
+<text x="372.0" y="512.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">↩ переведено назад — та сама година знову</text>
+<rect x="822.0" y="433.6" width="150.0" height="48.8" rx="6" fill="#e6eefb" stroke="#2457d6" stroke-width="1.5"/><text x="897.0" y="454.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="897.0" dy="0.0">локальна доба</tspan><tspan x="897.0" dy="16.2">= 25 годин</tspan></text>
+<rect x="179.9" y="543.8" width="880.2" height="32.5" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="620.0" y="564.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Ліки: вікно «вчора» = від локальної півночі до локальної півночі (само дає 23/24/25 год), а не «зараз − 24 год»</tspan></text>
+</svg>

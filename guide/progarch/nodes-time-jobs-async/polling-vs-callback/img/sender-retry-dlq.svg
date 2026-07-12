@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1220" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="610.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відправник вебхука: підписати, повторювати з відступом, врешті — у мертву чергу</text>
+<rect x="40.0" y="150.0" width="168.0" height="56.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="124.0" y="174.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="124.0" dy="0.0">задача done →</tspan><tspan x="124.0" dy="14.3">подія {id стабільний}</tspan></text>
+<line x1="210.0" y1="178.0" x2="262.0" y2="178.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="264.0" y="152.0" width="150.0" height="52.0" rx="6" fill="#fff8e6" stroke="#6b7280" stroke-width="1.5"/><text x="339.0" y="174.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="339.0" dy="0.0">підпис</tspan><tspan x="339.0" dy="15.6">HMAC(t·тіло)</tspan></text>
+<line x1="416.0" y1="178.0" x2="462.0" y2="178.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="468.0" y1="300.0" x2="812.0" y2="300.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="468.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">час →</text>
+<line x1="486.0" y1="300.0" x2="486.0" y2="210.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="486.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">POST</text>
+<text x="486.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<circle cx="486.0" cy="300.0" r="4.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="486.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">спроба 0</text>
+<line x1="494.0" y1="260.0" x2="540.0" y2="260.0" stroke="#2457d6" stroke-width="1.3"/>
+<text x="517.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">w₀</text>
+<line x1="548.0" y1="300.0" x2="548.0" y2="210.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="548.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">POST</text>
+<text x="548.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<circle cx="548.0" cy="300.0" r="4.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="548.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">спроба 1</text>
+<line x1="556.0" y1="260.0" x2="628.0" y2="260.0" stroke="#2457d6" stroke-width="1.3"/>
+<text x="592.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">w₁</text>
+<line x1="636.0" y1="300.0" x2="636.0" y2="210.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="636.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">POST</text>
+<text x="636.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<circle cx="636.0" cy="300.0" r="4.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="636.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">спроба 2</text>
+<line x1="644.0" y1="260.0" x2="732.0" y2="260.0" stroke="#2457d6" stroke-width="1.3"/>
+<text x="688.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">w₂</text>
+<line x1="740.0" y1="300.0" x2="740.0" y2="210.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="740.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">POST</text>
+<text x="740.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<circle cx="740.0" cy="300.0" r="4.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="740.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">спроба 3</text>
+<line x1="812.0" y1="300.0" x2="812.0" y2="152.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="722.0" y="110.0" width="176.0" height="40.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="810.0" y="133.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">будь-яка 2xx → готово</tspan></text>
+<line x1="812.0" y1="300.0" x2="900.0" y2="300.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="902.0" y="268.0" width="292.0" height="64.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="1048.0" y="289.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1048.0" dy="0.0">МЕРТВА ЧЕРГА</tspan><tspan x="1048.0" dy="14.3">вичерпав N спроб — на розбір,</tspan><tspan x="1048.0" dy="14.3">не загублено</tspan></text>
+<text x="610.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вікно wᵢ = min(cap, base·2ᶦ) росте вдвічі; пауза = random(0, wᵢ) — повний джитер.</text>
+<text x="610.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">4xx (крім 429) обриває повтори одразу — повторення його не полагодить; id той самий на КОЖЕН POST, тож дубль приймач дедупне.</text>
+<text x="610.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Повний джитер (AWS, Marc Brooker): пауза рівномірна в усьому вікні — відправники не б'ють синхронно.</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1080" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві архітектури руху даних</text>
+<line x1="540.0" y1="62.0" x2="540.0" y2="500.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 6"/>
+<text x="275.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Lambda — Нейтан Марц, 2011</text>
+<rect x="71.8" y="225.1" width="60.3" height="49.9" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="102.0" y="246.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="102.0" dy="0.0">потік</tspan><tspan x="102.0" dy="16.9">подій</tspan></text>
+<rect x="242.1" y="118.4" width="115.8" height="63.2" rx="6" fill="#fff8e8" stroke="#c9a93b" stroke-width="1.6"/><text x="300.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">швидкісний шар</tspan><tspan x="300.0" dy="15.6">реальний час,</tspan><tspan x="300.0" dy="15.6">приблизно</tspan></text>
+<rect x="228.4" y="326.4" width="143.1" height="63.2" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="300.0" y="346.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">батч-шар</tspan><tspan x="300.0" dy="15.6">усі дані, точно,</tspan><tspan x="300.0" dy="15.6">перерахунок з нуля</tspan></text>
+<rect x="421.1" y="230.2" width="101.8" height="47.6" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/><text x="472.0" y="250.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="472.0" dy="0.0">обслуговчий</tspan><tspan x="472.0" dy="15.6">шар</tspan></text>
+<line x1="132.2" y1="236.0" x2="236.1" y2="166.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="132.2" y1="264.0" x2="222.4" y2="344.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="363.9" y1="160.0" x2="415.1" y2="242.0" stroke="#c9a93b" stroke-width="1.9" marker-end="url(#arrow)"/>
+<line x1="377.6" y1="350.0" x2="415.1" y2="268.0" stroke="#27ae60" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="275.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">той самий алгоритм пишеться двічі — і батч, і швидкісний</text>
+<text x="800.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kappa — Джей Крепс, 2014</text>
+<rect x="597.9" y="189.1" width="60.3" height="49.9" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="628.0" y="210.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="628.0" dy="0.0">потік</tspan><tspan x="628.0" dy="16.9">подій</tspan></text>
+<rect x="722.5" y="190.2" width="139.0" height="47.6" rx="6" fill="#eef2f6" stroke="#1a1a1a" stroke-width="1.8"/><text x="792.0" y="210.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="792.0" dy="0.0">незмінний журнал</tspan><tspan x="792.0" dy="15.6">(Kafka)</tspan></text>
+<rect x="921.2" y="190.2" width="81.6" height="47.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="962.0" y="210.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="962.0" dy="0.0">потоковий</tspan><tspan x="962.0" dy="15.6">шар</tspan></text>
+<rect x="911.1" y="348.2" width="101.8" height="47.6" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/><text x="962.0" y="368.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="962.0" dy="0.0">обслуговчий</tspan><tspan x="962.0" dy="15.6">шар</tspan></text>
+<line x1="663.1" y1="214.0" x2="717.5" y2="214.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="866.5" y1="214.0" x2="916.2" y2="214.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="962.0" y1="240.0" x2="962.0" y2="346.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="792.0" y1="188.0" x2="792.0" y2="118.0" stroke="#c9a93b" stroke-width="1.7"/>
+<line x1="792.0" y1="118.0" x2="962.0" y2="118.0" stroke="#c9a93b" stroke-width="1.7"/>
+<line x1="962.0" y1="118.0" x2="962.0" y2="188.0" stroke="#c9a93b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="877.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">перечитати журнал з початку</text>
+<text x="800.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">один шар, один код; перерахунок = перечитати журнал</text>
+</svg>

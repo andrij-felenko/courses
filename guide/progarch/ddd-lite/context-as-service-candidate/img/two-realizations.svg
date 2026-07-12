@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Та сама межа — різний дріт</text>
+<line x1="490.0" y1="74.0" x2="490.0" y2="452.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,5"/>
+<text x="255.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">У ПАМ'ЯТІ  (один процес)</text>
+<rect x="91.8" y="143.5" width="116.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="164.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Автоматизації</tspan></text>
+<rect x="335.2" y="143.5" width="49.6" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="164.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Твін</tspan></text>
+<line x1="212.0" y1="160.0" x2="306.0" y2="160.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="258.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">виклик у пам'яті</text>
+<text x="258.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">~ наносекунди</text>
+<circle cx="70.0" cy="254.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="86.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">один процес — спільна пам'ять</text>
+<circle cx="70.0" cy="288.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="86.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">одна транзакція: усе або нічого</text>
+<circle cx="70.0" cy="322.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="86.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">без часткової відмови</text>
+<circle cx="70.0" cy="356.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="86.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">без серіалізації, версій, таймаутів</text>
+<text x="735.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">МЕРЕЖЕЮ  (два процеси)</text>
+<rect x="541.8" y="143.5" width="116.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="600.0" y="164.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Автоматизації</tspan></text>
+<rect x="855.2" y="143.5" width="49.6" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="880.0" y="164.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="880.0" dy="0.0">Твін</tspan></text>
+<rect x="690.0" y="138.0" width="100.0" height="44.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="740.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">мережа</text>
+<line x1="662.0" y1="160.0" x2="688.0" y2="160.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="792.0" y1="160.0" x2="842.0" y2="160.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6,5"/>
+<text x="817.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">?</text>
+<text x="740.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">~ мілісекунди</text>
+<circle cx="536.0" cy="254.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="552.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">два процеси — мережа між ними</text>
+<circle cx="536.0" cy="288.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="552.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">×10⁴–10⁵ повільніше за пам'ять</text>
+<circle cx="536.0" cy="322.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="552.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">часткова відмова: пішов — а відповідь?</text>
+<circle cx="536.0" cy="356.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="552.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">серіалізація, версії, таймаути, повтори</text>
+</svg>

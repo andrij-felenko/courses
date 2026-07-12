@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лінк-шов: завантажувач бере підробку першою</text>
+<rect x="325.0" y="62.0" width="310.0" height="66.0" rx="6" fill="#fbfcfd" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="480.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">hub — твій код (не чіпаємо)</text>
+<text x="480.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">t = sensor_read();</text>
+<line x1="480.0" y1="132.0" x2="480.0" y2="168.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="494.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">sensor_read()</text>
+<rect x="330.0" y="170.0" width="300.0" height="66.0" rx="6" fill="#eef2f6" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="480.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">динамічний завантажувач</text>
+<text x="480.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">шукає символ sensor_read</text>
+<rect x="88.0" y="322.0" width="310.0" height="96.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.4"/>
+<text x="243.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">fake_sensor.so — обрано</text>
+<text x="243.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">LD_PRELOAD — стоїть ПЕРШИМ</text>
+<text x="243.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">return 19.0;</text>
+<rect x="562.0" y="322.0" width="310.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="717.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">libsensor.so — вендор</text>
+<text x="717.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">справжнє залізо</text>
+<text x="717.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">тіло НЕ виконується</text>
+<line x1="432.0" y1="238.0" x2="243.0" y2="318.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="528.0" y1="238.0" x2="717.0" y2="318.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="480.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">точка ввімкнення: змінна LD_PRELOAD — поза кодом hub</text>
+</svg>

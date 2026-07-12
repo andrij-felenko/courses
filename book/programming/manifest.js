@@ -227,6 +227,8 @@
         { slug: "payments-integration", title: "Платіжний провайдер", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "search-subsystem", title: "Пошук як друга правда", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "sessions-state", title: "Сесії і stateless як передумова горизонталі", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "streaming-push-transports", title: "Стрімінг результату: long-poll, SSE, WebSocket", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "object-storage", title: "Об'єктне сховище", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "operations", title: "Експлуатація", scope: "Життя системи в проді: спостережність, SLO й алерти, лог-інфраструктура, постачання й розгортання (темні запуски, parallel-run), контейнери, serverless та IaC, конфігурація, секрети, інциденти й хаос, потужності, автоскейл, штатне вимкнення.",
       topics: [
@@ -330,6 +332,7 @@
         { slug: "cell-based-architecture", title: "Комірки і штампи", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "durable-workflows-scale", title: "Durable workflows на масштабі", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "data-residency", title: "Резидентність даних", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "fail-open-fail-closed", title: "Fail-open проти fail-closed", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "data-analytics", title: "Дані й аналітика", scope: "Рух даних між системами без поломок: ETL/ELT, data-контракти й lineage, ідемпотентний перерахунок.",
       topics: [
@@ -469,6 +472,7 @@
         { slug: "lwip-internals", title: "Архітектура lwIP", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "rpc", title: "RPC і серіалізація", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "connection-management", title: "Керування з'єднаннями", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "nat", title: "NAT і трансляція мережевих адрес", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "databases", title: "Бази даних", scope: "Зберігання й запити даних: реляційна й нереляційні моделі, транзакції, індекси, рушії та оптимізатори.",
       topics: [
@@ -493,6 +497,7 @@
         { slug: "soft-delete-tombstones", title: "М'яке видалення і надгробки", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "sequences-counters", title: "Людські номери й ID", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "optimistic-locking", title: "Оптимістичне блокування", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "pessimistic-locking", title: "Песимістичне блокування", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "graphics", title: "Графіка", scope: "Програмний синтез зображень та інтерфейси: растеризація, трасування, шейдери, GPU, віконні системи, UI.",
       topics: [
@@ -520,6 +525,7 @@
         { slug: "ddos-abuse-defense", title: "DDoS і зловживання", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "rate-limiting", title: "Обмеження швидкості як архітектура", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "secure-defaults", title: "Безпечні дефолти й відмова захисту", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "confused-deputy", title: "Заплутаний заступник (confused deputy)", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "software-engineering", title: "Інженерія", scope: "Проєктування, супровід і верифікація систем: архітектурні патерни, модульність, рефакторинг, процеси розробки, види тестів, фаззинг, формальні методи, неперервна інтеграція.",
       topics: [

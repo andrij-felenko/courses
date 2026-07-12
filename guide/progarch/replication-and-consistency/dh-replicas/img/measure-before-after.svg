@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що показав вимір: баг проти маршрутизації</text>
+<text x="320.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">read-your-writes порушено</text>
+<text x="320.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">(з 577 перечитувань екрана)</text>
+<line x1="150.0" y1="468.0" x2="560.0" y2="468.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="220.0" y="168.0" width="96.0" height="300.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="268.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#c0392b" text-anchor="middle" font-weight="700">346</text>
+<text x="268.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">60% стейл</text>
+<text x="268.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="268.0" dy="0.0">БЕЗ</tspan><tspan x="268.0" dy="15.6">маршрутизації</tspan></text>
+<rect x="410.0" y="463.0" width="96.0" height="5.0" rx="6" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.8"/>
+<text x="458.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#27ae60" text-anchor="middle" font-weight="700">0</text>
+<text x="458.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="458.0" dy="0.0">З</tspan><tspan x="458.0" dy="15.6">маршрутизацією</tspan></text>
+<text x="320.0" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">…і 59 стрибків «час назад» → теж 0</text>
+<text x="870.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Куди пішли читання (з маршрутизацією)</text>
+<text x="870.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="870.0" dy="0.0">масштаб збережено: ~9 із 10 читань</tspan><tspan x="870.0" dy="16.9">лідера взагалі не турбують</tspan></text>
+<rect x="640.0" y="214.0" width="414.5" height="66.0" rx="4" fill="#fdf0dd" stroke="#b06d0a" stroke-width="1.8"/>
+<rect x="1054.5" y="214.0" width="45.5" height="66.0" rx="4" fill="#e7f6ec" stroke="#27ae60" stroke-width="1.8"/>
+<text x="847.2" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">фоловери · 90.1%</text>
+<line x1="1078.0" y1="322.0" x2="1078.0" y2="284.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1078.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">лідер · 9.9%</text>
+<rect x="620.0" y="372.0" width="490.0" height="96.0" rx="6" fill="#eef2f6" stroke="#6b7280" stroke-width="1.5"/><text x="865.0" y="417.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#1a1a1a" text-anchor="middle"><tspan x="865.0" dy="0.0">Той самий потік читань, той самий лаг.</tspan><tspan x="865.0" dy="10.4">Маршрутизація прибрала баг (346 → 0) і майже не забрала розвантаження: клас «свій свіжий запис» — лише сотні перечитувань проти десятків тисяч читань.</tspan></text>
+</svg>

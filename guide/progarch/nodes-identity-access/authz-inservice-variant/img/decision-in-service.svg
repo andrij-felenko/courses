@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рішення живе в тому самому процесі, що й дані</text>
+<rect x="28.0" y="168.0" width="152.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="104.0" y="195.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="104.0" dy="0.0">запит</tspan><tspan x="104.0" dy="16.9">Богдан →</tspan><tspan x="104.0" dy="16.9">«відчинити</tspan><tspan x="104.0" dy="16.9">замок #42»</tspan></text>
+<line x1="182.0" y1="216.0" x2="246.0" y2="216.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="250.0" y="72.0" width="602.0" height="336.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="551.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервіс пристроїв — один процес</text>
+<text x="551.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">гейт (PEP) і рішення (PDP) — тут само, поруч із даними</text>
+<rect x="284.0" y="140.0" width="536.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="552.0" y="169.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="552.0" dy="0.0">1. завантажити об'єкт: замок #42  (у ньому homeId = 7)</tspan></text>
+<line x1="551.0" y1="191.0" x2="551.0" y2="216.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="284.0" y="220.0" width="536.0" height="62.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.4"/><text x="552.0" y="247.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="552.0" dy="0.0">2. can(Богдан, «відчинити», замок #42)</tspan><tspan x="552.0" dy="16.2">рішення обчислюється тут, у цьому ж процесі</tspan></text>
+<line x1="551.0" y1="283.0" x2="551.0" y2="308.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="284.0" y="312.0" width="536.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="552.0" y="341.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="552.0" dy="0.0">3. дозволено → подати сигнал на замок</tspan></text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1100" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="550.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна таблиця — три читачі: рантайм, тест, документація</text>
+<rect x="70.0" y="140.0" width="444.0" height="232.0" rx="6" fill="#eef2f6" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="292.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">реєстр помилок — це ДАНІ (один масив рядків)</text>
+<line x1="86.0" y1="182.0" x2="498.0" y2="182.0" stroke="#c8ced6" stroke-width="1.2"/>
+<text x="92.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">DeviceNotFound  →  404 · device_not_found</text>
+<text x="92.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">DeviceUnavailable  →  503 · device_unavailable (retry)</text>
+<text x="92.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">InvalidCommand  →  400 · invalid_command</text>
+<text x="92.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">RateLimited  →  429 · rate_limited (retry)</text>
+<text x="92.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">(усе інше)  →  500 · internal — непрозоро</text>
+<line x1="514.0" y1="256.0" x2="628.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="628.0" y="112.0" width="430.0" height="76.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="843.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="843.0" dy="0.0">handler toProblem (рантайм)</tspan><tspan x="843.0" dy="16.9">→ конверт application/problem+json</tspan></text>
+<line x1="514.0" y1="256.0" x2="628.0" y2="248.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="628.0" y="210.0" width="430.0" height="76.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="843.0" y="244.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="843.0" dy="0.0">контрактний тест (CI)</tspan><tspan x="843.0" dy="16.9">→ golden-знімок; червоніє на зміну форми</tspan></text>
+<line x1="514.0" y1="256.0" x2="628.0" y2="346.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="628.0" y="308.0" width="430.0" height="76.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="843.0" y="342.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="843.0" dy="0.0">публічний каталог</tspan><tspan x="843.0" dy="16.9">→ коди й type-URL у docs</tspan></text>
+</svg>

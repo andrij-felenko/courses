@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 392" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="392" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Deny-by-default живе у Гейті 2 — а забута перевірка минає Гейт 1</text>
+<rect x="20.0" y="150.0" width="120.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="80.0" y="167.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="80.0" dy="0.0">запит на</tspan><tspan x="80.0" dy="15.6">новому</tspan><tspan x="80.0" dy="15.6">маршруті</tspan></text>
+<line x1="142.0" y1="179.0" x2="176.0" y2="179.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="178.0" y="96.0" width="214.0" height="168.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="285.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гейт 1 · PEP</text>
+<text x="285.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="285.0" dy="0.0">обробник</tspan><tspan x="285.0" dy="15.0">покликав can()?</tspan></text>
+<text x="285.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="285.0" dy="0.0">ЯКЩО ЗАБУВ —</tspan><tspan x="285.0" dy="13.7">гейта тут просто нема</tspan></text>
+<rect x="486.0" y="96.0" width="214.0" height="168.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="593.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гейт 2 · PDP</text>
+<text x="593.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="593.0" dy="0.0">явне правило</tspan><tspan x="593.0" dy="15.0">збіглося?</tspan></text>
+<text x="593.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle"><tspan x="593.0" dy="0.0">нема правила →</tspan><tspan x="593.0" dy="13.7">DENY (deny-by-default)</tspan></text>
+<rect x="770.0" y="150.0" width="150.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="845.0" y="175.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="845.0" dy="0.0">замок</tspan><tspan x="845.0" dy="15.6">(ресурс)</tspan></text>
+<line x1="392.0" y1="179.0" x2="486.0" y2="179.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="439.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">покликав</text>
+<line x1="700.0" y1="179.0" x2="770.0" y2="179.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="735.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">allow</text>
+<line x1="285.0" y1="264.0" x2="285.0" y2="322.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="285.0" y1="322.0" x2="845.0" y2="322.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="845.0" y1="322.0" x2="845.0" y2="210.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="548.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">новий маршрут без can(): запит доходить до ресурсу, а відмовляти НІКОМУ</text>
+<text x="470.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Лік: чок-пойнт (middleware / verify_authorized) жене КОЖЕН маршрут крізь Гейт 1.</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відсутній другий замок: автентифікований ≠ авторизований</text>
+<line x1="213.0" y1="210.0" x2="300.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="213.0" y1="260.0" x2="300.0" y2="344.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="360.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">правильно: друга межа на місці</text>
+<line x1="407.6" y1="118.0" x2="502.1" y2="118.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<line x1="617.9" y1="118.0" x2="717.8" y2="118.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<line x1="802.2" y1="118.0" x2="953.0" y2="118.0" stroke="#c0392b" stroke-width="1.9" marker-end="url(#arrow)"/>
+<rect x="312.4" y="102.0" width="95.2" height="32.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="360.0" y="122.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">автентиф. ✓</tspan></text>
+<rect x="502.1" y="94.2" width="115.8" height="47.6" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="560.0" y="114.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">авторизація:</tspan><tspan x="560.0" dy="15.6">«Олин це дім?»</tspan></text>
+<rect x="717.8" y="101.5" width="84.5" height="33.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="760.0" y="122.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="760.0" dy="0.0">ні → 403</tspan></text>
+<rect x="953.0" y="93.0" width="94.1" height="49.9" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="1000.0" y="114.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1000.0" dy="0.0">дані Марти</tspan><tspan x="1000.0" dy="16.9">в безпеці</tspan></text>
+<text x="360.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">зламано: «залогований = можна»</text>
+<line x1="407.6" y1="356.0" x2="525.3" y2="356.0" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="654.7" y1="356.0" x2="825.7" y2="356.0" stroke="#c0392b" stroke-width="2.1" marker-end="url(#arrow)"/>
+<rect x="312.4" y="340.0" width="95.2" height="32.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="360.0" y="360.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">автентиф. ✓</tspan></text>
+<rect x="525.3" y="332.2" width="129.4" height="47.6" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/><text x="590.0" y="352.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">межі авторизації</tspan><tspan x="590.0" dy="15.6">немає</tspan></text>
+<rect x="825.7" y="331.1" width="108.7" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="880.0" y="352.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">дім Марти</tspan><tspan x="880.0" dy="16.9">віддано Олі</tspan></text>
+<text x="950.3" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">горизонтальна</text>
+<text x="950.3" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">ескалація (IDOR)</text>
+<text x="600.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Різниця не в зламаному замку, а у відсутньому другому — перевірці, якої не написали.</text>
+</svg>

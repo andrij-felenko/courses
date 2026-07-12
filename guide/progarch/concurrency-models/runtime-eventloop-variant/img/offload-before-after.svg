@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Отруєння смуги і його лік: винести CPU з циклу</text>
+<text x="52.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">ДО — важкий рахунок просто в циклі</text>
+<rect x="50.0" y="96.0" width="880.0" height="68.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<rect x="62.0" y="110.0" width="112.0" height="44.0" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="118.0" y="136.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="118.0" dy="0.0">/reading</tspan></text>
+<rect x="182.0" y="110.0" width="112.0" height="44.0" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="238.0" y="136.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="238.0" dy="0.0">/health</tspan></text>
+<rect x="320.0" y="104.0" width="412.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="526.0" y="134.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="526.0" dy="0.0">агрегація · 900 мс — тримає смугу</tspan></text>
+<text x="838.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">усі</text>
+<text x="838.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">мерзнуть</text>
+<text x="178.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-style="italic">готові, але стоять</text>
+<text x="52.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">ПІСЛЯ — агрегацію винесено з циклу</text>
+<rect x="50.0" y="250.0" width="880.0" height="66.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<rect x="62.0" y="262.0" width="82.0" height="42.0" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="103.0" y="286.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="103.0" dy="0.0">обробник</tspan></text>
+<rect x="154.0" y="262.0" width="82.0" height="42.0" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="195.0" y="286.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">обробник</tspan></text>
+<rect x="246.0" y="262.0" width="82.0" height="42.0" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="287.0" y="286.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="287.0" dy="0.0">обробник</tspan></text>
+<rect x="338.0" y="262.0" width="82.0" height="42.0" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="379.0" y="286.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="379.0" dy="0.0">обробник</tspan></text>
+<text x="700.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-style="italic">цикл вільний — приймає далі</text>
+<text x="250.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">короткий обробник → await → звільнив смугу</text>
+<rect x="300.0" y="392.0" width="470.0" height="60.0" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="310.0" y="400.0" width="450.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="535.0" y="426.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="535.0" dy="0.0">робітник (окреме ядро): агрегація · 900 мс</tspan></text>
+<line x1="500.0" y1="316.0" x2="500.0" y2="392.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="492.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end">віддав</text>
+<line x1="570.0" y1="392.0" x2="570.0" y2="316.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="578.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">зведення (await)</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1220" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="610.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">TOCTOU: вікно між «перевірили» і «зробили»</text>
+<rect x="524.0" y="134.0" width="288.0" height="124.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="668.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">вікно TOCTOU</text>
+<text x="668.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">Марта відкликає Олю</text>
+<line x1="80.0" y1="196.0" x2="1150.0" y2="196.0" stroke="#6b7280" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="1156.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">час →</text>
+<circle cx="250.0" cy="196.0" r="7.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="250.0" y1="91.8" x2="250.0" y2="189.0" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="171.6" y="44.2" width="156.8" height="47.6" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="250.0" y="64.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">t0 · завантажили дім</tspan><tspan x="250.0" dy="15.6">Оля = сім'я</tspan></text>
+<circle cx="468.0" cy="196.0" r="7.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="468.0" y1="91.8" x2="468.0" y2="189.0" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="393.0" y="44.2" width="150.0" height="47.6" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="468.0" y="64.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="468.0" dy="0.0">t1 · ПЕРЕВІРКА</tspan><tspan x="468.0" dy="15.6">can(Оля, write) = ✓</tspan></text>
+<circle cx="868.0" cy="196.0" r="7.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="868.0" y1="91.8" x2="868.0" y2="189.0" stroke="#c0392b" stroke-width="1.4"/>
+<rect x="820.4" y="44.2" width="95.2" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="868.0" y="64.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="868.0" dy="0.0">t2 · ДІЯ</tspan><tspan x="868.0" dy="15.6">apply write</tspan></text>
+<text x="868.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">рішення вже застаріле</text>
+<rect x="181.5" y="396.2" width="273.1" height="47.6" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="318.0" y="416.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="318.0" dy="0.0">оборона 1 — той самий обʼєкт:</tspan><tspan x="318.0" dy="15.6">не перечитувати за id після перевірки</tspan></text>
+<rect x="707.8" y="388.4" width="300.4" height="63.2" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="858.0" y="408.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="858.0" dy="0.0">оборона 2 — злити перевірку в дію:</tspan><tspan x="858.0" dy="15.6">UPDATE … WHERE EXISTS(membership …)</tspan><tspan x="858.0" dy="15.6">перевірка й дія — один вислів, вікна нема</tspan></text>
+</svg>
