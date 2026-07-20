@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порожній — ще одна реалізація, а не виняток</text>
+<text x="530.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">клієнт бачить лише інтерфейс і не розрізняє реалізацій</text>
+<rect x="501.0" y="125.0" width="270.0" height="49.9" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="636.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="636.0" dy="0.0">«interface» Logger</tspan><tspan x="636.0" dy="16.9">write(msg)</tspan></text>
+<rect x="346.4" y="355.6" width="240.0" height="48.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="466.4" y="376.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="466.4" dy="0.0">FileLogger</tspan><tspan x="466.4" dy="16.2">пише рядок у файл</tspan></text>
+<rect x="706.8" y="355.6" width="240.0" height="48.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="826.8" y="376.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="826.8" dy="0.0">NullLogger</tspan><tspan x="826.8" dy="16.2">нічого не робить</tspan></text>
+<line x1="466.4" y1="351.6" x2="596.0" y2="176.9" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="826.8" y1="351.6" x2="676.0" y2="176.9" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="646.6" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">обидві однаково виконують інтерфейс</text>
+<rect x="59.3" y="218.4" width="210.0" height="63.2" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="164.3" y="238.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="164.3" dy="0.0">OrderService</tspan><tspan x="164.3" dy="15.6">logger: Logger</tspan><tspan x="164.3" dy="15.6">logger.write(…)</tspan></text>
+<line x1="269.3" y1="242.0" x2="495.0" y2="150.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,5"/>
+<text x="164.3" y="303.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">кличе наосліп,</text>
+<text x="164.3" y="321.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">не розгалужуючись</text>
+<line x1="40.0" y1="500.0" x2="1020.0" y2="500.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="530.0" y="528.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">підставити NullLogger замість FileLogger — змінити поведінку, не чіпаючи клієнта</text>
+</svg>

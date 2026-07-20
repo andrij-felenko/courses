@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 640" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="640" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Генерація ключа: таємниця входить лише зверху</text>
+<rect x="180.0" y="48.0" width="660.0" height="46.0" rx="6" fill="#fdeeec" stroke="#c0392b" stroke-width="2.2"/><text x="510.0" y="76.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">CSPRNG — криптографічний генератор випадкових бітів</tspan></text>
+<text x="510.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">ЄДИНЕ джерело таємниці в усій схемі — все нижче лише арифметика</text>
+<line x1="285.0" y1="94.0" x2="285.0" y2="138.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="735.0" y1="94.0" x2="735.0" y2="138.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="145.0" y="138.0" width="280.0" height="38.0" rx="6" fill="#fbfbfc" stroke="#333333" stroke-width="1.5"/><text x="285.0" y="161.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="285.0" dy="0.0">1024 випадкових біти</tspan></text>
+<line x1="285.0" y1="176.0" x2="285.0" y2="222.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="145.0" y="222.0" width="280.0" height="38.0" rx="6" fill="#fbfbfc" stroke="#2457d6" stroke-width="1.6"/><text x="285.0" y="245.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="285.0" dy="0.0">Міллер–Рабін: просте?</tspan></text>
+<line x1="285.0" y1="260.0" x2="285.0" y2="306.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="293.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">просте</text>
+<rect x="595.0" y="138.0" width="280.0" height="38.0" rx="6" fill="#fbfbfc" stroke="#333333" stroke-width="1.5"/><text x="735.0" y="161.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">1024 випадкових біти</tspan></text>
+<line x1="735.0" y1="176.0" x2="735.0" y2="222.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="595.0" y="222.0" width="280.0" height="38.0" rx="6" fill="#fbfbfc" stroke="#2457d6" stroke-width="1.6"/><text x="735.0" y="245.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">Міллер–Рабін: просте?</tspan></text>
+<line x1="735.0" y1="260.0" x2="735.0" y2="306.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="743.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">просте</text>
+<line x1="145.0" y1="241.0" x2="89.0" y2="241.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,4"/>
+<line x1="89.0" y1="241.0" x2="89.0" y2="157.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,4"/>
+<line x1="89.0" y1="157.0" x2="145.0" y2="157.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="89.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="89.0" dy="0.0">складене —</tspan><tspan x="89.0" dy="14.4">нові біти</tspan></text>
+<line x1="875.0" y1="241.0" x2="931.0" y2="241.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,4"/>
+<line x1="931.0" y1="241.0" x2="931.0" y2="157.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,4"/>
+<line x1="931.0" y1="157.0" x2="875.0" y2="157.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="931.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="931.0" dy="0.0">складене —</tspan><tspan x="931.0" dy="14.4">нові біти</tspan></text>
+<rect x="195.0" y="306.0" width="180.0" height="40.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="285.0" y="331.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle"><tspan x="285.0" dy="0.0">p</tspan></text>
+<rect x="645.0" y="306.0" width="180.0" height="40.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="735.0" y="331.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">q</tspan></text>
+<line x1="285.0" y1="346.0" x2="285.0" y2="380.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="735.0" y1="346.0" x2="735.0" y2="380.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="285.0" y1="380.0" x2="735.0" y2="380.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="285.0" y1="380.0" x2="285.0" y2="420.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="735.0" y1="380.0" x2="735.0" y2="420.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="110.0" y="420.0" width="350.0" height="44.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="285.0" y="447.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="285.0" dy="0.0">n = p · q</tspan></text>
+<rect x="560.0" y="420.0" width="350.0" height="44.0" rx="6" fill="#fdeeec" stroke="#c0392b" stroke-width="2.0"/><text x="735.0" y="447.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">φ(n) = (p − 1)(q − 1)</tspan></text>
+<line x1="285.0" y1="464.0" x2="285.0" y2="536.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="735.0" y1="464.0" x2="735.0" y2="536.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="743.0" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">розширений Евклід</text>
+<rect x="110.0" y="536.0" width="350.0" height="46.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.2"/><text x="285.0" y="563.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="285.0" dy="0.0">ВІДКРИТИЙ КЛЮЧ  (n, e = 65537)</tspan></text>
+<rect x="560.0" y="536.0" width="350.0" height="46.0" rx="6" fill="#fdeeec" stroke="#c0392b" stroke-width="2.2"/><text x="735.0" y="563.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">ТАЄМНИЙ КЛЮЧ  d = e⁻¹ mod φ(n)</tspan></text>
+<text x="510.0" y="610.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">передбачувані випадкові біти → передбачувані p і q → чужий d за секунди</text>
+</svg>

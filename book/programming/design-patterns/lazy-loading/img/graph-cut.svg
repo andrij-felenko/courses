@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1280" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="640.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граф зв'язаний наскрізь — ліниве завантаження ріже його на межі</text>
+<text x="640.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">жадібно тягнеться вся павутина; ліниво — сам об'єкт плюс легкі заглушки</text>
+<line x1="640.0" y1="92.0" x2="640.0" y2="534.0" stroke="#d0d5db" stroke-width="1.0" stroke-dasharray="7,7"/>
+<text x="330.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Жадібно (eager)</text>
+<text x="970.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Ліниво (lazy)</text>
+<line x1="240.0" y1="292.0" x2="268.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="240.0" y1="308.0" x2="268.0" y2="400.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="195.0" x2="443.0" y2="195.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="410.0" x2="443.0" y2="410.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="394.2" x2="520.0" y2="212.8" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="445.0" y1="205.0" x2="242.0" y2="288.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="360.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">…і так по колу</text>
+<rect x="90.0" y="276.8" width="150.0" height="46.5" rx="6" fill="#e8eefc" stroke="#1a1a1a" stroke-width="1.9"/><text x="165.0" y="296.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">Order 42</tspan><tspan x="165.0" dy="15.0">(що просили)</tspan></text>
+<rect x="270.0" y="179.2" width="150.0" height="31.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="345.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="345.0" dy="0.0">Customer</tspan></text>
+<rect x="270.0" y="394.2" width="150.0" height="31.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="345.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="345.0" dy="0.0">LineItem</tspan></text>
+<rect x="445.0" y="394.2" width="150.0" height="31.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="520.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Product</tspan></text>
+<rect x="445.0" y="179.2" width="150.0" height="31.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="520.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Supplier</tspan></text>
+<text x="330.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">один запит тягне всю павутину</text>
+<line x1="895.0" y1="292.0" x2="958.0" y2="205.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,5"/>
+<line x1="895.0" y1="308.0" x2="958.0" y2="400.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,5"/>
+<text x="900.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">лише ключ</text>
+<text x="900.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">лише ключ</text>
+<rect x="745.0" y="276.8" width="150.0" height="46.5" rx="6" fill="#e8eefc" stroke="#1a1a1a" stroke-width="1.9"/><text x="820.0" y="296.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">Order 42</tspan><tspan x="820.0" dy="15.0">(завантажено)</tspan></text>
+<rect x="960.0" y="170.5" width="190.0" height="49.0" rx="7" fill="#fbfbfc" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,4"/><text x="1055.0" y="191.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="1055.0" dy="0.0">Customer #7</tspan><tspan x="1055.0" dy="15.0">не завантажено</tspan></text>
+<rect x="960.0" y="385.5" width="190.0" height="49.0" rx="7" fill="#fbfbfc" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,4"/><text x="1055.0" y="406.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="1055.0" dy="0.0">LineItems</tspan><tspan x="1055.0" dy="15.0">не завантажено</tspan></text>
+<text x="965.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">вантажимо Order, решту — лише на дотик</text>
+</svg>

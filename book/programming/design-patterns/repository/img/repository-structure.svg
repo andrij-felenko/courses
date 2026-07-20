@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1080" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Домен володіє контрактом; сховища тягнуться до нього</text>
+<rect x="340.0" y="74.0" width="400.0" height="86.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="540.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Домен · LoyaltyService</text>
+<text x="540.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">orders.forCustomer(id)</text>
+<line x1="540.0" y1="162.0" x2="540.0" y2="190.0" stroke="#333333" stroke-width="1.8" stroke-dasharray="6 4"/>
+<line x1="540.0" y1="186.0" x2="540.0" y2="197.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="560.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">залежить лише від контракту</text>
+<rect x="340.0" y="200.0" width="400.0" height="160.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="540.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">interface OrderRepository</text>
+<text x="540.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">byId(id) → Order?</tspan><tspan x="540.0" dy="16.9">forCustomer(id) → Order[]</tspan><tspan x="540.0" dy="16.9">save(order)</tspan><tspan x="540.0" dy="16.9">remove(order)</tspan></text>
+<line x1="540.0" y1="408.0" x2="540.0" y2="364.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="260.0" y1="410.0" x2="820.0" y2="410.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="260.0" y1="410.0" x2="260.0" y2="450.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="820.0" y1="410.0" x2="820.0" y2="450.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="60.0" y="450.0" width="400.0" height="130.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="82.0" y="483.0" width="46.0" height="64.0" fill="#ffffff" stroke="none"/><ellipse cx="105.0" cy="547.0" rx="23.0" ry="9.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><line x1="82.0" y1="483.0" x2="82.0" y2="547.0" stroke="#333333" stroke-width="1.5"/><line x1="128.0" y1="483.0" x2="128.0" y2="547.0" stroke="#333333" stroke-width="1.5"/><ellipse cx="105.0" cy="483.0" rx="23.0" ry="9.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="300.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SqlOrderRepository</text>
+<text x="300.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">база · SELECT / INSERT</tspan><tspan x="300.0" dy="15.6">рядки, драйвер, з'єднання</tspan></text>
+<text x="300.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">правда продакшну</text>
+<rect x="620.0" y="450.0" width="400.0" height="130.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="645.0" y="492.0" width="62.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="676.0" y="519.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="676.0" dy="0.0">Map</tspan></text>
+<text x="860.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">InMemoryOrderRepository</text>
+<text x="860.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">звичайна Map / dict</tspan><tspan x="860.0" dy="15.6">свіжий екземпляр на тест</tspan></text>
+<text x="860.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">правда тесту</text>
+<rect x="287.0" y="603.0" width="506.1" height="34.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.5"/><text x="540.0" y="624.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">Підмінити реалізацію = змінити сховище, не чіпаючи домен</tspan></text>
+</svg>

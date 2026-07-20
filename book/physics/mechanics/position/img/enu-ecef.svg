@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="780.0" height="560.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">ECEF → ENU: місцева сітка на глобусі</text>
+<circle cx="300.0" cy="312.0" r="170.0" fill="#eef4fa" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="300.0" y1="312.0" x2="300.0" y2="98.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="312.0" x2="530.0" y2="312.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="306.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-style="italic">Z (на полюс)</text>
+<text x="526.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-style="italic">X (екватор)</text>
+<polyline points="370.0,312.0 370.0,309.8 369.9,307.6 369.7,305.5 369.5,303.3 369.2,301.1 368.8,299.0 368.3,296.8 367.8,294.7 367.3,292.6 366.6,290.5 365.9,288.5 365.2,286.4 364.3,284.4 363.4,282.4 362.5,280.5 361.5,278.5 360.4,276.6 359.3,274.8 358.1,272.9 356.8,271.1 355.5,269.4 354.2,267.7 352.8,266.0 351.3,264.4 349.8,262.8 348.2,261.3 346.6,259.8 345.0,258.4" fill="none" stroke="#6b7280" stroke-width="1.8"/>
+<text x="390.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700" font-style="italic">φ₀</text>
+<line x1="300.0" y1="312.0" x2="409.3" y2="181.8" stroke="#2457d6" stroke-width="2.0" stroke-dasharray="5,5"/>
+<text x="243.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">ECEF-положення опори</text>
+<line x1="409.3" y1="181.8" x2="460.7" y2="120.5" stroke="#27ae60" stroke-width="3.0" marker-end="url(#arrow)"/>
+<line x1="409.3" y1="181.8" x2="354.1" y2="135.5" stroke="#1a1a1a" stroke-width="2.6" marker-end="url(#arrow)"/>
+<text x="466.7" y="118.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Up</text>
+<text x="348.1" y="131.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">North</text>
+<circle cx="455.3" cy="211.8" r="9.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="455.3" cy="211.8" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="2.0"/>
+<text x="469.3" y="216.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">East (на нас)</text>
+<circle cx="409.3" cy="181.8" r="6.0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="421.3" y="203.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">опора (нуль ENU)</text>
+<circle cx="402.2" cy="149.7" r="5.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="394.2" y="141.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">ціль</text>
+<rect x="175.9" y="498.6" width="428.1" height="50.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="390.0" y="520.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Спершу віднімаємо ECEF-положення опори (трансляція),</tspan><tspan x="390.0" dy="16.2">тоді обертаємо на осі East-North-Up (поворот від φ₀, λ₀).</tspan></text>
+</svg>

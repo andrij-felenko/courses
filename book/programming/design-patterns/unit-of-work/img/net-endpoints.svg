@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1220" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="610.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що писати — вирішують лише кінці, а не шлях</text>
+<text x="665.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">наприкінці операції…</text>
+<text x="500.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">рядка НЕМА</text>
+<text x="830.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">рядок Є</text>
+<text x="150.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">на початку</text>
+<text x="150.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">рядка НЕМА</text>
+<text x="150.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">на початку</text>
+<text x="150.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">рядок Є</text>
+<rect x="350.0" y="223.9" width="300.0" height="62.2" rx="6" fill="#eaf0fd" stroke="#6b7280" stroke-width="2.0"/><text x="500.0" y="250.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">нічого</tspan><tspan x="500.0" dy="18.2">new + removed</tspan></text>
+<rect x="680.0" y="223.9" width="300.0" height="62.2" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/><text x="830.0" y="250.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="830.0" dy="0.0">INSERT</tspan><tspan x="830.0" dy="18.2">new (+ dirty вливається)</tspan></text>
+<rect x="350.0" y="388.9" width="300.0" height="62.2" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="500.0" y="415.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">DELETE</tspan><tspan x="500.0" dy="18.2">removed (dirty — марно)</tspan></text>
+<rect x="680.0" y="388.9" width="300.0" height="62.2" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="2.0"/><text x="830.0" y="415.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="830.0" dy="0.0">UPDATE — якщо змінилось</tspan><tspan x="830.0" dy="18.2">інакше нічого</tspan></text>
+<line x1="120.0" y1="525.0" x2="1100.0" y2="525.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="610.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">будь-який шлях реєстрацій між тими самими кінцями дає той самий рядок</text>
+<rect x="213.0" y="595.8" width="214.0" height="32.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="320.0" y="616.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">new · dirty · dirty</tspan></text>
+<line x1="320.0" y1="634.0" x2="320.0" y2="662.0" stroke="#27ae60" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="320.0" y="686.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">INSERT</text>
+<rect x="513.0" y="595.8" width="214.0" height="32.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="620.0" y="616.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">new · removed</tspan></text>
+<line x1="620.0" y1="634.0" x2="620.0" y2="662.0" stroke="#6b7280" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="620.0" y="686.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">нічого</text>
+<rect x="813.0" y="595.8" width="214.0" height="32.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="920.0" y="616.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="920.0" dy="0.0">dirty · removed</tspan></text>
+<line x1="920.0" y1="634.0" x2="920.0" y2="662.0" stroke="#2457d6" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="920.0" y="686.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">DELETE</text>
+</svg>

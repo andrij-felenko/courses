@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому сильніше твердження довести ЛЕГШЕ</text>
+<text x="500.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">крок питає про acc + n; гіпотеза мусить дотягтися саме туди</text>
+<rect x="30.0" y="76.0" width="440.0" height="246.0" rx="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="250.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ЗАСЛАБКА: «sum(n−1, 0) = (n−1)n/2»</text>
+<text x="250.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">значення акумулятора acc</text>
+<line x1="64.0" y1="190.0" x2="436.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="140.0" cy="190.0" r="8.0" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.2"/>
+<text x="140.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">acc = 0</text>
+<circle cx="350.0" cy="190.0" r="8.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="350.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">acc = n</text>
+<text x="350.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">сюди гіпотеза не дістає</text>
+<line x1="156.0" y1="252.0" x2="338.0" y2="252.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="245.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">крок питає sum(n−1, acc+n)</text>
+<rect x="530.0" y="76.0" width="440.0" height="246.0" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="750.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ПОСИЛЕНА: «для БУДЬ-ЯКОГО acc»</text>
+<text x="750.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">значення акумулятора acc</text>
+<rect x="570.0" y="177.0" width="360.0" height="26.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="564.0" y1="190.0" x2="936.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="640.0" cy="190.0" r="8.0" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.2"/>
+<text x="640.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">acc = 0</text>
+<circle cx="850.0" cy="190.0" r="8.0" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.2"/>
+<text x="850.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">acc = n</text>
+<text x="850.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">накрито ✓</text>
+<line x1="656.0" y1="252.0" x2="838.0" y2="252.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="745.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-style="italic">крок питає sum(n−1, acc+n)</text>
+<rect x="30.0" y="344.0" width="940.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="500.0" y="374.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Сильніше твердження дає більше не лише ДОВОДИТИ, а й ВЖИВАТИ: у кроці ти дістаєш ширшу гіпотезу.</tspan><tspan x="500.0" dy="16.2">Саме тому вузьке «про acc = 0» не доводиться, а ширше «про всі acc» — доводиться відразу.</tspan></text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1260" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="630.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два рівні кешу: корінь і області</text>
+<text x="630.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">спільне — на корені, особисте — на області запиту</text>
+<rect x="395.0" y="115.5" width="470.0" height="69.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.8"/><text x="630.0" y="138.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">КОРІНЬ · заморожений на старті</tspan><tspan x="630.0" dy="16.2">сінглтони: Clock, Config (спільні для всіх)</tspan><tspan x="630.0" dy="16.2">рецепти: як зробити кожну службу</tspan></text>
+<text x="630.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">на кожен запит — своя область (createScope)</text>
+<rect x="165.0" y="349.5" width="350.0" height="69.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.8"/><text x="340.0" y="372.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">ОБЛАСТЬ · запит A</tspan><tspan x="340.0" dy="16.2">свій кеш scoped:</tspan><tspan x="340.0" dy="16.2">UnitOfWork·A · CurrentUser·A</tspan></text>
+<rect x="745.0" y="349.5" width="350.0" height="69.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.8"/><text x="920.0" y="372.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="920.0" dy="0.0">ОБЛАСТЬ · запит B</tspan><tspan x="920.0" dy="16.2">свій кеш scoped:</tspan><tspan x="920.0" dy="16.2">UnitOfWork·B · CurrentUser·B</tspan></text>
+<line x1="540.0" y1="188.5" x2="400.0" y2="343.5" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="720.0" y1="188.5" x2="860.0" y2="343.5" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="630.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">A і B</text>
+<text x="630.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">не ділять</text>
+<text x="630.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">scoped-стан</text>
+<text x="340.0" y="442.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Clock, Config — з кореня (ті самі)</text>
+<text x="920.0" y="442.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Clock, Config — з кореня (ті самі)</text>
+<text x="340.0" y="476.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">край запиту A → dispose:</text>
+<text x="340.0" y="496.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UnitOfWork·A звільнено, з'єднання закрито</text>
+<text x="920.0" y="476.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">край запиту B → dispose:</text>
+<text x="920.0" y="496.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UnitOfWork·B звільнено, з'єднання закрито</text>
+<line x1="40.0" y1="566.0" x2="1220.0" y2="566.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="630.0" y="594.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ізоляція виникає не з дисципліни, а з того, ДЕ стоїть кеш готового екземпляра</text>
+<text x="630.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">сінглтон — на корені (один на всіх); scoped — на області (свій на запит, гине з нею)</text>
+</svg>

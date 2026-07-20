@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Adler-32: дві суми над потоком, тоді пакування в 32 біти</text>
+<text x="70.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">байт</text>
+<text x="250.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">A += байт</text>
+<text x="480.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">B += A</text>
+<line x1="70.0" y1="102.0" x2="700.0" y2="102.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="70.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-style="italic">старт</text>
+<text x="250.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-style="italic">A = 1</text>
+<text x="480.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-style="italic">B = 0</text>
+<text x="70.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">a  (97)</text>
+<text x="250.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">1 + 97 = 98</text>
+<text x="480.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#caa24a" text-anchor="start" font-weight="700">0 + 98 = 98</text>
+<text x="70.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">b  (98)</text>
+<text x="250.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">98 + 98 = 196</text>
+<text x="480.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#caa24a" text-anchor="start" font-weight="700">98 + 196 = 294</text>
+<text x="70.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">c  (99)</text>
+<text x="250.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">196 + 99 = 295</text>
+<text x="480.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#caa24a" text-anchor="start" font-weight="700">294 + 295 = 589</text>
+<line x1="70.0" y1="260.0" x2="700.0" y2="260.0" stroke="#e4e4e4" stroke-width="1.2"/>
+<text x="70.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">разом:</text>
+<text x="250.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">A = 295 = 0x0127</text>
+<text x="480.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#caa24a" text-anchor="start" font-weight="700">B = 589 = 0x024D</text>
+<line x1="50.0" y1="340.0" x2="710.0" y2="340.0" stroke="#e4e4e4" stroke-width="1.4"/>
+<rect x="150.0" y="356.0" width="200.0" height="46.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="250.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">B = 0x024D</text>
+<text x="250.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">старші 16 біт</text>
+<rect x="360.0" y="356.0" width="200.0" height="46.0" rx="6" fill="#fff8e8" stroke="#caa24a" stroke-width="2.2"/>
+<text x="460.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#caa24a" text-anchor="middle" font-weight="700">A = 0x0127</text>
+<text x="460.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">молодші 16 біт</text>
+<text x="380.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Adler-32 = B·65536 + A = 0x024D0127</text>
+<text x="380.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(перевірка: рядок «Wikipedia» дає 0x11E60398)</text>
+</svg>

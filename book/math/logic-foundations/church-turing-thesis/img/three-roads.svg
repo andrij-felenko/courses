@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 632" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1140" height="632" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="570.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три моделі — одна відповідь</text>
+<text x="570.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна функція — 2 + 3 — трьома несхожими моделями</text>
+<rect x="48.0" y="84.0" width="320.0" height="44.0" rx="9" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="208.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">λ-числення</text>
+<text x="208.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">спрощуй вираз</text>
+<text x="66.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">add «2» «3»</text>
+<text x="66.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">→ λf.λx. «2» f («3» f x)</text>
+<text x="66.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">→ λf.λx. f(f(f(f(f x))))</text>
+<text x="66.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">= «5»    (6 β-кроків)</text>
+<line x1="208.0" y1="372.0" x2="208.0" y2="452.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="208.0" y1="452.0" x2="208.0" y2="486.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="410.0" y="84.0" width="320.0" height="44.0" rx="9" fill="#ffffff" stroke="#b9770e" stroke-width="2.0"/>
+<text x="570.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b9770e" text-anchor="middle" font-weight="700">загальнорекурсивна</text>
+<text x="570.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">розкручуй рекурсію</text>
+<text x="428.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">add(2, 3)</text>
+<text x="428.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">= S(add(2, 2))</text>
+<text x="428.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">= S(S(add(2, 1)))</text>
+<text x="428.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">= S(S(S(add(2, 0))))</text>
+<text x="428.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">= S(S(S(2))) = 5</text>
+<line x1="570.0" y1="372.0" x2="570.0" y2="452.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="570.0" y1="452.0" x2="570.0" y2="486.0" stroke="#b9770e" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="772.0" y="84.0" width="320.0" height="44.0" rx="9" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="932.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">машина Тюринга</text>
+<text x="932.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">переписуй стрічку</text>
+<text x="790.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">110111    старт</text>
+<text x="790.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">111111    0 → 1</text>
+<text x="790.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">11111_    стерли 1</text>
+<text x="790.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">= 5       (8 кроків)</text>
+<line x1="932.0" y1="372.0" x2="932.0" y2="452.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="932.0" y1="452.0" x2="932.0" y2="486.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="208.0" y1="452.0" x2="932.0" y2="452.0" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="421.1" y="502.0" width="297.8" height="36.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="570.0" y="525.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">усі три дороги приходять у 5</tspan></text>
+<text x="570.0" y="578.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Різні світи — функції, рекурсія, стрічка — а результат той самий на кожному вході.</text>
+<text x="570.0" y="600.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Це і є той збіг, що його теза підносить у принцип: усі означують один клас.</text>
+</svg>

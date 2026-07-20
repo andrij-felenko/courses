@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1160" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="580.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві доставки залежності: подати проти витягти</text>
+<text x="580.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">той самий результат у руках — різний напрямок і різна чесність</text>
+<line x1="580.0" y1="74.0" x2="580.0" y2="496.0" stroke="#d0d5db" stroke-width="1.1" stroke-dasharray="4,6"/>
+<text x="301.6" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ВПРОВАДЖЕННЯ — штовхнути ззовні</text>
+<rect x="186.6" y="134.0" width="230.0" height="32.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="301.6" y="154.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="301.6" dy="0.0">композиційний корінь</tspan></text>
+<rect x="161.6" y="275.6" width="280.0" height="48.8" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.9"/><text x="301.6" y="296.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="301.6" dy="0.0">OrderService(gateway)</tspan><tspan x="301.6" dy="16.2">конструктор просить gateway</tspan></text>
+<line x1="301.6" y1="168.0" x2="301.6" y2="273.6" stroke="#27ae60" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="397.6" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">подає ззовні</text>
+<text x="301.6" y="354.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">✓ залежність видно в сигнатурі</text>
+<text x="301.6" y="376.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">тест підставляє підробку в конструктор</text>
+<text x="858.4" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ЛОКАТОР — сам тягне з глобала</text>
+<rect x="733.4" y="134.0" width="250.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/><text x="858.4" y="154.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="858.4" dy="0.0">глобальний Locator (реєстр)</tspan></text>
+<rect x="718.4" y="275.6" width="280.0" height="48.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/><text x="858.4" y="296.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="858.4" dy="0.0">OrderService()</tspan><tspan x="858.4" dy="16.2">конструктор порожній — бреше</tspan></text>
+<line x1="836.4" y1="273.6" x2="836.4" y2="168.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="880.4" y1="168.0" x2="880.4" y2="273.6" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="828.4" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end">смикає</text>
+<text x="828.4" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end">get()</text>
+<text x="888.4" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">служба</text>
+<text x="858.4" y="354.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗ залежність схована в тілі</text>
+<text x="858.4" y="376.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">тест мусить готувати глобал; збій у рантаймі</text>
+<line x1="40.0" y1="520.0" x2="1120.0" y2="520.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="580.0" y="550.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">штовхнули ззовні — видно в сигнатурі;  сам смикнув із глобала — сховано</text>
+<text x="580.0" y="574.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">обидва дають об'єктові залежність — тому двійники; чесність доставки й розводить їх</text>
+</svg>

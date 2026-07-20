@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">lookup(sid): обидва лічильники сходяться в одному рішенні</text>
+<rect x="215.0" y="65.5" width="190.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="310.0" y="86.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">lookup(sid)</tspan></text>
+<line x1="310.0" y1="104.0" x2="310.0" y2="146.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="190.0" y="154.2" width="240.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="310.0" y="174.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">є запис sess:sid</tspan><tspan x="310.0" dy="15.6">у сховищі?</tspan></text>
+<line x1="432.0" y1="178.0" x2="585.0" y2="178.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">ні</text>
+<rect x="597.5" y="162.0" width="185.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="690.0" y="182.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">null — анонім</tspan></text>
+<line x1="310.0" y1="204.0" x2="310.0" y2="246.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="324.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">так</text>
+<rect x="180.0" y="258.2" width="260.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="310.0" y="278.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">now − createdAt ≥</tspan><tspan x="310.0" dy="15.6">абсолютний строк?</tspan></text>
+<line x1="442.0" y1="282.0" x2="585.0" y2="282.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">так</text>
+<rect x="597.5" y="258.2" width="185.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="690.0" y="278.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">destroy(sid)</tspan><tspan x="690.0" dy="15.6">→ null</tspan></text>
+<line x1="310.0" y1="308.0" x2="310.0" y2="350.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="324.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">ні</text>
+<rect x="140.0" y="364.2" width="340.0" height="47.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="310.0" y="384.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">ковзання: EXPIRE sess:sid</tspan><tspan x="310.0" dy="15.6">= min(idle, абсолют − now)</tspan></text>
+<line x1="310.0" y1="416.0" x2="310.0" y2="458.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="190.0" y="473.5" width="240.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="310.0" y="494.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">повернути Session</tspan></text>
+<text x="450.0" y="524.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">idle — це TTL ключа, що ковзає; абсолют — поле createdAt, що обмежує ковзання</text>
+</svg>

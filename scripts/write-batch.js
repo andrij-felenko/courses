@@ -26,6 +26,29 @@ const LIMIT = Number(_a && _a.limit) || 10
 const UNITS_IN = (_a && Array.isArray(_a.units)) ? _a.units.filter((u) => u && u.slug && u.section) : null
 if (!BOOK) throw new Error('args.book обовʼязковий')
 
+/* ── РЕЖИМ ДОРОБКИ (resume) — коли статті ВЖЕ написані на диску, а батч урвався на пізніших фазах.
+   skipArticles: true → пропустити фазу «Статті» ЦІЛКОМ (нічого не переписуємо);
+                 ["slug",…] → пропустити САМЕ ці теми (їхні статті вже на диску), а решту units — писати
+                 як звичайно. Так один прогін закриває книгу, де частину статей батч устиг, а частину ні.
+   Те, що мали б повернути вбиті агенти, подаємо готовим у args: inserts[] (з прози/журналу), newTopics[],
+   detailed[] — воно ДОДАЄТЬСЯ до того, що повернуть агенти дописаних статей.
+   Без цих args поведінка скрипта — стара, без змін. */
+const _sa = _a && _a.skipArticles
+const SKIP_LIST = Array.isArray(_sa) ? _sa.filter(Boolean).map(String) : null
+const SKIP_ALL = _sa === true
+const SKIP_ARTICLES = SKIP_ALL || !!(SKIP_LIST && SKIP_LIST.length)
+const SKIP_SET = new Set(SKIP_LIST || [])
+const INSERTS_IN = (_a && Array.isArray(_a.inserts)) ? _a.inserts.filter((i) => i && i.file && i.topicSlug && i.section) : null
+const NEWTOPICS_IN = (_a && Array.isArray(_a.newTopics)) ? _a.newTopics.filter((t) => t && t.slug) : null
+const DETAILED_IN = (_a && Array.isArray(_a.detailed)) ? _a.detailed.filter((d) => d && d.slug) : null
+// insertsDone — вставки, ВЖЕ написані на диску попереднім (урваним) прогоном: писати НЕ треба,
+// але зареєструвати в маніфесті ТРЕБА. Інакше свіжий батч зареєструє лише ті, що написав сам.
+const INSERTS_DONE_IN = (_a && Array.isArray(_a.insertsDone)) ? _a.insertsDone.filter((i) => i && i.file && i.topicSlug && i.section) : null
+// briefFile — JSON із повними брифами вставок (щоб не гнати кілобайти через args):
+// { inserts:[{ topicSlug, file, brief }] }. Агент-письменник вставки бере свій бриф ЗВІДТИ.
+const BRIEF_FILE = (_a && _a.briefFile) ? String(_a.briefFile) : ''
+if (SKIP_ARTICLES && !UNITS_IN) throw new Error('skipArticles потребує args.units (теми, чиї статті вже на диску)')
+
 const ROOT = 'E:\\develop\\courses'
 const MF = `${KIND}/${BOOK}/manifest.js`
 const MFWIN = `${ROOT}\\${MF.replace(/\//g, '\\')}`
@@ -60,19 +83,28 @@ const INSERT_BIAS = (BOOK === 'programming' || BOOK === 'algorithms')
   : ''
 
 /* ── helpers ── */
+// Детектор ліміту БЕЗ тексту помилки. Пастка: при вичерпаному ліміті agent() НЕ кидає помилку —
+// він тихо повертає null. Тоді err порожній, реджекс нижче не спрацьовує, і замість паузи скрипт
+// молотить MAX_TRIES×RETRY_WAIT на КОЖНОМУ агенті пулу (2026-07-17: 312 svg-агентів замість 13).
+// Тому: рахуємо ПОСПІЛЬ-нулі по всьому пулу. Кілька підряд = це не «агент не впорався», це стіна.
+let _nullStreak = 0
+const NULL_STREAK_LIMIT = 4          // < пулу, щоб зловити стіну раніше, ніж її вдарить увесь фронт
 async function callAgent(prompt, opts) {
   let tries = 0, limitWaits = 0
   while (true) {
     let r = null, err = null
     try { r = await agent(prompt, opts) } catch (e) { r = null; err = e }
-    if (r != null) return r
-    const isLimit = err && /session limit|usage limit|hit your|resets \d|quota|rate limit/i.test(String((err && err.message) || err))
+    if (r != null) { _nullStreak = 0; return r }
+    _nullStreak++
+    const isLimit = (_nullStreak >= NULL_STREAK_LIMIT) ||
+      (err && /session limit|usage limit|hit your|resets \d|quota|rate limit/i.test(String((err && err.message) || err)))
     if (isLimit) {                                   // ліміт сесії: пауза до відновлення, не молотити й не кидати
       if (limitWaits >= LIMIT_MAX) { log(`⛔ ліміт не відпустив за ${LIMIT_MAX} спроб (${opts && opts.label})`); return null }
       limitWaits++
       log(`⏳ ЛІМІТ СЕСІЇ — чекаю ${LIMIT_WAIT / 60000} хв до відновлення й повторю [${limitWaits}/${LIMIT_MAX}] (${opts && opts.label})`)
       await new Promise((res) => setTimeout(res, LIMIT_WAIT))
-      continue
+      _nullStreak = 0   // після паузи — з чистого аркуша: інакше ОДИН справді зламаний агент (завжди null)
+      continue          // сидітиме в лімітній гілці 8 год замість чесних MAX_TRIES×RETRY_WAIT
     }
     tries++
     if (tries >= MAX_TRIES) { log(`⛔ ${opts && opts.label}: нема відповіді після ${MAX_TRIES} спроб`); return null }
@@ -112,7 +144,9 @@ const ART_RET = { type: 'object', additionalProperties: false, required: ['ok'],
   newTopics: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['kind', 'book', 'section', 'slug', 'title'], properties: { kind: { type: 'string' }, book: { type: 'string' }, section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, needDetailed: { type: 'boolean' } } } },
   needDetailedSelf: { type: 'boolean' },
   deeperTargets: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['book', 'slug'], properties: { book: { type: 'string' }, slug: { type: 'string' } } } } } }
-const INS_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, file: { type: 'string' }, note: { type: 'string' } } }
+// newTopics і у вставці: вона лінкує за тим самим §6, отже так само може спертися на тему, якої ще
+// нема. Без цього поля оголосити її не було чим — ref у прозі є, теми в маніфесті нема, лінк битий.
+const INS_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, file: { type: 'string' }, note: { type: 'string' }, newTopics: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['kind', 'book', 'section', 'slug', 'title'], properties: { kind: { type: 'string' }, book: { type: 'string' }, section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, needDetailed: { type: 'boolean' } } } } } }
 const REG_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, count: { type: 'number' } } }
 const CTRL_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, problems: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['file', 'issue'], properties: { file: { type: 'string' }, issue: { type: 'string' } } } } } }
 
@@ -134,8 +168,14 @@ if (UNITS_IN) {
 if (!WORK.length) return { book: BOOK, total: 0, note: 'черга порожня — pending не знайдено' }
 
 /* ──────────────── ФАЗА 2 — СТАТТІ ──────────────── */
-phase('Статті')
-log(`Статті (opus-max, стагер ${STAGGER / 1000}с): ${WORK.length} (${KIND}/${BOOK}, ${LEVEL})`)
+// Розкол черги: SKIP_UNITS — статті вже на диску (не чіпаємо), WRITE_UNITS — пишемо як звичайно.
+const SKIP_UNITS = SKIP_ALL ? WORK : WORK.filter((u) => SKIP_SET.has(u.slug))
+const WRITE_UNITS = SKIP_ALL ? [] : WORK.filter((u) => !SKIP_SET.has(u.slug))
+if (SKIP_UNITS.length) log(`ДОРОБКА: ${SKIP_UNITS.length} статей уже на диску — фазу «Статті» для них пропускаємо (${SKIP_UNITS.map((u) => u.slug).join(', ')})`)
+if (WRITE_UNITS.length) {
+  phase('Статті')
+  log(`Статті (opus-max, стагер ${STAGGER / 1000}с): ${WRITE_UNITS.length} (${KIND}/${BOOK}, ${LEVEL})`)
+}
 function articlePrompt(u) {
   const dir = topicDirWin(u.section, u.slug)
   const file = LEVEL === 'detailed' ? `${u.slug}-d.md` : `${u.slug}.md`
@@ -158,20 +198,28 @@ function articlePrompt(u) {
 КРОК4 — САМОАУДИТ: фігури згенеровано (figs.py запущено, SVG в img/; svg-гейт до «0» — окремий Sonnet-крок, не твій); обсяг у смузі §3; без LaTeX/«Рис.»; ${KIND === 'guide' ? 'нитка курсу доречна (лише назад)' : 'самодостатньо, без фраз послідовності'}.
 Поверни: ok, files (стаття+фігури), inserts (свої вставки на фазу 3), newTopics (нові залежні теми на реєстрацію), needDetailedSelf (чи варта ця тема детальної, §3), deeperTargets (наявні теми, ref-нуті як -d.md, §6), note.`
 }
-const aResults = await staggered(WORK, (u) =>
-  callAgent(articlePrompt(u), { label: `стаття:${u.slug}`, phase: 'Статті', model: 'opus', effort: 'max', schema: ART_RET })
-    .then((pr) => ({ u, ok: !!(pr && pr.ok), inserts: (pr && pr.inserts) || [], newTopics: (pr && pr.newTopics) || [], needDetailedSelf: !!(pr && pr.needDetailedSelf), deeperTargets: (pr && pr.deeperTargets) || [], note: pr && pr.note }))
-    .catch(() => ({ u, ok: false, inserts: [], newTopics: [], needDetailedSelf: false, deeperTargets: [] })))
-const doneArticles = aResults.filter((r) => r.ok).map((r) => r.u)
-const INSERTS = aResults.filter((r) => r.ok).flatMap((r) => r.inserts.map((i) => ({ ...i, section: r.u.section, topicSlug: r.u.slug, topicTitle: r.u.title })))
-const NEWTOPICS = aResults.filter((r) => r.ok).flatMap((r) => r.newTopics)
-// §3/§6 — детальні версії у чергу: власна тема (needDetailedSelf, лише коли пишемо basic) + deeper-цілі (ref на -d.md наявних тем)
-const DETAILED_NEED = []
-if (LEVEL === 'basic') for (const r of aResults) if (r.ok && r.needDetailedSelf) DETAILED_NEED.push({ book: BOOK, slug: r.u.slug })
-for (const r of aResults) if (r.ok) for (const d of (r.deeperTargets || [])) if (d && d.slug) DETAILED_NEED.push({ book: d.book || BOOK, slug: d.slug })
+// Списки з args (доробка) — стартова база; далі ДОДАЄМО те, що повернуть агенти дописаних статей.
+const DETAILED_NEED = (DETAILED_IN || []).map((d) => ({ book: d.book || BOOK, slug: d.slug }))
+let doneArticles = SKIP_UNITS.slice()
+let INSERTS = (INSERTS_IN || []).slice()
+let NEWTOPICS = (NEWTOPICS_IN || []).slice()
+if (WRITE_UNITS.length) {
+  const aResults = await staggered(WRITE_UNITS, (u) =>
+    callAgent(articlePrompt(u), { label: `стаття:${u.slug}`, phase: 'Статті', model: 'opus', effort: 'max', schema: ART_RET })
+      .then((pr) => ({ u, ok: !!(pr && pr.ok), inserts: (pr && pr.inserts) || [], newTopics: (pr && pr.newTopics) || [], needDetailedSelf: !!(pr && pr.needDetailedSelf), deeperTargets: (pr && pr.deeperTargets) || [], note: pr && pr.note }))
+      .catch(() => ({ u, ok: false, inserts: [], newTopics: [], needDetailedSelf: false, deeperTargets: [] })))
+  const okR = aResults.filter((r) => r.ok)
+  doneArticles = doneArticles.concat(okR.map((r) => r.u))
+  INSERTS = INSERTS.concat(okR.flatMap((r) => r.inserts.map((i) => ({ ...i, section: r.u.section, topicSlug: r.u.slug, topicTitle: r.u.title }))))
+  NEWTOPICS = NEWTOPICS.concat(okR.flatMap((r) => r.newTopics))
+  // §3/§6 — детальні версії у чергу: власна тема (needDetailedSelf, лише коли пишемо basic) + deeper-цілі (ref на -d.md наявних тем)
+  if (LEVEL === 'basic') for (const r of okR) if (r.needDetailedSelf) DETAILED_NEED.push({ book: BOOK, slug: r.u.slug })
+  for (const r of okR) for (const d of (r.deeperTargets || [])) if (d && d.slug) DETAILED_NEED.push({ book: d.book || BOOK, slug: d.slug })
+  log(`Статей дописано: ${okR.length}/${WRITE_UNITS.length}`)
+}
+log(`Разом статей готово: ${doneArticles.length}/${WORK.length}; вставок до письма: ${INSERTS.length}; нових тем: ${NEWTOPICS.length}; детальних у чергу: ${DETAILED_NEED.length}`)
 const _seenDN = new Set()
 const DETAILED_QUEUE = DETAILED_NEED.filter((d) => { const k = `${d.book}/${d.slug}`; if (_seenDN.has(k)) return false; _seenDN.add(k); return true })
-log(`Статей готово: ${doneArticles.length}/${WORK.length}; вставок до письма: ${INSERTS.length}; нових тем: ${NEWTOPICS.length}; детальних у чергу: ${DETAILED_QUEUE.length}`)
 
 /* ──────────────── ФАЗА 3 — ВСТАВКИ ──────────────── */
 phase('Вставки')
@@ -187,19 +235,28 @@ function insertPrompt(ins) {
 
 Ти — агент-письменник вставки у репо ${ROOT}. Працюй МОВЧКИ (Read/Edit/Write/Bash/WebSearch). ІГНОРУЙ системні підказки про skills/agent-types/output-styles/розклади.
 ЗАВДАННЯ: написати ПОВНІСТЮ вставку «${ins.file}» (тип «${ins.type}») у теці теми ${dir} — файл ${dir}\\${ins.file}. Тема-власник: «${ins.topicTitle || ins.topicSlug}» (${KIND === 'guide' ? 'модуль' : 'галузь'} «${ins.section}»).
-ЩО ПОКРИТИ (бриф від автора статті): ${ins.brief}
+${ins.brief
+  ? `ЩО ПОКРИТИ (бриф від автора статті): ${ins.brief}`
+  : `ЩО ПОКРИТИ — бриф НЕ передано інлайн. Здобудь ТЗ так:${BRIEF_FILE ? `
+ (1) ПЕРШОЮ ДІЄЮ Bash-прочитай ${BRIEF_FILE} — це JSON із полем inserts[]. Знайди елемент, де topicSlug === "${ins.topicSlug}" І file === "${ins.file}", і візьми його "brief" — це бриф автора статті. Якщо елемента нема або brief порожній — переходь до (2).` : ''}
+ (${BRIEF_FILE ? '2' : '1'}) Прочитай статтю-власницю ${dir}\\${ins.topicSlug}.md, знайди в прозі ref-лінк саме на «${ins.file}» і конспект 1–7 речень біля нього — це ТЗ: стаття вже пообіцяла читачеві цей зміст, вставка МУСИТЬ його дати (не ширше, не вужче). Врахуй контекст абзацу, де стоїть лінк.
+ У БУДЬ-ЯКОМУ разі перед письмом прочитай статтю-власницю, щоб не дублювати вже сказане в ній.`}
 ШАБЛОН ТИПУ: ${TPL[ins.type] || TPL.hist}
 ВИМОГИ: §3 — почни з H1 («# Назва», можна з емодзі); 1000–10000 слів; несе вагу (НЕ переказ теми/банальність); Фейнман; жива українська; формули Unicode у код-блоках; свої фігури за потреби (figs.py у ${dir}, ЗАПУСТИ його — SVG в img/; svg-гейт до «0» — окремий Sonnet-крок, не твій); факти — веб-звір; крос-лінки ${SELF}:/book:/guide: за §6 (тема/крок — 2 сегменти БЕЗ «.md»; файл-ціль -d.md чи <type>-<name>.md — з «.md»). Вставка БЕЗ зворотних лінків на статтю-власника (НЕ лінкуй назад на «${ins.topicSlug}»). МАНІФЕСТ НЕ ЧІПАЙ.
-Поверни: ok, file, note.`
+ • НОВІ ЗАЛЕЖНІ ТЕМИ — так само, як автор статті (§6). Якщо ти спираєшся на вагоме поняття, якого В РЕПО НЕМА (Bash-grep по slug/назві в ${ROOT}\\book\\*\\manifest.js та ${ROOT}\\guide\\*\\manifest.js — досить стаба pending/empty), НЕ обходь згадку й НЕ лишай голий текст без ref: постав ref (book:<книга>/<slug>) і додай тему в newTopics:[{kind,book,section,slug,title,needDetailed}] — section бери РЕАЛЬНУ наявну, що найкраще пасує. Файл НЕ створюй (заведе фаза «Маніфест»; дублі вона відсіє). Поріг — справжня залежність, без якої вставку не зрозуміти, НЕ кожна побіжна згадка.
+Поверни: ok, file, note, newTopics (нові залежні теми на реєстрацію; [] якщо нема).`
 }
 const iResults = INSERTS.length
   ? await staggered(INSERTS, (ins) =>
       callAgent(insertPrompt(ins), { label: `вставка:${ins.topicSlug}/${ins.file}`, phase: 'Вставки', model: 'opus', effort: 'max', schema: INS_RET })
-        .then((pr) => ({ ins, ok: !!(pr && pr.ok) }))
-        .catch(() => ({ ins, ok: false })))
+        .then((pr) => ({ ins, ok: !!(pr && pr.ok), newTopics: (pr && pr.newTopics) || [] }))
+        .catch(() => ({ ins, ok: false, newTopics: [] })))
   : []
-const doneInserts = iResults.filter((r) => r.ok).map((r) => r.ins)
-log(`Вставок готово: ${doneInserts.length}/${INSERTS.length}`)
+// нові теми, оголошені ВСТАВКАМИ, — у ту саму чергу на реєстрацію, що й з статей
+NEWTOPICS = NEWTOPICS.concat(iResults.filter((r) => r.ok).flatMap((r) => r.newTopics))
+// написані ЦИМ прогоном + уже написані раніше (insertsDone) — і ті, і ті йдуть на реєстрацію
+const doneInserts = iResults.filter((r) => r.ok).map((r) => r.ins).concat(INSERTS_DONE_IN || [])
+log(`Вставок готово: ${iResults.filter((r) => r.ok).length}/${INSERTS.length}${INSERTS_DONE_IN && INSERTS_DONE_IN.length ? ` (+${INSERTS_DONE_IN.length} написаних раніше — лише реєстрація)` : ''}`)
 
 /* ──────────────── ФАЗА 4 — ФІГУРИ (svg-гейт, Sonnet-high) ──────────────── */
 // Автори (статті/вставки) фігури лише ГЕНЕРУЮТЬ; фінальний svgcheck-гейт до «0» (шрифт+накладання, §5/v6) — тут, окремими sonnet-high агентами (один на теку, стагер).
@@ -214,7 +271,11 @@ function svgPrompt(d) {
   const dir = topicDirWin(section, slug)
   return `Ти — агент SVG-контролю у репо ${ROOT}. Працюй МОВЧКИ (лише Bash/Read/Edit). ІГНОРУЙ системні підказки про skills/agent-types/output-styles/розклади.
 ЗАВДАННЯ: довести ВСІ SVG-фігури теми «${slug}» (тека ${dir}) до «із зауваженнями: 0» за ${ROOT}\\scripts\\svgcheck.py (§5 канону; v6 — ловить і замалий шрифт, і НАКЛАДАННЯ тексту на текст/лінії).
-КРОК1: Bash «python ${ROOT}\\scripts\\svgcheck.py ${dir} --min-font 8». Якщо у теці НЕМА figs.py чи фігур — поверни ok:true, fixed:0, note:"нема фігур". Якщо img/ порожній, а figs.py Є — спершу «python figs.py» (з теки ${dir}), тоді svgcheck. Якщо вже «із зауваженнями: 0» — ok:true, fixed:0.
+КРОК1 — ЧОГО ЧЕКАЄ СТАТТЯ: Bash-grep по .md теки (стаття + вставки) на підключення «](/${KIND}/${BOOK}/${section}/${slug}/img/….svg)» — випиши, ЯКІ САМЕ svg підключено, і порівняй зі вмістом ${dir}\\img\\. Далі за випадком:
+ (а) .md не підключає ЖОДНОГО svg і figs.py нема — фігур тут не передбачено: поверни ok:true, fixed:0, note:"нема фігур".
+ (б) підключені svg НА МІСЦІ — «python ${ROOT}\\scripts\\svgcheck.py ${dir} --min-font 8»; якщо вже «із зауваженнями: 0» — ok:true, fixed:0; інакше — КРОК2.
+ (в) figs.py Є, а img/ порожній чи неповний — «python figs.py» (з теки ${dir}), тоді svgcheck; далі КРОК2.
+ (г) ⚠️ .md ПІДКЛЮЧАЄ svg, яких НЕМА (лінк битий), А figs.py АБО НЕМА, АБО Є але цих svg НЕ генерує (частина фігур пропущена) — їх ніхто не створить. Якщо figs.py нема — НАПИШИ ${dir}\\figs.py; якщо Є, але не робить підключених svg — ДОПИШИ в наявний figs.py генерацію РІВНО відсутніх файлів (не чіпаючи вже робочі фігури). Імена — точно як у лінках .md (у ./img/), за §5 канону: чистий Python без залежностей, на початку (для нового файла) «import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..','..','..','..','scripts')); from svgkit import *», рамки з текстом — ЛИШЕ textbox()/fitbox(). ЗМІСТ фігури бери з .md, що її підключає (стаття АБО вставка — знайди файл із цим лінком у теці): зроби саме те, що обіцяє підпис і абзац навколо (фігура несе вагу, не декор). Тоді «python figs.py» і КРОК2. .md НЕ правь — підлаштовуй фігури під нього.
 КРОК2 (лише якщо є зауваження): відкрий ${dir}\\figs.py і ПРАВ РОЗКЛАДКУ, не зміст — розсунь підписи (ширші клітини/колонки, більший viewBox), веди лінії ПОВЗ написи, не втискай довгі рядки поруч; рамки з текстом — ЛИШЕ через textbox()/fitbox() зі svgkit (він у ${ROOT}\\scripts). Зміст/сенс фігури НЕ міняй.
 КРОК3: «python figs.py» (з ${dir}), тоді знову svgcheck. Повторюй КРОК2–3, доки «із зауваженнями: 0» (щонайбільше ${SVG_TRIES} ітерацій). НЕ чіпай .md статті, вставки й маніфест — ЛИШЕ figs.py та img/.
 Поверни: ok (true ⟺ кінцево «0 зауважень» або фігур нема), fixed (скільки фігур виправив), note (що зробив; якщо не довів до 0 — яке зауваження лишилось і де).`
@@ -246,7 +307,10 @@ if (doneInserts.length) {
 }
 if (NEWTOPICS.length) {
   await callAgent(
-    `Зареєструй НОВІ залежні теми зі статусом "pending" у ВІДПОВІДНИХ маніфестах (схема v6 §2) за kind+book (book/<book>/manifest.js | catalog/<book>/manifest.js | guide/<course>/manifest.js). Для кожної знайди section за її slug і Edit-точково додай { slug, title, basic:{status:"pending"}, detailed:{status: needDetailed ? "pending" : "empty"} }, НЕ дублюючи наявне (спершу перевір, чи вже є такий slug). Якщо section відсутня — створи. НОВІ ТЕМИ: ${JSON.stringify(NEWTOPICS)}\nПоверни ok, count.`,
+    `Зареєструй НОВІ залежні теми зі статусом "pending" у ВІДПОВІДНИХ маніфестах (схема v6 §2) за kind+book (book/<book>/manifest.js | catalog/<book>/manifest.js | guide/<course>/manifest.js). Для кожної знайди section за її slug і Edit-точково додай { slug, title, basic:{status:"pending"}, detailed:{status: needDetailed ? "pending" : "empty"} }, НЕ дублюючи наявне (спершу перевір, чи вже є такий slug). Якщо section відсутня — створи.
+⚠️ ЕЛЕМЕНТИ З "titleHint" (замість "title") — тему відновлено з ПРОЗИ, і hint це СИРИЙ текст ref-лінка: часто в непрямому відмінку («поліномом Жегалкіна»), обрізаний («лінійних діофантових») чи з малої літери. НЕ клади його в маніфест як є. Прочитай статтю-джерело ${ROOT}\\${KIND}\\${BOOK}\\<fromArticle>, знайди той лінк, глянь контекст речення — і СФОРМУЛЮЙ правильний заголовок теми: називний відмінок, повна самодостатня назва, з великої літери, жива українська без кальок («поліномом Жегалкіна» → «Поліном Жегалкіна»; «лінійних діофантових» → «Лінійні діофантові рівняння»; «тези Черча–Тюринга» → «Теза Черча — Тюринга»).
+⚠️ "section" у таких елементів — лише ПІДКАЗКА (це секція статті-джерела). Якщо тема за змістом краще лягає в іншу НАЯВНУ секцію цієї книги — клади туди; нову секцію створюй, лише коли жодна не пасує.
+НОВІ ТЕМИ: ${JSON.stringify(NEWTOPICS)}\nПоверни ok, count.`,
     { label: 'нові→pending', phase: 'Маніфест', model: 'opus', schema: REG_RET })
 }
 
@@ -277,6 +341,7 @@ if (DONE_DIRS.length) {
 }
 
 const okN = doneArticles.length
+const insWritten = iResults.filter((r) => r.ok).length      // написані ЦИМ прогоном (doneInserts містить ще й insertsDone)
 const svgFixedTotal = svgResults.reduce((s, r) => s + (r.fixed || 0), 0)
 const svgUnresolved = svgResults.filter((r) => !r.ok).map((r) => r.d)
-return { book: BOOK, kind: KIND, level: LEVEL, scouted: WORK.length, articles: okN, articlesFailed: WORK.length - okN, inserts: doneInserts.length, insertsFailed: INSERTS.length - doneInserts.length, newTopics: NEWTOPICS.length, detailedQueued: DETAILED_QUEUE.length, svgFixed: svgFixedTotal, svgUnresolved, problems: PROBLEMS }
+return { book: BOOK, kind: KIND, level: LEVEL, scouted: WORK.length, articles: okN, articlesFailed: WORK.length - okN, inserts: insWritten, insertsRegisteredOnly: (INSERTS_DONE_IN || []).length, insertsFailed: INSERTS.length - insWritten, newTopics: NEWTOPICS.length, detailedQueued: DETAILED_QUEUE.length, svgFixed: svgFixedTotal, svgUnresolved, problems: PROBLEMS }

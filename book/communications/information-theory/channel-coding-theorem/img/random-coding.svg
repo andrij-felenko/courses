@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 384" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="384" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Показник помилки: нижче C похибка тане експоненційно</text>
+<line x1="100.0" y1="300.0" x2="672.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="664.0" y1="300.0" x2="680.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="672.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">довжина блоку n</text>
+<line x1="100.0" y1="78.0" x2="100.0" y2="306.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="92.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">log₂(межа середньої похибки)</text>
+<line x1="100.0" y1="123.8" x2="636.0" y2="123.8" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="5,4"/>
+<text x="634.0" y="117.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">межа = 1 (2⁰)</text>
+<line x1="100.0" y1="123.8" x2="632.0" y2="288.7" stroke="#2457d6" stroke-width="2.6"/>
+<text x="630.0" y="314.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">R = 0.40  (&lt; C)</text>
+<line x1="100.0" y1="123.8" x2="632.0" y2="162.8" stroke="#27ae60" stroke-width="2.6"/>
+<text x="630.0" y="188.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">R = 0.50  (&lt; C)</text>
+<line x1="100.0" y1="123.8" x2="632.0" y2="99.8" stroke="#c0392b" stroke-width="2.6"/>
+<text x="630.0" y="91.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">R = 0.55  (&gt; C)</text>
+<text x="150.0" y="93.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">межа &gt; 1 — марна (зона R &gt; C)</text>
+<text x="150.0" y="274.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">межа → 0 — добрий код існує (R &lt; C)</text>
+<rect x="100.0" y="326.0" width="532.0" height="50.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="366.0" y="347.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="366.0" dy="0.0">Усереднена похибка ≤ 2^(−n(I−R)). Нахил прямої — рівно (I−R): при R &lt; C вона</tspan><tspan x="366.0" dy="15.0">летить до нуля з довжиною блоку, при R &gt; C розвертається вгору.</tspan></text>
+</svg>

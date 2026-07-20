@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Безкоштовного обіду немає: чотири клітини однієї таблиці</text>
+<text x="510.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">два клієнти одночасно правлять рядок id = 42</text>
+<text x="460.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="460.0" dy="0.0">A міняє status, B міняє total</tspan><tspan x="460.0" dy="16.2">(РІЗНІ колонки)</tspan></text>
+<text x="800.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">обидва міняють total</tspan><tspan x="800.0" dy="16.2">(ТА САМА колонка)</tspan></text>
+<text x="152.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="152.0" dy="0.0">save() пише лише</tspan><tspan x="152.0" dy="16.2">змінені колонки</tspan></text>
+<text x="152.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="152.0" dy="0.0">+ лічильник версій</tspan><tspan x="152.0" dy="16.2">на РЯДОК</tspan></text>
+<rect x="300.0" y="152.0" width="320.0" height="130.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="326.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<text x="472.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">обидва доїхали</text>
+<text x="460.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">різні колонки — різні UPDATE,</tspan><tspan x="460.0" dy="15.0">вони просто не зустрілися</tspan></text>
+<rect x="640.0" y="152.0" width="320.0" height="130.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="666.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<text x="812.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">тихо втрачене оновлення</text>
+<text x="800.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">у базі 20 — десятку A стерто,</tspan><tspan x="800.0" dy="15.0">жодної помилки ніхто не бачив</tspan></text>
+<rect x="300.0" y="306.0" width="320.0" height="130.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="326.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<text x="472.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ХИБНИЙ конфлікт</text>
+<text x="460.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">B відхилено, хоч воно й</tspan><tspan x="460.0" dy="15.0">не торкалося status</tspan></text>
+<rect x="640.0" y="306.0" width="320.0" height="130.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="666.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<text x="812.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">спіймано</text>
+<text x="800.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">0 рядків → StaleObject,</tspan><tspan x="800.0" dy="15.0">B перечитує й вирішує наново</tspan></text>
+<text x="510.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Лічильник рахує РЯДОК, а не колонку: він купує безпеку в правій колонці</tspan><tspan x="510.0" dy="16.2">ціною хибних конфліктів у лівій. Обидві клітини «✓» одночасно не вмикаються.</tspan></text>
+</svg>

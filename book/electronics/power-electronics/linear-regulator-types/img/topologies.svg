@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна петля, три прохідні елементи — розвилка в тому, до чого прив'язане керування</text>
+<text x="180.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">NPN — повторювач</text>
+<text x="180.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">керування прив'язане до ВИХОДУ</text>
+<line x1="50.0" y1="108.0" x2="310.0" y2="108.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="42.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">Vвх</text>
+<line x1="180.0" y1="108.0" x2="180.0" y2="140.0" stroke="#333333" stroke-width="1.8"/>
+<text x="190.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">колектор</text>
+<rect x="122.0" y="140.0" width="116.0" height="62.0" rx="7" fill="#eef2f7" stroke="#7f93a8" stroke-width="2.0"/>
+<text x="180.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">NPN</text>
+<text x="88.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="88.0" dy="0.0">драйвер тягне</tspan><tspan x="88.0" dy="13.0">ВГОРУ, вище Vвих</tspan></text>
+<line x1="54.0" y1="171.0" x2="118.0" y2="171.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="202.0" x2="180.0" y2="250.0" stroke="#333333" stroke-width="1.8"/>
+<text x="190.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">емітер</text>
+<line x1="50.0" y1="250.0" x2="310.0" y2="250.0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="318.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Vвих</text>
+<rect x="64.0" y="297.4" width="232.0" height="45.3" rx="6" fill="#e8f6ed" stroke="#6b7280" stroke-width="1.5"/><text x="180.0" y="316.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">струм бази виходить емітером</tspan><tspan x="180.0" dy="14.3">— у навантаження, не в землю</tspan></text>
+<rect x="64.0" y="369.4" width="232.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="180.0" y="388.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">dropout = Vбе + Vнас</tspan><tspan x="180.0" dy="14.3">≈ 1.1 В (2 В у дарлінгтона)</tspan></text>
+<text x="510.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">PNP — інверсний</text>
+<text x="510.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">керування прив'язане до ЗЕМЛІ</text>
+<line x1="380.0" y1="108.0" x2="640.0" y2="108.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="372.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">Vвх</text>
+<line x1="510.0" y1="108.0" x2="510.0" y2="140.0" stroke="#333333" stroke-width="1.8"/>
+<text x="520.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">емітер</text>
+<rect x="452.0" y="140.0" width="116.0" height="62.0" rx="7" fill="#eef2f7" stroke="#7f93a8" stroke-width="2.0"/>
+<text x="510.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">PNP</text>
+<text x="418.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="418.0" dy="0.0">драйвер тягне</tspan><tspan x="418.0" dy="13.0">ВНИЗ, до землі</tspan></text>
+<line x1="384.0" y1="171.0" x2="448.0" y2="171.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="202.0" x2="510.0" y2="250.0" stroke="#333333" stroke-width="1.8"/>
+<text x="520.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">колектор</text>
+<line x1="380.0" y1="250.0" x2="640.0" y2="250.0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="648.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Vвих</text>
+<rect x="394.0" y="297.4" width="232.0" height="45.3" rx="6" fill="#fdecea" stroke="#6b7280" stroke-width="1.5"/><text x="510.0" y="316.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">струм бази стікає в землю</tspan><tspan x="510.0" dy="14.3">Iзем ≈ Iвих / β</tspan></text>
+<rect x="394.0" y="369.4" width="232.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="510.0" y="388.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">dropout = Vке(нас)</tspan><tspan x="510.0" dy="14.3">≈ 0.3…0.5 В, без підлоги</tspan></text>
+<text x="840.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">PMOS — інверсний</text>
+<text x="840.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">керування прив'язане до ЗЕМЛІ</text>
+<line x1="710.0" y1="108.0" x2="970.0" y2="108.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="702.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">Vвх</text>
+<line x1="840.0" y1="108.0" x2="840.0" y2="140.0" stroke="#333333" stroke-width="1.8"/>
+<text x="850.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">витік</text>
+<rect x="782.0" y="140.0" width="116.0" height="62.0" rx="7" fill="#eef2f7" stroke="#7f93a8" stroke-width="2.0"/>
+<text x="840.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">PMOS</text>
+<text x="748.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="748.0" dy="0.0">драйвер тягне</tspan><tspan x="748.0" dy="13.0">ВНИЗ, до землі</tspan></text>
+<line x1="714.0" y1="171.0" x2="778.0" y2="171.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="840.0" y1="202.0" x2="840.0" y2="250.0" stroke="#333333" stroke-width="1.8"/>
+<text x="850.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">стік</text>
+<line x1="710.0" y1="250.0" x2="970.0" y2="250.0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="978.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Vвих</text>
+<rect x="724.0" y="297.4" width="232.0" height="45.3" rx="6" fill="#e8f6ed" stroke="#6b7280" stroke-width="1.5"/><text x="840.0" y="316.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">затвор постійного струму не бере</tspan><tspan x="840.0" dy="14.3">Iзем ≈ лише вузол керування</tspan></text>
+<rect x="724.0" y="369.4" width="232.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="840.0" y="388.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">dropout = Iвих · Rси(відкр)</tspan><tspan x="840.0" dy="14.3">підлоги немає взагалі</tspan></text>
+</svg>

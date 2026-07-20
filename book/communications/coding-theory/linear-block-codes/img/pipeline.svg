@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 250" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="250" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наскрізний шлях: кодування ×G, перевірка ×H, декодування за синдромом</text>
+<rect x="40.0" y="93.0" width="148.0" height="49.9" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="114.0" y="114.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="114.0" dy="0.0">дані</tspan><tspan x="114.0" dy="16.9">m</tspan></text>
+<rect x="248.0" y="93.0" width="148.0" height="49.9" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="2.0"/><text x="322.0" y="114.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="322.0" dy="0.0">слово</tspan><tspan x="322.0" dy="16.9">c</tspan></text>
+<rect x="456.0" y="93.0" width="148.0" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="530.0" y="114.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">прийняте</tspan><tspan x="530.0" dy="16.9">r</tspan></text>
+<rect x="664.0" y="93.0" width="148.0" height="49.9" rx="6" fill="#f6f4ec" stroke="#1a1a1a" stroke-width="2.0"/><text x="738.0" y="114.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="738.0" dy="0.0">синдром</tspan><tspan x="738.0" dy="16.9">s</tspan></text>
+<rect x="872.0" y="93.0" width="148.0" height="49.9" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="946.0" y="114.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="946.0" dy="0.0">дані</tspan><tspan x="946.0" dy="16.9">m̂</tspan></text>
+<line x1="192.0" y1="118.0" x2="244.0" y2="118.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="218.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">× G</text>
+<line x1="400.0" y1="118.0" x2="452.0" y2="118.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="426.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+ e</text>
+<line x1="608.0" y1="118.0" x2="660.0" y2="118.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="634.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">× H</text>
+<line x1="816.0" y1="118.0" x2="868.0" y2="118.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="842.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">таблиця</text>
+<text x="218.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">кодування</text>
+<text x="426.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">помилка каналу</text>
+<text x="634.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">синдром</text>
+<text x="842.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">знайти й виправити</text>
+<text x="530.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">дві невеликі матриці (G і H) замінюють таблицю на 2ᵏ дозволених слів</text>
+</svg>

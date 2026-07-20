@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1220" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="610.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Де вмирає одрук: рядковий ключ проти токена</text>
+<text x="610.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">той самий пошук служби — а помилку ловлять у різні моменти</text>
+<line x1="610.0" y1="82.0" x2="610.0" y2="486.0" stroke="#d0d5db" stroke-width="1.1" stroke-dasharray="4,6"/>
+<text x="330.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">КЛЮЧ — РЯДОК</text>
+<rect x="170.0" y="139.8" width="320.0" height="32.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/><text x="330.0" y="160.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">registry.get(&quot;getway&quot;)</tspan></text>
+<line x1="330.0" y1="176.0" x2="330.0" y2="216.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="330.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">компілятор пропускає — рядок є рядок</text>
+<rect x="170.0" y="268.0" width="320.0" height="32.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/><text x="330.0" y="288.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">рантайм: undefined → виняток</tspan></text>
+<line x1="330.0" y1="304.0" x2="330.0" y2="340.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="330.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">тип повернення: unknown</text>
+<text x="330.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">→ приведення as PaymentGateway щоразу</text>
+<text x="330.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗ одрук доживає до рантайму</text>
+<text x="330.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">✗ приведення в кожній точці</text>
+<text x="890.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">КЛЮЧ — ТОКЕН, ЩО НЕСЕ ТИП</text>
+<rect x="730.0" y="139.8" width="320.0" height="32.5" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.7"/><text x="890.0" y="160.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="890.0" dy="0.0">registry.resolve(GATEWY)</tspan></text>
+<line x1="890.0" y1="176.0" x2="890.0" y2="216.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="890.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">компілятор: Cannot find name 'GATEWY'</text>
+<rect x="730.0" y="268.0" width="320.0" height="32.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.6"/><text x="890.0" y="288.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="890.0" dy="0.0">виправив → resolve(GATEWAY)</tspan></text>
+<line x1="890.0" y1="304.0" x2="890.0" y2="340.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="890.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">тип повернення: PaymentGateway</text>
+<text x="890.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">→ без приведення, одразу типизовано</text>
+<text x="890.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">✓ одрук не компілюється</text>
+<text x="890.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">✓ жодного приведення</text>
+<line x1="40.0" y1="496.0" x2="1180.0" y2="496.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="610.0" y="524.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секрет один: вкласти тип служби в сам ключ</text>
+<text x="610.0" y="548.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">тоді одрук ловить компілятор, а не користувач у проді</text>
+</svg>

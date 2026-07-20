@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Машина станів прошивки EPR-приймача</text>
+<rect x="60.0" y="58.0" width="340.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.2"/>
+<text x="230.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">SPR-контракт</text>
+<text x="230.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">5 В на VBUS — безпечний старт</text>
+<rect x="60.0" y="186.0" width="340.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="230.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ВХІД У EPR</text>
+<text x="230.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">EPR_Mode(Enter) → чекаю Enter Succeeded</text>
+<rect x="60.0" y="314.0" width="340.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="230.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ЗАПИТ НАПРУГИ</text>
+<text x="230.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Request 48 В / AVS → чекаю PS_RDY</text>
+<rect x="60.0" y="458.0" width="340.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="230.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">EPR ACTIVE</text>
+<text x="230.0" y="501.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">48 В · ключ замкнено · серцебиття живе</text>
+<line x1="230.0" y1="114.0" x2="230.0" y2="184.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="246.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">SPR-контракт уже діє</text>
+<line x1="230.0" y1="242.0" x2="230.0" y2="312.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="246.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Enter Succeeded (≤ ~450 мс)</text>
+<line x1="230.0" y1="370.0" x2="230.0" y2="456.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="246.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">PS_RDY → gate_enable()</text>
+<path d="M 400 470 C 484 456, 484 516, 400 502" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="496.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">таймер 250 мс:</text>
+<text x="496.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">KeepAlive → ACK</text>
+<text x="496.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">misses = 0</text>
+<line x1="164.0" y1="514.0" x2="164.0" y2="572.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 4"/>
+<line x1="164.0" y1="565.0" x2="164.0" y2="572.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="176.0" y="544.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-style="italic">keep-alive прогаяно →</text>
+<text x="176.0" y="562.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-style="italic">джерело скидає напругу</text>
+<rect x="40.0" y="574.0" width="380.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.2"/>
+<text x="230.0" y="594.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">FALLBACK → 5 В</text>
+<text x="230.0" y="615.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">gate_disable() · знову SPR-контракт</text>
+<text x="230.0" y="644.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">з 5 В усе починається спочатку</text>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Те саме завдання, два шляхи — і різні проміжні</text>
+<text x="440.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">шість модулів по 20 бітів кожен; зібране число N — 120 бітів</text>
+<text x="530.4" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">64 біти — межа машинного слова</text>
+<line x1="530.4" y1="90.0" x2="530.4" y2="250.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="40.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">ФОРМУЛА-СУМА</text>
+<text x="40.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">x = Σ aᵢ · Nᵢ · Mᵢ</text>
+<rect x="300.0" y="96.0" width="500.4" height="36.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="740.4" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">139 бітів</text>
+<text x="40.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">ГАРНЕР</text>
+<text x="40.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">xᵢ = (… − xⱼ)·nⱼ⁻¹ mod nᵢ</text>
+<rect x="300.0" y="196.0" width="140.4" height="36.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="370.2" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">39 бітів</text>
+<rect x="40.0" y="272.0" width="800.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/><text x="440.0" y="302.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Доданок aᵢ·Nᵢ·Mᵢ майже завбільшки з N, помножене ще на модуль — тому росте разом з усім числом.</tspan><tspan x="440.0" dy="15.6">У Гарнера перемножуються два числа, менші за ОДИН модуль: стеля — nᵢ², тобто два машинні слова.</tspan><tspan x="440.0" dy="15.6">І ця стеля не залежить від того, скільки модулів у наборі: додайте ще шість — вона не зрушить.</tspan><tspan x="440.0" dy="15.6">Ліворуч від пунктиру — «вміщається в машинне слово», праворуч — «потрібна довга арифметика».</tspan></text>
+</svg>

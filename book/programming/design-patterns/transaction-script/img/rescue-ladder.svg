@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три стадії однієї логіки ціни</text>
+<line x1="400.0" y1="172.0" x2="400.0" y2="470.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="5 5"/>
+<line x1="800.0" y1="172.0" x2="800.0" y2="470.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="5 5"/>
+<text x="200.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">СТАДІЯ 0 · КОПІЇ</text>
+<text x="200.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">копії правила розійшлися</text>
+<rect x="92.0" y="118.0" width="216.0" height="58.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="104.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">placeOrder</text>
+<rect x="104.0" y="146.0" width="192.0" height="22.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/><text x="200.0" y="160.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">знижка · податок · поріг</tspan></text>
+<rect x="92.0" y="190.0" width="216.0" height="58.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="104.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">changeQty</text>
+<rect x="104.0" y="218.0" width="192.0" height="22.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/><text x="200.0" y="232.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">знижка · податок</tspan></text>
+<rect x="92.0" y="262.0" width="216.0" height="58.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="104.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">reorder</text>
+<rect x="104.0" y="290.0" width="192.0" height="22.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/><text x="200.0" y="304.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">знижка</tspan></text>
+<rect x="58.0" y="402.0" width="284.0" height="46.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="200.0" y="428.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">1 правка правила → 3 місця, одне забуто</tspan></text>
+<line x1="370.0" y1="232.0" x2="428.0" y2="232.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="400.0" dy="0.0">копії</tspan><tspan x="400.0" dy="13.7">розходяться</tspan></text>
+<text x="600.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">СТАДІЯ 1 · СПІЛЬНА ФУНКЦІЯ</text>
+<text x="600.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">копії зійшлися в одну функцію</text>
+<rect x="446.0" y="131.0" width="132.0" height="38.0" rx="7" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="512.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">placeOrder</text>
+<line x1="580.0" y1="150.0" x2="636.0" y2="210.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="446.0" y="191.0" width="132.0" height="38.0" rx="7" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="512.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">changeQty</text>
+<line x1="580.0" y1="210.0" x2="636.0" y2="210.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="446.0" y="251.0" width="132.0" height="38.0" rx="7" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="512.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">reorder</text>
+<line x1="580.0" y1="270.0" x2="636.0" y2="210.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="638.0" y="150.0" width="134.0" height="120.0" rx="9" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.9"/>
+<text x="705.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">priceOrder()</text>
+<text x="705.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">правило</text>
+<text x="705.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1 копія</text>
+<rect x="464.0" y="402.0" width="280.0" height="46.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.3"/><text x="604.0" y="428.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="604.0" dy="0.0">хвіст параметрів росте; правило можна оминути</tspan></text>
+<line x1="776.0" y1="232.0" x2="830.0" y2="232.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="800.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="800.0" dy="0.0">функція</tspan><tspan x="800.0" dy="13.7">обростає</tspan></text>
+<text x="1000.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">СТАДІЯ 2 · ВЛАСНИК</text>
+<text x="1000.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">правило й дані зрослися в об'єкт</text>
+<rect x="846.0" y="131.0" width="132.0" height="38.0" rx="7" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="912.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">placeOrder</text>
+<line x1="980.0" y1="150.0" x2="1036.0" y2="210.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="846.0" y="191.0" width="132.0" height="38.0" rx="7" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="912.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">changeQty</text>
+<line x1="980.0" y1="210.0" x2="1036.0" y2="210.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="846.0" y="251.0" width="132.0" height="38.0" rx="7" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="912.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">reorder</text>
+<line x1="980.0" y1="270.0" x2="1036.0" y2="210.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="1038.0" y="150.0" width="130.0" height="120.0" rx="9" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="1103.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Order</text>
+<text x="1103.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">правило</text>
+<text x="1103.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">інваріант ✓</text>
+<rect x="864.0" y="402.0" width="280.0" height="46.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/><text x="1004.0" y="428.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="1004.0" dy="0.0">інваріант — у конструкторі, оминути нічим</tspan></text>
+</svg>

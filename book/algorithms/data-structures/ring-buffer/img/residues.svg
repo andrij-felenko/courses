@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Голубник: N+1 зайнятостей не влазять у N залишків</text>
+<text x="450.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">N = 4: зайнятість буває 0…4 — це п'ять станів, а залишок (head − tail) mod 4 має чотири значення</text>
+<rect x="310.0" y="100.0" width="68.0" height="38.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="344.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="386.0" y="100.0" width="68.0" height="38.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="420.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="462.0" y="100.0" width="68.0" height="38.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="496.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<rect x="538.0" y="100.0" width="68.0" height="38.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="572.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<rect x="614.0" y="100.0" width="68.0" height="38.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="648.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">4</text>
+<text x="294.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">зайнятість size</text>
+<rect x="310.0" y="250.0" width="68.0" height="38.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="344.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="386.0" y="250.0" width="68.0" height="38.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="420.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="462.0" y="250.0" width="68.0" height="38.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="496.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<rect x="538.0" y="250.0" width="68.0" height="38.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="572.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<text x="294.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">(head − tail) mod N</text>
+<line x1="344.0" y1="141.0" x2="344.0" y2="246.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="141.0" x2="420.0" y2="246.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="496.0" y1="141.0" x2="496.0" y2="246.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="572.0" y1="141.0" x2="572.0" y2="246.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="648.0" y1="141.0" x2="648.0" y2="320.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="648.0" y1="320.0" x2="344.0" y2="320.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="344.0" y1="320.0" x2="344.0" y2="292.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="496.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">size = 0 і size = N дають той самий залишок — рівно тут гине інформація</text>
+<rect x="717.2" y="136.6" width="145.7" height="98.8" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.4"/><text x="790.0" y="155.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">5 станів → 4 залишки.</tspan><tspan x="790.0" dy="13.7">Злиття неминуче:</tspan><tspan x="790.0" dy="13.7">значень більше,</tspan><tspan x="790.0" dy="13.7">ніж комірок під них.</tspan><tspan x="790.0" dy="13.7">Зливаються рівно</tspan><tspan x="790.0" dy="13.7">0 і N.</tspan></text>
+<text x="450.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три способи дістати цей один біт:</text>
+<rect x="45.0" y="416.0" width="254.0" height="140.0" rx="8" fill="#fbfcfd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="172.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1 · Жертва комірки</text>
+<line x1="61.0" y1="450.0" x2="283.0" y2="450.0" stroke="#e2e6ea" stroke-width="1.0"/>
+<text x="172.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="172.0" dy="0.0">Забороняємо size = N.</tspan><tspan x="172.0" dy="13.7">Лишається 0…N−1 — рівно</tspan><tspan x="172.0" dy="13.7">стільки, скільки й кодує</tspan><tspan x="172.0" dy="13.7">залишок. Нічого зайвого</tspan><tspan x="172.0" dy="13.7">не зберігаємо.</tspan><tspan x="172.0" dy="13.7">Місткість: N−1.</tspan></text>
+<rect x="323.0" y="416.0" width="254.0" height="140.0" rx="8" fill="#fbfcfd" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="450.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2 · Лічильник size</text>
+<line x1="339.0" y1="450.0" x2="561.0" y2="450.0" stroke="#e2e6ea" stroke-width="1.0"/>
+<text x="450.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Зберігаємо зайнятість</tspan><tspan x="450.0" dy="13.7">окремо (досить і одного</tspan><tspan x="450.0" dy="13.7">біта «повно»).</tspan><tspan x="450.0" dy="13.7">Місткість: N — але цей</tspan><tspan x="450.0" dy="13.7">біт пишуть обидві</tspan><tspan x="450.0" dy="13.7">сторони.</tspan></text>
+<rect x="601.0" y="416.0" width="254.0" height="140.0" rx="8" fill="#fbfcfd" stroke="#27ae60" stroke-width="1.6"/>
+<text x="728.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3 · Більший модуль</text>
+<line x1="617.0" y1="450.0" x2="839.0" y2="450.0" stroke="#e2e6ea" stroke-width="1.0"/>
+<text x="728.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="728.0" dy="0.0">Не зводимо за N: індекси</tspan><tspan x="728.0" dy="13.7">живуть за модулем 2ᴮ.</tspan><tspan x="728.0" dy="13.7">Зливаються 0 і 2ᴮ,</tspan><tspan x="728.0" dy="13.7">а не 0 і N.</tspan><tspan x="728.0" dy="13.7">Місткість: N, якщо</tspan><tspan x="728.0" dy="13.7">N ≤ 2ᴮ − 1.</tspan></text>
+</svg>

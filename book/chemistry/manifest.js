@@ -81,6 +81,7 @@
       ] },
     { slug: "supramolecular-chemistry", title: "Супрамолекулярна хімія", scope: "Нековалентні взаємодії та самозбірка, що утримують молекули разом у більші ансамблі.",
       topics: [
+        { slug: "intermolecular-forces", title: "Міжмолекулярні сили", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "radiochemistry", title: "Радіохімія", scope: "Хімія радіоактивних елементів, ядерних перетворень та поведінки ізотопів.",
       topics: [

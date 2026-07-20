@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="760.0" height="470.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метод Ейлера: крок за кроком уздовж нахилу — до граничної швидкості</text>
+<line x1="92.0" y1="384.0" x2="698.0" y2="384.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="92.0" y1="384.0" x2="92.0" y2="70.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="694.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">час  t / τ</text>
+<text x="86.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">v / v_t</text>
+<line x1="92.0" y1="114.4" x2="690.0" y2="114.4" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,5"/>
+<text x="686.0" y="105.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">гранична швидкість v_t</text>
+<polyline points="92.0,384.0 99.5,373.2 107.0,362.5 114.4,351.8 121.9,341.2 129.4,330.8 136.8,320.5 144.3,310.4 151.8,300.6 159.3,290.9 166.8,281.6 174.2,272.5 181.7,263.7 189.2,255.2 196.6,247.1 204.1,239.2 211.6,231.7 219.1,224.5 226.6,217.7 234.0,211.2 241.5,205.0 249.0,199.1 256.5,193.6 263.9,188.3 271.4,183.4 278.9,178.7 286.4,174.3 293.8,170.2 301.3,166.3 308.8,162.7 316.3,159.3 323.7,156.1 331.2,153.1 338.7,150.3 346.2,147.8 353.6,145.3 361.1,143.1 368.6,141.0 376.1,139.0 383.5,137.2 391.0,135.6 398.5,134.0 406.0,132.5 413.4,131.2 420.9,129.9 428.4,128.8 435.9,127.7 443.3,126.7 450.8,125.8 458.3,124.9 465.8,124.1 473.2,123.4 480.7,122.7 488.2,122.1 495.7,121.5 503.1,121.0 510.6,120.5 518.1,120.0 525.6,119.6 533.0,119.2 540.5,118.8 548.0,118.5 555.5,118.2 562.9,117.9 570.4,117.6 577.9,117.4 585.4,117.2 592.8,117.0 600.3,116.8 607.8,116.6 615.3,116.4 622.7,116.3 630.2,116.1 637.7,116.0 645.2,115.9 652.6,115.8 660.1,115.7 667.6,115.6 675.1,115.5 682.5,115.4 690.0,115.3" fill="none" stroke="#2457d6" stroke-width="2.4"/>
+<polyline points="92.0,384.0 166.8,276.2 241.5,185.6 316.2,136.2 391.0,119.5 465.8,115.5 540.5,114.6 615.2,114.5 690.0,114.4" fill="none" stroke="#c0392b" stroke-width="2.4"/>
+<circle cx="92.0" cy="384.0" r="4.2" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="166.8" cy="276.2" r="4.2" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="241.5" cy="185.6" r="4.2" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="316.2" cy="136.2" r="4.2" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="391.0" cy="119.5" r="4.2" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="465.8" cy="115.5" r="4.2" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="540.5" cy="114.6" r="4.2" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="615.2" cy="114.5" r="4.2" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="690.0" cy="114.4" r="4.2" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="531.2" y="270.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">точний розв'язок  v_t·tanh(t/τ)</text>
+<text x="531.2" y="319.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ейлер, крок Δt = 0.4·τ</text>
+<rect x="122.3" y="425.4" width="515.3" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="380.0" y="444.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Кожен крок: узяти нахил a = g − β·v² у поточній точці, ступити вздовж нього Δt,</tspan><tspan x="380.0" dy="14.3">перерахувати нахил. Дрібніший Δt — ближче до точної кривої.</tspan></text>
+</svg>

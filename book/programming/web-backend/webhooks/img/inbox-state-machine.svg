@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життя події у скриньці: кожен перехід — заслінка проти повтору</text>
+<rect x="155.0" y="158.0" width="150.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="230.0" y="179.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">received</tspan></text>
+<rect x="455.0" y="158.0" width="150.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="530.0" y="179.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">processing</tspan></text>
+<rect x="755.0" y="158.0" width="140.0" height="34.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="825.0" y="179.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="825.0" dy="0.0">done</tspan></text>
+<rect x="570.0" y="388.0" width="140.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="640.0" y="409.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">dead</tspan></text>
+<text x="70.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">нова</text>
+<line x1="72.0" y1="175.0" x2="155.0" y2="175.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="150.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">вставка-дедуп</text>
+<text x="150.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(UNIQUE)</text>
+<line x1="305.0" y1="175.0" x2="455.0" y2="175.0" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="380.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">бере FOR UPDATE</text>
+<text x="380.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">лише якщо 'received'</text>
+<line x1="605.0" y1="175.0" x2="755.0" y2="175.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="678.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">ефект + відмітка</text>
+<text x="678.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">в ОДНІЙ транзакції</text>
+<text x="825.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">тихо ack</text>
+<line x1="490.0" y1="192.0" x2="490.0" y2="253.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="490.0" y1="253.0" x2="230.0" y2="253.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="253.0" x2="230.0" y2="192.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="360.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">збій → ROLLBACK · attempts+1 · назад у чергу</text>
+<line x1="575.0" y1="192.0" x2="625.0" y2="388.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="655.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">attempts ≥ MAX</text>
+<line x1="570.0" y1="405.0" x2="570.0" y2="470.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 5"/>
+<line x1="570.0" y1="470.0" x2="200.0" y2="470.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 5"/>
+<line x1="200.0" y1="470.0" x2="200.0" y2="192.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="400.0" y="464.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">людина полагодила: dead → received</text>
+<text x="500.0" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повтор доставки, повтор черги, гонка робітників, рестарт — усі впираються в 'done' і виходять без ефекту.</text>
+</svg>

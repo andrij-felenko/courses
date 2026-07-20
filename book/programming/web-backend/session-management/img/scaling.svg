@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Коли серверів багато: де тримати сховище сесій</text>
+<line x1="500.0" y1="62.0" x2="500.0" y2="402.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="2 5"/>
+<text x="250.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">липкі сесії</text>
+<rect x="160.0" y="96.0" width="180.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="116.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">балансувальник</tspan></text>
+<rect x="102.5" y="189.5" width="95.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="208.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">сервер 1</tspan></text>
+<rect x="202.5" y="189.5" width="95.0" height="31.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="208.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">сервер 2</tspan></text>
+<rect x="302.5" y="189.5" width="95.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="208.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">сервер 3</tspan></text>
+<line x1="250.0" y1="134.0" x2="250.0" y2="188.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">прив'язка</text>
+<rect x="175.0" y="247.3" width="150.0" height="45.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="266.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">сесія в пам'яті</tspan><tspan x="250.0" dy="14.3">сервера 2</tspan></text>
+<text x="250.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">сервер 2 помер → сесію втрачено</text>
+<text x="750.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">спільне сховище</text>
+<rect x="660.0" y="96.0" width="180.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="750.0" y="116.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">балансувальник</tspan></text>
+<rect x="602.5" y="189.5" width="95.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="650.0" y="208.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">сервер 1</tspan></text>
+<rect x="702.5" y="189.5" width="95.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="750.0" y="208.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">сервер 2</tspan></text>
+<rect x="802.5" y="189.5" width="95.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="850.0" y="208.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">сервер 3</tspan></text>
+<line x1="730.0" y1="134.0" x2="662.0" y2="188.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="750.0" y1="134.0" x2="750.0" y2="188.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="134.0" x2="838.0" y2="188.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="620.0" y="274.0" width="260.0" height="32.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="750.0" y="294.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">спільне сховище (Redis)</tspan></text>
+<line x1="650.0" y1="222.0" x2="706.0" y2="268.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="750.0" y1="222.0" x2="750.0" y2="268.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="850.0" y1="222.0" x2="794.0" y2="268.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="750.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">будь-який сервер — будь-яка сесія</text>
+<text x="500.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">у пам'яті сервера сесія прив'язує до нього; у спільному сховищі сервери взаємозамінні</text>
+</svg>

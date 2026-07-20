@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Магазинний автомат = скінченне керування + стек</text>
+<rect x="150.0" y="78.0" width="52.0" height="40.0" rx="3" fill="#fbfbfb" stroke="#c9ced4" stroke-width="1.4"/>
+<text x="176.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">a</text>
+<rect x="202.0" y="78.0" width="52.0" height="40.0" rx="3" fill="#fbfbfb" stroke="#c9ced4" stroke-width="1.4"/>
+<text x="228.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">a</text>
+<rect x="254.0" y="78.0" width="52.0" height="40.0" rx="3" fill="#fbfbfb" stroke="#c9ced4" stroke-width="1.4"/>
+<text x="280.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">b</text>
+<rect x="306.0" y="78.0" width="52.0" height="40.0" rx="3" fill="#fbfbfb" stroke="#c9ced4" stroke-width="1.4"/>
+<text x="332.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">b</text>
+<rect x="358.0" y="78.0" width="52.0" height="40.0" rx="3" fill="#f1f1f1" stroke="#c9ced4" stroke-width="1.4"/>
+<text x="384.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">⊔</text>
+<text x="150.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">стрічка входу — читаємо ліворуч-праворуч, лише вперед, без запису</text>
+<line x1="280.0" y1="168.0" x2="280.0" y2="122.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="288.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">головка</text>
+<rect x="130.0" y="200.0" width="240.0" height="96.0" rx="10" fill="#eef2fb" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="250.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченне керування</text>
+<text x="250.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">стани Q · функція δ</text>
+<text x="250.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(як у скінченного автомата)</text>
+<rect x="608.0" y="308.0" width="64.0" height="32.0" rx="3" fill="#eef0f2" stroke="#9aa3ad" stroke-width="1.6"/><text x="640.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Z₀</text><rect x="608.0" y="276.0" width="64.0" height="32.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.6"/><text x="640.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">X</text><rect x="608.0" y="244.0" width="64.0" height="32.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.6"/><text x="640.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">X</text>
+<line x1="600.0" y1="340.0" x2="680.0" y2="340.0" stroke="#cfd4da" stroke-width="1.6"/>
+<text x="640.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">стек (магазин)</text>
+<text x="640.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">необмежений, але лише LIFO</text>
+<text x="640.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">вершина</text>
+<line x1="700.0" y1="276.0" x2="700.0" y2="238.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="724.0" y1="238.0" x2="724.0" y2="276.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="714.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">push / pop</text>
+<line x1="370.0" y1="240.0" x2="600.0" y2="268.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="596.0" y1="308.0" x2="374.0" y2="270.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="511.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">бачить вершину</text>
+<text x="511.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">змінює вершину</text>
+<rect x="130.0" y="408.0" width="620.0" height="46.0" rx="8" fill="#f6f8fb" stroke="#d6dde8" stroke-width="1.5"/>
+<text x="150.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">δ( q , a або ε , X )  →  ( q′ , γ )</text>
+<text x="470.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">стан і вершина X кажуть, куди йти</text>
+<text x="470.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">і чим замінити X на стеку (рядок γ)</text>
+</svg>

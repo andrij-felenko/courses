@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Турбокод: кодер робить код випадковоподібним, декодер замикає петлю</text>
+<rect x="28.0" y="52.0" width="396.0" height="384.0" rx="10" fill="#fbfcfd" stroke="#d6dbe1" stroke-width="1.4"/>
+<text x="226.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">КОДЕР  (швидкість 1/3)</text>
+<text x="52.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">u</text>
+<text x="52.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">інфо-біти</text>
+<line x1="66.0" y1="125.0" x2="96.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="96.0" cy="125.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<line x1="96.0" y1="125.0" x2="96.0" y2="288.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="96.0" y1="125.0" x2="340.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="362.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">u</text>
+<text x="226.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">систематична гілка — біти йдуть як є</text>
+<line x1="96.0" y1="200.0" x2="130.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="130.0" y="176.0" width="172.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="216.0" y="196.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="216.0" dy="0.0">рекурсивний</tspan><tspan x="216.0" dy="13.7">згортковий кодер 1</tspan></text>
+<line x1="302.0" y1="200.0" x2="340.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="362.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">p₁</text>
+<line x1="96.0" y1="288.0" x2="130.0" y2="288.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="130.0" y="266.0" width="96.0" height="44.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="178.0" y="284.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="178.0" dy="0.0">перемішувач</tspan><tspan x="178.0" dy="13.7">π</tspan></text>
+<line x1="226.0" y1="288.0" x2="252.0" y2="288.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="252.0" y="264.0" width="100.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="302.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="302.0" dy="0.0">кодер 2</tspan><tspan x="302.0" dy="13.0">(такий самий)</tspan></text>
+<line x1="352.0" y1="288.0" x2="372.0" y2="288.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="392.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">p₂</text>
+<text x="226.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="226.0" dy="0.0">π робить код «схожим на випадковий»:</tspan><tspan x="226.0" dy="13.0">другий кодер бачить ті самі біти в іншому порядку —</tspan><tspan x="226.0" dy="13.0">комбінація, згубна для одного, для другого розсипана</tspan></text>
+<text x="226.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">рекурсивність не дає одній одиниці породити легке слово</text>
+<rect x="452.0" y="52.0" width="400.0" height="384.0" rx="10" fill="#fbfcfd" stroke="#d6dbe1" stroke-width="1.4"/>
+<text x="652.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">ДЕКОДЕР  (ітеративний)</text>
+<rect x="486.0" y="116.0" width="132.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="552.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="552.0" dy="0.0">BCJR 1</tspan><tspan x="552.0" dy="13.0">(м'який → м'який)</tspan></text>
+<rect x="686.0" y="116.0" width="132.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="752.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="752.0" dy="0.0">BCJR 2</tspan><tspan x="752.0" dy="13.0">(м'який → м'який)</tspan></text>
+<line x1="618.0" y1="141.0" x2="640.0" y2="141.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="640.0" y="127.0" width="46.0" height="28.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="663.0" y="145.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="663.0" dy="0.0">π</tspan></text>
+<line x1="752.0" y1="166.0" x2="752.0" y2="222.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="752.0" y1="222.0" x2="676.0" y2="222.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="608.0" y="208.0" width="68.0" height="28.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="642.0" y="226.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="642.0" dy="0.0">π⁻¹</tspan></text>
+<line x1="608.0" y1="222.0" x2="552.0" y2="222.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="552.0" y1="222.0" x2="552.0" y2="166.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="652.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">петля: вихід → назад на вхід</text>
+<text x="652.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">звідси й назва «турбо»</text>
+<line x1="752.0" y1="116.0" x2="752.0" y2="96.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="752.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">рішення</text>
+<rect x="478.0" y="292.0" width="348.0" height="64.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="652.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="652.0" dy="0.0">Передають ЛИШЕ зовнішню інформацію —</tspan><tspan x="652.0" dy="13.7">те, що декодер довідався сам, відібравши те,</tspan><tspan x="652.0" dy="13.7">що йому й так підказали канал і сусід.</tspan></text>
+<text x="652.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="652.0" dy="0.0">Без цього віднімання два декодери просто</tspan><tspan x="652.0" dy="13.0">повертають одне одному власні ж думки —</tspan><tspan x="652.0" dy="13.0">і переконують себе замість того, щоб учитися.</tspan></text>
+</svg>

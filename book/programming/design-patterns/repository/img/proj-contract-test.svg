@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1080" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один набір тестів — дві реалізації</text>
+<rect x="240.0" y="64.0" width="600.0" height="140.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="540.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контракт-набір проти OrderRepository</text>
+<text x="540.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">save(o) → byId(o.id) дає рівний o</tspan><tspan x="540.0" dy="15.6">мутація після save НЕ видима без save</tspan><tspan x="540.0" dy="15.6">recentPaidOrders: свіжі перші, чужих нема</tspan><tspan x="540.0" dy="15.6">remove(o) → byId(o.id) дає null</tspan></text>
+<line x1="420.0" y1="206.0" x2="280.0" y2="268.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="206.0" x2="800.0" y2="268.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="270.0" width="400.0" height="120.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="260.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">InMemoryOrderRepository</text>
+<text x="260.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">на КОЖЕН коміт · ~8 мс</tspan><tspan x="260.0" dy="15.6">без бази, без диску</tspan></text>
+<text x="260.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">зелений = підробка не бреше</text>
+<rect x="620.0" y="270.0" width="400.0" height="120.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="820.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SqlOrderRepository</text>
+<text x="820.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">у CI · піднімає базу</tspan><tspan x="820.0" dy="15.6">секунди, не мілісекунди</tspan></text>
+<text x="820.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">червоний = контракт змінився</text>
+<rect x="300.3" y="426.6" width="479.4" height="66.8" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.5"/><text x="540.0" y="447.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Обидві колонки зелені — підробка й база відповідають ОДНАКОВО.</tspan><tspan x="540.0" dy="16.9">Аж тоді сотні швидких тестів над підробкою можна читати</tspan><tspan x="540.0" dy="16.9">як правду про продакшн.</tspan></text>
+</svg>

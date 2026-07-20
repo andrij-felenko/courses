@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1140" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="570.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві осі організації логіки: за дією проти за річчю</text>
+<line x1="566.0" y1="58.0" x2="566.0" y2="524.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="285.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">СЦЕНАРІЙ ТРАНЗАКЦІЇ</text>
+<text x="285.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">логіка за дією — дієслово</text>
+<rect x="52.0" y="122.0" width="130.0" height="200.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="52.0" y="122.0" width="130.0" height="30.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="117.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">placeOrder</text>
+<text x="64.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">SELECT товар</text>
+<text x="64.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">перевір склад</text>
+<text x="64.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">INSERT замовлення</text>
+<text x="64.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">UPDATE залишок</text>
+<rect x="192.0" y="122.0" width="130.0" height="200.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="192.0" y="122.0" width="130.0" height="30.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="257.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">cancelOrder</text>
+<text x="204.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">SELECT замовлення</text>
+<text x="204.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">перевір статус</text>
+<text x="204.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">UPDATE «cancelled»</text>
+<text x="204.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">поверни залишок</text>
+<rect x="332.0" y="122.0" width="130.0" height="200.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="332.0" y="122.0" width="130.0" height="30.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="397.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">applyInterest</text>
+<text x="344.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">SELECT рахунок</text>
+<text x="344.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">нарахуй відсоток</text>
+<text x="344.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">UPDATE баланс</text>
+<rect x="52.0" y="442.0" width="410.0" height="46.0" rx="10" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="257.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">база даних</text>
+<line x1="117.0" y1="326.0" x2="117.0" y2="438.0" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="257.0" y1="326.0" x2="257.0" y2="438.0" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="397.0" y1="326.0" x2="397.0" y2="438.0" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="285.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кожен сценарій пірнає до бази сам — SQL напряму або крізь тонкий шлюз</text>
+<text x="852.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">ПРЕДМЕТНА МОДЕЛЬ</text>
+<text x="852.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">логіка за річчю — іменник</text>
+<rect x="783.0" y="127.0" width="138.0" height="62.0" rx="9" fill="#eafaf0" stroke="#2457d6" stroke-width="1.9"/>
+<text x="852.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Order</text>
+<text x="852.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дані + правила</text>
+<rect x="619.0" y="231.0" width="138.0" height="62.0" rx="9" fill="#eafaf0" stroke="#2457d6" stroke-width="1.9"/>
+<text x="688.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Customer</text>
+<text x="688.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дані + правила</text>
+<rect x="947.0" y="231.0" width="138.0" height="62.0" rx="9" fill="#eafaf0" stroke="#2457d6" stroke-width="1.9"/>
+<text x="1016.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Product</text>
+<text x="1016.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дані + правила</text>
+<line x1="812.0" y1="189.0" x2="708.0" y2="231.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="892.0" y1="189.0" x2="996.0" y2="231.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="757.0" y1="262.0" x2="947.0" y2="262.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="688.0" y1="293.0" x2="852.0" y2="336.0" stroke="#6b7280" stroke-width="1.3"/>
+<line x1="1016.0" y1="293.0" x2="852.0" y2="336.0" stroke="#6b7280" stroke-width="1.3"/>
+<line x1="852.0" y1="336.0" x2="852.0" y2="356.0" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="742.0" y="358.0" width="220.0" height="44.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="852.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">мапер даних</text>
+<text x="852.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">об'єкти ↔ таблиці</text>
+<line x1="852.0" y1="402.0" x2="852.0" y2="440.0" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="762.0" y="442.0" width="180.0" height="46.0" rx="10" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="852.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">база даних</text>
+<text x="852.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">правило живе в об'єкті-власнику — одна дорога до бази</text>
+</svg>

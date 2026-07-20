@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що робить put(«dog», 7) крок за кроком</text>
+<rect x="70.0" y="60.0" width="360.0" height="40.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.5"/><text x="250.0" y="85.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">put(&quot;dog&quot;, 7)</tspan></text>
+<line x1="250.0" y1="100.0" x2="250.0" y2="126.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="70.0" y="126.0" width="360.0" height="44.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="250.0" y="152.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">h = хеш(&quot;dog&quot;) = 0xE6685B61</tspan></text>
+<line x1="250.0" y1="170.0" x2="250.0" y2="196.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="70.0" y="196.0" width="360.0" height="44.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="250.0" y="222.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">i = h &amp; (m − 1) = 1</tspan></text>
+<text x="446.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">m = 8</text>
+<line x1="250.0" y1="240.0" x2="250.0" y2="266.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="70.0" y="266.0" width="360.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="292.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">пройти ланцюжок кошика 1</tspan></text>
+<line x1="250.0" y1="310.0" x2="250.0" y2="336.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="70.0" y="336.0" width="360.0" height="52.0" rx="18" fill="#fff6e0" stroke="#b7791f" stroke-width="2.0"/><text x="250.0" y="366.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">ключ &quot;dog&quot; уже в ланцюжку?</tspan></text>
+<line x1="430.0" y1="362.0" x2="608.0" y2="362.0" stroke="#b7791f" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="520.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b7791f" text-anchor="middle" font-weight="700">так</text>
+<rect x="610.0" y="338.0" width="320.0" height="48.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="1.5"/><text x="770.0" y="358.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">оновити значення на місці;</tspan><tspan x="770.0" dy="15.6">n не змінюється</tspan></text>
+<text x="770.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">кінець</text>
+<line x1="250.0" y1="388.0" x2="250.0" y2="428.0" stroke="#b7791f" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="274.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b7791f" text-anchor="middle" font-weight="700">ні</text>
+<rect x="70.0" y="428.0" width="360.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="448.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">новий вузол у голову ланцюжка;</tspan><tspan x="250.0" dy="16.9">n += 1</tspan></text>
+<line x1="250.0" y1="476.0" x2="250.0" y2="502.0" stroke="#333333" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="70.0" y="502.0" width="360.0" height="52.0" rx="18" fill="#fff6e0" stroke="#b7791f" stroke-width="2.0"/><text x="250.0" y="532.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">n / m  &gt;  0.75 ?</tspan></text>
+<line x1="430.0" y1="528.0" x2="608.0" y2="528.0" stroke="#b7791f" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="520.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b7791f" text-anchor="middle" font-weight="700">ні</text>
+<rect x="610.0" y="508.0" width="320.0" height="40.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="770.0" y="532.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">кінець</tspan></text>
+<line x1="250.0" y1="554.0" x2="250.0" y2="594.0" stroke="#b7791f" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="274.0" y="578.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b7791f" text-anchor="middle" font-weight="700">так</text>
+<rect x="70.0" y="594.0" width="360.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="623.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">розширити: m ×= 2, перехешувати всі n пар</tspan></text>
+<text x="446.0" y="613.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">рідко:</text>
+<text x="446.0" y="631.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">O(n), але</text>
+<text x="446.0" y="649.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">розмазане</text>
+<rect x="70.0" y="662.0" width="500.0" height="28.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="320.0" y="680.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">усе, крім останнього кроку, — стала робота</tspan></text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1080" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан «чи я вже в базі» — і що з нього випливає</text>
+<rect x="90.0" y="155.0" width="300.0" height="140.0" rx="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="240.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">новий  ·  transient</text>
+<text x="240.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">id = null</text>
+<text x="240.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">persisted = false</text>
+<text x="240.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">рядка в базі ще немає</text>
+<rect x="690.0" y="155.0" width="300.0" height="140.0" rx="12" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="840.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">у базі  ·  persisted</text>
+<text x="840.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">id = 1</text>
+<text x="840.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">persisted = true</text>
+<text x="840.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">рядок існує, ключ відомий</text>
+<line x1="394.0" y1="205.0" x2="686.0" y2="205.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="540.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">save()  →  INSERT</text>
+<line x1="686.0" y1="258.0" x2="394.0" y2="258.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="540.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">delete()  →  DELETE</text>
+<path d="M 785 155 C 775 102, 905 102, 895 155" fill="none" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="840.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">save()  →  UPDATE</text>
+<rect x="700.0" y="360.0" width="280.0" height="56.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="840.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="840.0" dy="0.0">OrderFinder._load(row)</tspan><tspan x="840.0" dy="15.0">рядок приходить ІЗ бази</tspan></text>
+<line x1="840.0" y1="358.0" x2="840.0" y2="297.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="858.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">одразу persisted = true</text>
+<text x="240.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">new OrderGateway(...) — стан за замовчуванням</text>
+<text x="540.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прапорець persisted вирішує, чим стане save() — INSERT чи UPDATE.</text>
+</svg>

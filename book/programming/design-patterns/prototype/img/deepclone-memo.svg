@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глибока копія графа з циклом: memo рве нескінченну рекурсію</text>
+<text x="600.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">monster вказує на squad, а squad назад на monster — наївна рекурсія зациклиться</text>
+<text x="210.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">оригінал (граф із циклом)</text>
+<rect x="135.0" y="173.5" width="150.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.7"/><text x="210.0" y="194.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">monster</tspan></text>
+<rect x="135.0" y="355.5" width="150.0" height="33.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.7"/><text x="210.0" y="376.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">squad</tspan></text>
+<line x1="182.0" y1="206.5" x2="182.0" y2="355.5" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="166.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end">.squad</text>
+<line x1="238.0" y1="355.5" x2="238.0" y2="206.5" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="254.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">.members[0]</text>
+<rect x="470.0" y="150.0" width="260.0" height="210.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="600.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">memo</text>
+<text x="600.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">оригінал  →  копія</text>
+<line x1="482.0" y1="210.0" x2="718.0" y2="210.0" stroke="#d0d5db" stroke-width="1.0"/>
+<rect x="486.0" y="224.0" width="228.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/><text x="600.0" y="254.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">monster  →  monster′</tspan></text>
+<rect x="486.0" y="286.0" width="228.0" height="52.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.4"/><text x="600.0" y="316.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">squad  →  squad′</tspan></text>
+<text x="600.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">запис ДО рекурсії</text>
+<line x1="360.0" y1="190.0" x2="462.0" y2="194.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="738.0" y1="194.0" x2="932.0" y2="190.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="1010.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">копія (цикл замкнено на СЕБЕ)</text>
+<rect x="935.0" y="173.5" width="150.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.7"/><text x="1010.0" y="194.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1010.0" dy="0.0">monster′</tspan></text>
+<rect x="935.0" y="355.5" width="150.0" height="33.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.7"/><text x="1010.0" y="376.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1010.0" dy="0.0">squad′</tspan></text>
+<line x1="982.0" y1="206.5" x2="982.0" y2="355.5" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="966.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end">.squad</text>
+<line x1="1038.0" y1="355.5" x2="1038.0" y2="206.5" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="1054.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">.members[0]</text>
+<line x1="60.0" y1="488.0" x2="1140.0" y2="488.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="600.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">deepClone(вузол): якщо memo вже має вузол — вернути готову копію; інакше memo.set(вузол, копія) ПЕРЕД заходом у поля.</text>
+<text x="600.0" y="540.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Реєстрація до рекурсії розриває цикл (обхід не піде вдруге) і зберігає спільну тотожність (два поля на один об'єкт → одна копія).</text>
+</svg>

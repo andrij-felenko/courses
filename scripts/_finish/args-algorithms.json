@@ -1,0 +1,471 @@
+{
+  "book": "algorithms",
+  "kind": "book",
+  "level": "basic",
+  "limit": 13,
+  "skipArticles": [
+    "state-minimization",
+    "fmea",
+    "loop-variant",
+    "backpressure",
+    "ransac",
+    "wear-leveling",
+    "ftl-flash-translation",
+    "np-hard-placement",
+    "logic-synthesis",
+    "cache-oblivious",
+    "scatter-gather",
+    "ring-buffer",
+    "key-value-store"
+  ],
+  "briefFile": "E:\\develop\\courses\\scripts\\_finish\\payload-algorithms.json",
+  "units": [
+    {
+      "section": "complexity-computability",
+      "slug": "state-minimization",
+      "title": "Мінімізація скінченного автомата",
+      "scope": "Теорія обчислюваності та складності: межі обчислюваного, класи задач, нижні оцінки."
+    },
+    {
+      "section": "complexity-computability",
+      "slug": "fmea",
+      "title": "FMEA: аналіз видів і наслідків відмов",
+      "scope": "Теорія обчислюваності та складності: межі обчислюваного, класи задач, нижні оцінки."
+    },
+    {
+      "section": "complexity-computability",
+      "slug": "loop-variant",
+      "title": "Варіант циклу",
+      "scope": "Теорія обчислюваності та складності: межі обчислюваного, класи задач, нижні оцінки."
+    },
+    {
+      "section": "design-paradigms",
+      "slug": "backpressure",
+      "title": "Протитиск (backpressure)",
+      "scope": "Загальні методи побудови алгоритмів — каркаси розв'язків для широких класів задач."
+    },
+    {
+      "section": "design-paradigms",
+      "slug": "ransac",
+      "title": "RANSAC: згода на випадковій вибірці",
+      "scope": "Загальні методи побудови алгоритмів — каркаси розв'язків для широких класів задач."
+    },
+    {
+      "section": "data-structures",
+      "slug": "wear-leveling",
+      "title": "Вирівнювання зносу флешу",
+      "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком."
+    },
+    {
+      "section": "data-structures",
+      "slug": "ftl-flash-translation",
+      "title": "Шар трансляції флешу (FTL)",
+      "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком."
+    },
+    {
+      "section": "data-structures",
+      "slug": "np-hard-placement",
+      "title": "NP-важкість задачі розміщення",
+      "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком."
+    },
+    {
+      "section": "data-structures",
+      "slug": "logic-synthesis",
+      "title": "Логічний синтез: від булевого виразу до LUT-дерева",
+      "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком."
+    },
+    {
+      "section": "data-structures",
+      "slug": "cache-oblivious",
+      "title": "Кеш-незалежні алгоритми",
+      "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком."
+    },
+    {
+      "section": "data-structures",
+      "slug": "scatter-gather",
+      "title": "Scatter-gather DMA",
+      "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком."
+    },
+    {
+      "section": "data-structures",
+      "slug": "ring-buffer",
+      "title": "Кільцевий буфер",
+      "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком."
+    },
+    {
+      "section": "data-structures",
+      "slug": "key-value-store",
+      "title": "Сховище «ключ — значення»",
+      "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком."
+    }
+  ],
+  "inserts": [
+    {
+      "file": "math-queue-stability.md",
+      "type": "math",
+      "section": "design-paradigms",
+      "topicSlug": "backpressure",
+      "topicTitle": "Протитиск (backpressure)"
+    },
+    {
+      "file": "proj-backpressure-demo.md",
+      "type": "proj",
+      "section": "design-paradigms",
+      "topicSlug": "backpressure",
+      "topicTitle": "Протитиск (backpressure)"
+    },
+    {
+      "file": "hist-backpressure.md",
+      "type": "hist",
+      "section": "design-paradigms",
+      "topicSlug": "backpressure",
+      "topicTitle": "Протитиск (backpressure)"
+    }
+  ],
+  "insertsDone": [
+    {
+      "file": "math-myhill-nerode.md",
+      "type": "math",
+      "section": "complexity-computability",
+      "topicSlug": "state-minimization",
+      "topicTitle": "Мінімізація скінченного автомата"
+    },
+    {
+      "file": "proj-hopcroft.md",
+      "type": "proj",
+      "section": "complexity-computability",
+      "topicSlug": "state-minimization",
+      "topicTitle": "Мінімізація скінченного автомата"
+    },
+    {
+      "file": "hist-moore-hopcroft.md",
+      "type": "hist",
+      "section": "complexity-computability",
+      "topicSlug": "state-minimization",
+      "topicTitle": "Мінімізація скінченного автомата"
+    },
+    {
+      "file": "math-rpn-ordinal.md",
+      "type": "math",
+      "section": "complexity-computability",
+      "topicSlug": "fmea",
+      "topicTitle": "FMEA: аналіз видів і наслідків відмов"
+    },
+    {
+      "file": "proj-fmea-rpn.md",
+      "type": "proj",
+      "section": "complexity-computability",
+      "topicSlug": "fmea",
+      "topicTitle": "FMEA: аналіз видів і наслідків відмов"
+    },
+    {
+      "file": "hist-fmea.md",
+      "type": "hist",
+      "section": "complexity-computability",
+      "topicSlug": "fmea",
+      "topicTitle": "FMEA: аналіз видів і наслідків відмов"
+    },
+    {
+      "file": "math-well-founded.md",
+      "type": "math",
+      "section": "complexity-computability",
+      "topicSlug": "loop-variant",
+      "topicTitle": "Варіант циклу"
+    },
+    {
+      "file": "proj-variant-bounds.md",
+      "type": "proj",
+      "section": "complexity-computability",
+      "topicSlug": "loop-variant",
+      "topicTitle": "Варіант циклу"
+    },
+    {
+      "file": "hist-termination-proofs.md",
+      "type": "hist",
+      "section": "complexity-computability",
+      "topicSlug": "loop-variant",
+      "topicTitle": "Варіант циклу"
+    },
+    {
+      "file": "proj-ransac-linefit.md",
+      "type": "proj",
+      "section": "design-paradigms",
+      "topicSlug": "ransac",
+      "topicTitle": "RANSAC: згода на випадковій вибірці"
+    },
+    {
+      "file": "math-iterations.md",
+      "type": "math",
+      "section": "design-paradigms",
+      "topicSlug": "ransac",
+      "topicTitle": "RANSAC: згода на випадковій вибірці"
+    },
+    {
+      "file": "hist-ransac.md",
+      "type": "hist",
+      "section": "design-paradigms",
+      "topicSlug": "ransac",
+      "topicTitle": "RANSAC: згода на випадковій вибірці"
+    },
+    {
+      "file": "hist-wear-leveling.md",
+      "type": "hist",
+      "section": "data-structures",
+      "topicSlug": "wear-leveling",
+      "topicTitle": "Вирівнювання зносу флешу"
+    },
+    {
+      "file": "math-endurance.md",
+      "type": "math",
+      "section": "data-structures",
+      "topicSlug": "wear-leveling",
+      "topicTitle": "Вирівнювання зносу флешу"
+    },
+    {
+      "file": "proj-wear-leveling.md",
+      "type": "proj",
+      "section": "data-structures",
+      "topicSlug": "wear-leveling",
+      "topicTitle": "Вирівнювання зносу флешу"
+    },
+    {
+      "file": "hist-ftl-birth.md",
+      "type": "hist",
+      "section": "data-structures",
+      "topicSlug": "ftl-flash-translation",
+      "topicTitle": "Шар трансляції флешу (FTL)"
+    },
+    {
+      "file": "proj-ftl-sim-c.md",
+      "type": "proj",
+      "section": "data-structures",
+      "topicSlug": "ftl-flash-translation",
+      "topicTitle": "Шар трансляції флешу (FTL)"
+    },
+    {
+      "file": "hist-placement-annealing.md",
+      "type": "hist",
+      "section": "data-structures",
+      "topicSlug": "np-hard-placement",
+      "topicTitle": "NP-важкість задачі розміщення"
+    },
+    {
+      "file": "proj-annealing-placer.md",
+      "type": "proj",
+      "section": "data-structures",
+      "topicSlug": "np-hard-placement",
+      "topicTitle": "NP-важкість задачі розміщення"
+    },
+    {
+      "file": "math-placement-nphard.md",
+      "type": "math",
+      "section": "data-structures",
+      "topicSlug": "np-hard-placement",
+      "topicTitle": "NP-важкість задачі розміщення"
+    },
+    {
+      "file": "proj-bdd-build.md",
+      "type": "proj",
+      "section": "data-structures",
+      "topicSlug": "logic-synthesis",
+      "topicTitle": "Логічний синтез: від булевого виразу до LUT-дерева"
+    },
+    {
+      "file": "hist-bdd.md",
+      "type": "hist",
+      "section": "data-structures",
+      "topicSlug": "logic-synthesis",
+      "topicTitle": "Логічний синтез: від булевого виразу до LUT-дерева"
+    },
+    {
+      "file": "hist-birth.md",
+      "type": "hist",
+      "section": "data-structures",
+      "topicSlug": "cache-oblivious",
+      "topicTitle": "Кеш-незалежні алгоритми"
+    },
+    {
+      "file": "proj-matmul.md",
+      "type": "proj",
+      "section": "data-structures",
+      "topicSlug": "cache-oblivious",
+      "topicTitle": "Кеш-незалежні алгоритми"
+    },
+    {
+      "file": "math-ideal-cache.md",
+      "type": "math",
+      "section": "data-structures",
+      "topicSlug": "cache-oblivious",
+      "topicTitle": "Кеш-незалежні алгоритми"
+    },
+    {
+      "file": "proj-sglist-c.md",
+      "type": "proj",
+      "section": "data-structures",
+      "topicSlug": "scatter-gather",
+      "topicTitle": "Scatter-gather DMA"
+    },
+    {
+      "file": "hist-scatter-gather-lineage.md",
+      "type": "hist",
+      "section": "data-structures",
+      "topicSlug": "scatter-gather",
+      "topicTitle": "Scatter-gather DMA"
+    },
+    {
+      "file": "math-ring-buffer-indexing.md",
+      "type": "math",
+      "section": "data-structures",
+      "topicSlug": "ring-buffer",
+      "topicTitle": "Кільцевий буфер"
+    },
+    {
+      "file": "proj-ring-buffer-c.md",
+      "type": "proj",
+      "section": "data-structures",
+      "topicSlug": "ring-buffer",
+      "topicTitle": "Кільцевий буфер"
+    },
+    {
+      "file": "math-load-factor.md",
+      "type": "math",
+      "section": "data-structures",
+      "topicSlug": "key-value-store",
+      "topicTitle": "Сховище «ключ — значення»"
+    },
+    {
+      "file": "proj-hash-kv-store.md",
+      "type": "proj",
+      "section": "data-structures",
+      "topicSlug": "key-value-store",
+      "topicTitle": "Сховище «ключ — значення»"
+    },
+    {
+      "file": "hist-associative-to-dynamo.md",
+      "type": "hist",
+      "section": "data-structures",
+      "topicSlug": "key-value-store",
+      "topicTitle": "Сховище «ключ — значення»"
+    }
+  ],
+  "newTopics": [
+    {
+      "kind": "book",
+      "book": "algorithms",
+      "section": "data-structures",
+      "slug": "b-tree",
+      "title": "B-дерево",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "algorithms",
+      "section": "complexity-computability",
+      "slug": "halting-problem",
+      "title": "Проблема зупинки",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "algorithms",
+      "section": "complexity-computability",
+      "slug": "fault-tree-analysis",
+      "title": "Аналіз дерева відмов (FTA)",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "algorithms",
+      "section": "complexity-computability",
+      "slug": "asymptotic-complexity",
+      "title": "Асимптотична складність (нотація O великого)",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "algorithms",
+      "section": "complexity-computability",
+      "slug": "np-completeness",
+      "title": "Класи P і NP та NP-повнота",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "algorithms",
+      "section": "combinatorial-optimization",
+      "slug": "simulated-annealing",
+      "title": "Імітація відпалу (simulated annealing)",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "algorithms",
+      "section": "data-structures",
+      "slug": "binary-decision-diagram",
+      "title": "Двійкова діаграма рішень (BDD)",
+      "needDetailed": true
+    },
+    {
+      "kind": "book",
+      "book": "algorithms",
+      "section": "data-structures",
+      "slug": "hash-table",
+      "title": "Хеш-таблиця",
+      "needDetailed": true
+    }
+  ],
+  "detailed": [
+    {
+      "book": "algorithms",
+      "slug": "ransac"
+    },
+    {
+      "book": "algorithms",
+      "slug": "cache-oblivious"
+    },
+    {
+      "book": "algorithms",
+      "slug": "ftl-flash-translation"
+    },
+    {
+      "book": "algorithms",
+      "slug": "loop-variant"
+    },
+    {
+      "book": "algorithms",
+      "slug": "wear-leveling"
+    },
+    {
+      "book": "algorithms",
+      "slug": "fmea"
+    },
+    {
+      "book": "algorithms",
+      "slug": "backpressure"
+    },
+    {
+      "book": "algorithms",
+      "slug": "state-minimization"
+    },
+    {
+      "book": "algorithms",
+      "slug": "np-hard-placement"
+    },
+    {
+      "book": "algorithms",
+      "slug": "logic-synthesis"
+    },
+    {
+      "book": "algorithms",
+      "slug": "ring-buffer"
+    },
+    {
+      "book": "algorithms",
+      "slug": "scatter-gather"
+    },
+    {
+      "book": "algorithms",
+      "slug": "key-value-store"
+    }
+  ]
+}

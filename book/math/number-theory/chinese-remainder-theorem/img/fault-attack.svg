@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один перекинутий біт — і n розкладено на множники</text>
+<line x1="392.0" y1="58.0" x2="392.0" y2="396.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="45.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">ПІДПИС ЧЕРЕЗ КТЗ</text>
+<rect x="138.1" y="91.5" width="123.7" height="33.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/><text x="200.0" y="112.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">повідомлення m</tspan></text>
+<line x1="200.0" y1="128.5" x2="110.0" y2="148.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="128.5" x2="290.0" y2="148.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="46.6" y="155.8" width="126.9" height="32.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="110.0" y="176.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="110.0" dy="0.0">s₁ = m^dP mod p</tspan></text>
+<rect x="226.6" y="155.8" width="126.9" height="32.5" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="290.0" y="176.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="290.0" dy="0.0">s₂ = m^dQ mod q</tspan></text>
+<text x="110.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">тут перекинувся біт</text>
+<text x="290.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ця половина ціла</text>
+<line x1="110.0" y1="222.0" x2="200.0" y2="254.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="222.0" x2="200.0" y2="254.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="122.3" y="259.8" width="155.4" height="32.5" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/><text x="200.0" y="280.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">склеїти за Гарнером</tspan></text>
+<line x1="200.0" y1="296.2" x2="200.0" y2="320.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="117.5" y="327.5" width="165.1" height="33.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="200.0" y="348.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">ŝ — збійний підпис</tspan></text>
+<text x="420.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">НАСЛІДОК</text>
+<text x="420.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">ŝ ≡ s  (mod q)</text>
+<text x="600.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">половина q ціла</text>
+<text x="420.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">ŝ ≢ s  (mod p)</text>
+<text x="600.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">у половині p був збій</text>
+<text x="420.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">отже різниця s − ŝ ділиться на q — і не ділиться на p.</text>
+<text x="420.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Спільний дільник із n = p·q може бути лише один:</text>
+<rect x="565.7" y="228.0" width="188.6" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/><text x="660.0" y="251.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">gcd(s − ŝ, n) = q</tspan></text>
+<text x="420.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">а правильний s навіть не потрібен — досить m:</text>
+<rect x="561.6" y="326.5" width="196.7" height="35.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="660.0" y="349.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">gcd(ŝ^e − m, n) = q</tspan></text>
+<text x="420.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">Ленстра, 1996</text>
+<rect x="45.0" y="412.0" width="830.0" height="52.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="460.0" y="434.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Захист — та сама дія, тільки зроблена першим: піднести ŝ до відкритого показника e й звірити з m.</tspan><tspan x="460.0" dy="15.6">Виміряно: 0.15 мс проти 6.5 мс на підпис — 2.3%. Стільки коштує різниця між цілим ключем і розкладеним.</tspan></text>
+</svg>

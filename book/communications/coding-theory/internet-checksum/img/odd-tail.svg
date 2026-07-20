@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 828 428" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="828" height="428" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="414.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шматки в один акумулятор і непарний хвіст</text>
+<rect x="40.0" y="62.0" width="214.0" height="52.0" rx="6" fill="#fff8e8" stroke="#caa24a" stroke-width="1.7"/>
+<text x="147.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d1f" text-anchor="middle" font-weight="700">псевдозаголовок</text>
+<text x="147.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">12 б</text>
+<rect x="270.0" y="62.0" width="180.0" height="52.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.7"/>
+<text x="360.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">заголовок UDP</text>
+<text x="360.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">8 б</text>
+<rect x="466.0" y="62.0" width="150.0" height="52.0" rx="6" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="541.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">дані «hello»</text>
+<text x="541.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">5 б — НЕПАРНО</text>
+<rect x="632.0" y="62.0" width="74.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="669.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">0x00</text>
+<text x="669.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">віртуальний</text>
+<text x="724.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">домальовано</text>
+<text x="724.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">лише для суми</text>
+<line x1="147.0" y1="118.0" x2="359.0" y2="166.5" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="118.0" x2="387.8" y2="166.5" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="541.0" y1="118.0" x2="412.2" y2="166.5" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="206.5" y="169.5" width="414.9" height="33.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="414.0" y="190.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="414.0" dy="0.0">один 32-бітний акумулятор: sum_words(шматок, sum)</tspan></text>
+<text x="52.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">хвіст даних побайтно → 16-бітні слова:</text>
+<rect x="52.0" y="262.0" width="46.0" height="34.0" rx="4" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="75.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">68</text>
+<rect x="104.0" y="262.0" width="46.0" height="34.0" rx="4" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="127.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">65</text>
+<rect x="156.0" y="262.0" width="46.0" height="34.0" rx="4" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="179.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">6c</text>
+<rect x="208.0" y="262.0" width="46.0" height="34.0" rx="4" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="231.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">6c</text>
+<rect x="260.0" y="262.0" width="46.0" height="34.0" rx="4" fill="#eaf0ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="283.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">6f</text>
+<rect x="312.0" y="262.0" width="46.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="335.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">00</text>
+<line x1="75.0" y1="306.0" x2="127.0" y2="306.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="101.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x6865</text>
+<line x1="179.0" y1="306.0" x2="231.0" y2="306.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="205.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x6C6C</text>
+<line x1="283.0" y1="306.0" x2="335.0" y2="306.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="309.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x6F00</text>
+<text x="380.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">← нуль справа: 0x6F → 0x6F00</text>
+<line x1="40.0" y1="348.0" x2="788.0" y2="348.0" stroke="#e4e4e4" stroke-width="1.4"/>
+<text x="414.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">У дріт іде лише заголовок UDP + дані — 13 байтів.</text>
+<text x="414.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Псевдозаголовок і нульовий добавок віртуальні; доповнювати нулем можна ЛИШЕ спільний хвіст, не кожен шматок.</text>
+</svg>

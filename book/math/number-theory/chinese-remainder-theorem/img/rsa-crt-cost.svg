@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому RSA розшифровує через залишки, а не напряму</text>
+<text x="40.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">НАПРЯМУ</text>
+<rect x="150.0" y="76.0" width="500.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="400.0" y="103.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">одне піднесення до степеня за модулем n = p·q   (2048 біт)</tspan></text>
+<line x1="40.0" y1="152.0" x2="760.0" y2="152.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="40.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">ЧЕРЕЗ КТЗ</text>
+<rect x="150.0" y="198.0" width="230.0" height="52.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="265.0" y="220.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">піднесення до степеня</tspan><tspan x="265.0" dy="16.9">за модулем p  (1024 біт)</tspan></text>
+<rect x="420.0" y="198.0" width="230.0" height="52.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="535.0" y="220.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="535.0" dy="0.0">піднесення до степеня</tspan><tspan x="535.0" dy="16.9">за модулем q  (1024 біт)</tspan></text>
+<line x1="265.0" y1="250.0" x2="265.0" y2="272.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="535.0" y1="250.0" x2="535.0" y2="272.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="250.0" y="274.0" width="300.0" height="44.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/><text x="400.0" y="300.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">склеїти за КТЗ  →  m</tspan></text>
+<rect x="150.0" y="338.0" width="360.0" height="18.0" rx="3" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="522.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">напряму  ≈ 1</text>
+<rect x="150.0" y="364.0" width="90.0" height="18.0" rx="3" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="252.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">через КТЗ  ≈ ¼</text>
+<rect x="150.0" y="400.0" width="520.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/><text x="410.0" y="422.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">піднесення до степеня коштує приблизно як куб довжини модуля:</tspan><tspan x="410.0" dy="15.0">удвічі коротший модуль — у 8 разів дешевше, а таких обчислень два → 2/8 = ¼</tspan></text>
+</svg>

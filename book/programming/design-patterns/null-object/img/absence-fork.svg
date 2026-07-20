@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1140" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="570.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Не кожна відсутність — вільний тариф</text>
+<text x="570.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">перш ніж підставити порожній об'єкт, спитай: ця відсутність ДОЗВОЛЕНА?</text>
+<rect x="420.0" y="101.5" width="300.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="570.0" y="122.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">loadSubscription(userId)</tspan></text>
+<rect x="410.0" y="223.5" width="320.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="570.0" y="244.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">підписки немає — ЧОМУ?</tspan></text>
+<line x1="570.0" y1="138.5" x2="570.0" y2="219.5" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="406.0" y1="250.0" x2="360.7" y2="384.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="402.4" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">дозволена</text>
+<rect x="140.7" y="395.6" width="300.0" height="48.8" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="290.7" y="416.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="290.7" dy="0.0">FreeSubscription</tspan><tspan x="290.7" dy="16.2">законна відсутність</tspan></text>
+<text x="290.7" y="468.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">юзер справді на вільному тарифі</text>
+<line x1="734.0" y1="250.0" x2="779.3" y2="384.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="737.6" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">помилкова</text>
+<rect x="699.3" y="395.6" width="300.0" height="48.8" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="849.3" y="416.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="849.3" dy="0.0">throw / alert</tspan><tspan x="849.3" dy="16.2">боронь глушити</tspan></text>
+<text x="849.3" y="468.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">збій БД чи enterprise без плану — це БАГ</text>
+<line x1="40.0" y1="534.0" x2="1100.0" y2="534.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="570.0" y="562.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">порожній об'єкт легалізує лише ДОЗВОЛЕНУ відсутність — помилкову впіймай ДО підстановки</text>
+</svg>

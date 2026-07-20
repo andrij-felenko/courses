@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1300" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="650.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок запису диктують зовнішні ключі</text>
+<rect x="535.0" y="128.5" width="230.0" height="43.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.8"/><text x="650.0" y="155.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Customer</tspan></text>
+<rect x="535.0" y="308.5" width="230.0" height="43.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.8"/><text x="650.0" y="335.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Order</tspan></text>
+<rect x="535.0" y="488.5" width="230.0" height="43.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.8"/><text x="650.0" y="515.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">OrderLine</tspan></text>
+<line x1="650.0" y1="488.5" x2="650.0" y2="357.5" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="785.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">посилається на</text>
+<line x1="650.0" y1="308.5" x2="650.0" y2="177.5" stroke="#6b7280" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="785.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">посилається на</text>
+<text x="235.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Вставка — згори вниз</text>
+<line x1="150.0" y1="130.0" x2="150.0" y2="545.0" stroke="#27ae60" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="200.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1 · Customer</text>
+<text x="200.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2 · Order</text>
+<text x="200.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">3 · OrderLine</text>
+<text x="235.0" y="585.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">того, на кого посилаються, — першим</text>
+<text x="1065.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Видалення — знизу вгору</text>
+<line x1="1150.0" y1="545.0" x2="1150.0" y2="130.0" stroke="#2457d6" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="1100.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">1 · OrderLine</text>
+<text x="1100.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">2 · Order</text>
+<text x="1100.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">3 · Customer</text>
+<text x="1065.0" y="585.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">того, хто посилається, — першим</text>
+<rect x="214.3" y="625.2" width="871.4" height="39.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="650.0" y="649.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">наївний порядок вставив би OrderLine поперед Order — база відкине його: посилання на неіснуючий рядок</tspan></text>
+</svg>

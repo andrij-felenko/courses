@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="620" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цибулина: запит іде вглиб, відповідь повертається тим самим шляхом</text>
+<rect x="70.0" y="64.0" width="840.0" height="470.0" rx="10" fill="#f7f9fb" stroke="#333333" stroke-width="2.0"/>
+<rect x="155.0" y="116.0" width="670.0" height="366.0" rx="10" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="240.0" y="168.0" width="500.0" height="262.0" rx="10" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="325.0" y="220.0" width="330.0" height="158.0" rx="10" fill="#fff9e6" stroke="#e0a800" stroke-width="2.2"/>
+<text x="387.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a6d00" text-anchor="start" font-weight="700"><tspan x="387.0" dy="0.0">суть застосунку</tspan><tspan x="387.0" dy="16.9">200 «Привіт, olena»</tspan></text>
+<circle cx="96.0" cy="90.0" r="12.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/><text x="96.0" y="94.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="132.0" y="94.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">logger · запам'ятовує монотонний час t₀</text>
+<circle cx="181.0" cy="142.0" r="12.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.2"/><text x="181.0" y="146.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2</text>
+<text x="217.0" y="146.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start">rateLimit · рахує цей запит з 10.0.0.7</text>
+<circle cx="266.0" cy="194.0" r="12.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/><text x="266.0" y="198.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3</text>
+<text x="302.0" y="198.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start">auth · токен добрий → state.user = olena</text>
+<circle cx="266.0" cy="404.0" r="12.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.2"/><text x="266.0" y="408.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">5</text>
+<text x="302.0" y="408.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">auth · після next() роботи не має</text>
+<circle cx="181.0" cy="456.0" r="12.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.2"/><text x="181.0" y="460.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">6</text>
+<text x="217.0" y="460.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">rateLimit · після next() роботи не має</text>
+<circle cx="96.0" cy="508.0" r="12.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/><text x="96.0" y="512.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">7</text>
+<text x="132.0" y="512.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">logger · аж ТЕПЕР знає статус: «GET /profile → 200 за 0.2 мс»</text>
+<circle cx="351.0" cy="299.0" r="12.0" fill="#ffffff" stroke="#e0a800" stroke-width="2.2"/><text x="351.0" y="303.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">4</text>
+<line x1="108.8" y1="97.8" x2="168.2" y2="134.2" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="193.8" y1="149.8" x2="253.2" y2="186.2" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="275.4" y1="205.7" x2="341.6" y2="287.3" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="341.6" y1="310.7" x2="275.4" y2="392.3" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="253.2" y1="411.8" x2="193.8" y2="448.2" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="168.2" y1="463.8" x2="108.8" y2="500.2" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="700.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">вниз — код ДО next()</text>
+<text x="700.0" y="512.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">вгору — код ПІСЛЯ next()</text>
+<text x="490.0" y="578.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Один виклик next() ділить ланку надвоє: перша половина біжить вниз, друга — на зворотному шляху.</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Коробочка з шістьма гранями: витік маси = дивергенція</text>
+<line x1="342.0" y1="314.0" x2="542.0" y2="314.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<line x1="342.0" y1="314.0" x2="342.0" y2="169.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<line x1="342.0" y1="314.0" x2="250.0" y2="380.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<polygon points="450.0,235.0 542.0,169.0 542.0,314.0 450.0,380.0" fill="#dbe6fb" stroke="#333333" stroke-width="1.8"/>
+<polygon points="250.0,235.0 450.0,235.0 542.0,169.0 342.0,169.0" fill="#f3f7fe" stroke="#333333" stroke-width="1.8"/>
+<polygon points="250.0,235.0 450.0,235.0 450.0,380.0 250.0,380.0" fill="#eaf0fd" stroke="#333333" stroke-width="1.8"/>
+<text x="350.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">dx</text>
+<text x="240.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">dy</text>
+<text x="311.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">dz</text>
+<line x1="150.0" y1="308.0" x2="248.0" y2="308.0" stroke="#2457d6" stroke-width="3.2" marker-end="url(#arrow)"/>
+<text x="199.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">втікає</text>
+<text x="199.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">ρv_x(x)</text>
+<line x1="544.0" y1="308.0" x2="662.0" y2="308.0" stroke="#c0392b" stroke-width="3.2" marker-end="url(#arrow)"/>
+<text x="603.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">витікає</text>
+<text x="603.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">ρv_x(x+dx)</text>
+<line x1="112.0" y1="150.0" x2="160.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="170.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">x</text>
+<line x1="112.0" y1="150.0" x2="112.0" y2="104.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="108.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">y</text>
+<line x1="112.0" y1="150.0" x2="142.0" y2="128.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="152.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">z</text>
+<text x="138.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">осі координат</text>
+<text x="440.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">крізь грані y і z — так само, як крізь x</text>
+<rect x="160.0" y="450.0" width="560.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="478.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">чистий витік = ∇·(ρv) · dV</tspan><tspan x="440.0" dy="18.2">∇·(ρv) = ∂(ρv_x)/∂x + ∂(ρv_y)/∂y + ∂(ρv_z)/∂z</tspan></text>
+</svg>

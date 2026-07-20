@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 486" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="486" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="940.0" height="486.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вікно приймача TCP: повний буфер зупиняє відправника</text>
+<rect x="56.0" y="96.0" width="168.0" height="88.0" rx="6" fill="#eef1fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="140.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відправник</text>
+<text x="140.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">шле ≤ вікно</text>
+<text x="788.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">буфер приймача</text>
+<rect x="740.0" y="84.0" width="96.0" height="60.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="740.0" y="144.0" width="96.0" height="116.0" rx="6" fill="#dfe6f7" stroke="#2457d6" stroke-width="1.4"/>
+<text x="788.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">вікно</text>
+<text x="788.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">дані</text>
+<line x1="850.0" y1="144.0" x2="850.0" y2="84.0" stroke="#2457d6" stroke-width="1.6"/><path d="M 850.0 84.0 L 854.5 93.0 L 845.5 93.0 z" fill="#2457d6"/>
+<text x="858.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">вільне</text>
+<text x="858.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">місце</text>
+<line x1="788.0" y1="266.0" x2="788.0" y2="304.0" stroke="#27ae60" stroke-width="2.0"/><path d="M 788.0 304.0 L 783.0 294.0 L 793.0 294.0 z" fill="#27ae60"/>
+<rect x="698.0" y="304.0" width="180.0" height="34.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="788.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">застосунок читає повільно</text>
+<line x1="226.0" y1="120.0" x2="734.0" y2="120.0" stroke="#2457d6" stroke-width="2.6"/><path d="M 734.0 120.0 L 722.0 126.0 L 722.0 114.0 z" fill="#2457d6"/>
+<text x="483.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">сегменти даних →</text>
+<line x1="734.0" y1="160.0" x2="226.0" y2="160.0" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="6 5"/><path d="M 226.0 160.0 L 237.0 154.5 L 237.0 165.5 z" fill="#c0392b"/>
+<text x="483.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">← ACK + оголошене вікно (rwnd)</text>
+<text x="346.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">як живе вікно, коли застосунок відстає:</text>
+<rect x="96.0" y="352.0" width="168.0" height="60.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="180.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">вікно = 4 КБ</text>
+<text x="180.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">потік іде</text>
+<line x1="268.0" y1="382.0" x2="304.0" y2="382.0" stroke="#1a1a1a" stroke-width="1.8"/><path d="M 304.0 382.0 L 295.0 386.5 L 295.0 377.5 z" fill="#1a1a1a"/>
+<rect x="308.0" y="352.0" width="168.0" height="60.0" rx="6" fill="#fdf0e4" stroke="#b5651d" stroke-width="1.6"/>
+<text x="392.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b5651d" text-anchor="middle" font-weight="700">вікно = 2 КБ</text>
+<text x="392.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">буфер повниться</text>
+<line x1="480.0" y1="382.0" x2="516.0" y2="382.0" stroke="#1a1a1a" stroke-width="1.8"/><path d="M 516.0 382.0 L 507.0 386.5 L 507.0 377.5 z" fill="#1a1a1a"/>
+<rect x="520.0" y="352.0" width="168.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="604.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">вікно = 0</text>
+<text x="604.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">СТОП + зонд</text>
+<line x1="692.0" y1="382.0" x2="728.0" y2="382.0" stroke="#1a1a1a" stroke-width="1.8"/><path d="M 728.0 382.0 L 719.0 386.5 L 719.0 377.5 z" fill="#1a1a1a"/>
+<rect x="732.0" y="352.0" width="168.0" height="60.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="816.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">вікно = 3 КБ</text>
+<text x="816.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">вичитав → оживає</text>
+</svg>

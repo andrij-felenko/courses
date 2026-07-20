@@ -1,0 +1,347 @@
+{
+  "book": "electronics",
+  "kind": "book",
+  "level": "basic",
+  "limit": 13,
+  "skipArticles": [
+    "transistor-switch",
+    "pwm",
+    "gpio",
+    "high-side-level-shift",
+    "hot-swap",
+    "power-oring",
+    "soa-power-devices",
+    "sic-mosfet-power",
+    "psrr",
+    "ldo-stability",
+    "linear-regulator-types",
+    "quick-charge",
+    "apple-charging-protocol"
+  ],
+  "briefFile": "E:\\develop\\courses\\scripts\\_finish\\payload-electronics.json",
+  "units": [
+    {
+      "section": "analog",
+      "slug": "transistor-switch",
+      "title": "Транзистор як ключ",
+      "scope": "Безперервне оброблення сигналів на підсилювальних і пасивних елементах разом із математичним апаратом теорії кіл — законами, методами аналізу та реакцією кіл на сигнали."
+    },
+    {
+      "section": "analog",
+      "slug": "pwm",
+      "title": "Широтно-імпульсна модуляція (ШІМ)",
+      "scope": "Безперервне оброблення сигналів на підсилювальних і пасивних елементах разом із математичним апаратом теорії кіл — законами, методами аналізу та реакцією кіл на сигнали."
+    },
+    {
+      "section": "digital",
+      "slug": "gpio",
+      "title": "GPIO — вивід загального призначення",
+      "scope": "Логічні схеми на дискретних рівнях і станах разом із цифровим обробленням сигналів — перетворенням дискретизованих сигналів алгоритмами."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "high-side-level-shift",
+      "title": "Зсув рівня у плаваючий домен",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "hot-swap",
+      "title": "Hot-swap: гаряче підключення плати",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "power-oring",
+      "title": "Power ORing: об'єднання джерел живлення",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "soa-power-devices",
+      "title": "Безпечна робоча область (SOA)",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "sic-mosfet-power",
+      "title": "SiC-MOSFET в силовій електроніці",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "psrr",
+      "title": "PSRR — придушення пульсацій",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "ldo-stability",
+      "title": "Стійкість LDO: полюси, ESR і компенсація",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "linear-regulator-types",
+      "title": "Топології лінійних регуляторів: NPN, PNP, PMOS",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "quick-charge",
+      "title": "Quick Charge: протокол швидкої зарядки Qualcomm",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    },
+    {
+      "section": "power-electronics",
+      "slug": "apple-charging-protocol",
+      "title": "Apple D+/D− кодування зарядного струму",
+      "scope": "Перетворення й комутація великих потоків електроенергії ключовими приладами, а також формування і стабілізація напруг та струмів для живлення апаратури."
+    }
+  ],
+  "inserts": [
+    {
+      "file": "math-switch-losses.md",
+      "type": "math",
+      "section": "analog",
+      "topicSlug": "transistor-switch",
+      "topicTitle": "Транзистор як ключ"
+    },
+    {
+      "file": "proj-switch-picker.md",
+      "type": "proj",
+      "section": "analog",
+      "topicSlug": "transistor-switch",
+      "topicTitle": "Транзистор як ключ"
+    },
+    {
+      "file": "math-natural-sampling.md",
+      "type": "math",
+      "section": "analog",
+      "topicSlug": "pwm",
+      "topicTitle": "Широтно-імпульсна модуляція (ШІМ)"
+    },
+    {
+      "file": "math-inrush-soa.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "hot-swap",
+      "topicTitle": "Hot-swap: гаряче підключення плати"
+    },
+    {
+      "file": "comp-hotswap-controller.md",
+      "type": "comp",
+      "section": "power-electronics",
+      "topicSlug": "hot-swap",
+      "topicTitle": "Hot-swap: гаряче підключення плати"
+    },
+    {
+      "file": "hist-live-insertion.md",
+      "type": "hist",
+      "section": "power-electronics",
+      "topicSlug": "hot-swap",
+      "topicTitle": "Hot-swap: гаряче підключення плати"
+    },
+    {
+      "file": "math-oring-fault-dynamics.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "power-oring",
+      "topicTitle": "Power ORing: об'єднання джерел живлення"
+    },
+    {
+      "file": "math-thermal-instability.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "soa-power-devices",
+      "topicTitle": "Безпечна робоча область (SOA)"
+    },
+    {
+      "file": "hist-second-breakdown.md",
+      "type": "hist",
+      "section": "power-electronics",
+      "topicSlug": "soa-power-devices",
+      "topicTitle": "Безпечна робоча область (SOA)"
+    },
+    {
+      "file": "proj-soa-guard.md",
+      "type": "proj",
+      "section": "power-electronics",
+      "topicSlug": "soa-power-devices",
+      "topicTitle": "Безпечна робоча область (SOA)"
+    },
+    {
+      "file": "proj-sic-vs-igbt-losses.md",
+      "type": "proj",
+      "section": "power-electronics",
+      "topicSlug": "sic-mosfet-power",
+      "topicTitle": "SiC-MOSFET в силовій електроніці"
+    },
+    {
+      "file": "math-baliga-fom.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "sic-mosfet-power",
+      "topicTitle": "SiC-MOSFET в силовій електроніці"
+    },
+    {
+      "file": "hist-sic-devices.md",
+      "type": "hist",
+      "section": "power-electronics",
+      "topicSlug": "sic-mosfet-power",
+      "topicTitle": "SiC-MOSFET в силовій електроніці"
+    },
+    {
+      "file": "math-psrr-loop-gain.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "psrr",
+      "topicTitle": "PSRR — придушення пульсацій"
+    },
+    {
+      "file": "proj-psrr-measure.md",
+      "type": "proj",
+      "section": "power-electronics",
+      "topicSlug": "psrr",
+      "topicTitle": "PSRR — придушення пульсацій"
+    },
+    {
+      "file": "math-ldo-poles.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "ldo-stability",
+      "topicTitle": "Стійкість LDO: полюси, ESR і компенсація"
+    },
+    {
+      "file": "proj-esr-map.md",
+      "type": "proj",
+      "section": "power-electronics",
+      "topicSlug": "ldo-stability",
+      "topicTitle": "Стійкість LDO: полюси, ESR і компенсація"
+    },
+    {
+      "file": "hist-ldo-esr.md",
+      "type": "hist",
+      "section": "power-electronics",
+      "topicSlug": "ldo-stability",
+      "topicTitle": "Стійкість LDO: полюси, ESR і компенсація"
+    },
+    {
+      "file": "comp-nmos-ldo.md",
+      "type": "comp",
+      "section": "power-electronics",
+      "topicSlug": "linear-regulator-types",
+      "topicTitle": "Топології лінійних регуляторів: NPN, PNP, PMOS"
+    },
+    {
+      "file": "hist-pass-element.md",
+      "type": "hist",
+      "section": "power-electronics",
+      "topicSlug": "linear-regulator-types",
+      "topicTitle": "Топології лінійних регуляторів: NPN, PNP, PMOS"
+    },
+    {
+      "file": "math-pass-element.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "linear-regulator-types",
+      "topicTitle": "Топології лінійних регуляторів: NPN, PNP, PMOS"
+    },
+    {
+      "file": "math-hvdcp-optimum.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "quick-charge",
+      "topicTitle": "Quick Charge: протокол швидкої зарядки Qualcomm"
+    },
+    {
+      "file": "proj-qc-sink.md",
+      "type": "proj",
+      "section": "power-electronics",
+      "topicSlug": "quick-charge",
+      "topicTitle": "Quick Charge: протокол швидкої зарядки Qualcomm"
+    },
+    {
+      "file": "hist-qc-lineage.md",
+      "type": "hist",
+      "section": "power-electronics",
+      "topicSlug": "quick-charge",
+      "topicTitle": "Quick Charge: протокол швидкої зарядки Qualcomm"
+    },
+    {
+      "file": "math-divider-window.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "apple-charging-protocol",
+      "topicTitle": "Apple D+/D− кодування зарядного струму"
+    },
+    {
+      "file": "proj-divider-signature.md",
+      "type": "proj",
+      "section": "power-electronics",
+      "topicSlug": "apple-charging-protocol",
+      "topicTitle": "Apple D+/D− кодування зарядного струму"
+    },
+    {
+      "file": "comp-dcp-signature-ic.md",
+      "type": "comp",
+      "section": "power-electronics",
+      "topicSlug": "apple-charging-protocol",
+      "topicTitle": "Apple D+/D− кодування зарядного струму"
+    },
+    {
+      "file": "hist-mintyboost.md",
+      "type": "hist",
+      "section": "power-electronics",
+      "topicSlug": "apple-charging-protocol",
+      "topicTitle": "Apple D+/D− кодування зарядного струму"
+    }
+  ],
+  "insertsDone": [
+    {
+      "file": "hist-programmable-port.md",
+      "type": "hist",
+      "section": "digital",
+      "topicSlug": "gpio",
+      "topicTitle": "GPIO — вивід загального призначення"
+    },
+    {
+      "file": "hist-hvic.md",
+      "type": "hist",
+      "section": "power-electronics",
+      "topicSlug": "high-side-level-shift",
+      "topicTitle": "Зсув рівня у плаваючий домен"
+    },
+    {
+      "file": "math-levelshift-power.md",
+      "type": "math",
+      "section": "power-electronics",
+      "topicSlug": "high-side-level-shift",
+      "topicTitle": "Зсув рівня у плаваючий домен"
+    },
+    {
+      "file": "comp-halfbridge-hvic.md",
+      "type": "comp",
+      "section": "power-electronics",
+      "topicSlug": "high-side-level-shift",
+      "topicTitle": "Зсув рівня у плаваючий домен"
+    }
+  ],
+  "newTopics": [
+    {
+      "kind": "book",
+      "book": "electronics",
+      "section": "power-electronics",
+      "slug": "lateral-pnp",
+      "titleHint": "бічного PNP",
+      "fromArticle": "power-electronics/linear-regulator-types/linear-regulator-types.md",
+      "needDetailed": false
+    }
+  ],
+  "detailed": [
+    {
+      "book": "electronics",
+      "slug": "soa-power-devices"
+    }
+  ]
+}

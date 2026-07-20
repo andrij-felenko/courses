@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">LUT-дерево для f = a·b + c</text>
+<circle cx="70.0" cy="120.0" r="6.0" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/><text x="54.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end" font-weight="700">a</text>
+<circle cx="70.0" cy="176.0" r="6.0" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/><text x="54.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end" font-weight="700">b</text>
+<circle cx="70.0" cy="300.0" r="6.0" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/><text x="54.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end" font-weight="700">c</text>
+<rect x="175.0" y="96.0" width="165.0" height="104.0" rx="6" fill="#f0f7f1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="257.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="257.5" dy="0.0">LUT (a, b)</tspan><tspan x="257.5" dy="16.9">g = a·b</tspan></text>
+<text x="257.5" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">біти  0 0 0 1</text>
+<line x1="76.0" y1="120.0" x2="175.0" y2="120.0" stroke="#2457d6" stroke-width="1.7"/>
+<line x1="76.0" y1="176.0" x2="175.0" y2="176.0" stroke="#2457d6" stroke-width="1.7"/>
+<line x1="340.0" y1="148.0" x2="386.0" y2="148.0" stroke="#1a1a1a" stroke-width="1.9"/>
+<text x="364.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">g</text>
+<rect x="430.0" y="176.0" width="165.0" height="104.0" rx="6" fill="#f0f7f1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="512.5" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="512.5" dy="0.0">LUT (g, c)</tspan><tspan x="512.5" dy="16.9">f = g + c</tspan></text>
+<text x="512.5" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">біти  0 1 1 1</text>
+<line x1="386.0" y1="148.0" x2="430.0" y2="206.0" stroke="#1a1a1a" stroke-width="1.7"/>
+<line x1="76.0" y1="300.0" x2="430.0" y2="250.0" stroke="#2457d6" stroke-width="1.7"/>
+<line x1="595.0" y1="228.0" x2="655.0" y2="228.0" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="655.0" cy="228.0" r="6.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="655.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">f</text>
+<text x="370.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">вихід одного LUT живить вхід другого — це і є дерево табличок</text>
+</svg>

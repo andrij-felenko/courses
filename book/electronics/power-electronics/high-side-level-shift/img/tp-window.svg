@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вікно ширини іскри: між фільтром і нагрівом</text>
+<rect x="300.0" y="80.0" width="82.2" height="32.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.2"/><rect x="382.2" y="80.0" width="457.8" height="32.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="286.0" y="92.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan x="286.0" dy="0.0">виявлення RC-спадом</tspan><tspan x="286.0" dy="15.6">tp ≥ τ·ln(k/(k−1)) = 1.2 нс</tspan></text>
+<rect x="300.0" y="128.0" width="291.4" height="32.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.2"/><rect x="591.4" y="128.0" width="248.6" height="32.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="286.0" y="140.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan x="286.0" dy="0.0">фільтр проти dV/dt</tspan><tspan x="286.0" dy="15.6">tp ≥ 4·tфронту ≈ 43 нс</tspan></text>
+<rect x="300.0" y="176.0" width="389.8" height="32.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/><rect x="689.8" y="176.0" width="150.2" height="32.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.2"/>
+<text x="286.0" y="188.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan x="286.0" dy="0.0">тепловий бюджет 50 мВт</tspan><tspan x="286.0" dy="15.6">tp ≤ P/(2·fsw·Vбус·I) = 231 нс</tspan></text>
+<rect x="300.0" y="224.0" width="475.6" height="32.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/><rect x="775.6" y="224.0" width="64.4" height="32.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.2"/>
+<text x="286.0" y="236.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end"><tspan x="286.0" dy="0.0">найкоротший імпульс ШІМ</tspan><tspan x="286.0" dy="15.6">tp ≤ Dmin·Ts = 1 мкс</tspan></text>
+<rect x="300.0" y="278.0" width="291.4" height="40.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.2"/><rect x="591.4" y="278.0" width="98.4" height="40.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/><rect x="689.8" y="278.0" width="150.2" height="40.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.2"/>
+<text x="286.0" y="294.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700"><tspan x="286.0" dy="0.0">ВІКНО — перетин усіх чотирьох</tspan><tspan x="286.0" dy="15.6">43 … 231 нс</tspan></text>
+<line x1="300.0" y1="340.0" x2="840.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="370.6" y1="340.0" x2="370.6" y2="346.0" stroke="#333333" stroke-width="1.2"/>
+<text x="370.6" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1 нс</text>
+<line x1="505.6" y1="340.0" x2="505.6" y2="346.0" stroke="#333333" stroke-width="1.2"/>
+<text x="505.6" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">10 нс</text>
+<line x1="640.6" y1="340.0" x2="640.6" y2="346.0" stroke="#333333" stroke-width="1.2"/>
+<text x="640.6" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">100 нс</text>
+<line x1="775.6" y1="340.0" x2="775.6" y2="346.0" stroke="#333333" stroke-width="1.2"/>
+<text x="775.6" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1 мкс</text>
+<line x1="651.3" y1="70.0" x2="651.3" y2="344.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="651.3" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">обрано tp = 120 нс</text>
+</svg>

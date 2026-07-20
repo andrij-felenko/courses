@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Будова формули в CNF та правило її істинності</text>
+<text x="450.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">велике І над клаузами; кожна клауза — АБО літералів</text>
+<rect x="150.0" y="110.0" width="170.0" height="66.0" rx="10" fill="#eef2fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="235.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="21" fill="#1a1a1a" text-anchor="middle" font-weight="700">A ∨ ¬B</text>
+<text x="235.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">клауза 1</text>
+<text x="350.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="26" fill="#1a1a1a" text-anchor="middle" font-weight="700">∧</text>
+<rect x="380.0" y="110.0" width="170.0" height="66.0" rx="10" fill="#eef2fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="465.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="21" fill="#1a1a1a" text-anchor="middle" font-weight="700">B ∨ C</text>
+<text x="465.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">клауза 2</text>
+<text x="580.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="26" fill="#1a1a1a" text-anchor="middle" font-weight="700">∧</text>
+<rect x="610.0" y="110.0" width="170.0" height="66.0" rx="10" fill="#eef2fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="695.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="21" fill="#1a1a1a" text-anchor="middle" font-weight="700">¬A ∨ ¬C</text>
+<text x="695.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">клауза 3</text>
+<text x="235.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">↑ два літерали, з'єднані ∨</text>
+<text x="235.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">¬B — заперечення змінної B</text>
+<rect x="60.0" y="250.0" width="780.0" height="66.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="450.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">формула істинна  ⟺  істинна КОЖНА клауза   (усі вимоги вдоволено водночас)</text>
+<text x="450.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">клауза істинна  ⟺  істинний БОДАЙ ОДИН її літерал   (хоч один варіант справдився)</text>
+<text x="150.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">набір A=1, B=1, C=0:</text>
+<text x="235.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">клауза 1: 1 ∨ 0 = 1 ✓</text>
+<text x="465.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">клауза 2: 1 ∨ 0 = 1 ✓</text>
+<text x="695.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">клауза 3: 0 ∨ 1 = 1 ✓</text>
+<rect x="110.0" y="407.5" width="680.0" height="37.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="430.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">усі три клаузи істинні  →  формула здійсненна, (1,1,0) — свідок</tspan></text>
+</svg>

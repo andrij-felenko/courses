@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Складність: O(n) на обхід, O(1) амортизовано на крок, O(h) пам'яті</text>
+<text x="205.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кожен вузол — рівно двічі</text>
+<circle cx="70.0" cy="150.0" r="15.0" fill="#f4f4f5" stroke="#6b7280" stroke-width="1.6"/>
+<text x="70.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<circle cx="112.0" cy="150.0" r="15.0" fill="#f4f4f5" stroke="#6b7280" stroke-width="1.6"/>
+<text x="112.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+<circle cx="154.0" cy="150.0" r="15.0" fill="#f4f4f5" stroke="#6b7280" stroke-width="1.6"/>
+<text x="154.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+<circle cx="196.0" cy="150.0" r="15.0" fill="#f4f4f5" stroke="#6b7280" stroke-width="1.6"/>
+<text x="196.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+<circle cx="238.0" cy="150.0" r="15.0" fill="#f4f4f5" stroke="#6b7280" stroke-width="1.6"/>
+<text x="238.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+<circle cx="280.0" cy="150.0" r="15.0" fill="#f4f4f5" stroke="#6b7280" stroke-width="1.6"/>
+<text x="280.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+<circle cx="322.0" cy="150.0" r="15.0" fill="#f4f4f5" stroke="#6b7280" stroke-width="1.6"/>
+<text x="322.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">7</text>
+<text x="205.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">входить у стек 1 раз, виходить 1 раз</text>
+<text x="205.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(1× push  +  1× pop на вузол)</text>
+<rect x="55.0" y="262.0" width="300.0" height="60.0" rx="6" fill="#e8f7ee" stroke="#27ae60" stroke-width="1.5"/><text x="205.0" y="287.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="205.0" dy="0.0">усього за обхід:</tspan><tspan x="205.0" dy="18.2">2n операцій  =  O(n)</tspan></text>
+<text x="735.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вартість одного next()</text>
+<rect x="542.0" y="274.0" width="24.0" height="26.0" rx="3" fill="#f4f4f5" stroke="#b9c2cc" stroke-width="1.5"/>
+<rect x="582.0" y="274.0" width="24.0" height="26.0" rx="3" fill="#f4f4f5" stroke="#b9c2cc" stroke-width="1.5"/>
+<rect x="622.0" y="274.0" width="24.0" height="26.0" rx="3" fill="#f4f4f5" stroke="#b9c2cc" stroke-width="1.5"/>
+<rect x="662.0" y="182.0" width="24.0" height="118.0" rx="3" fill="#e7effe" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="702.0" y="274.0" width="24.0" height="26.0" rx="3" fill="#f4f4f5" stroke="#b9c2cc" stroke-width="1.5"/>
+<rect x="742.0" y="274.0" width="24.0" height="26.0" rx="3" fill="#f4f4f5" stroke="#b9c2cc" stroke-width="1.5"/>
+<rect x="782.0" y="274.0" width="24.0" height="26.0" rx="3" fill="#f4f4f5" stroke="#b9c2cc" stroke-width="1.5"/>
+<rect x="822.0" y="182.0" width="24.0" height="118.0" rx="3" fill="#e7effe" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="862.0" y="274.0" width="24.0" height="26.0" rx="3" fill="#f4f4f5" stroke="#b9c2cc" stroke-width="1.5"/>
+<line x1="538.0" y1="300.0" x2="890.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="730.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кроки next() у часі →</text>
+<line x1="538.0" y1="260.0" x2="890.0" y2="260.0" stroke="#27ae60" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="896.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">середнє ≈ O(1)</text>
+<rect x="560.0" y="332.0" width="360.0" height="56.0" rx="6" fill="#f6faf6" stroke="#2457d6" stroke-width="1.5"/><text x="740.0" y="356.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">високі стовпці — спуск довгим лівим хребтом O(h);</tspan><tspan x="740.0" dy="15.6">дешеві кроки їх гасять → у середньому O(1)</tspan></text>
+<rect x="60.0" y="410.0" width="900.0" height="52.0" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.5"/><text x="510.0" y="440.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Пам'ять — це глибина стека, O(h): збалансоване дерево — O(log n), вироджене (ланцюг) — O(n). Повний обхід — O(n) часу.</tspan></text>
+</svg>

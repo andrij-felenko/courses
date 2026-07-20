@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="780.0" height="470.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="390.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Робота вздовж шляху: добуток F·Δr сам несе знак</text>
+<line x1="150.0" y1="350.0" x2="314.0" y2="350.0" stroke="#1f7a3d" stroke-width="4.4" marker-end="url(#arrow)"/>
+<line x1="314.0" y1="350.0" x2="314.0" y2="186.0" stroke="#1f7a3d" stroke-width="4.4" marker-end="url(#arrow)"/>
+<line x1="314.0" y1="186.0" x2="232.0" y2="186.0" stroke="#c0392b" stroke-width="4.4" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="330.0" x2="216.0" y2="330.0" stroke="#7b3fbf" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="222.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7b3fbf" text-anchor="start" font-weight="700" font-style="italic">F₀</text>
+<line x1="314.0" y1="350.0" x2="356.0" y2="308.0" stroke="#7b3fbf" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="360.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7b3fbf" text-anchor="start" font-weight="700" font-style="italic">F₁</text>
+<line x1="314.0" y1="186.0" x2="366.0" y2="186.0" stroke="#7b3fbf" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="372.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7b3fbf" text-anchor="start" font-weight="700" font-style="italic">F₂</text>
+<circle cx="150.0" cy="350.0" r="4.6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="314.0" cy="350.0" r="4.6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="314.0" cy="186.0" r="4.6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="232.0" cy="186.0" r="4.6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="148.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">старт (0,0)</text>
+<text x="218.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">фініш (1,2)</text>
+<text x="232.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f7a3d" text-anchor="middle" font-weight="700">F·Δr = +20 Дж</text>
+<text x="330.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1f7a3d" text-anchor="start" font-weight="700">+8 Дж</text>
+<text x="273.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">−8 Дж</text>
+<rect x="520.3" y="99.2" width="159.4" height="101.5" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/><text x="600.0" y="121.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">сума плечей:</tspan><tspan x="600.0" dy="16.2">+20 + 8 − 8 = 20 Дж</tspan><tspan x="600.0" dy="16.2"></tspan><tspan x="600.0" dy="16.2">зворотне плече (−8)</tspan><tspan x="600.0" dy="16.2">ВІДНІМАЄ енергію</tspan></text>
+<rect x="66.6" y="410.8" width="646.7" height="50.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="390.0" y="432.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">На зворотному плечі рух іде ліворуч (Δr), а сила F₂ дивиться праворуч — добуток F·Δr від'ємний,</tspan><tspan x="390.0" dy="15.0">і 8 Дж віднімаються самі, без жодного «if». Сумувати модулі кроків — груба помилка.</tspan></text>
+</svg>

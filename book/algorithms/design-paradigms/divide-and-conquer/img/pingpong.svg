@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="210.0" y="70.0" width="300.0" height="46.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="360.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">масив  a</text>
+<rect x="210.0" y="250.0" width="300.0" height="46.0" rx="6" fill="#fbfbe8" stroke="#b59f00" stroke-width="2.0"/>
+<text x="360.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#8a7a00" text-anchor="middle" font-weight="700">буфер  buf</text>
+<line x1="270.0" y1="244.0" x2="270.0" y2="203.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="270.0" y1="163.0" x2="270.0" y2="122.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="270.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">прохід 1</text>
+<text x="270.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ширина 1</text>
+<line x1="360.0" y1="122.0" x2="360.0" y2="163.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="360.0" y1="203.0" x2="360.0" y2="244.0" stroke="#2457d6" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="360.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">прохід 2</text>
+<text x="360.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ширина 2</text>
+<line x1="450.0" y1="244.0" x2="450.0" y2="203.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="450.0" y1="163.0" x2="450.0" y2="122.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="450.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">прохід 3</text>
+<text x="450.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ширина 4</text>
+<text x="360.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-style="italic">приймач кожного проходу стає джерелом наступного — copy-back зникає</text>
+<text x="360.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">лишається щонайбільше один фінальний перенос, якщо результат осів у buf</text>
+</svg>

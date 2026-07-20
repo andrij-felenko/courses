@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхід у режим EPR — окрема церемонія поверх контракту</text>
+<rect x="115.0" y="46.0" width="170.0" height="30.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="200.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">джерело</text>
+<rect x="525.0" y="46.0" width="190.0" height="30.0" rx="6" fill="#eaf3ea" stroke="#27ae60" stroke-width="2.0"/>
+<text x="620.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">пристрій (sink)</text>
+<line x1="200.0" y1="76.0" x2="200.0" y2="500.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 4"/>
+<line x1="620.0" y1="76.0" x2="620.0" y2="500.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="4 4"/>
+<text x="410.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">EPR умикається лише коли готові всі троє: джерело · пристрій · кабель з e-marker</text>
+<text x="410.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">спершу вже діє звичайний SPR-контракт → на VBUS безпечні 5 В</text>
+<line x1="620.0" y1="172.0" x2="200.0" y2="172.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="182.0" y1="172.0" x2="200.0" y2="172.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">EPR_Mode (Enter) — прошу EPR</text>
+<line x1="200.0" y1="214.0" x2="620.0" y2="214.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="602.0" y1="214.0" x2="620.0" y2="214.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Enter Acknowledged</text>
+<text x="410.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">джерело перевіряє кабель (e-marker: 50 В / 5 А?)</text>
+<text x="410.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">нема EPR-кабелю → лишаємось у SPR, ≤ 100 Вт</text>
+<line x1="200.0" y1="316.0" x2="620.0" y2="316.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="602.0" y1="316.0" x2="620.0" y2="316.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Enter Succeeded — EPR увімкнено</text>
+<line x1="200.0" y1="358.0" x2="620.0" y2="358.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="602.0" y1="358.0" x2="620.0" y2="358.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">EPR_Source_Capabilities: видно 28/36/48 В</text>
+<line x1="620.0" y1="400.0" x2="200.0" y2="400.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="182.0" y1="400.0" x2="200.0" y2="400.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Request 48 В / 5 А</text>
+<rect x="246.9" y="439.5" width="326.3" height="33.0" rx="6" fill="#eaf3ea" stroke="#27ae60" stroke-width="1.8"/><text x="410.0" y="460.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">EPR-контракт діє:  48 В × 5 А = 240 Вт</tspan></text>
+</svg>

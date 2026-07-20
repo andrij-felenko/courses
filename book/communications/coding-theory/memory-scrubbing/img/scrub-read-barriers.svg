@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 566" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="566" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три бар'єри між читанням у коді й логікою ECC</text>
+<text x="500.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">слово перевіряється лише тоді, коли його справді віддає SRAM — а туди ще треба дійти</text>
+<rect x="265.0" y="76.0" width="150.0" height="420.0" rx="8" fill="#f7f8fa" stroke="#d8dce3" stroke-width="1.2"/>
+<text x="340.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. КОМПІЛЯТОР</text>
+<text x="340.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">викидає читання,</text>
+<text x="340.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">чий результат не вжито</text>
+<rect x="445.0" y="76.0" width="150.0" height="420.0" rx="8" fill="#f7f8fa" stroke="#d8dce3" stroke-width="1.2"/>
+<text x="520.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. КЕШ</text>
+<text x="520.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">влучання віддає копію,</text>
+<text x="520.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">не турбуючи SRAM</text>
+<rect x="625.0" y="76.0" width="150.0" height="420.0" rx="8" fill="#f7f8fa" stroke="#d8dce3" stroke-width="1.2"/>
+<text x="700.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. ЛОГІКА ECC</text>
+<text x="700.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">звіряє гранулу</text>
+<text x="700.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">з контрольними бітами</text>
+<rect x="815.0" y="76.0" width="165.0" height="420.0" rx="8" fill="#fbfcfd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="897.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SRAM</text>
+<text x="897.5" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">комірки + біти ECC</text>
+<text x="20.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">НАЇВНО</text>
+<rect x="20.0" y="182.0" width="225.0" height="56.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="132.5" y="206.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="132.5" dy="0.0">uint64_t x = ram[i];</tspan><tspan x="132.5" dy="14.3">результат нікуди не йде</tspan></text>
+<line x1="248.0" y1="210.0" x2="322.0" y2="210.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="176.0" x2="340.0" y2="193.0" stroke="#c0392b" stroke-width="6.0"/><line x1="340.0" y1="227.0" x2="340.0" y2="244.0" stroke="#c0392b" stroke-width="6.0"/><circle cx="340.0" cy="210.0" r="13.0" fill="#fdeceb" stroke="#c0392b" stroke-width="2.0"/><text x="340.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<text x="340.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ВИКИНУТО</text>
+<text x="340.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">у бінарнику читання нема</text>
+<text x="20.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">VOLATILE, АЛЕ КЕШОВАНО</text>
+<rect x="20.0" y="292.0" width="225.0" height="56.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="132.5" y="316.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="132.5" dy="0.0">(void)*(volatile uint64_t *)a;</tspan><tspan x="132.5" dy="14.3">рядок уже лежить у кеші</tspan></text>
+<line x1="248.0" y1="320.0" x2="324.0" y2="320.0" stroke="#1e874b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="340.0" cy="320.0" r="13.0" fill="#e8f6ee" stroke="#1e874b" stroke-width="2.0"/><text x="340.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e874b" text-anchor="middle" font-weight="700">✓</text>
+<line x1="356.0" y1="320.0" x2="502.0" y2="320.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="286.0" x2="520.0" y2="303.0" stroke="#c0392b" stroke-width="6.0"/><line x1="520.0" y1="337.0" x2="520.0" y2="354.0" stroke="#c0392b" stroke-width="6.0"/><circle cx="520.0" cy="320.0" r="13.0" fill="#fdeceb" stroke="#c0392b" stroke-width="2.0"/><text x="520.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<text x="520.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ВЛУЧАННЯ В КЕШ</text>
+<text x="520.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">до SRAM запит не пішов</text>
+<text x="20.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e874b" text-anchor="start" font-weight="700">ЯК ТРЕБА</text>
+<rect x="20.0" y="402.0" width="225.0" height="56.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="132.5" y="426.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="132.5" dy="0.0">скинути рядок кешу, тоді</tspan><tspan x="132.5" dy="14.3">(void)*(volatile uint64_t *)a;</tspan></text>
+<line x1="248.0" y1="430.0" x2="324.0" y2="430.0" stroke="#1e874b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="340.0" cy="430.0" r="13.0" fill="#e8f6ee" stroke="#1e874b" stroke-width="2.0"/><text x="340.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e874b" text-anchor="middle" font-weight="700">✓</text>
+<line x1="356.0" y1="430.0" x2="504.0" y2="430.0" stroke="#1e874b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="520.0" cy="430.0" r="13.0" fill="#e8f6ee" stroke="#1e874b" stroke-width="2.0"/><text x="520.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e874b" text-anchor="middle" font-weight="700">✓</text>
+<line x1="536.0" y1="430.0" x2="684.0" y2="430.0" stroke="#1e874b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="700.0" cy="430.0" r="13.0" fill="#e8f6ee" stroke="#1e874b" stroke-width="2.0"/><text x="700.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e874b" text-anchor="middle" font-weight="700">✓</text>
+<line x1="716.0" y1="430.0" x2="807.0" y2="430.0" stroke="#1e874b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="831.0" y="417.0" width="15.0" height="26.0" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="848.0" y="417.0" width="15.0" height="26.0" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="865.0" y="417.0" width="15.0" height="26.0" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="882.0" y="417.0" width="15.0" height="26.0" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="899.0" y="417.0" width="15.0" height="26.0" rx="2" fill="#fdeceb" stroke="#c0392b" stroke-width="1.6"/>
+<text x="906.5" y="435.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="916.0" y="417.0" width="15.0" height="26.0" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="933.0" y="417.0" width="15.0" height="26.0" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="950.0" y="417.0" width="15.0" height="26.0" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="897.5" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e874b" text-anchor="middle" font-weight="700">ЧИТАННЯ ДІЙШЛО</text>
+<text x="897.5" y="486.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">гранулу перевірено</text>
+<text x="500.0" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Наївне читання не переживає навіть компілятора. Volatile-читання компілятор лишає — та кеш віддає копію,</text>
+<text x="500.0" y="542.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">і SRAM про запит не дізнається. Лише скинутий рядок змушує пам'ять віддати справжнє слово — тоді ECC його й перевірить.</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1160" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="580.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реєстр: ключ → зразок → клон</text>
+<text x="580.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">новий різновид додається реєстрацією ще одного зразка, не класом</text>
+<rect x="80.0" y="100.0" width="470.0" height="250.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="315.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">реєстр:  ключ  →  налаштований зразок</text>
+<line x1="92.0" y1="140.0" x2="538.0" y2="140.0" stroke="#d0d5db" stroke-width="1.0"/>
+<rect x="92.0" y="156.0" width="116.0" height="52.0" rx="5" fill="#eef2f7" stroke="#333333" stroke-width="1.1"/>
+<text x="150.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">«коло»</text>
+<rect x="214.0" y="156.0" width="324.0" height="52.0" rx="5" fill="#ffffff" stroke="#c9ced6" stroke-width="1.1"/>
+<text x="376.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Circle(0, 0, r=10)</text>
+<rect x="92.0" y="220.0" width="116.0" height="52.0" rx="5" fill="#eef2f7" stroke="#333333" stroke-width="1.1"/>
+<text x="150.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">«квадрат»</text>
+<rect x="214.0" y="220.0" width="324.0" height="52.0" rx="5" fill="#ffffff" stroke="#c9ced6" stroke-width="1.1"/>
+<text x="376.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Square(side=4)</text>
+<rect x="92.0" y="284.0" width="116.0" height="52.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="150.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">«орк»</text>
+<rect x="214.0" y="284.0" width="324.0" height="52.0" rx="5" fill="#f4fbf7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="376.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">Orc(hp, зброя, дроп…)</text>
+<rect x="215.0" y="413.5" width="200.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.7"/><text x="315.0" y="434.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">create(«орк»)</tspan></text>
+<line x1="315.0" y1="413.5" x2="315.0" y2="334.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="435.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">1 · знайти зразок за ключем</text>
+<rect x="835.0" y="277.5" width="210.0" height="65.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.7"/><text x="940.0" y="298.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="940.0" dy="0.0">новий орк</tspan><tspan x="940.0" dy="16.2">копія зразка,</tspan><tspan x="940.0" dy="16.2">самостійний</tspan></text>
+<line x1="542.0" y1="310.0" x2="829.0" y2="310.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="686.5" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2 · clone()</text>
+<text x="580.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Додати новий різновид — зареєструвати ще один екземпляр; жодного if чи switch за типом.</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що накриває кожна сума — і навіщо псевдозаголовок</text>
+<text x="70.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">IPv4-датаграма</text>
+<rect x="70.0" y="82.0" width="360.0" height="42.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="250.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">заголовок IPv4 (20 байтів)</text>
+<text x="250.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">…  TTL  ·  proto  ·  checksum  …</text>
+<rect x="444.0" y="82.0" width="360.0" height="42.0" rx="6" fill="#f4f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+<text x="624.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">дані (TCP/UDP-сегмент)</text>
+<line x1="70.0" y1="138.0" x2="70.0" y2="146.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="430.0" y1="138.0" x2="430.0" y2="146.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="70.0" y1="146.0" x2="430.0" y2="146.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="250.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">IP checksum — лише заголовок</text>
+<text x="250.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">TTL спадає щохопу → перераховують тільки заголовок, не дані</text>
+<line x1="60.0" y1="208.0" x2="820.0" y2="208.0" stroke="#e4e4e4" stroke-width="1.4"/>
+<text x="70.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">псевдозаголовок (віртуальний — НЕ передається)</text>
+<rect x="70.0" y="252.0" width="86.0" height="38.0" rx="5" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="113.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">src IP</text>
+<rect x="164.0" y="252.0" width="86.0" height="38.0" rx="5" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="207.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">dst IP</text>
+<rect x="258.0" y="252.0" width="86.0" height="38.0" rx="5" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="301.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0 · proto</text>
+<rect x="352.0" y="252.0" width="86.0" height="38.0" rx="5" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="395.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">length</text>
+<rect x="452.0" y="252.0" width="150.0" height="38.0" rx="5" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="527.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TCP/UDP заголовок</text>
+<rect x="612.0" y="252.0" width="170.0" height="38.0" rx="5" fill="#f4f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+<text x="697.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">дані</text>
+<line x1="70.0" y1="298.0" x2="70.0" y2="306.0" stroke="#caa24a" stroke-width="1.8"/>
+<line x1="782.0" y1="298.0" x2="782.0" y2="306.0" stroke="#caa24a" stroke-width="1.8"/>
+<line x1="70.0" y1="306.0" x2="782.0" y2="306.0" stroke="#caa24a" stroke-width="1.8"/>
+<text x="426.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d1f" text-anchor="middle" font-weight="700">TCP/UDP checksum — псевдозаголовок + заголовок + дані</text>
+<text x="426.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">псевдозаголовок прив'язує суму до IP-адрес і протоколу — хибно доставлений пакет не пройде</text>
+</svg>

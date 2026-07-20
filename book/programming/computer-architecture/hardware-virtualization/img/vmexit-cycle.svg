@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пульс віртуалізації: VM exit і VM entry</text>
+<rect x="300.0" y="76.0" width="300.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="450.0" y="100.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Гість виконує код · non-root</tspan><tspan x="450.0" dy="17.6">(повна швидкість)</tspan></text>
+<rect x="590.0" y="208.0" width="290.0" height="64.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="735.0" y="235.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="735.0" dy="0.0">VM EXIT</tspan><tspan x="735.0" dy="17.6">залізо зберігає стан гостя</tspan></text>
+<rect x="280.0" y="366.0" width="340.0" height="58.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="399.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Гіпервізор обробляє подію · root</tspan></text>
+<rect x="20.0" y="208.0" width="290.0" height="64.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="165.0" y="235.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">VM ENTRY</tspan><tspan x="165.0" dy="17.6">залізо відновлює стан</tspan></text>
+<rect x="375.0" y="205.0" width="150.0" height="70.0" rx="6" fill="#fff7e6" stroke="#c98a00" stroke-width="1.5"/><text x="450.0" y="235.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">VMCS /</tspan><tspan x="450.0" dy="18.2">VMCB</tspan></text>
+<line x1="598.0" y1="130.0" x2="618.0" y2="206.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="274.0" x2="620.0" y2="366.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="278.0" y1="388.0" x2="198.0" y2="274.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="198.0" y1="206.0" x2="300.0" y2="128.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="525.0" y1="240.0" x2="588.0" y2="240.0" stroke="#c98a00" stroke-width="1.4" stroke-dasharray="4,4"/>
+<text x="556.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a6100" text-anchor="middle">зберегти</text>
+<line x1="312.0" y1="240.0" x2="375.0" y2="240.0" stroke="#c98a00" stroke-width="1.4" stroke-dasharray="4,4"/>
+<text x="343.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a6100" text-anchor="middle">відновити</text>
+</svg>

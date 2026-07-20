@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рід MVC: хто-посередник між екраном і даними</text>
+<text x="48.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="start" font-weight="700">MVC</text>
+<rect x="190.0" y="91.0" width="150.0" height="58.0" rx="9" fill="#eaf7ef" stroke="#1a1a1a" stroke-width="1.8"/><text x="265.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Подання</text>
+<rect x="405.0" y="91.0" width="150.0" height="58.0" rx="9" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.8"/><text x="480.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контролер</text>
+<rect x="620.0" y="91.0" width="150.0" height="58.0" rx="9" fill="#fff6e6" stroke="#1a1a1a" stroke-width="1.8"/><text x="695.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель</text>
+<line x1="344.0" y1="120.0" x2="401.0" y2="120.0" stroke="#333333" stroke-width="1.9" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<line x1="559.0" y1="120.0" x2="616.0" y2="120.0" stroke="#333333" stroke-width="1.9" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<path d="M 265.0 91.0 Q 480.0 38.0 695.0 91.0" fill="none" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">подання читає модель напряму</text>
+<text x="480.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Подання читає модель напряму; контролер лише обробляє ввід.</text>
+<text x="48.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="start" font-weight="700">MVP</text>
+<rect x="190.0" y="291.0" width="150.0" height="58.0" rx="9" fill="#eaf7ef" stroke="#1a1a1a" stroke-width="1.8"/><text x="265.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Подання</text>
+<rect x="405.0" y="291.0" width="150.0" height="58.0" rx="9" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.8"/><text x="480.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Презентер</text>
+<rect x="620.0" y="291.0" width="150.0" height="58.0" rx="9" fill="#fff6e6" stroke="#1a1a1a" stroke-width="1.8"/><text x="695.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель</text>
+<line x1="344.0" y1="320.0" x2="401.0" y2="320.0" stroke="#333333" stroke-width="1.9" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<line x1="559.0" y1="320.0" x2="616.0" y2="320.0" stroke="#333333" stroke-width="1.9" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<path d="M 265.0 291.0 Q 480.0 238.0 695.0 291.0" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="7 5"/>
+<line x1="471.0" y1="258.0" x2="489.0" y2="274.0" stroke="#c0392b" stroke-width="3.2"/>
+<line x1="489.0" y1="258.0" x2="471.0" y2="274.0" stroke="#c0392b" stroke-width="3.2"/>
+<text x="480.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">прямого звʼязку нема</text>
+<text x="480.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Пасивне подання говорить тільки з презентером — моделі не знає.</text>
+<text x="48.0" y="506.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="start" font-weight="700">MVVM</text>
+<rect x="190.0" y="481.0" width="150.0" height="58.0" rx="9" fill="#eaf7ef" stroke="#1a1a1a" stroke-width="1.8"/><text x="265.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Подання</text>
+<rect x="405.0" y="481.0" width="150.0" height="58.0" rx="9" fill="#eaf7ef" stroke="#1a1a1a" stroke-width="1.8"/><text x="480.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель подання</text>
+<rect x="620.0" y="481.0" width="150.0" height="58.0" rx="9" fill="#fff6e6" stroke="#1a1a1a" stroke-width="1.8"/><text x="695.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель</text>
+<line x1="344.0" y1="510.0" x2="401.0" y2="510.0" stroke="#27ae60" stroke-width="3.0" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<line x1="559.0" y1="510.0" x2="616.0" y2="510.0" stroke="#333333" stroke-width="1.9" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="372.5" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">двобічне звʼязування</text>
+<text x="480.0" y="565.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Рушій звʼязування синхронізує подання й модель подання сам.</text>
+</svg>

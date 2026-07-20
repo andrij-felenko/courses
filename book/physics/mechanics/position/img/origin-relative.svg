@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="820.0" height="470.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="410.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один об'єкт, різні початки — різні координати</text>
+<line x1="150.0" y1="384.0" x2="356.0" y2="300.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,6"/>
+<text x="283.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">зсув початку</text>
+<line x1="150.0" y1="384.0" x2="596.0" y2="168.0" stroke="#27ae60" stroke-width="3.6" marker-end="url(#arrow)"/>
+<line x1="356.0" y1="300.0" x2="596.0" y2="168.0" stroke="#b07a2f" stroke-width="3.6" marker-end="url(#arrow)"/>
+<text x="286.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700" font-style="italic">r  (від O)</text>
+<text x="474.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b07a2f" text-anchor="middle" font-weight="700" font-style="italic">r′  (від O′)</text>
+<circle cx="150.0" cy="384.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="138.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">початок O</text>
+<circle cx="356.0" cy="300.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="369.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">початок O′</text>
+<circle cx="596.0" cy="168.0" r="8.0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="612.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">об'єкт P</text>
+<rect x="654.9" y="274.5" width="70.2" height="51.1" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="690.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">від O:</tspan><tspan x="690.0" dy="17.6">(5, 2)</tspan></text>
+<rect x="650.7" y="346.5" width="78.6" height="51.1" rx="6" fill="#f7efe2" stroke="#b07a2f" stroke-width="1.6"/><text x="690.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b07a2f" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">від O′:</tspan><tspan x="690.0" dy="17.6">(3, 1)</tspan></text>
+<rect x="163.9" y="418.6" width="492.2" height="50.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="410.0" y="440.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Об'єкт не зрушив, а координати різні: (5, 2) від O, (3, 1) від O′.</tspan><tspan x="410.0" dy="16.2">Абсолютного «де» немає — положення завжди відлічене від чогось.</tspan></text>
+</svg>

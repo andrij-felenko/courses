@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві архітектури інерціального блоку</text>
+<text x="210.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Карданова платформа</text>
+<rect x="105.0" y="130.0" width="210.0" height="140.0" rx="8" fill="#eef2fb" stroke="#2457d6" stroke-width="2.0" transform="rotate(20.0 210.0 200.0)"/>
+<text x="288.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">апарат нахилений</text>
+<ellipse cx="210.0" cy="200.0" rx="76" ry="50" fill="none" stroke="#333333" stroke-width="1.8"/>
+<ellipse cx="210.0" cy="200.0" rx="50" ry="72" fill="none" stroke="#333333" stroke-width="1.8"/>
+<rect x="188.0" y="178.0" width="44.0" height="44.0" rx="6" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="210.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">IMU</text>
+<line x1="176.0" y1="240.0" x2="244.0" y2="240.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="210.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">сенсори лишаються рівними —</text>
+<text x="210.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">кардани тримають напрям залізом</text>
+<text x="210.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">точно, але важко й багато рухомих частин</text>
+<text x="590.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Strapdown</text>
+<rect x="485.0" y="100.0" width="210.0" height="140.0" rx="8" fill="#fdeeec" stroke="#c0392b" stroke-width="2.0" transform="rotate(20.0 590.0 170.0)"/>
+<rect x="568.0" y="148.0" width="44.0" height="44.0" rx="8" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.8" transform="rotate(20.0 590.0 170.0)"/>
+<text x="590.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">IMU</text>
+<text x="590.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">блок нахилений разом з апаратом</text>
+<line x1="590.0" y1="248.0" x2="590.0" y2="300.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="460.0" y="302.0" width="260.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="590.0" y="327.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">комп'ютер тримає орієнтацію C</tspan><tspan x="590.0" dy="15.6">(кватерніон / DCM) — числами</tspan></text>
+<rect x="686.0" y="314.0" width="34.0" height="34.0" rx="6" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="703.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">C</text>
+<text x="590.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">залізо просте — робота переїхала в обчислення</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1140" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="570.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дірка проти значення</text>
+<text x="570.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">як клієнт поводиться з тим, кого може не бути</text>
+<line x1="570.0" y1="90.0" x2="570.0" y2="528.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="302.1" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">null — діра</text>
+<rect x="167.1" y="145.8" width="270.0" height="32.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="302.1" y="166.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="302.1" dy="0.0">OrderService  (клієнт)</tspan></text>
+<rect x="122.1" y="268.4" width="360.0" height="63.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="302.1" y="288.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="302.1" dy="0.0">if logger ≠ null:  logger.write(a)</tspan><tspan x="302.1" dy="15.6">if logger ≠ null:  logger.write(b)</tspan><tspan x="302.1" dy="15.6">if logger ≠ null:  logger.write(c)</tspan></text>
+<line x1="302.1" y1="337.6" x2="302.1" y2="452.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<circle cx="302.1" cy="490.0" r="34.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6,5"/>
+<text x="302.1" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">null</text>
+<text x="364.1" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">✗ не відповідає</text>
+<text x="302.1" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">мусить спершу спитати «а ти є?»</text>
+<text x="837.9" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">порожній об'єкт — значення</text>
+<rect x="702.9" y="145.8" width="270.0" height="32.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="837.9" y="166.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="837.9" dy="0.0">OrderService  (клієнт)</tspan></text>
+<rect x="657.9" y="268.4" width="360.0" height="63.2" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="837.9" y="288.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="837.9" dy="0.0">logger.write(a)</tspan><tspan x="837.9" dy="15.6">logger.write(b)</tspan><tspan x="837.9" dy="15.6">logger.write(c)</tspan></text>
+<line x1="837.9" y1="337.6" x2="837.9" y2="452.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="722.9" y="465.6" width="230.0" height="48.8" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="837.9" y="486.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="837.9" dy="0.0">NullLogger</tspan><tspan x="837.9" dy="16.2">write(): нічого</tspan></text>
+<text x="964.9" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">✓ відповідає завжди</text>
+<text x="837.9" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кличе наосліп — воно завжди спрацює</text>
+<line x1="40.0" y1="554.0" x2="1100.0" y2="554.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="570.0" y="582.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">перевірки зникли не тому, що ми їх сховали — а тому, що перевіряти більше нічого</text>
+</svg>

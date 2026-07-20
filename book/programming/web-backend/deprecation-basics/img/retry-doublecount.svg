@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ретрай без дедупу рахується двічі</text>
+<text x="58.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">без дедупу — ретрай рахується двічі</text>
+<rect x="62.0" y="76.0" width="92.0" height="32.0" rx="6" fill="#f6f4ec" stroke="#1a1a1a" stroke-width="1.6"/><text x="108.0" y="96.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="108.0" dy="0.0">клієнт</tspan></text>
+<rect x="45.0" y="152.0" width="153.9" height="32.0" rx="6" fill="#fef7ec" stroke="#9a7d1f" stroke-width="1.6"/><text x="122.0" y="172.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="122.0" dy="0.0">сервер · лічильник</tspan></text>
+<line x1="208.0" y1="92.0" x2="640.0" y2="92.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<line x1="208.0" y1="168.0" x2="640.0" y2="168.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<line x1="280.0" y1="100.0" x2="280.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="280.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">запит #1</text>
+<text x="280.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">+1  (=1)</text>
+<line x1="420.0" y1="168.0" x2="420.0" y2="104.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="413.0" y1="123.0" x2="427.0" y2="137.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="427.0" y1="123.0" x2="413.0" y2="137.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="420.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">відповідь загубилась</text>
+<line x1="560.0" y1="100.0" x2="560.0" y2="160.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="560.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ретрай — той самий</text>
+<text x="560.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+1  (=2)</text>
+<rect x="677.3" y="100.2" width="115.5" height="59.6" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/><text x="735.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="735.0" dy="0.0">1 виклик →</tspan><tspan x="735.0" dy="14.3">пораховано 2</tspan><tspan x="735.0" dy="14.3">крива завищена</tspan></text>
+<text x="58.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">з Idempotency-Key — повтор упізнано</text>
+<rect x="62.0" y="272.0" width="92.0" height="32.0" rx="6" fill="#f6f4ec" stroke="#1a1a1a" stroke-width="1.6"/><text x="108.0" y="292.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="108.0" dy="0.0">клієнт</tspan></text>
+<rect x="45.0" y="344.0" width="153.9" height="32.0" rx="6" fill="#fef7ec" stroke="#9a7d1f" stroke-width="1.6"/><text x="122.0" y="364.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="122.0" dy="0.0">сервер · лічильник</tspan></text>
+<line x1="208.0" y1="288.0" x2="640.0" y2="288.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<line x1="208.0" y1="360.0" x2="640.0" y2="360.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 4"/>
+<line x1="280.0" y1="296.0" x2="280.0" y2="352.0" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="280.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">запит · key=K</text>
+<text x="280.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">+1  (=1)</text>
+<line x1="420.0" y1="360.0" x2="420.0" y2="300.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="413.0" y1="317.0" x2="427.0" y2="331.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="427.0" y1="317.0" x2="413.0" y2="331.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="420.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">відповідь загубилась</text>
+<line x1="560.0" y1="296.0" x2="560.0" y2="352.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="560.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ретрай · key=K</text>
+<text x="560.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">дедуп +0  (=1)</text>
+<rect x="677.3" y="294.2" width="115.5" height="59.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/><text x="735.0" y="313.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="735.0" dy="0.0">1 виклик →</tspan><tspan x="735.0" dy="14.3">пораховано 1</tspan><tspan x="735.0" dy="14.3">крива правдива</tspan></text>
+</svg>

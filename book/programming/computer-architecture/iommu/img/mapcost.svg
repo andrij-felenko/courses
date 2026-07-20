@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="810" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="405.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дорога пара map/unmap: платить IOTLB; мапінг наперед амортизує її на тисячі пакетів</text>
+<text x="40.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Пара «замапити / зняти» — покроково</text>
+<text x="40.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">dma_map_single</text>
+<rect x="40.0" y="116.0" width="330.0" height="26.0" rx="4" fill="#f6f6f9" stroke="#333333" stroke-width="1.2"/>
+<text x="50.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">1 · знайти фізичні сторінки буфера</text>
+<rect x="40.0" y="148.0" width="330.0" height="26.0" rx="4" fill="#f6f6f9" stroke="#333333" stroke-width="1.2"/>
+<text x="50.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">2 · виділити IOVA (per-CPU кеш → дерево)</text>
+<rect x="40.0" y="180.0" width="330.0" height="26.0" rx="4" fill="#f6f6f9" stroke="#333333" stroke-width="1.2"/>
+<text x="50.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">3 · вписати IOVA→phys у таблицю домену</text>
+<rect x="40.0" y="212.0" width="330.0" height="26.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="50.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">4 · повернути dma_addr_t = IOVA</text>
+<text x="40.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">dma_unmap_single</text>
+<rect x="40.0" y="270.0" width="330.0" height="26.0" rx="4" fill="#f6f6f9" stroke="#333333" stroke-width="1.2"/>
+<text x="50.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">5 · викреслити запис із таблиці</text>
+<rect x="40.0" y="302.0" width="330.0" height="26.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.9"/>
+<text x="50.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">6 · знеправити IOTLB — синхронно!</text>
+<rect x="40.0" y="334.0" width="330.0" height="26.0" rx="4" fill="#f6f6f9" stroke="#333333" stroke-width="1.2"/>
+<text x="50.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">7 · повернути IOVA розподільнику</text>
+<text x="40.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">крок 6 коштує як сотні записів у пам'ять</text>
+<text x="440.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Мапінг наперед — кільце буферів</text>
+<rect x="440.0" y="88.0" width="330.0" height="34.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="605.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">старт: dma_map_single × RING_N  (раз)</text>
+<circle cx="605.0" cy="250.0" r="74.0" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<rect x="589.0" y="166.0" width="34.0" height="21.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="606.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">b0</text>
+<rect x="641.3" y="187.7" width="34.0" height="21.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="658.3" y="201.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">b1</text>
+<rect x="663.0" y="240.0" width="34.0" height="21.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="680.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">b2</text>
+<rect x="641.3" y="292.3" width="34.0" height="21.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="658.3" y="306.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">b3</text>
+<rect x="589.0" y="314.0" width="34.0" height="21.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="606.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">b4</text>
+<rect x="536.7" y="292.3" width="34.0" height="21.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="553.7" y="306.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">b5</text>
+<rect x="515.0" y="240.0" width="34.0" height="21.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="532.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">b6</text>
+<rect x="536.7" y="187.7" width="34.0" height="21.0" rx="3" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="553.7" y="201.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">b7</text>
+<text x="605.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">замаплені</text>
+<text x="605.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">буфери</text>
+<rect x="440.0" y="350.0" width="330.0" height="34.0" rx="5" fill="#fff9e6" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="605.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">на пакет: лише dma_sync  (без IOTLB)</text>
+<rect x="440.0" y="398.0" width="330.0" height="34.0" rx="5" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="605.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">зупинка: dma_unmap_single × RING_N  (раз)</text>
+</svg>

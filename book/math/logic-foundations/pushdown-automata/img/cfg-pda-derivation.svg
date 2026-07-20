@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стек тримає недороблену частину виводу</text>
+<text x="480.0" y="57.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">низхідний автомат на вході «()()» за граматикою  S → ( S ) S | ε</text>
+<rect x="92.0" y="78.0" width="20.0" height="20.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.4"/>
+<text x="118.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">прочитаний вхід</text>
+<rect x="240.0" y="78.0" width="20.0" height="20.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="266.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">стек (вершина ліворуч)</text>
+<line x1="430.0" y1="76.0" x2="430.0" y2="100.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="440.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">головка входу</text>
+<text x="52.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">крок</text>
+<text x="92.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">рядок = сентенційна форма</text>
+<text x="360.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">дія</text>
+<text x="52.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="92.0" y="133.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="108.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<line x1="92.0" y1="129.0" x2="92.0" y2="163.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">старт: увесь борг — на стеку</text>
+<text x="52.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<rect x="92.0" y="167.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="108.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">(</text>
+<rect x="124.0" y="167.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="140.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<rect x="156.0" y="167.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="172.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">)</text>
+<rect x="188.0" y="167.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="204.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<line x1="92.0" y1="163.0" x2="92.0" y2="197.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">розгортання  S → ( S ) S        ← здогад</text>
+<text x="52.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+<rect x="92.0" y="201.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="108.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="124.0" y="201.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="140.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<rect x="156.0" y="201.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="172.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">)</text>
+<rect x="188.0" y="201.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="204.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<line x1="124.0" y1="197.0" x2="124.0" y2="231.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">звірка «(» — pop</text>
+<text x="52.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+<rect x="92.0" y="235.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="108.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="124.0" y="235.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="140.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">)</text>
+<rect x="156.0" y="235.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="172.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<line x1="124.0" y1="231.0" x2="124.0" y2="265.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">розгортання  S → ε              ← здогад</text>
+<text x="52.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+<rect x="92.0" y="269.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="108.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="124.0" y="269.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="140.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">)</text>
+<rect x="156.0" y="269.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="172.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<line x1="156.0" y1="265.0" x2="156.0" y2="299.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">звірка «)» — pop</text>
+<text x="52.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+<rect x="92.0" y="303.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="108.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="124.0" y="303.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="140.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">)</text>
+<rect x="156.0" y="303.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="172.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">(</text>
+<rect x="188.0" y="303.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="204.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<rect x="220.0" y="303.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="236.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">)</text>
+<rect x="252.0" y="303.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="268.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<line x1="156.0" y1="299.0" x2="156.0" y2="333.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">розгортання  S → ( S ) S        ← здогад</text>
+<text x="52.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+<rect x="92.0" y="337.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="108.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="124.0" y="337.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="140.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">)</text>
+<rect x="156.0" y="337.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="172.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="188.0" y="337.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="204.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<rect x="220.0" y="337.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="236.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">)</text>
+<rect x="252.0" y="337.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="268.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<line x1="188.0" y1="333.0" x2="188.0" y2="367.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">звірка «(» — pop</text>
+<text x="52.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">7</text>
+<rect x="92.0" y="371.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="108.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="124.0" y="371.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="140.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">)</text>
+<rect x="156.0" y="371.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="172.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="188.0" y="371.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="204.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">)</text>
+<rect x="220.0" y="371.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="236.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<line x1="188.0" y1="367.0" x2="188.0" y2="401.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">розгортання  S → ε              ← здогад</text>
+<text x="52.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+<rect x="92.0" y="405.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="108.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="124.0" y="405.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="140.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">)</text>
+<rect x="156.0" y="405.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="172.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="188.0" y="405.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="204.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">)</text>
+<rect x="220.0" y="405.0" width="32.0" height="26.0" rx="3" fill="#dfe7fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="236.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<line x1="220.0" y1="401.0" x2="220.0" y2="435.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">звірка «)» — pop</text>
+<text x="52.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">9</text>
+<rect x="92.0" y="439.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="108.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="124.0" y="439.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="140.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">)</text>
+<rect x="156.0" y="439.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="172.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">(</text>
+<rect x="188.0" y="439.0" width="32.0" height="26.0" rx="3" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.3"/>
+<text x="204.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">)</text>
+<line x1="220.0" y1="435.0" x2="220.0" y2="469.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="360.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">розгортання  S → ε   →   стек порожній: ПРИЙОМ</text>
+<text x="480.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Кожен рядок, прочитаний зліва направо, — поточна сентенційна форма лівого виводу.</text>
+<text x="480.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Сині кроки міняють форму — це і є кроки виводу; сірі лише посувають головку. Сині підряд: S→(S)S, S→ε, S→(S)S, S→ε, S→ε.</text>
+</svg>

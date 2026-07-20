@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Множення на 2ᵏ прокручує вікно — і воно називає k</text>
+<rect x="0.0" y="0.0" width="900.0" height="600.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="450.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">C = 00010111₂ — множення на 2ᵏ зсуває стрічку вліво на k, зайве обрізається</text>
+<text x="60.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">k</text>
+<text x="252.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2ᵏ · C  (вісім бітів)</text>
+<text x="560.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">верхні три</text>
+<text x="740.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">таблиця</text>
+<text x="60.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">k = 0</text>
+<rect x="120.0" y="112.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="136.5" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="153.0" y="112.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="169.5" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="186.0" y="112.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="202.5" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="219.0" y="112.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="235.5" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="252.0" y="112.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="268.5" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="285.0" y="112.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="301.5" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="318.0" y="112.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="334.5" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="351.0" y="112.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="367.5" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<line x1="396.0" y1="129.0" x2="500.0" y2="129.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">000₂ = 0</text>
+<line x1="620.0" y1="129.0" x2="660.0" y2="129.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="740.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">tab[0] = 0</text>
+<text x="60.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">k = 1</text>
+<rect x="120.0" y="158.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="136.5" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="153.0" y="158.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="169.5" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="186.0" y="158.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="202.5" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="219.0" y="158.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="235.5" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="252.0" y="158.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="268.5" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="285.0" y="158.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="301.5" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="318.0" y="158.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="334.5" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="351.0" y="158.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="367.5" y="180.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="396.0" y1="175.0" x2="500.0" y2="175.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">001₂ = 1</text>
+<line x1="620.0" y1="175.0" x2="660.0" y2="175.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="740.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">tab[1] = 1</text>
+<text x="60.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">k = 2</text>
+<rect x="120.0" y="204.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="136.5" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="153.0" y="204.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="169.5" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="186.0" y="204.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="202.5" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="219.0" y="204.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="235.5" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="252.0" y="204.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="268.5" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="285.0" y="204.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="301.5" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="318.0" y="204.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="334.5" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="351.0" y="204.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="367.5" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="396.0" y1="221.0" x2="500.0" y2="221.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">010₂ = 2</text>
+<line x1="620.0" y1="221.0" x2="660.0" y2="221.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="740.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">tab[2] = 2</text>
+<text x="60.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">k = 3</text>
+<rect x="120.0" y="250.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="136.5" y="272.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="153.0" y="250.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="169.5" y="272.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="186.0" y="250.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="202.5" y="272.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="219.0" y="250.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="235.5" y="272.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="252.0" y="250.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="268.5" y="272.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="285.0" y="250.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="301.5" y="272.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="318.0" y="250.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="334.5" y="272.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="351.0" y="250.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="367.5" y="272.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="396.0" y1="267.0" x2="500.0" y2="267.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">101₂ = 5</text>
+<line x1="620.0" y1="267.0" x2="660.0" y2="267.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="740.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">tab[5] = 3</text>
+<text x="60.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">k = 4</text>
+<rect x="120.0" y="296.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="136.5" y="318.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="153.0" y="296.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="169.5" y="318.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="186.0" y="296.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="202.5" y="318.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="219.0" y="296.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="235.5" y="318.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="252.0" y="296.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="268.5" y="318.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="285.0" y="296.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="301.5" y="318.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="318.0" y="296.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="334.5" y="318.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="351.0" y="296.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="367.5" y="318.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="396.0" y1="313.0" x2="500.0" y2="313.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">011₂ = 3</text>
+<line x1="620.0" y1="313.0" x2="660.0" y2="313.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="740.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">tab[3] = 4</text>
+<text x="60.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">k = 5</text>
+<rect x="120.0" y="342.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="136.5" y="364.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="153.0" y="342.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="169.5" y="364.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="186.0" y="342.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="202.5" y="364.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="219.0" y="342.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="235.5" y="364.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="252.0" y="342.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="268.5" y="364.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="285.0" y="342.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="301.5" y="364.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="318.0" y="342.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="334.5" y="364.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="351.0" y="342.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="367.5" y="364.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="396.0" y1="359.0" x2="500.0" y2="359.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">111₂ = 7</text>
+<line x1="620.0" y1="359.0" x2="660.0" y2="359.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="740.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">tab[7] = 5</text>
+<text x="60.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">k = 6</text>
+<rect x="120.0" y="388.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="136.5" y="410.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="153.0" y="388.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="169.5" y="410.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="186.0" y="388.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="202.5" y="410.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="219.0" y="388.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="235.5" y="410.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="252.0" y="388.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="268.5" y="410.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="285.0" y="388.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="301.5" y="410.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="318.0" y="388.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="334.5" y="410.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="351.0" y="388.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="367.5" y="410.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="396.0" y1="405.0" x2="500.0" y2="405.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">110₂ = 6</text>
+<line x1="620.0" y1="405.0" x2="660.0" y2="405.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="740.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">tab[6] = 6</text>
+<text x="60.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">k = 7</text>
+<rect x="120.0" y="434.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="136.5" y="456.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="153.0" y="434.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="169.5" y="456.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="186.0" y="434.0" width="33.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="202.5" y="456.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">0</text>
+<rect x="219.0" y="434.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="235.5" y="456.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="252.0" y="434.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="268.5" y="456.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="285.0" y="434.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="301.5" y="456.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="318.0" y="434.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="334.5" y="456.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="351.0" y="434.0" width="33.0" height="34.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="367.5" y="456.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="396.0" y1="451.0" x2="500.0" y2="451.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="560.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">100₂ = 4</text>
+<line x1="620.0" y1="451.0" x2="660.0" y2="451.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="740.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">tab[4] = 7</text>
+<rect x="139.8" y="506.5" width="620.5" height="67.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="450.0" y="528.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Вісім різних вікон дають вісім різних індексів — жодної колізії.</tspan><tspan x="450.0" dy="16.2">tab = [0, 1, 2, 4, 7, 3, 6, 5] — просто обернена перестановка: за індексом віддає k.</tspan><tspan x="450.0" dy="16.2">На 64 бітах усе те саме: вікно шість бітів, зсув «&gt;&gt; 58», таблиця на 64 числа.</tspan></text>
+</svg>

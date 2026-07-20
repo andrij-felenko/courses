@@ -1,0 +1,371 @@
+{
+  "book": "programming",
+  "units": [
+    {
+      "section": "architecture-discipline",
+      "slug": "adr",
+      "title": "Запис архітектурного рішення (ADR)",
+      "scope": "Ремесло архітектора понад механізмами: якісні атрибути й сценарії, драйвери, тактики, аналіз компромісів і оцінювання (ATAM-клас), рішення під невизначеністю й ризиком, в'ю і документування (C4, 4+1, arc42), рев'ю й комунікація рішень, роль і стейкхолдери, соціотехніка команд, економіка рішень, еволюція систем."
+    },
+    {
+      "section": "architecture-discipline",
+      "slug": "set-based-design",
+      "title": "Множинне (set-based) проєктування",
+      "scope": "Ремесло архітектора понад механізмами: якісні атрибути й сценарії, драйвери, тактики, аналіз компромісів і оцінювання (ATAM-клас), рішення під невизначеністю й ризиком, в'ю і документування (C4, 4+1, arc42), рев'ю й комунікація рішень, роль і стейкхолдери, соціотехніка команд, економіка рішень, еволюція систем."
+    },
+    {
+      "section": "software-design",
+      "slug": "global-state",
+      "title": "Глобальний стан",
+      "scope": "Принципи структурування коду і форма застосунку: зв'язність/зчеплення, SOLID, шари й межі, DDD (мова, агрегат, контекст, ACL), стилі від моноліта до мікросервісів і подієвих, парадигми, конфіг, слід рішень, еволюція."
+    },
+    {
+      "section": "software-design",
+      "slug": "common-closure-principle",
+      "title": "Принцип спільного закриття (CCP)",
+      "scope": "Принципи структурування коду і форма застосунку: зв'язність/зчеплення, SOLID, шари й межі, DDD (мова, агрегат, контекст, ACL), стилі від моноліта до мікросервісів і подієвих, парадигми, конфіг, слід рішень, еволюція."
+    },
+    {
+      "section": "design-patterns",
+      "slug": "chain-of-responsibility",
+      "title": "Ланцюжок обов'язків",
+      "scope": "Повторювані розв'язки об'єктного дизайну: породжувальні, структурні, поведінкові (GoF), PoEAA-доступ до даних, впровадження залежностей, антипатерни."
+    },
+    {
+      "section": "design-patterns",
+      "slug": "gof-structural-microcatalog",
+      "title": "Решта структурних оглядово",
+      "scope": "Повторювані розв'язки об'єктного дизайну: породжувальні, структурні, поведінкові (GoF), PoEAA-доступ до даних, впровадження залежностей, антипатерни."
+    },
+    {
+      "section": "design-patterns",
+      "slug": "gof-behavioral-microcatalog",
+      "title": "Решта поведінкових оглядово",
+      "scope": "Повторювані розв'язки об'єктного дизайну: породжувальні, структурні, поведінкові (GoF), PoEAA-доступ до даних, впровадження залежностей, антипатерни."
+    },
+    {
+      "section": "design-patterns",
+      "slug": "dependency-injection",
+      "title": "Впровадження залежностей та IoC-контейнер (інструмент DIP); контейнер vs ручна збірка; service locator як анти-двійник (інлайн)",
+      "scope": "Повторювані розв'язки об'єктного дизайну: породжувальні, структурні, поведінкові (GoF), PoEAA-доступ до даних, впровадження залежностей, антипатерни."
+    },
+    {
+      "section": "design-patterns",
+      "slug": "repository",
+      "title": "Репозиторій",
+      "scope": "Повторювані розв'язки об'єктного дизайну: породжувальні, структурні, поведінкові (GoF), PoEAA-доступ до даних, впровадження залежностей, антипатерни."
+    },
+    {
+      "section": "design-patterns",
+      "slug": "anti-patterns",
+      "title": "Антипатерни",
+      "scope": "Повторювані розв'язки об'єктного дизайну: породжувальні, структурні, поведінкові (GoF), PoEAA-доступ до даних, впровадження залежностей, антипатерни."
+    },
+    {
+      "section": "design-patterns",
+      "slug": "active-record",
+      "title": "Active Record",
+      "scope": "Повторювані розв'язки об'єктного дизайну: породжувальні, структурні, поведінкові (GoF), PoEAA-доступ до даних, впровадження залежностей, антипатерни."
+    },
+    {
+      "section": "design-patterns",
+      "slug": "data-mapper",
+      "title": "Data Mapper",
+      "scope": "Повторювані розв'язки об'єктного дизайну: породжувальні, структурні, поведінкові (GoF), PoEAA-доступ до даних, впровадження залежностей, антипатерни."
+    },
+    {
+      "section": "design-patterns",
+      "slug": "identity-map",
+      "title": "Identity map",
+      "scope": "Повторювані розв'язки об'єктного дизайну: породжувальні, структурні, поведінкові (GoF), PoEAA-доступ до даних, впровадження залежностей, антипатерни."
+    }
+  ],
+  "onDisk": [
+    "adr",
+    "set-based-design",
+    "global-state",
+    "common-closure-principle",
+    "chain-of-responsibility",
+    "gof-structural-microcatalog",
+    "gof-behavioral-microcatalog",
+    "dependency-injection",
+    "repository",
+    "anti-patterns",
+    "active-record",
+    "data-mapper",
+    "identity-map"
+  ],
+  "missing": [],
+  "inserts": [],
+  "insertsDone": [
+    {
+      "file": "proj-decision-matrix.md",
+      "type": "proj",
+      "section": "architecture-discipline",
+      "topicSlug": "adr",
+      "topicTitle": "Запис архітектурного рішення (ADR)"
+    },
+    {
+      "file": "hist-toyota-paradox.md",
+      "type": "hist",
+      "section": "architecture-discipline",
+      "topicSlug": "set-based-design",
+      "topicTitle": "Множинне (set-based) проєктування"
+    },
+    {
+      "file": "proj-convergence-tracker.md",
+      "type": "proj",
+      "section": "architecture-discipline",
+      "topicSlug": "set-based-design",
+      "topicTitle": "Множинне (set-based) проєктування"
+    },
+    {
+      "file": "hist-globals-lineage.md",
+      "type": "hist",
+      "section": "software-design",
+      "topicSlug": "global-state",
+      "topicTitle": "Глобальний стан"
+    },
+    {
+      "file": "proj-untangle-globals.md",
+      "type": "proj",
+      "section": "software-design",
+      "topicSlug": "global-state",
+      "topicTitle": "Глобальний стан"
+    },
+    {
+      "file": "hist-ccp-package-principles.md",
+      "type": "hist",
+      "section": "software-design",
+      "topicSlug": "common-closure-principle",
+      "topicTitle": "Принцип спільного закриття (CCP)"
+    },
+    {
+      "file": "proj-regroup-by-change.md",
+      "type": "proj",
+      "section": "software-design",
+      "topicSlug": "common-closure-principle",
+      "topicTitle": "Принцип спільного закриття (CCP)"
+    },
+    {
+      "file": "proj-middleware-chain.md",
+      "type": "proj",
+      "section": "design-patterns",
+      "topicSlug": "chain-of-responsibility",
+      "topicTitle": "Ланцюжок обов'язків"
+    },
+    {
+      "file": "math-chain-as-fold.md",
+      "type": "math",
+      "section": "design-patterns",
+      "topicSlug": "chain-of-responsibility",
+      "topicTitle": "Ланцюжок обов'язків"
+    },
+    {
+      "file": "hist-chain-birth.md",
+      "type": "hist",
+      "section": "design-patterns",
+      "topicSlug": "chain-of-responsibility",
+      "topicTitle": "Ланцюжок обов'язків"
+    },
+    {
+      "file": "proj-bridge-explosion.md",
+      "type": "proj",
+      "section": "design-patterns",
+      "topicSlug": "gof-structural-microcatalog",
+      "topicTitle": "Решта структурних оглядово"
+    },
+    {
+      "file": "proj-untangle-service-locator.md",
+      "type": "proj",
+      "section": "design-patterns",
+      "topicSlug": "dependency-injection",
+      "topicTitle": "Впровадження залежностей та IoC-контейнер (інструмент DIP); контейнер vs ручна збірка; service locator як анти-двійник (інлайн)"
+    },
+    {
+      "file": "hist-fowler-di-naming.md",
+      "type": "hist",
+      "section": "design-patterns",
+      "topicSlug": "dependency-injection",
+      "topicTitle": "Впровадження залежностей та IoC-контейнер (інструмент DIP); контейнер vs ручна збірка; service locator як анти-двійник (інлайн)"
+    },
+    {
+      "file": "proj-in-memory-repository.md",
+      "type": "proj",
+      "section": "design-patterns",
+      "topicSlug": "repository",
+      "topicTitle": "Репозиторій"
+    },
+    {
+      "file": "hist-repository-poeaa.md",
+      "type": "hist",
+      "section": "design-patterns",
+      "topicSlug": "repository",
+      "topicTitle": "Репозиторій"
+    },
+    {
+      "file": "hist-antipattern-birth.md",
+      "type": "hist",
+      "section": "design-patterns",
+      "topicSlug": "anti-patterns",
+      "topicTitle": "Антипатерни"
+    },
+    {
+      "file": "proj-refactor-god-object.md",
+      "type": "proj",
+      "section": "design-patterns",
+      "topicSlug": "anti-patterns",
+      "topicTitle": "Антипатерни"
+    },
+    {
+      "file": "hist-active-record-rails.md",
+      "type": "hist",
+      "section": "design-patterns",
+      "topicSlug": "active-record",
+      "topicTitle": "Active Record"
+    },
+    {
+      "file": "proj-active-record-from-scratch.md",
+      "type": "proj",
+      "section": "design-patterns",
+      "topicSlug": "active-record",
+      "topicTitle": "Active Record"
+    },
+    {
+      "file": "math-n-plus-one.md",
+      "type": "math",
+      "section": "design-patterns",
+      "topicSlug": "active-record",
+      "topicTitle": "Active Record"
+    },
+    {
+      "file": "proj-hand-written-mapper.md",
+      "type": "proj",
+      "section": "design-patterns",
+      "topicSlug": "data-mapper",
+      "topicTitle": "Data Mapper"
+    },
+    {
+      "file": "hist-two-orm-camps.md",
+      "type": "hist",
+      "section": "design-patterns",
+      "topicSlug": "data-mapper",
+      "topicTitle": "Data Mapper"
+    },
+    {
+      "file": "math-mapper-round-trip.md",
+      "type": "math",
+      "section": "design-patterns",
+      "topicSlug": "data-mapper",
+      "topicTitle": "Data Mapper"
+    },
+    {
+      "file": "proj-identity-map.md",
+      "type": "proj",
+      "section": "design-patterns",
+      "topicSlug": "identity-map",
+      "topicTitle": "Identity map"
+    },
+    {
+      "file": "math-identity-invariants.md",
+      "type": "math",
+      "section": "design-patterns",
+      "topicSlug": "identity-map",
+      "topicTitle": "Identity map"
+    },
+    {
+      "file": "hist-identity-map-lineage.md",
+      "type": "hist",
+      "section": "design-patterns",
+      "topicSlug": "identity-map",
+      "topicTitle": "Identity map"
+    }
+  ],
+  "newTopics": [
+    {
+      "kind": "book",
+      "book": "programming",
+      "section": "software-design",
+      "slug": "common-reuse-principle",
+      "titleHint": "принцип спільного повторного використання (CRP)",
+      "fromArticle": "software-design/common-closure-principle/common-closure-principle.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "programming",
+      "section": "software-design",
+      "slug": "reuse-release-equivalence",
+      "titleHint": "еквівалентності повторного використання й випуску (REP)",
+      "fromArticle": "software-design/common-closure-principle/common-closure-principle.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "programming",
+      "section": "design-patterns",
+      "slug": "null-object",
+      "titleHint": "порожній об'єкт",
+      "fromArticle": "design-patterns/chain-of-responsibility/chain-of-responsibility.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "programming",
+      "section": "design-patterns",
+      "slug": "data-access-object",
+      "titleHint": "об'єктом доступу до даних (DAO)",
+      "fromArticle": "design-patterns/repository/repository.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "programming",
+      "section": "design-patterns",
+      "slug": "row-data-gateway",
+      "titleHint": "шлюз рядка даних",
+      "fromArticle": "design-patterns/active-record/active-record.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "programming",
+      "section": "design-patterns",
+      "slug": "transaction-script",
+      "titleHint": "сценарій транзакції",
+      "fromArticle": "design-patterns/active-record/active-record.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "programming",
+      "section": "design-patterns",
+      "slug": "object-relational-mismatch",
+      "titleHint": "неузгодженість між об'єктами й таблицями",
+      "fromArticle": "design-patterns/data-mapper/data-mapper.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "programming",
+      "section": "design-patterns",
+      "slug": "weak-references",
+      "titleHint": "слабких або м'яких посиланнях",
+      "fromArticle": "design-patterns/identity-map/identity-map.md",
+      "needDetailed": false
+    }
+  ],
+  "detailed": [],
+  "linkfix": [
+    {
+      "inArticle": "architecture-discipline/adr.md",
+      "ref": "book:programming/architecture-decision-records/hist-adr-origin.md",
+      "ownerExists": true
+    },
+    {
+      "inArticle": "design-patterns/gof-behavioral-microcatalog.md",
+      "ref": "book:programming/open-closed/math-expression-problem.md",
+      "ownerExists": true
+    }
+  ]
+}

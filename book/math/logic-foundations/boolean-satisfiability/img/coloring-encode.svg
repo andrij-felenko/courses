@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розфарбування графа, закодоване як CNF</text>
+<text x="450.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">змінна на кожну пару (вершина, колір); умови розфарбування — клаузи</text>
+<line x1="170.0" y1="150.0" x2="105.0" y2="280.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="170.0" y1="150.0" x2="235.0" y2="280.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="105.0" y1="280.0" x2="235.0" y2="280.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="170.0" cy="150.0" r="27.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.6"/>
+<circle cx="105.0" cy="280.0" r="27.0" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.6"/>
+<circle cx="235.0" cy="280.0" r="27.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.6"/>
+<text x="170.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="105.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<text x="235.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<text x="170.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">R</text>
+<text x="59.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">G</text>
+<text x="281.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">B</text>
+<text x="170.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">трикутник: 3 вершини, 3 ребра</text>
+<text x="170.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">свідок  1→R  2→G  3→B</text>
+<rect x="320.0" y="86.0" width="550.0" height="92.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="595.0" y="127.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="595.0" dy="0.0">①  кожна вершина — бодай один колір</tspan><tspan x="595.0" dy="18.2">(R₁ ∨ G₁ ∨ B₁) ∧ (R₂ ∨ G₂ ∨ B₂) ∧ (R₃ ∨ G₃ ∨ B₃)</tspan></text>
+<rect x="320.0" y="194.0" width="550.0" height="106.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="595.0" y="234.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="595.0" dy="0.0">②  не два кольори на одній вершині</tspan><tspan x="595.0" dy="17.6">верш. 1:  (¬R₁ ∨ ¬G₁) ∧ (¬R₁ ∨ ¬B₁) ∧ (¬G₁ ∨ ¬B₁)</tspan><tspan x="595.0" dy="17.6">(технічно зайва для питання «чи розфарбовний?»)</tspan></text>
+<rect x="320.0" y="316.0" width="550.0" height="106.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="595.0" y="356.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="595.0" dy="0.0">③  суміжні вершини — різного кольору</tspan><tspan x="595.0" dy="17.6">ребро 1–2:  (¬R₁ ∨ ¬R₂) ∧ (¬G₁ ∨ ¬G₂) ∧ (¬B₁ ∨ ¬B₂)</tspan><tspan x="595.0" dy="17.6">… по три клаузи на кожне ребро</tspan></text>
+<rect x="60.0" y="470.0" width="780.0" height="62.0" rx="10" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="450.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">9 змінних, 21 клауза — і росте лише поліномно:</text>
+<text x="450.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">n вершин · k кольорів → n·k змінних;  клауз ~ n + n·(k над 2) + m·k</text>
+</svg>

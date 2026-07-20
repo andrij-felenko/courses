@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перетворення на місці: метелик XOR за log₂N кроків</text>
+<text x="120.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">індекс</text>
+<text x="120.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">000</text>
+<text x="120.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">001</text>
+<text x="120.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">010</text>
+<text x="120.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">011</text>
+<text x="120.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">100</text>
+<text x="120.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">101</text>
+<text x="120.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">110</text>
+<text x="120.0" y="499.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">111</text>
+<text x="270.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">таблиця f</text>
+<text x="490.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">після біта 0</text>
+<text x="710.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">після біта 1</text>
+<text x="910.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">коеф. (біт 2)</text>
+<line x1="285.0" y1="130.0" x2="475.0" y2="130.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="285.0" y1="182.0" x2="475.0" y2="182.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="285.0" y1="234.0" x2="475.0" y2="234.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="285.0" y1="286.0" x2="475.0" y2="286.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="285.0" y1="338.0" x2="475.0" y2="338.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="285.0" y1="390.0" x2="475.0" y2="390.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="285.0" y1="442.0" x2="475.0" y2="442.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="285.0" y1="494.0" x2="475.0" y2="494.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="505.0" y1="130.0" x2="695.0" y2="130.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="505.0" y1="182.0" x2="695.0" y2="182.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="505.0" y1="234.0" x2="695.0" y2="234.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="505.0" y1="286.0" x2="695.0" y2="286.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="505.0" y1="338.0" x2="695.0" y2="338.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="505.0" y1="390.0" x2="695.0" y2="390.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="505.0" y1="442.0" x2="695.0" y2="442.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="505.0" y1="494.0" x2="695.0" y2="494.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="725.0" y1="130.0" x2="895.0" y2="130.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="725.0" y1="182.0" x2="895.0" y2="182.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="725.0" y1="234.0" x2="895.0" y2="234.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="725.0" y1="286.0" x2="895.0" y2="286.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="725.0" y1="338.0" x2="895.0" y2="338.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="725.0" y1="390.0" x2="895.0" y2="390.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="725.0" y1="442.0" x2="895.0" y2="442.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="725.0" y1="494.0" x2="895.0" y2="494.0" stroke="#d7dbe0" stroke-width="1.4"/>
+<line x1="285.0" y1="130.0" x2="475.0" y2="182.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="285.0" y1="234.0" x2="475.0" y2="286.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="285.0" y1="338.0" x2="475.0" y2="390.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="285.0" y1="442.0" x2="475.0" y2="494.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="505.0" y1="130.0" x2="695.0" y2="234.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="505.0" y1="182.0" x2="695.0" y2="286.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="505.0" y1="338.0" x2="695.0" y2="442.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="505.0" y1="390.0" x2="695.0" y2="494.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="725.0" y1="130.0" x2="895.0" y2="338.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="725.0" y1="182.0" x2="895.0" y2="390.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="725.0" y1="234.0" x2="895.0" y2="442.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="725.0" y1="286.0" x2="895.0" y2="494.0" stroke="#7c3aed" stroke-width="1.7" marker-end="url(#arrow)"/>
+<circle cx="270.0" cy="130.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="270.0" cy="182.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="270.0" cy="234.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="270.0" cy="286.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="270.0" cy="338.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="270.0" cy="390.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="270.0" cy="442.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="270.0" cy="494.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="490.0" cy="130.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="490.0" cy="182.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="490.0" cy="234.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="490.0" cy="286.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="490.0" cy="338.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="490.0" cy="390.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="490.0" cy="442.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="490.0" cy="494.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="710.0" cy="130.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="710.0" cy="182.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="710.0" cy="234.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="710.0" cy="286.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="710.0" cy="338.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="710.0" cy="390.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="710.0" cy="442.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="710.0" cy="494.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="910.0" cy="130.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="910.0" cy="182.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="910.0" cy="234.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="910.0" cy="286.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="910.0" cy="338.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="910.0" cy="390.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="910.0" cy="442.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="910.0" cy="494.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="500.0" y="550.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">кожну клітину чіпають n = 3 рази  →  усього ≈ n·2ⁿ⁻¹ дій XOR,</text>
+<text x="500.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">а пам'ять лишається та сама — жодного зайвого масиву (на місці)</text>
+</svg>

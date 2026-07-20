@@ -1,0 +1,513 @@
+{
+  "book": "math",
+  "kind": "book",
+  "level": "basic",
+  "limit": 13,
+  "skipArticles": [
+    "shannon-expansion",
+    "logic-minimization",
+    "regular-languages",
+    "pushdown-automata",
+    "turing-machine",
+    "karnaugh-map",
+    "functional-completeness",
+    "mathematical-induction",
+    "twos-complement-arithmetic",
+    "binary-logarithm",
+    "gcd-euclidean",
+    "chinese-remainder-theorem",
+    "euler-totient"
+  ],
+  "briefFile": "E:\\develop\\courses\\scripts\\_finish\\payload-math.json",
+  "units": [
+    {
+      "section": "logic-foundations",
+      "slug": "shannon-expansion",
+      "title": "Теорема Шеннона про розкладання",
+      "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин."
+    },
+    {
+      "section": "logic-foundations",
+      "slug": "logic-minimization",
+      "title": "Мінімізація логічних функцій",
+      "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин."
+    },
+    {
+      "section": "logic-foundations",
+      "slug": "regular-languages",
+      "title": "Регулярні мови",
+      "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин."
+    },
+    {
+      "section": "logic-foundations",
+      "slug": "pushdown-automata",
+      "title": "Магазинні автомати",
+      "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин."
+    },
+    {
+      "section": "logic-foundations",
+      "slug": "turing-machine",
+      "title": "Машина Тюринга",
+      "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин."
+    },
+    {
+      "section": "logic-foundations",
+      "slug": "karnaugh-map",
+      "title": "Карта Карно і мінімізація схем",
+      "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин."
+    },
+    {
+      "section": "logic-foundations",
+      "slug": "functional-completeness",
+      "title": "Функціональна повнота",
+      "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин."
+    },
+    {
+      "section": "logic-foundations",
+      "slug": "mathematical-induction",
+      "title": "Математична індукція",
+      "scope": "Формальні системи, доведення, обчислюваність і самі підвалини математики, включно з теорією множин."
+    },
+    {
+      "section": "number-theory",
+      "slug": "twos-complement-arithmetic",
+      "title": "Арифметика доповняльного коду",
+      "scope": "Властивості цілих чисел, подільність, прості числа, діофантові рівняння та арифметичні структури."
+    },
+    {
+      "section": "number-theory",
+      "slug": "binary-logarithm",
+      "title": "Двійковий логарифм",
+      "scope": "Властивості цілих чисел, подільність, прості числа, діофантові рівняння та арифметичні структури."
+    },
+    {
+      "section": "number-theory",
+      "slug": "gcd-euclidean",
+      "title": "НСД і алгоритм Евкліда",
+      "scope": "Властивості цілих чисел, подільність, прості числа, діофантові рівняння та арифметичні структури."
+    },
+    {
+      "section": "number-theory",
+      "slug": "chinese-remainder-theorem",
+      "title": "Китайська теорема про залишки",
+      "scope": "Властивості цілих чисел, подільність, прості числа, діофантові рівняння та арифметичні структури."
+    },
+    {
+      "section": "number-theory",
+      "slug": "euler-totient",
+      "title": "Функція Ейлера і теорема Ейлера",
+      "scope": "Властивості цілих чисел, подільність, прості числа, діофантові рівняння та арифметичні структури."
+    }
+  ],
+  "inserts": [
+    {
+      "file": "proj-recursive-expansion.md",
+      "type": "proj",
+      "section": "logic-foundations",
+      "topicSlug": "shannon-expansion",
+      "topicTitle": "Теорема Шеннона про розкладання"
+    },
+    {
+      "file": "math-cofactors.md",
+      "type": "math",
+      "section": "logic-foundations",
+      "topicSlug": "shannon-expansion",
+      "topicTitle": "Теорема Шеннона про розкладання"
+    },
+    {
+      "file": "hist-boole-shannon.md",
+      "type": "hist",
+      "section": "logic-foundations",
+      "topicSlug": "shannon-expansion",
+      "topicTitle": "Теорема Шеннона про розкладання"
+    },
+    {
+      "file": "proj-turing-simulator.md",
+      "type": "proj",
+      "section": "logic-foundations",
+      "topicSlug": "turing-machine",
+      "topicTitle": "Машина Тюринга"
+    },
+    {
+      "file": "math-prime-implicants.md",
+      "type": "math",
+      "section": "logic-foundations",
+      "topicSlug": "karnaugh-map",
+      "topicTitle": "Карта Карно і мінімізація схем"
+    },
+    {
+      "file": "hist-quine-mccluskey.md",
+      "type": "hist",
+      "section": "logic-foundations",
+      "topicSlug": "karnaugh-map",
+      "topicTitle": "Карта Карно і мінімізація схем"
+    },
+    {
+      "file": "hist-post.md",
+      "type": "hist",
+      "section": "logic-foundations",
+      "topicSlug": "functional-completeness",
+      "topicTitle": "Функціональна повнота"
+    },
+    {
+      "file": "math-post-criterion.md",
+      "type": "math",
+      "section": "logic-foundations",
+      "topicSlug": "functional-completeness",
+      "topicTitle": "Функціональна повнота"
+    },
+    {
+      "file": "proj-completeness-check.md",
+      "type": "proj",
+      "section": "logic-foundations",
+      "topicSlug": "functional-completeness",
+      "topicTitle": "Функціональна повнота"
+    },
+    {
+      "file": "hist-induction-history.md",
+      "type": "hist",
+      "section": "logic-foundations",
+      "topicSlug": "mathematical-induction",
+      "topicTitle": "Математична індукція"
+    },
+    {
+      "file": "proj-code-correctness.md",
+      "type": "proj",
+      "section": "logic-foundations",
+      "topicSlug": "mathematical-induction",
+      "topicTitle": "Математична індукція"
+    },
+    {
+      "file": "hist-method-of-complements.md",
+      "type": "hist",
+      "section": "number-theory",
+      "topicSlug": "twos-complement-arithmetic",
+      "topicTitle": "Арифметика доповняльного коду"
+    },
+    {
+      "file": "math-overflow-detection.md",
+      "type": "math",
+      "section": "number-theory",
+      "topicSlug": "twos-complement-arithmetic",
+      "topicTitle": "Арифметика доповняльного коду"
+    },
+    {
+      "file": "hist-binary-logarithm.md",
+      "type": "hist",
+      "section": "number-theory",
+      "topicSlug": "binary-logarithm",
+      "topicTitle": "Двійковий логарифм"
+    },
+    {
+      "file": "math-change-of-base.md",
+      "type": "math",
+      "section": "number-theory",
+      "topicSlug": "binary-logarithm",
+      "topicTitle": "Двійковий логарифм"
+    },
+    {
+      "file": "proj-ilog2.md",
+      "type": "proj",
+      "section": "number-theory",
+      "topicSlug": "binary-logarithm",
+      "topicTitle": "Двійковий логарифм"
+    },
+    {
+      "file": "proj-gcd-code.md",
+      "type": "proj",
+      "section": "number-theory",
+      "topicSlug": "gcd-euclidean",
+      "topicTitle": "НСД і алгоритм Евкліда"
+    },
+    {
+      "file": "math-bezout.md",
+      "type": "math",
+      "section": "number-theory",
+      "topicSlug": "gcd-euclidean",
+      "topicTitle": "НСД і алгоритм Евкліда"
+    },
+    {
+      "file": "hist-euclid-algorithm.md",
+      "type": "hist",
+      "section": "number-theory",
+      "topicSlug": "gcd-euclidean",
+      "topicTitle": "НСД і алгоритм Евкліда"
+    },
+    {
+      "file": "math-crt-derivation.md",
+      "type": "math",
+      "section": "number-theory",
+      "topicSlug": "chinese-remainder-theorem",
+      "topicTitle": "Китайська теорема про залишки"
+    },
+    {
+      "file": "hist-sunzi-to-gauss.md",
+      "type": "hist",
+      "section": "number-theory",
+      "topicSlug": "chinese-remainder-theorem",
+      "topicTitle": "Китайська теорема про залишки"
+    },
+    {
+      "file": "proj-crt-solver.md",
+      "type": "proj",
+      "section": "number-theory",
+      "topicSlug": "chinese-remainder-theorem",
+      "topicTitle": "Китайська теорема про залишки"
+    },
+    {
+      "file": "math-euler-proof.md",
+      "type": "math",
+      "section": "number-theory",
+      "topicSlug": "euler-totient",
+      "topicTitle": "Функція Ейлера і теорема Ейлера"
+    },
+    {
+      "file": "hist-euler-fermat.md",
+      "type": "hist",
+      "section": "number-theory",
+      "topicSlug": "euler-totient",
+      "topicTitle": "Функція Ейлера і теорема Ейлера"
+    },
+    {
+      "file": "proj-rsa-toy.md",
+      "type": "proj",
+      "section": "number-theory",
+      "topicSlug": "euler-totient",
+      "topicTitle": "Функція Ейлера і теорема Ейлера"
+    }
+  ],
+  "insertsDone": [
+    {
+      "file": "math-prime-implicants.md",
+      "type": "math",
+      "section": "logic-foundations",
+      "topicSlug": "logic-minimization",
+      "topicTitle": "Мінімізація логічних функцій"
+    },
+    {
+      "file": "hist-minimization.md",
+      "type": "hist",
+      "section": "logic-foundations",
+      "topicSlug": "logic-minimization",
+      "topicTitle": "Мінімізація логічних функцій"
+    },
+    {
+      "file": "hist-chomsky-hierarchy.md",
+      "type": "hist",
+      "section": "logic-foundations",
+      "topicSlug": "regular-languages",
+      "topicTitle": "Регулярні мови"
+    },
+    {
+      "file": "proj-product-construction.md",
+      "type": "proj",
+      "section": "logic-foundations",
+      "topicSlug": "regular-languages",
+      "topicTitle": "Регулярні мови"
+    },
+    {
+      "file": "math-pumping-lemma.md",
+      "type": "math",
+      "section": "logic-foundations",
+      "topicSlug": "regular-languages",
+      "topicTitle": "Регулярні мови"
+    },
+    {
+      "file": "math-pda-cfg-equivalence.md",
+      "type": "math",
+      "section": "logic-foundations",
+      "topicSlug": "pushdown-automata",
+      "topicTitle": "Магазинні автомати"
+    },
+    {
+      "file": "proj-expression-parser.md",
+      "type": "proj",
+      "section": "logic-foundations",
+      "topicSlug": "pushdown-automata",
+      "topicTitle": "Магазинні автомати"
+    },
+    {
+      "file": "hist-pushdown-store.md",
+      "type": "hist",
+      "section": "logic-foundations",
+      "topicSlug": "pushdown-automata",
+      "topicTitle": "Магазинні автомати"
+    },
+    {
+      "file": "hist-computable-numbers.md",
+      "type": "hist",
+      "section": "logic-foundations",
+      "topicSlug": "turing-machine",
+      "topicTitle": "Машина Тюринга"
+    }
+  ],
+  "newTopics": [
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "chomsky-hierarchy",
+      "title": "Ієрархія Хомського",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "binary-decision-diagram",
+      "titleHint": "двійкова діаграма рішень",
+      "fromArticle": "logic-foundations/shannon-expansion/shannon-expansion.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "boolean-satisfiability",
+      "titleHint": "задача здійсненності",
+      "fromArticle": "logic-foundations/shannon-expansion/shannon-expansion.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "formal-language",
+      "titleHint": "Формальна мова",
+      "fromArticle": "logic-foundations/regular-languages/regular-languages.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "godel-incompleteness",
+      "titleHint": "теореми про неповноту",
+      "fromArticle": "logic-foundations/turing-machine/hist-computable-numbers.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "church-turing-thesis",
+      "titleHint": "теза Черча–Тюринга",
+      "fromArticle": "logic-foundations/turing-machine/hist-computable-numbers.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "zhegalkin-polynomial",
+      "titleHint": "поліномом Жегалкіна",
+      "fromArticle": "logic-foundations/functional-completeness/functional-completeness.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "mathematical-proof",
+      "titleHint": "Математичне доведення",
+      "fromArticle": "logic-foundations/mathematical-induction/mathematical-induction.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "natural-numbers",
+      "titleHint": "Натуральні числа",
+      "fromArticle": "logic-foundations/mathematical-induction/mathematical-induction.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "logic-foundations",
+      "slug": "well-ordering-principle",
+      "titleHint": "принцип повного впорядкування",
+      "fromArticle": "logic-foundations/mathematical-induction/mathematical-induction.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "number-theory",
+      "slug": "signed-multiplication",
+      "titleHint": "алгоритм знакового множення",
+      "fromArticle": "number-theory/twos-complement-arithmetic/twos-complement-arithmetic.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "number-theory",
+      "slug": "prime-numbers",
+      "titleHint": "Прості числа й основна теорема арифметики",
+      "fromArticle": "number-theory/gcd-euclidean/gcd-euclidean.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "number-theory",
+      "slug": "fibonacci-numbers",
+      "titleHint": "числа Фібоначчі",
+      "fromArticle": "number-theory/gcd-euclidean/gcd-euclidean.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "number-theory",
+      "slug": "lcm",
+      "titleHint": "НСК",
+      "fromArticle": "number-theory/gcd-euclidean/gcd-euclidean.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "number-theory",
+      "slug": "linear-diophantine",
+      "titleHint": "лінійних діофантових",
+      "fromArticle": "number-theory/gcd-euclidean/gcd-euclidean.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "number-theory",
+      "slug": "modular-inverse",
+      "titleHint": "Обернений елемент за модулем",
+      "fromArticle": "number-theory/chinese-remainder-theorem/chinese-remainder-theorem.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "number-theory",
+      "slug": "fermat-little-theorem",
+      "titleHint": "мала теорема Ферма",
+      "fromArticle": "number-theory/euler-totient/euler-totient.md",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "number-theory",
+      "slug": "multiplicative-order",
+      "titleHint": "мультиплікативний порядок",
+      "fromArticle": "number-theory/euler-totient/euler-totient.md",
+      "needDetailed": false
+    }
+  ],
+  "detailed": [
+    {
+      "book": "math",
+      "slug": "pushdown-automata"
+    }
+  ]
+}

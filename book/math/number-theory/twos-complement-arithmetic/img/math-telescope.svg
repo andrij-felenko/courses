@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна драбина тотожностей — два місця розрізу</text>
+<rect x="60.0" y="80.0" width="410.0" height="40.0" rx="6" fill="#f2f4f7" stroke="#333333" stroke-width="1.5"/><text x="265.0" y="104.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">розряд 0:    a₀ + b₀ + c₀ = s₀ + 2·c₁</tspan></text>
+<rect x="60.0" y="150.0" width="410.0" height="40.0" rx="6" fill="#f2f4f7" stroke="#333333" stroke-width="1.5"/><text x="265.0" y="174.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">розряд 1:    a₁ + b₁ + c₁ = s₁ + 2·c₂</tspan></text>
+<rect x="60.0" y="250.0" width="410.0" height="40.0" rx="6" fill="#f2f4f7" stroke="#333333" stroke-width="1.5"/><text x="265.0" y="274.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">розряд n−2:  aₙ₋₂ + bₙ₋₂ + cₙ₋₂ = sₙ₋₂ + 2·cₙ₋₁</tspan></text>
+<rect x="60.0" y="330.0" width="410.0" height="40.0" rx="6" fill="#f2f4f7" stroke="#333333" stroke-width="1.5"/><text x="265.0" y="354.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">розряд n−1:  aₙ₋₁ + bₙ₋₁ + cₙ₋₁ = sₙ₋₁ + 2·cₙ</tspan></text>
+<line x1="265.0" y1="56.0" x2="265.0" y2="80.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="490.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">c₀ · 2⁰ — без пари</text>
+<line x1="265.0" y1="120.0" x2="265.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="490.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">c₁ · 2¹ — двічі, гасне</text>
+<text x="265.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#6b7280" text-anchor="middle">⋮</text>
+<text x="490.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">⋮</text>
+<line x1="265.0" y1="290.0" x2="265.0" y2="330.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="490.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">cₙ₋₁ · 2ⁿ⁻¹ — ключовий</text>
+<line x1="265.0" y1="370.0" x2="265.0" y2="406.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="490.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">cₙ · 2ⁿ — без пари</text>
+<line x1="830.0" y1="80.0" x2="830.0" y2="370.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="823.0" y1="80.0" x2="830.0" y2="80.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="823.0" y1="370.0" x2="830.0" y2="370.0" stroke="#2457d6" stroke-width="2.4"/>
+<circle cx="830.0" cy="396.0" r="12.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="830.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">А</text>
+<line x1="890.0" y1="80.0" x2="890.0" y2="290.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="883.0" y1="80.0" x2="890.0" y2="80.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="883.0" y1="290.0" x2="890.0" y2="290.0" stroke="#c0392b" stroke-width="2.4"/>
+<circle cx="890.0" cy="316.0" r="12.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="890.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Б</text>
+<rect x="40.0" y="450.0" width="450.0" height="170.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="265.0" y="463.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">А · склали ВСІ розряди (0 … n−1)</tspan><tspan x="265.0" dy="16.9"></tspan><tspan x="265.0" dy="16.9">Кожен внутрішній перенос стоїть двічі:</tspan><tspan x="265.0" dy="16.9">праворуч у рядку i та ліворуч у рядку i+1,</tspan><tspan x="265.0" dy="16.9">з тією самою вагою → скорочується.</tspan><tspan x="265.0" dy="16.9">Без пари лишились тільки c₀ і cₙ:</tspan><tspan x="265.0" dy="16.9"></tspan><tspan x="265.0" dy="16.9">A + B + c₀ = S + 2ⁿ · cₙ</tspan><tspan x="265.0" dy="16.9"></tspan><tspan x="265.0" dy="16.9">БЕЗЗНАКОВИЙ ЗАКОН</tspan></text>
+<rect x="510.0" y="450.0" width="450.0" height="170.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="735.0" y="471.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">Б · зупинили на розряд раніше (0 … n−2)</tspan><tspan x="735.0" dy="16.9"></tspan><tspan x="735.0" dy="16.9">Рядка n−1 у сумі немає — і cₙ₋₁ втрачає пару,</tspan><tspan x="735.0" dy="16.9">лишаючись у підсумку. Старший розряд додаємо</tspan><tspan x="735.0" dy="16.9">окремо, з вагою −2ⁿ⁻¹ замість +2ⁿ⁻¹:</tspan><tspan x="735.0" dy="16.9"></tspan><tspan x="735.0" dy="16.9">a + b + c₀ = s + 2ⁿ · (cₙ₋₁ − cₙ)</tspan><tspan x="735.0" dy="16.9"></tspan><tspan x="735.0" dy="16.9">ЗНАКОВИЙ ЗАКОН</tspan></text>
+</svg>

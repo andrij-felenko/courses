@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому в оцінці стоїть саме √M: поверхня проти об'єму</text>
+<line x1="184.0" y1="100.0" x2="184.0" y2="260.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 3"/>
+<line x1="184.0" y1="260.0" x2="344.0" y2="260.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 3"/>
+<line x1="120.0" y1="310.0" x2="184.0" y2="260.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 3"/>
+<line x1="184.0" y1="100.0" x2="344.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="344.0" y1="100.0" x2="344.0" y2="260.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="120.0" y1="150.0" x2="184.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="280.0" y1="150.0" x2="344.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="280.0" y1="310.0" x2="344.0" y2="260.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="120.0" y="150.0" width="160.0" height="160.0" rx="0" fill="none" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="138.0" y1="250.0" x2="184.0" y2="250.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="184.0" y1="250.0" x2="184.0" y2="296.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="120.0" y1="264.0" x2="138.0" y2="250.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="166.0" y1="264.0" x2="184.0" y2="250.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="166.0" y1="310.0" x2="184.0" y2="296.0" stroke="#c0392b" stroke-width="1.2"/>
+<rect x="120.0" y="264.0" width="46.0" height="46.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="200.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">N</text>
+<text x="104.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">N</text>
+<text x="360.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">N</text>
+<text x="232.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">куб з N³ множень-додавань</text>
+<text x="662.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скільки роботи дає один принесений блок</text>
+<rect x="470.0" y="132.0" width="384.0" height="210.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="662.0" y="166.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="662.0" dy="0.0">Червоний брусок — √M × √M × √M:</tspan><tspan x="662.0" dy="15.0">рівно стільки, скільки влазить у кеш M.</tspan><tspan x="662.0" dy="15.0"></tspan><tspan x="662.0" dy="15.0">робота в бруску:   (√M)³ = M·√M</tspan><tspan x="662.0" dy="15.0">його дані:         3 грані по M = 3M</tspan><tspan x="662.0" dy="15.0">принести їх:       3M / B блоків</tspan><tspan x="662.0" dy="15.0"></tspan><tspan x="662.0" dy="15.0">на 1 блок роботи:  M·√M ÷ (3M/B) = B·√M / 3</tspan><tspan x="662.0" dy="15.0"></tspan><tspan x="662.0" dy="15.0">усього роботи N³ →</tspan><tspan x="662.0" dy="15.0">блоків ≈ N³ ÷ (B·√M / 3) = Θ(N³ / (B·√M))</tspan></text>
+</svg>

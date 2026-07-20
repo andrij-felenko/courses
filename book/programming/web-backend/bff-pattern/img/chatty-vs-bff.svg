@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хто зшиває екран: клієнт по мобільній мережі чи BFF у ЦОД</text>
+<line x1="520.0" y1="58.0" x2="520.0" y2="576.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6 6"/>
+<text x="260.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">БЕЗ BFF · клієнт збирає сам</text>
+<text x="780.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">З BFF · збірка на сервері</text>
+<rect x="185.0" y="86.2" width="150.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="260.0" y="106.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">телефон</tspan><tspan x="260.0" dy="15.6">(клієнт)</tspan></text>
+<rect x="51.0" y="344.0" width="118.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="110.0" y="364.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">профіль</tspan></text>
+<line x1="260.0" y1="133.8" x2="110.0" y2="344.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6 5"/>
+<rect x="201.0" y="344.0" width="118.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="260.0" y="364.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">замовлення</tspan></text>
+<line x1="260.0" y1="133.8" x2="260.0" y2="344.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6 5"/>
+<rect x="351.0" y="344.0" width="118.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="410.0" y="364.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">поради</tspan></text>
+<line x1="260.0" y1="133.8" x2="410.0" y2="344.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6 5"/>
+<text x="260.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3 повільні кругорейси</text>
+<text x="260.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">по мобільній мережі</text>
+<text x="260.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">клієнт сам робить N викликів</text>
+<text x="260.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">і сам зшиває відповіді</text>
+<text x="260.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">затримка = сума кругорейсів</text>
+<rect x="705.0" y="81.2" width="150.0" height="47.6" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="780.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">телефон</tspan><tspan x="780.0" dy="15.6">(клієнт)</tspan></text>
+<rect x="665.0" y="211.2" width="230.0" height="47.6" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="780.0" y="231.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">BFF</tspan><tspan x="780.0" dy="15.6">(бекенд цього екрана)</tspan></text>
+<line x1="780.0" y1="128.8" x2="780.0" y2="211.2" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="910.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1 кругорейс</text>
+<rect x="571.0" y="384.0" width="118.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="630.0" y="404.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">профіль</tspan></text>
+<line x1="780.0" y1="258.8" x2="630.0" y2="384.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="721.0" y="384.0" width="118.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="780.0" y="404.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">замовлення</tspan></text>
+<line x1="780.0" y1="258.8" x2="780.0" y2="384.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="871.0" y="384.0" width="118.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="930.0" y="404.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="930.0" dy="0.0">поради</tspan></text>
+<line x1="780.0" y1="258.8" x2="930.0" y2="384.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="625.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">фанаут</text>
+<text x="625.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">швидкою</text>
+<text x="625.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">мережею ЦОД</text>
+<text x="780.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-style="italic">один запит клієнта; BFF фанаутить,</text>
+<text x="780.0" y="491.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-style="italic">зшиває й повертає рівно те, що треба екрану</text>
+</svg>

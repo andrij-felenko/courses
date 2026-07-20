@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1240" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що саме доставляє четверта форма</text>
+<line x1="620.0" y1="64.0" x2="620.0" y2="500.0" stroke="#d0d5db" stroke-width="1.1" stroke-dasharray="4,6"/>
+<text x="330.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">ЧЕРЕЗ КОНСТРУКТОР</text>
+<rect x="210.0" y="129.8" width="240.0" height="32.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="330.0" y="150.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">контейнер</tspan></text>
+<line x1="330.0" y1="166.0" x2="330.0" y2="240.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="448.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">подає САМ шлюз</text>
+<rect x="200.0" y="245.6" width="260.0" height="48.8" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.8"/><text x="330.0" y="266.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">OrderService</tspan><tspan x="330.0" dy="16.2">ctor(PaymentGateway gateway)</tspan></text>
+<text x="330.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">прийшла САМА залежність</text>
+<text x="330.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">потребу видно в сигнатурі</text>
+<text x="330.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">шлях закінчено</text>
+<text x="910.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">ЧЕРЕЗ ІНТЕРФЕЙС — тип 1 (Авалон)</text>
+<rect x="790.0" y="129.8" width="240.0" height="32.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="910.0" y="150.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="910.0" dy="0.0">контейнер</tspan></text>
+<line x1="910.0" y1="166.0" x2="910.0" y2="240.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="1064.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">впорскує МЕНЕДЖЕР</text>
+<rect x="780.0" y="258.2" width="260.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="910.0" y="278.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="910.0" dy="0.0">OrderService implements Serviceable</tspan><tspan x="910.0" dy="15.6">service(ServiceManager manager)</tspan></text>
+<line x1="910.0" y1="308.0" x2="910.0" y2="380.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="1060.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">manager.lookup(&quot;gateway&quot;)</text>
+<rect x="790.0" y="386.2" width="240.0" height="47.6" rx="6" fill="#f3f4f6" stroke="#c0392b" stroke-width="1.6"/><text x="910.0" y="406.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="910.0" dy="0.0">реєстр служб</tspan><tspan x="910.0" dy="15.6">ключ → служба</tspan></text>
+<text x="910.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">останній крок компонент долає САМ</text>
+<text x="910.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рядковим ключем, усередині свого методу</text>
+<line x1="60.0" y1="518.0" x2="1180.0" y2="518.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="620.0" y="548.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Впорснули не залежність, а локатор — тому тип 1 і перейменували на «пошук»</text>
+<text x="620.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">contextualized dependency lookup — не впровадження</text>
+</svg>

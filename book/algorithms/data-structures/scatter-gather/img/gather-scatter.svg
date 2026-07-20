@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Той самий список, два напрямки: gather і scatter</text>
+<rect x="24.0" y="66.0" width="410.0" height="330.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<text x="229.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Gather — зібрати</text>
+<text x="229.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">памʼять → пристрій</text>
+<rect x="52.0" y="140.0" width="96.0" height="42.0" rx="6" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.8"/><rect x="52.0" y="140.0" width="7.0" height="42.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/><text x="103.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">шматок</text>
+<rect x="52.0" y="200.0" width="96.0" height="42.0" rx="6" fill="#e8eefb" stroke="#2457d6" stroke-width="1.8"/><rect x="52.0" y="200.0" width="7.0" height="42.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/><text x="103.5" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">шматок</text>
+<rect x="52.0" y="260.0" width="96.0" height="42.0" rx="6" fill="#e6f6ec" stroke="#27ae60" stroke-width="1.8"/><rect x="52.0" y="260.0" width="7.0" height="42.0" rx="0" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/><text x="103.5" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">шматок</text>
+<circle cx="250.0" cy="200.0" r="22.0" fill="#eef2f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="250.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SG</text>
+<line x1="150.0" y1="161.0" x2="230.0" y2="200.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="221.0" x2="230.0" y2="200.0" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="281.0" x2="230.0" y2="200.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="330.0" y="172.0" width="84.0" height="56.0" rx="7" fill="#eef7f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="372.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">пристрій</text>
+<text x="372.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1 потік</text>
+<line x1="272.0" y1="200.0" x2="326.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="229.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">розкидані шматки → один потік</text>
+<text x="229.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">writev · надсилання пакета</text>
+<rect x="466.0" y="66.0" width="410.0" height="330.0" rx="10" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<text x="671.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Scatter — розсіяти</text>
+<text x="671.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">пристрій → памʼять</text>
+<rect x="486.0" y="172.0" width="84.0" height="56.0" rx="7" fill="#eef7f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="528.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">пристрій</text>
+<text x="528.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1 потік</text>
+<circle cx="650.0" cy="200.0" r="22.0" fill="#eef2f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="650.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SG</text>
+<line x1="572.0" y1="200.0" x2="626.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="748.0" y="140.0" width="96.0" height="42.0" rx="6" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.8"/><rect x="748.0" y="140.0" width="7.0" height="42.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/><text x="799.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">шматок</text>
+<line x1="672.0" y1="200.0" x2="744.0" y2="161.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="748.0" y="200.0" width="96.0" height="42.0" rx="6" fill="#e8eefb" stroke="#2457d6" stroke-width="1.8"/><rect x="748.0" y="200.0" width="7.0" height="42.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/><text x="799.5" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">шматок</text>
+<line x1="672.0" y1="200.0" x2="744.0" y2="221.0" stroke="#2457d6" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="748.0" y="260.0" width="96.0" height="42.0" rx="6" fill="#e6f6ec" stroke="#27ae60" stroke-width="1.8"/><rect x="748.0" y="260.0" width="7.0" height="42.0" rx="0" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/><text x="799.5" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">шматок</text>
+<line x1="672.0" y1="200.0" x2="744.0" y2="281.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="671.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">один потік → розкидані шматки</text>
+<text x="671.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">readv · приймання пакета</text>
+</svg>

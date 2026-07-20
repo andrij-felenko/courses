@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 990 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="990" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="495.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доказ доводить модель, а не машину</text>
+<text x="495.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">той самий power(3, 40) у двох світах арифметики</text>
+<text x="70.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">ℕ — світ доказу: множення завжди дає точний добуток</text>
+<line x1="70.0" y1="150.0" x2="856.0" y2="150.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="856.0" y1="150.0" x2="926.0" y2="150.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="946.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#27ae60" text-anchor="middle" font-weight="700">∞</text>
+<circle cx="600.0" cy="150.0" r="8.0" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.4"/>
+<text x="600.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3⁴⁰ = 12 157 665 459 056 928 801  ✓</text>
+<text x="70.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">int64 — світ машини: за стелею добуток обрізається</text>
+<rect x="70.0" y="270.0" width="630.0" height="52.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="385.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">−2⁶³ … 2⁶³−1  =  9 223 372 036 854 775 807</text>
+<path d="M 600 186 L 690 262" fill="none" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="866.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">не влазить</text>
+<circle cx="756.0" cy="296.0" r="8.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/>
+<text x="848.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">переповнення</text>
+<path d="M 756 318 Q 470 384 150 336" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="6,4" marker-end="url(#arrow)"/>
+<text x="452.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">машина віддає  −6 289 078 614 652 622 815</text>
+<rect x="70.0" y="424.0" width="860.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="500.0" y="454.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Доказ не збрехав: він доводив твердження про ℕ, а машина рахує не в ℕ. Полагодити можна двома способами —</tspan><tspan x="500.0" dy="16.2">узяти тип без стелі (цілі Python, BigInt) або рахувати за модулем: mod m тримає кожне значення в [0, m).</tspan></text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три способи впровадити залежність</text>
+<text x="560.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">різняться тим, КОЛИ залежність приходить у життя об'єкта</text>
+<line x1="205.0" y1="170.0" x2="205.0" y2="490.0" stroke="#6b7280" stroke-width="2.0"/>
+<circle cx="205.0" cy="170.0" r="8.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="185.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">народження</text>
+<circle cx="205.0" cy="330.0" r="8.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<text x="185.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">життя об'єкта</text>
+<circle cx="205.0" cy="490.0" r="8.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<text x="185.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">виклик методу</text>
+<line x1="217.0" y1="170.0" x2="438.0" y2="170.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="442.0" y="129.4" width="460.0" height="81.2" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="672.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="672.0" dy="0.0">Через конструктор</tspan><tspan x="672.0" dy="16.2">new Service(gateway)</tspan><tspan x="672.0" dy="16.2">обов'язкова · незмінна · об'єкт завжди повний</tspan><tspan x="672.0" dy="16.2">✓ типовий вибір</tspan></text>
+<line x1="217.0" y1="330.0" x2="438.0" y2="330.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="442.0" y="289.4" width="460.0" height="81.2" rx="6" fill="#f4f6f8" stroke="#adb5bd" stroke-width="1.8"/><text x="672.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="672.0" dy="0.0">Через встановлювач (сетер)</tspan><tspan x="672.0" dy="16.2">service.setAuditLog(log)</tspan><tspan x="672.0" dy="16.2">необов'язкова або змінна на льоту</tspan><tspan x="672.0" dy="16.2">ризик: поки не встановили — порожнє поле</tspan></text>
+<line x1="217.0" y1="490.0" x2="438.0" y2="490.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="442.0" y="449.4" width="460.0" height="81.2" rx="6" fill="#f4f6f8" stroke="#adb5bd" stroke-width="1.8"/><text x="672.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="672.0" dy="0.0">Через аргумент методу</tspan><tspan x="672.0" dy="16.2">service.checkout(order, clock)</tspan><tspan x="672.0" dy="16.2">потрібна лише цьому виклику</tspan><tspan x="672.0" dy="16.2">і щоразу інша (час, контекст запиту)</tspan></text>
+<text x="672.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Через конструктор</text>
+<text x="672.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Через встановлювач (сетер)</text>
+<text x="672.0" y="464.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Через аргумент методу</text>
+<line x1="40.0" y1="548.0" x2="1080.0" y2="548.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="560.0" y="576.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">тягни до конструктора, поки можеш: обов'язкове — конструктором, необов'язкове — встановлювачем, разове — аргументом</text>
+</svg>

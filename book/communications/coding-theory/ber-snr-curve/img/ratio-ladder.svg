@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Драбина відношень: Eb/N₀ → Es/N₀ → SNR</text>
+<rect x="51.4" y="120.5" width="197.3" height="59.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="145.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Eb/N₀</tspan><tspan x="150.0" dy="17.6">не залежить від Rb і B</tspan></text>
+<rect x="381.4" y="120.5" width="197.3" height="59.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="145.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Es/N₀</tspan><tspan x="480.0" dy="17.6">енергія цілого символа</tspan></text>
+<rect x="699.8" y="120.5" width="220.4" height="59.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="810.0" y="145.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">SNR</tspan><tspan x="810.0" dy="17.6">виміряне в смузі приймача</tspan></text>
+<line x1="150.0" y1="120.5" x2="150.0" y2="60.5" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="480.0" y1="120.5" x2="480.0" y2="60.5" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="810.0" y1="120.5" x2="810.0" y2="60.5" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="154.0" y1="60.5" x2="476.0" y2="60.5" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="484.0" y1="60.5" x2="806.0" y2="60.5" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="315.0" y="46.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">×k   (k = log₂M біт/символ)</text>
+<text x="645.0" y="46.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">×Rs/B   (символів у смугу)</text>
+<line x1="51.4" y1="179.5" x2="21.4" y2="179.5" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="6 4"/>
+<line x1="21.4" y1="179.5" x2="21.4" y2="249.5" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="6 4"/>
+<line x1="21.4" y1="249.5" x2="950.2" y2="249.5" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="6 4"/>
+<line x1="950.2" y1="249.5" x2="950.2" y2="179.5" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="6 4"/>
+<line x1="950.2" y1="183.5" x2="920.2" y2="179.5" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="485.8" y="271.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">пряма: ×(Rb/B)</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 990 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="990" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="495.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">make_node — горловина, крізь яку народжується кожен вузол</text>
+<line x1="612.0" y1="56.0" x2="612.0" y2="500.0" stroke="#d5d9de" stroke-width="1.4" stroke-dasharray="6,5"/>
+<rect x="64.9" y="70.2" width="206.1" height="35.5" rx="6" fill="#f0f7f1" stroke="#27ae60" stroke-width="1.5"/><text x="168.0" y="92.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="168.0" dy="0.0">make_node(var, lo, hi)</tspan></text>
+<line x1="168.0" y1="112.0" x2="168.0" y2="152.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="79.0" y="158.2" width="178.0" height="35.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="168.0" y="180.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="168.0" dy="0.0">lo == hi ?</tspan></text>
+<line x1="257.0" y1="176.0" x2="336.0" y2="176.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="291.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">так</text>
+<rect x="353.1" y="152.2" width="197.8" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="452.0" y="172.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="452.0" dy="0.0">правило 1: зайве питання</tspan><tspan x="452.0" dy="15.6">поверни lo — вузла не буде</tspan></text>
+<line x1="168.0" y1="200.0" x2="168.0" y2="244.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="154.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">ні</text>
+<rect x="79.0" y="251.5" width="178.0" height="53.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="168.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="168.0" dy="0.0">ключ (var, lo, hi)</tspan><tspan x="168.0" dy="17.6">уже в таблиці ?</tspan></text>
+<line x1="257.0" y1="278.0" x2="336.0" y2="278.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="291.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">так</text>
+<rect x="356.5" y="254.2" width="191.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="452.0" y="274.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="452.0" dy="0.0">правило 2: без дублікатів</tspan><tspan x="452.0" dy="15.6">поверни наявний id</tspan></text>
+<line x1="168.0" y1="308.0" x2="168.0" y2="352.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="154.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">ні</text>
+<rect x="79.0" y="360.1" width="178.0" height="51.9" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="168.0" y="382.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="168.0" dy="0.0">новий id, записати</tspan><tspan x="168.0" dy="16.9">ключ у таблицю</tspan></text>
+<text x="168.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">лише тут виникає новий вузол</text>
+<text x="168.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">— тому обидва правила тримаються самі</text>
+<text x="800.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">унікальна таблиця для f = a·b + c</text>
+<text x="716.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ключ</text>
+<text x="898.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">id</text>
+<rect x="650.0" y="116.0" width="300.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<line x1="854.0" y1="116.0" x2="854.0" y2="160.0" stroke="#d5d9de" stroke-width="1.2"/>
+<text x="672.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">(c, 0, 1)</text>
+<text x="902.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">#2</text>
+<rect x="650.0" y="172.0" width="300.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<line x1="854.0" y1="172.0" x2="854.0" y2="216.0" stroke="#d5d9de" stroke-width="1.2"/>
+<text x="672.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">(b, #2, 1)</text>
+<text x="902.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">#3</text>
+<rect x="650.0" y="228.0" width="300.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<line x1="854.0" y1="228.0" x2="854.0" y2="272.0" stroke="#d5d9de" stroke-width="1.2"/>
+<text x="672.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">(a, #2, #3)</text>
+<text x="902.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">#4</text>
+<text x="800.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="800.0" dy="0.0">Три записи — і це вже вся діаграма.</tspan><tspan x="800.0" dy="18.1">Ключ каже: «яку змінну питаю</tspan><tspan x="800.0" dy="18.1">і куди веду за 0 та за 1».</tspan><tspan x="800.0" dy="18.1">Однаковий ключ → той самий id,</tspan><tspan x="800.0" dy="18.1">хоч би скільки разів його просили.</tspan></text>
+<text x="800.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">id 0 і 1 — термінали, спільні на весь усесвіт</text>
+</svg>

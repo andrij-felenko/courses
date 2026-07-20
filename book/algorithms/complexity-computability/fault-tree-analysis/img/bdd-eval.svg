@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 640" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="640" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">BDD: точна ймовірність одним проходом знизу вгору</text>
+<text x="560.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">у кожному вузлі — розклад Шеннона по змінній; гілки «ціла» і «відмовила» взаємовиключні → ймовірності складаються</text>
+<line x1="250.0" y1="140.0" x2="185.0" y2="285.0" stroke="#9aa3af" stroke-width="1.9" stroke-dasharray="6 4"/>
+<line x1="250.0" y1="140.0" x2="455.0" y2="545.0" stroke="#c0392b" stroke-width="2.1"/>
+<line x1="185.0" y1="285.0" x2="185.0" y2="545.0" stroke="#9aa3af" stroke-width="1.9" stroke-dasharray="6 4"/>
+<line x1="185.0" y1="285.0" x2="330.0" y2="420.0" stroke="#c0392b" stroke-width="2.1"/>
+<line x1="330.0" y1="420.0" x2="185.0" y2="545.0" stroke="#9aa3af" stroke-width="1.9" stroke-dasharray="6 4"/>
+<line x1="330.0" y1="420.0" x2="455.0" y2="545.0" stroke="#c0392b" stroke-width="2.1"/>
+<text x="205.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9aa3af" text-anchor="middle" font-weight="700">0</text>
+<text x="360.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="168.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9aa3af" text-anchor="middle" font-weight="700">0</text>
+<text x="268.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="240.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9aa3af" text-anchor="middle" font-weight="700">0</text>
+<text x="408.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<circle cx="250.0" cy="140.0" r="27.0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.3"/><text x="250.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">POWER</text>
+<circle cx="185.0" cy="285.0" r="27.0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.3"/><text x="185.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">PUMP_A</text>
+<circle cx="330.0" cy="420.0" r="27.0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="2.3"/><text x="330.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">PUMP_B</text>
+<rect x="163.0" y="525.0" width="44.0" height="40.0" rx="6" fill="#eef1f4" stroke="#9aa3af" stroke-width="2.3"/><text x="185.0" y="551.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="433.0" y="525.0" width="44.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.3"/><text x="455.0" y="551.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="185.0" y="583.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">система ціла</text>
+<text x="455.0" y="583.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">відмова</text>
+<text x="324.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P = 0.0011</text>
+<text x="107.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">P = 0.0001</text>
+<text x="374.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P = 0.01</text>
+<rect x="133.8" y="102.0" width="332.5" height="32.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/><text x="300.0" y="122.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">P(вузол) = (1−p)·P(0-гілка) + p·P(1-гілка)</tspan></text>
+<line x1="60.0" y1="470.0" x2="94.0" y2="470.0" stroke="#c0392b" stroke-width="2.1"/>
+<text x="102.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">відмовила (1)</text>
+<line x1="60.0" y1="492.0" x2="94.0" y2="492.0" stroke="#9aa3af" stroke-width="1.9" stroke-dasharray="6 4"/>
+<text x="102.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">ціла (0)</text>
+<line x1="560.0" y1="92.0" x2="560.0" y2="600.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="840.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ціна порядку змінних</text>
+<text x="840.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">n резервованих пар: (a₁∧b₁) ∨ … ∨ (aₙ∧bₙ)</text>
+<rect x="712.7" y="170.2" width="254.6" height="51.6" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/><text x="840.0" y="192.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="840.0" dy="0.0">добрий порядок: переплести пари</tspan><tspan x="840.0" dy="15.6">a₁ b₁ a₂ b₂ … aₙ bₙ</tspan></text>
+<rect x="697.8" y="254.2" width="284.4" height="51.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="840.0" y="276.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="840.0" dy="0.0">поганий порядок: усі a, потім усі b</tspan><tspan x="840.0" dy="15.6">a₁ a₂ … aₙ b₁ b₂ … bₙ</tspan></text>
+<text x="840.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">розмір діаграми, n = 10 пар</text>
+<rect x="686.0" y="530.0" width="68.0" height="30.0" rx="5" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="720.0" y="550.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">120</text>
+<text x="720.0" y="580.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">добрий → полиноміально</text>
+<rect x="920.0" y="390.0" width="80.0" height="170.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="960.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">3069</text>
+<text x="960.0" y="580.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">поганий → ≈ 3·2ⁿ</text>
+<text x="840.0" y="592.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="840.0" dy="0.0">та сама функція, той самий результат — інший лише РОЗМІР;</tspan><tspan x="840.0" dy="15.4">поганий порядок оживляє #P-стіну зсередини діаграми</tspan></text>
+</svg>

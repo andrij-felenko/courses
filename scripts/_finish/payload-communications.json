@@ -1,0 +1,456 @@
+{
+  "book": "communications",
+  "units": [
+    {
+      "section": "information-theory",
+      "slug": "shannon-entropy",
+      "title": "Ентропія Шеннона",
+      "scope": "Математична межа стиснення й передачі: ентропія, пропускна здатність каналу, теореми Шеннона."
+    },
+    {
+      "section": "information-theory",
+      "slug": "channel-coding-theorem",
+      "title": "Теорема Шеннона про кодування каналу",
+      "scope": "Математична межа стиснення й передачі: ентропія, пропускна здатність каналу, теореми Шеннона."
+    },
+    {
+      "section": "information-theory",
+      "slug": "awgn-channel",
+      "title": "Канал AWGN",
+      "scope": "Математична межа стиснення й передачі: ентропія, пропускна здатність каналу, теореми Шеннона."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "internet-checksum",
+      "title": "Інтернет-контрольна сума (IP/TCP/UDP)",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "adler-32",
+      "title": "Adler-32",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "concatenated-codes",
+      "title": "Конкатеновані коди",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "memory-scrubbing",
+      "title": "Memory scrubbing: фоновий ремонт пам'яті",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "ldpc",
+      "title": "LDPC: код розрідженої перевірки паритету",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "flash-wear-leveling",
+      "title": "Wear leveling у Flash-пам'яті",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "secded",
+      "title": "SECDED: виправити один біт, виявити два",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "perfect-codes",
+      "title": "Досконалі коди",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "linear-block-codes",
+      "title": "Лінійні блокові коди",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    },
+    {
+      "section": "coding-theory",
+      "slug": "2d-parity",
+      "title": "Двовимірна парність",
+      "scope": "Захист повідомлення від помилок і його компактне подання кодами джерела й каналу."
+    }
+  ],
+  "onDisk": [
+    "shannon-entropy",
+    "channel-coding-theorem",
+    "awgn-channel",
+    "internet-checksum",
+    "adler-32",
+    "concatenated-codes",
+    "memory-scrubbing",
+    "ldpc",
+    "flash-wear-leveling",
+    "secded",
+    "perfect-codes",
+    "linear-block-codes",
+    "2d-parity"
+  ],
+  "missing": [],
+  "inserts": [],
+  "insertsDone": [
+    {
+      "file": "math-entropy-axioms.md",
+      "type": "math",
+      "section": "information-theory",
+      "topicSlug": "shannon-entropy",
+      "topicTitle": "Ентропія Шеннона"
+    },
+    {
+      "file": "hist-entropy-name.md",
+      "type": "hist",
+      "section": "information-theory",
+      "topicSlug": "shannon-entropy",
+      "topicTitle": "Ентропія Шеннона"
+    },
+    {
+      "file": "math-random-coding.md",
+      "type": "math",
+      "section": "information-theory",
+      "topicSlug": "channel-coding-theorem",
+      "topicTitle": "Теорема Шеннона про кодування каналу"
+    },
+    {
+      "file": "hist-approaching-the-limit.md",
+      "type": "hist",
+      "section": "information-theory",
+      "topicSlug": "channel-coding-theorem",
+      "topicTitle": "Теорема Шеннона про кодування каналу"
+    },
+    {
+      "file": "proj-simulate-threshold.md",
+      "type": "proj",
+      "section": "information-theory",
+      "topicSlug": "channel-coding-theorem",
+      "topicTitle": "Теорема Шеннона про кодування каналу"
+    },
+    {
+      "file": "math-gaussian-noise.md",
+      "type": "math",
+      "section": "information-theory",
+      "topicSlug": "awgn-channel",
+      "topicTitle": "Канал AWGN"
+    },
+    {
+      "file": "hist-johnson-nyquist.md",
+      "type": "hist",
+      "section": "information-theory",
+      "topicSlug": "awgn-channel",
+      "topicTitle": "Канал AWGN"
+    },
+    {
+      "file": "proj-awgn-simulation.md",
+      "type": "proj",
+      "section": "information-theory",
+      "topicSlug": "awgn-channel",
+      "topicTitle": "Канал AWGN"
+    },
+    {
+      "file": "proj-tcp-udp-checksum.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "internet-checksum",
+      "topicTitle": "Інтернет-контрольна сума (IP/TCP/UDP)"
+    },
+    {
+      "file": "math-incremental-update.md",
+      "type": "math",
+      "section": "coding-theory",
+      "topicSlug": "internet-checksum",
+      "topicTitle": "Інтернет-контрольна сума (IP/TCP/UDP)"
+    },
+    {
+      "file": "hist-internet-checksum.md",
+      "type": "hist",
+      "section": "coding-theory",
+      "topicSlug": "internet-checksum",
+      "topicTitle": "Інтернет-контрольна сума (IP/TCP/UDP)"
+    },
+    {
+      "file": "hist-adler-zlib.md",
+      "type": "hist",
+      "section": "coding-theory",
+      "topicSlug": "adler-32",
+      "topicTitle": "Adler-32"
+    },
+    {
+      "file": "proj-adler32-in-code.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "adler-32",
+      "topicTitle": "Adler-32"
+    },
+    {
+      "file": "hist-forney-concatenation.md",
+      "type": "hist",
+      "section": "coding-theory",
+      "topicSlug": "concatenated-codes",
+      "topicTitle": "Конкатеновані коди"
+    },
+    {
+      "file": "math-concatenation-params.md",
+      "type": "math",
+      "section": "coding-theory",
+      "topicSlug": "concatenated-codes",
+      "topicTitle": "Конкатеновані коди"
+    },
+    {
+      "file": "proj-concatenated-pipeline.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "concatenated-codes",
+      "topicTitle": "Конкатеновані коди"
+    },
+    {
+      "file": "math-scrub-race.md",
+      "type": "math",
+      "section": "coding-theory",
+      "topicSlug": "memory-scrubbing",
+      "topicTitle": "Memory scrubbing: фоновий ремонт пам'яті"
+    },
+    {
+      "file": "proj-scrub-loop.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "memory-scrubbing",
+      "topicTitle": "Memory scrubbing: фоновий ремонт пам'яті"
+    },
+    {
+      "file": "hist-gallager.md",
+      "type": "hist",
+      "section": "coding-theory",
+      "topicSlug": "ldpc",
+      "topicTitle": "LDPC: код розрідженої перевірки паритету"
+    },
+    {
+      "file": "proj-bit-flipping-decoder.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "ldpc",
+      "topicTitle": "LDPC: код розрідженої перевірки паритету"
+    },
+    {
+      "file": "math-belief-propagation.md",
+      "type": "math",
+      "section": "coding-theory",
+      "topicSlug": "ldpc",
+      "topicTitle": "LDPC: код розрідженої перевірки паритету"
+    },
+    {
+      "file": "math-uber-rber.md",
+      "type": "math",
+      "section": "coding-theory",
+      "topicSlug": "flash-wear-leveling",
+      "topicTitle": "Wear leveling у Flash-пам'яті"
+    },
+    {
+      "file": "proj-device-uber.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "flash-wear-leveling",
+      "topicTitle": "Wear leveling у Flash-пам'яті"
+    },
+    {
+      "file": "math-secded-distance.md",
+      "type": "math",
+      "section": "coding-theory",
+      "topicSlug": "secded",
+      "topicTitle": "SECDED: виправити один біт, виявити два"
+    },
+    {
+      "file": "hist-hsiao-code.md",
+      "type": "hist",
+      "section": "coding-theory",
+      "topicSlug": "secded",
+      "topicTitle": "SECDED: виправити один біт, виявити два"
+    },
+    {
+      "file": "proj-secded-codec.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "secded",
+      "topicTitle": "SECDED: виправити один біт, виявити два"
+    },
+    {
+      "file": "math-sphere-packing-bound.md",
+      "type": "math",
+      "section": "coding-theory",
+      "topicSlug": "perfect-codes",
+      "topicTitle": "Досконалі коди"
+    },
+    {
+      "file": "hist-golay-codes.md",
+      "type": "hist",
+      "section": "coding-theory",
+      "topicSlug": "perfect-codes",
+      "topicTitle": "Досконалі коди"
+    },
+    {
+      "file": "proj-perfect-code-check.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "perfect-codes",
+      "topicTitle": "Досконалі коди"
+    },
+    {
+      "file": "proj-linear-codec.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "linear-block-codes",
+      "topicTitle": "Лінійні блокові коди"
+    },
+    {
+      "file": "hist-slepian-group-codes.md",
+      "type": "hist",
+      "section": "coding-theory",
+      "topicSlug": "linear-block-codes",
+      "topicTitle": "Лінійні блокові коди"
+    },
+    {
+      "file": "hist-tape-vrc-lrc.md",
+      "type": "hist",
+      "section": "coding-theory",
+      "topicSlug": "2d-parity",
+      "topicTitle": "Двовимірна парність"
+    },
+    {
+      "file": "math-product-code.md",
+      "type": "math",
+      "section": "coding-theory",
+      "topicSlug": "2d-parity",
+      "topicTitle": "Двовимірна парність"
+    },
+    {
+      "file": "proj-2d-parity.md",
+      "type": "proj",
+      "section": "coding-theory",
+      "topicSlug": "2d-parity",
+      "topicTitle": "Двовимірна парність"
+    }
+  ],
+  "newTopics": [
+    {
+      "kind": "book",
+      "book": "communications",
+      "section": "coding-theory",
+      "slug": "turbo-codes",
+      "title": "Турбокоди",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "communications",
+      "section": "coding-theory",
+      "slug": "polar-codes",
+      "title": "Полярні коди",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "communications",
+      "section": "information-theory",
+      "slug": "mutual-information",
+      "title": "Взаємна інформація",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "communications",
+      "section": "information-theory",
+      "slug": "binary-symmetric-channel",
+      "title": "Двійковий симетричний канал",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "math",
+      "section": "combinatorics",
+      "slug": "combinations",
+      "title": "Сполуки і біноміальний коефіцієнт",
+      "needDetailed": false
+    },
+    {
+      "kind": "book",
+      "book": "communications",
+      "section": "coding-theory",
+      "slug": "golay-code",
+      "title": "Коди Голея",
+      "needDetailed": false
+    }
+  ],
+  "detailed": [
+    {
+      "book": "communications",
+      "slug": "memory-scrubbing"
+    },
+    {
+      "book": "communications",
+      "slug": "adler-32"
+    },
+    {
+      "book": "communications",
+      "slug": "awgn-channel"
+    },
+    {
+      "book": "communications",
+      "slug": "ldpc"
+    },
+    {
+      "book": "communications",
+      "slug": "secded"
+    },
+    {
+      "book": "communications",
+      "slug": "internet-checksum"
+    },
+    {
+      "book": "communications",
+      "slug": "flash-wear-leveling"
+    },
+    {
+      "book": "communications",
+      "slug": "channel-coding-theorem"
+    },
+    {
+      "book": "communications",
+      "slug": "concatenated-codes"
+    },
+    {
+      "book": "communications",
+      "slug": "shannon-entropy"
+    },
+    {
+      "book": "communications",
+      "slug": "linear-block-codes"
+    },
+    {
+      "book": "communications",
+      "slug": "perfect-codes"
+    },
+    {
+      "book": "communications",
+      "slug": "2d-parity"
+    }
+  ],
+  "linkfix": [
+    {
+      "inArticle": "coding-theory/adler-32.md",
+      "ref": "book:communications/checksums/math-checksum-arithmetic.md",
+      "ownerExists": true
+    },
+    {
+      "inArticle": "coding-theory/concatenated-codes.md",
+      "ref": "book:communications/reed-solomon/hist-voyager-codes.md",
+      "ownerExists": true
+    }
+  ]
+}

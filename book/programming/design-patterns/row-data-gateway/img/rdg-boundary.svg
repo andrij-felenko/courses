@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1100" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="550.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порожня від правил підлога — і два шляхи над нею</text>
+<rect x="60.0" y="176.0" width="300.0" height="150.0" rx="10" fill="#eafaf0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="210.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Row Data Gateway</text>
+<text x="210.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">поля рядка</text>
+<text x="210.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">insert / update / delete</text>
+<text x="210.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700" font-style="italic">правил немає</text>
+<rect x="690.0" y="74.0" width="350.0" height="150.0" rx="10" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/>
+<text x="865.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Active Record</text>
+<text x="865.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ті самі поля + доступ</text>
+<text x="865.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">+ canCancel(), taxAmount()</text>
+<text x="865.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">доступ і правила — в одному класі</text>
+<rect x="690.0" y="300.0" width="350.0" height="118.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/>
+<text x="865.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Transaction Script</text>
+<text x="865.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">правило скасування — ТУТ, окремо</text>
+<text x="865.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">а рядок бере через чистий шлюз</text>
+<line x1="368.0" y1="216.0" x2="682.0" y2="190.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="519.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="519.0" dy="0.0">+ правила В той</tspan><tspan x="519.0" dy="15.0">самий об'єкт</tspan></text>
+<line x1="368.0" y1="284.0" x2="682.0" y2="330.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="519.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="519.0" dy="0.0">лиши чистим,</tspan><tspan x="519.0" dy="15.0">правила зверху</tspan></text>
+<line x1="682.0" y1="402.0" x2="368.0" y2="310.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="525.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">кличе insert / update</text>
+<text x="550.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Патерн — це саме нижній вибір: шлюз лишають порожнім навмисно.</text>
+</svg>

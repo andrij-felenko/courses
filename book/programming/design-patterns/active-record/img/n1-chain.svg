@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1220" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="610.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">N+1 — це цикл, у якому одиниця роботи — похід у базу</text>
+<text x="610.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">N = 100 замовлень · один похід ≈ 1.3 мс · масштаб однаковий в обох смугах</text>
+<text x="60.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">N+1 — сто один похід, кожен чекає, поки повернеться попередній</text>
+<rect x="60.0" y="104.0" width="60.0" height="44.0" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="90.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="125.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="167.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="209.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="251.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="293.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="335.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="377.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="419.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="461.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="503.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="545.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="587.0" y="104.0" width="39.0" height="44.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="633.0" y="104.0" width="180.0" height="44.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="723.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">⋯ ще 89 ⋯</text>
+<line x1="60.0" y1="162.0" x2="813.0" y2="162.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="60.0" y1="157.0" x2="60.0" y2="167.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="813.0" y1="157.0" x2="813.0" y2="167.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="436.5" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">101 похід · разом ≈ 131 мс</text>
+<text x="845.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">101 × 1.3 мс</text>
+<text x="845.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">лінійно за N</text>
+<text x="60.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Пакет — два походи, скільки б не було замовлень</text>
+<rect x="60.0" y="244.0" width="60.0" height="44.0" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="90.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="125.0" y="244.0" width="78.0" height="44.0" rx="3" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/>
+<text x="164.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<line x1="60.0" y1="302.0" x2="203.0" y2="302.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="60.0" y1="297.0" x2="60.0" y2="307.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="203.0" y1="297.0" x2="203.0" y2="307.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="131.5" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2 походи · ≈ 4.6 мс</text>
+<text x="243.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan x="243.0" dy="0.0">той самий набір даних опиняється в пам'яті —</tspan><tspan x="243.0" dy="16.2">але дріт перетнули двічі, а не сто один раз</tspan></text>
+<line x1="813.0" y1="174.0" x2="813.0" y2="292.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<line x1="40.0" y1="352.0" x2="1180.0" y2="352.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6 6"/>
+<text x="610.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розтин одного походу: 1.3 мс — і лише 4% з них база справді працює</text>
+<rect x="80.0" y="440.0" width="246.4" height="52.0" rx="0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="326.4" y="440.0" width="563.2" height="52.0" rx="0" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="889.6" y="440.0" width="35.2" height="52.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="924.8" y="440.0" width="35.2" height="52.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="203.2" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">застосунок: побудова SQL, драйвер,</text>
+<text x="203.2" y="538.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">syscall, розбір відповіді — 0.35 мс</text>
+<text x="608.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">дріт: похід туди й назад між зонами доступності — 0.80 мс</text>
+<text x="608.0" y="538.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(вимірювання по 28 регіонах: від 0.39 до 2.42 мс)</text>
+<line x1="889.6" y1="430.0" x2="960.0" y2="430.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="889.6" y1="430.0" x2="889.6" y2="440.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="960.0" y1="430.0" x2="960.0" y2="440.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="964.0" y1="428.0" x2="986.0" y2="418.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="992.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="992.0" dy="0.0">база: 0.10 мс</tspan><tspan x="992.0" dy="15.0">план 0.05 + вибірка 0.05</tspan></text>
+<text x="610.0" y="578.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Корисної роботи — 0.05 мс: спуск по B-дереву й читання рядка з кеша. Решта 96% — конверт.</text>
+<text x="610.0" y="602.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Один похід коштує стільки ж, скільки ≈ 400 зайвих рядків у відповіді: платять за конверт, а не за лист.</text>
+</svg>

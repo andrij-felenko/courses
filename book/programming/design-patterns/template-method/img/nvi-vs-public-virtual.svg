@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Публічний віртуальний  проти  NVI</text>
+<text x="590.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">різниця не в іменах, а в тому, до чого нащадок фізично дотягується</text>
+<line x1="590.0" y1="92.0" x2="590.0" y2="496.0" stroke="#d0d5db" stroke-width="1.2" stroke-dasharray="4,6"/>
+<text x="318.6" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">публічний віртуальний render()</text>
+<rect x="153.6" y="158.2" width="330.0" height="47.6" rx="6" fill="#ffffff" stroke="#9aa3ad" stroke-width="1.7"/><text x="318.6" y="178.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="318.6" dy="0.0">Report</tspan><tspan x="318.6" dy="15.6">virtual render(){ header; …; footer }</tspan></text>
+<rect x="153.6" y="306.2" width="330.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="318.6" y="326.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="318.6" dy="0.0">BrokenReport : Report</tspan><tspan x="318.6" dy="15.6">render() override { return body; }</tspan></text>
+<line x1="318.6" y1="306.2" x2="318.6" y2="205.8" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="330.6" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">override — заміняє ВЕСЬ метод</text>
+<text x="318.6" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗  забув header()/footer() → каркас зник</text>
+<text x="318.6" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">компілятор мовчить</text>
+<text x="861.4" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">NVI — ворота невіртуальні</text>
+<rect x="696.4" y="158.2" width="330.0" height="47.6" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.9"/><text x="861.4" y="178.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="861.4" dy="0.0">Report</tspan><tspan x="861.4" dy="15.6">render() НЕвіртуальний · веде кроки</tspan></text>
+<rect x="696.4" y="306.2" width="330.0" height="47.6" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="861.4" y="326.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="861.4" dy="0.0">Good : Report</tspan><tspan x="861.4" dy="15.6">renderBody() override — лише дірка</tspan></text>
+<line x1="861.4" y1="306.2" x2="861.4" y2="205.8" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="849.4" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end">заповнює лише приватну дірку</text>
+<text x="861.4" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">✓  каркас і перевірки виконуються завжди</text>
+<text x="861.4" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">немає super, який можна забути</text>
+<line x1="60.0" y1="520.0" x2="1120.0" y2="520.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="590.0" y="548.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">невіртуальні ворота не замінити: нащадок дістає тільки дірку</text>
+</svg>

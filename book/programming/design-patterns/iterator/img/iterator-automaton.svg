@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1080" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зовнішній ітератор як автомат обходу</text>
+<line x1="188.0" y1="170.0" x2="332.0" y2="170.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="260.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">next() → 3</text>
+<line x1="408.0" y1="170.0" x2="552.0" y2="170.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="480.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">→ 1</text>
+<line x1="628.0" y1="170.0" x2="766.0" y2="170.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="697.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">→ 4</text>
+<circle cx="150.0" cy="170.0" r="37.0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="150.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">q₀</text>
+<text x="150.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">[3,1,4]</text>
+<circle cx="370.0" cy="170.0" r="37.0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="370.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">q₁</text>
+<text x="370.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">[1,4]</text>
+<circle cx="590.0" cy="170.0" r="37.0" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="590.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">q₂</text>
+<text x="590.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">[4]</text>
+<circle cx="810.0" cy="170.0" r="44.0" fill="#fdeeee" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="810.0" cy="170.0" r="37.0" fill="#fdeeee" stroke="#c0392b" stroke-width="2.0"/>
+<text x="810.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">q₃</text>
+<text x="810.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">[]</text>
+<text x="150.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">q₀ від колекції</text>
+<line x1="150.0" y1="92.0" x2="150.0" y2="126.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="905.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start"><tspan x="905.0" dy="0.0">◀ фінальний</tspan><tspan x="905.0" dy="17.2">hasNext() = false</tspan></text>
+<rect x="115.0" y="300.0" width="850.0" height="128.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="540.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">стан q — «що лишилось обійти», обернена на дані (defunctionalization);   δ(q) = (елемент, наступний q)</tspan><tspan x="540.0" dy="24.1">hasNext() = «q не фінальний»;    next() = застосувати перехід δ</tspan><tspan x="540.0" dy="24.1">список:  q — суфікс [3,1,4] → [1,4] → [4] → []        дерево (in-order):  q — стек напівпройдених вузлів</tspan></text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шов — місце, де можна підмінити поведінку, не редагуючи код у цьому місці</text>
+<line x1="470.0" y1="66.0" x2="470.0" y2="384.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="235.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">БЕЗ ШВА</text>
+<rect x="115.0" y="108.0" width="240.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="235.0" y="135.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">place_order()</tspan></text>
+<line x1="235.0" y1="154.0" x2="235.0" y2="212.0" stroke="#c0392b" stroke-width="4.5"/>
+<text x="247.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-style="italic">приварено</text>
+<rect x="100.0" y="212.0" width="270.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="235.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">smtplib.SMTP('mail.local')</tspan></text>
+<line x1="235.0" y1="258.0" x2="235.0" y2="292.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="150.0" y="292.0" width="170.0" height="40.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="235.0" y="316.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">справжня пошта</tspan></text>
+<text x="235.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">щоб підмінити пошту — треба редагувати</text>
+<text x="235.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">place_order, а це і є той код, який</text>
+<text x="235.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">без тестів чіпати страшно</text>
+<text x="700.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ЗІ ШВОМ</text>
+<rect x="580.0" y="108.0" width="240.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="700.0" y="135.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">place_order()</tspan></text>
+<text x="828.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-style="italic">не змінився</text>
+<text x="828.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-style="italic">ані на рядок</text>
+<line x1="700.0" y1="154.0" x2="700.0" y2="194.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="600.0" y="194.0" width="200.0" height="42.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.6"/><text x="700.0" y="219.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">self._open_smtp()</tspan></text>
+<text x="812.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">← ШОВ</text>
+<line x1="675.0" y1="236.0" x2="615.0" y2="288.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5 4"/>
+<line x1="725.0" y1="236.0" x2="785.0" y2="288.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5 4"/>
+<rect x="528.0" y="288.0" width="165.0" height="44.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="610.5" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="610.5" dy="0.0">справжній SMTP</tspan><tspan x="610.5" dy="14.3">(прод)</tspan></text>
+<rect x="707.0" y="288.0" width="165.0" height="44.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="789.5" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="789.5" dy="0.0">FakeSmtp</tspan><tspan x="789.5" dy="14.3">(тест)</tspan></text>
+<text x="700.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">точка вибору: у тесті — підклас,</text>
+<text x="700.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">що підміняє лише цей метод</text>
+</svg>

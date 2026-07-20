@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 770 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="770" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="385.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">MMU стереже доступ ядра — але DMA його обходить, доки немає IOMMU</text>
+<text x="34.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Без IOMMU: DMA пише в пам'ять повз MMU</text>
+<rect x="50.0" y="82.0" width="104.0" height="52.0" rx="6" fill="#eafaf0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="102.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">процесор</text>
+<text x="102.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(ядро)</text>
+<rect x="226.0" y="82.0" width="108.0" height="52.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="280.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">MMU</text>
+<text x="280.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">переклад + захист</text>
+<rect x="630.0" y="70.0" width="108.0" height="118.0" rx="6" fill="#fdf4f4" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="684.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">фізична</text>
+<text x="684.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">пам'ять</text>
+<line x1="154.0" y1="108.0" x2="221.0" y2="108.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="334.0" y1="108.0" x2="625.0" y2="106.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="158.0" width="104.0" height="48.0" rx="6" fill="#f6f6f9" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="102.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">пристрій</text>
+<text x="102.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(DMA)</text>
+<line x1="154.0" y1="182.0" x2="625.0" y2="162.0" stroke="#c0392b" stroke-width="2.3" marker-end="url(#arrow)"/>
+<text x="200.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">будь-яка адреса — без перевірки</text>
+<text x="34.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">З IOMMU: пристрій теж під наглядом</text>
+<rect x="50.0" y="312.0" width="104.0" height="52.0" rx="6" fill="#eafaf0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="102.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">процесор</text>
+<text x="102.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(ядро)</text>
+<rect x="226.0" y="312.0" width="108.0" height="52.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="280.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">MMU</text>
+<text x="280.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">переклад + захист</text>
+<rect x="630.0" y="300.0" width="108.0" height="118.0" rx="6" fill="#fdf4f4" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="684.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">фізична</text>
+<text x="684.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">пам'ять</text>
+<line x1="154.0" y1="338.0" x2="221.0" y2="338.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="334.0" y1="338.0" x2="625.0" y2="336.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="388.0" width="104.0" height="48.0" rx="6" fill="#f6f6f9" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="102.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">пристрій</text>
+<text x="102.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(DMA)</text>
+<rect x="226.0" y="388.0" width="108.0" height="48.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.9"/>
+<text x="280.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">IOMMU</text>
+<text x="280.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">переклад + захист</text>
+<line x1="154.0" y1="412.0" x2="221.0" y2="412.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="334.0" y1="412.0" x2="625.0" y2="382.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="280.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">лише дозволена пам'ять</text>
+</svg>

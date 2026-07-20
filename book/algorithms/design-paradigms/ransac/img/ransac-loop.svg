@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 366" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="366" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">RANSAC: вгадай по дрібці — хай решта проголосує — лиши найкраще</text>
+<rect x="306.0" y="37.0" width="208.0" height="66.0" rx="10" fill="#fbfbfd" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="410.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">1. ВИБІРКА</text>
+<text x="410.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">взяти навмання мінімум точок</text>
+<text x="410.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">(для прямої — лише 2)</text>
+<rect x="556.0" y="147.0" width="208.0" height="66.0" rx="10" fill="#fbfbfd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="660.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. МОДЕЛЬ</text>
+<text x="660.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">побудувати модель</text>
+<text x="660.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">рівно по цій вибірці</text>
+<rect x="306.0" y="257.0" width="208.0" height="66.0" rx="10" fill="#fbfbfd" stroke="#16a34a" stroke-width="1.8"/>
+<text x="410.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">3. ЗГОДА</text>
+<text x="410.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">полічити точки в межах ±t</text>
+<text x="410.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">від моделі — це «свої»</text>
+<rect x="56.0" y="147.0" width="208.0" height="66.0" rx="10" fill="#fbfbfd" stroke="#d98a00" stroke-width="1.8"/>
+<text x="160.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="700">4. РЕКОРД</text>
+<text x="160.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">згоди більше, ніж досі?</text>
+<text x="160.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">запам'ятати цю модель</text>
+<line x1="498.0" y1="92.0" x2="556.0" y2="158.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="656.0" y1="213.0" x2="418.0" y2="259.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="322.0" y1="268.0" x2="264.0" y2="202.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="164.0" y1="147.0" x2="402.0" y2="101.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">повторити</text>
+<text x="410.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">k разів</text>
+<line x1="160.0" y1="213.0" x2="160.0" y2="322.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="5.0" y="326.0" width="310.0" height="40.0" rx="6" fill="#eaf7ee" stroke="#16a34a" stroke-width="1.4"/><text x="160.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">переможець = модель із найбільшою згодою;</tspan><tspan x="160.0" dy="13.0">наприкінці уточнити її по всіх згодних точках</tspan></text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">13²⁷ mod 55: ланцюг квадратів і біти показника</text>
+<text x="510.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">27 = 11011₂ = 16 + 8 + 2 + 1</text>
+<text x="510.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">біти показника кажуть, які ланки ланцюга квадратів перемножити</text>
+<text x="92.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">i</text>
+<text x="168.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">біт</text>
+<text x="420.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ланцюг квадратів:  a ← a² (mod 55)</text>
+<text x="800.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">біт = 1 → вкрутити:  r ← r·a (mod 55)</text>
+<rect x="742.0" y="153.2" width="116.0" height="29.5" rx="6" fill="#fbfbfc" stroke="#333333" stroke-width="1.5"/><text x="800.0" y="172.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">старт:  r = 1</tspan></text>
+<text x="92.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0</text>
+<text x="168.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="270.0" y="207.0" width="300.0" height="34.0" rx="6" fill="#fbfbfc" stroke="#2457d6" stroke-width="1.4"/><text x="420.0" y="228.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">13¹ = 13</tspan></text>
+<line x1="578.0" y1="224.0" x2="632.0" y2="224.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="640.0" y="207.0" width="320.0" height="34.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="800.0" y="228.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">r = 1 · 13 = 13</tspan></text>
+<line x1="420.0" y1="244.0" x2="420.0" y2="276.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="92.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">1</text>
+<text x="168.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="270.0" y="279.0" width="300.0" height="34.0" rx="6" fill="#fbfbfc" stroke="#2457d6" stroke-width="1.4"/><text x="420.0" y="300.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">13² = 169 ≡ 4</tspan></text>
+<line x1="578.0" y1="296.0" x2="632.0" y2="296.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="640.0" y="279.0" width="320.0" height="34.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="800.0" y="300.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">r = 13 · 4 = 52</tspan></text>
+<line x1="420.0" y1="316.0" x2="420.0" y2="348.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="92.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">2</text>
+<text x="168.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#b6bcc4" text-anchor="middle" font-weight="700">0</text>
+<rect x="270.0" y="351.0" width="300.0" height="34.0" rx="6" fill="#fbfbfc" stroke="#2457d6" stroke-width="1.4"/><text x="420.0" y="372.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">13⁴ ≡ 4² = 16</tspan></text>
+<text x="800.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b6bcc4" text-anchor="middle" font-style="italic">— біт 0: пропуск, r лишається 52</text>
+<line x1="420.0" y1="388.0" x2="420.0" y2="420.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="92.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">3</text>
+<text x="168.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="270.0" y="423.0" width="300.0" height="34.0" rx="6" fill="#fbfbfc" stroke="#2457d6" stroke-width="1.4"/><text x="420.0" y="444.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">13⁸ ≡ 16² = 256 ≡ 36</tspan></text>
+<line x1="578.0" y1="440.0" x2="632.0" y2="440.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="640.0" y="423.0" width="320.0" height="34.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="800.0" y="444.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">r = 52 · 36 = 1872 ≡ 2</tspan></text>
+<line x1="420.0" y1="460.0" x2="420.0" y2="492.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="92.0" y="517.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">4</text>
+<text x="168.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="270.0" y="495.0" width="300.0" height="34.0" rx="6" fill="#fbfbfc" stroke="#2457d6" stroke-width="1.4"/><text x="420.0" y="516.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">13¹⁶ ≡ 36² = 1296 ≡ 31</tspan></text>
+<line x1="578.0" y1="512.0" x2="632.0" y2="512.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="640.0" y="495.0" width="320.0" height="34.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/><text x="800.0" y="516.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">r = 2 · 31 = 62 ≡ 7</tspan></text>
+<rect x="133.9" y="517.5" width="752.2" height="55.1" rx="6" fill="#fbfbfc" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="541.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">13²⁷ ≡ 31 · 36 · 4 · 13 ≡ 7 (mod 55)  —  ті самі чотири числа, що й у рахунку на папері</tspan><tspan x="510.0" dy="17.6">5 піднесень до квадрата + 4 множення = 9 дій замість 26</tspan></text>
+</svg>

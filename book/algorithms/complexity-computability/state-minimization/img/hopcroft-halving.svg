@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">блоки зі станом q, які черга взяла на обробку (n = 32)</text>
+<rect x="80.0" y="92.0" width="300.0" height="54.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="230.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">A₁ — 32 стани</text>
+<circle cx="230.0" cy="119.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="420.0" y="92.0" width="150.0" height="54.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="495.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">A₂ — 16</text>
+<circle cx="495.0" cy="119.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="610.0" y="92.0" width="75.0" height="54.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="647.5" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">A₃ — 8</text>
+<circle cx="647.5" cy="119.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<rect x="725.0" y="92.0" width="38.0" height="54.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="744.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">A₄ — 4</text>
+<circle cx="744.0" cy="119.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="230.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">q</text>
+<line x1="380.0" y1="119.0" x2="420.0" y2="119.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="119.0" x2="610.0" y2="119.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="685.0" y1="119.0" x2="725.0" y2="119.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="440.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="440.0" dy="0.0">коли блок зі станом q розколюється, у чергу йде МЕНША половина —</tspan><tspan x="440.0" dy="15.6">тож наступний блок зі станом q, що дійде до обробки, удвічі менший</tspan></text>
+<rect x="184.2" y="265.5" width="511.7" height="33.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/><text x="440.0" y="286.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">⇒ кожен стан потрапляє у спліттер щонайбільше log₂n + 1 разів</tspan></text>
+</svg>

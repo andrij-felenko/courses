@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 566" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="566" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="940.0" height="566.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Швидший виробник живить повільнішого споживача</text>
+<rect x="52.0" y="66.0" width="176.0" height="74.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="140.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виробник</text>
+<text x="140.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">λ = 1000/с</text>
+<line x1="230.0" y1="90.0" x2="320.0" y2="90.0" stroke="#c0392b" stroke-width="5.0"/><path d="M 320.0 90.0 L 306.0 97.0 L 306.0 83.0 z" fill="#c0392b"/>
+<line x1="316.0" y1="120.0" x2="232.0" y2="120.0" stroke="#27ae60" stroke-width="2.4" stroke-dasharray="5 4"/><path d="M 232.0 120.0 L 243.0 114.5 L 243.0 125.5 z" fill="#27ae60"/>
+<text x="274.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">протитиск</text>
+<text x="395.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">буфер (черга)</text>
+<rect x="330.0" y="80.0" width="22.0" height="46.0" rx="3" fill="#dfe6f7" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="356.0" y="80.0" width="22.0" height="46.0" rx="3" fill="#dfe6f7" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="382.0" y="80.0" width="22.0" height="46.0" rx="3" fill="#dfe6f7" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="408.0" y="80.0" width="22.0" height="46.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="434.0" y="80.0" width="22.0" height="46.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<line x1="470.0" y1="103.0" x2="560.0" y2="103.0" stroke="#2457d6" stroke-width="2.0"/><path d="M 560.0 103.0 L 550.0 108.0 L 550.0 98.0 z" fill="#2457d6"/>
+<rect x="566.0" y="66.0" width="176.0" height="74.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="654.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Споживач</text>
+<text x="654.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">μ = 100/с</text>
+<rect x="129.2" y="168.0" width="681.7" height="36.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.4"/><text x="470.0" y="190.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">λ &gt; μ:  надлишок 900/с накопичується — і система може зробити рівно три речі</tspan></text>
+<rect x="40.0" y="232.0" width="240.0" height="250.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.7"/>
+<rect x="40.0" y="232.0" width="240.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="160.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">1. Нескінченний буфер</text>
+<text x="160.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">черга росте без меж</tspan><tspan x="160.0" dy="21.7">пам'ять вичерпується</tspan><tspan x="160.0" dy="21.7">затримка → ∞</tspan></text>
+<line x1="58.0" y1="426.0" x2="262.0" y2="426.0" stroke="#e3e6ea" stroke-width="1.2"/>
+<text x="160.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">крах під навантаженням</tspan></text>
+<rect x="350.0" y="232.0" width="240.0" height="250.0" rx="6" fill="#ffffff" stroke="#b5651d" stroke-width="1.7"/>
+<rect x="350.0" y="232.0" width="240.0" height="42.0" rx="6" fill="#fdf0e4" stroke="#b5651d" stroke-width="1.7"/>
+<text x="470.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b5651d" text-anchor="middle" font-weight="700">2. Відкидати надлишок</text>
+<text x="470.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">зайве викидаємо</tspan><tspan x="470.0" dy="21.7">темп збережено</tspan><tspan x="470.0" dy="21.7">але дані втрачено</tspan></text>
+<line x1="368.0" y1="426.0" x2="572.0" y2="426.0" stroke="#e3e6ea" stroke-width="1.2"/>
+<text x="470.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b5651d" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">живо, ціною втрат</tspan></text>
+<rect x="660.0" y="232.0" width="240.0" height="250.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.7"/>
+<rect x="660.0" y="232.0" width="240.0" height="42.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.7"/>
+<text x="780.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">3. Протитиск</text>
+<text x="780.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">виробник чекає</tspan><tspan x="780.0" dy="21.7">черга обмежена</tspan><tspan x="780.0" dy="21.7">нічого не втрачено</tspan></text>
+<line x1="678.0" y1="426.0" x2="882.0" y2="426.0" stroke="#e3e6ea" stroke-width="1.2"/>
+<text x="780.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">стабільно, без втрат</tspan></text>
+</svg>

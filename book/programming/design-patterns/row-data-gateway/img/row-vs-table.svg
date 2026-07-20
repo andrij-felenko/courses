@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два шлюзи PoEAA: одиниця доступу — рядок чи таблиця</text>
+<line x1="560.0" y1="60.0" x2="560.0" y2="452.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="280.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Шлюз ТАБЛИЦІ даних</text>
+<text x="280.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">один екземпляр — на всю таблицю</text>
+<rect x="120.0" y="120.0" width="320.0" height="118.0" rx="10" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/>
+<text x="280.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">OrderTableGateway</text>
+<text x="280.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">find(id)   update(id, дані)</text>
+<text x="280.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">delete(id)   — усі беруть ключ</text>
+<text x="280.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">методи приймають id рядка</text>
+<rect x="175.0" y="300.0" width="210.0" height="24.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<rect x="175.0" y="324.0" width="210.0" height="78.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="280.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">orders — усі рядки</text>
+<text x="280.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">рядок 41</text>
+<text x="280.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">рядок 42</text>
+<line x1="175.0" y1="350.0" x2="385.0" y2="350.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="280.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">рядок 43</text>
+<line x1="175.0" y1="376.0" x2="385.0" y2="376.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="280.0" y1="242.0" x2="280.0" y2="294.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="295.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">повертає сирі набори рядків</text>
+<text x="280.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">один об'єкт обслуговує ВСІ рядки</text>
+<text x="840.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Шлюз РЯДКА даних</text>
+<text x="840.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">свій екземпляр — на кожен рядок</text>
+<rect x="725.0" y="122.0" width="230.0" height="84.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="840.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">OrderGateway · рядок 41</text>
+<text x="840.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">total = 350 · status = &quot;new&quot;</text>
+<text x="840.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">insert / update / delete</text>
+<rect x="725.0" y="218.0" width="230.0" height="84.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="840.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">OrderGateway · рядок 42</text>
+<text x="840.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">total = 1200 · status = &quot;paid&quot;</text>
+<text x="840.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">insert / update / delete</text>
+<rect x="725.0" y="314.0" width="230.0" height="84.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="840.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">OrderGateway · рядок 43</text>
+<text x="840.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">total = 90 · status = &quot;shipped&quot;</text>
+<text x="840.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">insert / update / delete</text>
+<text x="840.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">об'єкт і Є рядок — окремий на кожен</text>
+</svg>

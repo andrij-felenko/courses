@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">AST виразу  2 * (x + 3) + -x</text>
+<text x="450.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">п'ять видів вузлів, 8 вузлів усього — кожен прохід торкнеться кожного рівно раз (O(n))</text>
+<line x1="450.0" y1="124.0" x2="250.0" y2="204.0" stroke="#c2c8d0" stroke-width="1.6"/>
+<line x1="450.0" y1="124.0" x2="650.0" y2="204.0" stroke="#c2c8d0" stroke-width="1.6"/>
+<line x1="250.0" y1="236.0" x2="140.0" y2="318.0" stroke="#c2c8d0" stroke-width="1.6"/>
+<line x1="250.0" y1="236.0" x2="372.0" y2="318.0" stroke="#c2c8d0" stroke-width="1.6"/>
+<line x1="650.0" y1="236.0" x2="650.0" y2="318.0" stroke="#c2c8d0" stroke-width="1.6"/>
+<line x1="372.0" y1="350.0" x2="292.0" y2="432.0" stroke="#c2c8d0" stroke-width="1.6"/>
+<line x1="372.0" y1="350.0" x2="452.0" y2="432.0" stroke="#c2c8d0" stroke-width="1.6"/>
+<rect x="406.0" y="91.0" width="88.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="450.0" y="112.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">Add</tspan></text>
+<rect x="206.0" y="203.0" width="88.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="250.0" y="224.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">Mul</tspan></text>
+<rect x="606.0" y="203.0" width="88.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="650.0" y="224.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Neg</tspan></text>
+<rect x="96.0" y="317.0" width="88.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="140.0" y="338.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Num 2</tspan></text>
+<rect x="328.0" y="317.0" width="88.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="372.0" y="338.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="372.0" dy="0.0">Add</tspan></text>
+<rect x="606.0" y="317.0" width="88.0" height="34.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="650.0" y="338.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Var x</tspan></text>
+<rect x="248.0" y="431.0" width="88.0" height="34.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.8"/><text x="292.0" y="452.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="292.0" dy="0.0">Var x</tspan></text>
+<rect x="408.0" y="431.0" width="88.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="452.0" y="452.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="452.0" dy="0.0">Num 3</tspan></text>
+<line x1="120.0" y1="520.0" x2="780.0" y2="520.0" stroke="#d0d5db" stroke-width="1.1"/>
+<text x="140.0" y="548.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Num, Var — листки (без дітей)</text>
+<text x="140.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Add, Mul — двомісні, Neg — одномісний внутрішній вузол</text>
+</svg>

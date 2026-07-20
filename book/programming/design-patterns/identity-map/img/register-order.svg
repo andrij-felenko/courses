@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1340 775" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1340" height="775" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="670.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Той самий код, різний порядок двох рядків — і різна скінченність</text>
+<rect x="40.0" y="70.0" width="600.0" height="545.0" rx="10" fill="#ffffff" stroke="#c0392b" stroke-width="2.2"/>
+<text x="340.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">ХИБНО: реєстрація ПІСЛЯ зв'язків</text>
+<text x="68.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">row = SELECT(k)</text>
+<text x="68.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">o   = allocate(row)</text>
+<text x="68.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">for k' in refs(row):</text>
+<text x="370.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">← спуск</text>
+<text x="68.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">    o.link(load(k'))</text>
+<text x="68.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">M[k] = o</text>
+<text x="370.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">← реєстрація</text>
+<line x1="64.0" y1="296.0" x2="616.0" y2="296.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="68.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">Спуск на циклі #42 ⇄ #7:</text>
+<text x="68.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">load(#42)   M = {}</text>
+<text x="90.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">load(#7)    M = {}</text>
+<text x="112.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">load(#42)   M = {}</text>
+<text x="470.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">← та сама діра</text>
+<text x="134.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">load(#7)    M = {}</text>
+<text x="156.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">⋮</text>
+<rect x="64.0" y="502.0" width="552.0" height="92.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="340.0" y="544.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">M[k] не встигає заповнитися ДО спуску,</tspan><tspan x="340.0" dy="16.9">тож влучання не стається ніколи → переповнення стека</tspan></text>
+<rect x="700.0" y="70.0" width="600.0" height="545.0" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="1000.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">ПРАВИЛЬНО: реєстрація ДО зв'язків</text>
+<text x="728.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">row = SELECT(k)</text>
+<text x="728.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">o   = allocate(row)</text>
+<text x="728.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">M[k] = o</text>
+<text x="1030.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">← реєстрація</text>
+<text x="728.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">for k' in refs(row):</text>
+<text x="1030.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">← спуск</text>
+<text x="728.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">    o.link(load(k'))</text>
+<line x1="724.0" y1="296.0" x2="1276.0" y2="296.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="728.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">Спуск на тому самому циклі:</text>
+<text x="728.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">load(#42)   M = {}         → M = {42}</text>
+<text x="750.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">load(#7)    M = {42}       → M = {42, 7}</text>
+<text x="772.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">load(#42)   M = {42, 7}    → ВЛУЧАННЯ</text>
+<text x="794.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">віддає o42 — сірий, зв'язки ще не всі</text>
+<text x="728.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">коло замкнулося · 2 SELECT-и · кінець</text>
+<rect x="724.0" y="502.0" width="552.0" height="92.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/><text x="1000.0" y="544.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="1000.0" dy="0.0">Реєстрація сталася ДО спуску,</tspan><tspan x="1000.0" dy="16.9">тож другий прихід за #42 упирається в мапу → скінченно</tspan></text>
+<rect x="40.0" y="636.0" width="1260.0" height="116.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="670.0" y="666.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Три стани вузла у спуску</text>
+<circle cx="150.0" cy="698.0" r="13.0" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="174.0" y="703.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">білий — ще не бачили</text>
+<circle cx="500.0" cy="698.0" r="13.0" fill="#9aa3af" stroke="#333333" stroke-width="1.8"/>
+<text x="524.0" y="703.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">сірий — зареєстрований, зв'язки ще ні</text>
+<circle cx="920.0" cy="698.0" r="13.0" fill="#1a1a1a" stroke="#333333" stroke-width="1.8"/>
+<text x="944.0" y="703.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">чорний — добудований</text>
+<text x="670.0" y="736.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Мапа мусить ловити СІРИХ. Реєстрація після зв'язків фарбує лише чорних — а на циклі до чорного не доходить ніколи.</text>
+</svg>

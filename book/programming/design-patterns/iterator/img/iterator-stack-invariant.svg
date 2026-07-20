@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стек напівпройдених вузлів: інваріант обходу</text>
+<line x1="240.0" y1="100.0" x2="150.0" y2="205.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="240.0" y1="100.0" x2="330.0" y2="205.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="150.0" y1="205.0" x2="105.0" y2="310.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="150.0" y1="205.0" x2="195.0" y2="310.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="330.0" y1="205.0" x2="285.0" y2="310.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="330.0" y1="205.0" x2="375.0" y2="310.0" stroke="#6b7280" stroke-width="1.6"/>
+<circle cx="240.0" cy="100.0" r="22.0" fill="#e7effe" stroke="#2457d6" stroke-width="2.0"/>
+<text x="240.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text>
+<circle cx="150.0" cy="205.0" r="22.0" fill="#e8f7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="150.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">2</text>
+<circle cx="330.0" cy="205.0" r="22.0" fill="#f4f4f5" stroke="#c9cbcf" stroke-width="2.0"/>
+<text x="330.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle">6</text>
+<circle cx="105.0" cy="310.0" r="22.0" fill="#e8f7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="105.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">1</text>
+<circle cx="195.0" cy="310.0" r="22.0" fill="#e7effe" stroke="#2457d6" stroke-width="2.0"/>
+<text x="195.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<circle cx="285.0" cy="310.0" r="22.0" fill="#f4f4f5" stroke="#c9cbcf" stroke-width="2.0"/>
+<text x="285.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle">5</text>
+<circle cx="375.0" cy="310.0" r="22.0" fill="#f4f4f5" stroke="#c9cbcf" stroke-width="2.0"/>
+<text x="375.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle">7</text>
+<text x="240.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">дерево (обхід дійшов до «3»)</text>
+<circle cx="70.0" cy="380.0" r="10.0" fill="#e8f7ee" stroke="#27ae60" stroke-width="2.0"/><text x="88.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">віддано</text>
+<circle cx="198.0" cy="380.0" r="10.0" fill="#e7effe" stroke="#2457d6" stroke-width="2.0"/><text x="216.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">на стеку — ще віддати</text>
+<circle cx="398.0" cy="380.0" r="10.0" fill="#f4f4f5" stroke="#c9cbcf" stroke-width="2.0"/><text x="416.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">не торкались</text>
+<text x="660.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">явний стек</text>
+<rect x="580.0" y="96.0" width="160.0" height="52.0" rx="6" fill="#e7effe" stroke="#2457d6" stroke-width="1.5"/><text x="660.0" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">3  ← вершина</tspan></text>
+<rect x="580.0" y="150.0" width="160.0" height="52.0" rx="6" fill="#e7effe" stroke="#2457d6" stroke-width="1.5"/><text x="660.0" y="181.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">4</tspan></text>
+<text x="660.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">↑ дно стека</text>
+<line x1="860.0" y1="122.0" x2="748.0" y2="122.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="868.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">next()</text>
+<text x="868.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="868.0" dy="0.0">віддасть «3»,</tspan><tspan x="868.0" dy="14.9">далі pushLeft(∅):</tspan><tspan x="868.0" dy="14.9">стек стане [4]</tspan></text>
+<rect x="60.0" y="440.0" width="900.0" height="98.0" rx="6" fill="#f6faf6" stroke="#27ae60" stroke-width="1.5"/><text x="510.0" y="476.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Інваріант: вершина стека — завжди наступний ключ за зростанням.</tspan><tspan x="510.0" dy="16.9">Нижче лежать лише предки «згори-ліворуч» — ті, чий власний ключ і праве піддерево ще попереду.</tspan><tspan x="510.0" dy="16.9">Такі предки утворюють ланцюг, тому стек не глибший за висоту дерева h.</tspan></text>
+</svg>

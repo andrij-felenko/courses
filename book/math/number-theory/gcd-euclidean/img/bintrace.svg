@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="70.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Евклід: 3 кроки — і всі три ДІЛЕННЯ</text>
+<rect x="70.0" y="140.0" width="366.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="253.0" y="170.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="253.0" dy="0.0">1071 = 2 · 462 + 147</tspan></text>
+<text x="70.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">ділення — найдорожча ціла операція</text>
+<rect x="70.0" y="236.0" width="366.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="253.0" y="266.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="253.0" dy="0.0">462 = 3 · 147 + 21</tspan></text>
+<text x="70.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">ділення — найдорожча ціла операція</text>
+<rect x="70.0" y="332.0" width="366.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="253.0" y="362.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="253.0" dy="0.0">147 = 7 · 21 + 0</tspan></text>
+<text x="70.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">ділення — найдорожча ціла операція</text>
+<rect x="70.0" y="434.0" width="366.0" height="46.0" rx="6" fill="#e6f7ee" stroke="#27ae60" stroke-width="2.2"/><text x="253.0" y="462.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="253.0" dy="0.0">НСД = 21</tspan></text>
+<text x="560.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Двійковий: 5 кроків — жодного ділення</text>
+<text x="560.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">k = ctz(1071 | 462) = 0  →  спільних двійок немає</text>
+<text x="578.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">крок</text>
+<text x="668.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">u</text>
+<text x="748.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">v</text>
+<text x="838.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">що зробили</text>
+<line x1="560.0" y1="158.0" x2="1004.0" y2="158.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="578.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">1</text>
+<text x="668.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">231</text>
+<text x="748.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">840</text>
+<text x="838.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">v&gt;&gt;1, обмін, −</text>
+<text x="578.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">2</text>
+<text x="668.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">105</text>
+<text x="748.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">126</text>
+<text x="838.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">v&gt;&gt;3, обмін, −</text>
+<text x="578.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">3</text>
+<text x="668.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">63</text>
+<text x="748.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">42</text>
+<text x="838.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">v&gt;&gt;1, обмін, −</text>
+<text x="578.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">4</text>
+<text x="668.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">21</text>
+<text x="748.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">42</text>
+<text x="838.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">v&gt;&gt;1, обмін, −</text>
+<text x="578.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">5</text>
+<text x="668.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">21</text>
+<text x="748.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">0</text>
+<text x="838.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">v&gt;&gt;1, −  → стоп</text>
+<text x="560.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">лише зсуви, порівняння й віднімання — кожне ≈ такт</text>
+<rect x="560.0" y="386.0" width="444.0" height="46.0" rx="6" fill="#e6f7ee" stroke="#27ae60" stroke-width="2.2"/><text x="782.0" y="414.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="782.0" dy="0.0">u &lt;&lt; k = 21 &lt;&lt; 0 = 21</tspan></text>
+<rect x="56.0" y="512.0" width="948.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/><text x="530.0" y="533.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Обмін свідомий: кроків ~на 20 % більше, зате жодного ділення.</tspan><tspan x="530.0" dy="17.6">На випадкових 64-бітних парах — 37 ділень проти 45 зсувів-віднімань.</tspan></text>
+</svg>
