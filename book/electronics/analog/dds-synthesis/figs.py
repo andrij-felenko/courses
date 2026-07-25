@@ -6,7 +6,7 @@
   staircase.svg— сходинки ЦАП згладжуються фільтром у синусоїду; праворуч — образ на fclk−fout
   truncation.svg— зрізання фази: адресує ПЗП лише старша частина розрядів → періодична похибка → спури
   sawtooth-spectrum.svg — вставка math: пилка похибки e(n) з періодом T → лінійний спектр спурів довкола несучої
-  sfdr-vs-bits.svg      — вставка math: найгірший спур vs P; точний tan-вираз ≈ пряма −6.02·P−3.92 (6 дБ/розряд)
+  sfdr-vs-bits.svg      — вставка math: найгірший спур vs P; стеля −6.02·P дБ (6 дБ на кожен розряд адреси)
 Запуск:  python figs.py   → пише SVG у ./img/
 Стиль і помічники — зі спільного svgkit (НЕ переписувати тут)."""
 import sys, os, math
@@ -323,7 +323,7 @@ def fig_sawtooth_spectrum():
 # ── 6. (math) Найгірший спур vs розряди адреси таблиці ───────────────────────
 def fig_sfdr_vs_bits():
     """Вставка math-phase-truncation: SFDR найгіршого спура зрізання vs P.
-    Точний вираз 20·log10(tan(π/2^(P+1))) майже збігається з прямою −6.02·P−3.92."""
+    Стеля найгіршого спура — пряма −6.02·P дБ: 6 дБ на кожен доданий розряд адреси."""
     W, H = 720, 440
     f = []
     px, py, pw, ph = 90, 70, 560, 300
@@ -349,27 +349,23 @@ def fig_sfdr_vs_bits():
         f.append(line(px, y, px + pw, y, color="#e5e8ec", sw=1))
     f.append(text(px - 44, py - 22, "рівень найгіршого", size=10.5, color=MUTED, anchor="start"))
     f.append(text(px - 44, py - 8, "спура, dBc", size=10.5, color=MUTED, anchor="start"))
-    # пряма −6.02·P − 3.92
+    # пряма −6.02·P — стеля найгіршого спура
     ln = []
     for P in range(Pmin, Pmax + 1):
-        ln.append("%.1f,%.1f" % (X(P), Y(-6.02 * P - 3.92)))
+        ln.append("%.1f,%.1f" % (X(P), Y(-6.02 * P)))
     f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4"/>' %
              (" ".join(ln), NEG))
-    # точний tan-вираз — кружечки
+    # значення на кожен цілий розряд — дрібні точки на прямій
     for P in range(Pmin, Pmax + 1):
-        db = 20.0 * math.log10(math.tan(math.pi / (2 ** (P + 1))))
-        f.append(circle(X(P), Y(db), 3.6, fill="#ffffff", stroke=POS, sw=1.8))
+        f.append(circle(X(P), Y(-6.02 * P), 3.0, fill=NEG, stroke=NEG, sw=1))
     # легенда
     lx, ly = px + pw - 250, py + 14
     f.append(line(lx, ly, lx + 26, ly, color=NEG, sw=2.4))
-    f.append(text(lx + 32, ly + 4, "−6.02·P − 3.92 (оцінка)", size=10.5, color=NEG,
-                  anchor="start", bold=True))
-    f.append(circle(lx + 13, ly + 20, 3.6, fill="#ffffff", stroke=POS, sw=1.8))
-    f.append(text(lx + 32, ly + 24, "20·log₁₀·tan(π/2^(P+1)) (точно)", size=10.5, color=POS,
+    f.append(text(lx + 32, ly + 4, "стеля спура ≈ −6.02·P dBc", size=10.5, color=NEG,
                   anchor="start", bold=True))
     # робочі точки 12/14/16 — підписи рівнів
     for P, lab in ((12, "−72"), (14, "−84"), (16, "−96")):
-        db = -6.02 * P - 3.92
+        db = -6.02 * P
         x, y = X(P), Y(db)
         f.append(circle(x, y, 5.4, fill="none", stroke=INK, sw=1.4))
         f.append(text(x + 8, y - 8, "P=%d ≈ %s dBc" % (P, lab), size=10, color=INK,

@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """Фігури до вставки «math-supermesh-system» (book/electronics/analog/supermesh).
-Дві фігури про МАТРИЧНИЙ бік (дзеркало до supernode/figs-math.py, мовою опорів):
+Фігура про МАТРИЧНИЙ бік (дзеркало до supernode/figs-math.py, мовою опорів):
   matglue.svg  — супер-чарунка як склеювання двох рядків матриці опорів R:
                  рядки вікон I₁,I₂ додаються в один (напруга джерела гине);
                  рівняння-обмеження I₁−I₂=J заміщає звільнений рядок
-  mna.svg      — модифікований вузловий аналіз (дуальна, мешева форма): облямована
-                 матриця [[R B],[C 0]]·[I;U]=[V;J] — напруга джерела струму U
-                 за окрему невідому, додатковий рядок/стовпець
 Запуск:  python figs-math.py   → пише SVG у ./img/
 Стиль і помічники — зі спільного svgkit (НЕ переписувати тут)."""
 import sys, os
@@ -102,76 +99,6 @@ def fig_matglue():
     render(os.path.join(IMG, "matglue.svg"), W, H, *f)
 
 
-# ════════════════════════════════════════════════════════════════════════════
-# 2. mna.svg — облямована матриця (дуальний, мешевий MNA)
-# ════════════════════════════════════════════════════════════════════════════
-def fig_mna():
-    W, H = 720, 380
-    f = []
-    f.append(text(W / 2, 32, "MNA-дзеркало: напруга джерела струму — окрема невідома", size=15, bold=True))
-
-    ox, oy = 150, 80
-    BW, BH = 150, 150
-    sw_blk = 2.0
-
-    # блок R (опори вікон)
-    f.append(rect(ox, oy, BW, BH, fill="#fdecea", stroke=POS, sw=sw_blk, rx=6))
-    f.append(text(ox + BW / 2, oy + BH / 2 - 6, "R", size=22, bold=True, color=POS))
-    f.append(text(ox + BW / 2, oy + BH / 2 + 16, "контурні опори", size=10, color=MUTED))
-
-    # блок B (±1) праворуч від R
-    bw = 46
-    f.append(rect(ox + BW, oy, bw, BH, fill="#eef7f0", stroke=FIELD, sw=sw_blk, rx=6))
-    f.append(text(ox + BW + bw / 2, oy + BH / 2 - 6, "B", size=18, bold=True, color=FIELD))
-    f.append(text(ox + BW + bw / 2, oy + BH / 2 + 14, "±1", size=11, color=FIELD))
-
-    # блок C (±1) під R
-    bh = 40
-    f.append(rect(ox, oy + BH, BW, bh, fill="#eef7f0", stroke=FIELD, sw=sw_blk, rx=6))
-    f.append(text(ox + BW / 2, oy + BH + bh / 2 + 5, "C   (±1, …)", size=14, bold=True, color=FIELD))
-
-    # блок 0 (кут)
-    f.append(rect(ox + BW, oy + BH, bw, bh, fill="#ffffff", stroke=LINE, sw=sw_blk, rx=6))
-    f.append(text(ox + BW + bw / 2, oy + BH + bh / 2 + 5, "0", size=14, bold=True))
-
-    # дужки навколо всієї матриці
-    f.append(bracket_l(ox - 12, oy - 6, BH + bh + 12, sw=2.4))
-    f.append(bracket_r(ox + BW + bw + 12, oy - 6, BH + bh + 12, sw=2.4))
-
-    # вектор невідомих [I ; U]
-    vx = ox + BW + bw + 40
-    vh = BH + bh + 12
-    f.append(bracket_l(vx, oy - 6, vh, sw=2.4))
-    f.append(text(vx + 26, oy + BH / 2 + 4, "I", size=18, bold=True, color=POS))
-    f.append(text(vx + 26, oy + BH / 2 + 22, "(контури)", size=9, color=MUTED))
-    f.append(line(vx + 6, oy + BH + 2, vx + 46, oy + BH + 2, color="#c8ccd2", sw=1.0, dash="3 3"))
-    f.append(text(vx + 26, oy + BH + bh / 2 + 5, "U", size=16, bold=True, color=FIELD))
-    f.append(text(vx + 26, oy + BH + bh / 2 + 19, "(напруга J)", size=8.5, color=MUTED))
-    f.append(bracket_r(vx + 56, oy - 6, vh, sw=2.4))
-
-    # =
-    f.append(text(vx + 76, oy + (BH + bh) / 2 + 4, "=", size=20, bold=True))
-
-    # права частина [V ; J]
-    rx = vx + 96
-    f.append(bracket_l(rx, oy - 6, vh, sw=2.4))
-    f.append(text(rx + 26, oy + BH / 2 + 4, "V", size=16, bold=True, color=NEG))
-    f.append(text(rx + 26, oy + BH / 2 + 20, "(ЕРС)", size=8.5, color=MUTED))
-    f.append(line(rx + 6, oy + BH + 2, rx + 46, oy + BH + 2, color="#c8ccd2", sw=1.0, dash="3 3"))
-    f.append(text(rx + 26, oy + BH + bh / 2 + 5, "J", size=15, bold=True, color=FIELD))
-    f.append(text(rx + 26, oy + BH + bh / 2 + 19, "(струм)", size=8.5, color=MUTED))
-    f.append(bracket_r(rx + 52, oy - 6, vh, sw=2.4))
-
-    # підпис під фігурою
-    tb3, _, _ = textbox(W / 2, 332,
-                        "Джерело струму на спільній гілці додає ОДИН рядок і ОДИН стовпець під свою напругу U.\n"
-                        "Стовпець B вкидає ±U у рівняння вікон; рядок C задає I₁−I₂=J. Виключиш U — повернешся до супер-чарунки.",
-                        size=10.5, color=INK, fill=FILL, stroke=LINE)
-    f.append(tb3)
-    render(os.path.join(IMG, "mna.svg"), W, H, *f)
-
-
 if __name__ == "__main__":
     fig_matglue()
-    fig_mna()
-    print("OK: 2 фігури у", IMG)
+    print("OK: 1 фігура у", IMG)

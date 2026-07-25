@@ -82,7 +82,7 @@ export interface Notifier { send(msg: Message): Promise<void>; }  // рівно 
 export interface Clock    { now(): Date; }
 ```
 ```py
-# types.py — дані, якими обмінюються шари
+# models.py — дані, якими обмінюються шари (не types.py: так зветься модуль стандартної бібліотеки)
 from dataclasses import dataclass
 
 @dataclass(frozen=True)
@@ -98,6 +98,7 @@ class Message:
 # ports.py — вузькі абстракції, які визначає ЯДРО
 from typing import Protocol
 from datetime import datetime
+from models import Message
 
 class Notifier(Protocol):                       # рівно одна дія
     async def send(self, msg: Message) -> None: ...
@@ -154,7 +155,7 @@ def format_alarm(zone: str, at: datetime) -> str:
 
 # policy.py — стабільне ядро. Залежить ЛИШЕ від портів.
 from ports import Notifier, Clock
-from types import SensorEvent, Message
+from models import SensorEvent, Message
 
 class AlarmPolicy:
     def __init__(self, notifier: Notifier, clock: Clock) -> None:
@@ -460,7 +461,7 @@ notifierContract("SilentNotifier (пастка)", () => {
 ```py
 # один контракт на будь-яку реалізацію Notifier (pytest)
 import pytest
-from types import Message
+from models import Message
 
 def notifier_contract(make):
     async def run() -> None:

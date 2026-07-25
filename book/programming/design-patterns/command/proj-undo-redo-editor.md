@@ -84,6 +84,36 @@ class TextDocument:
         sp = self._text.rfind(" ", 0, trimmed_end)
         return sp + 1                             # -1 → 0 (слово від початку)
 ```
+```cpp
+#include <string>
+
+class TextDocument {
+  std::string text_;                        // UTF-8; індекси — байтові зсуви
+public:
+  const std::string& content() const { return text_; }
+  std::size_t length() const { return text_.size(); }
+
+  // вставити рядок у позицію pos (0 ≤ pos ≤ length)
+  void insert(std::size_t pos, const std::string& s) {
+    text_.insert(pos, s);
+  }
+
+  // вирізати [from, to) і повернути вирізане (щоб команда його запам'ятала)
+  std::string remove(std::size_t from, std::size_t to) {
+    std::string cut = text_.substr(from, to - from);
+    text_.erase(from, to - from);
+    return cut;
+  }
+
+  // межа останнього слова: індекс, з якого воно починається
+  std::size_t lastWordStart() const {
+    std::size_t end = text_.find_last_not_of(" \t\n\r");  // без хвостових пробілів
+    if (end == std::string::npos) return 0;               // самі пробіли
+    std::size_t sp = text_.rfind(' ', end);
+    return sp == std::string::npos ? 0 : sp + 1;          // немає пробілу → від початку
+  }
+};
+```
 :::
 
 Зверни увагу на дві дрібниці, які насправді несуть вагу. По-перше, `remove` **повертає вирізане** — не викидає його в порожнечу. Це не примха: саме це повернене значення команда `DeleteLastWord` покладе собі в кишеню, щоб потім було чим відновити. Одержувач тут — джерело правди про те, що зникло. По-друге, `lastWordStart` спершу відкидає хвостові пробіли, а вже потім шукає межу слова: без цього `undo` після видалення слова з пробілом позаду відновив би слово не туди.
@@ -107,6 +137,13 @@ from typing import Protocol
 class Command(Protocol):
     def execute(self) -> None: ...   # зробити зміну (і запам'ятати все для відкату)
     def undo(self) -> None: ...      # повернути стан рівно до того, що був перед execute()
+```
+```cpp
+struct Command {
+  virtual void execute() = 0;   // зробити зміну (і запам'ятати все для відкату)
+  virtual void undo() = 0;      // повернути стан рівно до того, що був перед execute()
+  virtual ~Command() = default;
+};
 ```
 :::
 
@@ -148,6 +185,25 @@ class AddText:
     def undo(self) -> None:
         # вставили text у pos → щоб відкотити, вирізаємо [pos, pos + len(text))
         self.doc.remove(self.pos, self.pos + len(self.text))
+```
+```cpp
+class AddText : public Command {
+  TextDocument& doc_;
+  std::size_t pos_;
+  std::string text_;
+public:
+  AddText(TextDocument& doc, std::size_t pos, std::string text)
+    : doc_(doc), pos_(pos), text_(std::move(text)) {}
+
+  void execute() override {
+    doc_.insert(pos_, text_);
+  }
+
+  void undo() override {
+    // вставили text у pos → щоб відкотити, вирізаємо [pos, pos + text.size())
+    doc_.remove(pos_, pos_ + text_.size());
+  }
+};
 ```
 :::
 
@@ -192,6 +248,26 @@ class DeleteLastWord:
     def undo(self) -> None:
         # повертаємо зрізане рівно туди, звідки взяли
         self.doc.insert(self.frm, self.removed)
+```
+```cpp
+class DeleteLastWord : public Command {
+  TextDocument& doc_;
+  std::size_t from_ = 0;        // звідки різали
+  std::string removed_;         // що саме зрізали (запам'ятаємо в execute)
+public:
+  explicit DeleteLastWord(TextDocument& doc) : doc_(doc) {}
+
+  void execute() override {
+    from_ = doc_.lastWordStart();
+    // remove повертає вирізане — ловимо його, поки воно не зникло назавжди
+    removed_ = doc_.remove(from_, doc_.length());
+  }
+
+  void undo() override {
+    // повертаємо зрізане рівно туди, звідки взяли
+    doc_.insert(from_, removed_);
+  }
+};
 ```
 :::
 
@@ -249,6 +325,32 @@ class ReplaceRange:
         self.doc.remove(self.frm, self.frm + len(self.new_text))
         # 2) повернути старе на місце
         self.doc.insert(self.frm, self.old_text)
+```
+```cpp
+class ReplaceRange : public Command {
+  TextDocument& doc_;
+  std::size_t from_, to_;
+  std::string newText_;
+  std::string oldText_;         // що стояло в [from, to) до заміни
+public:
+  ReplaceRange(TextDocument& doc, std::size_t from, std::size_t to, std::string newText)
+    : doc_(doc), from_(from), to_(to), newText_(std::move(newText)) {}
+
+  void execute() override {
+    // 1) вирізали старе — і одразу впіймали його в oldText
+    oldText_ = doc_.remove(from_, to_);
+    // 2) вставили нове на те саме місце
+    doc_.insert(from_, newText_);
+  }
+
+  void undo() override {
+    // дзеркально й у зворотному порядку:
+    // 1) прибрати нове (воно завдовжки newText, стоїть від from)
+    doc_.remove(from_, from_ + newText_.size());
+    // 2) повернути старе на місце
+    doc_.insert(from_, oldText_);
+  }
+};
 ```
 :::
 
@@ -318,6 +420,41 @@ class History:
     def can_undo(self) -> bool: return len(self._done) > 0
     def can_redo(self) -> bool: return len(self._undone) > 0
 ```
+```cpp
+#include <memory>
+#include <vector>
+
+class History {
+  std::vector<std::unique_ptr<Command>> done_;    // виконані, ще не скасовані
+  std::vector<std::unique_ptr<Command>> undone_;  // скасовані, чекають на redo
+public:
+  // виконати НОВУ дію
+  void run(std::unique_ptr<Command> cmd) {
+    cmd->execute();
+    done_.push_back(std::move(cmd));
+    undone_.clear();                     // ← інваріант: нова дія стирає redo-гілку
+  }
+
+  void undo() {
+    if (done_.empty()) return;           // край: скасовувати нічого
+    std::unique_ptr<Command> cmd = std::move(done_.back());
+    done_.pop_back();
+    cmd->undo();
+    undone_.push_back(std::move(cmd));
+  }
+
+  void redo() {
+    if (undone_.empty()) return;         // край: повторювати нічого
+    std::unique_ptr<Command> cmd = std::move(undone_.back());
+    undone_.pop_back();
+    cmd->execute();
+    done_.push_back(std::move(cmd));
+  }
+
+  bool canUndo() const { return !done_.empty(); }
+  bool canRedo() const { return !undone_.empty(); }
+};
+```
 :::
 
 Три речі в цьому класі варті окремої зупинки, бо саме на них спотикаються наївні реалізації.
@@ -369,6 +506,25 @@ h.run(ReplaceRange(doc, 0, 6, "здоров"))    # "здоров світе"
 print(doc.content())                        # "здоров світе"
 print(h.can_redo())                         # False — redo-гілка стерта новою дією
 ```
+```cpp
+TextDocument doc;
+History h;
+
+h.run(std::make_unique<AddText>(doc, 0, "привіт"));             // "привіт"
+h.run(std::make_unique<AddText>(doc, doc.length(), " світе"));  // "привіт світе"
+h.run(std::make_unique<DeleteLastWord>(doc));                   // "привіт "   (зрізали "світе")
+
+h.undo();                                                       // "привіт світе"  (повернули слово)
+h.undo();                                                       // "привіт"        (прибрали " світе")
+h.redo();                                                       // "привіт світе"  (повторили вставку)
+
+// нова дія: замінюємо перше слово; [0, 12) — байти "привіт" в UTF-8
+h.run(std::make_unique<ReplaceRange>(doc, 0, 12, "здоров"));    // "здоров світе"
+// ↑ стопка undone очищена — того, що було скасовано раніше, вже не повернути
+
+std::cout << doc.content() << '\n';                 // "здоров світе"
+std::cout << std::boolalpha << h.canRedo() << '\n'; // false — redo-гілку стерто новою дією
+```
 :::
 
 Кожен рядок коментаря — це стан документа після дії. Простеж очима останні три: після `redo` ми знову маємо «привіт світе» й один елемент у `undone`… ні, стривай — `redo` якраз *забрав* останній елемент з `undone` назад у `done`, тож `undone` спорожніла ще там. А `ReplaceRange` — нова дія — гарантує, що навіть якби в `undone` щось лишалося, воно б зникло. Тому `canRedo()` наприкінці — `false`. Оце і є вся механіка «Ctrl+Z / Ctrl+Y», без жодного `if` за типом дії: `History` ганяє абстрактні команди, а кожна команда сама знає свій відкат.
@@ -407,6 +563,23 @@ class MacroCommand:
         for c in reversed(self.commands):  # ...і назад у ЗВОРОТНОМУ
             c.undo()
 ```
+```cpp
+class MacroCommand : public Command {
+  std::vector<std::unique_ptr<Command>> commands_;
+public:
+  explicit MacroCommand(std::vector<std::unique_ptr<Command>> commands)
+    : commands_(std::move(commands)) {}
+
+  void execute() override {
+    for (auto& c : commands_) c->execute();              // усі вперед, по порядку
+  }
+
+  void undo() override {
+    for (auto it = commands_.rbegin(); it != commands_.rend(); ++it)
+      (*it)->undo();                                     // ...і назад у ЗВОРОТНОМУ
+  }
+};
+```
 :::
 
 Той самий закон, що ми вивели на `ReplaceRange`, тут стає явним і центральним: **`undo` макросу проходить підкоманди у зворотному порядку**. Причина фізична, а не естетична. Якщо `execute` зробив A, потім B (де B міг спиратися на результат A), то коректно повернути можна лише знявши спершу B, а тоді A — як стос тарілок розбирають з верхньої. Скасуй у прямому порядку — і `undo` кожної підкоманди побачить стан, якого вона не очікує, бо пізніші дії ще не зняті. Зворотний порядок — єдиний, що гарантує кожній підкоманді рівно той світ, який був перед її власним `execute`.
@@ -431,6 +604,15 @@ capitalize_first_word = MacroCommand([
 
 h.run(capitalize_first_word)   # History бачить ОДНУ команду
 h.undo()                       # ← відкочує ВЕСЬ макрос за один Ctrl+Z
+```
+```cpp
+std::vector<std::unique_ptr<Command>> parts;
+parts.push_back(std::make_unique<DeleteLastWord>(doc));   // (умовний приклад складеної дії)
+parts.push_back(std::make_unique<AddText>(doc, 0, "ЗАГОЛОВОК "));
+auto capitalizeFirstWord = std::make_unique<MacroCommand>(std::move(parts));
+
+h.run(std::move(capitalizeFirstWord));   // History бачить ОДНУ команду
+h.undo();                                // ← відкочує ВЕСЬ макрос за один Ctrl+Z
 ```
 :::
 

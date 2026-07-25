@@ -229,9 +229,9 @@ void demo(void)
     float thd_pct = thd * 100.0f;                 // у відсотках
     float thd_db  = 20.0f * log10f(thd);          // у децибелах
 
-    // thd     ≈ 0.0140  (корінь із суми ≈ 0.0140 В при основній 1.000 В)
-    // thd_pct ≈ 1.40 %
-    // thd_db  ≈ −37.1 dB
+    // thd     ≈ 0.0132  (корінь із суми ≈ 0.0132 В при основній 1.000 В)
+    // thd_pct ≈ 1.32 %
+    // thd_db  ≈ −37.6 dB
     (void)thd_pct; (void)thd_db;
 }
 ```
@@ -259,9 +259,9 @@ def demo():
     thd_pct = thd * 100.0                  # у відсотках
     thd_db  = 20.0 * math.log10(thd)       # у децибелах
 
-    # thd     ≈ 0.0140  (корінь із суми ≈ 0.0140 В при основній 1.000 В)
-    # thd_pct ≈ 1.40 %
-    # thd_db  ≈ −37.1 dB
+    # thd     ≈ 0.0132  (корінь із суми ≈ 0.0132 В при основній 1.000 В)
+    # thd_pct ≈ 1.32 %
+    # thd_db  ≈ −37.6 dB
     return thd, thd_pct, thd_db
 ```
 ```js
@@ -286,9 +286,9 @@ function demo() {
   const thdPct = thd * 100;                // у відсотках
   const thdDb  = 20 * Math.log10(thd);     // у децибелах
 
-  // thd    ≈ 0.0140  (корінь із суми ≈ 0.0140 В при основній 1.000 В)
-  // thdPct ≈ 1.40 %
-  // thdDb  ≈ −37.1 dB
+  // thd    ≈ 0.0132  (корінь із суми ≈ 0.0132 В при основній 1.000 В)
+  // thdPct ≈ 1.32 %
+  // thdDb  ≈ −37.6 dB
   return { thd, thdPct, thdDb };
 }
 ```

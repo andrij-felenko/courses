@@ -275,6 +275,52 @@ fn to_rpn(tokens: &[Tok]) -> Vec<Tok> {
     out
 }
 ```
+```cpp
+#include <vector>
+#include <utility>
+#include <cassert>
+#include <cstddef>
+
+enum class Kind { Num, Op, LPar, RPar };
+struct Tok { Kind kind; long num = 0; char op = 0; };
+
+int prec(char c) {
+    switch (c) { case '+': case '-': return 1;
+                 case '*': case '/': return 2; default: return 0; }
+}
+int tok_prec(const Tok& t) { return t.kind == Kind::Op ? prec(t.op) : 0; }
+
+// Інфікс → постфікс. Один прохід = одна дія.
+std::vector<Tok> to_rpn(const std::vector<Tok>& tokens) {
+    std::vector<Tok> out, ops;
+    std::size_t i = 0;
+
+    while (i < tokens.size() || !ops.empty()) {
+        // варіант — ПАРА; std::pair порівнюється словниково «з коробки»
+        std::pair<std::size_t, std::size_t> v{tokens.size() - i, ops.size()};
+        bool have = i < tokens.size();
+
+        if (have && tokens[i].kind == Kind::Num) {
+            out.push_back(tokens[i]); ++i;                   // число — одразу у вихід
+        } else if (have && tokens[i].kind == Kind::LPar) {
+            ops.push_back(tokens[i]); ++i;
+        } else if (have && tokens[i].kind == Kind::RPar
+                   && !ops.empty() && ops.back().kind == Kind::LPar) {
+            ops.pop_back(); ++i;                             // дужка закрилася
+        } else if (have && tokens[i].kind == Kind::Op
+                   && (ops.empty() || ops.back().kind == Kind::LPar
+                       || tok_prec(ops.back()) < prec(tokens[i].op))) {
+            ops.push_back(tokens[i]); ++i;                   // оператор іде вгору
+        } else {
+            out.push_back(ops.back()); ops.pop_back();       // старший оператор — у вихід
+        }
+
+        // пара впала словниково (подвійні дужки — щоб коми не розбили макрос assert)
+        assert((std::pair<std::size_t, std::size_t>{tokens.size() - i, ops.size()} < v));
+    }
+    return out;
+}
+```
 :::
 
 Простежмо `3 + 4 * 2` і подивімось, що взагалі тут спадає:
@@ -290,7 +336,7 @@ fn to_rpn(tokens: &[Tok]) -> Vec<Tok> {
 +: стек → вихід      (0, 1) → (0, 0)          =      −1
 ```
 
-Лишок входу стоїть на двох кроках із семи. Стек не падає на п'ятьох із семи, ба навіть росте. Жодна колонка окремо не є варіантом. А **пара** спадає щокроку — за словниковим порядком: читання зменшує першу координату (і байдуже, що стек при цьому підріс, — менша перша координата робить меншою всю пару), а зняття зі стека лишає першу координату й зменшує другу. Обидві мови це вміють задарма: і Python, і Rust порівнюють кортежі саме словниково, тож перевірка спуску — це буквально `<` між парами, без жодного рядка нового коду.
+Лишок входу стоїть на двох кроках із семи. Стек не падає на п'ятьох із семи, ба навіть росте. Жодна колонка окремо не є варіантом. А **пара** спадає щокроку — за словниковим порядком: читання зменшує першу координату (і байдуже, що стек при цьому підріс, — менша перша координата робить меншою всю пару), а зняття зі стека лишає першу координату й зменшує другу. Усі три мови це вміють задарма: Python і Rust порівнюють кортежі словниково, а C++ дає той самий словниковий `<` для `std::pair`, — тож перевірка спуску є буквально `<` між парами, без жодного рядка нового коду.
 
 Зупинку доведено. А **межа**?
 
@@ -384,6 +430,34 @@ impl<V: Ord + Debug> Variant<V> {
     }
 }
 ```
+```cpp
+#include <optional>
+#include <utility>
+#include <cassert>
+#include <cstddef>
+
+// Строгий спад + дно + збіг із передбаченою межею.
+template <class V>
+class Variant {
+    V floor_;
+    std::optional<std::size_t> budget_;
+    std::optional<V> prev_;
+    std::size_t steps_ = 0;
+
+public:
+    explicit Variant(V floor, std::optional<std::size_t> budget = std::nullopt)
+        : floor_(std::move(floor)), budget_(budget) {}
+
+    // Викликати ПЕРШИМ рядком тіла циклу — жодна гілка не прослизне.
+    void step(const V& now) {
+        ++steps_;
+        assert(now >= floor_ && "варіант пробив дно");
+        assert((!prev_ || now < *prev_) && "варіант не впав");
+        assert((!budget_ || steps_ <= *budget_) && "перевищено передбачену межу");
+        prev_ = now;
+    }
+};
+```
 :::
 
 Місце виклику вибране не для краси. Перевірка стоїть **першим рядком тіла**, а не останнім, — і тому її не обійде жодна гілка. Останній рядок обходиться тривіально: досить `continue` десь усередині, і контроль пролітає повз. А до першого рядка потрапляє все, що заходить на новий прохід, — байдуже, звідки воно прийшло:
@@ -400,7 +474,7 @@ n = 1000, budget = ⌊log₂ 1000⌋ + 1 = 10  →  найгірше 10 прох
 n = 1000, budget = 3 (свідомо занижений) →  AssertionError: перевищено передбачену межу: 4 > 3
 ```
 
-Хибна оцінка складності перестає бути хибним рядком у коментарі й стає **падінням тесту**. І ця сама сторожа без єдиної правки бере кортеж: у Python кортежі порівнюються словниково, у Rust `V: Ord` покриває `(usize, usize)` так само.
+Хибна оцінка складності перестає бути хибним рядком у коментарі й стає **падінням тесту**. І ця сама сторожа без єдиної правки бере кортеж: у Python кортежі порівнюються словниково, у Rust `V: Ord` покриває `(usize, usize)`, а в C++ `std::pair` має словниковий `operator<` — так само.
 
 ```
 сторожа на парі:  (2, 5) → (2, 3) → (1, 99) — проходить (словниковий спад)

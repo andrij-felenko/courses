@@ -215,7 +215,7 @@ void base_driver_init(void)
 
     // Санітарна межа: якщо сховок з'їдає надто велику частку періоду —
     // цей ключ не годиться для такої частоти (див. рішення BJT/MOSFET нижче).
-    if (t_dead > (1000000000ull / PWM_TIMER_HZ) * PWM_PERIOD / 4) {
+    if (t_dead > (1000000000ull * PWM_PERIOD / PWM_TIMER_HZ) / 4) {
         fault_raise(FAULT_DEAD_TIME_TOO_LARGE);   // t_dead > 25% періоду
     }
 }

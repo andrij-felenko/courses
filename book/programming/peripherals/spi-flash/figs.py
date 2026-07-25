@@ -172,8 +172,105 @@ def fig_erase_wear():
     render(os.path.join(IMG, "erase-wear.svg"), W, H, *f)
 
 
+# ── 4. Комірка з плаваючим затвором: біт — це заряд на острівці ──────────────
+def fig_cell():
+    W, H = 820, 470
+    f = [text(W / 2, 28, "Комірка флеші: біт — це заряд на замкненому острівці", size=16, bold=True)]
+
+    def draw_cell(cx, title, bit, caption, charged, chan_open):
+        p = []
+        p.append(text(cx, 62, title, size=13, bold=True))
+        # керувальний затвор
+        p.append(rect(cx - 90, 78, 180, 28, fill="#eef2f7", stroke=LINE, sw=1.6))
+        p.append(text(cx, 96, "керувальний затвор", size=10.5))
+        # підпис плаваючого затвора (у проміжку між шарами)
+        p.append(text(cx, 120, "плаваючий затвор", size=10, color="#caa53d", bold=True))
+        # плаваючий затвор — острівець
+        p.append(rect(cx - 70, 126, 140, 38, fill="#fdf0d5", stroke="#caa53d", sw=2))
+        if charged:
+            for ex in (cx - 42, cx - 14, cx + 14, cx + 42):
+                p.append(minus(ex, 145, 7))
+        else:
+            p.append(text(cx, 149, "порожній", size=11, color=MUTED))
+        # тонкий оксид
+        p.append(rect(cx - 90, 170, 180, 16, fill="#f6e6e6", stroke=POS, sw=1.2))
+        p.append(text(cx, 182, "тонкий оксид", size=9.5, color=POS))
+        # канал
+        chan_fill = "#eef6ef" if chan_open else "#fdecea"
+        chan_col = FIELD if chan_open else POS
+        p.append(rect(cx - 90, 190, 180, 32, fill=chan_fill, stroke=chan_col, sw=1.6))
+        p.append(text(cx, 210, "канал " + ("відкритий" if chan_open else "затиснутий"),
+                      size=11, color=chan_col))
+        # біт і підпис читання
+        p.append(text(cx, 262, bit, size=32, bold=True,
+                      color=(FIELD if chan_open else POS)))
+        p.append(text(cx, 292, caption, size=11, color=MUTED))
+        return p
+
+    f += draw_cell(210, "Стерта комірка", "1", "проводить → читається 1",
+                   charged=False, chan_open=True)
+    f += draw_cell(610, "Записана комірка", "0", "не проводить → читається 0",
+                   charged=True, chan_open=False)
+
+    # перехід між станами (у проміжку між комірками)
+    f.append(arrow(330, 118, 490, 118, color=NEG, sw=2.2))
+    f.append(text(410, 108, "запис: 1 → 0", size=11, bold=True, color=NEG))
+    f.append(text(410, 138, "електрони на острівець", size=10, color=NEG))
+    f.append(arrow(490, 200, 330, 200, color=POS, sw=2.2))
+    f.append(text(410, 190, "стирання: → 1", size=11, bold=True, color=POS))
+    f.append(text(410, 220, "електрони геть, цілим блоком", size=10, color=POS))
+
+    # підсумкова стрічка про знос
+    b, _, _ = textbox(W / 2, 440,
+                      "І запис, і стирання щоразу проганяють електрони крізь тонкий оксид\n"
+                      "і трохи його псують — тому кожна комірка витримує скінченне число циклів.",
+                      size=11.5, fill="#eef6ef", stroke=FIELD, min_w=W - 80)
+    f.append(b)
+    render(os.path.join(IMG, "cell.svg"), W, H, *f)
+
+
+# ── 5. Одна / дві / чотири лінії даних: ширший тракт, а не вищий такт ─────────
+def fig_quad_spi():
+    W, H = 820, 430
+    f = [text(W / 2, 28, "Швидше — це більше ліній даних одразу", size=16, bold=True)]
+
+    rows = [
+        ("Single SPI", "1 біт / такт", 1, "×1", "0x03 READ"),
+        ("Dual SPI", "2 біти / такт", 2, "×2", "0x3B / 0xBB"),
+        ("Quad SPI", "4 біти / такт", 4, "×4", "0x6B / 0xEB"),
+    ]
+    ys = [100, 215, 330]
+    for (name, bits, n, mult, opc), cy in zip(rows, ys):
+        # назва режиму ліворуч
+        b, _, _ = textbox(120, cy, name + "\n" + bits, size=12, bold=True,
+                          fill="#eef2f7", stroke=LINE, min_w=180)
+        f.append(b)
+        # лінії даних посередині
+        maxoff = (n - 1) / 2.0 * 13
+        for i in range(n):
+            ly = cy + (i - (n - 1) / 2.0) * 13
+            f.append(arrow(255, ly, 510, ly, color=NEG, sw=2))
+        f.append(text(382, cy - maxoff - 12,
+                      ("%d лінія даних" % n) if n == 1 else ("%d лінії даних" % n),
+                      size=10, color=MUTED))
+        f.append(text(382, cy + maxoff + 22, opc, size=10, color=MUTED))
+        # прискорення праворуч
+        b, _, _ = textbox(640, cy, mult, size=20, bold=True,
+                          fill="#fdf0d5", stroke="#caa53d", min_w=80)
+        f.append(b)
+
+    b, _, _ = textbox(W / 2, 402,
+                      "Ширший тракт, а не вищий такт: піни WP# і HOLD# стають лініями IO2/IO3,\n"
+                      "і за один такт із чипа виходить 2 або 4 біти замість одного.",
+                      size=11.5, fill="#eef6ef", stroke=FIELD, min_w=W - 80)
+    f.append(b)
+    render(os.path.join(IMG, "quad-spi.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_why_chip()
     fig_command_bytes()
     fig_erase_wear()
-    print("OK: 3 фігури у", IMG)
+    fig_cell()
+    fig_quad_spi()
+    print("OK: 5 фігур у", IMG)

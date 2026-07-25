@@ -196,10 +196,84 @@ def fig_cfg_birth():
     render(os.path.join(OUT, "cfg-birth.svg"), W, H, *p, title=None)
 
 
+# ── SSA: φ зводить версії змінної в точці злиття шляхів ───────────────────────
+def fig_ssa():
+    W, H = 720, 380
+    p = []
+    p.append(text(W / 2, 26, "SSA: φ зводить версії змінної в точці злиття", size=17, bold=True))
+
+    def node(cx, cy, s, fill, col, mw=120):
+        body, w, h = textbox(cx, cy, s, size=13, fill=fill, stroke=col, sw=1.8,
+                             color=col, bold=True, min_w=mw)
+        return body
+
+    cond  = (360, 78)
+    left  = (185, 172)
+    right = (535, 172)
+    merge = (360, 262)
+    tail  = (360, 335)
+
+    # стрілки спершу (лягають під вузли); кінці — трохи поза рамками, повз чужі вузли
+    p.append(arrow(320, 94, 235, 156, color=INK, sw=1.7))    # cond → left
+    p.append(arrow(400, 94, 485, 156, color=INK, sw=1.7))    # cond → right
+    p.append(arrow(218, 188, 305, 246, color=INK, sw=1.7))   # left → merge
+    p.append(arrow(502, 188, 415, 246, color=INK, sw=1.7))   # right → merge
+    p.append(arrow(360, 280, 360, 317, color=INK, sw=1.7))   # merge → tail
+
+    p.append(node(*cond,  "якщо c ?",        "#eef4ff", NEG))
+    p.append(node(*left,  "x1 = 1",          "#eef6ef", FIELD))
+    p.append(node(*right, "x2 = 2",          "#eef6ef", FIELD))
+    p.append(node(*merge, "x3 = φ(x1, x2)",  "#fff4e0", "#d08a1a", mw=140))
+    p.append(node(*tail,  "y1 = x3 + 10",    "#eafaef", FIELD))
+
+    p.append(text(W / 2, 372,
+                  "кожен вжиток указує на одне означення — навіть коли шляхів до нього кілька",
+                  size=12, color=INK, italic=True))
+    render(os.path.join(OUT, "ssa.svg"), W, H, *p, title=None)
+
+
+# ── розподіл регістрів = розфарбування графа несумісності ─────────────────────
+def fig_coloring():
+    W, H = 720, 420
+    p = []
+    p.append(text(W / 2, 26, "Розподіл регістрів = розфарбування графа несумісності", size=16, bold=True))
+
+    a = (230, 150)
+    b = (470, 150)
+    c = (350, 290)
+    d = (585, 290)
+
+    # ребра несумісності (симетричні → без стрілок), спершу — під вузлами
+    for x1, y1, x2, y2 in [(a[0], a[1], b[0], b[1]),   # a–b
+                           (b[0], b[1], c[0], c[1]),   # b–c
+                           (a[0], a[1], c[0], c[1]),   # a–c
+                           (d[0], d[1], a[0], a[1]),   # d–a
+                           (d[0], d[1], b[0], b[1]),   # d–b
+                           (d[0], d[1], c[0], c[1])]:  # d–c
+        p.append(line(x1, y1, x2, y2, color=MUTED, sw=1.6))
+
+    def vnode(cx, cy, s, fill, col):
+        body, w, h = textbox(cx, cy, s, size=14, fill=fill, stroke=col, sw=2.2,
+                             color=col, bold=True, min_w=72)
+        return body
+
+    p.append(vnode(*a, "a\nR0",   "#eaf7ee", FIELD))
+    p.append(vnode(*b, "b\nR1",   "#eaf0fd", NEG))
+    p.append(vnode(*c, "c\nR2",   "#fff4e0", "#d08a1a"))
+    p.append(vnode(*d, "d\nстек", "#eceef0", MUTED))
+
+    p.append(text(W / 2, 402,
+                  "сусіди по ребру живі водночас → різні регістри; кому кольору не стало — у пам'ять",
+                  size=12, color=INK, italic=True))
+    render(os.path.join(OUT, "coloring.svg"), W, H, *p, title=None)
+
+
 if __name__ == "__main__":
     fig_as_if()
     fig_cascade()
     fig_scope()
     fig_fortran_bet()
     fig_cfg_birth()
+    fig_ssa()
+    fig_coloring()
     print("ok")

@@ -29,7 +29,7 @@
   --code-text: #cdd6f4;
   --ic-bg: #eef2f7;
   --ic-color: #c0392b;
-  --math: #2563eb; --comp: #0891b2; --proj: #16a34a;   /* плашки 🧮/🔌/⚙️ — темовані */
+  --math: #2563eb; --comp: #0891b2; --proj: #16a34a; --api: #d97706;   /* плашки 🧮/🔌/⚙️/📋 — темовані */
   --h2-color: #0f2744;
   --h3-color: #1d3d66;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
@@ -72,7 +72,7 @@ html[data-theme="evening"] {
   --code-bg: #271f13; --code-text: #efe1c9;
   --ic-bg: #ead7b6; --ic-color: #9c3b11;
   /* Плашки 🧮/🔌/⚙️ — вицвіле чорнило: тон збережено, насиченість приглушено під папір */
-  --math: #4f6a92; --comp: #2f7a72; --proj: #5f7d34;
+  --math: #4f6a92; --comp: #2f7a72; --proj: #5f7d34; --api: #9a6a2f;
   --shadow-sm: 0 1px 3px rgba(70,50,20,0.12); --shadow: 0 2px 10px rgba(70,50,20,0.16); --shadow-lg: 0 12px 32px rgba(70,50,20,0.24);
 }
 /* ── Нічний: темний фон, світлий текст ── */
@@ -359,14 +359,24 @@ body {
   .ch-header.ch-header-book { padding-left: 4.1rem; }
   .ch-header.ch-header-book h1 { font-size: 1.18rem; }
 }
-/* Посилання між короткою й повною (-d) версіями статті */
-.ver-link {
-  display: inline-flex; align-items: center; gap: 0.4rem; margin: 0 0 1.3rem;
-  font-size: 0.82rem; font-weight: 700; color: var(--book-accent, var(--accent));
-  text-decoration: none; padding: 0.4rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-alt);
-  transition: border-color 0.14s;
+/* Перемикач версій (коротка ↔ повна) — сегментований, зверху статті. Обидві версії
+   в кеші, перемикання миттєве (як stack). Показується лише коли Є ОБИДВІ версії. */
+.ver-switch {
+  display: inline-flex; align-items: stretch; gap: 2px;
+  margin: 0 0 1.6rem; padding: 3px;
+  background: var(--bg-alt); border: 1px solid var(--border); border-radius: 10px;
 }
-.ver-link:hover { border-color: var(--book-accent, var(--accent)); }
+.ver-switch .vs-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.82rem; font-weight: 700; color: var(--text-muted);
+  text-decoration: none; padding: 0.4rem 0.9rem; border-radius: 7px; white-space: nowrap;
+  transition: background 0.14s, color 0.14s;
+}
+.ver-switch .vs-btn:hover { color: var(--text); }
+.ver-switch .vs-btn.on {
+  background: var(--book-accent, var(--accent)); color: #fff; box-shadow: var(--shadow-sm);
+}
+.ver-switch .vs-ico { font-size: 0.98em; line-height: 1; }
 
 /* ─── Section wrapper ───────────────────────────────────────────────────── */
 .sec { max-width: 860px; margin: 0 auto; padding: 2.5rem 4rem; }
@@ -420,15 +430,17 @@ h2.hist-h {
 .callout-math { background: color-mix(in srgb, var(--math) 8%, transparent); border-left: 4px solid var(--math); }
 .callout-comp { background: color-mix(in srgb, var(--comp) 8%, transparent); border-left: 4px solid var(--comp); }
 .callout-proj { background: color-mix(in srgb, var(--proj) 8%, transparent); border-left: 4px solid var(--proj); }
+.callout-api { background: color-mix(in srgb, var(--api) 8%, transparent); border-left: 4px solid var(--api); }
 .callout-math .callout-body > strong:first-child, .callout-math .callout-body > p:first-child > strong:first-child { color: var(--math); }
 .callout-comp .callout-body > strong:first-child, .callout-comp .callout-body > p:first-child > strong:first-child { color: var(--comp); }
 .callout-proj .callout-body > strong:first-child, .callout-proj .callout-body > p:first-child > strong:first-child { color: var(--proj); }
+.callout-api .callout-body > strong:first-child, .callout-api .callout-body > p:first-child > strong:first-child { color: var(--api); }
 
 /* ── Лагідна книга (book/): вставки 📜/🏠/🧪/💡 вплетені в текст — без суцільної заливки
       і без CAPS-ярлика з першого жирного слова; лишається тонка лінія зліва + іконка ── */
 .book-mode .callout { border-radius: 0 9px 9px 0; padding: 0.7rem 1.1rem 0.7rem 1.15rem; margin: 1.5rem 0; }
 .book-mode .callout-eng, .book-mode .callout-hist, .book-mode .callout-nav,
-.book-mode .callout-math, .book-mode .callout-comp, .book-mode .callout-proj { border-left-width: 4px; }
+.book-mode .callout-math, .book-mode .callout-comp, .book-mode .callout-proj, .book-mode .callout-api { border-left-width: 4px; }
 .book-mode .callout-body > strong:first-child,
 .book-mode .callout-body > p:first-child > strong:first-child {
   display: inline; margin-bottom: 0; font-size: inherit; font-weight: 800;
@@ -640,6 +652,7 @@ body.modal-open { overflow: hidden; }
 .hist-modal.spec-math .hist-modal-share { color: var(--math); }
 .hist-modal.spec-comp .hist-modal-share { color: var(--comp); }
 .hist-modal.spec-proj .hist-modal-share { color: var(--proj); }
+.hist-modal.spec-api .hist-modal-share { color: var(--api); }
 
 /* значок «поділитися» на картці-вставці (з'являється на наведенні) */
 a.hist-teaser { position: relative; }
@@ -799,9 +812,11 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .hist-modal.spec-math .hist-modal-dialog { border-top-color: var(--math); }
 .hist-modal.spec-comp .hist-modal-dialog { border-top-color: var(--comp); }
 .hist-modal.spec-proj .hist-modal-dialog { border-top-color: var(--proj); }
+.hist-modal.spec-api .hist-modal-dialog { border-top-color: var(--api); }
 .hist-modal.spec-math .hist-modal-close, .hist-modal.spec-math .hist-art-label { color: var(--math); }
 .hist-modal.spec-comp .hist-modal-close, .hist-modal.spec-comp .hist-art-label { color: var(--comp); }
 .hist-modal.spec-proj .hist-modal-close, .hist-modal.spec-proj .hist-art-label { color: var(--proj); }
+.hist-modal.spec-api .hist-modal-close, .hist-modal.spec-api .hist-art-label { color: var(--api); }
 
 /* ─── Loading / error states ────────────────────────────────────────────── */
 .state { max-width: 860px; margin: 0 auto; padding: 5rem 4rem; text-align: center; color: var(--text-muted); }

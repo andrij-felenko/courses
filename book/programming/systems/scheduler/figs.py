@@ -172,33 +172,32 @@ def fig_freertos_rule():
 
 
 # ── tick-quantize (math): чому vTaskDelay(1) ≠ рівно 1 мс ─────────────────────
-# Ідея: виклик падає всередину тіку; відлік стартує з НАСТУПНОЇ межі.
+# Ідея: виклик падає всередину тіку; пробудження — на НАЙБЛИЖЧІЙ межі (тік+1),
+# тож пауза = недожитий залишок поточного тіку, завжди менша за повний тік.
 def fig_tick_quantize():
-    W, H = 700, 280
+    W, H = 700, 260
     p = []
     ox, oy = 60, 150
-    aw = W - 100
+    aw = W - 120
     p.append(arrow(ox, oy, ox + aw, oy, color=INK, sw=1.6))
     p.append(text(ox + aw, oy + 22, "час", size=12, italic=True, color=INK))
-    n = 6
+    n = 4
     dx = aw / n
     for i in range(n + 1):
         x = ox + i * dx
         p.append(line(x, oy - 14, x, oy + 14, color=POS, sw=2))
         p.append(text(x, oy + 30, "тік %d" % i, size=10, color=POS))
-    # момент виклику всередині тіку 0
+    # момент виклику всередині тіку 0 (фаза 0.3)
     cx = ox + 0.3 * dx
-    p.append(line(cx, oy - 60, cx, oy + 14, color=NEG, sw=2, dash="4 3"))
-    p.append(text(cx, oy - 66, "виклик vTaskDelay(1)", size=11, color=NEG))
-    # очікування до межі + один тік
-    p.append(arrow(cx, oy - 36, ox + dx, oy - 36, color=MUTED, sw=1.6))
-    p.append(text((cx + ox + dx) / 2, oy - 42, "до межі", size=10, color=MUTED))
-    p.append(arrow(ox + dx, oy - 36, ox + 2 * dx, oy - 36, color=FIELD, sw=2))
-    p.append(text(ox + 1.5 * dx, oy - 42, "+1 тік", size=10, color=FIELD))
-    # пробудження
-    px = ox + 2 * dx
-    p.append(circle(px, oy, 4, fill=FIELD, stroke=FIELD))
-    p.append(text(px + 6, oy - 20, "пробудження", size=11, color=FIELD, anchor="start"))
+    p.append(line(cx, oy - 66, cx, oy + 14, color=NEG, sw=2, dash="4 3"))
+    p.append(text(cx, oy - 72, "виклик vTaskDelay(1)", size=11, color=NEG))
+    # пауза = від виклику до НАЙБЛИЖЧОЇ межі (тік 1)
+    wx = ox + dx
+    p.append(arrow(cx, oy - 40, wx, oy - 40, color=FIELD, sw=2))
+    p.append(text((cx + wx) / 2, oy - 46, "пауза < 1 тік", size=10, color=FIELD))
+    # пробудження на межі тіку 1
+    p.append(circle(wx, oy, 4, fill=FIELD, stroke=FIELD))
+    p.append(text(wx + 8, oy - 22, "пробудження на найближчій межі", size=11, color=FIELD, anchor="start"))
     p.append(text(ox + aw / 2, H - 16, "реальна пауза від виклику ∈ (0, 1] мс  →  гарантовано ≥1 мс дає vTaskDelay(2)",
                   size=12, color=INK))
     render(os.path.join(OUT, "tick-quantize.svg"), W, H, *p)

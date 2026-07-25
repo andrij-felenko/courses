@@ -230,7 +230,7 @@ enrollDevice(home-7, dev-42)
 :::tabs
 ```ts
 type Step = { name: string; run: () => Promise<void>; comp: () => Promise<void> };
-type SagaState = { cursor: number; status: "running" | "committed" | "compensated" };
+type SagaState = { cursor: number; status: "running" | "compensating" | "committed" | "compensated" };
 
 class Store {                                 // «диск» — переживає смерть процесу саги
   private db = new Map<string, SagaState>();
@@ -242,6 +242,11 @@ class ProcessKilled extends Error {}          // імітація жорстко
 
 async function runSaga(id: string, steps: Step[], store: Store) {
   const st = store.load(id) ?? { cursor: 0, status: "running" as const };
+
+  // ── ВІДРОДЖЕННЯ: диск каже не лише «доки дійшло» (cursor), а й «куди йшло» (status) ──
+  if (st.status === "committed" || st.status === "compensated") return;   // уже завершено
+  if (st.status === "compensating") { await rollBack(id, steps, store, st); return; }  // помер ПОСЕРЕД відкоту → дороби відкіт, не прямий хід
+
   try {
     while (st.cursor < steps.length) {
       await steps[st.cursor].run();
@@ -251,14 +256,21 @@ async function runSaga(id: string, steps: Step[], store: Store) {
     st.status = "committed"; store.save(id, st);
   } catch (err) {
     if (err instanceof ProcessKilled) { store.save(id, st); throw err; }  // не відкіт — процес помер, диск лишився
-    while (st.cursor > 0) {                    // бізнес-збій → компенсуємо зворотним порядком
-      st.cursor -= 1;
-      await steps[st.cursor].comp();
-      store.save(id, st);                      // прогрес відкоту теж лягає на диск
-    }
-    st.status = "compensated"; store.save(id, st);
+    st.status = "compensating"; store.save(id, st);   // ← спершу зафіксуй НАПРЯМОК на диску, тоді відкочуй
+    await rollBack(id, steps, store, st);
     throw err;
   }
+}
+
+// Відкіт зворотним порядком. Сюди веде ДВА шляхи: свіжий бізнес-збій (щойно вгорі)
+// і відродження процесу, що помер посеред цього самого відкоту.
+async function rollBack(id: string, steps: Step[], store: Store, st: SagaState) {
+  while (st.cursor > 0) {
+    st.cursor -= 1;
+    await steps[st.cursor].comp();
+    store.save(id, st);                       // прогрес відкоту теж лягає на диск
+  }
+  st.status = "compensated"; store.save(id, st);
 }
 
 const step = (name: string, run: () => Promise<void>, comp: () => Promise<void>): Step =>
@@ -278,6 +290,13 @@ class ProcessKilled(Exception):               # імітація жорстко�
 
 async def run_saga(sid, steps, store):
     st = store.load(sid) or {"cursor": 0, "status": "running"}
+
+    # ── ВІДРОДЖЕННЯ: диск каже не лише «доки дійшло» (cursor), а й «куди йшло» (status) ──
+    if st["status"] in ("committed", "compensated"):
+        return                                          # уже завершено
+    if st["status"] == "compensating":
+        await _roll_back(sid, steps, store, st); return # помер ПОСЕРЕД відкоту → дороби відкіт, не прямий хід
+
     try:
         while st["cursor"] < len(steps):
             await steps[st["cursor"]].run()
@@ -287,12 +306,19 @@ async def run_saga(sid, steps, store):
     except ProcessKilled:                     # не відкіт — процес помер, диск лишився
         store.save(sid, st); raise
     except Exception:                         # бізнес-збій → компенсуємо зворотним порядком
-        while st["cursor"] > 0:
-            st["cursor"] -= 1
-            await steps[st["cursor"]].comp()
-            store.save(sid, st)               # прогрес відкоту теж лягає на диск
-        st["status"] = "compensated"; store.save(sid, st)
+        st["status"] = "compensating"; store.save(sid, st)   # ← спершу зафіксуй НАПРЯМОК на диску, тоді відкочуй
+        await _roll_back(sid, steps, store, st)
         raise
+
+
+# Відкіт зворотним порядком. Сюди веде ДВА шляхи: свіжий бізнес-збій (щойно вгорі)
+# і відродження процесу, що помер посеред цього самого відкоту.
+async def _roll_back(sid, steps, store, st):
+    while st["cursor"] > 0:
+        st["cursor"] -= 1
+        await steps[st["cursor"]].comp()
+        store.save(sid, st)                   # прогрес відкоту теж лягає на диск
+    st["status"] = "compensated"; store.save(sid, st)
 ```
 :::
 
@@ -314,6 +340,25 @@ async def run_saga(sid, steps, store):
 ```
 
 Ось де діра затулилася. Перший процес помер, лишивши на диску `cursor = 1`. Другий процес — це може бути перезапущений контейнер за секунду чи за годину — читає той запис і **доводить сагу до кінця**, не переробляючи вже зроблене. Жодного сироти. А коли впаде не процес, а **крок** (той самий хаб недоступний), гілка бізнес-збою відкотить зроблене зворотним порядком і запише `compensated` — і цей відкіт теж фіксується покроково, тож переживе смерть **посеред самого відкоту**.
+
+Але це «переживе» варте того, щоб його **побачити** — бо тут причаїлася найтонша пастка довговічного рушія. Відкіт **теж** може обірватися посеред себе: процес гине не на прямому ході, а вже відкочуючи назад. Тому на диску лежить не лише `cursor` («доки дійшло»), а й `status` («куди йшло»): щойно починається відкіт, рушій пише `compensating` **перед** першою компенсацією. Відродження читає цей прапорець і знає — не вертатись у прямий цикл, а **доробляти відкіт** із того самого `cursor`:
+
+```
+процес A:  runSaga("saga-99")                ← хаб недоступний, пішов відкіт
+  reserve ✓                → диск: { cursor: 1, running }
+  config  ✓                → диск: { cursor: 2, running }
+  meter   ✗ «бізнес-збій»  → диск: { cursor: 2, compensating }   ← НАПРЯМОК зафіксовано ПЕРШ за відкіт
+  comp config ✓            → диск: { cursor: 1, compensating }
+  💀 процес помер під час comp reserve
+диск лишився:  { cursor: 1, compensating }   ← «ще відкочуюсь, дійшов до 1»
+
+процес B:  runSaga("saga-99")                ← ВІДРОДЖЕННЯ (той самий id)
+  status = compensating → доробляє ВІДКІТ, не прямий хід
+  comp reserve ✓           → диск: { cursor: 0, compensated }
+підсумок:  reserved = configured = {} ;  статус: compensated   ← відкіт добито
+```
+
+Прибери прапорець напрямку — і процес B прочитав би `{ cursor: 1, running }`, поліз би `while cursor < steps.length` **уперед** і виконав би `config` **удруге**, замість докотити відкіт: рівно навпаки того, що обіцяно. Один біт «куди йшло» на диску — і смерть посеред відкоту стає такою самою знімною паузою, як смерть посеред прямого ходу.
 
 > 🔧 **Навіщо це.** «Оркестрація» на співбесіді часто звучить як «одна функція з try/catch» — і це наївний варіант, у якому стан живе в пам'яті. Різниця між ним і бойовою оркестрацією — рівно один рядок думки: **де лежить cursor саги.** У наївного — у стеку, тож смерть процесу = сирота; у довговічного — на диску, тож смерть процесу = пауза, яку відродження знімає. Ось чому «оркестрація» сьогодні майже завжди означає «оркестрація на довговічному рушії»: не тому, що так модно, а тому, що без стійкого журналу оркестратор не переживе власної смерті — а він мусить.
 

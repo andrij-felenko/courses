@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Читач</title>
 <script>try{var d=document.documentElement;d.setAttribute('data-theme',localStorage.getItem('courses-theme')||'day');d.setAttribute('data-density',localStorage.getItem('courses-density')||'cozy');if(localStorage.getItem('courses-sidebar-hidden')==='1')d.classList.add('sb-hidden')}catch(e){}</script>
-<link rel="stylesheet" href="book.css?v=41">
+<link rel="stylesheet" href="book.css?v=42">
 <link rel="stylesheet" href="search.css?v=4">
 <link rel="stylesheet" href="dense.css?v=7">
 </head>
@@ -37,7 +37,7 @@
       if (!b) { content.innerHTML = '<div class="state error">Книгу не знайдено</div>'; return; }
       if (courseSlug && arr[1]) b.course = { slug: courseSlug, title: arr[1].title, modules: arr[1].modules || arr[1].sections || [] };
       window.BOOK = b;
-      var s = document.createElement("script"); s.src = "book.js?v=32"; document.body.appendChild(s);
+      var s = document.createElement("script"); s.src = "book.js?v=33"; document.body.appendChild(s);
     });
   } else if (p.get("guide")) {
     var gslug = p.get("guide");
@@ -48,7 +48,7 @@
         if (!b) { content.innerHTML = '<div class="state error">Курс не знайдено</div>'; return; }
         b.course = { slug: gslug, title: g.title, modules: g.modules || g.sections || [] };   // курсовий сайдбар/навігація і для власних статей
         window.BOOK = b;
-        var s = document.createElement("script"); s.src = "book.js?v=32"; document.body.appendChild(s);
+        var s = document.createElement("script"); s.src = "book.js?v=33"; document.body.appendChild(s);
       });
     } else {
       loadGuide(gslug).then(function (g) { renderGuide(g); });   // лендинг курсу (доріжка модулів/кроків)

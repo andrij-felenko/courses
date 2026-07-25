@@ -657,111 +657,6 @@ def fig_rrl_secondary():
            title="Пом'якшення несе власний ризик, і він з'їдає важіль")
 
 
-# ── MATH-вставка (mitigation-economics): Фігура 14 — EVPI через дерево рішень ────
-def fig_evpi_tree():
-    W, H = 1000, 580
-    frags = []
-
-    def leaf(cx, cy, txt, chosen):
-        col = FIELD if chosen else MUTED
-        fil = "#eaf3ec" if chosen else "#eef1f5"
-        body, w, h = textbox(cx, cy, txt, size=11, fill=fil, stroke=col, sw=1.7, bold=chosen)
-        return body
-
-    def dsq(cx, cy, stroke=INK, sw=2.2, fill="#eef1f5"):
-        return rect(cx - 16, cy - 16, 32, 32, fill=fill, stroke=stroke, sw=sw, rx=4)
-
-    # ── ЛІВЕ дерево: вибір → доля ──
-    frags.append(text(250, 70, "Рішуємо наосліп: спершу вибір, тоді доля", size=13, bold=True))
-    sqx, sqy = 90, 250
-    pcx, pcy = 245, 165
-    ncx, ncy = 245, 360
-    frags.append(line(sqx + 16, sqy - 24, pcx - 15, pcy + 6, color=FIELD, sw=2.2))
-    frags.append(line(sqx + 16, sqy + 24, ncx - 15, ncy - 6, color=MUTED, sw=1.5, dash="5 4"))
-    frags.append(line(pcx + 13, pcy - 6, 372, 122, color=FIELD, sw=1.8))
-    frags.append(line(pcx + 13, pcy + 6, 372, 212, color=FIELD, sw=1.8))
-    frags.append(line(ncx + 13, ncy - 6, 372, 320, color=MUTED, sw=1.4, dash="5 4"))
-    frags.append(line(ncx + 13, ncy + 6, 372, 410, color=MUTED, sw=1.4, dash="5 4"))
-    frags.append(dsq(sqx, sqy))
-    frags.append(circle(pcx, pcy, 15, fill="#eaf3ec", stroke=FIELD, sw=2.2))
-    frags.append(circle(ncx, ncy, 15, fill="#eef1f5", stroke=MUTED, sw=1.8))
-    frags.append(leaf(420, 122, "рел 0.6\n→ 100", True))
-    frags.append(leaf(420, 212, "kv 0.4\n→ 400", True))
-    frags.append(leaf(420, 320, "рел 0.6\n→ 460", False))
-    frags.append(leaf(420, 410, "kv 0.4\n→ 140", False))
-    frags.append(text(pcx, pcy - 26, "Postgres", size=11, color=FIELD, bold=True))
-    frags.append(text(ncx, ncy + 34, "NoSQL", size=11, color=MUTED, bold=True))
-    frags.append(text(250, 500, "E[Postgres] = 220  (беремо)   ·   E[NoSQL] = 332", size=12, bold=True))
-
-    frags.append(line(495, 90, 495, 470, color="#d0d0d0", sw=1.2, dash="4 4"))
-
-    # ── ПРАВЕ дерево: доля → вибір ──
-    frags.append(text(760, 70, "Спершу питаємо ясновидця: доля → вибір", size=13, bold=True))
-    ccx, ccy = 575, 250
-    rsx, rsy = 730, 165
-    ksx, ksy = 730, 360
-    frags.append(line(ccx + 15, ccy - 6, rsx - 16, rsy + 8, color=INK, sw=1.8))
-    frags.append(line(ccx + 15, ccy + 6, ksx - 16, ksy - 8, color=INK, sw=1.8))
-    frags.append(line(rsx + 16, rsy - 8, 852, 122, color=FIELD, sw=1.8))
-    frags.append(line(rsx + 16, rsy + 8, 852, 212, color=MUTED, sw=1.4, dash="5 4"))
-    frags.append(line(ksx + 16, ksy - 8, 852, 320, color=MUTED, sw=1.4, dash="5 4"))
-    frags.append(line(ksx + 16, ksy + 8, 852, 410, color=FIELD, sw=1.8))
-    frags.append(circle(ccx, ccy, 15, fill="#eef1f5", stroke=INK, sw=2))
-    frags.append(dsq(rsx, rsy))
-    frags.append(dsq(ksx, ksy))
-    frags.append(leaf(900, 122, "Postgres\n→ 100", True))
-    frags.append(leaf(900, 212, "NoSQL\n→ 460", False))
-    frags.append(leaf(900, 320, "Postgres\n→ 400", False))
-    frags.append(leaf(900, 410, "NoSQL\n→ 140", True))
-    frags.append(text(rsx - 4, rsy - 26, "рел 0.6", size=11, color=INK, bold=True))
-    frags.append(text(ksx - 4, ksy + 34, "kv 0.4", size=11, color=INK, bold=True))
-    frags.append(text(760, 500, "знаємо рел → 100   ·   знаємо kv → 140   ·   E = 116", size=12, bold=True))
-
-    box, w, h = textbox(W / 2, 545, "EVPI = 220 − 116 = 104   —   стеля ціни правди",
-                        size=15, fill="#fdecea", stroke=POS, sw=2, bold=True, color=INK)
-    frags.append(box)
-    render(os.path.join(IMG, "evpi-tree.svg"), W, H, *frags,
-           title="EVPI: та сама задача, лише порядок «вибір/доля» переставлено")
-
-
-# ── MATH-вставка (mitigation-economics): Фігура 15 — EVPI як стеля розвідки ──────
-def fig_evpi_ceiling():
-    W, H = 880, 500
-    frags = []
-    x0, xr = 120, 820
-    baseY, capY = 380, 112
-    scaleV = (baseY - capY) / 104.0
-
-    def hy(v):
-        return baseY - v * scaleV
-
-    frags.append(line(x0, baseY, xr, baseY, color=MUTED, sw=1.5))
-    frags.append(line(x0, capY, xr, capY, color=POS, sw=2, dash="7 4"))
-    frags.append(text((x0 + xr) / 2, capY - 12,
-                     "EVPI = 104 — стеля цінності будь-якої інформації", size=13, color=POS, bold=True))
-    probes = [
-        ("Синтетичний\nбенчмарк", 45),
-        ("Тест на копії\nбойових даних", 80),
-        ("Walking skeleton\nна живому патерні", 100),
-    ]
-    bw = 150
-    slot = (xr - x0) / len(probes)
-    for i, (name, evsi) in enumerate(probes):
-        cx = x0 + slot * (i + 0.5)
-        frags.append(rect(cx - bw / 2, hy(evsi), bw, baseY - hy(evsi), fill="#eaf3ec", stroke=FIELD, sw=1.8, rx=4))
-        frags.append(text(cx, hy(evsi) + 22, "EVSI ≈ %d" % evsi, size=13, color=FIELD, bold=True))
-        frags.append(fitbox(cx - bw / 2, baseY + 8, bw, 42, name, size=11, fill="none", stroke="none", color=INK))
-    costY = hy(15)
-    frags.append(line(x0, costY, xr, costY, color=NEG, sw=1.5, dash="4 4"))
-    frags.append(text(xr, costY - 7, "ціна проби ≈ 15", size=11, color=NEG, anchor="end", bold=True))
-    frags.append(fitbox(x0, baseY + 58, xr - x0, 46,
-                        "Жодна проба не варта більше за стелю EVPI. Що прямніше проба міряє те,\n"
-                        "чого боїшся, — то ближча її цінність до стелі, а недосконала завжди нижча.",
-                        size=12, fill="none", stroke="none", color=INK))
-    render(os.path.join(IMG, "evpi-ceiling.svg"), W, H, *frags,
-           title="EVPI — верхня межа цінності будь-якої розвідки")
-
-
 # ── PROJ-вставка: Фігура 16 — два режими калькулятора (дешеве середнє / дорогий хвіст) ─
 def fig_two_regimes():
     W, H = 900, 470
@@ -887,8 +782,6 @@ if __name__ == "__main__":
     fig_math_reserve_band()
     fig_rrl_queue()
     fig_rrl_secondary()
-    fig_evpi_tree()
-    fig_evpi_ceiling()
     fig_two_regimes()
     fig_mc_reserve()
     print("figs done")

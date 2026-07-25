@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три режими одного контролера: хто зараз крутить шпаруватість</text>
+<line x1="276.5" y1="143.0" x2="364.0" y2="143.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="574.0" y1="143.0" x2="669.0" y2="143.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="317.5" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">I_бат уперся в ліміт</text>
+<text x="622.5" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">V_бат = V_повна</text>
+<rect x="57.5" y="128.9" width="215.0" height="52.2" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="165.0" y="150.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">MPPT</tspan><tspan x="165.0" dy="18.2">стеження за піком</tspan></text>
+<rect x="370.0" y="128.9" width="200.0" height="52.2" rx="6" fill="#fff8e1" stroke="#b8860b" stroke-width="1.5"/><text x="470.0" y="150.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">CC</tspan><tspan x="470.0" dy="18.2">струмовий ліміт</tspan></text>
+<rect x="675.0" y="128.9" width="200.0" height="52.2" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="775.0" y="150.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="775.0" dy="0.0">CV</tspan><tspan x="775.0" dy="18.2">напруга повна</tspan></text>
+<line x1="775.0" y1="181.1" x2="775.0" y2="233.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="470.0" y1="181.1" x2="470.0" y2="233.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="775.0" y1="233.0" x2="165.0" y2="233.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="165.0" y1="233.0" x2="165.0" y2="183.1" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="470.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">панель уже не тягне ліміт  •  V просіла нижче (V_повна − гістерезис)</text>
+<text x="470.0" y="309.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">кермо шпаруватістю віддає то P&amp;O, то регулятор струму, то регулятор напруги — з гістерезисом на стиках</text>
+</svg>

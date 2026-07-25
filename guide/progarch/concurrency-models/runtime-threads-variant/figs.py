@@ -169,8 +169,71 @@ def fig_two_roads():
            title="Дві дороги від стіни C10K: викинути блокування — чи здешевити потік")
 
 
+# ── Фігура 4: життя потоку на з'єднанні — сон на read, стек висить у RAM ──────
+def fig_blocking():
+    W, H = 960, 490
+    f = []
+    x0 = 95
+
+    # межі сегментів у часі (блок >> робота — у цьому вся суть)
+    r1a, r1b = 95, 175     # робота 1
+    b1a, b1b = 175, 455    # сон 1
+    r2a, r2b = 455, 535    # робота 2
+    b2a, b2b = 535, 815    # сон 2
+
+    yA, hA = 118, 58       # смуга «Потік» (стан)
+    yB, hB = 206, 58       # смуга «CPU»
+    yC, hC = 294, 54       # смуга «RAM»
+    cA, cB, cC = yA + hA / 2, yB + hB / 2, yC + hC / 2
+
+    # ── підписи смуг ліворуч ──
+    f.append(text(16, cA + 4, "Потік", size=13, bold=True, anchor="start"))
+    f.append(text(16, cB + 4, "CPU", size=13, bold=True, anchor="start"))
+    f.append(text(16, cC + 4, "RAM", size=13, bold=True, anchor="start"))
+
+    # ── верхня стрічка: що діється на переходах ──
+    tb1, _, _ = textbox(175, 78, "read: даних нема —\nпотік знято з черги",
+                        size=12, fill=BG, stroke=MUTED, color=MUTED)
+    tb2, _, _ = textbox(455, 78, "кадр прийшов (IRQ) —\nпотік знову в черзі",
+                        size=12, fill=BG, stroke=MUTED, color=MUTED)
+    f += [tb1, tb2]
+    f.append(arrow(175, 103, 175, 116, color=MUTED, sw=1.6))
+    f.append(arrow(455, 103, 455, 116, color=MUTED, sw=1.6))
+
+    # ── смуга A: стан потоку ──
+    f.append(fitbox(r1a, yA, r1b - r1a, hA, "робота", fill=GREEN_BG, stroke=FIELD))
+    f.append(fitbox(b1a, yA, b1b - b1a, hA, "спить на read", fill=FILL, stroke=MUTED))
+    f.append(fitbox(r2a, yA, r2b - r2a, hA, "робота", fill=GREEN_BG, stroke=FIELD))
+    f.append(fitbox(b2a, yA, b2b - b2a, hA, "спить на read", fill=FILL, stroke=MUTED))
+    f.append(text(850, cA + 6, "…", size=20, color=MUTED))
+
+    # ── смуга B: ядро CPU ──
+    f.append(fitbox(r1a, yB, r1b - r1a, hB, "рахує", fill=GREEN_BG, stroke=FIELD))
+    f.append(fitbox(b1a, yB, b1b - b1a, hB, "вільне — потік поза чергою",
+                    fill=BG, stroke=MUTED, color=MUTED))
+    f.append(fitbox(r2a, yB, r2b - r2a, hB, "рахує", fill=GREEN_BG, stroke=FIELD))
+    f.append(fitbox(b2a, yB, b2b - b2a, hB, "вільне — потік поза чергою",
+                    fill=BG, stroke=MUTED, color=MUTED))
+    f.append(text(850, cB + 6, "…", size=20, color=MUTED))
+
+    # ── смуга C: стек у RAM — суцільна, весь час ──
+    f.append(fitbox(x0, yC, 795, hC,
+                    "стек з'єднання ≈ 1 МБ — тримається в RAM увесь час",
+                    fill=RED_BG, stroke=POS))
+
+    # ── підсумок ──
+    f.append(fitbox(x0, 384, 795, 62,
+                    "Поки з'єднання спить, ядро вільне — потік не з'їдає такти; зате стек висить у RAM увесь час.\n"
+                    "Сам потік ще й прив'язаний до з'єднання. Тому море сплячих з'єднань марнує пам'ять, а не такти.",
+                    size=13, fill=FILL, stroke=LINE))
+
+    render(os.path.join(IMG, "blocking-lifecycle.svg"), W, H, *f,
+           title="Життя потоку на з'єднанні: спалахи роботи, довгий сон на read")
+
+
 if __name__ == "__main__":
     fig_wall()
     fig_lock()
     fig_two_roads()
-    print("OK: threads-wall.svg, lock-serializes.svg, hist-two-roads.svg")
+    fig_blocking()
+    print("OK: threads-wall.svg, lock-serializes.svg, hist-two-roads.svg, blocking-lifecycle.svg")

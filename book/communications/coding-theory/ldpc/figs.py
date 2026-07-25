@@ -726,6 +726,174 @@ def fig_cycle_echo():
            title="Короткий цикл: те саме свідчення враховане двічі")
 
 
+# ── staircase: сходове (IRA) кодування — паритет одним проходом ───────────────
+
+def fig_staircase():
+    W, H = 900, 470
+    p = []
+
+    # H = [ A | B ]:  A — інфо-блок, B — сходовий паритетний блок (діагональ+піддіагональ)
+    A = [[0, 1], [1, 2], [0, 2], [0, 1, 2]]      # яких інфо-бітів торкається перевірка
+    B = [[0], [0, 1], [1, 2], [2, 3]]            # сходи
+    NR, KA, KB = 4, 3, 4
+    cw = 40
+    mx, my = 66, 132
+    bx = mx + KA * cw + 40                        # старт блоку B (з проміжком)
+
+    p.append(text(mx + KA * cw / 2, my - 44, "блок A · інформація", size=13, color=VSTRK, bold=True))
+    p.append(text(bx + KB * cw / 2, my - 44, "блок B · паритет (сходи)", size=13, color=CSTRK, bold=True))
+    for j in range(KA):
+        p.append(text(mx + j * cw + cw / 2, my - 16, "s%d" % j, size=12, color=VSTRK, bold=True))
+    for j in range(KB):
+        p.append(text(bx + j * cw + cw / 2, my - 16, "p%d" % j, size=12, color=CSTRK, bold=True))
+
+    for r in range(NR):
+        ry = my + r * cw
+        p.append(text(mx - 18, ry + cw / 2 + 4, "c%d" % r, size=12, color=INK, bold=True, anchor="end"))
+        for j in range(KA):
+            on = j in A[r]
+            x = mx + j * cw
+            p.append(rect(x, ry, cw, cw, fill="#eafaf0" if on else BG,
+                          stroke=VSTRK if on else "#dfe3e8", sw=1.8 if on else 1.0, rx=4))
+            if on:
+                p.append(circle(x + cw / 2, ry + cw / 2, 6, fill=VSTRK, stroke=VSTRK, sw=1.0))
+        for j in range(KB):
+            on = j in B[r]
+            x = bx + j * cw
+            p.append(rect(x, ry, cw, cw, fill="#eef4ff" if on else BG,
+                          stroke=CSTRK if on else "#dfe3e8", sw=1.8 if on else 1.0, rx=4))
+            if on:
+                p.append(circle(x + cw / 2, ry + cw / 2, 6, fill=CSTRK, stroke=CSTRK, sw=1.0))
+
+    dvx = mx + KA * cw + 20
+    p.append(line(dvx, my - 6, dvx, my + NR * cw + 6, color="#aeb6c0", sw=1.4, dash="4 4"))
+
+    box, bw, bh = textbox(700, my + 42,
+                          "накопичення, один прохід згори вниз:\n"
+                          "   p0 = z0\n"
+                          "   pi = zi ⊕ p(i−1)\n"
+                          "s = 1 0 1  →  z = 1 1 0 0\n"
+                          "        →  p = 1 0 0 0",
+                          size=13, fill="#f6f4ec", stroke=INK, sw=1.6, pad=13)
+    p.append(box)
+
+    box2, _, _ = textbox(W / 2, H - 40,
+                         "сходовий блок B (діагональ + піддіагональ) → паритет це біжучий XOR:\n"
+                         "один прохід замість обернення матриці — лінійна ціна замість квадратної",
+                         size=12.5, bold=True, fill="#eafaf0", stroke=FIELD, sw=1.8, pad=12)
+    p.append(box2)
+
+    render(os.path.join(OUT, "staircase.svg"), W, H, *p,
+           title="Сходове кодування: паритет одним проходом")
+
+
+# ── qc-lifting: базова матриця зсувів → велика розріджена H ───────────────────
+
+def fig_qc_lifting():
+    W, H = 900, 460
+    Z = 4
+    base = [[0, -1, 2, -1], [1, 0, -1, 3]]
+    BR, BC = 2, 4
+    p = []
+
+    # ліворуч: базова матриця (числа-зсуви)
+    cw = 44
+    mx, my = 58, 156
+    p.append(text(mx + BC * cw / 2, my - 26, "базова матриця (зсуви)", size=13, color=INK, bold=True))
+    for r in range(BR):
+        for c in range(BC):
+            v = base[r][c]
+            x, y = mx + c * cw, my + r * cw
+            empty = (v < 0)
+            p.append(rect(x, y, cw, cw, fill=BG if empty else "#eef4ff",
+                          stroke="#dfe3e8" if empty else CSTRK, sw=1.0 if empty else 1.8, rx=4))
+            p.append(text(x + cw / 2, y + cw / 2 + 5, "−" if empty else str(v), size=15,
+                          color=MUTED if empty else CSTRK, bold=not empty))
+
+    # стрілка
+    ax = mx + BC * cw + 28
+    p.append(arrow(ax, my + BR * cw / 2, ax + 74, my + BR * cw / 2, sw=2.2))
+    p.append(text(ax + 37, my + BR * cw / 2 - 14, "підняття", size=12, color=INK, bold=True))
+    p.append(text(ax + 37, my + BR * cw / 2 + 24, "Z = 4", size=12, color=INK))
+
+    # праворуч: розгорнута H
+    gx, gy, gc = ax + 98, 76, 15
+    NR, NC = BR * Z, BC * Z
+    p.append(text(gx + NC * gc / 2, gy - 16, "матриця H після підняття", size=13, color=INK, bold=True))
+    for r in range(NR):
+        for c in range(NC):
+            br, bc = r // Z, c // Z
+            i, jj = r % Z, c % Z
+            v = base[br][bc]
+            on = (v >= 0) and (jj == (i + v) % Z)
+            x, y = gx + c * gc, gy + r * gc
+            p.append(rect(x, y, gc, gc, fill=BG, stroke="#eceef1", sw=0.6, rx=0))
+            if on:
+                p.append(circle(x + gc / 2, y + gc / 2, 4.2, fill=CSTRK, stroke=CSTRK, sw=1.0))
+    for bc in range(BC + 1):
+        x = gx + bc * Z * gc
+        p.append(line(x, gy, x, gy + NR * gc, color="#aeb6c0", sw=1.3))
+    for br in range(BR + 1):
+        y = gy + br * Z * gc
+        p.append(line(gx, y, gx + NC * gc, y, color="#aeb6c0", sw=1.3))
+
+    box, _, _ = textbox(W / 2, H - 34,
+                        "кожне число s → циркулянт Z×Z (одиниці на діагоналі, зсунутій на s)  ·  кожне −1 → порожній блок Z×Z",
+                        size=12.5, bold=True, fill="#f6f4ec", stroke=INK, sw=1.8, pad=12)
+    p.append(box)
+
+    render(os.path.join(OUT, "qc-lifting.svg"), W, H, *p,
+           title="Квазіциклічне підняття: жменя чисел → велика розріджена H")
+
+
+# ── irregular-degree: регулярний проти нерегулярного — степінь як важіль ──────
+
+def fig_irregular():
+    W, H = 900, 470
+    p = []
+    p.append(line(W / 2, 52, W / 2, 372, color="#dfe3e8", sw=1.5, dash="5 5"))
+
+    def panel(cx, title, degs, hub, col):
+        out = [text(cx, 66, title, size=14, color=col, bold=True)]
+        band_y, band_h, bw = 94, 26, 300
+        out.append(rect(cx - bw / 2, band_y, bw, band_h, fill="#eef4ff", stroke=CSTRK, sw=1.4, rx=6))
+        out.append(text(cx, band_y + band_h / 2 + 4, "вузли-перевірки", size=11.5, color=CSTRK, italic=True))
+        n = len(degs)
+        x0, x1 = cx - bw / 2 + 26, cx + bw / 2 - 26
+        xs = [x0 + i * (x1 - x0) / (n - 1) for i in range(n)]
+        by = 250
+        for i, (bxc, d) in enumerate(zip(xs, degs)):
+            ishub = (i == hub)
+            for k in range(d):
+                off = (k - (d - 1) / 2) * 7.0
+                out.append(line(bxc + off, by - 18, bxc + off, band_y + band_h,
+                                color=BADSTRK if ishub else "#9aa2ad", sw=2.0 if ishub else 1.4))
+            out.append(circle(bxc, by, 17, fill=BADFILL if ishub else VFILL,
+                              stroke=BADSTRK if ishub else VSTRK, sw=2.6 if ishub else 2.0))
+            out.append(text(bxc, by + 5, "b%d" % i, size=11, color=BADSTRK if ishub else VSTRK, bold=True))
+            out.append(text(bxc, by + 34, "×%d" % d, size=11, color=INK))
+        return out
+
+    p.extend(panel(238, "регулярний: усім порівну", [3, 3, 3, 3, 3], -1, VSTRK))
+    p.extend(panel(662, "нерегулярний: кілька хабів", [2, 2, 6, 2, 1], 2, BADSTRK))
+
+    b, _, _ = textbox(238, 344, "кожен біт — 3 ребра\n(рівний степінь)", size=12.5, bold=True,
+                      fill="#eafaf0", stroke=FIELD, sw=1.6, pad=11)
+    p.append(b)
+    b2, _, _ = textbox(662, 344, "хаб b2 — 6 ребер: твердне швидко\nй тримає решту як опора", size=12.5,
+                       bold=True, fill=BADFILL, stroke=BADSTRK, sw=1.6, pad=11)
+    p.append(b2)
+
+    b3, _, _ = textbox(W / 2, H - 42,
+                       "λ(x) задає, яка частка ребер веде до бітів кожного степеня;\n"
+                       "нерівність степенів родить «опори», яких у регулярному коді немає",
+                       size=12.5, bold=True, fill="#f6f4ec", stroke=INK, sw=1.8, pad=12)
+    p.append(b3)
+
+    render(os.path.join(OUT, "irregular-degree.svg"), W, H, *p,
+           title="Регулярний і нерегулярний код: степінь як важіль")
+
+
 if __name__ == "__main__":
     fig_tanner()
     fig_decode()
@@ -738,4 +906,7 @@ if __name__ == "__main__":
     fig_bp_messages()
     fig_boxplus()
     fig_cycle_echo()
+    fig_staircase()
+    fig_qc_lifting()
+    fig_irregular()
     print("OK: figures written to", OUT)

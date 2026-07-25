@@ -223,10 +223,47 @@ def fig_signals():
     render(os.path.join(IMG, "first-signal.svg"), W, H, *f)
 
 
+# ── 5. Чому пам'ять сама себе лікує: перепитати нема кого ──────────────────────
+def fig_forward():
+    W, H = 780, 344
+    f = [text(W / 2, 28, "Чому пам'ять лагодить дані сама: перепитати нема кого", size=16, bold=True)]
+    f.append(text(W / 2, 50,
+                  "у каналі зв'язку є джерело — можна перепитати; у пам'яті копія одна, тож код мусить полагодити на місці",
+                  size=10.5, color=MUTED, italic=True))
+
+    # дві панелі
+    f.append(rect(30, 68, 340, 192, fill="#f7faff", stroke=NEG, sw=2, rx=12))
+    f.append(rect(410, 68, 340, 192, fill="#fdf7f6", stroke=POS, sw=2, rx=12))
+
+    # ліва панель: канал зв'язку
+    f.append(text(200, 94, "Канал зв'язку", size=13.5, color=NEG, bold=True))
+    f.append(fitbox(52, 112, 104, 40, "Відправник", size=12.5, bold=True, fill=BG, stroke=NEG, sw=1.6))
+    f.append(fitbox(262, 112, 104, 40, "Приймач", size=12.5, bold=True, fill=BG, stroke=NEG, sw=1.6))
+    f.append(arrow(160, 132, 258, 132, color=INK, sw=1.8))
+    f.append(mtext(200, 184, "зіпсувалось у дорозі?\nперепитай ще раз (ARQ)", size=11.5, color=INK))
+    f.append(text(200, 236, "джерело копії нікуди не зникло", size=10.5, color=MUTED, italic=True))
+
+    # права панель: пам'ять
+    f.append(text(580, 94, "Пам'ять", size=13.5, color=POS, bold=True))
+    f.append(fitbox(505, 112, 150, 40, "Єдина копія даних", size=12.5, bold=True, fill=BG, stroke=POS, sw=1.6))
+    f.append(mtext(580, 184, "перепитати нема в кого:\nкод лагодить біт на місці (FEC)", size=11.5, color=INK))
+    f.append(text(580, 236, "у RAM — стан програми, у Flash — усе на зберіганні", size=10.5, color=MUTED, italic=True))
+
+    # низ: синтез
+    f.append(text(W / 2, 292,
+                  "Тому пам'ять несе власний ремонт: контрольні біти вшито поряд із даними, ECC виправляє збій прямо при читанні",
+                  size=11.5, color=INK, bold=True))
+    f.append(text(W / 2, 322,
+                  "той самий принцип і в RAM, і у Flash — різниться лише сила коду під частоту збоїв",
+                  size=10.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "why-forward.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_dimm()
     fig_nand()
     fig_nine_chips()
     fig_three_homes()
     fig_signals()
-    print("OK: 5 figures ->", IMG)
+    fig_forward()
+    print("OK: 6 figures ->", IMG)

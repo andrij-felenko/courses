@@ -228,7 +228,7 @@ struct VisionProfiler {
         if (csv)
             std::fprintf(csv, "%d,%.2f,%.2f,%.2f,%.2f,%.2f,%.1f,%.0f\n",
                          n,
-                         capture.snapshot().count ? last_ms(capture) : 0.0,
+                         last_ms(capture),
                          last_ms(prep), last_ms(model), last_ms(parse),
                          ft, tc, fr);
         return ft;

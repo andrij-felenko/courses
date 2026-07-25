@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1160" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="580.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Транзистор з'їдає ½·C·V² незалежно від форми фронту</text>
+<line x1="597.0" y1="92.0" x2="597.0" y2="470.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 7"/>
+<text x="327.5" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">У часі: форма фронту різна</text>
+<line x1="110.0" y1="440.0" x2="551.0" y2="440.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="110.0" y1="440.0" x2="110.0" y2="104.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="549.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">час t</text>
+<text x="118.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P на транзисторі</text>
+<polygon points="110.0,440.0 110.0,151.1 233.0,440.0" fill="#c0392b" fill-opacity="0.20" stroke="none"/>
+<polyline points="110.0,151.1 233.0,440.0" fill="none" stroke="#c0392b" stroke-width="2.8"/>
+<text x="128.0" y="160.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">пік V·Iкид</text>
+<polygon points="110.0,440.0 110.0,343.7 479.0,440.0" fill="#2457d6" fill-opacity="0.13" stroke="none"/>
+<polyline points="110.0,343.7 479.0,440.0" fill="none" stroke="#2457d6" stroke-width="2.6"/>
+<text x="353.5" y="333.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">повільний фронт</text>
+<rect x="160.2" y="492.0" width="334.6" height="32.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/><text x="327.5" y="512.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="327.5" dy="0.0">різні пік і тривалість — площа та сама  ½·C·V²</tspan></text>
+<text x="870.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">На вольт виходу: та сама пряма</text>
+<line x1="650.0" y1="440.0" x2="1096.0" y2="440.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="440.0" x2="650.0" y2="104.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="1094.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Vвих  (0 → V)</text>
+<text x="658.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">dW/dVвих = C·(V − Vвих)</text>
+<polygon points="650.0,440.0 650.0,132.0 1050.0,440.0" fill="#27ae60" fill-opacity="0.16" stroke="none"/>
+<polyline points="650.0,132.0 1050.0,440.0" fill="none" stroke="#27ae60" stroke-width="3.0"/>
+<text x="640.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">C·V</text>
+<text x="1050.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">V</text>
+<text x="772.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">площа = ½·C·V²</text>
+<rect x="640.0" y="492.0" width="460.0" height="32.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/><text x="870.0" y="512.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">dVвих/dt тут не з'являється — площа та сама за будь-якого фронту</tspan></text>
+</svg>

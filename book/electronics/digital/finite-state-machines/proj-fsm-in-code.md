@@ -49,7 +49,7 @@ static state_t state = LOCKED;
 
 void fsm_dispatch(event_t ev) {
     if (ev >= EVENT_COUNT) {            /* чужа / невалідна подія */
-        state = SAFE_STATE;            /* failsafe: куди завжди безпечно впасти */
+        state = LOCKED;                /* failsafe: безпечний стан турнікета — замкнено */
         return;
     }
     cell_t c = table[state][ev];        /* один індекс — O(1) */
@@ -85,7 +85,7 @@ state = State.LOCKED
 def fsm_dispatch(ev):
     global state
     if ev not in table[state]:         # чужа / невалідна подія
-        state = SAFE_STATE             # failsafe: куди завжди безпечно впасти
+        state = State.LOCKED           # failsafe: безпечний стан турнікета — замкнено
         return
     nxt, action = table[state][ev]     # один індекс — O(1)
     if action:                         # дія НА переході — модель Мілі

@@ -96,6 +96,33 @@ N → ∞  :   (1+r)⁻ᴺ → 0      ⟹      A(r) → 1/r
 Зберімо все в калькулятор. Три функції покривають усю арифметику вище — теперішня вартість однієї суми, NPV довільного потоку й замкнутий множник ануїтету:
 
 :::tabs
+```cpp
+#include <cmath>
+#include <vector>
+#include <cstdio>
+
+// Теперішня вартість суми fv, яку заплатять/отримають через n років.
+double pv(double fv, double r, int n) { return fv / std::pow(1 + r, n); }
+
+// flows[t] — потік у рік t (t = 0, 1, 2, …). Зводить усе до сьогодні.
+double npv(const std::vector<double>& flows, double r) {
+    double acc = 0.0;
+    for (std::size_t t = 0; t < flows.size(); ++t)
+        acc += flows[t] / std::pow(1 + r, static_cast<double>(t));
+    return acc;
+}
+
+// A(r) = Σ 1/(1+r)^t за t = 1..n — замкнутий вигляд, без циклу.
+double annuity_factor(double r, int n) {
+    if (r == 0.0) return static_cast<double>(n);   // границя: дисконтувати нічого
+    return (1 - std::pow(1 + r, -n)) / r;
+}
+
+int main() {
+    // Рівний потік 60 тис. на рік п'ять років під 10 % — одним множенням:
+    std::printf("%.2f\n", 60 * annuity_factor(0.10, 5));   // 227.45 тис.
+}
+```
 ```python
 def pv(fv, r, n):
     """Теперішня вартість суми fv, яку заплатять/отримають через n років."""
@@ -153,6 +180,33 @@ A(r*)          = 3.75
 Рішення звелося до одного рівняння: `A(r*) = 3.75`. І тут стає в пригоді те, що ми бачили на кривій, — **`A(r)` строго спадає з ростом `r`** (кожен доданок `1/(1+r)ᵗ` меншає, коли `r` більшає, тож `dA/dr < 0`). Функція неперервна й падає від `A(0) = N = 5` до нуля, а `3.75` лежить між нулем і п'ятіркою — отже, рівняння має **рівно один корінь**. Не два, не жодного: єдина ставка, що ділить світ навпіл. Аналітично `A(r) = 3.75` не розв'язати (степінь із `r` і в основі, і в показнику), зате спадність робить **бісекцію** — половинний пошук — цілком надійною: раз функція монотонна, кожен крок гарантовано вдвічі звужує вилку навколо кореня.
 
 :::tabs
+```cpp
+#include <cmath>
+#include <cstdio>
+
+double annuity_factor(double r, int n) {
+    return r == 0.0 ? static_cast<double>(n) : (1 - std::pow(1 + r, -n)) / r;
+}
+
+// Знайти r*, за якої A(r*) = target_A. A спадає з r → бісекція надійна.
+double solve_rate(double target_A, int n,
+                  double lo = 1e-9, double hi = 5.0, int iters = 100) {
+    for (int i = 0; i < iters; ++i) {
+        double mid = (lo + hi) / 2;
+        if (annuity_factor(mid, n) > target_A)
+            lo = mid;        // A завелика → ставка замала → рухаємось управо
+        else
+            hi = mid;        // A замала  → ставка завелика → рухаємось уліво
+    }
+    return (lo + hi) / 2;
+}
+
+int main() {
+    // «будувати» = «купити»:  150 + 20·A = 60·A  ⟹  A = 3.75
+    double r_star = solve_rate(3.75, 5);
+    std::printf("r* = %.4f  (%.1f %%)\n", r_star, r_star * 100);   // r* = 0.1042  (10.4 %)
+}
+```
 ```python
 def annuity_factor(r, n):
     return float(n) if r == 0 else (1 - (1 + r) ** (-n)) / r

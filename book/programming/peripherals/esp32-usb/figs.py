@@ -48,18 +48,18 @@ def fig_three_paths():
 
 # ── family-matrix: чип × можливість USB (хто що реально вміє) ─────────────────
 # Ідея: рішення «який чип під задачу» = читання цієї матриці. Зелене коло —
-# вміє, сіра риска — ні. Видно межу: хост лише S2/S3/P4; класичний ESP32 — лише
-# через міст; C6 має ОКРЕМИЙ device-блок (TinyUSB-класи), але не хост.
+# вміє, сіра риска — ні. Видно межу: нативний OTG і хост лише S2/S3/P4;
+# класичний ESP32 — лише через міст; C3/C6/H2 — тільки USB-Serial-JTAG.
 def fig_family_matrix():
     cols = ["Зовн.\nміст", "USB-Serial-\nJTAG", "Нативний OTG\n(device)",
-            "Окремий USB\ndevice", "OTG host"]
+            "OTG host"]
     rows = [
-        ("ESP32 (класич.)", [1, 0, 0, 0, 0]),
-        ("ESP32-S2",        [1, 0, 1, 1, 1]),
-        ("ESP32-S3",        [1, 1, 1, 1, 1]),
-        ("ESP32-C3",        [1, 1, 0, 0, 0]),
-        ("ESP32-C6 / H2",   [1, 1, 0, 1, 0]),
-        ("ESP32-P4",        [1, 1, 1, 1, 1]),
+        ("ESP32 (класич.)", [1, 0, 0, 0]),
+        ("ESP32-S2",        [1, 0, 1, 1]),
+        ("ESP32-S3",        [1, 1, 1, 1]),
+        ("ESP32-C3",        [1, 1, 0, 0]),
+        ("ESP32-C6 / H2",   [1, 1, 0, 0]),
+        ("ESP32-P4",        [1, 1, 1, 1]),
     ]
     W = 820
     left = 150
@@ -89,7 +89,7 @@ def fig_family_matrix():
                 p.append(text(cx, cy + 5, "—", size=14, color=MUTED))
     # підсумкова смужка
     by = top + len(rows) * rh + 12
-    note = "Хост — лише S2 / S3 / P4 · класичний ESP32 — тільки через міст · C6/H2: окремий device-блок, але не хост"
+    note = "Нативний OTG і хост — лише S2 / S3 / P4 · C3 / C6 / H2 — тільки USB-Serial-JTAG · класичний ESP32 — лише через міст"
     p.append(fitbox(40, by, W - 80, 32, note, size=12, fill="#fdecea", stroke=POS, sw=1.5, bold=True))
     return render(os.path.join(OUT, "family-matrix.svg"), W, H, *p,
                   title="Чип × можливість USB: хто що реально вміє")
@@ -139,9 +139,9 @@ def fig_pins_power():
     p.append(rect(28, 60, 330, 250, fill="#f4f6f8", stroke=LINE, sw=1.2, rx=10))
     p.append(text(44, 84, "Виводи USB закріплені", size=13, color=INK, anchor="start", bold=True))
     pins = [
-        ("D+ → GPIO20", "S2/S3: OTG і S-J"),
-        ("D− → GPIO19", " те саме коло"),
-        ("C6 device: D−/D+", "→ GPIO12 / GPIO13"),
+        ("D+ → GPIO20", "S2/S3: нативний USB"),
+        ("D− → GPIO19", "та сама пара"),
+        ("C6/H2: D−/D+", "S-JTAG → GPIO12/13"),
     ]
     for i, (a, b) in enumerate(pins):
         y = 110 + i * 46

@@ -28,25 +28,39 @@
     instruments:    { icon: "🔬", label: "Прилади" }
   };
   var _subjCache = {};
+  // версія-файл існує на диску ⟺ її статус НЕ pending/empty (done/update/deeper/recheck)
+  function _fileExists(s) { return s === "done" || s === "update" || s === "deeper" || s === "recheck"; }
+
+  // ── Версії статті (коротка/повна) як ОДИН стек із перемикачем зверху ───────
+  // URL несе версію: «&v=d» = повна (детальна); без параметра = коротка (базова).
+  // Дефолт залежить від входу: зі списку/меню книги → повна (як є); згадка з
+  // ІНШОЇ статті (без суфікса) → коротка; навігація В МЕЖАХ статті → поточна версія.
+  function verSuffix(ver) { return ver === "d" ? "&v=d" : ""; }
+  function chHref(slug, at, ver) { return "#ch=" + slug + (at ? "&at=" + at : "") + verSuffix(ver); }
+  function chReadable(c) { return !!(c.hasBasic || c.hasDetailed); }                                  // є що читати (будь-яка версія)
+  function chVisible(c) { return chReadable(c) || c.status === "pending" || c.dstatus === "pending"; } // показати (або «незабаром»)
+  function menuVer(c) { return c.hasDetailed ? "d" : ""; }                                            // відкриття зі списку книги → повна, якщо є
 
   // типи спец-вставок (підтем): історія / математика / компонент / практика
   var SPEC_META = {
     hist: { emoji: "📜", label: "Історія", modal: "Історична вставка" },
     math: { emoji: "🧮", label: "Математика", modal: "Математична вставка" },
     comp: { emoji: "🔌", label: "Компоненти", modal: "Компонентна вставка" },
-    proj: { emoji: "⚙️", label: "Практика", modal: "Практична вставка" }
+    proj: { emoji: "⚙️", label: "Практика", modal: "Практична вставка" },
+    api: { emoji: "📋", label: "Довідка/API", modal: "Довідка / API" }
   };
-  var SPEC_ORDER = ["hist", "math", "comp", "proj"];
+  var SPEC_ORDER = ["hist", "math", "comp", "proj", "api"];
   function specType(name) {                 // тип за іменем файла вставки
     var b = String(name).replace(/^.*\//, "");
     if (/^hist[-.]/i.test(b) || /history/i.test(b) || /-h-/.test(b)) return "hist";   // hist-… / …history… / нове <тема>-h-…
     if (/^math[-.]/i.test(b) || /-m-/.test(b)) return "math";        // нове math-… / старе -m-
     if (/^comp[-.]/i.test(b) || /-c-/.test(b)) return "comp";        // нове comp-… / старе -c-
     if (/^proj[-.]/i.test(b) || /-a-/.test(b)) return "proj";        // нове proj-… / старе -a-
+    if (/^api[-.]/i.test(b)) return "api";                            // api- → довідка/інтерфейс
     return "hist";
   }
   function emojiType(e) {                    // тип за emoji в _status.md
-    return e === "🧮" ? "math" : e === "🔌" ? "comp" : (e === "⚙️" || e === "⚙") ? "proj" : "hist";
+    return e === "🧮" ? "math" : e === "🔌" ? "comp" : (e === "⚙️" || e === "⚙") ? "proj" : e === "📋" ? "api" : "hist";
   }
   var $content = document.getElementById("content");
   var $sidebar = document.getElementById("sidebar");
@@ -141,10 +155,11 @@
   // Розділи (§) ПОТОЧНОЇ статті — вставляються під активним рядком (data-target → scroll-spy підсвічує поточний §).
   function sbSections(chap, sections) {
     if (!sections || !sections.length) return "";
-    var h = '<a class="sb-link sb-sec" data-target="top" href="#ch=' + chap.slug + '&at=top">↑ Початок</a>';
+    var vs = verSuffix(currentVer);   // § поточної статті — у тій самій версії, що читаємо
+    var h = '<a class="sb-link sb-sec" data-target="top" href="#ch=' + chap.slug + '&at=top' + vs + '">↑ Початок</a>';
     for (var i = 0; i < sections.length; i++) {
       var sec = sections[i];
-      h += '<a class="sb-link sb-sec" data-target="' + sec.id + '" href="#ch=' + chap.slug + "&at=" + sec.id + '">§ ' + sec.num + " — " + escapeHtml(sec.title) + "</a>";
+      h += '<a class="sb-link sb-sec" data-target="' + sec.id + '" href="#ch=' + chap.slug + "&at=" + sec.id + vs + '">§ ' + sec.num + " — " + escapeHtml(sec.title) + "</a>";
     }
     return h;
   }
@@ -185,9 +200,12 @@
   BOOK.modules.forEach(function (m) {
     m.chapters.forEach(function (c) {
       c.module = m;
-      if (c.dir && (c.status === "done" || c.status === "update" || c.status === "deeper" || c.status === "recheck")) {   // файл існує (pending/empty — ще не написано)
+      c.hasBasic = _fileExists(c.status);
+      c.hasDetailed = _fileExists(c.dstatus);            // detailed-основна: тема доступна й лише з детальною
+      if (c.dir && (c.hasBasic || c.hasDetailed)) {      // файл існує ⟺ є БУДЬ-ЯКА версія
         c.slug = c.dir.split("/").pop();
-        c.draft = c.status !== "done";                   // deeper/update — чернетка (читається, але позначена)
+        var _prim = c.hasBasic ? c.status : c.dstatus;   // яку версію подамо за замовчуванням
+        c.draft = _prim !== "done";                      // deeper/update/recheck — чернетка (читається, позначена)
         CH_BY_SLUG[c.slug] = c;
       }
       FLAT.push(c);
@@ -195,6 +213,7 @@
   });
 
   var currentSlug = null;   // який розділ зараз відрендерено
+  var currentVer = "";      // яка версія відрендерена («» базова / «d» детальна)
   var pendingTarget = null; // якір, до якого прокрутитись після рендеру
   var pendingTokens = null; // стек попапів, який треба відкрити після рендеру розділу
   var textCache = {};       // кеш завантажених .md
@@ -280,7 +299,7 @@
       if (chap && base === baseOf(chap.main)) {
         at = secM ? "sec-" + secM[1].split(".").join("-") : (/^sec-/.test(frag) ? frag : "top");
       } else { at = "hist-" + base; }
-      return { href: "#ch=" + slug + "&at=" + at, external: false };
+      return { href: "#ch=" + slug + "&at=" + at + verSuffix(ctx.ver), external: false };   // та сама стаття → лишаємось у поточній версії
     }
     if (!chap || chap.status !== "done") return { href: "#ch=" + slug, external: false };
     if (base !== baseOf(chap.main)) at = "hist-" + base;
@@ -620,6 +639,7 @@
     else if (/^🧮/.test(text)) { kind = "math"; icon = "🧮"; }   // математична вставка
     else if (/^(⚙️|⚙)/.test(text)) { kind = "proj"; icon = "⚙️"; }  // алгоритм/проєкт
     else if (/^🔌/.test(text)) { kind = "comp"; icon = "🔌"; }   // компонентна вставка
+    else if (/^📋/.test(text)) { kind = "api"; icon = "📋"; }   // довідка/API-вставка
     else if (/^🔗/.test(text)) { kind = "xref"; icon = "🔗"; }   // міст на іншу тему/предмет → крос-попап
     else if (/^(▶️|▶)/.test(text)) { kind = "nav"; icon = "▶️"; }
 
@@ -637,7 +657,7 @@
         if (ctx.histBases.has(b)) { if (!primary) primary = b; ctx.attach.push({ base: b, after: sections.length - 1 }); }
       });
     }
-    var body = text.replace(/^(🔧|🏠|🧪|💡|📜|🧮|⚙️|⚙|🔌|🔗|▶️|▶)\s*/, "");
+    var body = text.replace(/^(🔧|🏠|🧪|💡|📜|🧮|⚙️|⚙|🔌|📋|🔗|▶️|▶)\s*/, "");
 
     // 🔗-вставка з book:-лінком → УСЯ картка клікабельна → крос-попап на іншу тему/предмет
     if (kind === "xref") {
@@ -655,7 +675,7 @@
 
     // вставка-картка (📜 hist · 🧮 math · 🔌 comp · ⚙️ proj) → УСЯ клікабельна → popup.
     // base беремо з лінка (primary); якщо тизер без лінка — наступна вставка цього типу за порядком.
-    if (kind === "hist" || kind === "math" || kind === "comp" || kind === "proj") {
+    if (kind === "hist" || kind === "math" || kind === "comp" || kind === "proj" || kind === "api") {
       var ibase = primary;
       if (!ibase && ctx.insQueue && ctx.insQueue[kind] && ctx.insQueue[kind].length) { ibase = ctx.insQueue[kind].shift(); if (ibase) ctx.attach.push({ base: ibase, after: sections.length - 1 }); }
       if (ibase) {
@@ -715,8 +735,8 @@
      ════════════════════════════════════════════════════════════════════ */
   // картка-тизер історичної вставки (для авто-банера зверху розділу)
   function histTeaserCard(base, label) {
-    var k = (base.match(/^(hist|math|comp|proj)-/) || [])[1] || "hist";
-    var ic = { hist: "📜", math: "🧮", comp: "🔌", proj: "⚙️" }[k];
+    var k = (base.match(/^(hist|math|comp|proj|api)-/) || [])[1] || "hist";
+    var ic = { hist: "📜", math: "🧮", comp: "🔌", proj: "⚙️", api: "📋" }[k];
     return '<a class="callout callout-' + k + ' hist-teaser" href="#" data-hist="' + base + '" title="Розгорнути вставку">' +
       '<span class="callout-ico">' + ic + '<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
       '<div class="callout-body">' + escapeHtml(label) + "</div>" +
@@ -724,18 +744,23 @@
       "</a>";
   }
 
-  function renderChapter(chap) {
-    setContent('<div class="state"><div class="spinner"></div>Завантаження розділу…</div>');
+  function renderChapter(chap, ver) {
     var dir = chap.dir;
+    // single-link + fallback: v=d → детальна (нема → базова); дефолт → базова (нема → детальна)
+    var wantD = (ver === "d");
+    var mainFile = wantD ? (chap.hasDetailed ? chap.slug + "-d.md" : chap.main)
+                         : (chap.hasBasic ? chap.main : chap.slug + "-d.md");
+    var mainUrl = BASE + dir + "/" + mainFile;
+    if (!textCache[mainUrl]) setContent('<div class="state"><div class="spinner"></div>Завантаження розділу…</div>');   // кеш є (напр., перемикання версій) → без спінера, миттєво, як stack
     var histFiles = chap.histories || [];
     var allFiles = histFiles.concat(chap.extras || []);   // історії + extras — усі як відкривні модалки
-    Promise.all([fetchText(BASE + dir + "/" + chap.main)].concat(allFiles.map(function (f) { return fetchText(BASE + dir + "/" + f); })))
+    Promise.all([fetchText(mainUrl)].concat(allFiles.map(function (f) { return fetchText(BASE + dir + "/" + f); })))
       .then(function (texts) {
         var mainText = texts[0], specTexts = texts.slice(1);
         var ctx = {
-          currentSlug: chap.slug, dir: dir,
+          currentSlug: chap.slug, dir: dir, ver: ver,
           histBases: new Set(allFiles.map(baseOf)), attach: [],
-          insQueue: (function () { var q = { hist: [], math: [], comp: [], proj: [] }; allFiles.forEach(function (f) { var b = baseOf(f); var k = (b.match(/^(hist|math|comp|proj)-/) || [])[1]; if (k && q[k]) q[k].push(b); }); return q; })()
+          insQueue: (function () { var q = { hist: [], math: [], comp: [], proj: [], api: [] }; allFiles.forEach(function (f) { var b = baseOf(f); var k = (b.match(/^(hist|math|comp|proj|api)-/) || [])[1]; if (k && q[k]) q[k].push(b); }); return q; })()
         };
         var pm = parseMain(mainText, ctx);
         var arts = allFiles.map(function (f, k) { var a = parseHistory(specTexts[k], f, ctx); a.type = specType(f); return a; });
@@ -753,7 +778,7 @@
         var html = '<span id="top" class="anc"></span>';
         html += chapterHeader(chap, null);
         var introBlock = (pm.introHtml && BOOK.type !== "book") ? '<p class="ch-intro ch-intro-body">' + pm.introHtml + '</p>' : '';
-        html += '<div class="sec content-body">' + courseTopNav(chap) + versionLink(chap) + introBlock + banner + pm.bodyHtml + courseBottomNav(chap) +
+        html += '<div class="sec content-body">' + versionSwitch(chap, ver) + courseTopNav(chap) + introBlock + banner + pm.bodyHtml + courseBottomNav(chap) +
           '<span id="read-end" class="read-sentinel" aria-hidden="true"></span></div>';
         arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна (історії + extras)
         setContent(html);
@@ -764,6 +789,9 @@
         setupReadTracking(chap.slug);   // доскролив до #read-end → тема прочитана
         scrollToAnchor(pendingTarget); appliedAt = pendingTarget; pendingTarget = null;
         syncModals(pendingTokens || []); pendingTokens = null;     // відновити стек попапів (deep-link / «назад-вперед»)
+        if (chap.hasBasic && chap.hasDetailed) {                   // префетч іншої версії → перемикач зверху працює миттєво (обидві в кеші)
+          fetchText(BASE + dir + "/" + (wantD ? chap.main : chap.slug + "-d.md")).catch(function () {});
+        }
       })
       .catch(function (e) {
         setContent('<div class="state error"><h2>Не вдалося завантажити розділ</h2><p>' +
@@ -833,12 +861,13 @@
     s += '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Зміст книги</span>' +
       '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>";
     s += sbCrumbs([{ label: (chap.module && chap.module.title) || ("Модуль " + chap.module.n), href: "#" }, { label: chap.title }]);
-    s += '<a class="sb-link" data-target="top" href="#ch=' + slug + '&at=top">Вступ</a>';
+    var vs = verSuffix(currentVer);   // § поточної статті — у тій самій версії
+    s += '<a class="sb-link" data-target="top" href="#ch=' + slug + '&at=top' + vs + '">Вступ</a>';
     (attachedAfter[-1] || []).forEach(function (b) { s += subLink(b); });
     s += '<hr class="sb-divider">';
 
     sections.forEach(function (sec, idx) {
-      s += '<a class="sb-link" data-target="' + sec.id + '" href="#ch=' + slug + "&at=" + sec.id + '">§ ' +
+      s += '<a class="sb-link" data-target="' + sec.id + '" href="#ch=' + slug + "&at=" + sec.id + vs + '">§ ' +
         sec.num + " — " + escapeHtml(sec.title) + "</a>";
       (attachedAfter[idx] || []).forEach(function (b) { s += subLink(b); });
     });
@@ -850,7 +879,7 @@
     }
 
     // інші спец-вставки (математика / компоненти / практика) — згруповано за типом, клікабельні
-    var extraTypes = ["math", "comp", "proj"];
+    var extraTypes = ["math", "comp", "proj", "api"];
     if (arts.some(function (a) { return extraTypes.indexOf(a.type) >= 0; })) {
       s += '<hr class="sb-divider"><div class="sb-group-label">Вставки до тем</div>';
       extraTypes.forEach(function (type) {
@@ -876,8 +905,8 @@
         return "";
       }
       var ttl = BOOK.type === "book" ? escapeHtml(c.title) : (c.module.n + "." + c.n + " — " + escapeHtml(c.title));
-      if (c.status === "done") {
-        return '<a href="#ch=' + c.slug + '"><span class="pg-dir">' + label + '</span><span class="pg-ttl">' + ttl + "</span></a>";
+      if (c.slug) {   // є що читати → пейджер зберігає поточну версію (потік читання)
+        return '<a href="' + chHref(c.slug, null, currentVer) + '"><span class="pg-dir">' + label + '</span><span class="pg-ttl">' + ttl + "</span></a>";
       }
       return '<div class="pg-soon">' +
         '<span class="pg-dir">' + label + '</span><span class="pg-ttl">' + ttl + " · незабаром</span></div>";
@@ -897,10 +926,11 @@
       var readN = real.filter(function (c) { return isRead(c.slug); }).length;
       s += sbGroupOpen(m.title, escapeHtml(m.title), grpCount(readN, real.length));
       m.chapters.forEach(function (c) {
-        if (c.status === "empty") return;
+        if (!chVisible(c)) return;
         if (c.slug) {
-          s += '<a class="sb-link' + (c.slug === chap.slug ? " active" : "") + readClass(c.slug) + '" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
-          if (c.slug === chap.slug) s += sbSections(chap, sections);   // § поточної статті під активним рядком
+          var active = c.slug === chap.slug;
+          s += '<a class="sb-link' + (active ? " active" : "") + readClass(c.slug) + '" href="' + chHref(c.slug, null, active ? currentVer : menuVer(c)) + '">' + escapeHtml(c.title) + "</a>";
+          if (active) s += sbSections(chap, sections);   // § поточної статті під активним рядком
         } else {
           s += '<span class="sb-link soon">' + escapeHtml(c.title) + "</span>";
         }
@@ -1021,11 +1051,19 @@
     if (next) return '<nav class="course-bottom"><a class="cb-btn cb-next" href="' + courseStepHref(next) + '"><span class="cb-dir">Наступний крок →</span><span class="cb-ttl">' + escapeHtml(next.title || next.top) + "</span></a></nav>";
     return '<nav class="course-bottom"><a class="cb-btn cb-next cb-done" href="' + courseHome() + '"><span class="cb-dir">Курс пройдено ✓</span><span class="cb-ttl">До огляду курсу</span></a></nav>';
   }
-  // Компактне посилання між короткою (<slug>.md) і повною (<slug>-d.md) версіями статті.
-  // Показуємо лише коли повна версія існує (chap.full); інакше — нічого (стаття просто коротка).
-  function versionLink(chap) {
-    if (!chap.full) return "";
-    return '<a class="ver-link" href="#ch=' + chap.slug + '&v=d"><span class="vl-ico">📖</span>Повна версія цієї теми →</a>';
+  // Сегментований перемикач між короткою (<slug>.md) і повною (<slug>-d.md) версіями —
+  // зверху статті, миттєвий (обидві версії в кеші, як stack). Лише коли Є ОБИДВІ версії.
+  function versionSwitch(chap, ver) {
+    if (!(chap.hasBasic && chap.hasDetailed)) return "";   // перемикач лише коли Є ОБИДВІ версії
+    var isD = ver === "d";
+    function seg(active, href, ico, label) {
+      return '<a class="vs-btn' + (active ? " on" : "") + '" href="' + href + '"' + (active ? ' aria-current="true"' : "") +
+        '><span class="vs-ico" aria-hidden="true">' + ico + "</span>" + label + "</a>";
+    }
+    return '<div class="ver-switch" role="group" aria-label="Версія статті">' +
+      seg(!isD, chHref(chap.slug, null, ""), "📄", "Коротка") +
+      seg(isD, chHref(chap.slug, null, "d"), "📖", "Повна") +
+      "</div>";
   }
 
   /* ════════════════════════════════════════════════════════════════════
@@ -1073,16 +1111,16 @@
       "</div></header>" + mapToolbar(true) + '<div class="toc' + (NAV.view === "grid" ? " map-grid" : "") + '">';
     live.forEach(function (m) {
       var d = m.chapters.filter(function (c) { return c.slug; }).length;
-      var total = m.chapters.filter(function (c) { return c.status !== "empty"; }).length;
+      var total = m.chapters.filter(chVisible).length;   // видимі (читабельні + «незабаром») — щоб d ≤ total
       h += '<div class="module-block' + (isCollapsed(m.title) ? " collapsed" : "") + '"><div class="module-head" data-collapse-group="' + escapeAttr(m.title) + '">' +
         '<span class="m-caret" aria-hidden="true">▾</span><span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
         '<span class="m-prog">' + d + " / " + total + "</span></div><div class=\"ch-list\">";
       m.chapters.forEach(function (c) {
-        if (c.status === "empty") return;   // не потрібно — не показуємо
-        if (c.slug) {   // є текст → читабельне (коротка або повна версія)
-          h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row"><a class="ch-open" href="#ch=' + c.slug + '">' +
+        if (!chVisible(c)) return;   // ні тексту, ні «в планах» → не показуємо
+        if (c.slug) {   // є текст → читабельне (зі списку книги відкриваємо повну, якщо є)
+          h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row"><a class="ch-open" href="' + chHref(c.slug, null, menuVer(c)) + '">' +
             '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
-            '<span class="c-go">' + (c.status === "done" ? "→" : "коротко →") + "</span></a></div></div>";
+            '<span class="c-go">→</span></a></div></div>';
         } else {
           h += '<div class="ch-item pending"><div class="ch-row"><span class="c-ttl">' + escapeHtml(c.title) +
             '</span><span class="c-badge">незабаром</span></div></div>';
@@ -1100,8 +1138,8 @@
       if (!m.chapters.length) return;
       s += sbGroupOpen(m.title, escapeHtml(m.title));
       m.chapters.forEach(function (c) {
-        if (c.status === "empty") return;
-        if (c.slug) s += '<a class="sb-link' + readClass(c.slug) + '" href="#ch=' + c.slug + '">' + escapeHtml(c.title) + "</a>";
+        if (!chVisible(c)) return;
+        if (c.slug) s += '<a class="sb-link' + readClass(c.slug) + '" href="' + chHref(c.slug, null, menuVer(c)) + '">' + escapeHtml(c.title) + "</a>";
         else s += '<span class="sb-link soon">' + escapeHtml(c.title) + "</span>";
       });
       s += sbGroupClose();
@@ -1132,7 +1170,7 @@
           var tid = "tp-" + mr.replace(/\./g, "-");
           var btnLabel = plTopics(tops.length) + (specs.length ? " · " + specs.length + " вставок" : "");
           h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row">' +
-            '<a class="ch-open" href="#ch=' + c.slug + '"><span class="c-num">' + mr + "</span>" +
+            '<a class="ch-open" href="' + chHref(c.slug, null, menuVer(c)) + '"><span class="c-num">' + mr + "</span>" +
             '<span class="c-ttl">' + escapeHtml(c.title) + "</span>" +
             '<span class="c-go">→</span></a>';
           if (tops.length || specs.length) h += '<button class="ch-exp" type="button" data-exp="' + tid + '" aria-expanded="false">' + btnLabel + "</button>";
@@ -1175,7 +1213,7 @@
       s += sbGroupOpen(m.title, "Модуль " + m.n + " · " + escapeHtml(m.title));
       m.chapters.forEach(function (c) {
         if (c.status === "done") {
-          s += '<a class="sb-link' + readClass(c.slug) + '" href="#ch=' + c.slug + '">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</a>";
+          s += '<a class="sb-link' + readClass(c.slug) + '" href="' + chHref(c.slug, null, menuVer(c)) + '">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</a>";
         } else {
           s += '<span class="sb-link soon">' + m.n + "." + c.n + " · " + escapeHtml(c.title) + "</span>";
         }
@@ -1200,12 +1238,13 @@
      «b:<book>|<slug>|<file>|<frag>» — матеріал з іншої книги. */
   function parsePopParam(v) { return v ? v.split(";").filter(Boolean) : []; }
   function tokensToHashPart(tokens) { return (tokens && tokens.length) ? "&pop=" + encodeURIComponent(tokens.join(";")) : ""; }
-  function buildHash(slug, at, tokens) {
+  function buildHash(slug, at, tokens, ver) {
     var h = "ch=" + encodeURIComponent(slug);
     if (at) h += "&at=" + encodeURIComponent(at);
+    if (ver === "d") h += "&v=d";   // версія «липне» до URL — модалки/шер/назад не скидають повну на коротку
     return h + tokensToHashPart(tokens);
   }
-  function navUrl(slug, at, tokens) { return "#" + buildHash(slug, at, tokens); }
+  function navUrl(slug, at, tokens, ver) { return "#" + buildHash(slug, at, tokens, ver); }
 
   function parseHash() {
     var hsh = location.hash.replace(/^#/, "");
@@ -1215,7 +1254,7 @@
     if (!p.ch) return { view: "cover", tokens: [] };
     var at = p.at || null, tokens = parsePopParam(p.pop);
     if (at && at.indexOf("hist-") === 0) { tokens = tokens.concat(["h:" + at.slice(5)]); at = null; }   // легасі-якір історії → токен попапа
-    return { view: "chapter", slug: p.ch, at: at, tokens: tokens };
+    return { view: "chapter", slug: p.ch, at: at, v: p.v || "", tokens: tokens };
   }
 
   var appliedAt = null;     // який якір уже застосовано (щоб не стрибати догори при закритті попапа)
@@ -1242,12 +1281,12 @@
       if (any) renderComingSoon(any); else renderCover();
       return;
     }
-    if (r.slug === currentSlug) {
+    if (r.slug === currentSlug && (r.v || "") === (currentVer || "")) {
       if (r.at && r.at !== appliedAt) { scrollToAnchor(r.at); markActive(r.at); appliedAt = r.at; }
       syncModals(r.tokens);
       return;
     }
-    currentSlug = r.slug; pendingTarget = r.at || null; pendingTokens = r.tokens || []; renderChapter(chap);
+    currentSlug = r.slug; currentVer = r.v || ""; pendingTarget = r.at || null; pendingTokens = r.tokens || []; renderChapter(chap, r.v || "");
   }
 
   function scrollToAnchor(at) {
@@ -1334,14 +1373,14 @@
     var r = parseHash();
     if (r.view !== "chapter") return;
     var tokens = (r.tokens || []).concat([token]);
-    history.pushState(null, "", navUrl(r.slug, r.at, tokens));
+    history.pushState(null, "", navUrl(r.slug, r.at, tokens, r.v));
     syncModals(tokens);
   }
   function closeViaHistory() { if (modalStack.length) history.back(); }
   // абсолютне посилання, що відкриває конкретний попап над поточним розділом
   function popupShareUrl(token) {
     var slug = currentSlug || parseHash().slug || "";
-    return location.origin + location.pathname + location.search + navUrl(slug, null, [token]);
+    return location.origin + location.pathname + location.search + navUrl(slug, null, [token], currentVer);
   }
 
   /* ── Копіювання посилань + тост «скопійовано» ───────────────────────────── */
@@ -1429,7 +1468,7 @@
       var dir = chap && chap.dir;
 
       // ── ВСТАВКА — самостійний файл: відкриваємо НЕЗАЛЕЖНО від статусу/готовності статті ──
-      if (file && /^(hist|comp|math|proj)-/.test(file)) {
+      if (file && /^(hist|comp|math|proj|api)-/.test(file)) {
         if (!dir) { show("<h1>" + escapeHtml(slug.replace(/-/g, " ")) + "</h1>", "<p>📝 Вставку не знайдено.</p>"); return; }
         fetchText(base + dir + "/" + file).then(function (text) {
           var ctx = { currentSlug: slug, dir: dir, base: base, histBases: new Set(), attach: [] };
@@ -1441,13 +1480,17 @@
         return;
       }
 
-      // ── СТАТТЯ (головна / детальна) — гейтимо на статус (стаб, якщо ще не написана) ──
-      if (!dir || chap.status === "empty") {
+      // ── СТАТТЯ (головна / детальна) — версійно-свідомо + fallback (single-link §6) ──
+      var _hasB = chap && _fileExists(chap.status), _hasD = chap && _fileExists(chap.dstatus);
+      if (!dir || (!_hasB && !_hasD)) {
         show("<h1>" + escapeHtml((chap && chap.title) || slug.replace(/-/g, " ")) + "</h1>",
           '<p>📝 ' + (kind === "guide" ? "Крок курсу" : "Ця тема") + ' ще <strong>в розробці</strong>.</p>');
         return;
       }
-      var fname = file || chap.main;
+      // явна детальна: 3-й сегмент «detail» або «<slug>-d.md»; інакше базова. Fallback до наявної версії.
+      var _wantD = (file === "detail" || /-d\.md$/.test(file));
+      var fname = _wantD ? (_hasD ? chap.main.replace(/\.md$/, "-d.md") : chap.main)
+                         : (_hasB ? chap.main : chap.main.replace(/\.md$/, "-d.md"));
       fetchText(base + dir + "/" + fname).then(function (text) {
         var ctx = { currentSlug: slug, dir: dir, base: base, histBases: new Set(), attach: [] };
         var pm = parseMain(text, ctx);
@@ -1566,8 +1609,8 @@
   (function normalizeDeepLink() {
     var r = parseHash();
     if (r.view === "chapter" && r.tokens && r.tokens.length) {
-      history.replaceState(null, "", navUrl(r.slug, r.at, []));
-      for (var k = 1; k <= r.tokens.length; k++) history.pushState(null, "", navUrl(r.slug, r.at, r.tokens.slice(0, k)));
+      history.replaceState(null, "", navUrl(r.slug, r.at, [], r.v));
+      for (var k = 1; k <= r.tokens.length; k++) history.pushState(null, "", navUrl(r.slug, r.at, r.tokens.slice(0, k), r.v));
     }
   })();
   window.addEventListener("hashchange", route);

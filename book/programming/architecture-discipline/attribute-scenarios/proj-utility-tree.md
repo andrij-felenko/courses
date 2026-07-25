@@ -22,7 +22,7 @@
 - **важливість** — наскільки сценарій цінний для успіху системи (бізнес-вартість);
 - **складність** — наскільки важко досягти його архітектурно (скільки структури він вимагає, наскільки легко тут помилитися).
 
-Кодування саме цілими 1–3, а не мітками — не косметика: воно дає осям арифметику. Добуток двох таких оцінок лежить у діапазоні 1…9, і саме на цьому діапазоні побудований відбір. Задача — загальна (обхід дерева, сортування, фільтр), тож природно показати її двома мовами стеку; заліза й регістрів тут немає.
+Кодування саме цілими 1–3, а не мітками — не косметика: воно дає осям арифметику. Добуток двох таких оцінок лежить у діапазоні 1…9, і саме на цьому діапазоні побудований відбір. Задача — загальна (обхід дерева, сортування, фільтр), тож показуємо її кількома мовами — від системної C++ до скриптових стеку.
 
 **Умова: описати дерево корисності й наповнити його жменею сценаріїв двох-трьох атрибутів.**
 
@@ -107,6 +107,47 @@ tree = UtilityTree(
         ]),
     ],
 )
+```
+```cpp
+#include <string>
+#include <vector>
+
+// Трибальна шкала: Н=1, С=2, В=3 (низько / середньо / високо).
+struct Scenario {
+    std::string title;
+    int importance;   // цінність для успіху системи (1..3)
+    int difficulty;   // архітектурна складність досягти (1..3)
+};
+
+struct Attribute {
+    std::string name;                  // якісний атрибут — гілка дерева
+    std::vector<Scenario> scenarios;   // листя цієї гілки
+};
+
+struct UtilityTree {
+    std::string root;                  // «Корисність системи»
+    std::vector<Attribute> attributes;
+};
+
+const UtilityTree tree{
+    "Корисність системи",
+    {
+        {"Продуктивність", {
+            {"Профіль за 200 мс у пік, p95",   3, 3},
+            {"Річний звіт рахується за < 5 с",  2, 1},
+            {"Пошук у піку віддає за < 300 мс", 3, 2},
+        }},
+        {"Доступність", {
+            {"Переживає втрату вузла БД, перерва <= 30 с",    3, 3},
+            {"Переживає втрату дата-центру без втрати даних", 3, 3},
+            {"Подія в журналі не губиться",                   2, 2},
+        }},
+        {"Змінюваність", {
+            {"Нова валюта за <= 2 дні, без правки ядра платежів", 3, 2},
+            {"Новий канал сповіщень за <= тиждень",               1, 2},
+        }},
+    },
+};
 ```
 :::
 
@@ -201,6 +242,46 @@ def drivers(ranked: list[Ranked]) -> list[Ranked]:
     return [r for r in ranked
             if r.scenario.importance == 3 and r.scenario.difficulty == 3]
 ```
+```cpp
+#include <algorithm>
+#include <iterator>
+
+struct Ranked {
+    Scenario scenario;
+    std::string attribute;
+    int score;          // важливість × складність
+};
+
+// Ключова ухвала — ДОБУТОК, не сума.
+int score(const Scenario& s) { return s.importance * s.difficulty; }
+
+std::vector<Ranked> rank(const UtilityTree& tree) {
+    std::vector<Ranked> flat;
+    for (const auto& attr : tree.attributes)
+        for (const auto& s : attr.scenarios)
+            flat.push_back({s, attr.name, score(s)});
+
+    // Спад за добутком; за рівних — важливіший наперед, тоді складніший.
+    // Три ключі поспіль роблять порядок цілком детермінованим.
+    std::sort(flat.begin(), flat.end(), [](const Ranked& a, const Ranked& b) {
+        if (a.score != b.score) return a.score > b.score;
+        if (a.scenario.importance != b.scenario.importance)
+            return a.scenario.importance > b.scenario.importance;
+        return a.scenario.difficulty > b.scenario.difficulty;
+    });
+    return flat;
+}
+
+// Драйвери — крайній квадрант (В, В): і найцінніше, і найважче.
+std::vector<Ranked> drivers(const std::vector<Ranked>& ranked) {
+    std::vector<Ranked> out;
+    std::copy_if(ranked.begin(), ranked.end(), std::back_inserter(out),
+                 [](const Ranked& r) {
+                     return r.scenario.importance == 3 && r.scenario.difficulty == 3;
+                 });
+    return out;
+}
+```
 :::
 
 Проженімо нашу вісімку крізь машину. `rank` дає впорядкований список, `drivers` відсікає верхівку:
@@ -251,6 +332,25 @@ def dominates(a: Scenario, b: Scenario) -> bool:
 
 def pareto_front(items: list[Scenario]) -> list[Scenario]:
     return [a for a in items if not any(dominates(b, a) for b in items)]
+```
+```cpp
+// A домінує над B: A не гірший за обома осями й строго кращий хоч за однією.
+// «Кращий» = більший: більша важливість І більша складність — «драйверніший».
+bool dominates(const Scenario& a, const Scenario& b) {
+    return a.importance >= b.importance && a.difficulty >= b.difficulty &&
+           (a.importance > b.importance || a.difficulty > b.difficulty);
+}
+
+// Парето-фронт: сценарії, яких не домінує жоден інший.
+std::vector<Scenario> paretoFront(const std::vector<Scenario>& items) {
+    std::vector<Scenario> front;
+    std::copy_if(items.begin(), items.end(), std::back_inserter(front),
+                 [&](const Scenario& a) {
+                     return std::none_of(items.begin(), items.end(),
+                         [&](const Scenario& b) { return dominates(b, a); });
+                 });
+    return front;
+}
 ```
 :::
 

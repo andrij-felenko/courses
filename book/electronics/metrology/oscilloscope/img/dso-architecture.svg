@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тракт цифрового осцилографа: від щупа до екрана</text>
+<text x="490.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">оцифрувати напругу, скласти відліки в пам'ять, намалювати; тригер вирішує, коли заморозити кадр</text>
+<rect x="24.0" y="140.0" width="156.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/><text x="102.0" y="174.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="102.0" dy="0.0">Щуп</tspan><tspan x="102.0" dy="16.9">(вхід)</tspan></text>
+<rect x="218.0" y="140.0" width="156.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/><text x="296.0" y="174.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="296.0" dy="0.0">Атенюатор</tspan><tspan x="296.0" dy="16.9">+ підсилювач</tspan></text>
+<rect x="412.0" y="140.0" width="156.0" height="76.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/><text x="490.0" y="174.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">АЦП</tspan><tspan x="490.0" dy="16.9">(відліки)</tspan></text>
+<rect x="606.0" y="140.0" width="156.0" height="76.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="2.0"/><text x="684.0" y="174.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="684.0" dy="0.0">Пам'ять</tspan><tspan x="684.0" dy="16.9">відліків</tspan></text>
+<rect x="800.0" y="140.0" width="156.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/><text x="878.0" y="174.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="878.0" dy="0.0">Екран</tspan><tspan x="878.0" dy="16.9">(РК)</tspan></text>
+<line x1="180.0" y1="178.0" x2="218.0" y2="178.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="374.0" y1="178.0" x2="412.0" y2="178.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="568.0" y1="178.0" x2="606.0" y2="178.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="762.0" y1="178.0" x2="800.0" y2="178.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="490.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">потік чисел (відліки) →</text>
+<rect x="390.0" y="286.0" width="300.0" height="58.0" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="2.0"/><text x="540.0" y="311.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">Тригер:</tspan><tspan x="540.0" dy="16.9">коли заморозити кадр</tspan></text>
+<line x1="490.0" y1="216.0" x2="490.0" y2="286.0" stroke="#1a1a1a" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="502.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">стежить за потоком</text>
+<line x1="690.0" y1="315.0" x2="684.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="724.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">заморозити</text>
+</svg>

@@ -243,7 +243,7 @@ def fig_median():
     p.append(line(gx0, gy0 + gh, gx0 + gw, gy0 + gh, color=MUTED, sw=1.4))
     p.append(text(gx0 - 46, gy0 + 6, "АЦП", size=12, color=MUTED, anchor="start"))
     # горизонтальні пунктири: середнє й медіана
-    mean = sum(vals) / n            # ≈ 571 — просіло через викид
+    mean = sum(vals) / n            # ≈ 580 — просіло через викид
     srt = sorted(vals)
     median = srt[n // 2]            # 639 — стійка
     p.append(line(gx0, yv(mean), gx0 + gw, yv(mean), color=POS, sw=2, dash="7 5"))
@@ -252,7 +252,7 @@ def fig_median():
     p.append(text(gx0 + gw + 12, yv(median) - 6, "медіана", size=13, color=FIELD, anchor="start", bold=True))
     p.append(text(gx0 + gw + 12, yv(median) + 12, "= 639", size=12, color=FIELD, anchor="start"))
     p.append(text(gx0 + gw + 12, yv(mean) + 4, "середнє", size=13, color=POS, anchor="start", bold=True))
-    p.append(text(gx0 + gw + 12, yv(mean) + 22, "≈ 571", size=12, color=POS, anchor="start"))
+    p.append(text(gx0 + gw + 12, yv(mean) + 22, "≈ 580", size=12, color=POS, anchor="start"))
     # стовпчики замірів
     step = gw / (n + 1)
     for i, v in enumerate(vals):

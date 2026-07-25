@@ -103,6 +103,37 @@ def fig_emmc_ssd():
     render(os.path.join(IMG, "emmc-ssd.svg"), W, H, *f)
 
 
+# ── 2b. Той самий рушій — різні інтерфейси до системи (стаття, detailed) ─────
+def fig_interfaces():
+    W, H = 900, 372
+    f = [text(W / 2, 26, "Та сама «NAND + FTL» — різні інтерфейси до системи",
+              size=15, bold=True)]
+    cards = [
+        ("SD-картка",   NEG,   "SD, 1–4 біт",    "одна команда", "~100 МБ/с", "камери, дрібне"),
+        ("eMMC",        NEG,   "8 біт, паралель", "одна команда", "~400 МБ/с", "телефони, IoT"),
+        ("UFS",         FIELD, "серійна, M-PHY",  "черга на 32",  "~2–4 ГБ/с", "нові телефони"),
+        ("SATA · AHCI", MUTED, "SATA, серійна",   "одна на 32",   "~0.5 ГБ/с", "спадок дисків"),
+        ("NVMe · PCIe", POS,   "PCIe, ×4 лінії",  "тисячі черг",  "~3–7 ГБ/с", "ПК і сервери"),
+    ]
+    x, cw, gap = 18, 160, 16
+    for name, col, bus, q, speed, use in cards:
+        f.append(rect(x, 50, cw, 262, fill=FILL, stroke=col, sw=1.8))
+        f.append(fitbox(x + 10, 60, cw - 20, 26, name, size=14, color=col, bold=True,
+                        fill=FILL, stroke="none", sw=0))
+        f.append(line(x + 14, 94, x + cw - 14, 94, color="#dddddd", sw=1.2))
+        for i, (k, v) in enumerate((("шина", bus), ("черга команд", q),
+                                    ("стеля", speed), ("де живе", use))):
+            ry = 116 + i * 44
+            f.append(text(x + 16, ry, k, size=10, color=MUTED, anchor="start"))
+            f.append(fitbox(x + 16, ry + 6, cw - 32, 24, v, size=11, color=INK,
+                            bold=True, fill=FILL, stroke="none", sw=0))
+        x += cw + gap
+    f.append(text(W / 2, 344,
+                  "що глибша й численніша черга, то повніше виходить назовні паралелізм кристалів NAND",
+                  size=10.5, color=MUTED, italic=True))
+    render(os.path.join(IMG, "interfaces.svg"), W, H, *f)
+
+
 # ── 3. Один рівень непрямості: LBA → таблиця → фізична сторінка (вставка) ─────
 def _nand_block(f, x, y, label, pages, col=INK):
     """Блок NAND із 4 сторінок; pages = список (підпис, колір рамки)."""
@@ -237,7 +268,8 @@ def fig_gc():
 if __name__ == "__main__":
     fig_ftl_layer()
     fig_emmc_ssd()
+    fig_interfaces()
     fig_indirection()
     fig_oop_write()
     fig_gc()
-    print("OK: 5 figures ->", IMG)
+    print("OK: 6 figures ->", IMG)

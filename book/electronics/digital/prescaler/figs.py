@@ -197,11 +197,11 @@ def fig_ledger():
     return render(os.path.join(OUT, "ledger-pulse-swallow.svg"), W, H, *p)
 
 
-# ── 6. Сітка досяжних коефіцієнтів: S=0…P−1 дає безперервний крок; де провал ────
+# ── 6. Сітка досяжних коефіцієнтів: S=0…N−1 дає безперервний крок; де провал ────
 def fig_grid():
     W, H = 780, 360
     p = []
-    p.append(text(W / 2, 34, "S ковзає 0…P−1 → коефіцієнт росте по одиниці, без пропусків",
+    p.append(text(W / 2, 34, "У блоці P ковтач бере остачі S=0…N−1 → поділ росте по одиниці, без пропусків",
                   size=13.5, bold=True))
 
     # числова вісь коефіцієнтів поділу з рисками
@@ -212,7 +212,7 @@ def fig_grid():
     p.append(text(ax1 + 24, axy + 5, "поділ", size=11.5, color=INK, anchor="start"))
 
     # позначки: два сусідні «блоки P» — при P та при P+1 повних циклах
-    # блок при P: значення N·P … N·P+(P−1), потім стрибок керується збільшенням P
+    # блок при P: остачі S=0…N−1 дають N·P … N·P+(N−1), далі стрибок збільшенням P
     def tick(x, label, sub, color=INK):
         p.append(line(x, axy - 7, x, axy + 7, color=color, sw=1.6))
         p.append(text(x, axy - 14, label, size=11, color=color, bold=True))
@@ -220,24 +220,23 @@ def fig_grid():
             p.append(text(x, axy + 24, sub, size=9.5, color=MUTED))
 
     xs = [ax0 + 40 + i * 52 for i in range(11)]
-    labels = ["N·P", "+1", "+2", "…", "N·P", "+(P−1)", "N(P+1)", "+1", "+2", "…", ""]
     # спрощені підписи під рисками
     tick(xs[0], "N·P",        "S=0",   color=FIELD)
     tick(xs[1], "N·P+1",      "S=1",   color=FIELD)
     tick(xs[2], "N·P+2",      "S=2",   color=FIELD)
     p.append(text(xs[3], axy - 14, "…", size=13, color=INK))
-    tick(xs[4], "N·P+(P−1)",  "S=P−1", color=FIELD)
+    tick(xs[4], "N·P+(N−1)",  "S=N−1", color=FIELD)
     # перехід: збільшуємо головний лічильник P на 1 → наступне значення N·(P+1)
     tick(xs[5], "N·(P+1)",    "S=0, P+1", color=POS)
     p.append(text((xs[4] + xs[5]) / 2, axy + 44,
-                  "стик: N·P+(P−1)+1 = N·P+P = N·(P+1)  ⟺  сусідні блоки P змикаються без діри",
+                  "стик: N·P+(N−1)+1 = N·P+N = N·(P+1)  ⟺  сусідні блоки змикаються без діри",
                   size=10.5, color=MUTED))
 
     # умова неперервності праворуч
     p.append(fitbox(150, axy + 78, 480, 74,
-                    "щоб блоки P змикалися без пропуску, крок S має покрити стрибок по P:\n"
-                    "діапазон S (0…P−1) завширшки P  ≥  крок по P, що дорівнює N\n"
-                    "⟹  умова неперервності:  P ≥ N   (мінімальний суцільний поділ ≈ N·(N−1))",
+                    "щоб блоки змикалися, ковтач має дійти остачі S = N−1;\n"
+                    "фізична стеля S ≤ P дозволяє це лише за P ≥ N−1\n"
+                    "⟹  умова неперервності:  P ≥ N−1   (D_min = N·(N−1), при P = N−1)",
                     size=12, fill="#eef2fd", stroke=NEG, sw=1.8, bold=True))
     return render(os.path.join(OUT, "coverage-grid.svg"), W, H, *p)
 

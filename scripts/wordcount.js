@@ -2,9 +2,9 @@
 /* ============================================================================
    wordcount.js — лічильник ПРОЗИ за AUTHORING.md §3 (без код-блоків, фігур, розмітки).
    Класифікує файли за іменем (нейминг §2):
-     <slug>/<slug>.md       → базова стаття   (1000–3500)
-     <slug>/<slug>-d.md     → детальна стаття (2500–13000; каталог — до 25000)
-     <slug>/<type>-<name>.md (type ∈ hist/comp/math/proj) → вставка (1000–10000)
+     <slug>/<slug>.md       → базова стаття   (600–1600)
+     <slug>/<slug>-d.md     → детальна стаття (1200–10000; каталог — до 16000)
+     <slug>/<type>-<name>.md (type ∈ hist/comp/math/proj/api) → вставка (600–9000)
    Універсальний — параметр: тека книги/каталогу/курсу.
 
    Запуск:  node scripts/wordcount.js book/chemistry
@@ -17,7 +17,7 @@ const path = require("path");
 const root = process.argv[2];
 const showAll = process.argv.includes("--all");
 if (!root) { console.error("Вкажи теку, напр.: node scripts/wordcount.js book/chemistry"); process.exit(1); }
-const CEIL_DETAILED = /(^|[\\/])catalog([\\/]|$)/.test(root) ? 25000 : 13000;   // каталог — до 25000
+const CEIL_DETAILED = /(^|[\\/])catalog([\\/]|$)/.test(root) ? 16000 : 10000;   // каталог — до 16000
 
 function walk(dir, out) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -54,13 +54,13 @@ function proseWords(md) {
 function classify(base, dir) {
   if (base === dir) return "basic";
   if (base === dir + "-d") return "detailed";
-  if (/^(hist|comp|math|proj)-/.test(base)) return "insert";
+  if (/^(hist|comp|math|proj|api)-/.test(base)) return "insert";
   return "other";
 }
 function band(kind, w) {
-  if (kind === "insert") return w < 1000 ? "▽ мала вставка (<1000)" : w <= 10000 ? "✓ вставка (1000–10000)" : "▲ завелика (>10000) — поділити";
-  if (kind === "detailed") return w < 2500 ? "▽ детальна нижче (<2500)" : w <= CEIL_DETAILED ? `✓ детальна (2500–${CEIL_DETAILED})` : `▲ понад (>${CEIL_DETAILED})`;
-  if (kind === "basic") return w < 1000 ? "✖ мало (<1000)" : w <= 3500 ? "✓ базова (1000–3500)" : "▲ понад базову (>3500) — на детальну?";
+  if (kind === "insert") return w < 600 ? "▽ мала вставка (<600)" : w <= 9000 ? "✓ вставка (600–9000)" : "▲ завелика (>9000) — поділити";
+  if (kind === "detailed") return w < 1200 ? "▽ детальна нижче (<1200)" : w <= CEIL_DETAILED ? `✓ детальна (1200–${CEIL_DETAILED})` : `▲ понад (>${CEIL_DETAILED})`;
+  if (kind === "basic") return w < 600 ? "✖ мало (<600)" : w <= 1600 ? "✓ базова (600–1600)" : "▲ понад базову (>1600) — на детальну?";
   return "· інше";
 }
 

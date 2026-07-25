@@ -447,7 +447,4 @@ if __name__ == "__main__":
     fig_board_anatomy()
     fig_copper_pattern()
     fig_via_types()
-    fig_rlgc_ladder()
-    fig_microstrip_xsec()
-    fig_reflection_boundary()
     print("figs done:", os.listdir(OUT))

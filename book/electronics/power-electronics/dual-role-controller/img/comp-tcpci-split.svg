@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Межа TCPCI: де кінчається чип і починається хост</text>
+<rect x="56.0" y="88.0" width="300.0" height="214.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="2.0"/>
+<text x="206.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">TCPM — керівник порту</text>
+<text x="206.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(у хості, програмно)</text>
+<text x="206.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• політика живлення</text>
+<text x="206.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• машина станів Type-C / PD</text>
+<text x="206.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• движок політики (ПЗ хоста)</text>
+<rect x="544.0" y="88.0" width="300.0" height="214.0" rx="6" fill="#eef2f7" stroke="#c0392b" stroke-width="2.0"/>
+<text x="694.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">TCPC — контролер порту</text>
+<text x="694.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(мікросхема)</text>
+<text x="694.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• CC-аналог + PD-PHY</text>
+<text x="694.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• ключі VBUS / VCONN</text>
+<text x="694.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• реєстри + ALERT</text>
+<line x1="450.0" y1="68.0" x2="450.0" y2="322.0" stroke="#1a1a1a" stroke-width="1.4" stroke-dasharray="6 5"/>
+<text x="450.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">TCPCI: реєстри по I²C + ALERT</text>
+<line x1="356.0" y1="162.0" x2="544.0" y2="162.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="450.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">пише →</text>
+<line x1="544.0" y1="208.0" x2="356.0" y2="208.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="450.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">читає ←</text>
+<line x1="544.0" y1="254.0" x2="356.0" y2="254.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="450.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">ALERT ←</text>
+<rect x="233.1" y="336.2" width="433.8" height="59.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="450.0" y="355.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">пише: ROLE_CONTROL · COMMAND · POWER_CONTROL · TRANSMIT</tspan><tspan x="450.0" dy="14.3">читає: CC_STATUS · POWER_STATUS · FAULT_STATUS · VBUS_VOLTAGE · RX</tspan><tspan x="450.0" dy="14.3">ALERT: сталася подія — прокинься й прочитай, що змінилось</tspan></text>
+</svg>

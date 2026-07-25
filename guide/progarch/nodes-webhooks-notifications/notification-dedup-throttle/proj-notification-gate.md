@@ -88,6 +88,20 @@ type Store interface {
 	// Take: списати 1 жетон із відра (user,channel), якщо є.
 	// Годинник для дозрівання — САМОГО сховища (Redis TIME), а не інстанса.
 	Take(ctx context.Context, bucket string, burst, refillPerSec float64) (bool, error)
+
+	// --- Довговічний індекс дедлайнів: щоб таймери груп пережили перезапуск. ---
+
+	// MarkDue: записати (чи оновити) мить флашу групи в індексі за часом.
+	// Redis: ZADD due <оцінка = unix-мить-флашу> <група>.
+	MarkDue(ctx context.Context, group string, at time.Time) error
+
+	// DueGroups: усі групи, чий дедлайн уже настав (оцінка ≤ now).
+	// Redis: ZRANGEBYSCORE due -inf <now> → зріз груп.
+	DueGroups(ctx context.Context, now time.Time) ([]string, error)
+
+	// ClearDue: прибрати групу з індексу після вдалого флашу (щоб не флашити вдруге).
+	// Redis: ZREM due <група>.
+	ClearDue(ctx context.Context, group string) error
 }
 ```
 
@@ -302,29 +316,44 @@ func anyAtLeast(batch []Notification, s Severity) bool {
 
 Один рядок вище — `g.sched(g.window, …)` — ховає найпідступнішу пастку вузла. `time.AfterFunc` живе в пам'яті **того** інстанса, що відкрив групу. Якщо процес перезапуститься до спрацювання таймера, таймер помре разом із ним — а буфер у сховищі лишиться, притримані сповіщення зависнуть, і людина не дізнається нічого. Таймер у пам'яті — це **швидкий шлях**, а не джерело правди.
 
-Правда мусить жити там само, де буфер, — у сховищі. Дедлайн групи записуємо ключем із TTL; окремий підмітальник у **кожному** інстансі періодично забирає групи, чий дедлайн сплив, і флашить ту, яку вдалося атомарно застовпити (щоб флашив рівно один):
+Правда мусить жити там само, де буфер, — у сховищі. Дедлайн кожної групи кладемо в спільний **індекс за часом**: упорядкований набір, де оцінка — мить флашу. Окремий підмітальник у **кожному** інстансі періодично питає в цього індексу групи, чий дедлайн уже сплив, і флашить ту, яку вдалося атомарно застовпити (щоб флашив рівно один):
 
 ```go
-// Довговічний варіант: дедлайн — у сховищі, а не лише в пам'яті.
+// Довговічний варіант: дедлайн — у спільному індексі, а не лише в пам'яті.
 func (g *Gate) armDurable(ctx context.Context, group, class string) {
-	// due:<group> живе рівно вікно; його зникнення = «пора флашити».
-	_, _ = g.store.SetNX(ctx, "due:"+group, g.window)
-	g.arm(group, class) // локальний таймер лишаємо як швидкий шлях
+	// Кладемо мить флашу в індекс за часом (ZADD). Переживе перезапуск інстанса.
+	_ = g.store.MarkDue(ctx, group, g.now().Add(g.window))
+	// Локальний таймер лишаємо як швидкий шлях; спрацювавши — сам прибирає дедлайн.
+	g.timers.Store(group, g.sched(g.window, func() {
+		g.flushDue(context.Background(), group, class)
+	}))
 }
 
-// sweep — крутиться в КОЖНОМУ інстансі. Забирає прострочені групи й флашить
+// flushDue — флаш плюс прибирання дедлайну з індексу (ZREM). Спільний для
+// швидкого шляху (локальний таймер) і підмітальника, тож індекс чиститься в обох.
+func (g *Gate) flushDue(ctx context.Context, group, class string) {
+	if err := g.flush(ctx, group, class); err == nil {
+		_ = g.store.ClearDue(ctx, group) // зведено успішно → більше не спливе
+	}
+}
+
+// sweep — крутиться в КОЖНОМУ інстансі. Бере з індексу прострочені групи й флашить
 // ту, яку вдалося застовпити АТОМАРНО (claim), щоб флашив лише один інстанс.
 func (g *Gate) sweep(ctx context.Context) {
-	for _, group := range g.store.DueGroups(ctx, g.now()) { // групи з простроченим due:
+	due, err := g.store.DueGroups(ctx, g.now()) // групи, чий дедлайн у індексі сплив
+	if err != nil {
+		return
+	}
+	for _, group := range due {
 		claimed, _ := g.store.SetNX(ctx, "flushing:"+group, 30*time.Second)
 		if claimed {
-			_ = g.flush(ctx, group, classOf(group))
+			g.flushDue(ctx, group, classOf(group))
 		}
 	}
 }
 ```
 
-Тут `DueGroups` — індекс за часом дедлайну (у Redis — `ZSET`, де оцінка = мить флашу). Пам'ять інстанса стає прискорювачем, а не єдиним носієм долі притриманих сповіщень; падіння одного інстанса більше нічого не губить, бо підмітальник сусіда добере його групи. І та сама атомарність, що обирала власника таймера, тепер обирає, хто саме флашить, — `SET NX` на ключі `flushing:`.
+Три операції над індексом тримають механізм цілим, і всі три вже стоять у коді: `armDurable` кладе групу в `ZSET` командою `ZADD` з оцінкою-дедлайном, `sweep` вибирає прострочене через `ZRANGEBYSCORE`, а `flushDue` після вдалого зведення прибирає групу `ZREM`-ом — інакше та сама група спливала б підмітальнику знову й знову. Пам'ять інстанса стає прискорювачем, а не єдиним носієм долі притриманих сповіщень: падіння одного інстанса більше нічого не губить, бо підмітальник сусіда добере його групи з індексу. І та сама атомарність, що обирала власника таймера, тепер обирає, хто саме флашить, — `SET NX` на ключі `flushing:`; а оскільки сам `flush` спорожняє буфер атомарним `Drain`, то навіть якщо швидкий таймер і підмітальник збіжаться на одній групі, дайджест піде один.
 
 ## Тест критичного — першим
 
@@ -397,7 +426,8 @@ type memStore struct {
 	keys  map[string]time.Time
 	lists map[string][][]byte
 	tb    map[string]*tokbucket
-	now   func() time.Time // ГОДИННИК СХОВИЩА (спільний для всіх інстансів)
+	due   map[string]time.Time // ІНДЕКС ДЕДЛАЙНІВ: група → мить флашу (аналог ZSET)
+	now   func() time.Time      // ГОДИННИК СХОВИЩА (спільний для всіх інстансів)
 }
 
 type tokbucket struct {
@@ -448,6 +478,33 @@ func (s *memStore) Take(_ context.Context, key string, burst, rate float64) (boo
 		return true, nil
 	}
 	return false, nil
+}
+
+// Індекс дедлайнів: у Redis це ZSET, тут — мапа група→мить, скан під мютексом.
+func (s *memStore) MarkDue(_ context.Context, group string, at time.Time) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.due[group] = at // ZADD due <at> group
+	return nil
+}
+
+func (s *memStore) DueGroups(_ context.Context, now time.Time) ([]string, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	var out []string
+	for group, deadline := range s.due { // ZRANGEBYSCORE due -inf now
+		if !deadline.After(now) {
+			out = append(out, group)
+		}
+	}
+	return out, nil
+}
+
+func (s *memStore) ClearDue(_ context.Context, group string) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	delete(s.due, group) // ZREM due group
+	return nil
 }
 ```
 

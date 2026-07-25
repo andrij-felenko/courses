@@ -15,54 +15,127 @@
 ![Машина станів PD-sink: лінія успіху VBUS_5V → WAIT_CAPS → CHOOSE → REQ_SENT → WAIT_PSRDY → CONTRACT, а спільна червона шина повертає на 5 В від будь-якої проблемної події](/guide/embedded/zhyvlennia/pd-sink-design/img/fsm.svg)
 *Уперед: VBUS 5 В → WAIT_CAPS → CHOOSE → REQ_SENT → WAIT_PSRDY → CONTRACT, кожен крок за своєю подією (caps, Request, Accept, PS_RDY). Униз — спільна «червона шина»: Reject, таймаут, від'єднання, Hard Reset чи нове меню скидають усе в безпечні 5 В і знімають навантаження. Політика pick_pdo обирає профіль за пріоритетом і звіряє струм.*
 
-### Псевдокод
+### Машина станів у коді
 
-```
-стан    = VBUS_5V             # старт: на шині лише безпечні 5 В
-бажані  = [12.0, 9.0]         # профілі за пріоритетом (вольти)
-Iпотр   = 2.0                 # потрібний струм
+Ось та сама машина реальним C для МК. Ключова умова: вона працює з **уже розкодованими** повідомленнями, які подає PD-PHY чи контролер (бітове кодування, `GoodCRC`, повтори — не її клопіт), а весь свій стан тримає в одній змінній `st`, а не в стеку викликів. Спершу — самі стани, політика вибору й переходи:
 
-on_attach():                  # побачили джерело по CC
-    стан = WAIT_CAPS
-    timer(SinkWaitCap, 500мс) # не прийшло меню → відкат
+```c
+// ---- Стани: «де ми зараз у розмові» ----
+typedef enum { VBUS_5V, WAIT_CAPS, REQ_SENT, WAIT_PSRDY, CONTRACT } state_t;
 
-on_message(msg):
-    if msg == Source_Capabilities:        # прийшло (чи оновилось) меню
-        i = pick_pdo(msg.pdos)
-        if i == NONE:
-            fall_to_safe("нема потрібного профілю"); return
-        send(Request(i)); стан = REQ_SENT
-        timer(SenderResponse, 30мс)       # нема відповіді → відкат
-    elif msg == Accept  and стан == REQ_SENT:
-        стан = WAIT_PSRDY
-        timer(PSTransition, 550мс)
-    elif msg == Reject  and стан == REQ_SENT:
-        fall_to_safe("відмова — пробую далі/лишаюсь 5 В")
-    elif msg == Wait    and стан == REQ_SENT:
-        fall_to_safe("джерело каже зачекати — лишаюсь 5 В, спробую пізніше")
-    elif msg == PS_RDY  and стан == WAIT_PSRDY:
-        стан = CONTRACT
-        enable_load()                     # АЖ ТЕПЕР вмикаємо навантаження
+// ---- Розкодовані повідомлення PD (їх дає PHY/контролер) ----
+typedef enum { MSG_SRC_CAPS, MSG_ACCEPT, MSG_REJECT, MSG_WAIT, MSG_PS_RDY } msg_t;
 
-on_timeout(_):   fall_to_safe("таймаут")
-on_detach():     fall_to_safe("від'єднано")
-on_hard_reset(): fall_to_safe("hard reset")
+// Один рядок меню джерела: напруга й стеля струму фіксованого PDO.
+typedef struct { uint16_t mv, max_ma; bool fixed; } pdo_t;
 
-fall_to_safe(reason):
-    disable_load()                        # навантаження геть
-    стан = VBUS_5V                        # лишаємось на безпечних 5 В
-    signal(reason)
+// ---- Дедлайни (мс): кожен стереже свій вид збою ----
+enum { T_WAIT_CAP = 500, T_SENDER_RESP = 30, T_PS_TRANS = 550 };
 
-pick_pdo(pdos):                           # ПОЛІТИКА
-    for V in бажані:                      # за пріоритетом
-        if exists fixed-PDO(V) with Iмакс >= Iпотр:
-            return його_індекс
-    return NONE                           # нічого не підходить
+// ---- Політика: чого хоче САМЕ наш пристрій ----
+static const uint16_t desired_mv[] = { 12000, 9000 };  // профілі за пріоритетом
+static const uint16_t need_ma      = 2000;             // потрібний струм
+
+static state_t st = VBUS_5V;   // старт: на шині лише безпечні 5 В
+
+// ПОЛІТИКА — чиста функція: з меню обрати профіль під нашу потребу.
+// Жодних побічних дій, лише повертає індекс PDO (або -1).
+static int pick_pdo(const pdo_t *pdo, int n) {
+    for (unsigned k = 0; k < sizeof desired_mv / sizeof *desired_mv; k++)
+        for (int i = 0; i < n; i++)
+            if (pdo[i].fixed && pdo[i].mv == desired_mv[k]
+                             && pdo[i].max_ma >= need_ma)
+                return i;          // цей профіль дає і вольти, і ампери
+    return -1;                     // нічого не підходить
+}
+
+// ЄДИНИЙ безпечний вихід. Сюди веде будь-яка біда.
+static void fall_to_safe(const char *why) {
+    disable_load();                // навантаження геть — ПЕРШОЮ дією
+    tim_stop(TIM_PD);              // знімаємо зведений дедлайн
+    st = VBUS_5V;                  // лишаємось на безпечних 5 В
+    notify(why);                   // блимнути світлодіодом / записати причину
+}
+
+// Побачили джерело по CC — стартуємо розмову.
+static void on_attach(void) {
+    st = WAIT_CAPS;
+    tim_oneshot(TIM_PD, T_WAIT_CAP);   // не прийде меню → відкат
+}
+
+// Прийшло розкодоване повідомлення (pdo/n дійсні лише для MSG_SRC_CAPS).
+static void on_message(msg_t msg, const pdo_t *pdo, int n) {
+    switch (msg) {
+
+    case MSG_SRC_CAPS: {                     // меню прийшло (чи оновилось на ходу)
+        int i = pick_pdo(pdo, n);
+        if (i < 0) { fall_to_safe("нема потрібного профілю"); return; }
+        pd_send_request(i);                  // просимо саме цей PDO
+        st = REQ_SENT;
+        tim_oneshot(TIM_PD, T_SENDER_RESP);  // нема відповіді → відкат
+        break;
+    }
+
+    case MSG_ACCEPT:
+        if (st != REQ_SENT) break;
+        st = WAIT_PSRDY;
+        tim_oneshot(TIM_PD, T_PS_TRANS);     // напруга не встане → відкат
+        break;
+
+    case MSG_REJECT:
+        if (st != REQ_SENT) break;
+        fall_to_safe("Reject — цей профіль не дадуть");
+        break;
+
+    case MSG_WAIT:
+        if (st != REQ_SENT) break;
+        fall_to_safe("Wait — джерело зайняте, спробую пізніше");
+        break;
+
+    case MSG_PS_RDY:
+        if (st != WAIT_PSRDY) break;
+        tim_stop(TIM_PD);                    // дочекались — дедлайн уже не треба
+        st = CONTRACT;
+        enable_load();                       // АЖ ТЕПЕР вмикаємо навантаження
+        break;
+    }
+}
 ```
 
 Числа в таймерах — не вигадані: відповідь на `Request` за специфікацією має прийти десь за 30 мс (tSenderResponse — близько 24–30 мс у PD2, 27–33 мс у PD3), а перехід живлення до `PS_RDY` укладається в сотні мілісекунд (tPSTransition — до 550 мс). Прострочив — це не «джерело гальмує», а сигнал, що щось пішло не так, і час відкочуватися.
 
-Чому взагалі дедлайн на кожен крок, а не «почекаємо, поки прийде»? Бо мовчання — найпідступніший вид збою. Якщо джерело відповіло `Reject`, ми це бачимо й діємо; але якщо воно просто **замовкло** на півслові (поганий контакт, перешкода, баг у дешевій зарядці), без таймера ми застрягли б у `WAIT_PSRDY` назавжди — навантаження так і не ввімкнулося б, а пристрій виглядав би «завислим» без жодного видимого приводу. Таймер перетворює «нічого не сталося» на повноцінну подію `on_timeout`, і та веде в той самий безпечний відкат, що й явна відмова. Тому таймери ставлять на **кожен** стан очікування, а не лише там, де «здається, треба».
+Чому взагалі дедлайн на кожен крок, а не «почекаємо, поки прийде»? Бо мовчання — найпідступніший вид збою. Якщо джерело відповіло `Reject`, ми це бачимо й діємо; але якщо воно просто **замовкло** на півслові (поганий контакт, перешкода, баг у дешевій зарядці), без таймера ми застрягли б у `WAIT_PSRDY` назавжди — навантаження так і не ввімкнулося б, а пристрій виглядав би «завислим» без жодного видимого приводу. Таймер перетворює «нічого не сталося» на повноцінну подію `EV_TIMEOUT`, і та веде в той самий безпечний відкат `fall_to_safe`, що й явна відмова. Тому таймери ставлять на **кожен** стан очікування, а не лише там, де «здається, треба».
+
+Лишилось показати, **хто** кличе ці реакції й звідки береться сама подія таймауту. Тут і криється головна дисципліна подієвої машини: переривання не смикають `st` власноруч — вони лише **кладуть подію в чергу**, яку розбирає один-єдиний цикл. Той самий таймер, що стеріг дедлайн, у перериванні не відкочує машину сам, а кладе `EV_TIMEOUT`; далі все стається в одному контексті:
+
+```c
+// Переривання (таймер, PHY, інтерфейс CC) НЕ чіпають st напряму —
+// вони лише кладуть подію в чергу. Розбирає її ОДИН цикл, тож стан
+// живе в єдиному контексті й гонок за st не буває.
+typedef enum { EV_ATTACH, EV_DETACH, EV_HARD_RESET, EV_MSG, EV_TIMEOUT } ev_t;
+typedef struct { ev_t type; msg_t msg; const pdo_t *pdo; int n; } event_t;
+
+static queue_t pd_ev;   // невелика черга подій sink-задачі
+
+void TIM_PD_IRQHandler(void) {              // вийшов дедлайн стану очікування
+    tim_clear_flag(TIM_PD);
+    queue_push(&pd_ev, (event_t){ .type = EV_TIMEOUT });
+}
+
+void sink_task(void) {                      // ЄДИНЕ місце, де крутиться машина
+    event_t e;
+    for (;;) {
+        if (!queue_pop(&pd_ev, &e)) { wait_for_irq(); continue; }  // сон, не busy-wait
+        switch (e.type) {
+        case EV_ATTACH:     on_attach();                    break;
+        case EV_MSG:        on_message(e.msg, e.pdo, e.n);   break;
+        case EV_TIMEOUT:    fall_to_safe("таймаут");         break;
+        case EV_DETACH:     fall_to_safe("від'єднання");     break;
+        case EV_HARD_RESET: fall_to_safe("hard reset");      break;
+        }
+    }
+}
+```
 
 ### Складність і пастки на МК
 

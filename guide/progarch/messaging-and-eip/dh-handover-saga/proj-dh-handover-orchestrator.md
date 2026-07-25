@@ -188,6 +188,8 @@ async def apply_step(p, saga, step, direction):
 
 Серце — один такт `tick`: зроби рівно один крок і запиши стан. Уся асиметрія саги живе тут, у гілці `catch`. Ідемо назад — просто компенсуємо й задкуємо, доки курсор не впаде за початок. Ідемо вперед і крок упав — дивимось, з якого боку півота стоїмо: **після** нього повторюємо з відступом, а вичерпавши спроби, здаємо в мертву чергу; **до** нього розвертаємось і відкочуємо вже зроблене. А `awaitClaim`, що паркується чекати людину, кидає особливий сигнал — то не невдача, а пауза.
 
+Одна тонкість робить цикл крахостійким і **на кінцях**, не лише в середині. Обидва краї курсора — це термінальні стани, і машина вичитує їх **із самого курсора на кожному вході**, а не покладається на те, що встигла дописати статус: курсор упав за початок (`< 0`) — сага `aborted`; курсор переступив останній крок (`≥ довжину`) — сага `done`. Важить це саме на завершенні. `applyStep` зсуває курсор **усередині** своєї транзакції, а `done` лягає **окремим**, пізнішим записом — і крах у щілині між ними лишив би на диску курсор уже за останнім кроком при статусі ще `running`. Без сторожа на вході машина по підйому полізла б по неіснуючий `steps[курсор]`, впала б у `catch` — а що курсор уже правіше півота, прийняла б завершену сагу за застряглий крок після півота: марні повтори й виклик живої людини до дому, який давно й успішно передано. Тому сторож `курсор ≥ довжина → done` **на вході** в гілку «вперед» дзеркалить давній `курсор < 0 → aborted` і закриває цю щілину — термінал відновлюємо з курсора, а не зі статусу.
+
 :::tabs
 ```ts
 const sleep = (_ms: number) => new Promise((r) => setTimeout(r, _ms));
@@ -195,21 +197,26 @@ const backoff = (n: number) => fullJitter(n);   // відступ із джит�
 
 async function tick(p: Ports, saga: Saga, steps: Step[]): Promise<Saga> {
   if (saga.status !== "running") return saga;
-  const step = steps[saga.cursor];
   const pivot = steps.findIndex((s) => s.kind === "pivot");
 
   if (saga.dir === "back") {                          // ── задкуємо, відкочуючи ──
     if (saga.cursor < 0) { saga.status = "aborted"; await p.persist(saga); return saga; }
+    const step = steps[saga.cursor];
     await applyStep(p, saga, step, "back");           // компенсація + cursor-- атомарно
     if (saga.cursor < 0) saga.status = "aborted";     // відкотили все → чисте скасування
     await p.persist(saga);
     return saga;
   }
 
-  try {                                               // ── ідемо вперед ──
+  // ── ідемо вперед ──
+  if (saga.cursor >= steps.length) {                  // курсор ЗА останнім кроком = ЗАВЕРШЕНО (термінал з курсора)
+    saga.status = "done"; await p.persist(saga); return saga;   // ідемпотентний сторож: закриває щілину крах-на-терміналі
+  }
+  const step = steps[saga.cursor];                    // тепер гарантовано в межах
+  try {
     await applyStep(p, saga, step, "forward");        // ефект + cursor++ атомарно
     saga.attempts = 0;
-    if (saga.cursor >= steps.length) saga.status = "done";
+    if (saga.cursor >= steps.length) saga.status = "done";      // ступили за останній → done уже цього такту
     await p.persist(saga);
   } catch (err) {
     if (err instanceof WaitingForHuman) {             // awaitClaim паркується — це НЕ невдача
@@ -246,20 +253,24 @@ def backoff(n): return full_jitter(n)     # відступ із джитером
 async def tick(p, saga, steps):
     if saga.status != "running":
         return saga
-    step = steps[saga.cursor]
     pivot = next(i for i, s in enumerate(steps) if s.kind is Kind.PIVOT)
 
     if saga.dir == "back":                            # ── задкуємо, відкочуючи ──
         if saga.cursor < 0:
             saga.status = "aborted"; await p.persist(saga); return saga
+        step = steps[saga.cursor]
         await apply_step(p, saga, step, "back")       # компенсація + cursor-- атомарно
         if saga.cursor < 0: saga.status = "aborted"   # відкотили все → чисте скасування
         await p.persist(saga); return saga
 
-    try:                                              # ── ідемо вперед ──
+    # ── ідемо вперед ──
+    if saga.cursor >= len(steps):                     # курсор ЗА останнім кроком = ЗАВЕРШЕНО (термінал з курсора)
+        saga.status = "done"; await p.persist(saga); return saga   # ідемпотентний сторож: закриває щілину крах-на-терміналі
+    step = steps[saga.cursor]                         # тепер гарантовано в межах
+    try:
         await apply_step(p, saga, step, "forward")    # ефект + cursor++ атомарно
         saga.attempts = 0
-        if saga.cursor >= len(steps): saga.status = "done"
+        if saga.cursor >= len(steps): saga.status = "done"   # ступили за останній → done уже цього такту
         await p.persist(saga)
     except WaitingForHuman as w:                      # awaitClaim паркується — не невдача
         saga.status = "waiting"; saga.deadline = w.until; await p.persist(saga)
@@ -421,6 +432,17 @@ describe("дві невдачі — дві долі", () => {
     expect(w.fired["transferAndShred"]).toBe(1);          // передане лишається переданим
     expect(w.log.some((x) => COMPS.includes(x))).toBe(false);           // нічого не відкочено
   });
+
+  it("КРАХ на терміналі: курсор за останнім кроком, статус іще 'running' → підйом завершує в 'done', без DLQ", async () => {
+    const w = makeWorld({});
+    // Щілина: остання транзакція вже посунула cursor ЗА останній крок (applyStep закомітив),
+    // але p.persist(status='done') не встиг — машину смикнули з розетки саме тут.
+    await w.ports.persist({ id: "h1", homeId: "home-1", cursor: w.S.length, dir: "forward", status: "running", attempts: 0 });
+    const saga = await drive(w.ports, "h1", w.S);
+    expect(saga.status).toBe("done");     // підйом дочитав термінал із самого курсора
+    expect(w.box.alerted).toBeNull();     // сагу НЕ здано в DLQ — вона таки завершилась
+    expect(w.log).toEqual([]);            // жодного кроку не перезапущено
+  });
 });
 ```
 ```py
@@ -501,10 +523,21 @@ async def test_after_pivot_stuck_to_dlq():
     assert fired["switch_billing"] == MAX_ATTEMPTS + 1
     assert fired["transfer_shred"] == 1                    # передане лишається переданим
     assert not any(x in COMPS for x in log)                # нічого не відкочено
+
+@pytest.mark.asyncio
+async def test_crash_at_terminal_resolves_done():
+    S, p, log, fired, box = make_world({})
+    # Щілина: остання транзакція вже посунула cursor за останній крок,
+    # але persist(status="done") не встиг — крах саме тут.
+    await p.persist(Saga(id="h1", home_id="home-1", cursor=len(S)))
+    saga = await drive(p, "h1", S)
+    assert saga.status == "done"      # підйом дочитав термінал із курсора
+    assert box["alerted"] is None     # у DLQ не здавали — сага завершилась
+    assert log == []                  # жодного кроку не перезапущено
 ```
 :::
 
-Придивись до першого тесту: він не перевіряє «сага скасувалась» абстрактно — він пришпилює **точний порядок** компенсацій `["cancelClaim", "restoreOldKeys", "unfreeze"]`, дзеркальний порядку, в якому кроки робилися. Постав компенсації не так — і рівність упаде. І він вимагає, щоб `transferAndShred` **не спрацював жодного разу**: доки збій ліворуч від півота, дім не переходить із рук у руки навіть на мить. Другий і третій тести стережуть протилежний бік: `transferAndShred` спрацював рівно раз, і після нього **жодна** компенсація не побігла — тільки повтори (`switchBilling` тричі, аж поки встав) або, коли він лежить затято, тихий перехід у `stuck` із сигналом людині. Три тести — і дві долі саги стають не обіцянкою в прозі, а червоним чи зеленим CI.
+Придивись до першого тесту: він не перевіряє «сага скасувалась» абстрактно — він пришпилює **точний порядок** компенсацій `["cancelClaim", "restoreOldKeys", "unfreeze"]`, дзеркальний порядку, в якому кроки робилися. Постав компенсації не так — і рівність упаде. І він вимагає, щоб `transferAndShred` **не спрацював жодного разу**: доки збій ліворуч від півота, дім не переходить із рук у руки навіть на мить. Другий і третій тести стережуть протилежний бік: `transferAndShred` спрацював рівно раз, і після нього **жодна** компенсація не побігла — тільки повтори (`switchBilling` тричі, аж поки встав) або, коли він лежить затято, тихий перехід у `stuck` із сигналом людині. А четвертий тест б'є вже не збоєм кроку, а **крахом**: піднімає сагу рівно в терміналі щілини — курсор уже за останнім кроком, статус іще `running` — і вимагає, щоб вона встала `done`, нікого не смикнувши; так пришпилено крахостійкість самого **завершення**, того шва, що його закриває сторож на вході. Чотири тести — і дві долі саги разом із її кінцем стають не обіцянкою в прозі, а червоним чи зеленим CI.
 
 ## Складність і пастки
 

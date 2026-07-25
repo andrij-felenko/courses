@@ -210,7 +210,7 @@ float max_jitter_for_bits(float f_hz, float bits)
     return 1.0f / (2.0f * std::numbers::pi_v<float> * f_hz * ratio);
 }
 
-// приклад: max_jitter_for_bits(10e6f, 14.0f) ≈ 0.86e-12 с (з урахуванням 1.76 дБ)
+// приклад: max_jitter_for_bits(10e6f, 14.0f) ≈ 0.79e-12 с (з урахуванням 1.76 дБ)
 ```
 ```python
 import math
@@ -224,7 +224,7 @@ def max_jitter_for_bits(f_hz, bits):
     return 1.0 / (2.0 * math.pi * f_hz * ratio)
 
 
-# приклад: max_jitter_for_bits(10e6, 14.0) ≈ 0.86e-12 с (з урахуванням 1.76 дБ)
+# приклад: max_jitter_for_bits(10e6, 14.0) ≈ 0.79e-12 с (з урахуванням 1.76 дБ)
 ```
 ```js
 // Максимально допустимий RMS-джиттер такту (с),
@@ -235,7 +235,7 @@ function maxJitterForBits(fHz, bits) {
   return 1 / (2 * Math.PI * fHz * ratio);
 }
 
-// приклад: maxJitterForBits(10e6, 14) ≈ 0.86e-12 с (з урахуванням 1.76 дБ)
+// приклад: maxJitterForBits(10e6, 14) ≈ 0.79e-12 с (з урахуванням 1.76 дБ)
 ```
 ```go
 package jitter
@@ -250,7 +250,7 @@ func MaxJitterForBits(fHz, bits float64) float64 {
 	return 1 / (2 * math.Pi * fHz * ratio)
 }
 
-// приклад: MaxJitterForBits(10e6, 14) ≈ 0.86e-12 с (з урахуванням 1.76 дБ)
+// приклад: MaxJitterForBits(10e6, 14) ≈ 0.79e-12 с (з урахуванням 1.76 дБ)
 ```
 :::
 

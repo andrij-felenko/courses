@@ -12,6 +12,7 @@
 
 Зроби це віртуальними методами — і одразу видно, куди вдарить.
 
+:::tabs
 ```ts
 interface Expr {
   eval(): number;
@@ -34,6 +35,59 @@ class Mul implements Expr {
   print(): string { return `(${this.left.print()} * ${this.right.print()})`; }
 }
 ```
+```cpp
+// Кожна операція — метод у контракті.
+struct Expr {
+    virtual ~Expr() = default;
+    virtual int eval() const = 0;
+    virtual std::string print() const = 0;   // щоб додати друк, довелося ВІДКРИТИ інтерфейс…
+};
+
+struct Num : Expr {
+    int value;
+    explicit Num(int value) : value(value) {}
+    int eval() const override { return value; }
+    std::string print() const override { return std::to_string(value); }   // …і КОЖЕН клас
+};
+struct Add : Expr {
+    const Expr *left, *right;
+    Add(const Expr* left, const Expr* right) : left(left), right(right) {}
+    int eval() const override { return left->eval() + right->eval(); }
+    std::string print() const override { return "(" + left->print() + " + " + right->print() + ")"; }
+};
+struct Mul : Expr {
+    const Expr *left, *right;
+    Mul(const Expr* left, const Expr* right) : left(left), right(right) {}
+    int eval() const override { return left->eval() * right->eval(); }
+    std::string print() const override { return "(" + left->print() + " * " + right->print() + ")"; }
+};
+```
+```java
+interface Expr {
+    int eval();
+    String print();   // щоб додати друк, довелося ВІДКРИТИ інтерфейс…
+}
+
+final class Num implements Expr {
+    final int value;
+    Num(int value) { this.value = value; }
+    public int eval() { return value; }
+    public String print() { return Integer.toString(value); }   // …і КОЖЕН клас
+}
+final class Add implements Expr {
+    final Expr left, right;
+    Add(Expr left, Expr right) { this.left = left; this.right = right; }
+    public int eval() { return left.eval() + right.eval(); }
+    public String print() { return "(" + left.print() + " + " + right.print() + ")"; }
+}
+final class Mul implements Expr {
+    final Expr left, right;
+    Mul(Expr left, Expr right) { this.left = left; this.right = right; }
+    public int eval() { return left.eval() * right.eval(); }
+    public String print() { return "(" + left.print() + " * " + right.print() + ")"; }
+}
+```
+:::
 
 Кожна операція — метод у контракті `Expr`. Додати `eval` було безкоштовно, поки він один. Але наступний прохід, `print`, змусив відкрити `interface Expr` і дописати тіло в `Num`, в `Add`, у `Mul`. Третій прохід (`rpn`) — знову відкрити всі три класи. Кожна нова операція розповзається по **всіх** наявних типах: вона — новий стовпець матриці, а віртуальні методи тримають код по рядках (клас = один тип із усіма своїми методами), тож новий стовпець ріже впоперек кожен рядок. Операційна вісь відкрита навстіж, і закрити її віртуальними методами не вийде — вони закривають рівно другу.
 
@@ -99,6 +153,57 @@ class Print implements Visitor<string> {
   visitMul(m: Mul): string { return `(${m.left.accept(this)} * ${m.right.accept(this)})`; }
 }
 ```
+```cpp
+struct Num; struct Add; struct Mul;          // попереднє оголошення вузлів
+
+// Операція — окремий об'єкт. Один метод на кожен вид вузла.
+struct Visitor {
+    virtual ~Visitor() = default;
+    virtual void visitNum(const Num& n) = 0;
+    virtual void visitAdd(const Add& a) = 0;
+    virtual void visitMul(const Mul& m) = 0;
+};
+
+// Вузли дерева — кожен уміє тільки прийняти відвідувача й покликати свій visit.
+struct Expr {
+    virtual ~Expr() = default;
+    virtual void accept(Visitor& v) const = 0;
+};
+
+struct Num : Expr {
+    int value;
+    explicit Num(int value) : value(value) {}
+    void accept(Visitor& v) const override { v.visitNum(*this); }
+};
+struct Add : Expr {
+    const Expr *left, *right;
+    Add(const Expr* left, const Expr* right) : left(left), right(right) {}
+    void accept(Visitor& v) const override { v.visitAdd(*this); }
+};
+struct Mul : Expr {
+    const Expr *left, *right;
+    Mul(const Expr* left, const Expr* right) : left(left), right(right) {}
+    void accept(Visitor& v) const override { v.visitMul(*this); }
+};
+
+// Прохід 1: обчислити значення. Кожен відвідувач несе свій типізований результат (int).
+struct Eval : Visitor {
+    int result = 0;
+    int run(const Expr& e) { e.accept(*this); return result; }
+    void visitNum(const Num& n) override { result = n.value; }
+    void visitAdd(const Add& a) override { result = run(*a.left) + run(*a.right); }
+    void visitMul(const Mul& m) override { result = run(*m.left) * run(*m.right); }
+};
+
+// Прохід 2: надрукувати у дужках (тут результат — std::string).
+struct Print : Visitor {
+    std::string result;
+    std::string run(const Expr& e) { e.accept(*this); return result; }
+    void visitNum(const Num& n) override { result = std::to_string(n.value); }
+    void visitAdd(const Add& a) override { result = "(" + run(*a.left) + " + " + run(*a.right) + ")"; }
+    void visitMul(const Mul& m) override { result = "(" + run(*m.left) + " * " + run(*m.right) + ")"; }
+};
+```
 ```java
 // Вузли дерева — кожен уміє тільки прийняти відвідувача й покликати свій visit.
 interface Expr {
@@ -148,6 +253,7 @@ final class Print implements Visitor<String> {
 
 Запустимо:
 
+:::tabs
 ```ts
 // (2 + 3) * 4
 const tree: Expr = new Mul(new Add(new Num(2), new Num(3)), new Num(4));
@@ -155,6 +261,23 @@ const tree: Expr = new Mul(new Add(new Num(2), new Num(3)), new Num(4));
 tree.accept(new Eval());    // 20
 tree.accept(new Print());   // "((2 + 3) * 4)"
 ```
+```cpp
+// (2 + 3) * 4
+Num n2{2}, n3{3}, n4{4};
+Add inner{&n2, &n3};
+Mul tree{&inner, &n4};
+
+Eval{}.run(tree);    // 20
+Print{}.run(tree);   // "((2 + 3) * 4)"
+```
+```java
+// (2 + 3) * 4
+Expr tree = new Mul(new Add(new Num(2), new Num(3)), new Num(4));
+
+tree.accept(new Eval());    // 20
+tree.accept(new Print());   // "((2 + 3) * 4)"
+```
+:::
 
 Прослідкуй `tree.accept(new Print())` крок за кроком, і подвійна диспетчеризація перестане бути абстракцією. `tree` — це `Mul`, тож перший диспетч веде в `Mul.accept`, а той кличе `printer.visitMul(this)` — другий диспетч веде в `Print.visitMul`. Той кличе `accept` на лівому піддереві (`Add`) і на правому (`Num`), і на кожному кроці пара «тип вузла × тип відвідувача» знову добирає рівно одну клітину. Дерево обходиться, клітини складаються в рядок `((2 + 3) * 4)`.
 
@@ -162,6 +285,7 @@ tree.accept(new Print());   // "((2 + 3) * 4)"
 
 Тепер найцікавіше — заради чого Відвідувача й затіяно. Додамо **нову операцію**: зворотний польський запис. Ось повний обсяг правок:
 
+:::tabs
 ```ts
 // Нова операція — НОВИЙ клас. Жоден вузол не відкрито.
 class Rpn implements Visitor<string> {
@@ -172,20 +296,60 @@ class Rpn implements Visitor<string> {
 
 tree.accept(new Rpn());   // "2 3 + 4 *"
 ```
+```cpp
+// Нова операція — НОВИЙ клас. Жоден вузол не відкрито.
+struct Rpn : Visitor {
+    std::string result;
+    std::string run(const Expr& e) { e.accept(*this); return result; }
+    void visitNum(const Num& n) override { result = std::to_string(n.value); }
+    void visitAdd(const Add& a) override { result = run(*a.left) + " " + run(*a.right) + " +"; }
+    void visitMul(const Mul& m) override { result = run(*m.left) + " " + run(*m.right) + " *"; }
+};
+
+Rpn{}.run(tree);   // "2 3 + 4 *"
+```
+```java
+// Нова операція — НОВИЙ клас. Жоден вузол не відкрито.
+final class Rpn implements Visitor<String> {
+    public String visitNum(Num n) { return Integer.toString(n.value); }
+    public String visitAdd(Add a) { return a.left.accept(this) + " " + a.right.accept(this) + " +"; }
+    public String visitMul(Mul m) { return m.left.accept(this) + " " + m.right.accept(this) + " *"; }
+}
+
+tree.accept(new Rpn());   // "2 3 + 4 *"
+```
+:::
 
 І все. `Num`, `Add`, `Mul` не відкривали — вони як були перевірені, так і лишилися; `Eval` і `Print` не чіпали. Нова операція приїхала **одним новим класом в окремому файлі**. Це і є «закрито проти осі операцій»: скільки б проходів ти не додав — `Rpn`, `Depth`, `Optimize`, `Typecheck` — кожен це новий клас-відвідувач, новий стовпець матриці, а наявні вузли й наявні відвідувачі стоять недоторкані. Рівно ту вісь, яку віртуальні методи лишали відкритою, Відвідувач закрив.
 
 За це заплачено дзеркальною монетою. Додамо тепер **новий тип вузла** — унарний мінус `Neg`:
 
+:::tabs
 ```ts
 class Neg implements Expr {
   constructor(readonly operand: Expr) {}
   accept<R>(v: Visitor<R>): R { return v.visitNeg(this); }
 }
 ```
+```cpp
+struct Neg : Expr {
+    const Expr* operand;
+    explicit Neg(const Expr* operand) : operand(operand) {}
+    void accept(Visitor& v) const override { v.visitNeg(*this); }
+};
+```
+```java
+final class Neg implements Expr {
+    final Expr operand;
+    Neg(Expr operand) { this.operand = operand; }
+    public <R> R accept(Visitor<R> v) { return v.visitNeg(this); }
+}
+```
+:::
 
 Сам клас `Neg` написати легко. Але зверни увагу, що `accept` кличе `v.visitNeg(this)` — метод, якого в `Visitor` **ще немає**. Щоб код скомпілювався, доводиться:
 
+:::tabs
 ```ts
 interface Visitor<R> {
   visitNum(n: Num): R;
@@ -194,6 +358,24 @@ interface Visitor<R> {
   visitNeg(x: Neg): R;    // ← новий рядок у контракті
 }
 ```
+```cpp
+struct Visitor {
+    virtual ~Visitor() = default;
+    virtual void visitNum(const Num& n) = 0;
+    virtual void visitAdd(const Add& a) = 0;
+    virtual void visitMul(const Mul& m) = 0;
+    virtual void visitNeg(const Neg& x) = 0;   // ← новий рядок у контракті
+};
+```
+```java
+interface Visitor<R> {
+    R visitNum(Num n);
+    R visitAdd(Add a);
+    R visitMul(Mul m);
+    R visitNeg(Neg x);    // ← новий рядок у контракті
+}
+```
+:::
 
 а слідом — дописати `visitNeg` у **кожен** наявний відвідувач: `Eval` (`return -x.operand.accept(this)`), `Print` (`return \`(-${x.operand.accept(this)})\``), `Rpn`, і в усі майбутні. Новий тип вузла — це новий **рядок** матриці, а Відвідувач тримає код по стовпцях (відвідувач = один прохід із усіма своїми `visit`), тож новий рядок ріже впоперек кожен стовпець. Точно та сама біда, що мучила віртуальні методи з новою операцією, лише повернута на 90°.
 

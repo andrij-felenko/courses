@@ -38,9 +38,10 @@
             return {
               n: j + 1, title: t.title, status: (t.basic && t.basic.status) || "empty",
               dir: sec.slug + "/" + t.slug, main: t.slug + ".md",
-              full: !!(t.detailed && t.detailed.status === "done"),   // існує повна -d.md версія
+              full: !!(t.detailed && t.detailed.status === "done"),   // існує повна -d.md версія (done)
+              dstatus: (t.detailed && t.detailed.status) || "empty",  // статус детальної (для single-link fallback)
               histories: files(t.hist),                               // 📜 → попапи
-              extras: files(t.comp).concat(files(t.math), files(t.proj)) // 🔌🧮⚙️ → попапи
+              extras: files(t.comp).concat(files(t.math), files(t.proj), files(t.api)) // 🔌🧮⚙️📋 → попапи
             };
           })
         };

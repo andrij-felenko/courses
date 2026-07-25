@@ -86,7 +86,7 @@ static void gauss(int n, double A[N][N], double b[N], double x[N]) {
 }
 
 int main(void) {
-    stamp_I(1, 0, 0.12);     /* 0.12 А у вузол 1            */
+    stamp_I(0, 1, 0.12);     /* 0.12 А у вузол 1            */
     stamp_R(1, 2, 100.0);    /* R1 між 1 і 2               */
     stamp_R(2, 0, 200.0);    /* R2 від 2 на землю          */
     double x[N];

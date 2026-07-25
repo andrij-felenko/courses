@@ -142,7 +142,7 @@ int main(void) {
     const double tau = 1e-3;     // стала часу RC = 1 мс
     const double dt  = 1e-4;     // крок 0.1 мс
     double u_be = 0.0, u_tr = 0.0;   // напруга: різниця назад / трапеція
-    double f_prev = (1.0 - u_tr) / tau;   // похідна на початку (для трапеції)
+    const double a = dt / (2.0 * tau);   // множник трапеції a = Δt/2τ
 
     printf("  t,мс   точна    BE      TR    |  похибка BE  похибка TR\n");
     for (int n = 1; n <= 10; n++) {
@@ -152,11 +152,9 @@ int main(void) {
         // різниця назад: Uₙ₊₁ = Uₙ + dt·(1−Uₙ₊₁)/tau  → розв'язуємо явно
         u_be = (u_be + dt / tau) / (1.0 + dt / tau);
 
-        // трапеція: Uₙ₊₁ = Uₙ + (dt/2)·[fₙ + fₙ₊₁],  fₙ₊₁ = (1−Uₙ₊₁)/tau
-        double a = dt / (2.0 * tau);
-        u_tr = (u_tr + a * ((1.0 - u_tr) / tau) + a / tau * 1.0) / (1.0 + a / tau);
-        // (еквівалентно: (u_tr + a·f_prev + a/tau) / (1 + a/tau))
-        f_prev = (1.0 - u_tr) / tau;
+        // трапеція: Uₙ₊₁ = Uₙ + (dt/2)·[(1−Uₙ)/tau + (1−Uₙ₊₁)/tau]
+        //           → розкрито:  Uₙ₊₁ = [Uₙ(1−a) + 2a] / (1+a)
+        u_tr = (u_tr * (1.0 - a) + 2.0 * a) / (1.0 + a);
 
         printf("%5.1f  %.4f  %.4f  %.4f  |  %+.5f    %+.5f\n",
                t * 1e3, u_exact, u_be, u_tr,
@@ -173,7 +171,7 @@ import math
 tau = 1e-3       # стала часу RC = 1 мс
 dt  = 1e-4       # крок 0.1 мс
 u_be = u_tr = 0.0            # напруга: різниця назад / трапеція
-f_prev = (1.0 - u_tr) / tau  # похідна на початку (для трапеції)
+a = dt / (2.0 * tau)         # множник трапеції a = Δt/2τ
 
 print("  t,мс   точна    BE      TR    |  похибка BE  похибка TR")
 for n in range(1, 11):
@@ -183,11 +181,9 @@ for n in range(1, 11):
     # різниця назад: Uₙ₊₁ = Uₙ + dt·(1−Uₙ₊₁)/tau  → розв'язуємо явно
     u_be = (u_be + dt / tau) / (1.0 + dt / tau)
 
-    # трапеція: Uₙ₊₁ = Uₙ + (dt/2)·[fₙ + fₙ₊₁],  fₙ₊₁ = (1−Uₙ₊₁)/tau
-    a = dt / (2.0 * tau)
-    u_tr = (u_tr + a * ((1.0 - u_tr) / tau) + a / tau * 1.0) / (1.0 + a / tau)
-    # (еквівалентно: (u_tr + a·f_prev + a/tau) / (1 + a/tau))
-    f_prev = (1.0 - u_tr) / tau
+    # трапеція: Uₙ₊₁ = Uₙ + (dt/2)·[(1−Uₙ)/tau + (1−Uₙ₊₁)/tau]
+    #           → розкрито:  Uₙ₊₁ = [Uₙ(1−a) + 2a] / (1+a)
+    u_tr = (u_tr * (1.0 - a) + 2.0 * a) / (1.0 + a)
 
     print(f"{t*1e3:5.1f}  {u_exact:.4f}  {u_be:.4f}  {u_tr:.4f}  |  "
           f"{u_be - u_exact:+.5f}    {u_tr - u_exact:+.5f}")

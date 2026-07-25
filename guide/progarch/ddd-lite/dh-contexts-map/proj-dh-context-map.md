@@ -137,7 +137,7 @@ function audit(imports: Imp[], ownerOf: (p: string) => string | null): string[] 
     const v = verdict(from, to, target);
     if (v) bad.push(v);
     // структурні контракти поверх пер-ребра:
-    if (MAP[to]?.isolated) bad.push(`окремі шляхи порушено: ${from} → ${to}`);
+    if (MAP[to]?.isolated && from !== to) bad.push(`окремі шляхи порушено: ${from} → ${to}`);
     if ((from === "events" || from === "ids") && to !== from)
       bad.push(`${from} має бути листком, а тягне ${to}`);
   }
@@ -177,7 +177,7 @@ def audit(imports, owner_of):                     # imports: [(файл-джер
         v = verdict(frm, to, target)
         if v:
             bad.append(v)
-        if MAP.get(to, {}).get("isolated"):       # окремі шляхи: у video не входить ніхто
+        if MAP.get(to, {}).get("isolated") and frm != to:  # окремі шляхи: у video не входить ніхто ЗЗОВНІ
             bad.append(f"окремі шляхи порушено: {frm} → {to}")
         if frm in ("events", "ids") and to != frm:  # шина й ядро мусять бути листками
             bad.append(f"{frm} має бути листком, а тягне {to}")

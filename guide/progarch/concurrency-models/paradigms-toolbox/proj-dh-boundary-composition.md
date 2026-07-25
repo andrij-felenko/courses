@@ -36,7 +36,7 @@
 
 ## Щасливий шлях: зшита мапа
 
-Мапа різномовна — і це не примха, а сама суть картки: кожен шов пишемо мовою, якою його **найкраще видно**. Край на циклі подій і актори — рідний дім TypeScript/Node; обмежена черга, пул і канал — рідний дім Go з його каналами. У проді ці два боки й справді часто різні процеси (Node-шлюз, Go-аналітика), зшиті транспортом; шов від того не змінює природи.
+Мапа різномовна — і це не примха, а сама суть картки: кожен шов пишемо мовою, якою його **найкраще видно**. Край на циклі подій і актори — рідний дім TypeScript/Node; важкий бік — обмежена черга, пул і канал — рідний дім системних мов: Go з його каналами й C++ із потоками та обмеженою чергою. У проді ці боки й справді часто різні процеси (Node-шлюз, Go- чи C++-аналітика), зшиті транспортом; шов від того не змінює природи.
 
 Спершу край: одне ядро на циклі подій приймає кадри від сотень з'єднань і **розгалужує** кожен кадр на два шви — у скриньку його актора й у чергу аналітики.
 
@@ -102,7 +102,7 @@ class DeviceActor {
 }
 ```
 
-Тепер важкий бік — шов Б (черга → пул) і шов В (канал → правила). Обмежений канал у Go — найпрозоріша на світі ілюстрація «шов = місткість + політика»: `make(chan Frame, 256)` **і передає, і тисне назад** одним рядком. Той самий шов у Node-варіанті (для крамниці без Go) — обмежена черга перед пулом `worker_threads`; перемкни вкладку й побач, що ручки ті самі:
+Тепер важкий бік — шов Б (черга → пул) і шов В (канал → правила). Обмежений канал у Go — найпрозоріша на світі ілюстрація «шов = місткість + політика»: `make(chan Frame, 256)` **і передає, і тисне назад** одним рядком. У C++ каналу немає — і саме тому шов стає ще наочнішим: обмежена блокувальна черга, у якій обидві ручки лежать перед очима — перевірка `size < cap` і очікування на `condition_variable`, коли повно, — а пул воркерів це `std::thread` на кожне ядро. Той самий шов у Node-варіанті (для крамниці без Go) — обмежена черга перед пулом `worker_threads`. Три мови, три вкладки — перемкни й побач, що ручки в усіх ті самі:
 
 :::tabs
 ```go
@@ -141,6 +141,72 @@ func startRules() {
 
 // міст від ядра: кладе кадр у чергу. Повно → блокується (зворотний тиск угору, до джерела).
 func submit(f Frame) { work <- f }
+```
+```cpp
+// analytics.cpp — той самий шов у C++: обмежена черга + пул std::thread → черга вироків
+#include <condition_variable>
+#include <cstddef>
+#include <deque>
+#include <mutex>
+#include <string>
+#include <thread>
+
+struct Frame   { std::string deviceId; double value; };
+struct Verdict { std::string deviceId; double risk;  };
+
+// Шов = ⟨місткість, політика⟩ окремим типом. Політика «блокувати» — це очікування на
+// condition_variable: коли повно, продюсер жде місця (зворотний тиск угору, до джерела).
+template <typename T>
+class BoundedQueue {
+    std::deque<T>           buf_;
+    std::size_t             cap_;
+    std::mutex              m_;
+    std::condition_variable notFull_, notEmpty_;
+public:
+    explicit BoundedQueue(std::size_t cap) : cap_(cap) {}
+
+    void push(T v) {                                   // повно → блокуємось саме тут
+        std::unique_lock lk(m_);
+        notFull_.wait(lk, [&]{ return buf_.size() < cap_; });
+        buf_.push_back(std::move(v));
+        notEmpty_.notify_one();
+    }
+    T pop() {
+        std::unique_lock lk(m_);
+        notEmpty_.wait(lk, [&]{ return !buf_.empty(); });
+        T v = std::move(buf_.front()); buf_.pop_front();
+        notFull_.notify_one();                         // звільнили місце — будимо продюсера
+        return v;
+    }
+};
+
+BoundedQueue<Frame>   work{256};       // ШОВ Б: 256 — це і є шов
+BoundedQueue<Verdict> verdicts{64};    // ШОВ В: канал до стадії правил
+
+double scoreAnomaly(const Frame& f) { /* ~40 мс чистого CPU: вікно, кореляції, поріг */ return 0; }
+
+void startPool() {
+    unsigned n = std::thread::hardware_concurrency();
+    for (unsigned i = 0; i < n; ++i)
+        std::thread([]{
+            for (;;) {                                 // N воркерів — з однієї черги
+                Frame f = work.pop();
+                verdicts.push({f.deviceId, scoreAnomaly(f)});  // ШОВ В: вирок у правила
+            }
+        }).detach();
+}
+
+void startRules() {
+    std::thread([]{
+        for (;;) {                                     // стадія правил споживає вироки
+            Verdict v = verdicts.pop();
+            if (v.risk > 0.9) { /* дія: сповістити, вимкнути розетку */ }
+        }
+    }).detach();
+}
+
+// міст від ядра: кладе кадр у чергу. Повно → push блокується (зворотний тиск до джерела).
+void submit(const Frame& f) { work.push(f); }
 ```
 ```ts
 // analytics.ts — той самий шов у Node: обмежена черга перед пулом worker_threads

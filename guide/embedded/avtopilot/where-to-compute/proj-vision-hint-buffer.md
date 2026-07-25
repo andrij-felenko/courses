@@ -173,8 +173,8 @@ vision_hint_t hint_read_seqlock(void) {
 
     do {
         before = g_seq;                     // 1) зчитали лічильник…
-        if (before & 1u)                    //    непарний → писар саме пише
-            continue;                       //    не морочимось, одразу наново
+        while (before & 1u)                 //    непарний → писар саме пише:
+            before = g_seq;                 //    крутимось, доки не стане парним
         __asm volatile ("dmb" ::: "memory");
 
         snap = g_hint;                      // 2) скопіювали дані

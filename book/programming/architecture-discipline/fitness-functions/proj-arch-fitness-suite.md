@@ -11,6 +11,27 @@
 Граф зберігаємо найдешевше — **списком суміжності** (англ. *adjacency* — сусідство): відображення «модуль → множина модулів, від яких він прямо залежить». Множина, а не список, бо той самий імпорт трапляється в коді десятки разів, а нас цікавить сам факт ребра, не його кратність.
 
 :::tabs
+```cpp
+#include <string>
+#include <vector>
+#include <utility>
+#include <unordered_map>
+#include <unordered_set>
+
+using Graph = std::unordered_map<std::string, std::unordered_set<std::string>>;
+
+// граф: модуль → модулі, від яких він ПРЯМО залежить
+Graph build_graph(const std::vector<std::pair<std::string, std::string>>& edges) {
+    Graph g;
+    for (const auto& [src, dst] : edges) {
+        g[src];                               // вузол існує навіть без вихідних ребер
+        g[dst];
+        if (src != dst)                       // самопосилання модуля на себе — не ребро
+            g[src].insert(dst);
+    }
+    return g;
+}
+```
 ```python
 # граф: модуль → модулі, від яких він ПРЯМО залежить
 def build_graph(edges: list[tuple[str, str]]) -> dict[str, set[str]]:
@@ -90,6 +111,36 @@ util    → (нічого)
 Правило «модуль X не сміє залежати від модуля Y» майже ніколи не про пряме ребро. Пряме ребро видно очима в рев'ю; підступне — це коли X дістає Y **через ланцюжок**, якого ніхто не тримав у голові: X → щось → щось → Y. Тому чесне питання — не «чи є ребро X → Y», а «чи є **шлях** X → … → Y», тобто питання про **досяжність** (англ. *reachability*). А досяжність — це просто обхід графа від X: усе, куди можна дійти, і є множина досяжного.
 
 :::tabs
+```cpp
+// Чи є напрямлений шлях src → … → dst.
+bool reaches(const Graph& g, const std::string& src, const std::string& dst) {
+    std::unordered_set<std::string> seen{src};
+    std::vector<std::string> stack{src};
+    while (!stack.empty()) {
+        std::string u = stack.back();
+        stack.pop_back();
+        auto it = g.find(u);
+        if (it == g.end()) continue;
+        for (const std::string& v : it->second) {   // порядок обходу не важить
+            if (v == dst) return true;
+            if (seen.insert(v).second)               // вставили вперше → у стек
+                stack.push_back(v);
+        }
+    }
+    return false;
+}
+
+// rules: пари (X, Y) зі змістом «X не сміє досягати Y».
+std::vector<std::string> check_forbidden(
+        const Graph& g,
+        const std::vector<std::pair<std::string, std::string>>& rules) {
+    std::vector<std::string> bad;
+    for (const auto& [x, y] : rules)
+        if (reaches(g, x, y))
+            bad.push_back(x + " ⇏ " + y + ": є шлях " + x + " → … → " + y);
+    return bad;
+}
+```
 ```python
 def reaches(g: dict[str, set[str]], src: str, dst: str) -> bool:
     """Чи є напрямлений шлях src → … → dst."""
@@ -144,6 +195,23 @@ function checkForbidden(g: Graph, rules: [string, string][]): string[] {
 Шарувата архітектура — це домовленість про напрям: вищі шари спираються на нижчі, ніколи навпаки. `web` кличе домен, домен кличе `db`, `db` кличе `util` — і жоден із них не сміє потягнутися вгору, бо тоді фундамент починає залежати від даху. Формально це **частковий порядок** (лат. *ordo* — лад): припиши кожному модулеві рівень-число, і закон один — ребро не сміє вести з нижчого рівня у вищий.
 
 :::tabs
+```cpp
+// level: модуль → номер шару (більший = вищий). Ребро вгору — порушення.
+std::vector<std::string> check_layers(
+        const Graph& g, const std::unordered_map<std::string, int>& level) {
+    auto lv = [&](const std::string& m) {
+        auto it = level.find(m);
+        return it == level.end() ? 0 : it->second;
+    };
+    std::vector<std::string> bad;
+    for (const auto& [u, deps] : g)
+        for (const std::string& v : deps)
+            if (lv(u) < lv(v))                        // залежність веде ВГОРУ
+                bad.push_back(u + "(р." + std::to_string(lv(u)) + ") → " +
+                              v + "(р." + std::to_string(lv(v)) + "): ребро вгору");
+    return bad;
+}
+```
 ```python
 def check_layers(g, level: dict[str, int]) -> list[str]:
     """level: модуль → номер шару (більший = вищий). Ребро вгору — порушення."""
@@ -184,6 +252,47 @@ function checkLayers(g: Graph, level: Map<string, number>): string[] {
 Тепер найважливіше для практики: детектор мусить не просто сказати «цикл є», а **назвати його**. «Десь у ста модулях є цикл» — це не допомога, це знущання; корисне повідомлення — це `orders → report → orders`. Тому поряд із кольорами ведемо мапу батьків: для кожного вузла пам'ятаємо, з якого ми в нього прийшли. Коли натрапляємо на сіре ребро `u → v`, підіймаємося по батьках від `u` вгору, аж поки не впремося у `v`, — це і є тіло циклу, лишається його розвернути й дописати замикач.
 
 :::tabs
+```cpp
+#include <optional>
+#include <functional>
+#include <algorithm>
+
+enum Color { WHITE, GRAY, BLACK };
+
+std::optional<std::vector<std::string>> find_cycle(const Graph& g) {
+    std::unordered_map<std::string, Color> color;
+    for (const auto& [u, _] : g) color[u] = WHITE;
+    std::unordered_map<std::string, std::string> parent;
+
+    std::function<std::optional<std::vector<std::string>>(const std::string&)> walk =
+        [&](const std::string& u) -> std::optional<std::vector<std::string>> {
+        color[u] = GRAY;                              // u зайшов у стек обходу
+        std::vector<std::string> nbrs(g.at(u).begin(), g.at(u).end());
+        std::sort(nbrs.begin(), nbrs.end());          // детермінований звіт
+        for (const auto& v : nbrs) {
+            if (color[v] == GRAY) {                   // ребро у СІРЕ = замкнення назад
+                std::vector<std::string> path{u};
+                while (path.back() != v)              // підіймаємось по батьках u → … → v
+                    path.push_back(parent[path.back()]);
+                std::reverse(path.begin(), path.end());  // тепер v → … → u
+                path.push_back(v);                    // ребро u → v замикає цикл
+                return path;
+            }
+            if (color[v] == WHITE) {
+                parent[v] = u;
+                if (auto found = walk(v)) return found;
+            }
+        }
+        color[u] = BLACK;                             // u й усе під ним оброблено
+        return std::nullopt;
+    };
+
+    for (const auto& [u, _] : g)
+        if (color[u] == WHITE)
+            if (auto found = walk(u)) return found;    // напр. {"orders","report","orders"}
+    return std::nullopt;
+}
+```
 ```python
 WHITE, GRAY, BLACK = 0, 1, 2
 
@@ -304,6 +413,20 @@ function findCycle(g: Graph): string[] | null {
 Найгрубший храповик (англ. *ratchet* — механізм, що крутиться лише в один бік) стереже саме **число**: «порушень не більш як двісті, і планка може тіснитися лише вниз». Він годиться для агрегатних метрик, де важлива кількість, а не поіменність. Але для графа залежностей є точніший інструмент — **базова лінія на множині конкретних ребер**. Заморозь у файл рівно ту множину порушень, що є зараз (кожне як рядок `"legacy→report"`), закомить її в репозиторій — і хай ворота падають лише на порушеннях, яких у базі **не було**. Полагоджене порушення випадає з бази й **уже ніколи не повернеться**.
 
 :::tabs
+```cpp
+// current — нинішні порушення (напр. "legacy→report"); baseline — заморожені.
+// Падаємо лише на НОВИХ; базу тіснимо до тих старих, що ще лишилися.
+std::pair<bool, std::unordered_set<std::string>> gate(
+        const std::unordered_set<std::string>& current,
+        const std::unordered_set<std::string>& baseline) {
+    std::unordered_set<std::string> fresh, kept;
+    for (const auto& v : current) {
+        if (baseline.count(v)) kept.insert(v);        // старі, що ще лишилися → нова база
+        else                   fresh.insert(v);       // порушення, яких у базі не було
+    }
+    return { fresh.empty(), kept };
+}
+```
 ```python
 def gate(current: set[str], baseline: set[str]) -> tuple[bool, set[str]]:
     """current — нинішні порушення (напр. 'legacy→report'); baseline — заморожені.

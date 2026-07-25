@@ -149,44 +149,40 @@ def fig_imc_collapse():
            title="IMC згортає контур у простий лаг сталої λ із незмінною затримкою θ")
 
 
-# ── 3. Затримку обернути не можна: звідки в знаменнику береться (λ + θ) ─────────
+# ── 3. Місток C = Q/(1−G·Q): звідки (λ + θ) та інтегратор ПІ ────────────────────
+# Чесне переведення IMC-контролера Q у класичний ПІ: у добутку G·Q раціональне
+# скорочується (лишається затримка), а в різниці 1−G·Q одиниці гасяться (→ 1/s,
+# інтегратор) і θs додається до λs (→ множник (λ+θ)).
 def fig_deadtime_split():
     W, H = 720, 300
     p = []
     cx = W / 2
 
-    # модель = (оборотна частина) × (чиста затримка)
-    y0 = 96
-    b1, b1h = 210, 56
-    b2, b2h = 200, 56
-    x1 = cx - 120 - b1 / 2
-    x2 = cx + 120 - b2 / 2
-    p.append(rect(x1, y0 - b1h / 2, b1, b1h, fill=FILL, stroke=NEG, sw=1.8))
-    p.append(text(x1 + b1 / 2, y0 - 4, "K / (τs + 1)", size=13, color=NEG, anchor="middle", bold=True))
-    p.append(text(x1 + b1 / 2, y0 + 15, "оборотна частина", size=9.5, color=NEG, anchor="middle"))
+    # заголовок: місток IMC → класичний ПІ
+    p.append(text(cx, 34, "місток:  класичний ПІ   C(s) = Q / ( 1 − G·Q )",
+                  size=13.5, color=INK, anchor="middle", bold=True))
 
-    p.append(text(cx, y0 - 2, "×", size=20, color=MUTED, anchor="middle", bold=True))
+    # рядок 1: добуток G·Q — раціональне скорочується, лишається затримка
+    p.append(fitbox(130, 58, W - 260, 44, "G·Q  =  e^(−θs) / (λs + 1)",
+                    size=14, fill=FILL, stroke=NEG, sw=1.8, bold=True, color=NEG))
+    p.append(text(cx, 122,
+                  "раціональна частина об'єкта скоротилась проти оберненої моделі — лишились фільтр λ і затримка",
+                  size=10, color=MUTED, anchor="middle"))
 
-    p.append(rect(x2, y0 - b2h / 2, b2, b2h, fill="#fdecea", stroke=POS, sw=1.8))
-    p.append(text(x2 + b2 / 2, y0 - 4, "e^(−θs)", size=13, color=POS, anchor="middle", bold=True))
-    p.append(text(x2 + b2 / 2, y0 + 15, "чиста затримка — НЕ оборотна", size=9.5, color=POS, anchor="middle"))
+    # рядок 2: різниця 1 − G·Q — одиниці гасяться, θs додається до λs
+    p.append(fitbox(130, 142, W - 260, 44, "1 − G·Q  =  (λs+1) − (1−θs)  =  (λ + θ)s",
+                    size=14, fill=FILL, stroke=FIELD, sw=1.8, bold=True, color=INK))
+    p.append(text(cx, 206, "e^(−θs) ≈ 1 − θs   (перший порядок)",
+                  size=10, color=MUTED, anchor="middle"))
 
-    # стрілка вниз: наближення затримки
-    p.append(arrow(x2 + b2 / 2, y0 + b2h / 2 + 4, x2 + b2 / 2, y0 + b2h / 2 + 40, color=MUTED, sw=1.5))
-    p.append(text(x2 + b2 / 2 + 8, y0 + b2h / 2 + 26, "наближення 1-го порядку", size=10, color=MUTED, anchor="start"))
-
-    # рядок результату
-    yr = 210
-    s = "e^(−θs)  ≈  1 / (θs + 1)      →      знаменник  λs + 1  +  θs  =  (λ + θ)s + 1"
-    box = fitbox(60, yr - 26, W - 120, 52, s, size=13, fill=FILL, stroke=FIELD, sw=1.8, bold=True, color=INK)
-    p.append(box)
-
-    p.append(text(cx, yr + 56,
-                  "затримку θ не можна скасувати — вона просто додається до λ у знаменнику Kp",
-                  size=11, color=MUTED, anchor="middle"))
+    # два висновки
+    p.append(text(cx, 240, "одиниці гасяться  →  у C(s) з'являється 1/s : інтегратор ПІ",
+                  size=11.5, color=FIELD, anchor="middle", bold=True))
+    p.append(text(cx, 268, "θs стає поряд із λs  →  спільний множник (λ + θ) у знаменнику Kp",
+                  size=11.5, color=POS, anchor="middle", bold=True))
 
     render(os.path.join(OUT, "deadtime-split.svg"), W, H, *p,
-           title="Чисту затримку обернути не можна — звідси (λ + θ) у формулі")
+           title="Місток C = Q/(1−G·Q): звідки (λ + θ) та інтегратор ПІ")
 
 
 if __name__ == "__main__":

@@ -262,6 +262,7 @@ class HybridSeam implements SessionSeam {
 
 ```ts
 const seamV = new HybridSeam(privateKey, publicKey, new MemoryStore(), 120, clock);
+NOW = 0;                                              // назад на старт: логін від t=0 → exp = 0 + 120
 let { access, refreshId } = await seamV.login(alice); // access живе 2 хв
 
 NOW = 10;   console.log(await seamV.validate(access));  // → Principal   ЖИВА

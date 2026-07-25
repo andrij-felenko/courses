@@ -384,6 +384,150 @@ def fig_tubes_to_gates():
     render(os.path.join(IMG, "tubes-to-gates.svg"), W, H, *f)
 
 
+# ════════════════ ДЕТАЛЬНА ВЕРСІЯ: додаткові фігури ═════════════════════════
+
+# ── 10. Дві ПХ перетинаються у трьох точках (чому станів рівно два) ──────────
+def fig_vtc_intersect():
+    import math
+    W, H = 820, 500
+    f = [text(W / 2, 30, "Чому стійких станів рівно два: перетин двох характеристик", size=17, bold=True),
+         text(W / 2, 52, "крива інвертора й та сама крива, віддзеркалена, перетинаються у трьох точках — два кути стійкі, середина ні",
+              size=11.5, color=MUTED, italic=True)]
+    px0, pytop, pw, ph = 120, 95, 380, 300
+    pybot = pytop + ph
+    # осі (текст — поза лініями)
+    f.append(line(px0, pytop, px0, pybot, color=INK, sw=1.8))
+    f.append(line(px0, pybot, px0 + pw, pybot, color=INK, sw=1.8))
+    f.append(text(px0 + pw / 2, pybot + 36, "Q̄  (вхід першого інвертора)", size=12, color=INK))
+    f.append(text(px0 - 30, (pytop + pybot) / 2, "Q", size=14, color=INK, bold=True))
+    f.append(text(px0, pybot + 18, "0", size=10.5, color=MUTED))
+    f.append(text(px0 + pw, pybot + 18, "1", size=10.5, color=MUTED))
+    f.append(text(px0 - 14, pytop + 6, "1", size=10.5, color=MUTED, anchor="end"))
+    # криві
+    k = 13.0
+    def fu(u):
+        return 1.0 / (1.0 + math.exp(k * (u - 0.5)))
+    N = 140
+    c1, c2 = [], []
+    for i in range(N + 1):
+        u = i / N
+        c1.append((px0 + u * pw, pybot - fu(u) * ph))       # Q = f(Q̄)
+        c2.append((px0 + fu(u) * pw, pybot - u * ph))        # Q̄ = f(Q), дзеркальна
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6"/>'
+             % (" ".join("%.1f,%.1f" % p for p in c1), INK))
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6"/>'
+             % (" ".join("%.1f,%.1f" % p for p in c2), NEG))
+    # три точки перетину
+    def pt(qb, q):
+        return (px0 + qb * pw, pybot - q * ph)
+    for qb, q, col in ((0.022, 0.978, OK), (0.978, 0.022, OK), (0.5, 0.5, HOT)):
+        cx, cy = pt(qb, q)
+        f.append(circle(cx, cy, 6.5, fill=BG, stroke=col, sw=2.6))
+        f.append(circle(cx, cy, 2.6, fill=col, stroke=col, sw=1))
+    # легенда праворуч (поза графіком)
+    lx, ly = px0 + pw + 46, 150
+    f.append(line(lx, ly, lx + 24, ly, color=INK, sw=2.6))
+    f.append(text(lx + 32, ly + 4, "ПХ інвертора 1:  Q=f(Q̄)", size=11.5, color=INK, anchor="start"))
+    f.append(line(lx, ly + 28, lx + 24, ly + 28, color=NEG, sw=2.6))
+    f.append(text(lx + 32, ly + 32, "ПХ інвертора 2 (дзеркальна)", size=11.5, color=INK, anchor="start"))
+    f.append(circle(lx + 12, ly + 62, 6.5, fill=BG, stroke=OK, sw=2.6))
+    f.append(circle(lx + 12, ly + 62, 2.6, fill=OK, stroke=OK, sw=1))
+    f.append(text(lx + 32, ly + 66, "стійкий стан (2 кути)", size=11.5, color=OK, anchor="start", bold=True))
+    f.append(circle(lx + 12, ly + 90, 6.5, fill=BG, stroke=HOT, sw=2.6))
+    f.append(circle(lx + 12, ly + 90, 2.6, fill=HOT, stroke=HOT, sw=1))
+    f.append(text(lx + 32, ly + 94, "метастабільний (порог)", size=11.5, color=HOT, anchor="start", bold=True))
+    f.append(fitbox(px0, pybot + 52, pw + 240, 34,
+                    "Дві дзеркальні спадні S-криві дають рівно три перетини: два стійкі кути + нестійка середина.",
+                    size=12, fill="#f4f7f4", stroke=OK, sw=1.6, bold=True))
+    render(os.path.join(IMG, "vtc-intersect.svg"), W, H, *f)
+
+
+# ── 11. Метастабільна точка: рівновага на вістрі ────────────────────────────
+def fig_metastable():
+    W, H = 800, 430
+    f = [text(W / 2, 30, "Метастабільна точка: рівновага на вістрі", size=18, bold=True),
+         text(W / 2, 52, "між двома ямами-станами є горб; на його вершині комірка теж у рівновазі, та найменший поштовх її зриває",
+              size=11.5, color=MUTED, italic=True)]
+    x0, x1 = 130, 610
+    yref = 330
+    pts = []
+    N = 140
+    for i in range(N + 1):
+        u = -1.3 + 2.6 * i / N
+        V = (u * u - 1.0) ** 2
+        xx = x0 + (u + 1.3) / 2.6 * (x1 - x0)
+        yy = yref - 90.0 * V
+        pts.append((xx, yy))
+    f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6"/>'
+             % (" ".join("%.1f,%.1f" % p for p in pts), INK))
+
+    def atu(uu):
+        i = int(round((uu + 1.3) / 2.6 * N))
+        return pts[i]
+    wx0, _ = atu(-1.0)
+    wx1, _ = atu(1.0)
+    hx, _ = atu(0.0)
+    # ями (стійкі стани)
+    f.append(circle(wx0, yref - 13, 12, fill="#eaf0fd", stroke=LOW, sw=2.4))
+    f.append(text(wx0, yref - 9, "0", size=12, color=LOW, bold=True))
+    f.append(text(wx0, yref + 24, "стан «0» (стійкий)", size=11, color=LOW))
+    f.append(circle(wx1, yref - 13, 12, fill="#fdecea", stroke=HOT, sw=2.4))
+    f.append(text(wx1, yref - 9, "1", size=12, color=HOT, bold=True))
+    f.append(text(wx1, yref + 24, "стан «1» (стійкий)", size=11, color=HOT))
+    # кулька на вершині
+    cy = yref - 90 - 14
+    f.append(circle(hx, cy, 13, fill="#fff3d6", stroke="#c07c10", sw=2.8))
+    f.append(text(hx, cy + 4, "?", size=13, color="#96600c", bold=True))
+    f.append(text(hx, cy - 22, "метастабільна точка", size=11.5, color="#96600c", bold=True))
+    # стрілки «зірветься туди або сюди»
+    f.append(arrow(hx - 18, cy + 8, hx - 78, cy + 78, color=MUTED, sw=1.8))
+    f.append(arrow(hx + 18, cy + 8, hx + 78, cy + 78, color=MUTED, sw=1.8))
+    f.append(fitbox(60, 358, 680, 40,
+                    "ΔV(t) = ΔV₀·e^(t/τ) — відхилення від балансу росте експоненційно; час виходу з метастану не обмежений згори.",
+                    size=12.5, fill="#f4f7f4", stroke=OK, sw=1.6, bold=True))
+    render(os.path.join(IMG, "metastable.svg"), W, H, *f)
+
+
+# ── 12. Комірка SRAM: петля + два ключі доступу (6T) ────────────────────────
+def fig_sram_6t():
+    W, H = 820, 440
+    f = [text(W / 2, 30, "Комірка SRAM: бістабільна петля + два ключі доступу", size=18, bold=True),
+         text(W / 2, 52, "чотири транзистори тримають біт (два перехресно-зв'язані інвертори), ще два з'єднують його з розрядними лініями",
+              size=11.5, color=MUTED, italic=True)]
+    yw = 150          # рівень WL
+    yn = 296          # рівень вузлів/ключів
+    # розрядні лінії (вертикальні)
+    f.append(line(140, yw, 140, 395, color=NEG, sw=2))
+    f.append(line(680, yw, 680, 395, color=NEG, sw=2))
+    f.append(text(140, 138, "BL̄", size=12.5, color=NEG, bold=True))
+    f.append(text(680, 138, "BL", size=12.5, color=NEG, bold=True))
+    # лінія вибору рядка (горизонтальна)
+    f.append(line(250, yw, 570, yw, color=HOT, sw=2))
+    f.append(text(410, 138, "WL — вибір рядка", size=12, color=HOT, bold=True))
+    # центральна петля
+    f.append(rect(335, 236, 150, 120, fill="#eef7ee", stroke=OK, sw=2))
+    f.append(mtext(410, 276, ["бістабільна петля", "(2 перехресно-", "зв'язані інвертори)"], size=11.5, color=OK, bold=True))
+    f.append(dot(335, yn)); f.append(dot(485, yn))
+    f.append(text(324, yn - 12, "Q̄", size=12.5, color=INK, bold=True, anchor="end"))
+    f.append(text(496, yn - 12, "Q", size=12.5, color=INK, bold=True, anchor="start"))
+    # лівий ключ доступу
+    f.append(rect(228, 274, 55, 44, fill=FILL, stroke=INK, sw=1.8))
+    f.append(mtext(255, 292, ["ключ", "M5"], size=10.5, color=INK, bold=True))
+    f.append(line(140, yn, 228, yn, color=INK, sw=1.6))       # BL̄ → ключ
+    f.append(line(283, yn, 335, yn, color=INK, sw=1.6))       # ключ → Q̄
+    f.append(line(255, 274, 255, yw, color=INK, sw=1.4))      # затвор → WL
+    # правий ключ доступу
+    f.append(rect(537, 274, 55, 44, fill=FILL, stroke=INK, sw=1.8))
+    f.append(mtext(564, 292, ["ключ", "M6"], size=10.5, color=INK, bold=True))
+    f.append(line(485, yn, 537, yn, color=INK, sw=1.6))       # Q → ключ
+    f.append(line(592, yn, 680, yn, color=INK, sw=1.6))       # ключ → BL
+    f.append(line(564, 274, 564, yw, color=INK, sw=1.4))      # затвор → WL
+    f.append(fitbox(90, 402, 640, 30,
+                    "Шість транзисторів: 4 у двох інверторах тримають біт + 2 ключі доступу до розрядних ліній.",
+                    size=12, fill="#f4f7f4", stroke=OK, sw=1.6, bold=True))
+    render(os.path.join(IMG, "sram-6t.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_no_memory()
     fig_seq_model()
@@ -394,4 +538,7 @@ if __name__ == "__main__":
     fig_crosscoupled()
     fig_bistable()
     fig_tubes_to_gates()
+    fig_vtc_intersect()
+    fig_metastable()
+    fig_sram_6t()
     print("OK figs.py -> img/")

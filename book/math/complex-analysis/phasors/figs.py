@@ -175,6 +175,75 @@ def fig_addition():
            title='Додавання синусоїд через фазори: вектор + вектор')
 
 
+# ── Фігура 3: множення на i — поворот на 90°, звідки i² = −1 ─────────────────
+# Геометричне серце фазорної алгебри. Помножити стрілку на i = повернути її на
+# +90° без зміни довжини; двічі поспіль (i²) = розворот на 180° = зміна знака.
+# Саме це «повернути на 90°» стоїть за зсувом фази реактивного елемента й за
+# похідною = множенням на i·ω. Три стрілки z, i·z, i²·z=−z на спільному колі.
+
+def fig_multiply_i():
+    W, H = 680, 430
+    cx, cy = 300, 235
+    R = 120
+
+    th_z = math.radians(35)     # z у першій чверті
+    th_iz = math.radians(125)   # i·z = z + 90°
+    th_nz = math.radians(215)   # i²·z = z + 180° = −z
+
+    def pt(th, r=R):
+        return cx + r * math.cos(th), cy - r * math.sin(th)
+
+    zx, zy = pt(th_z)
+    gx, gy = pt(th_iz)
+    bx, by = pt(th_nz)
+
+    parts = []
+
+    # осі комплексної площини
+    parts.append(arrow(150, cy, 470, cy, color=MUTED, sw=1.3))
+    parts.append(arrow(cx, 375, cx, 95, color=MUTED, sw=1.3))
+    parts.append(text(476, cy + 4, 'Re', 12, MUTED, 'start'))
+    parts.append(text(cx, 88, 'Im', 12, MUTED, 'middle'))
+
+    # напрямне коло сталої довжини (усі три стрілки однакові)
+    parts.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="%s" '
+                 'stroke-width="1.2" stroke-dasharray="4 4"/>' % (cx, cy, R, MUTED))
+
+    # дуги двох поворотів на +90° (полілінії на колі)
+    def arc(a1, a2, color):
+        steps = 40
+        pts = ['%.1f,%.1f' % pt(a1 + (a2 - a1) * i / steps) for i in range(steps + 1)]
+        return ('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4"/>'
+                % (' '.join(pts), color))
+    parts.append(arc(th_z, th_iz, FIELD))
+    parts.append(arc(th_iz, th_nz, NEG))
+
+    # мітки «·i» усередині, біля середини кожної дуги
+    lx1, ly1 = pt(math.radians(80), 90)
+    lx2, ly2 = pt(math.radians(170), 90)
+    parts.append(text(lx1, ly1, '·i', 13, INK, 'middle', bold=True))
+    parts.append(text(lx2, ly2, '·i', 13, INK, 'middle', bold=True))
+
+    # три стрілки
+    parts.append(arrow(cx, cy, zx, zy, color=POS, sw=3.0))
+    parts.append(arrow(cx, cy, gx, gy, color=FIELD, sw=3.0))
+    parts.append(arrow(cx, cy, bx, by, color=NEG, sw=3.0))
+    parts.append(circle(cx, cy, 4, fill=INK, stroke=INK, sw=1))
+
+    # мітки стрілок (поза кінцями, щоб лінія не різала напис)
+    parts.append(text(zx + 12, zy - 4, 'z', 15, POS, 'start', bold=True))
+    parts.append(text(gx, gy - 16, 'i·z', 14, FIELD, 'middle', bold=True))
+    parts.append(text(bx, by + 22, 'i²·z = −z', 14, NEG, 'middle', bold=True))
+
+    parts.append(text(cx + 40, H - 18,
+                      'Помножити на i — поворот на +90° без зміни довжини; двічі (i²) — розворот, тобто −1',
+                      12, INK, 'middle'))
+
+    render(os.path.join(IMG, 'multiply-by-i.svg'), W, H, *parts,
+           title='Множення на i — це поворот на 90°')
+
+
 fig_rotating()
 fig_addition()
+fig_multiply_i()
 print('Done. SVG in', IMG)

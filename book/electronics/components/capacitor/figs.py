@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Фігури до вставки «Маркування й типорозміри конденсаторів».
+"""Фігури до теми «Конденсатор»: детальна стаття (qv-line, current-slope)
+та вставки про маркування/типорозміри й MLCC.
 Запуск:  python figs.py   → пише SVG у ./img/
 Стиль і помічники — зі спільного svgkit (НЕ переписувати тут)."""
 import sys, os
@@ -218,9 +219,90 @@ def fig_dc_bias():
     render(os.path.join(IMG, 'dc-bias.svg'), W, H, *f)
 
 
+# ── 5. Визначальний зв'язок Q = C·U: ємність — нахил, енергія — площа ────────
+def fig_qv_line():
+    W, H = 720, 440
+    f = [text(W / 2, 28, "Ємність — нахил прямої «заряд–напруга»; енергія — площа під нею",
+              size=15, bold=True)]
+    ox, oy = 90, 380          # початок координат
+    pw, ph = 540, 300         # поле графіка
+    # осі
+    f.append(line(ox, oy, ox + pw, oy, color=INK, sw=2))     # X — напруга
+    f.append(line(ox, oy, ox, oy - ph, color=INK, sw=2))     # Y — заряд
+    # головна пряма Q = C·U від нуля до точки P
+    Px, Py = ox + 470, oy - 250
+    # трикутник енергії під прямою (нуль, підошва, P)
+    f.append('<polygon points="%.1f,%.1f %.1f,%.1f %.1f,%.1f" '
+             'fill="%s" fill-opacity="0.16" stroke="none"/>'
+             % (ox, oy, Px, oy, Px, Py, FIELD))
+    f.append(line(ox, oy, Px, Py, color=NEG, sw=3))
+    # точка P і пунктирні напрямні до осей
+    f.append(line(Px, Py, Px, oy, color=MUTED, sw=1.3, dash="4 4"))
+    f.append(line(Px, Py, ox, Py, color=MUTED, sw=1.3, dash="4 4"))
+    f.append(circle(Px, Py, 4.5, fill=NEG, stroke="#ffffff", sw=1.5))
+    # підпис прямої — над верхнім кінцем, ліворуч
+    f.append(text(Px - 14, Py - 14, "Q = C · U", size=15, bold=True, color=NEG, anchor="end"))
+    # «нахил = C» у вільній зоні над прямою + тонкий лідер до прямої
+    f.append(text(210, 175, "нахил = C", size=13, color=NEG, italic=True))
+    f.append(line(206, 182, 250, 294, color=MUTED, sw=1))
+    # підпис енергії всередині трикутника (низько, під прямою)
+    f.append(text(370, 350, "енергія = ½ · Q · U", size=14, bold=True, color="#1b7a43"))
+    # мітки осей
+    f.append(text(ox - 10, Py + 5, "Q", size=14, color=INK, anchor="end"))
+    f.append(text(Px, oy + 22, "U", size=14, color=INK))
+    # підписи осей
+    f.append('<text x="%.1f" y="%.1f" font-family="%s" font-size="12" fill="%s" '
+             'text-anchor="middle" transform="rotate(-90 %.1f %.1f)">%s</text>'
+             % (ox - 42, oy - ph / 2, FONT, MUTED, ox - 42, oy - ph / 2, "розділений заряд"))
+    f.append(text(ox + pw / 2, oy + 40, "напруга на конденсаторі", size=12, color=MUTED))
+    render(os.path.join(IMG, "qv-line.svg"), W, H, *f)
+
+
+# ── 6. Динамічний закон i = C·ΔU/Δt: струм повторює нахил напруги ────────────
+def fig_current_slope():
+    W, H = 720, 470
+    f = [text(W / 2, 26, "Струм конденсатора повторює НАХИЛ напруги, а не саму напругу",
+              size=15, bold=True)]
+    x0, x1 = 90, 660
+    xa, xb, xc = 250, 430, 540     # межі фаз: росте / стала / спадає / далі нуль
+    # вертикальні напрямні через обидві панелі
+    for xv in (xa, xb, xc):
+        f.append(line(xv, 70, xv, 430, color="#dfe3e8", sw=1, dash="5 5"))
+    # мітки фаз угорі
+    f.append(text((x0 + xa) / 2, 60, "U росте → i > 0", size=12, color=FIELD, bold=True))
+    f.append(text((xa + xb) / 2, 60, "U стала → i = 0", size=12, color=MUTED, bold=True))
+    f.append(text((xb + xc) / 2 + 8, 60, "U спадає → i < 0", size=12, color=POS, bold=True))
+
+    # ── панель напруги ──
+    vb, vt = 200, 100              # база (нуль) і верх трапеції
+    f.append(line(x0, vb - 110, x0, vb, color=INK, sw=1.6))   # вісь U
+    f.append(line(x0, vb, x1, vb, color=INK, sw=1.6))
+    f.append(text(x0 - 8, vb - 58, "U(t)", size=13, bold=True, anchor="end", color=NEG))
+    f.append('<polyline points="%d,%d %d,%d %d,%d %d,%d %d,%d" '
+             'fill="none" stroke="%s" stroke-width="3"/>'
+             % (x0, vb, xa, vt, xb, vt, xc, vb, x1, vb, NEG))
+
+    # ── панель струму ──
+    ib = 340                       # нульова лінія струму
+    f.append(line(x0, ib - 55, x0, ib + 55, color=INK, sw=1.6))   # вісь i
+    f.append(line(x0, ib, x1, ib, color="#c9ced4", sw=1.4, dash="4 4"))
+    f.append(text(x0 - 8, ib - 30, "i(t)", size=13, bold=True, anchor="end", color=POS))
+    lvl = 45
+    f.append('<polyline points="%d,%d %d,%d %d,%d %d,%d %d,%d %d,%d %d,%d %d,%d %d,%d" '
+             'fill="none" stroke="%s" stroke-width="3"/>'
+             % (x0, ib, x0, ib - lvl, xa, ib - lvl, xa, ib, xb, ib,
+                xb, ib + lvl, xc, ib + lvl, xc, ib, x1, ib, POS))
+    f.append(text(165, ib - lvl - 13, "+I₀", size=12, color=FIELD, bold=True))
+    f.append(text(485, ib + lvl + 19, "−I₀", size=12, color=POS, bold=True))
+    f.append(text((x0 + x1) / 2, 458, "час →", size=12, color=MUTED))
+    render(os.path.join(IMG, "current-slope.svg"), W, H, *f)
+
+
 if __name__ == "__main__":
     fig_code_104()
     fig_smd_sizes()
     fig_mlcc_stack()
     fig_dc_bias()
+    fig_qv_line()
+    fig_current_slope()
     print("OK: figs written to", IMG)

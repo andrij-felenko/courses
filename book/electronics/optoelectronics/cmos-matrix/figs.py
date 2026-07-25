@@ -114,116 +114,6 @@ def fig_row_column_readout():
     render(os.path.join(IMG, "row-column-readout.svg"), W, H, *f)
 
 
-# ── 3. 3T проти 4T: затвор переносу розв'язує накопичення й зчитування ───────
-def fig_pixel_3t_4t():
-    W, H = 880, 410
-    f = [text(W / 2, 26, "3T проти 4T: розв'язати накопичення від зчитування", size=15.5, bold=True)]
-
-    by, bh = 66, 264
-
-    # ── 3T ──
-    x, bw = 40, 360
-    f.append(rect(x, by, bw, bh, fill="#fff5e6", stroke="#d98a00", sw=1.8, rx=12))
-    f.append(text(x + bw / 2, by + 26, "3T-піксель", size=13, color="#b06b00", bold=True))
-    # одне відерце = і накопичення, і зчитування
-    f.append(circle(x + 100, by + 128, 50, fill="#fde68a", stroke="#d98a00", sw=2))
-    f.append(mtext(x + 100, by + 120, ["фотодіод", "= вузол", "зчитування"], size=9.5,
-                   color="#b06b00", lh=1.3))
-    f.append(rect(x + 210, by + 98, 115, 64, fill="white", stroke=MUTED, sw=1.4, rx=6))
-    f.append(mtext(x + 267, by + 124, ["повто-", "рювач"], size=9.5, color=MUTED, lh=1.25))
-    f.append(arrow(x + 152, by + 128, x + 208, by + 128, color=INK, sw=1.5))
-    f.append(mtext(x + bw / 2, by + bh - 34,
-                   ["скидання лишає випадкову зернинку —", "шум скидання змішаний із сигналом"],
-                   size=9.5, color="#b06b00", lh=1.35))
-
-    # ── 4T ──
-    x, bw = 480, 360
-    f.append(rect(x, by, bw, bh, fill="#eafaef", stroke=FIELD, sw=1.8, rx=12))
-    f.append(text(x + bw / 2, by + 26, "4T-піксель", size=13, color="#15803d", bold=True))
-    yc = by + 138
-    # фотодіод (пінований)
-    f.append(circle(x + 62, yc, 38, fill="#bbf7d0", stroke=FIELD, sw=2))
-    f.append(mtext(x + 62, yc - 4, ["пінований", "фотодіод"], size=9, color="#15803d", lh=1.25))
-    # затвор переносу
-    f.append(rect(x + 116, yc - 18, 36, 36, fill="#fef3c7", stroke=POS, sw=1.8, rx=4))
-    f.append(text(x + 134, yc + 4, "TG", size=10, color=POS, bold=True))
-    f.append(mtext(x + 134, yc + 40, ["затвор", "переносу"], size=9, color=POS, lh=1.2))
-    # плавуча дифузія
-    f.append(circle(x + 192, yc, 17, fill="#dbeafe", stroke=NEG, sw=1.8))
-    f.append(text(x + 192, yc + 4, "FD", size=10, color=NEG, bold=True))
-    f.append(mtext(x + 192, yc - 44, ["плавуча", "дифузія"], size=9, color=NEG, lh=1.2))
-    # повторювач
-    f.append(rect(x + 232, yc - 28, 105, 56, fill="white", stroke=MUTED, sw=1.4, rx=6))
-    f.append(mtext(x + 284, yc - 4, ["повто-", "рювач"], size=9.5, color=MUTED, lh=1.25))
-    # стрілки потоку
-    f.append(arrow(x + 102, yc, x + 115, yc, color=INK, sw=1.4))
-    f.append(arrow(x + 153, yc, x + 174, yc, color=INK, sw=1.4))
-    f.append(arrow(x + 210, yc, x + 231, yc, color=INK, sw=1.4))
-    f.append(mtext(x + bw / 2, by + bh - 34,
-                   ["накопичення (фотодіод) відділене", "від зчитування (FD) — можна відняти шум"],
-                   size=9.5, color="#15803d", lh=1.35))
-
-    f.append(text(W / 2, H - 12,
-                  "Затвор переносу переливає заряд із фотодіода у плавучу дифузію лише в мить зчитування — і це уможливлює CDS.",
-                  size=11, color=MUTED, italic=True))
-    render(os.path.join(IMG, "pixel-3t-4t.svg"), W, H, *f)
-
-
-# ── 4. Корельована подвійна вибірка: відняти шум скидання ────────────────────
-def fig_cds_timing():
-    W, H = 800, 420
-    f = [text(W / 2, 26, "Корельована подвійна вибірка: відняти шум скидання", size=15.5, bold=True)]
-
-    base = 250          # рівень осі
-    lx, rx = 90, 710
-
-    # вісь
-    f.append(line(lx, base, rx, base, color=INK, sw=1.5))
-    f.append(arrow(lx, base, lx, 80, color=INK, sw=1.4))
-    f.append(text(lx - 10, 90, "рівень", size=10, color=INK, anchor="end"))
-    f.append(text(rx, base + 22, "час →", size=10, color=MUTED, anchor="end"))
-
-    noise = 28          # «зернинка» шуму скидання (однакова в обох відліках)
-    sig = 90            # сигнал
-
-    # фаза 1: скидання
-    f.append(text(170, 70, "1. скидання", size=11, bold=True, color="#b06b00"))
-    f.append(line(120, base, 230, base, color="#cbd5e1", sw=2, dash="4,3"))
-    # рівень після скидання = база - noise (трохи "брудний")
-    y_reset = base - noise
-    f.append(line(230, y_reset, 360, y_reset, color="#d98a00", sw=3))
-    f.append(text(295, y_reset - 12, "порожній рівень", size=9.5, color="#b06b00"))
-    f.append(text(295, y_reset + 18, "(лише шум скидання)", size=9, color=MUTED))
-    # перша вибірка
-    f.append(circle(300, y_reset, 6, fill=POS, stroke="white", sw=1.4))
-    f.append(text(300, base + 18, "вибірка A", size=9.5, color=POS, bold=True))
-    f.append(line(300, y_reset, 300, base, color=POS, sw=1, dash="3,3"))
-
-    # фаза 2: перенос заряду
-    f.append(text(520, 70, "2. перенос + сигнал", size=11, bold=True, color="#15803d"))
-    f.append(arrow(370, y_reset, 430, y_reset - sig, color=FIELD, sw=2))
-    f.append(text(400, y_reset - sig / 2, "перелив", size=9, color="#15803d", anchor="start"))
-    # рівень із сигналом = той самий шум + сигнал
-    y_sig = base - noise - sig
-    f.append(line(430, y_sig, 600, y_sig, color=FIELD, sw=3))
-    f.append(text(515, y_sig - 12, "рівень із сигналом", size=9.5, color="#15803d"))
-    f.append(text(515, y_sig + 18, "(той самий шум + сигнал)", size=9, color=MUTED))
-    # друга вибірка
-    f.append(circle(520, y_sig, 6, fill=POS, stroke="white", sw=1.4))
-    f.append(text(520, base + 18, "вибірка B", size=9.5, color=POS, bold=True))
-    f.append(line(520, y_sig, 520, base, color=POS, sw=1, dash="3,3"))
-
-    # різниця = чистий сигнал
-    f.append(rect(lx + 20, base + 40, rx - lx - 40, 48, fill="#f4f4f5", stroke=INK, sw=1.4, rx=10))
-    f.append(text(W / 2, base + 60, "B − A = чистий сигнал  (зернинка шуму скидання однакова → вираховується)",
-                  size=12, bold=True))
-    f.append(text(W / 2, base + 79,
-                  "заразом прибирається й сталий зсув повторювача та повільний 1/f-дрейф",
-                  size=10, color=MUTED))
-
-    render(os.path.join(IMG, "cds-timing.svg"), W, H, *f)
-
-
 # ════════════════ ДЕТАЛЬНА ВЕРСІЯ (cmos-matrix-d.md) ════════════════
 
 # ── D1. Транзистори 4T-пікселя поіменно ──────────────────────────────────────
@@ -454,11 +344,9 @@ def fig_global_shutter():
 if __name__ == "__main__":
     fig_active_pixel()
     fig_row_column_readout()
-    fig_pixel_3t_4t()
-    fig_cds_timing()
     fig_pixel_4t_transistors()
     fig_readout_sequence()
     fig_column_adc()
     fig_global_shutter()
-    print("OK base: active-pixel, row-column-readout, pixel-3t-4t, cds-timing")
+    print("OK base: active-pixel, row-column-readout")
     print("OK detailed: pixel-4t-transistors, readout-sequence, column-adc, global-shutter")

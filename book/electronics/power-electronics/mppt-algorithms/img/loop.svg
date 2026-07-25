@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контур стеження: алгоритм крутить одну ручку — шпаруватість</text>
+<line x1="219.0" y1="120.0" x2="334.0" y2="120.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<line x1="524.0" y1="120.0" x2="624.0" y2="120.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">потужність</text>
+<text x="575.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">потужність</text>
+<rect x="65.0" y="92.8" width="150.0" height="54.5" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="140.0" y="115.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Сонячна</tspan><tspan x="140.0" dy="19.5">панель</tspan></text>
+<rect x="340.0" y="92.8" width="180.0" height="54.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="430.0" y="115.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Перетворювач</tspan><tspan x="430.0" dy="19.5">(buck / boost)</tspan></text>
+<rect x="630.0" y="92.8" width="160.0" height="54.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="710.0" y="115.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">Батарея /</tspan><tspan x="710.0" dy="19.5">навантаження</tspan></text>
+<circle cx="300.0" cy="120.0" r="5.0" fill="#1a1a1a" stroke="#ffffff" stroke-width="2.0"/>
+<line x1="300.0" y1="145.2" x2="300.0" y2="315.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="300.0" y1="315.0" x2="335.0" y2="315.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="288.0" y="217.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="end" font-weight="700">V, I</text>
+<rect x="180.7" y="298.0" width="578.6" height="34.0" rx="6" fill="#fff8e1" stroke="#b8860b" stroke-width="1.5"/><text x="470.0" y="319.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Контролер MPP:  виміряти V, I  →  P = V·I  →  повернути шпаруватість D</tspan></text>
+<line x1="759.3" y1="315.0" x2="560.0" y2="315.0" stroke="#b8860b" stroke-width="2.0"/>
+<line x1="560.0" y1="315.0" x2="560.0" y2="149.2" stroke="#b8860b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="572.0" y="223.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b8860b" text-anchor="start" font-weight="700">D  (ШІМ)</text>
+</svg>

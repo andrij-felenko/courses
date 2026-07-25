@@ -30,11 +30,11 @@
 ![Ліворуч чотири типи повідомлень (Tick, SetThreshold, Command, Query) стрілками входять в обмежену скриньку FIFO з позначеною межею 64 і політикою переповнення на вінці; зі скриньки одна стрілка «одне за раз» веде в актор-термостат, де приватний стан, чисте decide і actuate; від актора окремий reply-канал вертає Snapshot](/guide/progarch/concurrency-models/runtime-actors-variant/img/actor-loop.svg)
 *Повний контур робочого актора. Чотири типи повідомлень падають в обмежену скриньку; на її вінці — не «безмежно приймай», а політика: повна → відкинути або притримати джерело. Актор бере одне за раз, крутить те саме чисте `decide` над приватним станом, актуює нагрівач. `Query` особливий: він несе в собі зворотний канал, яким актор віддає `Snapshot`, — запит і відповідь без жодного спільного стану.*
 
-## Робочий код: те саме в Elixir і Go
+## Робочий код: те саме в Elixir, Go і C
 
-Дві реалізації навмисно різні за **природою рантайму**, і саме контраст повчальний. **Elixir** дає актора як рідну одиницю: процес BEAM, справжній наглядач, витісняльне планування — усе з коробки. **Go** дає той самий візерунок на мейнстрім-рантаймі: горутина замість процесу, **обмежений канал** замість скриньки, `recover` замість наглядача. Код майже дзеркальний — а от гарантії під ним, як побачимо в пастках, різні.
+Три реалізації навмисно стоять на **різних рівнях підтримки акторів рантаймом**, і саме ця сходинка повчальна. **Elixir** дає актора як рідну одиницю: процес BEAM, справжній наглядач, витісняльне планування — усе з коробки. **Go** дає той самий візерунок на мейнстрім-рантаймі: горутина замість процесу, **обмежений канал** замість скриньки, `recover` замість наглядача — підтримка часткова. **C** — це нульова сходинка: жодної підтримки акторів у самій мові немає, тож усе доводиться будувати руками — скриньку з кільцевого буфера, замок і умовну змінну, наглядача окремим потоком. Elixir і Go під сподом майже дзеркальні; C навмисне ні — і саме його багатослівність оголює, скільки безкоштовної машинерії ховають два верхні рівні. Гарантії ж під усіма трьома, як побачимо в пастках, тим слабші, чим нижча сходинка.
 
-Читай обидві вкладки як одну програму: типи → чисте `decide` → тіло актора з чотирма повідомленнями → наглядач → доказ ізоляції на отруєному термостаті.
+Читай усі три вкладки як одну програму: типи → чисте `decide` → тіло актора з чотирма повідомленнями → наглядач → доказ ізоляції на отруєному термостаті. Що нижчий рівень підтримки, то більше механіки видно голими руками — і C оголює її всю.
 
 :::tabs
 ```elixir
@@ -219,9 +219,173 @@ reply := make(chan Snapshot)
 offer(ok, Query{Reply: reply})
 fmt.Println(<-reply) // {true 20} ← паніка сусіда його не зачепила
 ```
+```c
+#include <pthread.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+
+/* ── типи повідомлень (як у Go, тільки зворотний канал — руками) ── */
+typedef enum { TICK, SET_THRESHOLD, COMMAND, QUERY } MsgKind;
+
+typedef struct { bool on; double threshold; } Snapshot;
+
+/* зворотний канал для QUERY: місце під відповідь + власний замок готовності */
+typedef struct {
+	Snapshot        snap;
+	bool            ready;
+	pthread_mutex_t lock;
+	pthread_cond_t  cond;
+} ReplyChan;
+
+typedef struct {
+	MsgKind    kind;
+	double     threshold;   // для SET_THRESHOLD
+	bool       force_on;    // для COMMAND
+	ReplyChan *reply;       // для QUERY — канал лежить у самому повідомленні
+} Msg;
+
+/* ── ЧИСТЕ ЯДРО: той самий гістерезис із мертвою зоною ±0.5 ── */
+static bool decide(double reading, double threshold, bool on) {
+	if (reading < threshold - 0.5) return true;   // холодно — гріти
+	if (reading > threshold + 0.5) return false;  // тепло — не гріти
+	return on;                                     // мертва зона — тримати як було
+}
+
+/* ── СКРИНЬКА З ДНОМ. Того, що в Elixir/Go дармове, у C немає:
+   кільцевий буфер + замок + умовну змінну будуємо самі. ── */
+#define MAILBOX_CAP 64
+typedef struct {
+	Msg   buf[MAILBOX_CAP];
+	int   head, tail, len;
+	bool  closed;
+	pthread_mutex_t lock;       // ← замок береже саму ЧЕРГУ, а не стан актора
+	pthread_cond_t  not_empty;
+} Mailbox;
+
+// політика переповнення: відкинути надлишок (не блокувати джерело)
+static bool mailbox_offer(Mailbox *mb, Msg m) {
+	pthread_mutex_lock(&mb->lock);
+	if (mb->len == MAILBOX_CAP) {          // повна → свідомо кидаємо
+		// backpressure-варіант: тут чекати на умовній not_full, а не кидати
+		pthread_mutex_unlock(&mb->lock);
+		return false;
+	}
+	mb->buf[mb->tail] = m;
+	mb->tail = (mb->tail + 1) % MAILBOX_CAP;
+	mb->len++;
+	pthread_cond_signal(&mb->not_empty);
+	pthread_mutex_unlock(&mb->lock);
+	return true;
+}
+
+// дістати одне (блокуємось, поки порожньо) — «одне повідомлення за раз»
+static bool mailbox_take(Mailbox *mb, Msg *out) {
+	pthread_mutex_lock(&mb->lock);
+	while (mb->len == 0 && !mb->closed)
+		pthread_cond_wait(&mb->not_empty, &mb->lock);
+	if (mb->len == 0) { pthread_mutex_unlock(&mb->lock); return false; }
+	*out = mb->buf[mb->head];
+	mb->head = (mb->head + 1) % MAILBOX_CAP;
+	mb->len--;
+	pthread_mutex_unlock(&mb->lock);
+	return true;
+}
+
+/* давач: 0 і значення в out; отруєний повертає -1 («замкнуло»). У C нема
+   винятків, тож «крах» тут — це чесний код помилки, а не raise/panic */
+typedef struct { const char *id; int (*sensor)(double *out); } Device;
+static int  good_sensor(double *o)     { *o = 18.5; return 0; }
+static int  poisoned_sensor(double *o) { (void)o; return -1; }
+static void actuate(const char *id, bool on) { (void)id; (void)on; } // увімкнути нагрівач
+
+/* ── ТІЛО АКТОРА: приватний стан = локальні змінні, одне повідомлення за раз.
+   Повертає 0 при штатному закритті скриньки, -1 при збої (отруйний тік). ── */
+static int run_actor(Device d, Mailbox *mb) {
+	bool   on = false;           // ← бачить лише цей потік → замок НЕ потрібен
+	double threshold = 20.0;
+	Msg m;
+	while (mailbox_take(mb, &m)) {            // ← одне за раз
+		switch (m.kind) {
+		case TICK: {
+			double reading;
+			if (d.sensor(&reading) != 0)      // отруєний давач «падає» тут
+				return -1;                    // → сигнал наглядачеві: збій
+			on = decide(reading, threshold, on);
+			actuate(d.id, on);
+			break;
+		}
+		case SET_THRESHOLD: threshold = m.threshold; break;
+		case COMMAND:       on = m.force_on;         break;
+		case QUERY:                                   // відповідь — зворотним каналом
+			pthread_mutex_lock(&m.reply->lock);
+			m.reply->snap  = (Snapshot){ .on = on, .threshold = threshold };
+			m.reply->ready = true;
+			pthread_cond_signal(&m.reply->cond);
+			pthread_mutex_unlock(&m.reply->lock);
+			break;
+		}
+	}
+	return 0;                                  // скриньку закрито — штатний вихід
+}
+
+/* ── НАГЛЯДАЧ: окремий потік. Перезапускає run_actor ІЗ ЧИСТОГО СТАНУ
+   (свіжі локальні змінні на кожному вході) + межа інтенсивності ВРУЧНУ.
+   Увага: ловить лише КООПЕРАТИВНИЙ збій — actor повернув -1. Справжній
+   крах у C (segfault, abort) валить УВЕСЬ процес: recover, як у Go, тут
+   немає ЗОВСІМ — це і є нульова підтримка акторів на рівні мови. ── */
+typedef struct { Device dev; Mailbox *mb; } SupArgs;
+
+static void *supervise(void *arg) {
+	SupArgs *a = arg;
+	int fails = 0; time_t since = time(NULL);
+	for (;;) {
+		if (run_actor(a->dev, a->mb) == 0) return NULL;   // штатне завершення
+		if (time(NULL) - since > 5) { fails = 0; since = time(NULL); } // вікно скинулось
+		if (++fails > 3) {            // ← інакше отрута дасть ВІЧНИЙ цикл рестарту
+			fprintf(stderr, "[sup] %s: 3 падіння за 5 с — КАРАНТИН\n", a->dev.id);
+			return NULL;
+		}
+		fprintf(stderr, "[sup] %s впав — рестарт #%d з чистого стану\n", a->dev.id, fails);
+	}
+}
+
+static Mailbox *start_device(Device d) {
+	Mailbox *mb = calloc(1, sizeof *mb);
+	pthread_mutex_init(&mb->lock, NULL);
+	pthread_cond_init(&mb->not_empty, NULL);
+	SupArgs *a = malloc(sizeof *a);
+	*a = (SupArgs){ .dev = d, .mb = mb };
+	pthread_t tid;
+	pthread_create(&tid, NULL, supervise, a);   // наглядач у власному потоці
+	pthread_detach(tid);
+	return mb;
+}
+
+/* ── ДОКАЗ ІЗОЛЯЦІЇ: отруєний і здоровий термостати поруч ── */
+int main(void) {
+	Mailbox *ok  = start_device((Device){ .id = "therm_ok",  .sensor = good_sensor });
+	Mailbox *bad = start_device((Device){ .id = "therm_bad", .sensor = poisoned_sensor });
+
+	mailbox_offer(ok,  (Msg){ .kind = TICK });   // гріє (18.5 < 19.5)
+	mailbox_offer(bad, (Msg){ .kind = TICK });   // впаде; наглядач підніме ЛИШЕ його
+
+	ReplyChan rc = { .ready = false };            // зворотний канал збираємо руками
+	pthread_mutex_init(&rc.lock, NULL);
+	pthread_cond_init(&rc.cond, NULL);
+	mailbox_offer(ok, (Msg){ .kind = QUERY, .reply = &rc });
+
+	pthread_mutex_lock(&rc.lock);
+	while (!rc.ready) pthread_cond_wait(&rc.cond, &rc.lock);   // чекаємо на відповідь
+	pthread_mutex_unlock(&rc.lock);
+	printf("{on=%d threshold=%.1f}\n", rc.snap.on, rc.snap.threshold); // {on=1 threshold=20.0} ← сусід живий
+	return 0;
+}
+```
 :::
 
-Зверни увагу на одну красиву дрібницю в `Query`. У Go зворотний канал **видно** — він лежить у самому повідомленні (`Reply chan Snapshot`), і читач одразу бачить, куди піде відповідь. В Elixir той самий канал дає `GenServer.call` **безплатно**: виклик синхронний, той, хто питає, блокується до відповіді. І це блокування — не випадковість, а вже готовий [зустрічний тиск](book:programming/backpressure-local): швидко засипати актора запитами не вийде, бо кожен запит чекає на свою чергу. Асинхронний `cast` такого гальма не має — тому саме його ми й обмежуємо руками через `offer`.
+Зверни увагу на одну красиву дрібницю в `Query`. У Go зворотний канал **видно** — він лежить у самому повідомленні (`Reply chan Snapshot`), і читач одразу бачить, куди піде відповідь. C робить те саме, лише ще оголеніше: канал — це вручну зібраний `ReplyChan` із власним замком і умовною змінною, а той, хто питає, сам крутить `while (!rc.ready)`. В Elixir той самий канал дає `GenServer.call` **безплатно**: виклик синхронний, той, хто питає, блокується до відповіді. І це блокування — не випадковість, а вже готовий [зустрічний тиск](book:programming/backpressure-local): швидко засипати актора запитами не вийде, бо кожен запит чекає на свою чергу. Асинхронний `cast` такого гальма не має — тому саме його ми й обмежуємо руками через `offer`.
 
 ## Скільки має бути дно: прикидка за законом Літтла
 
@@ -284,6 +448,8 @@ var shared = map[string]float64{}
 // Це НЕ паніка. recover() її НЕ ловить. Гине ВЕСЬ процес — з усіма
 // «ізольованими» акторами разом. Наглядач не встигне нічого перезапустити.
 ```
+
+А C стоїть ще на сходинку нижче за Go: там немає навіть `recover`. Наглядач-потік із C-вкладки ловить лише **кооперативний** збій — коли актор сам повернув код помилки; справжній крах (segfault, розіменування нульового вказівника, `abort`) валить **увесь** процес разом з усіма акторами, і жоден потік-рятівник цьому не зарадить. Тому сходинка «Elixir → Go → C» — це спуск саме за надійністю: що менше рантайм знає про акторів, то більше «хай падає» перетворюється з гарантії на голу надію.
 
 Оце й є прірва між «акторами як бібліотекою» та «акторами як рантаймом». На BEAM у кожного процесу **власна купа** й **власне збирання сміття** — падіння одного не може пошкодити пам'ять іншого, бо спільної пам'яті немає фізично. Планування **витісняльне**: жоден процес не захопить ядро надовго, бо його переб'ють після бюджету в кілька тисяч редукцій. Ці дві властивості — окрема пам'ять на актора й неможливість зависнути, заблокувавши всіх, — і роблять «хай падає» **надійним**, а не побожним побажанням. Бібліотека поверх спільної купи не дає ні першого, ні другого: один фатальний збій — і твої дев'ять дев'яток лишилися в чужій презентації.
 

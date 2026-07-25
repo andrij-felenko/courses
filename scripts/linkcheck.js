@@ -41,7 +41,7 @@ for (const kind of ["book", "catalog"]) {
       const ds = (t.detailed && t.detailed.status) || "empty";
       if (bs !== "empty") files.add(t.slug + ".md");        // basic планована/наявна (done|pending|update|recheck)
       if (ds !== "empty") files.add(t.slug + "-d.md");      // detailed планована/наявна
-      for (const k of ["hist", "comp", "math", "proj"]) for (const o of t[k] || []) files.add(typeof o === "string" ? o : o.file);
+      for (const k of ["hist", "comp", "math", "proj", "api"]) for (const o of t[k] || []) files.add(typeof o === "string" ? o : o.file);
       TOPICS.set(b.slug + "/" + t.slug, { dir, status: bs, files });
     }
   }
@@ -60,7 +60,7 @@ const GTOPICS = new Map();
       const ds = (t.detailed && t.detailed.status) || "empty";
       if (bs !== "empty") files.add(t.slug + ".md");
       if (ds !== "empty") files.add(t.slug + "-d.md");
-      for (const k of ["hist", "comp", "math", "proj"]) for (const o of t[k] || []) files.add(typeof o === "string" ? o : o.file);
+      for (const k of ["hist", "comp", "math", "proj", "api"]) for (const o of t[k] || []) files.add(typeof o === "string" ? o : o.file);
       GTOPICS.set(g.slug + "/" + t.slug, { dir: path.join(gbase, g.slug, sec.slug, t.slug), status: bs, files });
     }
   }
@@ -85,7 +85,7 @@ for (const f of mdFiles) {
       const key = (segs[0] || "") + "/" + (segs[1] || "");
       const t = GTOPICS.get(key);
       if (!t) { broken.push(`${rel}: guide:${segs.join("/")} — кроку нема в жодному курсі`); continue; }
-      if (segs[2]) { if (!t.files.has(segs[2]) && !exists(path.join(t.dir, segs[2]))) broken.push(`${rel}: guide:${segs.join("/")} — файла нема`); }
+      if (segs[2]) { const want = segs[2] === "detail" ? segs[1] + "-d.md" : segs[2] === "basic" ? segs[1] + ".md" : segs[2]; if (!t.files.has(want) && !exists(path.join(t.dir, want))) broken.push(`${rel}: guide:${segs.join("/")} — файла нема`); }
       else if (t.status !== "done") stubs.push(`${rel}: guide:${key} (${t.status}-стаб)`);
       continue;
     }
@@ -94,8 +94,9 @@ for (const f of mdFiles) {
       const key = (segs[0] || "") + "/" + (segs[1] || "");
       const t = TOPICS.get(key);
       if (!t) { broken.push(`${rel}: book:${segs.join("/")} — теми нема в жодному маніфесті`); continue; }
-      if (segs[2]) { // конкретний файл (детальна/вставка)
-        if (!t.files.has(segs[2]) && !exists(path.join(t.dir, segs[2]))) broken.push(`${rel}: book:${segs.join("/")} — файла нема`);
+      if (segs[2]) { // конкретний файл (вставка) або ключове слово basic/detail
+        const want = segs[2] === "detail" ? segs[1] + "-d.md" : segs[2] === "basic" ? segs[1] + ".md" : segs[2];
+        if (!t.files.has(want) && !exists(path.join(t.dir, want))) broken.push(`${rel}: book:${segs.join("/")} — файла нема`);
       } else if (t.status !== "done") stubs.push(`${rel}: book:${key} (${t.status}-стаб)`);
       continue;
     }

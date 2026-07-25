@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Фігури до ВСТАВОК теми «H-міст»:
-  - comp-h-bridge-board.md → board-anatomy.svg, pinout-wiring.svg
+  - api-h-bridge-board.md  → board-anatomy.svg, pinout-wiring.svg
   - proj-shoot-through.md   → deadtime-timing.svg, tradeoff.svg
 Запуск:  python figs.py   → пише SVG у ./img/
 Стиль і помічники — зі спільного svgkit (НЕ переписувати тут).

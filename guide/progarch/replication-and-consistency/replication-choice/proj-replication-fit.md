@@ -57,7 +57,7 @@ def decide(ds: DataSet) -> tuple[str, str]:
     if ds.avail_partition_nonneg:  pressures.append("доступність-під-розривом")
     if not pressures:                                  # жоден тиск не назвався
         return "один лідер + читальні репліки", "пауза на failover"
-    if "доступність-під-розривом" in pressures and not ds.natural_home:
+    if not ds.natural_home:                            # тиск є, природного дому нема
         return "безлідерна (кворум W+R>N)", "конфлікти + тюнинг кворуму"
     return "мультилідер (лідер на дім/регіон)", "конфлікти на спільних ключах"
 
@@ -87,7 +87,7 @@ function decide(ds: DataSet): { model: string; price: string } {
   if (ds.availPartitionNonneg) pressures.push("доступність-під-розривом");
   if (pressures.length === 0)                          // жоден тиск не назвався
     return { model: "один лідер + читальні репліки", price: "пауза на failover" };
-  if (pressures.includes("доступність-під-розривом") && !ds.naturalHome)
+  if (!ds.naturalHome)                                 // тиск є, природного дому нема
     return { model: "безлідерна (кворум W+R>N)", price: "конфлікти + тюнинг кворуму" };
   return { model: "мультилідер (лідер на дім/регіон)", price: "конфлікти на спільних ключах" };
 }

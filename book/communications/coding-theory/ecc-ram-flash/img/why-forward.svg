@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 344" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="344" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому пам'ять лагодить дані сама: перепитати нема кого</text>
+<text x="390.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">у каналі зв'язку є джерело — можна перепитати; у пам'яті копія одна, тож код мусить полагодити на місці</text>
+<rect x="30.0" y="68.0" width="340.0" height="192.0" rx="12" fill="#f7faff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="410.0" y="68.0" width="340.0" height="192.0" rx="12" fill="#fdf7f6" stroke="#c0392b" stroke-width="2.0"/>
+<text x="200.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Канал зв'язку</text>
+<rect x="52.0" y="112.0" width="104.0" height="40.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/><text x="104.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="104.0" dy="0.0">Відправник</tspan></text>
+<rect x="262.0" y="112.0" width="104.0" height="40.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/><text x="314.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="314.0" dy="0.0">Приймач</tspan></text>
+<line x1="160.0" y1="132.0" x2="258.0" y2="132.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="200.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">зіпсувалось у дорозі?</tspan><tspan x="200.0" dy="15.0">перепитай ще раз (ARQ)</tspan></text>
+<text x="200.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">джерело копії нікуди не зникло</text>
+<text x="580.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Пам'ять</text>
+<rect x="505.0" y="112.0" width="150.0" height="40.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/><text x="580.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">Єдина копія даних</tspan></text>
+<text x="580.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">перепитати нема в кого:</tspan><tspan x="580.0" dy="15.0">код лагодить біт на місці (FEC)</tspan></text>
+<text x="580.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">у RAM — стан програми, у Flash — усе на зберіганні</text>
+<text x="390.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тому пам'ять несе власний ремонт: контрольні біти вшито поряд із даними, ECC виправляє збій прямо при читанні</text>
+<text x="390.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">той самий принцип і в RAM, і у Flash — різниться лише сила коду під частоту збоїв</text>
+</svg>

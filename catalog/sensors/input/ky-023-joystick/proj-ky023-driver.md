@@ -29,18 +29,6 @@ struct Axis {
     bool    invert;     // true → міняємо знак виходу
 };
 ```
-```python
-from dataclasses import dataclass
-
-@dataclass
-class Axis:
-    pin: int             # аналоговий пін цієї осі (VRx або VRy)
-    center: int          # виміряний центр (заповнюємо на старті)
-    lo: int              # сирий нижній край ходу: 0
-    hi: int              # сирий верхній край ходу: ADC_MAX — залежить від плати
-    deadzone: int        # напівширина мертвої зони, в одиницях АЦП
-    invert: bool = False # True → міняємо знак виходу
-```
 ```micropython
 class Axis:
     def __init__(self, pin, center, lo, hi, deadzone, invert=False):
@@ -85,17 +73,6 @@ void calibrateCenter(Axis &a, uint8_t samples = 64) {
     }
     a.center = acc / samples;           // справжній «нуль» саме цього екземпляра
 }
-```
-```python
-import time
-
-# Виміряти центр осі: N разів прочитати нерухому ручку й усереднити.
-def calibrate_center(a, samples=64):
-    acc = 0
-    for _ in range(samples):
-        acc += analog_read(a.pin)
-        time.sleep(0.003)               # дати АЦП і напрузі влягтися між вимірами
-    a.center = acc // samples           # справжній «нуль» саме цього екземпляра
 ```
 ```micropython
 import time
@@ -145,30 +122,6 @@ int readAxis(const Axis &a) {
     return a.invert ? -out : out;              // 3) інверсія осі, якщо треба
 }
 ```
-```python
-# Лінійна пропорція цілими числами, як Arduino map().
-def _map(v, from_lo, from_hi, to_lo, to_hi):
-    return (v - from_lo) * (to_hi - to_lo) // (from_hi - from_lo) + to_lo
-
-# Сире число осі → −100..+100 із мертвою зоною біля нуля.
-def read_axis(a):
-    raw = analog_read(a.pin)
-    d = raw - a.center                         # відхилення від центру, знакове
-
-    # 1) мертва зона: близько до центру — це строгий нуль
-    if -a.deadzone < d < a.deadzone:
-        return 0
-
-    if d > 0:
-        # додатний бік: від краю мертвої зони до верхнього краю ходу
-        out = _map(d, a.deadzone, a.hi - a.center, 0, 100)
-    else:
-        # від'ємний бік: від краю мертвої зони до нижнього краю ходу
-        out = _map(d, -a.deadzone, a.lo - a.center, 0, -100)
-
-    out = max(-100, min(100, out))             # не вилазити за діапазон
-    return -out if a.invert else out           # 3) інверсія осі, якщо треба
-```
 ```micropython
 # Лінійна пропорція цілими числами, як Arduino map().
 def _map(v, from_lo, from_hi, to_lo, to_hi):
@@ -212,14 +165,6 @@ Axis vry = { .pin = A1, .center = 512, .lo = 0, .hi = ADC_MAX,
 Axis &horizontal = vrx;   // якщо боком — постав vry
 Axis &vertical   = vry;   // ... і сюди vrx
 ```
-```python
-vrx = Axis(pin=0, center=512, lo=0, hi=ADC_MAX, deadzone=24, invert=False)
-vry = Axis(pin=1, center=512, lo=0, hi=ADC_MAX, deadzone=24, invert=False)
-
-# Логічні ролі керування. Джойстик стоїть боком? — поміняй місцями тут.
-horizontal = vrx          # якщо боком — постав vry
-vertical   = vry          # ... і сюди vrx
-```
 ```micropython
 from machine import ADC, Pin
 
@@ -256,22 +201,6 @@ void moveCursor() {
     cursorX = constrain(cursorX, 0, 127);
     cursorY = constrain(cursorY,  0,  63);
 }
-```
-```python
-cursor_x, cursor_y = 64, 32             # поточна позиція (напр. пікселі дисплея)
-
-def move_cursor():
-    global cursor_x, cursor_y
-    vx = read_axis(horizontal)          # −100..+100
-    vy = read_axis(vertical)
-
-    # швидкість у «пікселів за крок»: 100 на осі → 5 пікселів за виклик
-    cursor_x += int(vx / 20)
-    cursor_y += int(vy / 20)
-
-    # не давати курсору втекти за межі екрана 128×64
-    cursor_x = max(0, min(127, cursor_x))
-    cursor_y = max(0, min(63,  cursor_y))
 ```
 ```micropython
 cursor_x, cursor_y = 64, 32             # поточна позиція (напр. пікселі дисплея)
@@ -317,19 +246,6 @@ Motors tankMix() {
     right = constrain(right, -100, 100);
     return { left, right };
 }
-```
-```python
-# Танкове змішування: одна ручка → дві швидкості моторів (−100..+100 кожна).
-def tank_mix():
-    drive = read_axis(vertical)         # вперед/назад: спільна складова
-    turn  = read_axis(horizontal)       # ліворуч/праворуч: різницева складова
-
-    left  = drive + turn                # праворуч → лівий мотор швидше
-    right = drive - turn                # ... а правий повільніше
-
-    left  = max(-100, min(100, left))
-    right = max(-100, min(100, right))
-    return left, right
 ```
 ```micropython
 # Танкове змішування: одна ручка → дві швидкості моторів (−100..+100 кожна).
@@ -381,33 +297,6 @@ Dir readDir() {
     if (hy == -1) return (hx == -1) ? DIR_SW : (hx == 1) ? DIR_SE : DIR_S;
     return (hx == -1) ? DIR_W : DIR_E;      // hy == 0, hx ≠ 0
 }
-```
-```python
-from enum import IntEnum
-
-class Dir(IntEnum):
-    NONE = 0; N = 1; NE = 2; E = 3; SE = 4
-    S = 5; SW = 6; W = 7; NW = 8
-
-# Звести вісь до знака −1/0/+1 за порогом (частка від повного ходу).
-def sign3(v, threshold=40):
-    if v >  threshold: return  1
-    if v < -threshold: return -1
-    return 0
-
-def read_dir():
-    hx = sign3(read_axis(horizontal))       # −1, 0, +1  (захід … схід)
-    hy = sign3(read_axis(vertical))         # −1, 0, +1  (південь … північ)
-
-    if hx == 0 and hy == 0:
-        return Dir.NONE
-
-    # 3×3 → напрямок; вважаємо +Y = північ (вгору), +X = схід (вправо)
-    if hy ==  1:
-        return Dir.NW if hx == -1 else Dir.NE if hx == 1 else Dir.N
-    if hy == -1:
-        return Dir.SW if hx == -1 else Dir.SE if hx == 1 else Dir.S
-    return Dir.W if hx == -1 else Dir.E     # hy == 0, hx ≠ 0
 ```
 ```micropython
 # Напрямки як прості константи (IntEnum на MicroPython зайвий).
@@ -493,41 +382,6 @@ void buttonUpdate(Button &b) {
 
 bool buttonPressed(Button &b) { return b.pressedEvent; }         // один імпульс
 bool buttonHeld(Button &b)    { return b.stable == LOW; }        // тримають зараз
-```
-```python
-import time
-
-DEBOUNCE_MS = 25
-
-def _now_ms():
-    return time.monotonic_ns() // 1_000_000
-
-class Button:
-    def __init__(self, pin):
-        self.pin = pin
-        digital_pin_mode(pin, INPUT_PULLUP)  # на модулі підтяжки немає!
-        self.stable = True                   # спокій = HIGH (відпущено)
-        self.last_read = True                # останній миттєвий відлік
-        self.last_change = _now_ms()         # коли рівень востаннє змінився, мс
-        self.pressed_event = False           # один імпульс у мить натиску
-
-    # Викликати щоцикл. Оновлює стан; pressed_event — один імпульс на натиск.
-    def update(self):
-        self.pressed_event = False
-        now = digital_read(self.pin)         # HIGH = відпущено, LOW = натиснуто
-
-        if now != self.last_read:            # рівень смикнувся — перезапустити вікно
-            self.last_change = _now_ms()
-            self.last_read = now
-
-        # рівень протримався сталим досить довго — приймаємо його
-        if _now_ms() - self.last_change >= DEBOUNCE_MS and now != self.stable:
-            self.stable = now
-            if self.stable == LOW:           # перехід HIGH→LOW = справжній натиск
-                self.pressed_event = True
-
-    def pressed(self):  return self.pressed_event   # один імпульс
-    def held(self):     return self.stable == LOW   # тримають зараз
 ```
 ```micropython
 import time

@@ -113,7 +113,7 @@ def i2c_read_reg_once(addr7, reg):
         # scan() пінгує саму адресу: є в списку → ведений озвався на addr+W
         if addr7 not in i2c.scan():
             return I2C_NACK_ADDR, None     # ніхто не озвався → пристрою нема
-        i2c.writeto(addr7, bytes([reg]))   # номер регістра; NACK → OSError
+        i2c.writeto(addr7, bytes([reg]), stop=False)  # номер регістра БЕЗ STOP: далі йтиме Sr, а не новий СТАРТ; NACK → OSError
     except OSError:
         return I2C_NACK_DATA, None         # ведений зайнятий/збій → варто повторити
 

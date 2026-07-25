@@ -29,9 +29,41 @@ CBAM народився як **економічне продовження** м�
 
 *Кожне число вигоди зібране, а не вгадане: CDN піднімає лише продуктивність (2·(65−40) = 50); кеш — продуктивність і трохи доступність (50 + 1.5·20 = 80); конвеєр б'є одразу по трьох атрибутах (30 + 60 + 30 = 120); переписати платежі — переважно змінюваність і безпека (20 + 40 + 30 = 90). Зверни увагу: CDN і кеш обидва тягнуть продуктивність із 40 до 65 — це пастка, до якої ми повернемось.*
 
-Ось модель у коді. Стратегія — це назва, вартість у тижнях і список внесків в атрибути; вигода й ROI рахуються з внесків, а не задаються рукою. Пишемо тими мовами, якими справді складають такий інструмент прийняття рішень, — сценарний Python і TypeScript:
+Ось модель у коді. Стратегія — це назва, вартість у тижнях і список внесків в атрибути; вигода й ROI рахуються з внесків, а не задаються рукою. Ядро задачі — класичні алгоритми (ранжування, наплічник), тому провідну мову беремо еталонну для них, C++, а поряд кладемо ті самі функції сценарними Python і TypeScript, якими справді збирають такий інструмент прийняття рішень:
 
 :::tabs
+```cpp
+#include <string>
+#include <vector>
+#include <limits>
+
+// Внесок стратегії в ОДИН атрибут: вага стейкхолдера й корисність до/після (0..100).
+struct Contribution {
+    std::string attribute;
+    double weight;   // наскільки атрибут важливий стейкхолдерам
+    double before;   // корисність зараз
+    double after;    // корисність, якщо стратегію впровадити
+};
+
+struct Strategy {
+    std::string name;
+    double cost;                            // вартість, тижні
+    std::vector<Contribution> contribs;
+
+    // CBAM: вигода = Σ вага·(корисність_після − корисність_до)
+    double benefit() const {
+        double sum = 0.0;
+        for (const auto& c : contribs)
+            sum += c.weight * (c.after - c.before);
+        return sum;
+    }
+
+    double roi() const {
+        return cost != 0.0 ? benefit() / cost
+                           : std::numeric_limits<double>::infinity();
+    }
+};
+```
 ```python
 from dataclasses import dataclass
 
@@ -99,6 +131,36 @@ CDN            50            2                  25.0
 Наївний вибір під бюджет напрошується сам: іди по ранжованому списку зверху й бери все, що ще влазить у гаманець. Це **жадібний** алгоритм (англ. *greedy* — бери найкраще локально, тут і зараз):
 
 :::tabs
+```cpp
+#include <algorithm>
+#include <vector>
+
+// Перший зріз: за ROI спадно. O(n log n).
+std::vector<Strategy> rank_by_roi(std::vector<Strategy> strategies) {
+    std::sort(strategies.begin(), strategies.end(),
+              [](const Strategy& a, const Strategy& b) { return a.roi() > b.roi(); });
+    return strategies;
+}
+
+struct Pick {
+    std::vector<Strategy> chosen;
+    double spent;
+    double total;
+};
+
+// Іди по ранжованому списку й бери все, що ще влазить у бюджет.
+Pick greedy_pick(const std::vector<Strategy>& strategies, double budget) {
+    Pick p{{}, 0.0, 0.0};
+    for (const auto& s : rank_by_roi(strategies)) {
+        if (p.spent + s.cost <= budget) {
+            p.chosen.push_back(s);
+            p.spent += s.cost;
+        }
+    }
+    for (const auto& s : p.chosen) p.total += s.benefit();
+    return p;
+}
+```
 ```python
 def rank_by_roi(strategies: list[Strategy]) -> list[Strategy]:
     # Перший зріз: за ROI спадно. O(n log n).
@@ -187,6 +249,50 @@ dp[i][b] = max(
 Заповнивши таблицю від меншого до більшого, у `dp[n][B]` знаходимо найкращу досяжну вигоду. Але нам мало числа — потрібен **сам набір**. Його відновлюємо, ідучи таблицею назад: якщо на кроці i найкраще значення взялося не з рядка «без i-ї» (`dp[i][b] ≠ dp[i−1][b]`), значить i-ту стратегію брали — записуємо її й зменшуємо бюджет на її ціну.
 
 :::tabs
+```cpp
+#include <vector>
+#include <algorithm>
+
+// Точний 0/1-наплічник. Вартості й бюджет — цілі (тижні). O(n·B) час і пам'ять.
+Pick knapsack_pick(const std::vector<Strategy>& strategies, double budget) {
+    const int n = static_cast<int>(strategies.size());
+    const int B = static_cast<int>(budget);
+
+    std::vector<int> cost(n);
+    std::vector<double> value(n);
+    for (int i = 0; i < n; ++i) {
+        cost[i]  = static_cast<int>(strategies[i].cost);
+        value[i] = strategies[i].benefit();
+    }
+
+    // dp[i][b] — максимальна вигода з перших i стратегій за бюджету b.
+    std::vector<std::vector<double>> dp(n + 1, std::vector<double>(B + 1, 0.0));
+    for (int i = 1; i <= n; ++i) {
+        const int ci = cost[i - 1];
+        const double vi = value[i - 1];
+        for (int b = 0; b <= B; ++b) {
+            dp[i][b] = dp[i - 1][b];                 // не беремо i-ту
+            if (ci <= b) {                           // або беремо, якщо влазить
+                double take = dp[i - 1][b - ci] + vi;
+                if (take > dp[i][b]) dp[i][b] = take;
+            }
+        }
+    }
+
+    // Відновлення набору: йдемо таблицею назад.
+    Pick p{{}, 0.0, dp[n][B]};
+    int b = B;
+    for (int i = n; i >= 1; --i) {
+        if (dp[i][b] != dp[i - 1][b]) {              // i-ту брали
+            p.chosen.push_back(strategies[i - 1]);
+            b -= cost[i - 1];
+        }
+    }
+    std::reverse(p.chosen.begin(), p.chosen.end());
+    p.spent = static_cast<double>(B - b);
+    return p;
+}
+```
 ```python
 def knapsack_pick(strategies: list[Strategy], budget: float):
     # Точний 0/1-наплічник. Вартості й бюджет — цілі (тижні). O(n·B) час і пам'ять.

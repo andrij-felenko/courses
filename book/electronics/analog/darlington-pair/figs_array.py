@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Фігури до вставки «Масив пар Дарлінгтона» (comp-darlington-array.md).
+"""Фігури до вставок про масив пар Дарлінгтона (api-darlington-array.md, proj-darlington-array-relay.md).
 Окремий генератор у теці теми (поряд із figs.py), щоб не зачіпати спільний figs.py.
 Три фігури:
-  array-channel.svg  — що всередині ОДНОГО каналу: базовий R → Дарлінгтон → гасильний діод на COM
-  array-pinout.svg   — типова розпіновка: входи ліворуч, виходи дзеркально праворуч, COM, GND
-  array-relay.svg    — «перший байт»: реле між +V і OUTn, COM на +V, діод гасить викид
+  array-channel.svg  — [api] що всередині ОДНОГО каналу: базовий R → Дарлінгтон → гасильний діод на COM
+  array-pinout.svg   — [api] типова розпіновка: входи ліворуч, виходи дзеркально праворуч, COM, GND
+  array-relay.svg    — [proj] «перший байт»: реле між +V і OUTn, COM на +V, діод гасить викид
 Запуск:  python figs_array.py   → пише SVG у ./img/
 Стиль і помічники — зі спільного svgkit (НЕ переписувати тут)."""
 import sys, os
