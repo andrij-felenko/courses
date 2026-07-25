@@ -1,8 +1,8 @@
 export const meta = {
   name: 'write-batch',
-  description: 'Повний v6-батч в один прогін. ФАЗИ: (1) Скаут — знайти перші N pending тем за level; (2) Статті — opus-max агенти (стагер 2с), кожен пише ОДНУ статтю (проза+фігури+ref-лінки на свої вставки й нові залежні теми), лінки генерує в прозі, а вміст вставок НЕ пише — лише повертає їх список; (3) Вставки — opus-max агенти (стагер 2с) пишуть зібрані вставки під ці статті; (4) Фігури — sonnet-high агенти (стагер 2с) доводять SVG кожної написаної теки до «із зауваженнями: 0» (svgcheck: замалий шрифт + накладання тексту), правлячи figs.py; автори SVG самі НЕ гейтять; (5) Маніфест — серійно: статті→done, вставки→done, нові теми→pending. Жоден письменник маніфест НЕ чіпає. Усі фази письма — пулом щонайбільше CONCURRENCY(=4) агентів ОДНОЧАСНО (проти масових падінь на лімітах: валить макс. стільки, не весь фронт). args = {book, kind?:"book"|"catalog"|"guide", level?:"basic"|"detailed", limit?:10, scope?, stagger?, concurrency?, units?}',
+  description: 'Повний v6-батч в один прогін. ФАЗИ: (1) Скаут — набрати батч на LIMIT тем: СПЕРШУ detailed-pending, далі basic-pending добиває решту (кожна тема несе свій рівень; явний level примушує один рівень); (2) Статті — opus-max агенти (стагер 2с), кожен пише ОДНУ статтю (проза+фігури+ref-лінки на свої вставки й нові залежні теми), лінки генерує в прозі, а вміст вставок НЕ пише — лише повертає їх список; (3) Вставки — opus-max агенти (стагер 2с) пишуть зібрані вставки під ці статті; (4) Фігури — sonnet-high агенти (стагер 2с) доводять SVG кожної написаної теки до «із зауваженнями: 0» (svgcheck: замалий шрифт + накладання тексту), правлячи figs.py; автори SVG самі НЕ гейтять; (5) Маніфест — серійно: статті→done, вставки→done, нові теми→pending. Жоден письменник маніфест НЕ чіпає. Усі фази письма — пулом щонайбільше CONCURRENCY(=4) агентів ОДНОЧАСНО (проти масових падінь на лімітах: валить макс. стільки, не весь фронт). args = {book, kind?:"book"|"catalog"|"guide", level?:"basic"|"detailed" (пропусти → мішаний detailed-first), limit?:10, scope?, stagger?, concurrency?, units?}',
   phases: [
-    { title: 'Скаут', detail: 'знайти перші N pending тем за level (sonnet, grep)' },
+    { title: 'Скаут', detail: 'набрати LIMIT: detailed-pending, тоді basic добиває (sonnet, grep)' },
     { title: 'Статті', detail: 'opus-max: одна стаття на агента + список своїх вставок і нових тем; пул 4, стагер 2с' },
     { title: 'Вставки', detail: 'opus-max: написати зібрані вставки під ці статті; пул 4, стагер 2с' },
     { title: 'Фігури', detail: 'sonnet-high: svg-гейт — svgcheck до «0» (шрифт+накладання), правка figs.py; пул 4, стагер 2с' },
@@ -17,8 +17,12 @@ if (typeof _a === 'string') { try { _a = JSON.parse(_a) } catch (e) { _a = {} } 
 const BOOK = _a && _a.book ? String(_a.book) : ''
 const KIND = (_a && _a.kind) || 'book'             // book | catalog | guide
 const SELF = KIND === 'guide' ? 'guide' : 'book'   // префікс лінка на ВЛАСНУ книгу/курс (§6: ціль у курсі → guide:)
-const LEVEL = (_a && _a.level) || 'detailed'       // detailed → <slug>-d.md (ОСНОВНА, §3) ; basic → <slug>.md (за потреби)
-const VER = LEVEL === 'detailed' ? 'detailed' : 'basic'
+// Рівень версій. ДЕФОЛТ — МІШАНИЙ батч: спершу добираємо detailed-pending, тоді basic-pending добиває
+// решту до LIMIT (детальна — ОСНОВНА версія §3: <slug>-d.md; базова <slug>.md лишається великим хвостом).
+// Явний level:"detailed"|"basic" ПРИМУШУЄ одно-рівневий батч (стара поведінка). Кожна тема несе СВІЙ u.level.
+const FORCE_LEVEL = (_a && (_a.level === 'basic' || _a.level === 'detailed')) ? _a.level : ''
+const SCOUT_LEVELS = FORCE_LEVEL ? [FORCE_LEVEL] : ['detailed', 'basic']   // порядок пріоритету добору
+const DEFAULT_LEVEL = FORCE_LEVEL || 'detailed'    // рівень для інлайн-units без явного level
 const SCOPE = (_a && _a.scope) || ''
 const STAGGER = Number(_a && _a.stagger) || 2000   // мс між стартами агентів (рознести хвилю)
 const CONCURRENCY = Number(_a && _a.concurrency) || 4  // МАКС агентів ОДНОЧАСНО (пул): при вичерпанні лімітів падає щонайбільше стільки, не весь фронт. 4 → у польоті фактично 3–4 (провал на старті/передачі)
@@ -137,8 +141,8 @@ function topicDirWin(section, slug) { return `${ROOT}\\${KIND}\\${BOOK}\\${secti
 
 /* ── схеми ── */
 const UNITS = { type: 'object', additionalProperties: false, required: ['units'], properties: { units: { type: 'array', items: {
-  type: 'object', additionalProperties: false, required: ['section', 'slug', 'title'],
-  properties: { section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, scope: { type: 'string' } } } } } }
+  type: 'object', additionalProperties: false, required: ['section', 'slug', 'title', 'level'],
+  properties: { section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, scope: { type: 'string' }, level: { type: 'string', enum: ['basic', 'detailed'] } } } } } }
 const ART_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: {
   ok: { type: 'boolean' }, files: { type: 'array', items: { type: 'string' } }, note: { type: 'string' },
   inserts: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['file', 'type', 'brief'], properties: { file: { type: 'string' }, type: { type: 'string' }, brief: { type: 'string' } } } },
@@ -152,19 +156,39 @@ const REG_RET = { type: 'object', additionalProperties: false, required: ['ok'],
 const CTRL_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, problems: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['file', 'issue'], properties: { file: { type: 'string' }, issue: { type: 'string' } } } } } }
 
 /* ──────────────── ФАЗА 1 — СКАУТ ──────────────── */
+// Мішаний добір: скаут повертає до LIMIT кандидатів НА КОЖНУ версію з SCOUT_LEVELS (кожен тег level),
+// а скрипт складає чергу за пріоритетом (detailed → basic), добиваючи до LIMIT і не дублюючи теми.
 let WORK = []
 if (UNITS_IN) {
-  WORK = UNITS_IN.slice(0, LIMIT)
-  log(`Скаут (інлайн): ${WORK.length} тем`)
+  WORK = UNITS_IN.slice(0, LIMIT).map((u) => ({ ...u, level: (u.level === 'basic' || u.level === 'detailed') ? u.level : DEFAULT_LEVEL }))
+  log(`Скаут (інлайн): ${WORK.length} тем (детальних ${WORK.filter((u) => u.level === 'detailed').length}, базових ${WORK.filter((u) => u.level === 'basic').length})`)
 } else {
   phase('Скаут')
+  const levelsDesc = SCOUT_LEVELS.join(' → ')
   const scout = await callAgent(
-    `Знайди перші ${LIMIT} тем зі статусом «${VER}.status: "pending"» у маніфесті ${MFWIN}.
+    `Знайди pending-теми на письмо в маніфесті ${MFWIN}. Потрібні ВЕРСІЇ в порядку пріоритету: ${levelsDesc}.
 Схема: book/catalog — sections[]→topics[]; guide (v6) — modules[]→chapters[]→steps[]. В ОБОХ формах рядок секції/модуля містить "scope:", а тема/крок — { slug, title, basic:{status}, detailed:{status} } одним рядком; для guide поверни section = slug МОДУЛЯ. КРОК-ref (без slug) — ПРОПУСКАЙ.
-ШВИДКО (не вантаж весь файл у відповідь): зроби Bash «grep -n» по файлу — окремо рядки секцій (містять "scope:") і рядки тем зі статусом потрібної версії: шукай і '${VER}: { status: "pending" }', і '${VER}: { status: "update" }' (обидва — черга на письмо цієї версії; НЕ бери "done"/"empty"/"deeper"/"recheck"). Візьми ПЕРШІ ${LIMIT} таких тем У ПОРЯДКУ файлу; для кожної визнач секцію (найближчий вищий рядок секції) і витягни slug+title з її рядка, scope — з рядка секції.
-Поверни units:[{section, slug, title, scope}] — рівно перші ${LIMIT} (або менше, якщо стільки нема).`,
+ШВИДКО (не вантаж весь файл у відповідь): зроби Bash «grep -n» по файлу. Окремо витягни рядки секцій/модулів (містять "scope:"). Для КОЖНОЇ потрібної версії окремо знайди рядки тем, де САМЕ ЦЯ версія має status "pending" АБО "update" (обидва — черга на письмо цієї версії; НЕ бери "done"/"empty"/"deeper"/"recheck"): для detailed шукай 'detailed: { status: "pending" }' і 'detailed: { status: "update" }'; для basic — 'basic: { status: "pending" }' і 'basic: { status: "update" }'. Візьми ПЕРШІ ${LIMIT} таких тем У ПОРЯДКУ файлу НА КОЖНУ версію.
+Для кожної теми визнач секцію (найближчий вищий рядок із "scope:"), витягни slug+title з її рядка, scope — з рядка секції, і ОБОВʼЯЗКОВО постав level = версія, за якою її знайдено ("detailed" чи "basic").
+Поверни units:[{section, slug, title, scope, level}] — спершу всі знайдені detailed (до ${LIMIT}), тоді всі basic (до ${LIMIT}); скрипт сам обмежить сумарно до ${LIMIT}. Якщо якоїсь версії нема в черзі — просто не додавай її тем.`,
     { label: 'скаут', phase: 'Скаут', model: 'sonnet', schema: UNITS })
-  WORK = ((scout && scout.units) || []).filter((u) => u && u.slug && u.section).slice(0, LIMIT)
+  const cand = ((scout && scout.units) || [])
+    .filter((u) => u && u.slug && u.section)
+    .map((u) => ({ ...u, level: (u.level === 'basic' || u.level === 'detailed') ? u.level : DEFAULT_LEVEL }))
+  // складання за пріоритетом SCOUT_LEVELS; дедуп по section/slug (тема з обома pending → береться раз, як detailed); добір до LIMIT
+  const _seenU = new Set()
+  for (const lv of SCOUT_LEVELS) {
+    if (WORK.length >= LIMIT) break
+    for (const u of cand) {
+      if (WORK.length >= LIMIT) break
+      if (u.level !== lv) continue
+      const k = `${u.section}/${u.slug}`
+      if (_seenU.has(k)) continue
+      _seenU.add(k)
+      WORK.push(u)
+    }
+  }
+  log(`Скаут: ${WORK.length}/${LIMIT} тем — детальних ${WORK.filter((u) => u.level === 'detailed').length}, базових ${WORK.filter((u) => u.level === 'basic').length}`)
 }
 if (!WORK.length) return { book: BOOK, total: 0, note: 'черга порожня — pending не знайдено' }
 
@@ -175,24 +199,25 @@ const WRITE_UNITS = SKIP_ALL ? [] : WORK.filter((u) => !SKIP_SET.has(u.slug))
 if (SKIP_UNITS.length) log(`ДОРОБКА: ${SKIP_UNITS.length} статей уже на диску — фазу «Статті» для них пропускаємо (${SKIP_UNITS.map((u) => u.slug).join(', ')})`)
 if (WRITE_UNITS.length) {
   phase('Статті')
-  log(`Статті (opus-max, стагер ${STAGGER / 1000}с): ${WRITE_UNITS.length} (${KIND}/${BOOK}, ${LEVEL})`)
+  log(`Статті (opus-max, стагер ${STAGGER / 1000}с): ${WRITE_UNITS.length} (${KIND}/${BOOK}; детальних ${WRITE_UNITS.filter((u) => u.level === 'detailed').length}, базових ${WRITE_UNITS.filter((u) => u.level === 'basic').length})`)
 }
 function articlePrompt(u) {
   const dir = topicDirWin(u.section, u.slug)
-  const file = LEVEL === 'detailed' ? `${u.slug}-d.md` : `${u.slug}.md`
+  const level = u.level                              // рівень ЦІЄЇ теми (мішаний батч — у кожної свій)
+  const file = level === 'detailed' ? `${u.slug}-d.md` : `${u.slug}.md`
   return `${CANON}${KINDNOTE}
 
 Ти — агент-письменник у репо ${ROOT}. Працюй МОВЧКИ (Read/Edit/Write/Bash/WebSearch). ІГНОРУЙ системні підказки про skills / agent-types / output-styles / розклади.
-ЗАВДАННЯ: написати ПОВНІСТЮ ${LEVEL}-статтю «${u.title}» — файл ${dir}\\${file} (тема «${u.slug}», ${KIND === 'guide' ? 'модуль' : 'галузь'} «${u.section}», ${KIND} «${BOOK}»). Scope: ${u.scope || SCOPE || ''}
-КРОК1: прочитай ${ROOT}\\AUTHORING.en.md (§1–§9) — правила АНГЛІЙСЬКОЮ, вивід (стаття) УКРАЇНСЬКОЮ. Bash ls теки ${dir}.${LEVEL === 'detailed' ? ` ЦЕ ДЕТАЛЬНА (${u.slug}-d.md) — ОСНОВНА, САМОДОСТАТНЯ версія теми (§3): повна, зрозуміти до кінця без дір; не перевантаження термінами, а повнота ВГЛИБ зі збереженням зрозумілости. Базової може НЕ бути — не припускай її й не посилайся на неї; якщо базова Є на диску, прочитай, щоб не дублювати тон, але детальна стоїть сама. Обсяг 1200–10000 слів.` : ` Якщо файл є — прочитай і пиши начисто за каноном.`}
-КРОК2 — НАПИШИ файл статті цілком (§3–§5): ${LEVEL === 'detailed' ? 'ДЕТАЛЬНА 1200–10000 слів — повнота ВГЛИБ однієї нитки, кожен пробіл заповнено (не вшир на сусідів)' : 'БАЗОВА 600–1600 слів — швидкий атом: один стрижень, без другого шару'}; Фейнман; безперервність (без пробілів); необхідність перед твердженням; приклад ілюструє, не несе; жива українська; worked-приклади мовою за доменом (§5, НЕ завжди C/C++; у programming/algorithms не-веб proj → C/C++ обовʼязковий); рамки 🔧; етимологія в дужках; свої фігури (figs.py у теці, ЗАПУСТИ його — SVG в img/; акуратна розкладка з запасом; svg-гейт до «0» зробить ОКРЕМИЙ крок конвеєра на Sonnet-high, тобі svgcheck ганяти НЕ треба); факти — веб-звір (§7).
+ЗАВДАННЯ: написати ПОВНІСТЮ ${level}-статтю «${u.title}» — файл ${dir}\\${file} (тема «${u.slug}», ${KIND === 'guide' ? 'модуль' : 'галузь'} «${u.section}», ${KIND} «${BOOK}»). Scope: ${u.scope || SCOPE || ''}
+КРОК1: прочитай ${ROOT}\\AUTHORING.en.md (§1–§9) — правила АНГЛІЙСЬКОЮ, вивід (стаття) УКРАЇНСЬКОЮ. Bash ls теки ${dir}.${level === 'detailed' ? ` ЦЕ ДЕТАЛЬНА (${u.slug}-d.md) — ОСНОВНА, САМОДОСТАТНЯ версія теми (§3): повна, зрозуміти до кінця без дір; не перевантаження термінами, а повнота ВГЛИБ зі збереженням зрозумілости. Базової може НЕ бути — не припускай її й не посилайся на неї; якщо базова Є на диску, прочитай, щоб не дублювати тон, але детальна стоїть сама. Обсяг 1200–10000 слів.` : ` Якщо файл є — прочитай і пиши начисто за каноном.`}
+КРОК2 — НАПИШИ файл статті цілком (§3–§5): ${level === 'detailed' ? 'ДЕТАЛЬНА 1200–10000 слів — повнота ВГЛИБ однієї нитки, кожен пробіл заповнено (не вшир на сусідів)' : 'БАЗОВА 600–1600 слів — швидкий атом: один стрижень, без другого шару'}; Фейнман; безперервність (без пробілів); необхідність перед твердженням; приклад ілюструє, не несе; жива українська; worked-приклади мовою за доменом (§5, НЕ завжди C/C++; у programming/algorithms не-веб proj → C/C++ обовʼязковий); рамки 🔧; етимологія в дужках; свої фігури (figs.py у теці, ЗАПУСТИ його — SVG в img/; акуратна розкладка з запасом; svg-гейт до «0» зробить ОКРЕМИЙ крок конвеєра на Sonnet-high, тобі svgcheck ганяти НЕ треба); факти — веб-звір (§7).
  • **(v6) БЛОК «ПЕРЕД ЧИТАННЯМ».** Одразу ПІД H1 постав згорнутий блок \`<preknowlist>…</preknowlist>\` — марк. список ref-лінків на ПЕРЕДУМОВИ (що точно треба знати, без чого статтю не зрозуміти), кожен рядок = лінк + коротко «що саме знати». Лінки 2-сегментні на ТЕМУ (\`book:<книга>/<slug>\` чи \`guide:<курс>/<slug>\`, дзеркально §6), лише ВАГОМІ передумови. ${KIND === 'guide' ? 'КУРС: клади лише передумови ЗЗОВНІ курсу АБО ще не пройдені по нитці — те, що курс уже дав раніше, НЕ додавай.' : 'book/catalog: усі справжні передумови (стаття standalone).'} Якщо тема-передумова ще не існує в репо — обробляй як залежність (додай у newTopics, КРОК3).${KIND === 'catalog' ? `
  • **(§8) КАТАЛОГ — КОНКРЕТНИЙ ОБʼЄКТ.** Описуєш саме цю річ (плату/модуль/прилад/деталь): читач має УПІЗНАТИ її, зрозуміти що робить і як влаштована, як підʼєднати/використати й чого стерегтися. Секції добирай САМ під природу пристрою; партномери/моделі ДОРЕЧНІ (це каталог). БЕЗ фраз послідовності. ЛІНКИ каталогу — ЗАВЖДИ префікс book: (родини в __BOOKS__): тема book:РОДИНА/slug; вставка book:РОДИНА/slug/ТИП-назва.md. Префікса catalog: НЕ існує, і шлях-лінк у дужках-catalog НЕ вживай — тільки book:-попап.
  • **(§8) ПЛАТА/МОДУЛЬ ЗІ СХЕМОЮ — ОБОВʼЯЗКОВО.** Якщо річ має схему устрою АБО схему підключення: (а) зобрази ОБИДВІ SVG-фігури — принципову схему + розводку ПІН-У-ПІН (svgcheck 0); (б) опиши їх (живлення, рівні, підтяжки, що куди); (в) дай API у api-вставці — додай у inserts[] { file:"api-<name>.md", type:"api", brief:"API/довідка: розводка+регістри+протокол (залізо) та/або бібліотека/типові виклики + робочий C/C++, пастки" }. Без цих трьох board/модуль-стаття НЕПОВНА. Голі пасиви/розхідники (резистори, дроти, припій) — без схеми/API, коротко за призначенням.
  • **(§8) РОДИНА — ЛІНКУЙ, НЕ ПОВТОРЮЙ.** Якщо продукт належить до лінійки з кількох варіантів (спільний виробник/архітектура/історія — ESP32, Arduino, RPi, KY-серія…) — НЕ переказуй спільну історію/архітектуру ТУТ. Постав ref-попап на ОГЛЯДОВУ статтю родини book:<родина>/<family> (напр. book:boards/esp32-family) по спільне й опиши ЛИШЕ специфіку цього продукту. Нема family-топіка — додай у newTopics { kind:"catalog", book:"<родина>", section:"<секція>", slug:"<family>", title:"Родина …" } (і постав на нього ref).` : ''}
 КРОК3 — ЛІНКИ Й СПИСКИ (головне для конвеєра):
  • ВЛАСНІ ВСТАВКИ (низький поріг рішення, але КОНТЕКСТНО — скільки просить тема). Якщо в темі є під-блок, який можна корисно розгорнути окремо (історія народження / математика-виведення / код-проєкт / розбір алгоритму / клас-компонент) — винеси його вставкою, а не стискай у статті. Вагаєшся «варте окремої вставки чи ні» — радше РОБИ. НОРМИ на кількість НЕМА: скільки просить логіка теми — стільки й став (одна тема — жодної вставки, інша — кілька різних типів, коли кожна справді потрібна: hist/math/proj доповнюють одне одного). Заради числа НЕ додавай. Межа — якість: кожна несе окремий шар, не переказ статті. НЕ пиши вміст вставки тут. Натомість: (а) встав у прозі ref-зноску-попап [текст](${SELF}:${BOOK}/${u.slug}/<type>-<name>.md) — лінк ОБОВʼЯЗКОВО з розширенням «.md» (без нього рушій не відкриє) — з конспектом 1–7 речень; (б) додай її в inserts:[{file:"<type>-<name>.md", type:"hist|comp|math|proj|api", brief:"2–4 речення: що саме вставка має покрити"}]. Її напише НАСТУПНА фаза. ⚠️ КОЖНА вставка, на яку ти поставив ref у прозі, МУСИТЬ бути в inserts[] з ТИМ САМИМ іменем файлу — жодного ref без запису (інакше файл не створять → битий лінк).${KIND === 'catalog' ? ' (catalog — без comp-.)' : ''}${INSERT_BIAS}
- • НОВІ ЗАЛЕЖНІ ТЕМИ — ПРОАКТИВНО, НЕ ПОКЛАДАЙСЯ НА ПЛАН. План курсу/книги НЕ вичерпний на 100% — саме ПІД ЧАС письма ти найкраще бачиш, чого бракує. Перш ніж завершити, пройдись по ВАГОМИХ поняттях, які стаття ПРИПУСКАЄ відомими або на які СПИРАЄТЬСЯ, і для кожного ПЕРЕВІР наявність у репо: Bash grep по slug/назві у ${ROOT}\\book\\*\\manifest.js та ${ROOT}\\guide\\*\\manifest.js (досить готова АБО стаб pending/empty). Якщо вагомого поняття НЕМА НІДЕ — це ПРОГАЛИНА плану: НЕ обходь її (не уникай згадки й не лишай голий inline-текст без ref!), а ЗАВЕДИ тему — постав ref (book:<книга>/<slug> або guide:<курс>/<slug>) і додай у newTopics:[{kind,book,section,slug,title,needDetailed}]. Для book — РЕАЛЬНА наявна галузь-section, що найкраще пасує (нову галузь лише якщо жодна наявна не підходить); для guide — модуль. Якщо лінкуєш на ЯВНУ ДЕТАЛЬНУ нової теми (…/detail, рідко) — needDetailed:true. Лінк на вставку-файл — з «.md». Файл НЕ створюй (заведе фаза Маніфест; дублі вона відсіє). Поріг — вагомість (§6): справжня залежність, без якої тему не зрозуміти, НЕ кожна побіжна згадка. Краще завести зайву тему-стаб, ніж лишити приховану прогалину.${LEVEL === 'basic' ? `
+ • НОВІ ЗАЛЕЖНІ ТЕМИ — ПРОАКТИВНО, НЕ ПОКЛАДАЙСЯ НА ПЛАН. План курсу/книги НЕ вичерпний на 100% — саме ПІД ЧАС письма ти найкраще бачиш, чого бракує. Перш ніж завершити, пройдись по ВАГОМИХ поняттях, які стаття ПРИПУСКАЄ відомими або на які СПИРАЄТЬСЯ, і для кожного ПЕРЕВІР наявність у репо: Bash grep по slug/назві у ${ROOT}\\book\\*\\manifest.js та ${ROOT}\\guide\\*\\manifest.js (досить готова АБО стаб pending/empty). Якщо вагомого поняття НЕМА НІДЕ — це ПРОГАЛИНА плану: НЕ обходь її (не уникай згадки й не лишай голий inline-текст без ref!), а ЗАВЕДИ тему — постав ref (book:<книга>/<slug> або guide:<курс>/<slug>) і додай у newTopics:[{kind,book,section,slug,title,needDetailed}]. Для book — РЕАЛЬНА наявна галузь-section, що найкраще пасує (нову галузь лише якщо жодна наявна не підходить); для guide — модуль. Якщо лінкуєш на ЯВНУ ДЕТАЛЬНУ нової теми (…/detail, рідко) — needDetailed:true. Лінк на вставку-файл — з «.md». Файл НЕ створюй (заведе фаза Маніфест; дублі вона відсіє). Поріг — вагомість (§6): справжня залежність, без якої тему не зрозуміти, НЕ кожна побіжна згадка. Краще завести зайву тему-стаб, ніж лишити приховану прогалину.${level === 'basic' ? `
  • ДЕТАЛЬНА ВЕРСІЯ ЦІЄЇ ТЕМИ (§3, НИЗЬКИЙ ПОРІГ). Оціни: чи має тема РЕАЛЬНИЙ другий шар — виведення формул, протокол/алгоритм, багатогранна архітектура/залізо, багато граничних випадків? Якщо, пишучи базову, ти СТИСКАВ матеріал — постав needDetailedSelf:true (детальну поставлять у чергу). Проста довідка/огляд/вузька замітка — needDetailedSelf:false.` : ''}
  • DEEPER-ЦІЛІ (§6). Якщо ставиш ЯВНУ ДЕТАЛЬНУ («…/detail», рідко — головно ref із курсу) на тему, що ВЖЕ Є в репо, але має лише базову, — додай ту тему в deeperTargets:[{book,slug}] (щоб її детальну поставили в чергу). Лінк лишай на /detail.
  • МАНІФЕСТ НЕ ЧІПАЙ. Вставки САМ не пиши (це фаза 3).
@@ -214,7 +239,7 @@ if (WRITE_UNITS.length) {
   INSERTS = INSERTS.concat(okR.flatMap((r) => r.inserts.map((i) => ({ ...i, section: r.u.section, topicSlug: r.u.slug, topicTitle: r.u.title }))))
   NEWTOPICS = NEWTOPICS.concat(okR.flatMap((r) => r.newTopics))
   // §3/§6 — детальні версії у чергу: власна тема (needDetailedSelf, лише коли пишемо basic) + deeper-цілі (ref на /detail наявних тем)
-  if (LEVEL === 'basic') for (const r of okR) if (r.needDetailedSelf) DETAILED_NEED.push({ book: BOOK, slug: r.u.slug })
+  for (const r of okR) if (r.u.level === 'basic' && r.needDetailedSelf) DETAILED_NEED.push({ book: BOOK, slug: r.u.slug })
   for (const r of okR) for (const d of (r.deeperTargets || [])) if (d && d.slug) DETAILED_NEED.push({ book: d.book || BOOK, slug: d.slug })
   log(`Статей дописано: ${okR.length}/${WRITE_UNITS.length}`)
 }
@@ -297,8 +322,9 @@ if (FIG_DIRS.length) {
 /* ──────────────── ФАЗА 5 — МАНІФЕСТ (серійно) ──────────────── */
 phase('Маніфест')
 if (doneArticles.length) {
+  const donePayload = doneArticles.map((u) => ({ slug: u.slug, ver: u.level }))
   await callAgent(
-    `Онови маніфест ${MFWIN} (схема v6 §2 — статус ПЕР-ВЕРСІЙНИЙ): для тем зі slug ∈ ${JSON.stringify(doneArticles.map((u) => u.slug))} зміни ${VER}.status на "done" (Edit точково — саме поле "${VER}" тієї теми; іншу версію й решту не чіпай). Поверни ok, count.`,
+    `Онови маніфест ${MFWIN} (схема v6 §2 — статус ПЕР-ВЕРСІЙНИЙ). Для КОЖНОГО {slug, ver} з переліку знайди тему за slug і зміни статус САМЕ версії ver ("basic" чи "detailed") на "done" (Edit точково — лише поле ver тієї теми; ІНШУ версію й решту тем не чіпай). ПЕРЕЛІК: ${JSON.stringify(donePayload)}\nПоверни ok, count.`,
     { label: 'статті→done', phase: 'Маніфест', model: 'opus', schema: REG_RET })
 }
 if (doneInserts.length) {
@@ -346,4 +372,4 @@ const okN = doneArticles.length
 const insWritten = iResults.filter((r) => r.ok).length      // написані ЦИМ прогоном (doneInserts містить ще й insertsDone)
 const svgFixedTotal = svgResults.reduce((s, r) => s + (r.fixed || 0), 0)
 const svgUnresolved = svgResults.filter((r) => !r.ok).map((r) => r.d)
-return { book: BOOK, kind: KIND, level: LEVEL, scouted: WORK.length, articles: okN, articlesFailed: WORK.length - okN, inserts: insWritten, insertsRegisteredOnly: (INSERTS_DONE_IN || []).length, insertsFailed: INSERTS.length - insWritten, newTopics: NEWTOPICS.length, detailedQueued: DETAILED_QUEUE.length, svgFixed: svgFixedTotal, svgUnresolved, problems: PROBLEMS }
+return { book: BOOK, kind: KIND, level: FORCE_LEVEL || 'mixed', byLevel: { detailed: doneArticles.filter((u) => u.level === 'detailed').length, basic: doneArticles.filter((u) => u.level === 'basic').length }, scouted: WORK.length, articles: okN, articlesFailed: WORK.length - okN, inserts: insWritten, insertsRegisteredOnly: (INSERTS_DONE_IN || []).length, insertsFailed: INSERTS.length - insWritten, newTopics: NEWTOPICS.length, detailedQueued: DETAILED_QUEUE.length, svgFixed: svgFixedTotal, svgUnresolved, problems: PROBLEMS }

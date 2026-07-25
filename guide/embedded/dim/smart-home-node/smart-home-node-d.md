@@ -2,7 +2,7 @@
 
 <preknowlist>
 - [MQTT](book:communications/mqtt) — publish/subscribe через брокер, топіки, QoS 0/1/2, retain, заповіт; без цього розмову вузла з домом не зрозуміти.
-- [Заповіт MQTT (Last Will)](book:communications/mqtt/mqtt-d.md) — як брокер публікує наперед заготовлене повідомлення, коли клієнт зникає раптово.
+- [Заповіт MQTT (Last Will)](book:communications/mqtt/detail) — як брокер публікує наперед заготовлене повідомлення, коли клієнт зникає раптово.
 - [Wi-Fi](book:communications/wifi) — що таке асоціація з точкою доступу, чому підключення не миттєве й рветься.
 - [Неблокуючий час (millis)](book:programming/nonblocking-time) — цикл без `delay()`, дії за порівнянням годинника замість сну.
 - [Скінченні автомати](book:electronics/finite-state-machines) — стан + переходи за подіями; ним ми опишемо мережевий шар вузла.
