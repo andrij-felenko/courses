@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="250" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">64-бітний ROM: заводська адреса кожного пристрою</text>
+<rect x="60.0" y="90.0" width="75.0" height="60.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.9"/>
+<text x="97.5" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">код родини</text>
+<text x="97.5" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">8 біт</text>
+<text x="97.5" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">що це за пристрій</text>
+<rect x="135.0" y="90.0" width="450.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.9"/>
+<text x="360.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">серійний номер</text>
+<text x="360.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">48 біт</text>
+<text x="360.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-style="italic">який саме екземпляр</text>
+<rect x="585.0" y="90.0" width="75.0" height="60.0" rx="4" fill="#f6d9d4" stroke="#c0392b" stroke-width="1.9"/>
+<text x="622.5" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">CRC-8</text>
+<text x="622.5" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">8 біт</text>
+<text x="622.5" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">перевірка читання</text>
+<text x="60.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">молодший байт — перший на дроті</text>
+<line x1="60.0" y1="84.0" x2="180.0" y2="84.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="360.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">48 біт серійного → 2⁴⁸ ≈ 2.8·10¹⁴ унікальних номерів на кожну родину</text>
+<text x="360.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">адресу не налаштовують — вона випалена лазером на заводі, глобально унікальна</text>
+</svg>

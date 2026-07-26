@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Простір станів: акселерометр бачить лише кут, а виправляє й зсув</text>
+<rect x="56.0" y="54.0" width="214.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="163.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="163.0" dy="0.0">гіроскоп: ω</tspan><tspan x="163.0" dy="14.3">кутова швидкість</tspan></text>
+<rect x="510.0" y="54.0" width="214.0" height="52.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="617.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="617.0" dy="0.0">акселерометр: z</tspan><tspan x="617.0" dy="14.3">прямий кут (шумний)</tspan></text>
+<rect x="300.0" y="168.0" width="180.0" height="112.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="390.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">вектор стану  x</text>
+<line x1="300.0" y1="224.0" x2="480.0" y2="224.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="390.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">θ — кут нахилу</text>
+<text x="390.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">b — зсув нуля гіро</text>
+<text x="390.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(прихований)</text>
+<path d="M 163.0 106.0 C 163.0 150.0 266.0 198.0 298.0 198.0" fill="none" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="58.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">передбачення:</text>
+<text x="58.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">θ⁻ = θ + (ω − b)·dt</text>
+<path d="M 298.0 256.0 C 234.0 256.0 234.0 210.0 298.0 210.0" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<text x="226.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">b віднімається</text>
+<path d="M 617.0 106.0 C 617.0 150.0 514.0 198.0 482.0 198.0" fill="none" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="722.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">оновлення:</text>
+<text x="722.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">бачить лише θ  (H = [1  0])</text>
+<path d="M 414.0 202.0 C 456.0 222.0 456.0 318.0 414.0 260.0" fill="none" stroke="#27ae60" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="468.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">корекція кута</text>
+<text x="468.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">перетікає у зсув</text>
+<text x="384.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">коваріація  P пам'ятає цей зв'язок</text>
+<rect x="300.0" y="336.0" width="84.0" height="84.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="342.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">σ²θ</text>
+<rect x="384.0" y="336.0" width="84.0" height="84.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="2.4"/>
+<text x="426.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">P_θb</text>
+<rect x="300.0" y="420.0" width="84.0" height="84.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="2.4"/>
+<text x="342.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">P_bθ</text>
+<rect x="384.0" y="420.0" width="84.0" height="84.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="426.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">σ²b</text>
+<text x="486.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">поза-діагональ</text>
+<text x="486.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">зв'язує кут і зсув</text>
+<text x="390.0" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">фільтр вивчає b і віднімає дрейф у корені — одне число α комплементарного так не може</text>
+</svg>

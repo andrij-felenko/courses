@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 486" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="486" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пошук ROM = обхід дерева адрес із однією закладкою</text>
+<line x1="300.0" y1="107.0" x2="142.0" y2="276.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="300.0" y1="107.0" x2="486.0" y2="197.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="486.0" y1="219.0" x2="398.0" y2="324.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="486.0" y1="219.0" x2="612.0" y2="324.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="202.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="402.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="420.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="560.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<line x1="148.0" y1="274.0" x2="286.0" y2="102.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<line x1="406.0" y1="322.0" x2="474.0" y2="216.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<path d="M300.0 84.0 L312.0 96.0 L300.0 108.0 L288.0 96.0 z" fill="#eafaf0" stroke="#27ae60" stroke-width="1.7"/>
+<path d="M486.0 196.0 L498.0 208.0 L486.0 220.0 L474.0 208.0 z" fill="#eafaf0" stroke="#27ae60" stroke-width="1.7"/>
+<text x="300.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">розвилка (біт 1)</text>
+<text x="564.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">розвилка (біт 2)</text>
+<rect x="80.0" y="280.0" width="116.0" height="40.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="138.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">D3 = …011</text>
+<circle cx="80.0" cy="280.0" r="11.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/><text x="80.0" y="284.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<rect x="340.0" y="328.0" width="116.0" height="40.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="398.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">D1 = …100</text>
+<circle cx="340.0" cy="328.0" r="11.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/><text x="340.0" y="332.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">2</text>
+<rect x="554.0" y="328.0" width="116.0" height="40.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="612.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">D2 = …110</text>
+<circle cx="554.0" cy="328.0" r="11.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.0"/><text x="554.0" y="332.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">3</text>
+<text x="40.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">Прохід 1 → D3: на розвилці біта 1 обрано 0; гілка 1 лишилась → LastDiscrepancy = 1.</text>
+<text x="40.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">Прохід 2 → D1: вертаємось на гілку 1, там нова розвилка (біт 2), обрано 0 → LastDiscrepancy = 2.</text>
+<text x="40.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="start">Прохід 3 → D2: гілка 1 біта 2; розвилок більше нема → останній пристрій, кінець.</text>
+<text x="40.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">① ② ③ — порядок відкриття · зелений ромб — розвилка (0,0) · пунктир — повернення до останньої розвилки</text>
+</svg>

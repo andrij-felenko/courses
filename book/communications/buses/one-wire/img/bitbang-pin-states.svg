@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 384" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="384" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відкритий стік на звичайній ніжці: вихід-0 або вхід-Z</text>
+<text x="390.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Ніжку не «ставлять у 1» — перемикають лише її НАПРЯМ (DDR); біт даних (PORT) завжди 0</text>
+<rect x="22.0" y="74.0" width="350.0" height="244.0" rx="8" fill="#ffffff" stroke="#e2e5ea" stroke-width="1.4"/>
+<text x="197.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">притиснути   ow_drive_low()</text>
+<text x="310.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a93a0" text-anchor="middle" font-weight="700">Vdd</text>
+<line x1="310.0" y1="118.0" x2="310.0" y2="132.0" stroke="#8a93a0" stroke-width="1.8"/>
+<rect x="303.0" y="132.0" width="14.0" height="26.0" rx="2" fill="#ffffff" stroke="#8a93a0" stroke-width="1.6"/>
+<text x="323.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a93a0" text-anchor="start">Rp</text>
+<line x1="310.0" y1="158.0" x2="310.0" y2="170.0" stroke="#8a93a0" stroke-width="1.8"/>
+<line x1="118.0" y1="170.0" x2="310.0" y2="170.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="315.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">DQ</text>
+<text x="214.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">лінія = 0 (LOW)</text>
+<text x="106.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">ніжка</text>
+<line x1="118.0" y1="170.0" x2="118.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="118.0" cy="200.0" r="3.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="118.0" cy="234.0" r="3.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="118.0" y1="234.0" x2="118.0" y2="268.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="118.0" y1="200.0" x2="118.0" y2="234.0" stroke="#c0392b" stroke-width="3.4"/>
+<text x="140.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">ЗАМКНЕНО</text>
+<text x="140.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">ніжка жене 0</text>
+<line x1="106.0" y1="268.0" x2="130.0" y2="268.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="111.0" y1="272.0" x2="125.0" y2="272.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="115.0" y1="276.0" x2="121.0" y2="276.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="118.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">GND</text>
+<text x="197.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">DDRD |= OW_BIT   (вихід жене 0)</text>
+<rect x="408.0" y="74.0" width="350.0" height="244.0" rx="8" fill="#ffffff" stroke="#e2e5ea" stroke-width="1.4"/>
+<text x="583.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a93a0" text-anchor="middle" font-weight="700">відпустити   ow_release()</text>
+<text x="696.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a93a0" text-anchor="middle" font-weight="700">Vdd</text>
+<line x1="696.0" y1="118.0" x2="696.0" y2="132.0" stroke="#8a93a0" stroke-width="1.8"/>
+<rect x="689.0" y="132.0" width="14.0" height="26.0" rx="2" fill="#ffffff" stroke="#8a93a0" stroke-width="1.6"/>
+<text x="709.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a93a0" text-anchor="start">Rp</text>
+<line x1="696.0" y1="158.0" x2="696.0" y2="170.0" stroke="#8a93a0" stroke-width="1.8"/>
+<line x1="504.0" y1="170.0" x2="696.0" y2="170.0" stroke="#8a93a0" stroke-width="3.0"/>
+<text x="701.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">DQ</text>
+<text x="600.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a93a0" text-anchor="middle" font-weight="700">лінія = 1 (тягне Rp)</text>
+<text x="492.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">ніжка</text>
+<line x1="504.0" y1="170.0" x2="504.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="504.0" cy="200.0" r="3.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="504.0" cy="234.0" r="3.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="504.0" y1="234.0" x2="504.0" y2="268.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="504.0" y1="200.0" x2="526.0" y2="188.0" stroke="#6b7280" stroke-width="3.4"/>
+<text x="526.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">РОЗІМКНЕНО</text>
+<text x="526.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">ніжка hi-Z</text>
+<line x1="492.0" y1="268.0" x2="516.0" y2="268.0" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="497.0" y1="272.0" x2="511.0" y2="272.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="501.0" y1="276.0" x2="507.0" y2="276.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="504.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">GND</text>
+<text x="583.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a93a0" text-anchor="middle" font-weight="700">DDRD &amp;= ~OW_BIT   (вхід, hi-Z)</text>
+<text x="390.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">PORTD-біт лишається 0 назавжди → внутрішню підтяжку вимкнено, «1» на лінію не подаємо; високий рівень дає лише зовнішній Rp</text>
+</svg>
