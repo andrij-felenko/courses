@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві таблиці ядра: унікальна тримає граф малим, кеш — обчислення швидкими</text>
+<rect x="60.0" y="66.0" width="430.0" height="300.0" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="275.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Унікальна таблиця</text>
+<text x="275.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">hash-consing — канонічність</text>
+<rect x="115.6" y="153.5" width="124.8" height="33.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="178.0" y="174.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="178.0" dy="0.0">(var, lo, hi)</tspan></text>
+<line x1="270.0" y1="170.0" x2="360.0" y2="170.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="367.7" y="153.5" width="100.6" height="33.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="418.0" y="174.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="418.0" dy="0.0">наявний #k</tspan></text>
+<text x="275.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">діє у make_node — перед народженням вузла</text>
+<text x="275.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">двійників не існує:</text>
+<text x="275.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">структурна рівність = рівність індексів</text>
+<text x="275.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кошики вплетено в сам пул через поле next</text>
+<text x="275.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(гібридна структура, Brace–Rudell–Bryant, 1990)</text>
+<rect x="550.0" y="66.0" width="430.0" height="300.0" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="765.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Кеш операцій</text>
+<text x="765.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">computed table — швидкість</text>
+<rect x="615.7" y="153.5" width="92.5" height="33.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="662.0" y="174.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="662.0" dy="0.0">(f, g, h)</tspan></text>
+<line x1="738.0" y1="170.0" x2="850.0" y2="170.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="851.6" y="153.5" width="116.7" height="33.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="910.0" y="174.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="910.0" dy="0.0">результат #r</tspan></text>
+<text x="765.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">діє у ite — до рекурсії</text>
+<text x="765.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">та сама трійка — не рахуємо вдруге:</text>
+<text x="765.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">експонента згортається в O(|f|·|g|)</text>
+<text x="765.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">втратний: слот вільно перезаписуємо —</text>
+<text x="765.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">промах лише сповільнює, ніколи не псує</text>
+<text x="520.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">спільний пул вузлів nodes[] — вузол це індекс</text>
+<rect x="106.0" y="436.0" width="118.0" height="50.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="165.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">#0</text>
+<text x="165.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="248.0" y="436.0" width="118.0" height="50.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="307.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">#1</text>
+<text x="307.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<rect x="390.0" y="436.0" width="118.0" height="50.0" rx="8" fill="#f3ecfa" stroke="#8e44ad" stroke-width="2.4"/>
+<text x="449.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">#4</text>
+<text x="449.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">c</text>
+<rect x="532.0" y="436.0" width="118.0" height="50.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="591.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">#5</text>
+<text x="591.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">b</text>
+<rect x="674.0" y="436.0" width="118.0" height="50.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="733.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">#6</text>
+<text x="733.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">b</text>
+<rect x="816.0" y="436.0" width="118.0" height="50.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="875.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">#7</text>
+<text x="875.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">a</text>
+<text x="520.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">вузол #4 (c) має двох батьків — його тримають #5 і #6; унікальна таблиця не дала його задублювати</text>
+</svg>

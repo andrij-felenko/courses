@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 478" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="478" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="940.0" height="478.0" rx="6" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один рядок dp[w]: місткість перебирають НАЗАД — інакше річ клонується</text>
+<text x="470.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">додаємо річ B (3 кг, $4) до рядка, що вже враховує A:  було dp = [0,1,1,1,1,1,1,1]</text>
+<text x="470.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">НАЗАД:  w = 7, 6, 5, 4, 3   (правильний 0/1-рюкзак)</text>
+<line x1="764.0" y1="108.0" x2="176.0" y2="108.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="139.0" y="140.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="176.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=0</text>
+<text x="176.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">0</text>
+<rect x="223.0" y="140.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="260.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=1</text>
+<text x="260.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">1</text>
+<rect x="307.0" y="140.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="344.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=2</text>
+<text x="344.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">1</text>
+<rect x="391.0" y="140.0" width="74.0" height="50.0" rx="7" fill="#e6efff" stroke="#2457d6" stroke-width="2.6"/>
+<text x="428.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=3</text>
+<text x="428.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="475.0" y="140.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="512.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=4</text>
+<text x="512.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">1</text>
+<rect x="559.0" y="140.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="596.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=5</text>
+<text x="596.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">1</text>
+<rect x="643.0" y="140.0" width="74.0" height="50.0" rx="7" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.8"/>
+<text x="680.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=6</text>
+<text x="680.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<rect x="727.0" y="140.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="764.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=7</text>
+<text x="764.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">5</text>
+<path d="M 428.0 190.0 Q 554.0 220.0 680.0 190.0" fill="none" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="554.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">dp[6] читає dp[3]=1 — стару, з речі A   →   dp[6]=1+4=5    ✓  річ B узято раз</text>
+<text x="470.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ВПЕРЕД:  w = 3, 4, 5, 6, 7   (помилка — вийде безмежний рюкзак)</text>
+<line x1="176.0" y1="302.0" x2="764.0" y2="302.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="139.0" y="334.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="176.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=0</text>
+<text x="176.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">0</text>
+<rect x="223.0" y="334.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="260.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=1</text>
+<text x="260.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">1</text>
+<rect x="307.0" y="334.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="344.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=2</text>
+<text x="344.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">1</text>
+<rect x="391.0" y="334.0" width="74.0" height="50.0" rx="7" fill="#fff1e0" stroke="#e8830c" stroke-width="2.6"/>
+<text x="428.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=3</text>
+<text x="428.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#9a5b00" text-anchor="middle" font-weight="700">4</text>
+<rect x="475.0" y="334.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="512.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=4</text>
+<text x="512.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">5</text>
+<rect x="559.0" y="334.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="596.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=5</text>
+<text x="596.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">5</text>
+<rect x="643.0" y="334.0" width="74.0" height="50.0" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="2.8"/>
+<text x="680.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=6</text>
+<text x="680.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">8</text>
+<rect x="727.0" y="334.0" width="74.0" height="50.0" rx="7" fill="#ffffff" stroke="#cdd3db" stroke-width="1.3"/>
+<text x="764.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">w=7</text>
+<text x="764.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#5a616b" text-anchor="middle">1</text>
+<path d="M 428.0 384.0 Q 554.0 414.0 680.0 384.0" fill="none" stroke="#e8830c" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="554.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">dp[6] читає dp[3]=4 — вже оновлену річчю B!   →   dp[6]=4+4=8    ✗  B узято двічі (6 кг)</text>
+</svg>

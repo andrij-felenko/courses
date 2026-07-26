@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 250" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="250" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві фази — і вся вага у другій</text>
+<rect x="90.0" y="100.0" width="124.0" height="52.0" rx="5" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/>
+<text x="152.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 1 — heapify</text>
+<text x="152.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">дешева</text>
+<text x="152.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">O(n)</text>
+<rect x="214.0" y="100.0" width="476.0" height="52.0" rx="5" fill="#e6f7ee" stroke="#333333" stroke-width="1.5"/>
+<text x="452.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 2 — (n−1) просіювань вниз</text>
+<text x="452.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">уся вага тут</text>
+<text x="452.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">(n−1) × O(log n)  =  O(n log n)</text>
+<line x1="90.0" y1="196.0" x2="90.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="90.0" y1="205.0" x2="690.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="690.0" y1="196.0" x2="690.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="390.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Разом: O(n log n) — однаковий за будь-якого входу</text>
+</svg>

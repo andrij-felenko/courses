@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві частини CSPRNG: зібрати ентропію → розтягнути</text>
+<rect x="56.0" y="110.0" width="190.0" height="128.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="151.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Джерело ентропії</text>
+<text x="151.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">тепловий і дробовий шум</text>
+<text x="151.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">джитер тактів, RDSEED</text>
+<text x="151.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">час подій, переривань</text>
+<text x="151.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">повільно · мало ·</text>
+<text x="151.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">СПРАВЖНЯ непередбачність</text>
+<line x1="250.0" y1="174.0" x2="338.0" y2="174.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="294.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">зерно</text>
+<text x="294.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">256 біт</text>
+<rect x="342.0" y="96.0" width="240.0" height="156.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="462.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Детермінований</text>
+<text x="462.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">розширювач (DRBG)</text>
+<rect x="366.0" y="154.0" width="192.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="462.0" y="174.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="462.0" dy="0.0">внутрішній стан</tspan></text>
+<rect x="366.0" y="196.0" width="192.0" height="34.0" rx="6" fill="#f3edf9" stroke="#8a5fb0" stroke-width="1.8"/><text x="462.0" y="216.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a5fb0" text-anchor="middle" font-weight="700"><tspan x="462.0" dy="0.0">одностороння функція</tspan></text>
+<text x="462.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">СЕКРЕТ — тільки стан</text>
+<line x1="586.0" y1="174.0" x2="656.0" y2="174.0" stroke="#1a1a1a" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="662.0" y="116.0" width="96.0" height="15.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="662.0" y="138.0" width="96.0" height="15.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="662.0" y="160.0" width="96.0" height="15.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="662.0" y="182.0" width="96.0" height="15.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="662.0" y="204.0" width="96.0" height="15.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="662.0" y="226.0" width="96.0" height="15.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="710.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">потік виходу</text>
+<text x="710.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">гігабайти · швидко</text>
+<rect x="131.0" y="356.0" width="578.0" height="32.0" rx="6" fill="#fffbe6" stroke="#d98a00" stroke-width="1.6"/><text x="420.0" y="376.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">уся непередбачність народжується ліворуч — праворуч вона лише розмножується</tspan></text>
+</svg>

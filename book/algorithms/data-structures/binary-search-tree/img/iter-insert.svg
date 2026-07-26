@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вставка вказівником-на-вказівник</text>
+<line x1="114.0" y1="104.0" x2="214.0" y2="190.0" stroke="#27ae60" stroke-width="3.6"/>
+<line x1="214.0" y1="190.0" x2="164.0" y2="276.0" stroke="#27ae60" stroke-width="3.6"/>
+<line x1="114.0" y1="104.0" x2="64.0" y2="190.0" stroke="#c8ccd2" stroke-width="1.8"/>
+<line x1="114.0" y1="104.0" x2="214.0" y2="190.0" stroke="#c8ccd2" stroke-width="1.8"/>
+<line x1="214.0" y1="190.0" x2="164.0" y2="276.0" stroke="#c8ccd2" stroke-width="1.8"/>
+<line x1="214.0" y1="190.0" x2="264.0" y2="276.0" stroke="#c8ccd2" stroke-width="1.8"/>
+<circle cx="64.0" cy="190.0" r="18.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="64.0" y="195.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">30</text>
+<circle cx="114.0" cy="104.0" r="18.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="114.0" y="109.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">50</text>
+<circle cx="164.0" cy="276.0" r="18.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="164.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">60</text>
+<circle cx="214.0" cy="190.0" r="18.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="214.0" y="195.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">70</text>
+<circle cx="264.0" cy="276.0" r="18.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="264.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">80</text>
+<line x1="164.0" y1="276.0" x2="204.0" y2="344.0" stroke="#27ae60" stroke-width="2.6"/>
+<circle cx="204.0" cy="344.0" r="18.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="204.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">65</text>
+<text x="204.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">*p = new Node(65)</text>
+<rect x="470.0" y="112.0" width="384.0" height="214.0" rx="8" fill="#f7f9fc" stroke="#d9dee6" stroke-width="1.4"/>
+<text x="662.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ітеративний спуск: Node** p</text>
+<text x="502.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">p = &amp;root</text>
+<text x="702.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">→  50</text>
+<text x="502.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">p = &amp;(50→right)</text>
+<text x="702.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">→  70</text>
+<text x="502.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">p = &amp;(70→left)</text>
+<text x="702.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">→  60</text>
+<text x="502.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">p = &amp;(60→right)</text>
+<text x="702.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">→  ∅</text>
+<text x="502.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">*p = new Node(65)</text>
+</svg>

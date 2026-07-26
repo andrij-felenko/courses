@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="880.0" height="540.0" rx="6" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="440.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каркас динамічного програмування — шість кроків</text>
+<text x="86.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">Крок каркаса</text>
+<text x="698.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">на прикладі монет {1,3,4}, сума 6</text>
+<rect x="46.0" y="84.0" width="470.0" height="56.0" rx="10" fill="#fbfbfd" stroke="#333333" stroke-width="1.4"/>
+<circle cx="72.0" cy="112.0" r="15.0" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="72.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="98.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Стан</text>
+<text x="98.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">найменший опис підзадачі</text>
+<rect x="546.0" y="84.0" width="304.0" height="56.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="698.0" y="116.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e7a43" text-anchor="middle" font-weight="700"><tspan x="698.0" dy="0.0">dp[a] — мінімум монет на суму a</tspan></text>
+<line x1="72.0" y1="140.0" x2="72.0" y2="152.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="46.0" y="152.0" width="470.0" height="56.0" rx="10" fill="#fbfbfd" stroke="#333333" stroke-width="1.4"/>
+<circle cx="72.0" cy="180.0" r="15.0" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="72.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">2</text>
+<text x="98.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Перехід</text>
+<text x="98.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">рекурентність через дрібніші стани</text>
+<rect x="546.0" y="152.0" width="304.0" height="56.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="698.0" y="184.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e7a43" text-anchor="middle" font-weight="700"><tspan x="698.0" dy="0.0">dp[a] = 1 + min dp[a − c]</tspan></text>
+<line x1="72.0" y1="208.0" x2="72.0" y2="220.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="46.0" y="220.0" width="470.0" height="56.0" rx="10" fill="#fbfbfd" stroke="#333333" stroke-width="1.4"/>
+<circle cx="72.0" cy="248.0" r="15.0" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="72.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">3</text>
+<text x="98.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">База</text>
+<text x="98.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">стани з очевидною відповіддю</text>
+<rect x="546.0" y="220.0" width="304.0" height="56.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="698.0" y="252.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e7a43" text-anchor="middle" font-weight="700"><tspan x="698.0" dy="0.0">dp[0] = 0</tspan></text>
+<line x1="72.0" y1="276.0" x2="72.0" y2="288.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="46.0" y="288.0" width="470.0" height="56.0" rx="10" fill="#fbfbfd" stroke="#333333" stroke-width="1.4"/>
+<circle cx="72.0" cy="316.0" r="15.0" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="72.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">4</text>
+<text x="98.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Порядок</text>
+<text x="98.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">кожен стан — раніше за тих, хто на нього спирається</text>
+<rect x="546.0" y="288.0" width="304.0" height="56.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="698.0" y="320.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e7a43" text-anchor="middle" font-weight="700"><tspan x="698.0" dy="0.0">суми від 0 до 6, зліва направо</tspan></text>
+<line x1="72.0" y1="344.0" x2="72.0" y2="356.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="46.0" y="356.0" width="470.0" height="56.0" rx="10" fill="#fbfbfd" stroke="#333333" stroke-width="1.4"/>
+<circle cx="72.0" cy="384.0" r="15.0" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="72.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">5</text>
+<text x="98.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Відповідь</text>
+<text x="98.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">стан, що є розв'язком цілого</text>
+<rect x="546.0" y="356.0" width="304.0" height="56.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="698.0" y="388.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e7a43" text-anchor="middle" font-weight="700"><tspan x="698.0" dy="0.0">dp[6] = 2</tspan></text>
+<line x1="72.0" y1="412.0" x2="72.0" y2="424.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="46.0" y="424.0" width="470.0" height="56.0" rx="10" fill="#fbfbfd" stroke="#333333" stroke-width="1.4"/>
+<circle cx="72.0" cy="452.0" r="15.0" fill="#eef2ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="72.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">6</text>
+<text x="98.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Відновлення</text>
+<text x="98.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">за вказівниками назад до розв'язку</text>
+<rect x="546.0" y="424.0" width="304.0" height="56.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="698.0" y="456.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e7a43" text-anchor="middle" font-weight="700"><tspan x="698.0" dy="0.0">6 → 3 → 0   =   {3, 3}</tspan></text>
+</svg>

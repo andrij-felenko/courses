@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два правила читання: будова сегмента й байт-стафінг</text>
+<text x="450.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сегмент = маркер (2) + довжина (2) + дані (довжина − 2)</text>
+<rect x="64.0" y="96.0" width="46.0" height="40.0" rx="4" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<text x="87.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">FF</text>
+<rect x="110.0" y="96.0" width="46.0" height="40.0" rx="4" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<text x="133.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">xx</text>
+<rect x="164.0" y="96.0" width="46.0" height="40.0" rx="4" fill="#eafaf0" stroke="#333333" stroke-width="1.4"/>
+<text x="187.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">LL</text>
+<rect x="210.0" y="96.0" width="46.0" height="40.0" rx="4" fill="#eafaf0" stroke="#333333" stroke-width="1.4"/>
+<text x="233.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">LL</text>
+<rect x="264.0" y="96.0" width="300.0" height="40.0" rx="4" fill="#fdf6e3" stroke="#d98a00" stroke-width="1.4"/>
+<text x="414.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">корисні дані — (довжина − 2) байтів</text>
+<text x="110.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">маркер</text>
+<text x="210.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">довжина</text>
+<text x="414.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="700">дані</text>
+<line x1="164.0" y1="80.0" x2="564.0" y2="80.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="164.0" y1="80.0" x2="164.0" y2="88.0" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="564.0" y1="80.0" x2="564.0" y2="88.0" stroke="#c0392b" stroke-width="1.4"/>
+<text x="364.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">поле «довжина»: старший байт першим, рахує себе + дані (не маркер)</text>
+<line x1="50.0" y1="176.0" x2="850.0" y2="176.0" stroke="#e3e7ec" stroke-width="1.0"/>
+<text x="450.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт-стафінг: у стиснутому потоці справжній 0xFF подвоюють нулем</text>
+<rect x="250.0" y="240.0" width="46.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="273.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">FF</text>
+<rect x="296.0" y="240.0" width="46.0" height="40.0" rx="4" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<text x="319.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">00</text>
+<line x1="352.0" y1="260.0" x2="382.0" y2="260.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="392.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">справжній байт 0xFF (нуль — лише розділювач, декодер його викидає)</text>
+<rect x="250.0" y="300.0" width="46.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="273.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">FF</text>
+<rect x="296.0" y="300.0" width="46.0" height="40.0" rx="4" fill="#fdecea" stroke="#333333" stroke-width="1.4"/>
+<text x="319.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">D9</text>
+<line x1="352.0" y1="320.0" x2="382.0" y2="320.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="392.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">це МАРКЕР (тут EOI): 0xFF + не-нуль = кінець ентропійних даних</text>
+</svg>

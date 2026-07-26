@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рушій виводу: модель у флеші, активації в арені ОЗП</text>
+<rect x="30.0" y="200.0" width="110.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="85.0" y="231.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="85.0" dy="0.0">Сенсор</tspan><tspan x="85.0" dy="16.9">звук / кадр</tspan></text>
+<rect x="175.0" y="55.0" width="330.0" height="150.0" rx="6" fill="#f0f4fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="340.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ФЛЕШ (ПЗП) · тільки читання</text>
+<rect x="190.0" y="95.0" width="150.0" height="95.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="265.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">Модель (flatbuffer):</tspan><tspan x="265.0" dy="14.3">граф операцій</tspan><tspan x="265.0" dy="14.3">+ 8-бітні ваги</tspan></text>
+<rect x="350.0" y="95.0" width="140.0" height="95.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="131.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Ядра операцій:</tspan><tspan x="420.0" dy="15.6">згортка · +</tspan><tspan x="420.0" dy="15.6">· активація</tspan></text>
+<rect x="560.0" y="185.0" width="160.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="640.0" y="222.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Рушій виводу</tspan><tspan x="640.0" dy="16.9">іде графом</tspan><tspan x="640.0" dy="16.9">→ кличе ядро</tspan></text>
+<rect x="175.0" y="265.0" width="330.0" height="155.0" rx="6" fill="#f0f9f2" stroke="#27ae60" stroke-width="1.6"/>
+<text x="340.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ОЗП · робоча пам'ять</text>
+<rect x="190.0" y="300.0" width="300.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">Арена активацій: єдиний буфер під усі проміжні</tspan><tspan x="340.0" dy="13.0">тензори, перевикористаний за їхніми часами життя</tspan></text>
+<rect x="190.0" y="378.0" width="300.0" height="34.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="399.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">Службовий стан рушія</tspan></text>
+<rect x="770.0" y="200.0" width="120.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="830.0" y="231.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">Результат</tspan><tspan x="830.0" dy="16.9">клас · ✓ / ✗</tspan></text>
+<line x1="140.0" y1="250.0" x2="188.0" y2="330.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="150.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">вхід</text>
+<line x1="505.0" y1="150.0" x2="558.0" y2="210.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="512.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">граф · ваги · ядра</text>
+<line x1="505.0" y1="300.0" x2="558.0" y2="258.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="555.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">вхідні тензори</text>
+<line x1="558.0" y1="302.0" x2="505.0" y2="348.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="555.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">вихідні тензори</text>
+<line x1="722.0" y1="235.0" x2="768.0" y2="235.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="745.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">вихід</text>
+</svg>

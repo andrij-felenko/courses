@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="900.0" height="430.0" rx="6" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="450.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип оптимальності: оптимум цілого = перший крок + оптимум залишку</text>
+<rect x="94.6" y="86.9" width="90.8" height="62.2" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="140.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">Оптимум</tspan><tspan x="140.0" dy="18.2">суми a</tspan></text>
+<rect x="411.6" y="86.9" width="116.8" height="62.2" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Оптимум</tspan><tspan x="470.0" dy="18.2">суми a − c</tspan></text>
+<rect x="721.1" y="86.9" width="77.9" height="62.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="760.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">0</tspan><tspan x="760.0" dy="18.2">(база)</tspan></text>
+<line x1="185.4" y1="118.0" x2="411.6" y2="118.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="298.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">монета c  (+1)</text>
+<line x1="528.4" y1="118.0" x2="721.1" y2="118.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="624.7" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">…далі оптимально</text>
+<rect x="321.8" y="176.5" width="256.5" height="39.0" rx="6" fill="#fff8e6" stroke="#f59e0b" stroke-width="1.5"/><text x="450.0" y="201.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#9a6b00" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">dp[a]  =  1  +  dp[a − c]</tspan></text>
+<rect x="40.0" y="262.0" width="820.0" height="144.0" rx="12" fill="#fbfbfd" stroke="#333333" stroke-width="1.5"/>
+<text x="64.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Чому хвіст мусить бути оптимальний</text>
+<rect x="92.0" y="314.0" width="150.0" height="26.0" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="254.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e7a43" text-anchor="start" font-weight="700">оптимальний хвіст dp[a − c]</text>
+<rect x="92.0" y="358.0" width="232.0" height="26.0" rx="5" fill="#f1f3f5" stroke="#6b7280" stroke-width="1.6"/>
+<text x="336.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">припустимо, хвіст гірший (довший)</text>
+<path d="M 100.0 358.0 Q 100.0 318.0 100.0 340.0" fill="none" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="86.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">підміна</text>
+<rect x="566.0" y="302.0" width="292.0" height="116.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="712.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#a5281b" text-anchor="middle"><tspan x="712.0" dy="0.0">Вклей кращий хвіст — ціле здешевіє.</tspan><tspan x="712.0" dy="16.2">Та воно ж нібито вже оптимальне:</tspan><tspan x="712.0" dy="16.2">суперечність. Отже хвіст оптимуму</tspan><tspan x="712.0" dy="16.2">сам оптимальний для свого стану.</tspan></text>
+</svg>

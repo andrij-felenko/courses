@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контракт TFLM: шість обʼєктів і один виклик Invoke()</text>
+<circle cx="178.0" cy="103.0" r="17.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="178.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="210.0" y="66.0" width="470.0" height="74.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="445.0" y="98.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">const unsigned char g_model[]</tspan><tspan x="445.0" dy="18.2">модель-flatbuffer як байти (xxd -i): граф + int8-ваги</tspan></text>
+<line x1="445.0" y1="140.0" x2="445.0" y2="168.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="178.0" cy="205.0" r="17.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="178.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<rect x="210.0" y="168.0" width="470.0" height="74.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="445.0" y="200.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">MicroMutableOpResolver&lt;N&gt; resolver</tspan><tspan x="445.0" dy="18.2">resolver.Add…() — лише ті ядра, що є в моделі</tspan></text>
+<line x1="445.0" y1="242.0" x2="445.0" y2="270.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="178.0" cy="307.0" r="17.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="178.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<rect x="210.0" y="270.0" width="470.0" height="74.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="445.0" y="302.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">alignas(16) uint8_t tensor_arena[kArenaSize]</tspan><tspan x="445.0" dy="18.2">єдиний робочий буфер під усі тензори</tspan></text>
+<line x1="445.0" y1="344.0" x2="445.0" y2="372.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="178.0" cy="409.0" r="17.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="178.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text>
+<rect x="210.0" y="372.0" width="470.0" height="74.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="445.0" y="404.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">MicroInterpreter interp(model, resolver, arena, size)</tspan><tspan x="445.0" dy="18.2">зшиває модель, ядра й арену докупи</tspan></text>
+<line x1="445.0" y1="446.0" x2="445.0" y2="474.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="178.0" cy="511.0" r="17.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="178.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<rect x="210.0" y="474.0" width="470.0" height="74.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="445.0" y="506.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">interp.AllocateTensors()</tspan><tspan x="445.0" dy="18.2">розмічає арену; тут падає мала арена / брак ядра</tspan></text>
+<line x1="445.0" y1="548.0" x2="445.0" y2="576.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="178.0" cy="613.0" r="17.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="178.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">6</text>
+<rect x="210.0" y="576.0" width="470.0" height="74.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="445.0" y="608.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">interp.input(0) → interp.Invoke() → interp.output(0)</tspan><tspan x="445.0" dy="18.2">наповни int8-вхід · прожени граф · читай int8-вихід</tspan></text>
+<rect x="702.0" y="74.0" width="158.0" height="58.0" rx="6" fill="#f0f4fb" stroke="#2457d6" stroke-width="1.5"/><text x="781.0" y="99.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle"><tspan x="781.0" dy="0.0">у ФЛЕШі</tspan><tspan x="781.0" dy="16.9">(тільки читання)</tspan></text>
+<rect x="702.0" y="278.0" width="158.0" height="58.0" rx="6" fill="#f0f9f2" stroke="#27ae60" stroke-width="1.5"/><text x="781.0" y="303.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle"><tspan x="781.0" dy="0.0">в ОЗП</tspan><tspan x="781.0" dy="16.9">(читання-запис)</tspan></text>
+<line x1="680.0" y1="103.0" x2="702.0" y2="103.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="4 3"/>
+<line x1="680.0" y1="307.0" x2="702.0" y2="307.0" stroke="#27ae60" stroke-width="1.4" stroke-dasharray="4 3"/>
+</svg>

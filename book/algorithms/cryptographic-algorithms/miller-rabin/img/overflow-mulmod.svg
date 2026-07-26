@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 432" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="432" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка a·b mod n: переповнення й ширший тип</text>
+<line x1="548.0" y1="62.0" x2="548.0" y2="372.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="548.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">межа 64-бітного слова</text>
+<line x1="900.0" y1="250.0" x2="900.0" y2="366.0" stroke="#c2cad4" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="196.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<text x="548.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">64</text>
+<text x="900.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">128 біт</text>
+<rect x="60.0" y="83.2" width="96.0" height="33.5" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="108.0" y="104.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="108.0" dy="0.0">a, b</tspan></text>
+<rect x="196.0" y="85.0" width="346.5" height="30.0" rx="5" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="369.2" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">кожен &lt; 2⁶³ — ще влазить у слово</text>
+<rect x="60.0" y="161.6" width="96.0" height="48.8" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="108.0" y="182.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="108.0" dy="0.0">u64</tspan><tspan x="108.0" dy="16.2">a * b</tspan></text>
+<rect x="196.0" y="171.0" width="352.0" height="30.0" rx="5" fill="#f7f8fa" stroke="#c2cad4" stroke-width="1.5"/>
+<text x="372.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">лишається у регістрі</text>
+<rect x="548.0" y="171.0" width="330.0" height="30.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="713.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">старші біти відкинуто</text>
+<text x="713.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">→ далі  % n  рахує сміття</text>
+<rect x="60.0" y="267.6" width="96.0" height="48.8" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="108.0" y="288.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="108.0" dy="0.0">u128</tspan><tspan x="108.0" dy="16.2">a * b</tspan></text>
+<rect x="196.0" y="277.0" width="682.0" height="30.0" rx="5" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.7"/>
+<text x="537.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">усі 128 біт добутку на місці</text>
+<line x1="355.5" y1="307.0" x2="355.5" y2="339.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="429.5" y="329.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">% n</text>
+<rect x="196.0" y="339.0" width="319.0" height="26.0" rx="5" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="355.5" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">результат &lt; n — точний</text>
+<text x="490.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ширше за 128 біт: множення подвоєнням (портативно) або за Монтгомері (швидко)</text>
+</svg>
