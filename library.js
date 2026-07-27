@@ -51,8 +51,9 @@
     components: "Дискретні компоненти: резистори, конденсатори, напівпровідники."
   };
 
-  // Тема ІСНУЄ, якщо написана хоч одна версія (basic АБО detailed): статус не "empty"/"pending".
-  // Тема ЗАПЛАНОВАНА, якщо хоч одна версія не "empty".
+  // Версія (СТАТТЯ) ЧИТАБЕЛЬНА, якщо її статус не "empty"/"pending"; ЗАПЛАНОВАНА, якщо не "empty".
+  // Відсоток рахуємо по СТАТТЯХ (версіях), а не по темах: тема може мати 2 статті (коротку + повну),
+  // тож написана лише коротка ≠ тема готова. `written` лишається на рівні теми — його вживають курси (ref-кроки).
   function verReadable(v) { return !!(v && v.status && v.status !== "empty" && v.status !== "pending"); }
   function verPlanned(v) { return !!(v && v.status && v.status !== "empty"); }
   function loadShelfItem(base, slug) {
@@ -61,11 +62,14 @@
       var planned = 0, exist = 0, written = {};
       ((b && b.sections) || []).forEach(function (sec) {
         (sec.topics || []).forEach(function (t) {
-          if (verPlanned(t.basic) || verPlanned(t.detailed)) planned++;
-          if (verReadable(t.basic) || verReadable(t.detailed)) { exist++; if (t.slug) written[t.slug] = 1; }
+          [t.basic, t.detailed].forEach(function (v) {   // кожна версія — окрема стаття
+            if (verPlanned(v)) planned++;
+            if (verReadable(v)) exist++;
+          });
+          if (t.slug && (verReadable(t.basic) || verReadable(t.detailed))) written[t.slug] = 1;
         });
       });
-      return { slug: slug, title: (b && b.title) || slug, branches: ((b && b.sections) || []).length, topics: planned, done: exist, written: written };
+      return { slug: slug, title: (b && b.title) || slug, branches: ((b && b.sections) || []).length, arts: planned, done: exist, written: written };
     });
   }
   function loadBook(slug) { return loadShelfItem("book", slug); }
@@ -99,11 +103,11 @@
 
   /* ── Картки ─────────────────────────────────────────────────────────── */
   function bookCard(b) {
-    var pct = b.topics ? Math.round(b.done / b.topics * 100) : 0;
-    var partial = b.done > 0 && b.done < b.topics;
-    var complete = b.topics > 0 && b.done === b.topics;
-    var topicsVal = complete ? String(b.topics)                          // усе готово — лише всього, без галочки
-      : ('<b>' + b.done + '</b> / ' + b.topics);                          // інакше — готово / всього (напр. 60 / 72)
+    var pct = b.arts ? Math.round(b.done / b.arts * 100) : 0;
+    var partial = b.done > 0 && b.done < b.arts;
+    var complete = b.arts > 0 && b.done === b.arts;
+    var artsVal = complete ? String(b.arts)                              // усе готово — лише всього, без галочки
+      : ('<b>' + b.done + '</b> / ' + b.arts);                           // інакше — написано / всього статей (напр. 95 / 130)
     return '<a class="lib-card" href="read.html?book=' + esc(b.slug) + '" style="--accent:' + (ACCENT[b.slug] || "#1d6fa4") + '">' +
       '<div class="lib-cover">' +
       '<span class="lib-cover-ttl">' + esc(b.title) + '</span></div>' +
@@ -111,7 +115,7 @@
       '<div class="lib-body"><p class="lib-desc">' + esc(DESC[b.slug] || "") + '</p>' +
       '<div class="lib-stats">' +
         '<div class="lib-stat-row"><span class="lib-stat-k">Галузі</span><span class="lib-stat-v">' + b.branches + '</span></div>' +
-        '<div class="lib-stat-row"><span class="lib-stat-k">Теми</span><span class="lib-stat-v">' + topicsVal + '</span></div>' +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Статті</span><span class="lib-stat-v">' + artsVal + '</span></div>' +
       '</div>' +
       (partial ? '<div class="lib-bar" title="' + pct + '% готово"><span style="width:' + pct + '%"></span></div>' : '') +
       '<div class="lib-foot"><span class="lib-modnote">' + (b.done ? (partial ? pct + '% готово' : 'готова') : 'у роботі') + '</span>' +
@@ -140,9 +144,9 @@
       '<span class="lib-cta">Пройти →</span></div></div></a>';
   }
   function catalogCard(c) {
-    var pct = c.topics ? Math.round(c.done / c.topics * 100) : 0;
-    var partial = c.done > 0 && c.done < c.topics;
-    var topicsVal = (c.topics > 0 && c.done === c.topics) ? String(c.topics) : ('<b>' + c.done + '</b> / ' + c.topics);
+    var pct = c.arts ? Math.round(c.done / c.arts * 100) : 0;
+    var partial = c.done > 0 && c.done < c.arts;
+    var artsVal = (c.arts > 0 && c.done === c.arts) ? String(c.arts) : ('<b>' + c.done + '</b> / ' + c.arts);
     return '<a class="lib-card lib-card-cat" href="read.html?book=' + esc(c.slug) + '" style="--accent:' + (CAT_ACCENT[c.slug] || "#5b6b7c") + '">' +
       '<div class="lib-cover"><span class="lib-kind lib-kind-cat">Каталог</span>' +
       '<span class="lib-cover-ttl">' + esc(c.title) + '</span></div>' +
@@ -150,7 +154,7 @@
       '<div class="lib-body"><p class="lib-desc">' + esc(CAT_DESC[c.slug] || "") + '</p>' +
       '<div class="lib-stats">' +
         '<div class="lib-stat-row"><span class="lib-stat-k">Розділи</span><span class="lib-stat-v">' + c.branches + '</span></div>' +
-        '<div class="lib-stat-row"><span class="lib-stat-k">Обʼєкти</span><span class="lib-stat-v">' + topicsVal + '</span></div>' +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Статті</span><span class="lib-stat-v">' + artsVal + '</span></div>' +
       '</div>' +
       (partial ? '<div class="lib-bar" title="' + pct + '% готово"><span style="width:' + pct + '%"></span></div>' : '') +
       '<div class="lib-foot"><span class="lib-modnote">Довідник заліза</span>' +

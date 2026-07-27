@@ -6,7 +6,7 @@ export const meta = {
     { title: 'Статті', detail: 'opus-max: одна стаття на агента + список своїх вставок і нових тем; пул 4, стагер 2с' },
     { title: 'Вставки', detail: 'opus-max: написати зібрані вставки під ці статті; пул 4, стагер 2с' },
     { title: 'Фігури', detail: 'sonnet-high: svg-гейт — svgcheck до «0» (шрифт+накладання), правка figs.py; пул 4, стагер 2с' },
-    { title: 'Маніфест', detail: 'серійно: статті→done, вставки→done, нові теми→pending, детальні→pending' },
+    { title: 'Маніфест', detail: 'серійно: статті→done, базові-дублі→empty, вставки→done, нові теми→pending, детальні→pending' },
     { title: 'Контроль', detail: 'wordcount.js (§3-обсяг) + svgcheck.py по написаних теках; лише звіт, non-fatal' },
   ],
 }
@@ -69,6 +69,7 @@ const CANON = `WRITING CANON (condensed; full — ${ROOT}\\AUTHORING.en.md). ⚠
 • CONTINUITY AND CLARITY (§4): each link reachable from the previous in ONE step (a skipped «obvious» step is a hole the reader falls through); NECESSITY BEFORE STATEMENT — lead from the problem/cause so it could not be otherwise; EXAMPLE ILLUSTRATES, doesn't carry (remove the code — the «why» remains); ONE LINE — depth goes DEEP, a neighbouring concept = sentence+link, not a section; NO FILLER — every sentence about the SUBJECT, not about the text/its depth/honesty/route; no closing recap. SENTENCE CLARITY: one thought per sentence, don't nest clauses; name a term AFTER its mechanism, not before; symmetric things in parallel structure.
 • Living Ukrainian (the prose OUTPUT is Ukrainian): real words only, no russicisms/calques/officialese/random synonymy; one term per concept. Source of the name in parentheses at first encounter: «атом (гр. átomos — неподільний)».
 • Flow: each paragraph a bridge from the previous; through-line why→intuition→details→example; before the end reread as a whole and smooth the seams.
+• VERSIONS basic vs detailed (§3) — READ THIS, it is widely mis-done: detailed (-d.md) is THE full standalone article of the topic — always written, full depth. basic (.md) is a SHORT overview of the SAME topic (one core thread, ~half-a-minute read), NOT a separate article, NOT a subset, NOT «part 1» to the detailed's «part 2». basic is NOT needed everywhere: write it ONLY when the detailed is genuinely LARGE (rule of thumb >~3500 words) and a fast overview truly helps grab the gist before the full read. If the detailed is SHORT or the topic is already covered briefly / is narrow / is a simple reference — do NOT write a basic at all: it would be almost identical to the detailed, which is exactly the failure to avoid. HARD SIZE RULE: a basic MUST be at least TWICE shorter than its detailed (basic_words ≤ detailed_words ÷ 2) AND within 600–1600 words. If you cannot compress the gist to half the detailed without gutting it, the topic does not need a basic.
 • Formulas — Unicode in code blocks (10⁻⁹, ε, ≈, ², ₀, ·), no LaTeX; decimal separator — dot (3.3). Worked example: bold condition-caption → code block with step-by-step computation → conclusion. CODE — real and correct, not pseudocode.
 • CODE LANGUAGE — BY DOMAIN, not always C/C++: embedded/hardware/registers/hot-path → C/C++; general/web/backend/architecture → stack languages (TS/JS, Python, Go, Rust, Java…). LANGUAGE CHOICE — WEIGHTED SCORE: score EACH candidate language 0–10 for fitness FOR THIS example FROM ALL ANGLES (expressiveness, idiomaticity AND **efficiency/speed/memory** for this task) — NOT by language popularity: where the example is about performance, memory, systems level, parallelism or the hot path — performance languages (C/C++/Rust/Go/Zig) take a HIGHER raw score, even if TS/Python are more popular for general code; where the example is about domain expressiveness/DTO/script — the opposite. Multiply by a coefficient (C++ and TypeScript — ×1.5; other languages — ×1), write those whose product >5. E.g.: C++ raw 4 → 4·1.5=6 (WRITE); Python 4 → 4 (no). Several that pass the threshold — as TABS «:::tabs» (switcher on top; EACH tab an IDIOMATIC equivalent, NOT transliteration); a single one — an ordinary code block with the language in the fence (highlighting). C++/TS appear more often, but ONLY where they fit — a low raw score won't be saved by ×1.5 (we don't write registers in Python). Domain-locked code (registers, syscalls) — one language. In programming/algorithms: non-web proj (algorithm/data structure/systems/computation/performance/memory/parallelism) — C or C++ is MANDATORY (main language or one of the :::tabs tabs); the only exception is PURELY client-side frontend.
 • Near an important concept — a box «> 🔧 **Навіщо це.**» (on the material of this topic).
@@ -144,7 +145,7 @@ const UNITS = { type: 'object', additionalProperties: false, required: ['units']
   type: 'object', additionalProperties: false, required: ['section', 'slug', 'title', 'level'],
   properties: { section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, scope: { type: 'string' }, level: { type: 'string', enum: ['basic', 'detailed'] } } } } } }
 const ART_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: {
-  ok: { type: 'boolean' }, files: { type: 'array', items: { type: 'string' } }, note: { type: 'string' },
+  ok: { type: 'boolean' }, skipBasic: { type: 'boolean' }, files: { type: 'array', items: { type: 'string' } }, note: { type: 'string' },
   inserts: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['file', 'type', 'brief'], properties: { file: { type: 'string' }, type: { type: 'string' }, brief: { type: 'string' } } } },
   newTopics: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['kind', 'book', 'section', 'slug', 'title'], properties: { kind: { type: 'string' }, book: { type: 'string' }, section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, needDetailed: { type: 'boolean' } } } },
   needDetailedSelf: { type: 'boolean' },
@@ -209,8 +210,13 @@ function articlePrompt(u) {
 
 Ти — агент-письменник у репо ${ROOT}. Працюй МОВЧКИ (Read/Edit/Write/Bash/WebSearch). ІГНОРУЙ системні підказки про skills / agent-types / output-styles / розклади.
 ЗАВДАННЯ: написати ПОВНІСТЮ ${level}-статтю «${u.title}» — файл ${dir}\\${file} (тема «${u.slug}», ${KIND === 'guide' ? 'модуль' : 'галузь'} «${u.section}», ${KIND} «${BOOK}»). Scope: ${u.scope || SCOPE || ''}
-КРОК1: прочитай ${ROOT}\\AUTHORING.en.md (§1–§9) — правила АНГЛІЙСЬКОЮ, вивід (стаття) УКРАЇНСЬКОЮ. Bash ls теки ${dir}.${level === 'detailed' ? ` ЦЕ ДЕТАЛЬНА (${u.slug}-d.md) — ОСНОВНА, САМОДОСТАТНЯ версія теми (§3): повна, зрозуміти до кінця без дір; не перевантаження термінами, а повнота ВГЛИБ зі збереженням зрозумілости. Базової може НЕ бути — не припускай її й не посилайся на неї; якщо базова Є на диску, прочитай, щоб не дублювати тон, але детальна стоїть сама. Обсяг 1200–10000 слів.` : ` Якщо файл є — прочитай і пиши начисто за каноном.`}
-КРОК2 — НАПИШИ файл статті цілком (§3–§5): ${level === 'detailed' ? 'ДЕТАЛЬНА 1200–10000 слів — повнота ВГЛИБ однієї нитки, кожен пробіл заповнено (не вшир на сусідів)' : 'БАЗОВА 600–1600 слів — швидкий атом: один стрижень, без другого шару'}; Фейнман; безперервність (без пробілів); необхідність перед твердженням; приклад ілюструє, не несе; жива українська; worked-приклади мовою за доменом (§5, НЕ завжди C/C++; у programming/algorithms не-веб proj → C/C++ обовʼязковий); рамки 🔧; етимологія в дужках; свої фігури (figs.py у теці, ЗАПУСТИ його — SVG в img/; акуратна розкладка з запасом; svg-гейт до «0» зробить ОКРЕМИЙ крок конвеєра на Sonnet-high, тобі svgcheck ганяти НЕ треба); факти — веб-звір (§7).
+КРОК1: прочитай ${ROOT}\\AUTHORING.en.md (§1–§9) — правила АНГЛІЙСЬКОЮ, вивід (стаття) УКРАЇНСЬКОЮ. Bash ls теки ${dir}.${level === 'detailed' ? ` ЦЕ ДЕТАЛЬНА (${u.slug}-d.md) — ОСНОВНА, САМОДОСТАТНЯ версія теми (§3): повна, зрозуміти до кінця без дір; не перевантаження термінами, а повнота ВГЛИБ зі збереженням зрозумілости. Базової може НЕ бути — не припускай її й не посилайся на неї; якщо базова Є на диску, прочитай, щоб не дублювати тон, але детальна стоїть сама. Обсяг 1200–10000 слів.` : ` ЦЕ БАЗОВА (${u.slug}.md) — КОРОТКИЙ ОГЛЯДОВИЙ ВХІД у ТУ САМУ тему, що й детальна (§3): один стрижень, ~півхвилини читання. Це НЕ окрема стаття й НЕ «частина 1» до детальної — це стисле «що це за тема» перед повним читанням.
+ ⚠️ СПЕРШУ ВИРІШИ, ЧИ БАЗОВА ВЗАГАЛІ ПОТРІБНА — базова потрібна ДАЛЕКО НЕ ВСЮДИ. Bash-перевір, чи є на диску детальна ${dir}\\${u.slug}-d.md, і виміряй її обсяг («wc -w»). ВІДСІВ:
+   • Базова виправдана ЛИШЕ коли детальна справді ВЕЛИКА (орієнтир >~3500 слів) і швидкий огляд реально допомагає схопити суть до повного читання.
+   • Якщо детальна КОРОТКА (≲3500 слів) АБО тема вузька / це проста довідка / вона й так покрита стисло — базову НЕ пиши: вона вийшла б майже як детальна (саме та помилка, якої уникаємо). НЕ створюй файл, поверни ok:true, skipBasic:true, note:"детальна коротка / тема вузька — базова дублювала б". Фаза Маніфест поставить basic:empty.
+   • ЗАЛІЗО ОБСЯГУ: якщо ВСЕ Ж пишеш базову — вона МУСИТЬ бути ЩОНАЙМЕНШЕ ВДВІЧІ КОРОТША за детальну (basic_words ≤ detailed_words ÷ 2) І в смузі 600–1600 слів. Не стискається до половини детальної без втрати суті → тема базової не потребує → skipBasic:true.
+   • Детальної на диску ще НЕМА — суди за темою: широка багатошарова (виведення+протокол+багато випадків) варта базової; вузька/довідкова → skipBasic:true.`}
+КРОК2 — НАПИШИ файл статті цілком (§3–§5): ${level === 'detailed' ? 'ДЕТАЛЬНА 1200–10000 слів — повнота ВГЛИБ однієї нитки, кожен пробіл заповнено (не вшир на сусідів)' : 'БАЗОВА (лише якщо КРОК1 не дав skipBasic) 600–1600 слів І ≤ половини обсягу детальної — швидкий атом: один стрижень, без другого шару, без дублювання детальної'}; Фейнман; безперервність (без пробілів); необхідність перед твердженням; приклад ілюструє, не несе; жива українська; worked-приклади мовою за доменом (§5, НЕ завжди C/C++; у programming/algorithms не-веб proj → C/C++ обовʼязковий); рамки 🔧; етимологія в дужках; свої фігури (figs.py у теці, ЗАПУСТИ його — SVG в img/; акуратна розкладка з запасом; svg-гейт до «0» зробить ОКРЕМИЙ крок конвеєра на Sonnet-high, тобі svgcheck ганяти НЕ треба); факти — веб-звір (§7).
  • **(v6) БЛОК «ПЕРЕД ЧИТАННЯМ».** Одразу ПІД H1 постав згорнутий блок \`<preknowlist>…</preknowlist>\` — марк. список ref-лінків на ПЕРЕДУМОВИ (що точно треба знати, без чого статтю не зрозуміти), кожен рядок = лінк + коротко «що саме знати». Лінки 2-сегментні на ТЕМУ (\`book:<книга>/<slug>\` чи \`guide:<курс>/<slug>\`, дзеркально §6), лише ВАГОМІ передумови. ${KIND === 'guide' ? 'КУРС: клади лише передумови ЗЗОВНІ курсу АБО ще не пройдені по нитці — те, що курс уже дав раніше, НЕ додавай.' : 'book/catalog: усі справжні передумови (стаття standalone).'} Якщо тема-передумова ще не існує в репо — обробляй як залежність (додай у newTopics, КРОК3).${KIND === 'catalog' ? `
  • **(§8) КАТАЛОГ — КОНКРЕТНИЙ ОБʼЄКТ.** Описуєш саме цю річ (плату/модуль/прилад/деталь): читач має УПІЗНАТИ її, зрозуміти що робить і як влаштована, як підʼєднати/використати й чого стерегтися. Секції добирай САМ під природу пристрою; партномери/моделі ДОРЕЧНІ (це каталог). БЕЗ фраз послідовності. ЛІНКИ каталогу — ЗАВЖДИ префікс book: (родини в __BOOKS__): тема book:РОДИНА/slug; вставка book:РОДИНА/slug/ТИП-назва.md. Префікса catalog: НЕ існує, і шлях-лінк у дужках-catalog НЕ вживай — тільки book:-попап.
  • **(§8) ПЛАТА/МОДУЛЬ ЗІ СХЕМОЮ — ОБОВʼЯЗКОВО.** Якщо річ має схему устрою АБО схему підключення: (а) зобрази ОБИДВІ SVG-фігури — принципову схему + розводку ПІН-У-ПІН (svgcheck 0); (б) опиши їх (живлення, рівні, підтяжки, що куди); (в) дай API у api-вставці — додай у inserts[] { file:"api-<name>.md", type:"api", brief:"API/довідка: розводка+регістри+протокол (залізо) та/або бібліотека/типові виклики + робочий C/C++, пастки" }. Без цих трьох board/модуль-стаття НЕПОВНА. Голі пасиви/розхідники (резистори, дроти, припій) — без схеми/API, коротко за призначенням.
@@ -222,26 +228,31 @@ function articlePrompt(u) {
  • DEEPER-ЦІЛІ (§6). Якщо ставиш ЯВНУ ДЕТАЛЬНУ («…/detail», рідко — головно ref із курсу) на тему, що ВЖЕ Є в репо, але має лише базову, — додай ту тему в deeperTargets:[{book,slug}] (щоб її детальну поставили в чергу). Лінк лишай на /detail.
  • МАНІФЕСТ НЕ ЧІПАЙ. Вставки САМ не пиши (це фаза 3).
 КРОК4 — САМОАУДИТ: фігури згенеровано (figs.py запущено, SVG в img/; svg-гейт до «0» — окремий Sonnet-крок, не твій); обсяг у смузі §3; без LaTeX/«Рис.»; ${KIND === 'guide' ? 'нитка курсу доречна (лише назад)' : 'самодостатньо, без фраз послідовності'}.
-Поверни: ok, files (стаття+фігури), inserts (свої вставки на фазу 3), newTopics (нові залежні теми на реєстрацію), needDetailedSelf (чи варта ця тема детальної, §3), deeperTargets (наявні теми, ref-нуті як /detail, §6), note.`
+Поверни: ok, skipBasic (ТІЛЬКИ для базової: true ⟺ базову НЕ писав, бо дублювала б детальну — файл не створено; §3), files (стаття+фігури), inserts (свої вставки на фазу 3), newTopics (нові залежні теми на реєстрацію), needDetailedSelf (чи варта ця тема детальної, §3), deeperTargets (наявні теми, ref-нуті як /detail, §6), note.`
 }
 // Списки з args (доробка) — стартова база; далі ДОДАЄМО те, що повернуть агенти дописаних статей.
 const DETAILED_NEED = (DETAILED_IN || []).map((d) => ({ book: d.book || BOOK, slug: d.slug }))
 let doneArticles = SKIP_UNITS.slice()
 let INSERTS = (INSERTS_IN || []).slice()
 let NEWTOPICS = (NEWTOPICS_IN || []).slice()
+let BASIC_EMPTY = []                                 // базові, які агент навмисно НЕ писав (дублювали б детальну) → basic:empty у маніфесті
 if (WRITE_UNITS.length) {
   const aResults = await staggered(WRITE_UNITS, (u) =>
     callAgent(articlePrompt(u), { label: `стаття:${u.slug}`, phase: 'Статті', model: 'opus', effort: 'max', schema: ART_RET })
-      .then((pr) => ({ u, ok: !!(pr && pr.ok), inserts: (pr && pr.inserts) || [], newTopics: (pr && pr.newTopics) || [], needDetailedSelf: !!(pr && pr.needDetailedSelf), deeperTargets: (pr && pr.deeperTargets) || [], note: pr && pr.note }))
-      .catch(() => ({ u, ok: false, inserts: [], newTopics: [], needDetailedSelf: false, deeperTargets: [] })))
+      .then((pr) => ({ u, ok: !!(pr && pr.ok), skipBasic: !!(pr && pr.skipBasic), inserts: (pr && pr.inserts) || [], newTopics: (pr && pr.newTopics) || [], needDetailedSelf: !!(pr && pr.needDetailedSelf), deeperTargets: (pr && pr.deeperTargets) || [], note: pr && pr.note }))
+      .catch(() => ({ u, ok: false, skipBasic: false, inserts: [], newTopics: [], needDetailedSelf: false, deeperTargets: [] })))
   const okR = aResults.filter((r) => r.ok)
-  doneArticles = doneArticles.concat(okR.map((r) => r.u))
-  INSERTS = INSERTS.concat(okR.flatMap((r) => r.inserts.map((i) => ({ ...i, section: r.u.section, topicSlug: r.u.slug, topicTitle: r.u.title }))))
-  NEWTOPICS = NEWTOPICS.concat(okR.flatMap((r) => r.newTopics))
+  // skipBasic (лише базова): файл НЕ написано — у done/фігури/вставки НЕ веземо, лише позначимо basic:empty
+  const skippedBasic = okR.filter((r) => r.skipBasic && r.u.level === 'basic')
+  const wroteR = okR.filter((r) => !(r.skipBasic && r.u.level === 'basic'))
+  BASIC_EMPTY = skippedBasic.map((r) => r.u)
+  doneArticles = doneArticles.concat(wroteR.map((r) => r.u))
+  INSERTS = INSERTS.concat(wroteR.flatMap((r) => r.inserts.map((i) => ({ ...i, section: r.u.section, topicSlug: r.u.slug, topicTitle: r.u.title }))))
+  NEWTOPICS = NEWTOPICS.concat(wroteR.flatMap((r) => r.newTopics))
   // §3/§6 — детальні версії у чергу: власна тема (needDetailedSelf, лише коли пишемо basic) + deeper-цілі (ref на /detail наявних тем)
-  for (const r of okR) if (r.u.level === 'basic' && r.needDetailedSelf) DETAILED_NEED.push({ book: BOOK, slug: r.u.slug })
-  for (const r of okR) for (const d of (r.deeperTargets || [])) if (d && d.slug) DETAILED_NEED.push({ book: d.book || BOOK, slug: d.slug })
-  log(`Статей дописано: ${okR.length}/${WRITE_UNITS.length}`)
+  for (const r of wroteR) if (r.u.level === 'basic' && r.needDetailedSelf) DETAILED_NEED.push({ book: BOOK, slug: r.u.slug })
+  for (const r of wroteR) for (const d of (r.deeperTargets || [])) if (d && d.slug) DETAILED_NEED.push({ book: d.book || BOOK, slug: d.slug })
+  log(`Статей дописано: ${wroteR.length}/${WRITE_UNITS.length}${skippedBasic.length ? `; базових пропущено (дублювали б детальну → empty): ${skippedBasic.length}` : ''}`)
 }
 log(`Разом статей готово: ${doneArticles.length}/${WORK.length}; вставок до письма: ${INSERTS.length}; нових тем: ${NEWTOPICS.length}; детальних у чергу: ${DETAILED_NEED.length}`)
 const _seenDN = new Set()
@@ -327,6 +338,12 @@ if (doneArticles.length) {
     `Онови маніфест ${MFWIN} (схема v6 §2 — статус ПЕР-ВЕРСІЙНИЙ). Для КОЖНОГО {slug, ver} з переліку знайди тему за slug і зміни статус САМЕ версії ver ("basic" чи "detailed") на "done" (Edit точково — лише поле ver тієї теми; ІНШУ версію й решту тем не чіпай). ПЕРЕЛІК: ${JSON.stringify(donePayload)}\nПоверни ok, count.`,
     { label: 'статті→done', phase: 'Маніфест', model: 'opus', schema: REG_RET })
 }
+if (BASIC_EMPTY.length) {
+  const payload = BASIC_EMPTY.map((u) => ({ slug: u.slug }))
+  await callAgent(
+    `Онови маніфест ${MFWIN} (схема v6 §2 — статус ПЕР-ВЕРСІЙНИЙ). Для КОЖНОГО slug з переліку знайди тему й постав basic.status = "empty" (Edit точково — ЛИШЕ поле basic тієї теми; detailed та інші теми НЕ чіпай). Базова навмисно НЕ пишеться — вона дублювала б детальну (§3). ПЕРЕЛІК: ${JSON.stringify(payload)}\nПоверни ok, count.`,
+    { label: 'базові→empty', phase: 'Маніфест', model: 'opus', schema: REG_RET })
+}
 if (doneInserts.length) {
   const payload = doneInserts.map((i) => ({ section: i.section, topicSlug: i.topicSlug, type: i.type, file: i.file }))
   await callAgent(
@@ -372,4 +389,4 @@ const okN = doneArticles.length
 const insWritten = iResults.filter((r) => r.ok).length      // написані ЦИМ прогоном (doneInserts містить ще й insertsDone)
 const svgFixedTotal = svgResults.reduce((s, r) => s + (r.fixed || 0), 0)
 const svgUnresolved = svgResults.filter((r) => !r.ok).map((r) => r.d)
-return { book: BOOK, kind: KIND, level: FORCE_LEVEL || 'mixed', byLevel: { detailed: doneArticles.filter((u) => u.level === 'detailed').length, basic: doneArticles.filter((u) => u.level === 'basic').length }, scouted: WORK.length, articles: okN, articlesFailed: WORK.length - okN, inserts: insWritten, insertsRegisteredOnly: (INSERTS_DONE_IN || []).length, insertsFailed: INSERTS.length - insWritten, newTopics: NEWTOPICS.length, detailedQueued: DETAILED_QUEUE.length, svgFixed: svgFixedTotal, svgUnresolved, problems: PROBLEMS }
+return { book: BOOK, kind: KIND, level: FORCE_LEVEL || 'mixed', byLevel: { detailed: doneArticles.filter((u) => u.level === 'detailed').length, basic: doneArticles.filter((u) => u.level === 'basic').length }, scouted: WORK.length, articles: okN, articlesFailed: WORK.length - okN - BASIC_EMPTY.length, basicSkipped: BASIC_EMPTY.length, inserts: insWritten, insertsRegisteredOnly: (INSERTS_DONE_IN || []).length, insertsFailed: INSERTS.length - insWritten, newTopics: NEWTOPICS.length, detailedQueued: DETAILED_QUEUE.length, svgFixed: svgFixedTotal, svgUnresolved, problems: PROBLEMS }
