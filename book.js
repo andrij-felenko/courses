@@ -776,9 +776,9 @@
         }
 
         var html = '<span id="top" class="anc"></span>';
-        html += chapterHeader(chap, null);
+        html += chapterHeader(chap, null, ver);
         var introBlock = (pm.introHtml && BOOK.type !== "book") ? '<p class="ch-intro ch-intro-body">' + pm.introHtml + '</p>' : '';
-        html += '<div class="sec content-body">' + versionSwitch(chap, ver) + courseTopNav(chap) + introBlock + banner + pm.bodyHtml + courseBottomNav(chap) +
+        html += '<div class="sec content-body">' + courseTopNav(chap) + introBlock + banner + pm.bodyHtml + courseBottomNav(chap) +
           '<span id="read-end" class="read-sentinel" aria-hidden="true"></span></div>';
         arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна (історії + extras)
         setContent(html);
@@ -802,23 +802,24 @@
       });
   }
 
-  function chapterHeader(chap, introHtml) {
+  function chapterHeader(chap, introHtml, ver) {
     // Курс-режим: номер поточного кроку (Модуль.Розділ.Крок) дрібним шрифтом у рядку заголовка — висоту панелі не змінює.
     var kn = "";
     if (BOOK.course) {
       var lst = courseNavList(), ci = courseCurrentIndex(chap);
       if (ci >= 0) kn = ' <span class="ch-kn">' + lst[ci].kn + "</span>";
     }
+    var vsw = versionSwitch(chap, ver || "");   // перемикач версій — праворуч у панелі (лише коли є обидві)
     if (BOOK.type === "book") {   // стаття книги: компактна sticky-панель, галузь + назва, відтінок книги
-      return '<header class="ch-header ch-header-book" style="--book-accent:' + (BOOK.accent || "") + '"><div class="ch-label">' +
-        escapeHtml((chap.module && chap.module.title) || "") + "</div><h1>" + escapeHtml(chap.title) + kn + "</h1></header>";
+      return '<header class="ch-header ch-header-book" style="--book-accent:' + (BOOK.accent || "") + '"><div class="ch-head-main"><div class="ch-label">' +
+        escapeHtml((chap.module && chap.module.title) || "") + "</div><h1>" + escapeHtml(chap.title) + kn + "</h1></div>" + vsw + "</header>";
     }
     var m = chap.module;
     var lbl = "Модуль " + m.n + " · " + escapeHtml(m.title) +
       (BOOK.course ? "" : " &nbsp;/&nbsp; Розділ " + m.n + "." + chap.n);   // у курсі номер кроку — біля заголовка (kn), не «розділ» зі старої нумерації
-    var h = '<header class="ch-header"><div class="ch-label">' + lbl + "</div><h1>" + escapeHtml(chap.title) + kn + "</h1>";
+    var h = '<header class="ch-header"><div class="ch-head-main"><div class="ch-label">' + lbl + "</div><h1>" + escapeHtml(chap.title) + kn + "</h1>";
     if (introHtml) h += '<p class="ch-intro">' + introHtml + "</p>";
-    return h + "</header>";
+    return h + "</div>" + vsw + "</header>";
   }
 
   function histModal(a) {
@@ -1052,13 +1053,14 @@
     return '<nav class="course-bottom"><a class="cb-btn cb-next cb-done" href="' + courseHome() + '"><span class="cb-dir">Курс пройдено ✓</span><span class="cb-ttl">До огляду курсу</span></a></nav>';
   }
   // Сегментований перемикач між короткою (<slug>.md) і повною (<slug>-d.md) версіями —
-  // зверху статті, миттєвий (обидві версії в кеші, як stack). Лише коли Є ОБИДВІ версії.
+  // у верхній панелі праворуч, миттєвий (обидві версії в кеші, як stack). Лише коли Є ОБИДВІ версії.
   function versionSwitch(chap, ver) {
     if (!(chap.hasBasic && chap.hasDetailed)) return "";   // перемикач лише коли Є ОБИДВІ версії
     var isD = ver === "d";
     function seg(active, href, ico, label) {
       return '<a class="vs-btn' + (active ? " on" : "") + '" href="' + href + '"' + (active ? ' aria-current="true"' : "") +
-        '><span class="vs-ico" aria-hidden="true">' + ico + "</span>" + label + "</a>";
+        ' title="' + escapeAttr(label + " версія") + '"><span class="vs-ico" aria-hidden="true">' + ico +
+        '</span><span class="vs-lbl">' + label + "</span></a>";
     }
     return '<div class="ver-switch" role="group" aria-label="Версія статті">' +
       seg(!isD, chHref(chap.slug, null, ""), "📄", "Коротка") +

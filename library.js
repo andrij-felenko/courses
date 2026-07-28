@@ -51,9 +51,10 @@
     components: "Дискретні компоненти: резистори, конденсатори, напівпровідники."
   };
 
-  // Версія (СТАТТЯ) ЧИТАБЕЛЬНА, якщо її статус не "empty"/"pending"; ЗАПЛАНОВАНА, якщо не "empty".
-  // Відсоток рахуємо по СТАТТЯХ (версіях), а не по темах: тема може мати 2 статті (коротку + повну),
-  // тож написана лише коротка ≠ тема готова. `written` лишається на рівні теми — його вживають курси (ref-кроки).
+  // Версія ЧИТАБЕЛЬНА, якщо статус не "empty"/"pending"; ЗАПЛАНОВАНА, якщо не "empty".
+  // Рахунок — по ТЕМАХ (об'єкт теми в маніфесті), а не по версіях: тема «написана», якщо
+  // готова ХОЧ ОДНА версія (коротка АБО повна); «всього» = кількість (запланованих) тем,
+  // а не сума коротких+повних. `written` (мапа slug→1) вживають і курси для ref-кроків.
   function verReadable(v) { return !!(v && v.status && v.status !== "empty" && v.status !== "pending"); }
   function verPlanned(v) { return !!(v && v.status && v.status !== "empty"); }
   function loadShelfItem(base, slug) {
@@ -62,11 +63,10 @@
       var planned = 0, exist = 0, written = {};
       ((b && b.sections) || []).forEach(function (sec) {
         (sec.topics || []).forEach(function (t) {
-          [t.basic, t.detailed].forEach(function (v) {   // кожна версія — окрема стаття
-            if (verPlanned(v)) planned++;
-            if (verReadable(v)) exist++;
-          });
-          if (t.slug && (verReadable(t.basic) || verReadable(t.detailed))) written[t.slug] = 1;
+          var isWritten = verReadable(t.basic) || verReadable(t.detailed);   // тема готова, якщо є хоч одна версія
+          var isPlanned = verPlanned(t.basic) || verPlanned(t.detailed);     // тема взагалі в планах
+          if (isPlanned) planned++;                                          // «всього» = теми, не версії
+          if (isWritten) { exist++; if (t.slug) written[t.slug] = 1; }
         });
       });
       return { slug: slug, title: (b && b.title) || slug, branches: ((b && b.sections) || []).length, arts: planned, done: exist, written: written };

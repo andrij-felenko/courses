@@ -321,10 +321,13 @@ body {
   position: sticky; top: 0; z-index: 80;   /* липка панель — в УСІХ статтях (книги/каталог/власні статті курсу) */
   background: linear-gradient(135deg, #09192e 0%, #0f2744 40%, #1d4e8a 100%);
   height: var(--topbar-h);   /* ТОЧНА висота = смуга кнопок; однакова в затишній і компактній */
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 0 3.6rem 0 4rem;   /* права — щоб текст не заїжджав під кнопки (мова/щільність/лупа/тема) */
+  display: flex; flex-direction: row; align-items: center; gap: 0.9rem;   /* текст ліворуч, перемикач версій праворуч */
+  padding: 0 4rem 0 4rem;   /* права — щоб текст/перемикач не заїжджали під кнопки-«шестерню» */
   color: #fff;
 }
+.ch-head-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; justify-content: center; }   /* займає простір, назва обрізається … */
+/* Обкладинки/лендинги (без .ch-head-main і без перемикача) — заголовок стовпчиком, як було */
+.ch-header.ch-header-guide { flex-direction: column; align-items: flex-start; gap: 0; }
 .ch-label {
   font-size: 0.64rem; font-weight: 800;
   letter-spacing: 0.2em; text-transform: uppercase;
@@ -351,7 +354,8 @@ body {
   background: var(--bg);
   background: color-mix(in srgb, var(--book-accent, #808080) 10%, var(--bg));
   border-bottom: 2px solid var(--book-accent, var(--border));
-  padding: 0 3.6rem 0 4rem;   /* висота й вертикальне центрування — з .ch-header */
+  padding: 0 4rem 0 4rem;   /* висота, центрування й рядковий лейаут — з .ch-header */
+  color: var(--text);   /* світла панель книги → currentColor перемикача версій темний (не білий з базового .ch-header) */
 }
 .ch-header.ch-header-book .ch-label { color: var(--book-accent, var(--accent)); margin-bottom: 0.1rem; }
 .ch-header.ch-header-book h1 { font-size: 1.4rem; color: var(--text); margin-bottom: 0; line-height: 1.2; }
@@ -359,24 +363,26 @@ body {
   .ch-header.ch-header-book { padding-left: 4.1rem; }
   .ch-header.ch-header-book h1 { font-size: 1.18rem; }
 }
-/* Перемикач версій (коротка ↔ повна) — сегментований, зверху статті. Обидві версії
-   в кеші, перемикання миттєве (як stack). Показується лише коли Є ОБИДВІ версії. */
+/* Перемикач версій (коротка ↔ повна) — сегментований, у ВЕРХНІЙ ПАНЕЛІ праворуч
+   (flex-елемент .ch-header). Обидві версії в кеші → перемикання миттєве (як stack).
+   Кольори через currentColor → лягає і на світлий заголовок книги, і на темний курсу. */
 .ver-switch {
-  display: inline-flex; align-items: stretch; gap: 2px;
-  margin: 0 0 1.6rem; padding: 3px;
-  background: var(--bg-alt); border: 1px solid var(--border); border-radius: 10px;
+  flex: none; display: inline-flex; align-items: stretch; gap: 2px; padding: 2px;
+  border-radius: 8px; background: color-mix(in srgb, currentColor 9%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
 }
 .ver-switch .vs-btn {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  font-size: 0.82rem; font-weight: 700; color: var(--text-muted);
-  text-decoration: none; padding: 0.4rem 0.9rem; border-radius: 7px; white-space: nowrap;
-  transition: background 0.14s, color 0.14s;
+  display: inline-flex; align-items: center; gap: 0.32rem;
+  font: inherit; font-size: 0.76rem; font-weight: 700; color: inherit; opacity: 0.6;
+  text-decoration: none; padding: 0.26rem 0.62rem; border-radius: 6px; white-space: nowrap;
+  transition: background 0.14s, opacity 0.14s, color 0.14s;
 }
-.ver-switch .vs-btn:hover { color: var(--text); }
+.ver-switch .vs-btn:hover { opacity: 1; }
 .ver-switch .vs-btn.on {
-  background: var(--book-accent, var(--accent)); color: #fff; box-shadow: var(--shadow-sm);
+  opacity: 1; background: var(--book-accent, var(--accent)); color: #fff;
 }
-.ver-switch .vs-ico { font-size: 0.98em; line-height: 1; }
+.ver-switch .vs-ico { font-size: 0.95em; line-height: 1; }
+@media (max-width: 720px) { .ver-switch .vs-lbl { display: none; } }   /* тісно → лишаємо самі іконки 📄/📖 */
 
 /* ─── Section wrapper ───────────────────────────────────────────────────── */
 .sec { max-width: 860px; margin: 0 auto; padding: 2.5rem 4rem; }
@@ -893,7 +899,7 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 @media (max-width: 980px) {
   :root { --sidebar-w: 256px; }
   .ch-header, .sec, .hist-art-header, .cover-hero, .toc { padding-left: 2.5rem; padding-right: 2.5rem; }
-  .ch-header { padding-right: 3.6rem; }   /* права лишається під «шестерню» */
+  .ch-header { padding-right: 4rem; }   /* права лишається під «шестерню» + перемикач версій */
 }
 @media (max-width: 680px) {
   #sidebar { transform: translateX(-100%); transition: transform 0.25s; width: 84%; max-width: 320px; }
