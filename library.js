@@ -31,10 +31,11 @@
     philosophy: "Знання, буття, розум і добро — великі питання."
   };
   // Курси — власні іконка, колір і опис (щоб не були однаково-зелені).
-  var GUIDE_ICON = { embedded: "🤖", "basic-chemistry": "⚗️", progarch: "🏛️" };
-  var GUIDE_ACCENT = { embedded: "#c1683f", "basic-chemistry": "#2f9e8f", progarch: "#5a6b9c" };
+  var GUIDE_ICON = { embedded: "🤖", "embedded-ultra": "⚡", "basic-chemistry": "⚗️", progarch: "🏛️" };
+  var GUIDE_ACCENT = { embedded: "#c1683f", "embedded-ultra": "#a8492f", "basic-chemistry": "#2f9e8f", progarch: "#5a6b9c" };
   var GUIDE_DESC = {
     embedded: "Від заряду й струму до власного пристрою: фізика, схемотехніка, мікроконтролери й автономні системи — крок за кроком.",
+    "embedded-ultra": "Ембеддед за два дні: 57 статей — від напруги й транзистора до GPIO, шин, RTOS і OTA. Стислий зріз, без заглиблень.",
     "basic-chemistry": "Хімія для початківців: від атома й періодичної таблиці до реакцій, розчинів, органіки та розрахунків задач.",
     progarch: "Архітектура програмних систем: модульність, межі, залежності й масштаб — як будувати та підтримувати великий код."
   };
