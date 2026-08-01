@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контролер як швидка петля навколо самого MOSFET</text>
+<circle cx="60.0" cy="96.0" r="7.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="60.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Vвх +</text>
+<line x1="67.0" y1="96.0" x2="255.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="150.0" y1="96.0" x2="185.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="150.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">струм →</text>
+<rect x="255.0" y="62.0" width="150.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="330.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">MOSFET</tspan><tspan x="330.0" dy="19.5">Rds(on)</tspan></text>
+<text x="258.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">S</text>
+<text x="402.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">D</text>
+<line x1="405.0" y1="96.0" x2="700.0" y2="96.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="710.0" cy="96.0" r="7.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="710.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="710.0" dy="0.0">Vвих →</tspan><tspan x="710.0" dy="15.6">навантаж.</tspan></text>
+<rect x="110.0" y="220.0" width="580.0" height="190.0" rx="12" fill="#eef4fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="400.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">Контролер ідеального діода</text>
+<rect x="140.0" y="272.0" width="158.0" height="116.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/><text x="219.0" y="307.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="219.0" dy="0.0">Підсилювач</tspan><tspan x="219.0" dy="18.2">похибки:</tspan><tspan x="219.0" dy="18.2">тримає</tspan><tspan x="219.0" dy="18.2">~20–30 мВ</tspan></text>
+<rect x="322.0" y="272.0" width="158.0" height="116.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/><text x="401.0" y="307.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="401.0" dy="0.0">Компаратор</tspan><tspan x="401.0" dy="18.2">звороту:</tspan><tspan x="401.0" dy="18.2">закриває затвор</tspan><tspan x="401.0" dy="18.2">за ~1 мкс</tspan></text>
+<rect x="504.0" y="272.0" width="158.0" height="116.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/><text x="583.0" y="307.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="583.0" dy="0.0">Зарядний</tspan><tspan x="583.0" dy="18.2">насос:</tspan><tspan x="583.0" dy="18.2">Vзатв &gt; Vвх</tspan><tspan x="583.0" dy="18.2">(N-канал угорі)</tspan></text>
+<polyline points="255.0,96.0 232.0,96.0 232.0,220.0" fill="none" stroke="#27ae60" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="224.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="end" font-weight="700">VS</text>
+<polyline points="405.0,96.0 428.0,96.0 428.0,220.0" fill="none" stroke="#27ae60" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="436.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">VD</text>
+<line x1="330.0" y1="220.0" x2="330.0" y2="132.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="330.0" y1="175.0" x2="330.0" y2="138.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="340.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">GATE</text>
+<text x="400.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Vds = I·Rds(on): знак і величина падіння = напрям і сила струму</text>
+</svg>

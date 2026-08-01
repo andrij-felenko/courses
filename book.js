@@ -74,6 +74,10 @@
   function isCollapsed(key) { return NAV.collapsed.has(key); }
   function allGroupKeys() { var out = []; BOOK.modules.forEach(function (m) { if (m.chapters && m.chapters.length) out.push(m.title); }); return out; }
 
+  /* Книгоподібні види (галузі→статті, без порядку): предметна книга й довідник reference/.
+     Каталог і курс рендеряться інакше (обкладинка-доріжка, нумеровані кроки). */
+  function isBookLike() { return BOOK.type === "book" || BOOK.type === "reference"; }
+
   /* ── Прогрес читання: доскролив до низу статті → «прочитано» (localStorage) ── */
   var READ = (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-read") || "[]")); } catch (e) { return new Set(); } })();
   function readKey(slug) { return (BOOK.bookSlug || BOOK.type || "book") + "/" + slug; }
@@ -610,7 +614,7 @@
 
   function renderFigure(t, ctx) {
     var src = t.src.trim();
-    if (/^\/(?:book|guide|catalog)\//.test(src)) src = SITE_ROOT + src.slice(1);  // від кореня репо → префікс розгортання
+    if (/^\/(?:book|guide|catalog|reference)\//.test(src)) src = SITE_ROOT + src.slice(1);  // від кореня репо → префікс розгортання
     else if (!/^https?:|^\//.test(src)) src = (ctx.base != null ? ctx.base : BASE) + ctx.dir + "/" + src;
     var h = '<figure><img src="' + escapeAttr(src) + '" alt="' + escapeAttr(t.alt) + '" loading="lazy">';
     if (t.caption) h += "<figcaption>" + renderInline(t.caption, ctx) + "</figcaption>";
@@ -706,7 +710,7 @@
     var blocks = mdBlocks(text), idx = 0;
     if (blocks[0] && blocks[0].type === "heading" && blocks[0].level === 1) idx = 1;
     var introHtml = "";
-    if (BOOK.type !== "book") {   // окремий «вступ» лише у старих embedded-розділах (перед ## секціями);
+    if (!isBookLike()) {   // окремий «вступ» лише у старих embedded-розділах (перед ## секціями);
       var intro = [];            // book-тема — це суцільна стаття, увесь текст іде в тіло
       while (idx < blocks.length && blocks[idx].type === "para") { intro.push(blocks[idx]); idx++; }
       introHtml = intro.map(function (t) { return renderInline(t.text, ctx); }).join("<br><br>");
@@ -777,7 +781,7 @@
 
         var html = '<span id="top" class="anc"></span>';
         html += chapterHeader(chap, null, ver);
-        var introBlock = (pm.introHtml && BOOK.type !== "book") ? '<p class="ch-intro ch-intro-body">' + pm.introHtml + '</p>' : '';
+        var introBlock = (pm.introHtml && !isBookLike()) ? '<p class="ch-intro ch-intro-body">' + pm.introHtml + '</p>' : '';
         html += '<div class="sec content-body">' + courseTopNav(chap) + introBlock + banner + pm.bodyHtml + courseBottomNav(chap) +
           '<span id="read-end" class="read-sentinel" aria-hidden="true"></span></div>';
         arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна (історії + extras)
@@ -810,7 +814,7 @@
       if (ci >= 0) kn = ' <span class="ch-kn">' + lst[ci].kn + "</span>";
     }
     var vsw = versionSwitch(chap, ver || "");   // перемикач версій — праворуч у панелі (лише коли є обидві)
-    if (BOOK.type === "book") {   // стаття книги: компактна sticky-панель, галузь + назва, відтінок книги
+    if (isBookLike()) {   // стаття книги/довідника: компактна sticky-панель, галузь + назва, відтінок книги
       return '<header class="ch-header ch-header-book" style="--book-accent:' + (BOOK.accent || "") + '"><div class="ch-head-main"><div class="ch-label">' +
         escapeHtml((chap.module && chap.module.title) || "") + "</div><h1>" + escapeHtml(chap.title) + kn + "</h1></div>" + vsw + "</header>";
     }
@@ -841,7 +845,7 @@
      ════════════════════════════════════════════════════════════════════ */
   function buildChapterSidebar(chap, sections, attach, arts) {
     if (BOOK.course) { return buildCourseChapterSidebar(chap, sections); }
-    if (BOOK.type === "book") { return buildBookChapterSidebar(chap, sections); }
+    if (isBookLike()) { return buildBookChapterSidebar(chap, sections); }
     var titleByBase = {}; arts.forEach(function (a) { titleByBase[a.base] = a.title; });
     var attachedAfter = {}; var attachedSet = {};
     attach.forEach(function (a) {
@@ -898,14 +902,14 @@
   function chapterPager(chap) {
     var i = FLAT.indexOf(chap), prev = FLAT[i - 1], next = FLAT[i + 1];
     function cell(c, dir) {
-      var label = BOOK.type === "book"
+      var label = isBookLike()
         ? (dir === "prev" ? "← Попередня тема" : "Наступна тема →")
         : (dir === "prev" ? "← Попередній розділ" : "Наступний розділ →");
       if (!c) {
         if (dir === "prev") return '<a href="#"><span class="pg-dir">↑ Назад</span><span class="pg-ttl">Зміст книги</span></a>';
         return "";
       }
-      var ttl = BOOK.type === "book" ? escapeHtml(c.title) : (c.module.n + "." + c.n + " — " + escapeHtml(c.title));
+      var ttl = isBookLike() ? escapeHtml(c.title) : (c.module.n + "." + c.n + " — " + escapeHtml(c.title));
       if (c.slug) {   // є що читати → пейджер зберігає поточну версію (потік читання)
         return '<a href="' + chHref(c.slug, null, currentVer) + '"><span class="pg-dir">' + label + '</span><span class="pg-ttl">' + ttl + "</span></a>";
       }
@@ -1097,7 +1101,7 @@
 
   function renderCover() {
     document.body.classList.remove("reading");
-    if (BOOK.type === "book") { setContent(bookCoverHtml()); buildBookSidebar(); return; }
+    if (isBookLike()) { setContent(bookCoverHtml()); buildBookSidebar(); return; }
     setContent(coverHtml(coverMapFromManifest()));
     buildCoverSidebar();
   }
@@ -1107,7 +1111,8 @@
     var readable = FLAT.filter(function (c) { return c.slug; }).length;
     var fullCount = FLAT.filter(function (c) { return c.full; }).length;
     var live = BOOK.modules.filter(function (m) { return m.chapters.length; });
-    var h = '<header class="ch-header ch-header-guide"><div class="ch-label">Книга · теорія за галузями</div><h1>' + escapeHtml(BOOK.title) + '</h1></header>' +
+    var h = '<header class="ch-header ch-header-guide"><div class="ch-label">' +
+      (BOOK.type === "reference" ? "Довідник · технологія за розділами" : "Книга · теорія за галузями") + '</div><h1>' + escapeHtml(BOOK.title) + '</h1></header>' +
       '<header class="cover-hero cover-hero-guide">' + (BOOK.subtitle ? "<p>" + escapeHtml(BOOK.subtitle) + "</p>" : "") +
       '<div class="cover-stats">' + stat(live.length, "галузей") + stat(readable, "статей") + (fullCount ? stat(fullCount, "повних") : "") +
       "</div></header>" + mapToolbar(true) + '<div class="toc' + (NAV.view === "grid" ? " map-grid" : "") + '">';
@@ -1134,7 +1139,7 @@
   }
   function buildBookSidebar() {
     var s = (BOOK.libraryHref ? '<a class="sb-home" href="' + BOOK.libraryHref + '">← Бібліотека (усі книги)</a>' : "") +
-      '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Книга</span>' +
+      '<a class="sb-logo" href="#"><span class="sb-logo-kicker">' + (BOOK.type === "reference" ? "Довідник" : "Книга") + '</span>' +
       '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>";
     BOOK.modules.forEach(function (m) {
       if (!m.chapters.length) return;
@@ -1209,7 +1214,7 @@
 
   function buildCoverSidebar() {
     var s = (BOOK.libraryHref ? '<a class="sb-home" href="' + BOOK.libraryHref + '">← Бібліотека (усі книги)</a>' : "") +
-      '<a class="sb-logo" href="#"><span class="sb-logo-kicker">Книга</span>' +
+      '<a class="sb-logo" href="#"><span class="sb-logo-kicker">' + (BOOK.type === "reference" ? "Довідник" : "Книга") + '</span>' +
       '<span class="sb-logo-title">' + escapeHtml(BOOK.shortTitle) + "</span></a>";
     BOOK.modules.forEach(function (m) {
       s += sbGroupOpen(m.title, "Модуль " + m.n + " · " + escapeHtml(m.title));
@@ -1541,7 +1546,7 @@
 
   /* ── Глобальні елементи UI ──────────────────────────────────────────── */
   function initChrome() {
-    if (BOOK.type === "book") document.body.classList.add("book-mode");   // CSS-гачок: лагідні вставки без фону
+    if (isBookLike()) document.body.classList.add("book-mode");   // CSS-гачок: лагідні вставки без фону
     if (BOOK.course) document.body.classList.add("course-mode");
     var menu = document.getElementById("menu-btn");
     var scrim = document.getElementById("scrim");

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 596" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="596" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шари CMSIS: від застосунку до заліза</text>
+<rect x="110.0" y="40.0" width="18.0" height="18.0" rx="3" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.6"/>
+<text x="136.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">= стандарт ARM (однаково на кожному чипі)</text>
+<rect x="460.0" y="40.0" width="18.0" height="18.0" rx="3" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.6"/>
+<text x="488.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">= заповнює виробник</text>
+<rect x="110.0" y="82.0" width="540.0" height="80.0" rx="6" fill="#eef0f2" stroke="#6b7280" stroke-width="2.0"/>
+<text x="380.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Ваш застосунок</text>
+<text x="380.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">#include &quot;stm32f4xx.h&quot;  — і весь шар нижче доступний</text>
+<rect x="110.0" y="174.0" width="540.0" height="80.0" rx="6" fill="#fdf3d6" stroke="#b9770e" stroke-width="2.0"/>
+<text x="380.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">Шар пристрою — stm32f4xx.h  (виробник)</text>
+<text x="380.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">структури периферії · enum IRQn_Type · SystemInit() · SystemCoreClock</text>
+<rect x="110.0" y="266.0" width="540.0" height="80.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="2.0"/>
+<text x="380.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e8449" text-anchor="middle" font-weight="700">CMSIS-Core — core_cm4.h  (ARM)</text>
+<text x="380.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">структури SCB · NVIC · SysTick   ·   NVIC_EnableIRQ() · SysTick_Config()</text>
+<rect x="110.0" y="358.0" width="540.0" height="80.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="2.0"/>
+<text x="380.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e8449" text-anchor="middle" font-weight="700">Абстракція компілятора — cmsis_compiler.h  (ARM)</text>
+<text x="380.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">→ cmsis_gcc / cmsis_armclang / cmsis_iccarm   ·   __disable_irq() · __DSB()</text>
+<rect x="110.0" y="450.0" width="270.0" height="80.0" rx="0" fill="#f0e6fa" stroke="#7d3c98" stroke-width="2.0"/>
+<text x="245.0" y="484.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d3c98" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">ядро Cortex-M</tspan><tspan x="245.0" dy="15.6">(однакове)</tspan></text>
+<rect x="380.0" y="450.0" width="270.0" height="80.0" rx="0" fill="#fdf3d6" stroke="#b9770e" stroke-width="2.0"/>
+<text x="515.0" y="484.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700"><tspan x="515.0" dy="0.0">периферія виробника</tspan><tspan x="515.0" dy="15.6">(різна)</tspan></text>
+<text x="380.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ЗАЛІЗО</text>
+<text x="380.0" y="580.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Ти пишеш зверху; кожен шар нижче ховає одну відмінність — компілятор, тоді ядро, тоді периферію</text>
+</svg>

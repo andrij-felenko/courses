@@ -378,6 +378,10 @@
       { title: "Інструменти розробника", steps: [
         { ref: "programming/code/version-control", title: "Контроль версій і git" },
         { ref: "programming/embedded-systems/toolchain", title: "Тулчейн" },
+        { ref: "build-systems/fundamentals/build-system-role", title: "Що робить система збірки" },
+        { ref: "build-systems/fundamentals/incremental-build", title: "Інкрементальна збірка" },
+        { ref: "build-systems/cmake/cmake-language", title: "Мова CMakeLists" },
+        { ref: "build-systems/cmake/targets-and-properties", title: "Цілі й властивості CMake" },
       ] },
     ] },
     { n: 10, slug: "mk", title: "Мікроконтролер: знайомство й перша прошивка", scope: "", chapters: [
@@ -575,6 +579,7 @@
       ] },
       { title: "Процес розробки", steps: [
         { slug: "gitflow-branching", title: "Стратегії гілкування в git", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-branching-models.md", status: "done" }] },
+        { ref: "programming/code/git-branching-and-history", title: "Гілки, ребейз і пошук регресії" },
       ] },
       { title: "Тестування", steps: [
         { slug: "firmware-testing", title: "Тестування прошивки", basic: { status: "done" }, detailed: { status: "done" }, proj: [{ file: "proj-emulators.md", status: "done" }] },
@@ -584,6 +589,9 @@
         { ref: "programming/software-engineering/sitl-simulation", title: "SITL" },
         { slug: "firmware-ci", title: "CI для прошивки", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-ci.md", status: "done" }], math: [{ file: "math-critical-path.md", status: "done" }], proj: [{ file: "proj-ci-pipeline.md", status: "done" }, { file: "proj-selfhosted-runner.md", status: "done" }] },
         { slug: "hil-testing", title: "HIL-стенд", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-hil-origins.md", status: "done" }], math: [{ file: "math-latency-budget.md", status: "done" }], proj: [{ file: "proj-lockstep-protocol.md", status: "done" }] },
+        { ref: "programming/software-engineering/unit-testing", title: "Модульний тест" },
+        { ref: "programming/software-engineering/test-doubles", title: "Дублери: стаб, мок, фейк" },
+        { ref: "programming/software-engineering/python-test-automation", title: "Python для автоматизації тестування" },
       ] },
       { title: "Надійність як дисципліна", steps: [
         { slug: "fmea-embedded", title: "FMEA у вбудованих системах", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-mil-nasa.md", status: "done" }] },
@@ -735,6 +743,9 @@
         { ref: "communications/protocols/control-telemetry", title: "Керування й телеметрія" },
         { ref: "communications/protocols/telemetry-stream", title: "Телеметрія" },
         { ref: "programming/embedded-systems/data-serialization", title: "Серіалізація даних" },
+        { ref: "programming/networking/wire-format-packing", title: "Пакування бінарного протоколу" },
+        { ref: "programming/networking/udp-datagram-semantics", title: "Семантика датаграми UDP" },
+        { ref: "programming/networking/tcp-message-framing", title: "Кадрування повідомлень у TCP" },
       ] },
       { title: "Бездротові стандарти", steps: [
         { ref: "communications/networks/wifi", title: "Wi-Fi" },
@@ -751,6 +762,8 @@
         { ref: "communications/protocols/mqtt", title: "MQTT" },
         { ref: "programming/networking/web-server-mcu", title: "Веб-сервер на МК" },
         { ref: "communications/protocols/ble-gatt", title: "BLE GATT" },
+        { ref: "programming/networking/socket-options", title: "Опції сокета" },
+        { ref: "programming/networking/multicast-and-discovery", title: "Багатоадресна розсилка й виявлення" },
         { slug: "rpc-embedded", title: "RPC у вбудованих системах", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-rpc-birth.md", status: "done" }], proj: [{ file: "proj-rpc-dispatch.md", status: "done" }] },
       ] },
     ] },
@@ -797,6 +810,8 @@
         { ref: "algorithms/computer-vision/threshold-morphology", title: "Пороги й морфологія" },
         { slug: "image-stabilization", title: "Стабілізація зображення", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-steadicam-gimbal.md", status: "done" }], proj: [{ file: "proj-eis-warp.md", status: "done" }] },
         { ref: "algorithms/computer-vision/optical-flow", title: "Оптичний потік" },
+        { ref: "media-vision/opencv/mat-memory-model", title: "cv::Mat: пам'ять і володіння" },
+        { ref: "media-vision/opencv/frame-interop", title: "Стик із відеоконвеєром" },
       ] },
       { title: "Глибина й орієнтири", steps: [
         { slug: "stereo-vision", title: "Стереозір", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-wheatstone.md", status: "done" }], math: [{ file: "math-disparity-derivation.md", status: "done" }], proj: [{ file: "proj-block-matching.md", status: "done" }] },
@@ -809,6 +824,12 @@
         { slug: "mjpeg-vs-h264", title: "MJPEG vs H.264", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-dct-lineage.md", status: "done" }, { file: "hist-codec-wars.md", status: "done" }] },
         { slug: "fpv-video-systems", title: "FPV-відеосистеми: аналог vs DJI O3/HDZero/Walksnail", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-analog-to-digital.md", status: "done" }], proj: [{ file: "proj-latency-budget.md", status: "done" }] },
         { slug: "video-streaming-protocols", title: "Протоколи відеострімінгу", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-rtp.md", status: "done" }, { file: "hist-rtsp.md", status: "done" }, { file: "hist-webrtc.md", status: "done" }, { file: "hist-srt.md", status: "done" }, { file: "hist-hls-dash.md", status: "done" }], proj: [{ file: "proj-adaptive-bitrate.md", status: "done" }] },
+        { ref: "communications/protocols/rtp-rtcp", title: "RTP і RTCP" },
+        { ref: "communications/protocols/rtsp-sdp", title: "RTSP і SDP" },
+        { ref: "algorithms/data-compression/h264-nal-structure", title: "H.264: NAL, SPS/PPS" },
+        { ref: "media-vision/gstreamer/pipeline-model", title: "Конвеєр GStreamer" },
+        { ref: "media-vision/gstreamer/appsink-appsrc", title: "appsink і appsrc" },
+        { ref: "media-vision/gstreamer/hardware-decode-elements", title: "Апаратне декодування" },
       ] },
     ] },
     { n: 24, slug: "ml-osnovy", title: "Машинне навчання: основи", scope: "", chapters: [
@@ -864,6 +885,7 @@
         { ref: "programming/embedded-systems/flight-controller", title: "Політний контролер" },
         { ref: "programming/embedded-systems/ardupilot-layers", title: "Шари ArduPilot" },
         { ref: "programming/embedded-systems/fc-vs-companion", title: "Контролер vs комп'ютер" },
+        { ref: "programming/embedded-systems/px4-architecture", title: "Архітектура PX4" },
         { slug: "where-to-compute", title: "Де рахувати", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-mars-autonomy.md", status: "done" }], proj: [{ file: "proj-vision-hint-buffer.md", status: "done" }] },
       ] },
       { title: "Безпека виконання", steps: [
@@ -901,6 +923,8 @@
         { slug: "mavlink-from-ground", title: "MAVLink із землі", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-mavlink-birth.md", status: "done" }], proj: [{ file: "proj-command-loop.md", status: "done" }, { file: "proj-heartbeat-watchdog.md", status: "done" }] },
         { slug: "python-ground-scripts", title: "Python для наземних скриптів", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-python-name.md", status: "done" }], proj: [{ file: "proj-safe-ground-script.md", status: "done" }] },
         { slug: "pymavlink", title: "pymavlink", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-link-budget-rates.md", status: "done" }], proj: [{ file: "proj-robust-loop.md", status: "done" }] },
+        { ref: "communications/protocols/mavlink-xml-codegen", title: "Генерація коду з XML MAVLink" },
+        { ref: "communications/protocols/mavlink-camera-gimbal", title: "Протоколи камери й підвісу" },
         { slug: "mission-planner-qgc", title: "Mission Planner і QGroundControl: порівняння GCS", basic: { status: "empty" }, detailed: { status: "done" }, proj: [{ file: "proj-dual-gcs-workflow.md", status: "done" }] },
         { ref: "communications/radio-engineering/telemetry-link", title: "Канал земля-борт" },
       ] },
@@ -911,6 +935,9 @@
         { ref: "communications/synchronization/sbas-corrections", title: "Супутникові системи доповнення (SBAS)" },
         { ref: "algorithms/signal-robotics/rtk-integer-ambiguity", title: "Розв'язання цілочислової неоднозначності RTK" },
         { ref: "communications/synchronization/pps-pulse", title: "PPS-імпульс" },
+        { ref: "math/geometry/wgs84-datum", title: "WGS-84: еліпсоїд і датум" },
+        { ref: "math/geometry/geoid-and-amsl", title: "Геоїд, AMSL і висота" },
+        { ref: "math/geometry/ecef-ned-enu", title: "ECEF, NED і ENU" },
       ] },
       { title: "Оцінка руху", steps: [
         { ref: "algorithms/signal-robotics/predict-vs-measure", title: "Передбачення vs вимір" },
@@ -926,6 +953,7 @@
         { slug: "path-planning-grid", title: "Планування шляху: сітка і A*", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-a-star-shakey.md", status: "done" }], math: [{ file: "math-heuristic-admissibility.md", status: "done" }, { file: "math-jps-symmetry.md", status: "done" }], proj: [{ file: "proj-a-star-grid.md", status: "done" }] },
         { slug: "obstacle-avoidance", title: "Обхід перешкод", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-obstacle-avoidance.md", status: "done" }], math: [{ file: "math-potential-field.md", status: "done" }, { file: "math-velocity-obstacles.md", status: "done" }], proj: [{ file: "proj-vfh.md", status: "done" }, { file: "proj-dwa.md", status: "done" }] },
         { ref: "algorithms/signal-robotics/pure-pursuit-navigation", title: "Навігація pure pursuit" },
+        { ref: "algorithms/signal-robotics/survey-grid-coverage", title: "Покриття полігону галсами" },
       ] },
       { title: "Місії й автономія", steps: [
         { slug: "mission-planning", title: "Проєктування місії (вейпойнти)", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-waypoint-navigation.md", status: "done" }], proj: [{ file: "proj-mission-builder.md", status: "done" }] },
@@ -933,7 +961,53 @@
         { slug: "slam-navigation", title: "SLAM: одночасне картографування й локалізація", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-slam.md", status: "done" }], math: [{ file: "math-pose-graph.md", status: "done" }], proj: [{ file: "proj-ekf-slam.md", status: "done" }] },
       ] },
     ] },
-    { n: 29, slug: "dim", title: "Платформа: стаціонарні пристрої і розумний дім", scope: "", chapters: [
+    { n: 29, slug: "nazemna-stantsiia", title: "Наземна станція: QGroundControl", scope: "", chapters: [
+      { title: "Станція як застосунок", steps: [
+        { ref: "qgroundcontrol/overview/what-is-qgc", title: "Що таке QGroundControl" },
+        { ref: "qgroundcontrol/architecture/app-composition", title: "З чого складається застосунок" },
+        { ref: "qgroundcontrol/architecture/vehicle-object", title: "Vehicle: модель апарата" },
+        { ref: "qgroundcontrol/architecture/fact-system", title: "FactSystem" },
+        { ref: "qgroundcontrol/architecture/threading-model", title: "Модель потоків станції" },
+      ] },
+      { title: "Канали й протокол", steps: [
+        { ref: "qgroundcontrol/links/link-manager", title: "Менеджер каналів" },
+        { ref: "qgroundcontrol/links/link-types", title: "Типи каналів" },
+        { ref: "qgroundcontrol/links/mavlink-handling", title: "Обробка MAVLink у станції" },
+        { ref: "qgroundcontrol/links/message-routing", title: "Маршрутизація за sysid/compid" },
+        { ref: "qgroundcontrol/links/telemetry-logging", title: "Запис і відтворення телеметрії" },
+      ] },
+      { title: "План місії", steps: [
+        { ref: "qgroundcontrol/planning/plan-model", title: "Модель плану" },
+        { ref: "qgroundcontrol/planning/mission-items", title: "Елементи місії" },
+        { ref: "qgroundcontrol/planning/survey-patterns", title: "Патерни зйомки" },
+        { ref: "qgroundcontrol/planning/terrain-and-altitude", title: "Рельєф і режими висоти" },
+        { ref: "qgroundcontrol/planning/plan-exchange", title: "Обмін планом із апаратом" },
+      ] },
+      { title: "Карта", steps: [
+        { ref: "qgroundcontrol/map-video/map-engine", title: "Рушій карти" },
+        { ref: "qgroundcontrol/map-video/offline-maps", title: "Офлайн-карти" },
+        { ref: "math/geometry/map-projections", title: "Картографічні проєкції" },
+        { ref: "math/geometry/web-mercator-tiles", title: "Web Mercator і тайли" },
+        { ref: "programming/graphics/map-tile-pipeline", title: "Тайловий конвеєр карти" },
+        { ref: "programming/graphics/offline-tile-cache", title: "Кеш тайлів" },
+        { ref: "programming/graphics/terrain-elevation-model", title: "Модель рельєфу" },
+        { ref: "programming/representation/geo-data-formats", title: "GeoJSON, KML, GPX" },
+        { ref: "algorithms/data-structures/spatial-index", title: "Просторовий індекс" },
+      ] },
+      { title: "Відео й розширення", steps: [
+        { ref: "qgroundcontrol/map-video/video-manager", title: "Відеопідсистема станції" },
+        { ref: "qgroundcontrol/map-video/video-pipeline", title: "Відеотракт на GStreamer" },
+        { ref: "qgroundcontrol/build-extend/custom-mavlink-messages", title: "Власні MAVLink-повідомлення в QGC" },
+        { ref: "qgroundcontrol/build-extend/custom-build", title: "Власна збірка станції" },
+        { ref: "qgroundcontrol/build-extend/platform-targets", title: "Linux, Windows, Android" },
+      ] },
+      { title: "Десктопне ремесло", steps: [
+        { ref: "programming/client-architecture/desktop-app-architecture", title: "Архітектура десктопного застосунку" },
+        { ref: "programming/client-architecture/ui-thread-offloading", title: "Розвантаження потоку інтерфейсу" },
+        { ref: "programming/client-architecture/undo-redo-command-stack", title: "Скасування й повтор дії" },
+      ] },
+    ] },
+    { n: 30, slug: "dim", title: "Платформа: стаціонарні пристрої і розумний дім", scope: "", chapters: [
       { title: "Домашній вузол", steps: [
         { slug: "smart-home-node", title: "Вузол розумного дому: давач + MQTT + автономна логіка", basic: { status: "done" }, detailed: { status: "done" }, math: [{ file: "math-backoff-jitter.md", status: "done" }], proj: [{ file: "proj-hysteresis-control.md", status: "done" }, { file: "proj-offline-buffer.md", status: "done" }, { file: "proj-connection-fsm.md", status: "done" }] },
         { ref: "communications/networks/esp-now", title: "ESP-NOW" },
@@ -944,7 +1018,7 @@
         { slug: "home-device-power", title: "Живлення побутового пристрою: від мережі, безпечно, з малим standby", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-standby-power.md", status: "done" }] },
       ] },
     ] },
-    { n: 30, slug: "nazemni", title: "Платформа: наземні (ровер, НРК)", scope: "", chapters: [
+    { n: 31, slug: "nazemni", title: "Платформа: наземні (ровер, НРК)", scope: "", chapters: [
       { title: "Шасі і привід", steps: [
         { slug: "ugv-platform", title: "Шасі ровера/НРК: компонування, прохідність, енергетика", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-rocker-bogie.md", status: "done" }], math: [{ file: "math-slope-traction.md", status: "done" }, { file: "math-tipover-stability.md", status: "done" }], proj: [{ file: "proj-tank-mixer.md", status: "done" }, { file: "proj-tipover-guard.md", status: "done" }] },
         { slug: "differential-drive-kinematics", title: "Кінематика диференціального приводу", basic: { status: "done" }, detailed: { status: "done" } },
@@ -958,7 +1032,7 @@
         { ref: "algorithms/signal-robotics/boat-underwater", title: "Човен і підводний" },
       ] },
     ] },
-    { n: 31, slug: "povitriani", title: "Платформа: повітряні (коптер, літак, VTOL)", scope: "", chapters: [
+    { n: 32, slug: "povitriani", title: "Платформа: повітряні (коптер, літак, VTOL)", scope: "", chapters: [
       { title: "Фізика мультикоптера", steps: [
         { ref: "physics/mechanics/thrust-vs-weight", title: "Тяга проти ваги" },
         { ref: "physics/mechanics/reaction-torque", title: "Реактивний момент" },
@@ -979,7 +1053,7 @@
         { ref: "physics/mechanics/vtol-transition", title: "VTOL-гібриди" },
       ] },
     ] },
-    { n: 32, slug: "kapstoun", title: "Капстоун: автономна місія", scope: "", chapters: [
+    { n: 33, slug: "kapstoun", title: "Капстоун: автономна місія", scope: "", chapters: [
       { title: "Фінальний проєкт", steps: [
         { ref: "programming/embedded-systems/capstone-task", title: "Капстоун" },
         { ref: "programming/embedded-systems/end-to-end-mission", title: "Місія від початку до кінця" },
@@ -987,7 +1061,7 @@
         { slug: "project-documentation", title: "Документація проєкту: README, схема, BOM, журнал змін", basic: { status: "empty" }, detailed: { status: "done" } },
       ] },
     ] },
-    { n: 33, slug: "vyrib", title: "Виріб: плата, серія, сертифікація", scope: "", chapters: [
+    { n: 34, slug: "vyrib", title: "Виріб: плата, серія, сертифікація", scope: "", chapters: [
       { title: "Плата всерйоз", steps: [
         { slug: "pcb-layout-flow", title: "Від схеми до замовлення: розводка, гербери, виробник", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-gerber-format.md", status: "done" }] },
         { ref: "electronics/pcb/common-ground", title: "Спільна земля" },

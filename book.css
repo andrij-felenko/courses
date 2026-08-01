@@ -955,11 +955,11 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .lib-hero-nums .lbl { font-size: 0.66rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #5f93b5; }
 .lib-hero-nums a:hover .lbl { color: #9cc4de; }
 
-/* ── Сегмент-перемикач Курси | Книги | Каталоги (живе на темному hero —
+/* ── Сегмент-перемикач Курси | Книги | Каталоги | Довідники (живе на темному hero —
    «скляні» кольори локальні, однакові в усіх трьох темах) ── */
 .lib-seg {
-  position: relative; display: grid; grid-template-columns: repeat(3, 1fr);
-  max-width: 1060px; width: min(32rem, 100%); margin: 1.2rem auto 0;
+  position: relative; display: grid; grid-template-columns: repeat(4, 1fr);
+  max-width: 1060px; width: min(40rem, 100%); margin: 1.2rem auto 0;
   padding: 3px; border-radius: 11px;
   background: rgba(7, 16, 30, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -967,7 +967,7 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 }
 .lib-seg-thumb {
   position: absolute; top: 3px; bottom: 3px; left: 3px;
-  width: calc((100% - 6px) / 3); border-radius: 8px;
+  width: calc((100% - 6px) / 4); border-radius: 8px;
   background: linear-gradient(180deg, #2a86c2, #1d6fa4);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
@@ -975,6 +975,7 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 }
 .lib-seg[data-active="1"] .lib-seg-thumb { transform: translateX(100%); }
 .lib-seg[data-active="2"] .lib-seg-thumb { transform: translateX(200%); }
+.lib-seg[data-active="3"] .lib-seg-thumb { transform: translateX(300%); }
 .lib-seg-btn {
   position: relative; z-index: 1;
   display: flex; align-items: center; justify-content: center; gap: 0.45rem;
@@ -1059,6 +1060,7 @@ html[data-libview="one"] .lib-seg { display: none; }
 
 /* Картка каталогу — бейдж з обводкою + «міліметрівка» датащита на обкладинці */
 .lib-kind-cat { background: rgba(9,16,28,0.45); border: 1px solid rgba(255,255,255,0.35); }
+.lib-kind-ref { background: rgba(9,16,28,0.45); border: 1px solid rgba(255,255,255,0.35); }
 .lib-card-cat .lib-cover { background: linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--accent) 30%, #10161a) 125%); }
 .lib-card-cat .lib-cover::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* ============================================================================
    build-search-index.js — генератор пошукового індексу для сайту-бібліотеки.
-   Обходить book/ · catalog/ · guide/ (через маніфести), читає доступні статті
+   Обходить book/ · catalog/ · reference/ · guide/ (через маніфести), читає доступні статті
    (`status:"done"`) разом із вставками (hist/comp/math/proj) і власними
    статтями курсів, і пише ДВА файли в корінь репо:
 
@@ -27,7 +27,7 @@ function loadRegistry() {
   const src = fs.readFileSync(path.join(ROOT, "books-index.js"), "utf8");
   const sb = {};                       // books-index.js робить window.SUBJECT_BOOKS = [...]
   new Function("window", src)(sb);
-  return { books: sb.SUBJECT_BOOKS || [], guides: sb.GUIDE_COURSES || [], catalogs: sb.CATALOG_BOOKS || [] };
+  return { books: sb.SUBJECT_BOOKS || [], guides: sb.GUIDE_COURSES || [], catalogs: sb.CATALOG_BOOKS || [], references: sb.REFERENCE_BOOKS || [] };
 }
 
 /* --- маніфест книги/курсу як об'єкт ----------------------------------------- */
@@ -129,9 +129,9 @@ function addArticle(meta, dir, mainFile, detailedFile, insertFiles) {
   docs.push(Array.from(tokens).sort().slice(0, 800).join(" "));
 }
 
-/* --- book/ та catalog/ ------------------------------------------------------ */
+/* --- book/ · catalog/ · reference/ ------------------------------------------ */
 function indexBook(slug, kind) {
-  const base = kind === "catalog" ? "catalog" : "book";
+  const base = kind === "catalog" ? "catalog" : kind === "reference" ? "reference" : "book";
   const man = loadManifest(path.join(ROOT, base, slug, "manifest.js"), "__BOOKS__");
   if (!man) return false;
   const bt = man.title || slug;
@@ -187,6 +187,7 @@ function indexGuide(slug) {
 const reg = loadRegistry();
 reg.books.forEach((s) => { if (!indexBook(s, "book")) indexBook(s, "catalog"); });
 reg.catalogs.forEach((s) => indexBook(s, "catalog"));   // каталоги — з реєстру books-index.js
+reg.references.forEach((s) => indexBook(s, "reference"));   // довідники — з реєстру books-index.js
 reg.guides.forEach((s) => indexGuide(s));
 
 fs.writeFileSync(OUT_INDEX, JSON.stringify(entries));

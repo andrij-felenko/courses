@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="780" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що тримає контролер: крихітне падіння вперед, стіна на зворот</text>
+<rect x="120.0" y="100.0" width="180.0" height="285.0" fill="#fdecea"/>
+<line x1="120.0" y1="385.0" x2="705.0" y2="385.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="675.0" y1="385.0" x2="705.0" y2="385.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="699.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">струм I →</text>
+<line x1="300.0" y1="385.0" x2="300.0" y2="90.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="300.0" y1="114.0" x2="300.0" y2="90.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="300.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">падіння Vds ↑</text>
+<polyline points="300.0,385.0 480.0,338.0" fill="none" stroke="#6b7280" stroke-width="2.0" stroke-dasharray="6,5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="360.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">пунктир — MOSFET повністю відкритий</text>
+<polyline points="300.0,338.0 480.0,338.0" fill="none" stroke="#27ae60" stroke-width="4.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="304.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">петля тримає ~25 мВ</text>
+<polyline points="480.0,338.0 690.0,120.0" fill="none" stroke="#1a1a1a" stroke-width="4.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="628.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">I·Rds(on)</text>
+<circle cx="480.0" cy="338.0" r="5.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="480.0" y1="338.0" x2="480.0" y2="385.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="480.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">коліно: I·Rds = ціль</text>
+<line x1="300.0" y1="385.0" x2="300.0" y2="112.0" stroke="#c0392b" stroke-width="4.0"/>
+<text x="210.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">зворотний струм</tspan><tspan x="210.0" dy="16.9">заблоковано:</tspan><tspan x="210.0" dy="16.9">затвор закрито</tspan></text>
+</svg>

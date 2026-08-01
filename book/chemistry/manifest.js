@@ -23,6 +23,7 @@
         { slug: "hydrocarbons", title: "Вуглеводні", basic: { status: "done" }, detailed: { status: "empty" } },
         { slug: "alcohols-acids", title: "Спирти і кислоти", basic: { status: "done" }, detailed: { status: "empty" } },
         { slug: "esters-fats", title: "Естери і жири", basic: { status: "done" }, detailed: { status: "empty" } },
+        { slug: "isomers", title: "Ізомери", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "physical-chemistry", title: "Фізична хімія", scope: "Фізичні закони, що керують речовиною й перетвореннями: термодинаміка, кінетика, рівновага та електрохімія.",
       topics: [
@@ -47,6 +48,7 @@
         { slug: "excess-limiting", title: "Надлишок і нестача", basic: { status: "done" }, detailed: { status: "empty" } },
         { slug: "product-yield", title: "Вихід продукту", basic: { status: "done" }, detailed: { status: "empty" } },
         { slug: "electrode-potential", title: "Стандартний електродний потенціал і ряд активності", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "reaction-direction", title: "Напрямок реакції", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "theoretical-chemistry", title: "Теоретична хімія", scope: "Квантовий і обчислювальний опис атомів і молекул: рівняння, моделі та симуляції структури й реакційності.",
       topics: [
@@ -68,7 +70,8 @@
         { slug: "carbohydrates", title: "Вуглеводи", basic: { status: "done" }, detailed: { status: "empty" } },
         { slug: "fats-proteins", title: "Жири і білки", basic: { status: "done" }, detailed: { status: "empty" } },
         { slug: "kitchen-chemistry", title: "Кухонна хімія", basic: { status: "done" }, detailed: { status: "empty" } },
-        { slug: "epilogue", title: "Куди далі", basic: { status: "update" }, detailed: { status: "empty" } },
+        { slug: "dna", title: "ДНК", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "epilogue", title: "Куди далі", basic: { status: "done" }, detailed: { status: "empty" }, hist: [{ file: "hist-molecule-shape.md", status: "done" }] },
       ] },
     { slug: "polymer-chemistry", title: "Полімери", scope: "Синтез, структура та властивості макромолекул і пластиків, побудованих із повторюваних ланок.",
       topics: [
@@ -85,6 +88,7 @@
       ] },
     { slug: "radiochemistry", title: "Радіохімія", scope: "Хімія радіоактивних елементів, ядерних перетворень та поведінки ізотопів.",
       topics: [
+        { slug: "isotopes", title: "Ізотопи", basic: { status: "pending" }, detailed: { status: "empty" } },
       ] },
     { slug: "geochemistry", title: "Геохімія", scope: "Розподіл і кругообіг хімічних елементів у Землі, її водах, атмосфері та породах.",
       topics: [

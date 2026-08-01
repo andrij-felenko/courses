@@ -178,6 +178,7 @@
       { title: "MAVLink", steps: [
         { ref: "communications/protocols/mavlink-packet", title: "Пакет MAVLink" },
         { ref: "communications/protocols/mavlink-commands", title: "Команди MAVLink" },
+        { ref: "communications/protocols/mavlink-xml-codegen", title: "Генерація коду з XML MAVLink" },
       ] },
       { title: "Бортова шина", steps: [
         { ref: "communications/buses/dronecan", title: "DroneCAN" },
@@ -199,6 +200,8 @@
     { n: 18, slug: "navihatsiia", title: "Навігація", scope: "", chapters: [
       { title: "Де я", steps: [
         { ref: "communications/synchronization/gnss", title: "GNSS" },
+        { ref: "math/geometry/wgs84-datum", title: "WGS-84: еліпсоїд і датум" },
+        { ref: "math/geometry/geoid-and-amsl", title: "Геоїд, AMSL і висота" },
       ] },
       { title: "Злиття давачів", steps: [
         { ref: "algorithms/signal-robotics/sensor-fusion", title: "Поєднання давачів" },
@@ -238,6 +241,21 @@
       { title: "Донести і встигнути", steps: [
         { ref: "communications/networks/video-transmission", title: "Передача відео" },
         { ref: "programming/embedded-systems/video-latency", title: "Затримка відео" },
+        { ref: "communications/protocols/rtp-rtcp", title: "RTP і RTCP" },
+        { ref: "media-vision/gstreamer/pipeline-model", title: "Конвеєр GStreamer" },
+      ] },
+    ] },
+    { n: 22, slug: "stantsiia", title: "Наземна станція", scope: "", chapters: [
+      { title: "Станція зсередини", steps: [
+        { ref: "qgroundcontrol/overview/what-is-qgc", title: "Що таке QGroundControl" },
+        { ref: "qgroundcontrol/architecture/vehicle-object", title: "Vehicle: модель апарата" },
+        { ref: "qgroundcontrol/links/link-manager", title: "Менеджер каналів" },
+        { ref: "qgroundcontrol/links/mavlink-handling", title: "Обробка MAVLink у станції" },
+      ] },
+      { title: "План і карта", steps: [
+        { ref: "qgroundcontrol/planning/plan-model", title: "Модель плану місії" },
+        { ref: "qgroundcontrol/map-video/map-engine", title: "Рушій карти" },
+        { ref: "math/geometry/web-mercator-tiles", title: "Web Mercator і тайли" },
       ] },
     ] },
   ]

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Довга операція: прийняти швидко, віддати іншою дорогою</text>
+<text x="480.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">запит повертається за мілісекунди, результат чекає за власним URL</text>
+<line x1="165.0" y1="108.0" x2="165.0" y2="620.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<line x1="500.0" y1="108.0" x2="500.0" y2="620.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<line x1="815.0" y1="108.0" x2="815.0" y2="262.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<line x1="815.0" y1="430.0" x2="815.0" y2="620.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<rect x="130.8" y="69.5" width="68.4" height="33.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.7"/><text x="165.0" y="90.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">Клієнт</tspan></text>
+<rect x="477.9" y="69.5" width="44.2" height="33.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.7"/><text x="500.0" y="90.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">API</tspan></text>
+<rect x="732.5" y="69.5" width="165.1" height="33.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.7"/><text x="815.0" y="90.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="815.0" dy="0.0">Черга + виконавець</tspan></text>
+<rect x="729.0" y="262.0" width="172.0" height="168.0" rx="6" fill="#fff4e6" stroke="#c0392b" stroke-width="1.9"/>
+<text x="815.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="815.0" dy="0.0">виконує звіт</tspan><tspan x="815.0" dy="15.6">(хвилини)</tspan></text>
+<line x1="165.0" y1="150.0" x2="500.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="332.5" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">POST /reports</text>
+<line x1="500.0" y1="200.0" x2="165.0" y2="200.0" stroke="#27ae60" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="332.5" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">202 · Location: /operations/op_7f3</text>
+<line x1="500.0" y1="248.0" x2="815.0" y2="248.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="657.5" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">у чергу</text>
+<line x1="165.0" y1="306.0" x2="500.0" y2="306.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="332.5" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">GET /operations/op_7f3 · опитування</text>
+<line x1="500.0" y1="352.0" x2="165.0" y2="352.0" stroke="#6b7280" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="332.5" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">running · progress 0.35</text>
+<line x1="729.0" y1="408.0" x2="500.0" y2="408.0" stroke="#6b7280" stroke-width="1.9" marker-end="url(#arrow)" stroke-dasharray="5 4"/>
+<text x="614.5" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">готово → операція succeeded</text>
+<line x1="165.0" y1="462.0" x2="500.0" y2="462.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="332.5" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">GET /operations/op_7f3</text>
+<line x1="500.0" y1="508.0" x2="165.0" y2="508.0" stroke="#27ae60" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="332.5" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">succeeded · result → /reports/rep_7f3</text>
+<line x1="165.0" y1="562.0" x2="500.0" y2="562.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="332.5" y="554.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">GET /reports/rep_7f3</text>
+<line x1="500.0" y1="606.0" x2="165.0" y2="606.0" stroke="#1a1a1a" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="332.5" y="598.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">200 · готовий звіт</text>
+</svg>

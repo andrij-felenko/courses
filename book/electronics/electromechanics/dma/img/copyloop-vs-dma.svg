@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="440.0" y1="70.0" x2="440.0" y2="442.0" stroke="#dddddd" stroke-width="1.5" stroke-dasharray="5,6"/>
+<text x="220.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Ядро як вантажник</text>
+<rect x="140.0" y="92.0" width="160.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="220.0" y="116.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">буфер</tspan><tspan x="220.0" dy="16.9">у ОЗП</tspan></text>
+<rect x="140.0" y="200.0" width="160.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="220.0" y="235.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">ЯДРО</tspan></text>
+<rect x="140.0" y="322.0" width="160.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="220.0" y="348.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">регістр даних</tspan><tspan x="220.0" dy="16.2">периферії</tspan></text>
+<line x1="220.0" y1="320.0" x2="220.0" y2="262.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="198.0" x2="220.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="312.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">① читай регістр</text>
+<text x="312.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">② пиши в ОЗП</text>
+<text x="312.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">③ лічи, повтори</text>
+<text x="220.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">ядро зайняте на кожен байт —</text>
+<text x="220.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">справжні обчислення стоять</text>
+<text x="680.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Той самий потік із DMA</text>
+<rect x="610.0" y="92.0" width="150.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="685.0" y="116.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">буфер</tspan><tspan x="685.0" dy="16.9">у ОЗП</tspan></text>
+<rect x="610.0" y="210.0" width="150.0" height="58.0" rx="6" fill="#e7f6ee" stroke="#27ae60" stroke-width="2.0"/><text x="685.0" y="244.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="685.0" dy="0.0">DMA</tspan></text>
+<rect x="610.0" y="322.0" width="150.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="685.0" y="347.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">регістр</tspan><tspan x="685.0" dy="16.2">периферії</tspan></text>
+<line x1="685.0" y1="320.0" x2="685.0" y2="270.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="685.0" y1="208.0" x2="685.0" y2="150.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="468.0" y="96.0" width="104.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="520.0" y="120.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">ядро</tspan><tspan x="520.0" dy="16.2">рахує</tspan></text>
+<line x1="608.0" y1="232.0" x2="566.0" y2="150.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="4,4"/>
+<text x="556.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">1 IRQ</text>
+<text x="556.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">на блок</text>
+<text x="680.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">ядро не торкається даних —</text>
+<text x="680.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">рахує або спить, поки DMA возить</text>
+</svg>

@@ -263,6 +263,10 @@
         { slug: "cobs-framing", title: "Кадрування COBS", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "mavlink-dialect", title: "Діалекти MAVLink", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "regulatory-radio-certification", title: "Радіосертифікація: FCC, CE, SRRC", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "rtp-rtcp", title: "RTP і RTCP: транспорт медіа поверх UDP", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "rtsp-sdp", title: "RTSP і SDP: керування сеансом потокового відео", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mavlink-xml-codegen", title: "Генерація коду з XML-опису MAVLink", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mavlink-camera-gimbal", title: "Протоколи камери й підвісу MAVLink", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "multiple-access", title: "Множинний доступ", scope: "Спільне використання середовища багатьма абонентами через поділ ресурсу й арбітраж.",
       topics: [
@@ -285,6 +289,7 @@
         { slug: "fractional-baud", title: "Дробовий дільник baud", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "uart-oversampling", title: "Передискретизація UART", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "sbas-corrections", title: "Супутникові системи доповнення (SBAS)", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-sbas-origins.md", status: "done" }] },
+        { slug: "leap-second", title: "Високосна секунда", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
     { slug: "cryptographic-comm", title: "Криптозв'язок", scope: "Захист конфіденційності, цілісності й автентичності переданих повідомлень.",
       topics: [
@@ -352,6 +357,7 @@
         { slug: "usb3-physical", title: "USB 3.x фізично: SuperSpeed і вище", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "usb-device-basics", title: "Пристрій на шині USB: хост, енумерація, кінцеві точки, класи", basic: { status: "pending" }, detailed: { status: "done" }, api: [{ file: "api-standard-requests.md", status: "done" }], proj: [{ file: "proj-descriptor-parser.md", status: "done" }] },
         { slug: "one-wire", title: "1-Wire — шина на одному дроті", basic: { status: "pending" }, detailed: { status: "done" }, hist: [{ file: "hist-dallas-ibutton.md", status: "done" }], api: [{ file: "api-onewire-reference.md", status: "done" }], proj: [{ file: "proj-rom-search.md", status: "done" }, { file: "proj-bitbang-master.md", status: "done" }] },
+        { slug: "i3c", title: "Шина I3C", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
     { slug: "radio", title: "Радіо", scope: "Радіочастотні діапазони, канальні плани й бездротові лінки конкретних застосувань.",
       topics: [

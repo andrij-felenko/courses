@@ -1,4 +1,4 @@
-/* scripts/linkcheck.js — перевірка посилань під структуру AUTHORING.md (book/ · catalog/ · guide/).
+/* scripts/linkcheck.js — перевірка посилань під структуру AUTHORING.md (book/ · catalog/ · reference/ · guide/).
    Перевіряє:
      • book:<книга>/<slug>[/<file>] — чи є така тема в маніфесті книги; status:"empty" = легітимний стаб.
      • зображення (/book/…/img/x.svg або відносні img/x.svg) — чи існує файл.
@@ -28,7 +28,7 @@ function loadReg(globKey, file) {
 
 // індекс тем: "<книга>/<slug>" → { dir, status, files:Set }
 const TOPICS = new Map();
-for (const kind of ["book", "catalog"]) {
+for (const kind of ["book", "catalog", "reference"]) {
   const base = path.join(ROOT, kind);
   if (!exists(base)) continue;
   for (const d of fs.readdirSync(base)) {
@@ -68,7 +68,7 @@ const GTOPICS = new Map();
 
 const reLink = /(!?)\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
 const broken = [], warnMd = [], stubs = [];
-const mdFiles = [].concat(walk(path.join(ROOT, "book"), []), walk(path.join(ROOT, "catalog"), []), walk(path.join(ROOT, "guide"), []));
+const mdFiles = [].concat(walk(path.join(ROOT, "book"), []), walk(path.join(ROOT, "catalog"), []), walk(path.join(ROOT, "reference"), []), walk(path.join(ROOT, "guide"), []));
 
 for (const f of mdFiles) {
   const rel = path.relative(ROOT, f);

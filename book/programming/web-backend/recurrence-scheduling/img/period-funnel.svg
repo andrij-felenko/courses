@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 592" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="592" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розгортач працює періодом, а не датою</text>
+<rect x="280.0" y="79.0" width="560.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="560.0" y="100.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1</tspan></text>
+<text x="185.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1. період</text>
+<rect x="185.0" y="183.0" width="430.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="400.0" y="204.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Березень 2026 — усі 31 день</tspan></text>
+<line x1="400.0" y1="118.0" x2="400.0" y2="176.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="185.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2. уточнення</text>
+<rect x="185.0" y="293.9" width="430.0" height="52.2" rx="6" fill="#f7f8fa" stroke="#6b7280" stroke-width="1.8"/><text x="400.0" y="315.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">BYDAY лишає 22 робочі дні:</tspan><tspan x="400.0" dy="18.2">02.03 … 31.03</tspan></text>
+<line x1="400.0" y1="222.0" x2="400.0" y2="286.9" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="185.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">3. відбір</text>
+<rect x="185.0" y="413.9" width="430.0" height="52.2" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.8"/><text x="400.0" y="435.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">BYSETPOS=−1 бере останній:</tspan><tspan x="400.0" dy="18.2">31.03, вівторок</tspan></text>
+<line x1="400.0" y1="351.1" x2="400.0" y2="406.9" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="185.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">4. локалізація</text>
+<rect x="185.0" y="523.0" width="430.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="400.0" y="544.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">31.03  18:00 EEST  =  15:00 UTC</tspan></text>
+<line x1="400.0" y1="471.1" x2="400.0" y2="516.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="880.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">остання п'ятниця березня —</text>
+<text x="880.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">27.03, а останній робочий —</text>
+<text x="880.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">31.03. Різні дати, тому крок 3</text>
+<text x="880.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">мусить бачити весь набір</text>
+<text x="880.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">періоду, а не одну дату.</text>
+<line x1="631.0" y1="440.0" x2="730.0" y2="400.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 5"/>
+</svg>

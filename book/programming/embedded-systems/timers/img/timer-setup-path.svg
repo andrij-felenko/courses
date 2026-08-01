@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1160" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="580.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Налаштування таймера: кілька записів у регістри вибудовують один ланцюг</text>
+<rect x="78.1" y="53.5" width="123.7" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="140.0" y="74.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">PCLK1 = 42 МГц</tspan></text>
+<rect x="297.4" y="53.5" width="205.2" height="33.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="400.0" y="74.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">×2, бо подільник APB1 ≠ 1</tspan></text>
+<rect x="594.4" y="53.5" width="131.1" height="33.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="660.0" y="74.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">TIMCLK = 84 МГц</tspan></text>
+<line x1="209.9" y1="70.0" x2="289.4" y2="70.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="510.6" y1="70.0" x2="586.4" y2="70.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="400.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">на шині 42 МГц, а в таймері вже 84</text>
+<line x1="660.0" y1="86.5" x2="660.0" y2="165.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="660.0" y1="165.0" x2="150.0" y2="165.0" stroke="#333333" stroke-width="1.6"/>
+<rect x="88.1" y="205.1" width="123.7" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="226.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Вентиль такту</tspan><tspan x="150.0" dy="16.9">APB1ENR.TIM3EN</tspan></text>
+<line x1="150.0" y1="165.0" x2="150.0" y2="197.1" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="335.0" y="205.1" width="110.0" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="390.0" y="226.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">PSC = 83</tspan><tspan x="390.0" dy="16.9">(÷ 84)</tspan></text>
+<rect x="562.5" y="205.1" width="115.0" height="49.9" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/><text x="620.0" y="226.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">CNT</tspan><tspan x="620.0" dy="16.9">0 … 999</tspan></text>
+<line x1="219.9" y1="230.0" x2="327.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="453.0" y1="230.0" x2="554.5" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="273.4" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">84 МГц</text>
+<text x="503.8" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">тік = 1 мкс</text>
+<rect x="569.2" y="318.5" width="101.5" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="339.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">CR1.CEN = 1</tspan></text>
+<line x1="620.0" y1="312.5" x2="620.0" y2="260.9" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="6 6"/>
+<text x="620.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">поки не ввімкнено — CNT стоїть</text>
+<text x="955.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ГІЛКА ПЕРЕПОВНЕННЯ</text>
+<rect x="790.0" y="100.0" width="330.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="955.0" y="127.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">CNT дійшов до ARR = 999</tspan></text>
+<rect x="790.0" y="166.0" width="330.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="955.0" y="193.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">подія оновлення: CNT := 0,</tspan><tspan x="955.0" dy="16.9">тіні перезаписано</tspan></text>
+<rect x="790.0" y="248.0" width="330.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="955.0" y="275.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">SR.UIF := 1 → NVIC →</tspan><tspan x="955.0" dy="16.9">TIM3_IRQHandler()</tspan></text>
+<line x1="955.0" y1="146.0" x2="955.0" y2="164.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="955.0" y1="228.0" x2="955.0" y2="246.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="955.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ГІЛКА ПОРІВНЯННЯ</text>
+<rect x="790.0" y="384.0" width="330.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="955.0" y="411.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">CNT дійшов до CCR1 = 250</tspan></text>
+<rect x="790.0" y="450.0" width="330.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="955.0" y="477.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">канал сам змінює рівень</tspan><tspan x="955.0" dy="16.9">на ніжці — код не потрібен</tspan></text>
+<line x1="955.0" y1="430.0" x2="955.0" y2="448.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="685.5" y1="222.0" x2="782.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="685.5" y1="240.0" x2="782.0" y2="400.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

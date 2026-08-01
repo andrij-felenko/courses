@@ -73,6 +73,7 @@
         { slug: "quicksort", title: "Швидке сортування (quicksort)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "selection-sort", title: "Сортування вибором (selection sort)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "binomial-heap", title: "Біноміальна купа", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "spatial-index", title: "Просторовий індекс: R-дерево і квадродерево", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "graph-algorithms", title: "Графові", scope: "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.",
       topics: [
@@ -84,6 +85,7 @@
         { slug: "register-allocation", title: "Розподіл регістрів", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "bellman-ford", title: "Алгоритм Беллмана–Форда", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "bipartite-matching", title: "Двочасткові графи й досконале паросполучення", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "breadth-first-search", title: "Пошук у ширину (BFS)", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
     { slug: "string-geometry-streaming", title: "Дискретні", scope: "Алгоритми над текстом, геометрією та потоками: пошук і вирівнювання рядків, оболонки й перетини фігур, онлайн-рішення та один прохід над масивними даними.",
       topics: [
@@ -96,6 +98,7 @@
         { slug: "automatic-differentiation", title: "Автоматичне диференціювання", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "numerical-ode", title: "Числові методи розв'язку ОДУ", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "float-formats", title: "Формати чисел із рухомою комою (IEEE 754)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "symplectic-integrators", title: "Симплектичні інтегратори (Верле, leapfrog)", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
     { slug: "combinatorial-optimization", title: "Оптимізація", scope: "Пошук найкращого розв'язку в дискретних і неперервних просторах: лінійне, цілочисельне програмування, евристики.",
       topics: [
@@ -151,6 +154,7 @@
         { slug: "cobs-encoding", title: "Кодування COBS", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "crc-algorithm", title: "Алгоритм CRC: таблиця залишків і побітний метод", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "adaptive-bitrate", title: "Адаптивний бітрейт", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "h264-nal-structure", title: "H.264: NAL-одиниці, SPS/PPS і ключові кадри", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "machine-learning", title: "Машинне навчання", scope: "Алгоритми, що будують моделі з даних: навчання з учителем і без, ансамблі, нейромережі, навчання з підкріпленням.",
       topics: [
@@ -161,7 +165,7 @@
         { slug: "cnn", title: "Згорткові мережі", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-lecun-cnn.md", status: "done" }] },
         { slug: "overfitting", title: "Перенавчання", basic: { status: "done" }, detailed: { status: "done" } },
         { slug: "tinyml", title: "TinyML", basic: { status: "done" }, detailed: { status: "done" }, hist: [{ file: "hist-tinyml-field.md", status: "done" }], proj: [{ file: "proj-arena-planner.md", status: "done" }], api: [{ file: "api-tflm.md", status: "done" }] },
-        { slug: "ml-limits-ethics", title: "Межі й етика", basic: { status: "update" }, detailed: { status: "empty" } },
+        { slug: "ml-limits-ethics", title: "Межі й етика", basic: { status: "done" }, detailed: { status: "pending" }, hist: [{ file: "hist-shortcut-legends.md", status: "done" }], math: [{ file: "math-base-rate-threshold.md", status: "done" }], proj: [{ file: "proj-slice-audit.md", status: "done" }] },
         { slug: "transfer-learning", title: "Transfer learning (перенесення навчання)", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-transferable-features.md", status: "done" }] },
         { slug: "anchor-boxes", title: "Якорі та кодування рамок", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "model-quantization", title: "Квантування нейромереж", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-int8-jacob.md", status: "done" }], math: [{ file: "math-affine-quant.md", status: "done" }], proj: [{ file: "proj-int8-inference.md", status: "done" }] },
@@ -190,6 +194,10 @@
         { slug: "pca", title: "Метод головних компонент (PCA)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "variational-autoencoder", title: "Варіаційний автокодер (VAE)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "restricted-boltzmann-machine", title: "Обмежена машина Больцмана (RBM)", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "distribution-shift", title: "Зсув розподілу даних", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "confidence-calibration", title: "Калібрування впевненості моделі", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "model-explainability", title: "Пояснюваність моделей", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "fairness-criteria", title: "Критерії справедливості моделі та їхня несумісність", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
     { slug: "computer-vision", title: "Зір", scope: "Аналіз зображень і відео: фільтрація, ознаки, сегментація, відновлення геометрії сцени.",
       topics: [
@@ -341,6 +349,7 @@
         { slug: "welford-online", title: "Онлайн-алгоритм Велфорда", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "pole-zero-plot", title: "Площина полюсів-нулів", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "cic-filter", title: "CIC-фільтр (каскад інтегратор–гребінка)", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "survey-grid-coverage", title: "Покриття полігону галсами: планування зйомки", basic: { status: "empty" }, detailed: { status: "pending" } },
 
       ] },
     { slug: "parallel-distributed", title: "Паралельні", scope: "Одночасне виконання на багатьох процесорах зі спільною пам'яттю та системи незалежних вузлів з обміном повідомленнями: примітиви, синхронізація, консенсус, відмовостійкість.",

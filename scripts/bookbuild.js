@@ -17,7 +17,17 @@
     return fetchText(path).then(function (src) { var sb = {}; try { new Function("window", src)(sb); } catch (e) {} return (sb[key] || [])[0] || null; });
   }
 
-  var SUBJECT_ACCENT = { physics: "#6b5b95", math: "#3a6b9c", chemistry: "#3a8f80", electronics: "#b06a5a", programming: "#5a5f9c", communications: "#4a8296", algorithms: "#a5648a", philosophy: "#9a7b4f" };
+  var SUBJECT_ACCENT = { physics: "#6b5b95", math: "#3a6b9c", chemistry: "#3a8f80", electronics: "#b06a5a", programming: "#5a5f9c", communications: "#4a8296", algorithms: "#a5648a", philosophy: "#9a7b4f",
+    "unix-linux": "#3f6b8a", "cpp-standards": "#6b4f8a", "build-systems": "#8a6a3f" };
+  // Книгоподібні види живуть у різних теках, але в ОДНОМУ реєстрі __BOOKS__ і відкриваються як ?book=<slug>.
+  var BOOKLIKE_DIRS = ["book/", "catalog/", "reference/"];
+  function loadBooklike(slug, i) {
+    i = i || 0;
+    if (i >= BOOKLIKE_DIRS.length) return Promise.resolve(null);
+    return loadOne(BOOKLIKE_DIRS[i] + slug + "/manifest.js", "__BOOKS__")
+      .then(function (b) { return b ? { book: b, dir: BOOKLIKE_DIRS[i] } : loadBooklike(slug, i + 1); })
+      .catch(function () { return loadBooklike(slug, i + 1); });
+  }
 
   /* book/<subject> або guide/<course> (та сама схема §2 v4) → формат рушія BOOK.
      Версія доступна читачу ⟺ її статус "done" (basic → chapter.status; detailed → chapter.full).
@@ -49,9 +59,7 @@
     };
   }
   function loadSubjectBook(slug) {
-    return loadOne("book/" + slug + "/manifest.js", "__BOOKS__")
-      .then(function (b) { return adaptSubjectBook(b, "book/"); })
-      .catch(function () { return loadOne("catalog/" + slug + "/manifest.js", "__BOOKS__").then(function (b) { return adaptSubjectBook(b, "catalog/"); }); })
+    return loadBooklike(slug).then(function (r) { return r ? adaptSubjectBook(r.book, r.dir) : null; })
       .catch(function () { return null; });
   }
   function loadGuide(slug) { return loadOne("guide/" + slug + "/manifest.js", "__GUIDES__"); }
@@ -78,9 +86,7 @@
       if (s.ref) { var sj = String(s.ref).split("/").filter(Boolean)[0]; if (sj) subjSet[sj] = 1; }
     }); }); });
     Promise.all(Object.keys(subjSet).map(function (sj) {
-      return loadOne("book/" + sj + "/manifest.js", "__BOOKS__")
-        .catch(function () { return loadOne("catalog/" + sj + "/manifest.js", "__BOOKS__").catch(function () { return null; }); })
-        .then(function (b) { return { sj: sj, book: b }; });
+      return loadBooklike(sj).then(function (r) { return { sj: sj, book: r && r.book }; });
     })).then(function (loaded) {
       var written = {};   // "<книга>/<slug>" → true, якщо є написана версія (basic АБО detailed = done)
       loaded.forEach(function (x) {

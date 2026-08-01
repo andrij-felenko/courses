@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія шлюзу таблиці: одні ворота між кодом і цілою таблицею</text>
+<rect x="40.0" y="205.0" width="210.0" height="70.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="145.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">код-споживач</text>
+<text x="145.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">gw.findByStatus(&quot;paid&quot;)</text>
+<line x1="252.0" y1="240.0" x2="328.0" y2="240.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="290.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кличе метод</text>
+<rect x="330.0" y="96.0" width="430.0" height="340.0" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<rect x="330.0" y="96.0" width="430.0" height="34.0" rx="10" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="545.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">OrderTableGateway — один об'єкт на таблицю</text>
+<text x="348.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">тут увесь SQL таблиці orders</text>
+<rect x="348.0" y="164.0" width="394.0" height="74.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="362.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">SELECT … FROM orders WHERE …</text>
+<text x="362.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">INSERT INTO orders (…) VALUES (…)</text>
+<text x="362.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">UPDATE orders SET …    DELETE FROM orders</text>
+<text x="348.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">методи — усі беруть ключ / критерій</text>
+<rect x="348.0" y="270.0" width="394.0" height="60.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="362.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">find(id)      findByStatus(status)</text>
+<text x="362.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">insert(…)   update(id, …)   delete(id)</text>
+<rect x="348.0" y="344.0" width="394.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="362.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="start" font-weight="700">✗</text>
+<text x="384.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">предметних правил немає</text>
+<text x="742.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">лише переносить рядки</text>
+<rect x="830.0" y="150.0" width="310.0" height="30.0" rx="0" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<rect x="830.0" y="180.0" width="310.0" height="120.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<line x1="910.0" y1="150.0" x2="910.0" y2="300.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="1030.0" y1="150.0" x2="1030.0" y2="300.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="870.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">id</text>
+<text x="970.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">total</text>
+<text x="1085.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">status</text>
+<text x="870.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">41</text>
+<text x="970.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">350</text>
+<text x="1085.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">new</text>
+<text x="870.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">42</text>
+<text x="970.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1200</text>
+<text x="1085.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">paid</text>
+<line x1="830.0" y1="220.0" x2="1140.0" y2="220.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="870.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">43</text>
+<text x="970.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">90</text>
+<text x="1085.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">shipped</text>
+<line x1="830.0" y1="260.0" x2="1140.0" y2="260.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="762.0" y1="210.0" x2="828.0" y2="210.0" stroke="#27ae60" stroke-width="1.9" marker-end="url(#arrow)"/>
+<text x="795.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">усі рядки</text>
+<text x="985.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">один екземпляр обслуговує ВСІ рядки</text>
+<line x1="545.0" y1="440.0" x2="545.0" y2="462.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="430.0" y="462.0" width="230.0" height="62.0" rx="4" fill="#eef1f4" stroke="#6b7280" stroke-width="1.3"/>
+<text x="545.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">id · total · status</text>
+<line x1="430.0" y1="486.0" x2="660.0" y2="486.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="545.0" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">42 · 1200 · paid</text>
+<text x="545.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">43 · 90 · shipped</text>
+<text x="745.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">повертає сирий набір рядків (record set)</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Силовий каскад: що зібрано в одному корпусі</text>
+<rect x="120" y="60" width="580" height="400" rx="10" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="7,5"/>
+<text x="132.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">корпус силового каскаду</text>
+<rect x="145.0" y="88.0" width="175.0" height="64.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.8"/><text x="232.5" y="116.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="232.5" dy="0.0">вхідна логіка</tspan><tspan x="232.5" dy="14.3">три стани, витримка</tspan></text>
+<rect x="145.0" y="168.0" width="175.0" height="58.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.8"/><text x="232.5" y="193.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="232.5" dy="0.0">мертвий час</tspan><tspan x="232.5" dy="14.3">за станом SW</tspan></text>
+<rect x="145.0" y="250.0" width="175.0" height="54.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.8"/><text x="232.5" y="273.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="232.5" dy="0.0">вимір струму</tspan><tspan x="232.5" dy="14.3">по Rds(on) нижнього</tspan></text>
+<rect x="145.0" y="330.0" width="175.0" height="44.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.8"/><text x="232.5" y="348.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="232.5" dy="0.0">давач температури</tspan><tspan x="232.5" dy="14.3">кристала</tspan></text>
+<rect x="145.0" y="398.0" width="175.0" height="44.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.8"/><text x="232.5" y="416.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="232.5" dy="0.0">захисти: UVLO,</tspan><tspan x="232.5" dy="14.3">струм, перегрів</tspan></text>
+<line x1="232" y1="328" x2="232" y2="308" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="240.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">поправка</text>
+<line x1="45.0" y1="100.0" x2="145.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="48.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">VCC</text>
+<line x1="45.0" y1="120.0" x2="145.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="48.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">PWM</text>
+<line x1="45.0" y1="140.0" x2="145.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="48.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">EN</text>
+<line x1="45.0" y1="277.0" x2="145.0" y2="277.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="48.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">IMON</text>
+<line x1="45.0" y1="352.0" x2="145.0" y2="352.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="48.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">TMON</text>
+<line x1="45.0" y1="420.0" x2="145.0" y2="420.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="48.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">аварія</text>
+<line x1="430.0" y1="45.0" x2="430.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="430.0" y1="125.0" x2="385.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="385.0" y1="125.0" x2="385.0" y2="144.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="436.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">BOOT</text>
+<polygon points="360,133 360,173 410,153" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+<polygon points="360,253 360,293 410,273" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+<text x="385.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">драйвер</text>
+<text x="385.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">драйвер</text>
+<line x1="320.0" y1="120.0" x2="345.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="345.0" y1="120.0" x2="345.0" y2="273.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="345.0" cy="153.0" r="3.2" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="345.0" y1="153.0" x2="357.0" y2="153.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="345.0" y1="273.0" x2="357.0" y2="273.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="100.0" x2="800.0" y2="100.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="712.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">VIN 12 В</text>
+<rect x="480.0" y="130.0" width="80.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="520.0" y="149.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">верхній</tspan><tspan x="520.0" dy="14.3">ключ</tspan></text>
+<line x1="520.0" y1="100.0" x2="520.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="520.0" y1="176.0" x2="520.0" y2="250.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<rect x="480.0" y="250.0" width="80.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="520.0" y="269.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">нижній</tspan><tspan x="520.0" dy="14.3">ключ</tspan></text>
+<line x1="520.0" y1="296.0" x2="520.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="470.0" y1="360.0" x2="800.0" y2="360.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="712.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">PGND</text>
+<line x1="412.0" y1="153.0" x2="476.0" y2="153.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="412.0" y1="273.0" x2="476.0" y2="273.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="215.0" x2="760.0" y2="215.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<circle cx="520.0" cy="215.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="712.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">SW</text>
+<path d="M760.0 215.0 A9.0 9.0 0 0 1 778.0 215.0" fill="none" stroke="#1a1a1a" stroke-width="2"/><path d="M778.0 215.0 A9.0 9.0 0 0 1 796.0 215.0" fill="none" stroke="#1a1a1a" stroke-width="2"/><path d="M796.0 215.0 A9.0 9.0 0 0 1 814.0 215.0" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="814.0" y1="215.0" x2="860.0" y2="215.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="837.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="837.0" dy="0.0">котушка</tspan><tspan x="837.0" dy="14.3">фази</tspan></text>
+<line x1="520.0" y1="240.0" x2="450.0" y2="240.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5,4"/>
+<line x1="450.0" y1="240.0" x2="450.0" y2="197.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="5,4"/>
+<line x1="450" y1="197" x2="324" y2="197" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)" stroke-dasharray="5,4"/>
+<circle cx="520.0" cy="240.0" r="3.2" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="480.0" y1="255.0" x2="430.0" y2="255.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5,4"/>
+<line x1="430.0" y1="255.0" x2="430.0" y2="340.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5,4"/>
+<line x1="430.0" y1="340.0" x2="520.0" y2="340.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5,4"/>
+<line x1="430" y1="300" x2="324" y2="300" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)" stroke-dasharray="5,4"/>
+<circle cx="430.0" cy="300.0" r="3.2" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="520.0" cy="340.0" r="3.2" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+</svg>

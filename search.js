@@ -84,13 +84,13 @@
   function rankSort(a, b) { return b.rank - a.rank || kindPri(a.e) - kindPri(b.e) || norm(a.e.title).localeCompare(norm(b.e.title)); }   // релевантність первинна; тип — тай-брейк
 
   /* --- фільтри: книги з індексу, розділи обраної книги ------------------------ */
-  var KIND_LABEL = { book: "Книги", guide: "Курси", catalog: "Каталоги" };
-  var KIND_ONE = { book: "Книга", guide: "Курс", catalog: "Каталог" };
-  var KIND_ALL = { book: "Усі книги", guide: "Усі курси", catalog: "Усі каталоги" };
-  var KIND_ALLSEC = { book: "Усі розділи", guide: "Усі модулі", catalog: "Усі родини" };
+  var KIND_LABEL = { book: "Книги", guide: "Курси", catalog: "Каталоги", reference: "Довідники" };
+  var KIND_ONE = { book: "Книга", guide: "Курс", catalog: "Каталог", reference: "Довідник" };
+  var KIND_ALL = { book: "Усі книги", guide: "Усі курси", catalog: "Усі каталоги", reference: "Усі довідники" };
+  var KIND_ALLSEC = { book: "Усі розділи", guide: "Усі модулі", catalog: "Усі родини", reference: "Усі розділи" };
   function kindsPresent() {
     var seen = {}; (INDEX || []).forEach(function (e) { if (e.k) seen[e.k] = 1; });
-    return ["guide", "book", "catalog"].filter(function (k) { return seen[k]; });
+    return ["guide", "book", "catalog", "reference"].filter(function (k) { return seen[k]; });
   }
   function bookList(kind) {
     var seen = {}, out = [];

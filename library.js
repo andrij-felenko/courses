@@ -1,6 +1,6 @@
 /* ============================================================================
-   library.js — стартова сторінка-«бібліотека»: Курси · Книги · Каталоги.
-   Реєстр — window.SUBJECT_BOOKS / GUIDE_COURSES / CATALOG_BOOKS (books-index.js).
+   library.js — стартова сторінка-«бібліотека»: Курси · Книги · Каталоги · Довідники.
+   Реєстр — window.SUBJECT_BOOKS / GUIDE_COURSES / CATALOG_BOOKS / REFERENCE_BOOKS (books-index.js).
    ДВА вигляди (html[data-libview], перемикач #view-btn, localStorage):
      "tabs" — сегмент-контрол у hero, видно одну категорію (дефолт);
      "one"  — усі три секції на одній сторінці з заголовками-«рейками».
@@ -17,6 +17,7 @@
   var BOOKS = window.SUBJECT_BOOKS || [];
   var GUIDES = window.GUIDE_COURSES || [];
   var CATALOGS = window.CATALOG_BOOKS || [];
+  var REFS = window.REFERENCE_BOOKS || [];
   var READ = (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-read") || "[]")); } catch (e) { return new Set(); } })();
   var ICON = { physics: "⚛️", math: "🧮", chemistry: "⚗️", electronics: "🔌", programming: "💻", communications: "📡", algorithms: "🧠", philosophy: "🦉" };
   var ACCENT = { physics: "#6b5b95", math: "#3a6b9c", chemistry: "#3a8f80", electronics: "#b06a5a", programming: "#5a5f9c", communications: "#4a8296", algorithms: "#a5648a", philosophy: "#9a7b4f" };
@@ -31,13 +32,14 @@
     philosophy: "Знання, буття, розум і добро — великі питання."
   };
   // Курси — власні іконка, колір і опис (щоб не були однаково-зелені).
-  var GUIDE_ICON = { embedded: "🤖", "embedded-ultra": "⚡", "basic-chemistry": "⚗️", progarch: "🏛️" };
-  var GUIDE_ACCENT = { embedded: "#c1683f", "embedded-ultra": "#a8492f", "basic-chemistry": "#2f9e8f", progarch: "#5a6b9c" };
+  var GUIDE_ICON = { embedded: "🤖", "embedded-ultra": "⚡", "basic-chemistry": "⚗️", progarch: "🏛️", unix: "🧭" };
+  var GUIDE_ACCENT = { embedded: "#c1683f", "embedded-ultra": "#a8492f", "basic-chemistry": "#2f9e8f", progarch: "#5a6b9c", unix: "#3d8a6b" };
   var GUIDE_DESC = {
     embedded: "Від заряду й струму до власного пристрою: фізика, схемотехніка, мікроконтролери й автономні системи — крок за кроком.",
     "embedded-ultra": "Ембеддед за два дні: 57 статей — від напруги й транзистора до GPIO, шин, RTOS і OTA. Стислий зріз, без заглиблень.",
     "basic-chemistry": "Хімія для початківців: від атома й періодичної таблиці до реакцій, розчинів, органіки та розрахунків задач.",
-    progarch: "Архітектура програмних систем: модульність, межі, залежності й масштаб — як будувати та підтримувати великий код."
+    progarch: "Архітектура програмних систем: модульність, межі, залежності й масштаб — як будувати та підтримувати великий код.",
+    unix: "Unix і Linux послідовно: від оболонки й файлів до процесів, прав і мережі — доріжка крізь довідник."
   };
   // Каталоги — «залізні» акценти й функційні іконки (за 7 родинами §1).
   var CAT_ICON = { boards: "🧩", connect: "📶", sensors: "🌡️", power: "🔋", actuators: "⚙️", instruments: "🔬", components: "🔩" };
@@ -50,6 +52,16 @@
     actuators: "Виконавчі механізми: мотори, серводвигуни, драйвери — рух і сила.",
     instruments: "Вимірювальні прилади: мультиметри, генератори, аналізатори сигналів.",
     components: "Дискретні компоненти: резистори, конденсатори, напівпровідники."
+  };
+  // Довідники — 4-й вид: не наукова галузь, а система/технологія, описана як довідка.
+  var REF_ICON = { "unix-linux": "🐧", "cpp-standards": "🧾", "build-systems": "🔨", "media-vision": "🎞️", qgroundcontrol: "🛰️" };
+  var REF_ACCENT = { "unix-linux": "#3f6b8a", "cpp-standards": "#6b4f8a", "build-systems": "#8a6a3f", "media-vision": "#3f8a7a", qgroundcontrol: "#8a4f5f" };
+  var REF_DESC = {
+    "unix-linux": "Unix і Linux: як влаштована система, а не набір команд — процеси, пам'ять, файли, ядро.",
+    "cpp-standards": "Стандарти C++: механіка мови, стандартна бібліотека й що приніс кожен реліз.",
+    "build-systems": "Системи збірки: CMake, залежності й тулчейни — як із дерева вихідників постає артефакт.",
+    "media-vision": "GStreamer і OpenCV як системи: конвеєр медіа й модель пам'яті зображень.",
+    qgroundcontrol: "QGroundControl зсередини: підсистеми наземної станції, план, карта, відео, розширення."
   };
 
   // Версія ЧИТАБЕЛЬНА, якщо статус не "empty"/"pending"; ЗАПЛАНОВАНА, якщо не "empty".
@@ -75,6 +87,7 @@
   }
   function loadBook(slug) { return loadShelfItem("book", slug); }
   function loadCatalog(slug) { return loadShelfItem("catalog", slug); }
+  function loadReference(slug) { return loadShelfItem("reference", slug); }
   // Курси у двох схемах: нова (sections→topics) і стара (modules→chapters→steps).
   function loadGuide(slug) {
     return fetchText("guide/" + slug + "/manifest.js").then(function (src) {
@@ -161,9 +174,26 @@
       '<div class="lib-foot"><span class="lib-modnote">Довідник заліза</span>' +
       '<span class="lib-cta">Відкрити →</span></div></div></a>';
   }
+  function referenceCard(r) {
+    var pct = r.arts ? Math.round(r.done / r.arts * 100) : 0;
+    var partial = r.done > 0 && r.done < r.arts;
+    var artsVal = (r.arts > 0 && r.done === r.arts) ? String(r.arts) : ('<b>' + r.done + '</b> / ' + r.arts);
+    return '<a class="lib-card lib-card-ref" href="read.html?book=' + esc(r.slug) + '" style="--accent:' + (REF_ACCENT[r.slug] || "#4a6070") + '">' +
+      '<div class="lib-cover"><span class="lib-kind lib-kind-ref">Довідник</span>' +
+      '<span class="lib-cover-ttl">' + esc(r.title) + '</span></div>' +
+      '<span class="lib-ico">' + (REF_ICON[r.slug] || "📗") + '</span>' +
+      '<div class="lib-body"><p class="lib-desc">' + esc(REF_DESC[r.slug] || "") + '</p>' +
+      '<div class="lib-stats">' +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Розділи</span><span class="lib-stat-v">' + r.branches + '</span></div>' +
+        '<div class="lib-stat-row"><span class="lib-stat-k">Статті</span><span class="lib-stat-v">' + artsVal + '</span></div>' +
+      '</div>' +
+      (partial ? '<div class="lib-bar" title="' + pct + '% готово"><span style="width:' + pct + '%"></span></div>' : '') +
+      '<div class="lib-foot"><span class="lib-modnote">' + (r.arts ? (r.done ? (partial ? pct + '% готово' : 'готовий') : 'у роботі') : 'заплановано') + '</span>' +
+      '<span class="lib-cta">Відкрити →</span></div></div></a>';
+  }
 
   /* ── Вигляд (одна сторінка ⇄ вкладки) і активна вкладка ─────────────── */
-  var TABS = ["guides", "books", "cats"];
+  var TABS = ["guides", "books", "cats", "refs"];
   function getView() { try { return localStorage.getItem("courses-lib-view") === "one" ? "one" : "tabs"; } catch (e) { return "tabs"; } }
   function setView(v) {
     document.documentElement.setAttribute("data-libview", v);
@@ -172,7 +202,7 @@
   }
   function initialTab() {
     var hsh = (location.hash || "").slice(1);
-    if (TABS.indexOf(hsh) >= 0) return hsh;                       // #books / #cats — дипліншем
+    if (TABS.indexOf(hsh) >= 0) return hsh;                       // #books / #cats / #refs — дипліншем
     try { var t = localStorage.getItem("courses-lib-tab"); if (TABS.indexOf(t) >= 0) return t; } catch (e) {}
     return "guides";                                              // курси головні
   }
@@ -191,21 +221,23 @@
       (note ? '<span class="lib-sect-note">' + note + '</span>' : '') + '</div>';
   }
 
-  function render(books, guides, cats) {
+  function render(books, guides, cats, refs) {
     var cur = initialTab(), curIdx = TABS.indexOf(cur);
     var h = '<header class="lib-hero"><div class="lib-hero-row"><div class="lib-hero-txt">' +
       '<div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
-      '<p><b>Курси</b> ведуть темами по черзі й сплітають їх у навчання; <b>книги</b> — теорія за галузями; <b>каталоги</b> — довідники конкретних плат і модулів.</p></div>' +
+      '<p><b>Курси</b> ведуть темами по черзі й сплітають їх у навчання; <b>книги</b> — теорія за галузями; <b>каталоги</b> — довідники конкретних плат і модулів; <b>довідники</b> — системи й технології (ОС, мови, інструменти).</p></div>' +
       '<nav class="lib-hero-nums" aria-label="Розділи бібліотеки">' +
         '<a href="#sect-guides" data-goto="guides"><span class="num">' + guides.length + '</span><span class="lbl">Курси</span></a>' +
         '<a href="#sect-books" data-goto="books"><span class="num">' + books.length + '</span><span class="lbl">Книги</span></a>' +
         '<a href="#sect-cats" data-goto="cats"><span class="num">' + cats.length + '</span><span class="lbl">Каталоги</span></a>' +
+        '<a href="#sect-refs" data-goto="refs"><span class="num">' + refs.length + '</span><span class="lbl">Довідники</span></a>' +
       '</nav></div>' +
       '<div class="lib-seg" role="tablist" aria-label="Розділи бібліотеки" data-active="' + curIdx + '">' +
         '<span class="lib-seg-thumb" aria-hidden="true"></span>' +
         segBtn("guides", "🎓", "Курси", guides.length, cur === "guides") +
         segBtn("books", "📚", "Книги", books.length, cur === "books") +
         segBtn("cats", "🗂️", "Каталоги", cats.length, cur === "cats") +
+        segBtn("refs", "📗", "Довідники", refs.length, cur === "refs") +
       '</div></header>';
     h += '<div class="lib-flow">';
     h += '<section class="lib-sect' + (cur !== "guides" ? ' off' : '') + '" id="sect-guides">' +
@@ -217,6 +249,9 @@
     h += '<section class="lib-sect' + (cur !== "cats" ? ' off' : '') + '" id="sect-cats">' +
       sectHead("Каталоги", cats.length, "довідники плат і модулів") +
       '<div class="lib-shelf lib-shelf-cats" id="shelf-cats" role="tabpanel" aria-labelledby="segtab-cats">' + cats.map(catalogCard).join("") + '</div></section>';
+    h += '<section class="lib-sect' + (cur !== "refs" ? ' off' : '') + '" id="sect-refs">' +
+      sectHead("Довідники", refs.length, "системи й технології — ОС, мови, інструменти") +
+      '<div class="lib-shelf lib-shelf-refs" id="shelf-refs" role="tabpanel" aria-labelledby="segtab-refs">' + refs.map(referenceCard).join("") + '</div></section>';
     h += '</div>';
     root.innerHTML = h;
     document.title = "Бібліотека — мої книги";
@@ -299,18 +334,19 @@
   Promise.all([
     Promise.all(BOOKS.map(loadBook)),
     Promise.all(GUIDES.map(loadGuide)),
-    Promise.all(CATALOGS.map(loadCatalog))
+    Promise.all(CATALOGS.map(loadCatalog)),
+    Promise.all(REFS.map(loadReference))
   ]).then(function (r) {
-    var books = r[0], guides = r[1], cats = r[2];
-    // карта написаних тем по книгах/каталогах → рахуємо «написано» для кожного курсу (ref-кроки + власні)
+    var books = r[0], guides = r[1], cats = r[2], refs = r[3];
+    // карта написаних тем по книгах/каталогах/довідниках → «написано» для кожного курсу (ref-кроки + власні)
     var WRITTEN = {};
-    books.concat(cats).forEach(function (x) { WRITTEN[x.slug] = x.written || {}; });
+    books.concat(cats, refs).forEach(function (x) { WRITTEN[x.slug] = x.written || {}; });
     guides.forEach(function (g) {
       var w = g.ownDone;
       g.refs.forEach(function (rf) { if (WRITTEN[rf.subj] && WRITTEN[rf.subj][rf.slug]) w++; });
       g.written = w;
     });
-    render(books, guides, cats);
+    render(books, guides, cats, refs);
   })
     .catch(function (e) { root.innerHTML = '<div class="state error"><h2>Помилка</h2><p><code>' + esc(e && e.message) + '</code></p></div>'; });
 })();

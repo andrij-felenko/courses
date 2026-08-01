@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="620" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оренда: той самий run_at, тільки на 60 секунд уперед</text>
+<text x="90.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">СЦЕНАРІЙ 1 · виконавець падає посеред роботи</text>
+<text x="180.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">застовплення:</text>
+<text x="180.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">run_at ← now()+60 с · attempts 0→1</text>
+<rect x="180.0" y="164.0" width="560.0" height="26.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="460.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">оренда 60 с — рядок невидимий</text>
+<line x1="180.0" y1="200.0" x2="1020.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="180.0" y1="195.0" x2="180.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="180.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0 с</text>
+<line x1="460.0" y1="195.0" x2="460.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="460.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">30 с</text>
+<line x1="740.0" y1="195.0" x2="740.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="740.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">60 с</text>
+<line x1="1020.0" y1="195.0" x2="1020.0" y2="205.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="1020.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">90 с</text>
+<circle cx="292.0" cy="200.0" r="7.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="292.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">виконавець упав</text>
+<line x1="740.0" y1="156.0" x2="740.0" y2="212.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="758.7" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">оренда вичерпалась → рядок знову видимий</text>
+<text x="758.7" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">інший виконавець бере · attempts 1→2</text>
+<text x="90.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">СЦЕНАРІЙ 2 · задача триває довше за оренду</text>
+<text x="600.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">задача виконується — 150 с, і перший виконавець живий</text>
+<line x1="180.0" y1="378.0" x2="1038.7" y2="378.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="180.0" y="388.0" width="560.0" height="26.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="460.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">оренда 60 с</text>
+<line x1="180.0" y1="424.0" x2="1020.0" y2="424.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="180.0" y1="419.0" x2="180.0" y2="429.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="180.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0 с</text>
+<line x1="460.0" y1="419.0" x2="460.0" y2="429.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="460.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">30 с</text>
+<line x1="740.0" y1="419.0" x2="740.0" y2="429.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="740.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">60 с</text>
+<line x1="1020.0" y1="419.0" x2="1020.0" y2="429.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="1020.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">90 с</text>
+<line x1="740.0" y1="380.0" x2="740.0" y2="436.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="366.7" y="482.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">рядок знову видимий, хоч задача ще йде</text>
+<text x="366.7" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">другий бере ТУ САМУ задачу — подвійне виконання</text>
+<rect x="279.8" y="534.4" width="560.4" height="63.2" rx="6" fill="#f7f7f5" stroke="#6b7280" stroke-width="1.3"/><text x="560.0" y="554.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Ліки: оренда довша за найдовшу задачу · серцебиття (поки задача йде, кожні 20 с</tspan><tspan x="560.0" dy="15.6">зсувати run_at уперед) · дедлайн у коді коротший за оренду · закривати рядок</tspan><tspan x="560.0" dy="15.6">лише «якщо він досі мій»: AND locked_by = $me</tspan></text>
+</svg>

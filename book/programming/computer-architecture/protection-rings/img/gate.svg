@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві дороги до привілейованих дій</text>
+<text x="56.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">A. Законний запит послуги</text>
+<rect x="66.6" y="123.9" width="106.8" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="145.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Застосунок</tspan><tspan x="120.0" dy="18.2">(кільце 3)</tspan></text>
+<rect x="344.8" y="116.6" width="190.4" height="66.8" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="440.0" y="137.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">CPU: підняти рівень 3→0</tspan><tspan x="440.0" dy="16.9">і стрибнути на</tspan><tspan x="440.0" dy="16.9">фіксовану адресу ядра</tspan></text>
+<rect x="699.6" y="125.0" width="160.8" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="780.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">Ядро ОС (кільце 0):</tspan><tspan x="780.0" dy="16.9">обробник виклику</tspan></text>
+<line x1="173.4" y1="150.0" x2="344.8" y2="150.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="259.1" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">system call</text>
+<line x1="535.2" y1="150.0" x2="699.6" y2="150.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<line x1="780.0" y1="174.9" x2="780.0" y2="250.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 3"/>
+<line x1="120.0" y1="176.1" x2="120.0" y2="250.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 3"/>
+<line x1="780.0" y1="250.0" x2="120.0" y2="250.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="450.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">повернення, рівень 0→3</text>
+<line x1="40.0" y1="300.0" x2="920.0" y2="300.0" stroke="#d0d0d0" stroke-width="1.2" stroke-dasharray="2 5"/>
+<text x="56.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">B. Спроба зробити напряму</text>
+<rect x="66.6" y="361.9" width="106.8" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="383.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Застосунок</tspan><tspan x="120.0" dy="18.2">(кільце 3)</tspan></text>
+<rect x="361.5" y="363.1" width="157.0" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="440.0" y="384.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">CPU: рівень ≠ 0?</tspan><tspan x="440.0" dy="16.9">команду відхилено</tspan></text>
+<rect x="710.7" y="363.1" width="138.6" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="780.0" y="384.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">Ядро ОС:</tspan><tspan x="780.0" dy="16.9">обробник помилки</tspan></text>
+<line x1="173.4" y1="388.0" x2="361.5" y2="388.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="267.4" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">hlt (привілейована)</text>
+<line x1="518.5" y1="388.0" x2="710.7" y2="388.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="614.6" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">пастка-помилка</text>
+<text x="480.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Привілейовану команду так і не виконано — керування перехоплено на перевірці рівня.</text>
+</svg>

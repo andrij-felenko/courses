@@ -1,10 +1,10 @@
 export const meta = {
   name: 'write-batch',
-  description: 'Повний v6-батч в один прогін. ФАЗИ: (1) Скаут — набрати батч на LIMIT тем: СПЕРШУ detailed-pending, далі basic-pending добиває решту (кожна тема несе свій рівень; явний level примушує один рівень); (2) Статті — opus-max агенти (стагер 2с), кожен пише ОДНУ статтю (проза+фігури+ref-лінки на свої вставки й нові залежні теми), лінки генерує в прозі, а вміст вставок НЕ пише — лише повертає їх список; (3) Вставки — opus-max агенти (стагер 2с) пишуть зібрані вставки під ці статті; (4) Фігури — sonnet-high агенти (стагер 2с) доводять SVG кожної написаної теки до «із зауваженнями: 0» (svgcheck: замалий шрифт + накладання тексту), правлячи figs.py; автори SVG самі НЕ гейтять; (5) Маніфест — серійно: статті→done, вставки→done, нові теми→pending. Жоден письменник маніфест НЕ чіпає. Усі фази письма — пулом щонайбільше CONCURRENCY(=4) агентів ОДНОЧАСНО (проти масових падінь на лімітах: валить макс. стільки, не весь фронт). args = {book, kind?:"book"|"catalog"|"guide", level?:"basic"|"detailed" (пропусти → мішаний detailed-first), limit?:10, scope?, stagger?, concurrency?, units?}',
+  description: 'Повний v6-батч в один прогін. ФАЗИ: (1) Скаут — набрати батч на LIMIT тем: СПЕРШУ detailed-pending, далі basic-pending добиває решту (кожна тема несе свій рівень; явний level примушує один рівень); (2) Статті — opus-агенти (стагер 2с; effort за матеріалом: xhigh на прозу, max на книги, де ядро — формули/виведення/код), кожен пише ОДНУ статтю (проза+фігури+ref-лінки на свої вставки й нові залежні теми), лінки генерує в прозі, а вміст вставок НЕ пише — лише повертає їх список; (3) Вставки — opus-агенти (стагер 2с; math/proj/api → effort max, hist/comp → xhigh) пишуть зібрані вставки під ці статті; (4) Фігури — sonnet-high агенти (стагер 2с) доводять SVG кожної написаної теки до «із зауваженнями: 0» (svgcheck: замалий шрифт + накладання тексту), правлячи figs.py; автори SVG самі НЕ гейтять; (5) Маніфест — серійно: статті→done, вставки→done, нові теми→pending. Жоден письменник маніфест НЕ чіпає. Усі фази письма — пулом щонайбільше CONCURRENCY(=4) агентів ОДНОЧАСНО (проти масових падінь на лімітах: валить макс. стільки, не весь фронт). args = {book, kind?:"book"|"catalog"|"reference"|"guide", level?:"basic"|"detailed" (пропусти → мішаний detailed-first), limit?:10, scope?, stagger?, concurrency?, units?}',
   phases: [
     { title: 'Скаут', detail: 'набрати LIMIT: detailed-pending, тоді basic добиває (sonnet, grep)' },
-    { title: 'Статті', detail: 'opus-max: одна стаття на агента + список своїх вставок і нових тем; пул 4, стагер 2с' },
-    { title: 'Вставки', detail: 'opus-max: написати зібрані вставки під ці статті; пул 4, стагер 2с' },
+    { title: 'Статті', detail: 'opus: одна стаття на агента + список своїх вставок і нових тем; effort xhigh (проза) / max (книги формул і коду); пул 4, стагер 2с' },
+    { title: 'Вставки', detail: 'opus: написати зібрані вставки; effort max для math/proj/api, xhigh для hist/comp; пул 4, стагер 2с' },
     { title: 'Фігури', detail: 'sonnet-high: svg-гейт — svgcheck до «0» (шрифт+накладання), правка figs.py; пул 4, стагер 2с' },
     { title: 'Маніфест', detail: 'серійно: статті→done, базові-дублі→empty, вставки→done, нові теми→pending, детальні→pending' },
     { title: 'Контроль', detail: 'wordcount.js (§3-обсяг) + svgcheck.py по написаних теках; лише звіт, non-fatal' },
@@ -15,7 +15,7 @@ export const meta = {
 let _a = args
 if (typeof _a === 'string') { try { _a = JSON.parse(_a) } catch (e) { _a = {} } }
 const BOOK = _a && _a.book ? String(_a.book) : ''
-const KIND = (_a && _a.kind) || 'book'             // book | catalog | guide
+const KIND = (_a && _a.kind) || 'book'             // book | catalog | reference | guide (= назва теки верхнього рівня)
 const SELF = KIND === 'guide' ? 'guide' : 'book'   // префікс лінка на ВЛАСНУ книгу/курс (§6: ціль у курсі → guide:)
 // Рівень версій. ДЕФОЛТ — МІШАНИЙ батч: спершу добираємо detailed-pending, тоді basic-pending добиває
 // решту до LIMIT (детальна — ОСНОВНА версія §3: <slug>-d.md; базова <slug>.md лишається великим хвостом).
@@ -29,6 +29,23 @@ const CONCURRENCY = Number(_a && _a.concurrency) || 4  // МАКС агенті�
 const LIMIT = Number(_a && _a.limit) || 10
 const UNITS_IN = (_a && Array.isArray(_a.units)) ? _a.units.filter((u) => u && u.slug && u.section) : null
 if (!BOOK) throw new Error('args.book обовʼязковий')
+
+/* ── EFFORT за характером матеріалу (Opus 5) ──
+   Проза («текст») — 'xhigh': стеля для агентної роботи; 'max' тут дає спадну віддачу й схильний
+   перемірковувати, спалюючи ліміт сесії без виграшу в якості.
+   Формули й код («тверде») — 'max': математика, фізичне виведення, робочий код і довідка-API, де
+   коректність важить більше за ціну. Перемикається однією правкою списків нижче або через args. */
+const EFFORT_TEXT = (_a && _a.effortText) || 'xhigh'
+const EFFORT_HARD = (_a && _a.effortHard) || 'max'
+// Книги/курси, де ядро СТАТТІ — формули, виведення або робочий код (стаття цілком іде на EFFORT_HARD).
+// Решта (electronics, communications, chemistry, philosophy, каталоги…) — проза з вкрапленнями: EFFORT_TEXT,
+// а їхня математика й код усе одно потраплять на 'max' через math-/proj-/api-вставки.
+const HARD_BOOKS = new Set((_a && Array.isArray(_a.hardBooks)) ? _a.hardBooks : ['math', 'physics', 'algorithms', 'programming'])
+// Типи вставок, де ядро — математика або код: math (виведення/доведення), proj (робочий код), api (довідка/протокол).
+// hist (історія) і comp (клас пристроїв) — проза.
+const HARD_INSERTS = new Set((_a && Array.isArray(_a.hardInserts)) ? _a.hardInserts : ['math', 'proj', 'api'])
+const effortForUnit = () => (HARD_BOOKS.has(BOOK) ? EFFORT_HARD : EFFORT_TEXT)
+const effortForInsert = (ins) => (HARD_INSERTS.has(String(ins && ins.type)) ? EFFORT_HARD : EFFORT_TEXT)
 
 /* ── РЕЖИМ ДОРОБКИ (resume) — коли статті ВЖЕ написані на диску, а батч урвався на пізніших фазах.
    skipArticles: true → пропустити фазу «Статті» ЦІЛКОМ (нічого не переписуємо);
@@ -61,7 +78,7 @@ const SVG_TRIES = 6                                 // максимум ітер
 const LIMIT_WAIT = 10 * 60 * 1000, LIMIT_MAX = 48   // ліміт сесії: спати 10 хв і повторювати (до ~8 год) — пауза до ресету, не фейл
 
 // опційні правила книги/курсу/каталогу: якщо у корені є _canon.md — читаємо ПЕРШОЮ дією й тримаємось (перевага над загальним)
-const RULESNOTE = `\n\n📕 ADDITIONAL RULES for this ${KIND === 'guide' ? 'course' : KIND === 'catalog' ? 'catalog book' : 'book'} (optional). AS YOUR FIRST ACTION, Bash-check whether the file ${ROOT}\\${KIND}\\${BOOK}\\_canon.md exists. IF IT DOES — READ it IN FULL and follow it strictly: these are rules specific to «${BOOK}» on top of the general canon (a running example, unified terms and names, the language of examples, stylistic conventions); where _canon refines the general rule — _canon WINS. IF the file is ABSENT — there are no additional rules for this book, write by the general canon.`
+const RULESNOTE = `\n\n📕 ADDITIONAL RULES for this ${KIND === 'guide' ? 'course' : KIND === 'catalog' ? 'catalog book' : KIND === 'reference' ? 'reference book' : 'book'} (optional). AS YOUR FIRST ACTION, Bash-check whether the file ${ROOT}\\${KIND}\\${BOOK}\\_canon.md exists. IF IT DOES — READ it IN FULL and follow it strictly: these are rules specific to «${BOOK}» on top of the general canon (a running example, unified terms and names, the language of examples, stylistic conventions); where _canon refines the general rule — _canon WINS. IF the file is ABSENT — there are no additional rules for this book, write by the general canon.`
 
 /* ── Канон письма (загальні правила; повне — AUTHORING.md) ── */
 const CANON = `WRITING CANON (condensed; full — ${ROOT}\\AUTHORING.en.md). ⚠️ OUTPUT LANGUAGE: the article/insert prose is written in UKRAINIAN — the rules below are in English, the text you produce is Ukrainian (see «Living Ukrainian»).
@@ -168,7 +185,7 @@ if (UNITS_IN) {
   const levelsDesc = SCOUT_LEVELS.join(' → ')
   const scout = await callAgent(
     `Знайди pending-теми на письмо в маніфесті ${MFWIN}. Потрібні ВЕРСІЇ в порядку пріоритету: ${levelsDesc}.
-Схема: book/catalog — sections[]→topics[]; guide (v6) — modules[]→chapters[]→steps[]. В ОБОХ формах рядок секції/модуля містить "scope:", а тема/крок — { slug, title, basic:{status}, detailed:{status} } одним рядком; для guide поверни section = slug МОДУЛЯ. КРОК-ref (без slug) — ПРОПУСКАЙ.
+Схема: book/catalog/reference — sections[]→topics[]; guide (v6) — modules[]→chapters[]→steps[]. В ОБОХ формах рядок секції/модуля містить "scope:", а тема/крок — { slug, title, basic:{status}, detailed:{status} } одним рядком; для guide поверни section = slug МОДУЛЯ. КРОК-ref (без slug) — ПРОПУСКАЙ.
 ШВИДКО (не вантаж весь файл у відповідь): зроби Bash «grep -n» по файлу. Окремо витягни рядки секцій/модулів (містять "scope:"). Для КОЖНОЇ потрібної версії окремо знайди рядки тем, де САМЕ ЦЯ версія має status "pending" АБО "update" (обидва — черга на письмо цієї версії; НЕ бери "done"/"empty"/"deeper"/"recheck"): для detailed шукай 'detailed: { status: "pending" }' і 'detailed: { status: "update" }'; для basic — 'basic: { status: "pending" }' і 'basic: { status: "update" }'. Візьми ПЕРШІ ${LIMIT} таких тем У ПОРЯДКУ файлу НА КОЖНУ версію.
 Для кожної теми визнач секцію (найближчий вищий рядок із "scope:"), витягни slug+title з її рядка, scope — з рядка секції, і ОБОВʼЯЗКОВО постав level = версія, за якою її знайдено ("detailed" чи "basic").
 Поверни units:[{section, slug, title, scope, level}] — спершу всі знайдені detailed (до ${LIMIT}), тоді всі basic (до ${LIMIT}); скрипт сам обмежить сумарно до ${LIMIT}. Якщо якоїсь версії нема в черзі — просто не додавай її тем.`,
@@ -200,7 +217,7 @@ const WRITE_UNITS = SKIP_ALL ? [] : WORK.filter((u) => !SKIP_SET.has(u.slug))
 if (SKIP_UNITS.length) log(`ДОРОБКА: ${SKIP_UNITS.length} статей уже на диску — фазу «Статті» для них пропускаємо (${SKIP_UNITS.map((u) => u.slug).join(', ')})`)
 if (WRITE_UNITS.length) {
   phase('Статті')
-  log(`Статті (opus-max, стагер ${STAGGER / 1000}с): ${WRITE_UNITS.length} (${KIND}/${BOOK}; детальних ${WRITE_UNITS.filter((u) => u.level === 'detailed').length}, базових ${WRITE_UNITS.filter((u) => u.level === 'basic').length})`)
+  log(`Статті (opus effort=${effortForUnit()} — «${BOOK}» ${HARD_BOOKS.has(BOOK) ? 'формули/код' : 'проза'}, стагер ${STAGGER / 1000}с): ${WRITE_UNITS.length} (${KIND}/${BOOK}; детальних ${WRITE_UNITS.filter((u) => u.level === 'detailed').length}, базових ${WRITE_UNITS.filter((u) => u.level === 'basic').length})`)
 }
 function articlePrompt(u) {
   const dir = topicDirWin(u.section, u.slug)
@@ -238,7 +255,7 @@ let NEWTOPICS = (NEWTOPICS_IN || []).slice()
 let BASIC_EMPTY = []                                 // базові, які агент навмисно НЕ писав (дублювали б детальну) → basic:empty у маніфесті
 if (WRITE_UNITS.length) {
   const aResults = await staggered(WRITE_UNITS, (u) =>
-    callAgent(articlePrompt(u), { label: `стаття:${u.slug}`, phase: 'Статті', model: 'opus', effort: 'max', schema: ART_RET })
+    callAgent(articlePrompt(u), { label: `стаття:${u.slug}`, phase: 'Статті', model: 'opus', effort: effortForUnit(), schema: ART_RET })
       .then((pr) => ({ u, ok: !!(pr && pr.ok), skipBasic: !!(pr && pr.skipBasic), inserts: (pr && pr.inserts) || [], newTopics: (pr && pr.newTopics) || [], needDetailedSelf: !!(pr && pr.needDetailedSelf), deeperTargets: (pr && pr.deeperTargets) || [], note: pr && pr.note }))
       .catch(() => ({ u, ok: false, skipBasic: false, inserts: [], newTopics: [], needDetailedSelf: false, deeperTargets: [] })))
   const okR = aResults.filter((r) => r.ok)
@@ -284,9 +301,13 @@ ${ins.brief
  • НОВІ ЗАЛЕЖНІ ТЕМИ — так само, як автор статті (§6). Якщо ти спираєшся на вагоме поняття, якого В РЕПО НЕМА (Bash-grep по slug/назві в ${ROOT}\\book\\*\\manifest.js та ${ROOT}\\guide\\*\\manifest.js — досить стаба pending/empty), НЕ обходь згадку й НЕ лишай голий текст без ref: постав ref (book:<книга>/<slug>) і додай тему в newTopics:[{kind,book,section,slug,title,needDetailed}] — section бери РЕАЛЬНУ наявну, що найкраще пасує. Файл НЕ створюй (заведе фаза «Маніфест»; дублі вона відсіє). Поріг — справжня залежність, без якої вставку не зрозуміти, НЕ кожна побіжна згадка.
 Поверни: ok, file, note, newTopics (нові залежні теми на реєстрацію; [] якщо нема).`
 }
+if (INSERTS.length) {
+  const _hard = INSERTS.filter((i) => HARD_INSERTS.has(String(i.type))).length
+  log(`Вставки (opus, стагер ${STAGGER / 1000}с): ${INSERTS.length} — формули/код (${[...HARD_INSERTS].join('/')}) на effort=${EFFORT_HARD}: ${_hard}; проза (hist/comp) на effort=${EFFORT_TEXT}: ${INSERTS.length - _hard}`)
+}
 const iResults = INSERTS.length
   ? await staggered(INSERTS, (ins) =>
-      callAgent(insertPrompt(ins), { label: `вставка:${ins.topicSlug}/${ins.file}`, phase: 'Вставки', model: 'opus', effort: 'max', schema: INS_RET })
+      callAgent(insertPrompt(ins), { label: `вставка:${ins.topicSlug}/${ins.file}`, phase: 'Вставки', model: 'opus', effort: effortForInsert(ins), schema: INS_RET })
         .then((pr) => ({ ins, ok: !!(pr && pr.ok), newTopics: (pr && pr.newTopics) || [] }))
         .catch(() => ({ ins, ok: false, newTopics: [] })))
   : []
@@ -352,7 +373,7 @@ if (doneInserts.length) {
 }
 if (NEWTOPICS.length) {
   await callAgent(
-    `Зареєструй НОВІ залежні теми зі статусом "pending" у ВІДПОВІДНИХ маніфестах (схема v6 §2) за kind+book (book/<book>/manifest.js | catalog/<book>/manifest.js | guide/<course>/manifest.js). Для кожної знайди section за її slug і Edit-точково додай { slug, title, basic:{status:"pending"}, detailed:{status: needDetailed ? "pending" : "empty"} }, НЕ дублюючи наявне (спершу перевір, чи вже є такий slug). Якщо section відсутня — створи.
+    `Зареєструй НОВІ залежні теми зі статусом "pending" у ВІДПОВІДНИХ маніфестах (схема v6 §2) за kind+book (book/<book>/manifest.js | catalog/<book>/manifest.js | reference/<book>/manifest.js | guide/<course>/manifest.js). Для кожної знайди section за її slug і Edit-точково додай { slug, title, basic:{status:"pending"}, detailed:{status: needDetailed ? "pending" : "empty"} }, НЕ дублюючи наявне (спершу перевір, чи вже є такий slug). Якщо section відсутня — створи.
 ⚠️ ЕЛЕМЕНТИ З "titleHint" (замість "title") — тему відновлено з ПРОЗИ, і hint це СИРИЙ текст ref-лінка: часто в непрямому відмінку («поліномом Жегалкіна»), обрізаний («лінійних діофантових») чи з малої літери. НЕ клади його в маніфест як є. Прочитай статтю-джерело ${ROOT}\\${KIND}\\${BOOK}\\<fromArticle>, знайди той лінк, глянь контекст речення — і СФОРМУЛЮЙ правильний заголовок теми: називний відмінок, повна самодостатня назва, з великої літери, жива українська без кальок («поліномом Жегалкіна» → «Поліном Жегалкіна»; «лінійних діофантових» → «Лінійні діофантові рівняння»; «тези Черча–Тюринга» → «Теза Черча — Тюринга»).
 ⚠️ "section" у таких елементів — лише ПІДКАЗКА (це секція статті-джерела). Якщо тема за змістом краще лягає в іншу НАЯВНУ секцію цієї книги — клади туди; нову секцію створюй, лише коли жодна не пасує.
 НОВІ ТЕМИ: ${JSON.stringify(NEWTOPICS)}\nПоверни ok, count.`,

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл операції</text>
+<text x="450.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">status рухається цими станами; три праві — термінальні, далі не міняються</text>
+<rect x="91.6" y="225.1" width="116.7" height="49.9" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/><text x="150.0" y="246.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">pending</tspan><tspan x="150.0" dy="16.9">очікує черги</tspan></text>
+<rect x="385.7" y="225.1" width="108.7" height="49.9" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.3"/><text x="440.0" y="246.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">running</tspan><tspan x="440.0" dy="16.9">виконується</tspan></text>
+<rect x="686.5" y="125.0" width="157.0" height="49.9" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.3"/><text x="765.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="765.0" dy="0.0">succeeded</tspan><tspan x="765.0" dy="16.9">результат готовий</tspan></text>
+<rect x="686.5" y="225.1" width="157.0" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.3"/><text x="765.0" y="246.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="765.0" dy="0.0">failed</tspan><tspan x="765.0" dy="16.9">помилка + причина</tspan></text>
+<rect x="682.5" y="325.1" width="165.1" height="49.9" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.1"/><text x="765.0" y="346.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="765.0" dy="0.0">cancelled</tspan><tspan x="765.0" dy="16.9">скасовано (DELETE)</tspan></text>
+<line x1="214.4" y1="250.0" x2="379.7" y2="250.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="297.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">виконавець узяв</text>
+<line x1="500.3" y1="229.1" x2="680.5" y2="172.9" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="618.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">готово</text>
+<line x1="500.3" y1="250.0" x2="680.5" y2="250.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="590.4" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">помилка</text>
+<line x1="500.3" y1="270.9" x2="676.5" y2="327.1" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="618.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">DELETE</text>
+</svg>

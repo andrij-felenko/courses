@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три шляхи до таблиці CRC — і куди вона лягає в пам'яті</text>
+<rect x="109.4" y="62.3" width="191.3" height="59.4" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="205.0" y="87.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="205.0" dy="0.0">Порахувати на старті</tspan><tspan x="205.0" dy="18.9">(код у прошивці)</tspan></text>
+<text x="205.0" y="152.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#6b7280" text-anchor="middle">RAM: 1 КБ</text>
+<text x="205.0" y="177.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#6b7280" text-anchor="middle">старт: тисячі тактів</text>
+<text x="205.0" y="202.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#6b7280" text-anchor="middle">+ прапорець «готова?»</text>
+<rect x="498.5" y="62.3" width="183.0" height="59.4" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="590.0" y="87.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Порахувати скриптом</tspan><tspan x="590.0" dy="18.9">на етапі збірки</tspan></text>
+<text x="590.0" y="152.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#6b7280" text-anchor="middle">RAM: 0</text>
+<text x="590.0" y="177.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#6b7280" text-anchor="middle">старт: 0</text>
+<text x="590.0" y="202.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#6b7280" text-anchor="middle">ціна: крок у зборці</text>
+<rect x="867.0" y="62.3" width="216.1" height="59.4" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="975.0" y="87.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="975.0" dy="0.0">Порахувати компілятором</tspan><tspan x="975.0" dy="18.9">(constexpr)</tspan></text>
+<text x="975.0" y="152.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#6b7280" text-anchor="middle">RAM: 0</text>
+<text x="975.0" y="177.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#6b7280" text-anchor="middle">старт: 0</text>
+<text x="975.0" y="202.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#6b7280" text-anchor="middle">ціна: потрібен C++17</text>
+<line x1="205.0" y1="240.0" x2="205.0" y2="296.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="240.0" x2="620.0" y2="296.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="975.0" y1="240.0" x2="890.0" y2="296.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="75.0" y="300.0" width="265.0" height="128.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="207.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">RAM  ·  .bss</text>
+<text x="207.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">таблиця з'їдає оперативку</text>
+<text x="207.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">і рахується на кожному</text>
+<text x="207.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">старті наново</text>
+<rect x="430.0" y="300.0" width="675.0" height="128.0" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="767.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">FLASH  ·  .rodata</text>
+<text x="767.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">таблиця лежить у флеші й читається звідти напряму:</text>
+<text x="767.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">оперативка не витрачена, старт нічого не коштує,</text>
+<text x="767.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">у гарячому циклі нема чого перевіряти</text>
+<rect x="335.6" y="467.8" width="508.8" height="80.4" rx="6" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.5"/><text x="590.0" y="494.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Забули const → таблиця лягає в .data: 1 КБ флешу І 1 КБ RAM,</tspan><tspan x="590.0" dy="18.2">ще й копіюється стартовим кодом. На AVR навіть const живе</tspan><tspan x="590.0" dy="18.2">в RAM — там потрібен PROGMEM і pgm_read_dword.</tspan></text>
+</svg>

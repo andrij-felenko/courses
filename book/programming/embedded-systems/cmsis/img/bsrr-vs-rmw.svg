@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 544" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="544" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Втрачена зміна: read-modify-write проти BSRR</text>
+<rect x="34.0" y="56.0" width="832.0" height="258.0" rx="8" fill="#fffdfd" stroke="#c0392b" stroke-width="2.0"/>
+<text x="54.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">GPIOA-&gt;ODR |= (1u &lt;&lt; 5);   — три команди</text>
+<rect x="66.0" y="102.0" width="190.0" height="52.0" rx="6" fill="#f6f7f8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="161.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">LDR r3, [ODR]</text>
+<text x="161.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">r3 = 0x0000</text>
+<rect x="330.0" y="102.0" width="190.0" height="52.0" rx="6" fill="#f6f7f8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="425.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ORR r3, #0x20</text>
+<text x="425.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">r3 = 0x0020</text>
+<rect x="652.0" y="102.0" width="190.0" height="52.0" rx="6" fill="#f6f7f8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="747.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">STR r3, [ODR]</text>
+<text x="747.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ODR ← 0x0020</text>
+<line x1="262.0" y1="128.0" x2="324.0" y2="128.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="526.0" y1="128.0" x2="646.0" y2="128.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="586.0" y1="158.0" x2="586.0" y2="194.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 3"/>
+<rect x="300.0" y="194.0" width="566.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="583.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="583.0" dy="0.0">переривання вклинюється тут: ISR робить ODR |= (1u &lt;&lt; 7)</tspan><tspan x="583.0" dy="14.3">залізо: ODR = 0x0080, вивід 7 піднято</tspan></text>
+<text x="54.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">STR кладе своє 0x0020 поверх — 0x0080 затерто, зміна ISR зникла без сліду</text>
+<rect x="34.0" y="334.0" width="832.0" height="158.0" rx="8" fill="#fcfefd" stroke="#1e8449" stroke-width="2.0"/>
+<text x="54.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e8449" text-anchor="start" font-weight="700">GPIOA-&gt;BSRR = (1u &lt;&lt; 5);   — одна команда</text>
+<rect x="66.0" y="380.0" width="190.0" height="52.0" rx="6" fill="#f6f7f8" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="161.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">STR r3, [BSRR]</text>
+<text x="161.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x0000_0020</text>
+<line x1="262.0" y1="406.0" x2="292.0" y2="406.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="300.0" y="374.0" width="566.0" height="64.0" rx="6" fill="#eafaf0" stroke="#1e8449" stroke-width="1.6"/>
+<text x="583.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#186a3b" text-anchor="middle"><tspan x="583.0" dy="0.0">читання немає — переривання може влучити лише ДО або ПІСЛЯ;</tspan><tspan x="583.0" dy="14.3">залізо саме зводить біт 5 і не чіпає решти: ODR = 0x00A0</tspan></text>
+<text x="54.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Молодші 16 біт BSRR зводять, старші 16 — скидають; при збігу перемагає зведення</text>
+<text x="450.0" y="528.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Атомарність тут не від volatile і не від компілятора — від того, що залізо приймає ціле слово за раз</text>
+</svg>

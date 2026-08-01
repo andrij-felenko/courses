@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 640" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1240" height="640" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Значення як код проти значення як даних</text>
+<line x1="40.0" y1="340.0" x2="1200.0" y2="340.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="7 7"/>
+<text x="60.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">Склеєно в текст запиту</text>
+<rect x="50.0" y="88.0" width="236.0" height="74.0" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="168.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">що ввів користувач</text>
+<text x="168.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">paid' OR 1=1 --</text>
+<line x1="290.0" y1="125.0" x2="348.0" y2="125.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="319.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<rect x="352.0" y="88.0" width="480.0" height="74.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="592.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">один рядок, що поїхав у базу</text>
+<text x="592.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">… WHERE status = 'paid' OR 1=1 --'</text>
+<line x1="836.0" y1="125.0" x2="894.0" y2="125.0" stroke="#c0392b" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="898.0" y="88.0" width="292.0" height="74.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="1044.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">парсер бачить ОДИН текст</text>
+<text x="1044.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">і розбирає його цілком</text>
+<rect x="352.0" y="186.0" width="480.0" height="118.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.3"/>
+<text x="372.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">як це прочитав парсер:</text>
+<text x="372.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">status = 'paid'</text>
+<text x="600.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">← дані, як і задумано</text>
+<text x="372.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">OR 1 = 1</text>
+<text x="600.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">← стало КОДОМ умови</text>
+<text x="372.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">--</text>
+<text x="600.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">← решту запиту вимкнено</text>
+<rect x="898.0" y="186.0" width="292.0" height="62.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="1044.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">повернулися ВСІ рядки</text>
+<text x="1044.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">таблиці orders</text>
+<text x="60.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">Передано окремим параметром</text>
+<rect x="50.0" y="402.0" width="236.0" height="74.0" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.6"/>
+<text x="168.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">той самий ввід</text>
+<text x="168.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">paid' OR 1=1 --</text>
+<rect x="352.0" y="402.0" width="480.0" height="74.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="592.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">текст запиту — сталий, від вводу не залежить</text>
+<text x="592.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">… WHERE status = $1</text>
+<line x1="836.0" y1="439.0" x2="894.0" y2="439.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="865.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1</text>
+<rect x="898.0" y="402.0" width="292.0" height="74.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="1044.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">парсер бачить лише текст</text>
+<text x="1044.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">план із порожнім слотом</text>
+<line x1="168.0" y1="480.0" x2="168.0" y2="542.0" stroke="#27ae60" stroke-width="1.7"/>
+<line x1="168.0" y1="542.0" x2="1044.0" y2="542.0" stroke="#27ae60" stroke-width="1.7"/>
+<line x1="1044.0" y1="542.0" x2="1044.0" y2="484.0" stroke="#27ae60" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="606.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">значення їде окремим каналом — його не парсять НІКОЛИ</text>
+<text x="1044.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2</text>
+<rect x="898.0" y="578.0" width="292.0" height="46.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="1044.0" y="606.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0 рядків: такого статусу немає</text>
+</svg>

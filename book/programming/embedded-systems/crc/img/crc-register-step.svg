@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок бітового CRC: зсув і, за старшим бітом, XOR полінома</text>
+<text x="427.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регістр CRC — біжуча остача (тут 8 біт для наочности)</text>
+<rect x="235.0" y="96.0" width="48.0" height="48.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="259.0" y="125.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="283.0" y="96.0" width="48.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="307.0" y="125.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="331.0" y="96.0" width="48.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="355.0" y="125.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="379.0" y="96.0" width="48.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="403.0" y="125.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="427.0" y="96.0" width="48.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="451.0" y="125.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="475.0" y="96.0" width="48.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="499.0" y="125.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<rect x="523.0" y="96.0" width="48.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="547.0" y="125.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<rect x="571.0" y="96.0" width="48.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="595.0" y="125.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="229.0" y1="120.0" x2="157.0" y2="120.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="131.0" cy="120.0" r="20.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="131.0" y="126.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="17" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="131.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">старший біт,</text>
+<text x="131.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">що випав</text>
+<line x1="697.0" y1="120.0" x2="625.0" y2="120.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="715.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">вхідний</text>
+<text x="715.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">біт даних</text>
+<line x1="427.0" y1="150.0" x2="427.0" y2="190.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="231.5" y="228.8" width="391.1" height="66.5" rx="6" fill="#eef1f4" stroke="#333333" stroke-width="1.5"/><text x="427.0" y="257.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="427.0" dy="0.0">біт = 1   →   зсув ліворуч, тоді ⊕ поліном</tspan><tspan x="427.0" dy="19.5">біт = 0   →   тільки зсув ліворуч</tspan></text>
+<line x1="427.0" y1="302.0" x2="427.0" y2="340.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="165.1" y="352.8" width="523.9" height="42.5" rx="6" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.5"/><text x="427.0" y="379.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="427.0" dy="0.0">повторити для кожного біта даних  →  у регістрі лишиться CRC</tspan></text>
+</svg>
