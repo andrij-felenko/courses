@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кому дістанеться сирота: три кроки пошуку</text>
+<rect x="120.0" y="62.0" width="760.0" height="86.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="140.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Інший живий потік того самого процесу</text>
+<text x="140.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">процес насправді живий — діти лишаються в родині, ззовні не змінюється нічого</text>
+<rect x="120.0" y="182.0" width="760.0" height="86.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="140.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Найближчий предок, що оголосив себе проміжним прибирачем</text>
+<text x="140.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">prctl(PR_SET_CHILD_SUBREAPER, 1) — менеджер служб ловить своїх нащадків</text>
+<rect x="120.0" y="302.0" width="760.0" height="86.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="140.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">3. init того простору імен, у якому живе процес</text>
+<text x="140.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">останній крок, безумовний: саме тут пошук завершується завжди</text>
+<line x1="500.0" y1="152.0" x2="500.0" y2="178.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="516.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">не знайшлося</text>
+<line x1="500.0" y1="272.0" x2="500.0" y2="298.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="516.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">не знайшлося</text>
+<text x="500.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">другий крок узагалі не виконується, якщо в роду процесу немає жодного проміжного прибирача</text>
+</svg>

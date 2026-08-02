@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хто на процесорі: звичайні задачі та реальночасова</text>
+<text x="440.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">R прокидається на 30-й і 66-й мілісекунді</text>
+<text x="174.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">R — SCHED_FIFO 50</text>
+<rect x="382.0" y="84.0" width="38.4" height="34.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/>
+<rect x="612.4" y="84.0" width="38.4" height="34.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/>
+<text x="174.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">A — nice 0</text>
+<rect x="190.0" y="140.0" width="96.0" height="34.0" rx="6" fill="#eef4ff" stroke="#333333" stroke-width="1.5"/>
+<rect x="420.4" y="140.0" width="96.0" height="34.0" rx="6" fill="#eef4ff" stroke="#333333" stroke-width="1.5"/>
+<rect x="650.8" y="140.0" width="96.0" height="34.0" rx="6" fill="#eef4ff" stroke="#333333" stroke-width="1.5"/>
+<text x="174.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">B — nice 0</text>
+<rect x="286.0" y="196.0" width="96.0" height="34.0" rx="6" fill="#eef4ff" stroke="#333333" stroke-width="1.5"/>
+<rect x="516.4" y="196.0" width="96.0" height="34.0" rx="6" fill="#eef4ff" stroke="#333333" stroke-width="1.5"/>
+<rect x="746.8" y="196.0" width="83.2" height="34.0" rx="6" fill="#eef4ff" stroke="#333333" stroke-width="1.5"/>
+<line x1="190.0" y1="254.0" x2="830.0" y2="254.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="190.0" y1="254.0" x2="190.0" y2="261.0" stroke="#333333" stroke-width="1.5"/>
+<text x="190.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="318.0" y1="254.0" x2="318.0" y2="261.0" stroke="#333333" stroke-width="1.5"/>
+<text x="318.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+<line x1="446.0" y1="254.0" x2="446.0" y2="261.0" stroke="#333333" stroke-width="1.5"/>
+<text x="446.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">40</text>
+<line x1="574.0" y1="254.0" x2="574.0" y2="261.0" stroke="#333333" stroke-width="1.5"/>
+<text x="574.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">60</text>
+<line x1="702.0" y1="254.0" x2="702.0" y2="261.0" stroke="#333333" stroke-width="1.5"/>
+<text x="702.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+<line x1="830.0" y1="254.0" x2="830.0" y2="261.0" stroke="#333333" stroke-width="1.5"/>
+<text x="830.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">100 мс</text>
+<rect x="185.5" y="305.1" width="509.1" height="49.9" rx="6" fill="#f7f7f7" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="326.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Звичайні задачі чергуються між собою, поки R спить;</tspan><tspan x="440.0" dy="16.9">щойно R готовий, він забирає процесор і тримає його, доки не засне</tspan></text>
+</svg>

@@ -78,6 +78,7 @@
         { slug: "z-order-curve", title: "Крива Мортона (Z-порядок): просторова близькість у лінійному ключі", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "hash-array-mapped-trie", title: "Геш-дерево з бітовими мапами (HAMT)", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "timer-wheel", title: "Колесо таймерів", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "non-cryptographic-hash", title: "Некриптографічні хеш-функції: FNV, Murmur, xxHash", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "graph-algorithms", title: "Графові", scope: "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.",
       topics: [

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що змінив C++17: не оптимізатор, а означення prvalue</text>
+<line x1="470.0" y1="56.0" x2="470.0" y2="392.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,5"/>
+<text x="235.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель до C++17</text>
+<text x="705.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель з C++17</text>
+<text x="235.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle">T x = T();</text>
+<text x="705.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle">T x = T();</text>
+<rect x="141.2" y="153.0" width="187.6" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="174.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">тимчасовий об'єкт T()</tspan></text>
+<line x1="235.0" y1="195.0" x2="235.0" y2="244.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="256.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start">копія або переміщення</text>
+<rect x="150.0" y="255.0" width="170.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="276.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">об'єкт x</tspan></text>
+<text x="235.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="235.0" dy="0.0">копію дозволено усунути,</tspan><tspan x="235.0" dy="16.9">але конструктор мусить існувати</tspan></text>
+<rect x="615.2" y="143.9" width="179.6" height="52.2" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="705.0" y="165.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">prvalue T() —</tspan><tspan x="705.0" dy="18.2">рецепт ініціалізації</tspan></text>
+<line x1="705.0" y1="204.1" x2="705.0" y2="244.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="726.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start">матеріалізація</text>
+<rect x="627.2" y="255.0" width="155.7" height="34.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="705.0" y="276.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">об'єкт x — єдиний</tspan></text>
+<text x="705.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="705.0" dy="0.0">усувати нічого:</tspan><tspan x="705.0" dy="16.9">другого об'єкта не було</tspan></text>
+</svg>

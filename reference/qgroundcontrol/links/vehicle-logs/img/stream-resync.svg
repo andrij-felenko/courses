@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 680" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1320" height="680" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="660.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Загублений пакет ламає межі повідомлень — і потік каже, де вони знову є</text>
+<rect x="70.0" y="90.0" width="380.0" height="84.0" rx="6" fill="#eaf7ef" stroke="#333333" stroke-width="1.5"/><text x="260.0" y="128.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">LOGGING_DATA  seq 41</tspan><tspan x="260.0" dy="16.9">249 Б корисного вантажу</tspan></text>
+<rect x="470.0" y="90.0" width="380.0" height="84.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="660.0" y="128.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">LOGGING_DATA  seq 42</tspan><tspan x="660.0" dy="16.9">не долетів</tspan></text>
+<rect x="870.0" y="90.0" width="380.0" height="84.0" rx="6" fill="#eaf7ef" stroke="#333333" stroke-width="1.5"/><text x="1060.0" y="128.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1060.0" dy="0.0">LOGGING_DATA  seq 43</tspan><tspan x="1060.0" dy="16.9">first_message_offset = 34</tspan></text>
+<text x="660.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">лічильник кадрів дає різницю 43 − 41 − 1 = 1 втрачений</text>
+<text x="870.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">вантаж пакета 43 зблизька</text>
+<rect x="870.0" y="250.0" width="110.0" height="54.0" rx="0" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="925.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">34 Б</text>
+<rect x="980.0" y="250.0" width="130.0" height="54.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="1045.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">3 Б + тіло</text>
+<rect x="1110.0" y="250.0" width="130.0" height="54.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="1175.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">3 Б + тіло</text>
+<line x1="980.0" y1="242.0" x2="980.0" y2="312.0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="980.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">тут починається ціле повідомлення</text>
+<text x="70.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">вантаж пакета 41</text>
+<rect x="70.0" y="250.0" width="130.0" height="54.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="135.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">3 Б + тіло</text>
+<rect x="200.0" y="250.0" width="130.0" height="54.0" rx="0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="265.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">3 Б + тіло</text>
+<rect x="330.0" y="250.0" width="110.0" height="54.0" rx="0" fill="#fdf3e7" stroke="#333333" stroke-width="1.4"/>
+<text x="385.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">хвіст</text>
+<text x="385.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">недописане повідомлення чекає продовження</text>
+<text x="70.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">що лягає у файл .ulg на диску станції</text>
+<rect x="70.0" y="440.0" width="300.0" height="76.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="220.0" y="474.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">повідомлення</tspan><tspan x="220.0" dy="16.9">з пакета 41</tspan></text>
+<rect x="400.0" y="440.0" width="340.0" height="76.0" rx="6" fill="#fdf3e7" stroke="#333333" stroke-width="1.5"/><text x="570.0" y="474.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">службовий запис «розрив»</tspan><tspan x="570.0" dy="16.9">{2, 0, 79, тривалість, 0}</tspan></text>
+<rect x="770.0" y="440.0" width="300.0" height="76.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="920.0" y="474.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="920.0" dy="0.0">повідомлення</tspan><tspan x="920.0" dy="16.9">з пакета 43</tspan></text>
+<line x1="370.0" y1="478.0" x2="398.0" y2="478.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="740.0" y1="478.0" x2="768.0" y2="478.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="70.0" y="556.0" width="1180.0" height="74.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="660.0" y="589.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">недописаний хвіст і 34 байти після розриву відкинуто: зібрати з них ціле повідомлення нізвідки</tspan><tspan x="660.0" dy="16.9">натомість у файл вписано розрив мовою самого формату — читач побачить дірку, а не тиху брехню</tspan></text>
+</svg>

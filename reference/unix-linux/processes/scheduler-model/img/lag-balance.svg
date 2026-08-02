@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Системний віртуальний час — точка рівноваги зважених годинників</text>
+<rect x="130.0" y="270.0" width="398.5" height="60.0" rx="4" fill="#eefaf1" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="528.5" y="270.0" width="371.5" height="60.0" rx="4" fill="#f0f1f3" stroke="#9aa1ab" stroke-width="1.2"/>
+<line x1="120.0" y1="300.0" x2="920.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="916.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">віртуальний час</text>
+<line x1="528.5" y1="266.0" x2="528.5" y2="336.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<polygon points='528.5,336.0 511.5,368.0 545.5,368.0' fill='#1a1a1a' stroke='#1a1a1a' stroke-width='1.5'/>
+<text x="528.5" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">V = 7.14</text>
+<circle cx="226.8" cy="300.0" r="14.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.8"/>
+<text x="226.8" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">B</text>
+<circle cx="611.1" cy="300.0" r="14.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.8"/>
+<text x="611.1" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">C</text>
+<circle cx="803.2" cy="300.0" r="14.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.8"/>
+<text x="803.2" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">A</text>
+<text x="226.8" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">v = 4,  w = 1024</text>
+<text x="611.1" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">v = 8,  w = 335</text>
+<text x="803.2" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">v = 10,  w = 1024</text>
+<line x1="226.8" y1="282.0" x2="226.8" y2="128.0" stroke="#2457d6" stroke-width="1.3" stroke-dasharray="4 4"/>
+<line x1="528.5" y1="128.0" x2="226.8" y2="128.0" stroke="#2457d6" stroke-width="2.4"/>
+<circle cx="226.8" cy="128.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="208.8" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end">борг B = 1 · (V − 4) = +3.14 мс</text>
+<line x1="611.1" y1="282.0" x2="611.1" y2="184.0" stroke="#27ae60" stroke-width="1.3" stroke-dasharray="4 4"/>
+<line x1="528.5" y1="184.0" x2="611.1" y2="184.0" stroke="#27ae60" stroke-width="2.4"/>
+<circle cx="611.1" cy="184.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="631.1" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">борг C = (335/1024) · (V − 8) = −0.28 мс</text>
+<line x1="803.2" y1="282.0" x2="803.2" y2="240.0" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="4 4"/>
+<line x1="528.5" y1="240.0" x2="803.2" y2="240.0" stroke="#c0392b" stroke-width="2.4"/>
+<circle cx="803.2" cy="240.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="823.2" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">борг A = 1 · (V − 10) = −2.86 мс</text>
+<line x1="528.5" y1="116.0" x2="528.5" y2="252.0" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="3 4"/>
+<text x="124.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">придатні: v ≤ V, борг невід'ємний</text>
+<text x="916.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9aa1ab" text-anchor="end">забрали наперед: v &gt; V</text>
+<rect x="150.0" y="496.0" width="720.0" height="58.0" rx="6" fill="#eef3ff" stroke="#1a1a1a" stroke-width="2.0"/><text x="510.0" y="530.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">Σ wᵢ · (V − vᵢ) = 0   ⇒   V = Σ wᵢvᵢ / Σ wᵢ</tspan></text>
+</svg>

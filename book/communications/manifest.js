@@ -279,6 +279,8 @@
         { slug: "mavlink-capabilities", title: "Можливості апарата: бітова маска AUTOPILOT_VERSION", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "mavlink-terrain-protocol", title: "Протокол рельєфу MAVLink: TERRAIN_REQUEST, TERRAIN_DATA, TERRAIN_REPORT", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "mpeg-ts", title: "MPEG-TS: транспортний потік як обгортка для ефіру", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mavlink-events-protocol", title: "Протокол подій MAVLink: подія як ідентифікатор", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "flight-log-formats", title: "Формати бортових логів: ULog і DataFlash", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "multiple-access", title: "Множинний доступ", scope: "Спільне використання середовища багатьма абонентами через поділ ресурсу й арбітраж.",
       topics: [

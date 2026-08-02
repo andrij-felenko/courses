@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 415" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="415" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Продовження життя діє лише при прямому зв'язуванні</text>
+<text x="40.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">const Matrix&amp; m = compute();</text>
+<rect x="170.0" y="118.0" width="700.0" height="36.0" rx="6" fill="#e8f6ed" stroke="#27ae60" stroke-width="1.6"/>
+<text x="520.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">тимчасовий живе, доки живе m</text>
+<line x1="60.0" y1="178.0" x2="900.0" y2="178.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="170.0" y1="158.0" x2="170.0" y2="186.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="870.0" y1="158.0" x2="870.0" y2="186.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="170.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">створення</text>
+<text x="880.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">кінець блоку</text>
+<text x="40.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">const Matrix&amp; m = pass(compute());</text>
+<text x="40.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">pass приймає const&amp; і повертає те саме посилання</text>
+<rect x="170.0" y="302.0" width="210.0" height="36.0" rx="6" fill="#e8f6ed" stroke="#27ae60" stroke-width="1.6"/>
+<text x="275.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">живий</text>
+<rect x="380.0" y="302.0" width="490.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="625.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">m висить — звертання дає UB</text>
+<line x1="60.0" y1="362.0" x2="900.0" y2="362.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="170.0" y1="342.0" x2="170.0" y2="370.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="380.0" y1="342.0" x2="380.0" y2="370.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="150.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">створення</text>
+<text x="420.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">кінець повного виразу «;»</text>
+</svg>

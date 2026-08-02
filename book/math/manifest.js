@@ -335,6 +335,7 @@
         { slug: "coupon-collector", title: "Задача про збирача купонів", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "geometric-distribution", title: "Геометричний розподіл", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "zipf-law", title: "Закон Зіпфа: чому мала частка об'єктів забирає більшість звернень", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "exponential-distribution", title: "Показниковий розподіл", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "statistics", title: "Статистика", scope: "Висновки з даних — оцінювання, перевірка гіпотез, регресія та байєсів підхід.",
       topics: [

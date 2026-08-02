@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повільний диск, зібраний із файлу: де саме беруться три секунди</text>
+<rect x="80.0" y="64.0" width="540.0" height="76.0" rx="10" fill="#fbfcff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="350.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">dd if=/dev/mapper/slowdisk iflag=direct</text>
+<text x="350.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">процес просить 4 КіБ повз кеш сторінок</text>
+<rect x="80.0" y="164.0" width="540.0" height="76.0" rx="10" fill="#eef3fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="350.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">блоковий шар ядра</text>
+<text x="350.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">подав bio й ліг спати: TASK_UNINTERRUPTIBLE</text>
+<rect x="80.0" y="264.0" width="540.0" height="76.0" rx="10" fill="#fdf3e7" stroke="#c0392b" stroke-width="2.0"/>
+<text x="350.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">dm-delay: /dev/mapper/slowdisk</text>
+<text x="350.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">тримає кожен bio рівно 3000 мс</text>
+<rect x="80.0" y="364.0" width="540.0" height="76.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.0"/>
+<text x="350.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">loop-пристрій /dev/loop0</text>
+<text x="350.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">робить із файлу блоковий пристрій</text>
+<rect x="80.0" y="464.0" width="540.0" height="76.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.0"/>
+<text x="350.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">файл /var/tmp/slow.img</text>
+<text x="350.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">звичайні 64 МіБ на звичайній файловій системі</text>
+<line x1="350.0" y1="140.0" x2="350.0" y2="164.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="240.0" x2="350.0" y2="264.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="340.0" x2="350.0" y2="364.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="350.0" y1="440.0" x2="350.0" y2="464.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="680.0" y="168.0" width="330.0" height="68.0" rx="6" fill="#fbfcff" stroke="#2457d6" stroke-width="1.6"/><text x="845.0" y="190.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="845.0" dy="0.0">поки триває ця пауза, задача</tspan><tspan x="845.0" dy="15.6">стоїть у D: SIGKILL лягає</tspan><tspan x="845.0" dy="15.6">в набір недоправлених</tspan></text>
+<line x1="680.0" y1="202.0" x2="620.0" y2="202.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="680.0" y="268.0" width="330.0" height="68.0" rx="6" fill="#fbfcff" stroke="#c0392b" stroke-width="1.6"/><text x="845.0" y="290.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="845.0" dy="0.0">уся затримка живе тільки тут;</tspan><tspan x="845.0" dy="15.6">вище й нижче — звичайні,</tspan><tspan x="845.0" dy="15.6">здорові пристрої</tspan></text>
+<line x1="680.0" y1="302.0" x2="620.0" y2="302.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="80.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">розібрати в зворотному порядку: dmsetup remove → losetup -d → rm</text>
+</svg>

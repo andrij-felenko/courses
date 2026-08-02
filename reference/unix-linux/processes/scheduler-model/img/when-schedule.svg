@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три приводи покликати планувальник — і чому тік лише ставить прапорець</text>
+<rect x="30.0" y="72.0" width="296.0" height="84.0" rx="8" fill="#fbfcff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="178.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Задача чекає на дані</text>
+<text x="178.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="178.0" dy="0.0">порожній сокет, зайнятий</tspan><tspan x="178.0" dy="15.0">м'ютекс, sleep — віддає сама</tspan></text>
+<rect x="362.0" y="72.0" width="296.0" height="84.0" rx="8" fill="#fbfcff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="510.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Хтось став готовим</text>
+<text x="510.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">прийшов пакет, звільнився замок:</tspan><tspan x="510.0" dy="15.0">чи не відстав новий більше?</tspan></text>
+<rect x="694.0" y="72.0" width="296.0" height="84.0" rx="8" fill="#fbfcff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="842.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Тік таймера</text>
+<text x="842.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="842.0" dy="0.0">переривання з частотою HZ —</tspan><tspan x="842.0" dy="15.0">єдиний спосіб забрати силоміць</tspan></text>
+<rect x="694.0" y="202.0" width="296.0" height="66.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="842.0" y="231.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="842.0" dy="0.0">прапорець TIF_NEED_RESCHED</tspan><tspan x="842.0" dy="15.6">«зняти за першої безпечної нагоди»</tspan></text>
+<rect x="694.0" y="306.0" width="296.0" height="106.0" rx="6" fill="#fbfcff" stroke="#c0392b" stroke-width="1.8"/><text x="842.0" y="340.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="842.0" dy="0.0">безпечна межа:</tspan><tspan x="842.0" dy="15.0">вихід із ядра в простір користувача</tspan><tspan x="842.0" dy="15.0">звільнення останнього замка</tspan><tspan x="842.0" dy="15.0">cond_resched() у довгому циклі</tspan></text>
+<line x1="178.0" y1="156.0" x2="178.0" y2="448.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="156.0" x2="510.0" y2="448.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="842.0" y1="156.0" x2="842.0" y2="200.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="842.0" y1="268.0" x2="842.0" y2="304.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="842.0" y1="412.0" x2="842.0" y2="448.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="450.0" width="960.0" height="62.0" rx="6" fill="#eef3ff" stroke="#1a1a1a" stroke-width="2.0"/><text x="510.0" y="486.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">schedule() — узяти з дерева найлівішого й перемкнутися на нього</tspan></text>
+<rect x="30.0" y="222.0" width="604.0" height="70.0" rx="6" fill="#fffdf0" stroke="#6b7280" stroke-width="1.4"/><text x="332.0" y="253.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="332.0" dy="0.0">Обробник переривання перемкнути задачу не може:</tspan><tspan x="332.0" dy="15.6">перерваний код міг тримати спін-замок — перемикання зависло б назавжди</tspan></text>
+</svg>

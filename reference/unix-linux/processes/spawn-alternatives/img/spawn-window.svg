@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 820" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="820" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три способи прожити проміжок між народженням і exec</text>
+<text x="30.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">1 · fork + exec</text>
+<text x="240.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end">батько</text>
+<text x="240.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end">дитина</text>
+<line x1="250.0" y1="115.0" x2="375.0" y2="115.0" stroke="#2457d6" stroke-width="2.6"/>
+<line x1="375.0" y1="115.0" x2="760.0" y2="115.0" stroke="#2457d6" stroke-width="2.6"/>
+<text x="482.5" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-style="italic">працює далі</text>
+<line x1="375.0" y1="195.0" x2="760.0" y2="195.0" stroke="#c0392b" stroke-width="2.6"/>
+<line x1="375.0" y1="121.0" x2="375.0" y2="189.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="590.0" cy="195.0" r="7.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.4"/>
+<text x="590.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">exec</text>
+<text x="375.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">народження</text>
+<rect x="397.0" y="131.0" width="330.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#c8ced6" stroke-width="1.2"/><text x="562.0" y="151.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="562.0" dy="0.0">вікно відкрите для будь-якого коду:</tspan><tspan x="562.0" dy="15.6">dup2, setuid, setrlimit, unshare</tspan></text>
+<rect x="800.0" y="98.0" width="230.0" height="120.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/><text x="915.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="915.0" dy="0.0">копія таблиць сторінок</tspan><tspan x="915.0" dy="16.2">власний адресний простір</tspan><tspan x="915.0" dy="16.2">батько працює паралельно</tspan><tspan x="915.0" dy="16.2">після — сторінкові винятки</tspan></text>
+<text x="30.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">2 · vfork + exec</text>
+<text x="240.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end">батько</text>
+<text x="240.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end">дитина</text>
+<line x1="250.0" y1="365.0" x2="375.0" y2="365.0" stroke="#2457d6" stroke-width="2.6"/>
+<line x1="375.0" y1="365.0" x2="590.0" y2="365.0" stroke="#6b7280" stroke-width="2.2" stroke-dasharray="6 5"/>
+<text x="482.5" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">спинений</text>
+<line x1="590.0" y1="365.0" x2="760.0" y2="365.0" stroke="#2457d6" stroke-width="2.6"/>
+<line x1="375.0" y1="445.0" x2="760.0" y2="445.0" stroke="#c0392b" stroke-width="2.6"/>
+<line x1="375.0" y1="371.0" x2="375.0" y2="439.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="590.0" cy="445.0" r="7.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.4"/>
+<text x="590.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">exec</text>
+<text x="375.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">народження</text>
+<rect x="397.0" y="381.0" width="330.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#c8ced6" stroke-width="1.2"/><text x="562.0" y="401.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="562.0" dy="0.0">дитина пише в пам'ять батька,</tspan><tspan x="562.0" dy="15.6">зокрема в його стек: майже нічого не можна</tspan></text>
+<rect x="800.0" y="348.0" width="230.0" height="120.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/><text x="915.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="915.0" dy="0.0">таблиць сторінок не створюють</tspan><tspan x="915.0" dy="16.2">простір і стек спільні</tspan><tspan x="915.0" dy="16.2">батько спинений</tspan><tspan x="915.0" dy="16.2">найдешевше й найнебезпечніше</tspan></text>
+<text x="30.0" y="592.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">3 · posix_spawn</text>
+<text x="240.0" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="end">батько</text>
+<text x="240.0" y="700.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end">дитина</text>
+<line x1="250.0" y1="615.0" x2="375.0" y2="615.0" stroke="#2457d6" stroke-width="2.6"/>
+<line x1="375.0" y1="615.0" x2="590.0" y2="615.0" stroke="#6b7280" stroke-width="2.2" stroke-dasharray="6 5"/>
+<text x="482.5" y="601.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">спинений</text>
+<line x1="590.0" y1="615.0" x2="760.0" y2="615.0" stroke="#2457d6" stroke-width="2.6"/>
+<line x1="375.0" y1="695.0" x2="760.0" y2="695.0" stroke="#c0392b" stroke-width="2.6"/>
+<line x1="375.0" y1="621.0" x2="375.0" y2="689.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="590.0" cy="695.0" r="7.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.4"/>
+<text x="590.0" y="723.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">exec</text>
+<text x="375.0" y="723.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">народження</text>
+<rect x="397.0" y="631.0" width="330.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#c8ced6" stroke-width="1.2"/><text x="562.0" y="651.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="562.0" dy="0.0">вікно виконує бібліотека за закритим списком дій;</tspan><tspan x="562.0" dy="14.3">дитина — на власному стеку</tspan></text>
+<rect x="800.0" y="598.0" width="230.0" height="120.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/><text x="915.0" y="638.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="915.0" dy="0.0">clone(CLONE_VM | CLONE_VFORK)</tspan><tspan x="915.0" dy="16.2">простір спільний, стек власний</tspan><tspan x="915.0" dy="16.2">батько спинений на мить</tspan><tspan x="915.0" dy="16.2">помилку exec видно з виклику</tspan></text>
+<rect x="60.0" y="742.0" width="940.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/><text x="530.0" y="766.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Точка призначення в усіх трьох однакова — exec. Способи різняться лише тим,</tspan><tspan x="530.0" dy="16.9">хто і з чиєю пам'яттю живе у проміжку між народженням дитини й заміною програми.</tspan></text>
+</svg>

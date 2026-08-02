@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1160" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="580.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два поверхи контракту розкрутки</text>
+<rect x="90.0" y="66.0" width="980.0" height="60.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="580.0" y="101.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">код, який породив компілятор</tspan></text>
+<text x="580.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">throw   ·   ділянки try   ·   landing pad   ·   тіло catch</text>
+<rect x="90.0" y="246.0" width="980.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="580.0" y="281.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">libstdc++ — знає про C++</tspan></text>
+<text x="580.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">__cxa_allocate_exception · __cxa_throw · __cxa_begin_catch · __cxa_end_catch · __gxx_personality_v0</text>
+<rect x="90.0" y="426.0" width="980.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="580.0" y="461.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">libgcc_s — про C++ не знає нічого</tspan></text>
+<text x="580.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">_Unwind_RaiseException · _Unwind_Resume · _Unwind_GetIP · _Unwind_SetGR · _Unwind_GetLanguageSpecificData</text>
+<line x1="230.0" y1="172.0" x2="230.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="248.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">throw: виділити й кинути</text>
+<line x1="230.0" y1="352.0" x2="230.0" y2="420.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="248.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">_Unwind_RaiseException(&amp;hdr)</text>
+<line x1="930.0" y1="420.0" x2="930.0" y2="352.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="912.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end">виклик персональної функції на кожен кадр</text>
+<line x1="930.0" y1="240.0" x2="930.0" y2="172.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="912.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end">_Unwind_SetIP: стрибок у landing pad</text>
+<text x="580.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">обхід кадрів веде нижній поверх, але «моє / не моє» щоразу питає у верхнього</text>
+</svg>

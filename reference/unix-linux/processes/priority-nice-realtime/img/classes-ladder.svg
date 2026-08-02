@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три ешелони планування</text>
+<text x="450.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">Ядро питає класи згори вниз і бере перший, у якого є готова задача</text>
+<rect x="70.0" y="78.0" width="480.0" height="92.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="310.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">SCHED_DEADLINE</tspan></text>
+<text x="310.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="310.0" dy="0.0">договір: скільки часу і до якого моменту</tspan></text>
+<rect x="610.0" y="102.0" width="230.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="725.0" y="128.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="725.0" dy="0.0">термін у мікросекундах</tspan></text>
+<line x1="310.0" y1="172.0" x2="310.0" y2="204.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="326.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">якщо черга порожня</text>
+<rect x="70.0" y="208.0" width="480.0" height="92.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="310.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">SCHED_FIFO  ·  SCHED_RR</tspan></text>
+<text x="310.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="310.0" dy="0.0">безумовна перевага вищого пріоритету</tspan></text>
+<rect x="610.0" y="232.0" width="230.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="725.0" y="258.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="725.0" dy="0.0">пріоритет 1 … 99</tspan></text>
+<line x1="310.0" y1="302.0" x2="310.0" y2="334.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="326.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">якщо черга порожня</text>
+<rect x="70.0" y="338.0" width="480.0" height="92.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="310.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="310.0" dy="0.0">SCHED_OTHER  ·  BATCH  ·  IDLE</tspan></text>
+<text x="310.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="310.0" dy="0.0">пропорційна частка процесора за вагами</tspan></text>
+<rect x="610.0" y="362.0" width="230.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="725.0" y="388.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="725.0" dy="0.0">nice −20 … 19</tspan></text>
+<rect x="221.4" y="447.1" width="457.2" height="49.9" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="450.0" y="468.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Між ешелонами немає зважування: одна задача з пріоритетом 1</tspan><tspan x="450.0" dy="16.9">витісняє будь-яку кількість звичайних задач із nice −20</tspan></text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="56.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Person p;   Person q{p};</text>
+<text x="470.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">p — неконстантне lvalue типу Person</text>
+<text x="245.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">програє</text>
+<rect x="55.0" y="128.0" width="380.0" height="132.0" rx="10" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.2"/>
+<text x="245.0" y="156.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Person(const Person&amp;)</text>
+<text x="245.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">прив'язка: Person&amp; → const Person&amp;</text>
+<text x="245.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ранг: точний збіг</text>
+<text x="245.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ціль посилання: const Person</text>
+<text x="695.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">перемагає</text>
+<rect x="505.0" y="128.0" width="380.0" height="132.0" rx="10" fill="#eef7f0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="695.0" y="156.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Person(S&amp;&amp;),  S = Person&amp;</text>
+<text x="695.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">прив'язка: Person&amp; → Person&amp;</text>
+<text x="695.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ранг: точний збіг</text>
+<text x="695.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ціль посилання: Person</text>
+<rect x="120.0" y="296.0" width="700.0" height="62.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="470.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">перетворень немає в обох — порівнюються самі прив'язки:</text>
+<text x="470.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">менш cv-кваліфікована ціль краща, тож шаблон виграє</text>
+<text x="470.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">правило «нешаблон кращий за шаблон» сюди не доходить —</text>
+<text x="470.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">воно вмикається лише коли послідовності перетворень нерозрізненні</text>
+</svg>

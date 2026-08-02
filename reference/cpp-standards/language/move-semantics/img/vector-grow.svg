@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 428" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="428" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому vector іноді копіює замість переміщувати</text>
+<rect x="300.0" y="50.0" width="300.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="450.0" y="77.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">vector виріс — треба новий буфер</tspan></text>
+<line x1="450.0" y1="98.0" x2="450.0" y2="126.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="255.0" y="128.0" width="390.0" height="50.0" rx="6" fill="#fff7e6" stroke="#c0392b" stroke-width="1.5"/><text x="450.0" y="157.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="450.0" dy="0.0">конструктор переміщення T — noexcept?</tspan></text>
+<line x1="450.0" y1="180.0" x2="450.0" y2="210.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="215.0" y1="210.0" x2="685.0" y2="210.0" stroke="#333333" stroke-width="1.5"/>
+<text x="160.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">так</text>
+<text x="742.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ні</text>
+<line x1="215.0" y1="212.0" x2="215.0" y2="248.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="685.0" y1="212.0" x2="685.0" y2="248.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="250.0" width="310.0" height="76.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="215.0" y="276.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">переміщує елементи:</tspan><tspan x="215.0" dy="15.6">перезапис вказівників,</tspan><tspan x="215.0" dy="15.6">старі порожніють</tspan></text>
+<rect x="530.0" y="250.0" width="310.0" height="76.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="685.0" y="276.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">копіює елементи:</tspan><tspan x="685.0" dy="15.6">нове виділення для кожного,</tspan><tspan x="685.0" dy="15.6">старі лишаються цілі</tspan></text>
+<line x1="215.0" y1="328.0" x2="215.0" y2="356.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="685.0" y1="328.0" x2="685.0" y2="356.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="358.0" width="310.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="215.0" y="380.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">дешево; кидати нема чому,</tspan><tspan x="215.0" dy="15.6">тож відкат не потрібен</tspan></text>
+<rect x="530.0" y="358.0" width="310.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="685.0" y="380.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">дорого; зате при винятку</tspan><tspan x="685.0" dy="15.6">старий буфер — точка відкату</tspan></text>
+</svg>

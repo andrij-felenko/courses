@@ -473,6 +473,9 @@
         { slug: "reflection-metaprogramming", title: "Рефлексія й метапрограмування", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "declarative-vs-imperative", title: "Декларативне й імперативне", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "dataflow-analysis", title: "Аналіз потоків даних", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "constructors-destructors", title: "Конструктор і деструктор: народження й смерть об'єкта", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "preprocessor-macros", title: "Препроцесор і макроси", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "type-inference", title: "Виведення типів: як компілятор здогадується сам", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "systems", title: "Системи", scope: "Керування ресурсами й виконанням: процеси, планування, віртуальна й фізична пам'ять (стек, купа, алокатори, GC, покажчики), файлові системи, драйвери, потоки, синхронізація, моделі пам'яті, неблокувальність.",
       topics: [
@@ -542,6 +545,7 @@
         { slug: "microkernel", title: "Мікроядро: ядро як набір серверів", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "working-set", title: "Робоча множина", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "atomic-file-replace", title: "Атомарна заміна файлу: запис у тимчасовий і перейменування", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "preemptive-multitasking", title: "Витісняльна багатозадачність", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "peripherals", title: "Периферія", scope: "Порти, шини й контролери материнської плати та підключення зовнішніх пристроїв: PCIe, USB, BIOS/UEFI, ввід-вивід.",
       topics: [
@@ -667,6 +671,7 @@
         { slug: "capability-based-security", title: "Повноваження (capabilities) як модель доступу", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "mandatory-access-control", title: "Обов'язковий доступ і мітки таємності (MAC)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "toctou-race", title: "Гонка між перевіркою й використанням (TOCTOU)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "aslr", title: "ASLR: рандомізація розкладки адресного простору", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "software-engineering", title: "Інженерія", scope: "Проєктування, супровід і верифікація систем: архітектурні патерни, модульність, рефакторинг, процеси розробки, види тестів, фаззинг, формальні методи, неперервна інтеграція.",
       topics: [
@@ -718,6 +723,9 @@
         { slug: "permissive-vs-copyleft", title: "Пермісивні й копілефтні ліцензії", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "release-channels", title: "Канали постачання: стабільний, тестовий, нічний", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "release-candidate-and-freeze", title: "Реліз-кандидат і заморозка коду", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "thread-sanitizer", title: "ThreadSanitizer: як інструмент ловить гонку даних", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "fault-injection", title: "Інжекція збоїв: змусити помилку статися", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "microbenchmarking", title: "Мікробенчмарк: як не збрехати собі виміром", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "code", title: "Код", scope: "Робота з кодом як артефактом: контроль версій, репозиторії, гілки, злиття, історія змін, спільна розробка.",
       topics: [
@@ -728,6 +736,8 @@
         { slug: "open-source-licenses", title: "Ліцензії відкритого коду: дозвільні, копілефт, сумісність", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "fork-and-upstream", title: "Форк і апстрим: життя похідного репозиторію", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "git-submodules", title: "Підмодулі git", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "commit-message-conventions", title: "Угоди про повідомлення комітів: історія як структуровані дані", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "git-hooks", title: "Гачки git: перевірки, вбудовані в дії репозиторію", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "embedded-systems", title: "Вбудовані системи", scope: "Програмування мікроконтролерів і прошивок: периферія МК, реального часу (RTOS), тулчейни, драйвери, апаратна взаємодія.",
       topics: [
@@ -936,6 +946,9 @@
         { slug: "nonlocal-jump", title: "Нелокальний перехід: setjmp і longjmp", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "exception-safety", title: "Гарантії цілості при винятках", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "value-equality-identity", title: "Рівність значень і тотожність посилань", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "function-overloading", title: "Перевантаження функцій і вибір найкращого кандидата", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "closures", title: "Замикання: функція разом із захопленим оточенням", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "operator-overloading", title: "Перевантаження операторів", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
   ]
 });

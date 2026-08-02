@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="52.0" width="1060.0" height="200.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="560.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вікно 1: EOF на трубі приходить раніше, ніж переписано PPID</text>
+<text x="330.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">дескриптори закрито</text>
+<text x="640.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">PPID переписано</text>
+<text x="50.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">батько</text>
+<rect x="279.0" y="114.0" width="102.1" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="330.0" y="134.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">exit_files()</tspan></text>
+<rect x="585.5" y="114.0" width="108.9" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="640.0" y="134.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">exit_notify()</tspan></text>
+<rect x="822.1" y="114.0" width="115.8" height="32.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="880.0" y="134.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="880.0" dy="0.0">батько — зомбі</tspan></text>
+<line x1="150.0" y1="130.0" x2="275.0" y2="130.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="385.0" y1="130.0" x2="581.5" y2="130.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="698.5" y1="130.0" x2="818.1" y2="130.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="941.9" y1="130.0" x2="1060.0" y2="130.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="485.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">вікно</text>
+<line x1="485.0" y1="178.0" x2="387.0" y2="178.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="485.0" y1="178.0" x2="583.0" y2="178.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="50.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">дитина</text>
+<rect x="355.8" y="194.0" width="88.4" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="214.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">read() → 0</tspan></text>
+<rect x="485.0" y="194.0" width="150.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="560.0" y="214.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="560.0" dy="0.0">getppid() ще старий</tspan></text>
+<rect x="725.0" y="194.0" width="150.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="800.0" y="214.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="800.0" dy="0.0">getppid() уже новий</tspan></text>
+<line x1="150.0" y1="210.0" x2="351.8" y2="210.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="448.2" y1="210.0" x2="481.0" y2="210.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="639.0" y1="210.0" x2="721.0" y2="210.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="879.0" y1="210.0" x2="1060.0" y2="210.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="30.0" y="272.0" width="1060.0" height="210.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="560.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вікно 2: між fork() і prctl(PR_SET_PDEATHSIG)</text>
+<text x="470.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">перепідпорядкування сталося</text>
+<text x="50.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">батько</text>
+<rect x="269.5" y="334.0" width="61.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="354.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">fork()</tspan></text>
+<rect x="436.1" y="334.0" width="67.9" height="32.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="354.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="470.0" dy="0.0">_exit()</tspan></text>
+<line x1="150.0" y1="350.0" x2="265.5" y2="350.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="334.5" y1="350.0" x2="432.1" y2="350.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="507.9" y1="350.0" x2="1060.0" y2="350.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="570.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">вікно</text>
+<line x1="570.0" y1="396.0" x2="508.0" y2="396.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="396.0" x2="631.0" y2="396.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="50.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">робітник</text>
+<rect x="272.9" y="414.0" width="54.2" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="434.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">старт</tspan></text>
+<rect x="635.3" y="414.0" width="129.4" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="700.0" y="434.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="700.0" dy="0.0">prctl(PDEATHSIG)</tspan></text>
+<rect x="821.1" y="414.0" width="197.8" height="32.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="920.0" y="434.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="920.0" dy="0.0">getppid() ≠ батько → вихід</tspan></text>
+<line x1="150.0" y1="430.0" x2="268.9" y2="430.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="331.1" y1="430.0" x2="631.3" y2="430.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="768.7" y1="430.0" x2="817.1" y2="430.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="1022.9" y1="430.0" x2="1060.0" y2="430.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="560.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">обидва вікна закриваються однаково: не вірити події, а перевіряти факт</text>
+</svg>

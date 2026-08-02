@@ -937,6 +937,7 @@
         { slug: "input-bias-current", title: "Вхідний струм зсуву (input bias current)", basic: { status: "pending" }, detailed: { status: "done" }, hist: [{ file: "hist-taming-bias-current.md", status: "done" }], math: [{ file: "math-bias-compensation.md", status: "done" }], proj: [{ file: "proj-dc-error-budget.md", status: "done" }] },
         { slug: "pcie", title: "PCIe", basic: { status: "pending" }, detailed: { status: "done" }, hist: [{ file: "hist-pcie-birth.md", status: "done" }], math: [{ file: "math-lane-bandwidth.md", status: "done" }], proj: [{ file: "proj-config-enum.md", status: "done" }] },
         { slug: "dma", title: "Прямий доступ до пам'яті (DMA)", basic: { status: "pending" }, detailed: { status: "done" }, hist: [{ file: "hist-birth.md", status: "done" }], math: [{ file: "math-budget.md", status: "done" }], proj: [{ file: "proj-setup.md", status: "done" }] },
+        { slug: "dshot-protocol", title: "DShot: цифровий протокол до регулятора", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "sensors", title: "Сенсорика", scope: "Прилади перетворення фізичних величин у вимірюваний електричний сигнал.",
       topics: [

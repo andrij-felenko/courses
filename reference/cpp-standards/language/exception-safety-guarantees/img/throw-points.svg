@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">У тексті один вихід із функції, насправді — три</text>
+<rect x="40.0" y="52.0" width="470.0" height="262.0" rx="6" fill="#f8f9fb" stroke="#6b7280" stroke-width="1.0"/>
+<text x="58.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">void Widget::reset(const std::string&amp; name) {</text>
+<text x="58.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">    delete impl_;</text>
+<text x="58.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">    impl_ = nullptr;</text>
+<text x="58.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">    impl_ = new Impl(name);</text>
+<text x="58.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">    log_.push_back(name);</text>
+<text x="58.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">    ready_ = true;</text>
+<text x="58.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">}</text>
+<line x1="516.0" y1="172.0" x2="552.0" y2="146.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="516.0" y1="206.0" x2="552.0" y2="232.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="556.0" y="106.0" width="384.0" height="78.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="748.0" y="133.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="748.0" dy="0.0">new може кинути bad_alloc</tspan><tspan x="748.0" dy="15.6">→ impl_ лишився nullptr,</tspan><tspan x="748.0" dy="15.6">а ready_ усе ще каже «готовий»</tspan></text>
+<rect x="556.0" y="196.0" width="384.0" height="78.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="748.0" y="223.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="748.0" dy="0.0">push_back може кинути bad_alloc</tspan><tspan x="748.0" dy="15.6">→ реалізація вже нова,</tspan><tspan x="748.0" dy="15.6">а журнал про неї не знає</tspan></text>
+<text x="490.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">жодного витоку пам'яті немає — зламано інваріант «ready_ означає, що impl_ дійсний»</text>
+</svg>

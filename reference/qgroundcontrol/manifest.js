@@ -34,8 +34,8 @@
         { slug: "threading-model", title: "Модель потоків: де живуть лінк, розбір і відмальовка", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-thread-crossing.md", status: "done" }] , proj: [{ file: "proj-link-worker.md", status: "done" }] },
         { slug: "firmware-plugin", title: "Плагін прошивки: як станція ховає різницю між автопілотами", basic: { status: "done" }, detailed: { status: "done" } , api: [{ file: "api-firmware-plugin.md", status: "done" }] , proj: [{ file: "proj-custom-firmware-plugin.md", status: "done" }] },
         { slug: "component-information", title: "Відомості про компонент: метадані з борту", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-component-metadata.md", status: "done" }] , proj: [{ file: "proj-metadata-client.md", status: "done" }] },
-        { slug: "events-interface", title: "Інтерфейс подій: коди з борту як людські повідомлення", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "actuator-config", title: "Налаштування виконавчих механізмів: геометрія, виходи, перевірка", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "events-interface", title: "Інтерфейс подій: коди з борту як людські повідомлення", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-statustext-to-events.md", status: "done" }] , api: [{ file: "api-events-messages.md", status: "done" }] , proj: [{ file: "proj-event-receiver.md", status: "done" }] },
+        { slug: "actuator-config", title: "Налаштування виконавчих механізмів: геометрія, виходи, перевірка", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-actuator-metadata.md", status: "done" }] , proj: [{ file: "proj-actuator-test-client.md", status: "done" }] , hist: [{ file: "hist-mixer-files.md", status: "done" }] },
       ] },
 
     { slug: "links", title: "Канали й протокол", scope: "Як застосунок під'єднується до апарата і що робить із потоком повідомлень.",
@@ -45,8 +45,9 @@
         { slug: "mavlink-handling", title: "Обробка MAVLink: розбір, версії, канали", basic: { status: "empty" }, detailed: { status: "done" } , proj: [{ file: "proj-parse-channel.md", status: "done" }] , math: [{ file: "math-loss-counting.md", status: "done" }] },
         { slug: "message-routing", title: "Маршрутизація за sysid і compid", basic: { status: "empty" }, detailed: { status: "done" } , proj: [{ file: "proj-router-dispatch.md", status: "done" }] , api: [{ file: "api-mavlink-ids.md", status: "done" }] },
         { slug: "telemetry-logging", title: "Запис телеметрії й відтворення логів", basic: { status: "done" }, detailed: { status: "done" } , api: [{ file: "api-tlog-format.md", status: "done" }] , proj: [{ file: "proj-tlog-reader.md", status: "done" }] },
-        { slug: "mavlink-inspector", title: "Інспектор MAVLink: перегляд сирого трафіку", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "vehicle-logs", title: "Бортові логи апарата: завантаження й потокове передавання", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mavlink-inspector", title: "Інспектор MAVLink: перегляд сирого трафіку", basic: { status: "empty" }, detailed: { status: "done" } , proj: [{ file: "proj-inspector-tap.md", status: "done" }] , math: [{ file: "math-rate-estimator.md", status: "done" }] , api: [{ file: "api-inspector-qml.md", status: "done" }] },
+        { slug: "vehicle-logs", title: "Бортові логи апарата: завантаження й потокове передавання", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-log-protocol.md", status: "done" }] , proj: [{ file: "proj-log-downloader.md", status: "done" }] , hist: [{ file: "hist-log-protocol-origins.md", status: "done" }] },
+        { slug: "log-viewer", title: "Переглядач логів: графіки й повідомлення з бортового файлу", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "planning", title: "Планування місій", scope: "Модель плану в застосунку: з чого він складається і як потрапляє на борт.",
@@ -72,7 +73,7 @@
         { slug: "platform-targets", title: "Цілі платформ: Linux, Windows, Android", basic: { status: "done" }, detailed: { status: "done" } , proj: [{ file: "proj-android-serial-bridge.md", status: "done" }] , api: [{ file: "api-platform-knobs.md", status: "done" }] },
         { slug: "custom-build", title: "Власна збірка: набір функцій і бренд", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-custom-overrides.md", status: "done" }] , proj: [{ file: "proj-custom-overlay-repo.md", status: "done" }] },
         { slug: "custom-mavlink-messages", title: "Власні MAVLink-повідомлення в застосунку", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-dialect-xml.md", status: "done" }] , math: [{ file: "math-crc-extra.md", status: "done" }] , proj: [{ file: "proj-custom-message.md", status: "done" }] },
-        { slug: "contributing", title: "Внесок в апстрим: процес, вимоги, рев'ю", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "contributing", title: "Внесок в апстрим: процес, вимоги, рев'ю", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-contrib-gates.md", status: "done" }] , proj: [{ file: "proj-local-gate.md", status: "done" }] },
       ] },
   ]
 });

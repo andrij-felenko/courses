@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1260" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="630.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка виходу: наказ, що сам себе відпускає</text>
+<text x="80.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">станція</text>
+<text x="80.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">борт</text>
+<line x1="150.0" y1="150.0" x2="1120.0" y2="150.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="150.0" y1="300.0" x2="1120.0" y2="300.0" stroke="#6b7280" stroke-width="1.5"/>
+<circle cx="150.0" cy="150.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="150.0" y1="162.0" x2="150.0" y2="288.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="240.0" cy="150.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="240.0" y1="162.0" x2="240.0" y2="288.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="330.0" cy="150.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="330.0" y1="162.0" x2="330.0" y2="288.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="420.0" cy="150.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="420.0" y1="162.0" x2="420.0" y2="288.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="510.0" cy="150.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="510.0" y1="162.0" x2="510.0" y2="288.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="600.0" cy="150.0" r="7.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="600.0" y1="162.0" x2="600.0" y2="288.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="375.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">ACTUATOR_TEST кожні 100 мс, доки повзунок утримують</text>
+<rect x="150.0" y="320.0" width="750.0" height="46.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="525.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">вихід під керуванням перевірки</text>
+<line x1="900.0" y1="280.0" x2="900.0" y2="400.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6,4"/>
+<text x="914.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">останній наказ вичерпав свій час</text>
+<rect x="900.0" y="320.0" width="220.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="1010.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">вихід повернуто до значення DIS</text>
+<line x1="645.0" y1="100.0" x2="645.0" y2="138.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="645.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">тут обірвався зв'язок</text>
+<text x="630.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">жодної команди «зупинись» не надсилають і не чекають:</text>
+<text x="630.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">кожен наказ несе власний термін, тому мовчання каналу означає зупинку,</text>
+<text x="630.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">а прошивка ще й обрізає цей термін до трьох секунд згори</text>
+</svg>

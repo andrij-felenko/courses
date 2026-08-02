@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">const описує двері, а не кімнату</text>
+<rect x="350.0" y="148.8" width="180.0" height="62.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="175.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">x = 1</tspan><tspan x="440.0" dy="19.5">звичайний об'єкт</tspan></text>
+<rect x="54.2" y="151.9" width="191.6" height="56.2" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="150.0" y="175.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">int&amp;</tspan><tspan x="150.0" dy="18.2">двері з правом писати</tspan></text>
+<rect x="630.2" y="151.9" width="199.6" height="56.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="730.0" y="175.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">const int&amp;</tspan><tspan x="730.0" dy="18.2">двері лише для читання</tspan></text>
+<line x1="255.8" y1="180.0" x2="340.0" y2="180.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="620.2" y1="180.0" x2="540.0" y2="180.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="297.9" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">писати можна</text>
+<text x="580.1" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">писати не можна</text>
+<text x="440.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">комірка одна — прав доступу два</text>
+<text x="440.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">const_cast повертає перші двері; сам об'єкт від цього не змінюється</text>
+</svg>
