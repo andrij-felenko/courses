@@ -128,6 +128,8 @@
         { slug: "computational-group-theory", title: "Обчислювальна теорія груп", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "inverse-operations", title: "Обернені дії", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "quadratic-equations", title: "Квадратні рівняння", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "complete-lattice", title: "Повна ґратка й теорема Кнастера–Тарського", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "semiring", title: "Напівкільце: додавання без віднімання", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "linear-algebra", title: "Лінійна алгебра", scope: "Векторні простори, лінійні відображення, матриці та спектральна теорія.",
       topics: [
@@ -332,6 +334,7 @@
         { slug: "conditional-probability", title: "Умовна ймовірність", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "coupon-collector", title: "Задача про збирача купонів", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "geometric-distribution", title: "Геометричний розподіл", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "zipf-law", title: "Закон Зіпфа: чому мала частка об'єктів забирає більшість звернень", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "statistics", title: "Статистика", scope: "Висновки з даних — оцінювання, перевірка гіпотез, регресія та байєсів підхід.",
       topics: [

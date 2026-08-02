@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 770" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="770" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Від переліку залежностей до вартості поширення</text>
+<text x="175.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">етап</text>
+<text x="340.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">що дає</text>
+<text x="900.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end" font-weight="700">ціна</text>
+<rect x="40.0" y="96.0" width="270.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="135.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">1 · читання й нумерація</tspan></text>
+<text x="340.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="340.0" dy="0.0">імена за абеткою → номери</tspan><tspan x="340.0" dy="16.9">дуги без дублікатів і петель</tspan></text>
+<text x="900.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">O(E) + O(n log n)</text>
+<line x1="175.0" y1="170.0" x2="175.0" y2="198.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="40.0" y="204.0" width="270.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="243.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">2 · дуги → CSR</tspan></text>
+<text x="340.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="340.0" dy="0.0">head[] і to[]: сусіди підряд</tspan><tspan x="340.0" dy="16.9">у пам'яті, списки впорядковані</tspan></text>
+<text x="900.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">O(E log E)</text>
+<line x1="175.0" y1="278.0" x2="175.0" y2="306.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="40.0" y="312.0" width="270.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="351.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">3 · Тарджан без рекурсії</tspan></text>
+<text x="340.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="340.0" dy="0.0">comp[v]; блоки вийшли одразу</tspan><tspan x="340.0" dy="16.9">в топологічному порядку</tspan></text>
+<text x="900.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">O(n + E)</text>
+<line x1="175.0" y1="386.0" x2="175.0" y2="414.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="40.0" y="420.0" width="270.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="459.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">4 · конденсація</tspan></text>
+<text x="340.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="340.0" dy="0.0">граф блоків — без циклів</tspan><tspan x="340.0" dy="16.9">за побудовою</tspan></text>
+<text x="900.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">O(n + E)</text>
+<line x1="175.0" y1="494.0" x2="175.0" y2="522.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="40.0" y="528.0" width="270.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="567.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">5 · канонічний порядок</tspan></text>
+<text x="340.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="340.0" dy="0.0">порядок, стійкий до появи</tspan><tspan x="340.0" dy="16.9">нового модуля</tspan></text>
+<text x="900.0" y="567.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">O(C log C + Ec)</text>
+<line x1="175.0" y1="602.0" x2="175.0" y2="630.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="40.0" y="636.0" width="270.0" height="68.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="675.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">6 · видимість на бітах</tspan></text>
+<text x="340.0" y="666.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="340.0" dy="0.0">маска блоків для кожного блоку</tspan><tspan x="340.0" dy="16.9">і вартість поширення</tspan></text>
+<text x="900.0" y="675.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">O(Ec · C / 64)</text>
+</svg>

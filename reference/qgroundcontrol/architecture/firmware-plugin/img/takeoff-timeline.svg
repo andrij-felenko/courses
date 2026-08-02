@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1300" height="620" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="650.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одне натискання — до 5.4 секунди в потоці інтерфейсу</text>
+<rect x="150.0" y="60.0" width="716.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.2"/><text x="508.0" y="100.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="508.0" dy="0.0">крок 3 · _setFlightModeAndValidate</tspan><tspan x="508.0" dy="19.5">3 спроби × 13 перевірок × 100 мс</tspan><tspan x="508.0" dy="19.5">= 3900 мс</tspan></text>
+<rect x="878.0" y="60.0" width="272.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.2"/><text x="1014.0" y="102.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1014.0" dy="0.0">крок 4 · _armVehicleAndValidate</tspan><tspan x="1014.0" dy="16.9">15 × 100 мс</tspan><tspan x="1014.0" dy="16.9">= 1500 мс</tspan></text>
+<line x1="150.0" y1="214.0" x2="1150.0" y2="214.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="335.0" y1="208.0" x2="335.0" y2="220.0" stroke="#333333" stroke-width="1.5"/>
+<text x="335.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">1</text>
+<line x1="520.0" y1="208.0" x2="520.0" y2="220.0" stroke="#333333" stroke-width="1.5"/>
+<text x="520.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">2</text>
+<line x1="705.0" y1="208.0" x2="705.0" y2="220.0" stroke="#333333" stroke-width="1.5"/>
+<text x="705.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">3</text>
+<line x1="890.0" y1="208.0" x2="890.0" y2="220.0" stroke="#333333" stroke-width="1.5"/>
+<text x="890.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">4</text>
+<line x1="1075.0" y1="208.0" x2="1075.0" y2="220.0" stroke="#333333" stroke-width="1.5"/>
+<text x="1075.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">5</text>
+<text x="650.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">секунди від натискання кнопки</text>
+<line x1="150.0" y1="220.0" x2="150.0" y2="292.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="40.0" y="292.0" width="220.0" height="82.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="320.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">кроки 1–2</tspan><tspan x="150.0" dy="16.9">перевірки стану борту</tspan><tspan x="150.0" dy="16.9">й висоти — миттєво</tspan></text>
+<line x1="1150.0" y1="220.0" x2="1150.0" y2="292.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="1040.0" y="292.0" width="220.0" height="82.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="1150.0" y="320.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1150.0" dy="0.0">крок 5</tspan><tspan x="1150.0" dy="16.9">MAV_CMD_NAV_TAKEOFF</tspan><tspan x="1150.0" dy="16.9">іде в канал</tspan></text>
+<rect x="300.0" y="420.0" width="700.0" height="90.0" rx="6" fill="#f8f4ee" stroke="#333333" stroke-width="1.5"/><text x="650.0" y="460.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">увесь цей час метод крутить цикл очікування в потоці інтерфейсу</tspan><tspan x="650.0" dy="19.5">й викликає processEvents() — вікно живе і приймає нові натискання</tspan></text>
+<rect x="300.0" y="528.0" width="700.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="650.0" y="561.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">тому guidedModeTakeoff потребує захисту від повторного входу</tspan></text>
+</svg>

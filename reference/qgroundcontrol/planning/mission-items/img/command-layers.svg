@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="620" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="295.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">шари опису, від загального до конкретного</text>
+<rect x="60.0" y="80.0" width="470.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="76.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Спільний: будь-яка прошивка, будь-який апарат</text>
+<text x="76.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">MavCmdInfoCommon.json</text>
+<line x1="295.0" y1="148.0" x2="295.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="176.0" width="470.0" height="62.0" rx="6" fill="#eef6ff" stroke="#333333" stroke-width="1.5"/>
+<text x="76.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Тип апарата: мультиротор / літак / VTOL / ровер</text>
+<text x="76.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">MavCmdInfoMultiRotor.json</text>
+<line x1="295.0" y1="244.0" x2="295.0" y2="266.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="272.0" width="470.0" height="62.0" rx="6" fill="#f2f7ee" stroke="#333333" stroke-width="1.5"/>
+<text x="76.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Прошивка: PX4 або ArduPilot</text>
+<text x="76.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">накладка плагіна прошивки</text>
+<line x1="295.0" y1="340.0" x2="295.0" y2="362.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="368.0" width="470.0" height="62.0" rx="6" fill="#fff4ec" stroke="#333333" stroke-width="1.5"/>
+<text x="76.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Прошивка + тип апарата разом</text>
+<text x="76.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">найконкретніша накладка</text>
+<rect x="690.0" y="120.0" width="420.0" height="300.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+<text x="900.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">зібраний опис однієї команди</text>
+<text x="708.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">friendlyName</text>
+<text x="1092.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">спільний шар</text>
+<text x="708.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">category</text>
+<text x="1092.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">спільний шар</text>
+<text x="708.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">specifiesCoordinate</text>
+<text x="1092.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">спільний шар</text>
+<text x="708.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">param1.label</text>
+<text x="1092.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">спільний шар</text>
+<text x="708.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start">param3.label</text>
+<text x="1092.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">шар типу апарата</text>
+<text x="708.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start">param3.units</text>
+<text x="1092.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">шар типу апарата</text>
+<text x="708.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start">param2.enumStrings</text>
+<text x="1092.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">шар прошивки</text>
+<line x1="550.0" y1="250.0" x2="670.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="610.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">накладання</text>
+<text x="590.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">перекривається лише той ключ, який названо в шарі;</text>
+<text x="590.0" y="526.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">решта дістається від попереднього шару без змін</text>
+<text x="590.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">команда, якої немає в жодному шарі, редагується голими числами</text>
+</svg>

@@ -98,7 +98,18 @@ Fields: **each version (`basic`, `detailed`) has its own `status`** (enum §9); 
 - **`<slug>.md` — basic.** A **very short** text that gives **a sense of what the topic is**: read in ~half a minute — you have the picture, enough to grasp the essence. One core, fast. **Fewer examples**; relies on **fewer inserts** (≈half as many as the full account — **except the historical `hist-`**, apt here too). **540–1440 words AND at least TWICE SHORTER than its detailed** (the hard size rule below).
 - **`<slug>-d.md` — detailed.** **The full version — sit down and understand it completely, no gaps.** This is **NOT** an overload of terms and **NOT** excess complexity, but **completeness in depth while staying understandable**: the same living delivery, just carried to the bottom. **1080–9000 words** (catalog — up to 14400, §8).
 
-**Detailed is the main version, we ALWAYS write it.** `-d.md` — the topic's full article, present for every topic. **We write the basic AS NEEDED** — when the detailed one is large and a short overview entry genuinely helps to grasp the essence quickly before the full read. **If the detailed one is short** (≈ up to 3150 words), **we do NOT write the basic**: it would merely duplicate the detailed. That is: detailed — always; basic — only when it **adds** (a quick overview of a large topic), doesn't duplicate.
+**Detailed is the main version, we ALWAYS write it.** `-d.md` — the topic's full article, present for every topic. **We write the basic AS NEEDED, and that need is rare.** A topic's default is **`basic:empty`**; a basic is an exception you must justify, not a habitual second file. That is: detailed — always; basic — only when it **adds** (a quick overview of a large topic), doesn't duplicate.
+
+**THE BASIC GATE: four "yes" answers and no disqualifier.** The decision is made **with the finished detailed in hand** (§9), never in advance. Write a basic ONLY when **all four** signs hold:
+
+1. **Size.** The detailed is longer than **~3300 words**. Shorter, and the basic comes out as a retelling, and the ½ ratio won't hold: for a 3000-word detailed the basic would have to fit into 1500, which is nearly the same article.
+2. **One core thread.** You can state the topic's cause-and-effect core in **one sentence**, and it stands **without any** of the parts you would drop. If the essence of the topic is a **list of equal-weight things** (variants, modes, fields, commands, steps of a procedure), do **NOT** write a basic: a shortened list is not an overview, it is a truncated reference.
+3. **There is something to drop.** At least **half** of the detailed is derivations, variations, edge cases, examples — material a basic may legitimately **skip**. A skeleton detailed, where every paragraph carries a new necessary fact, does not compress: you would have to cut truth.
+4. **The detailed is not an entry point by itself.** If the detailed's first two or three paragraphs already give the picture of the topic, the reader **already has** the entry — a basic would only duplicate it.
+
+**Unconditional disqualifiers** (they hold at any size): the topic is **reference-like** — its core is an API, a protocol, a format, a set of parameters, a table · the topic is **narrow**, existing only as a detail of a bigger one · the detailed **isn't written yet** (you don't decide the basic without it).
+
+**A 50/50 hesitation means NO.** The gate's default is "no". The cost of "we didn't write a basic" is one extra step into the detailed for the reader; the cost of "we wrote a needless one" is a second text about the same thing that must be kept in sync with the first from then on.
 
 **HARD SIZE RULE: a basic is ≤ half of its detailed.** Two limits hold **at the same time**, both mandatory:
 
@@ -111,7 +122,7 @@ We count **prose** (no code blocks, figures, tables, markup) — exactly the way
 2. **Still doesn't fit after cutting — don't write the basic at all** (`basic:empty`, §9). "It can't be compressed to half without gutting the essence" means exactly one thing: the topic **does not need** a basic, not that the limit may be stretched.
 3. **Never inflate the detailed** to "reach" the ratio, and don't pad the basic with water up to 540 words — the detailed's size is dictated by the topic, not by arithmetic.
 
-The rule is symmetric to "the detailed is short (≲3150) → we don't write a basic": for a 3000-word detailed the basic would have to fit into 1500 — which is nearly a retelling, which is why we don't write it.
+The rule is symmetric to sign 1 of the gate ("the detailed is ≲3300 → we don't write a basic"): for a 3000-word detailed the basic would have to fit into 1500 — which is nearly a retelling, which is why we don't write it.
 
 **The basic's language is simpler; the meaning and the understanding are the same.** A basic differs from the detailed in **size and apparatus, not in truth**. It is shorter because there is **less material**, not because it is "shallower": what is said is said **correctly and completely**.
 - **Simpler words, shorter sentences.** An everyday word instead of a learned one where it is precise; less jargon, less formalism, fewer nested clauses. Name a term **after the mechanism** (§4) — first what happens, then what it is called; every term used is either explained here or is in the `preknowlist` (§6).

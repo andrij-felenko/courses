@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="70.0" y="150.0" width="190.0" height="80.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="165.0" y="195.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">НЕМАЄ</tspan></text>
+<rect x="400.0" y="150.0" width="220.0" height="80.0" rx="6" fill="#e8f6ee" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="185.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">ЖИВИЙ</tspan><tspan x="510.0" dy="18.2">строк попереду</tspan></text>
+<rect x="790.0" y="150.0" width="280.0" height="80.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="930.0" y="185.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="930.0" dy="0.0">ПІДОЗРЮВАНИЙ</tspan><tspan x="930.0" dy="17.6">строк минув, запис лишається</tspan></text>
+<rect x="400.0" y="520.0" width="220.0" height="80.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="510.0" y="565.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">СТЕРТИЙ</tspan></text>
+<line x1="262.0" y1="190.0" x2="396.0" y2="190.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="329.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">«я тут» вперше</text>
+<line x1="622.0" y1="190.0" x2="786.0" y2="190.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="704.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">строк вичерпано</text>
+<text x="704.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">живих −1</text>
+<line x1="870.0" y1="232.0" x2="870.0" y2="278.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="870.0" y1="278.0" x2="510.0" y2="278.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="510.0" y1="278.0" x2="510.0" y2="234.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="690.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">«я тут» знову — живих +1</text>
+<line x1="990.0" y1="232.0" x2="990.0" y2="336.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="1085.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">пільга минула</text>
+<rect x="760.0" y="340.0" width="340.0" height="110.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.2"/><text x="930.0" y="382.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="930.0" dy="0.0">ПОРІГ НЕДОВІРИ</tspan><tspan x="930.0" dy="16.9">живих менше за половину відомих?</tspan><tspan x="930.0" dy="16.9">так → тримати · ні → стерти</tspan></text>
+<line x1="1100.0" y1="395.0" x2="1150.0" y2="395.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="1150.0" y1="395.0" x2="1150.0" y2="190.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="1150.0" y1="190.0" x2="1076.0" y2="190.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="1150.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">тримати</text>
+<line x1="830.0" y1="452.0" x2="830.0" y2="560.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="830.0" y1="560.0" x2="624.0" y2="560.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="740.0" y="540.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">віримо собі — стерти</text>
+<line x1="440.0" y1="232.0" x2="440.0" y2="516.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="420.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end"><tspan x="420.0" dy="0.0">«я йду» — підказка:</tspan><tspan x="420.0" dy="16.2">стерти одразу,</tspan><tspan x="420.0" dy="16.2">живих −1 і відомих −1</tspan></text>
+<rect x="70.0" y="615.0" width="1060.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="600.0" y="642.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">підозрюваний ЛИШАЄТЬСЯ в таблиці — саме він тримає знаменник порога;</tspan><tspan x="600.0" dy="17.6">стирати відразу — значить ніколи не побачити масового витікання</tspan></text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому вивід «зависає», щойно програму поставили в конвеєр</text>
+<rect x="117.0" y="93.0" width="146.0" height="49.9" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="190.0" y="114.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">stdout → термінал</tspan><tspan x="190.0" dy="16.9">режим: порядковий</tspan></text>
+<rect x="352.0" y="118.5" width="96.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="139.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">рядок 1</tspan></text>
+<rect x="512.0" y="118.5" width="96.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="560.0" y="139.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">рядок 2</tspan></text>
+<rect x="672.0" y="118.5" width="96.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="720.0" y="139.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">рядок 3</tspan></text>
+<text x="890.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">усе вже там</text>
+<line x1="30.0" y1="218.0" x2="990.0" y2="218.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<rect x="87.4" y="263.1" width="205.2" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="190.0" y="284.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">stdout → канал або файл</tspan><tspan x="190.0" dy="16.9">режим: поблоковий, ≈4 КіБ</tspan></text>
+<text x="560.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">нічого не видно</text>
+<rect x="817.0" y="280.1" width="146.0" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="890.0" y="301.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="890.0" dy="0.0">усі рядки</tspan><tspan x="890.0" dy="16.9">вивалюються разом</tspan></text>
+<line x1="340.0" y1="400.0" x2="980.0" y2="400.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="393.0" x2="400.0" y2="407.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="400.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1 с</text>
+<line x1="560.0" y1="393.0" x2="560.0" y2="407.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="560.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">2 с</text>
+<line x1="720.0" y1="393.0" x2="720.0" y2="407.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="720.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">3 с</text>
+<line x1="890.0" y1="393.0" x2="890.0" y2="407.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="890.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">вихід</text>
+<text x="500.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">той самий код і той самий вивід — різниця лише в тому, куди дивиться fd 1</text>
+</svg>

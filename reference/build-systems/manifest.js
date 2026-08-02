@@ -39,6 +39,7 @@
         { slug: "cpack", title: "CPack: збірка дистрибутива", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "cmake-toolchain-file", title: "Файл тулчейна: як CMake дізнається про чужу платформу", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "cmake-antipatterns", title: "Антипатерни CMake і чому вони живучі", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "configure-file-templates", title: "configure_file: значення конфігурації у згенерованих файлах", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "dependencies", title: "Залежності", scope: "Як проєкт отримує чужий код відтворювано й однаково на всіх машинах.",

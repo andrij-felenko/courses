@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1330 706" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1330" height="706" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="665.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві фази поширення: позначити досяжне, обчислити те, чий вхід справді змінився</text>
+<text x="340.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">граф залежностей</text>
+<rect x="182.0" y="129.0" width="136.0" height="58.0" rx="6" fill="#eef4ff" stroke="#333333" stroke-width="1.8"/><text x="250.0" y="154.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">s</tspan><tspan x="250.0" dy="16.2">1 → 5</tspan></text>
+<rect x="462.0" y="129.0" width="136.0" height="58.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.8"/><text x="530.0" y="154.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">t</tspan><tspan x="530.0" dy="16.2">не чіпали</tspan></text>
+<rect x="102.0" y="261.0" width="136.0" height="58.0" rx="6" fill="#fff6e6" stroke="#333333" stroke-width="1.8"/><text x="170.0" y="294.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">p = f(s)</tspan></text>
+<rect x="262.0" y="261.0" width="136.0" height="58.0" rx="6" fill="#fff6e6" stroke="#333333" stroke-width="1.8"/><text x="330.0" y="294.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">q = (s &gt; 0)</tspan></text>
+<rect x="462.0" y="261.0" width="136.0" height="58.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.8"/><text x="530.0" y="294.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">u = k(t)</tspan></text>
+<rect x="182.0" y="393.0" width="136.0" height="58.0" rx="6" fill="#fff6e6" stroke="#333333" stroke-width="1.8"/><text x="250.0" y="426.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">r = g(p, q)</tspan></text>
+<rect x="362.0" y="393.0" width="136.0" height="58.0" rx="6" fill="#f2f2f5" stroke="#333333" stroke-width="1.8"/><text x="430.0" y="426.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">w = h(q, u)</tspan></text>
+<rect x="182.0" y="525.0" width="136.0" height="58.0" rx="6" fill="#fff6e6" stroke="#333333" stroke-width="1.8"/><text x="250.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">ефект: показує r</tspan></text>
+<text x="88.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">висота 0</text>
+<text x="88.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">висота 1</text>
+<text x="88.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">висота 2</text>
+<text x="88.0" y="559.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">висота 3</text>
+<line x1="228.0" y1="189.0" x2="190.0" y2="259.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="272.0" y1="189.0" x2="312.0" y2="259.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="189.0" x2="530.0" y2="259.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="188.0" y1="321.0" x2="232.0" y2="391.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="312.0" y1="321.0" x2="268.0" y2="391.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="352.0" y1="321.0" x2="410.0" y2="391.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="512.0" y1="321.0" x2="452.0" y2="391.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="453.0" x2="250.0" y2="523.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="340.0" y="626.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">жовте — позначене у фазі 1; сіре — позначене, але пропущене</text>
+<text x="340.0" y="652.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">біле — рушій не торкнувся взагалі</text>
+<line x1="660.0" y1="40.0" x2="660.0" y2="668.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 7"/>
+<rect x="700.0" y="62.0" width="600.0" height="168.0" rx="10" fill="#fff6e6" stroke="#333333" stroke-width="1.6"/>
+<text x="726.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">ФАЗА 1 — позначити застарілим усе нижче</text>
+<text x="726.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">обхід від s вниз: p, q, r, w, ефект — п'ять вузлів</text>
+<text x="726.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">жодного обчислення: лише прапорці й черга за висотою</text>
+<text x="726.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">u недосяжний від s — його не торкнуто зовсім</text>
+<rect x="700.0" y="254.0" width="600.0" height="300.0" rx="10" fill="#eaf7ef" stroke="#333333" stroke-width="1.6"/>
+<text x="726.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">ФАЗА 2 — обчислити позначене в порядку висот</text>
+<text x="736.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">висота 1</text>
+<text x="826.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">p</text>
+<text x="858.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">вхід s змінився</text>
+<text x="1070.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">→ обчислити — нове</text>
+<text x="736.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">висота 1</text>
+<text x="826.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">q</text>
+<text x="858.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">вхід s змінився</text>
+<text x="1070.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">→ обчислити — ТЕ САМЕ</text>
+<text x="736.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">висота 2</text>
+<text x="826.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">r</text>
+<text x="858.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">вхід p змінився</text>
+<text x="1070.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">→ обчислити — нове</text>
+<text x="736.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">висота 2</text>
+<text x="826.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">w</text>
+<text x="858.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">ні q, ні u не змінилися</text>
+<text x="1070.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">→ пропустити</text>
+<text x="736.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">висота 3</text>
+<text x="826.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">e</text>
+<text x="858.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">вхід r змінився</text>
+<text x="1070.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">→ виконати ефект</text>
+<text x="726.0" y="512.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">позначено 5 · обчислено 4 · пропущено 1</text>
+<text x="1000.0" y="600.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Позначення коштує стільки, скільки досяжно вниз від зміни;</text>
+<text x="1000.0" y="628.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">обчислення — лише стільки, скільки СПРАВДІ змінило значення.</text>
+<text x="1000.0" y="662.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">решта графа не коштує нічого</text>
+</svg>

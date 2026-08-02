@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потужність перетину без проміжного масиву</text>
+<text x="36.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">Наївно: спершу побудувати перетин у пам'яті, потім перерахувати одиниці</text>
+<rect x="36.0" y="78.0" width="150.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="111.0" y="105.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="111.0" dy="0.0">A: nw слів</tspan></text>
+<text x="202.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">&amp;</text>
+<rect x="218.0" y="78.0" width="150.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="293.0" y="105.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="293.0" dy="0.0">B: nw слів</tspan></text>
+<line x1="378.0" y1="101.0" x2="412.0" y2="101.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="422.0" y="78.0" width="232.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="538.0" y="105.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle"><tspan x="538.0" dy="0.0">C = A &amp; B: nw НОВИХ слів</tspan></text>
+<line x1="664.0" y1="101.0" x2="698.0" y2="101.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="708.0" y="78.0" width="136.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="776.0" y="105.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="776.0" dy="0.0">count(C)</tspan></text>
+<text x="440.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Три масиви в пам'яті, два проходи, одне виділення —</tspan><tspan x="440.0" dy="19.5">і проміжний результат, якого потім ніхто не читає.</tspan></text>
+<line x1="36.0" y1="204.0" x2="844.0" y2="204.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="36.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">Потоково: перетин живе одну мить у регістрі й одразу згортається в число</text>
+<rect x="36.0" y="254.0" width="150.0" height="46.0" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.5"/><text x="111.0" y="281.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="111.0" dy="0.0">A[i]</tspan></text>
+<text x="202.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">&amp;</text>
+<rect x="218.0" y="254.0" width="150.0" height="46.0" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.5"/><text x="293.0" y="281.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="293.0" dy="0.0">B[i]</tspan></text>
+<line x1="378.0" y1="277.0" x2="412.0" y2="277.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="422.0" y="254.0" width="232.0" height="46.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="538.0" y="281.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle"><tspan x="538.0" dy="0.0">регістр: одне слово</tspan></text>
+<line x1="664.0" y1="277.0" x2="698.0" y2="277.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="708.0" y="254.0" width="136.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="776.0" y="281.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="776.0" dy="0.0">n += popcount</tspan></text>
+<line x1="776.0" y1="300.0" x2="776.0" y2="334.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="776.0" y1="334.0" x2="111.0" y2="334.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="111.0" y1="334.0" x2="111.0" y2="302.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="440.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">наступне слово</text>
+<text x="440.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Два масиви, один прохід, нуль виділень: два читання, AND і popcount на кожні 64 елементи.</tspan><tspan x="440.0" dy="19.5">Виграє не швидший підрахунок, а те, що перетину не існує як окремого об'єкта.</tspan></text>
+</svg>

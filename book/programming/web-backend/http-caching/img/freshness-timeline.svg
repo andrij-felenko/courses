@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життя однієї копії після того, як сервер її віддав</text>
+<rect x="70.0" y="136.0" width="290.0" height="74.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="215.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">СВІЖА</text>
+<text x="215.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="215.0" dy="0.0">віддається одразу,</tspan><tspan x="215.0" dy="13.7">мережі немає</tspan></text>
+<rect x="360.0" y="136.0" width="230.0" height="74.0" rx="8" fill="#fdf6e3" stroke="#b08900" stroke-width="1.8"/>
+<text x="475.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b08900" text-anchor="middle" font-weight="700">ПРОСТРОЧЕНА, але з stale-while-revalidate</text>
+<text x="475.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="475.0" dy="0.0">віддається одразу,</tspan><tspan x="475.0" dy="13.7">оновлення — у фоні</tspan></text>
+<rect x="590.0" y="136.0" width="290.0" height="74.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="735.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ПРОСТРОЧЕНА</text>
+<text x="735.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="735.0" dy="0.0">без валідації</tspan><tspan x="735.0" dy="13.7">віддавати не можна</tspan></text>
+<line x1="70.0" y1="210.0" x2="880.0" y2="210.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="70.0" y1="204.0" x2="70.0" y2="218.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="70.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<line x1="360.0" y1="204.0" x2="360.0" y2="218.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="360.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">max-age=300</text>
+<line x1="590.0" y1="204.0" x2="590.0" y2="218.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="590.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">+ swr=200</text>
+<line x1="880.0" y1="204.0" x2="880.0" y2="218.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="880.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">час</text>
+<text x="76.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">вік копії (Age) росте зліва направо — і в браузері, і в CDN</text>
+<rect x="24.0" y="288.0" width="892.0" height="92.0" rx="10" fill="#fbfbfb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="44.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">304 Not Modified</text>
+<text x="44.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">сервер надсилає свіжі заголовки без тіла — лічильник віку стартує з нуля,</text>
+<text x="44.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">та сама копія знову опиняється в зеленій зоні, не переїхавши мережею вдруге</text>
+</svg>

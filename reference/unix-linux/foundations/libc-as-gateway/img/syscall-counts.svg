@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 552" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="552" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ціна шлюзу і ціна середовища — це різні числа</text>
+<text x="70.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">1000 рядків по 20 байтів у файл — скільки разів програма зайшла в ядро</text>
+<text x="300.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">printf(&quot;…\n&quot;)</text>
+<rect x="320.0" y="86.0" width="5.0" height="28.0" rx="4" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="339.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">5</text>
+<text x="300.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">write(1, …)</text>
+<rect x="320.0" y="130.0" width="500.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="834.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">1000</text>
+<text x="300.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">власна пастка</text>
+<rect x="320.0" y="174.0" width="500.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="834.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">1000</text>
+<rect x="70.0" y="218.0" width="820.0" height="46.0" rx="6" fill="#f7f7f7" stroke="#6b7280" stroke-width="1.5"/><text x="480.0" y="237.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Обгортка write() не додає жодного переходу — на межі вона й сира пастка однакові.</tspan><tspan x="480.0" dy="16.9">Різницю в двісті разів робить буфер stdio, а не шлюз у ядро.</tspan></text>
+<line x1="70.0" y1="288.0" x2="890.0" y2="288.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6 5"/>
+<text x="70.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">Уся програма, що друкує один рядок — усього системних викликів</text>
+<text x="300.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">glibc, динамічна</text>
+<rect x="320.0" y="344.0" width="500.0" height="28.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="834.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">≈30</text>
+<text x="300.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">glibc, статична</text>
+<rect x="320.0" y="388.0" width="200.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="534.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">≈12</text>
+<text x="300.0" y="451.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">−nostdlib</text>
+<rect x="320.0" y="432.0" width="50.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="384.0" y="451.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">3</text>
+<rect x="70.0" y="476.0" width="820.0" height="46.0" rx="6" fill="#f7f7f7" stroke="#6b7280" stroke-width="1.5"/><text x="480.0" y="495.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Без libc їх рівно три: execve, write, exit_group. Решта — не робота програми, а розгортання</tspan><tspan x="480.0" dy="16.9">середовища: динамічний компонувальник, купа, пам'ять потоку. Точні числа різняться, порядок — ні.</tspan></text>
+</svg>

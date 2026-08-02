@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="56.0" width="940.0" height="190.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="500.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">Обробник кличуть ЗСЕРЕДИНИ step()</text>
+<rect x="60.0" y="110.0" width="170.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="145.0" y="144.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">цикл господаря</tspan></text>
+<line x1="234.0" y1="140.0" x2="296.0" y2="140.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.0" y="110.0" width="220.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="410.0" y="135.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">step()</tspan><tspan x="410.0" dy="18.2">обходить свої запити</tspan></text>
+<line x1="524.0" y1="140.0" x2="586.0" y2="140.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="590.0" y="110.0" width="190.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="685.0" y="144.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">твій обробник</tspan></text>
+<line x1="685.0" y1="170.0" x2="685.0" y2="202.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="685.0" y1="202.0" x2="410.0" y2="202.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="410.0" y1="202.0" x2="410.0" y2="172.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="500.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">cancel() з обробника міняє контейнер, який step() саме обходить</text>
+<rect x="30.0" y="272.0" width="940.0" height="220.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="500.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">Обробника кличе ВЛАСНИК ЦИКЛУ — після того, як step() повернувся</text>
+<rect x="60.0" y="326.0" width="150.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="135.0" y="360.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">цикл господаря</tspan></text>
+<line x1="214.0" y1="356.0" x2="262.0" y2="356.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="266.0" y="326.0" width="200.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="366.0" y="352.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="366.0" dy="0.0">step() — лише</tspan><tspan x="366.0" dy="16.9">кладе події в чергу</tspan></text>
+<line x1="470.0" y1="356.0" x2="518.0" y2="356.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="522.0" y="326.0" width="180.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.0"/><text x="612.0" y="352.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="612.0" dy="0.0">take_event()</tspan><tspan x="612.0" dy="16.9">— поза step()</tspan></text>
+<line x1="706.0" y1="356.0" x2="754.0" y2="356.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="758.0" y="326.0" width="180.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="848.0" y="360.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="848.0" dy="0.0">твій обробник</tspan></text>
+<text x="500.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">обробник вільно кличе cancel() і add() — ядро вже не всередині свого обходу</text>
+<text x="500.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">саме так зроблено curl_multi_info_read()</text>
+</svg>

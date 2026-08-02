@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 900" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="900" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вивантаження: наступний пункт їде лише у відповідь на запит</text>
+<rect x="140.0" y="64.5" width="200.0" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="240.0" y="87.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">Станція</tspan></text>
+<rect x="760.0" y="64.5" width="200.0" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="860.0" y="87.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="860.0" dy="0.0">Борт</tspan></text>
+<line x1="240.0" y1="108.0" x2="240.0" y2="790.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 6"/>
+<line x1="860.0" y1="108.0" x2="860.0" y2="790.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 6"/>
+<text x="550.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">MISSION_COUNT (n = 12, type = MISSION)</text>
+<line x1="246.0" y1="168.0" x2="854.0" y2="168.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">MISSION_REQUEST_INT (seq = 0)</text>
+<line x1="854.0" y1="236.0" x2="246.0" y2="236.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">MISSION_ITEM_INT (seq = 0)</text>
+<line x1="246.0" y1="304.0" x2="854.0" y2="304.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">MISSION_REQUEST_INT (seq = 1)</text>
+<line x1="854.0" y1="372.0" x2="246.0" y2="372.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">MISSION_ITEM_INT (seq = 1)</text>
+<line x1="246.0" y1="440.0" x2="854.0" y2="440.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="486.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">ще десять пар «запит — пункт»</text>
+<line x1="246.0" y1="508.0" x2="854.0" y2="508.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 8"/>
+<text x="550.0" y="554.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">MISSION_REQUEST_INT (seq = 11)</text>
+<line x1="854.0" y1="576.0" x2="246.0" y2="576.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="622.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">MISSION_ITEM_INT (seq = 11)</text>
+<line x1="246.0" y1="644.0" x2="854.0" y2="644.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="690.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">MISSION_ACK (MAV_MISSION_ACCEPTED)</text>
+<line x1="854.0" y1="712.0" x2="246.0" y2="712.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="806.0" width="1000.0" height="76.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="560.0" y="831.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Кожен запит — водночас підтвердження попереднього пункту й замовлення наступного.</tspan><tspan x="560.0" dy="16.9">Немає відповіді 1500 мс — станція повторює; на невідданий пункт чекає 250 мс;</tspan><tspan x="560.0" dy="16.9">після п'ятої невдалої спроби транзакцію скасовано, місія на борту лишається старою.</tspan></text>
+</svg>

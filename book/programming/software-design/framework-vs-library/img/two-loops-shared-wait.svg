@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спосіб 3: один сон обслуговує обох</text>
+<rect x="40.0" y="70.0" width="280.0" height="214.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="180.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">гість: libcurl multi</text>
+<rect x="58.0" y="114.0" width="244.0" height="66.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="180.0" y="143.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">SOCKETFUNCTION</tspan><tspan x="180.0" dy="15.6">«стеж за цим fd на читання»</tspan></text>
+<rect x="58.0" y="196.0" width="244.0" height="66.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="180.0" y="225.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">TIMERFUNCTION</tspan><tspan x="180.0" dy="15.6">«розбуди мене через 200 мс»</tspan></text>
+<text x="180.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">гість більше не спить сам</text>
+<rect x="40.0" y="330.0" width="280.0" height="104.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="180.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">господар</tspan><tspan x="180.0" dy="16.9">ConnectionNumber(dpy)</tspan><tspan x="180.0" dy="16.9">або власний eventfd</tspan></text>
+<rect x="400.0" y="110.0" width="240.0" height="300.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.5"/>
+<text x="520.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">набір epoll</text>
+<rect x="416.0" y="158.0" width="208.0" height="50.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="520.0" y="187.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">сокети гостя</tspan></text>
+<rect x="416.0" y="222.0" width="208.0" height="50.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="520.0" y="251.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">timerfd гостя</tspan></text>
+<rect x="416.0" y="286.0" width="208.0" height="50.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="520.0" y="315.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">fd господаря</tspan></text>
+<text x="520.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">усе, чого варто чекати</text>
+<line x1="324.0" y1="147.0" x2="394.0" y2="178.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="324.0" y1="229.0" x2="394.0" y2="242.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="324.0" y1="380.0" x2="394.0" y2="316.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="700.0" y="148.0" width="320.0" height="112.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.5"/>
+<text x="860.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">epoll_wait(ep, evs, n, −1)</tspan><tspan x="860.0" dy="16.9">єдиний сон процесу</tspan><tspan x="860.0" dy="16.9">нуль пробуджень у спокої</tspan></text>
+<line x1="644.0" y1="240.0" x2="696.0" y2="212.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="700.0" y="300.0" width="320.0" height="140.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="860.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">що прокинулось — тому й крок</text>
+<rect x="716.0" y="340.0" width="288.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/><text x="860.0" y="366.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">fd гостя → curl_multi_socket_action</tspan></text>
+<rect x="716.0" y="390.0" width="288.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/><text x="860.0" y="416.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">fd господаря → крок його циклу</tspan></text>
+<line x1="860.0" y1="262.0" x2="860.0" y2="296.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="530.0" y="484.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ціна: гість мусить віддати свої fd і таймер, господар — уміти прийняти чужий fd.</text>
+<text x="530.0" y="512.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">GLUT не вміє ні того, ні того — з ним лишаються способи 1 і 2.</text>
+</svg>

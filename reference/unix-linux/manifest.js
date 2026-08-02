@@ -14,23 +14,25 @@
   sections: [
     { slug: "foundations", title: "Ідея та родовід", scope: "Звідки Unix узявся, які рішення в ньому засадничі й що з них випливає для всього іншого.",
       topics: [
-        { slug: "unix-philosophy", title: "Філософія Unix: малі програми, що складаються", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "everything-is-a-file", title: "«Усе є файлом»: один інтерфейс на все", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "kernel-and-userspace", title: "Ядро й простір користувача", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "syscall-mechanics", title: "Системний виклик: як програма просить ядро", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "unix-lineage", title: "Родовід Unix: AT&T, BSD і поява Linux", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "posix-standard", title: "POSIX: що саме стандартизовано", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "kernel-vs-distribution", title: "Ядро, дистрибутив і що між ними", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "gnu-userland", title: "Інструментарій GNU і чому «GNU/Linux»", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "libc-as-gateway", title: "libc як шлюз до ядра", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "monolithic-with-modules", title: "Монолітне ядро з модулями: вибір Linux", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "unix-philosophy", title: "Філософія Unix: малі програми, що складаються", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-birth.md", status: "done" }] , proj: [{ file: "proj-pipeline-by-hand.md", status: "done" }] , api: [{ file: "api-filter-contract.md", status: "done" }] },
+        { slug: "everything-is-a-file", title: "«Усе є файлом»: один інтерфейс на все", basic: { status: "done" }, detailed: { status: "done" } , hist: [{ file: "hist-one-namespace.md", status: "done" }] , proj: [{ file: "proj-uniform-copy.md", status: "done" }] },
+        { slug: "kernel-and-userspace", title: "Ядро й простір користувача", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-border-origin.md", status: "done" }] , proj: [{ file: "proj-border-probe.md", status: "done" }] },
+        { slug: "syscall-mechanics", title: "Системний виклик: як програма просить ядро", basic: { status: "empty" }, detailed: { status: "done" } , proj: [{ file: "proj-entry-path-walk.md", status: "done" }] },
+        { slug: "unix-lineage", title: "Родовід Unix: AT&T, BSD і поява Linux", basic: { status: "done" }, detailed: { status: "done" } , hist: [{ file: "hist-multics.md", status: "done" }, { file: "hist-usl-bsdi.md", status: "done" }] , proj: [{ file: "proj-portable-c.md", status: "done" }] },
+        { slug: "posix-standard", title: "POSIX: що саме стандартизовано", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-standard-wars.md", status: "done" }] , api: [{ file: "api-conformance-query.md", status: "done" }] , proj: [{ file: "proj-portable-shell.md", status: "done" }] },
+        { slug: "kernel-vs-distribution", title: "Ядро, дистрибутив і що між ними", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-first-distributions.md", status: "done" }] , proj: [{ file: "proj-min-userland.md", status: "done" }] },
+        { slug: "gnu-userland", title: "Інструментарій GNU і чому «GNU/Linux»", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-two-halves.md", status: "done" }] , api: [{ file: "api-gnu-vs-posix.md", status: "done" }] , proj: [{ file: "proj-minimal-userland.md", status: "done" }] },
+        { slug: "libc-as-gateway", title: "libc як шлюз до ядра", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-libc-story.md", status: "done" }] , proj: [{ file: "proj-syscall-without-libc.md", status: "done" }] , api: [{ file: "api-libc-boundary.md", status: "done" }] },
+        { slug: "monolithic-with-modules", title: "Монолітне ядро з модулями: вибір Linux", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-tanenbaum-torvalds.md", status: "done" }] , proj: [{ file: "proj-hello-module.md", status: "done" }] },
+        { slug: "userspace-abi-stability", title: "Що саме заморожено: ABI до простору користувача", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "kernel-abi-stability", title: "«Не ламати простір користувача»: сталість ABI ядра", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "processes", title: "Процес", scope: "Процес як головна одиниця системи: як народжується, як планується, як ізолюється.",
       topics: [
-        { slug: "process-model", title: "Процес: що це насправді", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "pid-and-hierarchy", title: "PID і дерево процесів", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "fork-semantics", title: "fork: розмноження процесу", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "process-model", title: "Процес: що це насправді", basic: { status: "empty" }, detailed: { status: "done" } , proj: [{ file: "proj-clone-flags.md", status: "done" }] , hist: [{ file: "hist-process-and-fork.md", status: "done" }] },
+        { slug: "pid-and-hierarchy", title: "PID і дерево процесів", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-pid-and-init.md", status: "done" }] , proj: [{ file: "proj-pidfd-supervisor.md", status: "done" }] , api: [{ file: "api-pid-interfaces.md", status: "done" }] },
+        { slug: "fork-semantics", title: "fork: розмноження процесу", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-fork-origin.md", status: "done" }] , proj: [{ file: "proj-cow-observed.md", status: "done" }] },
         { slug: "exec-semantics", title: "exec: заміна образу", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "exit-wait-zombies", title: "Завершення, wait і зомбі", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "orphan-reparenting", title: "Сироти й перепідпорядкування", basic: { status: "empty" }, detailed: { status: "pending" } },
@@ -40,6 +42,9 @@
         { slug: "threads-as-tasks", title: "Потоки в Linux: задача як одиниця планування", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "cgroups", title: "cgroups: облік і обмеження ресурсів", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "namespaces", title: "Простори імен: ізоляція погляду на систему", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "spawn-alternatives", title: "vfork, posix_spawn і clone: чим ще народжують процес", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "resource-limits", title: "Ліміти ресурсів: rlimit і ulimit", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "cpu-time-accounting", title: "Облік процесорного часу: як ядро набирає user і sys", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "memory", title: "Пам'ять процесу", scope: "Віртуальна пам'ять як механізм: чому адреси брешуть і що з цього виходить.",
@@ -53,6 +58,7 @@
         { slug: "overcommit-and-oom", title: "Overcommit і OOM-killer", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "memory-accounting", title: "Як міряти пам'ять процесу: VSZ, RSS, PSS", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "allocator-and-kernel", title: "Звідки алокатор бере пам'ять: brk і mmap", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "huge-pages", title: "Великі сторінки: HugeTLB і прозорі великі сторінки", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "files", title: "Файли й файлові системи", scope: "Що таке файл у Unix, як імена відв'язані від вмісту й на чому тримається узгодженість.",
@@ -69,6 +75,7 @@
         { slug: "journaling-consistency", title: "Журналювання й узгодженість після збою", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "page-cache-durability", title: "Кеш сторінок, fsync і довговічність запису", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "pseudo-filesystems", title: "Псевдо-ФС: procfs, sysfs, tmpfs, devtmpfs", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "fuse-userspace-filesystems", title: "FUSE: файлова система в просторі користувача", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "io", title: "Ввід-вивід і очікування", scope: "Як програма чекає на дані й чому саме тут вирішується, скільки з'єднань вона потягне.",
@@ -83,6 +90,7 @@
         { slug: "buffered-and-direct-io", title: "Буферизований і прямий ввід-вивід", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "zero-copy", title: "Передача без копіювання: sendfile і splice", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "eintr-and-restart", title: "EINTR: перервані виклики й перезапуск", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "stdio-buffering", title: "Буферизація stdio: порядкова, поблокова, без буфера", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "signals-ipc", title: "Сигнали й взаємодія процесів", scope: "Асинхронні сповіщення та способи, якими процеси домовляються між собою.",
@@ -107,6 +115,7 @@
         { slug: "acl-and-xattr", title: "Розширені права (ACL) і атрибути (xattr)", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "mac-selinux-apparmor", title: "Обов'язковий контроль доступу: SELinux і AppArmor", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "device-access-groups", title: "Доступ до пристроїв через групи: dialout, plugdev", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "seccomp-filtering", title: "seccomp: фільтрація системних викликів", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "devices", title: "Пристрої та ядро", scope: "Як залізо стає файлом і як ядро керує тим, що під'єднали.",
@@ -145,6 +154,7 @@
         { slug: "expansion-and-quoting", title: "Розкриття й лапки: коли текст стає аргументами", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "job-control", title: "Керування завданнями й термінальні сигнали", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "session-environment", title: "Оточення сеансу: profile, rc і пошук у PATH", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "locale-and-collation", title: "Локаль: як мова змінює поведінку програм", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "networking", title: "Мережа в ядрі", scope: "Як Linux бачить мережу зсередини: від інтерфейсу до маршруту й фільтра.",
@@ -169,6 +179,7 @@
         { slug: "symbol-resolution", title: "Розв'язання символів і перекриття (interposition)", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "plt-and-got", title: "PLT і GOT: як працює виклик через межу бібліотеки", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "library-abi-compat", title: "Сумісність ABI бібліотеки й що її ламає", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "vdso", title: "vDSO: бібліотека від ядра в кожному процесі", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "observability", title: "Побачити, що відбувається", scope: "Механізми, якими система показує себе зсередини — і що з них можна дізнатися.",
@@ -181,6 +192,7 @@
         { slug: "ebpf", title: "eBPF: власні програми всередині ядра", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "core-dump", title: "Аварійний дамп: як налаштувати й що з нього видно", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "load-and-pressure", title: "Середнє навантаження й тиск на ресурси (PSI)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "kernel-oops-panic", title: "Oops і паніка: що система робить, коли падає саме ядро", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "packaging", title: "Постачання програм", scope: "Як програма доходить до користувача і чому способів кілька.",

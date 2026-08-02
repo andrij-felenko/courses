@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 790" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1240" height="790" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Від руху миші до висоти рельєфу: три ступені гасіння</text>
+<rect x="220.3" y="93.5" width="279.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="114.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Елемент місії: координата змінилась</tspan></text>
+<rect x="242.6" y="215.1" width="234.9" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="236.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Таймер елемента місії</tspan><tspan x="360.0" dy="16.9">перезапускається на кожен рух</tspan></text>
+<rect x="201.8" y="345.1" width="316.4" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="366.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Спільний накопичувач запитів</tspan><tspan x="360.0" dy="16.9">таймер 500 мс, не більш ніж 50 координат</tspan></text>
+<rect x="216.6" y="475.1" width="286.8" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="496.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Менеджер плиток</tspan><tspan x="360.0" dy="16.9">плитка 0.01° × 0.01°, крок 1″ ≈ 30 м</tspan></text>
+<rect x="238.9" y="633.5" width="242.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="654.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Висота рельєфу під координатою</tspan></text>
+<line x1="360.0" y1="144.0" x2="360.0" y2="206.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="274.0" x2="360.0" y2="336.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="404.0" x2="360.0" y2="466.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="360.0" y1="534.0" x2="360.0" y2="616.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="804.8" y="475.1" width="190.4" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="900.0" y="496.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">Сервер висот</tspan><tspan x="900.0" dy="16.9">одне звернення на пачку</tspan></text>
+<line x1="516.0" y1="478.0" x2="786.0" y2="478.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="786.0" y1="524.0" x2="516.0" y2="524.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="651.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">немає в кеші</text>
+<text x="651.0" y="552.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">плитка з висотами</text>
+<text x="790.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">увесь потік проміжних координат зникає</text>
+<text x="790.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">сто елементів місії → два звернення в мережу</text>
+<text x="790.0" y="656.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">невдалі плитки запам'ятовуються з відміткою часу</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="565.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">доля буфера після одного read</text>
+<rect x="185.0" y="95.0" width="760.0" height="46.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="565.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">65536 байтів у буфері</text>
+<text x="163.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end"><tspan x="163.0" dy="0.0">read повернув</tspan></text>
+<rect x="185.0" y="190.0" width="95.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="232.5" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">8192</text>
+<rect x="280.0" y="190.0" width="665.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="612.5" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">57344 байтів зникли: write узяв менше, а код цього не глянув</text>
+<text x="163.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end"><tspan x="163.0" dy="0.0">наївно:</tspan><tspan x="163.0" dy="16.2">один write</tspan></text>
+<rect x="185.0" y="285.0" width="95.0" height="46.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="232.5" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">8192</text>
+<rect x="280.0" y="285.0" width="190.0" height="46.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="375.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">16384</text>
+<rect x="470.0" y="285.0" width="475.0" height="46.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="707.5" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">40960</text>
+<text x="163.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end"><tspan x="163.0" dy="0.0">цикл</tspan><tspan x="163.0" dy="16.2">write_all</tspan></text>
+<text x="500.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">read має право дати менше, ніж просили — це не шкодить; write має право взяти менше, ніж дали — і це губить хвіст</text>
+</svg>

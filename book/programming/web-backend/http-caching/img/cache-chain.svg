@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ланцюг кешів: кому саме адресована директива</text>
+<rect x="24.0" y="66.0" width="150.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="99.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="99.0" dy="0.0">клієнт</tspan></text>
+<rect x="204.0" y="66.0" width="170.0" height="62.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="289.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="289.0" dy="0.0">кеш браузера</tspan></text>
+<text x="289.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">приватний</text>
+<rect x="404.0" y="66.0" width="170.0" height="62.0" rx="6" fill="#fdf6e3" stroke="#b08900" stroke-width="1.5"/><text x="489.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="489.0" dy="0.0">CDN</tspan></text>
+<text x="489.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">спільний</text>
+<rect x="604.0" y="66.0" width="170.0" height="62.0" rx="6" fill="#fdf6e3" stroke="#b08900" stroke-width="1.5"/><text x="689.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="689.0" dy="0.0">зворотний проксі</tspan></text>
+<text x="689.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">спільний</text>
+<rect x="804.0" y="66.0" width="132.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="870.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="870.0" dy="0.0">origin</tspan></text>
+<text x="870.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">джерело правди</text>
+<line x1="178.0" y1="97.0" x2="200.0" y2="97.0" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="378.0" y1="97.0" x2="400.0" y2="97.0" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="578.0" y1="97.0" x2="600.0" y2="97.0" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="778.0" y1="97.0" x2="800.0" y2="97.0" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="24.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Age у відповіді, що йде назад:</text>
+<text x="289.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">289 → клієнтові</text>
+<text x="489.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">289 c</text>
+<text x="689.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">240 c</text>
+<text x="870.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0 c</text>
+<rect x="24.0" y="242.0" width="912.0" height="232.0" rx="10" fill="#fbfbfb" stroke="#333333" stroke-width="1.4"/>
+<text x="44.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">директива в Cache-Control відповіді</text>
+<rect x="44.0" y="290.0" width="210.0" height="38.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="149.0" y="313.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="149.0" dy="0.0">max-age=600</tspan></text>
+<text x="276.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">строк для будь-якого кеша — і приватного, і спільного</text>
+<rect x="44.0" y="336.0" width="210.0" height="38.0" rx="6" fill="#ffffff" stroke="#b08900" stroke-width="1.5"/><text x="149.0" y="359.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b08900" text-anchor="middle" font-weight="700"><tspan x="149.0" dy="0.0">s-maxage=60</tspan></text>
+<text x="276.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">строк лише для СПІЛЬНИХ; браузер його не читає</text>
+<rect x="44.0" y="382.0" width="210.0" height="38.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="149.0" y="405.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="149.0" dy="0.0">private</tspan></text>
+<text x="276.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">зберігає тільки кеш браузера; CDN і проксі — ні</text>
+<rect x="44.0" y="428.0" width="210.0" height="38.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="149.0" y="451.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="149.0" dy="0.0">no-store</tspan></text>
+<text x="276.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">не записує ніхто, зокрема й браузер</text>
+</svg>

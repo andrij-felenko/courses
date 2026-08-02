@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ціна читання файлу через MAVFTP</text>
+<line x1="575.0" y1="105.0" x2="575.0" y2="355.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="7,5"/>
+<text x="575.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">поріг обриву: прогноз &gt; 40 с</text>
+<text x="150.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">ReadFile по одному: 252 обміни × 250 мс</text>
+<rect x="150.0" y="165.0" width="669.4" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="833.4" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">63 с — обрив, далі uriFallback</text>
+<text x="150.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">BurstReadFile: одна відповідь за одною, межа — смуга каналу</text>
+<rect x="150.0" y="285.0" width="265.6" height="40.0" rx="6" fill="#eaf3ea" stroke="#27ae60" stroke-width="2.0"/>
+<text x="429.6" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">25 с — доходить</text>
+<line x1="150.0" y1="380.0" x2="1040.0" y2="380.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="150.0" y1="380.0" x2="150.0" y2="390.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="150.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0 с</text>
+<line x1="362.5" y1="380.0" x2="362.5" y2="390.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="362.5" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">20 с</text>
+<line x1="575.0" y1="380.0" x2="575.0" y2="390.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="575.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">40 с</text>
+<line x1="787.5" y1="380.0" x2="787.5" y2="390.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="787.5" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">60 с</text>
+<line x1="1000.0" y1="380.0" x2="1000.0" y2="390.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="1000.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">80 с</text>
+<text x="590.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">файл 60 КБ, смуга під передачу 2400 Б/с, обмін «туди-назад» 250 мс</text>
+</svg>

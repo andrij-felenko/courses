@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1100" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="550.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Битва двох каркасів — це битва за сон, а не за цикл</text>
+<text x="40.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Крок гостя у простої</text>
+<text x="40.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">прокидається за годинником,</text>
+<text x="40.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">період таймера T</text>
+<line x1="300.0" y1="150.0" x2="1060.0" y2="150.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="320.0" y1="142.0" x2="320.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="420.0" y1="142.0" x2="420.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="520.0" y1="142.0" x2="520.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="620.0" y1="142.0" x2="620.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="720.0" y1="142.0" x2="720.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="820.0" y1="142.0" x2="820.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="920.0" y1="142.0" x2="920.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="1020.0" y1="142.0" x2="1020.0" y2="158.0" stroke="#333333" stroke-width="2.0"/>
+<text x="320.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">пробудження</text>
+<line x1="545.0" y1="106.0" x2="545.0" y2="142.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">дані прийшли</text>
+<circle cx="620.0" cy="150.0" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="545.0" y1="168.0" x2="620.0" y2="168.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="700.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">помічено аж тут</text>
+<text x="940.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1/T пробуджень за секунду</text>
+<text x="40.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Гість у власному потоці</text>
+<text x="40.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">спить своїм сном,</text>
+<text x="40.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">результат — через чергу</text>
+<text x="308.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">гість</text>
+<line x1="300.0" y1="296.0" x2="1060.0" y2="296.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="545.0" y1="264.0" x2="545.0" y2="288.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">дані прийшли</text>
+<circle cx="545.0" cy="296.0" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="700.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">гість прокинувся негайно</text>
+<text x="308.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">господар</text>
+<line x1="300.0" y1="356.0" x2="1060.0" y2="356.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="320.0" y1="350.0" x2="320.0" y2="362.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="420.0" y1="350.0" x2="420.0" y2="362.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="520.0" y1="350.0" x2="520.0" y2="362.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="620.0" y1="350.0" x2="620.0" y2="362.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="720.0" y1="350.0" x2="720.0" y2="362.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="820.0" y1="350.0" x2="820.0" y2="362.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="920.0" y1="350.0" x2="920.0" y2="362.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="1020.0" y1="350.0" x2="1020.0" y2="362.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="553.0" y1="304.0" x2="614.0" y2="348.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<circle cx="620.0" cy="356.0" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="700.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">у цикл господаря — на найближчому черпанні</text>
+<text x="700.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">є посилка в цикл (Qt, GTK, PostMessage) — негайно й без тиків</text>
+<text x="40.0" y="482.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Один сон на двох</text>
+<text x="40.0" y="504.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">epoll на fd гостя</text>
+<text x="40.0" y="524.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">і fd господаря</text>
+<line x1="300.0" y1="502.0" x2="1060.0" y2="502.0" stroke="#333333" stroke-width="2.0" stroke-dasharray="8 6"/>
+<text x="410.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">жодного тика — сон</text>
+<line x1="545.0" y1="458.0" x2="545.0" y2="494.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="545.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">дані прийшли</text>
+<circle cx="545.0" cy="502.0" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="800.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">прокинувся рівно тут: нуль зайвих пробуджень</text>
+</svg>

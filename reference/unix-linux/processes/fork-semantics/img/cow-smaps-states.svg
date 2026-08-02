@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="640" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ділянка на 512 МіБ очима /proc/self/smaps_rollup</text>
+<rect x="286.0" y="50.0" width="20.0" height="15.0" rx="3" fill="#dbe6fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="314.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">Private_Dirty — власна сторінка</text>
+<rect x="578.0" y="50.0" width="20.0" height="15.0" rx="3" fill="#fbe0dc" stroke="#c0392b" stroke-width="1.5"/>
+<text x="606.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">Shared_Dirty — спільна</text>
+<rect x="164.1" y="84.2" width="71.9" height="31.5" rx="6" fill="#ffffff" stroke="#c8ced6" stroke-width="1.3"/><text x="200.0" y="104.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">до fork</tspan></text>
+<rect x="125.0" y="140.0" width="150.0" height="320.0" rx="4" fill="#dbe6fb" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="115.0" y1="140.0" x2="285.0" y2="140.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="6 4"/>
+<text x="291.0" y="144.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Pss</text>
+<rect x="70.0" y="492.0" width="260.0" height="106.0" rx="6" fill="#f4f6f8" stroke="#c8ced6" stroke-width="1.2"/><text x="200.0" y="524.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Rss  512 МіБ</tspan><tspan x="200.0" dy="16.9">Pss  512 МіБ</tspan><tspan x="200.0" dy="16.9">Private_Dirty  512 МіБ</tspan><tspan x="200.0" dy="16.9">Shared_Dirty  0 МіБ</tspan></text>
+<rect x="425.6" y="75.5" width="148.8" height="49.1" rx="6" fill="#ffffff" stroke="#c8ced6" stroke-width="1.3"/><text x="500.0" y="95.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">одразу після fork</tspan><tspan x="500.0" dy="17.6">(дитина ще жива)</tspan></text>
+<rect x="425.0" y="140.0" width="150.0" height="320.0" rx="4" fill="#fbe0dc" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="415.0" y1="300.0" x2="585.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="6 4"/>
+<text x="591.0" y="304.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Pss</text>
+<rect x="370.0" y="492.0" width="260.0" height="106.0" rx="6" fill="#f4f6f8" stroke="#c8ced6" stroke-width="1.2"/><text x="500.0" y="524.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Rss  512 МіБ</tspan><tspan x="500.0" dy="16.9">Pss  256 МіБ</tspan><tspan x="500.0" dy="16.9">Private_Dirty  0 МіБ</tspan><tspan x="500.0" dy="16.9">Shared_Dirty  512 МіБ</tspan></text>
+<rect x="737.1" y="75.5" width="125.7" height="49.1" rx="6" fill="#ffffff" stroke="#c8ced6" stroke-width="1.3"/><text x="800.0" y="95.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">батько записав</tspan><tspan x="800.0" dy="17.6">у 64 МіБ</tspan></text>
+<rect x="725.0" y="140.0" width="150.0" height="280.0" rx="4" fill="#fbe0dc" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="725.0" y="420.0" width="150.0" height="40.0" rx="4" fill="#dbe6fb" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="715.0" y1="280.0" x2="885.0" y2="280.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="6 4"/>
+<text x="891.0" y="284.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Pss</text>
+<rect x="670.0" y="492.0" width="260.0" height="106.0" rx="6" fill="#f4f6f8" stroke="#c8ced6" stroke-width="1.2"/><text x="800.0" y="524.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">Rss  512 МіБ</tspan><tspan x="800.0" dy="16.9">Pss  288 МіБ</tspan><tspan x="800.0" dy="16.9">Private_Dirty  64 МіБ</tspan><tspan x="800.0" dy="16.9">Shared_Dirty  448 МіБ</tspan></text>
+<text x="500.0" y="622.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Rss однаковий у всіх трьох станах — рухається лише поділ на власне й спільне</text>
+</svg>

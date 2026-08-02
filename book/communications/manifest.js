@@ -99,6 +99,7 @@
         { slug: "analytic-signal", title: "Аналітичний сигнал і перетворення Гільберта", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "interpolation-upsampling", title: "Інтерполяція (upsampling): вставлення нулів і згладжувальний фільтр", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "channel-equalization", title: "Вирівнювання каналу: zero-forcing і MMSE", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "media-container", title: "Медіаконтейнер: як стиснені кадри складають у файл", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "propagation", title: "Поширення хвиль", scope: "Поведінка електромагнітних хвиль у середовищі: загасання, відбиття, завмирання, дальність.",
       topics: [
@@ -220,6 +221,8 @@
         { slug: "ip-fragmentation-mtu", title: "MTU і фрагментація IP", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "source-specific-multicast", title: "Фільтрація за джерелом: IGMPv3, MLDv2 і SSM", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "mtu-and-fragmentation", title: "MTU й фрагментація IP", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "middleboxes", title: "Проміжні коробки (middlebox): фаєрволи, проксі, кеші, транслятори на шляху пакета", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "circuit-vs-packet-switching", title: "Комутація каналів проти комутації пакетів", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "protocols", title: "Протоколи", scope: "Правила обміну й керування з'єднанням: стеки, рівні, контроль потоку й помилок.",
       topics: [
@@ -272,6 +275,10 @@
         { slug: "mavlink-camera-gimbal", title: "Протоколи камери й підвісу MAVLink", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "mavlink-ftp", title: "MAVFTP: передача файлів поверх MAVLink", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "mavlink-high-latency", title: "Протокол великої затримки MAVLink", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mavlink-heartbeat", title: "HEARTBEAT: як апарат оголошує себе", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mavlink-capabilities", title: "Можливості апарата: бітова маска AUTOPILOT_VERSION", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mavlink-terrain-protocol", title: "Протокол рельєфу MAVLink: TERRAIN_REQUEST, TERRAIN_DATA, TERRAIN_REPORT", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mpeg-ts", title: "MPEG-TS: транспортний потік як обгортка для ефіру", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "multiple-access", title: "Множинний доступ", scope: "Спільне використання середовища багатьма абонентами через поділ ресурсу й арбітраж.",
       topics: [

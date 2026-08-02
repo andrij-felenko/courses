@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1280" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="640.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скільки коштує спитати: три способи на логарифмічній осі</text>
+<rect x="40.0" y="78.0" width="292.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="186.0" y="98.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="186.0" dy="0.0">звичайний виклик</tspan><tspan x="186.0" dy="16.9">функції</tspan></text>
+<rect x="350.0" y="85.0" width="72.0" height="34.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="436.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">≈ 1 нс</text>
+<rect x="40.0" y="150.0" width="292.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="186.0" y="170.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="186.0" dy="0.0">clock_gettime</tspan><tspan x="186.0" dy="16.9">через vDSO</tspan></text>
+<rect x="350.0" y="157.0" width="383.4" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="747.4" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">13…24 нс</text>
+<rect x="40.0" y="222.0" width="292.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="186.0" y="242.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="186.0" dy="0.0">голий syscall,</tspan><tspan x="186.0" dy="16.9">пом'якшення вимкнено</tspan></text>
+<rect x="350.0" y="229.0" width="539.7" height="34.0" rx="6" fill="#fff5e0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="903.7" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">&lt; 100 нс</text>
+<rect x="40.0" y="294.0" width="292.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="186.0" y="314.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="186.0" dy="0.0">голий syscall,</tspan><tspan x="186.0" dy="16.9">пом'якшення ввімкнено</tspan></text>
+<rect x="350.0" y="301.0" width="727.9" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="1091.9" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">440…660 нс</text>
+<line x1="350.0" y1="354.0" x2="1140.0" y2="354.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="422.0" y1="354.0" x2="422.0" y2="363.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="422.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">1 нс</text>
+<line x1="661.4" y1="354.0" x2="661.4" y2="363.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="661.4" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">10 нс</text>
+<line x1="900.7" y1="354.0" x2="900.7" y2="363.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="900.7" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">100 нс</text>
+<line x1="1140.0" y1="354.0" x2="1140.0" y2="363.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="1140.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">1 мкс</text>
+<rect x="40.0" y="406.0" width="1200.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="640.0" y="433.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="640.0" dy="0.0">Вісь логарифмічна: кожна поділка — удесятеро. Значення — з опублікованих вимірів на різних машинах, а не константи архітектури;</tspan><tspan x="640.0" dy="16.9">власні числа завжди інші, стала лише відстань між щаблями.</tspan></text>
+</svg>

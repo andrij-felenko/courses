@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1080" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">pidfd за версіями ядра</text>
+<line x1="60.0" y1="200.0" x2="1040.0" y2="200.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="55.0" y="126.2" width="150.0" height="47.6" rx="6" fill="#eef3fd" stroke="#2457d6" stroke-width="1.5"/><text x="130.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Linux 5.1</tspan><tspan x="130.0" dy="15.6">pidfd_send_signal()</tspan></text>
+<line x1="130.0" y1="173.8" x2="130.0" y2="194.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="130.0" cy="200.0" r="5.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="217.4" y="228.2" width="95.2" height="47.6" rx="6" fill="#eef3fd" stroke="#2457d6" stroke-width="1.5"/><text x="265.0" y="248.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">Linux 5.2</tspan><tspan x="265.0" dy="15.6">CLONE_PIDFD</tspan></text>
+<line x1="265.0" y1="206.0" x2="265.0" y2="228.2" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="265.0" cy="200.0" r="5.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="314.8" y="71.2" width="170.5" height="47.6" rx="6" fill="#eef3fd" stroke="#2457d6" stroke-width="1.5"/><text x="400.0" y="91.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Linux 5.3</tspan><tspan x="400.0" dy="15.6">pidfd_open(), clone3()</tspan></text>
+<line x1="400.0" y1="118.8" x2="400.0" y2="194.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="400.0" cy="200.0" r="5.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="473.7" y="286.2" width="122.6" height="47.6" rx="6" fill="#eef3fd" stroke="#2457d6" stroke-width="1.5"/><text x="535.0" y="306.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="535.0" dy="0.0">Linux 5.4</tspan><tspan x="535.0" dy="15.6">waitid(P_PIDFD)</tspan></text>
+<line x1="535.0" y1="206.0" x2="535.0" y2="286.2" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="535.0" cy="200.0" r="5.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="625.5" y="126.2" width="108.9" height="47.6" rx="6" fill="#eef3fd" stroke="#2457d6" stroke-width="1.5"/><text x="680.0" y="146.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Linux 5.6</tspan><tspan x="680.0" dy="15.6">pidfd_getfd()</tspan></text>
+<line x1="680.0" y1="173.8" x2="680.0" y2="194.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="680.0" cy="200.0" r="5.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="772.1" y="228.2" width="115.8" height="47.6" rx="6" fill="#eef3fd" stroke="#2457d6" stroke-width="1.5"/><text x="830.0" y="248.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">Linux 5.10</tspan><tspan x="830.0" dy="15.6">PIDFD_NONBLOCK</tspan></text>
+<line x1="830.0" y1="206.0" x2="830.0" y2="228.2" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="830.0" cy="200.0" r="5.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="917.1" y="63.4" width="115.8" height="63.2" rx="6" fill="#eef3fd" stroke="#2457d6" stroke-width="1.5"/><text x="975.0" y="83.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="975.0" dy="0.0">Linux 6.9</tspan><tspan x="975.0" dy="15.6">PIDFD_THREAD</tspan><tspan x="975.0" dy="15.6">PIDFD_SIGNAL_*</tspan></text>
+<line x1="975.0" y1="126.6" x2="975.0" y2="194.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="975.0" cy="200.0" r="5.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+</svg>

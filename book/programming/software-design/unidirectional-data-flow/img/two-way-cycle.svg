@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="70.0" y="82.4" width="220.0" height="75.1" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="2.2"/><text x="180.0" y="114.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">долари</tspan><tspan x="180.0" dy="22.1">1234.56</tspan></text>
+<rect x="650.0" y="82.4" width="220.0" height="75.1" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="2.2"/><text x="760.0" y="114.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">євро</tspan><tspan x="760.0" dy="22.1">1135.80</tspan></text>
+<line x1="300.0" y1="106.0" x2="640.0" y2="106.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="470.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle">× 0.92 і округлити</text>
+<line x1="640.0" y1="152.0" x2="300.0" y2="152.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="470.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle">÷ 0.92 і округлити</text>
+<text x="470.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">кожне значення обчислюється з іншого — це цикл</text>
+<rect x="60.0" y="268.0" width="820.0" height="196.0" rx="6" fill="#fbfbfd" stroke="#6b7280" stroke-width="1.4"/>
+<text x="82.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">що відбувається після набору 1234.56</text>
+<text x="82.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start"><tspan x="82.0" dy="0.0">1234.56 × 0.92  =  1135.7952   →   у полі євро   1135.80</tspan><tspan x="82.0" dy="21.7">1135.80 ÷ 0.92  =  1234.5652   →   у полі долари 1234.57</tspan><tspan x="82.0" dy="21.7">1234.57 × 0.92  =  1135.8044   →   у полі євро   1135.80   (зупинилось)</tspan></text>
+<text x="82.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">набрали 1234.56 — у полі 1234.57: програма переписала введене</text>
+</svg>

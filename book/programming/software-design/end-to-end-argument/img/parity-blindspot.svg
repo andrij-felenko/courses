@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сума складає байти з вагою за місцем — порядок їй байдужий</text>
+<text x="295.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">перестановка b₀ ↔ b₂</text>
+<text x="295.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">обидва байти на парних місцях</text>
+<text x="118.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">×256</text>
+<rect x="70.0" y="146.0" width="96.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/>
+<text x="118.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#c0392b" text-anchor="middle" font-weight="700">0x3A</text>
+<text x="118.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">b₀</text>
+<text x="236.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">×1</text>
+<rect x="188.0" y="146.0" width="96.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="236.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x1F</text>
+<text x="236.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">b₁</text>
+<text x="354.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">×256</text>
+<rect x="306.0" y="146.0" width="96.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/>
+<text x="354.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#c0392b" text-anchor="middle" font-weight="700">0xC4</text>
+<text x="354.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">b₂</text>
+<text x="472.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">×1</text>
+<rect x="424.0" y="146.0" width="96.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="472.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x07</text>
+<text x="472.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">b₃</text>
+<line x1="118.0" y1="262.0" x2="354.0" y2="262.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="118.0" y1="262.0" x2="118.0" y2="250.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="354.0" y1="262.0" x2="354.0" y2="250.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="70.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start">до:     0x3A1F + 0xC407 = 65062</text>
+<text x="70.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start">після:  0xC41F + 0x3A07 = 65062</text>
+<text x="70.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="start" font-weight="700">сума та сама — перевірка мовчить</text>
+<text x="885.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">перестановка b₀ ↔ b₁</text>
+<text x="885.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">місця різної парності</text>
+<text x="708.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">×256</text>
+<rect x="660.0" y="146.0" width="96.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/>
+<text x="708.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#c0392b" text-anchor="middle" font-weight="700">0x3A</text>
+<text x="708.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">b₀</text>
+<text x="826.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">×1</text>
+<rect x="778.0" y="146.0" width="96.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/>
+<text x="826.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#c0392b" text-anchor="middle" font-weight="700">0x1F</text>
+<text x="826.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">b₁</text>
+<text x="944.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">×256</text>
+<rect x="896.0" y="146.0" width="96.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="944.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xC4</text>
+<text x="944.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">b₂</text>
+<text x="1062.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">×1</text>
+<rect x="1014.0" y="146.0" width="96.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="1062.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x07</text>
+<text x="1062.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">b₃</text>
+<line x1="708.0" y1="262.0" x2="826.0" y2="262.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="708.0" y1="262.0" x2="708.0" y2="250.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="826.0" y1="262.0" x2="826.0" y2="250.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="660.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start">до:     0x3A1F + 0xC407 = 65062</text>
+<text x="660.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start">після:  0x1F3A + 0xC407 = 58177</text>
+<text x="660.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="start" font-weight="700">сума інша на 255·(0x3A − 0x1F) = 6885</text>
+<line x1="620.0" y1="66.0" x2="620.0" y2="400.0" stroke="#c9ced6" stroke-width="1.6" stroke-dasharray="6,6"/>
+</svg>

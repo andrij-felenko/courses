@@ -17,6 +17,7 @@
         { slug: "polynomial-hierarchy", title: "Поліноміальна ієрархія (PH)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "pp-probabilistic-polynomial", title: "Клас PP: ймовірнісний поліноміальний час", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "comparison-sort-lower-bound", title: "Нижня межа сортування порівняннями (Ω(n log n))", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "online-competitive-analysis", title: "Онлайнові алгоритми й конкурентний аналіз", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "design-paradigms", title: "Парадигми", scope: "Загальні методи побудови алгоритмів — каркаси розв'язків для широких класів задач.",
       topics: [
@@ -75,6 +76,8 @@
         { slug: "binomial-heap", title: "Біноміальна купа", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "spatial-index", title: "Просторовий індекс: R-дерево і квадродерево", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "z-order-curve", title: "Крива Мортона (Z-порядок): просторова близькість у лінійному ключі", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "hash-array-mapped-trie", title: "Геш-дерево з бітовими мапами (HAMT)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "timer-wheel", title: "Колесо таймерів", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "graph-algorithms", title: "Графові", scope: "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.",
       topics: [
@@ -88,10 +91,14 @@
         { slug: "bipartite-matching", title: "Двочасткові графи й досконале паросполучення", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "breadth-first-search", title: "Пошук у ширину (BFS)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "depth-first-search", title: "Пошук у глибину (DFS)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "transitive-closure", title: "Транзитивне замикання графа", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "string-geometry-streaming", title: "Дискретні", scope: "Алгоритми над текстом, геометрією та потоками: пошук і вирівнювання рядків, оболонки й перетини фігур, онлайн-рішення та один прохід над масивними даними.",
       topics: [
         { slug: "regex-engine", title: "Рушій регулярних виразів", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "count-min-sketch", title: "Count-Min Sketch: приблизні лічильники частот за фіксовану пам'ять", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "polygon-offset", title: "Зсув контуру (еквідистанта): розширення й звуження многокутника та ламаної", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "polyline-simplification", title: "Спрощення ламаної: Дуглас–Пекер і жадібні проходи", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "numerical-algorithms", title: "Числові", scope: "Арифметика великих чисел, лінійна алгебра, чисельні методи, точні та наближені обчислення.",
       topics: [
@@ -101,6 +108,7 @@
         { slug: "numerical-ode", title: "Числові методи розв'язку ОДУ", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "float-formats", title: "Формати чисел із рухомою комою (IEEE 754)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "symplectic-integrators", title: "Симплектичні інтегратори (Верле, leapfrog)", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "karatsuba-multiplication", title: "Множення Карацуби", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "combinatorial-optimization", title: "Оптимізація", scope: "Пошук найкращого розв'язку в дискретних і неперервних просторах: лінійне, цілочисельне програмування, евристики.",
       topics: [
@@ -367,6 +375,7 @@
         { slug: "two-phase-commit", title: "Двофазний коміт і його страх", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "crdt", title: "Безконфліктні типи даних (CRDT)", basic: { status: "pending" }, detailed: { status: "done" }, hist: [{ file: "hist-crdt.md", status: "done" }], math: [{ file: "math-convergence.md", status: "done" }], proj: [{ file: "proj-or-set.md", status: "done" }] },
         { slug: "operational-transformation", title: "Операційні перетворення (OT)", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "two-generals-problem", title: "Задача двох генералів", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
   ]
 });

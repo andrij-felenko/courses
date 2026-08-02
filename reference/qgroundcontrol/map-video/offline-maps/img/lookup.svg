@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1240" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три поверхи пошуку тайла</text>
+<rect x="150.0" y="66.0" width="380.0" height="74.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="98.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">рушій карти Qt</tspan><tspan x="340.0" dy="18.2">дай клітинку z / x / y</tspan></text>
+<rect x="150.0" y="196.0" width="380.0" height="74.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="229.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">кеш у пам'яті</tspan><tspan x="340.0" dy="16.9">стеля 128 МБ · 16 МБ на мобільному</tspan></text>
+<rect x="150.0" y="336.0" width="380.0" height="74.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="369.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">база qgcMapCache.db</tspan><tspan x="340.0" dy="16.9">SELECT ... WHERE hash = ?</tspan></text>
+<rect x="150.0" y="486.0" width="380.0" height="74.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="519.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">мережа: GET у провайдера</tspan><tspan x="340.0" dy="16.9">User-Agent · Referer</tspan></text>
+<line x1="340.0" y1="142.0" x2="340.0" y2="192.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="272.0" x2="340.0" y2="332.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="412.0" x2="340.0" y2="482.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="356.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">промах</text>
+<text x="356.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">промах</text>
+<text x="356.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">промах</text>
+<line x1="40.0" y1="300.0" x2="1200.0" y2="300.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="7,6"/>
+<text x="1200.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">межа ниток</text>
+<text x="700.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="700.0" dy="0.0">влучання коштує наносекунди,</tspan><tspan x="700.0" dy="16.9">нічого не блокує</tspan></text>
+<text x="700.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="700.0" dy="0.0">влучання — єдине, що працює в полі;</tspan><tspan x="700.0" dy="16.9">запит іде в окремій нитці з власним</tspan><tspan x="700.0" dy="16.9">циклом і чергою задач</tspan></text>
+<text x="700.0" y="504.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start"><tspan x="700.0" dy="0.0">єдиний поверх, якому потрібен</tspan><tspan x="700.0" dy="16.9">інтернет</tspan></text>
+<line x1="530.0" y1="523.0" x2="620.0" y2="523.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="620.0" y1="523.0" x2="620.0" y2="377.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="377.0" x2="534.0" y2="377.0" stroke="#333333" stroke-width="1.6"/>
+<text x="640.0" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start"><tspan x="640.0" dy="0.0">cacheTile(): байти лягають у базу</tspan><tspan x="640.0" dy="16.9">й стають частиною типового набору</tspan></text>
+</svg>

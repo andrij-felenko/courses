@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 780" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1280" height="780" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="640.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лог телеметрії: ланцюг записів «мітка часу + кадр»</text>
+<text x="60.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">файл від початку</text>
+<rect x="60.0" y="84.0" width="70.0" height="66.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="95.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">8 Б</text>
+<rect x="130.0" y="84.0" width="210.0" height="66.0" rx="8" fill="#eaf7ef" stroke="#333333" stroke-width="1.6"/>
+<text x="235.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">ATTITUDE</text>
+<rect x="350.0" y="84.0" width="70.0" height="66.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="385.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">8 Б</text>
+<rect x="420.0" y="84.0" width="130.0" height="66.0" rx="8" fill="#eaf7ef" stroke="#333333" stroke-width="1.6"/>
+<text x="485.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">HEARTBEAT</text>
+<rect x="560.0" y="84.0" width="70.0" height="66.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="595.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">8 Б</text>
+<rect x="630.0" y="84.0" width="310.0" height="66.0" rx="8" fill="#eaf7ef" stroke="#333333" stroke-width="1.6"/>
+<text x="785.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">PARAM_VALUE</text>
+<rect x="950.0" y="84.0" width="70.0" height="66.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="985.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">8 Б</text>
+<rect x="1020.0" y="84.0" width="160.0" height="66.0" rx="8" fill="#eaf7ef" stroke="#333333" stroke-width="1.6"/>
+<text x="1100.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">SYS_STATUS</text>
+<text x="60.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">синє — час у мікросекундах · зелене — кадр MAVLink як прийшов</text>
+<line x1="200.0" y1="192.0" x2="200.0" y2="236.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="140.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">один запис зблизька</text>
+<rect x="140.0" y="250.0" width="250.0" height="96.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="265.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="265.0" dy="0.0">мітка часу</tspan><tspan x="265.0" dy="18.2">старший байт першим</tspan></text>
+<rect x="390.0" y="250.0" width="210.0" height="96.0" rx="6" fill="#eaf7ef" stroke="#333333" stroke-width="1.5"/><text x="495.0" y="293.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="495.0" dy="0.0">заголовок</tspan><tspan x="495.0" dy="18.2">10 Б</tspan></text>
+<rect x="600.0" y="250.0" width="400.0" height="96.0" rx="6" fill="#eaf7ef" stroke="#333333" stroke-width="1.5"/><text x="800.0" y="293.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">навантаження</tspan><tspan x="800.0" dy="18.2">0…255 Б</tspan></text>
+<rect x="1000.0" y="250.0" width="140.0" height="96.0" rx="6" fill="#eaf7ef" stroke="#333333" stroke-width="1.5"/><text x="1070.0" y="293.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="1070.0" dy="0.0">сума</tspan><tspan x="1070.0" dy="18.2">2 Б</tspan></text>
+<text x="140.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">0</text>
+<text x="390.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">8</text>
+<text x="1140.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">до 275</text>
+<line x1="140.0" y1="362.0" x2="1140.0" y2="362.0" stroke="#c8d2dc" stroke-width="1.2"/>
+<rect x="70.0" y="440.0" width="560.0" height="150.0" rx="6" fill="#fdf3e7" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="491.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">ПОЛЯ ДОВЖИНИ В ЗАПИСІ НЕМАЄ</tspan><tspan x="350.0" dy="19.5">Скільки байтів займає кадр, знає тільки</tspan><tspan x="350.0" dy="19.5">сам кадр. Отже, дійти до наступного запису</tspan><tspan x="350.0" dy="19.5">можна лише розібравши поточний.</tspan></text>
+<rect x="650.0" y="440.0" width="560.0" height="150.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="930.0" y="491.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="930.0" dy="0.0">НАЙДОВШИЙ ЗАПИС</tspan><tspan x="930.0" dy="19.5">10 + 255 + 2 = 267 Б  (кадр v2 без підпису)</tspan><tspan x="930.0" dy="19.5">267 + 8 = 275 Б  (весь запис)</tspan><tspan x="930.0" dy="19.5">Підпис на 13 Б знімають перед записуванням.</tspan></text>
+<rect x="70.0" y="620.0" width="1140.0" height="120.0" rx="6" fill="#eef2f6" stroke="#333333" stroke-width="1.5"/><text x="640.0" y="665.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">ЗВІДСИ ВСЯ МЕХАНІКА ВІДТВОРЕННЯ: файл — не масив, а ланцюг.</tspan><tspan x="640.0" dy="19.5">Тривалість логу коштує повного проходу файлом; перемотування бере позицію</tspan><tspan x="640.0" dy="19.5">пропорційно до РОЗМІРУ В БАЙТАХ і далі шукає найближчу межу кадру заново.</tspan></text>
+</svg>

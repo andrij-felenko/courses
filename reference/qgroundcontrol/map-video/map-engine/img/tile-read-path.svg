@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 760" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="760" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях одного тайла: база перед мережею</text>
+<rect x="40.0" y="236.0" width="940.0" height="150.0" rx="10" fill="#f7f9fc" stroke="#c9d4e4" stroke-width="1.2"/>
+<text x="64.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">нитка бази (окремий власник файлу)</text>
+<rect x="330.0" y="56.0" width="360.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="89.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">Кадру потрібен тайл z/x/y</tspan></text>
+<line x1="510.0" y1="112.0" x2="510.0" y2="142.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.0" y="144.0" width="420.0" height="56.0" rx="6" fill="#e8f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="510.0" y="177.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">ключ = провайдер + x + y + z</tspan></text>
+<text x="742.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">задача в чергу</text>
+<line x1="510.0" y1="200.0" x2="510.0" y2="288.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.0" y="290.0" width="420.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="318.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">SELECT tile FROM Tiles</tspan><tspan x="510.0" dy="19.5">WHERE hash = ключ</tspan></text>
+<line x1="390.0" y1="356.0" x2="270.0" y2="424.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="258.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="end" font-weight="700">знайдено</text>
+<line x1="630.0" y1="356.0" x2="760.0" y2="424.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="772.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">порожньо</text>
+<rect x="60.0" y="426.0" width="300.0" height="62.0" rx="6" fill="#e8f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="210.0" y="462.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Байти з диска — на екран</tspan></text>
+<rect x="650.0" y="426.0" width="320.0" height="62.0" rx="6" fill="#fdeeea" stroke="#c0392b" stroke-width="1.5"/><text x="810.0" y="462.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">Запит за адресою провайдера</tspan></text>
+<line x1="810.0" y1="488.0" x2="810.0" y2="528.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="650.0" y="530.0" width="320.0" height="76.0" rx="6" fill="#fdeeea" stroke="#c0392b" stroke-width="1.5"/><text x="810.0" y="563.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">Перевірка відповіді</tspan><tspan x="810.0" dy="18.2">формат · заглушка «немає тайла»</tspan></text>
+<line x1="810.0" y1="606.0" x2="810.0" y2="646.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="650.0" y="648.0" width="320.0" height="60.0" rx="6" fill="#e8f6ec" stroke="#27ae60" stroke-width="1.5"/><text x="810.0" y="683.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">Показ негайно</tspan></text>
+<line x1="650.0" y1="678.0" x2="210.0" y2="678.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7,6"/>
+<line x1="210.0" y1="678.0" x2="210.0" y2="560.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7,6"/>
+<rect x="60.0" y="500.0" width="300.0" height="58.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="210.0" y="524.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Запис у базу</tspan><tspan x="210.0" dy="18.2">окремою задачею, потім</tspan></text>
+</svg>
