@@ -13,7 +13,7 @@ const APPLY = process.argv.includes("--apply");
 
 function manifests() {
   const out = [];
-  for (const kind of ["book", "catalog", "guide"]) {
+  for (const kind of ["book", "catalog", "reference", "guide"]) {
     const base = path.join(ROOT, kind);
     if (!fs.existsSync(base)) continue;
     for (const d of fs.readdirSync(base)) {

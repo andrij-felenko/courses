@@ -102,7 +102,7 @@
         { slug: "elliptic-curves", title: "Еліптичні криві", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "modular-forms", title: "Модулярні форми", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "floor-division", title: "Цілочислове ділення й підлога", basic: { status: "pending" }, detailed: { status: "pending" } },
-        { slug: "fractions", title: "Звичайні дроби", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "fractions", title: "Звичайні дроби", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "negative-numbers", title: "Від'ємні числа", basic: { status: "pending" }, detailed: { status: "pending" } },
       ] },
     { slug: "algebra", title: "Алгебра", scope: "Абстрактні алгебраїчні структури — групи, кільця, поля, модулі — та поліноміальні рівняння.",
@@ -272,6 +272,7 @@
         { slug: "elliptic-integral", title: "Еліптичні інтеграли", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "geometric-series", title: "Геометрична прогресія і сума ряду", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "lambert-w", title: "W-функція Ламберта", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "rolle-theorem", title: "Теорема Ролля і теорема про середнє значення", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "complex-analysis", title: "Комплексний аналіз", scope: "Голоморфні функції комплексної змінної, лишки та конформні відображення.",
       topics: [
@@ -330,6 +331,7 @@
         { slug: "hidden-markov-model", title: "Прихована марковська модель", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "conditional-probability", title: "Умовна ймовірність", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "coupon-collector", title: "Задача про збирача купонів", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "geometric-distribution", title: "Геометричний розподіл", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "statistics", title: "Статистика", scope: "Висновки з даних — оцінювання, перевірка гіпотез, регресія та байєсів підхід.",
       topics: [
@@ -439,6 +441,7 @@
         { slug: "bisection", title: "Метод ділення відрізка навпіл", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "finite-difference-method", title: "Метод скінченних різниць", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "von-neumann-stability", title: "Аналіз стійкості за фон Нейманом", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "bilinear-interpolation", title: "Білінійна інтерполяція", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
   ]
 });

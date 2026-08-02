@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">UDP: адресата станція не налаштовує, а дізнається з першого ж пакета</text>
+<rect x="60.0" y="96.0" width="300.0" height="130.0" rx="10" fill="#ffffff" stroke="#98a6b4" stroke-width="1.8"/>
+<text x="210.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">станція</text>
+<text x="210.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">сокет прив'язано до порту 14550</tspan><tspan x="210.0" dy="15.6">список цілей поки порожній</tspan></text>
+<rect x="840.0" y="96.0" width="300.0" height="130.0" rx="10" fill="#ffffff" stroke="#98a6b4" stroke-width="1.8"/>
+<text x="990.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">апарат або міст на борту</text>
+<text x="990.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="990.0" dy="0.0">шле серцебиття «кудись»,</tspan><tspan x="990.0" dy="15.6">джерело 192.168.1.50:14555</tspan></text>
+<line x1="840.0" y1="190.0" x2="370.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="605.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">перша датаграма приходить сама</text>
+<rect x="60.0" y="262.0" width="1080.0" height="92.0" rx="10" fill="#eef2f6" stroke="#98a6b4" stroke-width="1.6"/>
+<text x="600.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">станція дивиться, ХТО прислав, і додає це джерело у список цілей сеансу</text>
+<text x="600.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">жодного налаштування для цього не потрібно — адресу приніс сам пакет</text>
+<line x1="370.0" y1="410.0" x2="840.0" y2="410.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="605.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">тепер станція має куди слати команди</text>
+<rect x="560.0" y="424.0" width="90.0" height="44.0" rx="8" fill="#ffffff" stroke="#98a6b4" stroke-width="1.4"/>
+<text x="605.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">NAT</text>
+<text x="605.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">маршрутизатор пропускає відповідь, бо з'єднання почав апарат</text>
+<rect x="60.0" y="540.0" width="520.0" height="120.0" rx="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="320.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ціль задано вручну, апарат мовчить</text>
+<text x="320.0" y="598.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">станція показує «з'єднано» — сокет же відкрито,</tspan><tspan x="320.0" dy="15.0">а датаграми йдуть у порожнечу</tspan></text>
+<rect x="620.0" y="540.0" width="520.0" height="120.0" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="880.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">озвався ще хтось третій</text>
+<text x="880.0" y="598.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="880.0" dy="0.0">його джерело теж потрапить у список,</tspan><tspan x="880.0" dy="15.0">і копія кожної команди піде й туди</tspan></text>
+</svg>

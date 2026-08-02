@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири структури приєднання: чим у кожній названо інтерфейс</text>
+<rect x="14.0" y="58.0" width="228.0" height="236.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="22.0" y="66.0" width="212.0" height="44.0" rx="6" fill="#f7f9fc" stroke="#c0392b" stroke-width="1.6"/><text x="128.0" y="85.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="128.0" dy="0.0">struct ip_mreq</tspan><tspan x="128.0" dy="11.7">POSIX · усюди, зокрема Winsock і lwIP</tspan></text>
+<text x="28.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">imr_multiaddr</text>
+<text x="28.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">адреса групи</text>
+<text x="28.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">imr_interface</text>
+<text x="28.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">АДРЕСА інтерфейсу</text>
+<rect x="22.0" y="248.0" width="212.0" height="36.0" rx="6" fill="#fdf6f5" stroke="#c0392b" stroke-width="1.6"/><text x="128.0" y="269.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="128.0" dy="0.0">інтерфейс — адресою</tspan></text>
+<rect x="262.0" y="58.0" width="228.0" height="236.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="270.0" y="66.0" width="212.0" height="44.0" rx="6" fill="#f7f9fc" stroke="#27ae60" stroke-width="1.6"/><text x="376.0" y="84.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="376.0" dy="0.0">struct ip_mreqn</tspan><tspan x="376.0" dy="15.6">Linux 2.2+ · FreeBSD</tspan></text>
+<text x="276.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">imr_multiaddr</text>
+<text x="276.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">адреса групи</text>
+<text x="276.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">imr_address</text>
+<text x="276.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">адреса, можна 0.0.0.0</text>
+<text x="276.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">imr_ifindex</text>
+<text x="276.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ІНДЕКС, має перевагу</text>
+<rect x="270.0" y="248.0" width="212.0" height="36.0" rx="6" fill="#f2fbf5" stroke="#27ae60" stroke-width="1.6"/><text x="376.0" y="269.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="376.0" dy="0.0">індексом, адреса — запасна</tspan></text>
+<rect x="510.0" y="58.0" width="228.0" height="236.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="518.0" y="66.0" width="212.0" height="44.0" rx="6" fill="#f7f9fc" stroke="#27ae60" stroke-width="1.6"/><text x="624.0" y="84.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="624.0" dy="0.0">struct ipv6_mreq</tspan><tspan x="624.0" dy="15.6">RFC 3493 · увесь IPv6</tspan></text>
+<text x="524.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">ipv6mr_multiaddr</text>
+<text x="524.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">адреса групи</text>
+<text x="524.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">ipv6mr_interface</text>
+<text x="524.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ІНДЕКС, 0 = обере ядро</text>
+<rect x="518.0" y="248.0" width="212.0" height="36.0" rx="6" fill="#f2fbf5" stroke="#27ae60" stroke-width="1.6"/><text x="624.0" y="269.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="624.0" dy="0.0">лише індексом</tspan></text>
+<rect x="758.0" y="58.0" width="228.0" height="236.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="766.0" y="66.0" width="212.0" height="44.0" rx="6" fill="#f7f9fc" stroke="#27ae60" stroke-width="1.6"/><text x="872.0" y="84.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="872.0" dy="0.0">struct group_req</tspan><tspan x="872.0" dy="15.6">RFC 3678 · обидві версії</tspan></text>
+<text x="772.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">gr_interface</text>
+<text x="772.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ІНДЕКС</text>
+<text x="772.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">gr_group</text>
+<text x="772.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">sockaddr_storage: v4 або v6</text>
+<rect x="766.0" y="248.0" width="212.0" height="36.0" rx="6" fill="#f2fbf5" stroke="#27ae60" stroke-width="1.6"/><text x="872.0" y="269.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="872.0" dy="0.0">індексом, адреса будь-яка</tspan></text>
+<text x="500.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">адресою інтерфейс називають лише в найстарішій формі — і саме там назва неоднозначна:</text>
+<text x="500.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">адреса ще не видана DHCP, змінилася або повторюється на двох інтерфейсах — і приєднання йде не туди</text>
+<text x="500.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">тому нові API просять індекс: він у інтерфейсу є завжди й один</text>
+</svg>

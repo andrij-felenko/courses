@@ -2,6 +2,9 @@
 __pycache__/
 *.pyc
 
+# Тимчасові файли операцій для scripts/manifest-patch.js (фаза «Маніфест» батчу)
+/scripts/_mfops-*.json
+
 # Згенерований пошуковий індекс — будується в CI (.github/workflows/deploy.yml).
 # Локально: `node scripts/build-search-index.js`, щоб протестувати пошук.
 /search-index.json

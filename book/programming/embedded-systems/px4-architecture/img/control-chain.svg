@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Від гіроскопа до мотора: ланцюг, який ведуть дані</text>
+<rect x="268.0" y="92.0" width="420.0" height="66.0" rx="6" fill="#d6eaf8" stroke="#1a5276" stroke-width="2.0"/>
+<text x="478.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a5276" text-anchor="middle" font-weight="700">драйвер інерціального блока</text>
+<text x="478.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">публікує  sensor_gyro_fifo</text>
+<text x="238.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="end" font-weight="700">wq:SPI1</text>
+<text x="718.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">вичитує FIFO ~1 кГц</text>
+<line x1="478.0" y1="162.0" x2="478.0" y2="184.0" stroke="#1a5276" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="268.0" y="188.0" width="420.0" height="66.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="2.0"/>
+<text x="478.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d3c98" text-anchor="middle" font-weight="700">VehicleAngularVelocity</text>
+<text x="478.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">публікує  vehicle_angular_velocity</text>
+<text x="238.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="end" font-weight="700">wq:rate_ctrl</text>
+<text x="718.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">калібрування й фільтри</text>
+<line x1="478.0" y1="258.0" x2="478.0" y2="280.0" stroke="#7d3c98" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="268.0" y="284.0" width="420.0" height="66.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="2.0"/>
+<text x="478.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d3c98" text-anchor="middle" font-weight="700">mc_rate_control</text>
+<text x="478.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">публікує  vehicle_torque_setpoint</text>
+<text x="238.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="end" font-weight="700">wq:rate_ctrl</text>
+<text x="718.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ПІД по трьох осях</text>
+<line x1="478.0" y1="354.0" x2="478.0" y2="376.0" stroke="#7d3c98" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="268.0" y="380.0" width="420.0" height="66.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="2.0"/>
+<text x="478.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d3c98" text-anchor="middle" font-weight="700">control_allocator</text>
+<text x="478.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">публікує  actuator_motors</text>
+<text x="238.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="end" font-weight="700">wq:rate_ctrl</text>
+<text x="718.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">матриця ефективності рами</text>
+<line x1="478.0" y1="450.0" x2="478.0" y2="472.0" stroke="#7d3c98" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="268.0" y="476.0" width="420.0" height="66.0" rx="6" fill="#eafaf0" stroke="#1e8449" stroke-width="2.0"/>
+<text x="478.0" y="503.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">драйвер виходів PWM / DShot</text>
+<text x="478.0" y="524.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">імпульси на регулятори обертів</text>
+<text x="238.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="end" font-weight="700">—</text>
+<text x="718.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">PWM_MAIN_FUNCx</text>
+<text x="596.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">публікація будить наступного</text>
+<rect x="120.0" y="564.0" width="740.0" height="86.0" rx="6" fill="#fbfcfd" stroke="#7d3c98" stroke-width="1.8"/>
+<text x="490.0" y="592.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7d3c98" text-anchor="middle" font-weight="700">Жоден крок не запускається за власним таймером</text>
+<text x="490.0" y="616.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">такт задає вибірка гіроскопа — тому дві незалежні частоти не «б'ються»</text>
+<text x="490.0" y="638.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">і вік даних на вході регулятора не гуляє від нуля до цілого періоду</text>
+<text x="490.0" y="686.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Повільна гілка — оцінювач, регулятор положення, навігатор — живиться тими самими темами, лише рідше</text>
+</svg>

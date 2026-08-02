@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1280" height="720" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="640.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одна датаграма може везти нуль меж і кілька повідомлень</text>
+<text x="70.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">три виклики recvfrom — три датаграми</text>
+<rect x="70.0" y="100.0" width="250.0" height="92.0" rx="10" fill="#eef2f6" stroke="#98a6b4" stroke-width="1.8"/>
+<text x="195.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">датаграма 1 · 21 Б</text>
+<text x="84.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">0xFD</text>
+<text x="195.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">HEARTBEAT</text>
+<text x="195.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кадр MAVLink</text>
+<rect x="360.0" y="100.0" width="560.0" height="92.0" rx="10" fill="#eef2f6" stroke="#98a6b4" stroke-width="1.8"/>
+<text x="640.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">датаграма 2 · 112 Б</text>
+<text x="374.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">0xFD</text>
+<text x="455.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ATTITUDE</text>
+<text x="455.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кадр MAVLink</text>
+<line x1="550.0" y1="100.0" x2="550.0" y2="192.0" stroke="#98a6b4" stroke-width="1.6" stroke-dasharray="5,4"/>
+<text x="564.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">0xFD</text>
+<text x="630.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">VFR_HUD</text>
+<text x="630.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кадр MAVLink</text>
+<line x1="710.0" y1="100.0" x2="710.0" y2="192.0" stroke="#98a6b4" stroke-width="1.6" stroke-dasharray="5,4"/>
+<text x="724.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">0xFD</text>
+<text x="815.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">GLOBAL_POSITION_INT</text>
+<text x="815.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кадр MAVLink</text>
+<rect x="960.0" y="100.0" width="250.0" height="92.0" rx="10" fill="#eef2f6" stroke="#98a6b4" stroke-width="1.8"/>
+<text x="1085.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">датаграма 3 · 40 Б</text>
+<text x="974.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">0xFD</text>
+<text x="1085.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">LOCAL_POSITION_NED</text>
+<text x="1085.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">кадр MAVLink</text>
+<line x1="195.0" y1="226.0" x2="195.0" y2="276.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="640.0" y1="226.0" x2="640.0" y2="276.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="1085.0" y1="226.0" x2="1085.0" y2="276.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="70.0" y="286.0" width="1140.0" height="104.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="640.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">for (i = 0; i &lt; n; ++i)  mavlink_parse_char(MAVLINK_COMM_0, buf[i], &amp;msg, &amp;st);</text>
+<text x="640.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">межі датаграм циклу не потрібні: початок кадру розбирач знаходить сам —</text>
+<text x="640.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">за стартовим байтом, полем довжини й контрольною сумою</text>
+<line x1="640.0" y1="390.0" x2="640.0" y2="424.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="70.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">на виході — п'ять повідомлень, і жодне не знає, з якої датаграми прийшло</text>
+<rect x="70.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="70.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/><text x="183.0" y="461.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="183.0" dy="0.0">HEARTBEAT</tspan></text>
+<rect x="298.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="298.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/><text x="411.0" y="461.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="411.0" dy="0.0">ATTITUDE</tspan></text>
+<rect x="526.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="526.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/><text x="639.0" y="461.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="639.0" dy="0.0">VFR_HUD</tspan></text>
+<rect x="754.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="754.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/><text x="867.0" y="461.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="867.0" dy="0.0">GLOBAL_POSITION_INT</tspan></text>
+<rect x="982.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="982.0" y="434.0" width="226.0" height="46.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.6"/><text x="1095.0" y="461.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1095.0" dy="0.0">LOCAL_POSITION_NED</tspan></text>
+<rect x="70.0" y="522.0" width="556.0" height="158.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="348.0" y="552.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">буфер на 280 байтів — «розмір одного кадру»</text>
+<rect x="96.0" y="570.0" width="504.0" height="92.0" rx="6" fill="#fdecea" stroke="#f5c6c0" stroke-width="1.0"/><text x="348.0" y="604.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="348.0" dy="0.0">recvfrom бере скільки влізло, решту датаграми ядро ВИКИДАЄ.</tspan><tspan x="348.0" dy="15.6">Наступний байт у циклі — початок уже іншої датаграми,</tspan><tspan x="348.0" dy="15.6">тож обірваний кадр з'їдає й сусідній: суцільні помилки CRC.</tspan></text>
+<rect x="654.0" y="522.0" width="556.0" height="158.0" rx="10" fill="#eaf6ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="932.0" y="552.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">буфер на десятки кілобайтів</text>
+<rect x="680.0" y="570.0" width="504.0" height="92.0" rx="6" fill="#eaf6ee" stroke="#bfe3cc" stroke-width="1.0"/><text x="932.0" y="604.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="932.0" dy="0.0">Датаграма влазить цілою за будь-якого склеювання.</tspan><tspan x="932.0" dy="15.6">Верхня межа однієї датаграми IPv4 — 65507 байтів,</tspan><tspan x="932.0" dy="15.6">тож 64 КБ закривають випадок назавжди.</tspan></text>
+</svg>

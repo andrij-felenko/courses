@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 640" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="640" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три рівні між кнопкою і виконаною командою</text>
+<rect x="60.0" y="100.0" width="620.0" height="120.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="2.0"/>
+<text x="370.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівень 1 · QML — ХОВАЄ</text>
+<text x="370.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">ловить: випадкове блукання оператора не тим екраном</tspan><tspan x="370.0" dy="16.9">не ловить: жодного виклику поза цим файлом</tspan></text>
+<rect x="60.0" y="270.0" width="620.0" height="120.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="370.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівень 2 · C++ Q_INVOKABLE — ВІДМОВЛЯЄ</text>
+<text x="370.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">ловить: чужий виклик із QML і власну забуту умову</tspan><tspan x="370.0" dy="16.9">не ловить: нічого, що йде повз цей застосунок</tspan></text>
+<rect x="60.0" y="440.0" width="620.0" height="120.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="370.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівень 3 · автопілот — ЗАБОРОНЯЄ</text>
+<text x="370.0" y="504.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">ловить: усе, бо перевіряє стан у себе, а не вірить на слово</tspan><tspan x="370.0" dy="16.9">MAV_CMD_PREFLIGHT_STORAGE у польоті → COMMAND_ACK: DENIED</tspan></text>
+<text x="370.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">оператор власної збірки</text>
+<line x1="370.0" y1="82.0" x2="370.0" y2="96.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="370.0" y1="224.0" x2="370.0" y2="266.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="370.0" y1="394.0" x2="370.0" y2="436.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="760.0" y="180.0" width="320.0" height="110.0" rx="6" fill="#fff6e5" stroke="#6b7280" stroke-width="1.5"/><text x="920.0" y="221.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="920.0" dy="0.0">інша станція,</tspan><tspan x="920.0" dy="18.2">консоль до борту,</tspan><tspan x="920.0" dy="18.2">власний скрипт</tspan></text>
+<line x1="1040.0" y1="292.0" x2="1040.0" y2="500.0" stroke="#6b7280" stroke-width="2.0" stroke-dasharray="6,4"/>
+<line x1="1040.0" y1="500.0" x2="690.0" y2="500.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="865.0" y="484.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">обходить обидва рівні станції</text>
+<text x="560.0" y="604.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">забороняє лише той, хто перевіряє в себе, а не той, кого просять</text>
+</svg>

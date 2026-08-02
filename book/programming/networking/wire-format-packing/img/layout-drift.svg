@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1010 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1010" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="505.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один опис структури — дві несумісні розкладки</text>
+<text x="68.0" y="62.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">struct Sample { uint8_t id; double value; uint16_t flags; };</text>
+<text x="68.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">gcc -m64 · x86-64 SysV · double вирівнюється на 8 → sizeof == 24</text>
+<rect x="68.0" y="126.0" width="36.0" height="48.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="71.0" y="132.0" width="30.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="86.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="86.0" dy="0.0">id</tspan></text>
+<text x="70.0" y="117.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">0</text>
+<rect x="104.0" y="126.0" width="252.0" height="48.0" rx="5" fill="#e4e7ea" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="140.0" y1="129.0" x2="140.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="140.0" y1="164.0" x2="140.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="176.0" y1="129.0" x2="176.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="176.0" y1="164.0" x2="176.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="212.0" y1="129.0" x2="212.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="212.0" y1="164.0" x2="212.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="248.0" y1="129.0" x2="248.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="248.0" y1="164.0" x2="248.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="284.0" y1="129.0" x2="284.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="284.0" y1="164.0" x2="284.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="320.0" y1="129.0" x2="320.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="320.0" y1="164.0" x2="320.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<rect x="107.0" y="132.0" width="246.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="230.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">падінг 7 байтів</tspan></text>
+<text x="106.0" y="117.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">1</text>
+<rect x="356.0" y="126.0" width="288.0" height="48.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="392.0" y1="129.0" x2="392.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="392.0" y1="164.0" x2="392.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="428.0" y1="129.0" x2="428.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="428.0" y1="164.0" x2="428.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="464.0" y1="129.0" x2="464.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="464.0" y1="164.0" x2="464.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="500.0" y1="129.0" x2="500.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="500.0" y1="164.0" x2="500.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="536.0" y1="129.0" x2="536.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="536.0" y1="164.0" x2="536.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="572.0" y1="129.0" x2="572.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="572.0" y1="164.0" x2="572.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="608.0" y1="129.0" x2="608.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="608.0" y1="164.0" x2="608.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<rect x="359.0" y="132.0" width="282.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="500.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">value (double)</tspan></text>
+<text x="358.0" y="117.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">8</text>
+<rect x="644.0" y="126.0" width="72.0" height="48.0" rx="5" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="680.0" y1="129.0" x2="680.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="680.0" y1="164.0" x2="680.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<rect x="647.0" y="132.0" width="66.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="680.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">flags</tspan></text>
+<text x="646.0" y="117.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">16</text>
+<rect x="716.0" y="126.0" width="216.0" height="48.0" rx="5" fill="#e4e7ea" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="752.0" y1="129.0" x2="752.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="752.0" y1="164.0" x2="752.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="788.0" y1="129.0" x2="788.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="788.0" y1="164.0" x2="788.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="824.0" y1="129.0" x2="824.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="824.0" y1="164.0" x2="824.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="860.0" y1="129.0" x2="860.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="860.0" y1="164.0" x2="860.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="896.0" y1="129.0" x2="896.0" y2="136.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="896.0" y1="164.0" x2="896.0" y2="171.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<rect x="719.0" y="132.0" width="210.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="824.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="824.0" dy="0.0">хвостовий падінг 6</tspan></text>
+<text x="718.0" y="117.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">18</text>
+<text x="934.0" y="117.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">24</text>
+<text x="68.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">зсуви полів:  id = 0 · value = 8 · flags = 16</text>
+<text x="68.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">gcc -m32 · i386 SysV · double вирівнюється на 4 → sizeof == 16</text>
+<rect x="68.0" y="284.0" width="36.0" height="48.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="71.0" y="290.0" width="30.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="86.0" y="312.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="86.0" dy="0.0">id</tspan></text>
+<text x="70.0" y="275.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">0</text>
+<rect x="104.0" y="284.0" width="108.0" height="48.0" rx="5" fill="#e4e7ea" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="140.0" y1="287.0" x2="140.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="140.0" y1="322.0" x2="140.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="176.0" y1="287.0" x2="176.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="176.0" y1="322.0" x2="176.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<rect x="107.0" y="290.0" width="102.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="158.0" y="312.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="158.0" dy="0.0">падінг 3</tspan></text>
+<text x="106.0" y="275.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">1</text>
+<rect x="212.0" y="284.0" width="288.0" height="48.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="248.0" y1="287.0" x2="248.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="248.0" y1="322.0" x2="248.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="284.0" y1="287.0" x2="284.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="284.0" y1="322.0" x2="284.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="320.0" y1="287.0" x2="320.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="320.0" y1="322.0" x2="320.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="356.0" y1="287.0" x2="356.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="356.0" y1="322.0" x2="356.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="392.0" y1="287.0" x2="392.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="392.0" y1="322.0" x2="392.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="428.0" y1="287.0" x2="428.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="428.0" y1="322.0" x2="428.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="464.0" y1="287.0" x2="464.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="464.0" y1="322.0" x2="464.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<rect x="215.0" y="290.0" width="282.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="356.0" y="312.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="356.0" dy="0.0">value (double)</tspan></text>
+<text x="214.0" y="275.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">4</text>
+<rect x="500.0" y="284.0" width="72.0" height="48.0" rx="5" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="536.0" y1="287.0" x2="536.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="536.0" y1="322.0" x2="536.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<rect x="503.0" y="290.0" width="66.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="536.0" y="312.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="536.0" dy="0.0">flags</tspan></text>
+<text x="502.0" y="275.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">12</text>
+<rect x="572.0" y="284.0" width="72.0" height="48.0" rx="5" fill="#e4e7ea" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="608.0" y1="287.0" x2="608.0" y2="294.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<line x1="608.0" y1="322.0" x2="608.0" y2="329.0" stroke="#c7ccd1" stroke-width="1.0"/>
+<rect x="575.0" y="290.0" width="66.0" height="36.0" rx="6" fill="none" stroke="none" stroke-width="0.0"/><text x="608.0" y="311.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="608.0" dy="0.0">падінг 2</tspan></text>
+<text x="574.0" y="275.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">14</text>
+<text x="646.0" y="275.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6b7280" text-anchor="start">16</text>
+<text x="68.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">зсуви полів:  id = 0 · value = 4 · flags = 12</text>
+<rect x="60.0" y="386.0" width="890.0" height="86.0" rx="12" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.8"/>
+<text x="505.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Той самий вихідний текст, той самий процесор — лише інший режим збірки.</text>
+<text x="505.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">send(fd, &amp;s, sizeof s, 0) відправить 24 байти з одного боку і 16 з іншого,</text>
+<text x="505.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">а поле value читатиметься зі зсуву 8 замість 4. Розкладка — не властивість типу, а властивість збірки.</text>
+</svg>

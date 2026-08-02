@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запис параметра: коротка успішна гілка й дві різні невдачі</text>
+<rect x="332.2" y="75.0" width="195.6" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="430.0" y="96.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Користувач правив факт</tspan></text>
+<rect x="340.2" y="169.9" width="179.6" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="430.0" y="191.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Надіслати PARAM_SET,</tspan><tspan x="430.0" dy="18.2">лічильник записів +1</tspan></text>
+<rect x="312.3" y="285.9" width="235.5" height="52.2" rx="6" fill="#fff8e1" stroke="#333333" stroke-width="1.5"/><text x="430.0" y="307.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Чекати відлуння PARAM_VALUE</tspan><tspan x="430.0" dy="18.2">одну секунду</tspan></text>
+<rect x="316.3" y="405.9" width="227.5" height="52.2" rx="6" fill="#eaf7ef" stroke="#333333" stroke-width="1.5"/><text x="430.0" y="427.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Ім'я і значення збіглися —</tspan><tspan x="430.0" dy="18.2">успіх, лічильник −1</tspan></text>
+<line x1="430.0" y1="115.0" x2="430.0" y2="163.9" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="228.1" x2="430.0" y2="279.9" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="344.1" x2="430.0" y2="399.9" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="306.3" y1="312.0" x2="96.0" y2="312.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="96.0" y1="312.0" x2="96.0" y2="200.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="96.0" y1="196.0" x2="334.2" y2="196.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="114.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start"><tspan x="114.0" dy="0.0">тиша:</tspan><tspan x="114.0" dy="15.6">повтор,</tspan><tspan x="114.0" dy="15.6">до двох</tspan></text>
+<rect x="738.5" y="278.6" width="183.0" height="66.8" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="830.0" y="299.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">PARAM_ERROR:</tspan><tspan x="830.0" dy="16.9">не існує, поза межами,</tspan><tspan x="830.0" dy="16.9">лише для читання</tspan></text>
+<line x1="553.7" y1="312.0" x2="732.5" y2="312.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="630.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">без повторів</text>
+<rect x="760.7" y="427.1" width="138.6" height="49.9" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="830.0" y="448.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">Спроби вичерпано</tspan><tspan x="830.0" dy="16.9">або відмова</tspan></text>
+<line x1="830.0" y1="351.4" x2="830.0" y2="421.1" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="96.0" y1="384.0" x2="96.0" y2="452.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="96.0" y1="452.0" x2="754.7" y2="452.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="114.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">спроб більше немає</text>
+<rect x="768.1" y="539.5" width="123.7" height="33.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="830.0" y="560.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">Сказати людині</tspan></text>
+<rect x="712.6" y="625.0" width="234.9" height="49.9" rx="6" fill="#eaf7ef" stroke="#333333" stroke-width="1.5"/><text x="830.0" y="646.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">Перечитати параметр із борту:</tspan><tspan x="830.0" dy="16.9">у факті знову правда</tspan></text>
+<line x1="830.0" y1="482.9" x2="830.0" y2="533.5" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="830.0" y1="578.5" x2="830.0" y2="619.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

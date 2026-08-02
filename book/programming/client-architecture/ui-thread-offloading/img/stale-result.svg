@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок відповідей не пов'язаний із порядком запитів</text>
+<rect x="150.0" y="52.0" width="220.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="260.0" y="74.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">потік інтерфейсу</tspan></text>
+<rect x="640.0" y="52.0" width="200.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="740.0" y="74.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="740.0" dy="0.0">фоновий пул</tspan></text>
+<rect x="161.1" y="113.5" width="197.8" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="260.0" y="134.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">запит &quot;ab&quot; · покоління 7</tspan></text>
+<rect x="157.4" y="203.5" width="205.2" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="260.0" y="224.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">запит &quot;abc&quot; · покоління 8</tspan></text>
+<rect x="135.1" y="348.5" width="249.7" height="33.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="260.0" y="369.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">покоління 8 = поточне → малюємо</tspan></text>
+<rect x="146.3" y="458.5" width="227.5" height="33.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="260.0" y="479.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">покоління 7 ≠ 8 → відкидаємо</tspan></text>
+<line x1="260.0" y1="96.0" x2="260.0" y2="110.5" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<line x1="260.0" y1="149.5" x2="260.0" y2="200.5" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<line x1="260.0" y1="239.5" x2="260.0" y2="345.5" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<line x1="260.0" y1="384.5" x2="260.0" y2="455.5" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<line x1="260.0" y1="494.5" x2="260.0" y2="508.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<line x1="740.0" y1="96.0" x2="740.0" y2="508.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<line x1="272.0" y1="175.0" x2="728.0" y2="175.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="500.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">робота 7</text>
+<line x1="272.0" y1="262.0" x2="728.0" y2="262.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="500.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">робота 8</text>
+<line x1="728.0" y1="320.0" x2="272.0" y2="320.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="500.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">результат 8 (готовий раніше)</text>
+<line x1="728.0" y1="430.0" x2="272.0" y2="430.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="500.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">результат 7 (спізнився)</text>
+<text x="500.0" y="548.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">без лічильника поколінь на екрані лишився б результат запиту, якого вже немає</text>
+</svg>

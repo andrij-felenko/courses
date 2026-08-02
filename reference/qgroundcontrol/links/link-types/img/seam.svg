@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1240" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канал для застосунку — це труба байтів із двома кінцями</text>
+<rect x="30.0" y="56.0" width="1180.0" height="226.0" rx="12" fill="#eef2f6" stroke="#98a6b4" stroke-width="1.6"/>
+<text x="70.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">вище шва різниці немає</text>
+<rect x="300.0" y="100.0" width="640.0" height="54.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="131.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Vehicle · параметри · план місії · карта · відео</tspan></text>
+<rect x="300.0" y="196.0" width="640.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="222.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">MAVLinkProtocol: mavlink_parse_char(канал, байт)</tspan><tspan x="620.0" dy="16.9">свій стан розбору на кожен канал</tspan></text>
+<line x1="620.0" y1="196.0" x2="620.0" y2="158.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="646.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">повідомлення</text>
+<line x1="30.0" y1="320.0" x2="1210.0" y2="320.0" stroke="#333333" stroke-width="2.4" stroke-dasharray="9,6"/>
+<text x="70.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">ШОВ: LinkInterface</text>
+<line x1="430.0" y1="320.0" x2="430.0" y2="262.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="452.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">bytesReceived — масив байтів угору</text>
+<line x1="880.0" y1="262.0" x2="880.0" y2="320.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="858.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end">writeBytesThreadSafe — байти вниз</text>
+<text x="70.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">нижче шва спільного немає нічого</text>
+<rect x="40.0" y="396.0" width="180.0" height="232.0" rx="10" fill="#ffffff" stroke="#98a6b4" stroke-width="1.6"/>
+<text x="130.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">серійний порт</text>
+<text x="130.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="130.0" dy="0.0">імені пристрою</tspan><tspan x="130.0" dy="14.3">додає ОС</tspan></text>
+<line x1="60.0" y1="512.0" x2="200.0" y2="512.0" stroke="#d0d8e0" stroke-width="1.2"/>
+<text x="130.0" y="546.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">байти йдуть</tspan><tspan x="130.0" dy="14.3">довільними шматками</tspan></text>
+<line x1="130.0" y1="396.0" x2="130.0" y2="372.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="285.0" y="396.0" width="180.0" height="232.0" rx="10" fill="#ffffff" stroke="#98a6b4" stroke-width="1.6"/>
+<text x="375.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">сокет UDP</text>
+<text x="375.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="375.0" dy="0.0">адреси нема,</tspan><tspan x="375.0" dy="14.3">доки хтось не озветься</tspan></text>
+<line x1="305.0" y1="512.0" x2="445.0" y2="512.0" stroke="#d0d8e0" stroke-width="1.2"/>
+<text x="375.0" y="546.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="375.0" dy="0.0">датаграма приходить</tspan><tspan x="375.0" dy="14.3">цілою або ніяк</tspan></text>
+<line x1="375.0" y1="396.0" x2="375.0" y2="372.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="530.0" y="396.0" width="180.0" height="232.0" rx="10" fill="#ffffff" stroke="#98a6b4" stroke-width="1.6"/>
+<text x="620.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">сокет TCP</text>
+<text x="620.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="620.0" dy="0.0">справжнє з'єднання</tspan><tspan x="620.0" dy="14.3">з рукостисканням</tspan></text>
+<line x1="550.0" y1="512.0" x2="690.0" y2="512.0" stroke="#d0d8e0" stroke-width="1.2"/>
+<text x="620.0" y="546.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">потік без утрат,</tspan><tspan x="620.0" dy="14.3">але з очікуванням</tspan></text>
+<line x1="620.0" y1="396.0" x2="620.0" y2="372.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="775.0" y="396.0" width="180.0" height="232.0" rx="10" fill="#ffffff" stroke="#98a6b4" stroke-width="1.6"/>
+<text x="865.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Bluetooth</text>
+<text x="865.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="865.0" dy="0.0">спарення робить ОС,</tspan><tspan x="865.0" dy="14.3">не застосунок</tspan></text>
+<line x1="795.0" y1="512.0" x2="935.0" y2="512.0" stroke="#d0d8e0" stroke-width="1.2"/>
+<text x="865.0" y="546.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="865.0" dy="0.0">класичний — потік,</tspan><tspan x="865.0" dy="14.3">BLE — шматки по 20 Б</tspan></text>
+<line x1="865.0" y1="396.0" x2="865.0" y2="372.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="1020.0" y="396.0" width="180.0" height="232.0" rx="10" fill="#ffffff" stroke="#98a6b4" stroke-width="1.6"/>
+<text x="1110.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">файл логу</text>
+<text x="1110.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="1110.0" dy="0.0">джерело — диск,</tspan><tspan x="1110.0" dy="14.3">а не радіо</tspan></text>
+<line x1="1040.0" y1="512.0" x2="1180.0" y2="512.0" stroke="#d0d8e0" stroke-width="1.2"/>
+<text x="1110.0" y="546.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="1110.0" dy="0.0">ті самі байти</tspan><tspan x="1110.0" dy="14.3">за мітками часу</tspan></text>
+<line x1="1110.0" y1="396.0" x2="1110.0" y2="372.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="620.0" y="672.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">кожне з'єднання дістає власний канал розбору й власну нитку — тому байти двох каналів ніколи не змішуються</text>
+</svg>

@@ -1,0 +1,602 @@
+[
+ {
+  "mod": "М9 Вхід у програмування: числа, C, тулчейн",
+  "kind": "reference",
+  "book": "build-systems",
+  "section": "fundamentals",
+  "slug": "build-system-role",
+  "title": "Роль системи збірки: від дерева файлів до артефакту",
+  "scope": "Модель, спільна для всіх систем збірки: граф, актуальність, відтворюваність.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М9 Вхід у програмування: числа, C, тулчейн",
+  "kind": "reference",
+  "book": "build-systems",
+  "section": "fundamentals",
+  "slug": "incremental-build",
+  "title": "Інкрементальна збірка: як вирішують, що застаріло",
+  "scope": "Модель, спільна для всіх систем збірки: граф, актуальність, відтворюваність.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М9 Вхід у програмування: числа, C, тулчейн",
+  "kind": "reference",
+  "book": "build-systems",
+  "section": "cmake",
+  "slug": "cmake-language",
+  "title": "Мова CMakeLists: змінні, області, потік керування",
+  "scope": "Мова, модель цілей і практика CMake — системи збірки більшості сучасних C++-проєктів.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М9 Вхід у програмування: числа, C, тулчейн",
+  "kind": "reference",
+  "book": "build-systems",
+  "section": "cmake",
+  "slug": "targets-and-properties",
+  "title": "Цілі й властивості замість глобальних змінних",
+  "scope": "Мова, модель цілей і практика CMake — системи збірки більшості сучасних C++-проєктів.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М15 Інженерія якості прошивки",
+  "kind": "book",
+  "book": "programming",
+  "section": "code",
+  "slug": "git-branching-and-history",
+  "title": "Гілки, злиття, ребейз і пошук регресії",
+  "scope": "Робота з кодом як артефактом: контроль версій, репозиторії, гілки, злиття, історія змін, спільна розробка.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М15 Інженерія якості прошивки",
+  "kind": "book",
+  "book": "programming",
+  "section": "software-engineering",
+  "slug": "unit-testing",
+  "title": "Модульний тест: одиниця, ізоляція, швидкість",
+  "scope": "Проєктування, супровід і верифікація систем: архітектурні патерни, модульність, рефакторинг, процеси розробки, види тестів, фаззинг, формальні методи, неперервна інтеграція.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М15 Інженерія якості прошивки",
+  "kind": "book",
+  "book": "programming",
+  "section": "software-engineering",
+  "slug": "test-doubles",
+  "title": "Дублери: стаб, мок, фейк, спай",
+  "scope": "Проєктування, супровід і верифікація систем: архітектурні патерни, модульність, рефакторинг, процеси розробки, види тестів, фаззинг, формальні методи, неперервна інтеграція.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М15 Інженерія якості прошивки",
+  "kind": "book",
+  "book": "programming",
+  "section": "software-engineering",
+  "slug": "python-test-automation",
+  "title": "Python для автоматизації тестування",
+  "scope": "Проєктування, супровід і верифікація систем: архітектурні патерни, модульність, рефакторинг, процеси розробки, види тестів, фаззинг, формальні методи, неперервна інтеграція.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М21 Передача даних і мережі",
+  "kind": "book",
+  "book": "programming",
+  "section": "networking",
+  "slug": "wire-format-packing",
+  "title": "Пакування бінарного протоколу: вирівнювання й порядок байтів",
+  "scope": "Мережеве програмування: сокети, стек протоколів у коді, клієнт-сервер, RPC, прикладні сервіси.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М21 Передача даних і мережі",
+  "kind": "book",
+  "book": "programming",
+  "section": "networking",
+  "slug": "udp-datagram-semantics",
+  "title": "Семантика датаграми UDP: втрати, дублі, переставляння",
+  "scope": "Мережеве програмування: сокети, стек протоколів у коді, клієнт-сервер, RPC, прикладні сервіси.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М21 Передача даних і мережі",
+  "kind": "book",
+  "book": "programming",
+  "section": "networking",
+  "slug": "tcp-message-framing",
+  "title": "Кадрування повідомлень у потоці TCP",
+  "scope": "Мережеве програмування: сокети, стек протоколів у коді, клієнт-сервер, RPC, прикладні сервіси.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М21 Передача даних і мережі",
+  "kind": "book",
+  "book": "programming",
+  "section": "networking",
+  "slug": "socket-options",
+  "title": "Опції сокета: буфери, таймаути, TCP_NODELAY, TTL",
+  "scope": "Мережеве програмування: сокети, стек протоколів у коді, клієнт-сервер, RPC, прикладні сервіси.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М21 Передача даних і мережі",
+  "kind": "book",
+  "book": "programming",
+  "section": "networking",
+  "slug": "multicast-and-discovery",
+  "title": "Багатоадресна розсилка й виявлення вузлів",
+  "scope": "Мережеве програмування: сокети, стек протоколів у коді, клієнт-сервер, RPC, прикладні сервіси.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М23 Зображення й відео",
+  "kind": "reference",
+  "book": "media-vision",
+  "section": "opencv",
+  "slug": "mat-memory-model",
+  "title": "cv::Mat: пам'ять, лічильник посилань і володіння",
+  "scope": "Вузько: володіння даними, пам'ять і стик із відеоконвеєром. Алгоритми зору — у book/algorithms.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М23 Зображення й відео",
+  "kind": "reference",
+  "book": "media-vision",
+  "section": "opencv",
+  "slug": "frame-interop",
+  "title": "Стик із відеоконвеєром: формати пікселів і передача кадру",
+  "scope": "Вузько: володіння даними, пам'ять і стик із відеоконвеєром. Алгоритми зору — у book/algorithms.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М23 Зображення й відео",
+  "kind": "book",
+  "book": "communications",
+  "section": "protocols",
+  "slug": "rtp-rtcp",
+  "title": "RTP і RTCP: транспорт медіа поверх UDP",
+  "scope": "Правила обміну й керування з'єднанням: стеки, рівні, контроль потоку й помилок.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М23 Зображення й відео",
+  "kind": "book",
+  "book": "communications",
+  "section": "protocols",
+  "slug": "rtsp-sdp",
+  "title": "RTSP і SDP: керування сеансом потокового відео",
+  "scope": "Правила обміну й керування з'єднанням: стеки, рівні, контроль потоку й помилок.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М23 Зображення й відео",
+  "kind": "book",
+  "book": "algorithms",
+  "section": "data-compression",
+  "slug": "h264-nal-structure",
+  "title": "H.264: NAL-одиниці, SPS/PPS і ключові кадри",
+  "scope": "Скорочення даних без втрат і з втратами: ентропійне, словникове, трансформаційне кодування.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М23 Зображення й відео",
+  "kind": "reference",
+  "book": "media-vision",
+  "section": "gstreamer",
+  "slug": "pipeline-model",
+  "title": "Конвеєр: елементи, зв'язки й потік даних",
+  "scope": "Конвеєр як модель обробки медіа: з чого складається, як домовляється про формат і де виникає затримка.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М23 Зображення й відео",
+  "kind": "reference",
+  "book": "media-vision",
+  "section": "gstreamer",
+  "slug": "appsink-appsrc",
+  "title": "appsink і appsrc: міст між конвеєром і власним кодом",
+  "scope": "Конвеєр як модель обробки медіа: з чого складається, як домовляється про формат і де виникає затримка.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М23 Зображення й відео",
+  "kind": "reference",
+  "book": "media-vision",
+  "section": "gstreamer",
+  "slug": "hardware-decode-elements",
+  "title": "Апаратне декодування: VA-API, NVDEC, V4L2, MediaCodec",
+  "scope": "Конвеєр як модель обробки медіа: з чого складається, як домовляється про формат і де виникає затримка.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М26 Автопілот: бортовий мозок",
+  "kind": "book",
+  "book": "programming",
+  "section": "embedded-systems",
+  "slug": "px4-architecture",
+  "title": "Архітектура PX4: uORB, модулі, режими",
+  "scope": "Програмування мікроконтролерів і прошивок: периферія МК, реального часу (RTOS), тулчейни, драйвери, апаратна взаємодія.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М27 Канал керування й зв'язок із землею",
+  "kind": "book",
+  "book": "communications",
+  "section": "protocols",
+  "slug": "mavlink-xml-codegen",
+  "title": "Генерація коду з XML-опису MAVLink",
+  "scope": "Правила обміну й керування з'єднанням: стеки, рівні, контроль потоку й помилок.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М27 Канал керування й зв'язок із землею",
+  "kind": "book",
+  "book": "communications",
+  "section": "protocols",
+  "slug": "mavlink-camera-gimbal",
+  "title": "Протоколи камери й підвісу MAVLink",
+  "scope": "Правила обміну й керування з'єднанням: стеки, рівні, контроль потоку й помилок.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М28 Навігація й місії",
+  "kind": "book",
+  "book": "math",
+  "section": "geometry",
+  "slug": "wgs84-datum",
+  "title": "WGS-84: еліпсоїд і датум",
+  "scope": "Фігури, простори, відстані й симетрії — від евклідової до проєктивної та алгебраїчної геометрії; включає диференціальну геометрію: гладкі многовиди, кривизну, зв'язності.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М28 Навігація й місії",
+  "kind": "book",
+  "book": "math",
+  "section": "geometry",
+  "slug": "geoid-and-amsl",
+  "title": "Геоїд, AMSL і висота над еліпсоїдом",
+  "scope": "Фігури, простори, відстані й симетрії — від евклідової до проєктивної та алгебраїчної геометрії; включає диференціальну геометрію: гладкі многовиди, кривизну, зв'язності.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М28 Навігація й місії",
+  "kind": "book",
+  "book": "math",
+  "section": "geometry",
+  "slug": "ecef-ned-enu",
+  "title": "ECEF, NED і ENU: земні й локальні системи координат",
+  "scope": "Фігури, простори, відстані й симетрії — від евклідової до проєктивної та алгебраїчної геометрії; включає диференціальну геометрію: гладкі многовиди, кривизну, зв'язності.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М28 Навігація й місії",
+  "kind": "book",
+  "book": "algorithms",
+  "section": "signal-robotics",
+  "slug": "survey-grid-coverage",
+  "title": "Покриття полігону галсами: планування зйомки",
+  "scope": "Цифрова обробка сигналів (спектр, фільтрація, дискретизація) разом із плануванням руху, локалізацією та керуванням автономних агентів.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "overview",
+  "slug": "what-is-qgc",
+  "title": "QGroundControl: що це і яку задачу розв'язує",
+  "scope": "Призначення застосунку, його користувачі, модель релізів і вендорські збірки.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "architecture",
+  "slug": "app-composition",
+  "title": "З чого складається застосунок: шари й запуск",
+  "scope": "Головні підсистеми й те, як стан апарата доходить від байтів до екрана.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "architecture",
+  "slug": "vehicle-object",
+  "title": "Vehicle: модель апарата всередині застосунку",
+  "scope": "Головні підсистеми й те, як стан апарата доходить від байтів до екрана.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "architecture",
+  "slug": "fact-system",
+  "title": "FactSystem: факт, метадані й зв'язок зі станом",
+  "scope": "Головні підсистеми й те, як стан апарата доходить від байтів до екрана.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "architecture",
+  "slug": "threading-model",
+  "title": "Модель потоків: де живуть лінк, розбір і відмальовка",
+  "scope": "Головні підсистеми й те, як стан апарата доходить від байтів до екрана.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "links",
+  "slug": "link-manager",
+  "title": "Менеджер каналів: облік і життєвий цикл з'єднань",
+  "scope": "Як застосунок під'єднується до апарата і що робить із потоком повідомлень.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "links",
+  "slug": "link-types",
+  "title": "Типи каналів: серійний, UDP, TCP, Bluetooth",
+  "scope": "Як застосунок під'єднується до апарата і що робить із потоком повідомлень.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "links",
+  "slug": "mavlink-handling",
+  "title": "Обробка MAVLink: розбір, версії, канали",
+  "scope": "Як застосунок під'єднується до апарата і що робить із потоком повідомлень.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "links",
+  "slug": "message-routing",
+  "title": "Маршрутизація за sysid і compid",
+  "scope": "Як застосунок під'єднується до апарата і що робить із потоком повідомлень.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "links",
+  "slug": "telemetry-logging",
+  "title": "Запис телеметрії й відтворення логів",
+  "scope": "Як застосунок під'єднується до апарата і що робить із потоком повідомлень.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "planning",
+  "slug": "plan-model",
+  "title": "Модель плану: місія, геозона, точки збору",
+  "scope": "Модель плану в застосунку: з чого він складається і як потрапляє на борт.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "planning",
+  "slug": "mission-items",
+  "title": "Елементи місії й команди",
+  "scope": "Модель плану в застосунку: з чого він складається і як потрапляє на борт.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "planning",
+  "slug": "survey-patterns",
+  "title": "Патерни зйомки: полігон, коридор, структура",
+  "scope": "Модель плану в застосунку: з чого він складається і як потрапляє на борт.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "planning",
+  "slug": "terrain-and-altitude",
+  "title": "Рельєф і режими висоти в плані",
+  "scope": "Модель плану в застосунку: з чого він складається і як потрапляє на борт.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "planning",
+  "slug": "plan-exchange",
+  "title": "Обмін планом із апаратом: вивантаження й звірка",
+  "scope": "Модель плану в застосунку: з чого він складається і як потрапляє на борт.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "map-video",
+  "slug": "map-engine",
+  "title": "Рушій карти: провайдери, тайли, рівні масштабу",
+  "scope": "Дві найважчі підсистеми станції: тайлова карта й відеотракт.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "map-video",
+  "slug": "offline-maps",
+  "title": "Офлайн-карти й кеш тайлів",
+  "scope": "Дві найважчі підсистеми станції: тайлова карта й відеотракт.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "math",
+  "section": "geometry",
+  "slug": "map-projections",
+  "title": "Картографічні проєкції та їхні спотворення",
+  "scope": "Фігури, простори, відстані й симетрії — від евклідової до проєктивної та алгебраїчної геометрії; включає диференціальну геометрію: гладкі многовиди, кривизну, зв'язності.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "math",
+  "section": "geometry",
+  "slug": "web-mercator-tiles",
+  "title": "Web Mercator і тайлова сітка",
+  "scope": "Фігури, простори, відстані й симетрії — від евклідової до проєктивної та алгебраїчної геометрії; включає диференціальну геометрію: гладкі многовиди, кривизну, зв'язності.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "programming",
+  "section": "graphics",
+  "slug": "map-tile-pipeline",
+  "title": "Тайловий конвеєр карти: завантаження, кеш, рівні деталізації",
+  "scope": "Програмний синтез зображень та інтерфейси: растеризація, трасування, шейдери, GPU, віконні системи, UI.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "programming",
+  "section": "graphics",
+  "slug": "offline-tile-cache",
+  "title": "Офлайн-карти й кеш тайлів",
+  "scope": "Програмний синтез зображень та інтерфейси: растеризація, трасування, шейдери, GPU, віконні системи, UI.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "programming",
+  "section": "graphics",
+  "slug": "terrain-elevation-model",
+  "title": "Цифрова модель рельєфу і профіль висот",
+  "scope": "Програмний синтез зображень та інтерфейси: растеризація, трасування, шейдери, GPU, віконні системи, UI.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "programming",
+  "section": "representation",
+  "slug": "geo-data-formats",
+  "title": "Формати гео-даних: GeoJSON, KML, GPX",
+  "scope": "Кодування чисел і даних у машинному поданні: цілі зі знаком і без, доповняльний код, порядок байтів, формати з рухомою комою.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "algorithms",
+  "section": "data-structures",
+  "slug": "spatial-index",
+  "title": "Просторовий індекс: R-дерево і квадродерево",
+  "scope": "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "map-video",
+  "slug": "video-manager",
+  "title": "Відеопідсистема: джерела, керування, запис",
+  "scope": "Дві найважчі підсистеми станції: тайлова карта й відеотракт.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "map-video",
+  "slug": "video-pipeline",
+  "title": "Відеотракт станції на GStreamer",
+  "scope": "Дві найважчі підсистеми станції: тайлова карта й відеотракт.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "build-extend",
+  "slug": "custom-mavlink-messages",
+  "title": "Власні MAVLink-повідомлення в застосунку",
+  "scope": "Як зібрати застосунок під три платформи й як додати до нього своє.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "build-extend",
+  "slug": "custom-build",
+  "title": "Власна збірка: набір функцій і бренд",
+  "scope": "Як зібрати застосунок під три платформи й як додати до нього своє.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "reference",
+  "book": "qgroundcontrol",
+  "section": "build-extend",
+  "slug": "platform-targets",
+  "title": "Цілі платформ: Linux, Windows, Android",
+  "scope": "Як зібрати застосунок під три платформи й як додати до нього своє.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "programming",
+  "section": "client-architecture",
+  "slug": "desktop-app-architecture",
+  "title": "Архітектура десктопного застосунку: шари, потоки, стан",
+  "scope": "Архітектура клієнтських застосунків: керування станом, синхронізація й офлайн, узгодження з сервером, життєвий цикл і продуктивність клієнта як дизайн.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "programming",
+  "section": "client-architecture",
+  "slug": "ui-thread-offloading",
+  "title": "Розвантаження потоку інтерфейсу",
+  "scope": "Архітектура клієнтських застосунків: керування станом, синхронізація й офлайн, узгодження з сервером, життєвий цикл і продуктивність клієнта як дизайн.",
+  "level": "detailed"
+ },
+ {
+  "mod": "М29 Наземна станція: QGroundControl",
+  "kind": "book",
+  "book": "programming",
+  "section": "client-architecture",
+  "slug": "undo-redo-command-stack",
+  "title": "Скасування й повтор дії: стек команд",
+  "scope": "Архітектура клієнтських застосунків: керування станом, синхронізація й офлайн, узгодження з сервером, життєвий цикл і продуктивність клієнта як дизайн.",
+  "level": "detailed"
+ }
+]

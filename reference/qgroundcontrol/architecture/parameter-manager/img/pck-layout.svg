@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">param.pck по байтах: заголовок, запис і напівбайти двох керівних байтів</text>
+<text x="266.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">заголовок — 6 байтів, порядок little-endian</text>
+<rect x="266.0" y="90.0" width="200.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="366.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">magic</text>
+<text x="366.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="366.0" dy="0.0">0x671B — без замовчувань</tspan><tspan x="366.0" dy="15.6">0x671C — із ними</tspan></text>
+<rect x="490.0" y="90.0" width="200.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="590.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">num_params</text>
+<text x="590.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="590.0" dy="0.0">скільки записів у файлі</tspan></text>
+<rect x="714.0" y="90.0" width="200.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="814.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">total_params</text>
+<text x="814.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="814.0" dy="0.0">скільки параметрів на борту</tspan></text>
+<text x="80.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">запис параметра — довжина змінна, межі задають самі поля</text>
+<rect x="80.0" y="252.0" width="90.0" height="56.0" rx="6" fill="#fff8e1" stroke="#6b7280" stroke-width="1.6"/>
+<text x="125.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">набивка</text>
+<text x="125.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">не завжди</text>
+<rect x="178.0" y="252.0" width="110.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="233.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">байт 0</text>
+<text x="233.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">тип + прапорці</text>
+<rect x="296.0" y="252.0" width="110.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="351.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">байт 1</text>
+<text x="351.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">довжини імені</text>
+<rect x="414.0" y="252.0" width="250.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="539.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ім'я</text>
+<text x="539.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">лише НЕспільний хвіст</text>
+<rect x="672.0" y="252.0" width="190.0" height="56.0" rx="6" fill="#eaf7ef" stroke="#333333" stroke-width="1.6"/>
+<text x="767.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">значення</text>
+<text x="767.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1, 2 або 4 байти</text>
+<rect x="870.0" y="252.0" width="230.0" height="56.0" rx="6" fill="#fff8e1" stroke="#6b7280" stroke-width="1.6"/>
+<text x="985.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">замовчування</text>
+<text x="985.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">лише коли прапорець = 1</text>
+<text x="310.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">байт 0 = 0x11</text>
+<rect x="140.0" y="422.0" width="170.0" height="84.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="225.0" y="452.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">старший напівбайт</tspan><tspan x="225.0" dy="15.6">прапорці = 1</tspan><tspan x="225.0" dy="15.6">(замовчування є)</tspan></text>
+<rect x="310.0" y="422.0" width="170.0" height="84.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="395.0" y="452.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="395.0" dy="0.0">молодший напівбайт</tspan><tspan x="395.0" dy="15.6">тип = 1</tspan><tspan x="395.0" dy="15.6">(int8)</tspan></text>
+<text x="870.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">байт 1 = 0xB0</text>
+<rect x="700.0" y="422.0" width="170.0" height="84.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="785.0" y="452.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="785.0" dy="0.0">старший напівбайт</tspan><tspan x="785.0" dy="15.6">name_len − 1 = 0xB</tspan><tspan x="785.0" dy="15.6">(ім'я 12 байтів)</tspan></text>
+<rect x="870.0" y="422.0" width="170.0" height="84.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="955.0" y="452.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">молодший напівбайт</tspan><tspan x="955.0" dy="15.6">common_len = 0</tspan><tspan x="955.0" dy="15.6">(спільного нема)</tspan></text>
+</svg>

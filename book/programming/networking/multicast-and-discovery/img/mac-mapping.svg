@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Групова адреса в апаратній адресі: 23 біти замість 28</text>
+<rect x="135.0" y="55.0" width="150.0" height="53.9" rx="6" fill="#f7f9fc" stroke="#2457d6" stroke-width="1.8"/><text x="210.0" y="78.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">224.1.2.3</tspan><tspan x="210.0" dy="16.9">E0 . 01 . 02 . 03</tspan></text>
+<text x="210.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">молодші 24 біти адреси</text>
+<text x="210.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0000 0001 · 0000 0010 · 0000 0011</text>
+<rect x="585.0" y="55.0" width="150.0" height="53.9" rx="6" fill="#f7f9fc" stroke="#2457d6" stroke-width="1.8"/><text x="660.0" y="78.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">239.129.2.3</tspan><tspan x="660.0" dy="16.9">EF . 81 . 02 . 03</tspan></text>
+<text x="660.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">молодші 24 біти адреси</text>
+<text x="660.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1000 0001 · 0000 0010 · 0000 0011</text>
+<text x="660.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">цей біт в апаратну адресу не потрапляє</text>
+<rect x="285.0" y="208.0" width="310.0" height="46.0" rx="6" fill="#fffdf0" stroke="#b08900" stroke-width="1.8"/><text x="440.0" y="235.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">лишити 23 молодші біти:  &amp; 0x7F.FF.FF</tspan></text>
+<line x1="210.0" y1="186.0" x2="320.0" y2="206.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="186.0" x2="560.0" y2="206.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="256.0" x2="440.0" y2="288.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="334.9" y="289.5" width="210.1" height="57.1" rx="6" fill="#f2fbf5" stroke="#27ae60" stroke-width="2.0"/><text x="440.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">MAC  01:00:5E:01:02:03</tspan><tspan x="440.0" dy="17.6">однакова для обох груп</tspan></text>
+<text x="440.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">28 значущих бітів адреси групи → 23 біти апаратної адреси</text>
+<text x="440.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">тому 2⁵ = 32 різні групи мережева карта не розрізняє — відбирає вже ядро</text>
+</svg>

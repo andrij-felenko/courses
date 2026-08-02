@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одне місце виклику — дві збірки</text>
+<rect x="170.0" y="52.0" width="700.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="520.0" y="76.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Тіло застосунку: усі рішення йдуть через</tspan><tspan x="520.0" dy="22.1">QGCCorePlugin::instance()-&gt;…</tspan></text>
+<line x1="520.0" y1="112.0" x2="520.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="270.0" y1="150.0" x2="770.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<text x="255.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">розвилка на час збірки</text>
+<line x1="270.0" y1="150.0" x2="270.0" y2="196.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="150.0" x2="770.0" y2="196.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="120.0" y="196.0" width="300.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="270.0" y="222.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">теки custom/ немає</tspan><tspan x="270.0" dy="19.5">(типова збірка)</tspan></text>
+<rect x="620.0" y="196.0" width="300.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="770.0" y="222.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">є тека custom/ →</tspan><tspan x="770.0" dy="19.5">QGC_CUSTOM_BUILD</tspan></text>
+<line x1="270.0" y1="258.0" x2="270.0" y2="300.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="258.0" x2="770.0" y2="300.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="120.0" y="300.0" width="300.0" height="92.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="270.0" y="331.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="270.0" dy="0.0">QGCCorePlugin</tspan><tspan x="270.0" dy="19.5">типові відповіді</tspan><tspan x="270.0" dy="19.5">на всі запитання</tspan></text>
+<rect x="620.0" y="300.0" width="300.0" height="92.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.2"/><text x="770.0" y="331.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">CustomPlugin : QGCCorePlugin</tspan><tspan x="770.0" dy="19.5">перевизначає лічені</tspan><tspan x="770.0" dy="19.5">методи</tspan></text>
+<line x1="770.0" y1="392.0" x2="770.0" y2="428.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="6,4"/>
+<line x1="770.0" y1="428.0" x2="300.0" y2="428.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="6,4"/>
+<line x1="300.0" y1="428.0" x2="270.0" y2="400.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">неперевизначене падає в базовий клас</text>
+</svg>

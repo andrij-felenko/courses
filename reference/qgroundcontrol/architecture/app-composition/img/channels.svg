@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1100" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="550.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому кожному з'єднанню потрібен власний номер каналу</text>
+<rect x="40.0" y="58.0" width="480.0" height="320.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="280.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">один стан на два джерела</text>
+<rect x="117.8" y="133.5" width="64.5" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Лінк A</tspan></text>
+<rect x="117.8" y="215.5" width="64.5" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="236.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Лінк B</tspan></text>
+<rect x="322.9" y="166.1" width="94.1" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="370.0" y="187.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">спільний</tspan><tspan x="370.0" dy="16.9">стан кадру</tspan></text>
+<line x1="196.0" y1="152.0" x2="302.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="196.0" y1="230.0" x2="302.0" y2="202.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="370.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="370.0" dy="0.0">байти двох кадрів злипаються,</tspan><tspan x="370.0" dy="16.2">контрольна сума не сходиться</tspan></text>
+<rect x="580.0" y="58.0" width="480.0" height="320.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="820.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">стан на кожен канал</text>
+<rect x="647.8" y="133.5" width="64.5" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="680.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Лінк A</tspan></text>
+<rect x="647.8" y="215.5" width="64.5" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="680.0" y="236.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Лінк B</tspan></text>
+<rect x="841.8" y="133.5" width="116.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="900.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">стан каналу 1</tspan></text>
+<rect x="841.8" y="215.5" width="116.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="900.0" y="236.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">стан каналу 2</tspan></text>
+<line x1="726.0" y1="150.0" x2="838.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="726.0" y1="232.0" x2="838.0" y2="232.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="820.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="820.0" dy="0.0">кожен кадр збирається окремо,</tspan><tspan x="820.0" dy="16.2">джерела не заважають одне одному</tspan></text>
+</svg>

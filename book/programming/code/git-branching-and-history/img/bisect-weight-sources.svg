@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звідки береться вага вершини і коли підрахунок можна обірвати</text>
+<rect x="40.0" y="56.0" width="270.0" height="250.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="175.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Немає кандидатів-батьків</text>
+<rect x="355.0" y="56.0" width="270.0" height="250.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="490.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один батько</text>
+<rect x="670.0" y="56.0" width="270.0" height="250.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="805.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Злиття: два батьки</text>
+<circle cx="175.0" cy="170.0" r="26.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/><text x="175.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">X</text>
+<text x="175.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">a(X) = 1</text>
+<text x="175.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">ціна: O(1)</text>
+<circle cx="430.0" cy="170.0" r="26.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="430.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">P</text>
+<circle cx="560.0" cy="170.0" r="26.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/><text x="560.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">X</text>
+<line x1="534.0" y1="170.0" x2="462.0" y2="170.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="490.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">a(X) = a(P) + 1</text>
+<text x="490.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">ціна: O(1)</text>
+<circle cx="745.0" cy="132.0" r="26.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="745.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">P₁</text>
+<circle cx="745.0" cy="210.0" r="26.0" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/><text x="745.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">P₂</text>
+<circle cx="875.0" cy="170.0" r="26.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/><text x="875.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">X</text>
+<line x1="850.0" y1="162.7" x2="775.7" y2="141.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="850.1" y1="177.6" x2="775.6" y2="200.6" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="805.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">окремий обхід від X</text>
+<text x="805.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">ціна: O(m + e)</text>
+<rect x="40.0" y="330.0" width="900.0" height="66.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="490.0" y="358.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Ранній вихід: щойно |2·a(X) − N| ≤ 1, бал уже дорівнює максимально можливому ⌊N/2⌋ —</tspan><tspan x="490.0" dy="19.5">решту вершин, зокрема й недораховані злиття, рахувати не треба</tspan></text>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 566" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="566" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граматика назв: як прочитати htobe32, le64toh і htons</text>
+<rect x="70.0" y="86.0" width="118.0" height="52.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="129.0" y="121.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="22" fill="#2457d6" text-anchor="middle" font-weight="700">h</text>
+<rect x="204.0" y="86.0" width="118.0" height="52.0" rx="8" fill="#f3f5f8" stroke="#6b7280" stroke-width="2.0"/>
+<text x="263.0" y="121.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="22" fill="#6b7280" text-anchor="middle" font-weight="700">to</text>
+<rect x="338.0" y="86.0" width="118.0" height="52.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="397.0" y="121.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="22" fill="#c0392b" text-anchor="middle" font-weight="700">be</text>
+<rect x="472.0" y="86.0" width="118.0" height="52.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="531.0" y="121.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="22" fill="#27ae60" text-anchor="middle" font-weight="700">32</text>
+<text x="129.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">host —</text>
+<text x="129.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ваша машина</text>
+<text x="263.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">напрям</text>
+<text x="263.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">перетворення</text>
+<text x="397.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">big-endian</text>
+<text x="397.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">старший байт першим</text>
+<text x="531.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">розрядність</text>
+<text x="531.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">у бітах</text>
+<text x="624.0" y="104.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">htobe32(v)</text>
+<text x="624.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">узяти 32-бітне значення в поданні машини</text>
+<text x="624.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">й повернути те саме число, укладене як big-endian</text>
+<rect x="70.0" y="216.0" width="118.0" height="52.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="129.0" y="251.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="22" fill="#c0392b" text-anchor="middle" font-weight="700">le</text>
+<rect x="204.0" y="216.0" width="118.0" height="52.0" rx="8" fill="#eaf6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="263.0" y="251.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="22" fill="#27ae60" text-anchor="middle" font-weight="700">64</text>
+<rect x="338.0" y="216.0" width="118.0" height="52.0" rx="8" fill="#f3f5f8" stroke="#6b7280" stroke-width="2.0"/>
+<text x="397.0" y="251.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="22" fill="#6b7280" text-anchor="middle" font-weight="700">to</text>
+<rect x="472.0" y="216.0" width="118.0" height="52.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="531.0" y="251.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="22" fill="#2457d6" text-anchor="middle" font-weight="700">h</text>
+<text x="129.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">little-endian</text>
+<text x="129.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">молодший байт першим</text>
+<text x="263.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">розрядність</text>
+<text x="263.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">у бітах</text>
+<text x="397.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">напрям</text>
+<text x="397.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">перетворення</text>
+<text x="531.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">host —</text>
+<text x="531.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ваша машина</text>
+<text x="624.0" y="234.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">le64toh(v)</text>
+<text x="624.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">узяти 64-бітне значення, прочитане з буфера</text>
+<text x="624.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">як little-endian, і повернути в поданні машини</text>
+<rect x="70.0" y="348.0" width="960.0" height="122.0" rx="12" fill="#f3f5f8" stroke="#6b7280" stroke-width="1.7"/>
+<text x="550.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">POSIX-четвірка — той самий набір, лише вужчий і гірше названий</text>
+<text x="118.0" y="404.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#1a1a1a" text-anchor="start">htons(v)  ≡  htobe16(v)</text>
+<text x="118.0" y="428.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#1a1a1a" text-anchor="start">htonl(v)  ≡  htobe32(v)</text>
+<text x="578.0" y="404.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#1a1a1a" text-anchor="start">ntohs(v)  ≡  be16toh(v)</text>
+<text x="578.0" y="428.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="13.5" fill="#1a1a1a" text-anchor="start">ntohl(v)  ≡  be32toh(v)</text>
+<text x="550.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">n = network = big-endian · s = short = 16 біт · l = long = 32 біти · 64-бітних варіантів у POSIX немає</text>
+<rect x="70.0" y="486.0" width="960.0" height="62.0" rx="12" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.7"/>
+<text x="550.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">На big-endian машині htobe32 не робить нічого, на little-endian — переставляє байти.</text>
+<text x="550.0" y="534.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Тому переносний код пише htobe32, а не власний bswap32 під #ifdef.</text>
+</svg>

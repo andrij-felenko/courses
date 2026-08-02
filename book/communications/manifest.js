@@ -217,6 +217,9 @@
         { slug: "dhcp", title: "DHCP: динамічне призначення IP-адрес", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "auto-negotiation", title: "Автопогодження Ethernet", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "anycast", title: "Anycast і глобальне балансування", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "ip-fragmentation-mtu", title: "MTU і фрагментація IP", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "source-specific-multicast", title: "Фільтрація за джерелом: IGMPv3, MLDv2 і SSM", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mtu-and-fragmentation", title: "MTU й фрагментація IP", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "protocols", title: "Протоколи", scope: "Правила обміну й керування з'єднанням: стеки, рівні, контроль потоку й помилок.",
       topics: [
@@ -267,6 +270,8 @@
         { slug: "rtsp-sdp", title: "RTSP і SDP: керування сеансом потокового відео", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "mavlink-xml-codegen", title: "Генерація коду з XML-опису MAVLink", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "mavlink-camera-gimbal", title: "Протоколи камери й підвісу MAVLink", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mavlink-ftp", title: "MAVFTP: передача файлів поверх MAVLink", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "mavlink-high-latency", title: "Протокол великої затримки MAVLink", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "multiple-access", title: "Множинний доступ", scope: "Спільне використання середовища багатьма абонентами через поділ ресурсу й арбітраж.",
       topics: [

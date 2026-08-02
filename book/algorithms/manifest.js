@@ -74,6 +74,7 @@
         { slug: "selection-sort", title: "Сортування вибором (selection sort)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "binomial-heap", title: "Біноміальна купа", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "spatial-index", title: "Просторовий індекс: R-дерево і квадродерево", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "z-order-curve", title: "Крива Мортона (Z-порядок): просторова близькість у лінійному ключі", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "graph-algorithms", title: "Графові", scope: "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.",
       topics: [
@@ -86,6 +87,7 @@
         { slug: "bellman-ford", title: "Алгоритм Беллмана–Форда", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "bipartite-matching", title: "Двочасткові графи й досконале паросполучення", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "breadth-first-search", title: "Пошук у ширину (BFS)", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "depth-first-search", title: "Пошук у глибину (DFS)", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "string-geometry-streaming", title: "Дискретні", scope: "Алгоритми над текстом, геометрією та потоками: пошук і вирівнювання рядків, оболонки й перетини фігур, онлайн-рішення та один прохід над масивними даними.",
       topics: [

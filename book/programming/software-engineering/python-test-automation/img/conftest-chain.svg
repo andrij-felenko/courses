@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1080" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Які conftest.py бачить файл tests/hardware/test_link.py</text>
+<text x="70.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">проєкт/</text>
+<text x="500.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">тут лежить pytest.toml → ця тека і є rootdir</text>
+<rect x="116.0" y="142.0" width="190.0" height="34.0" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.7"/><text x="211.0" y="163.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="211.0" dy="0.0">conftest.py</tspan></text>
+<circle cx="94.0" cy="159.0" r="13.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.7"/>
+<text x="94.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">①</text>
+<text x="500.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">pytest_addoption — можна ЛИШЕ тут (корінь набору)</text>
+<text x="116.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">tests/</text>
+<rect x="162.0" y="242.0" width="190.0" height="34.0" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.7"/><text x="257.0" y="263.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="257.0" dy="0.0">conftest.py</tspan></text>
+<circle cx="140.0" cy="259.0" r="13.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.7"/>
+<text x="140.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">②</text>
+<text x="500.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">фікстури й гачки для всього набору</text>
+<text x="162.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">hardware/</text>
+<rect x="208.0" y="342.0" width="190.0" height="34.0" rx="6" fill="#eef3fb" stroke="#2457d6" stroke-width="1.7"/><text x="303.0" y="363.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="303.0" dy="0.0">conftest.py</tspan></text>
+<circle cx="186.0" cy="359.0" r="13.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.7"/>
+<text x="186.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">③</text>
+<text x="500.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">фікстури лише цієї гілки; ім'я перекриває верхнє</text>
+<rect x="208.0" y="392.0" width="190.0" height="34.0" rx="6" fill="#e8f6ec" stroke="#27ae60" stroke-width="1.9"/><text x="303.0" y="413.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="303.0" dy="0.0">test_link.py</tspan></text>
+<text x="500.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">бачить усі три — саме в порядку ① → ② → ③</text>
+<text x="162.0" y="464.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">unit/</text>
+<rect x="208.0" y="492.0" width="190.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="303.0" y="513.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="303.0" dy="0.0">conftest.py</tspan></text>
+<circle cx="186.0" cy="509.0" r="13.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="186.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<text x="500.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">невидимий для test_link.py: сусідня гілка</text>
+<line x1="48.0" y1="118.0" x2="48.0" y2="409.0" stroke="#2457d6" stroke-width="1.6" stroke-dasharray="6,4"/>
+<text x="48.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">згори вниз</text>
+<rect x="70.0" y="574.0" width="940.0" height="88.0" rx="6" fill="#fbfbfc" stroke="#6b7280" stroke-width="1.4"/><text x="540.0" y="605.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Ланцюг рахують від rootdir до теки самого файлу; conftest сусідньої гілки не завантажується взагалі.</tspan><tspan x="540.0" dy="16.9">Межу пошуку вгору звужує --confcutdir. Усі conftest.py імпортуються ДО тестових модулів —</tspan><tspan x="540.0" dy="16.9">тому pytest.register_assert_rewrite(&quot;helpers&quot;) має стояти саме там, інакше assert у помічнику лишиться німим.</tspan></text>
+</svg>

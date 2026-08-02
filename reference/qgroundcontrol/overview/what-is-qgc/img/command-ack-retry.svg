@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 990 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="990" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="100.0" y="45.0" width="180.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="190.0" y="66.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">Станція</tspan></text>
+<rect x="710.0" y="45.0" width="180.0" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="800.0" y="66.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">Борт</tspan></text>
+<line x1="190.0" y1="92.0" x2="190.0" y2="470.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 5"/>
+<line x1="800.0" y1="92.0" x2="800.0" y2="470.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="495.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">COMMAND_LONG   confirmation = 0</text>
+<line x1="204.0" y1="152.0" x2="520.0" y2="152.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="508.0" y1="140.0" x2="532.0" y2="164.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="532.0" y1="140.0" x2="508.0" y2="164.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="575.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">датаграма зникла</text>
+<line x1="190.0" y1="190.0" x2="190.0" y2="240.0" stroke="#6b7280" stroke-width="3.0"/>
+<text x="168.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">таймаут 1 с</text>
+<text x="495.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">COMMAND_LONG   confirmation = 1</text>
+<line x1="204.0" y1="298.0" x2="786.0" y2="298.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="575.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">той самий вміст, інший лічильник повторів</text>
+<text x="495.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">COMMAND_ACK   result = MAV_RESULT_ACCEPTED</text>
+<line x1="786.0" y1="400.0" x2="204.0" y2="400.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="495.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">лише тепер команда вважається виконаною</text>
+</svg>

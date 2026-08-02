@@ -1,13 +1,24 @@
 # -*- coding: utf-8 -*-
-"""svgcheck — швидка геометрична перевірка згенерованих SVG.
+"""svgcheck — ЛОКАЛЬНА геометрична перевірка згенерованих SVG (жодних агентів і токенів).
 Замінює LLM-переогляд кожного файлу: textbox()/fitbox() зі svgkit уже гарантують,
-що текст не вилазить за СВОЮ рамку; цей скрипт ловить інше — елементи поза viewBox
-(хибні координати), нечитабельно дрібний шрифт і (v6) НАКЛАДАННЯ тексту на
-чужий текст чи лінії (текст має бути поза чужими лініями й написами).
+що текст не вилазить за СВОЮ рамку; цей скрипт ловить усе інше, що заважає ЗРОЗУМІТИ фігуру.
 
-    python svgcheck.py <тека> [--min-font 9] [--tol 6]
+Що перевіряє:
+  • елементи поза viewBox (хибні координати) і rect, що вилазить за край;
+  • нечитабельно дрібний шрифт;
+  • ТЕКСТ↔ТЕКСТ — написи перетинаються;
+  • ЛІНІЯ/КОНТУР↔ТЕКСТ — крізь напис проходить <line>, <polyline>, <polygon>, <path>
+    (M/L/H/V/C/Q/S/A/Z, включно з відносними) або РАМКА rect/circle/ellipse;
+  • НАПИС ЗА ПОЛОТНОМ — bbox тексту зрізаний краєм (типово: text-anchor="end" з довгим рядком);
+  • БЛОКИ НАЛАЗЯТЬ — два залитих rect частково накривають один одного (вкладеність і тло — норма);
+  • --links: усі svg, підключені в .md теми, справді існують у img/.
 
-Код виходу 0 — чисто; 1 — є зауваження (друкує стислий звіт, по 1 прикладу на тип).
+Обережність: якщо у файлі є <g transform=…> (координати дітей зміщені), геометричні перевірки
+пропускаються — краще мовчати, ніж вигадувати перетини; так само пропускаються <text transform=…>.
+
+    python svgcheck.py <тека|файл> [--min-font 9] [--tol 6] [--links]
+
+Код виходу 0 — чисто; 1 — є зауваження (стислий звіт: до 4 зауважень на файл, з координатами).
 """
 import sys, os, re, glob
 
@@ -24,6 +35,8 @@ def _text_boxes(s):
     boxes = []
     for m in re.finditer(r"<text\b([^>]*)>(.*?)</text>", s, re.S):
         attrs, inner = m.group(1), m.group(2)
+        if "transform=" in attrs:            # повернутий/зсунутий напис — координати не в системі полотна, не судимо
+            continue
 
         def at(name, d=None):
             mm = re.search(r'\b%s="([^"]*)"' % name, attrs)
@@ -58,9 +71,103 @@ def _text_boxes(s):
     return boxes
 
 
+def _pts(s):
+    """Числа з points="x,y x,y …" → [(x, y), …]."""
+    nums = [float(v) for v in re.findall(r"-?[\d.]+", s)]
+    return list(zip(nums[0::2], nums[1::2]))
+
+
+def _path_segments(d, curve_steps=4):
+    """Груба полілінія з path d=…: M/L/H/V/Z точно, C/Q семплюємо, A — хордою.
+    Потрібно, бо стрілки, дуги й ламані у фігурах — це <path>, а не <line>."""
+    segs, cur, start = [], (0.0, 0.0), (0.0, 0.0)
+    toks = re.findall(r"([MmLlHhVvCcSsQqTtAaZz])|(-?[\d.]+(?:e-?\d+)?)", d)
+    items, cmd, nums = [], None, []
+    for c, n in toks:
+        if c:
+            if cmd:
+                items.append((cmd, nums))
+            cmd, nums = c, []
+        elif cmd:
+            nums.append(float(n))
+    if cmd:
+        items.append((cmd, nums))
+
+    def bez(p0, ctrl, p1, quad=False):
+        out = []
+        for i in range(1, curve_steps + 1):
+            t = i / float(curve_steps)
+            if quad:
+                x = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * ctrl[0][0] + t * t * p1[0]
+                y = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * ctrl[0][1] + t * t * p1[1]
+            else:
+                x = ((1 - t) ** 3 * p0[0] + 3 * (1 - t) ** 2 * t * ctrl[0][0]
+                     + 3 * (1 - t) * t * t * ctrl[1][0] + t ** 3 * p1[0])
+                y = ((1 - t) ** 3 * p0[1] + 3 * (1 - t) ** 2 * t * ctrl[0][1]
+                     + 3 * (1 - t) * t * t * ctrl[1][1] + t ** 3 * p1[1])
+            out.append((x, y))
+        return out
+
+    for c, n in items:
+        rel = c.islower()
+        C = c.upper()
+        i = 0
+        while True:
+            if C == "Z":
+                if cur != start:
+                    segs.append((cur[0], cur[1], start[0], start[1]))
+                cur = start
+                break
+            need = {"M": 2, "L": 2, "T": 2, "H": 1, "V": 1, "C": 6, "S": 4, "Q": 4, "A": 7}[C]
+            if i + need > len(n):
+                break
+            a = n[i:i + need]; i += need
+            if C in ("M", "L", "T"):
+                p = (cur[0] + a[0], cur[1] + a[1]) if rel else (a[0], a[1])
+                if C != "M":
+                    segs.append((cur[0], cur[1], p[0], p[1]))
+                else:
+                    start = p
+                cur = p
+                if C == "M":
+                    C = "L"                     # наступні пари після M — це L
+            elif C == "H":
+                p = (cur[0] + a[0], cur[1]) if rel else (a[0], cur[1])
+                segs.append((cur[0], cur[1], p[0], p[1])); cur = p
+            elif C == "V":
+                p = (cur[0], cur[1] + a[0]) if rel else (cur[0], a[0])
+                segs.append((cur[0], cur[1], p[0], p[1])); cur = p
+            elif C in ("C", "S", "Q", "A"):
+                if C == "C":
+                    c1 = (cur[0] + a[0], cur[1] + a[1]) if rel else (a[0], a[1])
+                    c2 = (cur[0] + a[2], cur[1] + a[3]) if rel else (a[2], a[3])
+                    p = (cur[0] + a[4], cur[1] + a[5]) if rel else (a[4], a[5])
+                    pts = bez(cur, (c1, c2), p)
+                elif C == "Q":
+                    c1 = (cur[0] + a[0], cur[1] + a[1]) if rel else (a[0], a[1])
+                    p = (cur[0] + a[2], cur[1] + a[3]) if rel else (a[2], a[3])
+                    pts = bez(cur, (c1,), p, quad=True)
+                elif C == "S":
+                    c1 = (cur[0] + a[0], cur[1] + a[1]) if rel else (a[0], a[1])
+                    p = (cur[0] + a[2], cur[1] + a[3]) if rel else (a[2], a[3])
+                    pts = bez(cur, (c1, c1), p)
+                else:                            # A — дугу беремо хордою (консервативно)
+                    p = (cur[0] + a[5], cur[1] + a[6]) if rel else (a[5], a[6])
+                    pts = [p]
+                prev = cur
+                for q in pts:
+                    segs.append((prev[0], prev[1], q[0], q[1])); prev = q
+                cur = prev
+            if i >= len(n):
+                break
+    return segs
+
+
 def _seg_lines(s):
+    """УСІ лінії фігури, а не лише <line>: polyline/polygon/path і РАМКИ прямокутників,
+    кіл та еліпсів (їх контур теж не має різати написи)."""
     segs = []
-    for m in re.finditer(r"<line\b([^>]*)/>", s):
+    for m in re.finditer(r"<line\b([^>]*)/?>", s):
         a = m.group(1)
 
         def g(n):
@@ -69,7 +176,68 @@ def _seg_lines(s):
         p = (g("x1"), g("y1"), g("x2"), g("y2"))
         if None not in p:
             segs.append(p)
+    for m in re.finditer(r'<(polyline|polygon)\b[^>]*\bpoints="([^"]+)"[^>]*>', s):
+        pts = _pts(m.group(2))
+        if m.group(1) == "polygon" and len(pts) > 2:
+            pts = pts + [pts[0]]
+        for i in range(len(pts) - 1):
+            segs.append((pts[i][0], pts[i][1], pts[i + 1][0], pts[i + 1][1]))
+    for m in re.finditer(r'<path\b[^>]*\bd="([^"]+)"[^>]*>', s):
+        segs.extend(_path_segments(m.group(1)))
+    for m in re.finditer(r"<rect\b([^>]*)>", s):
+        a = m.group(1)
+
+        def g(n, d=None):
+            mm = re.search(r'\b%s="(-?[\d.]+)"' % n, a)
+            return float(mm.group(1)) if mm else d
+        x, y, w, h = g("x"), g("y"), g("width"), g("height")
+        if None in (x, y, w, h):
+            continue
+        segs += [(x, y, x + w, y), (x + w, y, x + w, y + h), (x + w, y + h, x, y + h), (x, y + h, x, y)]
+    for m in re.finditer(r"<(circle|ellipse)\b([^>]*)>", s):
+        a = m.group(2)
+
+        def g(n, d=None):
+            mm = re.search(r'\b%s="(-?[\d.]+)"' % n, a)
+            return float(mm.group(1)) if mm else d
+        cx, cy = g("cx", 0.0), g("cy", 0.0)
+        rx = g("r") if m.group(1) == "circle" else g("rx")
+        ry = rx if m.group(1) == "circle" else g("ry")
+        if not rx or not ry:
+            continue
+        import math
+        prev = None
+        for k in range(17):                       # 16-кутник — досить для контролю перетинів
+            ang = 2 * math.pi * k / 16.0
+            p = (cx + rx * math.cos(ang), cy + ry * math.sin(ang))
+            if prev:
+                segs.append((prev[0], prev[1], p[0], p[1]))
+            prev = p
     return segs
+
+
+def _solid_boxes(s, canvas=None):
+    """Видимі прямокутні блоки (мають fill і не є прозорим тлом) — для контролю зіткнень блоків.
+    Тло/панель на все полотно (≥70% площі) НЕ рахуємо блоком: під ним і мають лежати інші."""
+    boxes = []
+    area_all = (canvas[0] * canvas[1]) if canvas else None
+    for m in re.finditer(r"<rect\b([^>]*)>", s):
+        a = m.group(1)
+
+        def g(n, d=None):
+            mm = re.search(r'\b%s="(-?[\d.]+)"' % n, a)
+            return float(mm.group(1)) if mm else d
+        x, y, w, h = g("x"), g("y"), g("width"), g("height")
+        if None in (x, y, w, h) or w <= 0 or h <= 0:
+            continue
+        fill = re.search(r'\bfill="([^"]*)"', a)
+        fill = fill.group(1) if fill else ""
+        if fill in ("none", "transparent"):
+            continue
+        if area_all and (w * h) >= 0.70 * area_all:
+            continue
+        boxes.append((x, y, x + w, y + h))
+    return boxes
 
 
 def _area_overlap(a, b):
@@ -152,6 +320,11 @@ def check_svg(path, min_font=9, tol=6.0):
             issues.append("шрифт %spx < %d" % (fs, min_font))
             break
 
+    # Геометрію судимо лише в чистій системі координат: якщо є <g transform=…>, координати дітей
+    # зміщені/повернуті, і будь-який висновок про перетини був би вигаданим — тихо пропускаємо.
+    if re.search(r"<g\b[^>]*transform=", s):
+        return issues
+
     # (v6) накладання тексту: текст↔текст і текст↔лінія (текст має бути поза чужими написами й лініями).
     # Пороги свідомо КОНСЕРВАТИВНІ (реальний шматок перекриття, а не дотик) — bbox оцінюється грубо.
     tb = _text_boxes(s)
@@ -168,11 +341,62 @@ def check_svg(path, min_font=9, tol=6.0):
             break
     segs = _seg_lines(s)
     for box in tb:
-        if any(_seg_hits_box(sg, box) for sg in segs):
-            issues.append("лінія перетинає текст (напис не поза лініями)")
+        for sg in segs:
+            if _seg_hits_box(sg, box):
+                issues.append("лінія/контур перетинає текст біля (%.0f,%.0f) — напис має стояти ПОЗА лініями"
+                              % (box[0], box[1]))
+                break
+        else:
+            continue
+        break
+
+    # напис, зрізаний краєм полотна (bbox тексту вилазить за viewBox; поріг — реальне зрізання, не піксель)
+    CLIP = max(tol, 8.0)
+    for box in tb:
+        if box[0] < x0 - CLIP or box[1] < y0 - CLIP or box[2] > xmax + CLIP or box[3] > ymax + CLIP:
+            issues.append("напис вилазить за полотно (bbox %.0f..%.0f × %.0f..%.0f у %.0f×%.0f) — розсунь viewBox"
+                          % (box[0], box[2], box[1], box[3], xmax, ymax))
+            break
+
+    # блоки, що ЧАСТКОВО налазять один на одного (вкладеність — норма: панель у панелі)
+    sb = _solid_boxes(s, (W, H))
+    done_bb = False
+    T = 2.0                                   # допуск вкладеності: піксельні виступи — не зіткнення
+    for i in range(len(sb)):
+        for j in range(i + 1, len(sb)):
+            a, b = sb[i], sb[j]
+            contains = (a[0] <= b[0] + T and a[1] <= b[1] + T and a[2] >= b[2] - T and a[3] >= b[3] - T) or \
+                       (b[0] <= a[0] + T and b[1] <= a[1] + T and b[2] >= a[2] - T and b[3] >= a[3] - T)
+            if contains:
+                continue
+            ox = min(a[2], b[2]) - max(a[0], b[0])
+            oy = min(a[3], b[3]) - max(a[1], b[1])
+            if ox > 2 and oy > 2 and _area_overlap(a, b) > 0.25:
+                issues.append("блоки налазять один на одного (%.0f%% меншого, біля (%.0f,%.0f)) — рознеси"
+                              % (100 * _area_overlap(a, b), max(a[0], b[0]), max(a[1], b[1])))
+                done_bb = True
+                break
+        if done_bb:
             break
 
     return issues
+
+
+def check_links(d):
+    """ЛОКАЛЬНО: чи існують усі svg, які підключають .md цієї теми (стаття + вставки).
+    Ловить випадок «фігуру обіцяно в тексті, а файлу нема» — без грепу агентом."""
+    missing, refs = [], 0
+    for md in glob.glob(os.path.join(d, "*.md")):
+        try:
+            s = open(md, encoding="utf-8").read()
+        except Exception:
+            continue
+        for link in re.findall(r"!\[[^\]]*\]\(([^)]+\.svg)\)", s):
+            refs += 1
+            name = os.path.basename(link)
+            if not os.path.exists(os.path.join(d, "img", name)):
+                missing.append((os.path.basename(md), name))
+    return refs, missing
 
 
 def main():
@@ -204,8 +428,17 @@ def main():
             except ValueError:
                 rel = f
             print("WARN %s: %s" % (rel, "; ".join(iss[:4])))
-    print("SVG перевірено: %d; із зауваженнями: %d" % (len(files), bad))
-    sys.exit(1 if bad else 0)
+
+    miss = []
+    if "--links" in sys.argv and os.path.isdir(d):
+        refs, miss = check_links(d)
+        for md, name in miss:
+            print("MISS %s: підключено img/%s, а файлу НЕМА (згенеруй у figs.py)" % (md, name))
+        if refs and not miss:
+            print("Підключень у .md: %d — усі файли на місці" % refs)
+
+    print("SVG перевірено: %d; із зауваженнями: %d%s" % (len(files), bad, ("; відсутніх фігур: %d" % len(miss)) if miss else ""))
+    sys.exit(1 if (bad or miss) else 0)
 
 
 if __name__ == "__main__":

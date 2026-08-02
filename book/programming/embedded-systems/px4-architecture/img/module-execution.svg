@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 486" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="486" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два способи виконання модуля</text>
+<rect x="36.0" y="60.0" width="420.0" height="258.0" rx="6" fill="#ffffff" stroke="#1a5276" stroke-width="2.2"/>
+<text x="246.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a5276" text-anchor="middle" font-weight="700">Задача (task)</text>
+<text x="246.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">власний потік · власний стек · власний пріоритет</text>
+<rect x="58.0" y="128.0" width="376.0" height="76.0" rx="6" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.4"/><text x="246.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="246.0" dy="0.0">while (!should_exit) {</tspan><tspan x="246.0" dy="13.0">    px4_poll(fds, 1, 1000);  // чекає на теми</tspan><tspan x="246.0" dy="13.0">    ...</tspan><tspan x="246.0" dy="13.0">}</tspan></text>
+<text x="62.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#186a3b" text-anchor="start" font-weight="700">✓</text>
+<text x="86.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">може спати, чекати, писати у файл</text>
+<text x="62.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7a5200" text-anchor="start" font-weight="700">₽</text>
+<text x="86.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">коштує кілька кілобайтів RAM під стек</text>
+<text x="62.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">→</text>
+<text x="86.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">navigator · logger · mavlink</text>
+<rect x="504.0" y="60.0" width="420.0" height="258.0" rx="6" fill="#ffffff" stroke="#b9770e" stroke-width="2.2"/>
+<text x="714.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b9770e" text-anchor="middle" font-weight="700">Робочий елемент (work item)</text>
+<text x="714.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">спільний потік черги · спільний стек · пріоритет черги</text>
+<rect x="526.0" y="128.0" width="376.0" height="76.0" rx="6" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.4"/><text x="714.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="714.0" dy="0.0">void Run() override {</tspan><tspan x="714.0" dy="13.0">    // registerCallback() або</tspan><tspan x="714.0" dy="13.0">    // ScheduleOnInterval(2500_us)</tspan><tspan x="714.0" dy="13.0">}</tspan></text>
+<text x="530.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">✗</text>
+<text x="554.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">блокуватися не можна — стануть усі сусіди</text>
+<text x="530.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#186a3b" text-anchor="start" font-weight="700">₽</text>
+<text x="554.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">коштує майже нічого понад свої дані</text>
+<text x="530.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">→</text>
+<text x="554.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">mc_rate_control · control_allocator · драйвери</text>
+<rect x="36.0" y="348.0" width="888.0" height="66.0" rx="6" fill="#f7f9fb" stroke="#6b7280" stroke-width="1.6"/>
+<text x="480.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черг робіт багато, і кожна — окремий потік зі своїм пріоритетом:</text>
+<text x="480.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle">wq:SPI0…SPI6  ·  wq:I2C0…I2C4  ·  wq:rate_ctrl  ·  wq:nav_and_controllers  ·  wq:hp_default  ·  wq:lp_default</text>
+<text x="480.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Вибір черги — це і є призначення пріоритету: він вирішує, хто кого витіснить</text>
+</svg>

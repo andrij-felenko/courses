@@ -1,9 +1,9 @@
 /* guide/embedded-ultra/manifest.js — КУРС «Ембеддед ультракоротко» (тип "guide").
-   Стислий зріз ембеддеда: 21 модуль, 96 кроків, УСІ — ref на готові book-атоми.
-   Модулі 1–13 — база (2 дні читання); модулі 14–21 — прикладний трек «наземна станція ↔ борт»:
-   мережа TCP/UDP, бінарні протоколи, MAVLink/телеметрія, радіоканал, навігація, політ, борт, відео.
-   Власних статей курс не має й не потребує: це доріжка-компіляція поверх написаного.
-   Довгий шлях із тими самими темами вглиб — guide/embedded (643 кроки).
+   Стислий зріз ембеддеда: 22 модулі, 125 кроків, УСІ — ref на готові book-атоми.
+   Модулі 1–13 — база (2 дні читання); модулі 14–22 — прикладний трек «наземна станція ↔ борт»:
+   мережа TCP/UDP, бінарні протоколи, MAVLink/телеметрія, радіоканал, навігація, політ (з автопілотом),
+   борт, відео, наземна станція QGC. Власних статей курс не має й не потребує: це доріжка-компіляція
+   поверх написаного. Довгий шлях із тими самими темами вглиб — guide/embedded (703 кроки).
    Схема v6 (AUTHORING §2): modules[] → chapters[] → steps[]; нумерація Модуль·Розділ·Крок — з порядку масивів. */
 (window.__GUIDES__ = window.__GUIDES__ || []).push({
   type: "guide", slug: "embedded-ultra", title: "Ембеддед ультракоротко",
@@ -67,6 +67,11 @@
       ] },
       { title: "Від тексту до прошивки", steps: [
         { ref: "programming/languages/compilation", title: "Компіляція" },
+      ] },
+      { title: "Зібрати й перевірити", steps: [
+        { ref: "build-systems/fundamentals/build-system-role", title: "Що робить система збірки" },
+        { ref: "build-systems/cmake/cmake-language", title: "Мова CMakeLists" },
+        { ref: "programming/software-engineering/unit-testing", title: "Модульний тест" },
       ] },
     ] },
     { n: 7, slug: "pamyat", title: "Пам'ять", scope: "", chapters: [
@@ -153,6 +158,8 @@
       { title: "Два транспорти", steps: [
         { ref: "communications/protocols/tcp-vs-udp", title: "TCP проти UDP" },
         { ref: "programming/networking/sockets-tcp-udp", title: "Сокети TCP/UDP" },
+        { ref: "programming/networking/udp-datagram-semantics", title: "Семантика датаграми UDP" },
+        { ref: "programming/networking/tcp-message-framing", title: "Кадрування повідомлень у TCP" },
       ] },
       { title: "Що під ними", steps: [
         { ref: "communications/networks/mac-ip-arp", title: "MAC, IP і ARP" },
@@ -164,6 +171,7 @@
       { title: "Байти на дроті", steps: [
         { ref: "programming/embedded-systems/data-serialization", title: "Серіалізація даних" },
         { ref: "communications/protocols/packet-design", title: "Проєктування пакета" },
+        { ref: "programming/networking/wire-format-packing", title: "Пакування бінарного протоколу" },
       ] },
       { title: "Цілісність", steps: [
         { ref: "communications/coding-theory/checksums", title: "Контрольні суми" },
@@ -202,6 +210,7 @@
         { ref: "communications/synchronization/gnss", title: "GNSS" },
         { ref: "math/geometry/wgs84-datum", title: "WGS-84: еліпсоїд і датум" },
         { ref: "math/geometry/geoid-and-amsl", title: "Геоїд, AMSL і висота" },
+        { ref: "math/geometry/ecef-ned-enu", title: "ECEF, NED і ENU" },
       ] },
       { title: "Злиття давачів", steps: [
         { ref: "algorithms/signal-robotics/sensor-fusion", title: "Поєднання давачів" },
@@ -222,6 +231,12 @@
         { ref: "algorithms/signal-robotics/discrete-pid", title: "Дискретний ПІД" },
         { ref: "algorithms/signal-robotics/quaternion-attitude-control", title: "Кватерніонне керування орієнтацією" },
       ] },
+      { title: "Бортовий автопілот", steps: [
+        { ref: "programming/embedded-systems/flight-controller", title: "Політний контролер" },
+        { ref: "programming/embedded-systems/px4-architecture", title: "Архітектура PX4" },
+        { ref: "programming/embedded-systems/failsafe", title: "Failsafe" },
+        { ref: "programming/embedded-systems/params-gcs", title: "Параметри й GCS" },
+      ] },
     ] },
     { n: 20, slug: "bort", title: "Борт: мотор і батарея", scope: "", chapters: [
       { title: "Тяга", steps: [
@@ -237,12 +252,14 @@
       { title: "Стиснути", steps: [
         { ref: "algorithms/data-compression/jpeg-intra", title: "JPEG" },
         { ref: "algorithms/data-compression/inter-frame", title: "Міжкадрове стиснення" },
+        { ref: "algorithms/data-compression/h264-nal-structure", title: "H.264: NAL, SPS/PPS" },
       ] },
       { title: "Донести і встигнути", steps: [
         { ref: "communications/networks/video-transmission", title: "Передача відео" },
         { ref: "programming/embedded-systems/video-latency", title: "Затримка відео" },
         { ref: "communications/protocols/rtp-rtcp", title: "RTP і RTCP" },
         { ref: "media-vision/gstreamer/pipeline-model", title: "Конвеєр GStreamer" },
+        { ref: "media-vision/gstreamer/appsink-appsrc", title: "appsink і appsrc" },
       ] },
     ] },
     { n: 22, slug: "stantsiia", title: "Наземна станція", scope: "", chapters: [
@@ -250,12 +267,18 @@
         { ref: "qgroundcontrol/overview/what-is-qgc", title: "Що таке QGroundControl" },
         { ref: "qgroundcontrol/architecture/vehicle-object", title: "Vehicle: модель апарата" },
         { ref: "qgroundcontrol/links/link-manager", title: "Менеджер каналів" },
+        { ref: "qgroundcontrol/architecture/fact-system", title: "FactSystem: параметри апарата" },
         { ref: "qgroundcontrol/links/mavlink-handling", title: "Обробка MAVLink у станції" },
       ] },
       { title: "План і карта", steps: [
         { ref: "qgroundcontrol/planning/plan-model", title: "Модель плану місії" },
+        { ref: "qgroundcontrol/planning/plan-exchange", title: "Обмін планом із апаратом" },
+        { ref: "algorithms/signal-robotics/survey-grid-coverage", title: "Покриття полігону галсами" },
         { ref: "qgroundcontrol/map-video/map-engine", title: "Рушій карти" },
         { ref: "math/geometry/web-mercator-tiles", title: "Web Mercator і тайли" },
+      ] },
+      { title: "Відео у станції", steps: [
+        { ref: "qgroundcontrol/map-video/video-pipeline", title: "Відеотракт на GStreamer" },
       ] },
     ] },
   ]

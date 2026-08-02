@@ -4,9 +4,9 @@
 
 Writing rules are **here**. Plan/queue/statuses — in the book/course manifest (schema — §2). Scripts — in `scripts/`.
 
-> **v5 → v6 (RULE changes; manifest schema UNCHANGED):** (1) every **new** article begins with a collapsed prerequisites block `<preknowlist>` — "what to know before reading" (§6); (2) `svgcheck.py` now also catches **text overlap** onto other text/lines (§5); (3) **code language — by domain, not always C/C++**; the same example in 2–5 languages — as `:::tabs` tabs (switcher on top, syntax highlighting) (§5). **We don't touch what's already written** — apply only to new articles (and when old ones are next rewritten).
+> **v5 → v6 (RULE changes; manifest schema UNCHANGED):** (1) every **new** article begins with a collapsed prerequisites block `<preknowlist>` — "what to know before reading" (§6); (2) `svgcheck.py` now also catches **text overlap** onto other text/lines (§5); (3) **code language — by domain, not always C/C++**; the same example in 2–5 languages — as `:::tabs` tabs (switcher on top, syntax highlighting) (§5); (4) **a new kind of book — `reference/` (reference books on man-made systems)**: behaves like `book/`, the same manifest schema with `type:"reference"`, linked with the `book:` prefix (§1–§2); (5) **the basic version — a hard rule on size and language**: at least **twice shorter** than its detailed (and 540–1440 words), written in **simpler language** without losing the meaning (§3). (6) **all word bands cut by 10%** (§3/§8) and **~10% fewer inserts** — the spin-out threshold is raised one notch (§3). **We don't touch what's already written** — apply only to new articles (and when old ones are next rewritten).
 
-## §1 Structure — three folders
+## §1 Structure — four folders
 
 **`book/` — subject books.** An article sits in a **subject section** (manifest field `sections`), **without numbering**. **An article = EXACTLY ONE topic** (one concept, an **atom**). An article is **parallel** to all others: **self-contained, assumes nothing, reads on its own in any order**. It may link to another, but **uses no sequence phrases** («попередній/наступний розділ», «як ми бачили», «далі побачимо», «пригадаймо», «ми це проходили») and **does not rely on "already known"** — there is no order in the book. The `basic`/`detailed` versions — **both standalone**, differing only in depth (§3).
 
@@ -18,7 +18,7 @@ Writing rules are **here**. Plan/queue/statuses — in the book/course manifest 
 
 **IRON RULE (book ↔ guide), obeyed 100%:** if material **assumes "already known", makes sense only in sequence, or deepens step-by-step** — it's **`guide`, NEVER `book`**. If it's **a self-contained atom that reads fully on its own** — it's **`book`**. One topic may exist twice: standalone in `book/` and as a cumulative step in `guide/` (via `ref` or an own article). **Never put sequential/cumulative material in `book/`.**
 
-Per-step decision: a standalone book atom covers it as-is → `ref`; need a cumulative angle / combination / bridge between steps → **the course's own article**. Build **only backward**; carry the thread **naturally, without forcing** it with filler connective sentences. `book/` articles are **not rewritten** for a course. 2 courses: `embedded`, `basic-chemistry`.
+Per-step decision: a standalone book atom covers it as-is → `ref`; need a cumulative angle / combination / bridge between steps → **the course's own article**. Build **only backward**; carry the thread **naturally, without forcing** it with filler connective sentences. `book/` articles are **not rewritten** for a course. A `ref` step may point into `catalog/` and `reference/` as well — all three kinds live in the same `__BOOKS__` (the first ref segment is the book's slug). 5 courses: `embedded`, `embedded-ultra`, `basic-chemistry`, `progarch`, `unix`.
 
 **`catalog/` — catalog books.** Grouped **descriptions of concrete objects** (parts; later broader too). An entry **describes a concrete thing** rather than building a scientific idea. Behaves **like `book/`** (no order, basic+detailed versions, inserts `hist-`/`math-`/`proj-` — but **not** `comp-`, since the catalog itself is the component).
 
@@ -33,6 +33,18 @@ Per-step decision: a standalone book atom covers it as-is → `ref`; need a cumu
 
 **Where to place:** by the object's **primary function** (what it does). A bare chip — into the family closest by function. Create a new family **only** when an object fits none of the existing ones. (Create a family-book as needed — when the first object appears.)
 
+**`reference/` — reference books.** They describe **a system or technology made by people** — an operating system, a language and its standards, a tool, a format, a protocol stack. This is **not a branch of science**: there is no "how the world is built" here, there is "how this thing is built and how to use it". Behaves **like `book/`**: sections (`sections`) → topic-atoms (`topics`), **no order and no numbering**, `basic`/`detailed` versions, the same inserts, the same manifest schema (§2). Opened by the reader as `read.html?book=<slug>`, linked with the **`book:`** prefix (there is no separate `reference:` prefix — same as for the catalog).
+
+**book ↔ reference — where the line runs.** Ask **whether the topic would exist without the people who made it**:
+- **`book/`** — the subject of **science or engineering theory**: a law, a phenomenon, a principle, an algorithm, a pattern. The truth doesn't depend on a version or a vendor (Ohm's law, CRC, a B-tree, the scheduler as an idea).
+- **`reference/`** — the subject of **a concrete man-made system**: something someone designed, which has versions, releases, standards, syntax and proper names (POSIX signals, `std::move`, CMake target properties). Ask "in which version?" — if the question makes sense, it's `reference/`.
+- Borderline material goes in **twice**: the principle into `book/`, its embodiment in the system into `reference/`, and they link to each other.
+- **Not to be confused with `catalog/`:** the catalog describes **a thing you can buy** (a board, a module, a part); a reference book — **an intangible system** (an OS, a language, a tool).
+
+5 reference books: `unix-linux` (Unix and Linux), `cpp-standards` (C++ standards), `build-systems` (Build systems), `media-vision` (GStreamer and OpenCV), `qgroundcontrol` (QGroundControl).
+
+**Qt/QML — deliberately outside the corpus.** Neither a separate book nor topics: in `reference/qgroundcontrol` we describe the subsystems of the application itself (Vehicle, FactSystem, links, plan, map, video), not the framework they stand on. The rule is permanent, not temporary.
+
 **`comp-` (insert) ↔ `catalog/` — mandatory decision procedure.** For each device/unit ask three questions in turn:
 1. Can you **fully explain this thing without naming any concrete product, model, family, or part number** — by the operating principle alone?
 2. Is this description (behavior, purpose, way of hooking it up) **the same** for any manufacturer and any implementation?
@@ -45,9 +57,9 @@ Check test: if versions from different manufacturers would need **different arti
 
 ## §2 Naming, numbering, manifest
 
-**Naming — slug-only** (ASCII, **no numbers**): `book/<book>/<section>/<slug>/<slug>.md`; likewise `catalog/…`, `guide/…`. Detailed — `<slug>-d.md`; inserts — `<type>-<name>.md`. Slug collisions — with a minimal qualifier.
+**Naming — slug-only** (ASCII, **no numbers**): `book/<book>/<section>/<slug>/<slug>.md`; likewise `catalog/…`, `reference/…`, `guide/…`. Detailed — `<slug>-d.md`; inserts — `<type>-<name>.md`. Slug collisions — with a minimal qualifier.
 
-**Numbering:** `book/` and `catalog/` — **no numbers** (not in folders, not in text, not in figure captions). `guide/` **is numbered** Module · Chapter · Step — **from the ORDER of elements in the manifest** (the engine counts from position; not from a number field, not in the slug), so inserting a new one **does not break** numbering; a module without chapters — Module · Step.
+**Numbering:** `book/`, `catalog/` and `reference/` — **no numbers** (not in folders, not in text, not in figure captions). `guide/` **is numbered** Module · Chapter · Step — **from the ORDER of elements in the manifest** (the engine counts from position; not from a number field, not in the slug), so inserting a new one **does not break** numbering; a module without chapters — Module · Step.
 
 **The manifest is the single source** of navigation, plan, queue, statuses. **One manifest per book/course**; we don't invent new fields outside the schema.
 
@@ -66,6 +78,8 @@ Check test: if versions from different manufacturers would need **different arti
 ```
 **catalog** — `catalog/<book>/manifest.js`, **the same schema** with `type:"catalog"` (without the `comp` array).
 
+**reference** — `reference/<book>/manifest.js`, **the same schema** with `type:"reference"`; pushes into the same `window.__BOOKS__`, `section` = a section of the reference book (not a "branch of science"), the remaining fields and statuses — as in book. The registry — `window.REFERENCE_BOOKS` in `books-index.js`.
+
 **guide** — `guide/<course>/manifest.js`, registers `window.__GUIDES__.push({…})`. Schema v6 (form unchanged from v5) — **modules → chapters → steps**; **order in the arrays = numbering** (Module i · Chapter i.j · Step i.j.k; a module without chapters — Module i · Step i.j), which the engine counts from position — we hardcode numbers nowhere, inserting a new step doesn't break numbering (the `n` field is purely informational):
 ```js
 { type:"guide", slug, title,
@@ -76,19 +90,38 @@ Check test: if versions from different manufacturers would need **different arti
     | { ref:"<book>/<section>/<slug>", title } ] } ] } ] }           // OR a pointer-step to a book article (3 segments)
 ```
 A step is **either the course's own article** (basic/detailed/inserts, statuses §9; file `guide/<course>/<module-slug>/<slug>/<slug>.md`, folders by NAME without numbers — **the step's folder lives in its module's folder**, so moving a step between modules = `git mv` of the folder + fixing the absolute `/guide/...` figure paths), **or a `ref`** to a book atom (when a standalone covers the step). Numbering lives **only** in the manifest order.
-Fields: **each version (`basic`, `detailed`) has its own `status`** (enum §9); a version is **available to the reader ⟺ its status is `done`**. The `hist`/`comp`/`math`/`proj`/`api` arrays — inserts by type, element = `{file, status}`. Note: a `ref` in the guide MANIFEST — **3 segments `<book>/<section>/<slug>`** (the engine uses the first + last segments); `book:`/`guide:` links IN ARTICLE TEXT — **2 segments** as before (§6). The legacy `sections→topics` form (2-segment refs) is kept by the engine and scripts as a fallback; **both courses (embedded, basic-chemistry) are already in this form**, and we write new content only in it.
+Fields: **each version (`basic`, `detailed`) has its own `status`** (enum §9); a version is **available to the reader ⟺ its status is `done`**. The `hist`/`comp`/`math`/`proj`/`api` arrays — inserts by type, element = `{file, status}`. Note: a `ref` in the guide MANIFEST — **3 segments `<book>/<section>/<slug>`** (the engine uses the first + last segments); `book:`/`guide:` links IN ARTICLE TEXT — **2 segments** as before (§6). The legacy `sections→topics` form (2-segment refs) is kept by the engine and scripts as a fallback; **all courses are already in the current form**, and we write new content only in it.
 
 ## §3 Versions and inserts
 
 **Two versions of completeness** (completeness is in the file name). This describes the **character** of a version — how to think about it — and is **NOT** a template section for the text (no headings like «Ціль» etc.):
-- **`<slug>.md` — basic.** A **very short** text that gives **a sense of what the topic is**: read in ~half a minute — you have the picture, enough to grasp the essence. One core, fast. **Fewer examples**; relies on **fewer inserts** (≈half as many as the full account — **except the historical `hist-`**, apt here too). **600–1600 words.**
-- **`<slug>-d.md` — detailed.** **The full version — sit down and understand it completely, no gaps.** This is **NOT** an overload of terms and **NOT** excess complexity, but **completeness in depth while staying understandable**: the same living delivery, just carried to the bottom. **1200–10000 words** (catalog — up to 16000, §8).
+- **`<slug>.md` — basic.** A **very short** text that gives **a sense of what the topic is**: read in ~half a minute — you have the picture, enough to grasp the essence. One core, fast. **Fewer examples**; relies on **fewer inserts** (≈half as many as the full account — **except the historical `hist-`**, apt here too). **540–1440 words AND at least TWICE SHORTER than its detailed** (the hard size rule below).
+- **`<slug>-d.md` — detailed.** **The full version — sit down and understand it completely, no gaps.** This is **NOT** an overload of terms and **NOT** excess complexity, but **completeness in depth while staying understandable**: the same living delivery, just carried to the bottom. **1080–9000 words** (catalog — up to 14400, §8).
 
-**Detailed is the main version, we ALWAYS write it.** `-d.md` — the topic's full article, present for every topic. **We write the basic AS NEEDED** — when the detailed one is large and a short overview entry genuinely helps to grasp the essence quickly before the full read. **If the detailed one is short** (≈ up to 3500 words), **we do NOT write the basic**: it would merely duplicate the detailed. That is: detailed — always; basic — only when it **adds** (a quick overview of a large topic), doesn't duplicate.
+**Detailed is the main version, we ALWAYS write it.** `-d.md` — the topic's full article, present for every topic. **We write the basic AS NEEDED** — when the detailed one is large and a short overview entry genuinely helps to grasp the essence quickly before the full read. **If the detailed one is short** (≈ up to 3150 words), **we do NOT write the basic**: it would merely duplicate the detailed. That is: detailed — always; basic — only when it **adds** (a quick overview of a large topic), doesn't duplicate.
+
+**HARD SIZE RULE: a basic is ≤ half of its detailed.** Two limits hold **at the same time**, both mandatory:
+
+```
+basic:  540 ≤ words ≤ 1440        AND        words(basic) ≤ words(detailed) ÷ 2
+```
+
+We count **prose** (no code blocks, figures, tables, markup) — exactly the way `node scripts/wordcount.js <book-folder> --all` measures it: in its «ПАРИ базова↔детальна» block it prints the pair, the ratio and the basic's ceiling, and a `✖ ПОРУШЕННЯ` row is a **violation, not a warning**. What to do when it doesn't fit:
+1. **First cut the basic** — it is almost always longer than needed: a second layer, variations, edge cases and derivations do **not** belong in a basic; their place is the detailed.
+2. **Still doesn't fit after cutting — don't write the basic at all** (`basic:empty`, §9). "It can't be compressed to half without gutting the essence" means exactly one thing: the topic **does not need** a basic, not that the limit may be stretched.
+3. **Never inflate the detailed** to "reach" the ratio, and don't pad the basic with water up to 540 words — the detailed's size is dictated by the topic, not by arithmetic.
+
+The rule is symmetric to "the detailed is short (≲3150) → we don't write a basic": for a 3000-word detailed the basic would have to fit into 1500 — which is nearly a retelling, which is why we don't write it.
+
+**The basic's language is simpler; the meaning and the understanding are the same.** A basic differs from the detailed in **size and apparatus, not in truth**. It is shorter because there is **less material**, not because it is "shallower": what is said is said **correctly and completely**.
+- **Simpler words, shorter sentences.** An everyday word instead of a learned one where it is precise; less jargon, less formalism, fewer nested clauses. Name a term **after the mechanism** (§4) — first what happens, then what it is called; every term used is either explained here or is in the `preknowlist` (§6).
+- **Cut the material, not the truth.** Drop derivations, variations, edge cases, secondary mechanisms and most examples — keep the **cause and the main mechanism**. "Almost right" simplifications that later have to be unlearned are **forbidden**: better to say honestly "we take this as given here" (§4, honest depth boundary) and give a link, than to give a convenient falsehood.
+- **Not "as if for toddlers"** (§4): simpler is not more infantile. No baby talk, no pathos, no condescension — just clearer.
+- *Test:* someone who has read **only the basic** says **correct things about the topic — merely fewer of them**. If after the detailed they have to **unlearn** something — the basic lied, rewrite it.
 
 **Inserts are shared by both versions** (they belong to the topic, not a version): basic and detailed take the same insert files, the basic just **uses fewer** of them; the historical `hist-` — the same for both.
 
-Manifest (§2): each version has its own `status` — `basic:{status}`, `detailed:{status}`. **`pending` = needs writing** (exactly what the writing scripts pick up) · **`empty` = not needed** · **`done` = written and available to the reader**. Detailed — the main queue (`pending`→`done`); basic — `empty` when the detailed is short (a duplicate), or `pending` when a large topic is worth a quick overview.
+Manifest (§2): each version has its own `status` — `basic:{status}`, `detailed:{status}`. **`pending` = needs writing** (exactly what the writing scripts pick up) · **`empty` = not needed** · **`done` = written and available to the reader**. Detailed — the main queue (`pending`→`done`); basic — `empty` when the detailed is short (a duplicate), or `pending` when a large topic is worth a quick overview. **A new topic is ALWAYS registered as `basic:{status:"empty"}` + `detailed:{status:"pending"}`** (§6): the detailed goes into the queue, and the basic is decided once the detailed exists.
 
 **Inserts — subtopics, separate `.md` files in the topic's folder**, five types by the prefix `<type>-<name>.md` (in `catalog/` — without `comp`):
 - 📜 `hist-` — **history**: how the concept was born (what puzzled, who, the disputes); always real.
@@ -97,9 +130,9 @@ Manifest (§2): each version has its own `status` — `basic:{status}`, `detaile
 - ⚙️ `proj-` — **algorithm/code**: task → idea → working code → traps. Language — **by domain** (§5): embedded/hardware → C/C++; general/web → the stack's languages, several languages via `:::tabs` tabs when needed.
 - 📋 `api-` — **interface/reference ("what sticks out"):** the contract to connect or call. Software — the public API, signatures, parameters, errors, CLI/config; hardware — pin-by-pin wiring, registers, protocol, levels. Structural reference (tables/signatures), not a narrative. **A shared name for both domains, but do NOT mix:** if a topic needs both hardware and software — **two separate `api-` files** (e.g. `api-wiring.md` + `api-lib.md`), not one mixed. **`comp` vs `api`:** `comp` — a generalized *class* of device (how such a thing works in general, no part numbers); `api` — the concrete *contract* (signatures/pinout/registers of this specific thing or library).
 
-**Insert length — 600–9000 words** by density; if there's a lot of material — **split into several**. The registry in the manifest — **separate by type**.
+**Insert length — 540–8100 words** by density; if there's a lot of material — **split into several**. The registry in the manifest — **separate by type**.
 
-**Add inserts EAGERLY when the topic calls for them — a low decision threshold (mirroring `-d.md`), but the decision is CONTEXTUAL.** When you hesitate "spin a sub-block out as a separate insert or leave it in the article" — rather **spin it out**; don't reject a needed insert out of excessive strictness. **There is no norm for "how many inserts per topic"** — as many as the topic's logic asks for: one topic does without any, another naturally pulls several different types (a birth history, a mathematical derivation, and a code example **complement one another** when each is genuinely needed — in architecture, e.g., a decision's history and an algorithm example are equally apt). We do **not** add an insert for the sake of count. The boundary — **context and quality**: each insert **carries a separate layer** (the birth of a concept, a derivation, a working algorithm, the breakdown of a device class), not a retelling of the article or a banality.
+**Add inserts EAGERLY when the topic calls for them — a low decision threshold (mirroring `-d.md`), but the decision is CONTEXTUAL.** When you hesitate "spin a sub-block out as a separate insert or leave it in the article" — rather **spin it out**; don't reject a needed insert out of excessive strictness. **Calibration: ~10% FEWER inserts.** The threshold is raised one notch: when the hesitation is genuinely **50/50 — don't spin it out** (leave it as a sentence in the article, with a ref link to an existing target if there is one), and from a topic's set of candidates **drop the weakest** — the one whose layer adds least. This trims marginal inserts, not needed ones: everything the topic would be poorer without stays. **There is no norm for "how many inserts per topic"** — as many as the topic's logic asks for: one topic does without any, another naturally pulls several different types (a birth history, a mathematical derivation, and a code example **complement one another** when each is genuinely needed — in architecture, e.g., a decision's history and an algorithm example are equally apt). We do **not** add an insert for the sake of count. The boundary — **context and quality**: each insert **carries a separate layer** (the birth of a concept, a derivation, a working algorithm, the breakdown of a device class), not a retelling of the article or a banality.
 
 **Insert structure for the parser:** the file begins with an **H1 heading** (`# Назва`, optionally with an emoji `# 📜 Назва`) — the engine takes it as the popup title. **An insert self-justifies:** the heading and first sentence must, **on their own**, without the parent article, say WHAT this is and WHY to open it (what can't be understood without it) — in the reader's language, not a jargon label; a bare term in the heading won't do. The insert is **registered in the manifest** (the array of its type, §2) and **mentioned in the text** by a ref-insert (§6). The insert **contains no back-navigation cards** («🔗 Тема, до якої…», «▶️ До теми» etc.) — it's opened as a popup from the topic, so a back-link is superfluous; inline links to other topics in the body text — allowed. If a return genuinely carries content — format it as a **regular insert**, not as a navigation card.
 
@@ -173,8 +206,8 @@ One language (no tabs needed) — **a regular code block with the language in th
 - **Every figure carries weight** (a nontrivial idea hard to convey in words); banal decorations — better none at all.
 - A reference to a figure — **a path from the repo root** (with `/`): `![опис](/book/<book>/<section>/<slug>/img/<file>.svg)`. **No file name and no numbers in the text.**
 - **The caption is a plain description** (what's shown and the takeaway), **with no number and no «Рис.»**, in italics on the next line.
-- After generation — `scripts/svgcheck.py`; fix what's flagged until «із зауваженнями: 0». **(v6)** The check also catches **text overlap**: a label must not lie on another label or be crossed by a line — text stands **outside** others' lines and labels. Text inside **its own** `textbox()/fitbox()` box — that's the norm, not a violation.
-- **Who runs the svg gate.** The result requirement (svgcheck «0») is unchanged. But **in the batch writing pipeline (`write-batch.js`) the final svg gate is done by a separate step on Sonnet-high** (the "Figures" phase): the author of the article/insert only **generates** the figures (meaningful, with a tidy layout) and **runs `figs.py`**, while bringing `svgcheck.py` to «0» (by editing the `figs.py` layout — spreading captions apart, widening cells/viewBox, routing lines away; **the figure's content does not change**) is handled by a separate sonnet-high agent per folder. In **manual** writing (outside the pipeline) the author brings it to zero themselves, as before.
+- After generation — `scripts/svgcheck.py`; fix what's flagged until «із зауваженнями: 0». The check is **purely local** (no agents, no tokens) and catches everything that gets in the way of **understanding** the figure: too-small font · **text↔text** · **a line or contour cutting through a label** — `line`, `polyline`, `polygon`, `path` and the **borders** of `rect`/`circle`/`ellipse` · **a label clipped by the canvas edge** (classic: a long string with `text-anchor="end"`) · **blocks partially colliding** with one another · `--links` — whether every svg referenced in the topic's `.md` actually exists. Text inside **its own** `textbox()/fitbox()` box and nested panels — the norm, not a violation; figures with `<g transform=…>` are deliberately skipped (shifted coordinates — better silent than inventing intersections).
+- **Who runs the svg gate.** The result requirement (svgcheck «0») is unchanged. A **local pre-gate** runs first: one `svgcheck.py … --links` command over all the batch's folders filters out the clean ones — an agent is called **only** where there is something to fix. Beyond that, **in the batch writing pipeline (`write-batch.js`) the final svg gate is done by a separate step on Sonnet-high** (the "Figures" phase): the author of the article/insert only **generates** the figures (meaningful, with a tidy layout) and **runs `figs.py`**, while bringing `svgcheck.py` to «0» (by editing the `figs.py` layout — spreading captions apart, widening cells/viewBox, routing lines away; **the figure's content does not change**) is handled by a separate sonnet-high agent per folder. In **manual** writing (outside the pipeline) the author brings it to zero themselves, as before.
 
 **Practicality.** Beside an important concept — a box `> 🔧 **Навіщо це.**`: what it's for in real development, **on the material of this topic**.
 
@@ -196,7 +229,7 @@ The section isn't needed in the path. **Default — the general link `book:<book
 **The target doesn't exist yet — we create it and ref it in advance.** The target is either a **topic-article** or a **supporting insert** (history/example/math/device — `<type>-<name>.md`):
 1. Determine the **right place** (a topic — book + section; an insert — the topic's folder).
 2. Create an **empty file** (the topic's md or `<type>-<name>.md`).
-3. Register it in the manifest with status **`pending`** (needs writing; leave `empty` only for what we deliberately do NOT write).
+3. Register it in the manifest: a topic — **`basic:{status:"empty"}` + `detailed:{status:"pending"}`** (the **detailed** goes into the queue — it is the main version, §3; the basic is decided AFTER the detailed: if it turns out large, then `basic:pending`). An insert — `pending` in the array of its type. **Never give a new topic `basic:pending`.**
 4. Place the ref — the popup will show a stub, and **pull in the text** once it's filled.
 
 Where there's a genuine dependency — **no dangling mentions without a ref**.
@@ -219,7 +252,7 @@ Immediately **under the H1** — a list of **prerequisites**, collapsed by defau
 ```
 
 The engine renders the block as a **collapsed `<details>` at the top** of the article (a click expands the prerequisites list). Rules:
-- **book / catalog:** list **all genuine prerequisites** — the article is standalone, the reader may know nothing prior.
+- **book / catalog / reference:** list **all genuine prerequisites** — the article is standalone, the reader may know nothing prior.
 - **guide (course):** list **only what is OUTSIDE the course or not yet covered** along its sequence; prerequisites the course **already gave earlier** — do **NOT** add (the course's thread provided them — otherwise the block duplicates what's been covered).
 - Links — **only weighty prerequisites** (not "everything tangential"); §6 mirroring (target in book → `book:`, in a course → `guide:`).
 - **Only for NEW articles.** Already-written ones without the block — **we don't touch**; the block is added when an article is rewritten.
@@ -239,7 +272,7 @@ The engine renders the block as a **collapsed `<details>` at the top** of the ar
 - `guide/` articles — **may be based on concrete parts/components** (a course is applied).
 - Platforms that are the very subject of study (ESP32, ArduPilot) may be named even in `book/`.
 
-**Catalog.** We write **freely, without an imposed list of sections**. The guide is a **general model**: describe the object so the reader **recognizes it, understands what it does and how it's built, how to use/connect it, and what to beware of**. You pick the concrete sections **yourself, to fit the device's nature**; the detailed version **covers everything needed to actually work with it**. Length: basic — as §3; **the catalog detailed — up to 16000 words** (above the §3 ceiling, because it's sometimes needed); more — **split into several parts**.
+**Catalog.** We write **freely, without an imposed list of sections**. The guide is a **general model**: describe the object so the reader **recognizes it, understands what it does and how it's built, how to use/connect it, and what to beware of**. You pick the concrete sections **yourself, to fit the device's nature**; the detailed version **covers everything needed to actually work with it**. Length: basic — as §3; **the catalog detailed — up to 14400 words** (above the §3 ceiling, because it's sometimes needed); more — **split into several parts**.
 
 **A board/module in the catalog — schematic, wiring, API (mandatory, v6).** If a catalog object is a **board or module** that has an **internal schematic** (how it's built inside) or a **wiring diagram** (how to connect it to an MCU/power), the article **MUST**: (1) **depict** both as SVG figures (§5) — the schematic and the **pin-by-pin** wiring layout; (2) **describe** them (what goes where and why, power, levels, pull-ups); (3) provide an **API insert `api-<name>.md`** — how to use it in code: library / typical calls, a **working C/C++ example**, typical traps. Without these three a board/module article is **incomplete**.
 
@@ -247,7 +280,7 @@ The engine renders the block as a **collapsed `<details>` at the top** of the ar
 
 There are no subject/audience-specific rules in the canon — **how to write a specific book is dictated by whoever sets the task**.
 
-**Optional per-book rules file — `<тека-книги>/_canon.md`.** If the root of a book/course/catalog holds a `_canon.md` (`book/<book>/_canon.md`, `guide/<course>/_canon.md`, `catalog/<family>/_canon.md`) — these are **additional rules for it specifically** on top of this general canon: a running example, unified terms and names, the language of examples, style conventions. The writer (both articles and inserts) **reads it as the first action**, if it exists, and holds to it strictly — where `_canon` refines the general, **`_canon` takes precedence**. **No file → there are no additional rules for this book/course/catalog**, we write by the general canon. (Technically `write-batch` checks for the file before writing each topic.)
+**Optional per-book rules file — `<book-folder>/_canon.md`.** If the root of a book/course/catalog/reference book holds a `_canon.md` (`book/<book>/_canon.md`, `guide/<course>/_canon.md`, `catalog/<family>/_canon.md`, `reference/<ref>/_canon.md`) — these are **additional rules for it specifically** on top of this general canon: a running example, unified terms and names, the language of examples, style conventions. The writer (both articles and inserts) **reads it as the first action**, if it exists, and holds to it strictly — where `_canon` refines the general, **`_canon` takes precedence**. **No file → there are no additional rules for this book/course/catalog/reference book**, we write by the general canon. (Technically `write-batch` checks for the file before writing each topic.)
 
 ## §9 Statuses, process, hygiene
 
@@ -255,7 +288,9 @@ There are no subject/audience-specific rules in the canon — **how to write a s
 
 **Process.** We take the **very first** `pending`/`update`/`deeper`/`recheck` (specifically **`pending`** — the writing queue; we do NOT take `empty`, that's "not needed"). **One version = one move** (text + figures + the version's status → `done`). A large step we **delegate to a subagent** with full paths; to the main loop session — only a short report.
 
-**Parallelism.** The manifest is **one per book/course/catalog** → isolation **by book**: several `/loop`s run in parallel only if each is in **its own** book/course. Do **not** run two `/loop`s on one book (a shared manifest → conflict). Work only in your own book's manifest.
+**Order within a batch — detailed first, then basics.** The queue is filled with **priority on `detailed`**; `basic` is taken only when there aren't enough detailed ones. We write **all the detailed ones first**, and only with the finished detailed in hand do we decide **whether it needs a basic**. There are exactly three outcomes: the basic **already exists** → **change nothing** (neither the file nor the status); the basic **is missing and is needed** (the detailed is large, §3) → write it in the next stage; the basic **is missing and is not needed** (the detailed is short/narrow) → `basic:empty`, and only if it was `pending` (other statuses are left alone). Only then do we write the basics: **those the scout found, plus those added after the detailed ones**. After that — inserts, the local figure gate, the manifest. **New dependent topics (§6) may appear at ANY stage** — from an article or from an insert; all of them are registered as `basic:empty` + `detailed:pending`.
+
+**Parallelism.** The manifest is **one per book/course/catalog/reference book** → isolation **by book**: several `/loop`s run in parallel only if each is in **its own** book/course. Do **not** run two `/loop`s on one book (a shared manifest → conflict). Work only in your own book's manifest.
 
 **Discipline.** **Follow instructions exactly — always.** Do **not** change agreed or finished structure/content **on your own**, and don't touch what you were asked not to touch. See a way to improve — **ask first** (about structure and content), don't do it yourself.
 

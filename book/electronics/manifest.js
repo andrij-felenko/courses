@@ -584,6 +584,7 @@
         { slug: "transmission-line", title: "Лінія передачі", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "fmcw-radar", title: "FMCW-радар", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "wavelength-in-medium", title: "Ефективна довжина хвилі у діелектрику", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "sar-interferometry", title: "Радар із синтезованою апертурою та інтерферометрія", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "microelectronics", title: "Мікроелектроніка", scope: "Фізика напівпровідників і провідності твердих тіл разом із проєктуванням інтегральних схем на кристалі — від принципів активних приладів до топології ІС.",
       topics: [

@@ -46,7 +46,7 @@ function walk(dir, out) {
   }
   return out;
 }
-const files = [].concat(walk(path.join(ROOT, "book"), []), walk(path.join(ROOT, "catalog"), []), walk(path.join(ROOT, "guide"), []));
+const files = [].concat(walk(path.join(ROOT, "book"), []), walk(path.join(ROOT, "catalog"), []), walk(path.join(ROOT, "reference"), []), walk(path.join(ROOT, "guide"), []));
 
 let ruleHits = 0, normHits = 0, filesChanged = 0;
 const perRule = new Map();

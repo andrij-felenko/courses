@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 762" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="762" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">61 біт ключа тайла: порядок полів вирішує, що лежатиме поруч</text>
+<text x="56.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">рядковий ключ:  (джерело, z, y, x)</text>
+<rect x="56.0" y="86.0" width="113.8" height="42.0" rx="3" fill="#eef3f8" stroke="#333333" stroke-width="1.6"/><text x="112.9" y="111.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="112.9" dy="0.0">джерело · 8</tspan></text>
+<rect x="169.8" y="86.0" width="71.1" height="42.0" rx="3" fill="#e3ebf3" stroke="#333333" stroke-width="1.6"/><text x="205.4" y="111.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="205.4" dy="0.0">z · 5</tspan></text>
+<rect x="241.0" y="86.0" width="341.5" height="42.0" rx="3" fill="#dbe3ea" stroke="#333333" stroke-width="1.6"/><text x="411.7" y="111.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="411.7" dy="0.0">y · 24 біти</tspan></text>
+<rect x="582.5" y="86.0" width="341.5" height="42.0" rx="3" fill="#c9d3dd" stroke="#333333" stroke-width="1.6"/><text x="753.2" y="111.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="753.2" dy="0.0">x · 24 біти</tspan></text>
+<text x="56.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">сусід ліворуч — ключ поруч, а сусід згори — ключ за 2²⁴ = 16 777 216 одиниць</text>
+<text x="56.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">мортонів ключ:  біти y та x по черзі</text>
+<rect x="56.0" y="196.0" width="113.8" height="42.0" rx="3" fill="#eef3f8" stroke="#333333" stroke-width="1.6"/><text x="112.9" y="221.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="112.9" dy="0.0">джерело · 8</tspan></text>
+<rect x="169.8" y="196.0" width="71.1" height="42.0" rx="3" fill="#e3ebf3" stroke="#333333" stroke-width="1.6"/><text x="205.4" y="221.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="205.4" dy="0.0">z · 5</tspan></text>
+<rect x="241.0" y="196.0" width="683.0" height="42.0" rx="3" fill="#c9d3dd" stroke="#333333" stroke-width="1.6"/><text x="582.5" y="222.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="582.5" dy="0.0">48 бітів чергування: y₂₃ x₂₃  y₂₂ x₂₂  …  y₁ x₁  y₀ x₀</tspan></text>
+<text x="56.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">молодші 8 бітів зблизька:</text>
+<rect x="400.0" y="256.0" width="68.0" height="36.0" rx="3" fill="#dbe3ea" stroke="#333333" stroke-width="1.4"/><text x="434.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="434.0" dy="0.0">y₃</tspan></text>
+<rect x="468.0" y="256.0" width="68.0" height="36.0" rx="3" fill="#f2f5f8" stroke="#333333" stroke-width="1.4"/><text x="502.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="502.0" dy="0.0">x₃</tspan></text>
+<rect x="536.0" y="256.0" width="68.0" height="36.0" rx="3" fill="#dbe3ea" stroke="#333333" stroke-width="1.4"/><text x="570.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">y₂</tspan></text>
+<rect x="604.0" y="256.0" width="68.0" height="36.0" rx="3" fill="#f2f5f8" stroke="#333333" stroke-width="1.4"/><text x="638.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="638.0" dy="0.0">x₂</tspan></text>
+<rect x="672.0" y="256.0" width="68.0" height="36.0" rx="3" fill="#dbe3ea" stroke="#333333" stroke-width="1.4"/><text x="706.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="706.0" dy="0.0">y₁</tspan></text>
+<rect x="740.0" y="256.0" width="68.0" height="36.0" rx="3" fill="#f2f5f8" stroke="#333333" stroke-width="1.4"/><text x="774.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="774.0" dy="0.0">x₁</tspan></text>
+<rect x="808.0" y="256.0" width="68.0" height="36.0" rx="3" fill="#dbe3ea" stroke="#333333" stroke-width="1.4"/><text x="842.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="842.0" dy="0.0">y₀</tspan></text>
+<rect x="876.0" y="256.0" width="68.0" height="36.0" rx="3" fill="#f2f5f8" stroke="#333333" stroke-width="1.4"/><text x="910.0" y="279.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="910.0" dy="0.0">x₀</tspan></text>
+<text x="56.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">сусід у будь-якому напрямку відрізняється лише молодшими бітами — отже, лежить поруч</text>
+<rect x="56.0" y="340.0" width="868.0" height="40.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="490.0" y="364.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">зайнято 61 біт із 64: rowid у SQLite — ЗНАКОВЕ ціле, тож біт 63 мусить лишатися нулем</tspan></text>
+<text x="234.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">порядок ключів — рядковий</text>
+<rect x="130.0" y="430.0" width="52.0" height="52.0" rx="2" fill="#f7f9fb" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="156.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="182.0" y="430.0" width="52.0" height="52.0" rx="2" fill="#f1f4f7" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="208.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">2</text>
+<rect x="234.0" y="430.0" width="52.0" height="52.0" rx="2" fill="#ebeff3" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="260.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">3</text>
+<rect x="286.0" y="430.0" width="52.0" height="52.0" rx="2" fill="#e5eaef" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="312.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">4</text>
+<rect x="130.0" y="482.0" width="52.0" height="52.0" rx="2" fill="#dfe5eb" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="156.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">5</text>
+<rect x="182.0" y="482.0" width="52.0" height="52.0" rx="2" fill="#d9e0e7" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="208.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">6</text>
+<rect x="234.0" y="482.0" width="52.0" height="52.0" rx="2" fill="#d3dbe3" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="260.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">7</text>
+<rect x="286.0" y="482.0" width="52.0" height="52.0" rx="2" fill="#cdd6df" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="312.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">8</text>
+<rect x="130.0" y="534.0" width="52.0" height="52.0" rx="2" fill="#c8d2db" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="156.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">9</text>
+<rect x="182.0" y="534.0" width="52.0" height="52.0" rx="2" fill="#c2cdd7" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="208.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">10</text>
+<rect x="234.0" y="534.0" width="52.0" height="52.0" rx="2" fill="#bcc8d3" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="260.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">11</text>
+<rect x="286.0" y="534.0" width="52.0" height="52.0" rx="2" fill="#b6c3cf" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="312.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">12</text>
+<rect x="130.0" y="586.0" width="52.0" height="52.0" rx="2" fill="#b0becb" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="156.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">13</text>
+<rect x="182.0" y="586.0" width="52.0" height="52.0" rx="2" fill="#aab9c7" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="208.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">14</text>
+<rect x="234.0" y="586.0" width="52.0" height="52.0" rx="2" fill="#a4b4c3" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="260.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">15</text>
+<rect x="286.0" y="586.0" width="52.0" height="52.0" rx="2" fill="#9fb0c0" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="312.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">16</text>
+<text x="234.0" y="670.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">4 суміжні пробіги</text>
+<text x="234.0" y="694.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">розкид ключів у латці — 50 331 652</text>
+<text x="714.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">порядок ключів — мортонів</text>
+<rect x="610.0" y="430.0" width="52.0" height="52.0" rx="2" fill="#f7f9fb" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="636.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="662.0" y="430.0" width="52.0" height="52.0" rx="2" fill="#f1f4f7" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="688.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">2</text>
+<rect x="714.0" y="430.0" width="52.0" height="52.0" rx="2" fill="#dfe5eb" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="740.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">5</text>
+<rect x="766.0" y="430.0" width="52.0" height="52.0" rx="2" fill="#d9e0e7" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="792.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">6</text>
+<rect x="610.0" y="482.0" width="52.0" height="52.0" rx="2" fill="#ebeff3" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="636.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">3</text>
+<rect x="662.0" y="482.0" width="52.0" height="52.0" rx="2" fill="#e5eaef" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="688.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">4</text>
+<rect x="714.0" y="482.0" width="52.0" height="52.0" rx="2" fill="#d3dbe3" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="740.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">7</text>
+<rect x="766.0" y="482.0" width="52.0" height="52.0" rx="2" fill="#cdd6df" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="792.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">8</text>
+<rect x="610.0" y="534.0" width="52.0" height="52.0" rx="2" fill="#c8d2db" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="636.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">9</text>
+<rect x="662.0" y="534.0" width="52.0" height="52.0" rx="2" fill="#c2cdd7" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="688.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">10</text>
+<rect x="714.0" y="534.0" width="52.0" height="52.0" rx="2" fill="#b0becb" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="740.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">13</text>
+<rect x="766.0" y="534.0" width="52.0" height="52.0" rx="2" fill="#aab9c7" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="792.0" y="566.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">14</text>
+<rect x="610.0" y="586.0" width="52.0" height="52.0" rx="2" fill="#bcc8d3" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="636.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">11</text>
+<rect x="662.0" y="586.0" width="52.0" height="52.0" rx="2" fill="#b6c3cf" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="688.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">12</text>
+<rect x="714.0" y="586.0" width="52.0" height="52.0" rx="2" fill="#a4b4c3" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="740.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">15</text>
+<rect x="766.0" y="586.0" width="52.0" height="52.0" rx="2" fill="#9fb0c0" stroke="#8e99a6" stroke-width="1.0"/>
+<text x="792.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">16</text>
+<text x="714.0" y="670.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">1 суміжний пробіг</text>
+<text x="714.0" y="694.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">розкид ключів у латці — 16</text>
+<text x="490.0" y="730.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Екран просить квадратну латку — мортонів ключ кладе її у дві-три суміжні сторінки</text>
+</svg>
