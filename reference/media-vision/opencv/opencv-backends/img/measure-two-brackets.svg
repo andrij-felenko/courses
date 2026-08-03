@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Той самий кадр, два секундоміри</text>
+<text x="46.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">ваш потік</text>
+<text x="46.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">черга пристрою</text>
+<rect x="200.0" y="92.0" width="34.0" height="54.0" rx="4" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="250.0" y="92.0" width="34.0" height="54.0" rx="4" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="300.0" y="92.0" width="34.0" height="54.0" rx="4" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="350.0" y="92.0" width="34.0" height="54.0" rx="4" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="302.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">чотири виклики над UMat</text>
+<rect x="404.0" y="92.0" width="406.0" height="54.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="607.0" y="123.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="607.0" dy="0.0">finish() / copyTo у Mat / imshow — потік стоїть</tspan></text>
+<rect x="250.0" y="250.0" width="120.0" height="54.0" rx="6" fill="#fdf0ec" stroke="#c0392b" stroke-width="1.5"/><text x="310.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">ядро cvtColor</tspan></text>
+<rect x="380.0" y="250.0" width="210.0" height="54.0" rx="6" fill="#fdf0ec" stroke="#c0392b" stroke-width="1.5"/><text x="485.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">ядро розмиття</tspan></text>
+<rect x="600.0" y="250.0" width="90.0" height="54.0" rx="6" fill="#fdf0ec" stroke="#c0392b" stroke-width="1.5"/><text x="645.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="645.0" dy="0.0">ядро LUT</tspan></text>
+<rect x="700.0" y="250.0" width="110.0" height="54.0" rx="6" fill="#fdf0ec" stroke="#c0392b" stroke-width="1.5"/><text x="755.0" y="281.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">ядро порога</tspan></text>
+<line x1="180.0" y1="336.0" x2="900.0" y2="336.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="920.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">час</text>
+<line x1="200.0" y1="362.0" x2="404.0" y2="362.0" stroke="#c0392b" stroke-width="2.2"/><line x1="200.0" y1="354.0" x2="200.0" y2="370.0" stroke="#c0392b" stroke-width="2.2"/><line x1="404.0" y1="354.0" x2="404.0" y2="370.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="302.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">наївний секундомір: 0.42 мс</text>
+<line x1="200.0" y1="414.0" x2="810.0" y2="414.0" stroke="#27ae60" stroke-width="2.2"/><line x1="200.0" y1="406.0" x2="200.0" y2="422.0" stroke="#27ae60" stroke-width="2.2"/><line x1="810.0" y1="406.0" x2="810.0" y2="422.0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="505.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">finish() → робота → finish(): 2.25 мс</text>
+<rect x="60.0" y="466.0" width="900.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="510.0" y="493.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Виклик над UMat повертається одразу — заплачено буде на першому ж запиті готового результату</tspan></text>
+</svg>

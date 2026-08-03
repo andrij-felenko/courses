@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Щілина в ланцюзі й момент, коли її замикають</text>
+<text x="35.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1 · Після складання: сім елементів у біні, зв'язано шість</text>
+<rect x="35.0" y="78.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="107.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">rtspsrc</tspan></text>
+<rect x="215.0" y="78.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="270.0" y="107.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">rtph264depay</tspan></text>
+<rect x="335.0" y="78.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="390.0" y="107.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">h264parse</tspan></text>
+<rect x="455.0" y="78.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="107.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">avdec_h264</tspan></text>
+<rect x="575.0" y="78.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="107.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">videoconvert</tspan></text>
+<rect x="695.0" y="78.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="750.0" y="107.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">queue</tspan></text>
+<rect x="815.0" y="78.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="870.0" y="107.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">autovideosink</tspan></text>
+<line x1="327.0" y1="103.0" x2="333.0" y2="103.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="447.0" y1="103.0" x2="453.0" y2="103.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="567.0" y1="103.0" x2="573.0" y2="103.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="687.0" y1="103.0" x2="693.0" y2="103.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="807.0" y1="103.0" x2="813.0" y2="103.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="151.0" y1="103.0" x2="209.0" y2="103.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6,5"/>
+<text x="180.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">вихідного пада rtspsrc ще не існує</text>
+<text x="35.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2 · Коли надійшов SDP: обробник pad-added замикає щілину</text>
+<rect x="35.0" y="212.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.2"/><text x="90.0" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">rtspsrc</tspan></text>
+<rect x="215.0" y="212.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="270.0" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">rtph264depay</tspan></text>
+<rect x="335.0" y="212.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="390.0" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">h264parse</tspan></text>
+<rect x="455.0" y="212.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">avdec_h264</tspan></text>
+<rect x="575.0" y="212.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">videoconvert</tspan></text>
+<rect x="695.0" y="212.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="750.0" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">queue</tspan></text>
+<rect x="815.0" y="212.0" width="110.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="870.0" y="241.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">autovideosink</tspan></text>
+<line x1="327.0" y1="237.0" x2="333.0" y2="237.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="447.0" y1="237.0" x2="453.0" y2="237.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="567.0" y1="237.0" x2="573.0" y2="237.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="687.0" y1="237.0" x2="693.0" y2="237.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="807.0" y1="237.0" x2="813.0" y2="237.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="151.0" y1="237.0" x2="209.0" y2="237.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="180.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">gst_pad_link(new_pad, sink_pad)</text>
+<text x="35.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Порядок у часі</text>
+<line x1="50.0" y1="382.0" x2="910.0" y2="382.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<circle cx="95.0" cy="382.0" r="5.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="95.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="95.0" dy="0.0">gst_element_set_state</tspan><tspan x="95.0" dy="14.3">(PLAYING)</tspan></text>
+<circle cx="290.0" cy="382.0" r="5.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="290.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">rtspsrc: DESCRIBE,</tspan><tspan x="290.0" dy="14.3">SETUP, PLAY</tspan></text>
+<circle cx="480.0" cy="382.0" r="5.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="480.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">SDP розібрано,</tspan><tspan x="480.0" dy="14.3">пади заведено</tspan></text>
+<circle cx="670.0" cy="382.0" r="5.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="670.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">спрацював pad-added,</tspan><tspan x="670.0" dy="14.3">щілину замкнено</tspan></text>
+<circle cx="860.0" cy="382.0" r="5.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="860.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">перші кадри</tspan><tspan x="860.0" dy="14.3">дійшли до вікна</tspan></text>
+<text x="480.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">підписатися на pad-added треба ДО set_state: сигнал спрацьовує вже під час запуску</text>
+</svg>

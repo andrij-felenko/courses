@@ -1,62 +1,122 @@
 [
  {
   "op": "topic",
-  "section": "foundations",
-  "slug": "kernel-release-model",
-  "title": "Модель випусків ядра: вікно злиття, -rc і стабільні гілки"
+  "section": "memory",
+  "slug": "userfaultfd",
+  "title": "userfaultfd: сторінкові збої в руках програми"
  },
  {
   "op": "topic",
-  "section": "processes",
-  "slug": "daemonize",
-  "title": "Демонізація: відхід у фон"
- },
- {
-  "op": "topic",
-  "section": "devices",
-  "slug": "ioctl-interface",
-  "title": "Керуючий канал до драйвера: ioctl"
- },
- {
-  "op": "topic",
-  "section": "networking",
-  "slug": "netlink-protocol",
-  "title": "Обмін повідомленнями через netlink"
- },
- {
-  "op": "topic",
-  "section": "signals-ipc",
-  "slug": "process-timers",
-  "title": "Таймери процесу: alarm, setitimer, POSIX-таймери й timerfd"
- },
- {
-  "op": "topic",
-  "section": "devices",
-  "slug": "device-mapper",
-  "title": "Device mapper: блоковий пристрій, зібраний із шарів"
- },
- {
-  "op": "topic",
-  "section": "processes",
-  "slug": "cpu-affinity",
-  "title": "Прив'язка задач до ядер: affinity, taskset і cpuset"
- },
- {
-  "op": "topic",
-  "section": "processes",
-  "slug": "kernel-preemption",
-  "title": "Витісненість ядра: від PREEMPT_NONE до PREEMPT_RT"
+  "section": "memory",
+  "slug": "kernel-page-table-isolation",
+  "title": "Ізоляція таблиць сторінок ядра (KPTI): чому ядро прибрали з простору процесу"
  },
  {
   "op": "topic",
   "section": "files",
-  "slug": "chroot",
-  "title": "chroot і його межі"
+  "slug": "file-locking",
+  "title": "Блокування файлів: flock, POSIX-замки й замки на опис відкритого файлу"
+ },
+ {
+  "op": "topic",
+  "section": "memory",
+  "slug": "ksm-page-merging",
+  "title": "KSM: злиття однакових сторінок"
+ },
+ {
+  "op": "topic",
+  "section": "packaging",
+  "slug": "multilib-multiarch",
+  "title": "Multilib і multiarch: два комплекти бібліотек в одній ієрархії"
+ },
+ {
+  "op": "topic",
+  "section": "foundations",
+  "slug": "kernel-cve-and-security-fixes",
+  "title": "CVE в ядрі: потік номерів і що з ним робити"
+ },
+ {
+  "op": "topic",
+  "section": "foundations",
+  "slug": "time-representation-y2038",
+  "title": "Час як число: time_t, епоха і межа 2038 року"
+ },
+ {
+  "op": "topic",
+  "section": "boot-init",
+  "slug": "suspend-and-resume",
+  "title": "Призупинення й пробудження: suspend, hibernate і стан пристроїв"
+ },
+ {
+  "op": "topic",
+  "section": "memory",
+  "slug": "kernel-memory-slab",
+  "title": "Пам'ять ядра: slab і зменшувачі кешів"
+ },
+ {
+  "op": "topic",
+  "section": "files",
+  "slug": "at-family-syscalls",
+  "title": "Сімейство *at: шлях, відлічений від дескриптора каталогу"
+ },
+ {
+  "op": "topic",
+  "section": "files",
+  "slug": "reflink-copies",
+  "title": "Копії з поділом блоків: reflink і copy_file_range"
+ },
+ {
+  "op": "topic",
+  "section": "devices",
+  "slug": "block-device-model",
+  "title": "Блоковий пристрій: сектори, блоки й черга запитів"
+ },
+ {
+  "op": "topic",
+  "section": "memory",
+  "slug": "physical-page-allocator",
+  "title": "Фізичні сторінки в ядрі: зони, блоки за порядками й ущільнення"
  },
  {
   "op": "topic",
   "section": "linking",
-  "slug": "elf-tls",
-  "title": "TLS в ELF: як потік дістає власні глобальні змінні"
+  "slug": "position-independent-code",
+  "title": "Позиційно-незалежний код: PIC, PIE й ціна непрямості"
+ },
+ {
+  "op": "topic",
+  "section": "devices",
+  "slug": "random-devices",
+  "title": "Джерело випадковості в ядрі: /dev/random, /dev/urandom і getrandom"
+ },
+ {
+  "op": "topic",
+  "section": "processes",
+  "slug": "kernel-wait-queues",
+  "title": "Черги очікування в ядрі: як задача засинає й прокидається"
+ },
+ {
+  "op": "topic",
+  "section": "processes",
+  "slug": "kernel-locking",
+  "title": "Замки в ядрі й атомарний контекст: де спати не можна"
+ },
+ {
+  "op": "topic",
+  "section": "devices",
+  "slug": "rcu-mechanism",
+  "title": "RCU: читання без замків і відкладене звільнення"
+ },
+ {
+  "op": "topic",
+  "section": "files",
+  "slug": "readahead",
+  "title": "Випереджувальне читання: як ядро вгадує наступний блок"
+ },
+ {
+  "op": "topic",
+  "section": "memory",
+  "slug": "memory-protection-keys",
+  "title": "Ключі захисту пам'яті: PKU і PKRU"
  }
 ]

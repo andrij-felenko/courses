@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="960" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черга між живим джерелом і повільним споживачем</text>
+<line x1="130.0" y1="330.0" x2="680.0" y2="330.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="130.0" y1="90.0" x2="130.0" y2="330.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="684.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">час</text>
+<text x="130.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">заповнення черги</text>
+<line x1="130.0" y1="110.0" x2="660.0" y2="110.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,5"/>
+<text x="118.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">повна</text>
+<text x="118.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">0</text>
+<polyline points="150.0,330.0 200.0,268.0 250.0,216.0 310.0,168.0 380.0,110.0 660.0,110.0" fill="none" stroke="#c0392b" stroke-width="2.4"/>
+<polyline points="150.0,330.0 195.0,286.0 202.0,324.0 247.0,286.0 254.0,324.0 299.0,286.0 306.0,324.0 351.0,286.0 358.0,324.0 403.0,286.0 410.0,324.0 455.0,286.0 462.0,324.0 507.0,286.0 514.0,324.0 559.0,286.0 566.0,324.0 611.0,286.0 618.0,324.0 663.0,286.0 670.0,324.0 660.0,320.0" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<text x="700.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start"><tspan x="700.0" dy="0.0">звичайна черга:</tspan><tspan x="700.0" dy="17.4">наповнилась і не спорожняється</tspan><tspan x="700.0" dy="17.4">→ зайвий зсув назавжди</tspan></text>
+<text x="700.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start"><tspan x="700.0" dy="0.0">leaky=downstream:</tspan><tspan x="700.0" dy="17.4">найстаріші кадри викидаються</tspan><tspan x="700.0" dy="17.4">→ черга лишається мілкою</tspan></text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1080" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відображення вікна файлу, що починається не з межі сторінки</text>
+<rect x="60.0" y="150.0" width="192.0" height="74.0" rx="0" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<text x="156.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="156.0" dy="0.0">сторінка 0</tspan><tspan x="156.0" dy="14.3">0…4095</tspan></text>
+<rect x="252.0" y="150.0" width="192.0" height="74.0" rx="0" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<text x="348.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="348.0" dy="0.0">сторінка 1</tspan><tspan x="348.0" dy="14.3">4096…8191</tspan></text>
+<rect x="444.0" y="150.0" width="192.0" height="74.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="540.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">сторінка 2</tspan><tspan x="540.0" dy="14.3">8192…12287</tspan></text>
+<rect x="636.0" y="150.0" width="192.0" height="74.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="732.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="732.0" dy="0.0">сторінка 3</tspan><tspan x="732.0" dy="14.3">12288…16383</tspan></text>
+<rect x="828.0" y="150.0" width="192.0" height="74.0" rx="0" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<text x="924.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="924.0" dy="0.0">сторінка 4</tspan><tspan x="924.0" dy="14.3">16384…20479</tspan></text>
+<rect x="481.9" y="92.0" width="187.5" height="30.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="575.6" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">потрібні байти 9000…12999</text>
+<rect x="444.0" y="244.0" width="384.0" height="30.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.7"/>
+<text x="700.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">відображення 8192…16383 — від межі сторінки й до цілих сторінок</text>
+<line x1="444.0" y1="122.0" x2="444.0" y2="300.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4,4"/>
+<line x1="481.9" y1="122.0" x2="481.9" y2="300.0" stroke="#c0392b" stroke-width="1.1" stroke-dasharray="4,4"/>
+<line x1="444.0" y1="300.0" x2="481.9" y2="300.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="462.9" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">delta = 9000 − 8192 = 808</text>
+<rect x="60.0" y="348.0" width="960.0" height="56.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.3"/><text x="540.0" y="372.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">mmap повертає адресу початку сторінки 2 — адреса потрібного байта це base + delta</tspan><tspan x="540.0" dy="15.6">а в munmap треба передати саме base з повною довжиною, а не виправлений вказівник</tspan></text>
+<text x="540.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">зсув округлюють униз до межі сторінки, а різницю додають до довжини й потім до вказівника</text>
+</svg>

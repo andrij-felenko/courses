@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 990 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="990" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="495.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бісекція: кожен крок ділить конвеєр навпіл</text>
+<text x="48.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">повний конвеєр: чорний екран, помилки на шині нема</text>
+<rect x="48.0" y="92.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="111.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="111.0" dy="0.0">rtspsrc</tspan></text>
+<rect x="200.0" y="92.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="263.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="263.0" dy="0.0">depay</tspan></text>
+<line x1="174.0" y1="115.0" x2="200.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="352.0" y="92.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="415.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="415.0" dy="0.0">parse</tspan></text>
+<line x1="326.0" y1="115.0" x2="352.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="504.0" y="92.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="567.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="567.0" dy="0.0">decode</tspan></text>
+<line x1="478.0" y1="115.0" x2="504.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="656.0" y="92.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="719.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="719.0" dy="0.0">convert</tspan></text>
+<line x1="630.0" y1="115.0" x2="656.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="808.0" y="92.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="871.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="871.0" dy="0.0">sink</tspan></text>
+<line x1="782.0" y1="115.0" x2="808.0" y2="115.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="48.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">хвіст відрізано — чи доходять кадри хоча б сюди?</text>
+<rect x="48.0" y="206.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="111.0" y="233.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="111.0" dy="0.0">rtspsrc</tspan></text>
+<rect x="200.0" y="206.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="263.0" y="233.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="263.0" dy="0.0">depay</tspan></text>
+<line x1="174.0" y1="229.0" x2="200.0" y2="229.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="352.0" y="206.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="415.0" y="233.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="415.0" dy="0.0">parse</tspan></text>
+<line x1="326.0" y1="229.0" x2="352.0" y2="229.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="504.0" y="206.0" width="126.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="567.0" y="233.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="567.0" dy="0.0">fakesink</tspan></text>
+<line x1="478.0" y1="229.0" x2="504.0" y2="229.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="48.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">голову замінено — чи показує хвіст завідомо справне джерело?</text>
+<rect x="48.0" y="320.0" width="126.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="111.0" y="347.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="111.0" dy="0.0">videotestsrc</tspan></text>
+<rect x="200.0" y="320.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="263.0" y="347.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="263.0" dy="0.0">convert</tspan></text>
+<line x1="174.0" y1="343.0" x2="200.0" y2="343.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="352.0" y="320.0" width="126.0" height="46.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="415.0" y="347.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="415.0" dy="0.0">sink</tspan></text>
+<line x1="326.0" y1="343.0" x2="352.0" y2="343.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Де жив лічильник власників: три покоління API</text>
+<text x="180.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">C-API, з 2000-го</tspan><tspan x="180.0" dy="16.9">IplImage / CvMat</tspan></text>
+<rect x="40.0" y="96.0" width="280.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="180.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">IplImage</tspan><tspan x="180.0" dy="15.6">imageData →</tspan><tspan x="180.0" dy="15.6">лічильника НЕМА</tspan></text>
+<line x1="180.0" y1="172.0" x2="180.0" y2="214.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="214.0" width="300.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="180.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">блок пікселів</tspan><tspan x="180.0" dy="15.6">(і більше нічого)</tspan></text>
+<text x="180.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="180.0" dy="0.0">звільняє людина:</tspan><tspan x="180.0" dy="14.3">cvReleaseImage(&amp;img)</tspan></text>
+<text x="510.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">C++-інтерфейс, 2.0 (2009)</tspan><tspan x="510.0" dy="16.9">Mat з int* refcount</tspan></text>
+<rect x="370.0" y="96.0" width="280.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="510.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Mat</tspan><tspan x="510.0" dy="15.6">data →</tspan><tspan x="510.0" dy="15.6">refcount →</tspan></text>
+<line x1="510.0" y1="172.0" x2="510.0" y2="214.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="360.0" y="214.0" width="300.0" height="62.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="510.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">блок пікселів</tspan><tspan x="510.0" dy="15.6">⟨вирівняно⟩  [ refcount ]</tspan></text>
+<text x="510.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="510.0" dy="0.0">звільняє останній Mat;</tspan><tspan x="510.0" dy="14.3">лічильник — у хвості того самого</tspan><tspan x="510.0" dy="14.3">блоку, поряд із пікселями</tspan></text>
+<text x="840.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="840.0" dy="0.0">T-API, 3.0 (2015)</tspan><tspan x="840.0" dy="16.9">Mat + UMat через UMatData</tspan></text>
+<rect x="700.0" y="96.0" width="280.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="840.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">Mat        UMat</tspan><tspan x="840.0" dy="15.6">data →      handle →</tspan><tspan x="840.0" dy="15.6">u →              u →</tspan></text>
+<line x1="840.0" y1="172.0" x2="840.0" y2="214.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="690.0" y="214.0" width="300.0" height="62.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="840.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">UMatData:  refcount · urefcount</tspan><tspan x="840.0" dy="15.6">data · origdata · handle</tspan></text>
+<text x="840.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="840.0" dy="0.0">звільняє останній власник —</tspan><tspan x="840.0" dy="14.3">байдуже, Mat він чи UMat;</tspan><tspan x="840.0" dy="14.3">лічильник відірвано від пікселів</tspan></text>
+</svg>

@@ -1,7 +1,7 @@
 {
  "book": "unix-linux",
  "kind": "reference",
- "limit": 34,
+ "limit": 59,
  "concurrency": 4,
  "skipArticles": true,
  "units": [
@@ -87,6 +87,24 @@
    "section": "foundations",
    "slug": "kernel-abi-stability",
    "title": "«Не ламати простір користувача»: сталість ABI ядра",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "kernel-release-model",
+   "title": "Модель випусків ядра: вікно злиття, -rc і стабільні гілки",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "kernel-timekeeping",
+   "title": "Час у ядрі: тики, монотонний годинник і джерела часу",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "compat-32-on-64",
+   "title": "32-бітні програми на 64-бітному ядрі: шар сумісности",
    "level": "detailed"
   },
   {
@@ -177,6 +195,138 @@
    "section": "processes",
    "slug": "resource-limits",
    "title": "Ліміти ресурсів: rlimit і ulimit",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "cpu-time-accounting",
+   "title": "Облік процесорного часу: як ядро набирає user і sys",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "daemonize",
+   "title": "Демонізація: відхід у фон",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "cpu-affinity",
+   "title": "Прив'язка задач до ядер: affinity, taskset і cpuset",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "kernel-preemption",
+   "title": "Витісненість ядра: від PREEMPT_NONE до PREEMPT_RT",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "kernel-threads",
+   "title": "Потоки ядра: задачі без простору користувача",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "binfmt-misc",
+   "title": "binfmt_misc: як ядро вчиться запускати чужі формати",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "virtual-address-space",
+   "title": "Віртуальний адресний простір процесу",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "paging-and-mmu",
+   "title": "Сторінки, таблиці сторінок і MMU",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "page-fault",
+   "title": "Сторінковий збій: чому все ліниве",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "mmap-model",
+   "title": "mmap: файл і пам'ять як одне",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "copy-on-write",
+   "title": "Копіювання при записі",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "swap-and-reclaim",
+   "title": "Свопінг і витіснення сторінок",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "overcommit-and-oom",
+   "title": "Overcommit і OOM-killer",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "memory-accounting",
+   "title": "Як міряти пам'ять процесу: VSZ, RSS, PSS",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "allocator-and-kernel",
+   "title": "Звідки алокатор бере пам'ять: brk і mmap",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "huge-pages",
+   "title": "Великі сторінки: HugeTLB і прозорі великі сторінки",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "address-space-randomization",
+   "title": "Рандомізація адресного простору в системі: рівні та вимикачі",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "file-descriptor",
+   "title": "Файловий дескриптор",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "open-file-description",
+   "title": "Опис відкритого файлу: що спільне після fork",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "inode-model",
+   "title": "Inode: файл без імені",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "directory-as-mapping",
+   "title": "Каталог як відображення імен",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "hard-and-symbolic-links",
+   "title": "Жорсткі й символьні посилання",
    "level": "detailed"
   }
  ],

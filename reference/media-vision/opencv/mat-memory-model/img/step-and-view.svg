@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вид ділить буфер: що змінюється, а що лишається</text>
+<rect x="60.0" y="108.0" width="840.0" height="62.0" rx="6" fill="#f7f7f7" stroke="#333333" stroke-width="1.6"/>
+<line x1="200.0" y1="108.0" x2="200.0" y2="170.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="340.0" y1="108.0" x2="340.0" y2="170.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="480.0" y1="108.0" x2="480.0" y2="170.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="620.0" y1="108.0" x2="620.0" y2="170.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="760.0" y1="108.0" x2="760.0" y2="170.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="130.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рядок 0</text>
+<text x="270.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рядок 1</text>
+<text x="410.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рядок 2</text>
+<text x="550.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рядок 3</text>
+<text x="690.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рядок 4</text>
+<text x="830.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рядок 5</text>
+<rect x="238.0" y="138.0" width="72.0" height="24.0" rx="3" fill="#cdebd9" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="378.0" y="138.0" width="72.0" height="24.0" rx="3" fill="#cdebd9" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="518.0" y="138.0" width="72.0" height="24.0" rx="3" fill="#cdebd9" stroke="#27ae60" stroke-width="1.4"/>
+<line x1="340.0" y1="88.0" x2="480.0" y2="88.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="340.0" y1="82.0" x2="340.0" y2="94.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="480.0" y1="82.0" x2="480.0" y2="94.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="410.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">step[0] = 5760 Б</text>
+<text x="414.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">cols · elemSize = 1920 Б</text>
+<line x1="414.0" y1="190.0" x2="414.0" y2="172.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="60.0" y1="170.0" x2="60.0" y2="252.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="60.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">datastart</text>
+<line x1="238.0" y1="170.0" x2="238.0" y2="252.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="238.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">data</text>
+<line x1="900.0" y1="170.0" x2="900.0" y2="252.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="900.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">datalimit</text>
+<text x="60.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">• data — перший байт вида; datastart і datalimit лишаються від УСЬОГО буфера;</text>
+<text x="60.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">• step[0] лишається кроком повного кадру — між рядками вида стоять чужі байти;</text>
+<text x="60.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">• тому isContinuous() = false, і однопрохідний цикл по всіх пікселях заборонений.</text>
+</svg>

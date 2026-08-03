@@ -178,8 +178,11 @@ async function staggered(items, fn) {
   let next = 0
   async function worker() {
     while (next < items.length) {
-      if (WALL) break                               // стіна ліміту — решту черги НЕ починаємо (див. callAgent)
       const i = next++                              // JS однопотоковий — інкремент атомарний
+      // ⚠️ Під стіною ліміту цикл НЕ переривається, а швидко стікає: callAgent під WALL повертає null
+      // МИТТЄВО (агента не породжує), тож fn дає результат правильної форми з ok:false.
+      // Раніше тут стояв `if (WALL) break` — і масив лишався РІДКИМ. `.filter()` дірки пропускає,
+      // тому фаза «Фігури» бачила порожній svgBad і рапортувала «усі 0 зауважень», нічого не полагодивши.
       results[i] = await fn(items[i], i)
     }
   }

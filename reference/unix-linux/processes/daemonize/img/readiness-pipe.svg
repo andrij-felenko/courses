@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1260" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="630.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Труба готовності: єдиний зв'язок, що переживає обидва розділення</text>
+<text x="40.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">пускач</text>
+<rect x="217.8" y="113.5" width="64.5" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="134.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">pipe()</tspan></text>
+<rect x="377.8" y="113.5" width="64.5" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="134.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">fork()</tspan></text>
+<rect x="609.2" y="105.0" width="101.5" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="660.0" y="126.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">read(труба)</tspan><tspan x="660.0" dy="16.9">блокує</tspan></text>
+<rect x="1028.1" y="113.5" width="123.7" height="33.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="1090.0" y="134.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle"><tspan x="1090.0" dy="0.0">_exit(0 або 1)</tspan></text>
+<line x1="170.0" y1="130.0" x2="211.8" y2="130.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="288.2" y1="130.0" x2="371.8" y2="130.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="448.2" y1="130.0" x2="603.2" y2="130.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="716.8" y1="130.0" x2="1022.1" y2="130.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="1157.9" y1="130.0" x2="1180.0" y2="130.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="40.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">демон</text>
+<rect x="355.5" y="295.1" width="108.9" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="316.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">setsid()</tspan><tspan x="410.0" dy="16.9">друге fork()</tspan></text>
+<rect x="634.4" y="295.1" width="131.1" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="316.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">відкрив порт,</tspan><tspan x="700.0" dy="16.9">прочитав конфіг</tspan></text>
+<rect x="887.0" y="303.5" width="146.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="960.0" y="324.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle"><tspan x="960.0" dy="0.0">write(труба, «R»)</tspan></text>
+<line x1="170.0" y1="320.0" x2="349.5" y2="320.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="470.5" y1="320.0" x2="628.4" y2="320.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="771.6" y1="320.0" x2="881.0" y2="320.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="1039.0" y1="320.0" x2="1180.0" y2="320.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="960.0" y1="288.0" x2="960.0" y2="225.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="960.0" y1="225.0" x2="660.0" y2="225.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="660.0" y1="225.0" x2="660.0" y2="168.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="975.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">готовність</text>
+<text x="630.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">демон помер до готовності → кінець запису зник → read() повертає 0 байтів, а не чекає вічно</text>
+</svg>

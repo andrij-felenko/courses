@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1144 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1144" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="572.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири моменти, коли важіль керування спрацьовує</text>
+<text x="572.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">час: від складання бібліотеки до окремого кадру</text>
+<line x1="56.0" y1="100.0" x2="1088.0" y2="100.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="170.0" y1="92.0" x2="170.0" y2="108.0" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="50.0" y="124.0" width="240.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/><text x="170.0" y="143.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">1 · Збірка бібліотеки</tspan><tspan x="170.0" dy="16.9">cmake</tspan></text>
+<text x="170.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="170.0" dy="0.0">чи є в бінарнику</tspan><tspan x="170.0" dy="15.6">код для цього шляху</tspan></text>
+<rect x="50.0" y="228.0" width="240.0" height="132.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="170.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">WITH_OPENCL</text>
+<text x="170.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">WITH_IPP · BUILD_IPP_IW</text>
+<text x="170.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">WITH_TBB · WITH_OPENMP</text>
+<text x="170.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">CPU_BASELINE · CPU_DISPATCH</text>
+<text x="170.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">WITH_CUDA · WITH_VA_INTEL</text>
+<text x="170.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle"><tspan x="170.0" dy="0.0">міняється лише перезбіркою:</tspan><tspan x="170.0" dy="14.3">на робочій машині</tspan><tspan x="170.0" dy="14.3">важіль недосяжний</tspan></text>
+<line x1="438.0" y1="92.0" x2="438.0" y2="108.0" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="318.0" y="124.0" width="240.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.0"/><text x="438.0" y="143.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="438.0" dy="0.0">2 · Старт процесу</tspan><tspan x="438.0" dy="16.9">змінні середовища</tspan></text>
+<text x="438.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="438.0" dy="0.0">який пристрій узяти</tspan><tspan x="438.0" dy="15.6">і що писати в кеш</tspan></text>
+<rect x="318.0" y="228.0" width="240.0" height="132.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="438.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">OPENCV_OPENCL_DEVICE</text>
+<text x="438.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">OPENCV_OPENCL_RUNTIME</text>
+<text x="438.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">OPENCV_OPENCL_CACHE_*</text>
+<text x="438.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">OPENCV_OPENCL_RAISE_ERROR</text>
+<text x="438.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">OPENCV_TRACE</text>
+<text x="438.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">OPENCV_THREAD_POOL_*</text>
+<text x="438.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="438.0" dy="0.0">читаються один раз,</tspan><tspan x="438.0" dy="14.3">при першому дотику:</tspan><tspan x="438.0" dy="14.3">putenv посеред роботи пізно</tspan></text>
+<line x1="706.0" y1="92.0" x2="706.0" y2="108.0" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="586.0" y="124.0" width="240.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.0"/><text x="706.0" y="143.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="706.0" dy="0.0">3 · Виклики в коді</tspan><tspan x="706.0" dy="16.9">під час роботи</tspan></text>
+<text x="706.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="706.0" dy="0.0">увімкнути шлях, спитати</tspan><tspan x="706.0" dy="15.6">пристрій, закрити чергу</tspan></text>
+<rect x="586.0" y="228.0" width="240.0" height="132.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="706.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ocl::haveOpenCL()</text>
+<text x="706.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ocl::setUseOpenCL()</text>
+<text x="706.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ocl::finish()</text>
+<text x="706.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ocl::Device::getDefault()</text>
+<text x="706.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">setNumThreads()</text>
+<text x="706.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">setUseOptimized()</text>
+<text x="706.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="706.0" dy="0.0">діють з наступного виклику;</tspan><tspan x="706.0" dy="14.3">setUseOpenCL живе</tspan><tspan x="706.0" dy="14.3">окремо в кожному потоці</tspan></text>
+<line x1="974.0" y1="92.0" x2="974.0" y2="108.0" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="854.0" y="124.0" width="240.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.0"/><text x="974.0" y="143.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="974.0" dy="0.0">4 · Створення буфера</tspan><tspan x="974.0" dy="16.9">тип і прапорці</tspan></text>
+<text x="974.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="974.0" dy="0.0">де лежать пікселі</tspan><tspan x="974.0" dy="15.6">саме цього кадру</tspan></text>
+<rect x="854.0" y="228.0" width="240.0" height="132.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="974.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">cv::UMat проти cv::Mat</text>
+<text x="974.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">USAGE_ALLOCATE_HOST_MEMORY</text>
+<text x="974.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">AccessFlag</text>
+<text x="974.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">getUMat() · getMat()</text>
+<text x="974.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">CAP_PROP_HW_ACCELERATION</text>
+<text x="974.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="974.0" dy="0.0">вирішується наново</tspan><tspan x="974.0" dy="14.3">для кожного буфера —</tspan><tspan x="974.0" dy="14.3">і саме тут платять байтами</tspan></text>
+<rect x="50.0" y="450.0" width="1044.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="572.0" y="476.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="572.0" dy="0.0">Важіль лівіше не обійти важелем правіше: чого немає у збірці, того не створять ані змінна середовища, ані виклик</tspan></text>
+</svg>

@@ -47,7 +47,7 @@
         { slug: "telemetry-logging", title: "Запис телеметрії й відтворення логів", basic: { status: "done" }, detailed: { status: "done" } , api: [{ file: "api-tlog-format.md", status: "done" }] , proj: [{ file: "proj-tlog-reader.md", status: "done" }] },
         { slug: "mavlink-inspector", title: "Інспектор MAVLink: перегляд сирого трафіку", basic: { status: "empty" }, detailed: { status: "done" } , proj: [{ file: "proj-inspector-tap.md", status: "done" }] , math: [{ file: "math-rate-estimator.md", status: "done" }] , api: [{ file: "api-inspector-qml.md", status: "done" }] },
         { slug: "vehicle-logs", title: "Бортові логи апарата: завантаження й потокове передавання", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-log-protocol.md", status: "done" }] , proj: [{ file: "proj-log-downloader.md", status: "done" }] , hist: [{ file: "hist-log-protocol-origins.md", status: "done" }] },
-        { slug: "log-viewer", title: "Переглядач логів: графіки й повідомлення з бортового файлу", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "log-viewer", title: "Переглядач логів: графіки й повідомлення з бортового файлу", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-log-formats.md", status: "done" }] , proj: [{ file: "proj-dataflash-reader.md", status: "done" }] , hist: [{ file: "hist-log-analysis-outside.md", status: "done" }] },
       ] },
 
     { slug: "planning", title: "Планування місій", scope: "Модель плану в застосунку: з чого він складається і як потрапляє на борт.",

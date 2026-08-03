@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розкладка ATT у двох версіях прошивки: одне ім'я, різні зміщення</text>
+<rect x="40.0" y="40.0" width="440.0" height="400.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="260.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">ArduPilot Copter-3.6</text>
+<text x="260.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">FMT: ATT · довжина 27 · формат QccccCCCC</text>
+<line x1="52.0" y1="102.0" x2="468.0" y2="102.0" stroke="#dfe3e8" stroke-width="1.0"/>
+<text x="56.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">поле</text>
+<text x="190.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">літера</text>
+<text x="230.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">тип у файлі</text>
+<text x="464.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">зміщення</text>
+<line x1="52.0" y1="132.0" x2="468.0" y2="132.0" stroke="#dfe3e8" stroke-width="1.0"/>
+<text x="56.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">TimeUS</text>
+<text x="190.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Q</text>
+<text x="230.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">uint64</text>
+<text x="464.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">3</text>
+<text x="56.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">DesRoll</text>
+<text x="190.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">c</text>
+<text x="230.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">int16 × 0.01</text>
+<text x="464.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">11</text>
+<rect x="50.0" y="198.0" width="420.0" height="26.0" rx="4" fill="#eaf4ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="56.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Roll</text>
+<text x="190.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">c</text>
+<text x="230.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start">int16 × 0.01</text>
+<text x="464.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="end" font-weight="700">13</text>
+<text x="56.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">DesPitch</text>
+<text x="190.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">c</text>
+<text x="230.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">int16 × 0.01</text>
+<text x="464.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">15</text>
+<text x="56.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">Pitch</text>
+<text x="190.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">c</text>
+<text x="230.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">int16 × 0.01</text>
+<text x="464.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">17</text>
+<text x="56.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">DesYaw</text>
+<text x="190.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<text x="230.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">uint16 × 0.01</text>
+<text x="464.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">19</text>
+<text x="56.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">Yaw</text>
+<text x="190.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<text x="230.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">uint16 × 0.01</text>
+<text x="464.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">21</text>
+<text x="56.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">ErrRP</text>
+<text x="190.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<text x="230.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">uint16 × 0.01</text>
+<text x="464.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">23</text>
+<text x="56.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">ErrYaw</text>
+<text x="190.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<text x="230.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">uint16 × 0.01</text>
+<text x="464.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">25</text>
+<line x1="52.0" y1="410.0" x2="468.0" y2="410.0" stroke="#dfe3e8" stroke-width="1.0"/>
+<text x="464.0" y="429.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">3 + 8 + 8×2 = 27</text>
+<rect x="520.0" y="40.0" width="440.0" height="400.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="740.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">ArduPilot, теперішня гілка</text>
+<text x="740.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">FMT: ATT · довжина 36 · формат QffffffB</text>
+<line x1="532.0" y1="102.0" x2="948.0" y2="102.0" stroke="#dfe3e8" stroke-width="1.0"/>
+<text x="536.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">поле</text>
+<text x="670.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">літера</text>
+<text x="710.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">тип у файлі</text>
+<text x="944.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">зміщення</text>
+<line x1="532.0" y1="132.0" x2="948.0" y2="132.0" stroke="#dfe3e8" stroke-width="1.0"/>
+<text x="536.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">TimeUS</text>
+<text x="670.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Q</text>
+<text x="710.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">uint64</text>
+<text x="944.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">3</text>
+<text x="536.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">DesRoll</text>
+<text x="670.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">f</text>
+<text x="710.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">float</text>
+<text x="944.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">11</text>
+<rect x="530.0" y="198.0" width="420.0" height="26.0" rx="4" fill="#eaf4ee" stroke="#27ae60" stroke-width="1.4"/>
+<text x="536.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Roll</text>
+<text x="670.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">f</text>
+<text x="710.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start">float</text>
+<text x="944.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="end" font-weight="700">15</text>
+<text x="536.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">DesPitch</text>
+<text x="670.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">f</text>
+<text x="710.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">float</text>
+<text x="944.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">19</text>
+<text x="536.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">Pitch</text>
+<text x="670.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">f</text>
+<text x="710.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">float</text>
+<text x="944.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">23</text>
+<text x="536.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">DesYaw</text>
+<text x="670.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">f</text>
+<text x="710.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">float</text>
+<text x="944.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">27</text>
+<text x="536.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">Yaw</text>
+<text x="670.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">f</text>
+<text x="710.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">float</text>
+<text x="944.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">31</text>
+<text x="536.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">AEKF</text>
+<text x="670.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<text x="710.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">uint8</text>
+<text x="944.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">35</text>
+<line x1="532.0" y1="410.0" x2="948.0" y2="410.0" stroke="#dfe3e8" stroke-width="1.0"/>
+<text x="944.0" y="429.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">3 + 8 + 6×4 + 1 = 36</text>
+<rect x="218.7" y="473.9" width="562.6" height="52.2" rx="6" fill="#eaf4ee" stroke="#27ae60" stroke-width="2.0"/><text x="500.0" y="495.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">те саме ім'я «ATT.Roll» — інша літера, інше зміщення, інший множник;</tspan><tspan x="500.0" dy="18.2">зашита в програму розкладка мовчки дає тут безглузде число</tspan></text>
+</svg>

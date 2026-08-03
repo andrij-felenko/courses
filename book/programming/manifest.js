@@ -79,6 +79,11 @@
         { slug: "cpuid", title: "CPUID: як програма питає процесор про його можливості", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "dataflow-architecture", title: "Потокова архітектура обчислень (dataflow)", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "distributed-shared-memory", title: "Розподілена спільна пам'ять", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "gpu-host-device-memory", title: "Пам'ять хоста і прискорювача: копії, спільна й закріплена пам'ять", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "processor-word-size", title: "Розрядність процесора й режими сумісности", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "instruction-set-emulation", title: "Емуляція набору інструкцій: як виконати чужий машинний код", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "vliw-epic", title: "VLIW і EPIC: паралельність, розкладена компілятором", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "dynamic-binary-translation", title: "Динамічна двійкова трансляція", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "architecture-discipline", title: "Дисципліна архітектора", scope: "Ремесло архітектора понад механізмами: якісні атрибути й сценарії, драйвери, тактики, аналіз компромісів і оцінювання (ATAM-клас), рішення під невизначеністю й ризиком, в'ю і документування (C4, 4+1, arc42), рев'ю й комунікація рішень, роль і стейкхолдери, соціотехніка команд, економіка рішень, еволюція систем.",
       topics: [
@@ -434,6 +439,7 @@
         { slug: "xml-markup", title: "XML: дерево елементів, атрибути й простори імен", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "sentinel-values", title: "Вартові значення: як позначити «нічого» всередині типу", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "bitset", title: "Бітова множина: множина як набір бітів", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "self-describing-format", title: "Самоописовий формат: схема всередині файлу", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "languages", title: "Мови", scope: "Парадигми, дизайн і трансляція мов: імперативна/об'єктна/функційна/логічна/реактивна моделі, синтаксис, системи типів, метапрограмування, лексика, парсинг, IR, оптимізація, генерація коду, рантайми.",
       topics: [
@@ -476,6 +482,7 @@
         { slug: "constructors-destructors", title: "Конструктор і деструктор: народження й смерть об'єкта", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "preprocessor-macros", title: "Препроцесор і макроси", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "type-inference", title: "Виведення типів: як компілятор здогадується сам", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "object-system-in-c", title: "Об'єктна система поверх C: клас, примірник, реєстрація типу", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "systems", title: "Системи", scope: "Керування ресурсами й виконанням: процеси, планування, віртуальна й фізична пам'ять (стек, купа, алокатори, GC, покажчики), файлові системи, драйвери, потоки, синхронізація, моделі пам'яті, неблокувальність.",
       topics: [
@@ -546,6 +553,9 @@
         { slug: "working-set", title: "Робоча множина", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "atomic-file-replace", title: "Атомарна заміна файлу: запис у тимчасовий і перейменування", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "preemptive-multitasking", title: "Витісняльна багатозадачність", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "spinlock", title: "Спін-замок", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "locality-of-reference", title: "Локальність звернень: чому недавнє минуле передбачає майбутнє", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "read-copy-update", title: "RCU: читання без замків і період відстрочки", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "peripherals", title: "Периферія", scope: "Порти, шини й контролери материнської плати та підключення зовнішніх пристроїв: PCIe, USB, BIOS/UEFI, ввід-вивід.",
       topics: [
@@ -641,6 +651,7 @@
         { slug: "tile-service-terms", title: "Умови користування тайловими сервісами", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "tile-url-schemes", title: "Адресні схеми тайлових сервісів: XYZ, TMS, WMTS, quadkey", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "graphics-api-context", title: "Графічні API і контекст: OpenGL, Vulkan, Metal, Direct3D", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "opencl-compute-model", title: "OpenCL: контекст, черга команд, ядра й буфери", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "security", title: "Безпека", scope: "Захист програм від атак: класи вразливостей, ізоляція, криптографія в коді, моделі загроз, аудит.",
       topics: [
@@ -672,6 +683,8 @@
         { slug: "mandatory-access-control", title: "Обов'язковий доступ і мітки таємності (MAC)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "toctou-race", title: "Гонка між перевіркою й використанням (TOCTOU)", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "aslr", title: "ASLR: рандомізація розкладки адресного простору", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "code-reuse-attacks", title: "Атаки з повторним використанням коду: return-to-libc і ROP", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "no-execute-memory", title: "Пам'ять без права виконання: біт NX і правило W^X", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "software-engineering", title: "Інженерія", scope: "Проєктування, супровід і верифікація систем: архітектурні патерни, модульність, рефакторинг, процеси розробки, види тестів, фаззинг, формальні методи, неперервна інтеграція.",
       topics: [
@@ -738,6 +751,8 @@
         { slug: "git-submodules", title: "Підмодулі git", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "commit-message-conventions", title: "Угоди про повідомлення комітів: історія як структуровані дані", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "git-hooks", title: "Гачки git: перевірки, вбудовані в дії репозиторію", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "software-patents-and-pools", title: "Патенти на ПЗ і патентні пули: чому код буває неможливо поширювати", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "developer-certificate-of-origin", title: "Свідоцтво про походження коду (DCO) і підпис Signed-off-by", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "embedded-systems", title: "Вбудовані системи", scope: "Програмування мікроконтролерів і прошивок: периферія МК, реального часу (RTOS), тулчейни, драйвери, апаратна взаємодія.",
       topics: [

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скільки збоїв коштує обхід 65536 сторінок файлу</text>
+<rect x="350.0" y="60.0" width="16.0" height="16.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="374.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">дрібні збої</text>
+<rect x="500.0" y="60.0" width="16.0" height="16.0" rx="3" fill="#fdeeec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="524.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">великі збої</text>
+<text x="336.0" y="125.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end"><tspan x="336.0" dy="0.0">теплий кеш,</tspan><tspan x="336.0" dy="16.9">послідовно</tspan></text>
+<rect x="350.0" y="108.0" width="41.2" height="42.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="1164.0" y="133.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end"><tspan x="1164.0" dy="0.0">4096 дрібних</tspan></text>
+<text x="336.0" y="199.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end"><tspan x="336.0" dy="0.0">холодний кеш,</tspan><tspan x="336.0" dy="16.9">послідовно</tspan></text>
+<rect x="350.0" y="182.0" width="20.6" height="42.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="370.6" y="182.0" width="20.6" height="42.0" rx="3" fill="#fdeeec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="1164.0" y="207.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end"><tspan x="1164.0" dy="0.0">2048 + 2048</tspan></text>
+<text x="336.0" y="273.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end"><tspan x="336.0" dy="0.0">холодний + MADV_WILLNEED,</tspan><tspan x="336.0" dy="16.9">потім послідовно</tspan></text>
+<rect x="350.0" y="256.0" width="41.2" height="42.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="1164.0" y="273.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end"><tspan x="1164.0" dy="0.0">4096 дрібних</tspan><tspan x="1164.0" dy="16.9">+ 218 мс прогрівання</tspan></text>
+<text x="336.0" y="347.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end"><tspan x="336.0" dy="0.0">холодний + MADV_RANDOM,</tspan><tspan x="336.0" dy="16.9">вроздріб</tspan></text>
+<rect x="350.0" y="330.0" width="21.9" height="42.0" rx="3" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="371.9" y="330.0" width="596.3" height="42.0" rx="3" fill="#fdeeec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="1164.0" y="347.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end"><tspan x="1164.0" dy="0.0">2170 + 59214</tspan><tspan x="1164.0" dy="16.9">5.3 секунди чекання</tspan></text>
+<text x="590.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">4096 = 65536 ÷ 16: одним збоєм fault-around відображає 16 сусідніх сторінок (fault_around_bytes = 65536)</text>
+<text x="590.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">2048 = 65536 ÷ 32: вікно випереджального читання — 128 КіБ, тобто 32 сторінки на одне звернення до носія</text>
+<text x="590.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">MADV_RANDOM вимикає випереджальне читання — і майже кожна сторінка йде на носій окремо</text>
+</svg>

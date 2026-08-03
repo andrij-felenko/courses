@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що приходить у семплі й що лежить у пам'яті</text>
+<rect x="30.0" y="70.0" width="450.0" height="320.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="255.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">GstSample</text>
+<rect x="50.0" y="118.0" width="410.0" height="78.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="255.0" y="152.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">GstBuffer: PTS, DTS, тривалість,</tspan><tspan x="255.0" dy="18.2">прапорці, блоки пам'яті</tspan></text>
+<rect x="50.0" y="212.0" width="410.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="255.0" y="245.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">GstCaps: video/x-raw, BGR, 640×480</tspan></text>
+<rect x="50.0" y="288.0" width="410.0" height="78.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="255.0" y="322.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">GstSegment: як мітки часу</tspan><tspan x="255.0" dy="18.2">переводяться в час показу</tspan></text>
+<text x="765.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">рядок кадру в пам'яті</text>
+<rect x="540.0" y="120.0" width="300.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="840.0" y="120.0" width="110.0" height="46.0" rx="6" fill="#e8ecf0" stroke="#333333" stroke-width="1.5"/>
+<text x="690.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">640 × 3 = 1920 байтів</text>
+<text x="895.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">доповнення</text>
+<rect x="540.0" y="176.0" width="300.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="840.0" y="176.0" width="110.0" height="46.0" rx="6" fill="#e8ecf0" stroke="#333333" stroke-width="1.5"/>
+<text x="690.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">наступний рядок</text>
+<text x="895.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">доповнення</text>
+<line x1="540.0" y1="244.0" x2="540.0" y2="256.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="950.0" y1="244.0" x2="950.0" y2="256.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="540.0" y1="250.0" x2="950.0" y2="250.0" stroke="#333333" stroke-width="1.5"/>
+<text x="745.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">крок рядка = 1984 байти</text>
+<text x="765.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="765.0" dy="0.0">ширина × 3 ≠ довжина рядка;</tspan><tspan x="765.0" dy="15.6">крок беруть із caps через GstVideoInfo</tspan></text>
+</svg>

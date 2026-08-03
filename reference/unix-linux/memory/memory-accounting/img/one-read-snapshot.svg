@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 508" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1120" height="508" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Знімок карти цілий рівно доти, доки триває один read()</text>
+<rect x="40.0" y="76.0" width="250.0" height="58.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="165.0" y="100.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">одне read()</tspan><tspan x="165.0" dy="19.5">у буфер на 4 МіБ</tspan></text>
+<rect x="320.0" y="82.0" width="700.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="670.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">ядро йде всіма 2874 ділянками, не відпускаючи карти</text>
+<rect x="320.0" y="148.0" width="700.0" height="46.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="670.0" y="175.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">усі рядки описують ОДИН стан карти — суми сходяться</tspan></text>
+<rect x="40.0" y="262.0" width="250.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="165.0" y="286.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">кілька read()</tspan><tspan x="165.0" dy="19.5">по 128 КіБ</tspan></text>
+<rect x="320.0" y="262.0" width="200.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="420.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">ділянки 1–840</text>
+<rect x="560.0" y="262.0" width="200.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="660.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">841–1690</text>
+<rect x="800.0" y="262.0" width="220.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="910.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">1691–2874</text>
+<line x1="540.0" y1="248.0" x2="540.0" y2="322.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5,4"/>
+<line x1="780.0" y1="248.0" x2="780.0" y2="322.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5,4"/>
+<text x="540.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">тут процес зробив munmap</text>
+<text x="780.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">а тут — новий mmap</text>
+<rect x="320.0" y="372.0" width="700.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="670.0" y="398.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">рядки з різних станів карти: одну ділянку пропущено,</tspan><tspan x="670.0" dy="18.2">іншу надруковано двічі — підсумок не описує жодної миті</tspan></text>
+<text x="560.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">ядро обіцяє злагодженість лише в межах одного виклику read()</text>
+</svg>

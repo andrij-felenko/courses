@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1140" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="570.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ціна одного запиту часу: логарифмічна шкала, менше — краще</text>
+<text x="282.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">CLOCK_MONOTONIC_COARSE</text>
+<rect x="300.0" y="92.0" width="95.0" height="36" rx="4" fill="#27ae60" opacity="0.85"/>
+<text x="405.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">≈4 нс</text>
+<text x="800.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start"><tspan x="800.0" dy="0.0">лічильника не читає взагалі —</tspan><tspan x="800.0" dy="18.0">бере готове число зі спільної сторінки</tspan></text>
+<text x="282.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">CLOCK_MONOTONIC (vDSO)</text>
+<rect x="300.0" y="172.0" width="200.5" height="36" rx="4" fill="#2457d6" opacity="0.85"/>
+<text x="510.5" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">≈22 нс</text>
+<text x="800.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start"><tspan x="800.0" dy="0.0">читає лічильник, множить, зсуває —</tspan><tspan x="800.0" dy="18.0">усе в просторі користувача</tspan></text>
+<text x="282.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end">syscall(SYS_clock_gettime)</text>
+<rect x="300.0" y="252.0" width="396.4" height="36" rx="4" fill="#c0392b" opacity="0.85"/>
+<text x="706.4" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">≈440 нс</text>
+<text x="800.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start"><tspan x="800.0" dy="0.0">та сама арифметика, але з переходом</tspan><tspan x="800.0" dy="18.0">у режим ядра й назад</tspan></text>
+<line x1="300.0" y1="320.0" x2="760.0" y2="320.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="300.0" y1="314.0" x2="300.0" y2="326.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="300.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+<line x1="450.0" y1="314.0" x2="450.0" y2="326.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="450.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+<line x1="600.0" y1="314.0" x2="600.0" y2="326.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="600.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+<line x1="750.0" y1="314.0" x2="750.0" y2="326.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="750.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1000 нс</text>
+</svg>

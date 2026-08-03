@@ -166,6 +166,7 @@
         { slug: "crc-algorithm", title: "Алгоритм CRC: таблиця залишків і побітний метод", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "adaptive-bitrate", title: "Адаптивний бітрейт", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "h264-nal-structure", title: "H.264: NAL-одиниці, SPS/PPS і ключові кадри", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "exp-golomb", title: "Експоненційний код Голомба: ue(v) і se(v) у відеостандартах", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "machine-learning", title: "Машинне навчання", scope: "Алгоритми, що будують моделі з даних: навчання з учителем і без, ансамблі, нейромережі, навчання з підкріпленням.",
       topics: [
@@ -362,6 +363,7 @@
         { slug: "cic-filter", title: "CIC-фільтр (каскад інтегратор–гребінка)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "survey-grid-coverage", title: "Покриття полігону галсами: планування зйомки", basic: { status: "empty" }, detailed: { status: "pending" } },
 
+        { slug: "plot-downsampling", title: "Прорідження часового ряду для екрана: огинаюча замість кожного відліку", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "parallel-distributed", title: "Паралельні", scope: "Одночасне виконання на багатьох процесорах зі спільною пам'яттю та системи незалежних вузлів з обміном повідомленнями: примітиви, синхронізація, консенсус, відмовостійкість.",
       topics: [
@@ -377,6 +379,7 @@
         { slug: "crdt", title: "Безконфліктні типи даних (CRDT)", basic: { status: "pending" }, detailed: { status: "done" }, hist: [{ file: "hist-crdt.md", status: "done" }], math: [{ file: "math-convergence.md", status: "done" }], proj: [{ file: "proj-or-set.md", status: "done" }] },
         { slug: "operational-transformation", title: "Операційні перетворення (OT)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "two-generals-problem", title: "Задача двох генералів", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "seqlock", title: "Seqlock: узгоджене читання без блокування читача", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
   ]
 });

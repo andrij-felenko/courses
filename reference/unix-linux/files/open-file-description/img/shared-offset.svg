@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="620" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">одна позиція на двох — і дві позиції на той самий файл</text>
+<rect x="40.0" y="60.0" width="420.0" height="470.0" rx="12" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="250.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">один опис на двох</text>
+<text x="74.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">процес A: write(fd, &quot;AAAAA&quot;, 5)</text>
+<rect x="74.0" y="138.0" width="170.0" height="40.0" rx="4" fill="#eef3fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="159.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">AAAAA</text>
+<text x="74.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">процес B: write(fd, &quot;BBBBB&quot;, 5)</text>
+<rect x="244.0" y="226.0" width="170.0" height="40.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="329.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">BBBBB</text>
+<text x="74.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">у файлі:</text>
+<rect x="74.0" y="326.0" width="340.0" height="44.0" rx="4" fill="#eef7f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="244.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">AAAAABBBBB</text>
+<line x1="74.0" y1="372.0" x2="74.0" y2="384.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="74.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="244.0" y1="372.0" x2="244.0" y2="384.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="244.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+<line x1="414.0" y1="372.0" x2="414.0" y2="384.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="414.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+<rect x="64.0" y="424.0" width="372.0" height="82.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="250.0" y="452.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">позиція одна: запис B почався там,</tspan><tspan x="250.0" dy="16.9">де скінчився запис A —</tspan><tspan x="250.0" dy="16.9">у файлі всі 10 байтів</tspan></text>
+<rect x="520.0" y="60.0" width="420.0" height="470.0" rx="12" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="730.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">два окремі описи</text>
+<text x="554.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">процес A: write(fd, &quot;AAAAA&quot;, 5)</text>
+<rect x="554.0" y="138.0" width="170.0" height="40.0" rx="4" fill="#eef3fb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="639.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">AAAAA</text>
+<text x="554.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">процес B: write(fd, &quot;BBBBB&quot;, 5)</text>
+<rect x="554.0" y="226.0" width="170.0" height="40.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="639.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">BBBBB</text>
+<text x="554.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">у файлі:</text>
+<rect x="554.0" y="326.0" width="170.0" height="44.0" rx="4" fill="#eef7f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="639.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">BBBBB</text>
+<line x1="554.0" y1="372.0" x2="554.0" y2="384.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="554.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="724.0" y1="372.0" x2="724.0" y2="384.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="724.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+<line x1="894.0" y1="372.0" x2="894.0" y2="384.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="894.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+<rect x="544.0" y="424.0" width="372.0" height="82.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="730.0" y="452.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">позиції дві, обидві з нуля:</tspan><tspan x="730.0" dy="16.9">B ліг поверх A —</tspan><tspan x="730.0" dy="16.9">у файлі 5 байтів, половина зникла</tspan></text>
+<text x="490.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">різниця лише в тому, скільки описів створено: dup і fork дають один, другий open — новий</text>
+</svg>

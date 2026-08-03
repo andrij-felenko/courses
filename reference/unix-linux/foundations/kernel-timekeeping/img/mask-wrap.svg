@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<path d="M 213.9 171.9 A 150.0 150.0 0 0 1 426.1 384.1" fill="none" stroke="#27ae60" stroke-width="13.0"/>
+<path d="M 426.1 384.1 A 150.0 150.0 0 0 1 213.9 171.9" fill="none" stroke="#c0392b" stroke-width="13.0"/>
+<text x="320.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0 = 2³² — точка обороту</text>
+<text x="486.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">2³⁰</text>
+<text x="320.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">2³¹</text>
+<text x="154.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">3·2³⁰</text>
+<line x1="213.9" y1="171.9" x2="426.1" y2="384.1" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="7,5"/>
+<circle cx="213.9" cy="171.9" r="7.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="377.4" cy="139.4" r="7.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="426.1" cy="384.1" r="5.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="189.9" y="147.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">last</text>
+<text x="189.9" y="165.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">0xF000_0000</text>
+<text x="390.4" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">now</text>
+<text x="390.4" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">0x1000_0000</text>
+<text x="453.3" y="423.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">last + 2³¹</text>
+<path d="M 233.7 191.7 A 122.0 122.0 0 0 1 366.7 165.3" fill="none" stroke="#1a1a1a" stroke-width="4.5" marker-end="url(#arrow)"/>
+<text x="306.0" y="207.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">Δ</text>
+<rect x="600.0" y="88.0" width="430.0" height="74.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/><text x="815.0" y="120.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">Δ = (now − last) &amp; 0xFFFFFFFF</tspan><tspan x="815.0" dy="18.2">дає справжню різницю попри оберт</tspan></text>
+<rect x="600.0" y="198.0" width="430.0" height="74.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="815.0" y="230.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">але тільки поки Δ &lt; 2³¹: більше —</tspan><tspan x="815.0" dy="18.2">ядро читає це як крок назад і віддає 0</tspan></text>
+<rect x="600.0" y="308.0" width="430.0" height="92.0" rx="6" fill="#fdf6e3" stroke="#333333" stroke-width="1.5"/><text x="815.0" y="340.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="815.0" dy="0.0">корисний запас — половина маски:</tspan><tspan x="815.0" dy="18.2">2³¹ тактів на 24 МГц — це 89.5 с,</tspan><tspan x="815.0" dy="18.2">а не 178.9 с повного оберту</tspan></text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рядок у пам'яті довший за рядок у кадрі</text>
+<rect x="130.0" y="76.0" width="380.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="510.0" y="76.0" width="42.0" height="30.0" rx="6" fill="#f7e6e6" stroke="#c9a2a2" stroke-width="1.5"/>
+<rect x="130.0" y="112.0" width="380.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="510.0" y="112.0" width="42.0" height="30.0" rx="6" fill="#f7e6e6" stroke="#c9a2a2" stroke-width="1.5"/>
+<rect x="130.0" y="148.0" width="380.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="510.0" y="148.0" width="42.0" height="30.0" rx="6" fill="#f7e6e6" stroke="#c9a2a2" stroke-width="1.5"/>
+<rect x="130.0" y="184.0" width="380.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="510.0" y="184.0" width="42.0" height="30.0" rx="6" fill="#f7e6e6" stroke="#c9a2a2" stroke-width="1.5"/>
+<rect x="130.0" y="220.0" width="380.0" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="510.0" y="220.0" width="42.0" height="30.0" rx="6" fill="#f7e6e6" stroke="#c9a2a2" stroke-width="1.5"/>
+<line x1="103.0" y1="80.0" x2="103.0" y2="116.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="95.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">крок</text>
+<text x="320.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">рядок кадру</text>
+<rect x="620.0" y="86.0" width="24.0" height="18.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="654.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">байти пікселів рядка</text>
+<rect x="620.0" y="126.0" width="24.0" height="18.0" rx="6" fill="#f7e6e6" stroke="#c9a2a2" stroke-width="1.5"/>
+<text x="654.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">запас до вирівнювання</text>
+<text x="620.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">ширина = 1920 пікселів</text>
+<text x="620.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">крок рядка = 2048 байтів</text>
+<rect x="130.0" y="296.0" width="680.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="322.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Адреса пікселя (x, y) у площині яскравості:</tspan><tspan x="470.0" dy="18.2">base + y · крок_рядка + x — ширина кадру тут не бере участі</tspan></text>
+</svg>

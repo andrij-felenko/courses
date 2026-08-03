@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1180" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">чотири числа пулу HugeTLB і що між ними спільного</text>
+<rect x="70.0" y="118.0" width="416.0" height="72.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="278.0" y="149.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="278.0" dy="0.0">роздані й заповнені</tspan><tspan x="278.0" dy="18.2">процесами</tspan></text>
+<rect x="486.0" y="118.0" width="249.6" height="72.0" rx="6" fill="#fff5e0" stroke="#333333" stroke-width="1.5"/><text x="610.8" y="149.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="610.8" dy="0.0">обіцяні</tspan><tspan x="610.8" dy="18.2">(Rsvd)</tspan></text>
+<rect x="735.6" y="118.0" width="374.4" height="72.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/><text x="922.8" y="149.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="922.8" dy="0.0">нікому не обіцяні</tspan><tspan x="922.8" dy="18.2">й нічим не зайняті</tspan></text>
+<line x1="70.0" y1="88.0" x2="1110.0" y2="88.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="70.0" y1="88.0" x2="70.0" y2="100.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="1110.0" y1="88.0" x2="1110.0" y2="100.0" stroke="#333333" stroke-width="1.6"/>
+<text x="590.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">HugePages_Total  =  nr_hugepages  (+ Surp)</text>
+<line x1="486.0" y1="224.0" x2="1110.0" y2="224.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="486.0" y1="224.0" x2="486.0" y2="212.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="1110.0" y1="224.0" x2="1110.0" y2="212.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="798.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">HugePages_Free</text>
+<text x="70.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">HugePages_Free  включає  HugePages_Rsvd  —  обіцяне лежить вільним, але вже нічиє</text>
+<text x="70.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">справді доступно новому охочому  =  HugePages_Free − HugePages_Rsvd</text>
+<text x="70.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">HugePages_Surp  —  узяте понад nr_hugepages динамічно, стеля  =  nr_overcommit_hugepages</text>
+<text x="70.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">Hugetlb (кБ)  =  Σ по всіх розмірах  HugePages_Total · розмір  —  скільки пам'яті вилучено із системи</text>
+</svg>

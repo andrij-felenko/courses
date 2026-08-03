@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1060" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end"><tspan x="360.0" dy="0.0">трансляція без збою</tspan><tspan x="360.0" dy="17.6">(влучання в TLB)</tspan></text>
+<rect x="380.0" y="90.0" width="5.0" height="36.0" rx="4" fill="#f1f2f4" stroke="#6b7280" stroke-width="1.8"/>
+<text x="1035.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="end" font-weight="700">≈1 нс</text>
+<text x="360.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end"><tspan x="360.0" dy="0.0">дрібний збій:</tspan><tspan x="360.0" dy="17.6">сторінка вже в пам'яті</tspan></text>
+<rect x="380.0" y="152.0" width="234.0" height="36.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="1035.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="end" font-weight="700">≈1 мкс</text>
+<text x="360.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end"><tspan x="360.0" dy="0.0">великий збій:</tspan><tspan x="360.0" dy="17.6">читання з NVMe</tspan></text>
+<rect x="380.0" y="214.0" width="390.0" height="36.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.8"/>
+<text x="1035.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="end" font-weight="700">≈100 мкс</text>
+<text x="360.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end"><tspan x="360.0" dy="0.0">великий збій:</tspan><tspan x="360.0" dy="17.6">читання з обертового диска</tspan></text>
+<rect x="380.0" y="276.0" width="538.2" height="36.0" rx="4" fill="#fdeeec" stroke="#c0392b" stroke-width="1.8"/>
+<text x="1035.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="end" font-weight="700">≈8 мс</text>
+<line x1="380.0" y1="348.0" x2="941.6" y2="348.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="380.0" y1="348.0" x2="380.0" y2="356.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="380.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">1 нс</text>
+<line x1="614.0" y1="348.0" x2="614.0" y2="356.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="614.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">1 мкс</text>
+<line x1="848.0" y1="348.0" x2="848.0" y2="356.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="848.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">1 мс</text>
+<text x="1035.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">кожна поділка — у 10 разів</text>
+<text x="530.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">порядки величин: чотири розряди між дрібним і великим збоєм</text>
+</svg>

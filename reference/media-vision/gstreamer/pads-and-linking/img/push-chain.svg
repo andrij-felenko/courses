@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Штовхання: src-пад кличе chain-функцію сусіда</text>
+<rect x="40.0" y="60.0" width="900.0" height="200.0" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="60.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">один потік виконання</text>
+<rect x="70.0" y="110.0" width="200.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="145.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">v4l2src</tspan><tspan x="170.0" dy="18.2">штовхає</tspan></text>
+<rect x="390.0" y="110.0" width="200.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="145.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">x264enc</tspan><tspan x="490.0" dy="18.2">chain()</tspan></text>
+<rect x="710.0" y="110.0" width="200.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="810.0" y="145.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">udpsink</tspan><tspan x="810.0" dy="18.2">chain()</tspan></text>
+<line x1="275.0" y1="140.0" x2="385.0" y2="140.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="330.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">gst_pad_push()</text>
+<line x1="385.0" y1="172.0" x2="275.0" y2="172.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="330.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">GST_FLOW_OK</text>
+<line x1="595.0" y1="140.0" x2="705.0" y2="140.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="650.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">gst_pad_push()</text>
+<line x1="705.0" y1="172.0" x2="595.0" y2="172.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="650.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">GST_FLOW_OK</text>
+<text x="490.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">виклик не повертається, доки не відпрацює весь ланцюг</text>
+<text x="490.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">код повернення піднімається тим самим стеком назад</text>
+</svg>

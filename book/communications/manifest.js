@@ -304,6 +304,7 @@
         { slug: "uart-oversampling", title: "Передискретизація UART", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "sbas-corrections", title: "Супутникові системи доповнення (SBAS)", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-sbas-origins.md", status: "done" }] },
         { slug: "leap-second", title: "Високосна секунда", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "ptp-1588", title: "PTP (IEEE 1588): точна синхронізація часу в мережі", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "cryptographic-comm", title: "Криптозв'язок", scope: "Захист конфіденційності, цілісності й автентичності переданих повідомлень.",
       topics: [

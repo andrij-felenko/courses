@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Передача прямим викликом і місце, де ланцюг розривають</text>
+<text x="30.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Лінійний ланцюг: одна нитка на весь стек викликів</text>
+<rect x="30.0" y="80.0" width="185.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="122.5" y="111.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="122.5" dy="0.0">rtspsrc</tspan></text>
+<rect x="261.7" y="80.0" width="185.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="354.2" y="111.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="354.2" dy="0.0">avdec_h264</tspan></text>
+<rect x="493.3" y="80.0" width="185.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="585.8" y="111.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="585.8" dy="0.0">videoconvert</tspan></text>
+<rect x="725.0" y="80.0" width="185.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="817.5" y="111.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="817.5" dy="0.0">autovideosink</tspan></text>
+<line x1="219.0" y1="107.0" x2="257.7" y2="107.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="238.3" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">push()</text>
+<line x1="450.7" y1="107.0" x2="489.3" y2="107.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">push()</text>
+<line x1="682.3" y1="107.0" x2="721.0" y2="107.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="701.7" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">push()</text>
+<rect x="30.0" y="155.0" width="880.0" height="5.0" rx="2" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="470.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">одна нитка виконання, створена джерелом: увесь ланцюг — один стек викликів</text>
+<text x="30.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Той самий ланцюг із елементом queue: дві нитки</text>
+<rect x="30.0" y="260.0" width="150.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="105.0" y="291.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="105.0" dy="0.0">rtspsrc</tspan></text>
+<rect x="212.5" y="260.0" width="150.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="287.5" y="291.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="287.5" dy="0.0">avdec_h264</tspan></text>
+<rect x="395.0" y="260.0" width="150.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.4"/><text x="470.0" y="291.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">queue</tspan></text>
+<rect x="577.5" y="260.0" width="150.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="652.5" y="291.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="652.5" dy="0.0">videoconvert</tspan></text>
+<rect x="760.0" y="260.0" width="150.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="835.0" y="291.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="835.0" dy="0.0">autovideosink</tspan></text>
+<line x1="184.0" y1="287.0" x2="208.5" y2="287.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="366.5" y1="287.0" x2="391.0" y2="287.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="549.0" y1="287.0" x2="573.5" y2="287.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="731.5" y1="287.0" x2="756.0" y2="287.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="335.0" width="435.0" height="5.0" rx="2" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<rect x="475.0" y="335.0" width="435.0" height="5.0" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<text x="232.5" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">нитка №1: джерело → queue</text>
+<text x="692.5" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">нитка №2: queue → стік</text>
+<text x="470.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">queue приймає дані чужою ниткою, а віддає власною — межа ниток проходить саме тут</text>
+</svg>

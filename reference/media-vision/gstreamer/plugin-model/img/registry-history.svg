@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реєстр GStreamer: що змінювалося й заради чого</text>
+<line x1="252.0" y1="74.0" x2="252.0" y2="630.0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="232.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">січень 2001 · 0.1.0</text>
+<circle cx="252.0" cy="96.0" r="8.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="276.0" y="56.0" width="684.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="618.0" y="91.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="618.0" dy="0.0">XML-реєстр «на кшталт ld.so.cache»:</tspan><tspan x="618.0" dy="18.2">кеш самоописів заведено відразу, сканування — у процесі застосунку</tspan></text>
+<text x="232.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">грудень 2005 · 0.10.0</text>
+<circle cx="252.0" cy="224.0" r="8.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="276.0" y="184.0" width="684.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="618.0" y="219.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="618.0" dy="0.0">перебудова ядра заради потоків і планування;</tspan><tspan x="618.0" dy="18.2">формат реєстру лишається XML</tspan></text>
+<text x="232.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">2008 · 0.10.20</text>
+<circle cx="252.0" cy="352.0" r="8.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="276.0" y="312.0" width="684.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="618.0" y="347.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="618.0" dy="0.0">бінарний реєстр стає типовим:</tspan><tspan x="618.0" dy="18.2">розбір XML коштував помітну частку часу старту</tspan></text>
+<text x="232.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">2009 · гілка 0.10</text>
+<circle cx="252.0" cy="480.0" r="8.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="276.0" y="440.0" width="684.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="618.0" y="475.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="618.0" dy="0.0">сканування виноситься в окремий процес-помічник</tspan><tspan x="618.0" dy="18.2">(з листопада 2009 він зветься gst-plugin-scanner)</tspan></text>
+<text x="232.0" y="613.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">вересень 2012 · 1.0</text>
+<circle cx="252.0" cy="608.0" r="8.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="276.0" y="568.0" width="684.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="618.0" y="603.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="618.0" dy="0.0">XML-реєстру більше немає:</tspan><tspan x="618.0" dy="18.2">лишається бінарний кеш плюс помічник — те, що бачимо нині</tspan></text>
+<text x="500.0" y="668.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">усі п'ять кроків розв'язують ту саму задачу: дізнатися, що вміють файли, і не платити за це щоразу</text>
+</svg>

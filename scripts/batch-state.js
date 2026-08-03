@@ -23,6 +23,7 @@ const has = (n) => argv.includes('--' + n);
 
 const BOOK = arg('book');
 const KIND = arg('kind', 'book');
+const JOURNAL = arg('journal');            // journal.jsonl обірваного прогону — звідти беруться newTopics
 if (!BOOK) { console.error('потрібен --book <slug> (і --kind book|catalog|reference|guide)'); process.exit(1) }
 
 const MF = path.join(ROOT, KIND, BOOK, 'manifest.js');
@@ -90,10 +91,11 @@ for (const T of topics()) {
     if (!fs.existsSync(p)) continue;
     const txt = fs.readFileSync(p, 'utf8');
     const refs = new Set();
-    // ⚠️ лише вставки ВЛАСНОЇ теми: лінк на чужу (book:<книга>/<інша-тема>/api-…md) — законний,
-    // її файл лежить у теці тієї теми, і вимагати його тут було б хибним спрацюванням.
-    for (const m of txt.matchAll(/\]\((?:book|guide):[a-z0-9-]+\/([a-z0-9-]+)\/((?:hist|comp|math|proj|api)-[a-z0-9-]+\.md)\)/g)) {
-      if (m[1] === T.slug) refs.add(m[2]);
+    // ⚠️ лише вставки ВЛАСНОЇ теми — звіряємо І КНИГУ, І слуг. Лінк на чужу вставку законний:
+    // її файл лежить у теці тієї теми. Пастка: однакові слуги в різних книгах (тема «crc» є і в
+    // programming, і в communications) — порівняння лише за слугом дає хибне «файла нема».
+    for (const m of txt.matchAll(/\]\((?:book|guide):([a-z0-9-]+)\/([a-z0-9-]+)\/((?:hist|comp|math|proj|api)-[a-z0-9-]+\.md)\)/g)) {
+      if (m[1] === BOOK && m[2] === T.slug) refs.add(m[3]);
     }
     for (const m of txt.matchAll(/\]\(((?:hist|comp|math|proj|api)-[a-z0-9-]+\.md)\)/g)) refs.add(m[1]);
     for (const f of refs) {
@@ -126,6 +128,44 @@ const OUT = path.join(OUTDIR, `state-${BOOK}.json`);
 fs.writeFileSync(OUT, JSON.stringify(payload, null, 1), 'utf8');
 line(`\n  payload на доробку → ${path.relative(ROOT, OUT)}  (units ${units.length}, insertsDone ${insertsDone.length}, inserts ${payload.inserts.length})`);
 
+/* ── newTopics із журналу обірваного прогону ─────────────────────────────────────────────
+   Коли стіна вбиває прогін до фази «Маніфест», гинуть не лише статуси, а й НОВІ ТЕМИ, що їх
+   оголосили автори: кожна незаведена = битий лінк «теми нема в жодному маніфесті». Диск про них
+   не знає — вони живуть тільки в journal.jsonl. Тому: --journal <шлях до journal.jsonl>. */
+const ntJobs = new Map();
+if (JOURNAL) {
+  if (!fs.existsSync(JOURNAL)) { console.error('нема журналу: ' + JOURNAL); process.exit(1) }
+  const res = fs.readFileSync(JOURNAL, 'utf8').trim().split('\n')
+    .map((l) => { try { return JSON.parse(l) } catch (e) { return null } }).filter(Boolean)
+    .filter((x) => x.type === 'result').map((x) => x.result).filter(Boolean);
+  const seen = new Map();
+  for (const r of res) for (const t of (r.newTopics || [])) {
+    if (!t || !t.slug || !t.section) continue;
+    const kind = t.kind || 'book', book = t.book || BOOK;
+    seen.set(kind + '/' + book + '/' + t.slug, { kind, book, section: t.section, slug: t.slug, title: t.title || t.titleHint || t.slug });
+  }
+  let already = 0, noSection = 0;
+  for (const t of seen.values()) {
+    const rel = `${t.kind}/${t.book}/manifest.js`;
+    const mfp = path.join(ROOT, rel);
+    if (!fs.existsSync(mfp)) { console.log('   ✖ нема маніфесту ' + rel + ' → ' + t.slug); continue }
+    global.window = { __BOOKS__: [], __GUIDES__: [] };
+    delete require.cache[require.resolve(mfp)];
+    let b2; try { require(mfp); b2 = global.window.__BOOKS__[0] || global.window.__GUIDES__[0] } catch (e) { continue }
+    const secs = new Set((b2.sections || []).map((s) => s.slug));
+    const slugs = new Set((b2.sections || []).flatMap((s) => (s.topics || []).map((x) => x.slug)));
+    if (slugs.has(t.slug)) { already++; continue }
+    if (!secs.has(t.section)) { console.log('   ⚠ нема галузі «' + t.section + '» у ' + rel + ' → ' + t.slug + ' (пропускаю)'); noSection++; continue }
+    if (!ntJobs.has(rel)) ntJobs.set(rel, []);
+    ntJobs.get(rel).push({ op: 'topic', section: t.section, slug: t.slug, title: t.title });
+  }
+  const total = [...ntJobs.values()].reduce((s, v) => s + v.length, 0);
+  console.log(`\n  НОВІ ТЕМИ з журналу: оголошено ${seen.size} · уже є ${already} · без галузі ${noSection} · ДО ЗАВЕДЕННЯ ${total}`);
+  for (const [rel, ops2] of ntJobs) console.log('     ' + rel + ': ' + ops2.length + ' → ' + ops2.map((o) => o.section + '/' + o.slug).join(', '));
+} else {
+  console.log('\n  (нові теми не перевірялись — подай --journal <…\\journal.jsonl> обірваного прогону)');
+}
+
 if (!has('apply')) {
   line(`\n  Нічого не змінено. Щоб зареєструвати написане в маніфесті: додай --apply`);
   process.exit(0);
@@ -135,7 +175,15 @@ const ops = [];
 for (const a of unregArticles) ops.push({ op: 'status', slug: a.slug, ver: a.ver, status: 'done' });
 for (const i of unregInserts) ops.push({ op: 'insert', slug: i.topicSlug, section: i.section, type: i.type, file: i.file, status: 'done' });
 for (const i of notDoneInserts) ops.push({ op: 'insert', slug: i.topicSlug, section: i.section, type: i.type, file: i.file, status: 'done' });
-if (!ops.length) { line('\n  --apply: міняти нічого — маніфест уже збігається з диском.'); process.exit(0) }
+// нові теми — окремими викликами патчера, бо вони можуть цілити в ЧУЖІ маніфести
+for (const [rel, ops2] of ntJobs) {
+  const f = path.join(OUTDIR, '_mfops-nt-' + rel.split('/')[1] + '.json');
+  fs.writeFileSync(f, JSON.stringify(ops2, null, 1), 'utf8');
+  const o = execFileSync(process.execPath, [path.join(ROOT, 'scripts', 'manifest-patch.js'), rel, '--ops', f], { cwd: ROOT, encoding: 'utf8' });
+  line('  нові теми → ' + o.trim());
+}
+
+if (!ops.length) { line('\n  --apply: статусів/вставок міняти нічого — маніфест уже збігається з диском.'); process.exit(0) }
 
 const opsFile = path.join(OUTDIR, `_mfops-state-${BOOK}.json`);
 fs.writeFileSync(opsFile, JSON.stringify(ops, null, 1), 'utf8');

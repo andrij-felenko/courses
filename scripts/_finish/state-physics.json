@@ -1,0 +1,929 @@
+{
+ "book": "physics",
+ "kind": "book",
+ "limit": 158,
+ "concurrency": 4,
+ "skipArticles": true,
+ "units": [
+  {
+   "section": "mechanics",
+   "slug": "thrust-vs-weight",
+   "title": "Тяга проти ваги",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "reaction-torque",
+   "title": "Реактивний момент",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "frame-configurations",
+   "title": "Рами й конфігурації",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "propeller-geometry",
+   "title": "Гвинт",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "fixed-wing-lift",
+   "title": "Літак",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "vtol-transition",
+   "title": "VTOL-гібриди",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "gear-tooth-geometry",
+   "title": "Геометрія зуба та зачеплення",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "breguet-range-endurance",
+   "title": "Рівняння дальності й тривалості Бреге",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "specific-force",
+   "title": "Питома сила і strapdown-інтеграція",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "proper-acceleration",
+   "title": "Власне прискорення",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "equivalence-principle",
+   "title": "Принцип еквівалентності",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "coriolis-effect",
+   "title": "Ефект Коріоліса",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "vibration-transmissibility",
+   "title": "Передавання вібрації (transmissibility)",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "mechanical-resonance",
+   "title": "Механічний резонанс",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "squeeze-film-damping",
+   "title": "Squeeze-film демпфування",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "angular-velocity",
+   "title": "Кутова швидкість і прискорення",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "torque",
+   "title": "Момент сили",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "similarity-scaling",
+   "title": "Подібність і масштабування",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "noether-theorem",
+   "title": "Теорема Нетер",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "positive-negative-feedback",
+   "title": "Додатний і від'ємний зворотний зв'язок",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "uncertainty-budget",
+   "title": "Бюджет невизначеності",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "dynamic-pressure",
+   "title": "Динамічний тиск і число Бернуллі",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "atmospheric-pressure",
+   "title": "Атмосферний тиск",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "si-base-units",
+   "title": "Базові одиниці СІ",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "center-of-mass",
+   "title": "Центр мас",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "surface-tension",
+   "title": "Поверхневий натяг",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "material-fatigue",
+   "title": "Втома матеріалу",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "lift-to-drag-ratio",
+   "title": "Аеродинамічна якість (L/D)",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "newtons-second-law",
+   "title": "Другий закон Ньютона",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "inertial-frame",
+   "title": "Інерціальна система відліку",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "free-fall",
+   "title": "Вільне падіння",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "newton-gravitation",
+   "title": "Закон всесвітнього тяжіння",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "centrifugal-force",
+   "title": "Відцентрова сила",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "tuned-mass-damper",
+   "title": "Настроєний гаситель коливань (tuned mass damper)",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "viscosity",
+   "title": "В'язкість",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "poiseuille-flow",
+   "title": "Течія Пуазейля",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "velocity",
+   "title": "Швидкість",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "acceleration",
+   "title": "Прискорення",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "centripetal-acceleration",
+   "title": "Центрострімке прискорення",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "moment-of-inertia",
+   "title": "Момент інерції",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "force",
+   "title": "Сила",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "angular-momentum",
+   "title": "Момент імпульсу",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "reynolds-number",
+   "title": "Число Рейнольдса",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "least-action-principle",
+   "title": "Принцип найменшої дії",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "pressure",
+   "title": "Тиск",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "density",
+   "title": "Густина",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "kinetic-energy",
+   "title": "Кінетична енергія",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "energy-conservation",
+   "title": "Закон збереження енергії",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "flow-continuity",
+   "title": "Нерозривність течії",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "mass",
+   "title": "Маса",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "momentum",
+   "title": "Імпульс",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "newtons-first-law",
+   "title": "Перший закон Ньютона",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "newtons-third-law",
+   "title": "Третій закон Ньютона",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "galilean-relativity",
+   "title": "Принцип відносності Ґалілея",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "projectile-motion",
+   "title": "Рух тіла, кинутого під кутом (балістична траєкторія)",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "aerodynamic-drag",
+   "title": "Аеродинамічний опір (сила опору повітря)",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "keplers-laws",
+   "title": "Закони Кеплера",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "displacement",
+   "title": "Переміщення і шлях",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "jerk",
+   "title": "Ривок (похідна прискорення)",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "work",
+   "title": "Механічна робота",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "friction",
+   "title": "Тертя",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "gyroscopic-precession",
+   "title": "Гіроскопічна прецесія",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "potential-energy",
+   "title": "Потенціальна енергія",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "buoyancy",
+   "title": "Виштовхувальна сила (закон Архімеда)",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "collisions",
+   "title": "Зіткнення (пружні й непружні)",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "weight",
+   "title": "Вага",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "boundary-layer",
+   "title": "Примежовий шар",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "position",
+   "title": "Положення і радіус-вектор",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "deterministic-chaos",
+   "title": "Детермінований хаос",
+   "level": "basic"
+  },
+  {
+   "section": "mechanics",
+   "slug": "power",
+   "title": "Потужність",
+   "level": "basic"
+  },
+  {
+   "section": "mechanics",
+   "slug": "normal-force",
+   "title": "Нормальна сила",
+   "level": "basic"
+  },
+  {
+   "section": "mechanics",
+   "slug": "rolling-resistance",
+   "title": "Тертя кочення",
+   "level": "basic"
+  },
+  {
+   "section": "mechanics",
+   "slug": "hookes-law",
+   "title": "Закон Гука",
+   "level": "basic"
+  },
+  {
+   "section": "mechanics",
+   "slug": "reduced-mass",
+   "title": "Зведена маса",
+   "level": "basic"
+  },
+  {
+   "section": "mechanics",
+   "slug": "flow-separation",
+   "title": "Відрив потоку",
+   "level": "basic"
+  },
+  {
+   "section": "mechanics",
+   "slug": "degrees-of-freedom",
+   "title": "Ступені вільності",
+   "level": "basic"
+  },
+  {
+   "section": "mechanics",
+   "slug": "navier-stokes",
+   "title": "Рівняння Нав'є–Стокса",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "circulation-lift-theorem",
+   "title": "Циркуляція та підіймальна сила",
+   "level": "detailed"
+  },
+  {
+   "section": "mechanics",
+   "slug": "jerk-equation-chaos",
+   "title": "Рівняння на ривок і поріг хаосу",
+   "level": "detailed"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "sine-wave",
+   "title": "Синусоїда",
+   "level": "detailed"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "amplitude-frequency",
+   "title": "Амплітуда й частота",
+   "level": "detailed"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "phase",
+   "title": "Фаза",
+   "level": "basic"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "phase",
+   "title": "Фаза",
+   "level": "detailed"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "damped-oscillator",
+   "title": "Загасний осцилятор",
+   "level": "detailed"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "wave-superposition",
+   "title": "Суперпозиція хвиль",
+   "level": "detailed"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "beats",
+   "title": "Биття",
+   "level": "detailed"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "frequency-spectrum",
+   "title": "Частотний спектр",
+   "level": "basic"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "wave-interference",
+   "title": "Інтерференція хвиль",
+   "level": "basic"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "group-delay",
+   "title": "Групова затримка",
+   "level": "basic"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "lissajous",
+   "title": "Фігури Ліссажу",
+   "level": "basic"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "harmonic-oscillator",
+   "title": "Гармонічний осцилятор",
+   "level": "basic"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "lc-circuit",
+   "title": "LC-контур",
+   "level": "basic"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "wave-equation",
+   "title": "Хвильове рівняння",
+   "level": "detailed"
+  },
+  {
+   "section": "oscillations-waves",
+   "slug": "doppler-effect",
+   "title": "Ефект Доплера",
+   "level": "detailed"
+  },
+  {
+   "section": "thermal-statistical",
+   "slug": "thermal-resistance",
+   "title": "Тепловий опір",
+   "level": "detailed"
+  },
+  {
+   "section": "thermal-statistical",
+   "slug": "thermal-noise",
+   "title": "Тепловий шум",
+   "level": "detailed"
+  },
+  {
+   "section": "thermal-statistical",
+   "slug": "boltzmann-factor",
+   "title": "Больцманівський фактор і масштаб kT",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "electric-charge",
+   "title": "Заряд",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "charge-conservation",
+   "title": "Закон збереження заряду",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "elementary-charge",
+   "title": "Елементарний заряд і квантування",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "coulomb-law",
+   "title": "Закон Кулона",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "electric-field",
+   "title": "Електричне поле",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "electric-potential",
+   "title": "Потенціал",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "volt",
+   "title": "Вольт",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "faraday-cage",
+   "title": "Клітка Фарадея",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "electric-current",
+   "title": "Струм",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "current-direction",
+   "title": "Напрямок струму",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "signal-speed",
+   "title": "Швидкість сигналу",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "current-continuity",
+   "title": "Неперервність струму",
+   "level": "basic"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "current-continuity",
+   "title": "Неперервність струму",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "voltage",
+   "title": "Напруга",
+   "level": "basic"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "voltage",
+   "title": "Напруга",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "closed-circuit",
+   "title": "Замкнене коло",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "ionic-conduction",
+   "title": "Іонна провідність",
+   "level": "basic"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "ionic-conduction",
+   "title": "Іонна провідність",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "dc-vs-ac",
+   "title": "DC і AC",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "current-safety",
+   "title": "Електробезпека",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "electric-power",
+   "title": "Потужність",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "joule-heating",
+   "title": "Джоулеве тепло",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "rms-value",
+   "title": "Діюче значення",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "ac-power-grid",
+   "title": "Змінна мережа",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "magnetic-field",
+   "title": "Магнітне поле",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "oersted-experiment",
+   "title": "Дослід Ерстеда",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "electromagnet",
+   "title": "Електромагніт",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "ampere-force",
+   "title": "Сила Ампера",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "hall-effect",
+   "title": "Ефект Холла",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "earth-magnetic-field",
+   "title": "Поле Землі",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "electromagnetic-induction",
+   "title": "Електромагнітна індукція",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "capacitive-coupling",
+   "title": "Ємнісна наводка",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "inductive-coupling",
+   "title": "Індуктивна наводка",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "triboelectricity",
+   "title": "Трибоелектрика",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "body-charge",
+   "title": "Заряд тіла",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "lightning",
+   "title": "Блискавка",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "humidity-static-control",
+   "title": "Вологість і статика",
+   "level": "detailed"
+  },
+  {
+   "section": "electromagnetism",
+   "slug": "em-wave",
+   "title": "Електромагнітна хвиля",
+   "level": "detailed"
+  },
+  {
+   "section": "optics",
+   "slug": "total-internal-reflection",
+   "title": "Повне внутрішнє відбиття",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "electron-drift",
+   "title": "Дрейф електронів",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "conductors-insulators",
+   "title": "Провідники й діелектрики",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "resistance-origin",
+   "title": "Природа опору",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "conductivity",
+   "title": "Провідність",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "resistance",
+   "title": "Опір",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "resistivity",
+   "title": "Питомий опір",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "resistance-temperature",
+   "title": "Опір і температура",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "ferromagnetism",
+   "title": "Феромагнетизм",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "permanent-magnets",
+   "title": "Постійні магніти",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "saturation-hysteresis",
+   "title": "Насичення й гістерезис",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "shot-flicker-noise",
+   "title": "Дробовий шум",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "air-breakdown",
+   "title": "Пробій повітря",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "semiconductor",
+   "title": "Напівпровідник",
+   "level": "basic"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "semiconductor",
+   "title": "Напівпровідник",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "doping",
+   "title": "Легування",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "pn-junction",
+   "title": "PN-перехід",
+   "level": "detailed"
+  },
+  {
+   "section": "condensed-matter-physics",
+   "slug": "piezoelectric-effect",
+   "title": "П'єзоефект",
+   "level": "detailed"
+  }
+ ],
+ "insertsDone": [],
+ "inserts": []
+}

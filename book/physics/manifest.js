@@ -158,6 +158,7 @@
         { slug: "gibbs-phase-rule", title: "Правило фаз Гіббса", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "nucleation", title: "Зародкоутворення та спінодальний розпад", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "detailed-balance", title: "Принцип детального балансу", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "maxwell-demon", title: "Демон Максвелла й ціна інформації", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "thermodynamics", title: "Термодинаміка (прикладна)", scope: "Прикладні атмосферні й вологісні величини для давачів середовища.",
       topics: [

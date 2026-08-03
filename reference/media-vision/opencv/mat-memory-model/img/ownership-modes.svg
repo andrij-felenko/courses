@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три режими володіння пікселями</text>
+<text x="170.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">1. OpenCV виділила</tspan><tspan x="170.0" dy="16.9">памʼять сама</tspan></text>
+<rect x="100.0" y="106.0" width="140.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="132.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">Mat</tspan></text>
+<line x1="170.0" y1="150.0" x2="170.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="62.0" y="190.0" width="216.0" height="60.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="170.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">UMatData</tspan><tspan x="170.0" dy="15.6">refcount = 2</tspan></text>
+<line x1="170.0" y1="250.0" x2="170.0" y2="292.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="70.0" y="292.0" width="200.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="317.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">пікселі від fastMalloc</tspan></text>
+<text x="170.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="170.0" dy="0.0">звільняє release(),</tspan><tspan x="170.0" dy="14.3">коли лічильник упав до нуля</tspan></text>
+<text x="490.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">2. Заголовок над</tspan><tspan x="490.0" dy="16.9">чужим буфером</tspan></text>
+<rect x="420.0" y="106.0" width="140.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="132.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Mat</tspan></text>
+<line x1="490.0" y1="150.0" x2="490.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="382.0" y="190.0" width="216.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="490.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">u = nullptr</tspan><tspan x="490.0" dy="15.6">лічильника нема</tspan></text>
+<line x1="490.0" y1="250.0" x2="490.0" y2="292.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="390.0" y="292.0" width="200.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="317.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">пікселі GstBuffer</tspan></text>
+<text x="490.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="490.0" dy="0.0">release() не звільняє нічого —</tspan><tspan x="490.0" dy="14.3">буфер мусить пережити Mat</tspan></text>
+<text x="810.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">3. Чужий буфер</tspan><tspan x="810.0" dy="16.9">і власний алокатор</tspan></text>
+<rect x="740.0" y="106.0" width="140.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="810.0" y="132.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">Mat</tspan></text>
+<line x1="810.0" y1="150.0" x2="810.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="702.0" y="190.0" width="216.0" height="60.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="810.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">UMatData</tspan><tspan x="810.0" dy="15.6">USER_ALLOCATED</tspan></text>
+<line x1="810.0" y1="250.0" x2="810.0" y2="292.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="710.0" y="292.0" width="200.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="810.0" y="317.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">пікселі GstBuffer</tspan></text>
+<text x="810.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="810.0" dy="0.0">release() кличе твій deallocate() —</tspan><tspan x="810.0" dy="14.3">той відпускає буфер сам</tspan></text>
+</svg>

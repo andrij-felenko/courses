@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 615" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="615" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три рівні: caps → структура → значення</text>
+<rect x="230.0" y="52.8" width="540.0" height="58.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="77.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">GstCaps — упорядкований набір структур</tspan><tspan x="500.0" dy="19.5">gst_caps_get_size() — скільки їх</tspan></text>
+<line x1="380.0" y1="115.2" x2="260.0" y2="166.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="115.2" x2="740.0" y2="166.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="170.0" width="400.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/><text x="260.0" y="199.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">структура 0</tspan><tspan x="260.0" dy="16.9">GstStructure  +  GstCapsFeatures</tspan><tspan x="260.0" dy="16.9">gst_caps_get_structure(caps, 0)</tspan><tspan x="260.0" dy="16.9">gst_caps_get_features(caps, 0)</tspan></text>
+<rect x="540.0" y="170.0" width="400.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="740.0" y="199.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">структура 1 — альтернатива</tspan><tspan x="740.0" dy="16.9">устрій той самий</tspan><tspan x="740.0" dy="16.9">порядок структур = перевага,</tspan><tspan x="740.0" dy="16.9">перша найбажаніша</tspan></text>
+<line x1="260.0" y1="274.0" x2="260.0" y2="300.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="302.0" width="880.0" height="248.0" rx="6" fill="#fbfcfd" stroke="#c8cdd4" stroke-width="1.4"/>
+<text x="500.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">поля структури 0 — кожне значення це GValue</text>
+<text x="80.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">поле = значення</text>
+<text x="380.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">тип значення</text>
+<text x="660.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">чим читати</text>
+<line x1="72.0" y1="368.0" x2="928.0" y2="368.0" stroke="#d0d5db" stroke-width="1.2"/>
+<text x="80.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">format = NV12</text>
+<text x="380.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">рядок</text>
+<text x="660.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start">gst_structure_get_string()</text>
+<text x="80.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">width = [ 16, 4096 ]</text>
+<text x="380.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">діапазон цілих</text>
+<text x="660.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start">gst_structure_get_value()</text>
+<text x="80.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">framerate = 30/1</text>
+<text x="380.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">дріб</text>
+<text x="660.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start">gst_structure_get_fraction()</text>
+<text x="80.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">interlace-mode = progressive</text>
+<text x="380.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">рядок</text>
+<text x="660.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start">gst_structure_get_string()</text>
+<text x="500.0" y="578.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle">нема поля — нема обмеження: це «будь-яке значення», а не «типове»</text>
+</svg>

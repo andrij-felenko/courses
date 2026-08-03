@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ROI: той самий блок пікселів, інший заголовок</text>
+<text x="194.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">img.data</text>
+<text x="390.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">roi.data</text>
+<line x1="390.0" y1="70.0" x2="390.0" y2="86.0" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="190.0" y="86.0" width="660.0" height="34.0" rx="3" fill="#eef1f4" stroke="#333333" stroke-width="1.2"/>
+<rect x="390.0" y="86.0" width="210.0" height="34.0" rx="3" fill="#e3f6ea" stroke="#27ae60" stroke-width="2.0"/>
+<text x="168.0" y="109.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">рядок 100</text>
+<rect x="190.0" y="144.0" width="660.0" height="34.0" rx="3" fill="#eef1f4" stroke="#333333" stroke-width="1.2"/>
+<rect x="390.0" y="144.0" width="210.0" height="34.0" rx="3" fill="#e3f6ea" stroke="#27ae60" stroke-width="2.0"/>
+<text x="168.0" y="167.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">рядок 101</text>
+<rect x="190.0" y="202.0" width="660.0" height="34.0" rx="3" fill="#eef1f4" stroke="#333333" stroke-width="1.2"/>
+<rect x="390.0" y="202.0" width="210.0" height="34.0" rx="3" fill="#e3f6ea" stroke="#27ae60" stroke-width="2.0"/>
+<text x="168.0" y="225.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">рядок 102</text>
+<rect x="190.0" y="260.0" width="660.0" height="34.0" rx="3" fill="#eef1f4" stroke="#333333" stroke-width="1.2"/>
+<rect x="390.0" y="260.0" width="210.0" height="34.0" rx="3" fill="#e3f6ea" stroke="#27ae60" stroke-width="2.0"/>
+<text x="168.0" y="283.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">рядок 103</text>
+<rect x="190.0" y="318.0" width="660.0" height="34.0" rx="3" fill="#eef1f4" stroke="#333333" stroke-width="1.2"/>
+<rect x="390.0" y="318.0" width="210.0" height="34.0" rx="3" fill="#e3f6ea" stroke="#27ae60" stroke-width="2.0"/>
+<text x="168.0" y="341.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">рядок 104</text>
+<line x1="390.0" y1="120.0" x2="390.0" y2="318.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="190.0" y1="388.0" x2="850.0" y2="388.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="850.0" y1="388.0" x2="190.0" y2="388.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="520.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">step[0] = 5760 байтів — увесь рядок батька</text>
+<line x1="390.0" y1="446.0" x2="600.0" y2="446.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="446.0" x2="390.0" y2="446.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="495.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle">cols · elemSize() = 192 байти — стільки бачить вид</text>
+<rect x="150.0" y="490.0" width="740.0" height="52.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="520.0" y="512.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Заголовок виду зберігає крок батька, тому його рядки в пам'яті НЕ суміжні:</tspan><tspan x="520.0" dy="16.9">між кінцем одного й початком наступного лежать 5568 чужих байтів.</tspan></text>
+</svg>

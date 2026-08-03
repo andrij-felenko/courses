@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 730" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1020" height="730" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">D — це зміна прольоту, а не сам проліт</text>
+<text x="60.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">A. Пара пакетів через межу кадрів</text>
+<line x1="90.0" y1="140.0" x2="960.0" y2="140.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="90.0" y1="262.0" x2="960.0" y2="262.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="90.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">шкала відправника: мітка RTP S</text>
+<text x="90.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">шкала приймача: час прибуття R у тактах</text>
+<line x1="150.0" y1="128.0" x2="150.0" y2="152.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="616.6" y1="128.0" x2="616.6" y2="152.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="447.5" y1="250.0" x2="447.5" y2="274.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="728.6" y1="250.0" x2="728.6" y2="274.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="150.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">S = 300 000</text>
+<text x="616.6" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">S = 303 000</text>
+<text x="447.5" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">R = 301 913</text>
+<text x="728.6" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">R = 303 720</text>
+<line x1="150.0" y1="154.0" x2="447.5" y2="248.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="616.6" y1="154.0" x2="728.6" y2="248.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="228.8" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">проліт 1913</text>
+<text x="742.6" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">проліт 720</text>
+<rect x="130.0" y="348.0" width="520.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="390.0" y="375.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">D = 720 − 1913 = −1193 такти = −13.3 мс</tspan><tspan x="390.0" dy="16.2">останній пакет кадру відстояв у черзі вузького місця</tspan></text>
+<text x="60.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">B. Пара пакетів усередині одного кадру (шкалу часу розтягнуто)</text>
+<line x1="90.0" y1="520.0" x2="560.0" y2="520.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="90.0" y1="616.0" x2="560.0" y2="616.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="220.0" y1="508.0" x2="220.0" y2="532.0" stroke="#2457d6" stroke-width="2.4"/>
+<text x="220.0" y="498.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">S = 303 000 в обох</text>
+<line x1="330.0" y1="604.0" x2="330.0" y2="628.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="470.0" y1="604.0" x2="470.0" y2="628.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="330.0" y="646.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">R</text>
+<text x="470.0" y="646.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">R + 52</text>
+<line x1="216.0" y1="534.0" x2="330.0" y2="602.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="224.0" y1="534.0" x2="470.0" y2="602.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="620.0" y="486.0" width="380.0" height="96.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="810.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">S не змінилася, тому D дорівнює</tspan><tspan x="810.0" dy="16.2">самій паузі між прибуттями:</tspan><tspan x="810.0" dy="16.2">D = +52 такти = 0.58 мс — це час</tspan><tspan x="810.0" dy="16.2">серіалізації на вузькому місці</tspan></text>
+<rect x="620.0" y="600.0" width="380.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="810.0" y="619.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="810.0" dy="0.0">Обидва прольоти містять той самий</tspan><tspan x="810.0" dy="16.2">невідомий зсув годинників —</tspan><tspan x="810.0" dy="16.2">у різниці він скорочується</tspan></text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ціна пошуку імені: перебір проти індексу</text>
+<text x="250.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">каталог без індексу</text>
+<rect x="110.0" y="90.0" width="290.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="255.0" y="116.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">блок 0: записи</tspan></text>
+<rect x="110.0" y="146.0" width="290.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="255.0" y="172.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">блок 1: записи</tspan></text>
+<rect x="110.0" y="202.0" width="290.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="255.0" y="228.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">блок 2: записи</tspan></text>
+<rect x="110.0" y="258.0" width="290.0" height="44.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="255.0" y="284.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">блок 3: тут шукане ім'я</tspan></text>
+<line x1="85.0" y1="90.0" x2="85.0" y2="300.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="250.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">перебір записів підряд</text>
+<text x="250.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">у середньому — пів каталогу</text>
+<text x="750.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">каталог з індексом</text>
+<rect x="620.0" y="90.0" width="260.0" height="50.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="750.0" y="119.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">корінь: хеш → блок</tspan></text>
+<rect x="540.0" y="202.0" width="130.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="605.0" y="228.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="605.0" dy="0.0">блок A</tspan></text>
+<rect x="685.0" y="202.0" width="130.0" height="44.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="750.0" y="228.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">блок B</tspan></text>
+<rect x="830.0" y="202.0" width="130.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="895.0" y="228.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="895.0" dy="0.0">блок C</tspan></text>
+<line x1="680.0" y1="144.0" x2="610.0" y2="198.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="750.0" y1="144.0" x2="750.0" y2="198.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="820.0" y1="144.0" x2="890.0" y2="198.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="750.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">hash(ім'я) вказує на один блок</text>
+<text x="750.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">1–2 читання незалежно від розміру</text>
+</svg>

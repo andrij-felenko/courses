@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Від'єднання гілки на ходу: IDLE-проба й перенесення стану в інший потік</text>
+<rect x="30.0" y="60.0" width="980.0" height="100.0" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="46.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">головний потік</text>
+<rect x="30.0" y="175.0" width="980.0" height="100.0" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="46.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">потік qtdemux (streaming)</text>
+<rect x="30.0" y="290.0" width="980.0" height="100.0" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="46.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">потік із пулу GStreamer</text>
+<rect x="217.7" y="105.5" width="264.5" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="126.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">gst_pad_add_probe(src_0, IDLE, …)</tspan></text>
+<rect x="78.9" y="220.5" width="242.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="200.0" y="241.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">пад порожній → викликано пробу</tspan></text>
+<rect x="366.3" y="220.5" width="227.5" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="241.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">gst_pad_unlink(src_0, ghost)</tspan></text>
+<rect x="708.9" y="220.5" width="242.3" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="830.0" y="241.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">call_async(pipeline, teardown)</tspan></text>
+<rect x="308.5" y="335.5" width="183.0" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="356.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">set_state(гілка, NULL)</tspan></text>
+<rect x="635.1" y="335.5" width="249.7" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="760.0" y="356.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">gst_bin_remove(pipeline, гілка)</tspan></text>
+<line x1="300.0" y1="139.0" x2="300.0" y2="218.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="326.0" y1="237.0" x2="362.0" y2="237.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="596.0" y1="237.0" x2="703.0" y2="237.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="830.0" y1="256.0" x2="412.0" y2="332.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="492.0" y1="352.0" x2="623.0" y2="352.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">різати можна лише там, де нічого не тече; стан міняти — лише в чужому потоці</text>
+</svg>

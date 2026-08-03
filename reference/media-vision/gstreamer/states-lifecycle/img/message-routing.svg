@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1040" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що контейнер перехоплює, а що випускає застосункові</text>
+<rect x="395.0" y="105.0" width="230.0" height="365.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="175.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">постить елемент</text>
+<text x="510.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">GstBin / GstPipeline</text>
+<text x="835.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">шина застосунку</text>
+<rect x="40.0" y="132.5" width="270.0" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="155.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">STATE_CHANGED</tspan></text>
+<line x1="322.0" y1="150.0" x2="653.0" y2="150.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="665.0" y="125.0" width="340.0" height="49.9" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="835.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="835.0" dy="0.0">видно від кожного елемента —</tspan><tspan x="835.0" dy="16.9">фільтруй за GST_MESSAGE_SRC</tspan></text>
+<rect x="40.0" y="202.5" width="270.0" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="225.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">ERROR</tspan></text>
+<line x1="322.0" y1="220.0" x2="653.0" y2="220.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="665.0" y="195.1" width="340.0" height="49.9" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="835.0" y="216.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="835.0" dy="0.0">причина провалу;</tspan><tspan x="835.0" dy="16.9">приходить від винуватця</tspan></text>
+<rect x="40.0" y="272.5" width="270.0" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="295.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">ASYNC_START</tspan></text>
+<line x1="322.0" y1="290.0" x2="450.0" y2="290.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="499.0" y1="279.0" x2="521.0" y2="301.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="499.0" y1="301.0" x2="521.0" y2="279.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="835.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="835.0" dy="0.0">застосунок не бачить ніколи</tspan></text>
+<rect x="40.0" y="342.5" width="270.0" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="365.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">ASYNC_DONE</tspan></text>
+<line x1="322.0" y1="360.0" x2="450.0" y2="360.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="499.0" y1="349.0" x2="521.0" y2="371.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="499.0" y1="371.0" x2="521.0" y2="349.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="570.0" y1="360.0" x2="653.0" y2="360.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="665.0" y="335.1" width="340.0" height="49.9" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="835.0" y="356.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="835.0" dy="0.0">лише своє — від конвеєра</tspan><tspan x="835.0" dy="16.9">верхнього рівня</tspan></text>
+<rect x="40.0" y="412.5" width="270.0" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="435.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">RESET_TIME</tspan></text>
+<line x1="322.0" y1="430.0" x2="450.0" y2="430.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="499.0" y1="419.0" x2="521.0" y2="441.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="499.0" y1="441.0" x2="521.0" y2="419.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="835.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="835.0" dy="0.0">внутрішнє: переставити відлік</tspan></text>
+</svg>

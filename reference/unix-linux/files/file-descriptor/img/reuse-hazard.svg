@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1200" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="330.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">як буває</text>
+<text x="200.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">потік A</text>
+<text x="460.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">потік B</text>
+<rect x="80.0" y="130.0" width="240.0" height="46.0" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="200.0" y="157.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">close(7)</tspan></text>
+<text x="460.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">—</text>
+<text x="200.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">—</text>
+<rect x="340.0" y="190.0" width="240.0" height="46.0" rx="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="460.0" y="217.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">open(…) → 7</tspan></text>
+<rect x="80.0" y="250.0" width="240.0" height="46.0" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="200.0" y="277.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">write(7, …)</tspan></text>
+<text x="460.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">—</text>
+<rect x="70.0" y="322.0" width="520.0" height="62.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="330.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">write повернув успіх:</tspan><tspan x="330.0" dy="17.6">байти лягли у файл, який відкрив потік B</tspan></text>
+<text x="50.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">час</text>
+<line x1="50.0" y1="132.0" x2="50.0" y2="288.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="910.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">як треба</text>
+<text x="780.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">потік A</text>
+<text x="1040.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">потік B</text>
+<rect x="660.0" y="130.0" width="240.0" height="46.0" rx="7" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/><text x="780.0" y="157.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">close(fd); fd = −1</tspan></text>
+<text x="1040.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">—</text>
+<text x="780.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">—</text>
+<rect x="920.0" y="190.0" width="240.0" height="46.0" rx="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="1040.0" y="217.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1040.0" dy="0.0">open(…) → 7</tspan></text>
+<rect x="660.0" y="250.0" width="240.0" height="46.0" rx="7" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/><text x="780.0" y="277.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">write(fd, …)</tspan></text>
+<text x="1040.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">—</text>
+<rect x="650.0" y="322.0" width="520.0" height="62.0" rx="10" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/><text x="910.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="910.0" dy="0.0">fd == −1 → EBADF:</tspan><tspan x="910.0" dy="17.6">помилка спіймана, чужого файлу не зачеплено</tspan></text>
+<text x="630.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">час</text>
+<line x1="630.0" y1="132.0" x2="630.0" y2="288.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="90.0" x2="600.0" y2="390.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="600.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">закритий номер не стає недійсним — він стає вільним, і його негайно забирає наступний open</text>
+</svg>

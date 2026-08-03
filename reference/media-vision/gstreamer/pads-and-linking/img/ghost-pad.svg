@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="1000" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Привидний пад: інтерфейс біна назовні</text>
+<rect x="250.0" y="90.0" width="500.0" height="150.0" rx="6" fill="#fbfcfd" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">бін — сам є елементом, але власних падів не має</text>
+<rect x="290.0" y="145.0" width="170.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="375.0" y="184.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="375.0" dy="0.0">h264parse</tspan></text>
+<rect x="540.0" y="145.0" width="180.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="184.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">avdec_h264</tspan></text>
+<line x1="466.0" y1="180.0" x2="534.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="188.9" y="157.2" width="52.2" height="45.6" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="215.0" y="176.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">ghost</tspan><tspan x="215.0" dy="15.6">sink</tspan></text>
+<rect x="758.9" y="157.2" width="52.2" height="45.6" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="785.0" y="176.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="785.0" dy="0.0">ghost</tspan><tspan x="785.0" dy="15.6">src</tspan></text>
+<line x1="242.0" y1="180.0" x2="288.0" y2="180.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="722.0" y1="180.0" x2="758.0" y2="180.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="60.0" y1="180.0" x2="186.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="123.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">дані ззовні</text>
+<line x1="814.0" y1="180.0" x2="940.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="877.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">дані назовні</text>
+<text x="500.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">привидний пад належить бінові, а роботу пересилає внутрішньому падові</text>
+</svg>

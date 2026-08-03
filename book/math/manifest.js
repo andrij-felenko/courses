@@ -104,6 +104,7 @@
         { slug: "floor-division", title: "Цілочислове ділення й підлога", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "fractions", title: "Звичайні дроби", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "negative-numbers", title: "Від'ємні числа", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "equidistribution", title: "Рівномірний розподіл за модулем одиниці", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "algebra", title: "Алгебра", scope: "Абстрактні алгебраїчні структури — групи, кільця, поля, модулі — та поліноміальні рівняння.",
       topics: [
