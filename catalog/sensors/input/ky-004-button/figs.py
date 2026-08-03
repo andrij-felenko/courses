@@ -133,7 +133,7 @@ def fig_wiring():
     for lab, col, py in pads:
         f.append(circle(mx + mw, py, 6, fill=BG, stroke=col, sw=2.2))
         f.append(text(mx + mw - 18, py + 4, lab, size=14, bold=True, color=col, anchor="end"))
-    f.append(text(mx + mw - 18, my + 172, "(середній = +)", size=8.5, color=MUTED, anchor="end"))
+    f.append(text(mx + mw - 18, my + 172, "(середній = +)", size=9, color=MUTED, anchor="end"))
 
     # Плата праворуч
     bx, by, bw, bh = 620, 92, 240, 250
@@ -263,7 +263,7 @@ def fig_states():
         f.append(rect(cx - w / 2, cy - 26, w, 52, fill="#f7f9fc", stroke=col, sw=2.0, rx=10))
         f.append(text(cx, cy - 2, s, size=12.5, bold=True, color=col))
         if sub:
-            f.append(text(cx, cy + 15, sub, size=8.5, color=MUTED))
+            f.append(text(cx, cy + 15, sub, size=9, color=MUTED))
 
     y = 130
     xs = [140, 350, 560, 790]
@@ -284,11 +284,11 @@ def fig_states():
 
     f.append(arrow(xs[1] + 90, y, xs[2] - 76, y, color=FIELD, sw=1.8))
     f.append(text((xs[1] + xs[2]) / 2, y - 12, "устоявся →", size=9, color=FIELD))
-    f.append(text((xs[1] + xs[2]) / 2, y + 16, "подія «натиснуто»", size=8.5, color=FIELD))
+    f.append(text((xs[1] + xs[2]) / 2, y + 16, "подія «натиснуто»", size=9, color=FIELD))
 
     f.append(arrow(xs[2] + 76, y, xs[3] - 76, y, color=POS, sw=1.8))
     f.append(text((xs[2] + xs[3]) / 2, y - 12, "утримується > T_long", size=9, color=POS))
-    f.append(text((xs[2] + xs[3]) / 2, y + 16, "подія «довгий»", size=8.5, color=POS))
+    f.append(text((xs[2] + xs[3]) / 2, y + 16, "подія «довгий»", size=9, color=POS))
 
     # повернення в IDLE (дуга знизу від PRESSED і LONG)
     def back(xa, lab):
@@ -304,7 +304,7 @@ def fig_states():
     f.append(line(xs[1], y + 26, xs[1], y + 52, color="#b8860b", sw=1.5, dash="3,4"))
     f.append(line(xs[1], y + 52, xs[0] + 30, y + 52, color="#b8860b", sw=1.5, dash="3,4"))
     f.append(arrow(xs[0] + 30, y + 52, xs[0] + 20, y + 30, color="#b8860b", sw=1.5))
-    f.append(text((xs[1] + xs[0]) / 2 + 20, y + 44, "не встоявся (брязкіт) → назад, події немає", size=8.5, color="#b8860b"))
+    f.append(text((xs[1] + xs[0]) / 2 + 20, y + 44, "не встоявся (брязкіт) → назад, події немає", size=9, color="#b8860b"))
 
     render(os.path.join(IMG, "ky004-states.svg"), W, H, *f)
 

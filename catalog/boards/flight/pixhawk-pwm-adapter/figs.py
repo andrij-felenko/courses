@@ -180,7 +180,7 @@ def fig_power_rail():
     f.append(text(lx + 300, top + 154, "батареї сам", size=9, color=MUTED))
     # рівна лінія на висоті штирів адаптера, кінці впираються в бокси (не наскрізь)
     f.append(line(lx + 160, top + 128, lx + 230, top + 128, color=MUTED, sw=1.6))
-    f.append(text(lx + 195, top + 118, "сигнал + земля", size=8.5, italic=True, color=MUTED))
+    f.append(text(lx + 195, top + 118, "сигнал + земля", size=9, italic=True, color=MUTED))
     # «+» висить у повітрі
     f.append(text(lx + lw / 2, top + 292, "«+» рейка може лишатися ненапоєною —", size=10, color=INK))
     f.append(text(lx + lw / 2, top + 310, "ESC бере струм з батареї, не з рейки", size=10, color=INK))

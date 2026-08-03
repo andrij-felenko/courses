@@ -17,7 +17,7 @@ def tb(cx, cy, s, **kw):
     return textbox(cx, cy, s, **kw)[0]
 
 
-def clk_tri(x, y, size=7, color=INK):
+def clk_tri(x, y, size=9, color=INK):
     """Маленький трикутник-«пелюстка» позначки тактового входу."""
     return ('<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f z" fill="none" '
             'stroke="%s" stroke-width="1.4"/>' % (x, y - size, x + size, y, x, y + size, color))
@@ -336,7 +336,7 @@ def fig_reset_tree():
         p.append(rect(cx - 70, 140, 140, 56, fill="#eef2ff", stroke=col, sw=1.8))
         p.append(text(cx, 160, "reset sync", size=11, bold=True, color=col))
         p.append(text(cx, 176, clk, size=9.5, color=INK))
-        p.append(text(cx, 189, "(2 тригери на ЦЕЙ такт)", size=8.5, color=MUTED))
+        p.append(text(cx, 189, "(2 тригери на ЦЕЙ такт)", size=9, color=MUTED))
 
         # дерево виходу: один rst_out домену гілкується до багатьох тригерів
         ty = 210
@@ -346,7 +346,7 @@ def fig_reset_tree():
         for lx in leaves:
             p.append(line(lx, ty + 6, lx, ty + 28, color=col, sw=1.4))
             p.append(rect(lx - 11, ty + 28, 22, 26, fill="#f7f9fb", stroke=col, sw=1.4, rx=3))
-            p.append(text(lx, ty + 45, "FF", size=8.5, color=col))
+            p.append(text(lx, ty + 45, "FF", size=9, color=col))
         p.append(text(cx, ty + 78, "тригери домену «%s»" % who, size=10, color=col, bold=True))
         p.append(text(cx, ty + 93, "(зняття синхронне з %s)" % clk.split()[0], size=9, color=MUTED))
 

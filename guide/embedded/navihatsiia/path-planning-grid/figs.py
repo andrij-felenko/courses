@@ -241,7 +241,7 @@ def fig_heuristics():
 
 # ── 5) astar-node.svg — f = g + h на одній клітині фронту ────────────────────
 def fig_astar_node():
-    W, H = 740, 360
+    W, H = 740, 400
     frags = []
     frags.append(text(W / 2, 28, "Ціна клітини у A*:  f = g + h", size=17, bold=True))
 
@@ -275,9 +275,12 @@ def fig_astar_node():
     frags.append(rect(gx + cur[0] * cell, gy + cur[1] * cell, cell, cell, fill="#fff6e0", stroke=INK, sw=2.2, rx=0))
     frags.append(text(cx, cy + 4, "?", size=13, color=INK, bold=True))
 
-    # підписи g та h — ВБІК від своїх ліній, щоб штрих h не різав напис
-    frags.append(text((gpts[0][0] + cx) / 2 - 6, gy + 3.0 * cell + 2, "g = ціна S→сюди", size=11.5, color=NEG, anchor="middle", bold=True))
-    frags.append(text((cx + ggx) / 2 + 22, (cy + ggy) / 2 + 24, "h = здогад сюди→G", size=11.5, color=POS, anchor="start", bold=True))
+    # підписи g та h — ЗАБРАНО з-під ліній: окремим рядком під сіткою, поза всіма лініями/контурами
+    grid_bottom = gy + n * cell
+    frags.append(text(gx + (n * cell) / 2, grid_bottom + 22,
+                      "g = ціна S→сюди (суцільна)", size=12, color=NEG, anchor="middle", bold=True))
+    frags.append(text(gx + (n * cell) / 2, grid_bottom + 42,
+                      "h = здогад сюди→G (штрих)", size=12, color=POS, anchor="middle", bold=True))
 
     # права панель — формула й правило
     lx = gx + n * cell + 28
@@ -297,8 +300,6 @@ def fig_astar_node():
                       size=11.5, color=MUTED))
     render(out("astar-node.svg"), W, H, *frags)
 
-
-# ── 6) admissible-proof.svg — доказ від супротивного: дешевший шлях вийшов би раніше ──
 def fig_admissible_proof():
     W, H = 760, 360
     frags = []

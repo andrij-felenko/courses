@@ -68,21 +68,19 @@ def fig_rms_vs_avg():
     p.append(line(xd, y_avg, xd, y_rms, color=MUTED, sw=1.4, dash="3 3"))
     p.append(circle(xd, y_rms, 4, fill=POS, stroke=POS, sw=1))
     p.append(circle(xd, y_avg, 4, fill=NEG, stroke=NEG, sw=1))
-    p.append(text(xd + 8, (y_avg + y_rms) / 2 + 4, "0.707 vs 0.500", size=11, color=MUTED, anchor="start"))
+    # підпис маркера зсунуто ЛІВОРУЧ від точки (anchor="end"), щоб не збігтися з легендою b3 праворуч
+    p.append(text(xd - 8, (y_avg + y_rms) / 2 + 4, "0.707 vs 0.500", size=11, color=MUTED, anchor="end"))
 
     # легенда (рамки-мітки під кривими)
     b1, w1, h1 = textbox(ox + 118, oy - ah + 26, "U_rms = √D  (діюче)", size=12, color=POS, stroke=POS, fill="#fdecea")
     b2, w2, h2 = textbox(ox + 300, oy - 0.30 * ah, "U_avg = D  (середнє, напруга)", size=12, color=NEG, stroke=NEG, fill="#eaf0fd")
-    b3, w3, h3 = textbox(ox + 360, oy - 0.62 * ah, "P = U_rms²/R = D  (потужність)", size=12, color=FIELD, stroke=FIELD, fill="#eafaf1")
+    # зсунуто праворуч (ox+390 замість ox+360), щоб не налазити на підпис маркера "0.707 vs 0.500"
+    b3, w3, h3 = textbox(ox + 390, oy - 0.62 * ah, "P = U_rms²/R = D  (потужність)", size=12, color=FIELD, stroke=FIELD, fill="#eafaf1")
     p += [b1, b2, b3]
 
     render(os.path.join(OUT, "rms-vs-avg.svg"), W, H, *p,
            title="ШІМ: середнє, діюче і потужність — три різні криві")
 
-
-# ── servo-loop: блок-схема внутрішньої петлі позиції серво ────────────────────
-# Ідея: розкрити чорну скриньку — вхідна ширина проти внутрішньої (потенціометр),
-# компаратор, підсилювач, мотор, вал, назад через потенціометр.
 def fig_servo_loop():
     W, H = 760, 400
     yb = 150                    # рядок блоків
@@ -138,7 +136,9 @@ def fig_servo_loop():
     # з потенціометра вгору-ліворуч у другий вхід компаратора
     p.append(line(cx2 - 40, yp + 28, cx1 + 65, yp + 28, color=MUTED, sw=1.8))
     p.append(arrow(cx1 + 65, yp + 28, cx1 + 65, yb + bh, color=MUTED, sw=1.8))
-    p.append(text(cx1 + 72, yp + 12, "поточний кут (ширина від потенціометра)", size=11, color=MUTED, anchor="start"))
+    # підпис відсунуто далі праворуч (cx1+100 замість cx1+72), щоб вертикальна стрілка
+    # зворотного зв'язку (x=cx1+65) не перетинала початок напису біля (247,304)
+    p.append(text(cx1 + 100, yp + 12, "поточний кут (ширина від потенціометра)", size=11, color=MUTED, anchor="start"))
 
     # підпис суті внизу
     b_note, wn, hn = textbox(W / 2, 370,
@@ -149,10 +149,6 @@ def fig_servo_loop():
     render(os.path.join(OUT, "servo-loop.svg"), W, H, *p,
            title="Серво зсередини: замкнена петля позиції")
 
-
-# ── mains-control: пакетне (в нулі) проти фазового керування мережею ─────────
-# Ідея: дві синусоїди поруч. Ліворуч — цілі півперіоди увімкнені/вимкнені, перехід
-# у нулі. Праворуч — у кожному півперіоді вмикання під кутом (різкий фронт).
 def fig_mains_control():
     W, H = 760, 400
     amp = 70

@@ -203,7 +203,7 @@ def fig_vtable_layout():
         p.append(rect(x, ytop, iw, ih, fill=fill, stroke=col, sw=1.8, rx=9))
         p.append(text(x + iw / 2, ytop + 22, name, size=11.5, color=tagcol, bold=True))
         p.append(text(x + iw / 2, ytop + 41, "vt.read = " + fn, size=9.3, color=INK))
-        p.append(text(x + iw / 2, ytop + 59, "прихований стан: " + state, size=8.8, color=MUTED))
+        p.append(text(x + iw / 2, ytop + 59, "прихований стан: " + state, size=9, color=MUTED))
         # стрілка ВГОРУ — реалізація заповнює абстракцію (DIP: деталь → абстракція)
         p.append(arrow(x + iw / 2, ytop, W / 2 + (i - 1) * 70, vty + vth, color=col, sw=2.0))
 
@@ -254,10 +254,10 @@ def fig_ocp_two_versions():
     rw2 = 96
     p.append(rect(rx0 - 5, 268, rw2, bh, fill=BLUEBG, stroke=NEG, sw=1.8, rx=9))
     p.append(text(rx0 - 5 + rw2 / 2, 292, "реал. A", size=10.5, color=NEG, bold=True))
-    p.append(text(rx0 - 5 + rw2 / 2, 309, "старий .c", size=8.8, color=MUTED))
+    p.append(text(rx0 - 5 + rw2 / 2, 309, "старий .c", size=9, color=MUTED))
     p.append(rect(rx0 + bw - rw2 + 5, 268, rw2, bh, fill=REDBG, stroke=POS, sw=1.8, rx=9))
     p.append(text(rx0 + bw - rw2 / 2 + 5, 292, "реал. B", size=10.5, color=POS, bold=True))
-    p.append(text(rx0 + bw - rw2 / 2 + 5, 309, "новий .c", size=8.8, color=MUTED))
+    p.append(text(rx0 + bw - rw2 / 2 + 5, 309, "новий .c", size=9, color=MUTED))
     p.append(arrow(rx0 - 5 + rw2 / 2, 268, rx0 + bw / 2 - 28, 158, color=NEG, sw=2.0))
     p.append(arrow(rx0 + bw - rw2 / 2 + 5, 268, rx0 + bw / 2 + 28, 158, color=POS, sw=2.0))
     p.append(text(rx0 + bw / 2, 348, "розширюєш, додаючи", size=9.6, color=FIELD, bold=True))

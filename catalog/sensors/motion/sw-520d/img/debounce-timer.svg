@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="470" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 929 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="929" height="480" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Неблокувальний дебаунс: перший фронт запускає вікно — дрижання всередині ігнорується</text>
+<text x="459.5" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Неблокувальний дебаунс: перший фронт запускає вікно — дрижання всередині ігнорується</text>
 <line x1="80.0" y1="190.0" x2="800.0" y2="190.0" stroke="#6b7280" stroke-width="1.0"/>
 <line x1="80.0" y1="138.0" x2="800.0" y2="138.0" stroke="#6b7280" stroke-width="0.6" stroke-dasharray="3,3"/>
 <text x="66.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0</text>
@@ -18,5 +18,5 @@
 <line x1="660.0" y1="286.0" x2="694.0" y2="286.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
 <line x1="720.0" y1="286.0" x2="754.0" y2="286.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
 <text x="660.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">loop() не блокується — код тим часом працює далі</text>
-<rect x="133.7" y="407.9" width="612.5" height="44.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="426.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">delay() зупиняє ВСЮ програму — так не можна в реальному пристрої. натомість: запам'ятали millis()</tspan><tspan x="440.0" dy="13.7">першого фронту → приймаємо подію → доки (millis − t0) &lt; 40 мс, пін НЕ читаємо. loop крутиться далі.</tspan></text>
+<rect x="153.2" y="407.9" width="612.5" height="44.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="459.5" y="426.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="459.5" dy="0.0">delay() зупиняє ВСЮ програму — так не можна в реальному пристрої. натомість: запам'ятали millis()</tspan><tspan x="459.5" dy="13.7">першого фронту → приймаємо подію → доки (millis − t0) &lt; 40 мс, пін НЕ читаємо. loop крутиться далі.</tspan></text>
 </svg>

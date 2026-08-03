@@ -327,11 +327,11 @@ def fig_i2s_formats():
             xa = start + i * step
             fillc = "#eef2ff" if i == 0 else FILL
             f.append(rect(xa, y - 12, step, 24, fill=fillc, stroke=FIELD, sw=1.2, rx=2))
-        f.append(text(start + step/2, y + 5, "MSB", size=8, color=NEG))
+        f.append(text(start + step/2, y + 5, "MSB", size=9, color=NEG))
         # позначка зсуву, якщо є
         if offset_bits > 0:
             f.append(line(x0, y, start, y, color=POS, sw=1.6))
-            f.append(text((x0 + start)/2, y - 16, "зсув 1 такт", size=8.5, color=POS))
+            f.append(text((x0 + start)/2, y - 16, "зсув 1 такт", size=9, color=POS))
 
     data_row(150, "Philips (I2S)", 1, "старший біт відстає від WS на 1 такт BCLK")
     data_row(240, "Ліво-вирівняний", 0, "старший біт одразу з перемиканням WS")
@@ -345,8 +345,8 @@ def fig_i2s_formats():
         xa = end - (nbits - i) * step
         fillc = "#eef2ff" if i == 0 else FILL
         f.append(rect(xa, y - 12, step, 24, fill=fillc, stroke=FIELD, sw=1.2, rx=2))
-    f.append(text(end - nbits*step + step/2, y + 5, "MSB", size=8, color=NEG))
-    f.append(text(end - step/2, y + 5, "LSB", size=8, color=MUTED))
+    f.append(text(end - nbits*step + step/2, y + 5, "MSB", size=9, color=NEG))
+    f.append(text(end - step/2, y + 5, "LSB", size=9, color=MUTED))
 
     f.append(fitbox(x0, 388, x1 - x0, 46,
                     "Передавач і приймач мусять домовитися про формат:\n"
@@ -483,7 +483,7 @@ def fig_dither_decorrelation():
             yy = axY + lsb - lv * lsb
             f.append(line(x + x0, yy, x + x0 + pw - 2*x0, yy,
                           color="#d0d0d0", sw=1, dash="3,3"))
-        f.append(text(x + x0 - 2, axY + lsb + 4, "n·LSB", size=8, color=MUTED, anchor="end"))
+        f.append(text(x + x0 - 2, axY + lsb + 4, "n·LSB", size=9, color=MUTED, anchor="end"))
 
     N = 120
     # тихий синус амплітудою ~1 LSB коло рівня квантування

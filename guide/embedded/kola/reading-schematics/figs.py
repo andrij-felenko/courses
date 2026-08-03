@@ -351,7 +351,7 @@ def fig_labels_buses():
     for i in range(4):
         yy = by + i * 16
         frags.append(wire(430, yy, 470, yy, sw=1.6))
-        frags.append(text(424, yy + 4, "D%d" % i, size=8, color=MUTED, anchor="end"))
+        frags.append(text(424, yy + 4, "D%d" % i, size=9, color=MUTED, anchor="end"))
         frags.append(wire(470, yy, 500, by + 24, sw=1.4))
     frags.append(wire(500, by + 24, 620, by + 24, sw=5.0, color=FIELD))
     frags.append(text(560, by + 18, "D[0..3]", size=10, color=FIELD, bold=True))
@@ -462,7 +462,7 @@ def fig_worked_full():
     frags.append(wire(lx - 80, RT, lx - 80, 175))
     frags.append(sym_cap(lx - 80, 181))
     frags.append(wire(lx - 80, 185, lx - 80, RB))
-    frags.append(text(lx - 76, 168, "C1", size=8, color=MUTED, anchor="start"))
+    frags.append(text(lx - 76, 168, "C1", size=9, color=MUTED, anchor="start"))
     # МК у центрі
     mcx = 430
     frags.append(rect(mcx - 90, 150, 180, 180, fill="#eef2fb", stroke=NEG, sw=2, rx=8))
@@ -474,7 +474,7 @@ def fig_worked_full():
     frags.append(wire(mcx + 40, RT, mcx + 40, 138))
     frags.append(sym_cap(mcx + 40, 144))
     frags.append(wire(mcx + 40, 148, mcx + 40, 150))
-    frags.append(text(mcx + 46, 140, "C4 100n", size=8, color=MUTED, anchor="start"))
+    frags.append(text(mcx + 46, 140, "C4 100n", size=9, color=MUTED, anchor="start"))
     # I2C давач праворуч від МК, дві підтяжки
     sx = 690
     frags.append(rect(sx - 45, 150, 90, 70, fill=FILL, stroke=FIELD, sw=1.8, rx=6))
@@ -492,14 +492,14 @@ def fig_worked_full():
         frags.append(sym_resistor_v(pux, yy - 34, h=22))
         frags.append(wire(pux, yy - 20, pux, yy))
         frags.append(dot(pux, yy))
-    frags.append(text(mcx + 150, 232, "Rp ×2 (4.7k)", size=8.5, color=MUTED))
+    frags.append(text(mcx + 150, 232, "Rp ×2 (4.7k)", size=9, color=MUTED))
     # вихід: MOSFET-ключ на мотор/навантаження (низька сторона)
     qx = 690
     frags.append(wire(mcx + 90, 315, qx - 40, 315, color="#cf8b5e"))
-    frags.append(text((mcx + 90 + qx - 40) / 2, 309, "GPIO→", size=8.5, color="#e08030"))
+    frags.append(text((mcx + 90 + qx - 40) / 2, 309, "GPIO→", size=9, color="#e08030"))
     # резистор у затвор
     frags.append(sym_resistor_h(qx - 22, 315, w=34))
-    frags.append(text(qx - 22, 303, "Rg", size=8, color=INK))
+    frags.append(text(qx - 22, 303, "Rg", size=9, color=INK))
     # символ навантаження (котушка-реле як прямокутник) + MOSFET-прямокутник
     frags.append(rect(qx - 5, 300, 34, 40, fill="#eef2fb", stroke=NEG, sw=1.6, rx=4))
     frags.append(text(qx + 12, 324, "Q1", size=9, color=NEG, bold=True))
@@ -509,7 +509,7 @@ def fig_worked_full():
     frags.append(wire(qx + 12, 218, qx + 12, RT))
     frags.append(wire(qx + 12, 340, qx + 12, RB))
     # flyback-діод паралельно навантаженню
-    frags.append(text(qx + 40, 234, "навантаження", size=8.5, color=MUTED, anchor="start"))
+    frags.append(text(qx + 40, 234, "навантаження", size=9, color=MUTED, anchor="start"))
     # підписи блоків унизу
     labels = [(lx, "① живлення"), (mcx, "② обробка"),
               ((mcx + sx) / 2, "③ шина I2C"), (qx + 10, "④ силовий вихід")]
@@ -537,13 +537,13 @@ def fig_schematic_to_pcb():
         frags.append(text(x + 25, py + ph / 2 - 10, lab, size=9, color=MUTED, italic=True))
     # мінісхема в 1-й панелі
     x = 40
-    frags.append(text(x + 55, py + 66, "+V", size=8, color=POS, bold=True))
+    frags.append(text(x + 55, py + 66, "+V", size=9, color=POS, bold=True))
     frags.append(wire(x + 55, py + 70, x + 55, py + 80))
     frags.append(sym_resistor_v(x + 55, py + 92, h=18))
     frags.append(wire(x + 55, py + 101, x + 55, py + 112))
     frags.append(dot(x + 55, py + 112, r=2.6, color=FIELD))
     frags.append(wire(x + 55, py + 112, x + 100, py + 112, color="#cf8b5e"))
-    frags.append(text(x + 106, py + 116, "N1", size=8, color=FIELD, anchor="start", bold=True))
+    frags.append(text(x + 106, py + 116, "N1", size=9, color=FIELD, anchor="start", bold=True))
     frags.append(sym_led(x + 118, py + 112, scale=0.5))
     # нетлист-текст у 2-й панелі
     x = 290
@@ -553,9 +553,9 @@ def fig_schematic_to_pcb():
     # PCB у 3-й панелі: доріжки й падки
     x = 540
     frags.append(rect(x + 30, py + 55, 30, 20, fill="#d9e6d2", stroke=FIELD, sw=1.4, rx=2))
-    frags.append(text(x + 45, py + 69, "R1", size=8, color=INK))
+    frags.append(text(x + 45, py + 69, "R1", size=9, color=INK))
     frags.append(rect(x + 110, py + 95, 30, 20, fill="#d9e6d2", stroke=FIELD, sw=1.4, rx=2))
-    frags.append(text(x + 125, py + 109, "D1", size=8, color=INK))
+    frags.append(text(x + 125, py + 109, "D1", size=9, color=INK))
     frags.append(wire(x + 60, py + 65, x + 90, py + 65, sw=3, color="#b06a30"))
     frags.append(wire(x + 90, py + 65, x + 110, py + 100, sw=3, color="#b06a30"))
     frags.append(dot(x + 60, py + 65, r=3, color="#b06a30"))

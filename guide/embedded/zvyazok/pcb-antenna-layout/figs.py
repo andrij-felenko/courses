@@ -151,7 +151,7 @@ def fig_feedline():
     f.append(rect(cx + 60, topY - 12, 100, 12, fill=COPPER, stroke=COPPER, sw=0, rx=2))
     f.append(text(x1 + 90, topY - 20, "земля", size=9, color=COPPER, bold=True))
     f.append(text(cx + 110, topY - 20, "земля", size=9, color=COPPER, bold=True))
-    f.append(text(cx - 56, topY - 4, "зазор", size=8.5, color=MUTED, anchor="end"))
+    f.append(text(cx - 56, topY - 4, "зазор", size=9, color=MUTED, anchor="end"))
     # перехідні отвори з боків (stitching) — вертикальні
     for vx in (x1 + 70, x1 + 120, cx + 80, cx + 130):
         f.append(line(vx, topY, vx, 266, color=COPPER, sw=2.2))
@@ -279,7 +279,7 @@ def fig_layer_trap():
             bx = x + lw - 86 - 64
             f.append(rect(bx, y + 14, 56, lh - 44, fill=fill, stroke=edge, sw=1.6, rx=9))
             f.append(text(bx + 28, y + 14 + (lh - 44) / 2 + 4,
-                          "ловить" if ok else "ПРОПУСК", size=8.6, color=edge, bold=True))
+                          "ловить" if ok else "ПРОПУСК", size=9, color=edge, bold=True))
 
     # стрілка-акцент на внутрішні шари лівої колонки
     xL = colx["L"]

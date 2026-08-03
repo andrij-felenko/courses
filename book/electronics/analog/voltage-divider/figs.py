@@ -149,7 +149,7 @@ def _mode_points(x0, x1, y_lo, y_hi, mode, cycles=2, n=300):
 
 
 def fig_compensated():
-    W, H = 760, 384
+    W, H = 786, 384
     e = []
 
     # ── схема компенсованого дільника ──

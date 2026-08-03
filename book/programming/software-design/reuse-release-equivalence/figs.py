@@ -120,7 +120,7 @@ def fig_coherent_vs_grabbag():
 
 # ── Життєвий цикл money: який розряд рухає яка зміна + вікно каре ──────────────
 def fig_semver_lifecycle():
-    W, H = 1200, 520
+    W, H = 1228, 520
     frags = []
     frags.append(text(600, 44, "Життєвий цикл money: що рухає який розряд", size=16, bold=True))
 

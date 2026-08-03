@@ -95,7 +95,7 @@ def fig_wiring():
     # контраст-потенціометр і адреса-джампери — позначки на адаптері
     f.append(text(ax + aw / 2, ay + ah - 46, "потенціометр", size=9.5, color=INK))
     f.append(text(ax + aw / 2, ay + ah - 32, "контрасту", size=9.5, color=INK))
-    f.append(text(ax + aw / 2, ay + ah - 14, "джампери A0·A1·A2 · перемичка BL", size=8.8, color=MUTED))
+    f.append(text(ax + aw / 2, ay + ah - 14, "джампери A0·A1·A2 · перемичка BL", size=9, color=MUTED))
 
     # LCD праворуч — гребінка 16 контактів (гніздо адаптера в неї впаяне)
     lx, ly, lw, lh = 690, 90, 160, 280

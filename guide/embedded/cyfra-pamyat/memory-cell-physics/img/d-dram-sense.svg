@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="840" height="430" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
 <text x="420.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">DRAM: поділ заряду з біт-лінією й підсилювач читання</text>
 <rect x="30.0" y="54.0" width="360.0" height="250.0" rx="6" fill="#fcfcfd" stroke="#e6e6ea" stroke-width="1.4"/>
@@ -7,29 +7,29 @@
 <line x1="84.0" y1="175.0" x2="136.0" y2="175.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 3"/>
 <rect x="84.0" y="175.0" width="52.0" height="75.0" rx="6" fill="#2457d6" stroke="none" stroke-width="0.0"/>
 <text x="110.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">біт-лінія: Vdd/2</text>
-<text x="110.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">перед читанням</text>
+<text x="110.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">перед читанням</text>
 <rect x="274.0" y="100.0" width="52.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
 <line x1="274.0" y1="175.0" x2="326.0" y2="175.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 3"/>
 <rect x="274.0" y="166.0" width="52.0" height="84.0" rx="6" fill="#c0392b" stroke="none" stroke-width="0.0"/>
 <text x="300.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Vdd/2 + ΔV</text>
-<text x="300.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">після відкриття комірки («1»)</text>
+<text x="300.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">після відкриття комірки («1»)</text>
 <line x1="150.0" y1="175.0" x2="268.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="209.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle" font-style="italic">ключ відкрито</text>
+<text x="209.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">ключ відкрито</text>
 <text x="210.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">заряд комірки Cs розтікся на велику ємність біт-лінії Cbl</text>
 <rect x="410.0" y="54.0" width="400.0" height="250.0" rx="6" fill="#fcfcfd" stroke="#e6e6ea" stroke-width="1.4"/>
 <text x="610.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 2: підсилювач розганяє ΔV до повного</text>
-<text x="462.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">BL</text>
-<text x="462.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="end" font-weight="700">BL̄</text>
-<line x1="470.0" y1="110.0" x2="530.0" y2="106.0" stroke="#c0392b" stroke-width="2.0"/>
-<line x1="470.0" y1="200.0" x2="530.0" y2="204.0" stroke="#2457d6" stroke-width="2.0"/>
-<path d="M 540 92 L 540 128 L 580 110 Z" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.8"/>
-<path d="M 540 218 L 540 182 L 580 200 Z" fill="#fdf6f6" stroke="#c0392b" stroke-width="1.8"/>
-<text x="560.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle" font-style="italic">тригер-</text>
-<text x="560.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle" font-style="italic">засувка</text>
-<line x1="580.0" y1="110.0" x2="670.0" y2="76.0" stroke="#c0392b" stroke-width="2.4"/>
-<line x1="580.0" y1="200.0" x2="670.0" y2="234.0" stroke="#2457d6" stroke-width="2.4"/>
-<text x="675.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Vdd (1)</text>
-<text x="675.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">0</text>
+<text x="462.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">BL</text>
+<text x="462.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="end" font-weight="700">BL̄</text>
+<line x1="470.0" y1="132.0" x2="530.0" y2="128.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="470.0" y1="222.0" x2="530.0" y2="226.0" stroke="#2457d6" stroke-width="2.0"/>
+<path d="M 540 114 L 540 150 L 580 132 Z" fill="#f3f5fd" stroke="#2457d6" stroke-width="1.8"/>
+<path d="M 540 240 L 540 204 L 580 222 Z" fill="#fdf6f6" stroke="#c0392b" stroke-width="1.8"/>
+<text x="560.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">тригер-</text>
+<text x="560.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">засувка</text>
+<line x1="580.0" y1="132.0" x2="670.0" y2="98.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="580.0" y1="222.0" x2="670.0" y2="256.0" stroke="#2457d6" stroke-width="2.4"/>
+<text x="675.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Vdd (1)</text>
+<text x="675.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">0</text>
 <text x="610.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">крихітну різницю ΔV засувка «перекидає» у чисті 0/1 — і пише назад</text>
 <rect x="30.0" y="322.0" width="780.0" height="58.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="347.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">ΔV = (Vcell − Vdd/2) · Cs / (Cs + Cbl)     |     типово Cs ≈ 25 фФ, Cbl ≈ 250 фФ  →  Cs/(Cs+Cbl) ≈ 1/11</tspan><tspan x="420.0" dy="13.7">звідси для «1» (Vcell = Vdd):  ΔV ≈ (Vdd/2) · (1/11) ≈ 45 мВ  —  ось чому потрібен чутливий підсилювач</tspan></text>
 <text x="420.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Мала комірка Cs проти великої Cbl → сигнал крихітний; тому читання DRAM спирається на диференційний підсилювач.</text>

@@ -1,32 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="350" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
 <text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хто кого годує: ядро проти DMA</text>
 <text x="100.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Без DMA</text>
 <text x="88.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">CPU</text>
 <line x1="100.0" y1="86.0" x2="660.0" y2="86.0" stroke="#1a1a1a" stroke-width="1.2"/>
 <rect x="100.0" y="72.0" width="515.2" height="28.0" rx="0" fill="#f3dede" stroke="#c0392b" stroke-width="1.2"/>
-<text x="357.6" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">байт → SPI DR (суцільно)</text>
+<text x="357.6" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">байт → SPI DR (суцільно)</text>
 <rect x="615.2" y="72.0" width="44.8" height="28.0" rx="0" fill="#f3dede" stroke="#c0392b" stroke-width="1.2"/>
 <text x="88.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">шина</text>
 <line x1="100.0" y1="122.0" x2="660.0" y2="122.0" stroke="#1a1a1a" stroke-width="1.2"/>
 <rect x="100.0" y="108.0" width="515.2" height="28.0" rx="0" fill="#eafaf0" stroke="#1a1a1a" stroke-width="1.2"/>
-<text x="357.6" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">пікселі</text>
+<text x="357.6" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">пікселі</text>
 <rect x="615.2" y="108.0" width="44.8" height="28.0" rx="0" fill="#eafaf0" stroke="#1a1a1a" stroke-width="1.2"/>
 <text x="380.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">наступний кадр спізнюється</text>
 <text x="100.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">DMA + два буфери</text>
 <text x="88.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">шина</text>
 <line x1="100.0" y1="236.0" x2="660.0" y2="236.0" stroke="#1a1a1a" stroke-width="1.2"/>
 <rect x="100.0" y="222.0" width="257.6" height="28.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
-<text x="228.8" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">DMA жене буфер A</text>
+<text x="228.8" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">DMA жене буфер A</text>
 <rect x="357.6" y="222.0" width="257.6" height="28.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
-<text x="486.4" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">DMA жене буфер B</text>
+<text x="486.4" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">DMA жене буфер B</text>
 <rect x="615.2" y="222.0" width="44.8" height="28.0" rx="0" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
 <text x="88.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">CPU</text>
 <line x1="100.0" y1="272.0" x2="660.0" y2="272.0" stroke="#1a1a1a" stroke-width="1.2"/>
 <rect x="100.0" y="258.0" width="257.6" height="28.0" rx="0" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
-<text x="228.8" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">малює буфер B</text>
+<text x="228.8" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">малює буфер B</text>
 <rect x="357.6" y="258.0" width="257.6" height="28.0" rx="0" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
-<text x="486.4" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">малює буфер C</text>
+<text x="486.4" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">малює буфер C</text>
 <rect x="615.2" y="258.0" width="44.8" height="28.0" rx="0" fill="#eef4ff" stroke="#2457d6" stroke-width="1.2"/>
 <line x1="357.6" y1="222.0" x2="357.6" y2="286.0" stroke="#1a1a1a" stroke-width="1.4" stroke-dasharray="4 3"/>
 <text x="357.6" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">обмін A↔B</text>

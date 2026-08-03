@@ -152,9 +152,9 @@ def fig_worksheet():
         p.append(rect(x, fy, fw, 150, fill=fill, stroke=col, sw=1.8, rx=10))
         p.append(text(x + fw / 2, fy + 24, head, size=10.8, color=tagcol, bold=True))
         for j, ln in enumerate(body.split("\n")):
-            p.append(text(x + fw / 2, fy + 44 + j * 15, ln, size=8.9, color=INK))
+            p.append(text(x + fw / 2, fy + 44 + j * 15, ln, size=9, color=INK))
         p.append(rect(x + 10, fy + 112, fw - 20, 28, fill=BG, stroke=col, sw=1.1, rx=5))
-        p.append(text(x + fw / 2, fy + 130, code, size=8.4, color=INK))
+        p.append(text(x + fw / 2, fy + 130, code, size=9, color=INK))
     # стрілки від рядка до боксів
     p.append(arrow(mids[0], ry + rh, fixes[0][0] + 122, fy, color=FIELD, sw=2))
     p.append(arrow(mids[1], ry + rh, fixes[1][0] + 122, fy, color=NEG, sw=2))
@@ -222,7 +222,7 @@ def fig_timeline():
         p.append(rect(x, y, w, 84, fill=fill, stroke=col, sw=1.5, rx=8))
         p.append(text(x + w / 2, y + 20, head, size=10.4, color=tagcol, bold=True))
         for j, ln in enumerate(body.split("\n")):
-            p.append(text(x + w / 2, y + 40 + j * 14, ln, size=8.8, color=INK))
+            p.append(text(x + w / 2, y + 40 + j * 14, ln, size=9, color=INK))
 
     # підсвічений розрив-міф: 1974 заміна стандарту ⇒ хибна атрибуція NASA
     gy = band_y + band_h + 16

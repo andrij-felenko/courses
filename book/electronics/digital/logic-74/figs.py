@@ -209,7 +209,7 @@ def fig_gate_collapse():
         cy = py + (i // 4) * 46
         f.append(circle(cx, cy, 8, fill="#fff", stroke=POS, sw=1.6))
         f.append(text(cx, cy + 3, str(i + 1), size=9, color=POS, bold=True))
-        f.append(text(cx, cy + 22, lb, size=8.5, color=MUTED))
+        f.append(text(cx, cy + 22, lb, size=9, color=MUTED))
     f.append(text(lx + lw / 2, ly + lh - 10,
                   "×4 вентилі = 28 деталей + 28 стиків", size=9.5, color=POS, italic=True))
 

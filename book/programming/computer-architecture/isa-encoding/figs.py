@@ -56,7 +56,7 @@ def fig_fixed_vs_variable():
         fs = 11 if pw >= 100 else 9
         p.append(text(x + pw / 2, y2 + 20, name, size=fs, color=INK, bold=True))
         p.append(text(x + pw / 2, y2 + 37, "%d Б" % nb, size=9, color=MUTED))
-        p.append(text(x + pw / 2, y2 - 6, "0x%02X" % addr, size=8.5, color=MUTED))
+        p.append(text(x + pw / 2, y2 - 6, "0x%02X" % addr, size=9, color=MUTED))
         x += pw + 6
         addr += nb
     p.append(text(W / 2, y2 + 76,

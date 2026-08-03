@@ -84,7 +84,7 @@ def fig_energy_trade():
 
 # ── Фігура 2: аудит енергії стрибучого м'яча (механічна → теплова) ───────────
 def fig_friction_ledger():
-    W, H = 900, 500
+    W, H = 927, 500
     f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
     f.append(text(W / 2, 28, "Стрибучий м'яч: механічна енергія перетікає в тепло, сума стала",
                   size=17, bold=True))

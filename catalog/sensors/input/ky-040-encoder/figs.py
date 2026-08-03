@@ -160,7 +160,7 @@ def fig_ky040_schematic():
     f.append(line(swb_x, vcc_y, swb_x, sw_y - 40, color=MUTED, sw=1.4, dash="5,4"))
     f.append(rect(swb_x - 14, sw_y - 40, 28, 34, fill=BG, stroke=MUTED, sw=1.4, rx=3))
     f.append(text(swb_x + 22, sw_y - 18, "R1?", size=10, bold=True, color=POS, anchor="start"))
-    f.append(text(swb_x + 22, sw_y - 4, "часто нема", size=8.5, color=MUTED, anchor="start"))
+    f.append(text(swb_x + 22, sw_y - 4, "часто нема", size=9, color=MUTED, anchor="start"))
     f.append(line(swb_x, sw_y - 6, swb_x, sw_y - 12, color=MUTED, sw=1.4, dash="5,4"))
     # вивід SW праворуч
     f.append(line(swb_x, sw_y, bx + bw - 40, sw_y, color=POS, sw=1.8))
@@ -286,9 +286,9 @@ def fig_state_ring():
         f.append(text(nx, ny - 4, code, size=20, bold=True, color=col))
         # дрібний підпис під кодом, у два рядки
         sub_lines = sub.split("\n")
-        f.append(text(nx, ny + 15, sub_lines[0], size=8.5, color=MUTED))
+        f.append(text(nx, ny + 15, sub_lines[0], size=9, color=MUTED))
         if len(sub_lines) > 1:
-            f.append(text(nx, ny + 26, sub_lines[1], size=8.5, color=MUTED))
+            f.append(text(nx, ny + 26, sub_lines[1], size=9, color=MUTED))
 
     # позначка «зарахувати крок» біля вершини «11»
     f.append(text(cx, cy - R - rad - 12, "повернулись у 11 → зарахувати +1 (CW) або −1 (CCW)",

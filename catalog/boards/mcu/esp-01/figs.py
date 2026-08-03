@@ -25,7 +25,7 @@ def fig_pinout():
     f.append(text(bx + bw / 2, by + 82, "ESP8266", size=10.5, bold=True, color="#ffffff"))
     f.append(text(bx + bw / 2, by + 100, "чип", size=9, color="#d0d0d0"))
     f.append(rect(bx + 30, by + 60, 40, 44, fill="#555", stroke=INK, sw=1.2, rx=4))
-    f.append(text(bx + 50, by + 86, "флеш", size=8.5, color="#ffffff"))
+    f.append(text(bx + 50, by + 86, "флеш", size=9, color="#ffffff"))
     # антена-змійка натяком угорі-праворуч
     ax = bx + bw - 46
     f.append(text(ax, by + 78, "))) антена", size=9, color=MUTED))

@@ -183,7 +183,7 @@ def fig_asm_diff():
         y = 120 + i * 31
         p.append(code_line(50, y, ln, size=12.5, color=col))
         if note:
-            p.append(text(384, y, note, size=8.5, color=MUTED, anchor="end", italic=True))
+            p.append(text(384, y, note, size=9, color=MUTED, anchor="end", italic=True))
 
     # -O2: перевірки немає
     p.append(rect(420, 62, 370, 288, fill="#0f1115", stroke=POS, sw=2, rx=10))
@@ -202,7 +202,7 @@ def fig_asm_diff():
         if ln:
             p.append(code_line(440, y, ln, size=12.5, color=col))
         if note:
-            p.append(text(774, y, note, size=8.5, color=MUTED, anchor="end", italic=True))
+            p.append(text(774, y, note, size=9, color=MUTED, anchor="end", italic=True))
     render(os.path.join(OUT, "asm-diff.svg"), W, H, *p,
            title="Той самий tun_chr_poll: під -O0 cmp/jne є, під -O2 їх нема")
 

@@ -186,7 +186,7 @@ def fig_buoyancy_balance():
 
 # ── Фігура 5: насичення рушіїв → перекид без антивіндапу (глибина в часі) ────
 def fig_saturation_antiwindup():
-    W, H = 740, 380
+    W, H = 810, 380
     parts = []
     import math
 

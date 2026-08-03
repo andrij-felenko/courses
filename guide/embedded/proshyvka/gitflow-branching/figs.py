@@ -133,7 +133,7 @@ def fig_gitflow_map():
         p.append(rect(40, y - 14, 96, 28, fill=BG, stroke=col, sw=1.8, rx=6))
         p.append(text(88, y + 5, name, size=11, color=tagcol, bold=True))
         if note:
-            p.append(text(x1 + 4, y + 4, note, size=8.5, color=MUTED, anchor="end"))
+            p.append(text(x1 + 4, y + 4, note, size=9, color=MUTED, anchor="end"))
 
     ymain, yhot, yrel, ydev, yfeat = 80, 130, 185, 250, 320
 
@@ -167,7 +167,7 @@ def fig_gitflow_map():
     p.append(c(740, yhot, AMBER))
     p.append(branchline(750, yhot, 790, ymain, AMBER))
     p.append(branchline(750, yhot, 770, ydev, AMBER))
-    p.append(c(790, ymain, POS)); p.append(text(790, ymain - 16, "v1.4.1", size=8.5, color=POS, bold=True))
+    p.append(c(790, ymain, POS)); p.append(text(790, ymain - 16, "v1.4.1", size=9, color=POS, bold=True))
 
     p.append(text(W / 2, H - 12, "час тече зліва направо; тимчасова гілка завжди вливається назад у свої постійні доріжки",
                   size=10, color=MUTED, italic=True))
@@ -208,8 +208,8 @@ def fig_hotfix_flow():
     yrel = 286
     p.append(rect(470, yrel - 22, 250, 56, fill=GREENBG, stroke=FIELD, sw=2, rx=10))
     p.append(text(595, yrel - 2, "develop (наступна версія)", size=10.6, color=FIELD, bold=True))
-    p.append(text(595, yrel + 16, "сюди ТЕЖ вливають той самий фікс,", size=8.8, color=INK))
-    p.append(text(595, yrel + 30, "щоб у v1.5 баг не воскрес", size=8.8, color=INK))
+    p.append(text(595, yrel + 16, "сюди ТЕЖ вливають той самий фікс,", size=9, color=INK))
+    p.append(text(595, yrel + 30, "щоб у v1.5 баг не воскрес", size=9, color=INK))
     p.append(arrow(260, yhot + 12, 468, yrel - 8, color=AMBER, sw=2))
 
     # реліз-вузол v1.4.1 праворуч від тега
@@ -260,7 +260,7 @@ def fig_hist_timeline():
         p.append(rect(bx, by, bw, bh, fill=fill, stroke=col, sw=2, rx=10))
         p.append(text(x, by + 19, name, size=12, color=tagcol, bold=True))
         for j, ln in enumerate(body.split("\n")):
-            p.append(text(x, by + 37 + j * 13, ln, size=8.8, color=INK))
+            p.append(text(x, by + 37 + j * 13, ln, size=9, color=INK))
 
     p.append(text(W / 2, H - 14, "одна дуга поглядів: спершу «усе передбачити гілками» → потім «менше гілок, більше автотестів»",
                   size=10.2, color=MUTED, italic=True))

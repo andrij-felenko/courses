@@ -490,7 +490,7 @@ def fig_power_loss():
         p.append('<rect x="%.0f" y="%.0f" width="90" height="%.0f" rx="4" fill="%s" fill-opacity="0.18"/>'
                  % (xx, base_y - bh, bh, col))
         p.append(text(xx + 45, base_y - bh - 24, "%.1f Вт" % Ploss, size=12, color=col, bold=True))
-        p.append(text(xx + 45, base_y - bh - 8, "у тепло", size=8.5, color=MUTED))
+        p.append(text(xx + 45, base_y - bh - 8, "у тепло", size=9, color=MUTED))
         p.append(text(xx + 45, base_y + 18, lab, size=11, bold=True))
         p.append(text(xx + 45, base_y + 36, "I = %.1f А" % I, size=9.5, color=col))
         xx += 160
@@ -521,15 +521,15 @@ def fig_ac2c():
     # A-порт
     p.append(rect(60, 108, 70, 96, fill=BG, stroke=INK, sw=1.6, rx=6))
     p.append(text(95, 100, "USB-A", size=9, bold=True))
-    p.append(text(95, 130, "VBUS 5 В", size=8.5, color=POS))
-    p.append(text(95, 160, "D+ D−", size=8.5))
-    p.append(text(95, 190, "GND", size=8.5, color=NEG))
+    p.append(text(95, 130, "VBUS 5 В", size=9, color=POS))
+    p.append(text(95, 160, "D+ D−", size=9))
+    p.append(text(95, 190, "GND", size=9, color=NEG))
     # C-штекер
     p.append(rect(290, 108, 70, 96, fill=BG, stroke=INK, sw=1.6, rx=6))
     p.append(text(325, 100, "USB-C", size=9, bold=True))
-    p.append(text(325, 130, "VBUS", size=8.5, color=POS))
-    p.append(text(325, 160, "CC", size=8.5, color=GOLD, bold=True))
-    p.append(text(325, 190, "GND", size=8.5, color=NEG))
+    p.append(text(325, 130, "VBUS", size=9, color=POS))
+    p.append(text(325, 160, "CC", size=9, color=GOLD, bold=True))
+    p.append(text(325, 190, "GND", size=9, color=NEG))
     # прямі лінії
     p.append(line(130, 128, 290, 128, color=POS, sw=2))
     p.append(line(130, 190, 290, 190, color=NEG, sw=2))
@@ -540,25 +540,25 @@ def fig_ac2c():
     p.append(line(200, 174, 200, 158, color=GOLD, sw=2))
     p.append(line(200, 174, 290, 160, color=GOLD, sw=2))
     p.append(text(210, 220, "CC бачить 56 кΩ → «це кволий A-порт, тягни ≤ 500 мА/900 мА»",
-                  size=8.5, anchor="middle", color=FIELD))
+                  size=9, anchor="middle", color=FIELD))
 
     # ── права половина: смертельний ───────────────────────────
     p.append(rect(400, 60, 340, 176, fill=POSBG, stroke=POS, sw=1.8, rx=12))
     p.append(text(570, 86, "Смертельний брак (кейс 2016)", size=12, color=POS, bold=True))
     p.append(rect(420, 108, 70, 96, fill=BG, stroke=INK, sw=1.6, rx=6))
     p.append(text(455, 100, "USB-A", size=9, bold=True))
-    p.append(text(455, 130, "VBUS 5 В", size=8.5, color=POS))
-    p.append(text(455, 190, "GND", size=8.5, color=NEG))
+    p.append(text(455, 130, "VBUS 5 В", size=9, color=POS))
+    p.append(text(455, 190, "GND", size=9, color=NEG))
     p.append(rect(650, 108, 70, 96, fill=BG, stroke=INK, sw=1.6, rx=6))
     p.append(text(685, 100, "USB-C", size=9, bold=True))
-    p.append(text(685, 130, "VBUS", size=8.5, color=POS))
-    p.append(text(685, 190, "GND", size=8.5, color=NEG))
+    p.append(text(685, 130, "VBUS", size=9, color=POS))
+    p.append(text(685, 190, "GND", size=9, color=NEG))
     # ПЕРЕХРЕЩЕНІ лінії: VBUS_A → GND_C, GND_A → VBUS_C
     p.append(line(490, 128, 650, 190, color=POS, sw=2.4))
     p.append(line(490, 190, 650, 128, color=NEG, sw=2.4))
     p.append(text(570, 150, "✕", size=22, color=POS, bold=True))
     p.append(text(570, 220, "GND↔VBUS переставлено + 10 кΩ замість 56 кΩ",
-                  size=8.5, anchor="middle", color=POS, bold=True))
+                  size=9, anchor="middle", color=POS, bold=True))
 
     # наслідки
     p.append(rect(40, 252, 700, 74, fill=GREY, stroke=MUTED, sw=1.5, rx=10))
@@ -632,7 +632,7 @@ def fig_margin():
             p.append(circle(x, thr_y, 3.2, fill=POS, stroke=POS, sw=1))
     p.append(text(left + 8, top + 40, "VBUS «на межі» — то вище, то нижче порога", size=9.5,
                   color=GOLD, anchor="start", bold=True))
-    p.append(text(left + 8, top + 56, "червоні точки = моменти «не зарядилось»", size=8.5,
+    p.append(text(left + 8, top + 56, "червоні точки = моменти «не зарядилось»", size=9,
                   color=POS, anchor="start"))
 
     # пояснення знизу
@@ -772,12 +772,12 @@ def fig_when_measure():
     p.append('<rect x="%.0f" y="%d" width="%.0f" height="%d" fill="%s" fill-opacity="0.08"/>'
              % (left, top, x0 - left, bot - top, NEG))
     p.append(text((left + x0) / 2, top + 20, "холостий хід", size=9.5, color=NEG, bold=True))
-    p.append(text((left + x0) / 2, top + 36, "ΔV=0 → не міряти", size=8.5, color=NEG))
+    p.append(text((left + x0) / 2, top + 36, "ΔV=0 → не міряти", size=9, color=NEG))
     # перехідник
     p.append('<rect x="%.0f" y="%d" width="%.0f" height="%d" fill="%s" fill-opacity="0.10"/>'
              % (x0, top, x2 - x0, bot - top, POS))
     p.append(text((x0 + x2) / 2, top + 20, "перехідник", size=9.5, color=POS, bold=True))
-    p.append(text((x0 + x2) / 2, top + 36, "струм дзвенить → не міряти", size=8.5, color=POS))
+    p.append(text((x0 + x2) / 2, top + 36, "струм дзвенить → не міряти", size=9, color=POS))
     # стале — вікно виміру
     p.append('<rect x="%.0f" y="%d" width="%.0f" height="%d" fill="%s" fill-opacity="0.12"/>'
              % (x2, top, right - x2, bot - top, FIELD))
@@ -857,7 +857,7 @@ def fig_hist_timeline():
         p.append(line(bx + 14, by + 32, bx + 154, by + 32, color="#e4e4e4", sw=1))
         ty = by + 50
         for ln in body:
-            p.append(text(bx + 84, ty, ln, size=8.5, color=INK if ty == by + 50 else MUTED))
+            p.append(text(bx + 84, ty, ln, size=9, color=INK if ty == by + 50 else MUTED))
             ty += 15
 
     render(os.path.join(OUT, "hist-timeline.svg"), W, H, *p,

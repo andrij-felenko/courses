@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="520" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 971 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="971" height="530" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
-<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях одного виклику — і три біди, яких у локальної функції немає</text>
-<text x="440.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ID звʼязує запит із відповіддю; таймер ловить втрату; але загублена відповідь → повторне виконання</text>
+<text x="480.5" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях одного виклику — і три біди, яких у локальної функції немає</text>
+<text x="480.5" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ID звʼязує запит із відповіддю; таймер ловить втрату; але загублена відповідь → повторне виконання</text>
 <text x="175.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">клієнт</text>
 <text x="705.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">сервер</text>
 <line x1="175.0" y1="90.0" x2="175.0" y2="464.0" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="3,4"/>
@@ -32,5 +32,5 @@
 <text x="207.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">повтор ID=9</text>
 <text x="715.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">БЕЗ кешу — виконає +10 ще раз!</text>
 <text x="715.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-style="italic">із кешем ID=9 — лише повторить стару відповідь</text>
-<text x="440.0" y="506.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Локальний виклик не губиться й не виконується двічі. Віддалений — губиться; рятують ID + памʼять про вже виконане.</text>
+<text x="480.5" y="506.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Локальний виклик не губиться й не виконується двічі. Віддалений — губиться; рятують ID + памʼять про вже виконане.</text>
 </svg>

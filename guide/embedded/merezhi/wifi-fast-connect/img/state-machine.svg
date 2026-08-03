@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="620" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="630" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
 <text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях прошивки: холодний старт записує, теплий пробує кеш і відкочується</text>
 <rect x="290.0" y="38.0" width="280.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="430.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Старт: читаємо blob з NVS</tspan></text>
@@ -10,7 +10,7 @@
 <line x1="645.0" y1="174.0" x2="645.0" y2="222.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
 <rect x="580.0" y="222.0" width="130.0" height="52.0" rx="6" fill="#fff8e1" stroke="#1a1a1a" stroke-width="1.5"/><text x="645.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">got IP?</tspan></text>
 <line x1="645.0" y1="274.0" x2="645.0" y2="330.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="657.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">так</text>
+<text x="657.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">так</text>
 <rect x="530.0" y="330.0" width="230.0" height="52.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="645.0" y="352.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">працюємо</tspan><tspan x="645.0" dy="15.0">(канал/PMK/IP влучили)</tspan></text>
 <line x1="355.0" y1="148.0" x2="310.0" y2="148.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
 <text x="332.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">ні</text>
@@ -24,6 +24,6 @@
 <line x1="95.0" y1="416.0" x2="95.0" y2="122.0" stroke="#c0392b" stroke-width="1.8"/>
 <line x1="95.0" y1="122.0" x2="125.0" y2="122.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
 <text x="659.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">ні</text>
-<rect x="141.9" y="400.8" width="456.2" height="30.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="370.0" y="419.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">ні: NO_AP_FOUND (канал змінився) або DHCP NAK → повтор із channel=0</tspan></text>
+<rect x="141.9" y="400.8" width="456.2" height="30.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="370.0" y="412.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">ні: NO_AP_FOUND (канал змінився) або DHCP NAK → повтор із channel=0</tspan></text>
 <rect x="131.6" y="498.2" width="596.8" height="59.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="430.0" y="517.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">ПАСТКА: esp_wifi_deinit() між сеансами вбиває PMKSA-кеш у RAM.</tspan><tspan x="430.0" dy="14.3">Канал та IP переживуть (вони в NVS), а живий PMK — НІ: handshake знову платить повну PBKDF2.</tspan><tspan x="430.0" dy="14.3">Хочеш зберегти PMK — не зривай стек: modem-sleep / light-sleep замість deinit.</tspan></text>
 </svg>

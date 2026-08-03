@@ -48,10 +48,10 @@ def fig_wiring():
 
     # батарейка й кварц — позначки всередині модуля
     f.append(circle(ax + aw / 2 - 55, ay + ah - 46, 22, fill="#fdf6e3", stroke=POS, sw=1.6))
-    f.append(text(ax + aw / 2 - 55, ay + ah - 42, "CR2032", size=8.5, anchor="middle", bold=True))
+    f.append(text(ax + aw / 2 - 55, ay + ah - 42, "CR2032", size=9, anchor="middle", bold=True))
     f.append(rect(ax + aw / 2 + 18, ay + ah - 62, 78, 32, fill="#eaf0fd", stroke=NEG, sw=1.4, rx=5))
     f.append(text(ax + aw / 2 + 57, ay + ah - 48, "кварц", size=9, anchor="middle"))
-    f.append(text(ax + aw / 2 + 57, ay + ah - 36, "32.768 кГц", size=8.5, anchor="middle"))
+    f.append(text(ax + aw / 2 + 57, ay + ah - 36, "32.768 кГц", size=9, anchor="middle"))
 
     b, bw, bh = textbox(W / 2, H - 22,
                         "CLK, DAT, RST — на будь-які три GPIO (це не апаратний SPI); DAT читає й пише по черзі однією лінією",
@@ -85,7 +85,7 @@ def fig_command_bcd():
         f.append(rect(x, by, cw, ch, fill=BG, stroke=INK, sw=1.6, rx=6))
         f.append(text(x + cw / 2, by + 22, nm, size=12.5, bold=True, color=col))
         if desc:
-            f.append(mtext(x + cw / 2, by + 40, desc, size=8.5, color=MUTED, lh=1.15))
+            f.append(mtext(x + cw / 2, by + 40, desc, size=9, color=MUTED, lh=1.15))
 
     # приклад-адреса секунд
     f.append(text(W / 2, by + ch + 34,
@@ -113,7 +113,7 @@ def fig_command_bcd():
         f.append(rect(x, sby, sc, ch, fill=BG, stroke=INK, sw=1.6, rx=6))
         f.append(text(x + sc / 2, sby + 22, nm, size=12, bold=True, color=col))
         if desc:
-            f.append(mtext(x + sc / 2, sby + 40, desc, size=8.5, color=MUTED, lh=1.15))
+            f.append(mtext(x + sc / 2, sby + 40, desc, size=9, color=MUTED, lh=1.15))
 
     # рядок конкретного значення 45
     vy = sby + ch + 30

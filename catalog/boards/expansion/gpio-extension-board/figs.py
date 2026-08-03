@@ -48,7 +48,7 @@ def fig_what_it_does():
     for i, lb in enumerate(labs):
         xx = bx + 20 + i * 18.5
         f.append(line(xx, by + 96, xx, by + 120, color=INK, sw=1.6))
-        f.append(text(xx, by + 132, lb, size=8, color=INK))
+        f.append(text(xx, by + 132, lb, size=9, color=INK))
 
     # макетка праворуч
     mx, my, mw, mh = 545, 96, 285, 200

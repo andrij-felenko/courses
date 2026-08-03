@@ -146,7 +146,7 @@ def fig_bus():
     for i, yy in enumerate(ys):
         nm = "D%d" % (7 - i)
         frags.append(wire(130, yy, 165, yy, sw=1.6))
-        frags.append(text(160, yy - 4, nm, size=8.5, color=MUTED, anchor="end"))
+        frags.append(text(160, yy - 4, nm, size=9, color=MUTED, anchor="end"))
         # скіс у шину
         frags.append(wire(165, yy, 200, 190 + (i - 3.5) * 3, sw=1.4))
     # товста шина
@@ -160,7 +160,7 @@ def fig_bus():
     frags.append(wire(583, 120, 630, 120, sw=1.6))
     frags.append(rect(630, 96, 90, 60, fill="#eef2fb", stroke="#e08030", sw=2, rx=8))
     frags.append(text(675, 122, "АЦП", size=12, color="#e08030", bold=True))
-    frags.append(text(675, 140, "вхід D3", size=8.5, color=INK))
+    frags.append(text(675, 140, "вхід D3", size=9, color=INK))
     frags.append(text(600, 168, "зрив вибирає один член за іменем", size=9.5, color=MUTED))
     render(os.path.join(IMG, "bus.svg"), W, H, *frags,
            title="Шина: жмут однакових ліній — однією товстою")
@@ -196,7 +196,7 @@ def fig_off_sheet():
     frags.append(wire(490, 180, 560, 180))
     frags.append(rect(560, 150, 110, 60, fill="#eef2fb", stroke=NEG, sw=2, rx=8))
     frags.append(text(615, 176, "МК", size=13, color=NEG, bold=True))
-    frags.append(text(615, 194, "живлення +3.3 В", size=8.5, color=INK))
+    frags.append(text(615, 194, "живлення +3.3 В", size=9, color=INK))
 
     # «невидимий» зв'язок через межу
     frags.append(line(334, 210, 406, 210, color=POSc, sw=1.4, dash="4 5"))

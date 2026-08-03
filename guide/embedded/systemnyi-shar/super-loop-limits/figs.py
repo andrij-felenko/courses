@@ -409,7 +409,7 @@ def fig_state_product():
             y = gy + r * cell
             P.append(rect(x, y, cell - 4, cell - 4, fill=REDBG, stroke=POS, sw=1.2))
             P.append(text(x + (cell - 4) / 2, y + (cell - 4) / 2 + 4,
-                          "A%dB%d" % (r, c), size=8.5, color=POS))
+                          "A%dB%d" % (r, c), size=9, color=POS))
     P.append(text(gx + 1.5 * cell, gy + 3 * cell + 22,
                   "лише зріз A×B = 9; × C = 27 комбінацій", size=10.5, color=POS, bold=True))
     P.append(text(gx + 1.5 * cell, gy + 3 * cell + 42,
@@ -618,7 +618,7 @@ def fig_preempt_vs_superloop():
     def deadline_marks(y):
         for d in (4, 8, 12):
             P.append(line(tx(d), y - 46, tx(d), y - 10, color=POS, sw=1.4, dash="2,3"))
-            P.append(text(tx(d), y - 50, "дедлайн A", size=8.5, color=POS, anchor="middle"))
+            P.append(text(tx(d), y - 50, "дедлайн A", size=9, color=POS, anchor="middle"))
 
     # ── доріжка 1: витісняючий RMS ──
     P.append(text(x0, lane1_y - 62, "Витісняючий RMS (τ_A має вищий пріоритет — коротший період)",

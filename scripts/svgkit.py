@@ -12,6 +12,8 @@
 Головне: рамки з текстом самі підганяються під напис (textbox/fitwidth) — текст НЕ вилазить за межі.
 """
 
+import re
+
 # ── Палітра (єдина між розділами) ──────────────────────────────────────────
 POS   = "#c0392b"   # «+», гаряче, небезпека
 NEG   = "#2457d6"   # «−», холодне
@@ -34,7 +36,7 @@ def text_width(s, size=14, bold=False):
     k = 0.62 if bold else 0.57
     return len(str(s)) * size * k
 
-def fit_font(s, max_w, size=14, bold=False, min_size=8):
+def fit_font(s, max_w, size=14, bold=False, min_size=9):
     """Зменшити шрифт, якщо текст не влазить у max_w; не нижче min_size."""
     while size > min_size and text_width(s, size, bold) > max_w:
         size -= 1
@@ -114,19 +116,117 @@ def minus(cx, cy, r=9):
             text(cx, cy + r * 0.4, "−", size=int(r * 1.8), color=NEG, bold=True))
 
 # ── Складання й запис ───────────────────────────────────────────────────────
+def _fit_viewbox(body, w, h, margin=10):
+    """Порахувати вікно, яке НАКРИВАЄ весь вміст. Полотно лише РОЗСУВАЄМО — ніколи не звужуємо,
+    тож розкладка не змінюється: зсувається тільки рамка перегляду. Геометрію беремо з svgcheck,
+    щоб гейт і генератор міряли те саме; нема svgcheck — лишаємо як було."""
+    try:
+        import svgcheck
+    except Exception:
+        return 0.0, 0.0, float(w), float(h)
+    boxes = []
+    try:
+        boxes += list(svgcheck._text_boxes(body))
+        boxes += list(svgcheck._solid_boxes(body, (w, h)))
+        for x1, y1, x2, y2 in svgcheck._seg_lines(body):
+            boxes.append((min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)))
+    except Exception:
+        return 0.0, 0.0, float(w), float(h)
+    if not boxes:
+        return 0.0, 0.0, float(w), float(h)
+    minx = min(0.0, min(b[0] for b in boxes) - margin)
+    miny = min(0.0, min(b[1] for b in boxes) - margin)
+    maxx = max(float(w), max(b[2] for b in boxes) + margin)
+    maxy = max(float(h), max(b[3] for b in boxes) + margin)
+    return minx, miny, maxx - minx, maxy - miny
+
+
+def _shift_text(tag, dx, dy):
+    """Зсунути <text> (разом із його <tspan>) на (dx, dy), правлячи ЧИСЛА в x/y.
+    Навмисно НЕ вживаємо transform: svgcheck такі написи не судить, і це було б обманом гейта."""
+    def rx(m):
+        return '%s="%.1f"' % (m.group(1), float(m.group(2)) + (dx if m.group(1) == "x" else dy))
+    return re.sub(r'\b(x|y)="(-?[\d.]+)"', rx, tag)
+
+
+def _repair_texts(body, w, h, tries=(7, 12, 18)):
+    """Розвести написи, що їх гейт вважає нечитними: напис ПІД лінією або напис на написі.
+    Пробуємо дрібні зсуви в 4 боки й ПЕРЕВІРЯЄМО себе тими самими функціями, що й svgcheck —
+    беремо перший зсув, який прибирає сутичку й не створює нової. Не вийшло — лишаємо як було."""
+    try:
+        import svgcheck
+    except Exception:
+        return body
+    tags = [m for m in re.finditer(r"<text\b[^>]*>.*?</text>", body, re.S)]
+    if not tags:
+        return body
+    try:
+        segs = svgcheck._seg_lines(body)
+        boxes = svgcheck._text_boxes(body)
+    except Exception:
+        return body
+    if len(boxes) != len(tags):        # частину написів гейт пропускає (transform) — не ризикуємо
+        return body
+
+    def bad(i, bx, others):
+        for s in segs:
+            if svgcheck._seg_hits_box(s, bx):
+                return True
+        for j, ob in enumerate(others):
+            if j != i and svgcheck._area_overlap(bx, ob) > 0:
+                return True
+        return False
+
+    cur = list(boxes)
+    out = body
+    moved = 0
+    for i, m in enumerate(tags):
+        if not bad(i, cur[i], cur):
+            continue
+        x0, y0, x1, y1 = cur[i]
+        best = None
+        for d in tries:
+            for dx, dy in ((0, -d), (0, d), (-d, 0), (d, 0)):
+                nb = (x0 + dx, y0 + dy, x1 + dx, y1 + dy)
+                if nb[0] < 2 or nb[1] < 2 or nb[2] > w - 2 or nb[3] > h - 2:
+                    continue
+                probe = list(cur)
+                probe[i] = nb
+                if not bad(i, nb, probe):
+                    best = (dx, dy, nb)
+                    break
+            if best:
+                break
+        if not best:
+            continue
+        dx, dy, nb = best
+        out = out.replace(m.group(0), _shift_text(m.group(0), dx, dy), 1)
+        cur[i] = nb
+        moved += 1
+    return out
+
+
 def render(path, w, h, *frags, title=None):
     """Зібрати SVG (з defs-стрілкою) і записати у файл path."""
     defs = ('<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" '
             'markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
             '<path d="M0 0 L10 5 L0 10 z" fill="%s"/></marker></defs>' % LINE)
-    head = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" '
-            'font-family="%s"><rect width="%d" height="%d" fill="%s"/>' % (w, h, FONT, w, h, BG))
-    parts = [head, defs]
+    inner = [defs]
     if title:
-        parts.append(text(w / 2, 26, title, size=17, bold=True))
-    parts.extend(f for f in frags if f)
-    parts.append("</svg>")
+        inner.append(text(w / 2, 26, title, size=17, bold=True))
+    inner.extend(f for f in frags if f)
+    body = "\n".join(inner)
+    body = _repair_texts(body, w, h)          # розвести написи, що потрапили під лінію або одне на одного
+    vx, vy, vw, vh = _fit_viewbox(body, w, h)
+    if (vx, vy, vw, vh) == (0.0, 0.0, float(w), float(h)):
+        # нічого не вилазить — лишаємо СТАРИЙ формат шапки байт-у-байт, щоб не плодити diff
+        head = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" '
+                'font-family="%s"><rect width="%d" height="%d" fill="%s"/>' % (w, h, FONT, w, h, BG))
+    else:
+        head = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="%g %g %g %g" '
+                'font-family="%s"><rect x="%g" y="%g" width="%g" height="%g" fill="%s"/>'
+                % (vx, vy, vw, vh, FONT, vx, vy, vw, vh, BG))
     import io
     with io.open(path, "w", encoding="utf-8") as f:
-        f.write("\n".join(parts))
+        f.write("\n".join([head, body, "</svg>"]))
     return path

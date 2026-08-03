@@ -220,7 +220,7 @@ def fig_debounce_fsm():
         fillc = "#eafaf0" if name == "PRESSED" else "#f3f8ff"
         f.append(circle(cx, cy, r, fill=fillc, stroke=col, sw=2.0))
         f.append(text(cx, cy - 4, name, size=12, color=col, bold=True))
-        f.append(mtext(cx, cy + 12, sub.split("\n"), size=8.5, color=MUTED))
+        f.append(mtext(cx, cy + 12, sub.split("\n"), size=9, color=MUTED))
 
     def edge(a, b, label, lcol=INK, curve=0, lx=None, ly=None):
         ax, ay, _ = states[a]
@@ -374,7 +374,7 @@ def fig_dtmf_spacing():
             f.append(line(xa, y + 28, xa, yb, color=col, sw=1.0))
             f.append(line(xb, y + 28, xb, yb, color=col, sw=1.0))
             f.append(line(xa, yb, xb, yb, color=col, sw=1.0))
-            f.append(text((xa + xb) / 2, yb + 11, "×1.105", size=8.5, color=col))
+            f.append(text((xa + xb) / 2, yb + 11, "×1.105", size=9, color=col))
 
     draw_group(lo, y_lo, FIELD, "низька група")
     draw_group(hi, y_hi, NEG, "висока група")
@@ -385,7 +385,7 @@ def fig_dtmf_spacing():
         f.append(line(x1, y_lo, x1, y_harm + 6, color=MUTED, sw=0.8, dash="1,3"))
         f.append(arrow(x1, y_harm + 6, x2, y_harm + 6, color=POS, sw=1.3))
         f.append(line(x2, y_harm + 6, x2, y_axis, color=POS, sw=0.8, dash="2,4"))
-        f.append(text((x1 + x2) / 2, y_harm, "×2 → %d" % (2 * fr), size=8.5,
+        f.append(text((x1 + x2) / 2, y_harm, "×2 → %d" % (2 * fr), size=9,
                       color=POS, bold=True))
 
     harm(697)    # 1394 — повз 1336 і 1477

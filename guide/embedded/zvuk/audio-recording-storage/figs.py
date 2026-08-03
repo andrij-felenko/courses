@@ -89,7 +89,7 @@ def fig_length_dilemma():
         hw = 78
         p.append(rect(x0, y0, hw, barh, fill="#fff7e6", stroke=hdr_col, sw=1.8))
         p.append(text(x0 + hw / 2, y0 + barh / 2 - 4, "заголовок", size=9.5, color=INK))
-        p.append(text(x0 + hw / 2, y0 + barh / 2 + 9, hdr_txt, size=8.5, color=hdr_col, bold=True))
+        p.append(text(x0 + hw / 2, y0 + barh / 2 + 9, hdr_txt, size=9, color=hdr_col, bold=True))
         # тіло звуку
         p.append(rect(x0 + hw, y0, barw - hw, barh, fill="#eef4ff", stroke=NEG, sw=1.5))
         p.append(text(x0 + hw + (barw - hw) / 2, y0 + barh / 2 + 4,

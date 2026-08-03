@@ -325,10 +325,10 @@ def fig_delay_flag():
     # дужки знизу: біт7 проти бітів0..6
     f.append(line(bx + 2, by + cell + 8, bx + cell - 2, by + cell + 8, color=POS, sw=2))
     f.append(text(bx + cell / 2, by + cell + 26, "біт 7", size=10, color=POS, bold=True))
-    f.append(text(bx + cell / 2, by + cell + 42, "0x80 = чекати", size=8.5, color=MUTED))
+    f.append(text(bx + cell / 2, by + cell + 42, "0x80 = чекати", size=9, color=MUTED))
     f.append(line(bx + cell + 2, by + cell + 8, bx + 8 * cell - 2, by + cell + 8, color=TFT, sw=2))
     f.append(text(bx + cell * 4.5, by + cell + 26, "біти 0..6", size=10, color=TFT, bold=True))
-    f.append(text(bx + cell * 4.5, by + cell + 42, "число аргументів (& 0x7F)", size=8.5, color=MUTED))
+    f.append(text(bx + cell * 4.5, by + cell + 42, "число аргументів (& 0x7F)", size=9, color=MUTED))
 
     # масив-таблиця: приклад чотирьох записів
     y0 = 196

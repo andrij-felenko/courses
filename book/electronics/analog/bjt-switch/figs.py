@@ -177,15 +177,16 @@ def fig_low_vs_high():
     # база «?» ліворуч пунктиром
     f.append(line(tp.xb, tp.yb, pR_x + 40, tp.yb, color=NEG, sw=2, dash="5,3"))
     f.append(text(pR_x + 36, tp.yb + 4, "база?", size=12, color=NEG, bold=True, anchor="end"))
-    # підпис проблеми (двома рядками через fitbox у нижній смузі панелі)
-    f.append(fitbox(pR_x + 30, botY - 36, pL_w - 60, 32,
+    # підпис проблеми (двома рядками через fitbox у нижній смузі панелі, ЛІВІШЕ за
+    # спину Sx — щоб дріт колектор→навантаження→земля НЕ проходив крізь напис)
+    box_left = pR_x + 16
+    box_right = Sx - 24
+    f.append(fitbox(box_left, botY - 48, box_right - box_left, 44,
                     "щоб ЗАКРИТИ PNP, базу треба підняти до +12 В,\nа МК дає лише 0–3.3 В → прямо не може",
                     size=11, fill="#fdecea", stroke=POS, color="#9a2b22"))
 
     render(os.path.join(IMG, "low-vs-high.svg"), W, H, *f)
 
-
-# ── Фігура 2: pnp-driver.svg (NPN-перекладач для PNP) ───────────────────────
 def fig_pnp_driver():
     W, H = 860, 440
     f = [text(W / 2, 30, "Розв'язок: маленький NPN «перекладає рівень» для PNP",
@@ -226,12 +227,12 @@ def fig_pnp_driver():
     # емітер NPN → земля
     f.append(line(tn.xc, tn.ye, tn.xc, botY, color=INK, sw=2))
     f.append(dot(tn.xc, botY))
-    # база NPN ← МК через Rб
+    # база NPN ← МК через Rб (підпис "МК" піднято НАД дротом, а не по його осі)
     rs, rl, rr = res_h(tn.xb - 48, tn.yb, 40, "Rб")
     f.append(rs)
     f.append(line(rr, tn.yb, tn.xb, tn.yb, color=INK, sw=2))
     f.append(line(162, tn.yb, rl, tn.yb, color=FIELD, sw=2))
-    f.append(text(158, tn.yb + 4, "МК", size=12, color=FIELD, bold=True, anchor="end"))
+    f.append(text(158, tn.yb - 10, "МК", size=12, color=FIELD, bold=True, anchor="end"))
 
     # ── панель-легенда праворуч ──
     lx, ly, lw, lh = 620, 78, 220, 282
@@ -255,8 +256,6 @@ def fig_pnp_driver():
 
     render(os.path.join(IMG, "pnp-driver.svg"), W, H, *f)
 
-
-# ── Фігура 3: two-points.svg (дві робочі точки на лінії навантаження) ───────
 def fig_two_points():
     W, H = 860, 410
     f = [text(W / 2, 30, "Чому в ключі НЕ беруть паспортне β: дві робочі точки", size=16, bold=True)]
@@ -289,7 +288,9 @@ def fig_two_points():
     lx1, ly1 = ox, 128
     lx2, ly2 = 650, oy
     f.append(line(lx1, ly1, lx2, ly2, color="#b5732e", sw=2, dash="6,4"))
-    f.append(text(470, 280, "лінія навантаження", size=12, color="#b5732e", bold=True, anchor="start"))
+    # підпис піднято ГЕТЬ від діагональної лінії навантаження (яка тут проходить
+    # значно нижче), щоб текст не перетинав штрих-пунктир
+    f.append(text(360, 210, "лінія навантаження", size=12, color="#b5732e", bold=True, anchor="start"))
 
     # точка A: на межі (перетин лінії навантаження з «паспортною» кривою, високо/праворуч)
     ax_, ay_ = 300, 168
@@ -308,8 +309,6 @@ def fig_two_points():
 
     render(os.path.join(IMG, "two-points.svg"), W, H, *f)
 
-
-# ── Фігура 4: forced-beta.svg (компроміс вибору β_forced) ───────────────────
 def fig_forced_beta():
     W, H = 840, 360
     f = [text(W / 2, 30, "Примусове β: компроміс між теплом і швидкістю", size=16, bold=True)]

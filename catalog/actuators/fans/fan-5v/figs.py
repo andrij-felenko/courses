@@ -389,10 +389,10 @@ def fig_highside_levelshift():
     f.append(rect(npx - 50, 300, 100, 70, fill="#eef2f8", stroke=NEG, sw=1.8, rx=8))
     f.append(text(npx, 328, "NPN", size=12, bold=True, color=NEG))
     f.append(text(npx, 346, "перемикач рівня", size=9, color=MUTED))
-    f.append(text(npx - 58, 312, "колектор", size=8.5, color=INK, anchor="end"))
+    f.append(text(npx - 58, 312, "колектор", size=9, color=INK, anchor="end"))
     # емітер → GND
     f.append(line(npx, 370, npx, railBot, color=INK, sw=1.8))
-    f.append(text(npx - 58, 362, "емітер", size=8.5, color=INK, anchor="end"))
+    f.append(text(npx - 58, 362, "емітер", size=9, color=INK, anchor="end"))
 
     # база ← ніжка МК через резистор
     baseY = 335

@@ -242,7 +242,7 @@ def input_panel(cx, mode, cap, cap_col):
 
 
 def fig_floating():
-    W, H = 900, 450
+    W, H = 928, 450
     f = []
     f.append(input_panel(150, "float", "без підтяжки:\nрівень НЕ визначено", POS))
     f.append(input_panel(470, "up_open", "підтяжка ↑, кнопка розімкнена:\nчитаємо «1»", FIELD))

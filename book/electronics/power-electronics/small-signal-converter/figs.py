@@ -295,7 +295,7 @@ def fig_hist_averaging_idea():
     # вузол «зважена сума»
     frags.append(circle(400, 170, 34, fill="#fff8e6", stroke=GOLD, sw=2.2))
     frags.append(text(400, 165, "зважити", size=11, color=GOLD, bold=True))
-    frags.append(text(400, 182, "D·(…)+(1−D)·(…)", size=8, color=MUTED))
+    frags.append(text(400, 182, "D·(…)+(1−D)·(…)", size=9, color=MUTED))
     # ваги-підписи на стрілках
     frags.append(text(320, 120, "×D", size=12, color=FIELD, bold=True))
     frags.append(text(320, 224, "×(1−D)", size=12, color=NEG, bold=True))

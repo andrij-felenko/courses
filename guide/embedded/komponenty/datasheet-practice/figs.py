@@ -171,9 +171,9 @@ def fig_number_anatomy():
                               (x_max, RED, "max", "гарантовано")]:
         f.append(line(xx, oy, xx, oy - gh - 6, color=col, sw=1.6, dash="4 3"))
         f.append(text(xx, oy - gh - 14, lab, size=12, color=col, bold=True))
-        f.append(text(xx, oy - gh - 1, sub, size=8.5, color=MUTED))
+        f.append(text(xx, oy - gh - 1, sub, size=9, color=MUTED))
     # заштрихована «половина гірша за typ»
-    f.append(text(mu + 1.0 * sig, oy - gh * 0.30, "пів партії\nгірше за typ", size=8.5, color=MUTED, anchor="start"))
+    f.append(text(mu + 1.0 * sig, oy - gh * 0.30, "пів партії\nгірше за typ", size=9, color=MUTED, anchor="start"))
 
     # права частина — колонка умов
     cx = 500

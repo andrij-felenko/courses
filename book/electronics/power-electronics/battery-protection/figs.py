@@ -55,9 +55,9 @@ def fig_window():
     y_ovr = yv(4.1)
     y_uvr = yv(2.9)
     frags.append(line(x0 + xw - 34, y_ov, x0 + xw - 34, y_ovr, color=POS, sw=1.2))
-    frags.append(text(x0 + xw - 30, (y_ov + y_ovr) / 2 + 3, "знімає ~4.1", size=8, color=POS, anchor="start"))
+    frags.append(text(x0 + xw - 30, (y_ov + y_ovr) / 2 + 3, "знімає ~4.1", size=9, color=POS, anchor="start"))
     frags.append(line(x0 + xw - 34, y_uv, x0 + xw - 34, y_uvr, color=NEG, sw=1.2))
-    frags.append(text(x0 + xw - 30, (y_uv + y_uvr) / 2 + 3, "знімає ~2.9", size=8, color=NEG, anchor="start"))
+    frags.append(text(x0 + xw - 30, (y_uv + y_uvr) / 2 + 3, "знімає ~2.9", size=9, color=NEG, anchor="start"))
 
     # підписи небезпечних зон — рамки праворуч (ширина влазить: x до 800)
     bx = x0 + xw + 12   # = 342
@@ -119,15 +119,15 @@ def fig_topology():
     # живлення монітора від комірки
     frags.append(line(110, 210, 110, 290, color=INK, sw=1.1, dash="3,3"))
     frags.append(line(110, 290, 280, 290, color=INK, sw=1.1, dash="3,3"))
-    frags.append(text(150, 283, "живиться від комірки, міряє V", size=8, color=MUTED, anchor="start"))
+    frags.append(text(150, 283, "живиться від комірки, міряє V", size=9, color=MUTED, anchor="start"))
     # керує затворами
     frags.append(line(320, 260, 320, 208, color=FIELD, sw=1.4))
     frags.append(line(415, 260, 415, 208, color=FIELD, sw=1.4))
-    frags.append(text(367, 250, "розмикає ключі", size=8, color=FIELD, anchor="middle"))
+    frags.append(text(367, 250, "розмикає ключі", size=9, color=FIELD, anchor="middle"))
     # струм за падінням на ключах
     frags.append(line(480, 285, 545, 285, color="#caa24a", sw=1.2))
     frags.append(line(545, 285, 545, 192, color="#caa24a", sw=1.2, dash="3,3"))
-    frags.append(text(490, 300, "струм — за падінням на ключах", size=8, color="#caa24a", anchor="start"))
+    frags.append(text(490, 300, "струм — за падінням на ключах", size=9, color="#caa24a", anchor="start"))
 
     render(os.path.join(IMG, 'topology.svg'), W, H, *frags,
            title="Захист сидить на самій батареї й рве нижню шину двома ключами")
@@ -152,7 +152,7 @@ def fig_backtoback():
                 % (dx - s, dy - 8, dx - s, dy + 8, dx + s, dy, MUTED))
         # риска
         out += line(dx + s, dy - 8, dx + s, dy + 8, color=MUTED, sw=1.6)
-        out += text(dx, dy + 24, sub, size=8, color=MUTED)
+        out += text(dx, dy + 24, sub, size=9, color=MUTED)
         return out
 
     # спільна вісь струму
@@ -360,8 +360,8 @@ def fig_ic_block():
     frags.append(line(268, 128, 284, 128, color=INK, sw=2))
     frags.append(line(270, 133, 282, 133, color=INK, sw=2))
     frags.append(line(276, 133, 276, 146, color=INK, sw=1.1))
-    frags.append(text(288, 126, "C", size=8, color=MUTED, anchor="start"))
-    frags.append(text(196, 92, "RC-фільтр", size=8, color=MUTED, anchor="middle"))
+    frags.append(text(288, 126, "C", size=9, color=MUTED, anchor="start"))
+    frags.append(text(196, 92, "RC-фільтр", size=9, color=MUTED, anchor="middle"))
 
     # GND чипа → мінус комірки
     frags.append(line(326, 146, 326, 163, color=INK, sw=1.2))
@@ -469,7 +469,7 @@ def fig_ic_connect():
     frags.append(line(153, 213, 300, 213, color=INK, sw=2))
     frags.append(rect(300, 193, 150, 44, fill="#fff7e6", stroke=GOLD, sw=1.7, rx=6))
     frags.append(text(375, 211, "два ключі", size=10, color="#8a6d20", bold=True))
-    frags.append(text(375, 226, "(спарений FET)", size=8, color="#8a6d20"))
+    frags.append(text(375, 226, "(спарений FET)", size=9, color="#8a6d20"))
     frags.append(line(450, 213, 720, 213, color=INK, sw=2))
     frags.append(circle(720, 213, 5, fill=INK, stroke=INK, sw=0))
     frags.append(text(720, 200, "P−", size=12, color=INK, anchor="middle", bold=True))
@@ -483,8 +483,8 @@ def fig_ic_connect():
 
     # підпис виходів
     frags.append(text(600, 148, "P+ / P− — до світу", size=9, color=MUTED, anchor="start"))
-    frags.append(text(600, 230, "(єдиний правильний", size=8, color=MUTED, anchor="start"))
-    frags.append(text(600, 242, "вихід пакета)", size=8, color=MUTED, anchor="start"))
+    frags.append(text(600, 230, "(єдиний правильний", size=9, color=MUTED, anchor="start"))
+    frags.append(text(600, 242, "вихід пакета)", size=9, color=MUTED, anchor="start"))
 
     # ключова різниця B− vs P−
     frags.append(fitbox(200, 300, 400, 62,

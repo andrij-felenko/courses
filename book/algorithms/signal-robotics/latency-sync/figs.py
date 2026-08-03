@@ -140,7 +140,7 @@ def fig_innovation():
 # решта спокійна — отже, винен GPS.
 
 def fig_logreading():
-    W, H = 720, 360
+    W, H = 764, 360
     p = []
     rows = [("GNSS", POS, True), ("Магнітометр", "#9333ea", False), ("Барометр", "#d98a00", False)]
     import random

@@ -77,7 +77,7 @@ def fig_walk():
     # ядро
     p.append(rect(40, 170, 90, 60, fill="#eafaf0", stroke=INK, sw=1.8))
     p.append(text(85, 196, "ядро", size=13, color=INK, bold=True))
-    p.append(text(85, 214, "потрібна адреса", size=8.5, color=MUTED))
+    p.append(text(85, 214, "потрібна адреса", size=9, color=MUTED))
 
     # TLB
     tx, ty = 210, 90
@@ -103,7 +103,7 @@ def fig_walk():
         x = wx + k * (bw + 12)
         p.append(rect(x, wy, bw, 46, fill="#fdf4f4", stroke=POS, sw=1.4, rx=6))
         p.append(text(x + bw / 2, wy + 20, lv, size=10, color=INK, bold=True))
-        p.append(text(x + bw / 2, wy + 36, "читання RAM", size=8.5, color=MUTED))
+        p.append(text(x + bw / 2, wy + 36, "читання RAM", size=9, color=MUTED))
         if k < len(levels) - 1:
             p.append(arrow(x + bw + 2, wy + 23, x + bw + 10, wy + 23, color=POS, sw=1.8))
     # ядро → walk
@@ -262,10 +262,10 @@ def fig_atlas_par():
     bx, by = ex + 300, yhot - 22
     p.append(rect(bx, by, 60, 40, fill="#fde9e7", stroke=POS, sw=1.6, rx=4))
     p.append(text(bx + 30, by + 17, "блок", size=9.5, color=POS, bold=True))
-    p.append(text(bx + 30, by + 31, "5 біт", size=8.5, color=MUTED))
+    p.append(text(bx + 30, by + 31, "5 біт", size=9, color=MUTED))
     p.append(rect(bx + 62, by, 62, 40, fill="#eafaf0", stroke=FIELD, sw=1.6, rx=4))
     p.append(text(bx + 62 + 31, by + 17, "рядок", size=9.5, color=FIELD, bold=True))
-    p.append(text(bx + 62 + 31, by + 31, "зсув", size=8.5, color=MUTED))
+    p.append(text(bx + 62 + 31, by + 31, "зсув", size=9, color=MUTED))
     p.append(text(bx + 62, by + 58, "справжня адреса в осерді", size=9.5, color=INK, anchor="middle", bold=True))
 
     # пояснення знизу

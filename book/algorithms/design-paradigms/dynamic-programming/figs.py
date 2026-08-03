@@ -262,7 +262,7 @@ def _mini_graph(ox, oy, hi_edges, hi_verts, title, title_col=INK):
 
 
 def fig_longest_path_fail():
-    W, H = 900, 500
+    W, H = 1156, 500
     p = [rect(0, 0, W, H, fill=BG, stroke="none", sw=0)]
     p.append(text(W / 2, 30, "Найдовший простий шлях НЕ має оптимальної підструктури",
                   size=16.5, bold=True))

@@ -66,7 +66,7 @@ def fig_states():
 
 # ── 2. Послідовність увімкнення в часі: порядок вирішує ───────────────────────
 def fig_powerup():
-    W, H = 800, 420
+    W, H = 852, 420
     f = [text(W / 2, 28, "Холодний старт у часі: порядок не можна переплутати", size=16, bold=True)]
 
     x0, x1 = 150, 760            # вісь часу
@@ -93,14 +93,14 @@ def fig_powerup():
     yV = y0 + 0 * dy
     f.append(line(X(0.04), yV + 14, X(0.10), yV - 18, color=ACT, sw=2.4))
     f.append(line(X(0.10), yV - 18, x1, yV - 18, color=ACT, sw=2.4))
-    f.append(text(X(0.11), yV - 24, "стабільна", size=8.5, color=ACT, anchor="start", italic=True))
+    f.append(text(X(0.11), yV - 24, "стабільна", size=9, color=ACT, anchor="start", italic=True))
 
     # 2. RESX: тримаємо низько, потім відпускаємо після VDD; пауза >120мс
     yR = y0 + 1 * dy
     f.append(line(X(0.0), yR - 18, X(0.16), yR - 18, color=GOLD, sw=2.4))      # утримання low
     f.append(line(X(0.16), yR - 18, X(0.16), yR + 14, color=GOLD, sw=2.4))     # фронт
     f.append(line(X(0.16), yR + 14, x1, yR + 14, color=GOLD, sw=2.4))          # відпущено high
-    f.append(text(X(0.0), yR + 30, "тримаємо в скиданні, поки VDD не вляжеться", size=8.5,
+    f.append(text(X(0.0), yR + 30, "тримаємо в скиданні, поки VDD не вляжеться", size=9,
                   color=GOLD, anchor="start", italic=True))
 
     # 3. команди init — пачка коротких імпульсів після reset recovery
@@ -109,28 +109,28 @@ def fig_powerup():
     for k in range(7):
         xx = cx + k * 14
         f.append(line(xx, yC + 14, xx, yC - 12, color=INK, sw=2.0))
-    f.append(text(cx, yC + 30, "конфігурація регістрів", size=8.5, color=INK, anchor="start", italic=True))
+    f.append(text(cx, yC + 30, "конфігурація регістрів", size=9, color=INK, anchor="start", italic=True))
 
     # 4. sleep-out і обовʼязкова пауза 120 мс
     yS = y0 + 3 * dy
     f.append(line(X(0.46), yS + 14, X(0.46), yS - 12, color=GOLD, sw=2.4))     # команда
     f.append(line(X(0.46), yS - 12, X(0.74), yS - 12, color=GOLD, sw=1.8, dash="4,4"))  # очікування
     f.append(line(X(0.74), yS - 12, X(0.74), yS + 14, color=GOLD, sw=2.4))
-    f.append(text(X(0.60), yS - 18, "чекаємо: насоси напруги встановлюються", size=8.5,
+    f.append(text(X(0.60), yS - 18, "чекаємо: насоси напруги встановлюються", size=9,
                   color=GOLD, anchor="middle", italic=True))
 
     # 5. display-on тільки ПІСЛЯ паузи
     yD = y0 + 4 * dy
     f.append(line(X(0.76), yD + 14, X(0.76), yD - 12, color=ACT, sw=2.4))
     f.append(line(X(0.76), yD - 12, x1, yD - 12, color=ACT, sw=2.4))
-    f.append(text(X(0.77), yD - 18, "тепер видно картинку", size=8.5, color=ACT,
+    f.append(text(X(0.77), yD - 18, "тепер видно картинку", size=9, color=ACT,
                   anchor="start", italic=True))
 
     # 6. підсвітка наростає плавно ОСТАННЬОЮ
     yB = y0 + 5 * dy
     f.append(line(X(0.80), yB + 14, X(0.92), yB - 16, color=LOW, sw=2.4))      # ramp
     f.append(line(X(0.92), yB - 16, x1, yB - 16, color=LOW, sw=2.4))
-    f.append(text(X(0.80), yB + 30, "вмикаємо ОСТАННЬОЮ — щоб не блимнути сміттям", size=8.5,
+    f.append(text(X(0.80), yB + 30, "вмикаємо ОСТАННЬОЮ — щоб не блимнути сміттям", size=9,
                   color=LOW, anchor="start", italic=True))
 
     # вертикальні «такти» — звʼязок порядку
@@ -182,7 +182,7 @@ def fig_power():
                         (lvl_idle, "приглушено", LOW),
                         (lvl_sleep, "сон ≈ 0", LOW)]:
         f.append(line(ox, y, X(0.02), y, color=col, sw=1))
-        f.append(text(ox - 10, y + 4, lab, size=8.5, color=col, anchor="end"))
+        f.append(text(ox - 10, y + 4, lab, size=9, color=col, anchor="end"))
 
     # підписи фаз під віссю
     for t, lab in [(0.06, "INIT"), (0.22, "ACTIVE"), (0.40, "IDLE"),
@@ -192,7 +192,7 @@ def fig_power():
     # «привид» — те, що було б, якби забули приспати (горизонталь на active)
     gy = lvl_active
     f.append(line(X(0.46), gy, X(0.74), gy, color=POS, sw=1.8, dash="6,4"))
-    f.append(text(X(0.60), gy - 8, "забули sleep-in → 4–6 мА весь час", size=8.5,
+    f.append(text(X(0.60), gy - 8, "забули sleep-in → 4–6 мА весь час", size=9,
                   color=POS, anchor="middle", italic=True))
     # заштрихована різниця (втрачений заряд)
     f.append(rect(X(0.46), gy, X(0.74) - X(0.46), lvl_sleep - gy, fill="#fdecea", stroke="none", rx=0))

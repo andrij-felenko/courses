@@ -4,28 +4,28 @@
 <rect x="30.0" y="62.0" width="370.0" height="288.0" rx="10" fill="#0f1115" stroke="#27ae60" stroke-width="2.0"/>
 <text x="215.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7ee2a8" text-anchor="middle" font-weight="700">-O0  (перевірка ЖИВА)</text>
 <text x="50.0" y="120.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#e8e8e8" text-anchor="start" font-weight="700">mov   rax, [rdi]</text>
-<text x="384.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">rax = tun-&gt;sk</text>
+<text x="384.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">rax = tun-&gt;sk</text>
 <text x="50.0" y="151.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#e8e8e8" text-anchor="start" font-weight="700">mov   [sk], rax</text>
-<text x="384.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">зберегли sk</text>
+<text x="384.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">зберегли sk</text>
 <text x="50.0" y="182.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#7ee2a8" text-anchor="start" font-weight="700">cmp   rdi, 0</text>
-<text x="384.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">tun == 0 ?</text>
+<text x="384.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">tun == 0 ?</text>
 <text x="50.0" y="213.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#7ee2a8" text-anchor="start" font-weight="700">jne   .ok</text>
-<text x="384.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">ні → далі</text>
+<text x="384.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">ні → далі</text>
 <text x="50.0" y="244.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#e8e8e8" text-anchor="start" font-weight="700">mov   eax, POLLERR</text>
-<text x="384.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">так → вихід</text>
+<text x="384.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">так → вихід</text>
 <text x="50.0" y="275.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#e8e8e8" text-anchor="start" font-weight="700">ret</text>
 <text x="50.0" y="306.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#e8e8e8" text-anchor="start" font-weight="700">.ok: ...</text>
-<text x="384.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">робота зі sk</text>
+<text x="384.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">робота зі sk</text>
 <rect x="420.0" y="62.0" width="370.0" height="288.0" rx="10" fill="#0f1115" stroke="#c0392b" stroke-width="2.0"/>
 <text x="605.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ff8a80" text-anchor="middle" font-weight="700">-O2  (перевірку ВИКИНУТО)</text>
 <text x="440.0" y="120.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#e8e8e8" text-anchor="start" font-weight="700">mov   rax, [rdi]</text>
-<text x="774.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">rax = tun-&gt;sk</text>
+<text x="774.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">rax = tun-&gt;sk</text>
 <text x="440.0" y="151.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#e8e8e8" text-anchor="start" font-weight="700">mov   [sk], rax</text>
-<text x="774.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">зберегли sk</text>
+<text x="774.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">зберегли sk</text>
 <text x="440.0" y="213.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#ff8a80" text-anchor="start" font-weight="700">; cmp/jne зникли —</text>
-<text x="774.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">перевірки</text>
+<text x="774.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">перевірки</text>
 <text x="440.0" y="244.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#ff8a80" text-anchor="start" font-weight="700">;  tun вважається</text>
-<text x="774.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">«не null»</text>
+<text x="774.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">«не null»</text>
 <text x="440.0" y="306.0" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" fill="#e8e8e8" text-anchor="start" font-weight="700">...</text>
-<text x="774.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="end" font-style="italic">одразу робота зі sk</text>
+<text x="774.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-style="italic">одразу робота зі sk</text>
 </svg>

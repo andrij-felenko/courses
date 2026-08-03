@@ -484,7 +484,7 @@ def fig_wx_permission():
         p.append(rect(x, py, cw-6, ph, fill=fil, stroke=col, sw=1.6))
         p.append(text(x + (cw-6)/2, py + 26, nm, size=11.5, color=col, bold=True))
         tag = "виконувати (X),\nне писати" if perm == "X" else "писати (W),\nне виконувати"
-        p.append(mtext(x + (cw-6)/2, py + 44, tag, size=8.5, color=MUTED))
+        p.append(mtext(x + (cw-6)/2, py + 44, tag, size=9, color=MUTED))
     p.append(text(W/2, py - 8, "кожна сторінка — АБО W, АБО X; ніколи обидва (W ⊕ X)",
                   size=11, color=INK, bold=True))
     # спроба атаки: виконати дані → апаратна заборона
@@ -531,7 +531,7 @@ def fig_dsp_bus_growth():
             p.append(text(cx, y + unit/2 + 4, lbl, size=9.5, color=col, bold=True))
         p.append(text(cx, base + 20, name, size=12, color=INK, bold=True))
         p.append(text(cx, base + 37, year, size=10, color=MUTED, italic=True))
-        p.append(mtext(cx, base + 55, note, size=8.5, color=MUTED, lh=1.25))
+        p.append(mtext(cx, base + 55, note, size=9, color=MUTED, lh=1.25))
         # лічильник «шин пам'яті» над стовпчиком
         p.append(text(cx, base - n*unit - 8, "%d шини пам'яті" % n if n < 5 else "%d шин" % n,
                       size=10.5, color=INK, bold=True))

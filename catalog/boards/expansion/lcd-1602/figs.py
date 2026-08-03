@@ -184,7 +184,7 @@ def fig_lcd_wiring():
     poty = top + 2 * rowH + rowH / 2  # рядок VO (індекс 2)
     # маленький значок дільника біля VO-призначення
     ptx = (px_out + rx) / 2
-    f.append(text(ptx, poty - 12, "потенціометр", size=8.5, color=FIELD, bold=True))
+    f.append(text(ptx, poty - 12, "потенціометр", size=9, color=FIELD, bold=True))
 
     # Легенда-нота
     b1, w1, h1 = textbox(W / 2, H - 66,

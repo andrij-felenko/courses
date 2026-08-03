@@ -258,7 +258,7 @@ def fig_ring_scan():
         f.append(circle(x, y, 26, fill=fill, stroke=col, sw=2 if i == head_i else 1.4))
         f.append(text(x, y - 2, seqs[i], size=10.5, color=col,
                       bold=(i == head_i)))
-        f.append(text(x, y + 12, "#%d" % i, size=8.5, color=MUTED))
+        f.append(text(x, y + 12, "#%d" % i, size=9, color=MUTED))
     # стрілка напрямку запису по колу
     a0 = -_m.pi / 2 + 2 * _m.pi * (head_i + 0.5) / n
     f.append(arrow(cx + (R + 30) * _m.cos(a0 - 0.18), cy + (R + 30) * _m.sin(a0 - 0.18),

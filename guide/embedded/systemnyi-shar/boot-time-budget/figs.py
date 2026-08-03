@@ -181,7 +181,7 @@ def fig_bootstrap_chain():
 
 # ── (proj) Три точки зору приладу на той самий шлях RESET→app_main ────────────
 def fig_profiler_vantage():
-    W, H = 880, 470
+    W, H = 1019, 470
     f = [text(W / 2, 28, "Три точки зору на той самий шлях завантаження",
               size=15, bold=True)]
     x0, x1 = 70, 810

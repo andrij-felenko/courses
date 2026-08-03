@@ -159,7 +159,7 @@ def fig_hw_sw_split():
 
 # ── 4. switch-cost: ціна перемикання — і чому потоки дешевші за процеси ─────────
 def fig_switch_cost():
-    W, H = 760, 320
+    W, H = 817, 320
     p = []
     ox = 70
     track_w = 620

@@ -96,8 +96,8 @@ def fig_sram_6t():
     f.append(arrow(381, 168, 444, 153, color=INK, sw=2))
     f.append(arrow(439, 182, 376, 198, color=INK, sw=2))
     f.append(text(412, 142, "вихід одного → вхід іншого", size=9.5, color=MUTED, italic=True))
-    f.append(text(298, 180, "Q=1", size=12, color=NEG, bold=True))
-    f.append(text(522, 180, "Q̄=0", size=12, color=POS, bold=True))
+    f.append(text(268, 180, "Q=1", size=12, color=NEG, bold=True))
+    f.append(text(552, 180, "Q̄=0", size=12, color=POS, bold=True))
 
     # лінія слова + транзистори доступу
     f.append(line(300, 120, 520, 120, color=GOLD, sw=2.4))
@@ -128,8 +128,6 @@ def fig_sram_6t():
                  y0=H - 30))
     render(os.path.join(IMG, "sram-6t.svg"), W, H, *f)
 
-
-# ── 3. DRAM: один транзистор + конденсатор ───────────────────────────────────
 def fig_dram_1t1c():
     W, H = 820, 410
     f = [text(W / 2, 30, "DRAM: біт — це заряд на одному конденсаторі", size=17, bold=True)]
@@ -596,11 +594,11 @@ def fig_wear():
 
     # праворуч: графік звуження вікна
     gx, gy, gw, gh = 470, 80, 300, 200
-    f.append(rect(gx - 20, 70, 330, 220, fill="#fcfcfd", stroke="#e6e6ea", sw=1.4))
+    f.append(rect(gx - 20, 70, 330, 240, fill="#fcfcfd", stroke="#e6e6ea", sw=1.4))
     f.append(text(gx + gw / 2 - 20, 90, "вікно читання звужується з циклами", size=10.5, color=INK, bold=True))
     f.append(line(gx, gy + 20, gx, gy + gh, color=MUTED, sw=1.3))
     f.append(line(gx, gy + gh, gx + gw, gy + gh, color=MUTED, sw=1.3))
-    f.append(text(gx + gw, gy + gh + 14, "цикли", size=9, color=MUTED, anchor="end"))
+    f.append(text(gx + gw, gy + gh + 24, "цикли", size=9, color=MUTED, anchor="end"))
     f.append(text(gx - 6, gy + 26, "поріг", size=9, color=MUTED, anchor="end"))
     # поріг «0» (заряд є) повзе вниз
     p0 = [(gx + gw * t, gy + 36 + 60 * t) for t in [i / 30 for i in range(31)]]
@@ -620,12 +618,6 @@ def fig_wear():
                  y0=H - 16))
     render(os.path.join(IMG, "wear.svg"), W, H, *f)
 
-
-# ════════════════════════════════════════════════════════════════════════════
-#  ДЕТАЛЬНА стаття «Фізика комірок» — 5 глибших фігур (d-*)
-# ════════════════════════════════════════════════════════════════════════════
-
-# ── d1. SNM: метелик і найбільший вписаний квадрат ───────────────────────────
 def fig_d_snm():
     W, H = 840, 430
     f = [text(W / 2, 30, "Запас стійкості SRAM: «метелик» і найбільший вписаний квадрат",
@@ -698,12 +690,12 @@ def fig_d_dram_sense():
         return ff, mid, bx, bw
     b1, mid, _, _ = bar(110, 0.5, "біт-лінія: Vdd/2", NEG)
     f.extend(b1)
-    f.append(text(110, 96, "перед читанням", size=8.5, color=MUTED))
+    f.append(text(110, 96, "перед читанням", size=9, color=MUTED))
     b2, _, _, _ = bar(300, 0.5 + 0.06, "Vdd/2 + ΔV", POS)
     f.extend(b2)
-    f.append(text(300, 96, "після відкриття комірки («1»)", size=8.5, color=MUTED))
+    f.append(text(300, 96, "після відкриття комірки («1»)", size=9, color=MUTED))
     f.append(arrow(150, 175, 268, 175, color=INK, sw=1.8))
-    f.append(text(209, 168, "ключ відкрито", size=8.5, color=MUTED, italic=True))
+    f.append(text(209, 168, "ключ відкрито", size=9, color=MUTED, italic=True))
     f.append(text(210, 292, "заряд комірки Cs розтікся на велику ємність біт-лінії Cbl",
                   size=9, color=MUTED, italic=True))
 
@@ -711,7 +703,7 @@ def fig_d_dram_sense():
     f.append(rect(410, 54, 400, 250, fill="#fcfcfd", stroke="#e6e6ea", sw=1.4))
     f.append(text(610, 76, "Крок 2: підсилювач розганяє ΔV до повного", size=11.5, color=INK, bold=True))
     # дві біт-лінії, що розходяться
-    ax, ay = 470, 110
+    ax, ay = 470, 132
     f.append(text(ax - 8, ay + 4, "BL", size=9, color=POS, bold=True, anchor="end"))
     f.append(text(ax - 8, ay + 90, "BL̄", size=9, color=NEG, bold=True, anchor="end"))
     # вхід: майже рівні (ΔV)
@@ -722,8 +714,8 @@ def fig_d_dram_sense():
              % (ax + 70, ay - 18, ax + 70, ay + 18, ax + 110, ay, "#f3f5fd", NEG))
     f.append('<path d="M %d %d L %d %d L %d %d Z" fill="%s" stroke="%s" stroke-width="1.8"/>'
              % (ax + 70, ay + 108, ax + 70, ay + 72, ax + 110, ay + 90, "#fdf6f6", POS))
-    f.append(text(ax + 90, ay + 44, "тригер-", size=8.5, color=MUTED, italic=True))
-    f.append(text(ax + 90, ay + 55, "засувка", size=8.5, color=MUTED, italic=True))
+    f.append(text(ax + 90, ay + 44, "тригер-", size=9, color=MUTED, italic=True))
+    f.append(text(ax + 90, ay + 55, "засувка", size=9, color=MUTED, italic=True))
     # вихід: розігнані до країв
     f.append(line(ax + 110, ay, ax + 200, ay - 34, color=POS, sw=2.4))
     f.append(line(ax + 110, ay + 90, ax + 200, ay + 124, color=NEG, sw=2.4))
@@ -740,8 +732,6 @@ def fig_d_dram_sense():
                  y0=H - 12))
     render(os.path.join(IMG, "d-dram-sense.svg"), W, H, *f)
 
-
-# ── d3. Flash: ємнісний подільник і коефіцієнт зв'язку ───────────────────────
 def fig_d_fg_coupling():
     W, H = 840, 400
     f = [text(W / 2, 30, "Flash: керівний затвор бачить плавучий крізь ємнісний подільник",
@@ -795,7 +785,7 @@ def fig_d_fg_coupling():
 
 # ── d4. SLC/MLC/TLC: скільки бітів в одну комірку ────────────────────────────
 def fig_d_mlc():
-    W, H = 840, 420
+    W, H = 945, 420
     f = [text(W / 2, 30, "Скільки бітів в одну комірку: розподіли порога SLC → MLC → TLC",
               size=15.5, bold=True)]
 
@@ -822,7 +812,7 @@ def fig_d_mlc():
         cols = [NEG, POS, FIELD, GOLD, INK, "#8e44ad", MUTED, "#16a085"]
         for i, (c, lab) in enumerate(zip(centers, labels)):
             ff.append(gauss(c, spread, 1.0, cols[i % len(cols)], x0, gw, gy, gh))
-            ff.append(text(x0 + gw * c, gy + gh + 14, lab, size=8.5, color=cols[i % len(cols)],
+            ff.append(text(x0 + gw * c, gy + gh + 14, lab, size=9, color=cols[i % len(cols)],
                            bold=True))
         ff.append(text(x0 + gw + 8, gy + 12, note, size=9, color=MUTED, anchor="start", italic=True))
         return ff
@@ -859,12 +849,12 @@ def fig_d_nor_nand():
         cy = 140 + i * 60
         # комірка як прямокутник між землею і біт-лінією
         f.append(rect(blx - 150, cy - 14, 60, 28, fill="#fff2cc", stroke=GOLD, sw=1.6))
-        f.append(text(blx - 120, cy + 4, "комір.", size=8.5, color=GOLD, bold=True))
+        f.append(text(blx - 120, cy + 4, "комір.", size=9, color=GOLD, bold=True))
         f.append(line(gndx, cy, blx - 150, cy, color=MUTED, sw=1.6))
         f.append(line(blx - 90, cy, blx, cy, color=INK, sw=1.6))
         # лінія слова
         f.append(line(blx - 120, cy - 30, blx - 120, cy - 14, color=FIELD, sw=1.8))
-        f.append(text(blx - 120, cy - 34, "WL%d" % i, size=8, color=FIELD, anchor="middle"))
+        f.append(text(blx - 120, cy - 34, "WL%d" % i, size=9, color=FIELD, anchor="middle"))
     f.append(text(220, 328, "читаєш одну — струм тече прямо крізь неї → ШВИДКИЙ ДОСТУП",
                   size=9, color=MUTED, italic=True))
     f.append(text(220, 344, "але кожна комірка потребує контакту → комірка більша",
@@ -881,7 +871,7 @@ def fig_d_nor_nand():
         cy = 130 + i * 34
         f.append(rect(chx - 26, cy, 52, 24, fill="#fff2cc", stroke=GOLD, sw=1.5))
         f.append(line(chx - 44, cy + 12, chx - 26, cy + 12, color=FIELD, sw=1.6))
-        f.append(text(chx - 48, cy + 15, "WL%d" % i, size=8, color=FIELD, anchor="end"))
+        f.append(text(chx - 48, cy + 15, "WL%d" % i, size=9, color=FIELD, anchor="end"))
         if i < 4:
             f.append(line(chx, cy + 24, chx, cy + 34, color=INK, sw=1.8))
     f.append(line(chx, 130 + 5 * 34, chx, 130 + 5 * 34 + 12, color=INK, sw=2))
@@ -889,7 +879,7 @@ def fig_d_nor_nand():
     f.append(text(620, 340, "нема контактів між комірками → найщільніше, найдешевше;",
                   size=9, color=MUTED, italic=True))
     f.append(text(620, 356 - 4, "але доступ лише цілими сторінками/блоками, не по байту",
-                  size=8.7, color=MUTED, italic=True))
+                  size=9, color=MUTED, italic=True))
 
     f.extend(cap(W, "NOR: паралель — швидке довільне читання, можна виконувати код на місці (програма МК). NAND: низка — гранична щільність, доступ блоками (масові дані, SSD, флешки).",
                  y0=H - 12))
@@ -915,12 +905,12 @@ def fig_ms_trip_gain():
     # осі
     f.append(line(gx, gy, gx, gy + g, color=MUTED, sw=1.3))
     f.append(line(gx, gy + g, gx + g, gy + g, color=MUTED, sw=1.3))
-    f.append(text(gx - 8, gy + 6, "Vвих", size=10, color=MUTED, anchor="end"))
+    f.append(text(gx - 8, gy - 14, "Vвих", size=10, color=MUTED, anchor="end"))
     f.append(text(gx + g, gy + g + 16, "Vвх", size=10, color=MUTED, anchor="end"))
-    f.append(text(gx - 8, gy + 2, "Vdd", size=8.5, color=MUTED, anchor="end"))
-    f.append(text(gx - 8, gy + g, "0", size=8.5, color=MUTED, anchor="end"))
-    f.append(text(gx, gy + g + 16, "0", size=8.5, color=MUTED))
-    f.append(text(gx + g, gy + g + 16, "Vdd", size=8.5, color=MUTED, anchor="end"))
+    f.append(text(gx - 8, gy + 2, "Vdd", size=9, color=MUTED, anchor="end"))
+    f.append(text(gx - 8, gy + g, "0", size=9, color=MUTED, anchor="end"))
+    f.append(text(gx, gy + g + 16, "0", size=9, color=MUTED))
+    f.append(text(gx + g, gy + g + 16, "Vdd", size=9, color=MUTED, anchor="end"))
 
     trip = 0.5
     pts = [(gx + g * u, gy + g * (1 - _vtc_curve(u, 9.0, trip)))
@@ -935,7 +925,7 @@ def fig_ms_trip_gain():
     f.append(line(tx, ty, tx, gy + g, color=POS, sw=1, dash="3 3"))
     f.append(text(tx, gy + g + 30, "Vм", size=11, color=POS, bold=True))
     f.append(text(tx + 8, ty - 8, "точка перекидання", size=9, color=POS, anchor="start"))
-    f.append(text(gx + g - 4, gy + 18, "Vвих = Vвх", size=8.5, color=MUTED, anchor="end", italic=False))
+    f.append(text(gx + g - 4, gy + 18, "Vвих = Vвх", size=9, color=MUTED, anchor="end", italic=False))
 
     # дотична в точці — нахил = −підсилення
     slope = -2.2
@@ -944,8 +934,8 @@ def fig_ms_trip_gain():
     f.append(text(tx - dx - 4, ty - slope * dx - 6, "нахил = −A", size=9, color=POS, anchor="end"))
 
     # полиці
-    f.append(text(gx + g * 0.16, gy + 20, "обидва «на межі»", size=8, color=MUTED))
-    f.append(text(gx + g * 0.14, gy + 12, "полиця «1»", size=9, color=NEG))
+    f.append(text(gx + g * 0.14, gy + 8, "полиця «1»", size=9, color=NEG))
+    f.append(text(gx + g * 0.16, gy + 26, "обидва «на межі»", size=9, color=MUTED))
     f.append(text(gx + g * 0.82, gy + g - 10, "полиця «0»", size=9, color=NEG, anchor="end"))
 
     body, _, _ = textbox(650, 190,
@@ -959,10 +949,8 @@ def fig_ms_trip_gain():
                  y0=H - 12))
     render(os.path.join(IMG, "ms-trip-gain.svg"), W, H, *f)
 
-
-# ── ms2. Читання: подільник напруги на «нульовому» вузлі ─────────────────────
 def fig_ms_read_divider():
-    W, H = 820, 400
+    W, H = 940, 406
     f = [text(W / 2, 30, "Читання «0»: подільник напруги піднімає нульовий вузол",
               size=15.5, bold=True)]
 
@@ -976,7 +964,7 @@ def fig_ms_read_divider():
     f.append(rect(cx - 34, 100, 68, 40, fill="#fdf6f6", stroke=POS, sw=1.8))
     f.append(text(cx, 124, "Rдост", size=10, color=POS, bold=True))
     f.append(line(cx - 34 - 18, 120, cx - 34, 120, color=FIELD, sw=1.8))
-    f.append(text(cx - 34 - 22, 123, "WL", size=8, color=FIELD, anchor="end"))
+    f.append(text(cx - 34 - 22, 123, "WL", size=9, color=FIELD, anchor="end"))
     # вузол Q (нульовий)
     f.append(line(cx, 140, cx, 176, color=INK, sw=2))
     f.append(circle(cx, 158, 4, fill=INK, stroke=INK, sw=1))
@@ -984,15 +972,15 @@ def fig_ms_read_divider():
     # pull-down (Rтяг)
     f.append(rect(cx - 34, 176, 68, 40, fill="#eef7ee", stroke=FIELD, sw=1.8))
     f.append(text(cx, 200, "Rтяг", size=10, color=FIELD, bold=True))
-    f.append(text(cx - 34 - 6, 200, "«1» на", size=8, color=MUTED, anchor="end"))
-    f.append(text(cx - 34 - 6, 210, "затворі", size=8, color=MUTED, anchor="end"))
+    f.append(text(cx - 34 - 6, 200, "«1» на", size=9, color=MUTED, anchor="end"))
+    f.append(text(cx - 34 - 6, 210, "затворі", size=9, color=MUTED, anchor="end"))
     # земля
     f.append(line(cx, 216, cx, 246, color=INK, sw=2))
     for i, w in enumerate((22, 14, 7)):
         f.append(line(cx - w, 246 + i * 5, cx + w, 246 + i * 5, color=INK, sw=2))
     f.append(text(cx, 274, "земля (0 В)", size=9, color=MUTED))
-    f.append(text(200, 300, "струм тече з біт-лінії крізь обидва опори в землю", size=8.7, color=MUTED, italic=True))
-    f.append(text(200, 314, "→ на середньому вузлі осідає Vчит > 0", size=8.7, color=MUTED, italic=True))
+    f.append(text(200, 300, "струм тече з біт-лінії крізь обидва опори в землю", size=9, color=MUTED, italic=True))
+    f.append(text(200, 314, "→ на середньому вузлі осідає Vчит > 0", size=9, color=MUTED, italic=True))
 
     # ── праворуч: формула й залежність від r ──
     fb = ("Подільник (лінійне наближення):\n"
@@ -1009,7 +997,7 @@ def fig_ms_read_divider():
     gx, gy, gw, gh = 430, 300, 330, 60
     f.append(line(gx, gy, gx, gy - gh, color=MUTED, sw=1.1))
     f.append(line(gx, gy, gx + gw, gy, color=MUTED, sw=1.1))
-    f.append(text(gx - 6, gy - gh + 4, "Vчит", size=8.5, color=MUTED, anchor="end"))
+    f.append(text(gx - 6, gy - gh + 4, "Vчит", size=9, color=MUTED, anchor="end"))
     f.append(text(gx + gw, gy + 12, "r", size=9, color=MUTED, anchor="end"))
     curve = []
     for i in range(61):
@@ -1019,16 +1007,14 @@ def fig_ms_read_divider():
         curve.append((gx + gw * (i / 60), vy))
     f.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.2"/>'
              % (" ".join("%.1f,%.1f" % p for p in curve), POS))
-    f.append(text(gx + gw * 0.75, gy - 6, "спадає з r", size=8.5, color=POS))
+    f.append(text(gx + gw * 0.75, gy - 6, "спадає з r", size=9, color=POS))
 
     f.extend(cap(W, "У режимі читання нульовий вузол через відкритий транзистор доступу з'єднаний з високою біт-лінією; поділ між Rдост і Rтяг тримає його вище нуля — саме це підняття стискає лопать метелика.",
                  y0=H - 12))
     render(os.path.join(IMG, "ms-read-divider.svg"), W, H, *f)
 
-
-# ── ms3. Струмовий спосіб: N-крива, SVNM/SINM, WTV/WTI ───────────────────────
 def fig_ms_ncurve():
-    W, H = 820, 420
+    W, H = 1000, 426
     f = [text(W / 2, 30, "Струмовий спосіб: N-крива й метрики SVNM / SINM / WTV / WTI",
               size=15, bold=True)]
 
@@ -1040,8 +1026,8 @@ def fig_ms_ncurve():
     f.append(line(gx, axm, gx + g, axm, color=MUTED, sw=1.3))          # вісь V (I=0)
     f.append(text(gx - 8, gy + 6, "Iвх", size=10, color=MUTED, anchor="end"))
     f.append(text(gx + g, axm + 16, "V (напруга на вузлі)", size=9.5, color=MUTED, anchor="end"))
-    f.append(text(gx - 8, axm + 4, "0", size=8.5, color=MUTED, anchor="end"))
-    f.append(text(gx + g, axm - 6, "Vdd", size=8.5, color=MUTED, anchor="end"))
+    f.append(text(gx - 8, axm + 4, "0", size=9, color=MUTED, anchor="end"))
+    f.append(text(gx + g, axm - 6, "Vdd", size=9, color=MUTED, anchor="end"))
 
     # N-крива: перетинає вісь у трьох ТОЧКАХ (2 стійкі + хистка); додатний горб, тоді від'ємна яма.
     # Форма-N із контрольованими нулями у z0<z1<z2: кубічна (u−z0)(u−z1)(u−z2) із потрібним знаком.
@@ -1068,7 +1054,7 @@ def fig_ms_ncurve():
     labs = ["стійкий «0»", "хистка", "стійкий «1»"]
     for i, zx in enumerate(zeros[:3]):
         f.append(circle(zx, axm, 4.5, fill=INK, stroke=INK, sw=1))
-        f.append(text(zx, axm + 30 if i != 1 else axm - 40, labs[i], size=8.5,
+        f.append(text(zx, axm + 30 if i != 1 else axm - 40, labs[i], size=9,
                       color=MUTED, anchor="middle"))
 
     if len(zeros) >= 2:
@@ -1113,12 +1099,6 @@ def fig_ms_ncurve():
                  y0=H - 12))
     render(os.path.join(IMG, "ms-ncurve.svg"), W, H, *f)
 
-
-# ════════════════════════════════════════════════════════════════════════════
-#  Вставка hist-soft-errors — 2 фігури
-# ════════════════════════════════════════════════════════════════════════════
-
-# ── s1. scissors: сталий заряд частинки vs. критичний заряд, що падає ─────────
 def fig_soft_scissors():
     W, H = 840, 430
     f = [text(W / 2, 30, "Фатальні ножиці: чому дрібніша комірка — вразливіша", size=16, bold=True)]

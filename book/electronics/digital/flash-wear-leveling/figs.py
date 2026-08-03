@@ -55,7 +55,7 @@ def fig_why_wear():
         # тунельний оксид — тонка смуга під пасткою; застряглі заряди — крапки в ній
         oy = gy + gh + 6
         f.append(rect(gx, oy, gw, 16, fill="#ffffff", stroke=col, sw=1.4))
-        f.append(text(cx, oy + 12, "ізолятор", size=8.5, color=MUTED))
+        f.append(text(cx, oy + 12, "ізолятор", size=9, color=MUTED))
         import random
         random.seed(ntrap)
         for _ in range(ntrap):

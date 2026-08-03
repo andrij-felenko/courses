@@ -168,7 +168,7 @@ def _track_y(x):
 
 
 def fig_energy_exchange():
-    W, H = 880, 590
+    W, H = 919, 590
     f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
     f.append(text(W / 2, 30, "Американські гірки: кінетична й потенціальна енергія міняються місцями, а сума стала",
                   size=15, bold=True))

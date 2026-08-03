@@ -160,7 +160,7 @@ def fig_arduino_idf():
 
 # ── 6. cost-cycles: ціна виклику в тактах і часі ─────────────────────────────
 def fig_cost_cycles():
-    W, H = 720, 300
+    W, H = 767, 300
     p = []
     bx = 250
     barmax = 360

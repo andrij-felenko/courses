@@ -88,7 +88,7 @@ def person(cx, base_y, col=INK, h=64):
 
 # ── Фігура 1: однаковий поштовх — різний відгук ───────────────────────────────
 def fig_same_push():
-    W, H = 940, 470
+    W, H = 980, 470
     f = [rect(0, 0, W, H, fill=BG, stroke='none', sw=0, rx=0)]
     f.append(text(W / 2, 34, "Однаковий поштовх — різний відгук: у цьому й є маса", size=17, bold=True))
 

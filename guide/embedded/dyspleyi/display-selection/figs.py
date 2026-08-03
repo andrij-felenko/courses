@@ -398,7 +398,7 @@ def fig_mip_frame():
     for head, note, col, w in cells:
         f.append(rect(x, y, w, 54, fill=FILL, stroke=col, sw=1.8))
         f.append(text(x + w / 2, y + 24, head, size=12, color=col, bold=True))
-        f.append(mtext(x + w / 2, y + 78, note, size=8.8, color=MUTED, lh=1.15))
+        f.append(mtext(x + w / 2, y + 78, note, size=9, color=MUTED, lh=1.15))
         if x > 30:
             f.append(line(x - 4, y + 27, x, y + 27, color=INK, sw=1.2))
         x += w + 4
@@ -530,14 +530,14 @@ def fig_lambert_pi():
     f.append(line(rx - 120, ry, rx + 120, ry, color=INK, sw=2.6))
     # око прямо згори
     f.append(circle(rx, ry - 90, 12, fill="#eafaf0", stroke=FIELD, sw=1.8))
-    f.append(text(rx, ry - 86, "око", size=8.5, color=FIELD))
+    f.append(text(rx, ry - 86, "око", size=9, color=FIELD))
     f.append(arrow(rx, ry - 76, rx, ry - 6, color=FIELD, sw=1.6))
     f.append(text(rx - 26, ry - 44, "прямо", size=9.5, color=MUTED, anchor="end"))
     # око під кутом
     ang = math.radians(50)
     ex, ey = rx + 132 * math.sin(ang), ry - 132 * math.cos(ang)
     f.append(circle(ex, ey, 12, fill="#eafaf0", stroke=FIELD, sw=1.8))
-    f.append(text(ex + 16, ey + 2, "око", size=8.5, color=FIELD, anchor="start"))
+    f.append(text(ex + 16, ey + 2, "око", size=9, color=FIELD, anchor="start"))
     f.append(arrow(ex - 2, ey + 8, rx + 5, ry - 5, color=FIELD, sw=1.6))
     f.append(text(rx + 40, ry - 42, "збоку", size=9.5, color=MUTED, anchor="start"))
 

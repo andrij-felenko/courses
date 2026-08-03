@@ -24,7 +24,7 @@ def fig_inside():
     gx, gy, gw, gh = ax + 46, ay + 70, 120, 66
     f.append(rect(gx, gy, gw, gh, fill=BG, stroke=INK, sw=1.6, rx=8))
     f.append(text(gx + gw / 2, gy + 26, "генератор", size=10.5, bold=True, color=INK))
-    f.append(text(gx + gw / 2, gy + 44, "≈2 кГц усередині", size=8.5, color=MUTED))
+    f.append(text(gx + gw / 2, gy + 44, "≈2 кГц усередині", size=9, color=MUTED))
     # п'єзо праворуч від генератора
     pcx = ax + aw - 96
     _piezo(f, pcx, ay + 103, INK)
@@ -160,7 +160,7 @@ def fig_wiring():
     for lab, col, py in pads:
         f.append(circle(mx + mw, py, 6, fill=BG, stroke=col, sw=2.2))
         f.append(text(mx + mw - 18, py + 4, lab, size=14, bold=True, color=col, anchor="end"))
-    f.append(text(mx + mw - 18, my + 172, "(середній = +, тут зайвий)", size=8.2, color=MUTED, anchor="end"))
+    f.append(text(mx + mw - 18, my + 172, "(середній = +, тут зайвий)", size=9, color=MUTED, anchor="end"))
 
     # Плата праворуч
     bx, by, bw, bh = 620, 96, 240, 250
@@ -244,7 +244,7 @@ def fig_nonblocking():
     # позначка «момент зміни ноти = коли millis() перевалив за межу»
     xm = t0 + 0.30 * span
     f.append(line(xm, yn - 6, xm, yn + 34, color=INK, sw=1.2, dash="3,3"))
-    f.append(text(xm, yn - 12, "millis() ≥ межі → наступна нота", size=8.5, color=INK))
+    f.append(text(xm, yn - 12, "millis() ≥ межі → наступна нота", size=9, color=INK))
 
     b, _, _ = textbox(W / 2, yn + 150,
                       "Той самий мотив звучить однаково. Різниця не в звуці, а в тім, що робить процесор МІЖ нотами:\n"

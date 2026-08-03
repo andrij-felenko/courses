@@ -38,7 +38,8 @@ def fig_white_balance_idea():
     p.append(rect(lx - 12, 60, 210, 20, fill="#fff4e0", stroke="#e0a94f", sw=1.2, rx=6))
     p.append(text(lx + 93, 74, "тепла лампа (жовтувата)", size=11, color="#a9761f", bold=True))
     p.append(text(lx + 93, 98, "сира біла стіна", size=12, bold=True))
-    p.append(text(lx + 93, 114, "R > G > B  →  жовтий відлив", size=10, color=MUTED))
+    # виправлення: два останні написи стояли надто близько (16px) — розсунули
+    p.append(text(lx + 93, 122, "R > G > B  →  жовтий відлив", size=10, color=MUTED))
     p.extend(_bars(lx, base, lvals, bw, gap, ["R", "G", "B"], [RC, GC, BC]))
     # зразок кольору (жовтуватий)
     p.append(rect(lx + 150, base - 70, 44, 44, fill="#f0d27a", stroke=INK, sw=1.2, rx=6))
@@ -47,9 +48,10 @@ def fig_white_balance_idea():
     # ── коефіцієнти між панелями ──
     mx = 355
     p.append(text(mx + 40, 150, "×gain", size=13, bold=True, color=POS))
+    # виправлення: три рядки нижче стояли впритул (16px) — збільшили інтервал до 20
     p.append(text(mx + 40, 172, "g_R=1.00", size=11, color=RC))
-    p.append(text(mx + 40, 188, "g_G=1.40", size=11, color=GC))
-    p.append(text(mx + 40, 204, "g_B=2.69", size=11, color=BC))
+    p.append(text(mx + 40, 192, "g_G=1.40", size=11, color=GC))
+    p.append(text(mx + 40, 212, "g_B=2.69", size=11, color=BC))
     p.append(arrow(mx, 250, mx + 82, 250, color=POS, sw=2.2))
     p.append(text(mx + 40, 240, "рівняємо до G", size=10, color=MUTED))
 
@@ -60,7 +62,8 @@ def fig_white_balance_idea():
     p.append(rect(rx - 12, 60, 210, 20, fill="#eef6ff", stroke="#8ab4e8", sw=1.2, rx=6))
     p.append(text(rx + 93, 74, "уявне нейтральне світло", size=11, color=NEG, bold=True))
     p.append(text(rx + 93, 98, "після балансу білого", size=12, bold=True))
-    p.append(text(rx + 93, 114, "R = G = B  →  чисто біле", size=10, color=MUTED))
+    # виправлення: узгоджено з лівою панеллю (122 замість 114) — той самий запас
+    p.append(text(rx + 93, 122, "R = G = B  →  чисто біле", size=10, color=MUTED))
     p.extend(_bars(rx, base, rvals, bw, gap, ["R", "G", "B"], [RC, GC, BC]))
     p.append(rect(rx + 150, base - 70, 44, 44, fill="#f2f2f2", stroke=INK, sw=1.2, rx=6))
     p.append(text(rx + 172, base + 16, "стало", size=10, color=MUTED))
@@ -74,19 +77,16 @@ def fig_white_balance_idea():
 
     render(os.path.join(OUT, "white-balance-idea.svg"), W, H, *p)
 
-
-# ── two-estimators: gray-world (середнє→сіре) vs white-patch (найяскравіше→біле)
-#    — що кожен припускає і де ламається ───────────────────────────────────────
-
 def fig_two_estimators():
-    W, H = 860, 470
+    W, H = 1160, 470
+    OFFSET = 294  # виправлення: напис вилазив за полотно (bbox -254..714 у 860x470) — розсунули viewBox
     p = []
     p.append(text(W / 2, 26, "Звідки взяти коефіцієнти: дві прості здогадки", size=15, bold=True))
 
     RC, GC, BC = "#d64545", "#3aa856", "#3b6fd6"
 
     # ── ліва половина: gray-world ──
-    lx, lw = 40, 380
+    lx, lw = 40 + OFFSET, 380
     p.append(rect(lx, 50, lw, 380, fill="#fbfbfd", stroke=MUTED, sw=1.2, rx=10))
     p.append(text(lx + lw / 2, 74, "Сірий світ (gray-world)", size=13, bold=True))
     p.append(text(lx + lw / 2, 92, "припущення: середній колір сцени — сірий", size=10, color=MUTED))
@@ -110,7 +110,8 @@ def fig_two_estimators():
         bx = ax + 6 + i * 30
         p.append(rect(bx, ab - v * 0.7, 22, v * 0.7, fill=[RC, GC, BC][i], stroke=INK, sw=0.8, rx=2))
         p.append(text(bx + 11, ab + 13, "RGB"[i], size=10, bold=True))
-    p.append(text(ax + 45, ab + 30, "g = avgG / avg_канал", size=10, color=POS, bold=True))
+    # виправлення: цей напис і підпис під сценою («усе множимо…») майже збігались по y — рознесли
+    p.append(text(ax + 45, ab + 45, "g = avgG / avg_канал", size=10, color=POS, bold=True))
 
     # де ламається
     box1 = fitbox(lx + 20, 300, lw - 40, 116,
@@ -121,7 +122,7 @@ def fig_two_estimators():
     p.append(box1)
 
     # ── права половина: white-patch ──
-    rx0, rw = 440, 380
+    rx0, rw = 440 + OFFSET, 380
     p.append(rect(rx0, 50, rw, 380, fill="#fbfbfd", stroke=MUTED, sw=1.2, rx=10))
     p.append(text(rx0 + rw / 2, 74, "Біла пляма (white-patch)", size=13, bold=True))
     p.append(text(rx0 + rw / 2, 92, "припущення: найяскравіше в кадрі — біле", size=10, color=MUTED))
@@ -142,7 +143,8 @@ def fig_two_estimators():
         bx = ax2 + 6 + i * 30
         p.append(rect(bx, ab2 - v * 0.33, 22, v * 0.33, fill=[RC, GC, BC][i], stroke=INK, sw=0.8, rx=2))
         p.append(text(bx + 11, ab2 + 13, "RGB"[i], size=10, bold=True))
-    p.append(text(ax2 + 45, ab2 + 30, "g = 255 / max_канал", size=10, color=POS, bold=True))
+    # виправлення: те саме зближення з підписом під сценою — рознесли по y
+    p.append(text(ax2 + 45, ab2 + 45, "g = 255 / max_канал", size=10, color=POS, bold=True))
 
     box2 = fitbox(rx0 + 20, 300, rw - 40, 116,
                   "Теж дешево. Але тримається на ОДНОМУ найяскравішому пікселі: "
@@ -153,18 +155,15 @@ def fig_two_estimators():
 
     render(os.path.join(OUT, "two-estimators.svg"), W, H, *p)
 
-
-# ── color-temperature: перевернута шкала — низькі K теплі (жовті), високі холодні
-#    (сині); і куди балансує корекція ──────────────────────────────────────────
-
 def fig_color_temperature():
-    W, H = 820, 300
+    W, H = 1120, 300
+    OFFSET = 150  # виправлення: напис вилазив за полотно (bbox -148..968 у 820x300) — розсунули viewBox
     p = []
     p.append(text(W / 2, 26, "Колірна температура: шкала перевернута", size=15, bold=True))
     p.append(text(W / 2, 46, "нижчі кельвіни — тепле світло, вищі — холодне (усупереч чуттю)",
                   size=11, color=MUTED))
 
-    bx, by, bw, bh = 60, 90, 700, 40
+    bx, by, bw, bh = 60 + OFFSET, 90, 700, 40
     # градієнт-стрічка жовтий→білий→синій, намальована смугами
     stops = [(0.00, "#f0a020"), (0.18, "#f4c060"), (0.38, "#f6e0a8"),
              (0.52, "#fbfbf2"), (0.66, "#dfe9f6"), (0.82, "#b8cdec"), (1.00, "#8fb0e0")]
@@ -201,7 +200,7 @@ def fig_color_temperature():
     p.append(text(bx + bw - 30, by - 10, "холодне", size=12, bold=True, color=NEG, anchor="end"))
 
     # думка знизу
-    box = fitbox(60, 215, 700, 62,
+    box = fitbox(60 + OFFSET, 215, 700, 62,
                  "Камера під теплим світлом бачить жовтий кадр — щоб «охолодити» його до нейтралі, вона "
                  "ПІДСИЛЮЄ синій і гасить червоний (рух ліворуч по шкалі корекції). Під синім світлом — навпаки. "
                  "Одне число (температура) плюс зсув тінт задають обидва коефіцієнти.",
@@ -209,11 +208,6 @@ def fig_color_temperature():
     p.append(box)
 
     render(os.path.join(OUT, "color-temperature.svg"), W, H, *p)
-
-
-# ── awb-percentile: чому верхній 1% гістограми, а не голий максимум ──────────
-#    Гістограма каналу: один сміттєвий піксель задає max далеко праворуч;
-#    поріг 99-го перцентиля стоїть на масі реальних яскравих пікселів.
 
 def fig_awb_percentile():
     W, H = 860, 400

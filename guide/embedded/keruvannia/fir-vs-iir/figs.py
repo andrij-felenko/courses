@@ -311,7 +311,7 @@ def d_symmetry_phase():
         col = KIH if i != mid else GOLD
         f.append(rect(bx, base - h, bw, h, fill="#d8f0e0" if i != mid else "#fdf1dd",
                       stroke=col, sw=1.4, rx=2))
-        f.append(text(bx + bw / 2, base + 14, "b%d" % i, size=8.5, color=MUTED))
+        f.append(text(bx + bw / 2, base + 14, "b%d" % i, size=9, color=MUTED))
     f.append(line(x0 - 10, base, x0 + n * (bw + 8), base, color=INK, sw=1.4))
     # вісь симетрії
     f.append(line(cx, 44, cx, base + 4, color=GOLD, sw=1.4, dash="4 4"))

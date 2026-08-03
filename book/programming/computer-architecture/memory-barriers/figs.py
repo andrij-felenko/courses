@@ -161,7 +161,7 @@ def fig_smc():
     def blk(x, y, s, sub, c, tint, w=bw):
         out = [rect(x, y, w, 46, fill=tint, stroke=c, sw=1.7, rx=5)]
         out.append(text(x + w / 2, y + 21, s, size=11, color=INK, bold=True))
-        out.append(text(x + w / 2, y + 37, sub, size=8.5, color=c))
+        out.append(text(x + w / 2, y + 37, sub, size=9, color=c))
         return out
 
     def verdict(x, y, s, c):

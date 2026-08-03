@@ -93,7 +93,7 @@ def timeout_jump():
 
 def order_from_sync():
     """Мітки часу двох потоків не дають порядку; його дає ребро синхронізації."""
-    W, H = 880, 430
+    W, H = 1012, 430
     f = []
     # доріжки
     f.append(text(96, 150, "потік A", size=13, color=MUTED, anchor="end"))

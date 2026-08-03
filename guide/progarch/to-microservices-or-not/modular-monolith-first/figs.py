@@ -359,7 +359,7 @@ def fig_premium_surface():
         frags.append(rect(x - bw / 2, y, bw, bh, fill="#fdecea", stroke=POS, sw=2.2, rx=8))
         frags.append(text(x, y + 20, nm, size=11, color=INK, bold=True))
         frags.append(mtext(x, y + 44, ["конвеєр · дашборд", "чергування · патчі"],
-                           size=8.5, color=MUTED, lh=1.35))
+                           size=9, color=MUTED, lh=1.35))
     b, _, _ = textbox(gx, 470, "9 конвеєрів · 9 наборів дашбордів · 9 чергувань",
                       size=12.5, fill="#fdecea", stroke=POS, min_w=380)
     frags.append(b)

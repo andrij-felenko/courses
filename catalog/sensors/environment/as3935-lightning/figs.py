@@ -91,7 +91,7 @@ def fig_wiring():
     f.append(text(mx + mw / 2, my + 47, "Gravity-роз'єм + штирі", size=10, color=MUTED))
     # PWR-світлодіод
     f.append(circle(mx + mw - 26, my + 24, 6, fill="#fdecea", stroke=POS, sw=1.6))
-    f.append(text(mx + mw - 26, my + 44, "PWR", size=8, color=POS))
+    f.append(text(mx + mw - 26, my + 44, "PWR", size=9, color=POS))
     # DIP-перемикач адреси
     f.append(rect(mx + 20, my + 62, 74, 26, fill=BG, stroke=MUTED, sw=1.4, rx=4))
     f.append(text(mx + 20 + 37, my + 79, "ADDR DIP", size=9, color=MUTED))

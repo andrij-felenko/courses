@@ -465,7 +465,7 @@ def fig_collision_frame():
     # NVB розшифровка
     xn = ox + 1 * cell + (cell - 8) / 2
     f.append(text(xn, yq + 86, "0x33 = 3 байти + 3 біти", size=9.5, color=MUTED))
-    f.append(text(xn, yq + 100, "(SEL+NVB+UID0 та 3 біти UID1)", size=8.5, color=MUTED))
+    f.append(text(xn, yq + 100, "(SEL+NVB+UID0 та 3 біти UID1)", size=9, color=MUTED))
 
     # ── Рядок 2: відповідь карток і колізія ──
     ya = 278

@@ -326,7 +326,7 @@ def fig_rect_to_sinc():
     # перший НУЛЬ sinc: x = 1 (f = 1/T) — щоб не сплутати з π-зламом
     f.append(line(X(1), oy, X(1), oy - 8, color=MUTED, sw=1.2))
     f.append(text(X(1), oy + 16, "1/T", size=10, color=MUTED))
-    f.append(text(X(1), oy + 29, "(перший нуль)", size=8.5, color=MUTED))
+    f.append(text(X(1), oy + 29, "(перший нуль)", size=9, color=MUTED))
     f.append(text(X(2), oy + 16, "2/T", size=10, color=MUTED))
     f.append(line(X(2), oy, X(2), oy - 6, color=MUTED, sw=1))
 

@@ -57,7 +57,7 @@ def fig_origin():
     P.append(line(lx + 80, ly + 60, lx + 80, ly + 30, color=INK, sw=1.8))
     P.append(line(lx + 80, ly + 30, lx + 55, ly + 30, color=INK, sw=1.8))
     P.append(line(lx + 55, ly + 30, lx + 55, ly + 95, color=INK, sw=1.8))   # металл тягнеться в p-тіло
-    P.append(text(lx + 30, ly + 26, "витік+тіло", size=8.5, color=INK, anchor="start"))
+    P.append(text(lx + 30, ly + 26, "витік+тіло", size=9, color=INK, anchor="start"))
 
     # стрілка на «живий» перехід p↔n (тіло-стік)
     P.append(arrow(lx + lw - 40, ly + 150, lx + lw - 70, ly + 122, color=POS, sw=1.8))
@@ -129,8 +129,8 @@ def fig_roles():
     P.append(line(ax + 40, 200, ax + 160, 200, color=INK, sw=1.7))
     P.append(diode_glyph(ax + 100, 200, up=True, color=FIELD, size=11))
     P.append(arrow(ax + 45, 235, ax + 155, 235, color=FIELD, sw=2))
-    P.append(text(ax + 100, 255, "струм L «докочується»", size=8.5, color=FIELD, bold=True))
-    P.append(text(ax + 100, 270, "крізь діод — не пробиває ключ", size=8.5, color=FIELD))
+    P.append(text(ax + 100, 255, "струм L «докочується»", size=9, color=FIELD, bold=True))
+    P.append(text(ax + 100, 270, "крізь діод — не пробиває ключ", size=9, color=FIELD))
 
     # — панель б: один ключ OFF, а діод тече назад —
     bx = 275
@@ -146,8 +146,8 @@ def fig_roles():
     P.append(line(bx + 60, 196, bx + 140, 196, color=INK, sw=1.6))
     P.append(diode_glyph(bx + 100, 196, up=False, color=POS, size=10))
     P.append(arrow(bx + 150, 230, bx + 50, 230, color=POS, sw=2))
-    P.append(text(bx + 100, 250, "вищий вихід жене", size=8.5, color=POS, bold=True))
-    P.append(text(bx + 100, 264, "струм назад крізь діод", size=8.5, color=POS))
+    P.append(text(bx + 100, 250, "вищий вихід жене", size=9, color=POS, bold=True))
+    P.append(text(bx + 100, 264, "струм назад крізь діод", size=9, color=POS))
 
     # — панель в: два діоди навстріч —
     cx = 520
@@ -155,7 +155,7 @@ def fig_roles():
     P.append(rect(cx + 116, 120, 44, 36, fill="#f0f1f2", stroke="#b8bcc0", sw=1.8))
     P.append(text(cx + 62, 142, "OFF", size=9, color=MUTED, bold=True))
     P.append(text(cx + 138, 142, "OFF", size=9, color=MUTED, bold=True))
-    P.append(text(cx + 100, 112, "спільний витік", size=8.5))
+    P.append(text(cx + 100, 112, "спільний витік", size=9))
     P.append(line(cx + 20, 138, cx + 40, 138, color=INK, sw=1.7))
     P.append(line(cx + 84, 138, cx + 116, 138, color=INK, sw=1.7))
     P.append(line(cx + 160, 138, cx + 180, 138, color=INK, sw=1.7))
@@ -167,8 +167,8 @@ def fig_roles():
     P.append(diode_glyph(cx + 62, 164, up=False, color=INK, size=9))
     P.append(diode_glyph(cx + 138, 164, up=True, color=INK, size=9))
     P.append(text(cx + 100, 232, "✗", size=18, color=FIELD, bold=True))
-    P.append(text(cx + 100, 252, "діоди навстріч —", size=8.5, color=FIELD, bold=True))
-    P.append(text(cx + 100, 266, "глухо в обидва боки", size=8.5, color=FIELD))
+    P.append(text(cx + 100, 252, "діоди навстріч —", size=9, color=FIELD, bold=True))
+    P.append(text(cx + 100, 266, "глухо в обидва боки", size=9, color=FIELD))
 
     P.append(text(W / 2, 24, "Той самий діод: коли рятує, коли шкодить і чим його приборкують",
                   size=14, bold=True))
@@ -228,7 +228,7 @@ def fig_recovery():
     P.append(text((x0 + xfall) / 2, yfwd - 10, "прямий струм", size=10, color=POS))
     P.append(line(xbot, ybot, xbot, ybot + 18, color=NEG, sw=1.2))
     P.append(text(xbot, ybot + 32, "Irr", size=10, color=NEG, bold=True, anchor="middle"))
-    P.append(text(xbot, ybot + 46, "(піковий зворотний)", size=8, color=NEG))
+    P.append(text(xbot, ybot + 46, "(піковий зворотний)", size=9, color=NEG))
 
     # trr — ширина провалу
     P.append(line(xcross, oy + axh - 6, xrec, oy + axh - 6, color=NEG, sw=1.2))

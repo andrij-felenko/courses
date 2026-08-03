@@ -106,8 +106,8 @@ def fig_msi():
     lab(410, 110, "PrWr → BusUpgr (апгрейд S → M)", POS)
 
     # «влучив» — петлі-підписи над боксами
-    p.append(text(180, 140 - bh / 2 - 10, "PrRd/PrWr: влучив (лишається)", size=8.5, color=POS, italic=True))
-    p.append(text(640, 140 - bh / 2 - 10, "PrRd: влучив (лишається)", size=8.5, color=NEG, italic=True))
+    p.append(text(180, 140 - bh / 2 - 10, "PrRd/PrWr: влучив (лишається)", size=9, color=POS, italic=True))
+    p.append(text(640, 140 - bh / 2 - 10, "PrRd: влучив (лишається)", size=9, color=NEG, italic=True))
 
     # ── підслухані з шини (пунктир), нижче горизонталі S→M ──
     # M → S : чужий BusRd — віддай дані, стань спільним. Горизонталь по центрах.

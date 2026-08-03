@@ -130,10 +130,10 @@ def fig_ws_timing():
 
     # SD: останній біт (LSB) старого слова, тоді ПРОМІЖОК, тоді MSB нового
     p.append(rect(x0, y_sd_hi, u, y_sd_lo - y_sd_hi, fill=BG, stroke=MUTED, sw=1.3, rx=0))
-    p.append(text(x0 + u / 2, (y_sd_hi + y_sd_lo) / 2 + 4, "LSB старого", size=8.5, color=MUTED))
+    p.append(text(x0 + u / 2, (y_sd_hi + y_sd_lo) / 2 + 4, "LSB старого", size=9, color=MUTED))
     # проміжок між fall(WS) і початком MSB — один такт
     p.append(rect(fall, y_sd_hi, u, y_sd_lo - y_sd_hi, fill="#fdf2f2", stroke=POS, sw=1.2, rx=0, ))
-    p.append(text(fall + u / 2, (y_sd_hi + y_sd_lo) / 2 + 4, "проміжок", size=8.5, color=POS, bold=True))
+    p.append(text(fall + u / 2, (y_sd_hi + y_sd_lo) / 2 + 4, "проміжок", size=9, color=POS, bold=True))
     for i, lab in enumerate(["MSB", "·", "·"]):
         bx = fall + (i + 1) * u
         p.append(rect(bx, y_sd_hi, u, y_sd_lo - y_sd_hi, fill="#eef6ef", stroke=FIELD, sw=1.3, rx=0))
@@ -216,7 +216,7 @@ def fig_variants():
             bx = x0 + (start_off + i) * u
             lab = "MSB" if i == 0 else ("LSB" if i == nbits - 1 else "·")
             out.append(rect(bx, y, u, 26, fill="#eef6ef", stroke=col, sw=1.2, rx=0))
-            out.append(text(bx + u / 2, y + 17, lab, size=8.5, color=col, bold=(i == 0 or i == nbits - 1)))
+            out.append(text(bx + u / 2, y + 17, lab, size=9, color=col, bold=(i == 0 or i == nbits - 1)))
         return out
 
     nb = 6
@@ -314,7 +314,7 @@ def fig_tx_formats():
             bx = x0 + (start_off + i) * u
             lab = "MSB" if i == 0 else ("LSB" if i == nbits - 1 else "·")
             out.append(rect(bx, y, u, 26, fill="#eef6ef", stroke=col, sw=1.2, rx=0))
-            out.append(text(bx + u / 2, y + 17, lab, size=8.5, color=col,
+            out.append(text(bx + u / 2, y + 17, lab, size=9, color=col,
                             bold=(i == 0 or i == nbits - 1)))
         out.append(text(x0 + slot * u + 10, y + 17, note, size=9, color=col, anchor="start"))
         return out

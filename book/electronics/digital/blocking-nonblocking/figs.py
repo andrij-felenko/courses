@@ -307,7 +307,7 @@ def fig_serializer():
         px2 = px + step
         path.append("L%.1f %.1f" % (px2, ny))
         # підпис під інтервалом
-        p.append(text(px + step / 2, wy + 54, labels[i], size=8, color=MUTED))
+        p.append(text(px + step / 2, wy + 54, labels[i], size=9, color=MUTED))
         px, py = px2, ny
     p.append('<path d="%s" fill="none" stroke="%s" stroke-width="2.2"/>' % (" ".join(path), NEG))
     p.append(text(wx0 - 6, hi + 4, "1", size=10, color=MUTED, anchor="end"))

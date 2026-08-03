@@ -83,7 +83,7 @@ def fig_byteorder():
         f.append(rect(x, ry, 190, 44, fill=FILL, stroke=col, sw=1.8))
         f.append(text(x + 55, ry + 27, val, size=13, color=col, bold=True))
         f.append(text(x + 130, ry + 20, addr, size=9, color=MUTED))
-        f.append(text(x + 130, ry + 34, note, size=8.5, color=MUTED, italic=True))
+        f.append(text(x + 130, ry + 34, note, size=9, color=MUTED, italic=True))
 
     # стрілка «наївно вилили як є»
     f.append(arrow(340, ry + 52, 340, ry + 92, color=POS, sw=2))
@@ -205,7 +205,7 @@ def fig_setwindow():
         x = bx0 + i * (bw + 6)
         f.append(rect(x, cy, bw, 40, fill=FILL, stroke=col, sw=1.7))
         f.append(text(x + bw / 2, cy + 20, val, size=13, color=col, bold=True))
-        f.append(text(x + bw / 2, cy + 34, note, size=8.3, color=MUTED))
+        f.append(text(x + bw / 2, cy + 34, note, size=9, color=MUTED))
     # той факт, що байтів чотири
     f.append(text(W / 2, cy + 62, "чотири байти = дві координати по два байти, кожна СТАРШИМ уперед",
                   size=10.5, color=POS, bold=True))
@@ -307,7 +307,7 @@ def fig_high555vs565():
             f.append(rect(x, y1, cell, cell, fill=fill, stroke=col, sw=1.8, rx=3))
             f.append(text(x + cell / 2, y1 + 26, name, size=12, color=col, bold=True))
         i += n
-    f.append(text(x0 + cell / 2, y1 + cell + 16, "біт-сирота", size=8.6, color=MUTED, italic=True))
+    f.append(text(x0 + cell / 2, y1 + cell + 16, "біт-сирота", size=9, color=MUTED, italic=True))
     # роль зайвого біта — у вільній смузі під клітинами ряду 1 (не наповзає на самі клітини)
     f.append(mtext(x0 + 11 * cell, y1 + cell + 20,
                    "зайвий біт → alpha / overlay /\n«яскравість» або просто ігнор",

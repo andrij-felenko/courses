@@ -57,11 +57,11 @@ def fig_why_struct():
         p.append(text(x + bw/2, yb + 16, lb, size=10, color=REC, bold=True))
         # три міні-поля всередині комірки
         p.append(rect(x+6, yb+24, bw-12, 20, fill="#fbf3e0", stroke=TS, sw=1))
-        p.append(text(x+bw/2, yb+38, "ts", size=8.5, color=TS, bold=True))
+        p.append(text(x+bw/2, yb+38, "ts", size=9, color=TS, bold=True))
         p.append(rect(x+6, yb+48, bw-12, 20, fill="#eef2fb", stroke=VAL, sw=1))
-        p.append(text(x+bw/2, yb+62, "value", size=8.5, color=VAL, bold=True))
+        p.append(text(x+bw/2, yb+62, "value", size=9, color=VAL, bold=True))
         p.append(rect(x+6, yb+72, bw-12, 18, fill="#eaf6ee", stroke=OKC, sw=1))
-        p.append(text(x+bw/2, yb+85, "ok", size=8.5, color=OKC, bold=True))
+        p.append(text(x+bw/2, yb+85, "ok", size=9, color=OKC, bold=True))
     p.append(text(645, yb + bh + 30, "log[5] — нероздільна трійка:", size=10.5, color=REC, bold=True))
     p.append(text(645, yb + bh + 46, "поля лежать разом і рухаються разом", size=10.5, color=REC, bold=True))
 
@@ -90,7 +90,7 @@ def fig_record_state():
         p.append(rect(rec_x + 12, fy, rec_w - 24, 34, fill=fil, stroke=col, sw=1.4))
         p.append(text(rec_x + 30, fy + 21, nm, size=11, color=col, bold=True, anchor="start"))
         p.append(text(rec_x + rec_w - 24, fy + 14, vv, size=10.5, color=INK, bold=True, anchor="end"))
-        p.append(text(rec_x + rec_w - 24, fy + 28, note, size=8, color=MUTED, italic=True, anchor="end"))
+        p.append(text(rec_x + rec_w - 24, fy + 28, note, size=9, color=MUTED, italic=True, anchor="end"))
         fy += 38
     p.append(text(200, rec_y + 168, "поле mode — не число, а названий стан", size=10, color=MUTED, italic=True))
 
@@ -147,14 +147,14 @@ def fig_lineage():
         p.append(b)
         boxes[nm] = (x, w)
         for i, ln in enumerate(sub.split("\n")):
-            p.append(text(x, cy + 34 + i*13, ln, size=8.5, color=MUTED, italic=True))
+            p.append(text(x, cy + 34 + i*13, ln, size=9, color=MUTED, italic=True))
     order = ["CPL", "BCPL", "B", "C"]
     for a, bb in zip(order, order[1:]):
         xa, wa = boxes[a]; xb, wb = boxes[bb]
         p.append(arrow(xa + wa/2, cy, xb - wb/2, cy, color=INK, sw=2))
-    p.append(text(205, cy - 30, "спрощення", size=8.5, color=MUTED, italic=True))
-    p.append(text(395, cy - 30, "стиснення", size=8.5, color=MUTED, italic=True))
-    p.append(text(600, cy - 30, "+ типи", size=8.5, color=POS, bold=True))
+    p.append(text(205, cy - 30, "спрощення", size=9, color=MUTED, italic=True))
+    p.append(text(395, cy - 30, "стиснення", size=9, color=MUTED, italic=True))
+    p.append(text(600, cy - 30, "+ типи", size=9, color=POS, bold=True))
     p.append(text(W/2, cy + 62, "кожна ланка коштувала можливостей: типи були в CPL, "
                   "їх викинули заради простоти — і Рітчі вернув їх у C",
                   size=9.5, color=MUTED, italic=True))
@@ -211,11 +211,11 @@ def fig_layout_offsets():
                 col, fil = name[1], name[2]
                 frags.append(rect(x, y, w, 34, fill=fil, stroke=col, sw=1.8, rx=3))
                 frags.append(text(x + w/2, y + 15, name[0], size=10.5, color=col, bold=True))
-                frags.append(text(x + w/2, y + 28, name[3], size=8, color=MUTED))
+                frags.append(text(x + w/2, y + 28, name[3], size=9, color=MUTED))
             # адреси-риски знизу
             for b in range(span):
                 bx = x + b*bw
-                frags.append(text(bx + bw/2, y + 48, str(idx), size=8.5, color=MUTED))
+                frags.append(text(bx + bw/2, y + 48, str(idx), size=9, color=MUTED))
                 idx += 1
             x += w
         frags.append(text(x0 - 12, y + 21, label, size=11, color=INK, bold=True, anchor="end"))
@@ -233,8 +233,8 @@ def fig_layout_offsets():
     p.append(text(x0, 168, "sizeof(Bad) = 12  — 5 байтів «повітря»: 3 перед value + 2 у хвості",
                   size=10.5, color=POS, bold=True, anchor="start"))
     # offsetof-виноски
-    p.append(text(x0 + 0*bw + bw/2, 84, "offsetof=0", size=8, color=MUTED))
-    p.append(text(x0 + 4*bw + 2*bw, 84, "offsetof(value)=4", size=8, color=MUTED))
+    p.append(text(x0 + 0*bw + bw/2, 84, "offsetof=0", size=9, color=MUTED))
+    p.append(text(x0 + 4*bw + 2*bw, 84, "offsetof(value)=4", size=9, color=MUTED))
 
     # ── нижня лінійка: від більших до менших → щільно ──
     bot, xend2 = ruler(230, [
@@ -382,10 +382,10 @@ def fig_reg_two_views():
         p.append(rect(x, y0, w-2, bh, fill=fil, stroke=col, sw=1.8, rx=3))
         fs = fit_font(nm, w-8, 10.5, True)
         p.append(text(x + w/2, y0 + 17, nm, size=fs, color=col, bold=True))
-        p.append(text(x + w/2, y0 + 31, "["+rng+"]", size=8, color=MUTED))
+        p.append(text(x + w/2, y0 + 31, "["+rng+"]", size=9, color=MUTED))
         x += w
-    p.append(text(x0, y0 - 10, "біт 31 (старший)", size=8.5, color=MUTED, anchor="start"))
-    p.append(text(x0+totw, y0 - 10, "біт 0 (молодший)", size=8.5, color=MUTED, anchor="end"))
+    p.append(text(x0, y0 - 10, "біт 31 (старший)", size=9, color=MUTED, anchor="start"))
+    p.append(text(x0+totw, y0 - 10, "біт 0 (молодший)", size=9, color=MUTED, anchor="end"))
     p.append(text(W/2, y0 + bh + 22, "розкладку бітів диктує datasheet — вона фіксована й однакова для всіх",
                   size=10, color=INK, bold=True))
 

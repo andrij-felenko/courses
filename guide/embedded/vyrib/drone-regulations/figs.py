@@ -107,7 +107,7 @@ def fig_tiers():
     for cx, name, sub, fill, stroke in cols:
         p.append(text(cx, ay0 + 20, name, size=13, bold=True, color=stroke))
         for j, seg in enumerate(sub.split("\n")):
-            p.append(text(cx, ay0 + 36 + j*13, seg, size=8.5, color=MUTED))
+            p.append(text(cx, ay0 + 36 + j*13, seg, size=9, color=MUTED))
 
     # клітинки-«де що можна» (спрощена мапа): позначки класів у колонках
     def cell(cx, cy, txt, fill, stroke):
@@ -360,7 +360,7 @@ def fig_article8():
     for gx, lbl in gens:
         p.append(circle(gx, gy, 6, fill=STEP, stroke=STEPB, sw=1.6))
         for j, seg in enumerate(lbl.split("\n")):
-            p.append(text(gx, gy + 20 + j*12, seg, size=8.5, color=MUTED))
+            p.append(text(gx, gy + 20 + j*12, seg, size=9, color=MUTED))
 
     p.append(text(W/2, 388,
                   "право, що описує СУТЬ явища, а не тодішній зразок техніки, старіє повільно",
@@ -409,7 +409,7 @@ def fig_mass_energy():
     # нижні підписи-пояснення під кожною ланкою
     for cx, _, _, _, note in links:
         for j, seg in enumerate(note.split("\n")):
-            p.append(text(cx, ys + 62 + j*13, seg, size=8.5, color=MUTED))
+            p.append(text(cx, ys + 62 + j*13, seg, size=9, color=MUTED))
 
     # висновок унизу
     p.append(text(W/2, 300,
@@ -513,7 +513,7 @@ def fig_module_block():
                       fill=GRASS, stroke=GRASSB, sw=1.6, pad=10, min_w=300)
     p.append(b)
     p.append(text(cxm, gy + 30, "сам бачить супутники — координат ззовні НЕ бере",
-                  size=8.5, color=MUTED, italic=True))
+                  size=9, color=MUTED, italic=True))
     p.append(text(cxm - 150, gy - 6, "🛰", size=16))
 
     # 2) МК
@@ -521,7 +521,7 @@ def fig_module_block():
     b, w, h = textbox(cxm, ky, "МК: збирає стандартний кадр", size=11, bold=True,
                       fill=STEP, stroke=STEPB, sw=1.6, pad=10, min_w=300)
     p.append(b)
-    p.append(text(cxm, ky + 30, "ASTM F3411 / EN 4709-002", size=8.5, color=MUTED, italic=True))
+    p.append(text(cxm, ky + 30, "ASTM F3411 / EN 4709-002", size=9, color=MUTED, italic=True))
     p.append(arrow(cxm, gy + 40, cxm, ky - 22, color=GRASSB, sw=1.8))  # GNSS → МК
 
     # 3) радіо
@@ -529,7 +529,7 @@ def fig_module_block():
     b, w, h = textbox(cxm, ry, "BLE 5 / Wi-Fi радіо 2.4/5 ГГц", size=11, bold=True,
                       fill=SKY, stroke=SKYB, sw=1.6, pad=10, min_w=300)
     p.append(b)
-    p.append(text(cxm, ry + 30, "несуча, яку чує звичайний смартфон", size=8.5,
+    p.append(text(cxm, ry + 30, "несуча, яку чує звичайний смартфон", size=9,
                   color=MUTED, italic=True))
     p.append(arrow(cxm, ky + 40, cxm, ry - 22, color=STEPB, sw=1.8))  # МК → радіо
     # радіо → антена (вгору по правому краю, повз написи)
@@ -612,12 +612,12 @@ def fig_takeoff_vs_pilot():
     # точка ввімкнення = точка зльоту (де апарат стартував)
     p.append(circle(560, 250, 7, fill=WARM, stroke=WARMB, sw=1.8))
     p.append(text(560, 274, "точка ЗЛЬОТУ", size=9.5, bold=True, color=WARMB))
-    p.append(text(560, 288, "(де ввімкнули)", size=8.5, color=MUTED, italic=True))
+    p.append(text(560, 288, "(де ввімкнули)", size=9, color=MUTED, italic=True))
     # пілот НАСПРАВДІ відійшов у інше місце
     p.append(circle(690, 226, 9, fill="#f6eaea", stroke=POS, sw=1.6))
     p.append(line(690, 235, 690, 256, color=POS, sw=1.9))
     p.append(text(690, 274, "пілот НАСПРАВДІ", size=9.5, bold=True, color=POS))
-    p.append(text(690, 288, "уже тут — модуль не знає", size=8.5, color=POS, italic=True))
+    p.append(text(690, 288, "уже тут — модуль не знає", size=9, color=POS, italic=True))
     # хрестик «не з'єднаний»
     p.append(text(625, 150, "✕ нема лінку з пультом", size=10, bold=True, color=POS))
     # земля

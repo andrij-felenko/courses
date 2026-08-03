@@ -183,7 +183,7 @@ def fig_supersede():
     p.append(text(rx + 14, ny + 44, "Date: 2026-07-06", size=9.5, color=MUTED, anchor="start"))
     p.append(text(rx + 14, ny + 66, "## Status", size=10, bold=True, color=INK, anchor="start"))
     p.append(rect(rx + 14, ny + 74, 250, 20, fill="#e7f7ee", stroke=FIELD, sw=1.4))
-    p.append(text(rx + 14 + 125, ny + 88, "Accepted · Supersedes [7. Гроші — int64]", size=8.5, bold=True, color=FIELD))
+    p.append(text(rx + 14 + 125, ny + 88, "Accepted · Supersedes [7. Гроші — int64]", size=9, bold=True, color=FIELD))
     p.append(text(rx + 14, ny + 118, "## Context …  (пишеш сам)", size=9.5, color=MUTED, anchor="start"))
     p.append(text(rx + 14, ny + 136, "## Decision … (пишеш сам)", size=9.5, color=MUTED, anchor="start"))
 

@@ -40,7 +40,7 @@ def fig_blocking_vs_tick():
     for i in range(6):
         x = rx + 20 + i * 52
         p.append(circle(x, ty, 7, fill="#eafaf0", stroke=FIELD, sw=2))
-        p.append(text(x, ty - 16, "крок", size=8, color=FIELD))
+        p.append(text(x, ty - 16, "крок", size=9, color=FIELD))
     p.append(text(rx + 150, bar_y + bar_h + 24, "між мітками цикл вільний", size=10, color=MUTED))
     p.append(fitbox(rx, 175, 300, 110,
                     "між кроками цикл крутиться —\nчитає кнопки, веде зв'язок,\nрухає ВСІ ефекти разом;\nкрок — лише коли настав час",

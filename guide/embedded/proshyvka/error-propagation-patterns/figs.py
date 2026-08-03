@@ -170,7 +170,7 @@ def fig_frame_choice():
 # виклик, праворуч — у що його розгортає препроцесор, рядок у рядок.
 
 def fig_macro_expand():
-    W, H = 760, 430
+    W, H = 832, 430
     p = []
     p.append(text(190, 54, "Що ти пишеш", size=13, bold=True, color=FIELD))
     p.append(text(545, 54, "У що це розгортає препроцесор", size=13, bold=True, color=POS))

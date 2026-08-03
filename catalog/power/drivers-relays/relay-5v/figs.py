@@ -89,7 +89,7 @@ def fig_inside():
     f.append(line(diox - 8, cy + 8, diox - 8, cy + 24, color=FIELD, sw=1.8))
     f.append(text(diox - 60, cy + 4, "діод-", size=9.5, color=FIELD, bold=True, anchor="start"))
     f.append(text(diox - 60, cy + 18, "глушник", size=9.5, color=FIELD, bold=True, anchor="start"))
-    f.append(text(diox - 60, cy + 32, "(flyback)", size=8.5, color=FIELD, anchor="start"))
+    f.append(text(diox - 60, cy + 32, "(flyback)", size=9, color=FIELD, anchor="start"))
 
     # контактна група (COM/NO/NC) внизу праворуч
     ky = 330
@@ -270,43 +270,43 @@ def fig_boot_glitch():
         boot = ox + 175       # мить, коли setup() виставляє ніжку
         # позначка «живлення подано»
         f.append(line(left, 105, left, 390, color=MUTED, sw=1.2, dash="3 4"))
-        f.append(text(left, 118, "живлення", size=8.5, color=MUTED, anchor="middle"))
-        f.append(text(left, 130, "подано", size=8.5, color=MUTED, anchor="middle"))
+        f.append(text(left, 118, "живлення", size=9, color=MUTED, anchor="middle"))
+        f.append(text(left, 130, "подано", size=9, color=MUTED, anchor="middle"))
         # позначка setup()
         f.append(line(boot, 105, boot, 390, color=NEG, sw=1.2, dash="3 4"))
-        f.append(text(boot, 118, "setup()", size=8.5, color=NEG, anchor="middle"))
+        f.append(text(boot, 118, "setup()", size=9, color=NEG, anchor="middle"))
 
         # ── доріжка 1: рівень на IN ──
         y_hi, y_lo = 175, 225
         f.append(text(ox + 20, (y_hi + y_lo) / 2, "IN", size=11, color=INK, bold=True, anchor="middle"))
-        f.append(text(right + 6, y_hi, "HIGH", size=8.5, color=MUTED, anchor="start"))
-        f.append(text(right + 6, y_lo, "LOW", size=8.5, color=MUTED, anchor="start"))
+        f.append(text(right + 6, y_hi, "HIGH", size=9, color=MUTED, anchor="start"))
+        f.append(text(right + 6, y_lo, "LOW", size=9, color=MUTED, anchor="start"))
         if bad:
             # до setup ніжка «висить» і просідає в LOW (вхід без підтяжки)
             f.append(line(left, y_lo, boot, y_lo, color=POS, sw=2.6))         # висить у LOW
             f.append(line(boot, y_lo, boot, y_hi, color=POS, sw=2.6))         # setup виставив HIGH
             f.append(line(boot, y_hi, right, y_hi, color=POS, sw=2.6))
-            f.append(text((left + boot) / 2, y_lo + 16, "ніжка висить → LOW", size=8.5, color=POS, anchor="middle"))
+            f.append(text((left + boot) / 2, y_lo + 16, "ніжка висить → LOW", size=9, color=POS, anchor="middle"))
         else:
             # ніжку тримає HIGH від початку (pull-up + правильний порядок)
             f.append(line(left, y_hi, right, y_hi, color=FIELD, sw=2.6))
-            f.append(text((left + right) / 2, y_hi - 10, "тримаємо HIGH від початку", size=8.5, color=FIELD, anchor="middle"))
+            f.append(text((left + right) / 2, y_hi - 10, "тримаємо HIGH від початку", size=9, color=FIELD, anchor="middle"))
 
         # ── доріжка 2: стан реле (active-low: LOW на IN = увімкнено) ──
         yr_off, yr_on = 320, 280
         f.append(text(ox + 20, (yr_off + yr_on) / 2, "реле", size=10.5, color=INK, bold=True, anchor="middle"))
-        f.append(text(right + 6, yr_on, "ON", size=8.5, color=MUTED, anchor="start"))
-        f.append(text(right + 6, yr_off, "OFF", size=8.5, color=MUTED, anchor="start"))
+        f.append(text(right + 6, yr_on, "ON", size=9, color=MUTED, anchor="start"))
+        f.append(text(right + 6, yr_off, "OFF", size=9, color=MUTED, anchor="start"))
         if bad:
             f.append(line(left, yr_on, boot, yr_on, color=POS, sw=2.6))       # клацнуло увімкнене
             f.append(line(boot, yr_on, boot, yr_off, color=POS, sw=2.6))
             f.append(line(boot, yr_off, right, yr_off, color=POS, sw=2.6))
             # виділити небажаний імпульс
             f.append(text((left + boot) / 2, yr_on - 12, "КЛАЦ", size=11, color=POS, bold=True, anchor="middle"))
-            f.append(text((left + boot) / 2, yr_off + 18, "небажаний імпульс", size=8.5, color=POS, anchor="middle"))
+            f.append(text((left + boot) / 2, yr_off + 18, "небажаний імпульс", size=9, color=POS, anchor="middle"))
         else:
             f.append(line(left, yr_off, right, yr_off, color=FIELD, sw=2.6))  # тихо, жодного клацання
-            f.append(text((left + right) / 2, yr_off + 18, "жодного клацання", size=8.5, color=FIELD, anchor="middle"))
+            f.append(text((left + right) / 2, yr_off + 18, "жодного клацання", size=9, color=FIELD, anchor="middle"))
 
     panel(30, "НАЇВНО: pinMode перший", True)
     panel(490, "БЕЗПЕЧНО: спершу HIGH, тоді OUTPUT", False)

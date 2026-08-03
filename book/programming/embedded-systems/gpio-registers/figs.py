@@ -63,7 +63,7 @@ def fig_out_register_bits():
 
 # ── 2. digitalWrite (кілька кроків) проти прямого запису (один крок) ─────────
 def fig_digitalwrite_vs_register():
-    W, H = 820, 360
+    W, H = 849, 360
     f = [text(W / 2, 30, "digitalWrite — виклик функції; прямий запис — одна дія", size=16, bold=True)]
     f.append(text(W / 2, 52, "за зручність обгортки платять часом", size=12, color=MUTED, italic=True))
 

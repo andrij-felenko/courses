@@ -36,14 +36,11 @@ def fig_jamming():
 
     # корисний вузький сигнал — скромна купка трохи над шумом
     sx = px(0.34)
-    f.append(rect(sx - 16, py(0.46), 32, 0.46 * ah - (oy - py(nf)) + (oy - py(nf)),
-                  fill="#eef6ef", stroke=FIELD, sw=2))
-    # простіше: малюємо стовпчик від шуму до 0.46
-    f.pop()
     f.append('<rect x="%.1f" y="%.1f" width="32" height="%.1f" rx="4" fill="#eef6ef" stroke="%s" stroke-width="2"/>'
              % (sx - 16, py(0.46), py(nf) - py(0.46), FIELD))
-    f.append(text(sx, py(0.46) - 10, "корисний", 11.5, FIELD, "middle", bold=True))
-    f.append(text(sx, py(0.46) + 4, "сигнал", 10.5, FIELD, "middle"))
+    # обидва рядки підпису піднято НАД верхом стовпчика, з запасом до його межі
+    f.append(text(sx, py(0.46) - 24, "корисний", 11.5, FIELD, "middle", bold=True))
+    f.append(text(sx, py(0.46) - 10, "сигнал", 10.5, FIELD, "middle"))
 
     # глушилка — гучна вузька завада, що накриває ту саму частоту
     jx = px(0.40)
@@ -62,10 +59,6 @@ def fig_jamming():
     render(os.path.join(IMG, "jamming.svg"), W, H, *f,
            title="Глушіння: гучна завада топить корисний сигнал")
 
-
-# ── 2. FHSS: стрибки рятують — губимо лише кілька хопів ───────────────────────
-# Ідея: завада стоїть на місці, а сигнал щоразу на новій частоті; на спільну
-# частоту вони зустрічаються рідко — псуються лічені стрибки, решта проходить.
 def fig_fhss():
     W, H = 720, 400
     ox, oy = 70, 330
@@ -134,11 +127,13 @@ def fig_dsss():
     # ── ліва панель: до розгортання (у каналі) ──
     ax, ay, aw, ah = panel(30, "У каналі: обидва вузькі/широкі")
     # шум
-    f.append(line(ax, ay - nf * ah, ax + aw, ay - nf * ah, color=MUTED, sw=1, dash="4 4"))
+    noise_y = ay - nf * ah
+    f.append(line(ax, noise_y, ax + aw, noise_y, color=MUTED, sw=1, dash="4 4"))
     # корисний — РОЗМАЗАНИЙ широко й низько (під шумом)
     f.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="#eef6ef" stroke="%s" stroke-width="1.6"/>'
              % (ax + 20, ay - 0.13 * ah, aw - 40, 0.13 * ah, FIELD))
-    f.append(text(ax + aw / 2, ay - 0.13 * ah - 8, "корисний: розмазаний, під шумом", 10, FIELD, "middle"))
+    # напис піднято вище над лінією шуму, щоб не перетинати її
+    f.append(text(ax + aw / 2, noise_y - 10, "корисний: розмазаний, під шумом", 10, FIELD, "middle"))
     # завада — вузька й гучна
     f.append('<rect x="%.1f" y="%.1f" width="20" height="%.1f" rx="3" fill="#fdecea" stroke="%s" stroke-width="2"/>'
              % (ax + 0.62 * aw, ay - 0.82 * ah, 0.82 * ah, POS))
@@ -162,13 +157,10 @@ def fig_dsss():
 
     render(os.path.join(IMG, "dsss.svg"), W, H, *f)
 
-
-# ── 4. Виграж обробки: відношення смуг = підйом SNR у децибелах ───────────────
-# Ідея: PG = (смуга після розширення)/(смуга даних); у децибелах це 10·log₁₀(PG),
-# і саме на стільки сигнал/шум підіймається над завадою. Чим ширше розмазав — тим вище.
 def fig_pgain():
-    W, H = 680, 430
-    ox, oy = 90, 350
+    # полотно розширено ліворуч (ox 90→150, W 680→740), щоб підпис осі "end" не вилазив за межі
+    W, H = 740, 430
+    ox, oy = 150, 350
     aw, ah = 520, 280
     f = []
 
@@ -218,8 +210,6 @@ def fig_pgain():
     render(os.path.join(IMG, "processing-gain.svg"), W, H, *f,
            title="Виграш обробки: ширша смуга = вищий сигнал над завадою")
 
-
-# ── 5. Компроміси: за стійкість платять смугою і складністю ───────────────────
 def fig_tradeoff():
     W, H = 720, 320
     f = [text(W / 2, 28, "Що платимо за стійкість до глушіння", 16, INK, "middle", bold=True)]

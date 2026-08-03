@@ -88,7 +88,7 @@ def fig_stack_eval():
             p.append(text(cx, cyc - 8, v, size=13, color=(FIELD if top else INK), bold=top))
         # підлога стека
         p.append(line(cx - cw / 2 - 6, base_y + 4, cx + cw / 2 + 6, base_y + 4, color=INK, sw=2.0))
-        p.append(text(cx, base_y + 22, "верхівка ↑" if len(st) else "", size=8, color=MUTED))
+        p.append(text(cx, base_y + 22, "верхівка ↑" if len(st) else "", size=9, color=MUTED))
         # стрілка до наступного
         if i < n - 1:
             p.append(arrow(cx + cw / 2 + 6, 150, cx + colw - cw / 2 - 6, 150, color=INK, sw=2.0))

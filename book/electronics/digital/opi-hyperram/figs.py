@@ -114,8 +114,8 @@ def fig_transaction():
         xa = x_lat + k * seg
         f.append(waveband(xa + 1.5, xa + seg - 1.5, yDQ, rowH,
                           "D%d" % k, FIELD, size=10))
-    f.append(text((x_cmd0 + x_cmd1) / 2, yDQ - rowH / 2 - 6, "той самий байт", size=8.5, color=DATA))
-    f.append(text((x_cmd0 + x_cmd1) / 2, yDQ + rowH / 2 + 13, "на 2 фронтах", size=8.5, color=DATA))
+    f.append(text((x_cmd0 + x_cmd1) / 2, yDQ - rowH / 2 - 6, "той самий байт", size=9, color=DATA))
+    f.append(text((x_cmd0 + x_cmd1) / 2, yDQ + rowH / 2 + 13, "на 2 фронтах", size=9, color=DATA))
     f.append(text((x_lat + x_data) / 2, yDQ + rowH / 2 + 13, "по 2 байти на такт", size=9, color=FIELD))
 
     # ── RWDS / DQS ──
@@ -149,7 +149,7 @@ def fig_transaction():
         f.append(text((xa + xb) / 2, yб + 16, name, size=10.5, color=col, bold=True))
     # приписка про латентність (два рядки — через mtext)
     f.append(mtext((x_addr + x_lat) / 2, yб - 14, ["пам'ять піднімає", "дані з масиву"],
-                   size=8.5, color=POS))
+                   size=9, color=POS))
 
     render(os.path.join(IMG, "transaction.svg"), W, H, *f)
 

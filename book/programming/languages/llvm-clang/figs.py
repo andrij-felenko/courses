@@ -147,7 +147,7 @@ def fig_ir_shape():
     # стрілка
     p.append(arrow(380, 170, 430, 170, color=INK, sw=2.4))
     p.append(text(405, 156, "clang", size=9, color=MUTED, bold=True))
-    p.append(text(405, 194, "-emit-llvm", size=8.5, color=MUTED))
+    p.append(text(405, 194, "-emit-llvm", size=9, color=MUTED))
     # праворуч: IR
     p.append(text(610, 62, "проміжне подання LLVM (IR)", size=12, color="#b8860b", bold=True))
     ir = [

@@ -353,14 +353,14 @@ def fig_etch_undercut():
     p.append(text(180, ty - 16, "малюнок: мідь під захистом", size=11.5, bold=True, color=INK))
     # осердя
     p.append(rect(90, ty + 46, 300, 16, fill=CORE, stroke="#b8a55f", sw=1.2, rx=1))
-    p.append(text(240, ty + 58, "ізолятор (FR-4)", size=8.5, color="#7a6a2a"))
+    p.append(text(240, ty + 58, "ізолятор (FR-4)", size=9, color="#7a6a2a"))
     # мідь суцільним прямокутником
     cu_x0, cu_w = 190, 100
     p.append(rect(cu_x0, ty + 16, cu_w, 30, fill=COPPER, stroke=COPDK, sw=1.3, rx=1))
     p.append(text(cu_x0 + cu_w/2, ty + 35, "мідь", size=9, color="#ffffff", bold=True))
     # резист зверху
     p.append(rect(cu_x0, ty + 6, cu_w, 10, fill=RESIST, stroke="#5b4a8f", sw=1.1, rx=1))
-    p.append(text(cu_x0 + cu_w/2, ty - 2, "захист (резист)", size=8.5, color="#5b4a8f"))
+    p.append(text(cu_x0 + cu_w/2, ty - 2, "захист (резист)", size=9, color="#5b4a8f"))
     # розмір ширини малюнка
     p.append(line(cu_x0, ty + 52, cu_x0 + cu_w, ty + 52, color=STEPB, sw=1.2))
     p.append(text(cu_x0 + cu_w/2, ty + 74, "ширина малюнка", size=9, color=STEPB))
@@ -551,10 +551,10 @@ def fig_cam_pipeline():
         for j, seg in enumerate(sub.split("\n")):
             p.append(text(cx, by + 40 + j * 14, seg, size=9, color=MUTED))
         # який файл живить крок — під блоком
-        p.append(text(cx, by + bh + 22, "живить:", size=8.5, color=FABB, italic=True))
+        p.append(text(cx, by + bh + 22, "живить:", size=9, color=FABB, italic=True))
         p.append(text(cx, by + bh + 36, feed, size=9, color=FABB))
         # результат — над блоком
-        p.append(text(cx, by - 12, "→ ок / попередження", size=8.5, color=WARN))
+        p.append(text(cx, by - 12, "→ ок / попередження", size=9, color=WARN))
 
     # стрілки між блоками
     for i in range(n - 1):

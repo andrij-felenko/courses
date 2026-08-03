@@ -83,12 +83,12 @@ def fig_invalidate():
                         stroke=("#c7ccd2" if dropped else NEG), sw=1.4, rx=4))
         if dropped:
             out.append(text(cx, ky + 54, "X", size=11, color=MUTED, bold=True))
-            out.append(text(cx, ky + 70, "викинуто", size=8.5, color=POS))
+            out.append(text(cx, ky + 70, "викинуто", size=9, color=POS))
             # перекреслення
             out.append(line(cx - 30, ky + 38, cx + 30, ky + 72, color=POS, sw=2))
         else:
             out.append(text(cx, ky + 52, "X = 8", size=11, color=INK, bold=True))
-            out.append(text(cx, ky + 68, state, size=8.5, color=NEG, bold=True))
+            out.append(text(cx, ky + 68, state, size=9, color=NEG, bold=True))
         # стовбур до шини
         out.append(line(cx, ky + kh, cx, busy, color="#9aa0a6", sw=1.4))
         return out
@@ -367,7 +367,7 @@ def fig_layout():
         for b in range(0, 65, 16):
             xx = x0 + b * byte
             p.append(line(xx, y + cellh, xx, y + cellh + 5, color=MUTED, sw=1))
-            p.append(text(xx, y + cellh + 16, str(b), size=8, color=MUTED))
+            p.append(text(xx, y + cellh + 16, str(b), size=9, color=MUTED))
 
     cols = [POS, NEG, FIELD, "#8e44ad"]
 
@@ -380,7 +380,7 @@ def fig_layout():
         p.append(rect(bx + 1, yn + 1, 8 * byte - 2, cellh - 2,
                       fill=("#fdecea" if i == 0 else "#eef4ff"), stroke=cols[i], sw=1.4, rx=2))
         p.append(text(bx + 4 * byte, yn + cellh + 34, "[%d]" % i, size=9, color=cols[i], bold=True))
-        p.append(text(bx + 4 * byte, yn + cellh + 46, "ядро %d" % i, size=8, color=cols[i]))
+        p.append(text(bx + 4 * byte, yn + cellh + 46, "ядро %d" % i, size=9, color=cols[i]))
     p.append(text(W / 2, yn + cellh + 70, "усі чотири лічильники → одна лінія → кожен запис знеправлює її в решти (пінг-понг)",
                   size=9.5, color=POS, anchor="middle", bold=True))
 
@@ -390,7 +390,7 @@ def fig_layout():
         yy = 250 + i * 88
         draw_frame(yy, "лінія лічильника %d" % i)
         p.append(rect(x0 + 1, yy + 1, 8 * byte - 2, cellh - 2, fill="#eafaf0", stroke=cols[i], sw=1.6, rx=2))
-        p.append(text(x0 + 4 * byte, yy + cellh + 16, "value (8 Б)", size=8.5, color=cols[i], bold=True))
+        p.append(text(x0 + 4 * byte, yy + cellh + 16, "value (8 Б)", size=9, color=cols[i], bold=True))
         p.append(rect(x0 + 8 * byte + 1, yy + 1, 56 * byte - 2, cellh - 2, fill="#f4f6f8", stroke="#c7ccd2", sw=1.2, rx=2))
         p.append(text(x0 + 8 * byte + 28 * byte, yy + cellh / 2 + 4, "набивка 56 байтів — щоб сусід не потрапив у цю лінію", size=9, color=MUTED))
     p.append(text(W / 2, 250 + 88 + cellh + 34, "різні лінії → жоден запис не чіпає чужу лінію → гонки нема (ціна — витрачена пам'ять)",

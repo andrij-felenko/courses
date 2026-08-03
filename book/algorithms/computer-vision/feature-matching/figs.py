@@ -70,8 +70,8 @@ def fig_what_is_matching():
     for (qx, qy) in kpR:
         p.append(_kp(qx, qy))
     # позначити безпарні точки
-    p.append(text(kpL[4][0], kpL[4][1] - 10, "без пари", size=8, color=MUTED))
-    p.append(text(kpR[4][0], kpR[4][1] + 16, "без пари", size=8, color=MUTED))
+    p.append(text(kpL[4][0], kpL[4][1] - 10, "без пари", size=9, color=MUTED))
+    p.append(text(kpR[4][0], kpR[4][1] + 16, "без пари", size=9, color=MUTED))
 
     p.append(fitbox(40, ys + bh + 18, W - 80, 40,
                     "Зіставлення знаходить на двох знімках ОДНІ Й ТІ САМІ фізичні місця й "
@@ -106,7 +106,7 @@ def fig_detect_describe_match():
     for (dx, dy) in [(28, 34), (96, 26), (150, 62), (60, 84), (120, 92)]:
         p.append(_kp(ix + dx, iy + dy, r=5))
     p.append(text(x + pw / 2, ys + ph - 14, "кути, плями — те, що впізнати легко",
-                  size=8.5, color=MUTED))
+                  size=9, color=MUTED))
 
     # 2) дескриптор: клапоть околу → вектор чисел
     x = xs[1]
@@ -124,7 +124,7 @@ def fig_detect_describe_match():
     p.append(text(x + pw / 2, py + 88, "«відбиток» околу —", size=9, color=MUTED))
     p.append(text(x + pw / 2, py + 102, "вектор чисел", size=9, color=MUTED))
     p.append(text(x + pw / 2, ys + ph - 14, "той самий куточок → той самий відбиток",
-                  size=8.5, color=MUTED))
+                  size=9, color=MUTED))
 
     # 3) звіряння: два набори векторів, стрілка до найближчого
     x = xs[2]
@@ -139,7 +139,7 @@ def fig_detect_describe_match():
     p.append(line(lx + 10, ysv + 2 * 34 + 11, rx - 10, ysv + 11, color="#cbd5e1", sw=1))
     p.append(text(x + pw / 2, ysv - 8, "хто до кого найближчий", size=9, color=MUTED))
     p.append(text(x + pw / 2, ys + ph - 14, "найближчий опис = та сама точка",
-                  size=8.5, color=MUTED))
+                  size=9, color=MUTED))
 
     for i in range(2):
         p.append(arrow(xs[i] + pw + 2, ys + ph / 2, xs[i + 1] - 4, ys + ph / 2,
@@ -312,9 +312,9 @@ def fig_two_best_scan():
         p.append(rect(cx - 34, ry_sec, 68, 40, fill="#f4f6f8", stroke=MUTED, sw=1.4, rx=6))
         p.append(text(cx, ry_sec + 26, sec_txt, size=15, color=MUTED, bold=True))
         if s == 257:
-            p.append(text(cx, ry_sec + 55, "заглушка", size=8, color=MUTED))
+            p.append(text(cx, ry_sec + 55, "заглушка", size=9, color=MUTED))
         # підпис-рішення під колонкою
-        p.append(text(cx, ry_best - 12, notes[k], size=8, color=ncol[k]))
+        p.append(text(cx, ry_best - 12, notes[k], size=9, color=ncol[k]))
 
     p.append(fitbox(44, ry_sec + 66, W - 88, 44,
                     "За прохід ведемо два рекорди. Новий кандидат, кращий за best, СТАЄ best, "

@@ -38,7 +38,7 @@ def bit_row(x, y, bits, w=26, h=26, labels=None, hot=None):
 
 # ── 1. Єдиний адресний простір: Flash, SRAM, периферія ──────────────────────
 def fig_address_map():
-    W, H = 820, 545
+    W, H = 848, 545
     f = [text(W / 2, 30, "Єдиний адресний простір МК", size=17, bold=True)]
     f.append(text(W / 2, 52, "пам'ять і керування залізом — на одній карті адрес, на спільній шині",
                   size=12, color=MUTED, italic=True))
@@ -186,7 +186,7 @@ def fig_register_kinds():
 
 # ── 4. Чотири побітові операції над тим самим словом ────────────────────────
 def fig_bit_ops():
-    W, H = 920, 540
+    W, H = 959, 540
     f = [text(W / 2, 30, "Маски в дії: set / clear / toggle / test над тим самим словом",
               size=16, bold=True)]
     f.append(text(W / 2, 52, "чіпаємо лише біт 3 — сусіди (інші ніжки) цілі",

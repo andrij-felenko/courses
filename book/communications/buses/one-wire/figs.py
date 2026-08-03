@@ -49,7 +49,7 @@ def fig_topology():
         out.append(text(cx, by + 42, bot_label, size=9.5, color=MUTED, italic=True))
         out.append(line(cx, by + bh, cx, gnd_y, color=INK, sw=2))     # до землі
         # маленький «ключ вниз» — символ відкритого стоку
-        out.append(text(cx, by + 58, active_note, size=8.5, color=MUTED))
+        out.append(text(cx, by + 58, active_note, size=9, color=MUTED))
         return out
 
     p += node(x0 + 190, "ВЕДУЧИЙ", "мікроконтролер", MASTER, "тягне ↓ / відпускає")
@@ -167,7 +167,7 @@ def fig_reset_presence():
         p.append(text((a + b) / 2, yy + 15, label, size=10, color=col, bold=True))
 
     span(1, "скидання: ведучий тягне ↓  ≥ 480 мкс", MASTER)
-    p.append(text((marks[2][0] + marks[2][1]) / 2, ylo - 12, "пауза\n15–60 мкс", size=8.5, color=MUTED))
+    p.append(text((marks[2][0] + marks[2][1]) / 2, ylo - 12, "пауза\n15–60 мкс", size=9, color=MUTED))
     span(3, "присутність: ведений тягне ↓  60–240 мкс", SLAVE)
 
     p.append(text(W / 2, H - 14,

@@ -340,11 +340,11 @@ def fig_hist_webrtc_shift():
     P.append(rect(rx, 88, 168, 64, fill="#e9f7ef", stroke=FIELD, sw=1.8))
     P.append(text(rx + 84, 108, "On2 → VP8", size=11.5, bold=True, color=FIELD))
     P.append(text(rx + 84, 125, "відкрите відео", size=9, color=MUTED))
-    P.append(text(rx + 84, 141, "(куплено 2010)", size=8.5, color=MUTED))
+    P.append(text(rx + 84, 141, "(куплено 2010)", size=9, color=MUTED))
     P.append(rect(rx + 182, 88, 168, 64, fill="#e9f7ef", stroke=FIELD, sw=1.8))
     P.append(text(rx + 266, 108, "GIPS", size=11.5, bold=True, color=FIELD))
     P.append(text(rx + 266, 125, "живий звук, луна", size=9, color=MUTED))
-    P.append(text(rx + 266, 141, "(куплено 2010)", size=8.5, color=MUTED))
+    P.append(text(rx + 266, 141, "(куплено 2010)", size=9, color=MUTED))
     P.append(arrow(rx + 84, 152, rx + 150, 196, color=FIELD))
     P.append(arrow(rx + 266, 152, rx + 200, 196, color=FIELD))
     # браузер з вмонтованим рушієм
@@ -353,7 +353,7 @@ def fig_hist_webrtc_shift():
     P.append(rect(rx + 35, 230, 280, 50, fill="#e9f7ef", stroke=FIELD, sw=1.6))
     P.append(text(rx + 175, 250, "WebRTC — вбудований рушій", size=11, bold=True, color=FIELD))
     P.append(text(rx + 175, 268, "відкритий (BSD), той самий у всіх браузерах",
-                  size=8.5, color=MUTED))
+                  size=9, color=MUTED))
     for i, m in enumerate(["без жодних втичок", "шифрування завжди", "скрізь, і на телефоні"]):
         P.append(text(rx + 8, 322 + i * 22, "✓ " + m, size=10.5, color=FIELD,
                       anchor="start", bold=True))

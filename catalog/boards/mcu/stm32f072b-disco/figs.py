@@ -98,14 +98,14 @@ def fig_anatomy():
     for i, (pin, col, nm) in enumerate(labels):
         cx = lx0 + i * 46
         f.append(circle(cx, ledy, 8, fill=col, stroke=INK, sw=1.4))
-        f.append(text(cx, ledy + 24, pin, size=8.5, color=MUTED))
+        f.append(text(cx, ledy + 24, pin, size=9, color=MUTED))
     f.append(text(lx0 + 3 * 46 / 2, ledy - 20, "4 світлодіоди навколо гіроскопа",
                   size=10, color=INK))
     # кнопка B1
     bxk = lx0 + 3 * 46 + 70
     f.append(rect(bxk - 22, ledy - 14, 44, 28, fill=BG, stroke=INK, sw=1.6, rx=5))
     f.append(text(bxk, ledy + 4, "B1", size=11, bold=True))
-    f.append(text(bxk, ledy + 30, "USER · PA0", size=8.5, color=MUTED))
+    f.append(text(bxk, ledy + 30, "USER · PA0", size=9, color=MUTED))
 
     return render(os.path.join(IMG, "disco-anatomy.svg"), W, H, *f)
 
@@ -260,7 +260,7 @@ def fig_spi_read():
         x = x0 + i * (cw + gap)
         f.append(rect(x, by, cw, bh, fill=fill, stroke=stroke, sw=1.9, rx=7))
         f.append(mtext(x + cw / 2, by + bh / 2 - 4, t, size=10.5, bold=True, color=stroke))
-        f.append(mtext(x + cw / 2, by + bh + 16, note, size=8.6, color=MUTED))
+        f.append(mtext(x + cw / 2, by + bh + 16, note, size=9, color=MUTED))
         # напрям: MOSI віддає лише команду; решта — MISO віддає чип
         if i == 0:
             f.append(text(x + cw / 2, by - 10, "MOSI (ти→чип)", size=9, color=POS))

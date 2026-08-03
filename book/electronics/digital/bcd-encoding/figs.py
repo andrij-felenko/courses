@@ -20,7 +20,7 @@ def nibble_cell(x, y, bits, digit, w=44, h=44, good=True):
 
 # ── Фігура 1: цифра-на-тетраду проти суцільного двійкового ────────────────────
 def fig_nibble_map():
-    W, H = 680, 300
+    W, H = 706, 300
     frags = []
     frags.append(text(W / 2, 30, "Число 495", size=18, bold=True))
 

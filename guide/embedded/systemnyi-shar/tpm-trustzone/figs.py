@@ -254,7 +254,7 @@ def fig_secureboot_pipeline():
                         stroke=(FIELD if i == 0 else LINE), sw=1.7, bold=(i == 0)))
         if i < len(chain) - 1:
             p.append(arrow(xx + sbw + 4, syy + sbh / 2, xx + sbw + sgap - 4, syy + sbh / 2, color=NEG, sw=1.8))
-            p.append(text(xx + sbw + sgap / 2, syy + sbh / 2 - 7, "звір\nпідпис", size=8.5, color=NEG))
+            p.append(text(xx + sbw + sgap / 2, syy + sbh / 2 - 7, "звір\nпідпис", size=9, color=NEG))
     return render(os.path.join(OUT, "secureboot-pipeline.svg"), W, H, *p)
 
 

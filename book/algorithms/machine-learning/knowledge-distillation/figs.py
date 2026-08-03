@@ -99,7 +99,7 @@ def fig_soft_targets():
             frags.append(rect(cx - bw / 2, yt, bw, max(1.0, hgt), fill=col, stroke="none", sw=0, rx=2))
             frags.append(text(cx, top + ph + 15, labels[i], size=10, color=MUTED))
             if v >= 0.03:
-                frags.append(text(cx, yt - 5, "%.2f" % v, size=8.5, color=INK, bold=True))
+                frags.append(text(cx, yt - 5, "%.2f" % v, size=9, color=INK, bold=True))
         frags.append(text(px + pw / 2, top - 34, title, size=13, color=col, bold=True))
         frags.append(text(px + pw / 2, top - 16, sub, size=10, color=MUTED))
         return frags

@@ -236,8 +236,8 @@ def fig_foldback_hyst():
     f.append(circle(tx(HOT_), iy(0.0), 3.5, fill=HOT, stroke=HOT, sw=1))
     f.append(circle(tx(42.0), iy(0.0), 3.5, fill="#fff", stroke=HOT, sw=1.6))
     f.append(arrow(tx(HOT_) - 2, iy(0.06), tx(42.0) + 2, iy(0.06), color=HOT, sw=1.4))
-    f.append(text(tx(43.5), iy(0.16), "відновлення", size=8.5, color=HOT))
-    f.append(text(tx(43.5), iy(0.10), "лише на 42°", size=8.5, color=HOT))
+    f.append(text(tx(43.5), iy(0.16), "відновлення", size=9, color=HOT))
+    f.append(text(tx(43.5), iy(0.10), "лише на 42°", size=9, color=HOT))
 
     # зони-підписи
     f.append(mtext(tx(-5), iy(0.62), ["мороз:", "заряд", "заборонено"], size=9.5, color=COOL))
@@ -291,16 +291,16 @@ def fig_thermal_fsm():
     f.append(text((S["CHARGE"][0] + S["FOLD"][0]) / 2, S["CHARGE"][1] - 12, ">35°", size=9, color="#caa24a", bold=True))
     # назад FOLD->CHARGE (гістерезис)
     f.append(arrow(S["FOLD"][0] - rw / 2, S["FOLD"][1] + 16, S["CHARGE"][0] + rw / 2, S["CHARGE"][1] + 16, color=MUTED, sw=1.4))
-    f.append(text((S["CHARGE"][0] + S["FOLD"][0]) / 2, S["FOLD"][1] + 34, "<33°", size=8.5, color=MUTED))
+    f.append(text((S["CHARGE"][0] + S["FOLD"][0]) / 2, S["FOLD"][1] + 34, "<33°", size=9, color=MUTED))
     # FOLD->STOP
     f.append(arrow(S["FOLD"][0], S["FOLD"][1] + rh / 2, S["STOP"][0] + rw / 2 + 4, S["STOP"][1] - rh / 2, color=HOT, sw=1.8))
     f.append(text(S["FOLD"][0] - 30, S["STOP"][1] - 40, "≥45°", size=9, color=HOT, bold=True))
     # STOP->CHARGE (охолов)
     f.append(arrow(S["STOP"][0], S["STOP"][1] - rh / 2, S["CHARGE"][0], S["CHARGE"][1] + rh / 2, color=MUTED, sw=1.5))
-    f.append(text(S["STOP"][0] + 36, (S["STOP"][1] + S["CHARGE"][1]) / 2, "охолов <42°", size=8.5, color=MUTED))
+    f.append(text(S["STOP"][0] + 36, (S["STOP"][1] + S["CHARGE"][1]) / 2, "охолов <42°", size=9, color=MUTED))
     # CHARGE->COLD (похолодало)
     f.append(arrow(S["CHARGE"][0] - rw / 2, S["CHARGE"][1] + 18, S["COLD"][0] + rw / 2, S["COLD"][1] + 18, color=COOL, sw=1.4))
-    f.append(text((S["COLD"][0] + S["CHARGE"][0]) / 2, S["CHARGE"][1] + 34, "<0°", size=8.5, color=COOL))
+    f.append(text((S["COLD"][0] + S["CHARGE"][0]) / 2, S["CHARGE"][1] + 34, "<0°", size=9, color=COOL))
 
     # будь-який стан -> FAULT (символічно — товста червона шина знизу)
     f.append(line(150, 410, 660, 410, color=POS, sw=2.2, dash="6 5"))

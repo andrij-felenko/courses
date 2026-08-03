@@ -93,7 +93,7 @@ def fig_two_doors():
 
 # ── Фігура 3: реальний час не спиниш — латентність лінка вбиває петлю ──
 def fig_realtime():
-    W, H = 760, 360
+    W, H = 800, 360
     frags = []
     frags.append(text(380, 46, "Чіп біжить по СПРАВЖНЬОМУ годиннику — його не поставиш на паузу", size=14, bold=True))
 
@@ -197,7 +197,7 @@ def fig_hist_timeline():
 
 # ── Фігура (detailed): джитер — вбиває хвіст, не середнє ──
 def fig_jitter():
-    W, H = 780, 430
+    W, H = 812, 430
     frags = []
     frags.append(text(W / 2, 30, "Керує стендом хвіст затримки, а не середнє", size=16, bold=True))
 
@@ -554,7 +554,7 @@ def fig_link_comparison():
 # ── Фігура (math-вставка): p — площа хвоста; середнє мовчить, керує процентиль ──
 def fig_tail_probability():
     import math
-    W, H = 780, 430
+    W, H = 825, 430
     frags = []
     frags.append(text(W / 2, 30, "Імовірність зриву p — це площа ХВОСТА за дедлайном", size=16, bold=True))
 

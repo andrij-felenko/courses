@@ -57,10 +57,10 @@ def fig_pipeline():
     # два виходи вердикту
     p.append(rect(712, 120, 100, 46, fill=GREENBG, stroke=FIELD, sw=1.8, rx=8))
     p.append(text(712 + 50, 141, "✓ зелено", size=11.5, color=FIELD, bold=True))
-    p.append(text(712 + 50, 158, "зливати можна", size=8.8, color=MUTED))
+    p.append(text(712 + 50, 158, "зливати можна", size=9, color=MUTED))
     p.append(rect(712, 226, 100, 46, fill=REDBG, stroke=POS, sw=1.8, rx=8))
     p.append(text(712 + 50, 247, "✗ червоно", size=11.5, color=POS, bold=True))
-    p.append(text(712 + 50, 264, "конвеєр стій", size=8.8, color=MUTED))
+    p.append(text(712 + 50, 264, "конвеєр стій", size=9, color=MUTED))
     p.append(arrow(536 + sw_, 182, 712, 148, color=FIELD, sw=2))
     p.append(arrow(536 + sw_, 210, 712, 244, color=POS, sw=2))
 
@@ -196,7 +196,7 @@ def fig_sizegate():
     for name, desc, col in legend:
         p.append(rect(lx + 14, ly - 11, 16, 16, fill=col, stroke=col, sw=1, rx=3))
         p.append(text(lx + 38, ly + 2, name, size=11, color=INK, anchor="start", bold=True))
-        p.append(text(lx + 38, ly + 18, desc, size=8.6, color=MUTED, anchor="start"))
+        p.append(text(lx + 38, ly + 18, desc, size=9, color=MUTED, anchor="start"))
         ly += 34
 
     # Кожен бюджет — рамка сталої висоти (=стеля), заповнена пропорційно до
@@ -315,8 +315,8 @@ def fig_timeline():
         p.append(text(bx + bw / 2, by + 19, head, size=10.5,
                       color=(INK if col == MUTED else tagcol), bold=True))
         for j, ln in enumerate(body):
-            p.append(text(bx + bw / 2, by + 37 + j * 15, ln, size=8.8, color=INK))
-        p.append(text(bx + bw / 2, by + bh - 6, tag, size=8.6,
+            p.append(text(bx + bw / 2, by + 37 + j * 15, ln, size=9, color=INK))
+        p.append(text(bx + bw / 2, by + bh - 6, tag, size=9,
                       color=(MUTED if col == MUTED else tagcol), italic=True))
 
     p.append(text(W / 2, H - 16,
@@ -356,7 +356,7 @@ def fig_verdict():
         # код виходу в кружечку під етапом
         p.append(circle(x + sw_ / 2, sy + sh + 30, 17, fill=BG, stroke=col, sw=2))
         p.append(text(x + sw_ / 2, sy + sh + 35, code, size=15, color=col, bold=True))
-        p.append(text(x + sw_ / 2, sy + sh + 62, "код виходу", size=8.4, color=MUTED))
+        p.append(text(x + sw_ / 2, sy + sh + 62, "код виходу", size=9, color=MUTED))
 
     # рядок кон'юнкції під кодами
     ky = sy + sh + 96
@@ -368,10 +368,10 @@ def fig_verdict():
     # два виходи
     p.append(rect(150, ky + 42, 220, 46, fill=GREENBG, stroke=FIELD, sw=1.8, rx=9))
     p.append(text(150 + 110, ky + 63, "✓ усі нулі → зелено", size=11, color=FIELD, bold=True))
-    p.append(text(150 + 110, ky + 80, "ворота відмикаються", size=8.8, color=MUTED))
+    p.append(text(150 + 110, ky + 80, "ворота відмикаються", size=9, color=MUTED))
     p.append(rect(490, ky + 42, 220, 46, fill=REDBG, stroke=POS, sw=2.4, rx=9))
     p.append(text(490 + 110, ky + 63, "✗ є одиниця → червоно", size=11, color=POS, bold=True))
-    p.append(text(490 + 110, ky + 80, "ворота лишаються замкнені", size=8.8, color=INK))
+    p.append(text(490 + 110, ky + 80, "ворота лишаються замкнені", size=9, color=INK))
 
     p.append(text(W / 2, H - 12,
                   "«тихий нуль» — крок, що завжди повертає 0 — це діра в самому І: провал не потрапляє в кон'юнкцію",
@@ -400,7 +400,7 @@ def fig_latency():
         p.append(line(t0, y, t1, y, color=MUTED, sw=1.2))
         for m in range(0, 15, 2):
             p.append(line(xt(m), y - 4, xt(m), y + 4, color=MUTED, sw=1))
-            p.append(text(xt(m), y + 18, "%d" % m, size=8.6, color=MUTED))
+            p.append(text(xt(m), y + 18, "%d" % m, size=9, color=MUTED))
 
     def bar(y, x_start_min, dur_min, label, col, fill, force_right=False):
         x = xt(x_start_min); w = dur_min * scale
@@ -413,7 +413,7 @@ def fig_latency():
 
     # ── згори: послідовно (сума) ──
     p.append(text(t0 - 14, 72, "послідовно", size=11.5, color=POS, anchor="end", bold=True))
-    p.append(text(t0 - 14, 88, "стіна = сума", size=8.8, color=MUTED, anchor="end"))
+    p.append(text(t0 - 14, 88, "стіна = сума", size=9, color=MUTED, anchor="end"))
     sy = 60
     bar(sy, 0, 5, "тулчейн (тягне)", NEG, BLUEBG)
     bar(sy, 5, 3, "крос-збірка", NEG, BLUEBG)
@@ -426,16 +426,16 @@ def fig_latency():
 
     # ── знизу: віялом + кеш (максимум) ── кожна гілка на своєму рядку
     p.append(text(t0 - 14, 168, "віялом + кеш", size=11.5, color=FIELD, anchor="end", bold=True))
-    p.append(text(t0 - 14, 184, "стіна = найдовша", size=8.8, color=MUTED, anchor="end"))
+    p.append(text(t0 - 14, 184, "стіна = найдовша", size=9, color=MUTED, anchor="end"))
     b1, b2, b3 = 150, 186, 222
     # кеш зрізає тулчейн-хвіст майже до нуля; збірка стартує одразу (та сама гілка).
     # Вузький сегмент кешу підписуємо каптоном ЗВЕРХУ, щоб не битися з підписом збірки.
     p.append(rect(xt(0), b1, 0.4 * scale, 24, fill=FILL, stroke=MUTED, sw=1.6, rx=5))
-    p.append(text(xt(0.4) + 6, b1 - 6, "◤ тулчейн із кешу (0.4 хв замість 5)", size=8.4, color=MUTED, anchor="start"))
+    p.append(text(xt(0.4) + 6, b1 - 6, "◤ тулчейн із кешу (0.4 хв замість 5)", size=9, color=MUTED, anchor="start"))
     bar(b1, 0.4, 3, "крос-збірка", NEG, BLUEBG)
     bar(b2, 0, 3, "хост-тести", FIELD, GREENBG)
     bar(b3, 0, 2, "аналіз", AMBER, AMBERBG)
-    p.append(text(t0 - 14, b2 + 15, "паралельні гілки", size=8, color=MUTED, anchor="end"))
+    p.append(text(t0 - 14, b2 + 15, "паралельні гілки", size=9, color=MUTED, anchor="end"))
     p.append(line(xt(3.4), 142, xt(3.4), 250, color=FIELD, sw=2.4, dash="4,3"))
     p.append(text(xt(3.4) + 6, 148, "3.4 хв", size=10, color=FIELD, anchor="start", bold=True))
     ruler(258)
@@ -484,7 +484,7 @@ def fig_trust():
         x = colX[i]
         p.append(rect(x, 56, boxW, 40, fill=fill, stroke=col, sw=2, rx=9))
         p.append(text(x + boxW / 2, 74, head, size=12.5, color=col, bold=True))
-        p.append(text(x + boxW / 2, 90, sub, size=8.6, color=MUTED))
+        p.append(text(x + boxW / 2, 90, sub, size=9, color=MUTED))
 
     ry = 108
     rh = 58
@@ -525,8 +525,8 @@ def fig_hiljob():
         col = FIELD if k == 0 else MUTED
         p.append(rect(qx + 22, ty, 106, 20, fill=(GREENBG if k == 0 else FILL), stroke=col, sw=1.4, rx=5))
         lab = "PR #17 біжить" if k == 0 else ("PR #18 жде" if k == 1 else "PR #19 жде")
-        p.append(text(qx + 75, ty + 14, lab, size=8.8, color=INK))
-    p.append(text(qx + 75, 240, "черга, не скасування", size=8.4, color=MUTED, italic=True))
+        p.append(text(qx + 75, ty + 14, lab, size=9, color=INK))
+    p.append(text(qx + 75, 240, "черга, не скасування", size=9, color=MUTED, italic=True))
     p.append(arrow(qx + 150, 171, 214, 171, color=NEG, sw=2))
 
     # чотири етапи стендом — вертикальна колона по центру

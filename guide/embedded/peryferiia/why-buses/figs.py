@@ -284,7 +284,7 @@ def fig_output_stages():
     f.append(line(cx + 63, 188, cx + 63, rail_y, color=DRV, sw=2.2))
     for dx in (120, 172):
         f.append(rect(cx + dx, 150, 42, 38, fill=BG, stroke=HIZ, sw=1.4))
-        f.append(text(cx + dx + 21, 142, "OE=0", size=8.5, color=HIZ))
+        f.append(text(cx + dx + 21, 142, "OE=0", size=9, color=HIZ))
         f.append(line(cx + dx + 21, 188, cx + dx + 21, rail_y, color=HIZ, sw=1.4, dash="3,3"))
     f.append(text(cx + PW / 2, rail_y + 22, "лише один OE=1; решта Hi-Z", size=9.5, color=INK, bold=True))
 
@@ -355,7 +355,7 @@ def fig_rc_risetime():
     xcross = xt1 + tau * math.log(1 / 0.3)      # v=0.7
     f.append(circle(xcross, yTh, 3.5, fill=PUP, stroke=PUP, sw=1))
     f.append(line(xcross, yTh, xcross, oy, color=MUTED, sw=0.9, dash="2,2"))
-    f.append(text(xcross, oy + 34, "тут читається «1»", size=8.5, color=MUTED, anchor="middle"))
+    f.append(text(xcross, oy + 34, "тут читається «1»", size=9, color=MUTED, anchor="middle"))
 
     f.append(fitbox(30, 352, 700, 40,
                     ["Спад майже миттєвий, а підйом лінія «повзе» за законом заряду конденсатора: більша ємність C",
@@ -418,7 +418,7 @@ def fig_sync_vs_async():
         y = yd2 - b * 26
         dp2.append("L %.1f %.1f" % (xa, y)); dp2.append("L %.1f %.1f" % (xa + bw2, y))
         col = POS if i == 0 else (PUP if i == len(seq) - 1 else MUTED)
-        f.append(text(xa + bw2 / 2, yd2 - 36, labels[i], size=8.5, color=col, bold=(i == 0)))
+        f.append(text(xa + bw2 / 2, yd2 - 36, labels[i], size=9, color=col, bold=(i == 0)))
         # семпл у середині кожного біта — за ВЛАСНИМ годинником приймача (нижче рядка підписів)
         f.append(line(xa + bw2 / 2, yd2 - 18, xa + bw2 / 2, yd2 + 14, color=FIELD, sw=1, dash="3,2"))
         f.append(circle(xa + bw2 / 2, yd2 + 14, 3, fill=FIELD, stroke=FIELD, sw=1))

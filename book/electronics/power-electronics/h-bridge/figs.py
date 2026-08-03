@@ -106,7 +106,7 @@ def fig_pinout_wiring():
 
     # МК ліворуч
     f.append(rect(40, 150, 150, 130, fill=BG, stroke="#c9d3dc", sw=1.4))
-    f.append(text(115, 144, "МК", size=12, bold=True))
+    f.append(text(115, 195, "МК", size=12, bold=True))
     f.append(text(115, 220, "3.3 / 5 В", size=11))
     f.append(arrow(115, 150, 115, 110, color=FIELD, sw=2))
     f.append(line(115, 110, bx - 16, 110, color=FIELD, sw=2))
@@ -138,8 +138,6 @@ def fig_pinout_wiring():
 
     render(os.path.join(IMG, "pinout-wiring.svg"), W, H, *f)
 
-
-# ── proj 1. Комплементарний ШІМ із мертвим часом ────────────────────────────
 def fig_deadtime_timing():
     W, H = 720, 360
     f = [text(W / 2, 26, "Комплементарний ШІМ із мертвим часом", size=16, bold=True)]

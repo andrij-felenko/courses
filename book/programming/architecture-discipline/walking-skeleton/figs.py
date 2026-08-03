@@ -526,7 +526,7 @@ def fig_allocation():
         yy = y0 + idx * (bh + bgap)
         p.append(text(x0 - 12, yy + bh / 2 - 3, name, size=10, color=INK, anchor="end"))
         p.append(text(x0 - 12, yy + bh / 2 + 13, "P=%.2f · C=%d · k=%d" % (P, C, k),
-                      size=8.5, color=MUTED, anchor="end"))
+                      size=9, color=MUTED, anchor="end"))
         bl = (xmax - x0) * eff / effmax
         deep = (idx == 0)
         col = FIELD if eff >= 5 else MUTED

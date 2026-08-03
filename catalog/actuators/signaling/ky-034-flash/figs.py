@@ -92,7 +92,7 @@ def fig_ky034_wiring():
     for lab, col, py, sub in pads:
         f.append(circle(mx + mw, py, 6, fill=BG, stroke=col, sw=2.2))
         f.append(text(mx + mw - 18, py + 4, lab, size=12, bold=True, color=col, anchor="end"))
-        f.append(text(mx + mw - 18, py + 19, sub, size=8.5, color=MUTED, anchor="end"))
+        f.append(text(mx + mw - 18, py + 19, sub, size=9, color=MUTED, anchor="end"))
 
     # плата
     bx, by, bw, bh = 610, 96, 260, 210
@@ -106,7 +106,7 @@ def fig_ky034_wiring():
             f.append(circle(bx, py, 6, fill=BG, stroke=col, sw=2.2))
         f.append(text(bx + 16, py + 4, lab, size=11.5, bold=True, color=col, anchor="start"))
         if sub:
-            f.append(text(bx + 16, py + 19, sub, size=8.5, color=MUTED, anchor="start"))
+            f.append(text(bx + 16, py + 19, sub, size=9, color=MUTED, anchor="start"))
 
     # дроти: S↔пін, −↔GND (середній НЕ з'єднуємо)
     f.append(line(mx + mw + 6, my + 92, bx - 6, by + 92, color=POS, sw=2.4))
@@ -327,7 +327,7 @@ def fig_ky034_current():
         cxm = rx0 + 96 + i * 52
         f.append(line(cxm, vcc_y, cxm, vcc_y + 18, color=POS, sw=1.6))
         f.append(rect(cxm - 19, vcc_y + 18, 38, 32, fill="#fffdf5", stroke=INK, sw=1.4, rx=5))
-        f.append(text(cxm, vcc_y + 38, "LED", size=8.5, color=INK))
+        f.append(text(cxm, vcc_y + 38, "LED", size=9, color=INK))
         f.append(line(cxm, vcc_y + 50, cxm, vcc_y + 68, color=INK, sw=1.6))
     f.append(text(rx0 + 148, vcc_y + 88, "…десяток вогників = 100 мА+", size=9.5, bold=True, color=INK))
     # спільна шина колектора
@@ -346,7 +346,7 @@ def fig_ky034_current():
     f.append(rect(pinx2 - 42, ty - 21, 84, 42, fill=BG, stroke=INK, sw=1.6, rx=6))
     f.append(mtext(pinx2, ty - 5, ["цифровий", "пін МК"], size=9, color=INK))
     f.append(line(pinx2 + 42, ty, tx - 26, ty, color=POS, sw=2.0))
-    f.append(text((pinx2 + 42 + tx - 26) / 2, ty - 8, "малий струм у базу", size=8.5, bold=True, color=POS))
+    f.append(text((pinx2 + 42 + tx - 26) / 2, ty - 8, "малий струм у базу", size=9, bold=True, color=POS))
 
     # емітер на спільну землю
     f.append(line(tx, ty + 26, tx, ty + 54, color=NEG, sw=1.8))

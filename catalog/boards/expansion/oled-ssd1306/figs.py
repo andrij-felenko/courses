@@ -259,7 +259,7 @@ def fig_charge_pump_moved_in():
     ocx = Lx + 150
     f.append(rect(ocx, 244, 116, 46, fill="#f1f3f5", stroke=INK, sw=1.5, rx=8))
     f.append(text(ocx + 58, 266, "OLED-контролер", size=9.5, bold=True))
-    f.append(text(ocx + 58, 281, "(без насоса)", size=8.5, color=MUTED))
+    f.append(text(ocx + 58, 281, "(без насоса)", size=9, color=MUTED))
 
     oled_glass(Lx + 320, 170, POS)
 
@@ -289,7 +289,7 @@ def fig_charge_pump_moved_in():
     f.append(text(chx + 75, chy + 36, "один чип", size=9, color=MUTED))
     f.append(rect(chx + 20, chy + 52, 110, 40, fill="#d7ecdb", stroke=FIELD, sw=1.4, rx=6))
     f.append(text(chx + 75, chy + 70, "зарядний насос", size=9.5, bold=True, color=FIELD))
-    f.append(text(chx + 75, chy + 84, "робить 7-9 В сам", size=8.5, color=MUTED))
+    f.append(text(chx + 75, chy + 84, "робить 7-9 В сам", size=9, color=MUTED))
     f.append(text(chx + 75, chy + 112, "+ контролер + пам'ять", size=9, color=MUTED, italic=True))
 
     oled_glass(Rx + 340, 170, FIELD)
@@ -297,7 +297,7 @@ def fig_charge_pump_moved_in():
     # дроти: МК -> чип (2 лінії I2C), чип -> скло; жодного зовнішнього DC/DC
     f.append(line(Rx + 104, 190, chx, 190, color=NEG, sw=2.0))
     f.append(line(Rx + 104, 205, chx, 205, color=NEG, sw=2.0))
-    f.append(text((Rx + 104 + chx) / 2, 182, "2 дроти", size=8.5, color=NEG, bold=True))
+    f.append(text((Rx + 104 + chx) / 2, 182, "2 дроти", size=9, color=NEG, bold=True))
     f.append(arrow(chx + 150, 197, Rx + 334, 190, color=INK, sw=1.7))
     f.append(text(Rx + colW / 2, 400, "нуль зовнішніх деталей — плата з нігтик, дешево",
                   size=10, color=FIELD, bold=True))

@@ -240,7 +240,7 @@ def fig_canary():
     ky2 = top + 90
     f.append(rect(cx, ky2, cw, 46, fill="#fdeef0", stroke=POS, sw=2.6, rx=6))
     f.append(text(cx + cw / 2, ky2 + 20, "КАНАРКА — заборонено все", size=10.5, color=POS, bold=True))
-    f.append(text(cx + cw / 2, ky2 + 37, "(старша область, AP = нема доступу)", size=8.5, color=POS))
+    f.append(text(cx + cw / 2, ky2 + 37, "(старша область, AP = нема доступу)", size=9, color=POS))
     # Стек B
     by = ky2 + 46
     f.append(rect(cx, by, cw, 90, fill="#eef2fb", stroke=NEG, sw=2, rx=6))

@@ -180,11 +180,11 @@ def fig_ab_slot_swap():
     p.append(rect(ax, yb, slot_w, slot_h, fill=GREENF, stroke=FIELD, sw=2.2, rx=10))
     p.append(text(ax + slot_w/2, yb + 22, "слот A", size=12, color=FIELD, bold=True))
     p.append(text(ax + slot_w/2, yb + 43, "seq = 7", size=12, color=INK, bold=True))
-    p.append(fitbox(ax + 16, yb + 50, slot_w - 32, 16, "ЧИННИЙ · CRC ✓", size=8.5, fill=GREENF, stroke=FIELD, color=FIELD, bold=True, rx=4))
+    p.append(fitbox(ax + 16, yb + 50, slot_w - 32, 16, "ЧИННИЙ · CRC ✓", size=9, fill=GREENF, stroke=FIELD, color=FIELD, bold=True, rx=4))
     p.append(rect(bx, yb, slot_w, slot_h, fill=BG, stroke=MUTED, sw=2, rx=10))
     p.append(text(bx + slot_w/2, yb + 22, "слот B", size=12, color=MUTED, bold=True))
     p.append(text(bx + slot_w/2, yb + 43, "seq = 6", size=12, color=INK, bold=True))
-    p.append(fitbox(bx + 16, yb + 50, slot_w - 32, 16, "старий, запасний", size=8.5, fill=FILL, stroke=MUTED, color=MUTED, bold=True, rx=4))
+    p.append(fitbox(bx + 16, yb + 50, slot_w - 32, 16, "старий, запасний", size=9, fill=FILL, stroke=MUTED, color=MUTED, bold=True, rx=4))
     p.append(arrow(ax + slot_w + 14, yb + slot_h/2, bx - 14, yb + slot_h/2, color=NEG, sw=2.4))
     p.append(text(midx, yb + slot_h/2 - 12, "пишемо в запасний", size=10, color=NEG, bold=True))
     p.append(text(midx, yb + slot_h/2 + 22, "слот A цілий — старі дані живі", size=9, color=MUTED, italic=True))
@@ -195,11 +195,11 @@ def fig_ab_slot_swap():
     p.append(rect(ax, yb2, slot_w, slot_h, fill=BG, stroke=MUTED, sw=2, rx=10))
     p.append(text(ax + slot_w/2, yb2 + 22, "слот A", size=12, color=MUTED, bold=True))
     p.append(text(ax + slot_w/2, yb2 + 43, "seq = 7", size=12, color=INK, bold=True))
-    p.append(fitbox(ax + 16, yb2 + 50, slot_w - 32, 16, "тепер старий", size=8.5, fill=FILL, stroke=MUTED, color=MUTED, bold=True, rx=4))
+    p.append(fitbox(ax + 16, yb2 + 50, slot_w - 32, 16, "тепер старий", size=9, fill=FILL, stroke=MUTED, color=MUTED, bold=True, rx=4))
     p.append(rect(bx, yb2, slot_w, slot_h, fill=GREENF, stroke=FIELD, sw=2.4, rx=10))
     p.append(text(bx + slot_w/2, yb2 + 22, "слот B", size=12, color=FIELD, bold=True))
     p.append(text(bx + slot_w/2, yb2 + 43, "seq = 8", size=12, color=INK, bold=True))
-    p.append(fitbox(bx + 16, yb2 + 50, slot_w - 32, 16, "ЧИННИЙ · CRC ✓", size=8.5, fill=GREENF, stroke=FIELD, color=FIELD, bold=True, rx=4))
+    p.append(fitbox(bx + 16, yb2 + 50, slot_w - 32, 16, "ЧИННИЙ · CRC ✓", size=9, fill=GREENF, stroke=FIELD, color=FIELD, bold=True, rx=4))
     p.append(arrow(ax + slot_w + 14, yb2 + slot_h/2, bx - 14, yb2 + slot_h/2, color=FIELD, sw=2.4))
     p.append(text(midx, yb2 + slot_h/2 - 12, "зійшовся за CRC", size=10, color=FIELD, bold=True))
     p.append(text(midx, yb2 + slot_h/2 + 22, "і seq більший → чинний", size=9, color=MUTED, italic=True))
@@ -248,12 +248,12 @@ def fig_seal_crc_hmac_sign():
     for x, (title, col, fill, sub, rows, foot) in zip(xs, cols):
         p.append(rect(x, top, col_w, box_h, fill=fill, stroke=col, sw=2, rx=12))
         p.append(text(x + col_w/2, top + 24, title, size=12, color=col, bold=True))
-        p.append(text(x + col_w/2, top + 43, sub, size=8.5, color=MUTED, italic=True))
+        p.append(text(x + col_w/2, top + 43, sub, size=9, color=MUTED, italic=True))
         yy = top + 62
         for tag, l1, l2 in rows:
-            p.append(fitbox(x + 12, yy, 68, 36, tag, size=8.5, fill=BG, stroke=col, color=col, bold=True, rx=5))
+            p.append(fitbox(x + 12, yy, 68, 36, tag, size=9, fill=BG, stroke=col, color=col, bold=True, rx=5))
             p.append(text(x + 88, yy + 14, l1, size=9, color=INK, anchor="start", bold=True))
-            p.append(text(x + 88, yy + 29, l2, size=8, color=MUTED, anchor="start"))
+            p.append(text(x + 88, yy + 29, l2, size=9, color=MUTED, anchor="start"))
             yy += 46
         p.append(fitbox(x + 22, top + box_h - 30, col_w - 44, 20, foot, size=9.5,
                         fill=BG, stroke=col, color=col, bold=True, rx=5))

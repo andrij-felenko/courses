@@ -317,7 +317,7 @@ def fig_soliton_pmf():
     def mu(d):
         return (_rho(d, k) + _tau(d, k, R, delta)) / beta
 
-    W, H = 940, 486
+    W, H = 981, 486
     p = []
     XL, XR = 100, 884
     ybase, ytop = 392, 104

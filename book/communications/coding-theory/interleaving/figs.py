@@ -154,7 +154,7 @@ def fig_block_matrix():
 
 # ── depth-tradeoff: глибина піднімає і стійкість, і затримку ───────────────────
 def fig_depth_tradeoff():
-    W, H = 880, 470
+    W, H = 922, 470
     p = []
     ox, oy = 108, 372
     xr, ytop = 812, 84
@@ -449,7 +449,7 @@ def _bit_align_panel(p, y0, title, shift_bits, note):
 
 
 def fig_bit_align():
-    W, H = 1060, 380
+    W, H = 1124, 380
     p = []
     p.append(text(W / 2, 34, "Той самий 640-бітний пакет: вирівняний торкається 80 байтів, зсунутий на 1 біт — уже 81",
                   size=13.5, color=INK, bold=True))

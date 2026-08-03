@@ -12,7 +12,7 @@ IMG = os.path.join(os.path.dirname(__file__), 'img')
 
 # ── Три шляхи саморозряду: ідеал проти реальної комірки ───────────────────────
 def fig_paths():
-    W, H = 860, 470
+    W, H = 908, 470
     f = [text(W / 2, 30, "Куди тече заряд зсередини комірки", size=16, bold=True)]
 
     def cell(cx, top, w, h, label, col):

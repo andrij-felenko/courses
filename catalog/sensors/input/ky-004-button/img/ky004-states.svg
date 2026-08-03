@@ -1,26 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="360" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="370" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
 <text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кнопка як маленький автомат: клас крокує станами й на переходах віддає події</text>
 <rect x="65.0" y="104.0" width="150.0" height="52.0" rx="10" fill="#f7f9fc" stroke="#6b7280" stroke-width="2.0"/>
 <text x="140.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">IDLE</text>
-<text x="140.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">стан спокою</text>
+<text x="140.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">стан спокою</text>
 <rect x="262.5" y="104.0" width="175.0" height="52.0" rx="10" fill="#f7f9fc" stroke="#b8860b" stroke-width="2.0"/>
 <text x="350.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">MAYBE</text>
-<text x="350.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">зміна — чекаю вікно</text>
+<text x="350.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">зміна — чекаю вікно</text>
 <rect x="485.0" y="104.0" width="150.0" height="52.0" rx="10" fill="#f7f9fc" stroke="#27ae60" stroke-width="2.0"/>
 <text x="560.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">PRESSED</text>
-<text x="560.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">утримується</text>
+<text x="560.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">утримується</text>
 <rect x="715.0" y="104.0" width="150.0" height="52.0" rx="10" fill="#f7f9fc" stroke="#c0392b" stroke-width="2.0"/>
 <text x="790.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">LONG</text>
-<text x="790.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#6b7280" text-anchor="middle">довгий натиск</text>
+<text x="790.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">довгий натиск</text>
 <line x1="216.0" y1="130.0" x2="260.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
-<text x="245.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">рівень != спокій</text>
+<text x="238.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">рівень != спокій</text>
 <line x1="440.0" y1="130.0" x2="484.0" y2="130.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
 <text x="455.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">устоявся →</text>
-<text x="455.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#27ae60" text-anchor="middle">подія «натиснуто»</text>
+<text x="462.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">подія «натиснуто»</text>
 <line x1="636.0" y1="130.0" x2="714.0" y2="130.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
 <text x="675.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">утримується &gt; T_long</text>
-<text x="675.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#c0392b" text-anchor="middle">подія «довгий»</text>
+<text x="675.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">подія «довгий»</text>
 <line x1="560.0" y1="156.0" x2="560.0" y2="200.0" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="4,4"/>
 <line x1="560.0" y1="200.0" x2="140.0" y2="200.0" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="4,4"/>
 <line x1="140.0" y1="200.0" x2="140.0" y2="158.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
@@ -28,5 +28,5 @@
 <line x1="350.0" y1="156.0" x2="350.0" y2="182.0" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="3,4"/>
 <line x1="350.0" y1="182.0" x2="170.0" y2="182.0" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="3,4"/>
 <line x1="170.0" y1="182.0" x2="160.0" y2="160.0" stroke="#b8860b" stroke-width="1.5" marker-end="url(#arrow)"/>
-<text x="265.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="8" fill="#b8860b" text-anchor="middle">не встоявся (брязкіт) → назад, події немає</text>
+<text x="265.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b8860b" text-anchor="middle">не встоявся (брязкіт) → назад, події немає</text>
 </svg>

@@ -534,7 +534,7 @@ def fig_kp_flow():
 
 # ── rms-bars: похибка трекера проти сирого виміру й самого прогнозу ────────────
 def fig_rms_bars():
-    W, H = 720, 300
+    W, H = 748, 300
     s = _sim(N=100)
     trk, raw, dead = s["rms"]
     p = []

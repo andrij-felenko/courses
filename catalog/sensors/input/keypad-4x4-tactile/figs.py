@@ -39,7 +39,7 @@ def fig_board():
             f.append(rect(cx - 22, cy - 22, 44, 44, fill=BG, stroke=INK, sw=1.6, rx=5))
             f.append(circle(cx, cy, 10, fill="#dfe6ee", stroke=INK, sw=1.4))
             f.append(text(cx, cy + 5, KEYS[r][c], size=15, bold=True, color=INK))
-            f.append(text(cx - 22, cy - 26, "S%d" % idx, size=8.5, color=MUTED, anchor="start"))
+            f.append(text(cx - 22, cy - 26, "S%d" % idx, size=9, color=MUTED, anchor="start"))
             idx += 1
 
     # гребінка 8 пінів праворуч від плати

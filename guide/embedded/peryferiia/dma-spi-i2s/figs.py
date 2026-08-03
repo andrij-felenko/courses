@@ -590,7 +590,7 @@ def fig_audio_chain():
         for k, (dy, col, nm) in enumerate([(-14, INK, "SCK"), (0, NEG, "WS"), (14, FIELD, "SD")]):
             p.append(line(xa, y + bh / 2 + dy, xb, y + bh / 2 + dy, color=col, sw=1.8))
             if i == 0:
-                p.append(text((xa + xb) / 2, y + bh / 2 + dy - 4, nm, size=8, color=col))
+                p.append(text((xa + xb) / 2, y + bh / 2 + dy - 4, nm, size=9, color=col))
 
     p.append(text(W / 2, y - 24, "Один цифровий звуковий тракт CD-програвача — ланцюг окремих LSI",
                   size=13, bold=True, color=INK))

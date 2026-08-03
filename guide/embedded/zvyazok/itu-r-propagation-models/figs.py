@@ -37,8 +37,10 @@ def fig_why():
     fs = [(0.0, 0.12), (3.0, 0.92)]
     parts.append(line(px(fs[0][0]), py(fs[0][1]), px(fs[1][0]), py(fs[1][1]),
                       color=NEG, sw=3))
-    parts.append(text(px(2.55), py(0.70) - 10, "вільний простір", size=13, color=NEG, bold=True, anchor="middle"))
-    parts.append(text(px(2.55), py(0.70) + 8, "n = 2  (20 дБ/декаду)", size=11, color=NEG, anchor="middle"))
+    # підпис зсунуто лівіше й вище по прямій — там, де він явно НАД лінією,
+    # а не на ділянці, де лінія проходить крізь бокс "це й описує модель..."
+    parts.append(text(420, 200, "вільний простір", size=13, color=NEG, bold=True, anchor="middle"))
+    parts.append(text(420, 215, "n = 2  (20 дБ/декаду)", size=11, color=NEG, anchor="middle"))
 
     # реальна "крутіша" пряма міста: n≈3.5 → 35 дБ/декаду
     rl = [(0.0, 0.16), (3.0, 1.0 - 0.02)]
@@ -71,8 +73,6 @@ def fig_why():
     render(os.path.join(IMG, "why-models.svg"), W, H, *parts,
            title="Вільний простір — лише підлога; середовище додає згори")
 
-
-# ── 2. Спектр моделей: детерміновані ↔ емпіричні ↔ статистичні ───────────────
 def fig_spectrum():
     W, H = 780, 360
     cy = 150
@@ -187,30 +187,28 @@ def fig_scenarios():
     # розгалуження LOS / NLOS під кожним — показано на одному (UMi), решта натяком
     by = 200
     parts.append(text(W / 2, by - 8, "кожен сценарій далі ділиться:", size=12, color=MUTED, anchor="middle"))
-    # LOS гілка
+    # LOS гілка — бокс розширено, щоб текст не доводилось стискати нижче 9px
     lx = W / 2 - 200
-    parts.append(fitbox(lx - 90, by + 6, 180, 52,
+    parts.append(fitbox(lx - 105, by + 6, 210, 60,
                         "LOS — видимість пряма\nм'який нахил, мала тінь σ",
                         size=11.5, bold=True, fill="#eafaf0", stroke=FIELD, color="#145a32"))
-    # NLOS гілка
+    # NLOS гілка — так само розширено
     rx = W / 2 + 200
-    parts.append(fitbox(rx - 90, by + 6, 180, 52,
+    parts.append(fitbox(rx - 105, by + 6, 210, 60,
                         "NLOS — крізь перепони\nкрутіший нахил, велика тінь σ",
                         size=11.5, bold=True, fill="#fbe3df", stroke=POS, color="#7a1f14"))
 
-    # формула-кістяк
+    # формула-кістяк — трохи вища рамка з тим самим запасом
     fy = 300
-    parts.append(fitbox(80, fy, W - 160, 46,
+    parts.append(fitbox(80, fy, W - 160, 54,
                         "L = A + B·lg(d) + C·lg(f)   +   X_σ   (випадкова «тінь», нормальна, σ дБ)",
                         size=14, bold=True, fill=FILL, stroke=INK, color=INK))
-    parts.append(text(W / 2, fy + 72, "Та сама арифметика дБ — плюс чесно дописаний розкид місць",
+    parts.append(text(W / 2, fy + 76, "Та сама арифметика дБ — плюс чесно дописаний розкид місць",
                       size=12, color=MUTED, anchor="middle"))
-    parts.append(text(W / 2, fy + 92, "Працює аж до 100 ГГц (mmWave) — туди, куди Hata не сягає",
+    parts.append(text(W / 2, fy + 96, "Працює аж до 100 ГГц (mmWave) — туди, куди Hata не сягає",
                       size=12, color=MUTED, anchor="middle"))
     render(os.path.join(IMG, "scenarios-3gpp.svg"), W, H, *parts)
 
-
-# ── 5. Дзеркало dB↔лінійне: симетричний дзвін у дБ → перекошений у разах ──────
 def fig_lognormal():
     import math
     W, H = 780, 410
@@ -246,7 +244,8 @@ def fig_lognormal():
     # позначка ±σ
     parts.append(line(gx(-sig), gy(pmax * 0.607, pmax), gx(-sig), lyb, color=NEG, sw=1, dash="2 2"))
     parts.append(line(gx(sig), gy(pmax * 0.607, pmax), gx(sig), lyb, color=NEG, sw=1, dash="2 2"))
-    parts.append(mtext(gx(0), 150, "симетрична\n(нормальна)", size=11, color=NEG, anchor="middle"))
+    # підпис зсунуто ліворуч і вище — поза вертикальною віссю нуля та лініями ±σ
+    parts.append(mtext(gx(-11), 175, "симетрична\n(нормальна)", size=11, color=NEG, anchor="middle"))
 
     # стрілка-перехід
     parts.append(text(W / 2 - 8, 235, "10^(x/10)", size=11, color=INK, anchor="middle", italic=True))
@@ -286,8 +285,6 @@ def fig_lognormal():
     render(os.path.join(IMG, "lognormal-mirror.svg"), W, H, *parts,
            title=None)
 
-
-# ── 6. Запас на затінення: хвіст Q-функції під задане покриття ────────────────
 def fig_margin():
     import math
     W, H = 780, 420
@@ -346,8 +343,9 @@ def fig_margin():
     for z in (-3, -2, -1, 0, 1, 2, 3):
         parts.append(text(mx(z), yb + 18, ("%+d" % z if z else "0") + "σ", size=10.5, color=MUTED, anchor="middle"))
 
-    # підписи площ
-    parts.append(mtext(mx(-0.2), my(pmax) * 0.0 + 150, "накрито 95% місць\n(сигнал кращий за запас)",
+    # підпис площ — зсунуто ліворуч і вгору, щоб вертикальна вісь нуля (mx(0))
+    # і лінія запасу (mx(zc)) проходили ПОЗА текстовим блоком, а не крізь нього
+    parts.append(mtext(260, 130, "накрито 95% місць\n(сигнал кращий за запас)",
                        size=11.5, bold=True, color="#145a32", anchor="middle"))
     parts.append(mtext(mx(2.35), my(0.02) - 60, "5% — тут сигнал\nслабший: аварія",
                        size=11, bold=True, color="#7a1f14", anchor="middle"))
@@ -357,8 +355,6 @@ def fig_margin():
                         size=12, fill=FILL, stroke=MUTED, color=INK))
     render(os.path.join(IMG, "shadow-margin.svg"), W, H, *parts, title=None)
 
-
-# ── 7. σ за середовищами: чим заплутаніший шлях, тим ширший дзвін ─────────────
 def fig_sigma_env():
     import math
     W, H = 780, 410
@@ -465,15 +461,20 @@ def fig_ahm():
     parts.append(polyline(a_medium, FIELD))
     parts.append(polyline(a_large, POS))
 
-    parts.append(text(px(7.0) + 40, py(a_medium(7.0)) - 6, "середнє місто", size=12, color=FIELD, bold=True, anchor="start"))
-    parts.append(text(px(7.0) + 40, py(a_medium(7.0)) + 9, "(лінійна за h_m)", size=10.5, color=FIELD, anchor="start"))
-    parts.append(text(px(7.4), py(a_large(7.4)) + 26, "велике місто", size=12, color=POS, bold=True, anchor="middle"))
-    parts.append(text(px(7.4), py(a_large(7.4)) + 41, "(парабола за lg h_m)", size=10.5, color=POS, anchor="middle"))
+    # підписи кривих рознесено на різні ділянки hm (медіум — вище й правіше,
+    # велике — нижче й лівіше), щоб не стикатись одне з одним
+    mhm = 8.0
+    mx_, my_ = px(mhm) + 14, py(a_medium(mhm))
+    parts.append(text(mx_, my_ - 34, "середнє місто", size=12, color=FIELD, bold=True, anchor="start"))
+    parts.append(text(mx_, my_ - 19, "(лінійна за h_m)", size=10.5, color=FIELD, anchor="start"))
+
+    lhm = 6.0
+    lx_, ly_ = px(lhm), py(a_large(lhm))
+    parts.append(text(lx_, ly_ + 34, "велике місто", size=12, color=POS, bold=True, anchor="middle"))
+    parts.append(text(lx_, ly_ + 49, "(парабола за lg h_m)", size=10.5, color=POS, anchor="middle"))
 
     render(os.path.join(IMG, "ahm-curves.svg"), W, H, *parts)
 
-
-# ── 8. Драбина знижок за тип місцевості (900 МГц) ────────────────────────────
 def fig_terrain():
     """Місто → передмістя → відкрите: децибельна драбина знижок (абс. втрати)."""
     W, H = 760, 400
@@ -496,7 +497,13 @@ def fig_terrain():
         x = x0 + i * (bw + gap)
         col_top = top_city + full * (drop / span)
         parts.append(rect(x, col_top, bw, base_y - col_top, fill=fillc, stroke=col, sw=2))
-        parts.append(fitbox(x + 12, base_y - 48, bw - 24, 36, lab, size=12.5, bold=True, fill=BG, stroke=col, color=col))
+        # висота підпису підлаштована під висоту стовпця — щоб не вилазив за
+        # його межі й не налазив на сусідні елементи (для короткого стовпця
+        # "відкрите поле" бокс звужено й притиснуто до низу)
+        avail = (base_y - col_top) - 10
+        lab_h = min(36, max(24, avail))
+        lab_y = base_y - lab_h - 6
+        parts.append(fitbox(x + 12, lab_y, bw - 24, lab_h, lab, size=12.5, bold=True, fill=BG, stroke=col, color=col))
         parts.append(text(x + bw / 2, col_top - 12, note, size=12, color=col, bold=True, anchor="middle"))
         if i > 0:
             ax = x - gap / 2
@@ -508,8 +515,6 @@ def fig_terrain():
     parts.append(text(W / 2, base_y + 42, "Менше забудови — менше втрат; кожна сходинка — поправка-знижка Хати", size=11.5, color=MUTED, anchor="middle"))
     render(os.path.join(IMG, "terrain-ladder.svg"), W, H, *parts)
 
-
-# ── 9. Чотири діапазони чинності й «зламані» краї ─────────────────────────────
 def fig_validity():
     """Смуги чинності Hata; за краєм — заштрихована зона екстраполяції."""
     W, H = 880, 400

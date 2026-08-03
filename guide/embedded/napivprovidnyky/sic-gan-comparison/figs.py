@@ -78,7 +78,7 @@ def fig_thin_drift():
         ex = x + width_px
         out.append(poly([(x, bot), (ex, bot), (ex, top + 30)], fill="none", stroke=POS, sw=2.4))
         out.append(text(ex - 6, top + 44, ecrit_label, size=10, color=POS, anchor="end", bold=True))
-        out.append(text(x + 6, bot - 8, "глибина шару", size=8, color=MUTED, anchor="start"))
+        out.append(text(x + 6, bot - 8, "глибина шару", size=9, color=MUTED, anchor="start"))
         return "".join(out)
 
     frags.append(panel(70,  "Si",  "#9aa7b8", 240, "E_крит ≈ 0.3 МВ/см", "товстий слабколегований шар"))

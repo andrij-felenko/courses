@@ -143,7 +143,7 @@ def fig_switch_sensor():
     f.append(line(250, 168, 250, 250, color=INK, sw=2))
     f.append(rect(200, 250, 100, 56, fill=FILL, stroke=INK, sw=1.6, rx=8))
     f.append(text(250, 274, "давач", size=10, color=INK, bold=True))
-    f.append(text(250, 292, "(ключ на GND)", size=8.5, color=MUTED))
+    f.append(text(250, 292, "(ключ на GND)", size=9, color=MUTED))
     f.append(line(250, 306, 250, 330, color=INK, sw=2))
 
     # права плашка: логіка
@@ -169,7 +169,7 @@ def fig_driven_sensor():
     f.append(text(200, 86, "Однакова напруга (3.3 В) → прямо", size=11.5, color=FIELD, bold=True))
     f.append(rect(56, 150, 120, 64, fill=FILL, stroke=INK, sw=1.6, rx=8))
     f.append(text(116, 178, "давач 3.3 В", size=10, color=INK, bold=True))
-    f.append(text(116, 196, "push-pull OUT", size=8.5, color=MUTED))
+    f.append(text(116, 196, "push-pull OUT", size=9, color=MUTED))
     f.append(arrow(176, 182, 250, 182, color=INK, sw=2.2))
     f.append(text(213, 174, "прямо", size=9, color=FIELD, bold=True))
     f.append(rect(250, 150, 96, 64, fill="none", stroke=NEG, sw=2, rx=8))
@@ -182,7 +182,7 @@ def fig_driven_sensor():
     f.append(text(560, 86, "Давач 5 В → обов'язково зсув", size=11.5, color=POS, bold=True))
     f.append(rect(408, 150, 96, 64, fill=FILL, stroke=INK, sw=1.6, rx=8))
     f.append(text(456, 178, "давач 5 В", size=10, color=INK, bold=True))
-    f.append(text(456, 196, "OUT = 5 В", size=8.5, color=POS))
+    f.append(text(456, 196, "OUT = 5 В", size=9, color=POS))
     f.append(line(504, 182, 528, 182, color=INK, sw=2))
     f.append(rect(528, 158, 70, 48, fill="#fdf6e3", stroke=GOLD, sw=1.6, rx=6))
     f.append(text(563, 180, "зсув", size=9.5, color=GOLD, bold=True))
@@ -288,11 +288,11 @@ def fig_matrix_ghost():
     f.append(cell(230, 134, "#eef7f0", FIELD))
     f.append(cell(130, 214, "#eef7f0", FIELD))
     f.append(cell(230, 214, "#fdecea", POS))
-    f.append(text(246, 218, "✗ привид", size=8.6, color=POS, anchor="start", bold=True))
+    f.append(text(246, 218, "✗ привид", size=9, color=POS, anchor="start", bold=True))
     f.append(line(130, 134, 230, 134, color=POS, sw=1.8, dash="5 4"))
     f.append(line(230, 134, 230, 214, color=POS, sw=1.8, dash="5 4"))
     f.append(text(180, 252, "струм «крадеться» в обхід -> фальшива 4-та",
-                  size=8.6, color=POS))
+                  size=9, color=POS))
 
     # ── права половина: з діодами ──
     f.append(text(580, 92, "З діодами", size=12, color=FIELD, bold=True))
@@ -306,8 +306,8 @@ def fig_matrix_ghost():
             empty = (i == 1 and j == 1)
             f.append(cell(x, y, BG if empty else "#eef7f0", MUTED if empty else FIELD))
             f.append(diode(x, y))
-    f.append(text(580, 252, "діод пускає струм лише в один бік ->", size=8.6, color=FIELD))
-    f.append(text(580, 268, "обхідний шлях закрито ✓", size=8.6, color=FIELD, bold=True))
+    f.append(text(580, 252, "діод пускає струм лише в один бік ->", size=9, color=FIELD))
+    f.append(text(580, 268, "обхідний шлях закрито ✓", size=9, color=FIELD, bold=True))
 
     f.append(fitbox(120, 296, 520, 26,
                     "Три натиснуті в куті прямокутника без діодів дають уявну четверту; діод це лікує.",

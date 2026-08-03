@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="420" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="430" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
 <text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Небезпека — там, де перехід «випадає» між двома накривками</text>
 <text x="240.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">C = 1        C = 0</text>
@@ -19,6 +19,6 @@
 <text x="285.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">група A·C̄</text>
 <line x1="285.0" y1="135.0" x2="195.0" y2="135.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
 <line x1="195.0" y1="135.0" x2="285.0" y2="135.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
-<rect x="200.2" y="170.0" width="79.5" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="240.0" y="190.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">C: 1 ⇄ 0</tspan></text>
+<rect x="200.2" y="170.0" width="79.5" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="240.0" y="183.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">C: 1 ⇄ 0</tspan></text>
 <rect x="110.0" y="304.0" width="500.0" height="80.0" rx="6" fill="#fff7e6" stroke="#d39e00" stroke-width="1.5"/><text x="360.0" y="325.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Обидві клітинки переходу = 1, але вони в РІЗНИХ групах (B·C і A·C̄).</tspan><tspan x="360.0" dy="15.0">Жодна одна група не накриває обидві, тож під час перемикання C</tspan><tspan x="360.0" dy="15.0">одна група вже відпустила, а друга ще не схопила — на стику</tspan><tspan x="360.0" dy="15.0">виходить хибний 0. Це і є статична 1-небезпека.</tspan></text>
 </svg>

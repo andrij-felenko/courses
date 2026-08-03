@@ -168,7 +168,7 @@ def fig_fade_availability():
     tx = 700
     f.append(rect(tx, 96, 210, 266, fill="#fcfcfc", stroke=MUTED, sw=1.6, rx=10))
     f.append(text(tx + 105, 122, "запас → доступність", size=12, color=INK, bold=True))
-    f.append(text(tx + 105, 140, "(релеївський канал, груба оцінка)", size=8.6, color=MUTED, italic=True))
+    f.append(text(tx + 105, 140, "(релеївський канал, груба оцінка)", size=9, color=MUTED, italic=True))
     rows = [("0 дБ", "≈ 50 %", POS), ("10 дБ", "≈ 90 %", GOLD),
             ("20 дБ", "≈ 99 %", FIELD), ("30 дБ", "≈ 99.9 %", FIELD)]
     ry = 172
