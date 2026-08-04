@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1030 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1030" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Черга: дві функції, дві нитки, один список</text>
+<rect x="250.0" y="110.0" width="470.0" height="215.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<text x="485.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">елемент queue</text>
+<rect x="292.0" y="158.0" width="34.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="336.0" y="158.0" width="34.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="380.0" y="158.0" width="34.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="424.0" y="158.0" width="34.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="468.0" y="158.0" width="34.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="512.0" y="158.0" width="34.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="556.0" y="158.0" width="34.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="600.0" y="158.0" width="34.0" height="28.0" rx="3" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="485.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">список буферів під замком</text>
+<rect x="285.0" y="238.0" width="400.0" height="28.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="485.0" y="256.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">повна → chain() чекає на «щось забрали»</tspan></text>
+<rect x="285.0" y="282.0" width="400.0" height="28.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="485.0" y="300.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">порожня → loop() чекає на «щось поклали»</tspan></text>
+<rect x="30.0" y="145.0" width="190.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.0"/><text x="125.0" y="171.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="125.0" dy="0.0">chain()</tspan><tspan x="125.0" dy="15.6">у нитці того,</tspan><tspan x="125.0" dy="15.6">хто штовхнув</tspan></text>
+<rect x="760.0" y="145.0" width="220.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.0"/><text x="870.0" y="171.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">loop()</tspan><tspan x="870.0" dy="15.6">власна нитка:</tspan><tspan x="870.0" dy="15.6">GstTask на вихідному паді</tspan></text>
+<line x1="224.0" y1="172.0" x2="288.0" y2="172.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="722.0" y1="172.0" x2="756.0" y2="172.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="870.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">далі: gst_pad_push()</text>
+<rect x="359.2" y="347.1" width="301.6" height="49.9" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.0"/><text x="510.0" y="368.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">межі; спрацьовує будь-яка з трьох:</tspan><tspan x="510.0" dy="16.9">200 буферів · 10 МіБ · 1 секунда даних</tspan></text>
+<text x="510.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Код потоку від нижнього сусіда черга запам'ятовує й віддає верхньому вже з наступним буфером.</text>
+</svg>

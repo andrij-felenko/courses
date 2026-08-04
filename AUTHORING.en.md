@@ -240,7 +240,13 @@ The section isn't needed in the path. **Default — the general link `book:<book
 **The target doesn't exist yet — we create it and ref it in advance.** The target is either a **topic-article** or a **supporting insert** (history/example/math/device — `<type>-<name>.md`):
 1. Determine the **right place** (a topic — book + section; an insert — the topic's folder).
 2. Create an **empty file** (the topic's md or `<type>-<name>.md`).
-3. Register it in the manifest: a topic — **`basic:{status:"empty"}` + `detailed:{status:"pending"}`** (the **detailed** goes into the queue — it is the main version, §3; the basic is decided AFTER the detailed: if it turns out large, then `basic:pending`). An insert — `pending` in the array of its type. **Never give a new topic `basic:pending`.**
+3. **BEFORE registering — check that it is not a SYNONYM of an existing topic.** "One term per concept" (§4) applies to slugs too. Grep the book's manifest for the key word of your future slug; if something close turns up — do **NOT** create a new topic: put a ref to the existing one (and if its title is narrower than your case, refine that title instead of spawning a second topic). The three traps this breaks on most often:
+   - **narrower and broader about the same thing** — `aslr` ↔ `rop-and-aslr`;
+   - **an abbreviation and its expansion** — `ksm` ↔ `ksm-page-merging`;
+   - **two sides of one mechanism** — `threads-and-queues` ↔ `streaming-threads`, `events-and-queries` ↔ `pipeline-events`.
+
+   The cost of a duplicate: a redundant article, links split between two folders, and a reader who doesn't know which of the two to read. It surfaces late — once both are already written. `manifest-patch.js` prints «⚠ МОЖЛИВІ ДУБЛІ ПОНЯТТЯ» (a shared rare word, or one slug nested in another) but does **not** block: merging or not is a human decision.
+4. Register it in the manifest: a topic — **`basic:{status:"empty"}` + `detailed:{status:"pending"}`** (the **detailed** goes into the queue — it is the main version, §3; the basic is decided AFTER the detailed: if it turns out large, then `basic:pending`). An insert — `pending` in the array of its type. **Never give a new topic `basic:pending`.**
 4. Place the ref — the popup will show a stub, and **pull in the text** once it's filled.
 
 Where there's a genuine dependency — **no dangling mentions without a ref**.

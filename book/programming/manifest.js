@@ -964,6 +964,7 @@
         { slug: "function-overloading", title: "Перевантаження функцій і вибір найкращого кандидата", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "closures", title: "Замикання: функція разом із захопленим оточенням", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "operator-overloading", title: "Перевантаження операторів", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "type-erasure", title: "Стирання типу: один параметр замість переліку типів", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
   ]
 });

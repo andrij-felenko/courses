@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три нитки на семи елементах</text>
+<rect x="40.0" y="110.0" width="126.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="103.0" y="141.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="103.0" dy="0.0">udpsrc</tspan><tspan x="103.0" dy="16.9">джерело</tspan></text>
+<rect x="185.7" y="110.0" width="126.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="248.7" y="141.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="248.7" dy="0.0">rtpjitterbuffer</tspan><tspan x="248.7" dy="14.3">витримка за часом</tspan></text>
+<rect x="331.3" y="110.0" width="126.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="394.3" y="141.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="394.3" dy="0.0">rtph264depay</tspan><tspan x="394.3" dy="16.9">збірка кадру</tspan></text>
+<rect x="477.0" y="110.0" width="126.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="540.0" y="141.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">avdec_h264</tspan><tspan x="540.0" dy="16.9">декодер</tspan></text>
+<rect x="622.7" y="110.0" width="126.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="685.7" y="141.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="685.7" dy="0.0">queue</tspan><tspan x="685.7" dy="16.9">межа ниток</tspan></text>
+<rect x="768.3" y="110.0" width="126.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="831.3" y="141.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="831.3" dy="0.0">videoconvert</tspan><tspan x="831.3" dy="16.9">формат кольору</tspan></text>
+<rect x="914.0" y="110.0" width="126.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="977.0" y="141.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="977.0" dy="0.0">autovideosink</tspan><tspan x="977.0" dy="16.9">показ</tspan></text>
+<rect x="147.0" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="190.7" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="292.7" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="336.3" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="438.3" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="482.0" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="584.0" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="627.7" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="729.7" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="773.3" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="875.3" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="919.0" y="138.0" width="14.0" height="14.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="169.0" y1="145.0" x2="182.7" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="314.7" y1="145.0" x2="328.3" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="460.3" y1="145.0" x2="474.0" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="606.0" y1="145.0" x2="619.7" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="751.7" y1="145.0" x2="765.3" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="897.3" y1="145.0" x2="911.0" y2="145.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="154.0" cy="145.0" r="9.0" fill="#ffffff" stroke="#2457d6" stroke-width="3.0"/>
+<circle cx="299.7" cy="145.0" r="9.0" fill="#ffffff" stroke="#27ae60" stroke-width="3.0"/>
+<circle cx="736.7" cy="145.0" r="9.0" fill="#ffffff" stroke="#c0392b" stroke-width="3.0"/>
+<rect x="34.0" y="225.0" width="210.7" height="30.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/><text x="139.3" y="244.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="139.3" dy="0.0">нитка 1: задача udpsrc</tspan></text>
+<rect x="252.7" y="225.0" width="429.0" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/><text x="467.2" y="244.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="467.2" dy="0.0">нитка 2: задача rtpjitterbuffer</tspan></text>
+<rect x="689.7" y="225.0" width="356.3" height="30.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/><text x="867.8" y="244.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="867.8" dy="0.0">нитка 3: задача queue</tspan></text>
+<text x="40.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Кружок — вихідний пад, на якому крутиться GstTask. Межа ниток проходить УСЕРЕДИНІ такого елемента:</text>
+<text x="40.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">його вхідний пад працює в чужій нитці, вихідний — у власній.</text>
+<text x="40.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Понад ці три: внутрішні робочі нитки декодера й нитка застосунку, що читає шину.</text>
+</svg>

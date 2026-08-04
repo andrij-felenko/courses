@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">дві власні події, послані в ту саму мить: де кожна виринула</text>
+<line x1="270.0" y1="190.0" x2="1110.0" y2="190.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="270.0" y1="440.0" x2="1110.0" y2="440.0" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="80.0" y="166.2" width="140.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="186.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">queue.sink</tspan><tspan x="150.0" dy="15.6">вхід у чергу</tspan></text>
+<rect x="80.0" y="416.2" width="140.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="436.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">queue.src</tspan><tspan x="150.0" dy="15.6">вихід із черги</tspan></text>
+<line x1="270.0" y1="505.0" x2="1110.0" y2="505.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="300.0" y1="499.0" x2="300.0" y2="511.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="300.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="450.0" y1="499.0" x2="450.0" y2="511.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="450.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+<line x1="600.0" y1="499.0" x2="600.0" y2="511.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="600.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+<line x1="750.0" y1="499.0" x2="750.0" y2="511.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="750.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">150</text>
+<line x1="900.0" y1="499.0" x2="900.0" y2="511.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="900.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+<line x1="1050.0" y1="499.0" x2="1050.0" y2="511.0" stroke="#6b7280" stroke-width="1.4"/>
+<text x="1050.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">250</text>
+<text x="690.0" y="558.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">мс від миті надсилання</text>
+<line x1="300.0" y1="450.0" x2="300.0" y2="495.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="300.0" y1="199.0" x2="300.0" y2="283.0" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="6,5"/>
+<line x1="300.0" y1="347.0" x2="300.0" y2="431.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="300.0" cy="190.0" r="10.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<circle cx="300.0" cy="440.0" r="10.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="204.5" y="283.4" width="191.0" height="63.2" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="300.0" y="303.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">позачергова подія:</tspan><tspan x="300.0" dy="15.6">вхід і вихід — одна мить,</tspan><tspan x="300.0" dy="15.6">та сама нитка T1</tspan></text>
+<line x1="990.0" y1="450.0" x2="990.0" y2="495.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="413.0" y1="199.0" x2="982.0" y2="431.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="405.0" cy="190.0" r="10.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="990.0" cy="440.0" r="10.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="501.1" y="353.4" width="197.8" height="63.2" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="600.0" y="373.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">серіалізована подія:</tspan><tspan x="600.0" dy="15.6">30 мс до пробудження нитки</tspan><tspan x="600.0" dy="15.6">+ 200 мс черги = 230 мс</tspan></text>
+</svg>

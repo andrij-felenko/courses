@@ -27,6 +27,7 @@
         { slug: "memoization", title: "Мемоізація", basic: { status: "empty" }, detailed: { status: "done" }, hist: [{ file: "hist-memo-functions.md", status: "done" }], math: [{ file: "math-subproblem-count.md", status: "done" }], proj: [{ file: "proj-edit-distance.md", status: "done" }] },
         { slug: "dynamic-programming", title: "Динамічне програмування", basic: { status: "pending" }, detailed: { status: "done" }, hist: [{ file: "hist-bellman.md", status: "done" }], math: [{ file: "math-optimal-substructure.md", status: "done" }], proj: [{ file: "proj-knapsack.md", status: "done" }] },
         { slug: "greedy-algorithms", title: "Жадібні алгоритми", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "backtracking", title: "Пошук із поверненням (backtracking)", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "data-structures", title: "Структури", scope: "Організація даних для доступу й оновлення (дерева, купи, хеш, персистентні) разом із упорядкуванням, селекцією та пошуком.",
       topics: [

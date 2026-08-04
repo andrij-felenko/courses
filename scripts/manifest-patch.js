@@ -106,7 +106,7 @@ function arrayEndLine(openIdx, key) {
   return -1;
 }
 
-const report = { status: 0, statusIf: 0, insert: 0, topic: 0, skipped: [], errors: [] };
+const report = { status: 0, statusIf: 0, insert: 0, topic: 0, skipped: [], similar: [], errors: [] };
 
 /* ── операції ──────────────────────────────────────────────────────────────── */
 function opStatus(o, conditional) {
@@ -158,8 +158,38 @@ function opInsert(o) {
   report.insert++;
 }
 
+/** Усі слуги книги — щоб ловити СИНОНІМИ (§4: один термін на поняття). */
+function allSlugs() {
+  return lines.map((l) => (l.match(/\{\s*slug:\s*"([a-z0-9-]+)"/) || [])[1]).filter(Boolean);
+}
+/** Слуг «близький» до наявного, якщо один вкладений в інший АБО в них спільне РІДКІСНЕ слово.
+    Рідкість важить: «pipeline» у книзі про GStreamer є всюди й нічого не каже, а «threads» у двох
+    темах — це майже напевно одне поняття двома слугами (streaming-threads ↔ threads-and-queues). */
+const STOP = new Set(["and", "vs", "the", "of", "in", "to", "a", "for", "with", "model", "basics", "types", "api"]);
+const wordsOf = (s) => s.split("-").filter((x) => x.length > 2 && !STOP.has(x));
+function similarSlugs(slug) {
+  const existing = allSlugs().filter((s) => s !== slug);
+  const freq = new Map();
+  for (const s of existing) for (const w of new Set(wordsOf(s))) freq.set(w, (freq.get(w) || 0) + 1);
+  const mine = new Set(wordsOf(slug));
+  const hits = [];
+  for (const s of existing) {
+    if (s.includes(slug) || slug.includes(s)) { hits.push(s); continue; }
+    const other = new Set(wordsOf(s));
+    const shared = [...mine].filter((x) => other.has(x));
+    if (!shared.length) continue;
+    // спільне слово, що трапляється щонайбільше у трьох темах книги, — сильний сигнал
+    if (shared.some((w) => (freq.get(w) || 0) <= 3)) hits.push(s);
+  }
+  return hits;
+}
+
 function opTopic(o) {
   if (findTopicLine(o.slug) >= 0) { report.skipped.push(`тема «${o.slug}» вже є`); return; }
+  // §4/§6: перш ніж заводити, перевіряємо, чи це не та сама тема іншим слугом. Не блокуємо —
+  // рішення про об'єднання людське, — але кажемо ГОЛОСНО, бо мовчазний дубль коштує зайвої статті.
+  const near = similarSlugs(o.slug);
+  if (near.length) report.similar.push(`«${o.slug}» схожа на: ${near.join(", ")} — перевір, чи не той самий термін (§4)`);
   const basic = o.basic || "empty";
   const detailed = o.detailed || "pending";           // §3/§6: у чергу йде ДЕТАЛЬНА
   const sa = findSectionArray(o.section);
@@ -203,5 +233,6 @@ if (!DRY && changed) fs.writeFileSync(MF, OUT);
 
 console.log(`manifest-patch ${path.basename(path.dirname(MF))}: статусів ${report.status}, умовних ${report.statusIf}, вставок ${report.insert}, нових тем ${report.topic}; тем у книзі ${nBefore}→${nAfter}${DRY ? " (DRY — не записано)" : changed ? "" : " (нічого міняти)"}`);
 if (report.skipped.length) console.log(`  ~ пропущено (вже так): ${report.skipped.length}${report.skipped.length <= 12 ? " — " + report.skipped.join("; ") : ""}`);
+if (report.similar.length) { console.log(`  ⚠ МОЖЛИВІ ДУБЛІ ПОНЯТТЯ: ${report.similar.length}`); for (const s of report.similar) console.log(`     • ${s}`); }
 if (report.errors.length) { console.log(`  ✖ помилок: ${report.errors.length}`); for (const e of report.errors.slice(0, 20)) console.log(`     • ${e}`); }
 process.exit(report.errors.length ? 1 : 0);

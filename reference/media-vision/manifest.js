@@ -27,13 +27,11 @@
         { slug: "hardware-decode-elements", title: "Апаратне декодування: VA-API, NVDEC, V4L2, MediaCodec", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-acceleration-apis.md", status: "done" }] , api: [{ file: "api-v4l2-m2m.md", status: "done" }] , proj: [{ file: "proj-verify-zero-copy.md", status: "done" }] },
         { slug: "plugin-model", title: "Модель плагінів і реєстр елементів", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-plugin-model.md", status: "done" }] , api: [{ file: "api-registry.md", status: "done" }] , proj: [{ file: "proj-own-element.md", status: "done" }] },
         { slug: "pipeline-debugging", title: "Діагностика конвеєра: графи, рівні журналу, типові затики", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-gst-debug.md", status: "done" }] , proj: [{ file: "proj-bus-watch-diagnostics.md", status: "done" }] },
-        { slug: "gobject-basics", title: "GObject: об'єктна система, на якій стоїть GStreamer", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "threads-and-queues", title: "Потоки виконання й черги: де конвеєр міняє потік", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "events-and-queries", title: "Події й запити на падах: сигналізація вздовж конвеєра", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "autoplug-decodebin", title: "Автодобір елементів: decodebin і вибір за caps", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "seeking-and-flush", title: "Перемотування і скидання конвеєра: seek-події та флаш", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "pipeline-events", title: "Події конвеєра: seek, flush, segment і EOS у потоці даних", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "streaming-threads", title: "Потоки передавання: хто рухає дані конвеєром", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "gobject-basics", title: "GObject: об'єктна система, на якій стоїть GStreamer", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-gobject-birth.md", status: "done" }] , api: [{ file: "api-gobject-surface.md", status: "done" }] , proj: [{ file: "proj-inspect-element.md", status: "done" }] },
+        { slug: "threads-and-queues", title: "Потоки виконання й черги: де конвеєр міняє потік", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-scheduler-removal.md", status: "done" }] , proj: [{ file: "proj-thread-map.md", status: "done" }] , api: [{ file: "api-queue-and-task.md", status: "done" }] },
+        { slug: "events-and-queries", title: "Події й запити на падах: сигналізація вздовж конвеєра", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-events-queries.md", status: "done" }] , proj: [{ file: "proj-event-tracer.md", status: "done" }] },
+        { slug: "autoplug-decodebin", title: "Автодобір елементів: decodebin і вибір за caps", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-autoplug-evolution.md", status: "done" }] , api: [{ file: "api-decodebin-signals.md", status: "done" }] , proj: [{ file: "proj-autoplug-select.md", status: "done" }] },
+        { slug: "seeking-and-flush", title: "Перемотування і скидання конвеєра: seek-події та флаш", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-seek.md", status: "done" }] , proj: [{ file: "proj-seek-driver.md", status: "done" }] },
       ] },
 
     { slug: "opencv", title: "OpenCV як бібліотека", scope: "Вузько: володіння даними, пам'ять і стик із відеоконвеєром. Алгоритми зору — у book/algorithms.",
@@ -43,7 +41,7 @@
         { slug: "mat-views-no-copy", title: "Види без копії: ROI і заголовок над чужим буфером", basic: { status: "empty" }, detailed: { status: "done" } , proj: [{ file: "proj-gst-mat-zero-copy.md", status: "done" }] , api: [{ file: "api-mat-views.md", status: "done" }] , hist: [{ file: "hist-iplimage-roi.md", status: "done" }] },
         { slug: "frame-interop", title: "Стик із відеоконвеєром: формати пікселів і передача кадру", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-bgr-order.md", status: "done" }] , api: [{ file: "api-frame-map.md", status: "done" }] , proj: [{ file: "proj-zero-copy-bridge.md", status: "done" }] },
         { slug: "opencv-backends", title: "Бекенди й прискорення: UMat, OpenCL, апаратна збірка", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-tapi-birth.md", status: "done" }] , proj: [{ file: "proj-umat-boundaries.md", status: "done" }] , api: [{ file: "api-tapi-controls.md", status: "done" }] },
-        { slug: "input-output-array", title: "InputArray і OutputArray: спільний вхід для Mat, UMat і вектора", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "input-output-array", title: "InputArray і OutputArray: спільний вхід для Mat, UMat і вектора", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-input-output-array.md", status: "done" }] , proj: [{ file: "proj-universal-function.md", status: "done" }] , hist: [{ file: "hist-cvarr-to-inputarray.md", status: "done" }] },
       ] },
   ]
 });
