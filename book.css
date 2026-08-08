@@ -324,6 +324,7 @@ body {
   display: flex; flex-direction: row; align-items: center; gap: 0.9rem;   /* текст ліворуч, перемикач версій праворуч */
   padding: 0 4rem 0 4rem;   /* права — щоб текст/перемикач не заїжджали під кнопки-«шестерню» */
   color: #fff;
+  transition: padding-left 0.2s ease;   /* мобільне: ← їде геть → назва займає звільнене місце */
 }
 .ch-head-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; justify-content: center; }   /* займає простір, назва обрізається … */
 /* Обкладинки/лендинги (без .ch-head-main і без перемикача) — заголовок стовпчиком, як було */
@@ -360,7 +361,7 @@ body {
 .ch-header.ch-header-book .ch-label { color: var(--book-accent, var(--accent)); margin-bottom: 0.1rem; }
 .ch-header.ch-header-book h1 { font-size: 1.4rem; color: var(--text); margin-bottom: 0; line-height: 1.2; }
 @media (max-width: 680px) {
-  .ch-header.ch-header-book { padding-left: 4.1rem; }
+  .ch-header.ch-header-book { padding-left: 6.4rem; }   /* зліва — ☰ і ←; менше = назва залазить під кнопку */
   .ch-header.ch-header-book h1 { font-size: 1.18rem; }
 }
 /* Перемикач версій (коротка ↔ повна) — сегментований, у ВЕРХНІЙ ПАНЕЛІ праворуч
@@ -863,7 +864,7 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   width: 2.4rem; height: 2.4rem; display: flex; align-items: center; justify-content: center;
   background: var(--sidebar-bg); color: #fff; border-radius: 8px; text-decoration: none;
   font-size: 1.15rem; line-height: 1; box-shadow: var(--shadow);
-  transition: filter 0.15s, transform 0.1s, left 0.22s ease;
+  transition: filter 0.15s, transform 0.2s ease, opacity 0.16s ease, left 0.22s ease;
 }
 #up-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
 
@@ -919,7 +920,12 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   #sidebar .sb-home { padding-right: 3rem; }   /* лишити місце під ✕ */
   #up-btn { left: 3.6rem; }                    /* праворуч від ☰ */
   body:has(#sidebar.open) #up-btn { display: none; }   /* шухляду відкрито — не плутати з ✕ */
+  /* ← ховається, поки читач гортає вниз (кнопка потрібна не під час читання, а коли збираєшся вийти):
+     повертається на гортанні вгору й біля самого верху сторінки. Клас вішає topchrome.js.
+     Разом із кнопкою зменшується лівий відступ шапки — назві статті дістається більше рядка. */
+  body.up-hidden #up-btn { transform: translateY(-4rem); opacity: 0; pointer-events: none; }
   .ch-header { padding-left: 6.4rem; }   /* зліва — кнопки меню і «вище»; правий відступ — за співвідношенням сторін (нижче) */
+  body.up-hidden .ch-header, body.up-hidden .ch-header.ch-header-book { padding-left: 3.6rem; }   /* лишається місце лише під ☰ */
   .ch-header h1 { font-size: 1.15rem; }
   .cover-hero { padding: 4rem 1.4rem 2.5rem; }
   .cover-hero h1 { font-size: 1.95rem; }
