@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формат запису власного журналу й місця обриву</text>
+<text x="60.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="start" font-weight="700">Один запис журналу: усе, що потрібно, щоб відтворення могло винести вирок</text>
+<rect x="60.0" y="150.0" width="110.0" height="66.0" rx="6" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.4"/><text x="115.0" y="179.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">MAGIC</tspan><tspan x="115.0" dy="16.9">4 Б</tspan></text>
+<rect x="170.0" y="150.0" width="100.0" height="66.0" rx="6" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.4"/><text x="220.0" y="179.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">len</tspan><tspan x="220.0" dy="16.9">4 Б</tspan></text>
+<rect x="270.0" y="150.0" width="130.0" height="66.0" rx="6" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.4"/><text x="335.0" y="179.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">seq</tspan><tspan x="335.0" dy="16.9">8 Б</tspan></text>
+<rect x="400.0" y="150.0" width="70.0" height="66.0" rx="6" fill="#eaf6ef" stroke="#1a1a1a" stroke-width="1.4"/><text x="435.0" y="179.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="435.0" dy="0.0">op</tspan><tspan x="435.0" dy="16.9">1 Б</tspan></text>
+<rect x="470.0" y="150.0" width="100.0" height="66.0" rx="6" fill="#eaf6ef" stroke="#1a1a1a" stroke-width="1.4"/><text x="520.0" y="179.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">klen</tspan><tspan x="520.0" dy="16.9">4 Б</tspan></text>
+<rect x="570.0" y="150.0" width="170.0" height="66.0" rx="6" fill="#eaf6ef" stroke="#1a1a1a" stroke-width="1.4"/><text x="655.0" y="187.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">ключ</tspan></text>
+<rect x="740.0" y="150.0" width="220.0" height="66.0" rx="6" fill="#eaf6ef" stroke="#1a1a1a" stroke-width="1.4"/><text x="850.0" y="187.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">значення</tspan></text>
+<rect x="960.0" y="150.0" width="100.0" height="66.0" rx="6" fill="#fff6e5" stroke="#1a1a1a" stroke-width="1.4"/><text x="1010.0" y="179.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1010.0" dy="0.0">CRC-32</tspan><tspan x="1010.0" dy="16.9">4 Б</tspan></text>
+<rect x="1060.0" y="150.0" width="100.0" height="66.0" rx="6" fill="#fff6e5" stroke="#1a1a1a" stroke-width="1.4"/><text x="1110.0" y="179.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1110.0" dy="0.0">SEAL</tspan><tspan x="1110.0" dy="16.9">4 Б</tspan></text>
+<line x1="60.0" y1="128.0" x2="400.0" y2="128.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="60.0" y1="128.0" x2="60.0" y2="138.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="400.0" y1="128.0" x2="400.0" y2="138.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="230.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ЗАГОЛОВОК — 16 Б</text>
+<line x1="400.0" y1="128.0" x2="960.0" y2="128.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="400.0" y1="128.0" x2="400.0" y2="138.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="960.0" y1="128.0" x2="960.0" y2="138.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="680.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ТІЛО — len Б</text>
+<line x1="960.0" y1="128.0" x2="1160.0" y2="128.0" stroke="#b8860b" stroke-width="2.0"/>
+<line x1="960.0" y1="128.0" x2="960.0" y2="138.0" stroke="#b8860b" stroke-width="2.0"/>
+<line x1="1160.0" y1="128.0" x2="1160.0" y2="138.0" stroke="#b8860b" stroke-width="2.0"/>
+<text x="1060.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">ХВІСТ — печатка</text>
+<line x1="700.0" y1="144.0" x2="700.0" y2="262.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<circle cx="700.0" cy="284.0" r="15.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="700.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<line x1="1060.0" y1="144.0" x2="1060.0" y2="262.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<circle cx="1060.0" cy="284.0" r="15.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="1060.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">2</text>
+<line x1="1160.0" y1="144.0" x2="1160.0" y2="262.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<circle cx="1160.0" cy="284.0" r="15.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="1160.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">3</text>
+<circle cx="76.0" cy="339.0" r="13.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="76.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="104.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">обрив усередині тіла: прочитано менше байтів, ніж обіцяє len → хвіст відкидаємо</text>
+<circle cx="76.0" cy="373.0" r="13.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="76.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">2</text>
+<text x="104.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">тіло ціле, печатки немає: запис не завершено → хвіст відкидаємо</text>
+<circle cx="76.0" cy="407.0" r="13.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="76.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">3</text>
+<text x="104.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">печатка на місці й CRC сходиться: запис приймаємо й застосовуємо</text>
+<text x="60.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">носій вільний класти байти не в тому порядку, у якому їх подали: тоді печатка вже є, а CRC не сходиться — вирок той самий</text>
+<text x="60.0" y="512.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Журнал цілком: відтворення йде від початку й спиняється на першому записі, що не пройшов перевірку</text>
+<rect x="60.0" y="544.0" width="250.0" height="62.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/><text x="185.0" y="571.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">запис 1</tspan><tspan x="185.0" dy="16.9">seq 1</tspan></text>
+<rect x="310.0" y="544.0" width="250.0" height="62.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/><text x="435.0" y="571.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="435.0" dy="0.0">запис 2</tspan><tspan x="435.0" dy="16.9">seq 2</tspan></text>
+<rect x="560.0" y="544.0" width="250.0" height="62.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/><text x="685.0" y="571.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">запис 3</tspan><tspan x="685.0" dy="16.9">seq 3</tspan></text>
+<rect x="810.0" y="544.0" width="350.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="985.0" y="579.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="985.0" dy="0.0">огризок seq 4 — без печатки</tspan></text>
+<line x1="810.0" y1="530.0" x2="810.0" y2="620.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<text x="60.0" y="642.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start">ftruncate до кінця останнього справного запису — далі журнал росте від цієї межі</text>
+</svg>

@@ -24,9 +24,10 @@ uint8_t tempToPercent(float t) {
 
 ## Складаємо цикл
 
-Тепер видно, як усе зшивається в один цикл, що працює раз на секунду. Секунда — зручний крок: температура так швидко не стрибає, а тахометр саме встигає накопичити досить імпульсів для точного числа обертів.
+Тепер видно, як усе зшивається в один цикл, що працює раз на секунду. Секунда — зручний крок: температура так швидко не стрибає, а тахометр саме встигає накопичити досить імпульсів для точного числа обертів. Від мікроконтролера цикл вимагає трьох речей і байдужий до того, чий той мікроконтролер: **таймера з ШІМ на 25 кГц**, **лічильника імпульсів на вході тахометра** (вхід із підтяжкою до живлення) і **секундного такту**. Нижче — той самий вузол у трьох середовищах; різниться лише те, як кожне називає ці три речі.
 
-```cpp
+:::tabs
+```arduino
 // esp32-fan-thermal.ino — швидкість за температурою + сторож обертів
 #include <Arduino.h>
 #include "driver/pulse_cnt.h"
@@ -94,7 +95,135 @@ void loop() {
 }
 ```
 
-Три робочі ланки — `tempToPercent`, `fanSetSpeed`, читання PCNT — тут навмисне тонкі: як саме народжується 25-кГц ШІМ і як налаштувати апаратний лічильник обертів, розписано в [рецептах керування](book:actuators/fan-5v/api-fan-control.md); у цьому прикладі важить не вони, а те, що між ними діється.
+```esp-idf
+// fan_thermal.c — швидкість за температурою + сторож обертів
+#include "driver/ledc.h"
+#include "driver/pulse_cnt.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_log.h"
+
+static const char *TAG = "fan";
+#define PWM_PIN   25
+#define PWM_FREQ  25000              // 25 кГц — генерацію див. у рецепті ШІМ
+#define DUTY_MAX  255                // 8 біт
+
+static pcnt_unit_handle_t unit;      // лічильник обертів (налаштування — у рецепті TACH)
+
+float read_temp_c(void);                       // ← ваш давач (NTC, DS18B20, BME280)
+void  tach_pcnt_begin(pcnt_unit_handle_t *out); // ← вхід TACH із підтяжкою + PCNT
+
+static uint8_t temp_to_percent(float t) {
+  const float tMin = 35.0f, tMax = 65.0f;
+  if (t <= tMin) return 0;
+  if (t >= tMax) return 100;
+  return (uint8_t)((t - tMin) / (tMax - tMin) * 100.0f);
+}
+
+static void fan_pwm_begin(void) {              // деталі — у рецепті ШІМ
+  ledc_timer_config_t tm = { .speed_mode = LEDC_LOW_SPEED_MODE, .timer_num = LEDC_TIMER_0,
+                             .duty_resolution = LEDC_TIMER_8_BIT,
+                             .freq_hz = PWM_FREQ, .clk_cfg = LEDC_AUTO_CLK };
+  ESP_ERROR_CHECK(ledc_timer_config(&tm));
+  ledc_channel_config_t ch = { .gpio_num = PWM_PIN, .speed_mode = LEDC_LOW_SPEED_MODE,
+                               .channel = LEDC_CHANNEL_0, .timer_sel = LEDC_TIMER_0,
+                               .duty = 0, .hpoint = 0 };
+  ESP_ERROR_CHECK(ledc_channel_config(&ch));
+}
+
+static void fan_set_speed(uint8_t percent) {
+  if (percent > 100) percent = 100;
+  ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, percent * DUTY_MAX / 100);
+  ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
+}
+
+void app_main(void) {
+  fan_pwm_begin();
+  tach_pcnt_begin(&unit);
+  uint8_t dead_seconds = 0;          // скільки секунд поспіль наказ є, а обертів нема
+
+  for (;;) {
+    vTaskDelay(pdMS_TO_TICKS(1000)); // один крок керування на секунду
+
+    float   t   = read_temp_c();
+    uint8_t pct = temp_to_percent(t);
+    fan_set_speed(pct);
+
+    int count = 0;
+    pcnt_unit_get_count(unit, &count);
+    pcnt_unit_clear_count(unit);
+    uint32_t rpm = (count / 2) * 60; // ÷2 (2 імпульси/оберт) ×60 (у хвилини)
+
+    // Сторож зі стартовою відстрочкою (нижче — чому не «в лоб»)
+    if (pct > 0 && rpm == 0) { if (dead_seconds < 255) dead_seconds++; }
+    else dead_seconds = 0;           // закрутився або наказ знято — лічильник у нуль
+    if (dead_seconds >= 3) {         // 3 с наказу без жодного оберту — біда
+      ESP_LOGE(TAG, "ТРИВОГА: наказано крутитися, а обертів нема — перевір вентилятор");
+      // тут: аварійний вихід, скид навантаження, зниження тактової тощо
+    }
+
+    ESP_LOGI(TAG, "t=%.1f°C  швидкість=%u%%  оберти=%u об/хв", t, pct, (unsigned)rpm);
+  }
+}
+```
+
+```stm32
+// fan_thermal.c — швидкість за температурою + сторож обертів
+#include "main.h"
+#include <stdio.h>
+
+extern TIM_HandleTypeDef htim1;  // TIM1_CH1 → PWM-вхід: PSC/ARR дають 25 кГц
+extern TIM_HandleTypeDef htim3;  // TIM3 у режимі зовнішнього такту рахує імпульси TACH
+                                 // (вхід TACH у CubeMX — з GPIO_PULLUP)
+
+float read_temp_c(void);         // ← ваш давач (NTC, DS18B20, BME280)
+
+static uint8_t temp_to_percent(float t) {
+  const float tMin = 35.0f, tMax = 65.0f;
+  if (t <= tMin) return 0;
+  if (t >= tMax) return 100;
+  return (uint8_t)((t - tMin) / (tMax - tMin) * 100.0f);
+}
+
+static void fan_set_speed(uint8_t percent) {          // деталі — у рецепті ШІМ
+  if (percent > 100) percent = 100;
+  uint32_t period = __HAL_TIM_GET_AUTORELOAD(&htim1) + 1;   // ARR+1 = повна швидкість
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, percent * period / 100);
+}
+
+void fan_thermal_run(void) {
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);   // 25-кГц несуча пішла
+  HAL_TIM_Base_Start(&htim3);                 // лічильник імпульсів тахометра пішов
+  uint8_t  dead_seconds = 0;    // скільки секунд поспіль наказ є, а обертів нема
+  uint32_t last_ms = HAL_GetTick();
+
+  for (;;) {
+    if (HAL_GetTick() - last_ms < 1000) continue;   // один крок керування на секунду
+    last_ms += 1000;
+
+    float   t   = read_temp_c();
+    uint8_t pct = temp_to_percent(t);
+    fan_set_speed(pct);
+
+    uint32_t count = __HAL_TIM_GET_COUNTER(&htim3);
+    __HAL_TIM_SET_COUNTER(&htim3, 0);
+    uint32_t rpm = (count / 2) * 60;   // ÷2 (2 імпульси/оберт) ×60 (у хвилини)
+
+    // Сторож зі стартовою відстрочкою (нижче — чому не «в лоб»)
+    if (pct > 0 && rpm == 0) { if (dead_seconds < 255) dead_seconds++; }
+    else dead_seconds = 0;             // закрутився або наказ знято — лічильник у нуль
+    if (dead_seconds >= 3) {           // 3 с наказу без жодного оберту — біда
+      printf("!!! ТРИВОГА: наказано крутитися, а обертів нема\r\n");
+      // тут: аварійний вихід, скид навантаження, зниження тактової тощо
+    }
+
+    printf("t=%.1f C  швидкість=%u%%  оберти=%lu об/хв\r\n", t, pct, (unsigned long)rpm);
+  }
+}
+```
+:::
+
+Три робочі ланки — крива, видача ШІМ і зчитування лічильника обертів (це PCNT на ESP32, таймер у режимі зовнішнього такту на STM32) — тут навмисне тонкі: як саме народжується 25-кГц ШІМ і як налаштувати апаратний лічильник обертів, розписано в [рецептах керування](book:actuators/fan-5v/api-fan-control.md); у цьому прикладі важить не вони, а те, що між ними діється.
 
 ## Сторож, який не бреше на старті
 

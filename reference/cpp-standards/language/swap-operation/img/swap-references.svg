@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="520.0" y1="30.0" x2="520.0" y2="372.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="6 5"/>
+<text x="260.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">std::vector — переставляють вказівники</text>
+<rect x="60.0" y="70.0" width="170.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="145.0" y="98.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">vec a</tspan></text>
+<rect x="310.0" y="70.0" width="170.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="395.0" y="98.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="395.0" dy="0.0">vec b</tspan></text>
+<rect x="60.0" y="230.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="88.0" y="257.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="88.0" dy="0.0">7</tspan></text>
+<rect x="116.0" y="230.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="144.0" y="257.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="144.0" dy="0.0">8</tspan></text>
+<rect x="172.0" y="230.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="200.0" y="257.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">9</tspan></text>
+<rect x="310.0" y="230.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="338.0" y="257.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="338.0" dy="0.0">1</tspan></text>
+<rect x="366.0" y="230.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="394.0" y="257.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="394.0" dy="0.0">2</tspan></text>
+<rect x="422.0" y="230.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="450.0" y="257.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">3</tspan></text>
+<line x1="145.0" y1="120.0" x2="394.0" y2="228.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="394.0" y1="120.0" x2="145.0" y2="228.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="88.0" cy="194.0" r="13.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="88.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">r</text>
+<line x1="88.0" y1="208.0" x2="88.0" y2="226.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="260.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">r лишилася на тому самому числі —</tspan><tspan x="260.0" dy="15.6">тепер це елемент b</tspan><tspan x="260.0" dy="15.6">O(1): переставлено вказівники</tspan></text>
+<text x="780.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">std::array — переставляють самі числа</text>
+<rect x="600.0" y="70.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="628.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="628.0" dy="0.0">7</tspan></text>
+<rect x="656.0" y="70.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="684.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="684.0" dy="0.0">8</tspan></text>
+<rect x="712.0" y="70.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="740.0" y="97.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">9</tspan></text>
+<rect x="600.0" y="200.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="628.0" y="227.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="628.0" dy="0.0">1</tspan></text>
+<rect x="656.0" y="200.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="684.0" y="227.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="684.0" dy="0.0">2</tspan></text>
+<rect x="712.0" y="200.0" width="56.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="740.0" y="227.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">3</tspan></text>
+<text x="790.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">arr a</text>
+<text x="790.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">arr b</text>
+<line x1="628.0" y1="120.0" x2="628.0" y2="196.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="684.0" y1="120.0" x2="684.0" y2="196.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="740.0" y1="120.0" x2="740.0" y2="196.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="790.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">n обмінів</text>
+<circle cx="572.0" cy="92.0" r="13.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="572.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">r</text>
+<line x1="586.0" y1="92.0" x2="598.0" y2="92.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="780.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">r лишилася в a[0] —</tspan><tspan x="780.0" dy="15.6">але число в ній уже з b</tspan><tspan x="780.0" dy="15.6">O(n): переставлено n значень</tspan></text>
+</svg>

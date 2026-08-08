@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1130 620" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1130" height="620" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="25.0" y="24.0" width="210.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="130.0" y="47.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">клієнт A</tspan><tspan x="130.0" dy="16.9">(є правило добору)</tspan></text>
+<line x1="130.0" y1="88.0" x2="130.0" y2="560.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="5 6"/>
+<rect x="295.0" y="24.0" width="210.0" height="54.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="400.0" y="55.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">брокер</tspan></text>
+<line x1="400.0" y1="88.0" x2="400.0" y2="560.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="5 6"/>
+<rect x="585.0" y="24.0" width="210.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="690.0" y="55.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">служба</tspan></text>
+<line x1="690.0" y1="88.0" x2="690.0" y2="560.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="5 6"/>
+<rect x="875.0" y="24.0" width="210.0" height="54.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="980.0" y="47.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="980.0" dy="0.0">клієнт B</tspan><tspan x="980.0" dy="16.9">(без підписки)</tspan></text>
+<line x1="980.0" y1="88.0" x2="980.0" y2="560.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="5 6"/>
+<line x1="130.0" y1="150.0" x2="400.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="265.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">виклик, номер 7</text>
+<line x1="400.0" y1="205.0" x2="690.0" y2="205.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="545.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">виклик, номер 7</text>
+<line x1="690.0" y1="275.0" x2="400.0" y2="275.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="545.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">відповідь, reply_serial 7</text>
+<line x1="400.0" y1="330.0" x2="130.0" y2="330.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="265.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">відповідь, reply_serial 7</text>
+<line x1="60.0" y1="375.0" x2="1060.0" y2="375.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 5"/>
+<line x1="690.0" y1="425.0" x2="400.0" y2="425.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="545.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">сигнал StateChanged</text>
+<line x1="400.0" y1="480.0" x2="130.0" y2="480.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="265.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">доставлено: є правило</text>
+<line x1="400.0" y1="535.0" x2="980.0" y2="535.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+<text x="970.0" y="525.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">підписки немає — не доставлено</text>
+</svg>

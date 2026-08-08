@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1350 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1350" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="670.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири стани рандеву: перехід відбувається лише тоді, коли підтвердили всі</text>
+<rect x="283.0" y="54.0" width="329.0" height="54.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/><text x="447.5" y="77.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="447.5" dy="0.0">MULTI_STOP_PREPARE</tspan><tspan x="447.5" dy="16.9">усі зійшлися в циклі</tspan></text>
+<rect x="628.0" y="54.0" width="179.0" height="54.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/><text x="717.5" y="77.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="717.5" dy="0.0">MULTI_STOP_DISABLE_IRQ</tspan><tspan x="717.5" dy="15.6">переривання геть</tspan></text>
+<rect x="823.0" y="54.0" width="264.0" height="54.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/><text x="955.0" y="77.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">MULTI_STOP_RUN</tspan><tspan x="955.0" dy="16.9">виконується fn</tspan></text>
+<rect x="1103.0" y="54.0" width="189.0" height="54.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/><text x="1197.5" y="77.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1197.5" dy="0.0">MULTI_STOP_EXIT</tspan><tspan x="1197.5" dy="16.9">розходимося</tspan></text>
+<text x="857.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">переривання вимкнено на всіх ядрах процесора</text>
+<line x1="624.0" y1="144.0" x2="1091.0" y2="144.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="1091.0" y1="144.0" x2="624.0" y2="144.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="158.0" x2="620.0" y2="442.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<line x1="815.0" y1="158.0" x2="815.0" y2="442.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<line x1="1095.0" y1="158.0" x2="1095.0" y2="442.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<rect x="30.0" y="172.0" width="225.0" height="46.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="142.5" y="190.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="142.5" dy="0.0">ядро 0</tspan><tspan x="142.5" dy="17.6">активне</tspan></text>
+<rect x="300.0" y="178.0" width="320.0" height="34.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="620.0" y="178.0" width="195.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="815.0" y="178.0" width="280.0" height="34.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.6"/><text x="955.0" y="199.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">fn(arg)</tspan></text>
+<rect x="1095.0" y="178.0" width="205.0" height="34.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="30.0" y="242.0" width="225.0" height="46.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="142.5" y="269.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="142.5" dy="0.0">ядро 1</tspan></text>
+<rect x="355.0" y="248.0" width="265.0" height="34.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="620.0" y="248.0" width="195.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="815.0" y="248.0" width="280.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/><text x="955.0" y="269.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">стоїть</tspan></text>
+<rect x="1095.0" y="248.0" width="205.0" height="34.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="30.0" y="312.0" width="225.0" height="46.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="142.5" y="339.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="142.5" dy="0.0">ядро 2</tspan></text>
+<rect x="440.0" y="318.0" width="180.0" height="34.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="620.0" y="318.0" width="195.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="815.0" y="318.0" width="280.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/><text x="955.0" y="339.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">стоїть</tspan></text>
+<rect x="1095.0" y="318.0" width="205.0" height="34.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="30.0" y="382.0" width="225.0" height="46.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="142.5" y="409.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="142.5" dy="0.0">ядро 3</tspan></text>
+<rect x="565.0" y="388.0" width="55.0" height="34.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="620.0" y="388.0" width="195.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="815.0" y="388.0" width="280.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/><text x="955.0" y="409.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="955.0" dy="0.0">стоїть</tspan></text>
+<rect x="1095.0" y="388.0" width="205.0" height="34.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.2"/>
+<text x="395.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">своя робота</text>
+<text x="670.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="670.0" dy="0.0">темп задає найповільніше ядро процесора: поки воно не дійшло до циклу,</tspan><tspan x="670.0" dy="18.2">переривання ще нікому не можна вимикати</tspan></text>
+</svg>

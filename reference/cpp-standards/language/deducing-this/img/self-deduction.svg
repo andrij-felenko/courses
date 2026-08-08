@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 534" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="534" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один шаблон, чотири інстанції</text>
+<text x="138.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="138.0" dy="0.0">вираз виклику</tspan></text>
+<text x="366.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="366.0" dy="0.0">аргумент</tspan><tspan x="366.0" dy="15.5">об'єкта</tspan></text>
+<text x="594.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="594.0" dy="0.0">Self</tspan><tspan x="594.0" dy="15.5">виводиться як</tspan></text>
+<text x="822.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="822.0" dy="0.0">Self&amp;&amp;</tspan><tspan x="822.0" dy="15.5">після згортання</tspan></text>
+<text x="1050.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="1050.0" dy="0.0">тип, що</tspan><tspan x="1050.0" dy="15.5">повертають</tspan></text>
+<rect x="34.0" y="96.0" width="208.0" height="62.0" rx="8" fill="#eef3ff" stroke="#2457d6" stroke-width="2.0"/><text x="138.0" y="131.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">b.get()</text>
+<line x1="245.0" y1="127.0" x2="259.0" y2="127.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="262.0" y="96.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="366.0" y="131.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">lvalue типу Box</text>
+<line x1="473.0" y1="127.0" x2="487.0" y2="127.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="490.0" y="96.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="594.0" y="131.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">Box&amp;</text>
+<line x1="701.0" y1="127.0" x2="715.0" y2="127.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="718.0" y="96.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="822.0" y="131.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">Box&amp; &amp;&amp; → Box&amp;</text>
+<line x1="929.0" y1="127.0" x2="943.0" y2="127.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="946.0" y="96.0" width="208.0" height="62.0" rx="8" fill="#eef3ff" stroke="#2457d6" stroke-width="2.0"/><text x="1050.0" y="131.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">std::string&amp;</text>
+<rect x="34.0" y="182.0" width="208.0" height="62.0" rx="8" fill="#eef3ff" stroke="#2457d6" stroke-width="2.0"/><text x="138.0" y="217.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">cb.get()</text>
+<line x1="245.0" y1="213.0" x2="259.0" y2="213.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="262.0" y="182.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="366.0" y="217.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">const lvalue</text>
+<line x1="473.0" y1="213.0" x2="487.0" y2="213.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="490.0" y="182.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="594.0" y="217.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">const Box&amp;</text>
+<line x1="701.0" y1="213.0" x2="715.0" y2="213.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="718.0" y="182.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="822.0" y="217.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">const Box&amp;</text>
+<line x1="929.0" y1="213.0" x2="943.0" y2="213.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="946.0" y="182.0" width="208.0" height="62.0" rx="8" fill="#eef3ff" stroke="#2457d6" stroke-width="2.0"/><text x="1050.0" y="217.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">const std::string&amp;</text>
+<rect x="34.0" y="268.0" width="208.0" height="62.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/><text x="138.0" y="303.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">std::move(b).get()</text>
+<line x1="245.0" y1="299.0" x2="259.0" y2="299.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="262.0" y="268.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="366.0" y="303.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">xvalue типу Box</text>
+<line x1="473.0" y1="299.0" x2="487.0" y2="299.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="490.0" y="268.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="594.0" y="303.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">Box</text>
+<line x1="701.0" y1="299.0" x2="715.0" y2="299.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="718.0" y="268.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="822.0" y="303.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">Box&amp;&amp;</text>
+<line x1="929.0" y1="299.0" x2="943.0" y2="299.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="946.0" y="268.0" width="208.0" height="62.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/><text x="1050.0" y="303.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">std::string&amp;&amp;</text>
+<rect x="34.0" y="354.0" width="208.0" height="62.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/><text x="138.0" y="389.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">std::move(cb).get()</text>
+<line x1="245.0" y1="385.0" x2="259.0" y2="385.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="262.0" y="354.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="366.0" y="389.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">const xvalue</text>
+<line x1="473.0" y1="385.0" x2="487.0" y2="385.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="490.0" y="354.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="594.0" y="389.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">const Box</text>
+<line x1="701.0" y1="385.0" x2="715.0" y2="385.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="718.0" y="354.0" width="208.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/><text x="822.0" y="389.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">const Box&amp;&amp;</text>
+<line x1="929.0" y1="385.0" x2="943.0" y2="385.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="946.0" y="354.0" width="208.0" height="62.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="2.0"/><text x="1050.0" y="389.2" font-family="Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#1a1a1a" text-anchor="middle">const std::string&amp;&amp;</text>
+<text x="590.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">категорія й константність виразу виклику доходять до тіла всередині Self</text>
+<text x="590.0" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">звернення до члена rvalue-об'єкта саме є xvalue — тому передається й член</text>
+</svg>

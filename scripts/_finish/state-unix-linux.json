@@ -1,7 +1,7 @@
 {
  "book": "unix-linux",
  "kind": "reference",
- "limit": 59,
+ "limit": 159,
  "concurrency": 4,
  "skipArticles": true,
  "units": [
@@ -105,6 +105,42 @@
    "section": "foundations",
    "slug": "compat-32-on-64",
    "title": "32-бітні програми на 64-бітному ядрі: шар сумісности",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "kernel-cve-and-security-fixes",
+   "title": "CVE в ядрі: потік номерів і що з ним робити",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "time-representation-y2038",
+   "title": "Час як число: time_t, епоха і межа 2038 року",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "kernel-config-and-build",
+   "title": "Конфігурація й збірка ядра: Kconfig, .config і що потрапляє в образ",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "sysctl-tunables",
+   "title": "sysctl: параметри ядра, які крутять на ходу",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "kernel-text-patching",
+   "title": "Правка коду ядра на ходу: alternatives, static keys й text_poke",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "livepatch",
+   "title": "Живе латання ядра: livepatch і модель узгодженості",
    "level": "detailed"
   },
   {
@@ -234,6 +270,60 @@
    "level": "detailed"
   },
   {
+   "section": "processes",
+   "slug": "kernel-wait-queues",
+   "title": "Черги очікування в ядрі: як задача засинає й прокидається",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "kernel-locking",
+   "title": "Замки в ядрі й атомарний контекст: де спати не можна",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "per-cpu-data",
+   "title": "Дані свого ядра процесора: змінні per-CPU і local_lock",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "checkpoint-restore",
+   "title": "Контрольна точка й відновлення процесу (CRIU)",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "cpu-hotplug",
+   "title": "Вимикання ядер процесора на ходу: online, offline і хто про це має знати",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "rseq",
+   "title": "Перезапускні послідовності (rseq): ділянки без замків, які починаються заново",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "stop-machine",
+   "title": "stop_machine: зупинити всю машину, щоб змінити недоторканне",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "membarrier",
+   "title": "membarrier: примусовий бар'єр пам'яті на всіх ядрах процесу",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "pidfd",
+   "title": "Дескриптор процесу (pidfd)",
+   "level": "detailed"
+  },
+  {
    "section": "memory",
    "slug": "virtual-address-space",
    "title": "Віртуальний адресний простір процесу",
@@ -300,6 +390,60 @@
    "level": "detailed"
   },
   {
+   "section": "memory",
+   "slug": "userfaultfd",
+   "title": "userfaultfd: сторінкові збої в руках програми",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "kernel-page-table-isolation",
+   "title": "Ізоляція таблиць сторінок ядра (KPTI): чому ядро прибрали з простору процесу",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "ksm-page-merging",
+   "title": "KSM: злиття однакових сторінок",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "kernel-memory-slab",
+   "title": "Пам'ять ядра: slab і зменшувачі кешів",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "physical-page-allocator",
+   "title": "Фізичні сторінки в ядрі: зони, блоки за порядками й ущільнення",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "memory-protection-keys",
+   "title": "Ключі захисту пам'яті: PKU і PKRU",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "vmalloc-kernel-mappings",
+   "title": "vmalloc: віртуально суцільна пам'ять ядра",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "reverse-mapping",
+   "title": "Зворотне відображення сторінки (rmap): як знайти всіх, хто на неї вказує",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "tlb-shootdown",
+   "title": "Розсилання скидань TLB: чому правка таблиці сторінок коштує міжпроцесорних переривань",
+   "level": "detailed"
+  },
+  {
    "section": "files",
    "slug": "file-descriptor",
    "title": "Файловий дескриптор",
@@ -328,8 +472,599 @@
    "slug": "hard-and-symbolic-links",
    "title": "Жорсткі й символьні посилання",
    "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "path-resolution",
+   "title": "Розбір шляху",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "vfs-layer",
+   "title": "VFS: спільний шар над файловими системами",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "mount-model",
+   "title": "Монтування й дерево монтувань",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "filesystem-families",
+   "title": "Родини файлових систем: ext4, XFS, Btrfs, F2FS",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "journaling-consistency",
+   "title": "Журналювання й узгодженість після збою",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "page-cache-durability",
+   "title": "Кеш сторінок, fsync і довговічність запису",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "pseudo-filesystems",
+   "title": "Псевдо-ФС: procfs, sysfs, tmpfs, devtmpfs",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "fuse-userspace-filesystems",
+   "title": "FUSE: файлова система в просторі користувача",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "sparse-files",
+   "title": "Розріджені файли: діри замість нулів",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "chroot",
+   "title": "chroot і його межі",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "network-filesystems",
+   "title": "Мережеві файлові системи: NFS, SMB і чого від них чекати",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "file-locking",
+   "title": "Блокування файлів: flock, POSIX-замки й замки на опис відкритого файлу",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "at-family-syscalls",
+   "title": "Сімейство *at: шлях, відлічений від дескриптора каталогу",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "reflink-copies",
+   "title": "Копії з поділом блоків: reflink і copy_file_range",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "readahead",
+   "title": "Випереджувальне читання: як ядро вгадує наступний блок",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "overlay-filesystems",
+   "title": "Накладені файлові системи: overlayfs, шари й «білило»",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "statx-extended-stat",
+   "title": "statx: розширений запит атрибутів файлу",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "large-file-support",
+   "title": "Великі файли: off_t, LFS і _FILE_OFFSET_BITS",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "fsck-and-repair",
+   "title": "fsck: перевірка й ремонт файлової системи",
+   "level": "basic"
+  },
+  {
+   "section": "files",
+   "slug": "fsck-and-repair",
+   "title": "fsck: перевірка й ремонт файлової системи",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "pivot-root",
+   "title": "pivot_root: підміна кореневого монтування",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "inotify-and-fanotify",
+   "title": "Стеження за змінами у файловій системі: inotify і fanotify",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "log-structured-filesystems",
+   "title": "Лог-структуровані файлові системи",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "file-leases",
+   "title": "Оренда файлу: F_SETLEASE і сповіщення про чуже відкриття",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "file-block-allocation",
+   "title": "Розміщення блоків файлу: екстенти, відкладене виділення й фрагментація",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "read-only-image-filesystems",
+   "title": "Стиснені образи лише для читання: SquashFS і EROFS",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "file-handles",
+   "title": "Стійке посилання на файл: name_to_handle_at і open_by_handle_at",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "fs-verity",
+   "title": "fs-verity: перевірка вмісту файлу на читанні",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "o-tmpfile",
+   "title": "O_TMPFILE: безіменний файл на справжній файловій системі",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "inode-flags-chattr",
+   "title": "Прапорці inode: immutable, append-only й chattr",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "disk-quotas",
+   "title": "Дискові квоти: облік місця за власником",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "blocking-and-nonblocking",
+   "title": "Блокуючий і неблокуючий режим",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "readiness-vs-completion",
+   "title": "Готовність проти завершення: дві моделі вводу-виводу",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "select-poll-epoll",
+   "title": "select, poll, epoll: чекати на багато джерел",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "io-uring",
+   "title": "io_uring: кільця подань і завершень",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "pipes-and-fifo",
+   "title": "Канали й іменовані канали",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "unix-domain-sockets",
+   "title": "Сокети домену Unix і передача дескрипторів",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "socket-as-descriptor",
+   "title": "Сокет як дескриптор",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "buffered-and-direct-io",
+   "title": "Буферизований і прямий ввід-вивід",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "zero-copy",
+   "title": "Передача без копіювання: sendfile і splice",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "eintr-and-restart",
+   "title": "EINTR: перервані виклики й перезапуск",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "stdio-buffering",
+   "title": "Буферизація stdio: порядкова, поблокова, без буфера",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "signal-driven-io",
+   "title": "Ввід-вивід за сигналом: F_SETOWN, F_SETSIG і SIGIO",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "posix-aio",
+   "title": "POSIX AIO: стандартний інтерфейс aio_*",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "linux-aio-io-submit",
+   "title": "Асинхронний ввід-вивід ядра: io_submit і його межі",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "signal-model",
+   "title": "Сигнал: асинхронне сповіщення",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "signal-disposition",
+   "title": "Диспозиція сигналу: обробник, ігнорування, типова дія",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "async-signal-safety",
+   "title": "Що взагалі можна робити в обробнику сигналу",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "signal-mask-signalfd",
+   "title": "Маскування сигналів і signalfd",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "ipc-landscape",
+   "title": "Огляд засобів взаємодії: що коли обирати",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "posix-shared-memory",
+   "title": "Спільна пам'ять POSIX",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "message-queues",
+   "title": "Черги повідомлень",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "eventfd-and-futex",
+   "title": "eventfd і futex: сповіщення й дешеве очікування",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "process-timers",
+   "title": "Таймери процесу: alarm, setitimer, POSIX-таймери й timerfd",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "signal-frame-and-sigreturn",
+   "title": "Сигнальний кадр і повернення з обробника (rt_sigreturn)",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "realtime-signals",
+   "title": "Реальночасові сигнали: черга, порядок доставки й siginfo",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "dbus",
+   "title": "D-Bus: шина повідомлень простору користувача",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "memfd-create",
+   "title": "memfd_create: безіменний файл у пам'яті й пломби (seals)",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "process-shared-sync",
+   "title": "Синхронізація між процесами: POSIX-семафори й спільні м'ютекси",
+   "level": "detailed"
+  },
+  {
+   "section": "signals-ipc",
+   "slug": "posix-semaphores",
+   "title": "Семафори POSIX: іменовані й безіменні",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "uid-gid-model",
+   "title": "Користувачі, групи й ідентичність процесу",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "permission-bits",
+   "title": "Біти прав і як їх перевіряють",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "setuid-and-privilege",
+   "title": "setuid, setgid і підвищення прав",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "umask-and-defaults",
+   "title": "umask і типові права новоствореного",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "capabilities",
+   "title": "Можливості (capabilities) замість всесильного root",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "acl-and-xattr",
+   "title": "Розширені права (ACL) і атрибути (xattr)",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "mac-selinux-apparmor",
+   "title": "Обов'язковий контроль доступу: SELinux і AppArmor",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "device-access-groups",
+   "title": "Доступ до пристроїв через групи: dialout, plugdev",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "seccomp-filtering",
+   "title": "seccomp: фільтрація системних викликів",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "pam-stack",
+   "title": "PAM: стек модулів автентифікації",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "kernel-keyrings",
+   "title": "Кільця ключів ядра: add_key, keyctl і довірені сертифікати",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "ima-appraisal",
+   "title": "IMA: вимірювання й оцінка цілісності файлів у ядрі",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "privilege-separation",
+   "title": "Розділення привілеїв: маленький довірений процес і решта",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "polkit",
+   "title": "polkit: хто дозволяє непривілейованому процесу привілейовану дію",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "user-database-nss",
+   "title": "База облікових записів: passwd, group, shadow і шар NSS",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "lsm-framework",
+   "title": "LSM: каркас гачків безпеки в ядрі",
+   "level": "detailed"
   }
  ],
- "insertsDone": [],
- "inserts": []
+ "insertsDone": [
+  {
+   "section": "files",
+   "topicSlug": "disk-quotas",
+   "topicTitle": "Дискові квоти: облік місця за власником",
+   "file": "api-quota-control.md",
+   "type": "api"
+  },
+  {
+   "section": "files",
+   "topicSlug": "disk-quotas",
+   "topicTitle": "Дискові квоти: облік місця за власником",
+   "file": "hist-quota-birth.md",
+   "type": "hist"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "kernel-keyrings",
+   "topicTitle": "Кільця ключів ядра: add_key, keyctl і довірені сертифікати",
+   "file": "hist-key-service-birth.md",
+   "type": "hist"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "ima-appraisal",
+   "topicTitle": "IMA: вимірювання й оцінка цілісності файлів у ядрі",
+   "file": "api-ima-policy.md",
+   "type": "api"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "ima-appraisal",
+   "topicTitle": "IMA: вимірювання й оцінка цілісності файлів у ядрі",
+   "file": "hist-ima-birth.md",
+   "type": "hist"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "privilege-separation",
+   "topicTitle": "Розділення привілеїв: маленький довірений процес і решта",
+   "file": "hist-privsep-origins.md",
+   "type": "hist"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "privilege-separation",
+   "topicTitle": "Розділення привілеїв: маленький довірений процес і решта",
+   "file": "proj-privsep-helper.md",
+   "type": "proj"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "polkit",
+   "topicTitle": "polkit: хто дозволяє непривілейованому процесу привілейовану дію",
+   "file": "api-polkit-files.md",
+   "type": "api"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "polkit",
+   "topicTitle": "polkit: хто дозволяє непривілейованому процесу привілейовану дію",
+   "file": "hist-policykit-birth.md",
+   "type": "hist"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "user-database-nss",
+   "topicTitle": "База облікових записів: passwd, group, shadow і шар NSS",
+   "file": "hist-shadow-and-nis.md",
+   "type": "hist"
+  }
+ ],
+ "inserts": [
+  {
+   "section": "permissions",
+   "topicSlug": "kernel-keyrings",
+   "topicTitle": "Кільця ключів ядра: add_key, keyctl і довірені сертифікати",
+   "file": "api-keyctl-surface.md",
+   "type": "api"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "kernel-keyrings",
+   "topicTitle": "Кільця ключів ядра: add_key, keyctl і довірені сертифікати",
+   "file": "proj-key-possession.md",
+   "type": "proj"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "ima-appraisal",
+   "topicTitle": "IMA: вимірювання й оцінка цілісності файлів у ядрі",
+   "file": "proj-replay-measurements.md",
+   "type": "proj"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "polkit",
+   "topicTitle": "polkit: хто дозволяє непривілейованому процесу привілейовану дію",
+   "file": "proj-polkit-mechanism.md",
+   "type": "proj"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "user-database-nss",
+   "topicTitle": "База облікових записів: passwd, group, shadow і шар NSS",
+   "file": "proj-nss-module.md",
+   "type": "proj"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "user-database-nss",
+   "topicTitle": "База облікових записів: passwd, group, shadow і шар NSS",
+   "file": "api-nsswitch-and-getent.md",
+   "type": "api"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "lsm-framework",
+   "topicTitle": "LSM: каркас гачків безпеки в ядрі",
+   "file": "hist-restrictive-hooks.md",
+   "type": "hist"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "lsm-framework",
+   "topicTitle": "LSM: каркас гачків безпеки в ядрі",
+   "file": "proj-bpf-lsm.md",
+   "type": "proj"
+  },
+  {
+   "section": "permissions",
+   "topicSlug": "lsm-framework",
+   "topicTitle": "LSM: каркас гачків безпеки в ядрі",
+   "file": "api-lsm-module.md",
+   "type": "api"
+  }
+ ]
 }

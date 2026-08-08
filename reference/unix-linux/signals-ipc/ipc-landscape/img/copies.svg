@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1070 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1070" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="60.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">через об'єкт ядра: канал, сокет, черга повідомлень</text>
+<rect x="60.0" y="66.0" width="230.0" height="64.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="94.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">процес A</tspan><tspan x="175.0" dy="16.9">свій буфер</tspan></text>
+<rect x="415.0" y="66.0" width="230.0" height="64.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="530.0" y="102.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">буфер у ядрі</tspan></text>
+<rect x="770.0" y="66.0" width="230.0" height="64.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="885.0" y="94.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="885.0" dy="0.0">процес B</tspan><tspan x="885.0" dy="16.9">свій буфер</tspan></text>
+<line x1="292.0" y1="98.0" x2="413.0" y2="98.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="352.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">копія 1</text>
+<text x="352.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">write()</text>
+<line x1="647.0" y1="98.0" x2="768.0" y2="98.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="707.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">копія 2</text>
+<text x="707.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">read()</text>
+<text x="60.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">межу перетинають двічі: два системні виклики й два проходи по пам'яті</text>
+<line x1="40.0" y1="218.0" x2="1020.0" y2="218.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,5"/>
+<text x="60.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">через спільні сторінки: спільна пам'ять і окреме сповіщення</text>
+<rect x="60.0" y="284.0" width="230.0" height="64.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="175.0" y="312.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">процес A</tspan><tspan x="175.0" dy="16.9">відображення</tspan></text>
+<rect x="415.0" y="284.0" width="230.0" height="64.0" rx="6" fill="#eef6ef" stroke="#333333" stroke-width="1.5"/><text x="530.0" y="312.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">ті самі фізичні</tspan><tspan x="530.0" dy="16.9">сторінки</tspan></text>
+<rect x="770.0" y="284.0" width="230.0" height="64.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="885.0" y="312.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="885.0" dy="0.0">процес B</tspan><tspan x="885.0" dy="16.9">відображення</tspan></text>
+<line x1="292.0" y1="316.0" x2="413.0" y2="316.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="647.0" y1="316.0" x2="768.0" y2="316.0" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="6,4"/>
+<text x="352.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">mmap</text>
+<text x="707.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">mmap</text>
+<line x1="175.0" y1="350.0" x2="175.0" y2="396.0" stroke="#2457d6" stroke-width="1.4"/>
+<line x1="175.0" y1="396.0" x2="885.0" y2="396.0" stroke="#2457d6" stroke-width="1.4"/>
+<line x1="885.0" y1="396.0" x2="885.0" y2="352.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="530.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">futex або eventfd: сповіщення на кілька байтів, дані нікуди не рухаються</text>
+</svg>

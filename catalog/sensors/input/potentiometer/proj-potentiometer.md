@@ -4,7 +4,7 @@
 
 Кожну з цих бід лікують кількома рядками коду. Що важливо — **одними й тими самими рядками для будь-якого потенціометра**. Тому зберемо їх по черзі: спершу найпростіше читання, щоб відчути деталь; тоді два способи вгамувати тремтіння (ковзний середній і експоненційний фільтр); тоді мертву зону, щоб ручка, яка стоїть, не сипала подіями; тоді калібрування під справжні краї ходу й переклад у осмислені одиниці. Наприкінці спакуємо все у невеликий клас `Potentiometer`, який можна цілком узяти в проєкт, і окремо розберемо читання на [ESP32](book:electronics/logic-levels-as-ranges), де АЦП 12-бітний, помітно нелінійний і має власні пастки.
 
-Код усюди справжній — C++ під Arduino-фреймворк, той, що компілюється й заливається на ATmega328P чи на ESP32. Не псевдокод: типи, оголошення, імена — усе таке, як воно в реальному скетчі.
+Код усюди справжній і одразу в трьох вкладках: Arduino (найкоротший шлях увійти), ESP-IDF і STM32 HAL. Сама арифметика — фільтр, мертва зона, калібрування, переклад одиниць — на всіх трьох платформах та сама; різниться лише те, як узяти відлік з АЦП і куди віддати результат. Не псевдокод: типи, оголошення, імена — усе таке, як воно в реальному проєкті.
 
 ## Задача: чого ми хочемо від ручки
 
@@ -21,11 +21,12 @@
 
 ## Ідея: спершу найпростіше, тоді нарощуємо
 
-Найкоротший робочий діалог із потенціометром — це один виклик АЦП і одне лінійне перетворення. На Arduino це `analogRead`, що повертає число від 0 (нуль вольт на повзунку) до максимуму [роздільності АЦП](book:electronics/adc-resolution): у 10-бітного АЦП Arduino Uno це 1023.
+Найкоротший робочий діалог із потенціометром — це один виклик АЦП і одне лінійне перетворення. Хоч би яка була плата, той виклик повертає число від 0 (нуль вольт на повзунку) до максимуму [роздільності АЦП](book:electronics/adc-resolution). В Arduino він зветься `analogRead`, і в 10-бітного АЦП Arduino Uno стеля — 1023; в ESP-IDF це `adc_oneshot_read` (12 біт, стеля 4095), у STM32 HAL — `HAL_ADC_GetValue` після старту перетворення (теж зазвичай 12 біт).
 
-**Умова.** Повзунок потенціометра — на A0 Arduino Uno, кінці доріжки на 5 В і GND. Крутимо ручку — у монітор порту повзе сире число 0…1023 і воно ж, масштабоване у зрозумілі 0…100 %.
+**Умова.** Повзунок потенціометра — на аналоговому вході (A0 на Arduino Uno, GPIO34 на ESP32, PA0 на STM32), кінці доріжки на живлення й GND. Крутимо ручку — у консоль повзе сире число від нуля до стелі АЦП і воно ж, масштабоване у зрозумілі 0…100 %.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t PIN_POT = A0;         // повзунок потенціометра
 
 void setup() {
@@ -43,8 +44,69 @@ void loop() {
   delay(100);
 }
 ```
+```esp-idf
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_adc/adc_oneshot.h"
+#include "esp_log.h"
 
-Тут `map(value, fromLo, fromHi, toLo, toHi)` — стандартна Arduino-функція, що лінійно перекладає число з одного діапазону в інший. Вона рахує звичайну пропорцію, ту саму `(value − fromLo)·(toHi − toLo)/(fromHi − fromLo) + toLo`, тільки цілими числами. Тобто `map(raw, 0, 1023, 0, 100)` каже: «де raw стоїть у відрізку 0…1023, туди ж постав вихід у відрізку 0…100».
+static const char *TAG = "pot";
+#define POT_CHAN  ADC_CHANNEL_6           // ADC1_CH6 — це GPIO34
+#define ADC_MAX   4095                    // 12 біт
+
+void app_main(void) {
+  adc_oneshot_unit_handle_t adc1;
+  adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };   // ADC1: не свариться з Wi-Fi
+  ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc1));
+
+  adc_oneshot_chan_cfg_t ch = {
+    .atten    = ADC_ATTEN_DB_12,          // вхід ≈0..3.3 В (у старих IDF — DB_11)
+    .bitwidth = ADC_BITWIDTH_DEFAULT,     // 12 біт: 0..4095
+  };
+  ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, POT_CHAN, &ch));
+
+  while (1) {
+    int raw = 0;
+    ESP_ERROR_CHECK(adc_oneshot_read(adc1, POT_CHAN, &raw));   // 0..4095: сира частка ходу
+    int pct = raw * 100 / ADC_MAX;        // та сама пропорція, тільки руками
+    ESP_LOGI(TAG, "%d  ->  %d %%", raw, pct);
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+}
+```
+```stm32
+#include "main.h"
+#include <stdio.h>
+
+extern ADC_HandleTypeDef hadc1;           // CubeMX: ADC1, канал IN0 = PA0, роздільність 12 біт
+#define ADC_MAX 4095
+
+static uint16_t potSample(void) {         // один вимір: старт → дочекатись → забрати
+  HAL_ADC_Start(&hadc1);
+  HAL_ADC_PollForConversion(&hadc1, 10);  // стеля очікування 10 мс
+  uint16_t v = (uint16_t)HAL_ADC_GetValue(&hadc1);
+  HAL_ADC_Stop(&hadc1);
+  return v;
+}
+
+int main(void) {
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_ADC1_Init();
+  MX_USART2_UART_Init();                  // printf перенаправлено на UART2
+
+  while (1) {
+    uint16_t raw = potSample();           // 0..4095: сира частка ходу
+    int pct = raw * 100 / ADC_MAX;        // та сама пропорція, тільки руками
+    printf("%u  ->  %d %%\r\n", raw, pct);
+    HAL_Delay(100);
+  }
+}
+```
+:::
+
+Тут `map(value, fromLo, fromHi, toLo, toHi)` — стандартна Arduino-функція, що лінійно перекладає число з одного діапазону в інший. Вона рахує звичайну пропорцію, ту саму `(value − fromLo)·(toHi − toLo)/(fromHi − fromLo) + toLo`, тільки цілими числами. Тобто `map(raw, 0, 1023, 0, 100)` каже: «де raw стоїть у відрізку 0…1023, туди ж постав вихід у відрізку 0…100». Поза Arduino такої функції в стандарті нема — ту саму пропорцію пишуть руками одним рядком, як у сусідніх вкладках.
 
 Це працює й одразу дає відчути потенціометр рукою. Але щойно придивишся, виявляється неприємна звичка сирого числа: **воно тремтить у молодших розрядах**, навіть коли ручку не чіпаєш. Прибери `delay` і подивись, як `raw` смикається на ±1…2 навколо якогось значення, хоч ручка стоїть намертво.
 
@@ -64,7 +126,8 @@ void loop() {
 
 Зберемо ковзний середній на кільцевому буфері — масиві, по якому індекс ходить по колу, затираючи найстаріший відлік найновішим:
 
-```cpp
+:::tabs
+```arduino
 const uint8_t  PIN_POT = A0;
 const uint8_t  WIN = 16;             // розмір вікна усереднення (степінь 2 — зручно)
 
@@ -86,6 +149,65 @@ int potReadAveraged() {
   return (int)(sum / WIN);           // середнє = сума / кількість
 }
 ```
+```esp-idf
+#define WIN 16                       // розмір вікна усереднення (степінь 2 — зручно)
+
+static adc_oneshot_unit_handle_t adc1;   // блок ADC1, налаштований як вище
+static int     buf[WIN];             // кільцевий буфер останніх відліків
+static uint8_t idx = 0;              // куди писати наступний відлік
+static long    sum = 0;              // поточна сума вмісту буфера
+
+static int potSample(void) {         // єдине місце, що знає про платформу
+  int v = 0;
+  ESP_ERROR_CHECK(adc_oneshot_read(adc1, POT_CHAN, &v));
+  return v;
+}
+
+void pot_begin(void) {
+  int first = potSample();
+  for (int i = 0; i < WIN; i++) { buf[i] = first; sum += first; }  // старт без «розгону»
+}
+
+int pot_read_averaged(void) {
+  sum -= buf[idx];                   // прибрати найстаріший відлік із суми
+  int fresh = potSample();
+  buf[idx] = fresh;                  // записати найновіший на його місце
+  sum += fresh;                      // додати до суми
+  idx = (idx + 1) % WIN;             // індекс по колу
+  return (int)(sum / WIN);           // середнє = сума / кількість
+}
+```
+```stm32
+#define WIN 16                       // розмір вікна усереднення (степінь 2 — зручно)
+
+extern ADC_HandleTypeDef hadc1;
+static int      buf[WIN];            // кільцевий буфер останніх відліків
+static uint8_t  idx = 0;             // куди писати наступний відлік
+static long     sum = 0;             // поточна сума вмісту буфера
+
+static int potSample(void) {         // єдине місце, що знає про платформу
+  HAL_ADC_Start(&hadc1);
+  HAL_ADC_PollForConversion(&hadc1, 10);
+  int v = (int)HAL_ADC_GetValue(&hadc1);
+  HAL_ADC_Stop(&hadc1);
+  return v;
+}
+
+void pot_begin(void) {
+  int first = potSample();
+  for (int i = 0; i < WIN; i++) { buf[i] = first; sum += first; }  // старт без «розгону»
+}
+
+int pot_read_averaged(void) {
+  sum -= buf[idx];                   // прибрати найстаріший відлік із суми
+  int fresh = potSample();
+  buf[idx] = fresh;                  // записати найновіший на його місце
+  sum += fresh;                      // додати до суми
+  idx = (idx + 1) % WIN;             // індекс по колу
+  return (int)(sum / WIN);           // середнє = сума / кількість
+}
+```
+:::
 
 Хитрість тут у тому, що ми **не пересумовуємо весь буфер щоразу**. Зберігаємо поточну суму й на кожному кроці робимо рівно дві правки: віднімаємо те, що виходить (найстаріший відлік), додаємо те, що входить (найновіший). Це те, що називають *ковзним вікном*: скільки б не було відліків у буфері, робота на крок стала — одне віднімання, одне додавання, одне ділення. Якби ми чесно складали всі WIN елементів щоразу, при великому вікні це помітно з'їдало б час у циклі.
 
@@ -109,7 +231,8 @@ int potReadAveraged() {
 
 На цілих числах EMA пишуть обережно, бо наївний `est += alpha*(raw−est)` із дробовим α зжирає точність на округленнях. Класичний прийом — тримати оцінку **у збільшеному масштабі** (зсунутою вліво на кілька біт), щоб молодші розряди не губились. І тут ховається класична пастка пріоритету операцій у C. Оператор зсуву `>>` має **нижчий** пріоритет за додавання й віднімання, тож рядок `est += (raw << SHIFT) - est >> SHIFT` компілятор прочитає не так, як бачить око: зсув причепиться до всього виразу `((raw << SHIFT) - est)`, а не лише до `est`. Тут це, на щастя, дає саме потрібне, але покладатися на невидимі дужки не можна — варто раз помилитися з розстановкою, і зсув поїде не на ту частину. Пишімо з явними дужками, щоб намір було видно й компілятору, і наступному читачеві:
 
-```cpp
+:::tabs
+```arduino
 const uint8_t PIN_POT = A0;
 const uint8_t SHIFT   = 4;           // α = 1/2^SHIFT = 1/16 ≈ 0.0625 (сильне згладжування)
 
@@ -126,6 +249,53 @@ int emaRead() {
   return (int)((emaScaled + (1 << (SHIFT - 1))) >> SHIFT);  // реальний масштаб, з округленням
 }
 ```
+```esp-idf
+#define SHIFT 4                      // α = 1/2^SHIFT = 1/16 ≈ 0.0625 (сильне згладжування)
+
+static adc_oneshot_unit_handle_t adc1;   // блок ADC1, налаштований як вище
+static long emaScaled;               // оцінка, збережена в масштабі ×2^SHIFT
+
+static int potSample(void) {
+  int v = 0;
+  ESP_ERROR_CHECK(adc_oneshot_read(adc1, POT_CHAN, &v));
+  return v;
+}
+
+void ema_begin(void) {
+  emaScaled = (long)potSample() << SHIFT;           // старт із першого відліку
+}
+
+int ema_read(void) {
+  long delta = ((long)potSample() << SHIFT) - emaScaled;   // розбіжність у масштабі ×2^SHIFT
+  emaScaled += (delta >> SHIFT);                    // крок α·delta, бо >>SHIFT = ділення на 2^SHIFT
+  return (int)((emaScaled + (1 << (SHIFT - 1))) >> SHIFT); // реальний масштаб, з округленням
+}
+```
+```stm32
+#define SHIFT 4                      // α = 1/2^SHIFT = 1/16 ≈ 0.0625 (сильне згладжування)
+
+extern ADC_HandleTypeDef hadc1;
+static long emaScaled;               // оцінка, збережена в масштабі ×2^SHIFT
+
+static int potSample(void) {
+  HAL_ADC_Start(&hadc1);
+  HAL_ADC_PollForConversion(&hadc1, 10);
+  int v = (int)HAL_ADC_GetValue(&hadc1);
+  HAL_ADC_Stop(&hadc1);
+  return v;
+}
+
+void ema_begin(void) {
+  emaScaled = (long)potSample() << SHIFT;           // старт із першого відліку
+}
+
+int ema_read(void) {
+  long delta = ((long)potSample() << SHIFT) - emaScaled;   // розбіжність у масштабі ×2^SHIFT
+  emaScaled += (delta >> SHIFT);                    // крок α·delta, бо >>SHIFT = ділення на 2^SHIFT
+  return (int)((emaScaled + (1 << (SHIFT - 1))) >> SHIFT); // реальний масштаб, з округленням
+}
+```
+:::
 
 Чому α беруть саме `1/2^SHIFT`, а не будь-яке зручне 0.1? Бо ділення на степінь двійки — це зсув `>>`, найдешевша операція для мікроконтролера без апаратного ділення. `SHIFT = 4` дає α = 1/16 ≈ 0.0625 (сильне згладжування, ліниве); `SHIFT = 2` дає α = 1/4 = 0.25 (жваве, шуму лишається більше). Підбираєш SHIFT на слух-на-око: почни з 4, якщо реагує заповільно — зменш до 3, якщо ще тремтить — збільш до 5.
 
@@ -166,7 +336,8 @@ bool potChanged(int fresh, int *out) {
 
 Лік — виміряти справжні краї конкретного екземпляра й масштабувати від них. Найпростіший спосіб — короткий ритуал калібрування на старті: кілька секунд крутиш ручку від упору до упору, а код запам'ятовує найменший і найбільший побачений відлік.
 
-```cpp
+:::tabs
+```arduino
 int calMin = 1023;                   // почати з протилежних країв, щоб перше ж
 int calMax = 0;                      // виміряне значення їх «стягнуло» до правди
 
@@ -184,6 +355,51 @@ int potPercent() {
   return constrain(pct, 0, 100);     // не вилазити за 0..100 через шум на краях
 }
 ```
+```esp-idf
+#define ADC_MAX 4095                 // 12 біт
+
+static int calMin = ADC_MAX;         // почати з протилежних країв, щоб перше ж
+static int calMax = 0;               // виміряне значення їх «стягнуло» до правди
+
+static int clampi(int v, int lo, int hi) { return v < lo ? lo : (v > hi ? hi : v); }
+
+// Викликати в циклі протягом кількох секунд, поки крутиш ручку від упору до упору.
+void calibrate_sweep(void) {
+  int raw = potSample();
+  if (raw < calMin) calMin = raw;
+  if (raw > calMax) calMax = raw;
+}
+
+// Після калібрування: масштабувати від РЕАЛЬНИХ країв і затиснути в межі.
+int pot_percent(void) {
+  int raw = potSample();
+  int pct = (raw - calMin) * 100 / (calMax - calMin);   // пропорція замість map()
+  return clampi(pct, 0, 100);        // не вилазити за 0..100 через шум на краях
+}
+```
+```stm32
+#define ADC_MAX 4095                 // 12 біт
+
+static int calMin = ADC_MAX;         // почати з протилежних країв, щоб перше ж
+static int calMax = 0;               // виміряне значення їх «стягнуло» до правди
+
+static int clampi(int v, int lo, int hi) { return v < lo ? lo : (v > hi ? hi : v); }
+
+// Викликати в циклі протягом кількох секунд, поки крутиш ручку від упору до упору.
+void calibrate_sweep(void) {
+  int raw = potSample();
+  if (raw < calMin) calMin = raw;
+  if (raw > calMax) calMax = raw;
+}
+
+// Після калібрування: масштабувати від РЕАЛЬНИХ країв і затиснути в межі.
+int pot_percent(void) {
+  int raw = potSample();
+  int pct = (raw - calMin) * 100 / (calMax - calMin);   // пропорція замість map()
+  return clampi(pct, 0, 100);        // не вилазити за 0..100 через шум на краях
+}
+```
+:::
 
 Дві деталі роблять це надійним. По-перше, `calMin` стартує з 1023, а `calMax` — з 0, тобто з **протилежних** країв. Здається дивним, та це правильно: перше ж реальне вимірювання буде меншим за 1023 і більшим за 0, тож одразу «стягне» обидві межі до себе, і далі вони лише розсуватимуться назустріч справжнім краям у міру кручіння. Стартуй ми з нулів, `calMax` лишався б нулем для будь-якого невід'ємного відліку — а від'ємних не буває, тож саме такий «перевернутий» старт.
 
@@ -197,7 +413,8 @@ int potPercent() {
 
 Останній крок — найприємніший і найдешевший. Маючи каліброване число 0…100 % (чи 0…1023 від країв), перекласти його в будь-які потрібні одиниці — це один `map`. Уся хитрість у тому, щоб масштабувати з правильного діапазону в правильний і не забути напрямок.
 
-```cpp
+:::tabs
+```arduino
 // Приклади перекладу однієї й тієї ж каліброваної частки в різні одиниці.
 // (raw — уже згладжений відлік; calMin/calMax — виміряні краї ходу.)
 
@@ -206,16 +423,45 @@ int tempC    = map(raw, calMin, calMax, 20, 80);     // у температур�
 int periodMs = map(raw, calMin, calMax, 50, 2000);   // у затримку миготіння 50..2000 мс
 int inverted = map(raw, calMin, calMax, 100, 0);     // ОБЕРНЕНО: вправо → менше значення
 ```
+```esp-idf
+// Та сама пропорція, тільки написана руками: map() поза Arduino нема.
+static int scale(int v, int inLo, int inHi, int outLo, int outHi) {
+  return (v - inLo) * (outHi - outLo) / (inHi - inLo) + outLo;
+}
 
-Ось краса `map`: напрямок задають самі межі виходу. Хочеш, щоб праворуч було більше — пиши `0, 100`; хочеш навпаки — `100, 0`, і код інвертується без жодного `if`. Це рятує, коли [кінці доріжки припаяні «не тим боком»](book:electronics/voltage-divider) і ручка крутить навспак: не перепаюй, просто поміняй місцями кінці виходу в `map`.
+int bright   = scale(raw, calMin, calMax, 0, 255);   // у заповнення LEDC 0..255 (8 біт)
+int tempC    = scale(raw, calMin, calMax, 20, 80);   // у температуру уставки 20..80 °C
+int periodMs = scale(raw, calMin, calMax, 50, 2000); // у затримку миготіння 50..2000 мс
+int inverted = scale(raw, calMin, calMax, 100, 0);   // ОБЕРНЕНО: вправо → менше значення
+
+ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, bright);   // віддати яскравість у ШІМ
+ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
+```
+```stm32
+// Та сама пропорція, тільки написана руками: map() поза Arduino нема.
+static int scale(int v, int inLo, int inHi, int outLo, int outHi) {
+  return (v - inLo) * (outHi - outLo) / (inHi - inLo) + outLo;
+}
+
+int bright   = scale(raw, calMin, calMax, 0, 255);   // у регістр порівняння таймера (ARR = 255)
+int tempC    = scale(raw, calMin, calMax, 20, 80);   // у температуру уставки 20..80 °C
+int periodMs = scale(raw, calMin, calMax, 50, 2000); // у затримку миготіння 50..2000 мс
+int inverted = scale(raw, calMin, calMax, 100, 0);   // ОБЕРНЕНО: вправо → менше значення
+
+__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, bright);         // CCR1 і є яскравість
+```
+:::
+
+Ось краса `map` (і рукописного `scale` так само): напрямок задають самі межі виходу. Хочеш, щоб праворуч було більше — пиши `0, 100`; хочеш навпаки — `100, 0`, і код інвертується без жодного `if`. Це рятує, коли [кінці доріжки припаяні «не тим боком»](book:electronics/voltage-divider) і ручка крутить навспак: не перепаюй, просто поміняй місцями кінці виходу в `map`.
 
 Одна пастка з цілим `map`, про яку варто знати наперед: він **обрізає, а не округлює**, і при малих вихідних діапазонах це помітно. `map(raw, 0, 1023, 0, 3)` дасть лише чотири значення (0, 1, 2, 3), і переходи між ними ляжуть нерівними шматками ходу через цілочислове ділення. Якщо потрібен рівний дрібний крок або дробовий результат (наприклад, температура 20.0…80.0 з десятими), рахуй у більшому масштабі — скажімо, у десятих градуса `map(raw, calMin, calMax, 200, 800)`, а тоді діли на 10 при виводі.
 
 ## Збираємо все в клас `Potentiometer`
 
-Тепер спакуймо ці п'ять кроків в один невеликий клас, який можна цілком скопіювати в проєкт і забути про внутрішню кухню. Клас тримає всередині пін, стан EMA-фільтра, калібрувальні краї та мертву зону, а назовні дає рівно те, що потрібно: «дай мені чисте значення в моїх одиницях» і «скажи, чи воно змінилося».
+Тепер спакуймо ці п'ять кроків в один невеликий клас, який можна цілком скопіювати в проєкт і забути про внутрішню кухню (у C-середовищах те саме роблять структурою стану й кількома функціями над нею — див. сусідні вкладки). Клас тримає всередині пін, стан EMA-фільтра, калібрувальні краї та мертву зону, а назовні дає рівно те, що потрібно: «дай мені чисте значення в моїх одиницях» і «скажи, чи воно змінилося».
 
-```cpp
+:::tabs
+```arduino
 // ── Potentiometer: читання повзунка з EMA-згладжуванням, калібруванням і мертвою зоною.
 //    Готовий до вставки в проєкт. Arduino / ESP32 (див. ADC_MAX нижче).
 #if defined(ESP32)
@@ -280,6 +526,135 @@ private:
   long    _ema;                      // стан EMA у масштабі ×2^_shift
 };
 ```
+```esp-idf
+// ── Те саме мовою ESP-IDF: структура стану + функції над нею (ідіоматичний C).
+#include "esp_adc/adc_oneshot.h"
+#include <stdbool.h>
+#include <stdlib.h>
+
+#define ADC_MAX 4095                 // 12 біт, задано .bitwidth каналу
+
+typedef struct {
+  adc_oneshot_unit_handle_t unit;
+  adc_channel_t chan;
+  uint8_t shift;
+  int  deadband, calMin, calMax, lastAccepted;
+  long ema;                          // стан EMA у масштабі ×2^shift
+} pot_t;
+
+static int  clampi(int v, int lo, int hi) { return v < lo ? lo : (v > hi ? hi : v); }
+static int  scale(int v, int iLo, int iHi, int oLo, int oHi) {   // замість map()
+  return (v - iLo) * (oHi - oLo) / (iHi - iLo) + oLo;
+}
+static int  sample(pot_t *p) { int v = 0; ESP_ERROR_CHECK(adc_oneshot_read(p->unit, p->chan, &v)); return v; }
+
+// Викликати раз на старті: ініціалізувати фільтр першим відліком.
+void pot_begin(pot_t *p, adc_oneshot_unit_handle_t unit, adc_channel_t ch,
+               uint8_t shift, int deadband) {
+  p->unit = unit; p->chan = ch; p->shift = shift; p->deadband = deadband;
+  p->calMin = ADC_MAX; p->calMax = 0; p->lastAccepted = -10000;
+  p->ema = (long)sample(p) << shift;
+}
+
+// Згладжене СИРЕ значення 0..ADC_MAX (оновлює фільтр). Основа для решти.
+int pot_raw(pot_t *p) {
+  long delta = ((long)sample(p) << p->shift) - p->ema;
+  p->ema += (delta >> p->shift);
+  return (int)((p->ema + (1 << (p->shift - 1))) >> p->shift);   // з округленням
+}
+
+// Викликати в циклі, поки користувач крутить ручку від упору до упору.
+void pot_calibrate(pot_t *p) {
+  int v = pot_raw(p);                // калібруємо по ЗГЛАДЖЕНОМУ, не по сирому
+  if (v < p->calMin) p->calMin = v;
+  if (v > p->calMax) p->calMax = v;
+}
+void pot_use_full_range(pot_t *p) { p->calMin = 0; p->calMax = ADC_MAX; }
+
+// Згладжене й КАЛІБРОВАНЕ значення в [outLo..outHi]; outLo>outHi → інверсія.
+int pot_value(pot_t *p, int outLo, int outHi) {
+  int lo = outLo < outHi ? outLo : outHi, hi = outLo < outHi ? outHi : outLo;
+  return clampi(scale(pot_raw(p), p->calMin, p->calMax, outLo, outHi), lo, hi);
+}
+
+// true й записує *out, ЛИШЕ коли значення відійшло від прийнятого далі за мертву зону.
+// Мертва зона працює в СИРИХ одиницях, тож стабільна незалежно від масштабу виходу.
+bool pot_changed(pot_t *p, int *out, int outLo, int outHi) {
+  int now = pot_raw(p);
+  if (abs(now - p->lastAccepted) < p->deadband) return false;
+  p->lastAccepted = now;
+  int lo = outLo < outHi ? outLo : outHi, hi = outLo < outHi ? outHi : outLo;
+  *out = clampi(scale(now, p->calMin, p->calMax, outLo, outHi), lo, hi);
+  return true;
+}
+```
+```stm32
+// ── Те саме на STM32 HAL: структура стану + функції. Один екземпляр = один канал ADC.
+#include "main.h"
+#include <stdbool.h>
+#include <stdlib.h>
+
+#define ADC_MAX 4095                 // 12 біт, поле Resolution в MX_ADCx_Init
+
+typedef struct {
+  ADC_HandleTypeDef *hadc;
+  uint8_t shift;
+  int  deadband, calMin, calMax, lastAccepted;
+  long ema;                          // стан EMA у масштабі ×2^shift
+} pot_t;
+
+static int clampi(int v, int lo, int hi) { return v < lo ? lo : (v > hi ? hi : v); }
+static int scale(int v, int iLo, int iHi, int oLo, int oHi) {    // замість map()
+  return (v - iLo) * (oHi - oLo) / (iHi - iLo) + oLo;
+}
+static int sample(pot_t *p) {        // старт → дочекатись → забрати
+  HAL_ADC_Start(p->hadc);
+  HAL_ADC_PollForConversion(p->hadc, 10);
+  int v = (int)HAL_ADC_GetValue(p->hadc);
+  HAL_ADC_Stop(p->hadc);
+  return v;
+}
+
+// Викликати раз на старті: ініціалізувати фільтр першим відліком.
+void pot_begin(pot_t *p, ADC_HandleTypeDef *hadc, uint8_t shift, int deadband) {
+  p->hadc = hadc; p->shift = shift; p->deadband = deadband;
+  p->calMin = ADC_MAX; p->calMax = 0; p->lastAccepted = -10000;
+  p->ema = (long)sample(p) << shift;
+}
+
+// Згладжене СИРЕ значення 0..ADC_MAX (оновлює фільтр). Основа для решти.
+int pot_raw(pot_t *p) {
+  long delta = ((long)sample(p) << p->shift) - p->ema;
+  p->ema += (delta >> p->shift);
+  return (int)((p->ema + (1 << (p->shift - 1))) >> p->shift);   // з округленням
+}
+
+// Викликати в циклі, поки користувач крутить ручку від упору до упору.
+void pot_calibrate(pot_t *p) {
+  int v = pot_raw(p);                // калібруємо по ЗГЛАДЖЕНОМУ, не по сирому
+  if (v < p->calMin) p->calMin = v;
+  if (v > p->calMax) p->calMax = v;
+}
+void pot_use_full_range(pot_t *p) { p->calMin = 0; p->calMax = ADC_MAX; }
+
+// Згладжене й КАЛІБРОВАНЕ значення в [outLo..outHi]; outLo>outHi → інверсія.
+int pot_value(pot_t *p, int outLo, int outHi) {
+  int lo = outLo < outHi ? outLo : outHi, hi = outLo < outHi ? outHi : outLo;
+  return clampi(scale(pot_raw(p), p->calMin, p->calMax, outLo, outHi), lo, hi);
+}
+
+// true й записує *out, ЛИШЕ коли значення відійшло від прийнятого далі за мертву зону.
+// Мертва зона працює в СИРИХ одиницях, тож стабільна незалежно від масштабу виходу.
+bool pot_changed(pot_t *p, int *out, int outLo, int outHi) {
+  int now = pot_raw(p);
+  if (abs(now - p->lastAccepted) < p->deadband) return false;
+  p->lastAccepted = now;
+  int lo = outLo < outHi ? outLo : outHi, hi = outLo < outHi ? outHi : outLo;
+  *out = clampi(scale(now, p->calMin, p->calMax, outLo, outHi), lo, hi);
+  return true;
+}
+```
+:::
 
 Кілька рішень усередині варто назвати, бо вони не випадкові.
 
@@ -289,9 +664,10 @@ private:
 
 **Калібрування по згладженому.** `calibrate()` бере значення з `raw()`, а не голий `analogRead`, — тож поодинокий шумовий викид не запише неправдиво широкий край, бо фільтр його вже притлумив.
 
-Ось як це виглядає в реальному скетчі — регулятор яскравості світлодіода з калібруванням на старті й подіями лише на справжню зміну:
+Ось як це виглядає в реальній програмі — регулятор яскравості світлодіода з калібруванням на старті й подіями лише на справжню зміну. ШІМ-вихід у кожної платформи свій: в Arduino це `analogWrite`, в ESP-IDF — блок LEDC, у STM32 — канал таймера в режимі PWM.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t PIN_POT = A0;
 const uint8_t PIN_LED = 9;           // ШІМ-вихід під світлодіод
 
@@ -320,6 +696,94 @@ void loop() {
   delay(10);
 }
 ```
+```esp-idf
+#include "driver/ledc.h"
+#include "esp_adc/adc_oneshot.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_log.h"
+
+static const char *TAG = "pot";
+#define POT_CHAN  ADC_CHANNEL_6           // GPIO34 (ADC1)
+#define LED_GPIO  2                       // ШІМ-вихід під світлодіод
+
+void app_main(void) {
+  adc_oneshot_unit_handle_t adc1;
+  adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
+  ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc1));
+  adc_oneshot_chan_cfg_t ch = { .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_DEFAULT };
+  ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, POT_CHAN, &ch));
+
+  ledc_timer_config_t t = {                    // 8 біт заповнення → рівно 0..255
+    .speed_mode = LEDC_LOW_SPEED_MODE, .duty_resolution = LEDC_TIMER_8_BIT,
+    .timer_num = LEDC_TIMER_0, .freq_hz = 5000, .clk_cfg = LEDC_AUTO_CLK,
+  };
+  ESP_ERROR_CHECK(ledc_timer_config(&t));
+  ledc_channel_config_t c = {
+    .gpio_num = LED_GPIO, .speed_mode = LEDC_LOW_SPEED_MODE, .channel = LEDC_CHANNEL_0,
+    .timer_sel = LEDC_TIMER_0, .duty = 0, .hpoint = 0,
+  };
+  ESP_ERROR_CHECK(ledc_channel_config(&c));
+
+  pot_t pot;
+  pot_begin(&pot, adc1, POT_CHAN, 4, 16);      // SHIFT=4, мертва зона 16 (12 біт!)
+
+  // 3-секундне калібрування: крути ручку від упору до упору.
+  ESP_LOGI(TAG, "Калібрування: крути ручку від краю до краю...");
+  for (int i = 0; i < 600; i++) { pot_calibrate(&pot); vTaskDelay(pdMS_TO_TICKS(5)); }
+  ESP_LOGI(TAG, "Готово.");
+
+  while (1) {
+    int bright;
+    // яскравість 0..255; подія лише коли ручку реально крутнули
+    if (pot_changed(&pot, &bright, 0, 255)) {
+      ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, bright);
+      ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
+      ESP_LOGI(TAG, "яскравість = %d", bright);
+    }
+    vTaskDelay(pdMS_TO_TICKS(10));
+  }
+}
+```
+```stm32
+/* TIM3_CH1 у режимі PWM з ARR = 255 — тоді регістр порівняння CCR1 і є
+   яскравість 0..255, точнісінько як аргумент analogWrite. */
+#include "main.h"
+#include <stdio.h>
+
+extern ADC_HandleTypeDef hadc1;           // ADC1, канал IN0 = PA0 (повзунок)
+extern TIM_HandleTypeDef htim3;           // TIM3_CH1 = PA6 (світлодіод)
+
+int main(void) {
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_ADC1_Init();
+  MX_TIM3_Init();
+  MX_USART2_UART_Init();
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+
+  pot_t pot;
+  pot_begin(&pot, &hadc1, 4, 16);         // SHIFT=4 (α≈0.06), мертва зона 16 (12 біт!)
+
+  // 3-секундне калібрування: крути ручку від упору до упору.
+  printf("Калібрування: крути ручку від краю до краю...\r\n");
+  uint32_t t0 = HAL_GetTick();
+  while (HAL_GetTick() - t0 < 3000) { pot_calibrate(&pot); HAL_Delay(5); }
+  printf("Готово.\r\n");
+
+  while (1) {
+    int bright;
+    // яскравість 0..255; подія лише коли ручку реально крутнули
+    if (pot_changed(&pot, &bright, 0, 255)) {
+      __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, bright);
+      printf("яскравість = %d\r\n", bright);
+    }
+    HAL_Delay(10);
+  }
+}
+```
+:::
 
 Залий, покрути ручку на калібруванні від упору до упору, а тоді крути повільно — світлодіод плавно яснішає й тьмяніє, у монітор порту йдуть події **лише коли значення справді змінилось**, а відпущена ручка мовчить абсолютно: ні дрожу яскравості, ні потоку зайвих рядків.
 
@@ -335,17 +799,18 @@ void loop() {
 
 На [ESP32](book:electronics/logic-levels-as-ranges) уся логіка вище лишається дослівно тією самою — фільтри, мертва зона, калібрування працюють без змін. Але сам АЦП поводиться інакше в трьох важливих речах, і кожна варта уваги, бо на ній легко спіткнутися.
 
-**Перше — розмах.** ESP32 має 12-бітний АЦП, тож `analogRead` віддає **0…4095**, а не 0…1023, і середина ходу — коло 2048, а не 512. Саме тому в класі вище розмах винесений у константу `ADC_MAX` через `#if defined(ESP32)`: уся математика спирається на неї, тож той самий код заливається на обидві плати без правок. Пастка, якщо цього не зробити, найтихіша з можливих: скетч під Arduino з жорстко зашитим 1023, залитий на ESP32, **скомпілюється й запуститься**, але поводитиметься дивно — калібрування намацає краї 0…4095, а `map` із зашитим 1023 зімне всю верхню чверть ходу. Помилки не буде, буде «якось не так крутиться», а це найгірший різновид біди, бо шукаєш його довго й не там.
+**Перше — розмах.** ESP32 має 12-бітний АЦП, тож `analogRead` віддає **0…4095**, а не 0…1023, і середина ходу — коло 2048, а не 512. Саме тому в коді вище розмах винесений в **іменовану константу** `ADC_MAX`, а не вписаний у формули: уся математика спирається на неї, тож переїзд на іншу роздільність — правка одного рядка. Називають ту роздільність по-різному — в Arduino-фреймворку її видно як `#if defined(ESP32)`, в ESP-IDF її задає поле `.bitwidth` у налаштуванні каналу, у STM32 — поле `Resolution` в ініціалізації ADC, — але сенс той самий: стеля має бути одна й записана в одному місці. Пастка, якщо цього не зробити, найтихіша з можливих: скетч під Arduino з жорстко зашитим 1023, залитий на ESP32, **скомпілюється й запуститься**, але поводитиметься дивно — калібрування намацає краї 0…4095, а `map` із зашитим 1023 зімне всю верхню чверть ходу. Помилки не буде, буде «якось не так крутиться», а це найгірший різновид біди, бо шукаєш його довго й не там.
 
-**Друге — діапазон вхідної напруги й послаблення (англ. *attenuation*).** Аналоговий вхід ESP32 сам собою міряє лише вузьке віконце напруги — приблизно 0…0.95 В на кремнієвому ядрі АЦП. Щоб він охопив увесь потрібний розмах до живлення, на вході стоїть подільник-послаблювач, і його коефіцієнт задають *послабленням*. За замовчуванням Arduino-фреймворк на ESP32 ставить **11 dB** — найбільше послаблення, яке розтягує вхід приблизно на **0…3.3 В**, тобто рівно під повний хід потенціометра, живленого від 3.3 В. Це саме те, що треба, і зазвичай нічого міняти не доводиться. Якщо ж твій сигнал не доходить до 3.3 В (скажімо, ручка живиться від меншої напруги), менше послаблення дасть кращу роздільність на вужчому діапазоні — але для потенціометра, увімкненого від 3V3 плати, стандартні 11 dB оптимальні.
+**Друге — діапазон вхідної напруги й послаблення (англ. *attenuation*).** Аналоговий вхід ESP32 сам собою міряє лише вузьке віконце напруги — приблизно 0…0.95 В на кремнієвому ядрі АЦП. Щоб він охопив увесь потрібний розмах до живлення, на вході стоїть подільник-послаблювач, і його коефіцієнт задають *послабленням*. За замовчуванням Arduino-фреймворк на ESP32 ставить **11 dB** — найбільше послаблення, яке розтягує вхід приблизно на **0…3.3 В**, тобто рівно під повний хід потенціометра, живленого від 3.3 В. Це саме те, що треба, і зазвичай нічого міняти не доводиться. В ESP-IDF за тебе цього ніхто не вибирає: послаблення пишуть явно полем `.atten = ADC_ATTEN_DB_12` (у версіях до 5.2 та сама величина звалася `ADC_ATTEN_DB_11`) у `adc_oneshot_chan_cfg_t` — саме той рядок стоїть у вкладках вище. Якщо ж твій сигнал не доходить до 3.3 В (скажімо, ручка живиться від меншої напруги), менше послаблення дасть кращу роздільність на вужчому діапазоні — але для потенціометра, увімкненого від 3V3 плати, стандартні 11 dB оптимальні.
 
 **Третє, і найпідступніше, — нелінійність.** Той самий одинадцятидецибельний послаблювач, що дає зручні 0…3.3 В, робить характеристику АЦП **помітно нелінійною**, надто біля країв діапазону: біля нуля й біля стелі однаковий приріст напруги дає різний приріст коду. За документацією Espressif, саме режим 11 dB вносить сильну нелінійність, тоді як менші послаблення її майже не мають; на практиці «12 біт» у цьому режимі ближчі до 9–10 корисних.
 
 Наскільки це страшно для потенціометра? Здебільшого — байдуже, і ось чому. Ми не міряємо потенціометром **точну напругу** — ми міряємо **положення ручки**, і калібрування країв разом із мертвою зоною ховають дрібну кривизну: `map` від реальних `calMin`/`calMax` уже підганяє кінці, а нелінійність усередині — це кілька відсотків кривизни, яку рука на регуляторі яскравості чи гучності не помітить. Тобто для ручки-регулятора нелінійність ESP32 практично невидима.
 
-А от коли **справді** треба лінійна відповідність «напруга → число» (наприклад, потенціометр як точний давач кута, де 45° мусять дати рівно свою частку), ESP32 дає зручний вихід: функцію **`analogReadMilliVolts(pin)`**. Вона повертає не сирий код, а вже напругу в мілівольтах, застосувавши **заводську калібрувальну криву**, зашиту в чипі (у так званих eFuse — одноразово пропалених комірках). Espressif із 2019 року пропалює калібрувальні коефіцієнти на заводі, і `analogReadMilliVolts` користується ними, щоб випрямити нелінійність:
+А от коли **справді** треба лінійна відповідність «напруга → число» (наприклад, потенціометр як точний давач кута, де 45° мусять дати рівно свою частку), рятує механізм, що є в кожного сучасного мікроконтролера: **заводські калібрувальні сталі**, пропалені в кремнії на конвеєрі. В ESP32 це ціла крива в так званих eFuse — одноразово пропалених комірках, які Espressif заповнює з 2019 року. Кожне середовище дає до неї свій ключ: Arduino-фреймворк — однорядкову **`analogReadMilliVolts(pin)`**, ESP-IDF — пару `adc_cali_create_scheme_line_fitting()` + `adc_cali_raw_to_voltage()`. У STM32 крива інша за природою (там пропалюють одну сталу `VREFINT_CAL`), але думка та сама — і в усіх трьох випадках на виході вже не сирий код, а напруга в мілівольтах:
 
-```cpp
+:::tabs
+```arduino
 // ESP32: лінеаризоване читання через заводську калібрувальну криву.
 // Повертає напругу в мВ (0..~3300), уже виправлену від нелінійності АЦП.
 void loop() {
@@ -355,8 +820,51 @@ void loop() {
   delay(100);
 }
 ```
+```esp-idf
+#include "esp_adc/adc_oneshot.h"
+#include "esp_adc/adc_cali.h"
+#include "esp_adc/adc_cali_scheme.h"
 
-Опорна напруга АЦП у різних екземплярів ESP32 гуляє (за паспортом 1100 мВ, реально від 1000 до 1200 мВ), і саме заводські eFuse-коефіцієнти враховують цю різницю для конкретного чипа. Тож коли потрібна метрологія — бери `analogReadMilliVolts` і калібруй у вольтах; коли потрібна лише ручка-регулятор — сирого `analogRead` із нашим калібруванням країв цілком досить.
+static const char *TAG = "pot";
+
+void app_main(void) {
+  adc_oneshot_unit_handle_t adc1;
+  adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
+  ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc1));
+  adc_oneshot_chan_cfg_t ch = { .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_DEFAULT };
+  ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, ADC_CHANNEL_6, &ch));
+
+  adc_cali_handle_t cali = NULL;            // класичний ESP32 — схема line fitting
+  adc_cali_line_fitting_config_t cfg = {
+    .unit_id = ADC_UNIT_1, .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_DEFAULT,
+  };
+  ESP_ERROR_CHECK(adc_cali_create_scheme_line_fitting(&cfg, &cali));
+
+  while (1) {
+    int raw = 0, mv = 0;
+    ESP_ERROR_CHECK(adc_oneshot_read(adc1, ADC_CHANNEL_6, &raw));
+    ESP_ERROR_CHECK(adc_cali_raw_to_voltage(cali, raw, &mv));   // мВ, уже виправлені
+    ESP_LOGI(TAG, "%d мВ", mv);
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+}
+```
+```stm32
+/* У STM32 заводська стала одна — VREFINT_CAL: код внутрішнього опорного джерела,
+   знятий на конвеєрі при VDDA = 3.3 В і 12 бітах (F4). Через неї міряють СПРАВЖНЮ
+   VDDA конкретної плати, а вже від неї — напругу на повзунку. */
+#include "main.h"
+#define VREFINT_CAL (*(uint16_t *)0x1FFF7A2AU)   // STM32F4: адреса заводської сталої
+
+// vrefRaw — відлік каналу ADC_CHANNEL_VREFINT, potRaw — відлік повзунка
+uint32_t pot_millivolts(uint16_t vrefRaw, uint16_t potRaw) {
+  uint32_t vdda_mv = 3300u * VREFINT_CAL / vrefRaw;   // реальне живлення АЦП, мВ
+  return vdda_mv * potRaw / 4095u;                    // напруга на повзунку, мВ
+}
+```
+:::
+
+Опорна напруга АЦП у різних екземплярів ESP32 гуляє (за паспортом 1100 мВ, реально від 1000 до 1200 мВ), і саме заводські eFuse-коефіцієнти враховують цю різницю для конкретного чипа. Тож коли потрібна метрологія — бери каліброване читання (`analogReadMilliVolts` в Arduino, `adc_cali_raw_to_voltage` в ESP-IDF) і рахуй у вольтах; коли потрібна лише ручка-регулятор — сирого відліку з нашим калібруванням країв цілком досить.
 
 **Плюс дві звичні пастки пінів ESP32, які не пов'язані з потенціометром прямо, але кусають одразу.** Перша: у ESP32 два аналогові блоки, ADC1 і ADC2, і **ADC2 конфліктує з Wi-Fi** — щойно радіо ввімкнене, входи ADC2 віддають випадкове сміття. Тому вішай повзунок на входи **ADC1** (GPIO 32–39), і питання зникає само. Друга: мертву зону масштабуй під ширший розмах — 4 одиниці на 10-бітній Arduino це той самий шматок ходу, що ≈16 на 12-бітному ESP32 (розмах учетверо ширший), тож на ESP32 бери `deadband` разів у чотири більший, інакше біля центру знову з'явиться дрож.
 
@@ -393,7 +901,7 @@ R_вих = k·(1−k) · R
 - **Тремтіння молодших розрядів → яскравість/гучність «дихає» у спокої.** Шум АЦП і залишкові наводки на повзунок дають ±1…2 одиниці. Лік: згладжування — ковзний середній (гасить у √N) або EMA (одне число, три операції на крок).
 - **Стояча ручка сипле подіями → програма захлинається зміною, якої нема.** Згладжене число балансує на межі двох рівнів і перескакує. Лік: мертва зона — реагуй лише на зсув від *останнього прийнятого* далі за поріг.
 - **Краї не 0…1023 → «до упору» не дає ні 0 %, ні 100 %.** Кожен екземпляр має свої краї ходу. Лік: `calibrate()` промітанням на старті, `map` від реальних `calMin`/`calMax`, `constrain` на виході.
-- **Плутанина 10/12 біт → математика повзе на чужій платі.** Скетч під 1023, залитий на ESP32, мовчки бреше й мне верхню чверть ходу. Лік: `ADC_MAX` через `#if defined(ESP32)`, а не магічне число.
+- **Плутанина 10/12 біт → математика повзе на чужій платі.** Скетч під 1023, залитий на ESP32, мовчки бреше й мне верхню чверть ходу. Лік: одна іменована константа розмаху (`ADC_MAX`) на всю математику, а не магічне число у формулах.
 - **Живлення не під логіку плати → 5 В на 3.3-вольтовий вхід.** Повзунок віддає до *свого живлення*; нагодуй потенціометр 5 В, а повзунок заведи на ESP32 — крайнє положення подасть 5 В на ногу, розраховану на 3.3, і зіпсує число (АЦП упреться в стелю до краю ходу) чи ушкодить вхід. Лік: [живи потенціометр напругою логіки плати](book:electronics/logic-levels-as-ranges) — ESP32 від 3V3.
 - **ADC2 + Wi-Fi → повзунок віддає сміття, щойно вмикається радіо.** Лік: вішай повзунок на входи ADC1 (GPIO 32–39).
 - **Мертву зону не масштабували під 12 біт → на ESP32 знову дрож.** Розмах учетверо ширший, тож і поріг має бути ≈×4. Лік: на ESP32 бери `deadband` разів у чотири більший, ніж на Arduino.

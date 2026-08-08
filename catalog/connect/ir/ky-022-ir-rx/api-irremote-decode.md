@@ -1,6 +1,6 @@
 # 📋 api: бібліотека IRremote 4.x — контракт читання ІЧ-пульта
 
-Приймач на платі віддає на вивід S чисту, але «сиру» обвідну: спокій тримається на «1», а кожна 38-кілогерцова пачка від пульта притискає лінію в «0». Перетворити ці довжини нулів і одиниць на осмислене «яку кнопку натиснули» руками — марудно й крихко: пультів багато, форматів пачок (NEC, Sony SIRC, RC5, Samsung, Panasonic…) — ще більше, у кожного своя таблиця. Для Arduino цим займається бібліотека **IRremote**. Тут — **контракт її сучасної гілки 4.x**: які виклики, які поля, які прапорці вона виставляє і які граблі ховає її будова. Не переказ статті про плату, а довідник, куди заглядають, коли пишуть код.
+Приймач на платі віддає на вивід S чисту, але «сиру» обвідну: спокій тримається на «1», а кожна 38-кілогерцова пачка від пульта притискає лінію в «0». Перетворити ці довжини нулів і одиниць на осмислене «яку кнопку натиснули» руками — марудно й крихко: пультів багато, форматів пачок (NEC, Sony SIRC, RC5, Samsung, Panasonic…) — ще більше, у кожного своя таблиця. Робота ця однакова на будь-якому мікроконтролері й ділиться надвоє: **заміряти тривалості фронтів** (пін, що вміє переривання, або таймер із захопленням) і **розкласти ці тривалості за таблицею протоколу**. В Arduino-екосистемі обидві половини бере на себе бібліотека **IRremote** — на AVR, а через відповідні ядра й на ESP32, STM32, RP2040; поза Arduino першу половину дає периферія (RMT в ESP-IDF, захоплення таймера в STM32 HAL), а декодер пишеш сам. Тут — **контракт сучасної гілки IRremote 4.x**: які виклики, які поля, які прапорці вона виставляє і які граблі ховає її будова. Не переказ статті про плату, а довідник, куди заглядають, коли пишуть код.
 
 Увесь контракт стоїть на трьох викликах, решта — деталі навколо них:
 
@@ -83,20 +83,50 @@ if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT) {
 
 Не всі пульти лягають у відомі протоколи (дешевий пульт із набору, кондиціонер, старий японський апарат). Тоді `decode()` усе одно поверне `true`, але `decodedIRData.protocol` дорівнюватиме **`UNKNOWN`** — і поля `.command` та `.address` **не мають сенсу** (не заповнені осмислено). Перевіряти цей стан обов'язково, інакше `switch (command)` ловитиме шум і «привидів»:
 
-```cpp
+:::tabs
+```arduino
 if (IrReceiver.decodedIRData.protocol == UNKNOWN) {
   Serial.println("протокол не впізнано");
   IrReceiver.printIRResultRawFormatted(&Serial, true);   // дамп сирих тривалостей
 }
 ```
+```esp-idf
+// Тут «не впізнано» — це просто невдача власного декодера: RMT віддав сирі
+// символи, а таблиця протоколу не зійшлася. Дамп робимо самі.
+if (!nec_decode(frame.received_symbols, frame.num_symbols, &addr, &cmd)) {
+    ESP_LOGW(TAG, "протокол не впізнано, символів: %d", frame.num_symbols);
+    for (size_t i = 0; i < frame.num_symbols; i++) {
+        const rmt_symbol_word_t *s = &frame.received_symbols[i];
+        ESP_LOGW(TAG, "  %c%u  %c%u",                    // рівень і тривалість, мкс
+                 s->level0 ? '+' : '-', (unsigned)s->duration0,
+                 s->level1 ? '+' : '-', (unsigned)s->duration1);
+    }
+}
+```
+```stm32
+// Те саме на HAL: захоплення таймера дало масив тривалостей у мікросекундах,
+// декодер їх не впізнав — друкуємо як є, парні позиції це мітки.
+if (!nec_decode(dur, n_dur, &addr, &cmd)) {
+    char line[48];
+    int k = snprintf(line, sizeof line, "протокол не впізнано, інтервалів: %u\r\n", n_dur);
+    HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+    for (uint16_t i = 0; i < n_dur; i++) {
+        k = snprintf(line, sizeof line, "%s%u\r\n",
+                     (i & 1) ? "  пробіл " : "  мітка  ", dur[i]);
+        HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+    }
+}
+```
+:::
 
 Для нерозпізнаних кадрів усе одно доступне поле **`.decodedRawData`** — стійкий відбиток форми кадру. Різні кнопки дають різні відбитки, тож навіть без розбору протоколу можна **відрізнити кнопку А від кнопки Б** за цим числом (метод грубий — відбиток чутливий до шуму, повтори можуть давати інший хеш, — але для «увімкнути з будь-якого пульта під рукою» часто досить). Функція `printIRResultRawFormatted(&Serial, true)` вивалює в монітор сирий портрет кадру — послідовність тривалостей «мітка/пробіл» у мікросекундах — головний інструмент діагностики незнайомого пульта.
 
 ## Мінімальний робочий приклад
 
-Кістяк, що ловить будь-який натиск і друкує його в монітор порту, — від нього відштовхуються всі складніші версії:
+Кістяк, що ловить будь-який натиск і друкує його в монітор порту, — від нього відштовхуються всі складніші версії. Поруч — та сама робота там, де IRremote нема: у вкладках ESP-IDF і STM32 бібліотечний `decode()` розпадається надвоє — «периферія віддала сирі тривалості» плюс власний `nec_decode()`, той самий шматок, який IRremote дарує готовим.
 
-```cpp
+:::tabs
+```arduino
 #include <IRremote.hpp>          // IRremote 4.x
 
 const uint8_t IR_PIN = 2;        // вивід S модуля KY-022 → D2
@@ -118,6 +148,95 @@ void loop() {
   }
 }
 ```
+```esp-idf
+#include "driver/rmt_rx.h"       // RMT заміряє тривалості замість бібліотеки
+#include "freertos/FreeRTOS.h"
+#include "freertos/queue.h"
+#include "esp_log.h"
+
+#define IR_GPIO 4                // вивід S модуля KY-022 → GPIO4
+static const char *TAG = "ir";
+static QueueHandle_t q;          // готові кадри з переривання в задачу
+
+static bool on_recv_done(rmt_channel_handle_t ch,
+                         const rmt_rx_done_event_data_t *ed, void *ctx) {
+    BaseType_t hp = pdFALSE;
+    xQueueSendFromISR(q, ed, &hp);            // аналог «decode() дав true»
+    return hp == pdTRUE;
+}
+
+void app_main(void) {
+    q = xQueueCreate(1, sizeof(rmt_rx_done_event_data_t));
+
+    rmt_channel_handle_t rx = NULL;
+    rmt_rx_channel_config_t ch_cfg = {
+        .clk_src = RMT_CLK_SRC_DEFAULT,
+        .resolution_hz = 1000000,             // 1 такт = 1 мкс
+        .mem_block_symbols = 64,
+        .gpio_num = IR_GPIO,
+    };
+    ESP_ERROR_CHECK(rmt_new_rx_channel(&ch_cfg, &rx));
+    rmt_rx_event_callbacks_t cbs = { .on_recv_done = on_recv_done };
+    ESP_ERROR_CHECK(rmt_rx_register_event_callbacks(rx, &cbs, NULL));
+    ESP_ERROR_CHECK(rmt_enable(rx));          // старт приймача
+
+    rmt_receive_config_t rx_cfg = {
+        .signal_range_min_ns = 1250,          // коротше — шум, відкидаємо
+        .signal_range_max_ns = 12000000,      // довша пауза = кінець кадру
+    };
+    static rmt_symbol_word_t raw[64];
+    ESP_ERROR_CHECK(rmt_receive(rx, raw, sizeof(raw), &rx_cfg));
+
+    rmt_rx_done_event_data_t frame;
+    uint16_t addr, cmd;
+    while (1) {
+        xQueueReceive(q, &frame, portMAX_DELAY);
+        if (nec_decode(frame.received_symbols, frame.num_symbols, &addr, &cmd))
+            ESP_LOGI(TAG, "протокол: NEC  адреса: 0x%X  команда: 0x%X", addr, cmd);
+        ESP_ERROR_CHECK(rmt_receive(rx, raw, sizeof(raw), &rx_cfg));  // роль resume()
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"       // захоплення таймера замість бібліотеки
+
+extern TIM_HandleTypeDef htim2;  // TIM2: прескалер під 1 такт = 1 мкс,
+extern UART_HandleTypeDef huart2;// канал 1 — захоплення на ОБИДВА фронти
+
+#define IR_MAX 100
+static uint16_t dur[IR_MAX];              // тривалості між фронтами, мкс
+static uint16_t n_dur = 0;
+static volatile uint8_t frame_ready = 0;  // аналог «decode() дав true»
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
+    static uint32_t prev = 0;
+    uint32_t now = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+    uint32_t d = (now - prev) & 0xFFFF;   // лічильник 16-бітний: переповнення лікується саме
+    prev = now;
+    if (d > 20000) n_dur = 0;             // довга тиша — початок нового кадру
+    else if (n_dur < IR_MAX) dur[n_dur++] = (uint16_t)d;
+    if (n_dur >= 67) frame_ready = 1;     // NEC: 67 інтервалів на повний кадр
+}
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_TIM2_Init(); MX_USART2_UART_Init();
+    HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);      // старт приймача
+
+    uint16_t addr, cmd;
+    while (1) {
+        if (frame_ready) {                           // прийшов цілий кадр?
+            if (nec_decode(dur, n_dur, &addr, &cmd)) {
+                char line[64];
+                int k = snprintf(line, sizeof line,
+                                 "протокол: NEC  адреса: 0x%X  команда: 0x%X\r\n", addr, cmd);
+                HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+            }
+            n_dur = 0; frame_ready = 0;              // звільнити буфер — роль resume()
+        }
+    }
+}
+```
+:::
 
 ## Сумісність версій: 4.x проти 2.x/3.x
 

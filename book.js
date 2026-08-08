@@ -441,7 +441,14 @@
     rust: "Rust", rs: "Rust", java: "Java", kt: "Kotlin", kotlin: "Kotlin", swift: "Swift",
     cs: "C#", csharp: "C#", rb: "Ruby", ruby: "Ruby", php: "PHP", sh: "Shell", bash: "Bash", zsh: "Shell",
     sql: "SQL", html: "HTML", css: "CSS", json: "JSON", yaml: "YAML", yml: "YAML", toml: "TOML",
-    lua: "Lua", r: "R", scala: "Scala", dart: "Dart", asm: "Asm", llvm: "LLVM IR", ir: "IR", vhdl: "VHDL", verilog: "Verilog"
+    lua: "Lua", r: "R", scala: "Scala", dart: "Dart", asm: "Asm", llvm: "LLVM IR", ir: "IR", vhdl: "VHDL", verilog: "Verilog",
+    // ПЛАТФОРМИ, не мови. Той самий приклад під різні МК — це вкладки «Arduino / ESP-IDF /
+    // STM32», а не «C / C / C»: читачеві треба знати, під що код, а не якою мовою.
+    // Підсвітка в усіх — типова C-родина (highlight() бере її за замовчуванням).
+    arduino: "Arduino", ino: "Arduino",
+    "esp-idf": "ESP-IDF", espidf: "ESP-IDF", esp32: "ESP-IDF",
+    stm32: "STM32 HAL", "stm32-hal": "STM32 HAL", "stm32-ll": "STM32 LL",
+    zephyr: "Zephyr", "pico-sdk": "Pico SDK", avr: "AVR"
   };
   function langKey(l) { return (l || "").toLowerCase().replace(/^\./, ""); }
   function langLabel(l) {

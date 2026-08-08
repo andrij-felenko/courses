@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="50.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">канал — суцільний потік байтів</text>
+<rect x="50.0" y="62.0" width="820.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="460.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">3C 11 A7 04 21 09 5E 00 7F 2A B3 44 10 08 C1 6D 92 0F</text>
+<line x1="330.0" y1="114.0" x2="330.0" y2="136.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="610.0" y1="114.0" x2="610.0" y2="136.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="330.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">тут відправник закінчив перший запис</text>
+<text x="610.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">а тут другий — у самих байтах цього немає</text>
+<text x="50.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">черга — список окремих записів</text>
+<text x="50.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">порядок надходження →</text>
+<rect x="50.0" y="300.0" width="210.0" height="72.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="155.0" y="332.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">«оновити налаштування»</tspan><tspan x="155.0" dy="15.6">41 байт · ранг 1</tspan></text>
+<rect x="276.0" y="300.0" width="210.0" height="72.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="381.0" y="332.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="381.0" dy="0.0">«знімок стану»</tspan><tspan x="381.0" dy="15.6">12 байтів · ранг 1</tspan></text>
+<rect x="502.0" y="300.0" width="210.0" height="72.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="607.0" y="332.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="607.0" dy="0.0">«спинися»</tspan><tspan x="607.0" dy="15.6">8 байтів · ранг 9</tspan></text>
+<rect x="740.0" y="300.0" width="130.0" height="72.0" rx="6" fill="#eaf6ec" stroke="#333333" stroke-width="1.5"/><text x="805.0" y="340.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="805.0" dy="0.0">приймач</tspan></text>
+<line x1="712.0" y1="336.0" x2="736.0" y2="336.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="163.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">лежать далі — ранг нижчий</text>
+<text x="615.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">видано першим</text>
+<text x="460.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">довжину й ранг зберігає ядро, тож приймач нічого не відновлює сам</text>
+</svg>

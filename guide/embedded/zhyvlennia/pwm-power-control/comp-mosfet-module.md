@@ -38,10 +38,11 @@
 
 ## «Перший байт»: як заговорити
 
-Це не шина і не протокол — лише ШІМ-сигнал на ніжці IN. Той самий апарат [апаратного LEDC-ШІМ](book:programming/hardware-pwm) із заданою [розрядністю](book:programming/pwm-resolution) тут спрацьовує без жодних змін:
+Це не шина і не протокол — лише ШІМ-сигнал на ніжці IN. Потрібне те саме, що й на будь-якому МК: апаратний таймер у режимі [ШІМ](book:programming/hardware-pwm) — задаєш частоту й [розрядність](book:programming/pwm-resolution), далі лише пишеш число шпаруватості, а ніжку таймер тримає сам. На ESP32 цей блок зветься LEDC, на STM32 — канал таймера в режимі PWM; арифметика та сама.
 
 **Плавний пуск мотора через MOSFET-модуль**
-```cpp
+:::tabs
+```arduino
 // Низькобічний MOSFET-модуль на GPIO16, ШІМ 20 кГц, 8 біт
 const int PIN_GATE = 16;
 const int CH = 0, FREQ = 20000, RES = 8;   // 20 кГц — поза чутністю
@@ -60,8 +61,72 @@ void loop() {
   delay(500);
 }
 ```
+```esp-idf
+#include "driver/ledc.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
-`ledcWrite(CH, 128)` відповідає шпаруватості ~50% — навантаження отримує приблизно половину потужності; мотор крутиться на пів-швидкості, LED горить удвічі темніше. Живе спрацювання перевіряється за секунду. Рівень на ніжці — весь «протокол» спілкування з модулем, але навколо цієї простоти зосереджені три групи помилок: затвор, частота, нагрів.
+#define PIN_GATE 16                          // ніжка на IN модуля
+
+void gate_task(void *arg) {
+    ledc_timer_config_t tcfg = {
+        .speed_mode      = LEDC_LOW_SPEED_MODE,
+        .duty_resolution = LEDC_TIMER_8_BIT,  // шкала 0…255
+        .timer_num       = LEDC_TIMER_0,
+        .freq_hz         = 20000,             // 20 кГц — поза чутністю
+        .clk_cfg         = LEDC_AUTO_CLK,
+    };
+    ESP_ERROR_CHECK(ledc_timer_config(&tcfg));
+
+    ledc_channel_config_t ccfg = {
+        .gpio_num   = PIN_GATE,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
+        .channel    = LEDC_CHANNEL_0,
+        .timer_sel  = LEDC_TIMER_0,
+        .duty       = 0,                      // старт із закритого ключа
+        .hpoint     = 0,
+    };
+    ESP_ERROR_CHECK(ledc_channel_config(&ccfg));
+
+    for (;;) {
+        for (int d = 0; d <= 255; d++) {      // плавний пуск: 0→100%
+            ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, d);
+            ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
+            vTaskDelay(pdMS_TO_TICKS(4));
+        }
+        vTaskDelay(pdMS_TO_TICKS(500));
+    }
+}
+```
+```stm32
+// TIM3_CH1 у режимі ШІМ на ніжці затвора (CubeMX: PSC = 0, ARR = 3999,
+// такт таймера 80 МГц → 80 МГц / 4000 = 20 кГц).
+extern TIM_HandleTypeDef htim3;
+
+#define GATE_TIM  (&htim3)
+#define GATE_CH   TIM_CHANNEL_1
+#define GATE_ARR  3999U
+
+static void gate_set(uint8_t duty8) {         // та сама шкала 0…255
+    __HAL_TIM_SET_COMPARE(GATE_TIM, GATE_CH, (GATE_ARR + 1U) * duty8 / 256U);
+}
+
+void gate_start(void) {
+    gate_set(0);                              // старт із закритого ключа
+    HAL_TIM_PWM_Start(GATE_TIM, GATE_CH);
+}
+
+void gate_ramp(void) {
+    for (int d = 0; d <= 255; d++) {          // плавний пуск: 0→100%
+        gate_set((uint8_t)d);
+        HAL_Delay(4);
+    }
+    HAL_Delay(500);
+}
+```
+:::
+
+Половина шкали шпаруватості (128 із 255) — це ~50%: навантаження отримує приблизно половину потужності; мотор крутиться на пів-швидкості, LED горить удвічі темніше. Живе спрацювання перевіряється за секунду. Рівень на ніжці — весь «протокол» спілкування з модулем, але навколо цієї простоти зосереджені три групи помилок: затвор, частота, нагрів.
 
 ## Затвор: чому «логічний» і навіщо резистор
 

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1130 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1130" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звідки взялася ідея й якими кроками вона потрапила в Linux</text>
+<rect x="90.3" y="45.0" width="279.3" height="49.9" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="230.0" y="66.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">FreeBSD 9.0 (січень 2012), Capsicum</tspan><tspan x="230.0" dy="16.9">pdfork · pdkill · pdwait4</tspan></text>
+<line x1="230.0" y1="108.0" x2="150.0" y2="262.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="430.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">мотив — пісочниця, а не гонка</text>
+<rect x="708.9" y="45.0" width="242.3" height="49.9" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="830.0" y="66.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">Linux, 2015: CLONE_FD / clone4</tspan><tspan x="830.0" dy="16.9">відхилено</tspan></text>
+<line x1="830.0" y1="108.0" x2="830.0" y2="150.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="830.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">«забагато всього в одному кроці»</text>
+<line x1="60.0" y1="280.0" x2="1060.0" y2="280.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="60.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Linux, крок за кроком</text>
+<circle cx="140.0" cy="280.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="140.0" y1="274.0" x2="140.0" y2="234.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="71.9" y="174.2" width="136.3" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="140.0" y="194.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">5.1 (2019)</tspan><tspan x="140.0" dy="15.6">pidfd_send_signal</tspan></text>
+<circle cx="330.0" cy="280.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="330.0" y1="286.0" x2="330.0" y2="326.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="282.4" y="338.2" width="95.2" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="330.0" y="358.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">5.2</tspan><tspan x="330.0" dy="15.6">CLONE_PIDFD</tspan></text>
+<circle cx="505.0" cy="280.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="505.0" y1="274.0" x2="505.0" y2="234.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="460.8" y="174.2" width="88.4" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="505.0" y="194.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="505.0" dy="0.0">5.3</tspan><tspan x="505.0" dy="15.6">pidfd_open</tspan></text>
+<circle cx="665.0" cy="280.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="665.0" y1="286.0" x2="665.0" y2="326.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="603.7" y="338.2" width="122.6" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="665.0" y="358.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">5.4</tspan><tspan x="665.0" dy="15.6">waitid(P_PIDFD)</tspan></text>
+<circle cx="835.0" cy="280.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="835.0" y1="274.0" x2="835.0" y2="234.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="787.4" y="174.2" width="95.2" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="835.0" y="194.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="835.0" dy="0.0">5.6 (2020)</tspan><tspan x="835.0" dy="15.6">pidfd_getfd</tspan></text>
+<circle cx="1000.0" cy="280.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="1000.0" y1="286.0" x2="1000.0" y2="326.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="925.0" y="338.2" width="150.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="1000.0" y="358.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1000.0" dy="0.0">6.9 (2024)</tspan><tspan x="1000.0" dy="15.6">pidfs, PIDFD_THREAD</tspan></text>
+<text x="60.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">до 5.1 обхід — дескриптор на каталог /proc/&lt;pid&gt;</text>
+</svg>

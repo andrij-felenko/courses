@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1230 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1230" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="610.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три випадки: куди ядро кладе сигнальний кадр</text>
+<rect x="40.0" y="46.0" width="330.0" height="500.0" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="205.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Звичайний випадок</text>
+<rect x="450.0" y="46.0" width="330.0" height="500.0" rx="10" fill="#ffffff" stroke="#c0392b" stroke-width="2.2"/>
+<text x="615.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Переповнений стек</text>
+<rect x="860.0" y="46.0" width="330.0" height="500.0" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="1025.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Запасна площадка</text>
+<rect x="80.0" y="100.0" width="250.0" height="120.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="205.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">вільне місце</text>
+<rect x="80.0" y="224.0" width="250.0" height="74.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="205.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">сигнальний кадр</text>
+<rect x="80.0" y="302.0" width="250.0" height="88.0" rx="6" fill="#fbfcff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="205.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">кадри програми</text>
+<text x="64.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan x="64.0" dy="0.0">• місця під вершиною вдосталь</tspan><tspan x="64.0" dy="16.2">• кадр лягає на той самий стек</tspan><tspan x="64.0" dy="16.2">• обробник спокійно запускається</tspan></text>
+<rect x="490.0" y="100.0" width="250.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="615.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">сторожова сторінка</text>
+<rect x="490.0" y="150.0" width="250.0" height="240.0" rx="6" fill="#fbfcff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="615.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="615.0" dy="0.0">стек з'їдено рекурсією</tspan><tspan x="615.0" dy="16.9">вільного місця немає</tspan></text>
+<text x="474.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan x="474.0" dy="0.0">• збій стався саме через брак місця</tspan><tspan x="474.0" dy="16.2">• кадр записати нікуди</tspan><tspan x="474.0" dy="16.2">• обробник не запуститься взагалі</tspan><tspan x="474.0" dy="16.2">• процес убито, у журналі ядра —</tspan><tspan x="474.0" dy="16.2">   слід про поганий кадр</tspan></text>
+<rect x="884.0" y="100.0" width="130.0" height="290.0" rx="6" fill="#fbfcff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="949.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="949.0" dy="0.0">основний</tspan><tspan x="949.0" dy="15.6">стек:</tspan><tspan x="949.0" dy="15.6">місця нема</tspan></text>
+<rect x="1036.0" y="100.0" width="130.0" height="106.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="1101.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">запас</text>
+<rect x="1036.0" y="210.0" width="130.0" height="90.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="1101.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="1101.0" dy="0.0">сигнальний</tspan><tspan x="1101.0" dy="16.2">кадр</tspan></text>
+<text x="1101.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">площадка</text>
+<text x="884.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan x="884.0" dy="0.0">• площадка заведена наперед</tspan><tspan x="884.0" dy="16.2">• кадр лягає осторонь від стека</tspan><tspan x="884.0" dy="16.2">• переповнення стека нарешті</tspan><tspan x="884.0" dy="16.2">   можна спіймати обробником</tspan></text>
+<rect x="40.0" y="556.0" width="1150.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/><text x="615.0" y="582.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="615.0" dy="0.0">Обробник виконується лише там, де ядру вдалося записати кадр — інакше сигнал перетворюється на смерть процесу</tspan></text>
+</svg>

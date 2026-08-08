@@ -71,7 +71,7 @@ void loop() {
 
 ## Телеметрія назад: пишемо в порт без блокування
 
-Тепер зустрічний струмок — машинка → телефон. Раз на секунду шлемо рядок стану. Наївно було б написати `delay(1000)` між посилками, але це заморозило б керування: доки машинка «спить» секунду, вона не читає команд і не спиняється. Тому час відмірюємо [`millis()`](book:programming/millis-micros) — звіряємося з годинником і шлемо, коли настав момент, не блокуючи цикл.
+Тепер зустрічний струмок — машинка → телефон. Раз на секунду шлемо рядок стану. Наївно було б написати `delay(1000)` між посилками, але це заморозило б керування: доки машинка «спить» секунду, вона не читає команд і не спиняється. Тому час відмірюємо за вільним лічильником мілісекунд, що тікає сам собою від увімкнення (в Arduino це [`millis()`](book:programming/millis-micros), на ESP32 — `esp_timer_get_time()`, на STM32 — `HAL_GetTick()`) — звіряємося з годинником і шлемо, коли настав момент, не блокуючи цикл.
 
 ```cpp
 uint32_t lastTelemetry = 0;
@@ -100,15 +100,18 @@ void loop() {
 
 Ключова деталь у форматі: телеметрія завершується `\r\n`. Це не примха модуля (у прозорому режимі йому байдуже, які байти возити) — це **домовленість між машинкою і застосунком** на телефоні. Приймач на тому кінці читає потік і ріже його на рядки саме по `\r\n`; без роздільника всі посилки злипнуться в одну нескінченну стрічку, і застосунок не знатиме, де кінчається одне значення й починається наступне. Роздільник у прозорому потоці завжди призначаєте **ви самі** — модуль тут ні до чого.
 
-Зверніть увагу: `print(bat, 2)` виводить `float` **як текст** із двома знаками після коми, а не сирі байти числа. Це важливо — на іншому кінці людина (чи простий парсер застосунку) читає `7.42`, а не чотири байти IEEE-754, які довелося б розкодовувати.
+Зверніть увагу: число йде в порт **як текст** із двома знаками після коми, а не сирими байтами (`print(bat, 2)` в Arduino, `snprintf(buf, sizeof buf, "%.2f", bat)` там, де рядок форматуємо самі). Це важливо — на іншому кінці людина (чи простий парсер застосунку) читає `7.42`, а не чотири байти IEEE-754, які довелося б розкодовувати.
 
 ---
 
 ## STATE як сторож: обрив зв'язку спиняє мотори
 
-Третій струмок — сам факт зв'язку. Ніжку STATE для рухомого приладу треба ловити на **момент обриву**: щойно STATE впав з 1 у 0, негайно спинити мотори, щоб машинка не поїхала далі з останньою командою.
+Третій струмок — сам факт зв'язку. Ніжку STATE для рухомого приладу треба ловити на **момент обриву**: щойно STATE впав з 1 у 0, негайно спинити мотори, щоб машинка не поїхала далі з останньою командою. Від плати тут потрібен лише звичайний цифровий вхід, який ми читаємо щоцикл, — це вміє будь-який мікроконтролер, різняться самі назви викликів.
 
-```cpp
+:::tabs
+== Arduino (Uno / Nano)
+
+```arduino
 const int PIN_STATE = 7;    // STATE модуля → цей вхід МК
 bool wasConnected = false;
 
@@ -131,17 +134,81 @@ void loop() {
 }
 ```
 
+== ESP-IDF (ESP32)
+
+```esp-idf
+#include "driver/gpio.h"
+#include "esp_log.h"
+
+#define PIN_STATE GPIO_NUM_4        // STATE модуля → цей вхід МК
+
+static const char *TAG = "car";
+static bool wasConnected = false;
+
+static void stateInit(void) {
+    gpio_config_t cfg = {
+        .pin_bit_mask = 1ULL << PIN_STATE,
+        .mode         = GPIO_MODE_INPUT,
+        .pull_up_en   = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_ENABLE,   // поки модуль мовчить, вхід не «висить»
+        .intr_type    = GPIO_INTR_DISABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&cfg));
+}
+
+static void statePoll(void) {                   // виклик у головному циклі задачі
+    bool connected = gpio_get_level(PIN_STATE); // 1 = є з'єднання, 0 = немає
+
+    if (wasConnected && !connected) {
+        // зв'язок ЩОЙНО обірвався — аварійний стоп
+        applyDrive(0, 0);
+        ESP_LOGW(TAG, "Зв'язок втрачено — мотори зупинено.");
+    }
+    wasConnected = connected;
+}
+```
+
+== STM32 (HAL)
+
+```stm32
+#include "main.h"               // STATE модуля → PA0: у CubeMX GPIO_Input, Pull-down
+#include <stdbool.h>
+
+#define STATE_PORT  GPIOA
+#define STATE_PIN   GPIO_PIN_0
+
+static bool wasConnected = false;
+
+static void statePoll(void) {   // виклик у головному циклі while(1)
+    // 1 = є з'єднання, 0 = немає
+    bool connected = (HAL_GPIO_ReadPin(STATE_PORT, STATE_PIN) == GPIO_PIN_SET);
+
+    if (wasConnected && !connected) {
+        // зв'язок ЩОЙНО обірвався — аварійний стоп
+        applyDrive(0, 0);
+        printf("Зв'язок втрачено — мотори зупинено.\r\n");   // консоль налагодження
+    }
+    wasConnected = connected;
+}
+```
+:::
+
 Логіка `wasConnected && !connected` спрацьовує **рівно на переході** 1→0, а не щоцикл, доки зв'язку немає. Це важливо: реагувати треба на *подію* обриву (один раз спинити), а не безперервно спамити «немає зв'язку».
 
 > 🔧 **Навіщо це.** Без STATE машинка, у якої обірвався зв'язок посеред команди «вперед», поїде в стіну — бо остання команда в буфері лишилась «вперед», а нової «стоп» уже ніхто не пришле. STATE перетворює це з катастрофи на аварійний стоп за міліметри. Це не прикраса, а елемент безпеки будь-чого рухомого на радіокеруванні: пульт може вийти із зони, розрядитись, зависнути — і пристрій мусить це помітити сам, а не чекати команди, якої вже не буде.
 
 ---
 
-## Повний скетч машинки: усе разом
+## Повна програма машинки: усе разом
 
-Зберемо три струмки — команди всередину, телеметрія назовні, STATE як сторож — в один робочий скетч для Uno. Це вже не фрагменти, а те, що можна залити й поїхати. (Налаштування модуля — ім'я, PIN, швидкість — це окремий одноразовий скетч із `configureModule()` з [довідника інтерфейсу](book:connect/bluetooth-hc05/api-hc05-uart.md); тут модуль уже налаштований і працює прозорим містом.)
+Зберемо три струмки — команди всередину, телеметрія назовні, STATE як сторож — в одну робочу програму. Це вже не фрагменти, а те, що можна залити й поїхати. (Налаштування модуля — ім'я, PIN, швидкість — це окрема одноразова програма з `configureModule()` з [довідника інтерфейсу](book:connect/bluetooth-hc05/api-hc05-uart.md); тут модуль уже налаштований і працює прозорим містом.)
 
-```cpp
+Від мікроконтролера потрібне на будь-якій платформі те саме: **UART** на 9600, заведений на модуль; **один цифровий вхід** під STATE; **лічильник мілісекунд**, щоб відміряти секунду телеметрії; і головний цикл, який нічим не блокується. Далі — три втілення того самого приладу: **Arduino** (Uno/Nano, програмний порт), **ESP-IDF** (ESP32, апаратний UART2) і **STM32 HAL** (USART1 із прийманням по перериванню). Це не транслітерація одного скетча: логіка приладу спільна, різниться лише те, як платформа дає порт, вхід і годинник.
+
+:::tabs
+== Arduino (Uno / Nano)
+
+```arduino
 #include <SoftwareSerial.h>
 
 SoftwareSerial btSerial(10, 11);   // (RX ← TXD модуля, TX → RXD модуля через дільник)
@@ -203,7 +270,183 @@ void loop() {
 }
 ```
 
-Придивіться, як три задачі мирно живуть в одному нескінченному циклі **без жодного `delay`**. Команди вибираються всі одразу (`while`), сторож зв'язку перевіряється щоцикл (миттєва реакція на обрив), телеметрія йде за годинником `millis()` (не спиняючи керування). Це і є різниця між скетчем із підручника, що блокується на кожному кроці, і живим приладом, який робить кілька справ водночас. Один прохід циклу займає мікросекунди, тож машинка реагує на команду практично миттєво.
+== ESP-IDF (ESP32)
+
+```esp-idf
+#include <stdio.h>
+#include <stdbool.h>
+#include "driver/uart.h"
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_timer.h"
+#include "esp_log.h"
+
+#define BT_UART    UART_NUM_2
+#define PIN_TXD    GPIO_NUM_17      // → RXD модуля (3.3 В — дільник не потрібен)
+#define PIN_RXD    GPIO_NUM_16      // ← TXD модуля
+#define PIN_STATE  GPIO_NUM_4
+
+static const char *TAG = "car";
+
+static int      speedLevel    = 5;
+static bool     wasConnected  = false;
+static int64_t  lastTelemetry = 0;
+
+void  applyDrive(int leftDir, int rightDir);   // ваша реалізація моторів
+float readBattery(void);                       // ваш давач напруги
+
+static void handleCommand(char c) {
+    switch (c) {
+        case 'F': applyDrive(+1, +1); break;
+        case 'B': applyDrive(-1, -1); break;
+        case 'L': applyDrive(-1, +1); break;
+        case 'R': applyDrive(+1, -1); break;
+        case 'S': applyDrive( 0,  0); break;
+        default:
+            if (c >= '0' && c <= '9') speedLevel = c - '0';
+            break;
+    }
+}
+
+static void btInit(void) {
+    const uart_config_t cfg = {
+        .baud_rate  = 9600,          // РОБОЧА швидкість модуля (не 38400 — тут не AT)
+        .data_bits  = UART_DATA_8_BITS,
+        .parity     = UART_PARITY_DISABLE,
+        .stop_bits  = UART_STOP_BITS_1,
+        .flow_ctrl  = UART_HW_FLOWCTRL_DISABLE,
+        .source_clk = UART_SCLK_DEFAULT,
+    };
+    ESP_ERROR_CHECK(uart_driver_install(BT_UART, 256, 0, 0, NULL, 0));
+    ESP_ERROR_CHECK(uart_param_config(BT_UART, &cfg));
+    ESP_ERROR_CHECK(uart_set_pin(BT_UART, PIN_TXD, PIN_RXD,
+                                 UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
+
+    gpio_config_t st = {
+        .pin_bit_mask = 1ULL << PIN_STATE,
+        .mode         = GPIO_MODE_INPUT,
+        .pull_down_en = GPIO_PULLDOWN_ENABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&st));
+}
+
+void app_main(void) {
+    btInit();
+    applyDrive(0, 0);                // старт зі стопу
+
+    while (1) {
+        // 1) команди від телефона → дії; 0 тиків очікування = НЕ блокуємось
+        uint8_t buf[32];
+        int n = uart_read_bytes(BT_UART, buf, sizeof buf, 0);
+        for (int i = 0; i < n; i++) handleCommand((char)buf[i]);
+
+        // 2) сторож зв'язку: обрив → аварійний стоп
+        bool connected = gpio_get_level(PIN_STATE);
+        if (wasConnected && !connected) {
+            applyDrive(0, 0);
+            ESP_LOGW(TAG, "Зв'язок втрачено — стоп.");
+        }
+        wasConnected = connected;
+
+        // 3) телеметрія раз на секунду, без блокування
+        int64_t now = esp_timer_get_time() / 1000;   // мкс → мс
+        if (connected && now - lastTelemetry >= 1000) {
+            lastTelemetry = now;
+            char line[32];
+            int len = snprintf(line, sizeof line, "BAT:%.2f SPD:%d\r\n",
+                               readBattery(), speedLevel);
+            uart_write_bytes(BT_UART, line, len);
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(5));   // віддаємо процесор іншим задачам RTOS
+    }
+}
+```
+
+== STM32 (HAL)
+
+```stm32
+// USART1 (9600 8N1) → модуль, приймання по перериванню; STATE → PA0 (Input, Pull-down).
+// Для "%.2f" у snprintf увімкніть підтримку float у printf: -u _printf_float.
+#include "main.h"
+#include <stdio.h>
+#include <stdbool.h>
+
+extern UART_HandleTypeDef huart1;
+
+#define STATE_PORT  GPIOA
+#define STATE_PIN   GPIO_PIN_0
+#define RX_SIZE     64              // степінь двійки: індекс маскуємо, а не ділимо
+
+static volatile uint8_t rxRing[RX_SIZE];
+static volatile uint8_t rxHead = 0, rxTail = 0;
+static uint8_t rxByte;
+
+static int      speedLevel    = 5;
+static bool     wasConnected  = false;
+static uint32_t lastTelemetry = 0;
+
+void  applyDrive(int leftDir, int rightDir);   // ваша реалізація моторів
+float readBattery(void);                       // ваш давач напруги
+
+// Байт із модуля лягає в кільце й одразу чекаємо наступний — головний цикл не спиняється.
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    if (huart->Instance == USART1) {
+        rxRing[rxHead++ % RX_SIZE] = rxByte;
+        HAL_UART_Receive_IT(huart, &rxByte, 1);
+    }
+}
+
+static bool btAvailable(void) { return rxHead != rxTail; }
+static char btRead(void)      { return (char)rxRing[rxTail++ % RX_SIZE]; }
+
+static void handleCommand(char c) {
+    switch (c) {
+        case 'F': applyDrive(+1, +1); break;
+        case 'B': applyDrive(-1, -1); break;
+        case 'L': applyDrive(-1, +1); break;
+        case 'R': applyDrive(+1, -1); break;
+        case 'S': applyDrive( 0,  0); break;
+        default:
+            if (c >= '0' && c <= '9') speedLevel = c - '0';
+            break;
+    }
+}
+
+int main(void) {
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_USART1_UART_Init();
+
+    HAL_UART_Receive_IT(&huart1, &rxByte, 1);   // запускаємо приймання
+    applyDrive(0, 0);                           // старт зі стопу
+
+    while (1) {
+        // 1) команди від телефона → дії
+        while (btAvailable()) handleCommand(btRead());
+
+        // 2) сторож зв'язку: обрив → аварійний стоп
+        bool connected = (HAL_GPIO_ReadPin(STATE_PORT, STATE_PIN) == GPIO_PIN_SET);
+        if (wasConnected && !connected) applyDrive(0, 0);
+        wasConnected = connected;
+
+        // 3) телеметрія раз на секунду, без блокування
+        uint32_t now = HAL_GetTick();           // мілісекунди від старту
+        if (connected && now - lastTelemetry >= 1000) {
+            lastTelemetry = now;
+            char line[32];
+            int len = snprintf(line, sizeof line, "BAT:%.2f SPD:%d\r\n",
+                               readBattery(), speedLevel);
+            HAL_UART_Transmit(&huart1, (uint8_t *)line, len, 100);
+        }
+    }
+}
+```
+:::
+
+Придивіться, як три задачі мирно живуть в одному нескінченному циклі **без жодного `delay`**. Команди вибираються всі одразу (`while`), сторож зв'язку перевіряється щоцикл (миттєва реакція на обрив), телеметрія йде за годинником `millis()` (не спиняючи керування). Це і є різниця між прикладом із підручника, що блокується на кожному кроці, і живим приладом, який робить кілька справ водночас. Один прохід циклу займає мікросекунди, тож машинка реагує на команду практично миттєво.
 
 ---
 
@@ -211,7 +454,7 @@ void loop() {
 
 Пастки самого інтерфейсу — швидкість AT, перехрещення TX/RX, дільник на RXD — зібрані в [довіднику інтерфейсу](book:connect/bluetooth-hc05/api-hc05-uart.md). Тут — те, на чому губиться час саме в **логіці приладу**.
 
-**`delay()` у циклі — прилад глухне до всього.** `delay(1000)` між посилками телеметрії заморожує керування на секунду: команди не читаються, STATE не перевіряється, аварійний стоп не спрацює. Періодичні дії робіть за [`millis()`](book:programming/millis-micros), лишаючи цикл вільним.
+**Блокувальна пауза в циклі — прилад глухне до всього.** `delay(1000)` (чи `HAL_Delay(1000)`) між посилками телеметрії заморожує керування на секунду: команди не читаються, STATE не перевіряється, аварійний стоп не спрацює. Періодичні дії робіть за вільним лічильником часу ([`millis()`](book:programming/millis-micros), `esp_timer_get_time()`, `HAL_GetTick()`), лишаючи цикл вільним.
 
 **Немає роздільника в потоці телеметрії — застосунок не ріже рядки.** У прозорому режимі модуль возить байти як є; ділити потік на осмислені шматки — ваша робота. Забудете `\r\n` (чи інший роздільник) наприкінці кожної посилки — на телефоні все зіллється в суцільну стрічку. Роздільник призначаєте ви, узгоджено з приймачем.
 

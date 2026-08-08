@@ -638,6 +638,7 @@
         { slug: "lateral-pnp", title: "Бічний PNP-транзистор", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "hemt-2deg", title: "HEMT і двовимірний електронний газ", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "heteroepitaxy", title: "Гетероепітаксія: кристал на чужій підкладці", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "rowhammer", title: "Rowhammer: перемикання бітів збуренням сусідніх рядків DRAM", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "components", title: "Компоненти", scope: "Пасивні елементи кіл, їхні параметри, неідеальності та конструкція.",
       topics: [

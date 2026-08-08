@@ -57,48 +57,127 @@
 
 > 🔧 **Навіщо це.** Вмикай `-Wall -Wextra` з першого рядка нового проєкту. У власному коді постав `-Werror` — нехай жоден ворнінг не накопичується. Нуль ворнінгів цілком реальний і вартий: кожен проігнорований ворнінг — це баг, який ти вже **бачив** і свідомо пропустив. Ворнінг ловить безкоштовно те, на що інакше довелося б писати [окремий тест](guide:embedded/firmware-testing) — і навіть тест не завжди знайде, якщо баг залежить від конкретного значення в конкретній умові.
 
-**Ворнінг, що рятує від мовчазного бага.**
+**Ворнінг, що рятує від мовчазного бага.** Обидві пастки не залежать від платформи: скрізь є читання рівня ніжки й запис бітової маски в периферію — міняються лише назви функцій, а не природа помилки.
 
-```c
-// Фрагмент під ESP32/GCC:
+:::tabs
+```arduino
+#include <Wire.h>
 
 // (а) = замість ==
-uint8_t flag = 0;
-if (flag = gpio_get_level(GPIO_NUM_2)) {   // пастка: присвоєння, не порівняння
-    Serial.println("triggered");           // виконується завжди, коли рівень != 0
+int flag = 0;
+if (flag = digitalRead(2)) {           // пастка: присвоєння, не порівняння
+    Serial.println("triggered");       // виконується завжди, коли рівень != 0
 }
 
 // (б) звуження типу — маска нульова
-uint8_t mask = (uint8_t)(1 << 9);          // 1<<9 = 512 = 0x200; uint8_t → 0
-REG_WRITE(GPIO_OUT_W1TS_REG, mask);        // нічого не вмикає, мовчки провалюється
+uint8_t mask = 1 << 9;                 // 1<<9 = 512 = 0x200; uint8_t → 0
+Wire.beginTransmission(0x20);
+Wire.write(mask);                      // у розширювач іде 0 — жоден вихід не встає
+Wire.endTransmission();
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "esp_log.h"
+static const char *TAG = "trap";
 
-Компілятор із `-Wall` (xtensa-esp32-elf-gcc) відповідає:
+// (а) = замість ==
+int flag = 0;
+if (flag = gpio_get_level(GPIO_NUM_2)) {   // пастка: присвоєння, не порівняння
+    ESP_LOGI(TAG, "triggered");            // спрацьовує завжди, коли рівень != 0
+}
+
+// (б) звуження типу — маска нульова
+uint8_t mask = 1 << 9;                     // 1<<9 = 512 = 0x200; uint8_t → 0
+gpio_config_t io = {
+    .pin_bit_mask = mask,                  // 0 — жодної ніжки не налаштовано
+    .mode = GPIO_MODE_OUTPUT,
+};
+ESP_ERROR_CHECK(gpio_config(&io));         // мовчки не робить нічого
+```
+```stm32
+#include "main.h"
+
+// (а) = замість ==
+GPIO_PinState flag = GPIO_PIN_RESET;
+if (flag = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)) {  // пастка: присвоєння, не порівняння
+    printf("triggered\r\n");                       // виконується завжди, коли не RESET
+}
+
+// (б) звуження типу — маска нульова
+uint8_t mask = 1 << 9;                 // 1<<9 = 512 = 0x200 (GPIO_PIN_9); uint8_t → 0
+GPIO_InitTypeDef init = {0};
+init.Pin = mask;                       // 0 — HAL_GPIO_Init не чіпає жодної ніжки
+init.Mode = GPIO_MODE_OUTPUT_PP;
+init.Pull = GPIO_NOPULL;
+HAL_GPIO_Init(GPIOA, &init);           // мовчки не робить нічого
+```
+:::
+
+Компілятор із `-Wall` відповідає однаково, хоч який це порт GCC — `avr-gcc`, `xtensa-esp32-elf-gcc` чи `arm-none-eabi-gcc` (нижче — рядки з першої вкладки):
 
 ```
 warning: suggest parentheses around assignment used as truth value [-Wparentheses]
-    if (flag = gpio_get_level(GPIO_NUM_2)) {
+    if (flag = digitalRead(2)) {
               ^
 warning: large integer implicitly truncated to unsigned type [-Woverflow]
-    uint8_t mask = (uint8_t)(1 << 9);
-                             ^
+    uint8_t mask = 1 << 9;
+                     ^
 ```
 
 Виправлений варіант:
 
-```c
+:::tabs
+```arduino
 // (а) правильно: порівняння, не присвоєння
-if (gpio_get_level(GPIO_NUM_2) != 0) {
+if (digitalRead(2) == HIGH) {
     Serial.println("triggered");
 }
 
-// (б) правильно: ширина зсуву відповідає цільовому типу
-uint32_t mask32 = (1UL << 9);              // 0x200, у 32-розрядному регістрі
-REG_WRITE(GPIO_OUT_W1TS_REG, mask32);
+// (б) правильно: ширина типу відповідає ширині маски
+uint16_t mask16 = (1U << 9);           // 0x200 — влазить у 16 розрядів
+Wire.beginTransmission(0x20);
+Wire.write(highByte(mask16));
+Wire.write(lowByte(mask16));
+Wire.endTransmission();
 
-// або якщо потрібен саме uint8_t — біт має влазити (1..7, не 9):
-uint8_t mask8 = (1U << 2);                 // 0x04 — влазить у uint8_t
+// або якщо потрібен саме uint8_t — біт має влазити (0..7, не 9):
+uint8_t mask8 = (1U << 2);             // 0x04 — влазить у uint8_t
 ```
+```esp-idf
+// (а) правильно: порівняння, не присвоєння
+if (gpio_get_level(GPIO_NUM_2) != 0) {
+    ESP_LOGI(TAG, "triggered");
+}
+
+// (б) правильно: тип тримає всю ширину маски
+uint64_t mask = (1ULL << 9);           // pin_bit_mask — 64-розрядне поле
+gpio_config_t io = {
+    .pin_bit_mask = mask,
+    .mode = GPIO_MODE_OUTPUT,
+};
+ESP_ERROR_CHECK(gpio_config(&io));
+
+// або якщо потрібен саме uint8_t — біт має влазити (0..7, не 9):
+uint8_t mask8 = (1U << 2);             // 0x04 — влазить у uint8_t
+```
+```stm32
+// (а) правильно: порівняння, не присвоєння
+if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET) {
+    printf("triggered\r\n");
+}
+
+// (б) правильно: тип тримає всю ширину маски
+uint32_t mask32 = (1UL << 9);          // 0x200 == GPIO_PIN_9, поле Pin — 32-розрядне
+GPIO_InitTypeDef init = {0};
+init.Pin = mask32;
+init.Mode = GPIO_MODE_OUTPUT_PP;
+init.Pull = GPIO_NOPULL;
+HAL_GPIO_Init(GPIOA, &init);
+
+// або якщо потрібен саме uint8_t — біт має влазити (0..7, не 9):
+uint8_t mask8 = (1U << 2);             // 0x04 — влазить у uint8_t
+```
+:::
 
 Без `-Wall` обидва фрагменти зібралися б, залилися в чіп — і поводилися б загадково: кнопка «завжди тригерована», периферія «не реагує». З `-Wall` проблему видно за секунду, ще на ПК.
 

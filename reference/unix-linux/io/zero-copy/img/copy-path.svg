@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="18.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">read() + write(): дві копії процесором</text>
+<rect x="150.0" y="78.0" width="160.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="230.0" y="111.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">Кеш сторінок</tspan></text>
+<rect x="840.0" y="78.0" width="125.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="902.5" y="103.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="902.5" dy="0.0">Мережева</tspan><tspan x="902.5" dy="16.9">карта</tspan></text>
+<rect x="380.0" y="78.0" width="160.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="460.0" y="103.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Буфер</tspan><tspan x="460.0" dy="16.9">програми</tspan></text>
+<rect x="610.0" y="78.0" width="160.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="690.0" y="103.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Черга сокета</tspan><tspan x="690.0" dy="16.9">(байти)</tspan></text>
+<line x1="310.0" y1="107.0" x2="380.0" y2="107.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="345.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">копія</text>
+<line x1="540.0" y1="107.0" x2="610.0" y2="107.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="575.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">копія</text>
+<line x1="770.0" y1="107.0" x2="840.0" y2="107.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="805.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">DMA</text>
+<text x="18.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">sendfile(): одна копія, всередині ядра</text>
+<rect x="150.0" y="208.0" width="160.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="230.0" y="241.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">Кеш сторінок</tspan></text>
+<rect x="840.0" y="208.0" width="125.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="902.5" y="233.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="902.5" dy="0.0">Мережева</tspan><tspan x="902.5" dy="16.9">карта</tspan></text>
+<rect x="610.0" y="208.0" width="160.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="690.0" y="233.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Черга сокета</tspan><tspan x="690.0" dy="16.9">(байти)</tspan></text>
+<line x1="310.0" y1="237.0" x2="610.0" y2="237.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="460.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">копія всередині ядра</text>
+<line x1="770.0" y1="237.0" x2="840.0" y2="237.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="805.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">DMA</text>
+<text x="18.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">sendfile() зі збиранням картою: жодної копії процесором</text>
+<rect x="150.0" y="338.0" width="160.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="230.0" y="371.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">Кеш сторінок</tspan></text>
+<rect x="840.0" y="338.0" width="125.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="902.5" y="363.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="902.5" dy="0.0">Мережева</tspan><tspan x="902.5" dy="16.9">карта</tspan></text>
+<rect x="610.0" y="338.0" width="160.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="690.0" y="363.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Черга сокета</tspan><tspan x="690.0" dy="16.9">(вказівники)</tspan></text>
+<line x1="310.0" y1="367.0" x2="610.0" y2="367.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="460.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">посилання на сторінки</text>
+<line x1="770.0" y1="367.0" x2="840.0" y2="367.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="805.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">DMA</text>
+<text x="150.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">— копія процесором</text>
+<text x="430.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">— DMA пристроєм</text>
+<text x="700.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">— лише посилання</text>
+</svg>

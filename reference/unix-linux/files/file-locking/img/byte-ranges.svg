@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1030 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1030" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Замок на діапазон байтів і що з ним робить часткове зняття</text>
+<text x="96.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">було</text>
+<text x="306.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">A: замок на запис, байти 0–2047</text>
+<text x="831.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">B: замок на читання, 3072–4095</text>
+<rect x="96.0" y="126.0" width="840.0" height="42.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="96.0" y="126.0" width="420.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="726.0" y="126.0" width="210.0" height="42.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="96.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">після F_UNLCK на байтах 512–1535</text>
+<text x="148.5" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">0–511</text>
+<text x="306.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">вільно</text>
+<text x="463.5" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">1536–2047</text>
+<text x="831.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">без змін</text>
+<rect x="96.0" y="268.0" width="840.0" height="42.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="96.0" y="268.0" width="105.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="411.0" y="268.0" width="105.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="726.0" y="268.0" width="210.0" height="42.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="96.0" y1="336.0" x2="936.0" y2="336.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="96.0" y1="330.0" x2="96.0" y2="342.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="96.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="306.0" y1="330.0" x2="306.0" y2="342.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="306.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1024</text>
+<line x1="516.0" y1="330.0" x2="516.0" y2="342.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="516.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">2048</text>
+<line x1="726.0" y1="330.0" x2="726.0" y2="342.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="726.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">3072</text>
+<line x1="935.8" y1="330.0" x2="935.8" y2="342.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="935.8" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">4096</text>
+<text x="516.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">зміщення у файлі, байти</text>
+<text x="96.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">Один замок став двома окремими записами в ядрі — саме на цьому розрізанні й вичерпується їх запас (ENOLCK).</text>
+<text x="96.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">Замок на весь файл — це просто l_start = 0, l_len = 0: від початку й до кінця, хоч би куди той кінець доріс.</text>
+</svg>

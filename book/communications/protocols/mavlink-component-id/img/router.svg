@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1170 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1170" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="580.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Маршрут будують не з таблиці мереж, а з того, кого де чули</text>
+<rect x="465.0" y="272.8" width="230.0" height="54.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="580.0" y="295.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">Маршрутизатор</tspan><tspan x="580.0" dy="19.5">три канали</tspan></text>
+<rect x="55.0" y="145.1" width="250.0" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="166.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Канал A — UART</tspan><tspan x="180.0" dy="16.9">чув: 1/1,  1/100</tspan></text>
+<rect x="55.0" y="415.1" width="250.0" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="436.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Канал B — USB</tspan><tspan x="180.0" dy="16.9">чув: 1/191</tspan></text>
+<rect x="855.0" y="275.1" width="250.0" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="980.0" y="296.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="980.0" dy="0.0">Канал C — UDP</tspan><tspan x="980.0" dy="16.9">чув: 255/190</tspan></text>
+<line x1="852.0" y1="300.0" x2="700.0" y2="300.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="776.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">вхід</text>
+<line x1="462.0" y1="272.0" x2="310.0" y2="190.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="392.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">переслати</text>
+<line x1="462.0" y1="330.0" x2="310.0" y2="418.0" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="7,6"/>
+<text x="392.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">мовчимо</text>
+<text x="580.0" y="540.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Пакет із target 1/100. Цю пару чули лише на каналі A —</text>
+<text x="580.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">туди його й віддають, решту каналів не турбують.</text>
+</svg>

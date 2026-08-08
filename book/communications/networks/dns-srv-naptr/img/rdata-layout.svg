@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1070 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1070" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розкладка RDATA записів SRV і NAPTR</text>
+<text x="50.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">RDATA на дроті: з чого складається кожен запис</text>
+<text x="50.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">SRV — тип 33</text>
+<rect x="50.0" y="106.0" width="150.0" height="76.0" rx="6" fill="#eef3fb" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="125.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">PRIORITY</text>
+<text x="125.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="125.0" dy="0.0">2 байти</tspan><tspan x="125.0" dy="14.3">0–65535</tspan></text>
+<rect x="200.0" y="106.0" width="150.0" height="76.0" rx="6" fill="#eef3fb" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="275.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">WEIGHT</text>
+<text x="275.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="275.0" dy="0.0">2 байти</tspan><tspan x="275.0" dy="14.3">0–65535</tspan></text>
+<rect x="350.0" y="106.0" width="150.0" height="76.0" rx="6" fill="#eef3fb" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="425.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">PORT</text>
+<text x="425.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="425.0" dy="0.0">2 байти</tspan><tspan x="425.0" dy="14.3">0–65535</tspan></text>
+<rect x="500.0" y="106.0" width="510.0" height="76.0" rx="6" fill="#eef8f1" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="755.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">TARGET</text>
+<text x="755.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="755.0" dy="0.0">ім'я домену, без компресії</tspan><tspan x="755.0" dy="14.3">канонічне ім'я або «.»</tspan></text>
+<text x="50.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Три числа фіксованої довжини, далі — ім'я вузла, а не адреса.</text>
+<text x="50.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">NAPTR — тип 35</text>
+<rect x="50.0" y="280.0" width="115.0" height="76.0" rx="6" fill="#eef3fb" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="107.5" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">ORDER</text>
+<text x="107.5" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="107.5" dy="0.0">2 байти</tspan><tspan x="107.5" dy="14.3">0–65535</tspan></text>
+<rect x="165.0" y="280.0" width="130.0" height="76.0" rx="6" fill="#eef3fb" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="230.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">PREFERENCE</text>
+<text x="230.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="230.0" dy="0.0">2 байти</tspan><tspan x="230.0" dy="14.3">0–65535</tspan></text>
+<rect x="295.0" y="280.0" width="130.0" height="76.0" rx="6" fill="#fdf3e6" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="360.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">FLAGS</text>
+<text x="360.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="360.0" dy="0.0">рядок</tspan><tspan x="360.0" dy="14.3">1 + ≤255 Б</tspan></text>
+<rect x="425.0" y="280.0" width="140.0" height="76.0" rx="6" fill="#fdf3e6" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="495.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">SERVICES</text>
+<text x="495.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="495.0" dy="0.0">рядок</tspan><tspan x="495.0" dy="14.3">1 + ≤255 Б</tspan></text>
+<rect x="565.0" y="280.0" width="130.0" height="76.0" rx="6" fill="#fdf3e6" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="630.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">REGEXP</text>
+<text x="630.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="630.0" dy="0.0">рядок</tspan><tspan x="630.0" dy="14.3">1 + ≤255 Б</tspan></text>
+<rect x="695.0" y="280.0" width="315.0" height="76.0" rx="6" fill="#eef8f1" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="852.5" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">REPLACEMENT</text>
+<text x="852.5" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="852.5" dy="0.0">ім'я домену</tspan><tspan x="852.5" dy="14.3">або «.»</tspan></text>
+<text x="50.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Три поля посередині — рядки: перший байт задає довжину, звідси межа 255.</text>
+<text x="50.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Останні два взаємовиключні: заповнене або REGEXP, або REPLACEMENT.</text>
+</svg>

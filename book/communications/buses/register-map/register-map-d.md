@@ -79,10 +79,10 @@ reg = reg | (0b10 << 3)          // вставили 10:         0001 0010 = 0x1
 
 ### Усе разом: оживлення в коді
 
-Зберімо рецепт у код. Ось як виглядає типове оживлення давача — від перевірки до читання, на стандартній бібліотеці `Wire`. Спершу два маленькі помічники: один читає байт регістра за адресою, другий — записує.
+Зберімо рецепт у код. Хай яке середовище, потрібні рівно дві дії: записати байт у регістр і прочитати байт із регістра — усе інше з них складається. Кожна I2C-бібліотека дає їх під своєю назвою: в Arduino це `Wire`, в ESP-IDF — `driver/i2c.h`, у STM32 HAL — `HAL_I2C_Mem_*`, у Linux — `smbus`. Спершу два маленькі помічники: один читає байт регістра за адресою, другий — записує.
 
 :::tabs
-```c
+```arduino
 #include <Wire.h>
 
 // --- адреси з даташита MPU-6050 ---
@@ -108,6 +108,65 @@ void writeReg(uint8_t reg, uint8_t val) {
     Wire.write(reg);
     Wire.write(val);
     Wire.endTransmission();
+}
+```
+```esp-idf
+#include "driver/i2c.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+
+static const char *TAG = "mpu6050";
+
+// --- адреси з даташита MPU-6050 ---
+#define PORT        I2C_NUM_0       // шина I2C, налаштована через i2c_param_config()
+#define ADDR        0x68            // адреса чіпа на шині I2C
+#define REG_WHO     0x75            // WHO_AM_I
+#define EXPECTED_ID 0x68            // сталий код саме цього чіпа
+#define REG_PWR     0x6B            // PWR_MGMT_1
+#define REG_CFG     0x1C            // ACCEL_CONFIG (діапазон у бітах 4:3)
+#define REG_XOUT_H  0x3B            // старший байт виміру осі X
+
+// прочитати один байт регістра reg
+static uint8_t read_reg(uint8_t reg) {
+    uint8_t val = 0;
+    // драйвер сам робить «запис номера — повторний старт — читання»
+    esp_err_t err = i2c_master_write_read_device(PORT, ADDR, &reg, 1,
+                                                 &val, 1, pdMS_TO_TICKS(100));
+    if (err != ESP_OK) ESP_LOGE(TAG, "читання 0x%02X: %s", reg, esp_err_to_name(err));
+    return val;
+}
+
+// записати один байт val у регістр reg
+static void write_reg(uint8_t reg, uint8_t val) {
+    uint8_t buf[2] = { reg, val };   // номер регістра й значення — одним записом
+    esp_err_t err = i2c_master_write_to_device(PORT, ADDR, buf, 2, pdMS_TO_TICKS(100));
+    if (err != ESP_OK) ESP_LOGE(TAG, "запис 0x%02X: %s", reg, esp_err_to_name(err));
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+
+extern I2C_HandleTypeDef hi2c1;     // ініціалізований у MX_I2C1_Init()
+
+// --- адреси з даташита MPU-6050 ---
+#define ADDR        (0x68 << 1)     // HAL чекає 8-бітову адресу: 7 біт зсунуті вліво
+#define REG_WHO     0x75            // WHO_AM_I
+#define EXPECTED_ID 0x68            // сталий код саме цього чіпа
+#define REG_PWR     0x6B            // PWR_MGMT_1
+#define REG_CFG     0x1C            // ACCEL_CONFIG (діапазон у бітах 4:3)
+#define REG_XOUT_H  0x3B            // старший байт виміру осі X
+
+// прочитати один байт регістра reg
+static uint8_t read_reg(uint8_t reg) {
+    uint8_t val = 0;
+    // Mem_Read і є шаблон «номер регістра, повторний старт, читання»
+    HAL_I2C_Mem_Read(&hi2c1, ADDR, reg, I2C_MEMADD_SIZE_8BIT, &val, 1, 100);
+    return val;
+}
+
+// записати один байт val у регістр reg
+static void write_reg(uint8_t reg, uint8_t val) {
+    HAL_I2C_Mem_Write(&hi2c1, ADDR, reg, I2C_MEMADD_SIZE_8BIT, &val, 1, 100);
 }
 ```
 ```python
@@ -137,7 +196,7 @@ def writeReg(reg, val):
 Маючи ці двоє, увесь рецепт лягає у кілька рядків:
 
 :::tabs
-```c
+```arduino
 // 1. Перевірка: чи це той чіп?
 if (readReg(REG_WHO) != EXPECTED_ID) {
     // біда з дротами або адресою — далі не йти
@@ -154,6 +213,43 @@ uint8_t hi = readReg(REG_XOUT_H);
 uint8_t lo = readReg(REG_XOUT_H + 1);          // сусідня комірка 0x3C
 int16_t raw = (int16_t)((hi << 8) | lo);       // склали два байти в число
 float ax = raw / 4096.0f;                       // сирий відлік → g (±8g → 4096 LSB/g)
+```
+```esp-idf
+// 1. Перевірка: чи це той чіп?
+if (read_reg(REG_WHO) != EXPECTED_ID) {
+    ESP_LOGE(TAG, "чіпа нема на 0x%02X — дроти або адреса", ADDR);
+    vTaskDelete(NULL);                         // задачу далі не крутити
+}
+
+// 2. Налаштування (раз при старті задачі):
+write_reg(REG_PWR, 0x00);                      // вийти зі сну
+uint8_t c = read_reg(REG_CFG);                 // читай-зміни-запиши:
+write_reg(REG_CFG, (c & ~0x18) | (0b10 << 3)); // діапазон AFS = ±8g
+
+// 3. Читання виміру осі X (у циклі задачі FreeRTOS):
+uint8_t hi = read_reg(REG_XOUT_H);
+uint8_t lo = read_reg(REG_XOUT_H + 1);         // сусідня комірка 0x3C
+int16_t raw = (int16_t)((hi << 8) | lo);       // склали два байти в число
+float ax = raw / 4096.0f;                      // сирий відлік → g (±8g → 4096 LSB/g)
+vTaskDelay(pdMS_TO_TICKS(10));                 // віддати процесор іншим задачам
+```
+```stm32
+// 1. Перевірка: чи це той чіп?
+if (read_reg(REG_WHO) != EXPECTED_ID) {
+    Error_Handler();                           // біда з дротами або адресою
+}
+
+// 2. Налаштування (раз при старті, після MX_I2C1_Init()):
+write_reg(REG_PWR, 0x00);                      // вийти зі сну
+uint8_t c = read_reg(REG_CFG);                 // читай-зміни-запиши:
+write_reg(REG_CFG, (c & ~0x18) | (0b10 << 3)); // діапазон AFS = ±8g
+
+// 3. Читання виміру осі X (у головному циклі):
+uint8_t hi = read_reg(REG_XOUT_H);
+uint8_t lo = read_reg(REG_XOUT_H + 1);         // сусідня комірка 0x3C
+int16_t raw = (int16_t)((hi << 8) | lo);       // склали два байти в число
+float ax = raw / 4096.0f;                      // сирий відлік → g (±8g → 4096 LSB/g)
+HAL_Delay(10);
 ```
 ```python
 # 1. Перевірка: чи це той чіп?

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 654" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="654" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Збережений RIP означає різне залежно від того, звідки прийшов сигнал</text>
+<text x="70.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">А. Збій від самої інструкції</text>
+<text x="533.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="533.0" dy="0.0">збережений RIP</tspan><tspan x="533.0" dy="16.9">показує САМЕ на аварійну інструкцію</tspan></text>
+<line x1="533.0" y1="130.0" x2="533.0" y2="152.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="70.0" y="156.0" width="280.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.9"/>
+<text x="210.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">…попередні інструкції…</text>
+<text x="210.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">уже виконані</text>
+<rect x="368.0" y="156.0" width="330.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.9"/>
+<text x="533.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">movq (%rdi), %rax</text>
+<text x="533.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ось вона впала</text>
+<rect x="716.0" y="156.0" width="300.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.9"/>
+<text x="866.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">movl $1, %eax</text>
+<text x="866.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ще не виконана</text>
+<rect x="70.0" y="234.0" width="1040.0" height="96.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="590.0" y="278.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Повернення без правки → процесор виконає ТУ САМУ інструкцію → той самий збій → той самий сигнал.</tspan><tspan x="590.0" dy="16.9">Якщо обробник не усунув причину й не переставив RIP, це нескінченний цикл.</tspan></text>
+<text x="70.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Б. Сигнал застав перерваний системний виклик</text>
+<text x="493.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="493.0" dy="0.0">збережений RIP — ВІДКОЧЕНИЙ на два байти назад,</tspan><tspan x="493.0" dy="16.9">а в RAX лежить номер виклику, не результат</tspan></text>
+<line x1="493.0" y1="434.0" x2="493.0" y2="456.0" stroke="#2457d6" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="70.0" y="460.0" width="280.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.9"/>
+<text x="210.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">movl $0, %eax</text>
+<text x="210.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">номер виклику read</text>
+<rect x="368.0" y="460.0" width="250.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.9"/>
+<text x="493.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">syscall</text>
+<text x="493.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">два байти</text>
+<rect x="636.0" y="460.0" width="380.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.9"/>
+<text x="826.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">cmpq $-1, %rax</text>
+<text x="826.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">сюди виклик повернувся б</text>
+<rect x="70.0" y="538.0" width="1040.0" height="96.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="590.0" y="573.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Ядро вже приготувало повтор виклику — ДО того, як побудувало кадр. Переставите RIP — повтору не буде;</tspan><tspan x="590.0" dy="16.9">перепишете RAX — виклик піде з чужим номером. Правити контекст безпечно лише для сигналів,</tspan><tspan x="590.0" dy="16.9">породжених самою інструкцією: SIGSEGV, SIGBUS, SIGILL, SIGFPE.</tspan></text>
+</svg>

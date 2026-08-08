@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="40.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">хибний порядок</text>
+<line x1="90.0" y1="150.0" x2="940.0" y2="150.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="85.0" y="72.0" width="170.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="98.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">вичерпали чергу</tspan><tspan x="170.0" dy="15.6">(порожньо)</tspan></text>
+<line x1="170.0" y1="134.0" x2="170.0" y2="146.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="315.0" y="72.0" width="170.0" height="60.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="98.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">надійшло</tspan><tspan x="400.0" dy="15.6">повідомлення</tspan></text>
+<line x1="400.0" y1="134.0" x2="400.0" y2="146.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="545.0" y="72.0" width="170.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="98.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">mq_notify()</tspan><tspan x="630.0" dy="15.6">— запізно</tspan></text>
+<line x1="630.0" y1="134.0" x2="630.0" y2="146.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="770.0" y="72.0" width="170.0" height="60.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="855.0" y="98.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="855.0" dy="0.0">sigsuspend()</tspan><tspan x="855.0" dy="15.6">сон назавжди</tspan></text>
+<line x1="855.0" y1="134.0" x2="855.0" y2="146.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="500.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">край «порожньо → непорожньо» пройшов, коли сторожа ще не було</text>
+<text x="40.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">правильний порядок</text>
+<line x1="90.0" y1="350.0" x2="940.0" y2="350.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="85.0" y="272.0" width="170.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="306.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">mq_notify()</tspan></text>
+<line x1="170.0" y1="334.0" x2="170.0" y2="346.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="315.0" y="272.0" width="170.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="298.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">вичерпали</tspan><tspan x="400.0" dy="15.6">до EAGAIN</tspan></text>
+<line x1="400.0" y1="334.0" x2="400.0" y2="346.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="545.0" y="272.0" width="170.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="630.0" y="298.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">надійшло</tspan><tspan x="630.0" dy="15.6">повідомлення</tspan></text>
+<line x1="630.0" y1="334.0" x2="630.0" y2="346.0" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="770.0" y="272.0" width="170.0" height="60.0" rx="6" fill="#eaf6ec" stroke="#333333" stroke-width="1.5"/><text x="855.0" y="298.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="855.0" dy="0.0">сигнал →</tspan><tspan x="855.0" dy="15.6">прокинулися</tspan></text>
+<line x1="855.0" y1="334.0" x2="855.0" y2="346.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="500.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">сторож стоїть від самого початку, тож край нікуди не подівся</text>
+<text x="490.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">час →</text>
+</svg>

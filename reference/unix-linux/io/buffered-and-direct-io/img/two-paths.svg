@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буферизоване й пряме читання: що лишається в пам'яті після виклику</text>
+<text x="310.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">буферизоване читання</text>
+<text x="930.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">пряме читання (O_DIRECT)</text>
+<line x1="620.0" y1="70.0" x2="620.0" y2="570.0" stroke="#c8ccd2" stroke-width="1.2" stroke-dasharray="6 6"/>
+<rect x="120.0" y="90.0" width="380.0" height="66.0" rx="8" fill="#eafaf0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="310.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">носій: сектори по 4096 байтів</text>
+<text x="310.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">накопичувач</text>
+<rect x="120.0" y="250.0" width="380.0" height="66.0" rx="8" fill="#fdf3e7" stroke="#2457d6" stroke-width="1.8"/>
+<text x="310.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">сторінка кеша сторінок</text>
+<text x="310.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">пам'ять ядра, лишається після виклику</text>
+<rect x="120.0" y="410.0" width="380.0" height="66.0" rx="8" fill="#fbfcff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="310.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">буфер програми</text>
+<text x="310.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">власна пам'ять процесу</text>
+<rect x="740.0" y="90.0" width="380.0" height="66.0" rx="8" fill="#eafaf0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="930.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">носій: сектори по 4096 байтів</text>
+<text x="930.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">накопичувач</text>
+<rect x="740.0" y="410.0" width="380.0" height="66.0" rx="8" fill="#fbfcff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="930.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">буфер програми, сторінки закріплені</text>
+<text x="930.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">власна пам'ять процесу</text>
+<line x1="310.0" y1="160.0" x2="310.0" y2="244.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="330.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="330.0" dy="0.0">DMA пристрою</tspan><tspan x="330.0" dy="14.3">в пам'ять ядра</tspan></text>
+<line x1="310.0" y1="320.0" x2="310.0" y2="404.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="330.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start"><tspan x="330.0" dy="0.0">копіювання процесором</tspan><tspan x="330.0" dy="14.3">(≈0.7 ядра на 7 ГБ/с)</tspan></text>
+<line x1="930.0" y1="160.0" x2="930.0" y2="404.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="950.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="950.0" dy="0.0">DMA пристрою просто</tspan><tspan x="950.0" dy="14.3">в буфер програми</tspan></text>
+<rect x="60.0" y="520.0" width="500.0" height="132.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="310.0" y="559.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">сторінка лишилася в пам'яті:</tspan><tspan x="310.0" dy="15.6">• обслужить наступного читача</tspan><tspan x="310.0" dy="15.6">• дозволяє читання наперед</tspan><tspan x="310.0" dy="15.6">• збирає дрібні записи в один</tspan><tspan x="310.0" dy="15.6">• колись витіснить чиюсь чужу</tspan></text>
+<rect x="680.0" y="520.0" width="500.0" height="132.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="930.0" y="559.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="930.0" dy="0.0">у пам'яті не лишилося нічого:</tspan><tspan x="930.0" dy="15.6">• кеш свій або ніякий</tspan><tspan x="930.0" dy="15.6">• читання наперед своє</tspan><tspan x="930.0" dy="15.6">• кожен запис — окрема операція</tspan><tspan x="930.0" dy="15.6">• вимоги до вирівнювання</tspan></text>
+</svg>

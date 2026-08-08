@@ -10,7 +10,7 @@
 
 Написати прошивку під KY-028 здавалося б неважко: читай ногу, дивись біт. Але щойно ти хочеш зробити це **надійно** — так, щоб той самий скетч запрацював на будь-якій платі KY-028, куплений сьогодні чи через рік, підключений до Arduino Uno чи до ESP32, — вилазять три несподіванки, і кожна ламає наївний код. По-перше, полярність цифрового виходу на різних партіях **протилежна**: на одній платі спокій — це «1», на іншій — «0», і код, зашитий під один варіант, на другому спрацьовує навпаки. По-друге, на самій межі порогу біт **дрижить**: температура зависає рівно на точці спрацювання, найменший шум перекидає компаратор туди-сюди, і твій вентилятор клацає реле десять разів на секунду. По-третє, аналоговий вихід AO спокушає «дати градуси», але дати їх **не може** — і код, який пробує, бреше числами.
 
-Ця вставка — про те, як обійти всі три пастки одним акуратним скетчем. Ми збудуємо термостат, який на старті **сам визначає**, у який бік дивиться його DO, глушить тремтіння **програмним гістерезисом** (двома порогами замість одного) і використовує AO чесно — лише як напрям і швидкість зміни, не як температуру. Код буде справжній, компільований C/C++ під Arduino, і окремо — під ESP32, де додаються свої тонкощі з АЦП і напругою логіки. Кожен рядок — з поясненням, чому він саме такий, бо диявол тут увесь у дрібницях.
+Ця вставка — про те, як обійти всі три пастки одним акуратним скетчем. Ми збудуємо термостат, який на старті **сам визначає**, у який бік дивиться його DO, глушить тремтіння **програмним гістерезисом** (двома порогами замість одного) і використовує AO чесно — лише як напрям і швидкість зміни, не як температуру. Код буде справжній і компільований: кожен приклад дано вкладками — під Arduino, під ESP-IDF і під STM32 HAL, — а окремо розібрано ESP32, де додаються свої тонкощі з АЦП і напругою логіки. Кожен рядок — з поясненням, чому він саме такий, бо диявол тут увесь у дрібницях.
 
 ## Задача
 
@@ -19,7 +19,7 @@
 1. **Читати DO як порогове рішення** — «гаряче / не гаряче» — незалежно від того, якої полярності конкретна плата.
 2. **Не смикати виконавчий пристрій** (вентилятор, нагрівач, сигнал), коли температура застрягла на межі порогу: перемикати чисто, один раз угору й один раз униз, а не тремтіти.
 3. **За бажання — стежити за трендом через AO**: бачити, куди й наскільки різко хитнулася температура, не претендуючи на градуси.
-4. Працювати **однаково** на 5-вольтовому Arduino й на 3.3-вольтовому ESP32, не спаливши вхід останнього.
+4. Працювати **однаково** на 5-вольтовій платі (Arduino Uno) і на 3.3-вольтовій (ESP32, STM32), не спаливши вхід останньої.
 
 Кожна з цих вимог народжена реальною поведінкою модуля, і кожну треба закрити в коді свідомо. Розберімо їх по черзі — спершу ідею, тоді код.
 
@@ -43,15 +43,16 @@
 
 **AO читаємо лише як тренд.** Тут ідея коротка: [аналоговий вихід KY-028 понівечений навантаженням](book:sensors/ky-028-temp) — сигнал перевернутий (гарячіше → менше вольтів) і стиснутий, а Beta-стала намистини виробником не публікується, тож у градуси його не перевести. Але **напрям** і **швидкість** зміни він передає чесно: якщо число на AO падає — теплішає; падає різко — теплішає швидко. На цьому й будуємо: читаємо АЦП, **інвертуємо знак** (щоб «більше = тепліше» було інтуїтивним), згладжуємо дрібний шум і дивимося на **різницю** між сусідніми замірами як на швидкість. Жодного `map()` у °C — це була б брехня.
 
-Тепер — код. Почнемо з Arduino, найтиповішої платформи, і зробимо повний робочий термостат.
+Тепер — код. Від мікроконтролера всі три прийоми вимагають зовсім небагато: один цифровий вхід без внутрішньої підтяжки, один цифровий вихід, вільний лічильник мілісекунд і — для двох останніх кроків — канал АЦП. Це є на будь-якій платформі, тож кожен приклад даємо трьома вкладками: Arduino, ESP-IDF, STM32 HAL. Починаємо з Arduino, бо там запис найкоротший і механіка видніша.
 
 ## Крок 1: читати DO як кнопку
 
-Найпростіше, з чого варто почати, — переконатися, що ми взагалі правильно читаємо біт. DO — це логічний вхід, читається як звичайна кнопка: [`pinMode(INPUT)`](book:electronics/gpio) і `digitalRead`. Підтяжка на DO вже стоїть на модулі (той самий відкритий колектор), тож внутрішня підтяжка мікроконтролера тут не потрібна — беремо чистий `INPUT`, не `INPUT_PULLUP`.
+Найпростіше, з чого варто почати, — переконатися, що ми взагалі правильно читаємо біт. DO — це логічний вхід, читається як звичайна кнопка: налаштувати [вивід](book:electronics/gpio) на вхід і питати його рівень (`pinMode(INPUT)` + `digitalRead` в Arduino, `gpio_config` з `GPIO_MODE_INPUT` + `gpio_get_level` в ESP-IDF, ніжка в режимі `GPIO_Input` + `HAL_GPIO_ReadPin` у STM32). Підтяжка на DO вже стоїть на модулі (той самий відкритий колектор), тож внутрішню підтяжку мікроконтролера вмикати **не треба** — беремо вхід без підтяжки: `INPUT` замість `INPUT_PULLUP`, `GPIO_PULLUP_DISABLE`, `GPIO_NOPULL`.
 
-**Умова.** DO модуля під'єднано до цифрового виводу D2. Треба у циклі читати біт і друкувати сирий рівень у монітор, щоб очима побачити, який стан у спокої, а який — коли гріємо намистину пальцем.
+**Умова.** DO модуля під'єднано до звичайного цифрового виводу (в Arduino-прикладі це D2, в ESP-IDF — GPIO32, у STM32 — ніжка `DO_Pin`). Треба у циклі читати біт і друкувати сирий рівень у монітор, щоб очима побачити, який стан у спокої, а який — коли гріємо намистину пальцем.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t DO_PIN = 2;      // цифровий вихід модуля (поріг компаратора)
 
 void setup() {
@@ -65,6 +66,52 @@ void loop() {
     delay(300);
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_log.h"
+
+static const char *TAG = "ky028";
+#define DO_PIN  GPIO_NUM_32            // цифровий вихід модуля (поріг компаратора)
+
+void app_main(void) {
+    gpio_config_t cfg = {
+        .pin_bit_mask = 1ULL << DO_PIN,
+        .mode         = GPIO_MODE_INPUT,
+        .pull_up_en   = GPIO_PULLUP_DISABLE,    // DO вже підтягнутий на платі модуля
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type    = GPIO_INTR_DISABLE,
+    };
+    gpio_config(&cfg);
+
+    while (1) {
+        int level = gpio_get_level(DO_PIN);     // 0 або 1 — сирий рівень
+        ESP_LOGI(TAG, "%s", level ? "DO = HIGH" : "DO = LOW");
+        vTaskDelay(pdMS_TO_TICKS(300));
+    }
+}
+```
+```stm32
+/* DO_GPIO_Port / DO_Pin налаштовано в CubeMX як GPIO_Input, Pull-up/Pull-down = None:
+   підтяжка вже стоїть на платі модуля */
+#include "main.h"
+#include <stdio.h>
+
+int main(void) {
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_USART2_UART_Init();             // printf перенаправлено на UART
+
+    while (1) {
+        GPIO_PinState level = HAL_GPIO_ReadPin(DO_GPIO_Port, DO_Pin);   // сирий рівень
+        printf("%s\r\n", level == GPIO_PIN_SET ? "DO = HIGH" : "DO = LOW");
+        HAL_Delay(300);
+    }
+}
+```
+:::
 
 Запусти це, лиши намистину в спокої на кілька секунд — запиши, що друкується (скажімо, `HIGH`). Тоді піднеси палець, погрій намистину — рівень має **перекинутися** (на `LOW`), а гвинтиком можна довести поріг так, щоб він перемикався саме там, де тобі треба. Цей крихітний скетч — не іграшка, а **діагностика**: він показує тобі полярність **твоєї** плати наживо. Але вписувати цю полярність у код константою було б крихко (наступна плата — інша), тож зробімо, щоб код визначав її сам.
 
@@ -74,7 +121,8 @@ void loop() {
 
 Один нюанс робить це надійним: читати спокій варто **не одним пострілом**, а кількома замірами поспіль, і взяти найчастіший. Якщо перший-єдиний `digitalRead` випадково спіймає модуль у момент електричної завади, полярність визначиться навпаки на весь сеанс. Кілька замірів із голосуванням цю випадковість прибирають.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t DO_PIN = 2;
 
 int  restLevel = HIGH;     // рівень DO у спокої — визначимо на старті
@@ -117,12 +165,106 @@ void loop() {
     delay(20);
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_log.h"
+
+static const char *TAG = "ky028";
+#define DO_PIN  GPIO_NUM_32
+
+static int  rest_level = 1;        // рівень DO у спокої — визначимо на старті
+static bool was_hot    = false;    // попередній стан, щоб ловити саме ПЕРЕХІД
+
+// Прочитати «спокій»: кілька замірів, повернути найчастіший рівень.
+static int read_rest_level(void) {
+    const int N = 15;
+    int highs = 0;
+    for (int i = 0; i < N; i++) {
+        if (gpio_get_level(DO_PIN)) highs++;
+        vTaskDelay(pdMS_TO_TICKS(5));
+    }
+    return (highs > N / 2) ? 1 : 0;            // більшість голосів
+}
+
+// «Гаряче» = стан, протилежний до виміряного спокою — полярність-незалежно.
+static bool is_hot(void) { return gpio_get_level(DO_PIN) != rest_level; }
+
+void app_main(void) {
+    gpio_config_t cfg = {
+        .pin_bit_mask = 1ULL << DO_PIN,       .mode         = GPIO_MODE_INPUT,
+        .pull_up_en   = GPIO_PULLUP_DISABLE,  .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type    = GPIO_INTR_DISABLE,
+    };
+    gpio_config(&cfg);
+
+    vTaskDelay(pdMS_TO_TICKS(300));           // дати модулю усталитися після живлення
+    rest_level = read_rest_level();           // ВАЖЛИВО: тут температура має бути в НОРМІ
+    ESP_LOGI(TAG, "Спокій DO = %s", rest_level ? "HIGH (гаряче буде LOW)"
+                                               : "LOW (гаряче буде HIGH)");
+
+    while (1) {
+        bool hot = is_hot();
+        if (hot != was_hot) {                 // друкуємо лише перехід
+            ESP_LOGI(TAG, "%s", hot ? ">> перетнуло поріг: ГАРЯЧЕ"
+                                    : "<< нижче порогу: норма");
+            was_hot = hot;
+        }
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+```
+```stm32
+/* DO_GPIO_Port / DO_Pin — GPIO_Input, GPIO_NOPULL (підтяжка на платі модуля) */
+#include "main.h"
+#include <stdbool.h>
+#include <stdio.h>
+
+static GPIO_PinState restLevel = GPIO_PIN_SET;   // рівень DO у спокої
+static bool          wasHot    = false;          // попередній стан — ловимо ПЕРЕХІД
+
+/* Прочитати «спокій»: кілька замірів, повернути найчастіший рівень. */
+static GPIO_PinState ReadRestLevel(void) {
+    const int N = 15;
+    int highs = 0;
+    for (int i = 0; i < N; i++) {
+        if (HAL_GPIO_ReadPin(DO_GPIO_Port, DO_Pin) == GPIO_PIN_SET) highs++;
+        HAL_Delay(5);
+    }
+    return (highs > N / 2) ? GPIO_PIN_SET : GPIO_PIN_RESET;   // більшість голосів
+}
+
+/* «Гаряче» = стан, протилежний до виміряного спокою — полярність-незалежно. */
+static bool IsHot(void) {
+    return HAL_GPIO_ReadPin(DO_GPIO_Port, DO_Pin) != restLevel;
+}
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_USART2_UART_Init();
+
+    HAL_Delay(300);                     // дати модулю усталитися після живлення
+    restLevel = ReadRestLevel();        // ВАЖЛИВО: тут температура має бути в НОРМІ
+    printf("Спокій DO = %s\r\n", restLevel == GPIO_PIN_SET ? "HIGH (гаряче буде LOW)"
+                                                           : "LOW (гаряче буде HIGH)");
+    while (1) {
+        bool hot = IsHot();
+        if (hot != wasHot) {            // друкуємо лише перехід
+            printf("%s\r\n", hot ? ">> перетнуло поріг: ГАРЯЧЕ"
+                                 : "<< нижче порогу: норма");
+            wasHot = hot;
+        }
+        HAL_Delay(20);
+    }
+}
+```
+:::
 
 Розберемо ключові місця.
 
 **`readRestLevel()` з голосуванням.** П'ятнадцять замірів по 5 мс — це близько 75 мілісекунд, за які ми надійно ловимо усталений спокій, а не випадкову шпильку. Повертаємо `HIGH` або `LOW` — той рівень, що траплявся частіше. Це наш «нуль відліку».
 
-**`restLevel` вимірюється в `setup()` — і саме тому важлива стартова умова.** Уся конструкція тримається на припущенні, що на момент увімкнення температура **нижча за поріг**. Для термостата проти перегріву це майже завжди так: вмикаєш пристрій у кімнаті, поріг виставлено на «гаряче». Якщо ж у твоєму сценарії на старті може бути жарко, познач це і задай полярність вручну — про це нижче, у пастках.
+**`restLevel` вимірюється один раз у стартовій ініціалізації — і саме тому важлива стартова умова.** (Це `setup()` в Arduino, початок `app_main()` в ESP-IDF, `main()` до головного циклу в STM32 — суть та сама: до першого робочого оберту.) Уся конструкція тримається на припущенні, що на момент увімкнення температура **нижча за поріг**. Для термостата проти перегріву це майже завжди так: вмикаєш пристрій у кімнаті, поріг виставлено на «гаряче». Якщо ж у твоєму сценарії на старті може бути жарко, познач це і задай полярність вручну — про це нижче, у пастках.
 
 **`isHot()` — одне-єдине місце, де вирішується полярність.** Уся решта програми питає `isHot()` і не знає ні про `HIGH`, ні про `LOW`. Захотів перевернути логіку під якийсь особливий випадок — правиш **один** метод, не полюєш за `LOW`-ами по всьому коду. Ця дисципліна — «одне рішення в одному місці» — рятує від найпідступніших багів полярності.
 
@@ -132,11 +274,12 @@ void loop() {
 
 Коли ми покладаємося на апаратний поріг гвинтика (читаємо тільки DO), найпростіший гістерезис — **часовий**: щойно стан змінився, ми на короткий проміжок **не приймаємо** наступну зміну. Ідея така: перехід через поріг — момент, коли сигнал перебуває в зоні невизначеності й може кілька разів «клацнути»; ми пропускаємо цей неспокійний проміжок, зафіксувавши перший перехід, і слухаємо знову лише коли сигнал напевно вийшов з межі.
 
-Реалізуємо без блокувального `delay()` — на `millis()`, щоб цикл лишався живим і міг робити інші справи (це важливо, бо в справжньому пристрої термостат не єдина турбота).
+Реалізуємо без блокувальної паузи — на вільному лічильнику мілісекунд (`millis()` в Arduino, `esp_timer_get_time()` в ESP-IDF, `HAL_GetTick()` у STM32), щоб цикл лишався живим і міг робити інші справи (це важливо, бо в справжньому пристрої термостат не єдина турбота).
 
-**Умова.** DO на D2, виконавчий вихід (реле/вентилятор, тут — світлодіод плати) на D13. Треба вмикати навантаження, коли «гаряче», вимикати, коли «норма», і **не смикати** його частіше ніж раз на, скажімо, 2 секунди — навіть якщо біт дрижить.
+**Умова.** DO на цифровому вході, виконавчий вихід (реле/вентилятор, тут — світлодіод плати) на цифровому виході. Треба вмикати навантаження, коли «гаряче», вимикати, коли «норма», і **не смикати** його частіше ніж раз на, скажімо, 2 секунди — навіть якщо біт дрижить.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t DO_PIN  = 2;
 const uint8_t LOAD    = 13;         // реле/вентилятор (тут — вбудований LED)
 
@@ -180,6 +323,116 @@ void loop() {
     // ... тут цикл вільний робити будь-що інше, він не заблокований ...
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_timer.h"
+#include "esp_log.h"
+
+static const char *TAG = "ky028";
+#define DO_PIN      GPIO_NUM_32
+#define LOAD_PIN    GPIO_NUM_2          // реле/вентилятор (тут — вбудований LED)
+#define LOCKOUT_MS  2000                // «карантин» після зміни стану
+
+static int      rest_level = 1;
+static bool     state      = false;     // поточний стан термостата: true = «гаряче»
+static uint32_t last_flip  = 0;         // коли востаннє перемкнулися, мс
+
+static uint32_t now_ms(void) { return (uint32_t)(esp_timer_get_time() / 1000); }
+
+static int read_rest_level(void) {
+    const int N = 15; int highs = 0;
+    for (int i = 0; i < N; i++) { if (gpio_get_level(DO_PIN)) highs++;
+                                  vTaskDelay(pdMS_TO_TICKS(5)); }
+    return (highs > N / 2) ? 1 : 0;
+}
+
+static bool raw_hot(void) { return gpio_get_level(DO_PIN) != rest_level; }
+
+void app_main(void) {
+    gpio_config_t in = { .pin_bit_mask = 1ULL << DO_PIN, .mode = GPIO_MODE_INPUT,
+                         .pull_up_en = GPIO_PULLUP_DISABLE,
+                         .pull_down_en = GPIO_PULLDOWN_DISABLE,
+                         .intr_type = GPIO_INTR_DISABLE };
+    gpio_config(&in);
+    gpio_config_t out = { .pin_bit_mask = 1ULL << LOAD_PIN, .mode = GPIO_MODE_OUTPUT };
+    gpio_config(&out);
+
+    vTaskDelay(pdMS_TO_TICKS(300));
+    rest_level = read_rest_level();
+    state = raw_hot();                        // початковий стан — від реальності
+    gpio_set_level(LOAD_PIN, state);
+    last_flip = now_ms();
+
+    while (1) {
+        bool hot = raw_hot();
+
+        // Приймаємо зміну стану, ЛИШЕ якщо минув карантин від минулого перемикання.
+        if (hot != state && (now_ms() - last_flip) >= LOCKOUT_MS) {
+            state = hot;
+            last_flip = now_ms();
+            gpio_set_level(LOAD_PIN, state);
+            ESP_LOGI(TAG, "%s", state ? ">> увімкнув навантаження (ГАРЯЧЕ)"
+                                      : "<< вимкнув навантаження (норма)");
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(10));        // задача віддає час іншим, а не спить на зміні
+    }
+}
+```
+```stm32
+/* DO_GPIO_Port/DO_Pin — GPIO_Input, NOPULL; LOAD_GPIO_Port/LOAD_Pin — GPIO_Output */
+#include "main.h"
+#include <stdbool.h>
+#include <stdio.h>
+
+#define LOCKOUT_MS  2000U                    // «карантин» після зміни стану
+
+static GPIO_PinState restLevel = GPIO_PIN_SET;
+static bool          state     = false;      // поточний стан термостата: true = «гаряче»
+static uint32_t      lastFlip  = 0;          // коли востаннє перемкнулися (тіки HAL, мс)
+
+static GPIO_PinState ReadRestLevel(void) {
+    const int N = 15; int highs = 0;
+    for (int i = 0; i < N; i++) {
+        if (HAL_GPIO_ReadPin(DO_GPIO_Port, DO_Pin) == GPIO_PIN_SET) highs++;
+        HAL_Delay(5);
+    }
+    return (highs > N / 2) ? GPIO_PIN_SET : GPIO_PIN_RESET;
+}
+
+static bool RawHot(void) {
+    return HAL_GPIO_ReadPin(DO_GPIO_Port, DO_Pin) != restLevel;
+}
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_USART2_UART_Init();
+
+    HAL_Delay(300);
+    restLevel = ReadRestLevel();
+    state = RawHot();                        // початковий стан — від реальності
+    HAL_GPIO_WritePin(LOAD_GPIO_Port, LOAD_Pin, state ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    lastFlip = HAL_GetTick();
+
+    while (1) {
+        bool hot = RawHot();
+
+        /* Приймаємо зміну стану, ЛИШЕ якщо минув карантин від минулого перемикання. */
+        if (hot != state && (HAL_GetTick() - lastFlip) >= LOCKOUT_MS) {
+            state = hot;
+            lastFlip = HAL_GetTick();
+            HAL_GPIO_WritePin(LOAD_GPIO_Port, LOAD_Pin,
+                              state ? GPIO_PIN_SET : GPIO_PIN_RESET);
+            printf("%s\r\n", state ? ">> увімкнув навантаження (ГАРЯЧЕ)"
+                                   : "<< вимкнув навантаження (норма)");
+        }
+
+        /* ... тут цикл вільний робити будь-що інше, він не заблокований ... */
+    }
+}
+```
+:::
 
 Чому саме так.
 
@@ -193,11 +446,12 @@ void loop() {
 
 Якщо хочеться, щоб поріг задавала **програма**, а не гвинтик, і щоб гістерезис був справжній (два різні рівні напруги, а не часовий трюк), — читаємо AO самі й порівнюємо з двома числовими порогами. Тут ми більше не залежимо від апаратного порогу компаратора взагалі: DO можна навіть не під'єднувати. Гвинтик у цьому режимі ролі не грає.
 
-Пам'ятаємо головне про AO: [сигнал перевернутий](book:sensors/ky-028-temp) — гарячіше дає **менше** вольтів, тобто **менше** число з АЦП. Щоб думати в звичних термінах «більше = тепліше», одразу інвертуємо: на 10-бітному АЦП Arduino (0..1023) беремо `warm = 1023 - analogRead(AO)`. Тепер `warm` росте з теплом, і два пороги читаються природно.
+Пам'ятаємо головне про AO: [сигнал перевернутий](book:sensors/ky-028-temp) — гарячіше дає **менше** вольтів, тобто **менше** число з АЦП. Щоб думати в звичних термінах «більше = тепліше», одразу інвертуємо: `warm = FULL - сире`, де `FULL` — верх шкали АЦП (1023 на 10-бітному АЦП класичного Arduino, 4095 на 12-бітних АЦП ESP32 і STM32). Тепер `warm` росте з теплом, і два пороги читаються природно.
 
-**Умова.** AO на A0, навантаження на D13. Пороги задаємо в коді: вмикати навантаження, коли `warm` перетнув **верхній** поріг, вимикати — коли впав нижче **нижнього**. Між ними — мертва зона, у якій стан тримається. Числа порогів підбирають один раз під конкретну намистину й місце, спостерігаючи `warm` у моніторі.
+**Умова.** AO на аналоговому вході (Arduino — A0; ESP32 — GPIO34, канал ADC1; STM32 — канал, заведений у `hadc1`), навантаження на цифровому виході. Пороги задаємо в коді: вмикати навантаження, коли `warm` перетнув **верхній** поріг, вимикати — коли впав нижче **нижнього**. Між ними — мертва зона, у якій стан тримається. Числа порогів підбирають один раз під конкретну намистину й місце, спостерігаючи `warm` у моніторі.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t AO_PIN = A0;
 const uint8_t LOAD   = 13;
 
@@ -236,6 +490,116 @@ void loop() {
     delay(50);
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "esp_adc/adc_oneshot.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_log.h"
+
+static const char *TAG = "ky028";
+#define LOAD_PIN    GPIO_NUM_2
+#define AO_CHANNEL  ADC_CHANNEL_6            // GPIO34 — ADC1, працює й з Wi-Fi
+
+// Пороги в одиницях (4095 - сире): БІЛЬШЕ = тепліше. Верхній > нижнього;
+// зазор між ними — і є гістерезис. Підібрати під свою намистину.
+#define WARM_ON     2560
+#define WARM_OFF    2400
+
+static adc_oneshot_unit_handle_t adc1;
+static bool state = false;                   // true = навантаження ввімкнене
+static int  warmS = 0;                       // згладжене значення (проти шуму АЦП)
+
+static int read_warm(void) {
+    int raw = 0;
+    adc_oneshot_read(adc1, AO_CHANNEL, &raw);
+    return 4095 - raw;                       // інвертуємо: більше = тепліше
+}
+
+void app_main(void) {
+    gpio_config_t out = { .pin_bit_mask = 1ULL << LOAD_PIN, .mode = GPIO_MODE_OUTPUT };
+    gpio_config(&out);
+
+    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
+    adc_oneshot_new_unit(&unit, &adc1);
+    adc_oneshot_chan_cfg_t ch = { .bitwidth = ADC_BITWIDTH_12,
+                                  .atten    = ADC_ATTEN_DB_12 };
+    adc_oneshot_config_channel(adc1, AO_CHANNEL, &ch);
+
+    warmS = read_warm();                     // початкове наповнення фільтра
+
+    while (1) {
+        int warm = read_warm();
+        warmS += (warm - warmS) / 4;         // проста згладжувальна ланка (шум АЦП)
+
+        // Гістерезис ЗА РІВНЕМ: два різні пороги вгору й униз.
+        if (!state && warmS >= WARM_ON) {            // вище верхнього → вмикаємо
+            state = true;  gpio_set_level(LOAD_PIN, 1);
+            ESP_LOGI(TAG, ">> ГАРЯЧЕ (warm вище верхнього порогу)");
+        } else if (state && warmS <= WARM_OFF) {     // нижче нижнього → вимикаємо
+            state = false; gpio_set_level(LOAD_PIN, 0);
+            ESP_LOGI(TAG, "<< норма (warm нижче нижнього порогу)");
+        }
+        // у зоні WARM_OFF..WARM_ON стан НЕ міняється — тремтіння погашене
+
+        ESP_LOGD(TAG, "warm = %d", warmS);           // для підбору порогів
+        vTaskDelay(pdMS_TO_TICKS(50));
+    }
+}
+```
+```stm32
+/* hadc1 налаштовано на канал, куди заведено AO; роздільність 12 біт (0..4095).
+   LOAD_GPIO_Port / LOAD_Pin — GPIO_Output. */
+#include "main.h"
+#include <stdbool.h>
+#include <stdio.h>
+
+/* Пороги в одиницях (4095 - сире): БІЛЬШЕ = тепліше.
+   Зазор WARM_OFF..WARM_ON — і є гістерезис; підібрати під свою намистину. */
+#define WARM_ON   2560
+#define WARM_OFF  2400
+
+extern ADC_HandleTypeDef hadc1;
+
+static bool state = false;          // true = навантаження ввімкнене
+static int  warmS = 0;              // згладжене значення (проти шуму АЦП)
+
+static int ReadWarm(void) {
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_PollForConversion(&hadc1, 10);
+    int raw = (int)HAL_ADC_GetValue(&hadc1);
+    HAL_ADC_Stop(&hadc1);
+    return 4095 - raw;              // інвертуємо: більше = тепліше
+}
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_ADC1_Init();
+    MX_USART2_UART_Init();
+
+    warmS = ReadWarm();             // початкове наповнення фільтра
+
+    while (1) {
+        int warm = ReadWarm();
+        warmS += (warm - warmS) / 4;                 // згладжувальна ланка (шум АЦП)
+
+        /* Гістерезис ЗА РІВНЕМ: два різні пороги вгору й униз. */
+        if (!state && warmS >= WARM_ON) {            /* вище верхнього → вмикаємо */
+            state = true;
+            HAL_GPIO_WritePin(LOAD_GPIO_Port, LOAD_Pin, GPIO_PIN_SET);
+            printf(">> ГАРЯЧЕ (warm вище верхнього порогу)\r\n");
+        } else if (state && warmS <= WARM_OFF) {     /* нижче нижнього → вимикаємо */
+            state = false;
+            HAL_GPIO_WritePin(LOAD_GPIO_Port, LOAD_Pin, GPIO_PIN_RESET);
+            printf("<< норма (warm нижче нижнього порогу)\r\n");
+        }
+        /* у зоні WARM_OFF..WARM_ON стан НЕ міняється — тремтіння погашене */
+
+        printf("warm = %d\r\n", warmS);              /* для підбору порогів */
+        HAL_Delay(50);
+    }
+}
+```
+:::
 
 Що тут важить.
 
@@ -251,7 +615,8 @@ void loop() {
 
 Іноді поріг не потрібен зовсім — потрібно **стежити за зміною**: тепліє чи холоне, і як швидко. AO для цього годиться саме тим, чим не годиться для градусів: він **чутливий до зміни**, хай і в перекручених одиницях. Витягнемо з нього напрям і швидкість, не претендуючи на абсолют.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t AO_PIN = A0;
 
 int  warmS = 0;              // згладжене «тепло» (більше = тепліше)
@@ -280,6 +645,98 @@ void loop() {
     }
 }
 ```
+```esp-idf
+#include "esp_adc/adc_oneshot.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_timer.h"
+#include "esp_log.h"
+
+static const char *TAG = "ky028";
+#define AO_CHANNEL  ADC_CHANNEL_6                // GPIO34 — ADC1
+
+static adc_oneshot_unit_handle_t adc1;
+static int      warmS    = 0;        // згладжене «тепло» (більше = тепліше)
+static int      prevWarm = 0;        // попереднє згладжене — для швидкості
+static uint32_t tPrev    = 0;
+
+static uint32_t now_ms(void)  { return (uint32_t)(esp_timer_get_time() / 1000); }
+
+static int read_warm(void) {
+    int raw = 0;
+    adc_oneshot_read(adc1, AO_CHANNEL, &raw);
+    return 4095 - raw;                           // інверсія: більше = тепліше
+}
+
+void app_main(void) {
+    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
+    adc_oneshot_new_unit(&unit, &adc1);
+    adc_oneshot_chan_cfg_t ch = { .bitwidth = ADC_BITWIDTH_12,
+                                  .atten    = ADC_ATTEN_DB_12 };
+    adc_oneshot_config_channel(adc1, AO_CHANNEL, &ch);
+
+    warmS = prevWarm = read_warm();
+    tPrev = now_ms();
+
+    while (1) {
+        warmS += (read_warm() - warmS) / 8;      // сильніше згладжування для тренду
+
+        if (now_ms() - tPrev >= 500) {           // раз на пів секунди рахуємо швидкість
+            int rate = warmS - prevWarm;         // зміна за інтервал (відносна!)
+            const char *dir = rate > 2 ? "тепліє"
+                            : rate < -2 ? "холоне"
+                            : "стабільно";
+            ESP_LOGI(TAG, "тренд: %s   швидкість (відносна): %d", dir, rate);
+            prevWarm = warmS;
+            tPrev = now_ms();
+        }
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+```
+```stm32
+/* hadc1 налаштовано на канал, куди заведено AO; 12 біт (0..4095) */
+#include "main.h"
+#include <stdio.h>
+
+extern ADC_HandleTypeDef hadc1;
+
+static int      warmS    = 0;       // згладжене «тепло» (більше = тепліше)
+static int      prevWarm = 0;       // попереднє згладжене — для швидкості
+static uint32_t tPrev    = 0;
+
+static int ReadWarm(void) {
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_PollForConversion(&hadc1, 10);
+    int raw = (int)HAL_ADC_GetValue(&hadc1);
+    HAL_ADC_Stop(&hadc1);
+    return 4095 - raw;              // інверсія: більше = тепліше
+}
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_ADC1_Init();
+    MX_USART2_UART_Init();
+
+    warmS = prevWarm = ReadWarm();
+    tPrev = HAL_GetTick();
+
+    while (1) {
+        warmS += (ReadWarm() - warmS) / 8;       /* сильніше згладжування для тренду */
+
+        if (HAL_GetTick() - tPrev >= 500) {      /* раз на пів секунди — швидкість */
+            int rate = warmS - prevWarm;         /* зміна за інтервал (відносна!) */
+            const char *dir = rate > 2 ? "тепліє"
+                            : rate < -2 ? "холоне"
+                            : "стабільно";
+            printf("тренд: %s   швидкість (відносна): %d\r\n", dir, rate);
+            prevWarm = warmS;
+            tPrev = HAL_GetTick();
+        }
+        HAL_Delay(20);
+    }
+}
+```
+:::
 
 Тут `rate` — **різниця** згладженого «тепла» за пів секунди. Знак каже напрям (додатний — тепліє, від'ємний — холоне), величина — наскільки різко. Поріг `±2` навколо нуля прибирає дрібне тремтіння, щоб «стабільно» не миготіло. Числа `rate` — **відносні**: це не «градуси за секунду», а «одиниці АЦП за пів секунди на цій намистині». Але як індикатор «щось гріється — і швидко» це працює бездоганно й дешево.
 
@@ -297,9 +754,10 @@ void loop() {
 
 **Роздільність АЦП інша — 12 біт, 0..4095.** На відміну від 10-бітного Arduino (0..1023), у ESP32 [АЦП](book:electronics/adc) стандартно 12-бітний: `analogRead` дає 0..4095. Тому інверсія тепер `warm = 4095 - analogRead(pin)`, і пороги — в іншому масштабі. Ще одна дрібниця: вхідний діапазон АЦП ESP32 за замовчуванням покриває приблизно 0..3.1 В з ослабленням 11 dB (`ADC_11db`) — його Arduino-обгортка вмикає сама, тож для нашого відносного тренду окремо чіпати ослаблення не треба. Абсолютної точності ми й так не шукаємо.
 
-Ось той самий термостат із гістерезисом за рівнем — під ESP32, зі згаданими поправками:
+Ось той самий термостат із гістерезисом за рівнем — під ESP32, зі згаданими поправками, у двох звичних для цієї плати виглядах: Arduino-ядро для ESP32 і рідний ESP-IDF.
 
-```cpp
+:::tabs
+```arduino
 // ESP32: DO на GPIO32 (не strapping), AO на GPIO34 (ADC1, працює з Wi-Fi).
 // Живлення KY-028 — від 3V3 ESP32! НЕ від 5V/VIN.
 const int DO_PIN = 32;
@@ -351,6 +809,82 @@ void loop() {
     delay(50);
 }
 ```
+```esp-idf
+// Те саме рідним ESP-IDF: DO на GPIO32 (не strapping), AO на GPIO34 (ADC1).
+// Живлення KY-028 — від 3V3 ESP32! НЕ від 5V/VIN.
+#include "driver/gpio.h"
+#include "esp_adc/adc_oneshot.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_log.h"
+
+static const char *TAG = "ky028";
+#define DO_PIN      GPIO_NUM_32
+#define LOAD_PIN    GPIO_NUM_2               // тут вбудований LED; у бою — реле
+#define AO_CHANNEL  ADC_CHANNEL_6            // GPIO34 = ADC1_CH6, безпечно з Wi-Fi
+
+// 12-бітний АЦП (0..4095): БІЛЬШЕ (після інверсії) = тепліше.
+#define WARM_ON   2560                       // підібрати під свою намистину
+#define WARM_OFF  2400                       // зазор WARM_OFF..WARM_ON = гістерезис
+
+static adc_oneshot_unit_handle_t adc1;
+static int  rest_level = 1;                  // для читання DO як порогу
+static bool state      = false;
+static int  warmS      = 0;
+
+static int read_warm(void) {
+    int raw = 0;
+    adc_oneshot_read(adc1, AO_CHANNEL, &raw);
+    return 4095 - raw;                       // інверсія на 12 бітах
+}
+
+static int read_rest_level(void) {
+    const int N = 15; int highs = 0;
+    for (int i = 0; i < N; i++) { if (gpio_get_level(DO_PIN)) highs++;
+                                  vTaskDelay(pdMS_TO_TICKS(5)); }
+    return (highs > N / 2) ? 1 : 0;
+}
+
+void app_main(void) {
+    gpio_config_t in = { .pin_bit_mask = 1ULL << DO_PIN, .mode = GPIO_MODE_INPUT,
+                         .pull_up_en = GPIO_PULLUP_DISABLE,     // підтяжка є на модулі
+                         .pull_down_en = GPIO_PULLDOWN_DISABLE,
+                         .intr_type = GPIO_INTR_DISABLE };
+    gpio_config(&in);
+    gpio_config_t out = { .pin_bit_mask = 1ULL << LOAD_PIN, .mode = GPIO_MODE_OUTPUT };
+    gpio_config(&out);
+
+    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };   // саме ADC1
+    adc_oneshot_new_unit(&unit, &adc1);
+    adc_oneshot_chan_cfg_t ch = { .bitwidth = ADC_BITWIDTH_12,
+                                  .atten    = ADC_ATTEN_DB_12 };    // ~0..3.1 В
+    adc_oneshot_config_channel(adc1, AO_CHANNEL, &ch);
+
+    vTaskDelay(pdMS_TO_TICKS(300));
+    rest_level = read_rest_level();          // умова: на старті температура в НОРМІ
+    warmS      = read_warm();
+    ESP_LOGI(TAG, "Спокій DO = %s", rest_level ? "HIGH" : "LOW");
+
+    while (1) {
+        // Варіант А: рішення за рівнем AO (поріг задає код) — основний тут.
+        warmS += (read_warm() - warmS) / 4;              // згладжування шуму АЦП
+
+        if (!state && warmS >= WARM_ON) {
+            state = true;  gpio_set_level(LOAD_PIN, 1);
+            ESP_LOGI(TAG, ">> ГАРЯЧЕ (AO вище верхнього порогу)");
+        } else if (state && warmS <= WARM_OFF) {
+            state = false; gpio_set_level(LOAD_PIN, 0);
+            ESP_LOGI(TAG, "<< норма (AO нижче нижнього порогу)");
+        }
+
+        // Варіант Б (за бажання): паралельно читати апаратний поріг гвинтика.
+        // bool hw_hot = (gpio_get_level(DO_PIN) != rest_level);
+
+        vTaskDelay(pdMS_TO_TICKS(50));
+    }
+}
+```
+:::
 
 Логіка — та сама, що на Arduino; змінилися лише **числа масштабу** (4095 замість 1023, інші пороги), **вибір ніжок** (не-strapping для DO, ADC1 для AO) і **джерело живлення модуля** (3.3 В). Прийом полярності `restLevel`/`readRestLevel` переноситься дослівно, гістерезис — теж. Це й приємно: розібравши механіку раз, ти переносиш її між платформами майже механічно, змінюючи периферійні дрібниці, а не суть.
 
@@ -378,4 +912,4 @@ void loop() {
 
 **Теплова інерція намистини — не програмна вада, але впливає на алгоритм.** Термістор у пластиковій краплі прогрівається за секунди; він показує температуру не миттєво. Якщо твій цикл чекає **швидкої** реакції на зміну тепла, він її не дістане — не через код, а через фізику намистини. Не став карантин чи згладжування настільки агресивними, щоб додати до інерції давача ще й програмну затримку, коли потрібна жвавість; і навпаки, не жени опитування частіше, ніж намистина здатна реагувати, — швидше воно однаково не стане. І пам'ятай: винесений термістор міряє **повітря біля себе**, тож для контакту з поверхнею його треба туди притиснути.
 
-Головне, що варто винести з усього коду: KY-028 у прошивці — це **не давач температури, а порогова кнопка з примхами**, і всі три примхи закриваються трьома дисциплінами. Полярність — визначай на старті, тримай рішення в одному `isHot()`. Тремтіння — глуши гістерезисом, часовим на DO чи рівневим на AO. AO — читай лише як тренд або власний поріг, ніколи як градуси, і завжди з інверсією знаку. Зроби ці три речі свідомо — і той самий скетч працюватиме на будь-якій платі KY-028, під Arduino й під ESP32, роками й без сюрпризів.
+Головне, що варто винести з усього коду: KY-028 у прошивці — це **не давач температури, а порогова кнопка з примхами**, і всі три примхи закриваються трьома дисциплінами. Полярність — визначай на старті, тримай рішення в одному `isHot()`. Тремтіння — глуши гістерезисом, часовим на DO чи рівневим на AO. AO — читай лише як тренд або власний поріг, ніколи як градуси, і завжди з інверсією знаку. Зроби ці три речі свідомо — і той самий алгоритм працюватиме на будь-якій платі KY-028 — під Arduino, під ESP-IDF, під STM32 HAL — роками й без сюрпризів.

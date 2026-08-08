@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="40.0" y1="330.0" x2="1200.0" y2="330.0" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="8,6"/>
+<text x="50.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="start" font-weight="700">ядро</text>
+<text x="50.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="start" font-weight="700">простір користувача</text>
+<rect x="60.0" y="60.0" width="300.0" height="88.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="210.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">драйвер реєструє</tspan><tspan x="210.0" dy="18.2">пристрій</tspan></text>
+<line x1="360.0" y1="104.0" x2="415.0" y2="104.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="390.0" y="60.0" width="300.0" height="112.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="540.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">devtmpfs одразу створює</tspan><tspan x="540.0" dy="18.2">вузол /dev/sda</tspan><tspan x="540.0" dy="18.2">root:root  0600</tspan></text>
+<line x1="690.0" y1="116.0" x2="745.0" y2="116.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="740.0" y="60.0" width="300.0" height="88.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="890.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="890.0" dy="0.0">ядро надсилає</tspan><tspan x="890.0" dy="18.2">подію про появу</tspan></text>
+<rect x="740.0" y="400.0" width="300.0" height="88.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="890.0" y="439.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="890.0" dy="0.0">udev звіряє подію</tspan><tspan x="890.0" dy="18.2">з правилами</tspan></text>
+<line x1="890.0" y1="152.0" x2="890.0" y2="396.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="400.0" width="220.0" height="64.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="170.0" y="436.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">група → disk</tspan></text>
+<line x1="730.0" y1="444.0" x2="290.0" y2="444.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.0" y="400.0" width="220.0" height="64.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="410.0" y="436.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">права → 0660</tspan></text>
+<line x1="730.0" y1="444.0" x2="530.0" y2="444.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="540.0" y="400.0" width="220.0" height="88.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="650.0" y="427.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">посилання</tspan><tspan x="650.0" dy="16.9">/dev/disk/by-id/…</tspan></text>
+<line x1="730.0" y1="444.0" x2="770.0" y2="444.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="340.0" y="570.0" width="560.0" height="60.0" rx="8" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/>
+<text x="620.0" y="605.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">вузол /dev/sda весь час один і той самий</tspan></text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1020 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1020" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="505.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розкладка kd-дерева в пам'яті: pts_, idx_ і nodes_</text>
+<text x="56.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">pts_ — точки лежать, як прийшли; побудова їх не рухає</text>
+<text x="100.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">pts_</text>
+<rect x="140.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="167.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p0</text>
+<rect x="194.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="221.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p1</text>
+<rect x="248.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="275.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p2</text>
+<rect x="302.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="329.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p3</text>
+<rect x="356.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="383.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p4</text>
+<rect x="410.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="437.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p5</text>
+<rect x="464.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="491.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p6</text>
+<rect x="518.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="545.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p7</text>
+<rect x="572.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="599.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p8</text>
+<rect x="626.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="653.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p9</text>
+<rect x="680.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="707.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p10</text>
+<rect x="734.0" y="58.0" width="54.0" height="30.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="761.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">p11</text>
+<text x="56.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">idx_ — ті самі номери, переставлені nth_element; піддерево володіє суцільним відрізком</text>
+<text x="100.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">idx_</text>
+<rect x="140.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="167.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">7</text>
+<rect x="194.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="221.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2</text>
+<rect x="248.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="275.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">9</text>
+<rect x="302.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="329.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="356.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="383.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">5</text>
+<rect x="410.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="437.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">11</text>
+<rect x="464.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="491.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="518.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="545.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">3</text>
+<rect x="572.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="599.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">8</text>
+<rect x="626.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="653.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">4</text>
+<rect x="680.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="707.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">6</text>
+<rect x="734.0" y="142.0" width="54.0" height="30.0" rx="3" fill="#e8effb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="761.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">10</text>
+<line x1="143.0" y1="186.0" x2="461.0" y2="186.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="143.0" y1="180.0" x2="143.0" y2="190.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="461.0" y1="180.0" x2="461.0" y2="190.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="302.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">вузол 1 → [0,6)</text>
+<line x1="467.0" y1="186.0" x2="785.0" y2="186.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="467.0" y1="180.0" x2="467.0" y2="190.0" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="785.0" y1="180.0" x2="785.0" y2="190.0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="626.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">вузол 4 → [6,12)</text>
+<line x1="143.0" y1="226.0" x2="299.0" y2="226.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="143.0" y1="220.0" x2="143.0" y2="230.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="299.0" y1="220.0" x2="299.0" y2="230.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="221.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">листок 2</text>
+<line x1="305.0" y1="226.0" x2="461.0" y2="226.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="305.0" y1="220.0" x2="305.0" y2="230.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="461.0" y1="220.0" x2="461.0" y2="230.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="383.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">листок 3</text>
+<line x1="467.0" y1="226.0" x2="623.0" y2="226.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="467.0" y1="220.0" x2="467.0" y2="230.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="623.0" y1="220.0" x2="623.0" y2="230.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="545.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">листок 5</text>
+<line x1="629.0" y1="226.0" x2="785.0" y2="226.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="629.0" y1="220.0" x2="629.0" y2="230.0" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="785.0" y1="220.0" x2="785.0" y2="230.0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="707.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">листок 6</text>
+<text x="56.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">nodes_ — один суцільний масив; лівий нащадок завжди наступний, тож зберігаємо лише правий</text>
+<text x="100.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">nodes_</text>
+<rect x="140.0" y="300.0" width="100.0" height="46.0" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.4"/>
+<text x="190.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">0 · вісь x</tspan><tspan x="190.0" dy="13.0">[0,12) →4</tspan></text>
+<rect x="240.0" y="300.0" width="100.0" height="46.0" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.4"/>
+<text x="290.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">1 · вісь y</tspan><tspan x="290.0" dy="13.0">[0,6) →3</tspan></text>
+<rect x="340.0" y="300.0" width="100.0" height="46.0" rx="3" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.4"/>
+<text x="390.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">2 · листок</tspan><tspan x="390.0" dy="13.0">[0,3)</tspan></text>
+<rect x="440.0" y="300.0" width="100.0" height="46.0" rx="3" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.4"/>
+<text x="490.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">3 · листок</tspan><tspan x="490.0" dy="13.0">[3,6)</tspan></text>
+<rect x="540.0" y="300.0" width="100.0" height="46.0" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.4"/>
+<text x="590.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">4 · вісь y</tspan><tspan x="590.0" dy="13.0">[6,12) →6</tspan></text>
+<rect x="640.0" y="300.0" width="100.0" height="46.0" rx="3" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.4"/>
+<text x="690.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">5 · листок</tspan><tspan x="690.0" dy="13.0">[6,9)</tspan></text>
+<rect x="740.0" y="300.0" width="100.0" height="46.0" rx="3" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.4"/>
+<text x="790.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">6 · листок</tspan><tspan x="790.0" dy="13.0">[9,12)</tspan></text>
+<rect x="151.1" y="421.2" width="197.8" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="441.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Жодної алокації на вузол:</tspan><tspan x="250.0" dy="15.6">два масиви — і все дерево.</tspan></text>
+<rect x="401.4" y="421.2" width="307.3" height="47.6" rx="6" fill="#e8effb" stroke="#2457d6" stroke-width="1.5"/><text x="555.0" y="441.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="555.0" dy="0.0">Піддерево — суцільний відрізок idx_,</tspan><tspan x="555.0" dy="15.6">тож накрите вікном іде у відповідь гуртом.</tspan></text>
+<rect x="745.8" y="413.4" width="218.4" height="63.2" rx="6" fill="#e6f7ec" stroke="#27ae60" stroke-width="1.5"/><text x="855.0" y="433.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="855.0" dy="0.0">Лівий нащадок — наступна</tspan><tspan x="855.0" dy="15.6">комірка nodes_, тож спуск</tspan><tspan x="855.0" dy="15.6">у ближчу половину йде вперед.</tspan></text>
+</svg>

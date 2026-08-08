@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1130 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1130" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що відбувається між «дані прийшли» і «задача знову в черзі готових»</text>
+<rect x="50.0" y="100.0" width="300.0" height="118.0" rx="10" fill="#fdf3e7" stroke="#c0392b" stroke-width="2.0"/>
+<text x="200.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Контекст перервання</text>
+<text x="200.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">дані покладено в об'єкт;</tspan><tspan x="200.0" dy="14.9">wq_has_sleeper() каже:</tspan><tspan x="200.0" dy="14.9">охочі є</tspan></text>
+<rect x="410.0" y="100.0" width="300.0" height="118.0" rx="10" fill="#eef3fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="560.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">wake_up(mode, key)</text>
+<text x="560.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">спін-замок черги,</tspan><tspan x="560.0" dy="14.9">обхід списку</tspan><tspan x="560.0" dy="14.9">від голови</tspan></text>
+<rect x="770.0" y="100.0" width="300.0" height="118.0" rx="10" fill="#fbfcff" stroke="#7a4fb0" stroke-width="2.0"/>
+<text x="920.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7a4fb0" text-anchor="middle" font-weight="700">Фільтр кожного запису</text>
+<text x="920.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="920.0" dy="0.0">стан у масці?</tspan><tspan x="920.0" dy="14.9">ключ збігся?</tspan><tspan x="920.0" dy="14.9">виключний — і досить?</tspan></text>
+<rect x="50.0" y="320.0" width="300.0" height="118.0" rx="10" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="200.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Ядро-ціль</text>
+<text x="200.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">прапорець «перепланувати»</tspan><tspan x="200.0" dy="14.9">або коротке перервання</tspan><tspan x="200.0" dy="14.9">на сусіднє ядро</tspan></text>
+<rect x="410.0" y="320.0" width="300.0" height="118.0" rx="10" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="560.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">try_to_wake_up()</text>
+<text x="560.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">стан = RUNNING,</tspan><tspan x="560.0" dy="14.9">вибір ядра,</tspan><tspan x="560.0" dy="14.9">вставити в чергу готових</tspan></text>
+<rect x="770.0" y="320.0" width="300.0" height="118.0" rx="10" fill="#fbfcff" stroke="#7a4fb0" stroke-width="2.0"/>
+<text x="920.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7a4fb0" text-anchor="middle" font-weight="700">entry-&gt;func()</text>
+<text x="920.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="920.0" dy="0.0">зняти запис зі списку</tspan><tspan x="920.0" dy="14.9">або виконати власний код</tspan><tspan x="920.0" dy="14.9">(так працює epoll)</tspan></text>
+<line x1="350.0" y1="159.0" x2="404.0" y2="159.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="710.0" y1="159.0" x2="764.0" y2="159.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="920.0" y1="218.0" x2="920.0" y2="314.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="764.0" y1="379.0" x2="714.0" y2="379.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="404.0" y1="379.0" x2="354.0" y2="379.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="490.0" width="1020.0" height="56.0" rx="6" fill="#fbfcff" stroke="#6b7280" stroke-width="1.5"/><text x="560.0" y="522.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">розбуджена задача ще не виконала жодної інструкції: вона лише знову стала кандидатом</tspan></text>
+</svg>

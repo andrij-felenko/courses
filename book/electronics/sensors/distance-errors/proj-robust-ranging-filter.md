@@ -38,7 +38,7 @@
 
 Останній крок міг би бути звичайним ковзним усередненням — але воно **сліпе до якості** виміру й однаково тягне оцінку і за сильним чесним відлунням, і за кволим сумнівним. Зважене злиття натомість робить крок до виміру **пропорційним довірі**: сильний сигнал рухає оцінку жваво (давач певен — слухаємо), кволий ледь ворушить (давач сумнівається — притримуємось). Так одна формула поєднує згладжування шуму з відсівом ненадійного. А коли давачів кілька, та сама ідея масштабується: кожному дають голос за його довірою, і той, що зараз сліпне, **сам стишується**, поступаючись певнішому.
 
-## Робочий код (C/C++, ESP32 / Arduino)
+## Робочий код (C/C++, будь-який МК)
 
 ### Відлік, статус і стан фільтра
 
@@ -222,7 +222,7 @@ RangeResult rf_update(RangeFilter *f, Sample s) {
 
     /* 2. Ворота швидкості: за Δt ціль не могла зрушити більш ніж на v_макс·Δt. */
     if (f->have_last) {
-        uint32_t dt   = s.t_ms - f->last_ms;                    // різниця uint32 коректна й на перевороті millis()
+        uint32_t dt   = s.t_ms - f->last_ms;                    // різниця uint32 коректна й на перевороті лічильника мс
         uint32_t dmax = (uint32_t)f->vmax_mm_s * dt / 1000u + f->margin_mm;
         uint16_t jump = (med > f->last_mm) ? (uint16_t)(med - f->last_mm)
                                            : (uint16_t)(f->last_mm - med);
@@ -294,7 +294,7 @@ def rf_update(f: RangeFilter, s: Sample) -> RangeResult:
 
     # 2. Ворота швидкості: за Δt ціль не могла зрушити більш ніж на v_макс·Δt.
     if f.have_last:
-        dt   = (s.t_ms - f.last_ms) & 0xFFFFFFFF   # маска uint32 коректна й на перевороті millis()
+        dt   = (s.t_ms - f.last_ms) & 0xFFFFFFFF   # маска uint32 коректна й на перевороті лічильника мс
         dmax = f.vmax_mm_s * dt // 1000 + f.margin_mm
         jump = abs(med - f.last_mm)
         if jump > dmax:
@@ -357,11 +357,12 @@ def rf_init(vmax_mm_s: int, floor: int, full: int) -> RangeFilter:
 
 Той самий медіан рухає оцінку на 24 мм при чіткому відлунні й лише на 4 мм при кволому: фільтр сам більше слухає давача, коли той бачить ясно, і менше — коли той мружиться.
 
-### Складання тракту в `loop()`
+### Складання тракту в періодичному циклі
 
-Драйвер давача (тут — простий ехолот за часом польоту) ховаємо у `readRanger`; фільтр від нього не залежить:
+Від платформи тракт вимагає лише чотирьох речей, і всі вони є на будь-якому МК: вихідний пін на запуск пінгу, вхідний пін, на якому міряють **ширину імпульсу** луни, лічильник мілісекунд на мітку часу й періодичний виклик разів п'ятдесят на секунду. Далі різняться самі імена: в Arduino це `setup()` + `loop()`, в ESP-IDF — задача FreeRTOS із `vTaskDelay`, на STM32 — головний `while (1)` із кроком по `HAL_GetTick()`. Драйвер давача (тут — простий ехолот за часом польоту) ховаємо у `readRanger`; фільтр від нього не залежить:
 
-```cpp
+:::tabs
+```arduino
 const int TRIG_PIN = 5, ECHO_PIN = 18;
 const uint32_t ECHO_TIMEOUT_US = 30000;   // ~5 м межі дальності
 RangeFilter rf;
@@ -404,6 +405,140 @@ void loop() {
     delay(20);   // ~50 Гц; сам крок входить у ворота через мітку часу відліку
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "esp_timer.h"
+#include "esp_rom_sys.h"          // esp_rom_delay_us
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define TRIG_GPIO GPIO_NUM_5
+#define ECHO_GPIO GPIO_NUM_18
+#define ECHO_TIMEOUT_US 30000     // ~5 м межі дальності
+static const char *TAG = "range";
+static RangeFilter rf;
+
+// Один відлік: відстань за часом луни + сила (тут — проксі; реальну дає давач).
+static Sample read_ranger(void) {
+    Sample s = { 0 };                                   // valid = false, поки луни нема
+    s.t_ms = (uint32_t)(esp_timer_get_time() / 1000);   // мітка часу САМОГО виміру
+    gpio_set_level(TRIG_GPIO, 0); esp_rom_delay_us(2);
+    gpio_set_level(TRIG_GPIO, 1); esp_rom_delay_us(10);
+    gpio_set_level(TRIG_GPIO, 0);
+
+    int64_t t0 = esp_timer_get_time();
+    while (gpio_get_level(ECHO_GPIO) == 0)              // чекаємо фронт луни
+        if (esp_timer_get_time() - t0 > ECHO_TIMEOUT_US) return s;
+    int64_t rise = esp_timer_get_time();
+    while (gpio_get_level(ECHO_GPIO) == 1)              // міряємо ширину імпульсу
+        if (esp_timer_get_time() - rise > ECHO_TIMEOUT_US) return s;
+    uint32_t us = (uint32_t)(esp_timer_get_time() - rise);
+
+    s.dist_mm  = (uint16_t)(us * 343UL / 2000UL);   // мкс → мм за c = 343 м/с, шлях туди-й-назад
+    s.strength = read_echo_strength();              // АЦП піка луни / signal-rate ToF-давача
+    s.valid    = true;
+    return s;
+}
+
+static void range_task(void *arg) {
+    gpio_config_t io = { .pin_bit_mask = 1ULL << TRIG_GPIO, .mode = GPIO_MODE_OUTPUT };
+    gpio_config(&io);
+    io.pin_bit_mask = 1ULL << ECHO_GPIO; io.mode = GPIO_MODE_INPUT;
+    gpio_config(&io);
+    rf_init(&rf, 1500, 200, 800);   // зближення ≤1.5 м/с; підлога/стеля сили — за калібруванням
+
+    for (;;) {
+        RangeResult r = rf_update(&rf, read_ranger());
+        switch (r.status) {
+            case RF_FRESH:   // r.med_mm → керування (край), r.mm → показ (гладко)
+                ESP_LOGI(TAG, "d=%u мм | гладко %u | довіра %.2f", r.med_mm, r.mm, r.conf);
+                break;
+            case RF_HELD:
+                ESP_LOGW(TAG, "тримаю %u мм (пропуск/викид)", r.mm);
+                break;
+            case RF_LOST:
+                ESP_LOGE(TAG, "ВІДСТАНЬ НЕВІДОМА -> стоп/обережно");
+                break;
+        }
+        vTaskDelay(pdMS_TO_TICKS(20));   // ~50 Гц; крок входить у ворота через мітку часу
+    }
+}
+
+void app_main(void) {
+    xTaskCreate(range_task, "range", 4096, NULL, 5, NULL);
+}
+```
+```stm32
+#include "main.h"
+#include <stdio.h>
+
+extern TIM_HandleTypeDef  htim2;    // вільний лічильник із тактом 1 мкс
+extern UART_HandleTypeDef huart2;
+
+#define TRIG_PORT GPIOA
+#define TRIG_PIN  GPIO_PIN_5
+#define ECHO_PORT GPIOA
+#define ECHO_PIN  GPIO_PIN_6
+#define ECHO_TIMEOUT_MS 30          // ~5 м межі дальності
+static RangeFilter rf;
+
+static void delay_us(uint16_t us) {                     // мікросекунди — з TIM2
+    uint16_t t0 = __HAL_TIM_GET_COUNTER(&htim2);
+    while ((uint16_t)(__HAL_TIM_GET_COUNTER(&htim2) - t0) < us) { }
+}
+
+// Один відлік: відстань за часом луни + сила (тут — проксі; реальну дає давач).
+static Sample read_ranger(void) {
+    Sample s = { 0 };                                   // valid = false, поки луни нема
+    s.t_ms = HAL_GetTick();                             // мітка часу САМОГО виміру
+    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_RESET); delay_us(2);
+    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_SET);   delay_us(10);
+    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_RESET);
+
+    uint32_t t0 = HAL_GetTick();
+    while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_RESET)   // чекаємо фронт
+        if (HAL_GetTick() - t0 > ECHO_TIMEOUT_MS) return s;
+    uint16_t rise = __HAL_TIM_GET_COUNTER(&htim2);
+    while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_SET)     // ширина імпульсу
+        if (HAL_GetTick() - t0 > ECHO_TIMEOUT_MS) return s;
+    uint32_t us = (uint16_t)(__HAL_TIM_GET_COUNTER(&htim2) - rise);
+
+    s.dist_mm  = (uint16_t)(us * 343UL / 2000UL);   // мкс → мм за c = 343 м/с, шлях туди-й-назад
+    s.strength = read_echo_strength();              // АЦП піка луни / signal-rate ToF-давача
+    s.valid    = true;
+    return s;
+}
+
+int main(void) {
+    HAL_Init(); SystemClock_Config();
+    MX_GPIO_Init(); MX_TIM2_Init(); MX_USART2_UART_Init();
+    HAL_TIM_Base_Start(&htim2);
+    rf_init(&rf, 1500, 200, 800);   // зближення ≤1.5 м/с; підлога/стеля сили — за калібруванням
+
+    uint32_t next = HAL_GetTick();
+    while (1) {
+        RangeResult r = rf_update(&rf, read_ranger());
+        char line[72]; int n = 0;
+        switch (r.status) {
+            case RF_FRESH:   // r.med_mm → керування (край), r.mm → показ (гладко)
+                n = snprintf(line, sizeof line, "d=%u мм | гладко %u | довіра %d%%\r\n",
+                             r.med_mm, r.mm, (int)(r.conf * 100.0f + 0.5f));
+                break;
+            case RF_HELD:
+                n = snprintf(line, sizeof line, "тримаю %u мм (пропуск/викид)\r\n", r.mm);
+                break;
+            case RF_LOST:
+                n = snprintf(line, sizeof line, "ВІДСТАНЬ НЕВІДОМА -> стоп/обережно\r\n");
+                break;
+        }
+        HAL_UART_Transmit(&huart2, (uint8_t *)line, n, 100);
+        next += 20;                                     // ~50 Гц без дрейфу періоду
+        while ((int32_t)(HAL_GetTick() - next) < 0) { }
+    }
+}
+```
+:::
 
 ### Розширення: зважене злиття двох давачів
 
@@ -460,7 +595,7 @@ def fuse2(a: RangeResult, b: RangeResult) -> int | None:
 
 **Переповнення у воротах.** `v_макс · Δt` множить два цілих: за великого `Δt` (давач підвис) чи високої `v_макс` 16-бітний добуток переповниться. Рахуйте у `uint32_t` (як у коді) і ділена на 1000 робіть **після** множення, не до, — інакше згубите роздільність.
 
-**Переворот `millis()` і нерівний крок.** Лічильник `millis()` обнуляється приблизно щодоби з гаком; різниця беззнакових `s.t_ms - f->last_ms` дає правильний `Δt` навіть на перевороті — **не** порівнюйте мітки як знакові. І не припускайте сталий крок: якщо цикл інколи затягується, ворота мусять брати **реальний** `Δt` з мітки, а не зашите «20 мс», бо інакше на довгому кроці відкинуть законний рух.
+**Переворот лічильника часу і нерівний крок.** 32-бітний лічильник мілісекунд (`millis()` в Arduino, `HAL_GetTick()` на STM32, `esp_timer_get_time()/1000` в ESP-IDF) обнуляється приблизно щодоби з гаком; різниця беззнакових `s.t_ms - f->last_ms` дає правильний `Δt` навіть на перевороті — **не** порівнюйте мітки як знакові. І не припускайте сталий крок: якщо цикл інколи затягується, ворота мусять брати **реальний** `Δt` з мітки, а не зашите «20 мс», бо інакше на довгому кроці відкинуть законний рух.
 
 **Float у гарячому циклі.** На ESP32 float апаратний, і один множинний крок злиття — дрібниця. На дрібному AVR без FPU краще перевести оцінку у фіксовану кому (тримати `est` як ціле в 1/16 мм) або взагалі лишити тільки `med_mm` — медіана й ворота цілочислові й самі по собі дають левову частку стійкості.
 

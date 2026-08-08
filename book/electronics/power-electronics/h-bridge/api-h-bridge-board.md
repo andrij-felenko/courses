@@ -22,8 +22,10 @@
 
 Керування простіше, ніж здається: на кожен мотор іде два біти напрямку плюс один канал ШІМ. На поширених модулях `IN1=1, IN2=0` — вперед; `IN1=0, IN2=1` — назад; `IN1=IN2` — гальмо (мотор закорочено всередині моста); `EN=0` — вільний вибіг. Швидкість задають **шпаруватістю ШІМ** на вході EN. По суті це та сама таблиця керування H-мостом, лише виведена на роз'єм: усю заборонену комбінацію «верхній і нижній одного плеча разом» чип не дасть створити навіть навмисне, бо логіка напрямку фізично не виставляє такого поєднання.
 
+Від мікроконтролера тут потрібно рівно три речі, і вони є в будь-якого: два звичайні цифрові виходи під IN1/IN2 і один канал апаратного таймера в режимі ШІМ на EN. Далі різняться лише імена — `digitalWrite()` в Arduino, `gpio_set_level()` в ESP-IDF, `HAL_GPIO_WritePin()` у STM32 HAL, `.value()` в MicroPython; так само й ШІМ: `analogWrite()`, `ledc_set_duty()`, регістр порівняння таймера, `duty_u16()`. Нижче — одна й та сама `motor_drive()` у чотирьох середовищах.
+
 :::tabs
-```cpp
+```arduino
 // Керування модулем-драйвером (IN1/IN2 — напрямок, EN — ШІМ-швидкість).
 // speed: -255..+255 (знак = напрямок, модуль = шпаруватість каналу EN).
 void motor_drive(int speed) {
@@ -33,10 +35,43 @@ void motor_drive(int speed) {
 
     digitalWrite(IN1, speed >= 0);           // напрямок: вперед при speed >= 0
     digitalWrite(IN2, speed <  0);
-    ledcWrite(EN_CH, speed == 0 ? 0 : duty); // швидкість через апаратний ШІМ
+    analogWrite(EN, speed == 0 ? 0 : duty);  // швидкість через ШІМ на виводі EN
 }
 ```
-```python
+```esp-idf
+#include "driver/gpio.h"
+#include "driver/ledc.h"                     // канал ШІМ, таймер на 8 біт → duty 0..255
+
+// speed: -255..+255 (знак = напрямок, модуль = шпаруватість каналу EN).
+void motor_drive(int speed) {
+    if (speed >  255) speed =  255;          // обрізаємо до діапазону ШІМ
+    if (speed < -255) speed = -255;
+    int duty = speed < 0 ? -speed : speed;   // модуль = швидкість
+
+    gpio_set_level(PIN_IN1, speed >= 0);     // напрямок: вперед при speed >= 0
+    gpio_set_level(PIN_IN2, speed <  0);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, EN_CH, speed == 0 ? 0 : duty);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, EN_CH);   // нове значення набирає чинності
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+extern TIM_HandleTypeDef htim3;              // ARR = 255 → шпаруватість теж 0..255
+
+// speed: -255..+255 (знак = напрямок, модуль = шпаруватість каналу EN).
+void motor_drive(int speed) {
+    if (speed >  255) speed =  255;          // обрізаємо до діапазону ШІМ
+    if (speed < -255) speed = -255;
+    int duty = speed < 0 ? -speed : speed;   // модуль = швидкість
+
+    HAL_GPIO_WritePin(IN1_GPIO_Port, IN1_Pin,        // напрямок: вперед при speed >= 0
+                      speed >= 0 ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(IN2_GPIO_Port, IN2_Pin,
+                      speed <  0 ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, speed == 0 ? 0 : duty);
+}
+```
+```micropython
 # Керування модулем-драйвером (IN1/IN2 — напрямок, EN — ШІМ-швидкість).
 # speed: -255..+255 (знак = напрямок, модуль = шпаруватість каналу EN).
 def motor_drive(speed):

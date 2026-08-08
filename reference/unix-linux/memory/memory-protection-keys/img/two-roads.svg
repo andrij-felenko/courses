@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1350 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1350" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="670.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зробити ділянку записуваною на мить: дві дороги</text>
+<text x="70.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="start" font-weight="700">mprotect</text>
+<text x="70.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">через ядро</text>
+<rect x="225.0" y="150.0" width="150.0" height="78.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="193.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">вхід у ядро</tspan></text>
+<rect x="375.0" y="150.0" width="190.0" height="78.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="185.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">розсічення ділянки</tspan><tspan x="470.0" dy="16.9">у дереві VMA</tspan></text>
+<line x1="383.0" y1="189.0" x2="367.0" y2="189.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="580.0" y="150.0" width="200.0" height="78.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="680.0" y="185.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">правка N записів</tspan><tspan x="680.0" dy="16.9">таблиці сторінок</tspan></text>
+<line x1="573.0" y1="189.0" x2="572.0" y2="189.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="775.0" y="150.0" width="250.0" height="78.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="900.0" y="176.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">IPI на всі ядра,</tspan><tspan x="900.0" dy="16.9">де живе цей процес,</tspan><tspan x="900.0" dy="16.9">і скидання TLB</tspan></text>
+<line x1="788.0" y1="189.0" x2="767.0" y2="189.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="1105.0" y="150.0" width="150.0" height="78.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="1180.0" y="193.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1180.0" dy="0.0">повернення</tspan></text>
+<line x1="1033.0" y1="189.0" x2="1097.0" y2="189.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="225.0" y1="258.0" x2="1255.0" y2="258.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="740.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle">одиниці — десятки мікросекунд, і всі ці мікросекунди сторінка записувана для КОЖНОГО потоку процесу</text>
+<line x1="70.0" y1="330.0" x2="1270.0" y2="330.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 6"/>
+<text x="70.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="start" font-weight="700">WRPKRU</text>
+<text x="70.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">без ядра</text>
+<rect x="225.0" y="430.0" width="190.0" height="78.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/><text x="320.0" y="465.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">одна команда:</tspan><tspan x="320.0" dy="16.9">нове значення PKRU</tspan></text>
+<line x1="225.0" y1="538.0" x2="445.0" y2="538.0" stroke="#27ae60" stroke-width="3.0"/>
+<text x="740.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle">десятки тактів; таблиця сторінок не змінилася, тож скидати TLB нема чого, а права змінилися лише в цього потоку</text>
+<text x="1150.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">решта доріжки —</text>
+<text x="1150.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">порожня</text>
+</svg>

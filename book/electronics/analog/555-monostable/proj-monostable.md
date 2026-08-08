@@ -25,7 +25,7 @@
 
 ### Модель у коді
 
-Поведінку 555 у моностабільному режимі зручно тримати в голові як скінченний автомат із двох станів — і рівно цей автомат легко відтворити на мікроконтролері. Структура зберігає стан і мітку часу старту, а функція опитування щоразу вирішує: тримати вихід «високо» чи вже пора його опустити. Роль конденсатора тут грає лічильник `millis()`, усе інше збігається з кремнієм один в один:
+Поведінку 555 у моностабільному режимі зручно тримати в голові як скінченний автомат із двох станів — і рівно цей автомат легко відтворити на мікроконтролері. Структура зберігає стан і мітку часу старту, а функція опитування щоразу вирішує: тримати вихід «високо» чи вже пора його опустити. Роль конденсатора тут грає вільний лічильник мілісекунд, який є в кожного мікроконтролера (`millis()` в Arduino, `HAL_GetTick()` на STM32, `esp_timer_get_time()` в ESP-IDF), усе інше збігається з кремнієм один в один:
 
 ```c
 #include <stdint.h>
@@ -45,7 +45,8 @@ void oneshot_init(oneshot_t *os, uint32_t t_ms) {
 }
 
 // trig — подія запуску (true рівно в момент спаду TRIG нижче ⅓V);
-// now  — поточний час, millis(). Повертає рівень виходу OUT.
+// now  — поточний час у мілісекундах (millis(), HAL_GetTick(), …).
+// Повертає рівень виходу OUT.
 bool oneshot_poll(oneshot_t *os, bool trig, uint32_t now) {
     if (os->state == OS_IDLE) {
         if (trig) {                 // подія — зводимо курок
@@ -62,11 +63,12 @@ bool oneshot_poll(oneshot_t *os, bool trig, uint32_t now) {
 }
 ```
 
-Одна тонкість, на якій легко спіткнутися: різницю `now - os->t_start` беремо в беззнаковому `uint32_t`. Коли `millis()` переповниться (приблизно раз на 49 діб) і піде з нуля, беззнакове віднімання все одно дасть правильний проміжок — окремо ловити переповнення лічильника не треба.
+Одна тонкість, на якій легко спіткнутися: різницю `now - os->t_start` беремо в беззнаковому `uint32_t`. Коли 32-бітний лічильник мілісекунд переповниться (приблизно раз на 49 діб) і піде з нуля, беззнакове віднімання все одно дасть правильний проміжок — окремо ловити переповнення лічильника не треба.
 
-Антибрязкіт — це той самий автомат плюс достатньо великий T. Ловимо на вході **спад** (момент натискання), а всі дальші стрибки контакту гасить стан `ACTIVE`, глухий до нових запусків:
+Антибрязкіт — це той самий автомат плюс достатньо великий T. Ловимо на вході **спад** (момент натискання), а всі дальші стрибки контакту гасить стан `ACTIVE`, глухий до нових запусків. Заліза треба рівно два виводи будь-якого МК: вхід із **підтяжкою вгору** (кнопка замикає його на землю, тож натиснуто = низький рівень) і звичайний вихід. Далі — той самий цикл опитування; різняться лише назви — `pinMode`/`digitalRead` в Arduino, `gpio_config`/`gpio_get_level` в ESP-IDF, `HAL_GPIO_ReadPin` на STM32:
 
-```c
+:::tabs
+```arduino
 #define BTN_PIN 2
 #define OUT_PIN 3
 
@@ -89,6 +91,71 @@ void loop(void) {
     digitalWrite(OUT_PIN, oneshot_poll(&btn, falling, millis()));
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "esp_timer.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define BTN_GPIO GPIO_NUM_4
+#define OUT_GPIO GPIO_NUM_5
+
+void debounce_task(void *arg) {
+    gpio_config_t in = {                       // кнопка замикає вхід на землю
+        .pin_bit_mask = 1ULL << BTN_GPIO,
+        .mode         = GPIO_MODE_INPUT,
+        .pull_up_en   = GPIO_PULLUP_ENABLE,
+    };
+    gpio_config(&in);
+    gpio_config_t out = {                      // сюди виходить чистий імпульс
+        .pin_bit_mask = 1ULL << OUT_GPIO,
+        .mode         = GPIO_MODE_OUTPUT,
+    };
+    gpio_config(&out);
+
+    oneshot_t btn;
+    oneshot_init(&btn, 30);                    // T = 30 мс, трохи довше за брязкіт
+    bool prev = true;
+
+    for (;;) {
+        bool level   = gpio_get_level(BTN_GPIO) != 0;   // 0 = натиснуто
+        bool falling = prev && !level;
+        prev = level;
+
+        uint32_t now = (uint32_t)(esp_timer_get_time() / 1000);  // мкс → мс
+        gpio_set_level(OUT_GPIO, oneshot_poll(&btn, falling, now));
+        vTaskDelay(pdMS_TO_TICKS(1));          // крок опитування
+    }
+}
+```
+```stm32
+#include "main.h"   // BTN_GPIO_Port/BTN_Pin, OUT_GPIO_Port/OUT_Pin — з CubeMX:
+                    // вхід GPIO_MODE_INPUT + GPIO_PULLUP, вихід GPIO_MODE_OUTPUT_PP
+
+int main(void) {
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();                    // піни налаштовано генератором
+
+    oneshot_t btn;
+    oneshot_init(&btn, 30);            // T = 30 мс, трохи довше за брязкіт
+    bool prev = true;
+
+    while (1) {
+        // підтяжка вгору: RESET = натиснуто
+        bool level   = (HAL_GPIO_ReadPin(BTN_GPIO_Port, BTN_Pin) == GPIO_PIN_SET);
+        bool falling = prev && !level;
+        prev = level;
+
+        // рівно один імпульс 30 мс на натискання: перший спад запускає ACTIVE,
+        // а всі дальші стрибки контакту в ці 30 мс потрапляють у «глуху» зону
+        HAL_GPIO_WritePin(OUT_GPIO_Port, OUT_Pin,
+                          oneshot_poll(&btn, falling, HAL_GetTick())
+                              ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    }
+}
+```
+:::
 
 ### Складність і пастки на «МК»
 

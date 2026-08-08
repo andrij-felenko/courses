@@ -84,6 +84,8 @@
         { slug: "instruction-set-emulation", title: "Емуляція набору інструкцій: як виконати чужий машинний код", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "vliw-epic", title: "VLIW і EPIC: паралельність, розкладена компілятором", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "dynamic-binary-translation", title: "Динамічна двійкова трансляція", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "self-modifying-code", title: "Самозмінний код: кеш інструкцій і серіалізація конвеєра", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "xsave-extended-state", title: "Розширений стан процесора: XSAVE, XCR0 і компоненти", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "architecture-discipline", title: "Дисципліна архітектора", scope: "Ремесло архітектора понад механізмами: якісні атрибути й сценарії, драйвери, тактики, аналіз компромісів і оцінювання (ATAM-клас), рішення під невизначеністю й ризиком, в'ю і документування (C4, 4+1, arc42), рев'ю й комунікація рішень, роль і стейкхолдери, соціотехніка команд, економіка рішень, еволюція систем.",
       topics: [
@@ -318,6 +320,7 @@
         { slug: "disaster-recovery", title: "Бекапи і DR", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "model-artifact", title: "Модель як версійований артефакт", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "capacity-planning", title: "Планування потужностей і headroom", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "live-migration", title: "Жива міграція віртуальної машини: перенести працюючий гість без зупинки", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "distributed-systems", title: "Розподілені системи", scope: "Системи з багатьох вузлів через ненадійну мережу: омани й відмови, реплікація і шардинг, узгодженість, черги, журнали подій і патерни інтеграції (EIP), сервісні механізми і площини, стійкість викликів, кеші й роздача, захист від перевантаження, жива міграція, мультирегіон.",
       topics: [
@@ -483,6 +486,9 @@
         { slug: "preprocessor-macros", title: "Препроцесор і макроси", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "type-inference", title: "Виведення типів: як компілятор здогадується сам", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "object-system-in-c", title: "Об'єктна система поверх C: клас, примірник, реєстрація типу", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "variable-scope", title: "Область видимості змінної: де ім'я має значення", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "jit-compilation", title: "JIT-компіляція: машинний код, породжений під час виконання", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "link-time-optimization", title: "Оптимізація на етапі лінкування (LTO)", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "systems", title: "Системи", scope: "Керування ресурсами й виконанням: процеси, планування, віртуальна й фізична пам'ять (стек, купа, алокатори, GC, покажчики), файлові системи, драйвери, потоки, синхронізація, моделі пам'яті, неблокувальність.",
       topics: [
@@ -556,6 +562,10 @@
         { slug: "spinlock", title: "Спін-замок", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "locality-of-reference", title: "Локальність звернень: чому недавнє минуле передбачає майбутнє", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "read-copy-update", title: "RCU: читання без замків і період відстрочки", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "file-timestamps", title: "Часові позначки файлів: mtime, ctime і роздільність", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "memory-fragmentation", title: "Фрагментація пам'яті: зовнішня і внутрішня", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "aba-problem", title: "Проблема ABA в неблокувальних структурах", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "memory-leak", title: "Витік пам'яті", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "peripherals", title: "Периферія", scope: "Порти, шини й контролери материнської плати та підключення зовнішніх пристроїв: PCIe, USB, BIOS/UEFI, ввід-вивід.",
       topics: [
@@ -685,6 +695,13 @@
         { slug: "aslr", title: "ASLR: рандомізація розкладки адресного простору", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "code-reuse-attacks", title: "Атаки з повторним використанням коду: return-to-libc і ROP", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "no-execute-memory", title: "Пам'ять без права виконання: біт NX і правило W^X", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "use-after-free", title: "Використання після звільнення (use-after-free)", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "vulnerability-scoring-cvss", title: "Оцінювання вразливостей: CVSS, EPSS і межі бальної системи", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "cache-side-channel", title: "Кеш як побічний канал: Flush+Reload і Prime+Probe", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "control-flow-integrity", title: "Цілісність потоку керування (CFI): чому захисту даних самого по собі мало", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "return-oriented-programming", title: "Повернення замість виклику: ROP і ланцюжки гаджетів", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "remote-attestation", title: "Віддалена атестація: як довести чужій стороні, у якому ти стані", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "tpm-root-of-trust", title: "TPM: апаратний корінь довіри й запечатування ключів", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "software-engineering", title: "Інженерія", scope: "Проєктування, супровід і верифікація систем: архітектурні патерни, модульність, рефакторинг, процеси розробки, види тестів, фаззинг, формальні методи, неперервна інтеграція.",
       topics: [

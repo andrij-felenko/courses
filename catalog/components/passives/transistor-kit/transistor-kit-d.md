@@ -146,9 +146,10 @@ Iбаза = 2.6/1000 = 2.6 мА, запас ×2.6 — теж достатньо 
 
 ### Керування з коду: увімкнути, вимкнути, плавно
 
-З боку мікроконтролера ключ — це просто цифровий вивід. Уся «магія» — в апаратній частині; код тривіальний. Нехай база через `Rb` висить на виводі, а транзистор комутує моторчик:
+З боку мікроконтролера ключ — це просто цифровий вивід. Уся «магія» — в апаратній частині; код тривіальний. Нехай база через `Rb` висить на виводі, а транзистор комутує моторчик; від МК тут потрібне найпростіше, що він узагалі вміє — вивід у режимі виходу й затримка, — тож той самий алгоритм показано трьома доріжками: Arduino, ESP-IDF і STM32 HAL.
 
-```c
+:::tabs
+```arduino
 const uint8_t MOTOR_PIN = 5;   // GPIO → Rb → база NPN-ключа
 
 void setup() {
@@ -163,12 +164,53 @@ void loop() {
   delay(2000);
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
-Для NPN-ключа низом логіка **пряма**: `HIGH` вмикає, `LOW` вимикає. Якби ви будували ключ верхом на PNP, усе було б інверсне (`LOW` вмикає), бо PNP керується мінусом.
+#define MOTOR_PIN GPIO_NUM_5       // GPIO → Rb → база NPN-ключа
 
-Часто хочеться не просто «увімк/вимк», а **плавно** — притлумити лампу, збавити оберти мотора. Тут вигідна риса транзистора-ключа: він перемикається **швидко**, тому його можна **швидко-швидко смикати** (широтно-імпульсна модуляція, PWM) — і навантаження за інерцією бачить середнє. `analogWrite(pin, 128)` на виводі з PWM тримає ключ відкритим приблизно половину часу — мотор крутиться на пів-обертів, лампа світить упівсили:
+void motor_task(void *arg) {
+    gpio_config_t cfg = {
+        .pin_bit_mask = 1ULL << MOTOR_PIN,
+        .mode         = GPIO_MODE_OUTPUT,
+    };
+    ESP_ERROR_CHECK(gpio_config(&cfg));
+    gpio_set_level(MOTOR_PIN, 0);       // старт: транзистор закритий, мотор стоїть
 
-```c
+    for (;;) {
+        gpio_set_level(MOTOR_PIN, 1);   // «1» → база відкрита → мотор крутиться
+        vTaskDelay(pdMS_TO_TICKS(2000));
+        gpio_set_level(MOTOR_PIN, 0);   // «0» → база закрита → мотор стоїть
+        vTaskDelay(pdMS_TO_TICKS(2000));
+    }
+}
+```
+```stm32
+/* Вивід під базу налаштовано в CubeMX як GPIO_Output (push-pull),
+   такт порту вже піднято в MX_GPIO_Init(). */
+#define MOTOR_PORT GPIOA
+#define MOTOR_PIN  GPIO_PIN_5      // GPIO → Rb → база NPN-ключа
+
+/* старт: транзистор закритий, мотор стоїть */
+HAL_GPIO_WritePin(MOTOR_PORT, MOTOR_PIN, GPIO_PIN_RESET);
+
+while (1) {                        /* нескінченний цикл main() */
+    HAL_GPIO_WritePin(MOTOR_PORT, MOTOR_PIN, GPIO_PIN_SET);   // база відкрита → мотор крутиться
+    HAL_Delay(2000);
+    HAL_GPIO_WritePin(MOTOR_PORT, MOTOR_PIN, GPIO_PIN_RESET); // база закрита → мотор стоїть
+    HAL_Delay(2000);
+}
+```
+:::
+
+Для NPN-ключа низом логіка **пряма**: рівень «1» на виводі вмикає, «0» вимикає — хоч би як цей рівень звався в конкретному середовищі (`HIGH`, `1`, `GPIO_PIN_SET`). Якби ви будували ключ верхом на PNP, усе було б інверсне (нуль вмикає), бо PNP керується мінусом.
+
+Часто хочеться не просто «увімк/вимк», а **плавно** — притлумити лампу, збавити оберти мотора. Тут вигідна риса транзистора-ключа: він перемикається **швидко**, тому його можна **швидко-швидко смикати** (широтно-імпульсна модуляція, PWM) — і навантаження за інерцією бачить середнє. Робить це апаратний таймер: йому задають частоту й **шпаруватість** — частку періоду, яку вивід тримає «1». Шпаруватість 128/255 лишає ключ відкритим приблизно половину часу — мотор крутиться на пів-обертів, лампа світить упівсили:
+
+:::tabs
+```arduino
 const uint8_t LAMP_PIN = 9;  // вивід із апаратним PWM
 
 void setup() { pinMode(LAMP_PIN, OUTPUT); }
@@ -184,6 +226,65 @@ void loop() {
   }
 }
 ```
+```esp-idf
+#include "driver/ledc.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define LAMP_PIN GPIO_NUM_9        // вивід, заведений на канал LEDC
+
+static void lamp_set(int duty) {   // 0 = темно, 255 = повний
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
+}
+
+void lamp_task(void *arg) {
+    ledc_timer_config_t tcfg = {
+        .speed_mode      = LEDC_LOW_SPEED_MODE,
+        .timer_num       = LEDC_TIMER_0,
+        .duty_resolution = LEDC_TIMER_8_BIT,   // шпаруватість 0..255
+        .freq_hz         = 1000,
+        .clk_cfg         = LEDC_AUTO_CLK,
+    };
+    ESP_ERROR_CHECK(ledc_timer_config(&tcfg));
+
+    ledc_channel_config_t ccfg = {
+        .gpio_num   = LAMP_PIN,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
+        .channel    = LEDC_CHANNEL_0,
+        .timer_sel  = LEDC_TIMER_0,
+        .duty       = 0,
+        .hpoint     = 0,
+    };
+    ESP_ERROR_CHECK(ledc_channel_config(&ccfg));
+
+    for (;;) {
+        for (int d = 0; d <= 255; d++) { lamp_set(d); vTaskDelay(pdMS_TO_TICKS(8)); }  // розгоряння
+        for (int d = 255; d >= 0; d--) { lamp_set(d); vTaskDelay(pdMS_TO_TICKS(8)); }  // згасання
+    }
+}
+```
+```stm32
+/* TIM3 у CubeMX: канал 1 у режимі PWM Generation, Period (ARR) = 255,
+   передільник підібрано під частоту ~1 кГц. Вивід — TIM3_CH1. */
+extern TIM_HandleTypeDef htim3;
+
+void Lamp_Fade(void) {
+    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+
+    while (1) {
+        for (int duty = 0; duty <= 255; duty++) {          // плавне розгоряння
+            __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, duty);  // 0 = темно, 255 = повний
+            HAL_Delay(8);
+        }
+        for (int duty = 255; duty >= 0; duty--) {          // плавне згасання
+            __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, duty);
+            HAL_Delay(8);
+        }
+    }
+}
+```
+:::
 
 Ширшу бібліотеку-драйвер — з підбором базового резистора, захистом від індуктивного викиду, керуванням парою NPN/PNP і готовим кодом під різні мікроконтролери — винесено в [окремий опис API транзисторного ключа](book:components/transistor-kit/api-transistor-switch.md), щоб не роздувати цей текст. Тут головне засвоїти суть: **апаратно все вирішено схемою, а код лише виставляє рівень на виводі**.
 

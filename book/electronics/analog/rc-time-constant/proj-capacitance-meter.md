@@ -29,7 +29,11 @@ V_th = V₀/2:   k = ln 2 ≈ 0.693     →     C = t_th / (0.693 · R)
 
 Вивід `PIN_DRIVE` заряджає й розряджає конденсатор крізь відомий R, а вхід `PIN_SENSE` спрацьовує на своєму логічному порозі (беремо його за ≈ V₀/2, тож k = ln2 = 0.693). Уся тонкість — у розряді: поріг бачить лише перетин V₀/2, тож «повний нуль» ним не зловити, і розряджати доводиться наперед відомий час ≥ 5τ, оцінений із попереднього заміру.
 
-```c
+Від мікроконтролера потрібні три речі, і вони є в кожному: вивід у режимі push-pull, вхід із визначеним логічним порогом і вільний лічильник мікросекунд. Далі різняться самі лише імена — `micros()` в Arduino, `esp_timer_get_time()` в ESP-IDF, регістр лічильника вільного таймера в STM32.
+
+:::tabs
+
+```arduino
 // C = t / (k·R), де k = ln2 ≈ 0.693 при порозі V₀/2.
 float measure_capacitance(float R_ohms) {
     static uint32_t discharge_us = 200000;   // щедрий старт на перший цикл
@@ -50,7 +54,63 @@ float measure_capacitance(float R_ohms) {
 }
 ```
 
-Різниця `micros() - t0` на беззнакових числах правильна навіть через переповнення лічильника. Складність — O(1) на вимір; сам вимір триває ≈ 0.7·R·C плюс розряд. Для усереднення шуму цикл повторюють кілька разів і беруть середнє.
+```esp-idf
+#include "driver/gpio.h"
+#include "esp_timer.h"
+// esp_timer_get_time() — вільний 64-бітний лічильник мікросекунд від старту.
+
+float measure_capacitance(float R_ohms) {
+    static int64_t discharge_us = 200000;    // щедрий старт на перший цикл
+
+    gpio_config_t io = { .pin_bit_mask = 1ULL << PIN_DRIVE, .mode = GPIO_MODE_OUTPUT };
+    gpio_config(&io);
+    io.pin_bit_mask = 1ULL << PIN_SENSE; io.mode = GPIO_MODE_INPUT;
+    gpio_config(&io);
+
+    gpio_set_level(PIN_DRIVE, 0);            // 1. розряд крізь R
+    int64_t d0 = esp_timer_get_time();
+    while (esp_timer_get_time() - d0 < discharge_us) { /* поки не сяде до ~0 */ }
+
+    int64_t t0 = esp_timer_get_time();
+    gpio_set_level(PIN_DRIVE, 1);            // 2. старт заряду й таймера воднораз
+
+    while (gpio_get_level(PIN_SENSE) == 0) { } // 3. чекаємо перетину порога V₀/2
+    int64_t t_us = esp_timer_get_time() - t0;  //    тривалість заряду ≈ 0.69·τ
+
+    discharge_us = 8 * t_us;                 // наступний розряд: 8·0.69τ ≈ 5.5τ ≥ 5τ
+    return (t_us * 1e-6f) / (0.693f * R_ohms); // 4. ділимо на k·R → фаради
+}
+```
+
+```stm32
+extern TIM_HandleTypeDef htim2;  // 32-біт, прескалер під 1 такт = 1 мкс,
+                                 // запущений раз через HAL_TIM_Base_Start(&htim2)
+
+float measure_capacitance(float R_ohms) {
+    static uint32_t discharge_us = 200000;   // щедрий старт на перший цикл
+
+    GPIO_InitTypeDef g = { .Pin = DRIVE_PIN, .Mode = GPIO_MODE_OUTPUT_PP,
+                           .Pull = GPIO_NOPULL, .Speed = GPIO_SPEED_FREQ_LOW };
+    HAL_GPIO_Init(DRIVE_PORT, &g);
+
+    HAL_GPIO_WritePin(DRIVE_PORT, DRIVE_PIN, GPIO_PIN_RESET);  // 1. розряд крізь R
+    uint32_t d0 = __HAL_TIM_GET_COUNTER(&htim2);
+    while (__HAL_TIM_GET_COUNTER(&htim2) - d0 < discharge_us) { /* поки не сяде */ }
+
+    uint32_t t0 = __HAL_TIM_GET_COUNTER(&htim2);
+    HAL_GPIO_WritePin(DRIVE_PORT, DRIVE_PIN, GPIO_PIN_SET);    // 2. старт заряду
+
+    while (HAL_GPIO_ReadPin(SENSE_PORT, SENSE_PIN) == GPIO_PIN_RESET) { } // 3. поріг
+    uint32_t t_us = __HAL_TIM_GET_COUNTER(&htim2) - t0;        //    ≈ 0.69·τ
+
+    discharge_us = 8 * t_us;                 // наступний розряд: 8·0.69τ ≈ 5.5τ ≥ 5τ
+    return (t_us * 1e-6f) / (0.693f * R_ohms); // 4. ділимо на k·R → фаради
+}
+```
+
+:::
+
+Різниця двох знімків лічильника на беззнакових числах правильна навіть через його переповнення. Складність — O(1) на вимір; сам вимір триває ≈ 0.7·R·C плюс розряд. Для усереднення шуму цикл повторюють кілька разів і беруть середнє.
 
 ### Вибір R: одна формула — вісім декад
 

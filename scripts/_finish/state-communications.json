@@ -1,0 +1,863 @@
+{
+ "book": "communications",
+ "kind": "book",
+ "limit": 147,
+ "concurrency": 4,
+ "skipArticles": true,
+ "units": [
+  {
+   "section": "information-theory",
+   "slug": "bandwidth-capacity",
+   "title": "Смуга і межа Шеннона",
+   "level": "detailed"
+  },
+  {
+   "section": "information-theory",
+   "slug": "shannon-entropy",
+   "title": "Ентропія Шеннона",
+   "level": "detailed"
+  },
+  {
+   "section": "information-theory",
+   "slug": "channel-coding-theorem",
+   "title": "Теорема Шеннона про кодування каналу",
+   "level": "detailed"
+  },
+  {
+   "section": "information-theory",
+   "slug": "awgn-channel",
+   "title": "Канал AWGN",
+   "level": "detailed"
+  },
+  {
+   "section": "information-theory",
+   "slug": "mutual-information",
+   "title": "Взаємна інформація",
+   "level": "detailed"
+  },
+  {
+   "section": "information-theory",
+   "slug": "binary-symmetric-channel",
+   "title": "Двійковий симетричний канал",
+   "level": "detailed"
+  },
+  {
+   "section": "information-theory",
+   "slug": "conditional-entropy",
+   "title": "Умовна ентропія",
+   "level": "basic"
+  },
+  {
+   "section": "information-theory",
+   "slug": "erasure-channel",
+   "title": "Канал зі стиранням",
+   "level": "basic"
+  },
+  {
+   "section": "information-theory",
+   "slug": "binary-erasure-channel",
+   "title": "Двійковий канал зі стиранням",
+   "level": "basic"
+  },
+  {
+   "section": "information-theory",
+   "slug": "log-likelihood-ratio",
+   "title": "Логарифм відношення правдоподібностей (LLR)",
+   "level": "basic"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "parity-bit",
+   "title": "Біт парності",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "checksums",
+   "title": "Контрольні суми",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "crc",
+   "title": "CRC",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "hamming-distance",
+   "title": "Відстань Геммінга",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "hamming-code",
+   "title": "Код Геммінга",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "ecc-ram-flash",
+   "title": "ECC у пам'яті",
+   "level": "basic"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "ecc-ram-flash",
+   "title": "ECC у пам'яті",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "reed-solomon",
+   "title": "Рід–Соломон",
+   "level": "basic"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "reed-solomon",
+   "title": "Рід–Соломон",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "internet-checksum",
+   "title": "Інтернет-контрольна сума (IP/TCP/UDP)",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "adler-32",
+   "title": "Adler-32",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "concatenated-codes",
+   "title": "Конкатеновані коди",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "memory-scrubbing",
+   "title": "Memory scrubbing: фоновий ремонт пам'яті",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "ldpc",
+   "title": "LDPC: код розрідженої перевірки паритету",
+   "level": "basic"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "ldpc",
+   "title": "LDPC: код розрідженої перевірки паритету",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "flash-wear-leveling",
+   "title": "Wear leveling у Flash-пам'яті",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "secded",
+   "title": "SECDED: виправити один біт, виявити два",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "perfect-codes",
+   "title": "Досконалі коди",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "linear-block-codes",
+   "title": "Лінійні блокові коди",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "2d-parity",
+   "title": "Двовимірна парність",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "burst-error",
+   "title": "Пакетна помилка (burst error)",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "convolutional-codes",
+   "title": "Згорткові коди",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "bch-codes",
+   "title": "Коди BCH",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "interleaving",
+   "title": "Перемішування (interleaving)",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "linear-codes",
+   "title": "Лінійні коди",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "ber-snr-curve",
+   "title": "BER і SNR: крива надійності каналу",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "gilbert-elliott-model",
+   "title": "Модель Гілберта–Елліота: пакетні помилки",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "fec-channel-coding",
+   "title": "FEC для потокового відео",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "ecc-flash",
+   "title": "ECC у флеш-пам'яті",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "turbo-codes",
+   "title": "Турбокоди",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "polar-codes",
+   "title": "Полярні коди",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "golay-code",
+   "title": "Коди Голея",
+   "level": "basic"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "reed-muller-code",
+   "title": "Коди Ріда–Маллера",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "cyclic-codes",
+   "title": "Циклічні коди",
+   "level": "basic"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "fountain-codes",
+   "title": "Фонтанні коди",
+   "level": "basic"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "viterbi-algorithm",
+   "title": "Алгоритм Вітербі",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "viterbi-decoder",
+   "title": "Декодер Вітербі",
+   "level": "detailed"
+  },
+  {
+   "section": "coding-theory",
+   "slug": "product-codes",
+   "title": "Добуткові коди",
+   "level": "detailed"
+  },
+  {
+   "section": "modulation",
+   "slug": "why-modulation",
+   "title": "Навіщо модуляція",
+   "level": "detailed"
+  },
+  {
+   "section": "modulation",
+   "slug": "am-fm",
+   "title": "AM і FM",
+   "level": "detailed"
+  },
+  {
+   "section": "modulation",
+   "slug": "fsk-psk",
+   "title": "FSK і PSK",
+   "level": "detailed"
+  },
+  {
+   "section": "modulation",
+   "slug": "spread-spectrum",
+   "title": "Розширений спектр",
+   "level": "detailed"
+  },
+  {
+   "section": "modulation",
+   "slug": "analog-video",
+   "title": "Аналогове відео",
+   "level": "detailed"
+  },
+  {
+   "section": "modulation",
+   "slug": "ofdm",
+   "title": "OFDM: мультиплексування з ортогональними піднесними",
+   "level": "basic"
+  },
+  {
+   "section": "modulation",
+   "slug": "ssb-modulation",
+   "title": "Односмугова модуляція (SSB)",
+   "level": "basic"
+  },
+  {
+   "section": "signal-processing",
+   "slug": "nyquist-aliasing",
+   "title": "Найквіст і аліасинг",
+   "level": "detailed"
+  },
+  {
+   "section": "signal-processing",
+   "slug": "resolution-framerate",
+   "title": "Роздільність і кадри",
+   "level": "detailed"
+  },
+  {
+   "section": "signal-processing",
+   "slug": "decimation",
+   "title": "Проріджування (decimation): фільтр і зниження частоти відліків",
+   "level": "detailed"
+  },
+  {
+   "section": "signal-processing",
+   "slug": "sensor-fusion",
+   "title": "Сенсорне злиття (fusion): комплементарний фільтр і Калман",
+   "level": "detailed"
+  },
+  {
+   "section": "propagation",
+   "slug": "propagation-polarization",
+   "title": "Поширення й поляризація",
+   "level": "detailed"
+  },
+  {
+   "section": "propagation",
+   "slug": "frequency-bands",
+   "title": "Діапазони частот",
+   "level": "detailed"
+  },
+  {
+   "section": "propagation",
+   "slug": "power-decibels",
+   "title": "Потужність і децибели",
+   "level": "detailed"
+  },
+  {
+   "section": "propagation",
+   "slug": "free-space-loss",
+   "title": "Загасання у просторі",
+   "level": "basic"
+  },
+  {
+   "section": "propagation",
+   "slug": "free-space-loss",
+   "title": "Загасання у просторі",
+   "level": "detailed"
+  },
+  {
+   "section": "propagation",
+   "slug": "multipath-fading",
+   "title": "Багатопроменевість",
+   "level": "detailed"
+  },
+  {
+   "section": "antennas",
+   "slug": "antenna",
+   "title": "Антена",
+   "level": "detailed"
+  },
+  {
+   "section": "antennas",
+   "slug": "resonance-dipole",
+   "title": "Резонанс і диполь",
+   "level": "detailed"
+  },
+  {
+   "section": "antennas",
+   "slug": "antenna-gain",
+   "title": "Підсилення антени",
+   "level": "detailed"
+  },
+  {
+   "section": "antennas",
+   "slug": "antenna-polarization",
+   "title": "Поляризація антени",
+   "level": "detailed"
+  },
+  {
+   "section": "radio-engineering",
+   "slug": "lora",
+   "title": "LoRa",
+   "level": "detailed"
+  },
+  {
+   "section": "radio-engineering",
+   "slug": "superheterodyne",
+   "title": "Супергетеродин",
+   "level": "detailed"
+  },
+  {
+   "section": "radio-engineering",
+   "slug": "transmission-lines",
+   "title": "Лінії передачі",
+   "level": "detailed"
+  },
+  {
+   "section": "radio-engineering",
+   "slug": "vswr",
+   "title": "Відбиття і КСХ",
+   "level": "detailed"
+  },
+  {
+   "section": "radio-engineering",
+   "slug": "telemetry-link",
+   "title": "Канал земля-борт",
+   "level": "detailed"
+  },
+  {
+   "section": "radio-engineering",
+   "slug": "emc-certification",
+   "title": "Модульна сертифікація: FCC, CE та EMC-випроби",
+   "level": "detailed"
+  },
+  {
+   "section": "radio-engineering",
+   "slug": "elrs-architecture",
+   "title": "Архітектура ExpressLRS",
+   "level": "detailed"
+  },
+  {
+   "section": "photonics",
+   "slug": "optical-fiber",
+   "title": "Оптоволокно",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "utp-cable",
+   "title": "UTP-кабель",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "on-chip-radio",
+   "title": "Радіо на чіпі",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "channel-band-packet",
+   "title": "Канал і пакет",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "wifi",
+   "title": "Wi-Fi",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "bluetooth-spp",
+   "title": "Bluetooth SPP",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "esp-now",
+   "title": "ESP-NOW",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "latency-reliability",
+   "title": "Затримка й надійність",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "video-transmission",
+   "title": "Передача відео",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "bandwidth-loss",
+   "title": "Пропускна й втрати",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "mac-ip-arp",
+   "title": "MAC, IP і ARP",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "ip-routing",
+   "title": "Маршрутизація",
+   "level": "detailed"
+  },
+  {
+   "section": "networks",
+   "slug": "dns-srv-naptr",
+   "title": "Записи DNS SRV і NAPTR: пошук сервера служби за іменем домену",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "flow-control",
+   "title": "Керування потоком",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "packet-design",
+   "title": "Проєктування пакета",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "tcp-vs-udp",
+   "title": "TCP проти UDP",
+   "level": "basic"
+  },
+  {
+   "section": "protocols",
+   "slug": "tcp-vs-udp",
+   "title": "TCP проти UDP",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "ble-gatt",
+   "title": "BLE GATT",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "reliable-link",
+   "title": "Надійний обмін",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "mqtt",
+   "title": "MQTT",
+   "level": "basic"
+  },
+  {
+   "section": "protocols",
+   "slug": "mqtt",
+   "title": "MQTT",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "control-telemetry",
+   "title": "Керування й телеметрія",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "rc-link",
+   "title": "RC-лінк",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "telemetry-stream",
+   "title": "Телеметрія",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "mavlink-packet",
+   "title": "Пакет MAVLink",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "mavlink-commands",
+   "title": "Команди MAVLink",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "crsf-protocol",
+   "title": "Протокол CRSF",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "rc-failsafe-modes",
+   "title": "Режими failsafe RC",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "rc-signal-protocol",
+   "title": "RC-сигнал: PWM, PPM і S.BUS",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "rtp-rtcp",
+   "title": "RTP і RTCP: транспорт медіа поверх UDP",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "rtsp-sdp",
+   "title": "RTSP і SDP: керування сеансом потокового відео",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "mavlink-xml-codegen",
+   "title": "Генерація коду з XML-опису MAVLink",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "mavlink-camera-gimbal",
+   "title": "Протоколи камери й підвісу MAVLink",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "sip",
+   "title": "SIP: сигналізація сеансів зв'язку",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "hls-dash",
+   "title": "HLS і DASH: потокове відео сегментами поверх HTTP",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "mavlink-component-id",
+   "title": "Компоненти MAVLink: sysid, compid і адресація вузлів",
+   "level": "detailed"
+  },
+  {
+   "section": "protocols",
+   "slug": "h323",
+   "title": "H.323: телефонна сигналізація ITU-T поверх пакетних мереж",
+   "level": "detailed"
+  },
+  {
+   "section": "multiple-access",
+   "slug": "clock-stretch-arbitration",
+   "title": "Розтягування й арбітраж",
+   "level": "detailed"
+  },
+  {
+   "section": "synchronization",
+   "slug": "gnss",
+   "title": "GNSS",
+   "level": "detailed"
+  },
+  {
+   "section": "synchronization",
+   "slug": "baud-rate",
+   "title": "Швидкість baud",
+   "level": "detailed"
+  },
+  {
+   "section": "synchronization",
+   "slug": "pps-pulse",
+   "title": "PPS-імпульс",
+   "level": "detailed"
+  },
+  {
+   "section": "synchronization",
+   "slug": "sbas-corrections",
+   "title": "Супутникові системи доповнення (SBAS)",
+   "level": "detailed"
+  },
+  {
+   "section": "cryptographic-comm",
+   "slug": "digest-authentication",
+   "title": "Дайджест-автентифікація: одноразове число, виклик і доказ без пароля в мережі",
+   "level": "detailed"
+  },
+  {
+   "section": "cryptographic-comm",
+   "slug": "common-encryption",
+   "title": "Спільне шифрування медіа (CENC): одні сегменти, різні системи ключів",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "usb-c-connector",
+   "title": "USB-C конектор",
+   "level": "basic"
+  },
+  {
+   "section": "buses",
+   "slug": "usb-c-connector",
+   "title": "USB-C конектор",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "async-serial",
+   "title": "Асинхронна передача",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "uart-frame",
+   "title": "Кадр UART",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "i2c-bus",
+   "title": "Шина I2C",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "i2c-addressing",
+   "title": "Адресація I2C",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "start-stop-ack",
+   "title": "Старт, стоп, ACK",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "i2c-transaction",
+   "title": "Транзакція I2C",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "register-map",
+   "title": "Регістрова карта",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "spi-bus",
+   "title": "Шина SPI",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "spi-lines",
+   "title": "Лінії SPI",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "cpol-cpha",
+   "title": "Режими CPOL/CPHA",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "chip-select",
+   "title": "Вибір кристала",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "spi-speed",
+   "title": "Швидкість SPI",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "differential-pair",
+   "title": "Диференційна пара",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "rs-485",
+   "title": "RS-485",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "can-arbitration",
+   "title": "Арбітраж CAN",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "dronecan",
+   "title": "DroneCAN",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "usb-ethernet-differential",
+   "title": "USB та Ethernet пари",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "i2s-bus",
+   "title": "Шина I2S",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "usb-device-basics",
+   "title": "Пристрій на шині USB: хост, енумерація, кінцеві точки, класи",
+   "level": "detailed"
+  },
+  {
+   "section": "buses",
+   "slug": "one-wire",
+   "title": "1-Wire — шина на одному дроті",
+   "level": "detailed"
+  }
+ ],
+ "insertsDone": [],
+ "inserts": []
+}

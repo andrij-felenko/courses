@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дві черги сокета: прийом і передача</text>
+<text x="60.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">програма</text>
+<text x="920.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">мережа</text>
+<rect x="360.0" y="70.0" width="270.0" height="230.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="495.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">сокет у ядрі</text>
+<rect x="380.0" y="116.0" width="230.0" height="60.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="495.0" y="142.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="495.0" dy="0.0">буфер прийому</tspan><tspan x="495.0" dy="16.9">12 КіБ із 128 КіБ</tspan></text>
+<rect x="380.0" y="214.0" width="230.0" height="60.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="495.0" y="240.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="495.0" dy="0.0">буфер передачі</tspan><tspan x="495.0" dy="16.9">вільно 6 КіБ із 16 КіБ</tspan></text>
+<text x="250.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">read() бере, що вже прийшло</text>
+<line x1="374.0" y1="152.0" x2="130.0" y2="152.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="250.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">write() кладе й повертається</text>
+<line x1="130.0" y1="250.0" x2="374.0" y2="250.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="760.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">пакети приходять</text>
+<line x1="880.0" y1="152.0" x2="622.0" y2="152.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="760.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ядро відправляє далі</text>
+<line x1="622.0" y1="250.0" x2="880.0" y2="250.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="60.0" y="316.0" width="860.0" height="62.0" rx="6" fill="#f7f3e8" stroke="#6b7280" stroke-width="1.5"/><text x="490.0" y="343.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">готовий до читання = у буфері прийому щось є · готовий до запису = у буфері передачі є місце</tspan><tspan x="490.0" dy="16.9">буфер прийому переповнився → оголошене вікно нуль → відправник спиняється</tspan></text>
+</svg>

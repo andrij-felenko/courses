@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1330 910" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1330" height="910" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#6b7280" text-anchor="middle" font-weight="700">шлях звичайної зміни файлу</text>
+<text x="1090.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#6b7280" text-anchor="middle" font-weight="700">хто про неї дізнається</text>
+<rect x="380.0" y="80.0" width="420.0" height="82.0" rx="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="590.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">процес простору користувача</text>
+<text x="590.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">write(fd, ...)  ·  rename()  ·  unlink()</text>
+<rect x="380.0" y="230.0" width="420.0" height="108.0" rx="9" fill="#fff6e5" stroke="#b8860b" stroke-width="2.0"/>
+<text x="590.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#b8860b" text-anchor="middle" font-weight="700">спільний шар VFS</text>
+<text x="590.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">розбір шляху, dentry, inode,</text>
+<text x="590.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">перевірка прав — однакові для всіх ФС</text>
+<rect x="380.0" y="420.0" width="420.0" height="82.0" rx="9" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="590.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">конкретна файлова система</text>
+<text x="590.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">ext4  ·  XFS  ·  Btrfs  ·  tmpfs</text>
+<rect x="380.0" y="560.0" width="420.0" height="82.0" rx="9" fill="#f1f3f5" stroke="#6b7280" stroke-width="2.0"/>
+<text x="590.0" y="590.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle" font-weight="700">блоковий пристрій</text>
+<text x="590.0" y="618.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">сектори на носії</text>
+<line x1="80.0" y1="196.0" x2="840.0" y2="196.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="7 6"/>
+<text x="84.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start">межа виклику до ядра</text>
+<line x1="590.0" y1="162.0" x2="590.0" y2="224.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="340.0" x2="590.0" y2="414.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="502.0" x2="590.0" y2="554.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="860.0" y="258.0" width="250.0" height="66.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/><text x="985.0" y="286.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="985.0" dy="0.0">гачок fsnotify</tspan><tspan x="985.0" dy="19.5">у спільному коді VFS</tspan></text>
+<line x1="806.0" y1="291.0" x2="852.0" y2="291.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="900.0" y="400.0" width="380.0" height="86.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="1090.0" y="438.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="1090.0" dy="0.0">черга групи inotify</tspan><tspan x="1090.0" dy="19.5">події з іменем відносно каталогу</tspan></text>
+<rect x="900.0" y="530.0" width="380.0" height="86.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/><text x="1090.0" y="568.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="1090.0" dy="0.0">черга групи fanotify</tspan><tspan x="1090.0" dy="19.5">події з дескриптором або ручкою</tspan></text>
+<line x1="960.0" y1="332.0" x2="1000.0" y2="394.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="880.0" y1="324.0" x2="880.0" y2="573.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="880.0" y1="573.0" x2="892.0" y2="573.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="1090.0" y="672.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">обидві черги підписник читає звичайним read(),</text>
+<text x="1090.0" y="696.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">як будь-який інший дескриптор</text>
+<rect x="30.0" y="430.0" width="300.0" height="84.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.6"/><text x="180.0" y="458.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle"><tspan x="180.0" dy="0.0">інший клієнт NFS змінив файл</tspan><tspan x="180.0" dy="18.2">на сервері — цей VFS</tspan><tspan x="180.0" dy="18.2">запиту не бачив</tspan></text>
+<line x1="334.0" y1="472.0" x2="372.0" y2="472.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="596.0" width="300.0" height="84.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.6"/><text x="180.0" y="624.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle"><tspan x="180.0" dy="0.0">запис просто в /dev/sda</tspan><tspan x="180.0" dy="18.2">повз файлову систему —</tspan><tspan x="180.0" dy="18.2">гачок нижче не сягає</tspan></text>
+<line x1="334.0" y1="638.0" x2="372.0" y2="638.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="790.0" width="1240.0" height="62.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="2.2"/><text x="650.0" y="827.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">видно рівно те, що пройшло через VFS цього ядра — ні байтом більше</tspan></text>
+</svg>

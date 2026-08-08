@@ -75,7 +75,7 @@ S     ≈ 0.3 В/g        (300 мВ на кожен g; гарантований 
 
 ## Модуль GY-61: що додано навколо чипа
 
-Сам ADXL335 хоче живлення **1.8…3.6 В** — «голий» до 5-вольтової Arduino його не підключити. Модуль GY-61 вирішує це за вас. На платі є:
+Сам ADXL335 хоче живлення **1.8…3.6 В** — «голий» до 5-вольтової плати (класична Arduino Uno, AVR-контролери) його не підключити. Модуль GY-61 вирішує це за вас. На платі є:
 
 - **LDO-стабілізатор 3.3 В** (часто XC6206/«662K» або аналог) — приймає 5 В із VCC і робить із них чисті 3.3 В для чипа. Тому модуль **толерантний до 5 В** на VCC, хоч сам давач працює від 3.3 В.
 - **Конденсатори фільтра** — по живленню (розвʼязка, зазвичай 0.1 мкФ) і на виходах X/Y/Z. Конденсатор на кожному виході разом із вбудованим опором 32 кОм задає **смугу пропускання** (про це нижче).
@@ -103,22 +103,24 @@ S     ≈ 0.3 В/g        (300 мВ на кожен g; гарантований 
 
 - **VCC → 3.3 В або 5 В.** Обидва працюють завдяки LDO. Але є нюанс з опорою АЦП (нижче) — часто зручніше живити модуль **тим самим**, від чого працює опора АЦП.
 - **GND → GND.** Спільна земля обовʼязкова, інакше напруги нема від чого відлічувати.
-- **X, Y, Z → аналогові входи** (на Arduino Uno — A0, A1, A2).
+- **X, Y, Z → аналогові входи** — три будь-які виводи, заведені на канали АЦП (на Arduino Uno це A0–A2, на ESP32 — канали ADC1, скажімо GPIO32–34, на STM32 — PA0–PA2).
 - **ST → нікуди** (вільний).
 
 > 🔧 **Найважливіша пастка — узгодьте опору АЦП із живленням давача.** Якщо ви живите GY-61 від 5 В, біас стане ≈ 2.5 В, чутливість ≈ 500 мВ/g, а весь діапазон ±3g розтягнеться на ≈ 1…4 В. Якщо ж АЦП міряє відносно **3.3 В**, сигнал вилізе за стелю. І навпаки. Найнадійніше — **живити давач від тієї ж напруги, що править за опору АЦП** (обидва 3.3 В): тоді ратіометричність працює на вас, і код не залежить від точного значення живлення. Плутанина тут — найчастіша причина «неправильних» показів.
 
 ## Читаємо в коді
 
-Прочитати вісь — це прочитати АЦП і перевести код у прискорення за формулою `a = (U − Uбіас) / S`. Ось робочий приклад для Arduino (10-бітний АЦП, 0…1023), коли і давач, і опора живляться від **3.3 В**:
+Прочитати вісь — це прочитати АЦП і перевести код у прискорення за формулою `a = (U − Uбіас) / S`. Від середовища залежать лише три речі: як зветься канал АЦП, яка його **повна шкала** в кодах (10 біт → 1023, 12 біт → 4095) і що править за опору. Нижче той самий розрахунок у трьох середовищах, коли і давач, і опора живляться від **3.3 В**:
 
-```c
+:::tabs
+
+```arduino
 const float VREF   = 3.3f;    // опора АЦП = живлення давача (ратіометрично)
 const float BIAS   = 1.65f;   // 0g при 3.3 В ≈ половина живлення
 const float SENS   = 0.330f;  // чутливість при 3.3 В ≈ 330 мВ/g
 
 float readAxisG(int pin) {
-    int   raw = analogRead(pin);          // 0..1023
+    int   raw = analogRead(pin);          // 0..1023 (10 біт)
     float u   = raw * VREF / 1023.0f;     // код → вольти
     return (u - BIAS) / SENS;             // вольти → g
 }
@@ -137,6 +139,110 @@ void loop() {
     delay(50);
 }
 ```
+
+```esp-idf
+#include "esp_adc/adc_oneshot.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+// Осі X/Y/Z на каналах ADC1 (у класичного ESP32 це GPIO32/33/34)
+#define AX ADC_CHANNEL_4
+#define AY ADC_CHANNEL_5
+#define AZ ADC_CHANNEL_6
+
+// Тут опора АЦП — НЕ живлення: усередині 1.1 В плюс атенюатор, тож повна
+// шкала при 12 дБ ≈ 3.1 В. Ратіометричність не рятує — калібруйте самі.
+static const float FULL = 3.10f;    // вольтів на верхньому коді
+static const float BIAS = 1.65f;    // 0g при 3.3 В ≈ половина живлення
+static const float SENS = 0.330f;   // чутливість при 3.3 В ≈ 330 мВ/g
+
+static const char *TAG = "adxl335";
+static adc_oneshot_unit_handle_t adc;
+
+static float read_axis_g(adc_channel_t ch)
+{
+    int raw = 0;
+    ESP_ERROR_CHECK(adc_oneshot_read(adc, ch, &raw));   // 0..4095 (12 біт)
+    float u = raw * FULL / 4095.0f;                     // код → вольти
+    return (u - BIAS) / SENS;                           // вольти → g
+}
+
+static void adxl_task(void *arg)
+{
+    while (1) {
+        ESP_LOGI(TAG, "%.2f\t%.2f\t%.2f",
+                 read_axis_g(AX), read_axis_g(AY), read_axis_g(AZ));
+        vTaskDelay(pdMS_TO_TICKS(50));
+    }
+}
+
+void app_main(void)
+{
+    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
+    ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc));
+
+    adc_oneshot_chan_cfg_t cfg = {
+        .atten    = ADC_ATTEN_DB_12,        // до ESP-IDF 5.2 звалося ADC_ATTEN_DB_11
+        .bitwidth = ADC_BITWIDTH_DEFAULT,   // на ESP32 — 12 біт
+    };
+    for (adc_channel_t ch = AX; ch <= AZ; ch++)
+        ESP_ERROR_CHECK(adc_oneshot_config_channel(adc, ch, &cfg));
+
+    xTaskCreate(adxl_task, "adxl", 3072, NULL, 5, NULL);
+}
+```
+
+```stm32
+#include "main.h"   // CubeMX: ADC1, канали IN0/IN1/IN2 (PA0/PA1/PA2), 12 біт
+
+extern ADC_HandleTypeDef hadc1;
+
+static const float VREF = 3.3f;     // опора АЦП = живлення давача (ратіометрично)
+static const float BIAS = 1.65f;    // 0g при 3.3 В ≈ половина живлення
+static const float SENS = 0.330f;   // чутливість при 3.3 В ≈ 330 мВ/g
+
+// Три осі йдуть на один АЦП по черзі: перемикаємо його мультиплексор
+// і робимо одне перетворення.
+static float read_axis_g(uint32_t channel)
+{
+    ADC_ChannelConfTypeDef ch = {
+        .Channel      = channel,
+        .Rank         = ADC_REGULAR_RANK_1,
+        // вихід давача має 32 кОм усередині — беремо найдовшу вибірку,
+        // щоб конденсатор АЦП устиг зарядитися (назва константи залежить від серії)
+        .SamplingTime = ADC_SAMPLETIME_239CYCLES_5,
+    };
+    HAL_ADC_ConfigChannel(&hadc1, &ch);
+
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_PollForConversion(&hadc1, 10);
+    uint32_t raw = HAL_ADC_GetValue(&hadc1);   // 0..4095 (12 біт)
+    HAL_ADC_Stop(&hadc1);
+
+    float u = raw * VREF / 4095.0f;            // код → вольти
+    return (u - BIAS) / SENS;                  // вольти → g
+}
+
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_ADC1_Init();
+    MX_USART2_UART_Init();      // printf перенаправлено на UART
+
+    while (1) {
+        printf("%.2f\t%.2f\t%.2f\r\n",
+               read_axis_g(ADC_CHANNEL_0),
+               read_axis_g(ADC_CHANNEL_1),
+               read_axis_g(ADC_CHANNEL_2));
+        HAL_Delay(50);
+    }
+}
+```
+
+:::
 
 На практиці числа `BIAS` і `SENS` варто **відкалібрувати** для свого екземпляра: розкид від чипа до чипа помітний (біас гуляє в межах ≈ 1.35…1.65 В при 3 В, чутливість ≈ 270…330 мВ/g). Найпростіше калібрування — повернути кожну вісь спершу вгору (+1g), потім вниз (−1g), записати два коди й порахувати з них справжні біас і чутливість:
 

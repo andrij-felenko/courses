@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1290 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1290" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="640.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бібліотека обирає режим за одним питанням — чи веде дескриптор на термінал</text>
+<text x="330.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">як бібліотека обирає режим</text>
+<rect x="110.0" y="74.0" width="440.0" height="62.0" rx="8" fill="#fbfcff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="330.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">перше використання потоку</text>
+<text x="330.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">перший printf, fputs або fread</text>
+<line x1="330.0" y1="140.0" x2="330.0" y2="186.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="110.0" y="190.0" width="440.0" height="62.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="330.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">fstat, а для символьного — isatty</text>
+<text x="330.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">єдине питання: це термінал?</text>
+<line x1="220.0" y1="256.0" x2="170.0" y2="306.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="256.0" x2="490.0" y2="306.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="310.0" width="270.0" height="62.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="165.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">так → порядкова</text>
+<text x="165.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">рядок виходить одразу</text>
+<rect x="360.0" y="310.0" width="270.0" height="62.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="495.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ні → поблокова</text>
+<text x="495.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">чекає повного буфера</text>
+<rect x="80.0" y="420.0" width="500.0" height="92.0" rx="6" fill="#fdf3e7" stroke="#27ae60" stroke-width="1.5"/><text x="330.0" y="462.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">stderr рахують окремо: стандарт забороняє йому</tspan><tspan x="330.0" dy="15.6">поблоковий режим, а glibc робить його безбуферним</tspan></text>
+<rect x="80.0" y="540.0" width="500.0" height="92.0" rx="6" fill="#f1f2f4" stroke="#333333" stroke-width="1.5"/><text x="330.0" y="582.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">розмір буфера: st_blksize з того самого fstat,</tspan><tspan x="330.0" dy="15.6">якщо він між 1 і BUFSIZ (8192); інакше BUFSIZ</tspan></text>
+<text x="760.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">та сама програма, три запуски</text>
+<rect x="760.0" y="90.0" width="460.0" height="118.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.7"/>
+<text x="990.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">./crunch</text>
+<text x="990.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">стандартний вивід веде на термінал</text>
+<text x="990.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">порядкова: рядок поступу видно одразу</text>
+<rect x="760.0" y="250.0" width="460.0" height="118.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="990.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">./crunch | tee log</text>
+<text x="990.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">стандартний вивід веде в канал</text>
+<text x="990.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">поблокова: перший write аж на 4096 байтах</text>
+<rect x="760.0" y="410.0" width="460.0" height="118.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/>
+<text x="990.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">./crunch &gt; out.txt</text>
+<text x="990.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">стандартний вивід веде у файл</text>
+<text x="990.0" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">поблокова: те саме, вивід з'явиться пачками</text>
+<text x="760.0" y="580.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700"><tspan x="760.0" dy="0.0">Режим — не властивість програми,</tspan><tspan x="760.0" dy="18.2">а наслідок того, куди її запустили.</tspan></text>
+</svg>

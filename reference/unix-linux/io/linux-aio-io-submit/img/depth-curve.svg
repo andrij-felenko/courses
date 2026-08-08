@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="140.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">операцій за секунду (шкала логарифмічна)</text>
+<line x1="140.0" y1="60.0" x2="140.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="140.0" y1="360.0" x2="890.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="140.0" y1="110.0" x2="870.0" y2="110.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="6,5"/>
+<text x="505.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">стеля носія: більше запитів уже не дають більшого темпу</text>
+<text x="128.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">12 500</text>
+<text x="128.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">100 000</text>
+<text x="128.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">400 000</text>
+<polyline points="180,340 480,202 800,110" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<polyline points="180,340 480,336 800,332" fill="none" stroke="#2457d6" stroke-width="2.6"/>
+<circle cx="180.0" cy="340.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="480.0" cy="202.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="800.0" cy="110.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="480.0" cy="336.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="800.0" cy="332.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="180.0" y1="360.0" x2="180.0" y2="366.0" stroke="#333333" stroke-width="1.5"/>
+<text x="180.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+<line x1="480.0" y1="360.0" x2="480.0" y2="366.0" stroke="#333333" stroke-width="1.5"/>
+<text x="480.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">8</text>
+<line x1="800.0" y1="360.0" x2="800.0" y2="366.0" stroke="#333333" stroke-width="1.5"/>
+<text x="800.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">64</text>
+<text x="505.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">глибина черги (запитів у польоті)</text>
+<rect x="168.0" y="116.0" width="300.0" height="64.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="318.0" y="144.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="318.0" dy="0.0">з O_DIRECT: вісім запитів у польоті</tspan><tspan x="318.0" dy="15.6">дають приблизно ввосьмеро більший темп</tspan></text>
+<text x="628.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">без O_DIRECT</text>
+<rect x="120.0" y="430.0" width="740.0" height="52.0" rx="6" fill="#eaf7ee" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="452.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">без O_DIRECT подання виконує роботу саме, тож глибина існує лише на папері —</tspan><tspan x="490.0" dy="15.6">усі три числа сходяться в одне</tspan></text>
+</svg>

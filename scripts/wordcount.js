@@ -2,9 +2,9 @@
 /* ============================================================================
    wordcount.js — лічильник ПРОЗИ за AUTHORING.md §3 (без код-блоків, фігур, розмітки).
    Класифікує файли за іменем (нейминг §2):
-     <slug>/<slug>.md       → базова стаття   (540–1440)
-     <slug>/<slug>-d.md     → детальна стаття (1080–9000; каталог — до 14400)
-     <slug>/<type>-<name>.md (type ∈ hist/comp/math/proj/api) → вставка (540–8100)
+     <slug>/<slug>.md       → базова стаття   (378–1008)
+     <slug>/<slug>-d.md     → детальна стаття (1080–6300; каталог — до 10080)
+     <slug>/<type>-<name>.md (type ∈ hist/comp/math/proj/api) → вставка (378–5670)
    Плюс ЗАЛІЗО §3 «базова ≤ ½ детальної»: для кожної теми, де є ОБИДВІ версії, рахує
    відношення слів; базова, довша за половину своєї детальної, — ПОРУШЕННЯ (не попередження).
    Універсальний — параметр: тека книги/каталогу/довідника/курсу.
@@ -19,7 +19,7 @@ const path = require("path");
 const root = process.argv[2];
 const showAll = process.argv.includes("--all");
 if (!root) { console.error("Вкажи теку, напр.: node scripts/wordcount.js book/chemistry"); process.exit(1); }
-const CEIL_DETAILED = /(^|[\\/])catalog([\\/]|$)/.test(root) ? 14400 : 9000;   // каталог — до 14400
+const CEIL_DETAILED = /(^|[\\/])catalog([\\/]|$)/.test(root) ? 10080 : 6300;   // каталог — до 10080
 
 function walk(dir, out) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -60,9 +60,9 @@ function classify(base, dir) {
   return "other";
 }
 function band(kind, w) {
-  if (kind === "insert") return w < 540 ? "▽ мала вставка (<540)" : w <= 8100 ? "✓ вставка (540–8100)" : "▲ завелика (>8100) — поділити";
+  if (kind === "insert") return w < 378 ? "▽ мала вставка (<378)" : w <= 5670 ? "✓ вставка (378–5670)" : "▲ завелика (>5670) — поділити";
   if (kind === "detailed") return w < 1080 ? "▽ детальна нижче (<1080)" : w <= CEIL_DETAILED ? `✓ детальна (1080–${CEIL_DETAILED})` : `▲ понад (>${CEIL_DETAILED})`;
-  if (kind === "basic") return w < 540 ? "✖ мало (<540)" : w <= 1440 ? "✓ базова (540–1440)" : "▲ понад базову (>1440) — на детальну?";
+  if (kind === "basic") return w < 378 ? "✖ мало (<378)" : w <= 1008 ? "✓ базова (378–1008)" : "▲ понад базову (>1008) — на детальну?";
   return "· інше";
 }
 
@@ -88,7 +88,13 @@ for (const kind of ORDER) {
   for (const t of grp) { const b = band(t.kind, t.words); (buckets[b] = buckets[b] || []).push(t.slug); }
   for (const b of Object.keys(buckets)) console.log(`${String(buckets[b].length).padStart(4)}  ${b}`);
   const ws = grp.map((t) => t.words);
-  console.log(`     медіана ${ws[Math.floor(ws.length / 2)]}w · мін ${Math.min(...ws)} · макс ${Math.max(...ws)}`);
+  const med = ws[Math.floor(ws.length / 2)];
+  // Орієнтир медіани (§3) — це КОРПУСНА мітка, не гейт на окрему статтю:
+  // одна довга стаття нормальна, а от медіана, що повзе до стелі, — знак, що поріг входу впав.
+  const AIM = { detailed: [2100, 2600], insert: [1200, 1400], basic: [null, null] }[kind];
+  let mark = "";
+  if (AIM[0]) mark = med > AIM[1] ? `  ▲ орієнтир ${AIM[0]}–${AIM[1]} (+${Math.round(((med - AIM[1]) / AIM[1]) * 100)}%)` : med < AIM[0] ? `  ▽ орієнтир ${AIM[0]}–${AIM[1]}` : `  ✓ в орієнтирі ${AIM[0]}–${AIM[1]}`;
+  console.log(`     медіана ${med}w · мін ${Math.min(...ws)} · макс ${Math.max(...ws)}${mark}`);
 }
 const other = items.filter((t) => t.kind === "other");
 if (other.length) console.log(`\n· інших .md (не базова/детальна/вставка): ${other.length}`);

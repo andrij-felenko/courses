@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 770" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="770" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфер stdio у пам'яті процесу й кеш сторінок у ядрі: дві різні межі на шляху одного рядка</text>
+<rect x="160.0" y="70.0" width="440.0" height="66.0" rx="8" fill="#fbfcff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">рядок у програмі</text>
+<text x="380.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">аргументи printf, пам'ять процесу</text>
+<rect x="160.0" y="215.0" width="440.0" height="66.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">буфер stdio у FILE</text>
+<text x="380.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">пам'ять процесу, типово 4096 байтів</text>
+<rect x="160.0" y="440.0" width="440.0" height="66.0" rx="8" fill="#fdf3e7" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">кеш сторінок</text>
+<text x="380.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">пам'ять ядра, спільна для всіх</text>
+<rect x="160.0" y="600.0" width="440.0" height="66.0" rx="8" fill="#eafaf0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="628.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">носій</text>
+<text x="380.0" y="650.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">диск або твердотільний накопичувач</text>
+<line x1="60.0" y1="372.0" x2="1170.0" y2="372.0" stroke="#c8ccd2" stroke-width="1.4" stroke-dasharray="7 6"/>
+<text x="70.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">межа: простір користувача ↕ ядро</text>
+<line x1="380.0" y1="140.0" x2="380.0" y2="209.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="620.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="620.0" dy="0.0">printf, fputs, fwrite</tspan><tspan x="620.0" dy="15.5">копіювання в пам'яті</tspan></text>
+<line x1="380.0" y1="285.0" x2="380.0" y2="434.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="620.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start"><tspan x="620.0" dy="0.0">write(2): коли спрацював режим</tspan><tspan x="620.0" dy="15.5">або покликали fflush</tspan></text>
+<line x1="380.0" y1="510.0" x2="380.0" y2="594.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="620.0" y="528.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="620.0" dy="0.0">зворотний запис ядра</tspan><tspan x="620.0" dy="15.5">або fsync на вимогу</tspan></text>
+<rect x="760.0" y="205.0" width="430.0" height="116.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="975.0" y="237.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="975.0" dy="0.0">процес упав</tspan><tspan x="975.0" dy="15.0">SIGKILL, SIGSEGV, _exit</tspan><tspan x="975.0" dy="15.0"></tspan><tspan x="975.0" dy="15.0">гине лише цей буфер; усе, що</tspan><tspan x="975.0" dy="15.0">вже пішло write, у файлі буде</tspan></text>
+<rect x="760.0" y="430.0" width="430.0" height="116.0" rx="6" fill="#fdf3e7" stroke="#27ae60" stroke-width="1.5"/><text x="975.0" y="469.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="975.0" dy="0.0">зникло живлення</tspan><tspan x="975.0" dy="15.0"></tspan><tspan x="975.0" dy="15.0">гине те, що стоїть тут;</tspan><tspan x="975.0" dy="15.0">fflush не рятує — потрібен fsync</tspan></text>
+<text x="620.0" y="720.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">fflush долає першу межу, fsync — другу; це різні аварії й різні ліки</text>
+</svg>

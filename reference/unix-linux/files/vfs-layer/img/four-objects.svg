@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1210 810" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1210" height="810" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="60.0" y="70.0" width="450.0" height="120.0" rx="9" fill="#fff6e5" stroke="#b8860b" stroke-width="2.0"/>
+<text x="285.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b8860b" text-anchor="middle" font-weight="700">struct super_block — примірник ФС</text>
+<line x1="60.0" y1="108.0" x2="510.0" y2="108.0" stroke="#b8860b" stroke-width="1.2"/>
+<text x="78.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">розмір блока, ознака «лише читання»,</text>
+<text x="78.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">межа розміру файлу, носій</text>
+<text x="78.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="start" font-weight="700">таблиця s_op</text>
+<rect x="580.0" y="90.0" width="560.0" height="80.0" rx="6" fill="#f1f3f5" stroke="#6b7280" stroke-width="1.4"/><text x="860.0" y="125.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">питання: який примірник якої файлової системи</tspan><tspan x="860.0" dy="18.2">живе: від монтування до відмонтування</tspan></text>
+<rect x="60.0" y="240.0" width="450.0" height="120.0" rx="9" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="285.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">struct inode — сам файл</text>
+<line x1="60.0" y1="278.0" x2="510.0" y2="278.0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="78.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">тип, права, власник, розмір, часи,</text>
+<text x="78.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">лічильник імен</text>
+<text x="78.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">таблиці i_op (об'єкт) та i_fop (заготовка)</text>
+<rect x="580.0" y="260.0" width="560.0" height="80.0" rx="6" fill="#f1f3f5" stroke="#6b7280" stroke-width="1.4"/><text x="860.0" y="295.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">питання: який саме файл, байдуже під яким іменем</tspan><tspan x="860.0" dy="18.2">живе: доки файл комусь потрібен</tspan></text>
+<rect x="60.0" y="410.0" width="450.0" height="120.0" rx="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="285.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">struct dentry — ім'я в кеші</text>
+<line x1="60.0" y1="448.0" x2="510.0" y2="448.0" stroke="#2457d6" stroke-width="1.2"/>
+<text x="78.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">каталог + ім'я → inode;</text>
+<text x="78.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">без inode означає «імені немає»</text>
+<text x="78.0" y="518.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">таблиця d_op (майже завжди порожня)</text>
+<rect x="580.0" y="430.0" width="560.0" height="80.0" rx="6" fill="#f1f3f5" stroke="#6b7280" stroke-width="1.4"/><text x="860.0" y="465.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">питання: яке ім'я — і щоб це було швидко</tspan><tspan x="860.0" dy="18.2">живе: доки корисно пам'ятати</tspan></text>
+<rect x="60.0" y="580.0" width="450.0" height="120.0" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="285.0" y="606.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">struct file — опис відкритого файлу</text>
+<line x1="60.0" y1="618.0" x2="510.0" y2="618.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="78.0" y="642.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">позиція, прапорці, режим доступу,</text>
+<text x="78.0" y="664.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">пара «монтування + dentry»</text>
+<text x="78.0" y="688.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">таблиця f_op (копія i_fop)</text>
+<rect x="580.0" y="600.0" width="560.0" height="80.0" rx="6" fill="#f1f3f5" stroke="#6b7280" stroke-width="1.4"/><text x="860.0" y="635.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">питання: яке саме відкриття цього файлу</tspan><tspan x="860.0" dy="18.2">живе: від open до останнього close</tspan></text>
+<line x1="190.0" y1="234.0" x2="190.0" y2="196.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="206.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">лежить у примірнику</text>
+<line x1="190.0" y1="404.0" x2="190.0" y2="366.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="206.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">вказує на inode</text>
+<line x1="190.0" y1="574.0" x2="190.0" y2="536.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="206.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">тримає пару з dentry</text>
+<rect x="60.0" y="725.0" width="1080.0" height="56.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="2.0"/><text x="600.0" y="758.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">самі структури тримає VFS — вміст таблиць операцій заповнює файлова система</tspan></text>
+</svg>

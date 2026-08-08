@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1240 810" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1240" height="810" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="615.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">aarch64: записи змінної довжини всередині sigcontext</text>
+<rect x="234.0" y="54.0" width="532.0" height="60.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="500.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">фіксована частина sigcontext</text>
+<text x="500.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">fault_address · regs[0..30] · sp · pc · pstate</text>
+<text x="227.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">__reserved[4096] — ланцюг записів змінної довжини</text>
+<rect x="234.0" y="152.0" width="532.0" height="572.0" rx="10" fill="#fbfcff" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="250.0" y="170.0" width="500.0" height="76.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="268.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">fpsimd_context</text>
+<text x="732.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">magic 0x46508001</text>
+<text x="268.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">fpsr, fpcr, 32 векторні регістри по 128 бітів</text>
+<text x="268.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">size 528</text>
+<rect x="250.0" y="290.0" width="500.0" height="76.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="268.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">esr_context</text>
+<text x="732.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">magic 0x45535201</text>
+<text x="268.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ESR_EL1 — чому саме стався збій (лише для збоїв)</text>
+<text x="268.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">size 16</text>
+<rect x="250.0" y="410.0" width="500.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="268.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">sve_context</text>
+<text x="732.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">magic 0x53564501</text>
+<text x="268.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">довжина вектора vl задає, скільки байтів далі</text>
+<text x="268.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">size залежить від vl</text>
+<rect x="250.0" y="530.0" width="500.0" height="76.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="268.0" y="554.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">extra_context</text>
+<text x="732.0" y="554.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">magic 0x45585401</text>
+<text x="268.0" y="576.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">решта не вмістилась: datap веде на продовження</text>
+<text x="268.0" y="596.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">size 32</text>
+<rect x="250.0" y="650.0" width="500.0" height="54.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="268.0" y="673.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">термінатор</text>
+<text x="268.0" y="693.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">magic = 0  ·  size = 0  —  кінець ланцюга</text>
+<line x1="204.0" y1="254.0" x2="204.0" y2="284.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="172.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">+ size</text>
+<line x1="204.0" y1="374.0" x2="204.0" y2="404.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="172.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">+ size</text>
+<line x1="204.0" y1="494.0" x2="204.0" y2="524.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="172.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">+ size</text>
+<line x1="204.0" y1="614.0" x2="204.0" y2="644.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="172.0" y="634.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">+ size</text>
+<line x1="500.0" y1="116.0" x2="500.0" y2="150.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="810.0" y="170.0" width="380.0" height="180.0" rx="6" fill="#fbfcff" stroke="#27ae60" stroke-width="2.0"/><text x="1000.0" y="213.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1000.0" dy="0.0">ЯК ЧИТАТИ</tspan><tspan x="1000.0" dy="16.9"></tspan><tspan x="1000.0" dy="16.9">1. стати на початок __reserved</tspan><tspan x="1000.0" dy="16.9">2. прочитати magic поточного запису</tspan><tspan x="1000.0" dy="16.9">3. не той, що шукаєте — додати size</tspan><tspan x="1000.0" dy="16.9">    до адреси й повторити</tspan><tspan x="1000.0" dy="16.9">4. magic == 0 — записів більше немає</tspan></text>
+<rect x="810.0" y="380.0" width="380.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/><text x="1000.0" y="425.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1000.0" dy="0.0">Порядку записів не гарантовано.</tspan><tspan x="1000.0" dy="16.9">Шукати треба за magic, а не за зсувом:</tspan><tspan x="1000.0" dy="16.9">набір записів залежить від того,</tspan><tspan x="1000.0" dy="16.9">які розширення має процесор</tspan><tspan x="1000.0" dy="16.9">і що саме сталося з програмою.</tspan></text>
+<rect x="810.0" y="560.0" width="380.0" height="164.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="1000.0" y="612.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1000.0" dy="0.0">extra_context — запобіжник:</tspan><tspan x="1000.0" dy="16.9">коли записи не влазять у 4096 байтів,</tspan><tspan x="1000.0" dy="16.9">ядро кладе його передостаннім,</tspan><tspan x="1000.0" dy="16.9">а поле datap показує на продовження</tspan><tspan x="1000.0" dy="16.9">ланцюга, виділене нижче на стеку.</tspan></text>
+</svg>

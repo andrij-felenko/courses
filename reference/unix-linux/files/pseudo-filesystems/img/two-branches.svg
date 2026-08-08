@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 770" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="770" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="440.0" y="30.0" width="360.0" height="54.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="620.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">read(fd, buf, n)</tspan></text>
+<rect x="440.0" y="120.0" width="360.0" height="54.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="620.0" y="152.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">VFS: викликати read цієї ФС</tspan></text>
+<line x1="620.0" y1="84.0" x2="620.0" y2="118.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="210.0" width="340.0" height="46.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="200.0" y="238.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">ext4, XFS</tspan></text>
+<line x1="620.0" y1="176.0" x2="200.0" y2="206.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="290.0" width="300.0" height="40.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="200.0" y="314.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">зсув → номери блоків</tspan></text>
+<line x1="200.0" y1="330.0" x2="200.0" y2="364.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="364.0" width="300.0" height="40.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="200.0" y="388.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">кеш сторінок</tspan></text>
+<line x1="200.0" y1="404.0" x2="200.0" y2="438.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="438.0" width="300.0" height="40.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="200.0" y="462.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">блоковий пристрій</tspan></text>
+<rect x="50.0" y="600.0" width="300.0" height="66.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.1"/>
+<text x="200.0" y="637.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">дані лежать на носії</tspan></text>
+<rect x="450.0" y="210.0" width="340.0" height="46.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="620.0" y="238.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">procfs, sysfs</tspan></text>
+<line x1="620.0" y1="176.0" x2="620.0" y2="206.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="470.0" y="290.0" width="300.0" height="40.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="620.0" y="314.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">викликати функцію ядра</tspan></text>
+<line x1="620.0" y1="330.0" x2="620.0" y2="364.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="470.0" y="364.0" width="300.0" height="60.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="620.0" y="389.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">сформатувати текст</tspan><tspan x="620.0" dy="16.9">із живих структур</tspan></text>
+<line x1="620.0" y1="424.0" x2="620.0" y2="458.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="470.0" y="458.0" width="300.0" height="40.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="620.0" y="482.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">не зберігається нічого</tspan></text>
+<rect x="470.0" y="600.0" width="300.0" height="66.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.1"/>
+<text x="620.0" y="628.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">вміст народжується</tspan><tspan x="620.0" dy="16.9">у мить читання</tspan></text>
+<rect x="870.0" y="210.0" width="340.0" height="46.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="1040.0" y="238.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1040.0" dy="0.0">tmpfs, devtmpfs</tspan></text>
+<line x1="620.0" y1="176.0" x2="1040.0" y2="206.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="890.0" y="290.0" width="300.0" height="40.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="1040.0" y="314.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1040.0" dy="0.0">узяти готові сторінки</tspan></text>
+<line x1="1040.0" y1="330.0" x2="1040.0" y2="364.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="890.0" y="364.0" width="300.0" height="60.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="1040.0" y="389.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1040.0" dy="0.0">кеш сторінок</tspan><tspan x="1040.0" dy="16.9">без пристрою під ним</tspan></text>
+<line x1="1040.0" y1="424.0" x2="1040.0" y2="458.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="890.0" y="458.0" width="300.0" height="40.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="1040.0" y="482.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1040.0" dy="0.0">своп — єдиний вихід</tspan></text>
+<rect x="890.0" y="600.0" width="300.0" height="66.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.1"/>
+<text x="1040.0" y="628.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1040.0" dy="0.0">дані справжні,</tspan><tspan x="1040.0" dy="16.9">носієм є пам'ять</tspan></text>
+<text x="620.0" y="720.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-style="italic">Контракт read однаковий; різне тільки те, звідки беруться байти</text>
+</svg>

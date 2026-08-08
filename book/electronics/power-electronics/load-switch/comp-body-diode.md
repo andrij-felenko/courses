@@ -94,20 +94,64 @@ P-MOSFET:  тіло (n) на витоку → діод   катод=витік, 
 
 ### Як це згадати у прошивці
 
-Програмно body-діод «не вимикається» — про нього дбають схемою. Але код мусить **знати**, що вимкнений ключ ще не гарантує знеструмленого виходу, і не покладатися на «вимкнув — значить, нуль». Перед тим як, скажімо, чіпати спільну з вузлом лінію, корисно перевірити, що вихід справді просів:
+Програмно body-діод «не вимикається» — про нього дбають схемою. Але код мусить **знати**, що вимкнений ключ ще не гарантує знеструмленого виходу, і не покладатися на «вимкнув — значить, нуль». Перед тим як, скажімо, чіпати спільну з вузлом лінію, корисно перевірити, що вихід справді просів.
 
-```cpp
+Потрібне для цього є на **будь-якому МК**: один цифровий вихід на керування затвором, пауза на стікання ємності й один вхід АЦП на дільнику з виходу ключа. Різняться лише назви функцій у конкретному середовищі:
+
+:::tabs
+```arduino
 // Гасимо ключ навантаження і ПЕРЕКОНУЄМОСЯ, що вихід зник.
 // Якщо на виході чуже живлення, body-діод тримає напругу — і ми це побачимо.
 digitalWrite(LOAD_EN, LOW);          // закрили канал ключа
 delay(10);                            // даємо ємності стекти
 
-int mv = analogReadMilliVolts(VOUT_SENSE);   // ESP32: напруга на виході дільника
+int raw = analogRead(VOUT_SENSE);            // дільник із виходу ключа
+int mv  = (int)((long)raw * 5000L / 1023L);  // АЦП 10 біт, опора 5 В
 if (mv > VOUT_OFF_THRESHOLD_MV) {
     // канал закритий, а напруга лишилась → тече крізь body-діод (зворотне живлення)
     // повне відключення тут потребує ключа з reverse current blocking
-    log_w("vyhid ne znyksya: %d mV — mozhlyve zhyvlennya kriz body-diod", mv);
+    Serial.print(F("vyhid ne znyksya, mV: "));
+    Serial.println(mv);
 }
 ```
+```esp-idf
+// Те саме на ESP-IDF: затвор — через driver/gpio.h, вихід — через oneshot-АЦП.
+#include "driver/gpio.h"
+#include "esp_adc/adc_oneshot.h"
+#include "esp_adc/adc_cali.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+gpio_set_level(LOAD_EN, 0);                  // закрили канал ключа
+vTaskDelay(pdMS_TO_TICKS(10));               // даємо ємності стекти
+
+int raw = 0, mv = 0;                         // adc/cali — заведені при ініціалізації
+ESP_ERROR_CHECK(adc_oneshot_read(adc, VOUT_SENSE_CH, &raw));
+ESP_ERROR_CHECK(adc_cali_raw_to_voltage(cali, raw, &mv));
+if (mv > VOUT_OFF_THRESHOLD_MV) {
+    // канал закритий, а напруга лишилась → тече крізь body-діод (зворотне живлення)
+    // повне відключення тут потребує ключа з reverse current blocking
+    ESP_LOGW(TAG, "vyhid ne znyksya: %d mV — mozhlyve zhyvlennya kriz body-diod", mv);
+}
+```
+```stm32
+// Те саме на STM32 HAL: затвор — HAL_GPIO_WritePin, вихід — вбудований АЦП.
+HAL_GPIO_WritePin(LOAD_EN_GPIO_Port, LOAD_EN_Pin, GPIO_PIN_RESET);  // закрили канал
+HAL_Delay(10);                                                      // ємності стекти
+
+uint32_t raw = 0;
+HAL_ADC_Start(&hadc1);
+if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK) raw = HAL_ADC_GetValue(&hadc1);
+HAL_ADC_Stop(&hadc1);
+
+uint32_t mv = raw * 3300u / 4095u;           // АЦП 12 біт, опора 3.3 В
+if (mv > VOUT_OFF_THRESHOLD_MV) {
+    // канал закритий, а напруга лишилась → тече крізь body-діод (зворотне живлення)
+    // повне відключення тут потребує ключа з reverse current blocking
+    reverse_feed_detected = 1;               // прапорець для верхнього рівня
+}
+```
+:::
 
 Жодних магічних слів у коді проти діода немає — є лише чесна перевірка факту. Якщо вузол мусить бути **гарантовано** відрізаний (вимірювання витоку, безпека, обмін шини між двома живленнями), то правильна відповідь не в прошивці, а в залізі: два транзистори спина-до-спини або готовий ключ навантаження з рядком *reverse current blocking*.

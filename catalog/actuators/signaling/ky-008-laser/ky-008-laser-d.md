@@ -101,9 +101,10 @@ KY-008 підключається так само просто, як світл�
 
 ### Керування з коду
 
-Керувати лазером — це керувати **одним цифровим виводом**: «1» — промінь, «0» — темно. Тому будь-який приклад «блимання світлодіодом» працює для KY-008 без змін, лише замість світлодіода на виводі — лазер. Це доменно-замкнена робота з ніжкою мікроконтролера, тож мова тут одна — C/C++ (Arduino):
+Керувати лазером — це керувати **одним цифровим виводом**: «1» — промінь, «0» — темно. Тому будь-який приклад «блимання світлодіодом» працює для KY-008 без змін, лише замість світлодіода на виводі — лазер. Це доменно-замкнена робота з ніжкою мікроконтролера, і потрібні для неї скрізь однакові два кроки: **налаштувати вивід як цифровий вихід** і **виставляти на ньому рівень**. Різняться лише назви — `pinMode`/`digitalWrite` в Arduino, `gpio_config`/`gpio_set_level` в ESP-IDF, `HAL_GPIO_WritePin` над попередньо затактованим портом у STM32 HAL:
 
-```cpp
+:::tabs
+```arduino
 const uint8_t LASER = 9;   // пін S модуля -> цифровий вивід 9
 
 void setup() {
@@ -118,6 +119,57 @@ void loop() {
     delay(1000);
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define LASER GPIO_NUM_18      // пін S модуля -> GPIO18
+
+void app_main(void)
+{
+    gpio_config_t cfg = {
+        .pin_bit_mask = 1ULL << LASER,
+        .mode         = GPIO_MODE_OUTPUT,
+        .pull_up_en   = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type    = GPIO_INTR_DISABLE,
+    };
+    gpio_config(&cfg);
+    gpio_set_level(LASER, 0);   // старт з вимкненим променем — гарна звичка
+
+    while (1) {
+        gpio_set_level(LASER, 1);            // промінь увімкнено
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        gpio_set_level(LASER, 0);            // промінь вимкнено
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+```
+```stm32
+#include "main.h"
+// пін S модуля -> PA9, у CubeMX виставлено GPIO_Output (тактування порту дає MX_GPIO_Init)
+#define LASER_PORT GPIOA
+#define LASER_PIN  GPIO_PIN_9
+
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+
+    // старт з вимкненим променем — гарна звичка
+    HAL_GPIO_WritePin(LASER_PORT, LASER_PIN, GPIO_PIN_RESET);
+
+    while (1) {
+        HAL_GPIO_WritePin(LASER_PORT, LASER_PIN, GPIO_PIN_SET);    // промінь увімкнено
+        HAL_Delay(1000);
+        HAL_GPIO_WritePin(LASER_PORT, LASER_PIN, GPIO_PIN_RESET);  // промінь вимкнено
+        HAL_Delay(1000);
+    }
+}
+```
+:::
 
 Оце і все базове керування. Але з нього виростають цікавіші речі: **швидко блимати променем**, щоб передати ним дані чи промодулювати для приймача; **плавно гасити** через ШІМ (хоча для лазера це радше ефект, ніж користь); зробити **лазерний бар'єр**, де на тому боці стоїть фотодавач, і код ловить момент перетину. Як під'єднати модуль надійно, керувати ним із бібліотеки, зробити з нього бар'єр із приймачем і які пастки чигають (зокрема струм виводу на ESP32 й таймінги блимання) — розібрано в [окремій вставці з робочим кодом](book:actuators/ky-008-laser/proj-laser-control.md).
 

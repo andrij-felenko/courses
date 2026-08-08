@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1230 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1230" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="610.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проба монтування: команди повз спільний каталог, час — на одному годиннику</text>
+<text x="610.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">два канали: дані йдуть через сервер, команди — напряму</text>
+<rect x="40.0" y="120.0" width="260.0" height="76.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="170.0" y="153.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">машина A</tspan><tspan x="170.0" dy="17.6">письменник</tspan></text>
+<rect x="470.0" y="120.0" width="280.0" height="76.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/><text x="610.0" y="153.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">сервер</tspan><tspan x="610.0" dy="17.6">спільний каталог</tspan></text>
+<rect x="920.0" y="120.0" width="260.0" height="76.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="1050.0" y="153.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1050.0" dy="0.0">машина B</tspan><tspan x="1050.0" dy="17.6">читач</tspan></text>
+<line x1="310.0" y1="158.0" x2="460.0" y2="158.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="385.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="385.0" dy="0.0">створює файл</tspan></text>
+<line x1="760.0" y1="158.0" x2="910.0" y2="158.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="835.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="835.0" dy="0.0">читає каталог</tspan></text>
+<line x1="170.0" y1="196.0" x2="170.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="7 5"/>
+<line x1="1050.0" y1="196.0" x2="1050.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="7 5"/>
+<line x1="610.0" y1="300.0" x2="176.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="300.0" x2="1044.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="610.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="610.0" dy="0.0">керувальний канал: пряме TCP-з'єднання A ↔ B,</tspan><tspan x="610.0" dy="15.6">повз сервер і повз спільний каталог — тут ідуть команди, а не дані</tspan></text>
+<text x="610.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">одне вимірювання: обидва відліки — на годиннику читача</text>
+<line x1="300.0" y1="456.0" x2="870.0" y2="456.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="300.0" y1="456.0" x2="300.0" y2="472.0" stroke="#6b7280" stroke-width="1.6"/>
+<line x1="870.0" y1="456.0" x2="870.0" y2="472.0" stroke="#6b7280" stroke-width="1.6"/>
+<text x="585.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="585.0" dy="0.0">stat() кожні 50 мс — усе ще ENOENT: негативний запис у кеші чинний</tspan></text>
+<line x1="120.0" y1="500.0" x2="1120.0" y2="500.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="320.0" y1="500.0" x2="320.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="382.0" y1="500.0" x2="382.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="444.0" y1="500.0" x2="444.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="506.0" y1="500.0" x2="506.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="568.0" y1="500.0" x2="568.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="630.0" y1="500.0" x2="630.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="692.0" y1="500.0" x2="692.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="754.0" y1="500.0" x2="754.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="816.0" y1="500.0" x2="816.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="878.0" y1="500.0" x2="878.0" y2="513.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="210.0" y1="478.0" x2="210.0" y2="522.0" stroke="#2457d6" stroke-width="2.6"/>
+<text x="210.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">t₀</tspan></text>
+<text x="210.0" y="546.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle"><tspan x="210.0" dy="0.0">прийшла відповідь</tspan><tspan x="210.0" dy="15.0">«файл створено»</tspan></text>
+<line x1="930.0" y1="478.0" x2="930.0" y2="522.0" stroke="#27ae60" stroke-width="2.6"/>
+<text x="930.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="930.0" dy="0.0">t₁</tspan></text>
+<text x="930.0" y="546.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="930.0" dy="0.0">stat() повернув 0</tspan><tspan x="930.0" dy="15.0">файл нарешті видно</tspan></text>
+<line x1="570.0" y1="594.0" x2="216.0" y2="594.0" stroke="#b8860b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="594.0" x2="924.0" y2="594.0" stroke="#b8860b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="570.0" y="624.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">Δ = t₁ − t₀ — єдине число, що є результатом проби</tspan></text>
+<text x="610.0" y="662.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="610.0" dy="0.0">годинник машини A в обчисленні не бере участі — тому його розходження</tspan><tspan x="610.0" dy="15.6">з годинником машини B нікуди не входить</tspan></text>
+</svg>

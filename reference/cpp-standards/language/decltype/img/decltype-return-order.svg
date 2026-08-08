@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Деструктор охоронця спрацьовує після ініціалізації об'єкта повернення</text>
+<rect x="74.1" y="98.8" width="181.9" height="62.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="165.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">tick_guard g{out};</tspan><tspan x="165.0" dy="19.5">старт відліку</tspan></text>
+<rect x="345.5" y="98.8" width="199.0" height="62.5" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="445.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">std::invoke(f, a...)</tspan><tspan x="445.0" dy="19.5">сам виклик</tspan></text>
+<rect x="639.0" y="98.8" width="181.9" height="62.5" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="730.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">ініціалізація</tspan><tspan x="730.0" dy="19.5">об'єкта повернення</tspan></text>
+<rect x="931.9" y="98.8" width="156.2" height="62.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="1010.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="1010.0" dy="0.0">~tick_guard()</tspan><tspan x="1010.0" dy="19.5">зупинка відліку</tspan></text>
+<line x1="265.9" y1="130.0" x2="335.5" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="554.5" y1="130.0" x2="629.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="831.0" y1="130.0" x2="921.9" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="165.0" y1="167.2" x2="165.0" y2="254.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<line x1="1010.0" y1="167.2" x2="1010.0" y2="254.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<line x1="165.0" y1="262.0" x2="1010.0" y2="262.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="1010.0" y1="262.0" x2="165.0" y2="262.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="587.5" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">що потрапляє у вимір</text>
+<text x="587.5" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">разом із побудовою результату: локальні змінні гинуть уже після неї</text>
+</svg>

@@ -1,7 +1,7 @@
 {
  "book": "cpp-standards",
  "kind": "reference",
- "limit": 18,
+ "limit": 33,
  "concurrency": 4,
  "skipArticles": true,
  "units": [
@@ -81,6 +81,96 @@
    "section": "language",
    "slug": "noexcept",
    "title": "noexcept: обіцянка й наслідки",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "odr-and-linkage",
+   "title": "Правило одного визначення й зв'язування імен",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "namespaces-and-adl",
+   "title": "Простори імен і пошук, залежний від аргументів",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "decltype",
+   "title": "decltype: тип виразу разом із його категорією",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "overload-resolution",
+   "title": "Розв'язання перевантажень: як обирається функція",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "deducing-this",
+   "title": "Явний параметр об'єкта (deducing this)",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "structured-bindings",
+   "title": "Структуровані зв'язування: auto [a, b]",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "range-based-for",
+   "title": "Цикл for за діапазоном і в що він розгортається",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "coroutines",
+   "title": "Корутини: призупинення функції й час життя кадру",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "rtti-and-dynamic-cast",
+   "title": "RTTI: typeid і dynamic_cast",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "swap-operation",
+   "title": "Обмін значеннями: swap, ADL-пошук і зобов'язання не кидати",
+   "level": "detailed"
+  },
+  {
+   "section": "language",
+   "slug": "constexpr-and-consteval",
+   "title": "constexpr і consteval: обчислення під час компіляції",
+   "level": "detailed"
+  },
+  {
+   "section": "lifetime",
+   "slug": "object-lifetime",
+   "title": "Час життя об'єкта",
+   "level": "detailed"
+  },
+  {
+   "section": "lifetime",
+   "slug": "unique-ptr",
+   "title": "unique_ptr: одноосібне володіння",
+   "level": "detailed"
+  },
+  {
+   "section": "lifetime",
+   "slug": "shared-weak-ptr",
+   "title": "shared_ptr і weak_ptr: спільне володіння й розрив циклів",
+   "level": "detailed"
+  },
+  {
+   "section": "lifetime",
+   "slug": "ownership-semantics",
+   "title": "Володіння в сигнатурі: що означає тип параметра",
    "level": "detailed"
   }
  ],

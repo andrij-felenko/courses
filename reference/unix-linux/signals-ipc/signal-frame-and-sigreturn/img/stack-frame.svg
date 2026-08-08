@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 790" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="790" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що ядро записує на стек користувача перед запуском обробника</text>
+<text x="60.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start" font-weight="700">стек користувача (росте вниз)</text>
+<rect x="60.0" y="62.0" width="470.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="295.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="295.0" dy="0.0">кадри функцій, які працювали</tspan><tspan x="295.0" dy="16.9">в мить приходу сигналу</tspan></text>
+<line x1="34.0" y1="146.0" x2="556.0" y2="146.0" stroke="#1a1a1a" stroke-width="2.0" stroke-dasharray="7 5"/>
+<text x="564.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">покажчик стека до сигналу</text>
+<rect x="60.0" y="156.0" width="470.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="295.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle"><tspan x="295.0" dy="0.0">ЧЕРВОНА ЗОНА — 128 байтів</tspan><tspan x="295.0" dy="16.9">ядро їх не чіпає: вони можуть бути зайняті</tspan></text>
+<rect x="48.0" y="232.0" width="494.0" height="372.0" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="2.4"/>
+<text x="295.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">СИГНАЛЬНИЙ КАДР</text>
+<rect x="64.0" y="274.0" width="462.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.4"/>
+<text x="82.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">адреса повернення → батут</text>
+<text x="82.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">сюди подивиться інструкція</tspan><tspan x="82.0" dy="14.4">повернення обробника</tspan></text>
+<rect x="64.0" y="336.0" width="462.0" height="128.0" rx="6" fill="#eafaf1" stroke="#6b7280" stroke-width="1.4"/>
+<text x="82.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">ucontext_t</text>
+<text x="82.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">uc_mcontext: усі регістри, покажчики</tspan><tspan x="82.0" dy="14.4">інструкції та стека, прапорці</tspan><tspan x="82.0" dy="14.4">uc_sigmask: маска, яку відновити</tspan><tspan x="82.0" dy="14.4">uc_stack: запасний стек, що діяв</tspan></text>
+<rect x="64.0" y="474.0" width="462.0" height="52.0" rx="6" fill="#fbfcff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="82.0" y="494.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">siginfo_t</text>
+<text x="82.0" y="512.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">номер, код причини, відправник,</tspan><tspan x="82.0" dy="14.4">адреса збою  (при SA_SIGINFO)</tspan></text>
+<rect x="64.0" y="536.0" width="462.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="82.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">розширений стан процесора</text>
+<text x="82.0" y="574.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="82.0" dy="0.0">регістри співпроцесора й векторні;</tspan><tspan x="82.0" dy="14.4">розмір залежить від розширень</tspan></text>
+<line x1="34.0" y1="612.0" x2="556.0" y2="612.0" stroke="#2457d6" stroke-width="2.4"/>
+<text x="564.0" y="611.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start"><tspan x="564.0" dy="0.0">покажчик стека</tspan><tspan x="564.0" dy="15.0">на вході в обробник</tspan></text>
+<rect x="60.0" y="626.0" width="470.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/>
+<text x="295.0" y="650.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="295.0" dy="0.0">сюди ляжуть власні кадри обробника</tspan><tspan x="295.0" dy="16.9">й кадри вкладених сигналів</tspan></text>
+<line x1="295.0" y1="700.0" x2="295.0" y2="740.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="295.0" y="762.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">нижчі адреси</text>
+<rect x="700.0" y="232.0" width="440.0" height="300.0" rx="10" fill="#fbfcff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="920.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">регістри перед стрибком в обробник</text>
+<rect x="718.0" y="284.0" width="168.0" height="34.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="802.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1-й аргумент</text>
+<text x="900.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">номер сигналу</text>
+<rect x="718.0" y="330.0" width="168.0" height="34.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="802.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2-й аргумент</text>
+<text x="900.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">адреса siginfo_t у кадрі</text>
+<rect x="718.0" y="376.0" width="168.0" height="34.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="802.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">3-й аргумент</text>
+<text x="900.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">адреса ucontext_t у кадрі</text>
+<rect x="718.0" y="422.0" width="168.0" height="34.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="802.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">покажчик стека</text>
+<text x="900.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">початок кадру, вирівняний за ABI</text>
+<rect x="718.0" y="468.0" width="168.0" height="34.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="802.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">покажчик інструкції</text>
+<text x="900.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">адреса обробника</text>
+<rect x="700.0" y="556.0" width="440.0" height="108.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="920.0" y="589.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="920.0" dy="0.0">З погляду процесора нічого незвичайного:</tspan><tspan x="920.0" dy="16.9">виконується звичайна функція, у якої є</tspan><tspan x="920.0" dy="16.9">аргументи, свій стек і адреса повернення.</tspan><tspan x="920.0" dy="16.9">Виклику в програмі при цьому не було.</tspan></text>
+</svg>

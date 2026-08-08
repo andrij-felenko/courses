@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1310 670" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1310" height="670" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="60.0" y="56.0" width="1180.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="650.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">спершу читаємо каталог, потім вішаємо стеження</tspan></text>
+<text x="240.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">readdir(d)</text>
+<text x="1000.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">inotify_add_watch(d)</text>
+<line x1="120.0" y1="188.0" x2="236.0" y2="188.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="1004.0" y1="188.0" x2="1130.0" y2="188.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="1160.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">час</text>
+<rect x="240.0" y="140.0" width="760.0" height="96.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.4"/><text x="620.0" y="172.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">у цю мить хтось створив d/x</tspan><tspan x="620.0" dy="20.8">у переліку його не було  ·  події не буде</tspan><tspan x="620.0" dy="20.8">втрачено назавжди</tspan></text>
+<rect x="60.0" y="316.0" width="1180.0" height="44.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/><text x="650.0" y="343.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">спершу вішаємо стеження, потім читаємо каталог</tspan></text>
+<text x="240.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">inotify_add_watch(d)</text>
+<text x="1000.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">readdir(d)</text>
+<line x1="120.0" y1="448.0" x2="236.0" y2="448.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="1004.0" y1="448.0" x2="1130.0" y2="448.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="1160.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">час</text>
+<rect x="240.0" y="400.0" width="760.0" height="96.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.4"/><text x="620.0" y="432.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">у цю мить хтось створив d/x</tspan><tspan x="620.0" dy="20.8">подія Є  ·  у переліку теж Є</tspan><tspan x="620.0" dy="20.8">дублікат, але не втрата</tspan></text>
+<rect x="60.0" y="574.0" width="1180.0" height="52.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="2.0"/><text x="650.0" y="606.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">щілина є в обох випадках — порядок міняє не її наявність, а її ціну</tspan></text>
+</svg>

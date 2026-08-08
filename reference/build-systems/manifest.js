@@ -15,9 +15,9 @@
   sections: [
     { slug: "fundamentals", title: "Що робить система збірки", scope: "Модель, спільна для всіх систем збірки: граф, актуальність, відтворюваність.",
       topics: [
-        { slug: "build-system-role", title: "Роль системи збірки: від дерева файлів до артефакту", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "build-system-role", title: "Роль системи збірки: від дерева файлів до артефакту", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-make-birth.md", status: "done" }] , math: [{ file: "math-rebuild-cost.md", status: "done" }] , proj: [{ file: "proj-mini-build.md", status: "done" }] },
         { slug: "dependency-graph", title: "Граф залежностей і порядок робіт", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "incremental-build", title: "Інкрементальна збірка: як вирішують, що застаріло", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "incremental-build", title: "Інкрементальна збірка: як вирішують, що застаріло", basic: { status: "empty" }, detailed: { status: "done" } , api: [{ file: "api-depfile.md", status: "done" }] , math: [{ file: "math-early-cutoff.md", status: "done" }] },
         { slug: "configure-and-generate", title: "Конфігурація, генерація і збірка поза деревом джерел", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "reproducible-builds", title: "Відтворювані збірки", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "build-speed", title: "Швидкість збірки: Ninja, ccache, PCH, unity", basic: { status: "empty" }, detailed: { status: "pending" } },
@@ -25,8 +25,8 @@
 
     { slug: "cmake", title: "CMake", scope: "Мова, модель цілей і практика CMake — системи збірки більшості сучасних C++-проєктів.",
       topics: [
-        { slug: "cmake-language", title: "Мова CMakeLists: змінні, області, потік керування", basic: { status: "empty" }, detailed: { status: "pending" } },
-        { slug: "targets-and-properties", title: "Цілі й властивості замість глобальних змінних", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "cmake-language", title: "Мова CMakeLists: змінні, області, потік керування", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-cmake-language.md", status: "done" }] , api: [{ file: "api-if-and-lists.md", status: "done" }] , proj: [{ file: "proj-helper-function.md", status: "done" }] },
+        { slug: "targets-and-properties", title: "Цілі й властивості замість глобальних змінних", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-target-turn.md", status: "done" }] , api: [{ file: "api-target-properties.md", status: "done" }] },
         { slug: "usage-requirements", title: "Вимоги вжитку: PUBLIC, PRIVATE, INTERFACE", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "find-package", title: "find_package: Config проти Module й імпортовані цілі", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "fetchcontent-subprojects", title: "FetchContent і підпроєкти: чужий код усередині збірки", basic: { status: "empty" }, detailed: { status: "pending" } },
@@ -40,6 +40,7 @@
         { slug: "cmake-toolchain-file", title: "Файл тулчейна: як CMake дізнається про чужу платформу", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "cmake-antipatterns", title: "Антипатерни CMake і чому вони живучі", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "configure-file-templates", title: "configure_file: значення конфігурації у згенерованих файлах", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "cmake-policies", title: "Політики CMake: як мова змінюється, не ламаючи старі проєкти", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
 
     { slug: "dependencies", title: "Залежності", scope: "Як проєкт отримує чужий код відтворювано й однаково на всіх машинах.",

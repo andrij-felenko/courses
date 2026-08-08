@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1411.5 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1411.5" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="700.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">одна проба: що всередині секундоміра, а що поза ним</text>
+<rect x="40.0" y="165.0" width="300.0" height="118.0" rx="6" fill="#eef0f2" stroke="#6b7280" stroke-width="1.5"/><text x="190.0" y="210.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">mmap K сторінок</tspan><tspan x="190.0" dy="18.2">MADV_NOHUGEPAGE</tspan><tspan x="190.0" dy="18.2">дотик кожної сторінки</tspan></text>
+<text x="190.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">поза виміром</text>
+<text x="190.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">тут мінорні збої й ріст таблиць</text>
+<rect x="380.0" y="165.0" width="200.0" height="118.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="219.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">стерти біт W</tspan><tspan x="480.0" dy="18.2">у K записах</tspan></text>
+<line x1="586.0" y1="224.0" x2="614.0" y2="224.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="620.0" y="165.0" width="200.0" height="118.0" rx="6" fill="#fff5e0" stroke="#333333" stroke-width="1.5"/><text x="720.0" y="219.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">IPI на всі ядра</tspan><tspan x="720.0" dy="18.2">в масці простору</tspan></text>
+<line x1="826.0" y1="224.0" x2="854.0" y2="224.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="860.0" y="165.0" width="230.0" height="118.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="975.0" y="219.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="975.0" dy="0.0">стояти, доки не</tspan><tspan x="975.0" dy="18.2">відзвітує остання ціль</tspan></text>
+<line x1="370.0" y1="118.0" x2="1100.0" y2="118.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="370.0" y1="118.0" x2="370.0" y2="159.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="1100.0" y1="118.0" x2="1100.0" y2="159.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="735.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">вимірюване вікно: t₁ − t₀ навколо одного mprotect</text>
+<rect x="1140.0" y="165.0" width="230.0" height="118.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/><text x="1255.0" y="211.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1255.0" dy="0.0">mprotect назад на RW:</tspan><tspan x="1255.0" dy="16.9">біт W повертається,</tspan><tspan x="1255.0" dy="16.9">скидання немає</tspan></text>
+<text x="1255.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">поза виміром</text>
+<text x="1255.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">без цього кроку наступна</text>
+<text x="1255.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">проба нічого не змінить</text>
+<line x1="40.0" y1="400.0" x2="1350.0" y2="400.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="1372.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">час</text>
+<text x="700.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">звуження прав стирає біт запису — і саме тому вимагає скидання; розширення його повертає й не вимагає нічого</text>
+<text x="700.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">усе, що лишилося ліворуч і праворуч від дужки, інакше стало б тим, що ви зміряли замість розсилання</text>
+</svg>

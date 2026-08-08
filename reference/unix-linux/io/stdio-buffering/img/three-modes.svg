@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1310 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1310" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="650.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Коли саме трапляється write у безбуферному, порядковому й поблоковому режимах</text>
+<text x="650.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">вісім викликів поспіль: непарний додає слова, парний завершує рядок</text>
+<rect x="329.0" y="78.0" width="62.0" height="36.0" rx="5" fill="#f1f2f4" stroke="#333333" stroke-width="1.3"/>
+<text x="360.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">поступ</text>
+<rect x="403.0" y="78.0" width="62.0" height="36.0" rx="5" fill="#eafaf0" stroke="#333333" stroke-width="1.3"/>
+<text x="434.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">17⏎</text>
+<rect x="477.0" y="78.0" width="62.0" height="36.0" rx="5" fill="#f1f2f4" stroke="#333333" stroke-width="1.3"/>
+<text x="508.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">поступ</text>
+<rect x="551.0" y="78.0" width="62.0" height="36.0" rx="5" fill="#eafaf0" stroke="#333333" stroke-width="1.3"/>
+<text x="582.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">17⏎</text>
+<rect x="625.0" y="78.0" width="62.0" height="36.0" rx="5" fill="#f1f2f4" stroke="#333333" stroke-width="1.3"/>
+<text x="656.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">поступ</text>
+<rect x="699.0" y="78.0" width="62.0" height="36.0" rx="5" fill="#eafaf0" stroke="#333333" stroke-width="1.3"/>
+<text x="730.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">17⏎</text>
+<rect x="773.0" y="78.0" width="62.0" height="36.0" rx="5" fill="#f1f2f4" stroke="#333333" stroke-width="1.3"/>
+<text x="804.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">поступ</text>
+<rect x="847.0" y="78.0" width="62.0" height="36.0" rx="5" fill="#eafaf0" stroke="#333333" stroke-width="1.3"/>
+<text x="878.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">17⏎</text>
+<text x="978.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle">…</text>
+<rect x="1043.0" y="78.0" width="62.0" height="36.0" rx="5" fill="#f1f2f4" stroke="#333333" stroke-width="1.3"/>
+<text x="1074.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">виклик 137</text>
+<text x="70.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="70.0" dy="0.0">виклики stdio</tspan><tspan x="70.0" dy="15.0">по ≈30 байтів</tspan></text>
+<text x="70.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700"><tspan x="70.0" dy="0.0">без буфера</tspan></text>
+<text x="70.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="70.0" dy="0.0">_IONBF</tspan></text>
+<line x1="314.0" y1="236.0" x2="1134.0" y2="236.0" stroke="#c8ccd2" stroke-width="1.2"/>
+<rect x="334.0" y="218.0" width="52.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="360.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">write</text>
+<rect x="408.0" y="218.0" width="52.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="434.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">write</text>
+<rect x="482.0" y="218.0" width="52.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="508.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">write</text>
+<rect x="556.0" y="218.0" width="52.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="582.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">write</text>
+<rect x="630.0" y="218.0" width="52.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="656.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">write</text>
+<rect x="704.0" y="218.0" width="52.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="730.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">write</text>
+<rect x="778.0" y="218.0" width="52.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="804.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">write</text>
+<rect x="852.0" y="218.0" width="52.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="878.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">write</text>
+<text x="717.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">кожен виклик — окремий write</text>
+<text x="70.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700"><tspan x="70.0" dy="0.0">порядкова</tspan></text>
+<text x="70.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="70.0" dy="0.0">_IOLBF</tspan></text>
+<line x1="314.0" y1="396.0" x2="1134.0" y2="396.0" stroke="#c8ccd2" stroke-width="1.2"/>
+<rect x="408.0" y="378.0" width="52.0" height="34.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="434.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">write</text>
+<rect x="556.0" y="378.0" width="52.0" height="34.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="582.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">write</text>
+<rect x="704.0" y="378.0" width="52.0" height="34.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="730.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">write</text>
+<rect x="852.0" y="378.0" width="52.0" height="34.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="878.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">write</text>
+<text x="717.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">write на кожному завершеному рядку</text>
+<text x="70.0" y="546.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700"><tspan x="70.0" dy="0.0">поблокова</tspan></text>
+<text x="70.0" y="570.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="70.0" dy="0.0">_IOFBF</tspan></text>
+<line x1="314.0" y1="556.0" x2="1134.0" y2="556.0" stroke="#c8ccd2" stroke-width="1.2"/>
+<rect x="1048.0" y="538.0" width="52.0" height="34.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="1074.0" y="560.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">write</text>
+<text x="717.0" y="604.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">мовчить, поки не набереться 4096 байтів</text>
+<text x="650.0" y="664.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">той самий код, той самий порядок викликів — різна кількість перетинів межі</text>
+</svg>

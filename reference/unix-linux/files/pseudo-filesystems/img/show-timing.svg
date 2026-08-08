@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 740" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="740" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="620.0" y1="20.0" x2="620.0" y2="640.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="7,6"/>
+<rect x="40.0" y="26.0" width="550.0" height="46.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="315.0" y="54.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">single_open() — один суцільний знімок</tspan></text>
+<rect x="40.0" y="110.0" width="200.0" height="84.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="140.0" y="156.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">openat()</tspan></text>
+<rect x="270.0" y="110.0" width="320.0" height="84.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="430.0" y="147.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">single_open(): виділити seq_file</tspan><tspan x="430.0" dy="16.9">show() ще не викликано</tspan></text>
+<line x1="244.0" y1="152.0" x2="266.0" y2="152.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="216.0" width="200.0" height="84.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="140.0" y="262.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">read() №1</tspan></text>
+<rect x="270.0" y="216.0" width="320.0" height="84.0" rx="8" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/>
+<text x="430.0" y="253.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">start → show() → stop</tspan><tspan x="430.0" dy="16.9">увесь текст народжується тут</tspan></text>
+<line x1="244.0" y1="258.0" x2="266.0" y2="258.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="322.0" width="550.0" height="46.0" rx="8" fill="#eef0f3" stroke="#6b7280" stroke-width="1.4"/>
+<text x="315.0" y="349.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="315.0" dy="0.0">буфер уже повний — обходу більше не буде</tspan></text>
+<rect x="40.0" y="390.0" width="200.0" height="84.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="140.0" y="436.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">read() №2</tspan></text>
+<rect x="270.0" y="390.0" width="320.0" height="84.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="430.0" y="427.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">start віддає NULL</tspan><tspan x="430.0" dy="16.9">0 — кінець файлу</tspan></text>
+<line x1="244.0" y1="432.0" x2="266.0" y2="432.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="496.0" width="200.0" height="62.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="140.0" y="531.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="140.0" dy="0.0">close()</tspan></text>
+<rect x="270.0" y="496.0" width="320.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="430.0" y="531.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">single_release: звільнити буфер</tspan></text>
+<line x1="244.0" y1="527.0" x2="266.0" y2="527.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="650.0" y="26.0" width="550.0" height="46.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="925.0" y="54.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="925.0" dy="0.0">seq_operations — обхід порціями по сторінці</tspan></text>
+<rect x="650.0" y="110.0" width="200.0" height="84.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="750.0" y="156.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">openat()</tspan></text>
+<rect x="880.0" y="110.0" width="320.0" height="84.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="1040.0" y="147.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1040.0" dy="0.0">seq_open(): виділити seq_file</tspan><tspan x="1040.0" dy="16.9">позиція обходу = 0</tspan></text>
+<line x1="854.0" y1="152.0" x2="876.0" y2="152.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="650.0" y="216.0" width="200.0" height="84.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="750.0" y="262.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">read() №1</tspan></text>
+<rect x="880.0" y="216.0" width="320.0" height="84.0" rx="8" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/>
+<text x="1040.0" y="253.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1040.0" dy="0.0">start(0) → show/next/show/next…</tspan><tspan x="1040.0" dy="16.9">сторінка повна → stop</tspan></text>
+<line x1="854.0" y1="258.0" x2="876.0" y2="258.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="650.0" y="322.0" width="550.0" height="46.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="925.0" y="349.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="925.0" dy="0.0">замка немає — система живе далі</tspan></text>
+<rect x="650.0" y="390.0" width="200.0" height="84.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="750.0" y="436.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">read() №2</tspan></text>
+<rect x="880.0" y="390.0" width="320.0" height="84.0" rx="8" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/>
+<text x="1040.0" y="427.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1040.0" dy="0.0">start(178) — НОВИЙ обхід</tspan><tspan x="1040.0" dy="16.9">уже за новим станом</tspan></text>
+<line x1="854.0" y1="432.0" x2="876.0" y2="432.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="650.0" y="496.0" width="200.0" height="62.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="750.0" y="531.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="750.0" dy="0.0">close()</tspan></text>
+<rect x="880.0" y="496.0" width="320.0" height="62.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="1040.0" y="531.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1040.0" dy="0.0">seq_release: звільнити буфер</tspan></text>
+<line x1="854.0" y1="527.0" x2="876.0" y2="527.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="620.0" y="690.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle" font-style="italic">show() біжить на read, а не на open — тому два cat поспіль дають різні числа</text>
+</svg>

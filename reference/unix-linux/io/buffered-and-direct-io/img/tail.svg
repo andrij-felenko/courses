@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хвіст файлу: читання коротшає на кінці, запис округлюється вгору, довжину повертає ftruncate</text>
+<text x="590.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">хвіст файлу: розмір 5 000 000 байтів, блок 4096</text>
+<text x="590.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">1220 цілих блоків = 4 997 120 байтів; на хвіст лишається 2880</text>
+<text x="80.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700"><tspan x="80.0" dy="0.0">джерело</tspan></text>
+<text x="80.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="80.0" dy="0.0">read на 4096 байтів</tspan><tspan x="80.0" dy="14.9">зі зміщення 4 997 120</tspan></text>
+<rect x="470.0" y="120.0" width="421.9" height="54.0" rx="4" fill="#eafaf0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="680.9" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2880 байтів даних</text>
+<rect x="891.9" y="120.0" width="178.1" height="54.0" rx="4" fill="#f1f2f4" stroke="#333333" stroke-width="1.4"/>
+<text x="980.9" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">за кінцем файлу</text>
+<text x="770.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ядро віддало 2880 — це не помилка, а кінець файлу</text>
+<text x="80.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700"><tspan x="80.0" dy="0.0">буфер</tspan></text>
+<text x="80.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="80.0" dy="0.0">хвіст буфера</tspan><tspan x="80.0" dy="14.9">занулюємо самі</tspan></text>
+<rect x="470.0" y="260.0" width="421.9" height="54.0" rx="4" fill="#eafaf0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="680.9" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2880 байтів даних</text>
+<rect x="891.9" y="260.0" width="178.1" height="54.0" rx="4" fill="#fdf3e7" stroke="#333333" stroke-width="1.4"/>
+<text x="980.9" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1216 нулів</text>
+<text x="770.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">інакше на носій поїхало б чуже сміття з купи</text>
+<text x="80.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700"><tspan x="80.0" dy="0.0">ціль</tspan></text>
+<text x="80.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="80.0" dy="0.0">write на 4096 байтів</tspan><tspan x="80.0" dy="14.9">з того самого зміщення</tspan></text>
+<rect x="470.0" y="400.0" width="421.9" height="54.0" rx="4" fill="#eafaf0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="680.9" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2880 потрібних</text>
+<rect x="891.9" y="400.0" width="178.1" height="54.0" rx="4" fill="#fdf3e7" stroke="#333333" stroke-width="1.4"/>
+<text x="980.9" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1216 зайвих</text>
+<text x="770.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">файл вийшов на 5 001 216 → ftruncate до 5 000 000</text>
+<text x="590.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">прямому шляху нема де підмішати хвіст до наявного сектора — тому пишемо цілий блок і вкорочуємо файл</text>
+</svg>

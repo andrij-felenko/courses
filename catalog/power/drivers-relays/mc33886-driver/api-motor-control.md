@@ -2,7 +2,7 @@
 
 Модуль на MC33886 виглядає обманливо простим: три логічні дроти, два живлення — і мотор має закрутитися. На папері так і є. На столі ж половина перших спроб закінчується тим, що мотор мовчить, або тихенько дзижчить і не рухається, або крутиться, а потім сам собою «сіпається» ривками. Майже завжди винен не чип — винне те, чого код або монтаж **не зробили**. Ця вставка — про робочий скелет керування двигуном і про ті кілька місць, де новачок втрачає години на порожньому місці.
 
-Задача, яку розв'язуємо, максимально приземлена: **дати двигуну команди «вперед», «назад», «гальмо», «вибіг» і плавно керувати швидкістю**. Причому так, щоб той самий код читався очима як опис наміру, а не як загадковий набір записів у ніжки. Розберемося спершу з ідеєю — які саме рівні на яких ніжках дають який рух, — а потім напишемо це на реальному C++ під Arduino й під ESP32, бо блок ШІМ у них влаштований по-різному, і саме на цій різниці спотикаються найчастіше.
+Задача, яку розв'язуємо, максимально приземлена: **дати двигуну команди «вперед», «назад», «гальмо», «вибіг» і плавно керувати швидкістю**. Причому так, щоб той самий код читався очима як опис наміру, а не як загадковий набір записів у ніжки. Розберемося спершу з ідеєю — які саме рівні на яких ніжках дають який рух, — а потім напишемо це реальним кодом одразу для трьох середовищ: Arduino, ESP-IDF і STM32 HAL. Бо доступ до апаратного ШІМ у них влаштований по-різному, і саме на цій різниці спотикаються найчастіше.
 
 ## Ідея: напрямок — двома ніжками, швидкість — часом
 
@@ -38,10 +38,10 @@ IN1  IN2   OUT1  OUT2   струм крізь мотор   режим
 
 Це найчистіша схема й найзручніша для читання. Дві звичайні цифрові ніжки задають напрямок, одна ШІМ-ніжка — швидкість. Логіка функцій буквально повторює таблицю вище.
 
-Тут важлива різниця платформ. На **Arduino** (ATmega — Uno, Nano) ШІМ дає `analogWrite(pin, 0..255)`, і працює він лише на ніжках, помічених `~`. На **ESP32** класичного `analogWrite` історично не було (у нових ядрах з'явився, але керувати частотою через нього незручно), натомість є повноцінний апаратний блок **LEDC**: `ledcAttach(pin, частота, розрядність)` у `setup()` і `ledcWrite(pin, значення)` у циклі. Це не косметична відмінність — саме тут ви обираєте частоту ШІМ, а вона для мотора важлива (нижче окремо). Тому наведемо той самий скелет двома вкладками — ідіоматично для кожної платформи, а не механічним перекладом:
+Механізм ШІМ у будь-якому мікроконтролері однаковий: є таймер, який безперервно рахує до якогось максимуму, і є поріг порівняння; поки лічильник нижчий за поріг — ніжка в одиниці, вище — в нулі. Частота ШІМ — це частота переповнення лічильника, шпаруватість — цей поріг. Різняться платформи лише тим, скільки з цих двох ручок вам віддають у руки. **Arduino** (ATmega — Uno, Nano) ховає таймер за `analogWrite(pin, 0..255)`: шкала 8-бітна, частота стала, і працює це лише на ніжках, помічених `~`. **ESP-IDF** віддає блок **LEDC** цілком: ви самі задаєте і частоту (`freq_hz`), і розрядність лічильника. **STM32** робить те саме прямо через таймер: подільник і період (`ARR`) дають частоту, регістр порівняння (`CCR`) — шпаруватість. Це не косметична відмінність — саме тут ви обираєте частоту ШІМ, а вона для мотора важлива (нижче окремо). Тому наведемо той самий скелет трьома вкладками — ідіоматично для кожної платформи, а не механічним перекладом:
 
 :::tabs
-```cpp
+```arduino
 // ── MC33886: керування мотором. Arduino (Uno/Nano, ATmega328P) ──
 // EN сидить на ШІМ-ніжці (позначена «~»); IN1/IN2 — звичайні цифрові.
 // Швидкість — analogWrite(EN, 0..255); напрямок — рівні на IN1/IN2.
@@ -89,54 +89,144 @@ void loop() {
   motorBrake();        delay(800);    // різко спинили
 }
 ```
-```cpp
-// ── MC33886: керування мотором. ESP32 (Arduino-ESP32 core 3.x, LEDC) ──
-// EN сидить на LEDC-каналі: свою частоту й розрядність задаємо явно.
-// Швидкість — ledcWrite(EN, 0..DUTY_MAX); напрямок — рівні на IN1/IN2.
+```esp-idf
+// ── MC33886: керування мотором. ESP32, ESP-IDF (driver/ledc.h) ──
+// EN сидить на каналі LEDC: свою частоту й розрядність задаємо явно.
+// Швидкість — ledc_set_duty + ledc_update_duty; напрямок — рівні GPIO.
 
-const uint8_t PIN_IN1 = 25;      // напрямок, будь-яка GPIO-вихід
-const uint8_t PIN_IN2 = 26;      // напрямок, будь-яка GPIO-вихід
-const uint8_t PIN_EN  = 27;      // будь-яка GPIO — LEDC прив'яже сам
+#include "driver/gpio.h"
+#include "driver/ledc.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
-const uint32_t PWM_FREQ = 5000;  // 5 кГц: у межах ≤10 кГц чипа, поза чутним
-const uint8_t  PWM_BITS = 10;    // роздільність 10 біт → шкала 0..1023
-const uint16_t DUTY_MAX = (1u << PWM_BITS) - 1;   // = 1023
+#define PIN_IN1   GPIO_NUM_25            // напрямок, будь-яка GPIO-вихід
+#define PIN_IN2   GPIO_NUM_26
+#define PIN_EN    GPIO_NUM_27            // будь-яка GPIO — LEDC прив'яже сам
 
-void setup() {
-  pinMode(PIN_IN1, OUTPUT);
-  pinMode(PIN_IN2, OUTPUT);
-  ledcAttach(PIN_EN, PWM_FREQ, PWM_BITS);   // 3.x: ніжка, частота, біти
-  motorCoast();
+#define PWM_MODE  LEDC_LOW_SPEED_MODE
+#define PWM_CHAN  LEDC_CHANNEL_0
+#define PWM_TIMER LEDC_TIMER_0
+#define DUTY_MAX  1023                   // 10 біт → шкала 0..1023
+
+static void motor_duty(uint32_t duty) {  // одна ручка швидкості
+    ledc_set_duty(PWM_MODE, PWM_CHAN, duty);
+    ledc_update_duty(PWM_MODE, PWM_CHAN);
+}
+
+static void motor_coast(void) { motor_duty(0); }  // EN=0 → тристейт, вибіг
+
+static void motor_init(void) {
+    gpio_config_t io = {
+        .pin_bit_mask = (1ULL << PIN_IN1) | (1ULL << PIN_IN2),
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&io));
+
+    ledc_timer_config_t tim = {
+        .speed_mode = PWM_MODE, .timer_num = PWM_TIMER,
+        .duty_resolution = LEDC_TIMER_10_BIT,
+        .freq_hz = 5000,             // 5 кГц: у межах ≤10 кГц чипа, поза чутним
+        .clk_cfg = LEDC_AUTO_CLK,
+    };
+    ESP_ERROR_CHECK(ledc_timer_config(&tim));
+
+    ledc_channel_config_t ch = {
+        .gpio_num = PIN_EN, .speed_mode = PWM_MODE, .channel = PWM_CHAN,
+        .timer_sel = PWM_TIMER, .intr_type = LEDC_INTR_DISABLE,
+        .duty = 0, .hpoint = 0,
+    };
+    ESP_ERROR_CHECK(ledc_channel_config(&ch));
+    motor_coast();                   // старт у безпечному стані: міст вимкнено
 }
 
 // duty: 0..DUTY_MAX — шпаруватість ШІМ (частка від 2^біт, не вольти).
-void motorForward(uint16_t duty) {
-  digitalWrite(PIN_IN1, LOW);
-  digitalWrite(PIN_IN2, HIGH);
-  ledcWrite(PIN_EN, duty);
+static void motor_forward(uint32_t duty) {
+    gpio_set_level(PIN_IN1, 0);
+    gpio_set_level(PIN_IN2, 1);      // OUT1=−, OUT2=+  → один бік
+    motor_duty(duty);
 }
 
-void motorReverse(uint16_t duty) {
-  digitalWrite(PIN_IN1, HIGH);
-  digitalWrite(PIN_IN2, LOW);
-  ledcWrite(PIN_EN, duty);
+static void motor_reverse(uint32_t duty) {
+    gpio_set_level(PIN_IN1, 1);
+    gpio_set_level(PIN_IN2, 0);      // OUT1=+, OUT2=−  → інший бік
+    motor_duty(duty);
 }
 
-void motorBrake() {
-  digitalWrite(PIN_IN1, LOW);
-  digitalWrite(PIN_IN2, LOW);      // 0 0 → активне гальмо
-  ledcWrite(PIN_EN, DUTY_MAX);     // міст ввімкнено на повну
+static void motor_brake(void) {
+    gpio_set_level(PIN_IN1, 0);
+    gpio_set_level(PIN_IN2, 0);      // 0 0 → активне гальмо
+    motor_duty(DUTY_MAX);            // міст має бути ВВІМКНЕНИЙ, щоб коротити
 }
 
-void motorCoast() {
-  ledcWrite(PIN_EN, 0);            // EN=0 → тристейт, вільний вибіг
+void app_main(void) {
+    motor_init();
+    for (;;) {
+        motor_forward(720); vTaskDelay(pdMS_TO_TICKS(1500));  // ~70% від 1023
+        motor_coast();      vTaskDelay(pdMS_TO_TICKS(800));
+        motor_reverse(480); vTaskDelay(pdMS_TO_TICKS(1500));
+        motor_brake();      vTaskDelay(pdMS_TO_TICKS(800));
+    }
+}
+```
+```stm32
+// ── MC33886: керування мотором. STM32 (HAL, таймер у режимі PWM) ──
+// EN сидить на каналі таймера: частота = f_тайм / ((PSC+1)·(ARR+1)).
+// Швидкість — регістр порівняння CCR (0..ARR); напрямок — рівні GPIO.
+
+#include "main.h"
+
+extern TIM_HandleTypeDef htim3;  // CubeMX: TIM3_CH1 на PA6, ARR = 999 → 5 кГц
+
+#define DUTY_MAX  999            // шкала 0..ARR, а не 0..255 і не 0..1023
+#define IN1_PORT  GPIOB
+#define IN1_PIN   GPIO_PIN_0     // напрямок, будь-яка GPIO-вихід
+#define IN2_PORT  GPIOB
+#define IN2_PIN   GPIO_PIN_1
+
+static void motor_duty(uint16_t duty) {   // одна ручка швидкості
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, duty);
 }
 
-void loop() {
-  motorForward(720);   delay(1500);   // ~70% від 1023
-  motorCoast();        delay(800);
-  motorReverse(480);   delay(1500);
-  motorBrake();        delay(800);
+static void motor_coast(void) { motor_duty(0); }  // EN=0 → тристейт, вибіг
+
+static void motor_init(void) {
+  // Самі ніжки й таймер налаштовує згенерований CubeMX код (MX_GPIO_Init,
+  // MX_TIM3_Init); нам лишається запустити ШІМ і стати в безпечний стан.
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  motor_coast();                 // старт у безпечному стані: міст вимкнено
+}
+
+// duty: 0..DUTY_MAX — шпаруватість ШІМ (частка періоду, не вольти).
+static void motor_forward(uint16_t duty) {
+  HAL_GPIO_WritePin(IN1_PORT, IN1_PIN, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(IN2_PORT, IN2_PIN, GPIO_PIN_SET);   // OUT1=−, OUT2=+
+  motor_duty(duty);
+}
+
+static void motor_reverse(uint16_t duty) {
+  HAL_GPIO_WritePin(IN1_PORT, IN1_PIN, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(IN2_PORT, IN2_PIN, GPIO_PIN_RESET); // OUT1=+, OUT2=−
+  motor_duty(duty);
+}
+
+static void motor_brake(void) {
+  HAL_GPIO_WritePin(IN1_PORT, IN1_PIN, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(IN2_PORT, IN2_PIN, GPIO_PIN_RESET); // 0 0 → гальмо
+  motor_duty(DUTY_MAX);          // міст має бути ВВІМКНЕНИЙ, щоб коротити
+}
+
+int main(void) {
+  HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_TIM3_Init();
+  motor_init();
+  while (1) {
+    motor_forward(700); HAL_Delay(1500);   // ~70% від 999
+    motor_coast();      HAL_Delay(800);
+    motor_reverse(470); HAL_Delay(1500);
+    motor_brake();      HAL_Delay(800);
+  }
 }
 ```
 :::
@@ -147,7 +237,7 @@ void loop() {
 
 **Гальмо вимагає ввімкненого моста.** У `motorBrake()` ми ставимо `EN` на максимум, а не в нуль. Це неінтуїтивно: «гальмую — значить вимикаю?» Ні. Активне гальмо — це закорочена обмотка, а закоротити її можуть **лише відкриті** нижні (або верхні) ключі. Поставите `EN=0` замість гальма — і отримаєте вибіг, а не гальмо, хоча `IN1=IN2=0`. Тристейт вимикає геть **усе**, зокрема й коротке коло.
 
-**Швидкість — це шкала, не вольти.** На Arduino діапазон `analogWrite` — `0..255`, на ESP32 з розрядністю 10 біт — `0..1023`. Це не «стільки-то вольтів», а частка ввімкненого часу. `180` з 255 і `720` з 1023 — обидва приблизно 70 % ходу. Плутати ці шкали — типова помилка: перенесли число `200` з Arduino-скетча в ESP32-код із 10-бітним ШІМ і дивуєтесь, чому мотор ледь повзе (200 з 1023 — це менш ніж 20 %).
+**Швидкість — це шкала, не вольти.** Верхня межа шкали — це максимум лічильника таймера, і в кожної платформи він свій: `analogWrite` на Arduino дає `0..255`, LEDC із розрядністю 10 біт — `0..1023`, таймер STM32 — `0..ARR`. Це не «стільки-то вольтів», а частка ввімкненого часу. `180` з 255 і `720` з 1023 — обидва приблизно 70 % ходу. Плутати ці шкали — типова помилка: перенесли число `200` з Arduino-скетча в код із 10-бітним ШІМ і дивуєтесь, чому мотор ледь повзе (200 з 1023 — це менш ніж 20 %).
 
 ## Робочий код, підхід другий: ШІМ прямо на IN
 
@@ -167,7 +257,7 @@ void loop() {
 Ось цей підхід у коді. Тепер `EN` — не ШІМ, а просто «увімкнено», і функції напрямку вирішують, **на яку** ніжку йде ШІМ:
 
 :::tabs
-```cpp
+```arduino
 // ── MC33886: ШІМ прямо на IN, EN тримаємо ввімкненим. Arduino ──
 // Швидкість модулюється на одній ніжці напрямку; друга — стала.
 // У паузах ШІМ мотор у стані 0 0 (гальмо) → жорсткіший «повільний спад».
@@ -214,60 +304,138 @@ void loop() {
   motorBrake();        delay(800);
 }
 ```
-```cpp
-// ── MC33886: ШІМ прямо на IN, EN ввімкнено. ESP32 (LEDC, core 3.x) ──
-// ОБИДВІ ніжки напрямку — на своїх LEDC-каналах з однаковою частотою.
-// Активна ніжка модулюється, «мовчазна» тримається на 0.
+```esp-idf
+// ── MC33886: ШІМ прямо на IN, EN ввімкнено. ESP32, ESP-IDF ──
+// ОБИДВІ ніжки напрямку — на своїх каналах LEDC від ОДНОГО таймера,
+// тож частота в них спільна. Активна модулюється, «мовчазна» тримає 0.
 
-const uint8_t PIN_IN1 = 25;
-const uint8_t PIN_IN2 = 26;
-const uint8_t PIN_EN  = 27;          // проста GPIO, тримаємо HIGH
+#include "driver/gpio.h"
+#include "driver/ledc.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
-const uint32_t PWM_FREQ = 5000;
-const uint8_t  PWM_BITS = 10;
-const uint16_t DUTY_MAX = (1u << PWM_BITS) - 1;
+#define PIN_IN1   GPIO_NUM_25
+#define PIN_IN2   GPIO_NUM_26
+#define PIN_EN    GPIO_NUM_27            // проста GPIO, тримаємо в «1»
 
-void setup() {
-  ledcAttach(PIN_IN1, PWM_FREQ, PWM_BITS);   // обидві — ШІМ-канали
-  ledcAttach(PIN_IN2, PWM_FREQ, PWM_BITS);
-  pinMode(PIN_EN, OUTPUT);
-  digitalWrite(PIN_EN, HIGH);
-  motorBrake();
+#define PWM_MODE  LEDC_LOW_SPEED_MODE
+#define CH_IN1    LEDC_CHANNEL_0
+#define CH_IN2    LEDC_CHANNEL_1
+#define DUTY_MAX  1023
+
+static void ch_duty(ledc_channel_t ch, uint32_t duty) {
+    ledc_set_duty(PWM_MODE, ch, duty);
+    ledc_update_duty(PWM_MODE, ch);
 }
 
-void motorForward(uint16_t duty) {
-  ledcWrite(PIN_IN1, 0);            // стала «0»
-  ledcWrite(PIN_IN2, duty);         // модуляція → у паузах стан 0 0
+static void motor_brake(void) {
+    ch_duty(CH_IN1, 0);
+    ch_duty(CH_IN2, 0);                  // 0 0 → тримаюче гальмо
 }
 
-void motorReverse(uint16_t duty) {
-  ledcWrite(PIN_IN2, 0);
-  ledcWrite(PIN_IN1, duty);
+static void motor_init(void) {
+    ledc_timer_config_t tim = {
+        .speed_mode = PWM_MODE, .timer_num = LEDC_TIMER_0,
+        .duty_resolution = LEDC_TIMER_10_BIT,
+        .freq_hz = 5000, .clk_cfg = LEDC_AUTO_CLK,
+    };
+    ESP_ERROR_CHECK(ledc_timer_config(&tim));
+
+    ledc_channel_config_t ch = {        // обидві ніжки — ШІМ-канали
+        .speed_mode = PWM_MODE, .timer_sel = LEDC_TIMER_0,
+        .intr_type = LEDC_INTR_DISABLE, .duty = 0, .hpoint = 0,
+    };
+    ch.gpio_num = PIN_IN1; ch.channel = CH_IN1;
+    ESP_ERROR_CHECK(ledc_channel_config(&ch));
+    ch.gpio_num = PIN_IN2; ch.channel = CH_IN2;
+    ESP_ERROR_CHECK(ledc_channel_config(&ch));
+
+    gpio_set_direction(PIN_EN, GPIO_MODE_OUTPUT);
+    gpio_set_level(PIN_EN, 1);           // міст живий увесь час
+    motor_brake();
 }
 
-void motorBrake() {
-  ledcWrite(PIN_IN1, 0);
-  ledcWrite(PIN_IN2, 0);           // 0 0 → тримаюче гальмо
+static void motor_forward(uint32_t duty) {
+    ch_duty(CH_IN1, 0);                  // стала «0»
+    ch_duty(CH_IN2, duty);               // модуляція → у паузах стан 0 0
 }
 
-void motorCoast() {
-  digitalWrite(PIN_EN, LOW);       // вибіг — лише через EN
-  ledcWrite(PIN_IN1, 0);
-  ledcWrite(PIN_IN2, 0);
+static void motor_reverse(uint32_t duty) {
+    ch_duty(CH_IN2, 0);
+    ch_duty(CH_IN1, duty);
 }
 
-void loop() {
-  digitalWrite(PIN_EN, HIGH);
-  motorForward(720);   delay(1500);
-  motorReverse(480);   delay(1500);
-  motorBrake();        delay(800);
+static void motor_coast(void) {
+    gpio_set_level(PIN_EN, 0);           // вибіг — лише через EN
+    motor_brake();
+}
+
+void app_main(void) {
+    motor_init();
+    for (;;) {
+        gpio_set_level(PIN_EN, 1);
+        motor_forward(720); vTaskDelay(pdMS_TO_TICKS(1500));
+        motor_reverse(480); vTaskDelay(pdMS_TO_TICKS(1500));
+        motor_brake();      vTaskDelay(pdMS_TO_TICKS(800));
+    }
+}
+```
+```stm32
+// ── MC33886: ШІМ прямо на IN, EN ввімкнено. STM32 (HAL) ──
+// ОБИДВІ ніжки напрямку — канали ОДНОГО таймера, тож частота спільна
+// автоматично. Активний канал модулюється, «мовчазний» тримає CCR = 0.
+
+#include "main.h"
+
+extern TIM_HandleTypeDef htim3;   // CubeMX: TIM3_CH1 = IN1, TIM3_CH2 = IN2
+
+#define DUTY_MAX  999             // = ARR
+#define EN_PORT   GPIOB
+#define EN_PIN    GPIO_PIN_2      // проста GPIO, тримаємо в «1»
+
+static void motor_brake(void) {
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 0);   // 0 0 → тримаюче гальмо
+}
+
+static void motor_init(void) {
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);          // обидва канали — ШІМ
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+  HAL_GPIO_WritePin(EN_PORT, EN_PIN, GPIO_PIN_SET);  // міст живий увесь час
+  motor_brake();
+}
+
+static void motor_forward(uint16_t duty) {
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0);      // стала «0»
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, duty);   // у паузах стан 0 0
+}
+
+static void motor_reverse(uint16_t duty) {
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 0);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, duty);
+}
+
+static void motor_coast(void) {
+  HAL_GPIO_WritePin(EN_PORT, EN_PIN, GPIO_PIN_RESET);   // вибіг — лише через EN
+  motor_brake();
+}
+
+int main(void) {
+  HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_TIM3_Init();
+  motor_init();
+  while (1) {
+    HAL_GPIO_WritePin(EN_PORT, EN_PIN, GPIO_PIN_SET);
+    motor_forward(700); HAL_Delay(1500);
+    motor_reverse(470); HAL_Delay(1500);
+    motor_brake();      HAL_Delay(800);
+  }
 }
 ```
 :::
 
 Коли який підхід брати? Якщо в проєкті **потрібен вибіг** як окремий, часто вживаний режим (машинка має катитися накотом), зручніший **перший** підхід — ШІМ на `EN`: там вибіг дається одним `EN=0`, а на низьких обертах у паузах теж буває накот. Якщо ж важливіші **точність на малих обертах і жорстке тримання** (сервопривід, точне позиціювання), кращий **другий** підхід — ШІМ на `IN`: повільний спад дає рівніший, керованіший хід. Обидва — цілком робочі; вибирайте за задачею, а не за звичкою.
 
-> 🔧 **Навіщо це.** Головна пастка другого підходу схована в розподілі ніжок: **обидві** ніжки напрямку тепер мусять уміти ШІМ. На Arduino Uno/Nano це означає брати їх лише з набору `~` (3, 5, 6, 9, 10, 11) — інакше `analogWrite` на «не-ШІМ» ніжці мовчки виродиться в звичайний цифровий вихід (усе, що ≥128, стане суцільним `HIGH`), і замість плавної швидкості ви отримаєте «або повний хід, або стоп». У першому підході ця вимога стосувалася лише однієї ніжки `EN` — тому він і прощає більше.
+> 🔧 **Навіщо це.** Головна пастка другого підходу схована в розподілі ніжок: **обидві** ніжки напрямку тепер мусять уміти ШІМ — тобто сидіти на каналах таймера, і бажано одного, щоб частота в них була спільна. На Arduino Uno/Nano це означає брати їх лише з набору `~` (3, 5, 6, 9, 10, 11) — інакше `analogWrite` на «не-ШІМ» ніжці мовчки виродиться в звичайний цифровий вихід (усе, що ≥128, стане суцільним `HIGH`), і замість плавної швидкості ви отримаєте «або повний хід, або стоп». У першому підході ця вимога стосувалася лише однієї ніжки `EN` — тому він і прощає більше.
 
 ## Складність і пастки: де реально втрачають години
 
@@ -285,7 +453,8 @@ void loop() {
 
 Тому в реальному проєкті варто **діагностувати живлення явно**: якщо є доступ до `FS` (fault status) — читати його; а якщо ні — бодай подумки тримати чек-лист «логіка є, сила є, земля спільна». Ось як опитати `FS`, коли вивід дотягнутий до мікроконтролера (на дешевих CJMCU він часто не виведений — тоді цей шматок просто не застосовний):
 
-```cpp
+:::tabs
+```arduino
 // FS — вивід «fault status», активно-низький: 0 = є помилка
 // (просадка живлення / КЗ / перегрів). На чипі є внутрішня підтяжка,
 // зовні зазвичай додають підтяжку до VCC. Читаємо ЯК ВХІД.
@@ -306,6 +475,66 @@ void loop() {
   }
 }
 ```
+```esp-idf
+// Те саме на ESP-IDF: вхід із підтяжкою вгору, активно-низький рівень.
+#include "driver/gpio.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define PIN_FS  GPIO_NUM_15
+static const char *TAG = "mc33886";
+
+void app_main(void) {
+    gpio_config_t io = {
+        .pin_bit_mask = 1ULL << PIN_FS,
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,   // якщо зовнішньої підтяжки нема
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&io));
+
+    for (;;) {
+        if (gpio_get_level(PIN_FS) == 0) {
+            // Драйвер сам знеструмив міст і сигналить біду.
+            // Найчастіша причина при першому запуску — V+ без напруги
+            // або просадка живлення; далі — перегрів чи КЗ на виході.
+            ESP_LOGE(TAG, "FAULT (перевір V+, землю, струм, нагрів)");
+            vTaskDelay(pdMS_TO_TICKS(500));
+        }
+        vTaskDelay(pdMS_TO_TICKS(10));
+    }
+}
+```
+```stm32
+// Те саме на STM32 HAL. Ніжку в CubeMX ставимо входом із внутрішньою
+// підтяжкою вгору (GPIO_MODE_INPUT + GPIO_PULLUP), якщо зовнішньої нема.
+#include "main.h"
+#include <string.h>
+
+extern UART_HandleTypeDef huart2;
+
+#define FS_PORT  GPIOA
+#define FS_PIN   GPIO_PIN_1
+
+int main(void) {
+  HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_USART2_UART_Init();
+
+  while (1) {
+    if (HAL_GPIO_ReadPin(FS_PORT, FS_PIN) == GPIO_PIN_RESET) {
+      // Драйвер сам знеструмив міст і сигналить біду.
+      // Найчастіша причина при першому запуску — V+ без напруги
+      // або просадка живлення; далі — перегрів чи КЗ на виході.
+      const char *msg = "MC33886: FAULT (перевір V+, землю, струм, нагрів)\r\n";
+      HAL_UART_Transmit(&huart2, (const uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
+      HAL_Delay(500);
+    }
+    HAL_Delay(10);
+  }
+}
+```
+:::
 
 Один прочитаний `FS` економить годину гадання. Він не скаже, **яка саме** з трьох бід (undervoltage / КЗ / перегрів) — вивід один на всі, — але сам факт «чип у захисті» звужує пошук миттєво.
 
@@ -331,9 +560,9 @@ MC33886 захищає себе двома шарами. По-перше, у н�
 
 MC33886 гарантує перемикання **до 10 кГц** — вище її ключі просто не встигають повноцінно відкриватися й закриватися, фронти «замилюються», ефективність падає, а тепловиділення на перемиканнях зростає. Тож стеля жорстка: **тримайте частоту ШІМ на рівні або нижче 10 кГц**.
 
-Але й донизу тягнути не варто. Мотор на низькій частоті ШІМ — приблизно до 1–2 кГц — часто **чутно свистить**: обмотка й залізо статора механічно вібрують на частоті модуляції, і якщо вона в чутному діапазоні (десь 20 Гц – 20 кГц), ви це почуєте як писк чи дзижчання. Класичний компроміс — **частота у вікні приблизно 5–10 кГц**: іще в межах чипа, вже поза (або на самому краю) чутного, і фронти ще певні. Саме тому в ESP32-коді вище стоїть `PWM_FREQ = 5000`.
+Але й донизу тягнути не варто. Мотор на низькій частоті ШІМ — приблизно до 1–2 кГц — часто **чутно свистить**: обмотка й залізо статора механічно вібрують на частоті модуляції, і якщо вона в чутному діапазоні (десь 20 Гц – 20 кГц), ви це почуєте як писк чи дзижчання. Класичний компроміс — **частота у вікні приблизно 5–10 кГц**: іще в межах чипа, вже поза (або на самому краю) чутного, і фронти ще певні. Саме тому в кодах вище частота таймера скрізь узята 5 кГц.
 
-Тут криється й прихована пастка Arduino: `analogWrite` там віддає ШІМ на **фіксованій** частоті, заданій таймером, — на Uno/Nano це зазвичай близько **490 Гц** (а на ніжках 5 і 6 — близько 980 Гц). 490 Гц — це якраз добре чутний діапазон, тож мотор під `analogWrite` часто попискує. Прибрати це на Arduino можна лише правкою регістрів таймера (з обережністю: таймер 0 годує `millis()`/`delay()`, його чіпати не можна). На ESP32 проблеми нема — частоту ви задаєте прямо в `ledcAttach`, і в цьому одна з причин, чому для двигунів його часто й беруть.
+Тут і криється пастка: частота ШІМ — властивість таймера, і питання лише в тому, чи дає вам середовище до неї дотягтися. Arduino не дає: `analogWrite` віддає ШІМ на **фіксованій** частоті, наперед заданій за вас, — на Uno/Nano це зазвичай близько **490 Гц** (а на ніжках 5 і 6 — близько 980 Гц). 490 Гц — це якраз добре чутний діапазон, тож мотор під `analogWrite` часто попискує. Прибрати це там можна лише правкою регістрів таймера (з обережністю: таймер 0 годує `millis()`/`delay()`, його чіпати не можна). Там, де таймер налаштовуєте ви самі, проблеми нема: у LEDC частота — це поле `freq_hz`, у таймера STM32 вона випливає з подільника й `ARR`, і ви ставите її туди, куди треба.
 
 ### Різка зміна напрямку без паузи — удар по мосту й по живленню
 
@@ -346,7 +575,7 @@ MC33886 гарантує перемикання **до 10 кГц** — вище 
 Ліки прості й дешеві: **між зміною напрямку вставляйте коротку паузу через нейтральний стан** — вибіг або гальмо. Хай мотор спершу згасне, віддасть інерцію, і лише тоді отримає команду в інший бік:
 
 :::tabs
-```cpp
+```arduino
 // Безпечний реверс: гасимо інерцію ПЕРЕД зміною напрямку. Arduino.
 void motorReverseSafely(uint8_t speed) {
   motorBrake();        // або motorCoast() — спершу згасити рух
@@ -354,12 +583,21 @@ void motorReverseSafely(uint8_t speed) {
   motorReverse(speed); // тепер безпечно перекинути напрямок
 }
 ```
-```cpp
-// Безпечний реверс на ESP32. Той самий принцип: пауза перед зміною.
-void motorReverseSafely(uint16_t duty) {
-  motorBrake();
-  delay(50);
-  motorReverse(duty);
+```esp-idf
+// Те саме на ESP-IDF: пауза тут — уступка планувальнику FreeRTOS,
+// тож інші задачі на ці 50 мс не стоять.
+static void motor_reverse_safely(uint32_t duty) {
+    motor_brake();                    // або motor_coast() — спершу згасити рух
+    vTaskDelay(pdMS_TO_TICKS(50));    // інерція спадає, струм осідає
+    motor_reverse(duty);              // тепер безпечно перекинути напрямок
+}
+```
+```stm32
+// Те саме на STM32 HAL. Принцип не змінюється: між боками — нейтраль.
+static void motor_reverse_safely(uint16_t duty) {
+  motor_brake();       // або motor_coast() — спершу згасити рух
+  HAL_Delay(50);       // коротка пауза: інерція спадає, струм осідає
+  motor_reverse(duty); // тепер безпечно перекинути напрямок
 }
 ```
 :::
@@ -368,6 +606,6 @@ void motorReverseSafely(uint16_t duty) {
 
 ## Що з цього винести
 
-Керування MC33886 у коді зводиться до трьох функцій напрямку-режиму (`forward` / `reverse` / `brake` / `coast`) плюс однієї ручки швидкості через ШІМ — і вибору, куди цей ШІМ подавати: на `EN` (прозоро, легкий вибіг) чи прямо на `IN` (жорсткіший хід, точність на малих обертах). Обидва підходи робочі; на ESP32 частоту ШІМ ви задаєте самі через `ledcAttach`, на Arduino вона фіксована — і це визначає, попискуватиме мотор чи ні.
+Керування MC33886 у коді зводиться до трьох функцій напрямку-режиму (`forward` / `reverse` / `brake` / `coast`) плюс однієї ручки швидкості через ШІМ — і вибору, куди цей ШІМ подавати: на `EN` (прозоро, легкий вибіг) чи прямо на `IN` (жорсткіший хід, точність на малих обертах). Обидва підходи робочі; там, де таймер ШІМ у ваших руках (LEDC на ESP32, звичайний таймер на STM32), частоту ви ставите самі, а там, де він схований за `analogWrite`, вона фіксована — і це визначає, попискуватиме мотор чи ні.
 
 А по-справжньому години з'їдають не рядки коду, а п'ять місць на межі коду й заліза: **немає спільної землі** (логіка сліпа), **забуте силове `V+`** (мозок є, м'язів нема), **тепловий захист сіпає** мотор під великим струмом (це фізика, не баг), **частота ШІМ** поза вікном ≤ 10 кГц або надто низько в чутному діапазоні, і **різкий реверс без паузи** (кидок струму від інерції плюс наскрізна голка на перемиканні). Тримайте цю п'ятірку в голові — і модуль слухатиметься коду точно так, як написано.

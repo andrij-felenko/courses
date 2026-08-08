@@ -41,7 +41,7 @@ n = 12 →  132
 
 ### Код: засвітити один і розгорнути кадр
 
-Тепер перекладемо ці два факти в прошивку. Уся хитрість — у тому, як мікроконтролер задає стан ніжки. На AVR (ядро Arduino) за це відповідають два регістри: **DDRx** — напрям (1 = вихід, 0 = вхід) і **PORTx** — рівень. Три потрібні стани виходять так:
+Тепер перекладемо ці два факти в прошивку. Уся хитрість — у тому, як мікроконтролер задає стан ніжки. Будь-який МК тримає для цього дві незалежні речі: **напрям** ніжки (вихід чи вхід) і **рівень** на ній, а до них — вимикач внутрішньої підтяжки. Три потрібні стани — це три комбінації цих речей; на AVR (ядро Arduino) вони живуть у регістрах **DDRx** (напрям: 1 = вихід, 0 = вхід) і **PORTx** (рівень), на STM32 — у `MODER` і `ODR`/`PUPDR`, в ESP-IDF — у полях `gpio_config_t`:
 
 ```
 HIGH  :  DDR=1, PORT=1   → вихід, штовхає струм
@@ -49,16 +49,16 @@ LOW   :  DDR=1, PORT=0   → вихід, приймає струм
 Hi-Z  :  DDR=0, PORT=0   → вхід без підтяжки, «відключений»
 ```
 
-У кому Arduino ті самі стани — це `pinMode(pin, OUTPUT)` + `digitalWrite(pin, HIGH/LOW)` та `pinMode(pin, INPUT)`. Важлива дрібниця для Hi-Z: перевівши ніжку на вхід, треба ще й вимкнути внутрішню підтяжку (`digitalWrite(pin, LOW)` при `INPUT` кладе PORT=0) — інакше слабкий струм крізь підтяжку підсвітить не той світлодіод.
+У кожному середовищі ті самі три стани звуться по-своєму: в Arduino це `pinMode(pin, OUTPUT/INPUT)` плюс `digitalWrite(pin, HIGH/LOW)`, в ESP-IDF — `gpio_set_direction()` плюс `gpio_set_level()`, у STM32 HAL — повторний `HAL_GPIO_Init()` зі зміненим `Mode` плюс `HAL_GPIO_WritePin()`. Важлива дрібниця для Hi-Z однакова скрізь: перевівши ніжку на вхід, треба ще й вимкнути внутрішню підтяжку (в Arduino це `digitalWrite(pin, LOW)` при `INPUT`, тобто PORT=0; в інших — `GPIO_NOPULL` чи `GPIO_PULLUP_DISABLE`) — інакше слабкий струм крізь підтяжку підсвітить не той світлодіод.
 
 Опишемо ніжки й самі світлодіоди як таблицю впорядкованих пар «анод→катод»:
 
-```cpp
-const uint8_t PINS[]  = {2, 3, 4};   // три вільні ніжки МК
-const uint8_t N_PINS  = 3;
+```c
+const uint8_t N_PINS = 3;            // три вільні ніжки МК
+// Самі ніжки (масив PINS) кожна платформа називає по-своєму — див. вкладки нижче
 
 // Кожен світлодіод — впорядкована пара: індекс джерела (анод) → приймача (катод)
-struct Led { uint8_t src, snk; };
+typedef struct { uint8_t src, snk; } Led;
 const Led LEDS[] = {
   {0, 1}, {1, 0},   // два антипаралельні між ніжками 0 і 1
   {0, 2}, {2, 0},   // між 0 і 2
@@ -69,7 +69,10 @@ const uint8_t N_LEDS = sizeof(LEDS) / sizeof(LEDS[0]);   // = 6 = 3·2
 
 Основний примітив — засвітити рівно один світлодіод із таблиці. Спершу гасимо все (усі ніжки в Hi-Z), потім два виводи потрібної пари робимо виходами й даємо їм протилежні рівні:
 
-```cpp
+:::tabs
+```arduino
+const uint8_t PINS[] = {2, 3, 4};    // ніжки плати
+
 void allHiZ() {                      // усі ніжки → Hi-Z (нічого не горить)
   for (uint8_t i = 0; i < N_PINS; i++) {
     pinMode(PINS[i], INPUT);         // DDR=0: вхід, високий опір
@@ -85,10 +88,68 @@ void lightOne(uint8_t k) {           // засвітити світлодіод 
   digitalWrite(PINS[LEDS[k].snk], LOW);    // приймач забирає
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
 
-Тепер розгортка. Тримаємо буфер кадру — масив прапорців «який світлодіод має світитися», і в циклі швидко пробігаємо його, засвічуючи кожен увімкнений на коротку мить:
+static const gpio_num_t PINS[] = { GPIO_NUM_18, GPIO_NUM_19, GPIO_NUM_21 };
 
-```cpp
+static void all_hi_z(void) {         // усі ніжки → Hi-Z (нічого не горить)
+  for (uint8_t i = 0; i < N_PINS; i++) {
+    gpio_config_t cfg = {
+      .pin_bit_mask = 1ULL << PINS[i],
+      .mode         = GPIO_MODE_INPUT,        // вхід, високий опір
+      .pull_up_en   = GPIO_PULLUP_DISABLE,    // підтяжки геть — інакше підсвітять зайве
+      .pull_down_en = GPIO_PULLDOWN_DISABLE,
+      .intr_type    = GPIO_INTR_DISABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&cfg));
+  }
+}
+
+static void light_one(uint8_t k) {   // засвітити світлодіод k
+  all_hi_z();                        // усе інше — темне
+  gpio_set_direction(PINS[LEDS[k].src], GPIO_MODE_OUTPUT);
+  gpio_set_direction(PINS[LEDS[k].snk], GPIO_MODE_OUTPUT);
+  gpio_set_level(PINS[LEDS[k].src], 1);      // джерело штовхає струм
+  gpio_set_level(PINS[LEDS[k].snk], 0);      // приймач забирає
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"           // такт порту вмикає __HAL_RCC_GPIOA_CLK_ENABLE()
+
+typedef struct { GPIO_TypeDef *port; uint16_t pin; } Pin;
+static const Pin PINS[] = {
+  { GPIOA, GPIO_PIN_0 }, { GPIOA, GPIO_PIN_1 }, { GPIOA, GPIO_PIN_2 },
+};
+
+static void pin_mode(const Pin *p, uint32_t mode) {
+  GPIO_InitTypeDef g = {0};
+  g.Pin   = p->pin;
+  g.Mode  = mode;                    // GPIO_MODE_INPUT або GPIO_MODE_OUTPUT_PP
+  g.Pull  = GPIO_NOPULL;             // підтяжки геть — інакше підсвітять зайве
+  g.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(p->port, &g);
+}
+
+static void all_hi_z(void) {         // усі ніжки → Hi-Z (нічого не горить)
+  for (uint8_t i = 0; i < N_PINS; i++) pin_mode(&PINS[i], GPIO_MODE_INPUT);
+}
+
+static void light_one(uint8_t k) {   // засвітити світлодіод k
+  const Pin *src = &PINS[LEDS[k].src], *snk = &PINS[LEDS[k].snk];
+  all_hi_z();                        // усе інше — темне
+  pin_mode(src, GPIO_MODE_OUTPUT_PP);
+  pin_mode(snk, GPIO_MODE_OUTPUT_PP);
+  HAL_GPIO_WritePin(src->port, src->pin, GPIO_PIN_SET);     // джерело штовхає струм
+  HAL_GPIO_WritePin(snk->port, snk->pin, GPIO_PIN_RESET);   // приймач забирає
+}
+```
+:::
+
+Тепер розгортка. Тримаємо буфер кадру — масив прапорців «який світлодіод має світитися», і швидко пробігаємо його, засвічуючи кожен увімкнений на коротку мить. Пробігати можна з головного циклу (найпростіше) або кроком за перериванням періодичного таймера (крок рівніший, і головний цикл вільний):
+
+:::tabs
+```arduino
 bool frame[N_LEDS] = { true, false, true, false, true, false };  // що показати
 
 void setup() { allHiZ(); }
@@ -103,6 +164,49 @@ void loop() {
   allHiZ();                                // погасити на «шві» між кадрами
 }
 ```
+```esp-idf
+#include "esp_timer.h"
+
+static bool frame[] = { true, false, true, false, true, false };  // що показати
+
+// Один слот розгортки; таймер кличе цю функцію кожні 600 мкс
+static void scan_step(void *arg) {
+  static uint8_t k = 0;
+  if (frame[k]) light_one(k);              // тримати світлодіод до наступного виклику
+  else          all_hi_z();                // темний слот — просто пауза
+  if (++k == N_LEDS) k = 0;                // кадр скінчився, починаємо спочатку
+}
+
+void app_main(void) {
+  all_hi_z();
+  const esp_timer_create_args_t args = { .callback = scan_step, .name = "charlie" };
+  esp_timer_handle_t tmr;
+  ESP_ERROR_CHECK(esp_timer_create(&args, &tmr));
+  ESP_ERROR_CHECK(esp_timer_start_periodic(tmr, 600));   // період у мкс
+}
+```
+```stm32
+static bool frame[] = { true, false, true, false, true, false };  // що показати
+
+extern TIM_HandleTypeDef htim6;            // TIM6 переповнюється кожні 600 мкс
+
+// Один слот розгортки; переривання таймера кличе цю функцію
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+  static uint8_t k = 0;
+  if (htim->Instance != TIM6) return;      // колбек спільний на всі таймери
+  if (frame[k]) light_one(k);              // тримати світлодіод до наступного виклику
+  else          all_hi_z();                // темний слот — просто пауза
+  if (++k == N_LEDS) k = 0;                // кадр скінчився, починаємо спочатку
+}
+
+int main(void) {
+  HAL_Init();  SystemClock_Config();  MX_GPIO_Init();  MX_TIM6_Init();
+  all_hi_z();
+  HAL_TIM_Base_Start_IT(&htim6);           // далі розгортка живе в перериванні
+  while (1) { }
+}
+```
+:::
 
 Щоб змінити картинку, досить переписати `frame` — розгортка сама покаже нове. Ось чому вся «магія» тут не в схемі, а в цих кількох рядках: схема — просто сітка антипаралельних пар, а який світлодіод горить, вирішує програма.
 
@@ -118,7 +222,7 @@ void loop() {
 ### Пастки
 
 - **Обмежувальні резистори обов'язкові** (як і для [звичайного світлодіода](book:electronics/led-photodiode)) — без них світлодіоди згорять; їх ставлять на кожну ніжку або в кожне плече.
-- **Не забути про внутрішні підтяжки.** Переводячи ніжку в Hi-Z, треба класти PORT=0 (у коді — `digitalWrite(pin, LOW)` при `INPUT`): лишена ввімкненою підтяжка ~30 кОм — це якраз джерело слабкого паразитного струму, що підсвічує не той світлодіод.
+- **Не забути про внутрішні підтяжки.** Переводячи ніжку в Hi-Z, треба класти PORT=0 (у коді — `digitalWrite(pin, LOW)` при `INPUT` в Arduino, `GPIO_NOPULL` у STM32 HAL, `GPIO_PULLUP_DISABLE` в ESP-IDF): лишена ввімкненою підтяжка ~30 кОм — це якраз джерело слабкого паразитного струму, що підсвічує не той світлодіод.
 - **Паразитне світіння** (sneak paths): інколи струм може знайти обхідний шлях крізь **два** послідовні світлодіоди й ледь підсвітити не той, що треба. Рятує природа порога: два послідовні світлодіоди вимагають подвоєного падіння (≈2×U_F), і якщо живлення нижче за нього, обхідний шлях просто не відкривається. Тому номінали добирають із оглядкою на цей поріг.
 - **Піковий струм проти середнього.** Кожен світлодіод світить лише 1/N часу, тож для тієї самої яскравості в активну мить крізь нього пускають більший піковий струм — але не вище за паспортний імпульсний максимум світлодіода й допустимий струм ніжки МК (типово ~20–40 мА).
 - **Складніший код** і обмежена сумарна яскравість — ціна за економію ніжок.

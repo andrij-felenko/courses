@@ -8,7 +8,7 @@
 
 Брелок пасивний — сам він мертвий. Щоб прочитати з нього UID або записати 16 байтів у блок, потрібен **читач**: аматорський модуль на чипі MFRC522, під'єднаний до мікроконтролера по SPI. Ваш код звертається не до брелка, а до читача: «дай номер найближчої мітки», «автентифікуйся ключем сектора 1», «поклади ці 16 байтів у блок 4». Читач жене поле, будить мітку, веде за неї весь протокол ISO 14443A і повертає вам байти.
 
-Тут зібрано **повний робочий проєкт** саме роботи з брелком через цей читач: прочитати UID будь-якого чипа, розпізнати, який це чип, автентифікуватися ключем потрібного сектора, прочитати й **записати** блок, зняти дамп усієї картки — і не наступити на грабки, якими бібліотека `MFRC522` славна. Код тут — залізний рівень: регістри чипа, протокол мітки, hex-байти. Це домен, де пишуть однією мовою — C/C++ на Arduino з бібліотекою `miguelbalboa/rfid`, тією самою, що лежить у кожному наборі; жодна «мова стека» тут ні до чого, бо йдеться про SPI-обмін із конкретним чипом.
+Тут зібрано **повний робочий проєкт** саме роботи з брелком через цей читач: прочитати UID будь-якого чипа, розпізнати, який це чип, автентифікуватися ключем потрібного сектора, прочитати й **записати** блок, зняти дамп усієї картки — і не наступити на грабки, якими бібліотека `MFRC522` славна. Код тут — залізний рівень: регістри чипа, протокол мітки, hex-байти. Платформозалежного в ньому мало: треба SPI-майстер, вивід chip-select і вивід скидання — це є на будь-якому мікроконтролері, а весь протокол мітки однаковий скрізь. Різниця лише в тому, **хто пише регістри чипа**: на Arduino це готова бібліотека `miguelbalboa/rfid` (з неї й почнемо — вона найкоротша), в ESP-IDF чи STM32 HAL — два десятки рядків власного транспорту поверх їхнього SPI-драйвера, а далі той самий код мітки.
 
 > 🔧 **Навіщо це.** Різниця між «зчитати UID» і «читати-писати блоки» — це різниця між брелоком-ключем і брелоком-носієм даних. UID дає вам лише «свій/чужий» (і той, як ми побачимо, підробний за долар). А блоки — це вже баланс на картці лояльності, лічильник входів, будь-який ваш стан, який мандрує на самому брелку. Щойно ви навчилися автентифікуватися й писати блок, брелок з «пропуску» перетворюється на крихітну базу даних на 752 корисні байти, яку носять на ключах.
 
@@ -34,7 +34,7 @@
 
 Перш ніж писати код, треба чітко уявити **розподіл ролей**, бо тоді кожен виклик стає прозорим, а кожна помилка — локалізованою.
 
-Чип MFRC522 — це радіочастотний фронт і нічого більше. Він жене поле 13.56 МГц, модулює його на передачу, ловить слабку відповідь мітки навантажувальною модуляцією й складає прийняте у свій буфер. Він **не знає** ні про сектори, ні про ключі, ні про те, MIFARE це чи щось інше — він просто передавач-приймач. А ось **логіка захисту сидить у самій мітці**: це вона перевіряє ключ, вирішує, віддати блок чи змовчати, і шифрує обмін своїм CRYPTO1. Бібліотека `MFRC522` — прошарок між вами й чипом: ви кажете їй «автентифікуйся», вона перекладає це в потрібні регістрові команди чипу, чип жене їх у мітку, мітка звіряє ключ.
+Чип MFRC522 — це радіочастотний фронт і нічого більше. Він жене поле 13.56 МГц, модулює його на передачу, ловить слабку відповідь мітки навантажувальною модуляцією й складає прийняте у свій буфер. Він **не знає** ні про сектори, ні про ключі, ні про те, MIFARE це чи щось інше — він просто передавач-приймач. А ось **логіка захисту сидить у самій мітці**: це вона перевіряє ключ, вирішує, віддати блок чи змовчати, і шифрує обмін своїм CRYPTO1. Між вами й чипом стоїть **драйвер**: ви кажете йому «автентифікуйся», він перекладає це в потрібні регістрові команди чипу, чип жене їх у мітку, мітка звіряє ключ. На Arduino цим драйвером служить бібліотека `MFRC522`, поза ним — ваші власні функції поверх SPI; імена викликів нижче бібліотечні, але сама четвірка кроків однакова в будь-якому середовищі.
 
 Тому будь-яка операція з даними брелка розпадається на **строгу послідовність**, яку не можна порушити:
 
@@ -53,7 +53,8 @@
 
 Почнемо з найпростішого, що вміє будь-яка система, — впізнати мітку в полі. Але одразу зробимо це **розумно**: не лише витягнемо UID, а й з'ясуємо, що за чип піднесли. Мітка в самій відповіді на перше опитування (у байтах ATQA і SAK) видає натяк на свій тип, і бібліотека вміє його розкодувати.
 
-```cpp
+:::tabs
+```arduino
 #include <SPI.h>
 #include <MFRC522.h>            // бібліотека miguelbalboa/rfid
 
@@ -93,6 +94,104 @@ void loop() {
   reader.PICC_HaltA();         // відпустити мітку
 }
 ```
+```esp-idf
+#include "driver/spi_master.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+static const char *TAG = "rc522";
+static spi_device_handle_t rc;
+
+// УВЕСЬ платформозалежний код — оці дві функції. Адреса регістра в SPI-кадрі:
+// запис (reg << 1) & 0x7E, читання — той самий байт із піднятим 0x80.
+static void pcd_write(uint8_t reg, uint8_t val) {
+    uint8_t tx[2] = { (uint8_t)((reg << 1) & 0x7E), val };
+    spi_transaction_t t = { .length = 16, .tx_buffer = tx };
+    ESP_ERROR_CHECK(spi_device_polling_transmit(rc, &t));
+}
+static uint8_t pcd_read(uint8_t reg) {
+    uint8_t tx[2] = { (uint8_t)(((reg << 1) & 0x7E) | 0x80), 0 }, rx[2];
+    spi_transaction_t t = { .length = 16, .tx_buffer = tx, .rx_buffer = rx };
+    ESP_ERROR_CHECK(spi_device_polling_transmit(rc, &t));
+    return rx[1];
+}
+
+void app_main(void) {
+    spi_bus_config_t bus = { .miso_io_num = 19, .mosi_io_num = 23, .sclk_io_num = 18,
+                             .quadwp_io_num = -1, .quadhd_io_num = -1 };
+    ESP_ERROR_CHECK(spi_bus_initialize(SPI2_HOST, &bus, SPI_DMA_CH_AUTO));
+    spi_device_interface_config_t dev = { .clock_speed_hz = 5 * 1000 * 1000, .mode = 0,
+                                          .spics_io_num = 5,   // «SDA» плати — це chip-select
+                                          .queue_size = 4 };
+    ESP_ERROR_CHECK(spi_bus_add_device(SPI2_HOST, &dev, &rc));
+
+    pcd_write(0x01, 0x0F);                        // CommandReg ← SoftReset
+    vTaskDelay(pdMS_TO_TICKS(50));
+    pcd_write(0x2A, 0x80); pcd_write(0x2B, 0xA9); // таймер очікування відповіді мітки
+    pcd_write(0x2C, 0x03); pcd_write(0x2D, 0xE8);
+    pcd_write(0x15, 0x40); pcd_write(0x11, 0x3D); // 100% ASK, CRC-preset 0x6363
+    pcd_write(0x14, pcd_read(0x14) | 0x03);       // TxControlReg: антена на
+
+    uint8_t uid[10], uid_len, sak;
+    while (1) {
+        // picc_select — код протоколу ISO 14443A поверх pcd_write/pcd_read.
+        // Він однаковий на будь-якому МК; платформа міняє лише транспорт вище.
+        if (picc_select(uid, &uid_len, &sak) != ESP_OK) { vTaskDelay(pdMS_TO_TICKS(50)); continue; }
+        ESP_LOG_BUFFER_HEX(TAG, uid, uid_len);            // UID: 4 або 7 байтів
+        ESP_LOGI(TAG, "Чип: %s", picc_type_name(sak));    // тип із SAK, напр. "MIFARE 1KB"
+        picc_halt_a();
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+#include <stdio.h>
+
+extern SPI_HandleTypeDef  hspi1;
+extern UART_HandleTypeDef huart2;
+#define CS_PORT GPIOB
+#define CS_PIN  GPIO_PIN_6            // «SDA» плати — це chip-select
+
+// УВЕСЬ платформозалежний код — оці дві функції: опустити CS і прогнати два
+// байти. Адреса регістра: запис (reg << 1) & 0x7E, читання — те саме | 0x80.
+static void pcd_write(uint8_t reg, uint8_t val) {
+    uint8_t tx[2] = { (reg << 1) & 0x7E, val };
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_RESET);
+    HAL_SPI_Transmit(&hspi1, tx, 2, HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_SET);
+}
+static uint8_t pcd_read(uint8_t reg) {
+    uint8_t tx[2] = { ((reg << 1) & 0x7E) | 0x80, 0 }, rx[2];
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_RESET);
+    HAL_SPI_TransmitReceive(&hspi1, tx, rx, 2, HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_SET);
+    return rx[1];
+}
+
+void rc522_init(void) {                           // те, що на Arduino робить PCD_Init()
+    pcd_write(0x01, 0x0F);                        // CommandReg ← SoftReset
+    HAL_Delay(50);
+    pcd_write(0x2A, 0x80); pcd_write(0x2B, 0xA9); // таймер очікування відповіді мітки
+    pcd_write(0x2C, 0x03); pcd_write(0x2D, 0xE8);
+    pcd_write(0x15, 0x40); pcd_write(0x11, 0x3D); // 100% ASK, CRC-preset 0x6363
+    pcd_write(0x14, pcd_read(0x14) | 0x03);       // TxControlReg: антена на
+}
+
+void rc522_poll(void) {                           // кличемо з головного циклу
+    uint8_t uid[10], uid_len, sak, line[80];
+    // picc_select — код протоколу ISO 14443A поверх pcd_write/pcd_read: він
+    // однаковий скрізь, платформа міняє лише транспорт вище.
+    if (picc_select(uid, &uid_len, &sak) != PICC_OK) return;
+    int k = snprintf((char *)line, sizeof line, "UID (%u байт):", uid_len);
+    for (uint8_t i = 0; i < uid_len; i++)         // саме uid_len, не жорсткі 4
+        k += snprintf((char *)line + k, sizeof line - k, " %02X", uid[i]);
+    k += snprintf((char *)line + k, sizeof line - k, "\r\nЧип: %s\r\n", picc_type_name(sak));
+    HAL_UART_Transmit(&huart2, line, k, HAL_MAX_DELAY);
+    picc_halt_a();
+}
+```
+:::
 
 Піднесли брелок — у порт вивалюється щось на кшталт:
 
@@ -150,7 +249,8 @@ SAK    Чип                    що це означає для коду
 
 Тепер, знаючи адресу, дістаємося захищених даних. Логіка MIFARE тут непорушна: **спершу ключ, тоді дані**. Ви доводите мітці знання ключа сектора — і лише тоді вона віддає блоки цього сектора.
 
-```cpp
+:::tabs
+```arduino
 // Прочитати блок 4 (сектор 1, локальний 0) ключем A.
 // Новий брелок із заводу має на всіх секторах ключ FF FF FF FF FF FF.
 MFRC522::MIFARE_Key key;
@@ -191,6 +291,71 @@ if (st == MFRC522::STATUS_OK) {
 reader.PICC_HaltA();             // відпустити мітку
 reader.PCD_StopCrypto1();        // ОБОВ'ЯЗКОВО опустити шифрування
 ```
+```esp-idf
+// Ті самі чотири кроки поверх нашого транспорту; причина невдачі їде в esp_err_t.
+static const uint8_t key_a[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };  // заводський ключ
+
+uint8_t block = 4;
+uint8_t buf[18];                  // 16 байтів даних + 2 байти CRC — МУСИТЬ бути 18
+uint8_t size = sizeof(buf);       // передаємо ЄМНІСТЬ буфера (18), не 16
+
+// КРОК 2: довести знання ключа A саме цього сектора (команда чипа MFAuthent).
+esp_err_t err = pcd_authenticate(PICC_CMD_MF_AUTH_KEY_A, block, key_a, uid, uid_len);
+if (err != ESP_OK) {
+    ESP_LOGE(TAG, "Автентифікація не вдалась: %s", esp_err_to_name(err));
+    picc_halt_a();
+    pcd_stop_crypto1();           // навіть після невдачі — опустити шифрування
+    return;
+}
+
+// КРОК 3: сектор відкрито — читаємо 16 байтів блока
+err = mifare_read(block, buf, &size);
+if (err == ESP_OK) {
+    ESP_LOGI(TAG, "Блок %u:", block);
+    ESP_LOG_BUFFER_HEX(TAG, buf, 16);          // друкуємо ЛИШЕ 16, не 18
+} else {
+    ESP_LOGE(TAG, "Читання не вдалось: %s", esp_err_to_name(err));
+}
+
+picc_halt_a();                    // відпустити мітку
+pcd_stop_crypto1();               // ОБОВ'ЯЗКОВО опустити шифрування
+```
+```stm32
+// Ті самі чотири кроки; замість Serial — UART, замість StatusCode — свій enum.
+static const uint8_t key_a[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };  // заводський ключ
+
+uint8_t block = 4;
+uint8_t buf[18];                  // 16 байтів даних + 2 байти CRC — МУСИТЬ бути 18
+uint8_t size = sizeof(buf);       // передаємо ЄМНІСТЬ буфера (18), не 16
+char    line[80];
+int     k;
+
+// КРОК 2: довести знання ключа A саме цього сектора (команда чипа MFAuthent).
+picc_status_t st = pcd_authenticate(PICC_CMD_MF_AUTH_KEY_A, block, key_a, uid, uid_len);
+if (st != PICC_OK) {
+    k = snprintf(line, sizeof line, "Автентифікація не вдалась: %s\r\n", picc_status_name(st));
+    HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+    picc_halt_a();
+    pcd_stop_crypto1();           // навіть після невдачі — опустити шифрування
+    return;
+}
+
+// КРОК 3: сектор відкрито — читаємо 16 байтів блока
+st = mifare_read(block, buf, &size);
+if (st == PICC_OK) {
+    k = snprintf(line, sizeof line, "Блок %u:", block);
+    for (uint8_t i = 0; i < 16; i++)           // друкуємо ЛИШЕ 16, не 18
+        k += snprintf(line + k, sizeof line - k, " %02X", buf[i]);
+    k += snprintf(line + k, sizeof line - k, "\r\n");
+} else {
+    k = snprintf(line, sizeof line, "Читання не вдалось: %s\r\n", picc_status_name(st));
+}
+HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+
+picc_halt_a();                    // відпустити мітку
+pcd_stop_crypto1();               // ОБОВ'ЯЗКОВО опустити шифрування
+```
+:::
 
 Три деталі тут — не косметика, а причина половини багів.
 
@@ -206,7 +371,8 @@ reader.PCD_StopCrypto1();        // ОБОВ'ЯЗКОВО опустити ши�
 
 Запис — дзеркало читання, з тими самими двома кроками (ключ, тоді дія), але з власними трьома пастками. Запишемо в блок 4 наш «новий баланс».
 
-```cpp
+:::tabs
+```arduino
 // Записати 16 байтів у блок 4. Спершу — та сама автентифікація.
 MFRC522::MIFARE_Key key;
 for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;
@@ -242,6 +408,72 @@ if (st == MFRC522::STATUS_OK) {
 reader.PICC_HaltA();
 reader.PCD_StopCrypto1();
 ```
+```esp-idf
+// Записати 16 байтів у блок 4. Спершу — та сама автентифікація.
+static const uint8_t key_a[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+
+uint8_t block = 4;
+
+// Дані на запис — РІВНО 16 байтів. Тут: рядок-мітка + число балансу.
+uint8_t data[16] = {
+    'B', 'A', 'L', 0x00,               // сигнатура «BAL» + роздільник
+    0x00, 0x00, 0x27, 0x10,            // баланс = 0x2710 = 10000 (напр. копійок)
+    0x00, 0x00, 0x00, 0x00,            // решта — про запас, нулі
+    0x00, 0x00, 0x00, 0x00
+};
+
+esp_err_t err = pcd_authenticate(PICC_CMD_MF_AUTH_KEY_A, block, key_a, uid, uid_len);
+if (err != ESP_OK) {
+    ESP_LOGE(TAG, "Авт. перед записом не вдалась: %s", esp_err_to_name(err));
+    picc_halt_a();
+    pcd_stop_crypto1();
+    return;
+}
+
+// Запис: РІВНО 16 байтів, розмір теж 16 — CRC додає рівень протоколу
+err = mifare_write(block, data, 16);
+if (err == ESP_OK) ESP_LOGI(TAG, "Записано.");
+else               ESP_LOGE(TAG, "Запис не вдався: %s", esp_err_to_name(err));
+
+picc_halt_a();
+pcd_stop_crypto1();
+```
+```stm32
+// Записати 16 байтів у блок 4. Спершу — та сама автентифікація.
+static const uint8_t key_a[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+
+uint8_t block = 4;
+
+// Дані на запис — РІВНО 16 байтів. Тут: рядок-мітка + число балансу.
+uint8_t data[16] = {
+    'B', 'A', 'L', 0x00,               // сигнатура «BAL» + роздільник
+    0x00, 0x00, 0x27, 0x10,            // баланс = 0x2710 = 10000 (напр. копійок)
+    0x00, 0x00, 0x00, 0x00,            // решта — про запас, нулі
+    0x00, 0x00, 0x00, 0x00
+};
+char line[80];
+int  k;
+
+picc_status_t st = pcd_authenticate(PICC_CMD_MF_AUTH_KEY_A, block, key_a, uid, uid_len);
+if (st != PICC_OK) {
+    k = snprintf(line, sizeof line, "Авт. перед записом не вдалась: %s\r\n", picc_status_name(st));
+    HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+    picc_halt_a();
+    pcd_stop_crypto1();
+    return;
+}
+
+// Запис: РІВНО 16 байтів, розмір теж 16 — CRC додає рівень протоколу
+st = mifare_write(block, data, 16);
+k = (st == PICC_OK)
+      ? snprintf(line, sizeof line, "Записано.\r\n")
+      : snprintf(line, sizeof line, "Запис не вдався: %s\r\n", picc_status_name(st));
+HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+
+picc_halt_a();
+pcd_stop_crypto1();
+```
+:::
 
 Асиметрія розмірів — головне, що плутає між читанням і записом.
 
@@ -255,9 +487,10 @@ reader.PCD_StopCrypto1();
 
 ## Дамп: побачити всю картку
 
-Коли берете **незнайому** картку, перше корисне — зняти з неї повний дамп: усі 64 блоки, ключі, біти доступу, тип чипа. Бібліотека вміє це одним викликом — не треба писати цикл по секторах уручну.
+Коли берете **незнайому** картку, перше корисне — зняти з неї повний дамп: усі 64 блоки, ключі, біти доступу, тип чипа. На Arduino бібліотека вміє це одним викликом; де готового дампера немає — це звичайний цикл по секторах, який пишуть раз і носять із проєкту в проєкт.
 
-```cpp
+:::tabs
+```arduino
 void loop() {
   if (!reader.PICC_IsNewCardPresent()) return;
   if (!reader.PICC_ReadCardSerial()) return;
@@ -272,6 +505,61 @@ void loop() {
   // PICC_DumpToSerial наприкінці САМ кличе HaltA і StopCrypto1 — тут добавляти не треба.
 }
 ```
+```esp-idf
+// Готового дампера тут нема — і не треба: це цикл по 16 секторах Classic 1K.
+// Автентифікація відкриває весь сектор, тож ключ подаємо раз на сектор.
+static const uint8_t key_a[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+
+void dump_classic_1k(const uint8_t *uid, uint8_t uid_len) {
+    for (uint8_t sector = 0; sector < 16; sector++) {
+        uint8_t trailer = sector * 4 + 3;              // трейлер = S · 4 + 3
+        if (pcd_authenticate(PICC_CMD_MF_AUTH_KEY_A, trailer, key_a, uid, uid_len) != ESP_OK) {
+            ESP_LOGW(TAG, "Сектор %u: ключ не підійшов", sector);
+            continue;                                  // не-заводський ключ — нормально
+        }
+        for (uint8_t local = 0; local < 4; local++) {
+            uint8_t block = sector * 4 + local;        // наскрізний номер блока
+            uint8_t buf[18], size = sizeof(buf);       // 16 даних + 2 CRC
+            if (mifare_read(block, buf, &size) != ESP_OK) continue;
+            ESP_LOGI(TAG, "Сектор %u, блок %2u%s", sector, block, local == 3 ? "  ← трейлер" : "");
+            ESP_LOG_BUFFER_HEX(TAG, buf, 16);
+        }
+    }
+    picc_halt_a();
+    pcd_stop_crypto1();                                // пара до останньої автентифікації
+}
+```
+```stm32
+// Готового дампера тут нема — і не треба: це цикл по 16 секторах Classic 1K.
+// Автентифікація відкриває весь сектор, тож ключ подаємо раз на сектор.
+static const uint8_t key_a[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+
+void dump_classic_1k(const uint8_t *uid, uint8_t uid_len) {
+    char line[96];
+    int  k;
+    for (uint8_t sector = 0; sector < 16; sector++) {
+        uint8_t trailer = sector * 4 + 3;              // трейлер = S · 4 + 3
+        if (pcd_authenticate(PICC_CMD_MF_AUTH_KEY_A, trailer, key_a, uid, uid_len) != PICC_OK) {
+            k = snprintf(line, sizeof line, "Сектор %u: ключ не підійшов\r\n", sector);
+            HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+            continue;                                  // не-заводський ключ — нормально
+        }
+        for (uint8_t local = 0; local < 4; local++) {
+            uint8_t block = sector * 4 + local;        // наскрізний номер блока
+            uint8_t buf[18], size = sizeof(buf);       // 16 даних + 2 CRC
+            if (mifare_read(block, buf, &size) != PICC_OK) continue;
+            k = snprintf(line, sizeof line, "%2u:", block);
+            for (uint8_t i = 0; i < 16; i++)
+                k += snprintf(line + k, sizeof line - k, " %02X", buf[i]);
+            k += snprintf(line + k, sizeof line - k, "%s\r\n", local == 3 ? "  <- трейлер" : "");
+            HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+        }
+    }
+    picc_halt_a();
+    pcd_stop_crypto1();                                // пара до останньої автентифікації
+}
+```
+:::
 
 `PICC_DumpToSerial` — службова, «важка» функція: вона друкує UID, розпізнаний тип чипа, а для MIFARE Classic проходить кожен сектор, автентифікується переданим ключем і вивалює вміст усіх блоків разом із розшифрованими бітами доступу. Виглядає дамп приблизно так (скорочено):
 
@@ -302,7 +590,7 @@ Sector Block   0  1  2  3   4  5  6  7   8 ...  AccessBits
 
 Код вище — робочий, але навколо нього розкидані грабки, кожні з яких коштували комусь вечора. Зберемо їх докупи з поясненням механізму, бо заучувати список марно — треба розуміти корінь.
 
-**`PCD_StopCrypto1` — обов'язковий, інакше наступна мітка мертва.** Це найзліша й найтихіша пастка бібліотеки. Коли ви автентифікуєтеся, читач **піднімає** внутрішній стан шифрування CRYPTO1 і тримає його, поки йде обмін із цією міткою. Якщо ви не опустите його викликом `PCD_StopCrypto1()`, читач лишається в «зашифрованому» стані — і **наступну мітку просто не побачить**, `PICC_IsNewCardPresent` мовчатиме. Симптом класичний: перша картка читається чудово, друга — ні, доки не перезавантажиш Arduino. Причому опускати шифрування треба **навіть після невдалої автентифікації чи читання** — стан міг піднятися частково. Дивіться на це як на пару дужок: кожен `PCD_Authenticate` мусить мати свій `PCD_StopCrypto1`, на всіх шляхах виходу.
+**`PCD_StopCrypto1` — обов'язковий, інакше наступна мітка мертва.** Це найзліша й найтихіша пастка всієї роботи з MFRC522, і сидить вона не в бібліотеці, а в самому чипі — тож дістає однаково на Arduino, ESP-IDF і STM32. Коли ви автентифікуєтеся, читач **піднімає** внутрішній стан шифрування CRYPTO1 і тримає його, поки йде обмін із цією міткою. Якщо ви не опустите його викликом `PCD_StopCrypto1()`, читач лишається в «зашифрованому» стані — і **наступну мітку просто не побачить**, `PICC_IsNewCardPresent` мовчатиме. Симптом класичний: перша картка читається чудово, друга — ні, доки не перезавантажиш мікроконтролер. Причому опускати шифрування треба **навіть після невдалої автентифікації чи читання** — стан міг піднятися частково. Дивіться на це як на пару дужок: кожен `PCD_Authenticate` мусить мати свій `PCD_StopCrypto1`, на всіх шляхах виходу.
 
 ![Пошук мітки → автентифікація піднімає CRYPTO1 → читання чи запис → StopCrypto1 опускає CRYPTO1 → HaltA; поки шифрування підняте, читач зайнятий і наступну мітку не бачить](/catalog/connect/rfid/rfid-tag/img/lifecycle.svg)
 *Життєвий цикл шифрування. `PCD_Authenticate` піднімає CRYPTO1 у читачі; поки він піднятий, читач зайнятий поточною міткою. `PCD_StopCrypto1` опускає його — і лише тоді читач вільний для наступної мітки. Пропустили StopCrypto1 (навіть на шляху помилки) — і наступне читання мовчить.*

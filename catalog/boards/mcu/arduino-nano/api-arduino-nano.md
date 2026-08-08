@@ -8,9 +8,10 @@
 
 **Задача.** Вивести на екран комп'ютера числа з давача, а заодно приймати команди назад — увімкнути щось, змінити режим. Це найперше, що роблять на будь-якій платі: без вікна, куди сиплються числа, ви наосліп.
 
-**Ідея.** У ATmega328P є один апаратний UART — вузол, що сам, без участі програми, вистукує байти по лінії `TX` і ловить їх по `RX`. Обгортка Arduino ховає його за об'єктом `Serial`. Ви кажете `Serial.begin(швидкість)`, і далі `print`/`println` шлють текст, а `available`/`read` забирають те, що прийшло. Швидкість — це **бод** (baud, на честь Еміля Бодо), кількість символів-станів лінії за секунду; обидва боки мусять домовитися про одне число, інакше замість тексту полізе сміття.
+**Ідея.** У ATmega328P є один апаратний UART — вузол, що сам, без участі програми, вистукує байти по лінії `TX` і ловить їх по `RX`. Кожне середовище відчиняє до нього свої двері: Arduino ховає вузол за об'єктом `Serial` (`begin` задає швидкість, `print`/`println` шлють текст, `available`/`read` забирають те, що прийшло), ESP-IDF ставить драйвер `uart_driver_install` і читає `uart_read_bytes`, STM32 HAL дає `HAL_UART_Transmit`/`HAL_UART_Receive`. Дія скрізь та сама, різняться лише імена. Швидкість — це **бод** (baud, на честь Еміля Бодо), кількість символів-станів лінії за секунду; обидва боки мусять домовитися про одне число, інакше замість тексту полізе сміття.
 
-```cpp
+:::tabs
+```arduino
 void setup() {
     Serial.begin(9600);            // 9600 бод — обидва боки мусять збігтися
     Serial.println(F("Готовий")); // F() тримає рядок у флеші, не в SRAM
@@ -34,6 +35,79 @@ void loop() {
     }
 }
 ```
+```esp-idf
+#include "driver/uart.h"
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "esp_log.h"
+#include "esp_timer.h"
+
+static const char *TAG = "app";
+#define LED GPIO_NUM_2
+
+void app_main(void) {
+    const uart_config_t cfg = {
+        .baud_rate  = 9600,             // 9600 бод — обидва боки мусять збігтися
+        .data_bits  = UART_DATA_8_BITS,
+        .parity     = UART_PARITY_DISABLE,
+        .stop_bits  = UART_STOP_BITS_1,
+        .flow_ctrl  = UART_HW_FLOWCTRL_DISABLE,
+        .source_clk = UART_SCLK_DEFAULT,
+    };
+    ESP_ERROR_CHECK(uart_driver_install(UART_NUM_0, 256, 0, 0, NULL, 0));
+    ESP_ERROR_CHECK(uart_param_config(UART_NUM_0, &cfg));
+    gpio_set_direction(LED, GPIO_MODE_OUTPUT);
+    ESP_LOGI(TAG, "Готовий");           // сталі рядки й так лежать у флеші
+
+    int64_t last = 0;
+    while (1) {
+        uint8_t cmd;                    // приймання: одна літера-команда
+        if (uart_read_bytes(UART_NUM_0, &cmd, 1, pdMS_TO_TICKS(10)) == 1) {
+            if (cmd == '1') gpio_set_level(LED, 1);
+            if (cmd == '0') gpio_set_level(LED, 0);
+        }
+        int64_t now = esp_timer_get_time();   // мікросекунди від старту
+        if (now - last >= 1000000) {          // передавання: показник щосекунди
+            last = now;
+            ESP_LOGI(TAG, "лічильник = %d", (int)(now / 1000000));
+        }
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+#include <stdio.h>
+#include <string.h>
+
+extern UART_HandleTypeDef huart2;   // 9600 бод виставлено в CubeMX
+
+static void tx(const char *s) {     // передати рядок і дочекатися кінця
+    HAL_UART_Transmit(&huart2, (uint8_t *)s, strlen(s), HAL_MAX_DELAY);
+}
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_USART2_UART_Init();
+    tx("Готовий\r\n");
+
+    uint32_t last = 0;
+    while (1) {
+        uint8_t cmd;                // приймання: одна літера-команда
+        if (HAL_UART_Receive(&huart2, &cmd, 1, 10) == HAL_OK) {
+            if (cmd == '1') HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+            if (cmd == '0') HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+        }
+        uint32_t now = HAL_GetTick();   // мілісекунди від старту
+        if (now - last >= 1000) {       // передавання: показник щосекунди
+            last = now;
+            char line[32];
+            snprintf(line, sizeof line, "лічильник = %lu\r\n",
+                     (unsigned long)(now / 1000));
+            tx(line);
+        }
+    }
+}
+```
+:::
 
 Про швидкості. Класичні значення — 9600, 57600, 115200 бод. Менше — надійніше на довгих чи брудних лініях; більше — швидше сиплються дані, але зростає ризик поодиноких помилок. Для налагодження 9600 вистачає з головою; коли треба перекачати багато (лог на кожен цикл), беруть 115200. Головне — **виставити те саме число у моніторі порту**: якщо плата шле на 115200, а монітор слухає на 9600, ви побачите рядок безглуздих символів. Це, до речі, перша підозра, коли «Serial показує кракозябри»: не збіглася швидкість.
 
@@ -49,9 +123,10 @@ void loop() {
 
 **Задача.** Прочитати кнопку (натиснута чи ні) і засвітити світлодіод. Основа основ, але саме тут ховається класичний баг «кнопка спрацьовує сама собою».
 
-**Ідея.** Вивід у режимі `OUTPUT` ви **керуєте**: `digitalWrite(pin, HIGH)` подає ~5 В, `LOW` — 0 В. Вивід у режимі `INPUT` ви **читаєте**: `digitalRead(pin)` каже, який на ньому рівень. Проблема з простим `INPUT` у тому, що неприєднаний вивід ні до чого не притягнутий і ловить наводки з повітря — читається то `HIGH`, то `LOW` навмання. Лік — **внутрішня підтяжка**: у ATmega є вбудований резистор, що м'яко притягує вивід до `HIGH`. Вмикаєте його режимом `INPUT_PULLUP`, вішаєте кнопку між виводом і землею — і логіка перевертається: вільний вивід читається `HIGH`, натиснута кнопка притягує до `LOW`.
+**Ідея.** Будь-який вивід МК має два основні режими. У режимі виходу ви ним **керуєте**: `HIGH` подає на вивід напругу живлення ядра (у Nano це ~5 В, у ESP32 чи STM32 — 3.3 В), `LOW` — 0 В; в Arduino це `digitalWrite(pin, HIGH)`, в ESP-IDF `gpio_set_level`, у STM32 HAL `HAL_GPIO_WritePin`. У режимі входу ви вивід **читаєте**: `digitalRead(pin)` (відповідно `gpio_get_level`, `HAL_GPIO_ReadPin`) каже, який на ньому рівень. Проблема з простим входом у тому, що неприєднаний вивід ні до чого не притягнутий і ловить наводки з повітря — читається то `HIGH`, то `LOW` навмання. Лік — **внутрішня підтяжка**: вбудований у чип резистор, що м'яко притягує вивід до `HIGH`; він є практично в кожному МК. В Arduino його вмикає режим `INPUT_PULLUP`, в ESP-IDF — поле `.pull_up_en` у `gpio_config`, у STM32 — `.Pull = GPIO_PULLUP`. Вішаєте кнопку між виводом і землею — і логіка перевертається: вільний вивід читається `HIGH`, натиснута кнопка притягує до `LOW`.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t PIN_BTN = 2;      // кнопка між D2 і GND
 const uint8_t PIN_LED = 13;     // вбудований світлодіод
 
@@ -65,6 +140,63 @@ void loop() {
     digitalWrite(PIN_LED, pressed ? HIGH : LOW);
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define PIN_BTN GPIO_NUM_4      // кнопка між GPIO4 і GND
+#define PIN_LED GPIO_NUM_2
+
+void app_main(void) {
+    const gpio_config_t btn = {
+        .pin_bit_mask = 1ULL << PIN_BTN,
+        .mode         = GPIO_MODE_INPUT,
+        .pull_up_en   = GPIO_PULLUP_ENABLE,   // вільний стан = 1, натиск = 0
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type    = GPIO_INTR_DISABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&btn));
+    gpio_set_direction(PIN_LED, GPIO_MODE_OUTPUT);
+
+    while (1) {
+        bool pressed = (gpio_get_level(PIN_BTN) == 0);  // натиснуто = замкнуто на GND
+        gpio_set_level(PIN_LED, pressed);
+        vTaskDelay(pdMS_TO_TICKS(10));
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+
+// кнопка між PC13 і GND, світлодіод на PA5
+int main(void) {
+    HAL_Init(); SystemClock_Config();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+
+    GPIO_InitTypeDef btn = {
+        .Pin  = GPIO_PIN_13,
+        .Mode = GPIO_MODE_INPUT,
+        .Pull = GPIO_PULLUP,              // вільний стан = 1, натиск = 0
+    };
+    HAL_GPIO_Init(GPIOC, &btn);
+
+    GPIO_InitTypeDef led = {
+        .Pin = GPIO_PIN_5, .Mode = GPIO_MODE_OUTPUT_PP,
+        .Pull = GPIO_NOPULL, .Speed = GPIO_SPEED_FREQ_LOW,
+    };
+    HAL_GPIO_Init(GPIOA, &led);
+
+    while (1) {
+        // натиснуто = замкнуто на GND
+        bool pressed = (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5,
+                          pressed ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    }
+}
+```
+:::
 
 **Пастки.**
 
@@ -78,7 +210,7 @@ void loop() {
 
 **Задача.** Прочитати положення потенціометра, яскравість фоторезистора, напругу з давача — усе, що подається плавним рівнем 0–5 В.
 
-**Ідея.** У ATmega328P є **десятибітний** [аналого-цифровий перетворювач](book:electronics/adc): він порівнює вхідну напругу з опорною й видає ціле число. Десять бітів означає діапазон 0…1023: `0` — це 0 В, `1023` — це опорна напруга (за замовчуванням 5 В). Тобто крок одного відліку:
+**Ідея.** Майже в кожному МК є [аналого-цифровий перетворювач](book:electronics/adc): він порівнює вхідну напругу з опорною й видає ціле число. Розрядність — властивість конкретного чипа: у ATmega328P перетворювач **десятибітний**, у ESP32 і більшості STM32 — дванадцятибітний. Десять бітів означає діапазон 0…1023: `0` — це 0 В, `1023` — це опорна напруга (за замовчуванням 5 В). Тобто крок одного відліку:
 
 ```
 крок = Uопор / 1024 = 5.0 / 1024 ≈ 0.0049 В ≈ 4.9 мВ
@@ -90,7 +222,8 @@ void loop() {
 U = відлік · Uопор / 1023
 ```
 
-```cpp
+:::tabs
+```arduino
 void setup() {
     Serial.begin(9600);
 }
@@ -105,6 +238,56 @@ void loop() {
     delay(200);
 }
 ```
+```esp-idf
+#include "esp_adc/adc_oneshot.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+static const char *TAG = "adc";
+
+void app_main(void) {
+    adc_oneshot_unit_handle_t adc1;
+    const adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
+    ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc1));
+
+    const adc_oneshot_chan_cfg_t ch = {
+        .bitwidth = ADC_BITWIDTH_12,     // 12 бітів: 0..4095
+        .atten    = ADC_ATTEN_DB_12,     // послаблення входу — стеля близько 3.3 В
+    };
+    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, ADC_CHANNEL_0, &ch));
+
+    while (1) {
+        int raw = 0;
+        ESP_ERROR_CHECK(adc_oneshot_read(adc1, ADC_CHANNEL_0, &raw));
+        float volts = raw * 3.3f / 4095.0f;         // назад у вольти
+        ESP_LOGI(TAG, "%d  ->  %.3f В", raw, volts);
+        vTaskDelay(pdMS_TO_TICKS(200));
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+#include <stdio.h>
+
+extern ADC_HandleTypeDef hadc1;   // канал і час вибірки виставлено в CubeMX
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_ADC1_Init(); MX_USART2_UART_Init();
+
+    while (1) {
+        HAL_ADC_Start(&hadc1);
+        if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK) {
+            uint32_t raw = HAL_ADC_GetValue(&hadc1);   // 0..4095, 12 бітів
+            float volts = raw * 3.3f / 4095.0f;        // назад у вольти
+            printf("%lu  ->  %.3f В\r\n", (unsigned long)raw, volts);
+        }
+        HAL_ADC_Stop(&hadc1);
+        HAL_Delay(200);
+    }
+}
+```
+:::
 
 Опорну напругу можна змінити функцією `analogReference`. За замовчуванням це `DEFAULT` — живлення 5 В. Є ще `INTERNAL` — вбудоване джерело **1.1 В** саме в ATmega328P: коли ви міряєте маленькі напруги (термопара, слабкий давач), 1.1 В як стеля дає набагато дрібніший крок (1.1 / 1024 ≈ 1.1 мВ) і точніший вимір. Є `EXTERNAL` — коли на вивід `AREF` подано власну опорну напругу.
 
@@ -120,9 +303,10 @@ void loop() {
 
 **Задача.** Плавно регулювати яскравість світлодіода чи швидкість мотора — не «увімк/вимк», а «на скільки».
 
-**Ідея.** Цифровий вивід уміє лише два рівні. Але якщо дуже швидко вмикати й вимикати його — скажімо, 490 разів на секунду — і міняти **частку часу**, коли він увімкнений, то середня потужність вийде будь-якою між 0 і повною. Око не встигає за миготінням і бачить рівну яскравість; мотор через інерцію бачить середній струм. Це **широтно-імпульсна модуляція** (ШІМ, англ. *PWM — pulse-width modulation*): несемо «аналогову» величину шириною імпульсів. `analogWrite(pin, duty)` бере `duty` від 0 (завжди вимкнено) до 255 (завжди ввімкнено); 127 — половина часу ввімкнено, тобто ~50 % яскравості.
+**Ідея.** Цифровий вивід уміє лише два рівні. Але якщо дуже швидко вмикати й вимикати його — скажімо, 490 разів на секунду — і міняти **частку часу**, коли він увімкнений, то середня потужність вийде будь-якою між 0 і повною. Око не встигає за миготінням і бачить рівну яскравість; мотор через інерцію бачить середній струм. Це **широтно-імпульсна модуляція** (ШІМ, англ. *PWM — pulse-width modulation*): несемо «аналогову» величину шириною імпульсів. Робить це апаратний таймер, і кожне середовище відкриває його по-своєму: в Arduino `analogWrite(pin, duty)` бере `duty` від 0 (завжди вимкнено) до 255 (завжди ввімкнено), 127 — половина часу ввімкнено, тобто ~50 % яскравості; в ESP-IDF ту саму частку задає модуль `LEDC`, у STM32 — регістр порівняння таймера.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t PIN_LED = 9;   // ~D9 — має апаратний ШІМ
 
 void setup() {
@@ -135,6 +319,65 @@ void loop() {
     for (int d = 255; d >= 0; d--) { analogWrite(PIN_LED, d); delay(5); }
 }
 ```
+```esp-idf
+#include "driver/ledc.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define PIN_LED 2   // будь-який GPIO: ШІМ розводить матриця, не жорсткі виводи
+
+static void set_duty(int d) {
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, d);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
+}
+
+void app_main(void) {
+    const ledc_timer_config_t tm = {
+        .speed_mode      = LEDC_LOW_SPEED_MODE,
+        .timer_num       = LEDC_TIMER_0,
+        .duty_resolution = LEDC_TIMER_8_BIT,   // 8 бітів: duty 0..255, як у Arduino
+        .freq_hz         = 5000,               // частоту обираємо самі
+        .clk_cfg         = LEDC_AUTO_CLK,
+    };
+    ESP_ERROR_CHECK(ledc_timer_config(&tm));
+
+    const ledc_channel_config_t ch = {
+        .gpio_num = PIN_LED, .speed_mode = LEDC_LOW_SPEED_MODE,
+        .channel  = LEDC_CHANNEL_0, .timer_sel = LEDC_TIMER_0,
+        .duty = 0, .hpoint = 0,
+    };
+    ESP_ERROR_CHECK(ledc_channel_config(&ch));
+
+    while (1) {
+        // плавне «дихання»: яскравість вгору й вниз
+        for (int d = 0;   d <= 255; d++) { set_duty(d); vTaskDelay(pdMS_TO_TICKS(5)); }
+        for (int d = 255; d >= 0;   d--) { set_duty(d); vTaskDelay(pdMS_TO_TICKS(5)); }
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+
+extern TIM_HandleTypeDef htim2;   // TIM2_CH1 на PA0, ARR = 255 (виставлено в CubeMX)
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_TIM2_Init();
+    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
+    while (1) {
+        // плавне «дихання»: яскравість вгору й вниз; CCR — це і є duty
+        for (int d = 0; d <= 255; d++) {
+            __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, d);
+            HAL_Delay(5);
+        }
+        for (int d = 255; d >= 0; d--) {
+            __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, d);
+            HAL_Delay(5);
+        }
+    }
+}
+```
+:::
 
 **Пастки.**
 
@@ -148,11 +391,12 @@ void loop() {
 
 **Задача.** Прочитати число з давача, що спілкується по [шині I²C](book:communications/i2c-bus) — барометр, годинник реального часу, розширювач виводів. Таких дрібних мікросхем безліч, і всі вони чіпляються на **два спільні** дроти.
 
-**Ідея.** I²C — це дві лінії: `SDA` (дані) і `SCL` (такт). На Nano вони жорстко закріплені за виводами **`A4` (SDA)** і **`A5` (SCL)**. Багато пристроїв висять на цій самій парі, і кожен має свою **адресу** (7-бітове число); ведучий (Nano) називає адресу, і відповідає лише той, кого покликали. У коді все це ховає бібліотека `Wire`: `Wire.begin()` піднімає шину, далі транзакція «назви регістр → прочитай байти». Механіка обміну — старт, адреса, підтвердження — розібрана окремо; тут важливо, що читання регістра давача робиться у два кроки: спершу кажемо, який регістр хочемо, тоді забираємо його вміст.
+**Ідея.** I²C — це дві лінії: `SDA` (дані) і `SCL` (такт). На Nano вони жорстко закріплені за виводами **`A4` (SDA)** і **`A5` (SCL)**. Багато пристроїв висять на цій самій парі, і кожен має свою **адресу** (7-бітове число); ведучий (Nano) називає адресу, і відповідає лише той, кого покликали. У коді все це ховає драйвер шини — в Arduino це бібліотека `Wire` (`Wire.begin()` піднімає шину), в ESP-IDF `i2c_driver_install`, у STM32 HAL — описувач `hi2c`. Далі скрізь та сама транзакція «назви регістр → прочитай байти». Механіка обміну — старт, адреса, підтвердження — розібрана окремо; тут важливо, що читання регістра давача робиться у два кроки: спершу кажемо, який регістр хочемо, тоді забираємо його вміст.
 
 Ось мінімальний, але **чесний** приклад — читаємо байт-ідентифікатор із давача, щоб переконатися, що він узагалі є на шині, і читаємо два байти виміру:
 
-```cpp
+:::tabs
+```arduino
 #include <Wire.h>
 
 const uint8_t ADDR    = 0x76;   // адреса давача (з даташита)
@@ -191,6 +435,78 @@ void loop() {
     delay(500);
 }
 ```
+```esp-idf
+#include "driver/i2c.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define ADDR    0x76            // адреса давача (з даташита)
+#define REG_ID  0xD0            // регістр «хто ти»
+#define REG_OUT 0xF7            // старший байт виміру
+static const char *TAG = "i2c";
+
+// прочитати n байтів від регістра reg у buf; ESP_OK — успіх
+static esp_err_t i2c_read(uint8_t reg, uint8_t *buf, size_t n) {
+    // write_read = «назвати регістр → ПОВТОРНИЙ СТАРТ → читати», без stop усередині
+    return i2c_master_write_read_device(I2C_NUM_0, ADDR, &reg, 1, buf, n,
+                                        pdMS_TO_TICKS(100));
+}
+
+void app_main(void) {
+    const i2c_config_t cfg = {
+        .mode = I2C_MODE_MASTER,
+        .sda_io_num = 21, .scl_io_num = 22,     // виводи обираємо самі, вони не жорсткі
+        .sda_pullup_en = GPIO_PULLUP_ENABLE,     // слабка внутрішня підтяжка
+        .scl_pullup_en = GPIO_PULLUP_ENABLE,
+        .master.clk_speed = 100000,
+    };
+    ESP_ERROR_CHECK(i2c_param_config(I2C_NUM_0, &cfg));
+    ESP_ERROR_CHECK(i2c_driver_install(I2C_NUM_0, I2C_MODE_MASTER, 0, 0, 0));
+
+    uint8_t id = 0;
+    if (i2c_read(REG_ID, &id, 1) == ESP_OK) ESP_LOGI(TAG, "ID = %02X", id);
+    else                                    ESP_LOGE(TAG, "немає відповіді");
+
+    while (1) {
+        uint8_t raw[2];
+        if (i2c_read(REG_OUT, raw, 2) == ESP_OK)
+            ESP_LOGI(TAG, "%d", (raw[0] << 8) | raw[1]);   // старший байт першим
+        vTaskDelay(pdMS_TO_TICKS(500));
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+#include <stdio.h>
+
+extern I2C_HandleTypeDef hi2c1;
+
+#define ADDR    (0x76 << 1)     // HAL бере 8-бітову адресу: 7 бітів зсунуті вліво
+#define REG_ID  0xD0            // регістр «хто ти»
+#define REG_OUT 0xF7            // старший байт виміру
+
+// Mem_Read сам робить «назвати регістр → повторний старт → читати»
+static HAL_StatusTypeDef i2c_read(uint8_t reg, uint8_t *buf, uint16_t n) {
+    return HAL_I2C_Mem_Read(&hi2c1, ADDR, reg, I2C_MEMADD_SIZE_8BIT, buf, n, 100);
+}
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_I2C1_Init(); MX_USART2_UART_Init();
+
+    uint8_t id = 0;
+    if (i2c_read(REG_ID, &id, 1) == HAL_OK) printf("ID = %02X\r\n", id);
+    else                                    printf("немає відповіді\r\n");
+
+    while (1) {
+        uint8_t raw[2];
+        if (i2c_read(REG_OUT, raw, 2) == HAL_OK)
+            printf("%d\r\n", (raw[0] << 8) | raw[1]);   // старший байт першим
+        HAL_Delay(500);
+    }
+}
+```
+:::
 
 Ключова деталь — `Wire.endTransmission(false)`: аргумент `false` каже «не відпускай шину, дай **повторний старт**». Без нього між «назвати регістр» і «прочитати» встромиться стоп, давач забуде, який регістр ви питали, і віддасть не те. Друга деталь — перевірка `requestFrom(...) != n`: якщо прийшло менше байтів, ніж просили (відвалився дріт, слабкі підтяжки), чесний код мусить це помітити, а не покласти в буфер сміття.
 
@@ -206,9 +522,10 @@ void loop() {
 
 **Задача.** Поговорити з пристроєм, якому мало I²C: SD-картою, дисплеєм, радіомодулем, швидким АЦП. Там, де потрібна швидкість, беруть [SPI](book:communications/spi-bus).
 
-**Ідея.** SPI — чотири лінії, і на Nano вони закріплені за `D13` (`SCK`, такт), `D11` (`MOSI`, дані від Nano до пристрою), `D12` (`MISO`, дані назад) і `D10` (`SS`, вибір пристрою). На відміну від I²C, тут немає адрес: кожен пристрій має **власну** лінію вибору (`SS` / *chip select*), і ви притягуєте її донизу, поки говорите саме з ним. Обмін дуже прямий: ви зсуваєте байт назовні по `MOSI` й **тим самим тактом** приймаєте байт по `MISO` — `SPI.transfer(x)` водночас шле й повертає. Немає підтверджень, немає адрес — тому SPI швидкий, але й «сліпий»: він не скаже, чи хтось узагалі слухав.
+**Ідея.** SPI — чотири лінії, і на Nano вони закріплені за `D13` (`SCK`, такт), `D11` (`MOSI`, дані від Nano до пристрою), `D12` (`MISO`, дані назад) і `D10` (`SS`, вибір пристрою). На відміну від I²C, тут немає адрес: кожен пристрій має **власну** лінію вибору (`SS` / *chip select*), і ви притягуєте її донизу, поки говорите саме з ним. Обмін дуже прямий і завжди двобічний: ви зсуваєте байт назовні по `MOSI` й **тим самим тактом** приймаєте байт по `MISO`. В Arduino це `SPI.transfer(x)`, який водночас шле й повертає; в ESP-IDF — `spi_device_polling_transmit` із парою буферів; у STM32 — `HAL_SPI_TransmitReceive`. Немає підтверджень, немає адрес — тому SPI швидкий, але й «сліпий»: він не скаже, чи хтось узагалі слухав.
 
-```cpp
+:::tabs
+```arduino
 #include <SPI.h>
 
 const uint8_t PIN_CS = 10;      // вибір пристрою (chip select)
@@ -237,6 +554,74 @@ void loop() {
     delay(500);
 }
 ```
+```esp-idf
+#include "driver/spi_master.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+static spi_device_handle_t dev;
+static const char *TAG = "spi";
+
+// прочитати один регістр: шлемо адресу, приймаємо відповідь
+static uint8_t spi_read_reg(uint8_t reg) {
+    uint8_t tx[2] = { reg | 0x80, 0x00 };   // старший біт = «читання» (типово)
+    uint8_t rx[2] = { 0 };
+    spi_transaction_t t = { .length = 16, .tx_buffer = tx, .rx_buffer = rx };
+    ESP_ERROR_CHECK(spi_device_polling_transmit(dev, &t));  // CS смикає драйвер сам
+    return rx[1];                           // відповідь прийшла в другому байті
+}
+
+void app_main(void) {
+    const spi_bus_config_t bus = {
+        .mosi_io_num = 23, .miso_io_num = 19, .sclk_io_num = 18,
+        .quadwp_io_num = -1, .quadhd_io_num = -1,
+    };
+    ESP_ERROR_CHECK(spi_bus_initialize(SPI2_HOST, &bus, SPI_DMA_CH_AUTO));
+
+    // швидкість, режим і лінія вибору — з даташита пристрою:
+    const spi_device_interface_config_t cfg = {
+        .clock_speed_hz = 1000000, .mode = 0,   // MSB-first — типово
+        .spics_io_num = 5, .queue_size = 1,
+    };
+    ESP_ERROR_CHECK(spi_bus_add_device(SPI2_HOST, &cfg, &dev));
+
+    while (1) {
+        ESP_LOGI(TAG, "%02X", spi_read_reg(0x0F));   // умовний регістр «хто ти»
+        vTaskDelay(pdMS_TO_TICKS(500));
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+#include <stdio.h>
+
+extern SPI_HandleTypeDef hspi1;   // швидкість, MSB-first і режим — у CubeMX
+
+#define CS_PORT GPIOA
+#define CS_PIN  GPIO_PIN_4        // вибір пристрою: звичайний GPIO, смикаємо вручну
+
+// прочитати один регістр: шлемо адресу, приймаємо відповідь
+static uint8_t spi_read_reg(uint8_t reg) {
+    uint8_t tx[2] = { reg | 0x80, 0x00 };   // старший біт = «читання» (типово)
+    uint8_t rx[2] = { 0 };
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_RESET);  // «слухай мене»
+    HAL_SPI_TransmitReceive(&hspi1, tx, rx, 2, 100);     // шлемо й приймаємо разом
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_SET);    // «все, відпускаю»
+    return rx[1];                           // відповідь прийшла в другому байті
+}
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_SPI1_Init(); MX_USART2_UART_Init();
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_SET);    // спокій = не вибрано
+
+    while (1) {
+        printf("%02X\r\n", spi_read_reg(0x0F));          // умовний регістр «хто ти»
+        HAL_Delay(500);
+    }
+}
+```
+:::
 
 Три параметри `SPISettings` — це те, на чому спотикаються найчастіше. **Швидкість** (тут 1 МГц) не має перевищувати межу пристрою. **Порядок бітів** — `MSBFIRST` чи `LSBFIRST`, з якого кінця байта йдуть біти. **Режим** (`SPI_MODE0`…`3`) задає, за яким фронтом такту читати дані й у якому спокої тримати лінію `SCK`. Усі три беруться з даташита пристрою; помилитеся в будь-якому — обмін піде, але цифри будуть маренням.
 
@@ -252,9 +637,10 @@ void loop() {
 
 **Задача.** Блимати світлодіодом раз на секунду **і** водночас читати кнопку без затримки, **і** щосекунди слати число по `Serial`. З `delay` це неможливо: поки плата «спить» у `delay(1000)`, вона глуха до кнопки.
 
-**Ідея.** `delay(1000)` **зупиняє все** на секунду — процесор просто крутиться на місці. Замість «почекати секунду» треба питати «а чи минула вже секунда?» і бігти далі, якщо ні. Для цього є `millis()` — лічильник мілісекунд від старту плати. Ви запам'ятовуєте, коли востаннє зробили дію, і на кожному колі `loop` перевіряєте, чи різниця з `millis()` доросла до потрібного інтервалу. Плата тоді не зупиняється ніколи — вона тисячі разів на секунду оббігає всі справи й робить ту, чий час настав.
+**Ідея.** `delay(1000)` **зупиняє все** на секунду — процесор просто крутиться на місці. Замість «почекати секунду» треба питати «а чи минула вже секунда?» і бігти далі, якщо ні. Для цього потрібен лічильник часу від старту — він є всюди: в Arduino це `millis()` (мілісекунди), у STM32 HAL `HAL_GetTick()` (теж мілісекунди), в ESP-IDF `esp_timer_get_time()` (мікросекунди). Ви запам'ятовуєте, коли востаннє зробили дію, і на кожному колі головного циклу перевіряєте, чи різниця доросла до потрібного інтервалу. Плата тоді не зупиняється ніколи — вона тисячі разів на секунду оббігає всі справи й робить ту, чий час настав. Там, де під рукою є RTOS (ESP-IDF, Zephyr), ту саму одночасність частіше роблять інакше: розводять справи по окремих задачах, кожна спить своїм `vTaskDelay`, а планувальник віддає процесор тій, чий час настав.
 
-```cpp
+:::tabs
+```arduino
 const uint8_t PIN_LED = 13;
 const uint8_t PIN_BTN = 2;
 
@@ -290,6 +676,84 @@ void loop() {
     }
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define PIN_LED GPIO_NUM_2
+#define PIN_BTN GPIO_NUM_4
+static const char *TAG = "app";
+
+// задача 1: блимати раз на секунду, нікого не блокуючи
+static void led_task(void *arg) {
+    bool on = false;
+    while (1) {
+        on = !on;
+        gpio_set_level(PIN_LED, on);
+        vTaskDelay(pdMS_TO_TICKS(1000));   // спить ЦЯ задача, не весь чип
+    }
+}
+
+// задача 2: слати число щопівсекунди
+static void log_task(void *arg) {
+    while (1) {
+        ESP_LOGI(TAG, "%d", (int)xTaskGetTickCount());
+        vTaskDelay(pdMS_TO_TICKS(500));
+    }
+}
+
+void app_main(void) {
+    gpio_set_direction(PIN_LED, GPIO_MODE_OUTPUT);
+    gpio_set_direction(PIN_BTN, GPIO_MODE_INPUT);
+    gpio_set_pull_mode(PIN_BTN, GPIO_PULLUP_ONLY);
+
+    xTaskCreate(led_task, "led", 2048, NULL, 5, NULL);
+    xTaskCreate(log_task, "log", 2048, NULL, 5, NULL);
+
+    while (1) {   // задача 3: кнопка реагує МИТТЄВО — сусіди її не глушать
+        if (gpio_get_level(PIN_BTN) == 0) {
+            // тут дія на натискання
+        }
+        vTaskDelay(pdMS_TO_TICKS(10));
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+#include <stdio.h>
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_USART2_UART_Init();
+
+    uint32_t ledLast = 0, msgLast = 0;   // коли востаннє робили кожну дію
+    GPIO_PinState led = GPIO_PIN_RESET;
+
+    while (1) {
+        uint32_t now = HAL_GetTick();    // мілісекунди від старту
+
+        // задача 1: блимати раз на секунду, нікого не блокуючи
+        if (now - ledLast >= 1000) {
+            ledLast = now;
+            led = (led == GPIO_PIN_SET) ? GPIO_PIN_RESET : GPIO_PIN_SET;
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, led);
+        }
+
+        // задача 2: слати число щопівсекунди
+        if (now - msgLast >= 500) {
+            msgLast = now;
+            printf("%lu\r\n", (unsigned long)now);
+        }
+
+        // задача 3: кнопка реагує МИТТЄВО — жодного HAL_Delay її не глушить
+        if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET) {
+            // тут дія на натискання
+        }
+    }
+}
+```
+:::
 
 **Пастки.**
 
@@ -303,9 +767,10 @@ void loop() {
 
 **Задача.** Плата має жити місяцями від батарейки, а працює лише зрідка — раз на хвилину виміряти й заснути. Постійна робота з'їдає заряд за дні; треба спати між ділом.
 
-**Ідея.** У ATmega328P є режими сну, у яких ядро зупиняється й струм падає з міліампер до **мікроамперів**. Найглибший — `SLEEP_MODE_PWR_DOWN`: гасне майже все, лишається тільки те, що може розбудити чип, — зовнішнє переривання чи **сторожовий таймер** (watchdog). Сторожовий таймер тут зручний: він сам «цокає» від власного генератора й будить чип через задані проміжки (макс. ~8 с за раз). Схема така: налаштувати watchdog на переривання → заснути → прокинутися по його сигналу → зробити діло → знову заснути.
+**Ідея.** Режими сну є в кожному МК; різняться вони лише тим, що саме лишається живим і хто вміє розбудити. У ATmega328P у сні ядро зупиняється й струм падає з міліампер до **мікроамперів**. Найглибший — `SLEEP_MODE_PWR_DOWN`: гасне майже все, лишається тільки те, що може розбудити чип, — зовнішнє переривання чи **сторожовий таймер** (watchdog). Сторожовий таймер тут зручний: він сам «цокає» від власного генератора й будить чип через задані проміжки (макс. ~8 с за раз). Схема така: налаштувати watchdog на переривання → заснути → прокинутися по його сигналу → зробити діло → знову заснути. Будильник в інших чипах свій: у ESP32 це RTC-таймер, і глибокий сон там не «продовжує» програму, а стартує її наново; у STM32 будить теж RTC, а після режиму `STOP` доводиться заново піднімати такт.
 
-```cpp
+:::tabs
+```arduino
 #include <avr/sleep.h>
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
@@ -333,6 +798,55 @@ void loop() {
     sleep_disable();      // виконається вже після пробудження
 }
 ```
+```esp-idf
+#include "esp_sleep.h"
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define PIN_LED GPIO_NUM_2
+
+void app_main(void) {
+    // 1. корисна робота (тут — блимнути, а реально: виміряти й записати)
+    gpio_set_direction(PIN_LED, GPIO_MODE_OUTPUT);
+    gpio_set_level(PIN_LED, 1);
+    vTaskDelay(pdMS_TO_TICKS(20));
+    gpio_set_level(PIN_LED, 0);
+
+    // 2. звести RTC-будильник на 8 с і заснути найглибше
+    ESP_ERROR_CHECK(esp_sleep_enable_timer_wakeup(8ULL * 1000000));  // мікросекунди
+    esp_deep_sleep_start();
+    // ← сюди керування НЕ повертається: після глибокого сну чип стартує наново,
+    //   з початку app_main. Стан, який має пережити сон, кладуть у RTC-пам'ять.
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+
+extern RTC_HandleTypeDef hrtc;   // джерело такту RTC — LSE 32768 Гц
+
+int main(void) {
+    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_RTC_Init();
+
+    while (1) {
+        // 1. корисна робота (тут — блимнути, а реально: виміряти й записати)
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+        HAL_Delay(20);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+
+        // 2. звести будильник RTC на 8 с: RTCCLK/16 = 2048 тиків на секунду
+        HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 8 * 2048, RTC_WAKEUPCLOCK_RTCCLK_DIV16);
+        HAL_SuspendTick();       // інакше SysTick будив би нас щомілісекунди
+        HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+        // ← а сюди керування повертається: після STOP програма йде далі,
+        //   але такт скинуто на HSI — його треба підняти заново
+        SystemClock_Config();
+        HAL_ResumeTick();
+        HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
+    }
+}
+```
+:::
 
 **Пастки.**
 

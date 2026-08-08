@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комірка сітки й дві дії білінійної інтерполяції</text>
+<rect x="180.0" y="130.0" width="360.0" height="240.0" rx="0" fill="#f7f9fb" stroke="#333333" stroke-width="1.8"/>
+<line x1="450.0" y1="130.0" x2="450.0" y2="370.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="180.0" y1="310.0" x2="540.0" y2="310.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<circle cx="180.0" cy="130.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="540.0" cy="130.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="180.0" cy="370.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="540.0" cy="370.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="168.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">n₀₀ = 2693</text>
+<text x="552.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">n₀₁ = 2695</text>
+<text x="168.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">n₁₀ = 2770</text>
+<text x="552.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">n₁₁ = 2772</text>
+<circle cx="450.0" cy="130.0" r="4.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="450.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">top = 2694.50 см</text>
+<circle cx="450.0" cy="370.0" r="4.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="450.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">bot = 2771.50 см</text>
+<text x="305.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">fx = 192  (0.750 комірки на схід)</text>
+<text x="305.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">fy = 192  (0.750 комірки на південь)</text>
+<circle cx="450.0" cy="310.0" r="6.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="460.0" y1="310.0" x2="590.0" y2="300.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="625.4" y="283.5" width="189.3" height="33.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="720.0" y="304.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">N = 2752.25 см → 2752</tspan></text>
+<rect x="260.9" y="436.6" width="478.3" height="78.8" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="456.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">top = 2693·(256−fx) + 2695·fx = 689 792 — це Q8, тобто см·256</tspan><tspan x="500.0" dy="15.6">bot = 2770·(256−fx) + 2772·fx = 709 504 — теж Q8</tspan><tspan x="500.0" dy="15.6">val = top·(256−fy) + bot·fy = 180 371 456 — уже Q16, тобто см·65536</tspan><tspan x="500.0" dy="15.6">N = (val + 32768) &gt;&gt; 16 = 2752 см = 27.52 м</tspan></text>
+</svg>

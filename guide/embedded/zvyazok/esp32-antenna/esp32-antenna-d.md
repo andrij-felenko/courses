@@ -234,9 +234,10 @@ RSSI — від'ємне число в dBm: чим ближче до нуля, �
 −90 dBm    на межі чутливості, зриви
 ```
 
-Найпростіший тест антени: під'єднайся до відомої точки доступу й читай RSSI. Ось робочий приклад для ESP32 в середовищі Arduino (реальний код прошивки, не псевдокод):
+Найпростіший тест антени: під'єднайся до відомої точки доступу й читай RSSI. Саме число міряє радіоприймач чипа, а середовище лише віддає його своїм викликом — тож тест той самий у будь-якій прошивці, змінюється тільки ім'я функції. Нижче він у трьох середовищах ESP32 (реальний код прошивки, не псевдокод):
 
-```cpp
+:::tabs
+```arduino
 #include <WiFi.h>
 
 void setup() {
@@ -264,12 +265,77 @@ void loop() {
   delay(1000);
 }
 ```
+```esp-idf
+#include "nvs_flash.h"
+#include "esp_netif.h"
+#include "esp_event.h"
+#include "esp_wifi.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+static const char *TAG = "antenna";
+
+void app_main(void) {
+    ESP_ERROR_CHECK(nvs_flash_init());          // Wi-Fi тримає калібрування в NVS
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    esp_netif_create_default_wifi_sta();
+
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    wifi_config_t sta = { .sta = { .ssid = "my-ssid", .password = "my-pass" } };
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
+    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &sta));
+    ESP_ERROR_CHECK(esp_wifi_start());
+    ESP_ERROR_CHECK(esp_wifi_connect());
+
+    while (1) {
+        // антенний «стетоскоп»: 10 замірів RSSI з інтервалом,
+        // щоб побачити середнє й розкид — рука/метал одразу видно
+        wifi_ap_record_t ap;
+        int32_t sum = 0;
+        int n = 10, got = 0;
+        for (int i = 0; i < n; i++) {
+            if (esp_wifi_sta_get_ap_info(&ap) == ESP_OK) { sum += ap.rssi; got++; }
+            vTaskDelay(pdMS_TO_TICKS(100));
+        }
+        if (got) ESP_LOGI(TAG, "середній RSSI за %d замірів: %d dBm", got, (int)(sum / got));
+        else     ESP_LOGW(TAG, "ще не під'єднано");
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+```
+```micropython
+import network, time
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect("my-ssid", "my-pass")
+while not wlan.isconnected():
+    time.sleep_ms(200)
+print("Підключено, RSSI =", wlan.status("rssi"), "dBm")
+
+while True:
+    # антенний «стетоскоп»: 10 замірів RSSI з інтервалом,
+    # щоб побачити середнє й розкид — рука/метал одразу видно
+    total = 0
+    n = 10
+    for _ in range(n):
+        total += wlan.status("rssi")
+        time.sleep_ms(100)
+    print("середній RSSI за", n, "замірів:", total // n, "dBm")
+    time.sleep(1)
+```
+:::
 
 Як цим ловити проблему антени. Запусти на відстані пів метра від роутера й запиши середній RSSI — це твоя **база**. Тепер накрий пристрій долонею або піднеси до металу: якщо RSSI провалюється на 10–20 dBm, ти щойно вживу побачив те, що вивели теоретично, — поглинання й розлад ближнім полем. Здоровий модуль на пів метра дає близько −40…−50 dBm; якщо навіть упритул до роутера ти бачиш −70 dBm, антена або розладнана (мідь під нею, обрізане плече), або взагалі не під'єднана.
 
 Складніший, але показовіший тест — **скан ефіру**: подивитися, наскільки далекі мережі взагалі видно. Кількість і рівень чужих точок доступу — груба, але чесна міра того, «наскільки добре чує» антена:
 
-```cpp
+:::tabs
+```arduino
 #include <WiFi.h>
 
 void setup() {
@@ -296,6 +362,59 @@ void loop() {
   delay(5000);
 }
 ```
+```esp-idf
+// Wi-Fi уже піднято в режимі STA (esp_wifi_init / set_mode / start),
+// під'єднуватися до точки доступу для скану не треба.
+#include "esp_wifi.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+static const char *TAG = "scan";
+
+void scan_task(void *arg) {
+    while (1) {
+        uint16_t room = 20;                        // скільки записів заберемо
+        wifi_ap_record_t recs[20];
+        ESP_ERROR_CHECK(esp_wifi_scan_start(NULL, true));   // блокуючий скан усіх каналів
+        ESP_ERROR_CHECK(esp_wifi_scan_get_ap_records(&room, recs));
+
+        uint16_t found = 0;
+        esp_wifi_scan_get_ap_num(&found);
+        ESP_LOGI(TAG, "знайдено мереж: %u", found);
+
+        int strong = 0;                            // скільки з них гучніші за −80 dBm
+        for (int i = 0; i < room; i++) {
+            if (recs[i].rssi > -80) strong++;
+            ESP_LOGI(TAG, "  %-24s  %4d dBm  ch%u",
+                     (const char *)recs[i].ssid, recs[i].rssi, recs[i].primary);
+        }
+        ESP_LOGI(TAG, "з них упевнених (> −80 dBm): %d\n", strong);
+
+        vTaskDelay(pdMS_TO_TICKS(5000));
+    }
+}
+```
+```micropython
+import network, time
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+
+while True:
+    nets = wlan.scan()                  # блокуючий скан усіх каналів
+    print("знайдено мереж:", len(nets))
+
+    strong = 0                          # скільки з них гучніші за −80 dBm
+    for ssid, bssid, ch, rssi, sec, hidden in nets:
+        if rssi > -80:
+            strong += 1
+        print("  %-24s  %4d dBm  ch%d" % (ssid.decode(), rssi, ch))
+
+    print("з них упевнених (> −80 dBm):", strong, "\n")
+    time.sleep(5)
+```
+:::
 
 Порівняй кількість `strong`-мереж для двох варіантів однієї плати — з добрим відступом і з рукою на антені: різниця в кілька мереж — це і є твоя втрата ККД, переведена в практичну спроможність «дочутися». Такий скан — найшвидший спосіб перевірити на живому пристрої, чи антена справді працює, ще до будь-яких приладів.
 

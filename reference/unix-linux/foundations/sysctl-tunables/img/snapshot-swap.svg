@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1210 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1210" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому число, яке описує розмір, доводиться міняти разом із тим, що воно описує</text>
+<rect x="50.0" y="80.0" width="500.0" height="420.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="300.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">два незалежні глобали</text>
+<rect x="80.0" y="110.0" width="200.0" height="62.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="180.0" y="145.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">slots = 64</tspan></text>
+<rect x="320.0" y="110.0" width="200.0" height="62.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="420.0" y="145.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">hit → масив на 16</tspan></text>
+<text x="180.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">обробник уже записав</text>
+<text x="420.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">масив ще старий</text>
+<line x1="160.0" y1="205.0" x2="230.0" y2="226.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="205.0" x2="370.0" y2="226.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="140.0" y="230.0" width="320.0" height="62.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="300.0" y="257.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">читач бере нову довжину</tspan><tspan x="300.0" dy="15.6">і старий масив</tspan></text>
+<line x1="300.0" y1="296.0" x2="300.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="120.0" y="344.0" width="360.0" height="76.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="300.0" y="378.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">звертання за межі масиву —</tspan><tspan x="300.0" dy="16.9">псування чужої пам'яті</tspan></text>
+<text x="300.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">жодна крутилка не робить двох записів разом</text>
+<rect x="650.0" y="80.0" width="500.0" height="420.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="900.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">один незмінний знімок</text>
+<rect x="690.0" y="110.0" width="420.0" height="62.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="900.0" y="145.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">cur_bins → { n = 64, hit[64] }</tspan></text>
+<text x="900.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">довжина й масив — в одній структурі</text>
+<line x1="900.0" y1="205.0" x2="900.0" y2="226.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="740.0" y="230.0" width="320.0" height="62.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="900.0" y="257.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">читач бере один вказівник</tspan><tspan x="900.0" dy="15.6">під rcu_read_lock()</tspan></text>
+<line x1="900.0" y1="296.0" x2="900.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="720.0" y="344.0" width="360.0" height="76.0" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/><text x="900.0" y="378.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">n і масив не можуть</tspan><tspan x="900.0" dy="16.9">розійтися ніколи</tspan></text>
+<text x="900.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">старий знімок звільнить RCU, коли вийде останній читач</text>
+<text x="600.0" y="545.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">запис одного числа неподільний — біда в тому, що узгодженими мають бути двоє</text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тег &lt;extensions/&gt; ділить повідомлення на дві частини</text>
+<rect x="60.0" y="96.0" width="500.0" height="62.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.2"/>
+<text x="310.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">базові поля</text>
+<text x="310.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">відсортовані за розміром · входять у CRC_EXTRA</text>
+<rect x="560.0" y="96.0" width="320.0" height="62.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.2"/>
+<text x="720.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">розширення</text>
+<text x="720.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">порядок XML · поза CRC_EXTRA</text>
+<line x1="560.0" y1="82.0" x2="560.0" y2="172.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5 4"/>
+<text x="560.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">&lt;extensions/&gt;</text>
+<rect x="154.1" y="215.3" width="191.9" height="69.4" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="250.0" y="239.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">приймач зі старим описом</tspan><tspan x="250.0" dy="15.0">читає лише базову частину</tspan><tspan x="250.0" dy="15.0">решту байтів пропускає</tspan></text>
+<rect x="584.4" y="215.3" width="231.2" height="69.4" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="700.0" y="239.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">приймач із новим описом</tspan><tspan x="700.0" dy="15.0">читає все; якщо кадр коротший —</tspan><tspan x="700.0" dy="15.0">бракуючі байти вважає нулями</tspan></text>
+<line x1="250.0" y1="168.0" x2="250.0" y2="207.3" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="168.0" x2="700.0" y2="207.3" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="470.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Поле, дописане ПІСЛЯ тега, сумісності не ламає: відбиток опису не змінюється.</text>
+<text x="470.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Поле, вставлене ПЕРЕД тегом, змінює CRC_EXTRA — і старі кадри миттю відкидаються.</text>
+</svg>

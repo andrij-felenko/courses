@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1020 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1020" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="505.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вікно наївної перевірки прав і його відсутність у перевірці дескриптором</text>
+<text x="50.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">наївно: число з сокета — і з ним у /proc</text>
+<rect x="51.3" y="111.2" width="177.3" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="140.0" y="131.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">getsockopt(SO_PEERCRED)</tspan><tspan x="140.0" dy="15.6">→ число N</tspan></text>
+<rect x="325.0" y="119.0" width="150.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="139.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">read /proc/N/cgroup</tspan></text>
+<rect x="575.0" y="119.0" width="150.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="650.0" y="139.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">read /proc/N/status</tspan></text>
+<rect x="846.1" y="119.0" width="67.9" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="880.0" y="139.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="880.0" dy="0.0">рішення</tspan></text>
+<line x1="232.0" y1="135.0" x2="322.0" y2="135.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="478.0" y1="135.0" x2="572.0" y2="135.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="728.0" y1="135.0" x2="843.0" y2="135.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="234.0" y1="196.0" x2="841.0" y2="196.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="234.0" y1="186.0" x2="234.0" y2="206.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="841.0" y1="186.0" x2="841.0" y2="206.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="537.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="537.0" dy="0.0">вікно Δ ≈ 23 мкс: ціль названо числом, а не закріплено</tspan><tspan x="537.0" dy="15.6">клієнт устигає померти, а число — дістатися новому процесові</tspan></text>
+<line x1="40.0" y1="278.0" x2="970.0" y2="278.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6 5"/>
+<text x="50.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">надійно: дескриптор із сокета — і питання до нього</text>
+<rect x="102.9" y="348.2" width="184.2" height="47.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="195.0" y="368.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">getsockopt(SO_PEERPIDFD)</tspan><tspan x="195.0" dy="15.6">→ дескриптор</tspan></text>
+<rect x="438.2" y="348.2" width="163.6" height="47.6" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="520.0" y="368.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">ioctl(PIDFD_GET_INFO)</tspan><tspan x="520.0" dy="15.6">uid, gid, cgroupid</tspan></text>
+<rect x="796.1" y="356.0" width="67.9" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="830.0" y="376.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">рішення</tspan></text>
+<line x1="290.0" y1="372.0" x2="435.0" y2="372.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="372.0" x2="793.0" y2="372.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="505.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">вікна немає: обидва кроки говорять із тим самим закріпленим об'єктом</text>
+</svg>

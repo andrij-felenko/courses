@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1020 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1020" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="505.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Правка у вікні між стартом команди й записом виходу</text>
+<line x1="70.0" y1="250.0" x2="940.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="918.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">час</text>
+<rect x="182.0" y="196.0" width="578.0" height="38.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="478.0" y="219.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="478.0" dy="0.0">команда компілює util.c</tspan></text>
+<line x1="182.0" y1="172.0" x2="182.0" y2="264.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<rect x="125.8" y="135.5" width="112.3" height="29.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="182.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="182.0" dy="0.0">старт команди</tspan></text>
+<line x1="432.0" y1="172.0" x2="432.0" y2="264.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<rect x="357.3" y="135.5" width="149.4" height="29.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="432.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="432.0" dy="0.0">ви зберегли util.c</tspan></text>
+<line x1="760.0" y1="172.0" x2="760.0" y2="264.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5,5"/>
+<rect x="696.4" y="135.5" width="127.1" height="29.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="760.0" y="154.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">util.o дописано</tspan></text>
+<text x="330.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">що бачить порівняння виходу з входом</text>
+<rect x="208.4" y="324.5" width="243.2" height="51.1" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="330.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">mtime(util.o) &gt; mtime(util.c)</tspan><tspan x="330.0" dy="17.6">→ «актуальний» назавжди</tspan></text>
+<text x="742.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">що бачить записаний момент старту</text>
+<rect x="612.7" y="324.5" width="258.5" height="51.1" rx="6" fill="#eaf7ef" stroke="#27ae60" stroke-width="2.0"/><text x="742.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="742.0" dy="0.0">util.c новіший за старт команди</tspan><tspan x="742.0" dy="17.6">→ задача брудна</tspan></text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">один файл — два незалежні числа</text>
+<rect x="60.0" y="90.0" width="960.0" height="74.0" rx="6" fill="#eceff3" stroke="#6b7280" stroke-width="1.6"/>
+<rect x="80.0" y="92.0" width="60.0" height="70.0" rx="4" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="760.0" y="92.0" width="90.0" height="70.0" rx="4" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="110.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">дані</text>
+<text x="805.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">дані</text>
+<text x="460.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">діра: блоків немає взагалі</text>
+<text x="60.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">зсув 0</text>
+<text x="1020.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">зсув 1 ТіБ</text>
+<rect x="60.0" y="230.0" width="460.0" height="116.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="290.0" y="274.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">st_size = 1 099 511 627 776 байтів</tspan><tspan x="290.0" dy="18.2">«докуди тягнеться простір зсувів»</tspan><tspan x="290.0" dy="18.2">це показує ls -l</tspan></text>
+<rect x="620.0" y="230.0" width="400.0" height="116.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="2.0"/><text x="820.0" y="274.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">st_blocks = 296 одиниць по 512 Б</tspan><tspan x="820.0" dy="18.2">«скільки місця справді віддано»</tspan><tspan x="820.0" dy="18.2">це показує du</tspan></text>
+<line x1="290.0" y1="226.0" x2="290.0" y2="208.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="820.0" y1="226.0" x2="820.0" y2="208.0" stroke="#b8860b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="396.0" width="960.0" height="116.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="540.0" y="439.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">read за будь-яким зсувом усередині діри повертає нулі —</tspan><tspan x="540.0" dy="19.5">і жоден із цих нулів ніде не записаний</tspan><tspan x="540.0" dy="19.5">стерти діру не можна: там нема чого стирати</tspan></text>
+</svg>

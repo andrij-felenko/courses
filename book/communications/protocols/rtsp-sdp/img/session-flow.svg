@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="100.4" y="45.0" width="79.3" height="49.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="140.0" y="66.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Плеєр</tspan><tspan x="140.0" dy="16.9">(клієнт)</tspan></text>
+<rect x="561.8" y="45.0" width="116.3" height="49.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="620.0" y="66.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Камера</tspan><tspan x="620.0" dy="16.9">(сервер RTSP)</tspan></text>
+<line x1="140.0" y1="100.0" x2="140.0" y2="562.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<line x1="620.0" y1="100.0" x2="620.0" y2="562.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 5"/>
+<rect x="790.0" y="118.0" width="120.0" height="28.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/><text x="850.0" y="136.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Init</tspan></text>
+<line x1="146.0" y1="132.0" x2="614.0" y2="132.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">OPTIONS rtsp://cam/stream</text>
+<line x1="614.0" y1="166.0" x2="146.0" y2="166.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">200 OK · Public: DESCRIBE, SETUP, PLAY, PAUSE, TEARDOWN</text>
+<line x1="146.0" y1="200.0" x2="614.0" y2="200.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">DESCRIBE · Accept: application/sdp</text>
+<line x1="614.0" y1="234.0" x2="146.0" y2="234.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">200 OK · тіло — SDP: доріжки, кодеки, control-адреси</text>
+<line x1="146.0" y1="268.0" x2="614.0" y2="268.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">SETUP trackID=1 · Transport: client_port=5000-5001</text>
+<line x1="614.0" y1="302.0" x2="146.0" y2="302.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">200 OK · Session: 12AF6C · server_port=6970-6971</text>
+<rect x="790.0" y="288.0" width="120.0" height="28.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/><text x="850.0" y="306.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Ready</tspan></text>
+<line x1="146.0" y1="336.0" x2="614.0" y2="336.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">SETUP trackID=2 · Session: 12AF6C</text>
+<line x1="146.0" y1="370.0" x2="614.0" y2="370.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">PLAY · Session: 12AF6C · Range: npt=0-</text>
+<line x1="614.0" y1="404.0" x2="146.0" y2="404.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">200 OK · RTP-Info: seq=9810092;rtptime=3450012</text>
+<rect x="790.0" y="390.0" width="120.0" height="28.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/><text x="850.0" y="408.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Playing</tspan></text>
+<line x1="614.0" y1="438.0" x2="146.0" y2="438.0" stroke="#b08900" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="380.0" y="429.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">RTP: медіа з порту 6970 на 5000 — повз керувальний канал</text>
+<line x1="146.0" y1="472.0" x2="614.0" y2="472.0" stroke="#b08900" stroke-width="1.8" stroke-dasharray="6 4"/>
+<text x="380.0" y="463.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">RTCP ⇄ звіти відправника й приймача</text>
+<line x1="146.0" y1="506.0" x2="614.0" y2="506.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="497.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">GET_PARAMETER · Session: 12AF6C — тримає сеанс живим</text>
+<line x1="146.0" y1="540.0" x2="614.0" y2="540.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="531.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">TEARDOWN · Session: 12AF6C</text>
+<rect x="790.0" y="526.0" width="120.0" height="28.0" rx="6" fill="#eafaf0" stroke="#333333" stroke-width="1.5"/><text x="850.0" y="544.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Init</tspan></text>
+</svg>

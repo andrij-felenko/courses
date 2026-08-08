@@ -84,8 +84,10 @@
 
 Прикметно, що ця схемка прямо лягає на код прошивки — рівно те, що ми простежили на кроці сигналу.
 
-**Зчитати кнопку з підтяжкою і ввімкнути світлодіод (прошивка для МК):**
-```cpp
+**Зчитати кнопку з підтяжкою і ввімкнути світлодіод.** На будь-якому мікроконтролері це ті самі три дії: налаштувати вивід кнопки **входом із підтяжкою**, вивід світлодіода — **виходом**, а далі в циклі перекладати стан першого в стан другого. Різняться лише імена, якими це записує конкретне середовище:
+
+:::tabs
+```arduino
 const int BTN = 0;   // вивід, до якого підключена кнопка
 const int LED = 2;   // вивід зі світлодіодом
 
@@ -100,7 +102,70 @@ void loop() {
     digitalWrite(LED, pressed ? HIGH : LOW);
 }
 ```
+```esp-idf
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
-Патерни зі схеми проступають у коді: `INPUT_PULLUP` — то й є та сама підтяжка, лише ввімкнена зсередини чипа, а перевірка на `LOW` випливає з того, що натиснута кнопка дає «0». Схема й програма — два боки однієї медалі: залізо задає, що з чим **з'єднано**, а код — що з цим **робити**.
+#define BTN GPIO_NUM_0   // вивід, до якого підключена кнопка
+#define LED GPIO_NUM_2   // вивід зі світлодіодом
+
+void app_main(void) {
+    gpio_config_t btn = {
+        .pin_bit_mask = 1ULL << BTN,
+        .mode         = GPIO_MODE_INPUT,
+        .pull_up_en   = GPIO_PULLUP_ENABLE,   // підтяжка тримає вхід у «1»
+    };
+    gpio_config(&btn);
+
+    gpio_config_t led = {
+        .pin_bit_mask = 1ULL << LED,
+        .mode         = GPIO_MODE_OUTPUT,
+    };
+    gpio_config(&led);
+
+    while (1) {
+        // кнопка притискає вхід до «0» → натиск = 0
+        bool pressed = (gpio_get_level(BTN) == 0);
+        gpio_set_level(LED, pressed ? 1 : 0);
+        vTaskDelay(pdMS_TO_TICKS(10));
+    }
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+
+#define BTN_PORT GPIOC
+#define BTN_PIN  GPIO_PIN_13   // вивід, до якого підключена кнопка
+#define LED_PORT GPIOA
+#define LED_PIN  GPIO_PIN_5    // вивід зі світлодіодом
+
+int main(void) {
+    HAL_Init();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+
+    GPIO_InitTypeDef g = {0};
+    g.Pin  = BTN_PIN;
+    g.Mode = GPIO_MODE_INPUT;
+    g.Pull = GPIO_PULLUP;              // підтяжка тримає вхід у «1»
+    HAL_GPIO_Init(BTN_PORT, &g);
+
+    g.Pin  = LED_PIN;
+    g.Mode = GPIO_MODE_OUTPUT_PP;
+    g.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(LED_PORT, &g);
+
+    while (1) {
+        // кнопка притискає вхід до «0» → натиск = GPIO_PIN_RESET
+        bool pressed = (HAL_GPIO_ReadPin(BTN_PORT, BTN_PIN) == GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(LED_PORT, LED_PIN, pressed ? GPIO_PIN_SET : GPIO_PIN_RESET);
+        HAL_Delay(10);
+    }
+}
+```
+:::
+
+Патерни зі схеми проступають у коді на всіх трьох: підтяжка з першого кроку — це та сама підтяжка, лише ввімкнена **зсередини чипа** одним прапорцем налаштування виводу (`INPUT_PULLUP` в Arduino, `pull_up_en` в ESP-IDF, `GPIO_PULLUP` у STM32 HAL), а перевірка на «0» випливає з того, що натиснута кнопка притискає вхід до землі. Схема й програма — два боки однієї медалі: залізо задає, що з чим **з'єднано**, а код — що з цим **робити**.
 
 Цей рецепт — **живлення → блоки → сигнал → вузли → номінали** — працює на будь-якому колі. Реальні схеми лише додають шарів, яких тут не було: кілька доменів живлення замість двох ліній, з'єднання не дротом, а спільним іменем, петлі зворотного зв'язку, номінали, виведені розрахунком. Кожен крок рецепта лишається тим самим — тільки потребує глибшого ока.

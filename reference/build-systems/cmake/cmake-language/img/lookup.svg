@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Куди дивиться ${X}</text>
+<text x="140.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">${X} шукається згори вниз:</text>
+<rect x="140.0" y="90.0" width="320.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="118.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">області викликаних функцій</tspan><tspan x="300.0" dy="18.2">(зсередини назовні по стеку)</tspan></text>
+<rect x="140.0" y="210.0" width="320.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="240.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">область поточного каталогу</tspan></text>
+<rect x="140.0" y="310.0" width="320.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="340.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">кеш — CMakeCache.txt</tspan></text>
+<line x1="300.0" y1="158.0" x2="300.0" y2="206.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="264.0" x2="300.0" y2="306.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="128.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">нема — далі</text>
+<text x="128.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">нема — далі</text>
+<rect x="575.0" y="90.0" width="250.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="118.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">$ENV{X}</tspan></text>
+<line x1="700.0" y1="140.0" x2="700.0" y2="194.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="575.0" y="198.0" width="250.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="225.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">змінні оточення процесу</tspan></text>
+<text x="700.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">окремий простір імен —</text>
+<text x="700.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">жодного зв'язку з ${X}</text>
+<rect x="575.0" y="320.0" width="250.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="348.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">$CACHE{X}</tspan></text>
+<line x1="565.0" y1="343.0" x2="468.0" y2="336.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="700.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">одразу в кеш, повз усе</text>
+<text x="700.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">інше (з CMake 3.13)</text>
+<rect x="60.0" y="456.0" width="820.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="484.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">виграє перша знайдена ланка — тому звичайна змінна ЗАТІНЮЄ</tspan><tspan x="470.0" dy="18.2">однойменний запис кешу, і зміна в кеші не дає жодного ефекту</tspan></text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1030 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1030" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="510.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тимчасовий об'єкт усередині виразу-діапазону</text>
+<text x="510.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">for (auto&amp; s : load_config().sections())</text>
+<line x1="270.0" y1="96.0" x2="270.0" y2="306.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="500.0" y1="96.0" x2="500.0" y2="306.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="920.0" y1="96.0" x2="920.0" y2="306.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<text x="248.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">до C++23</text>
+<rect x="270.0" y="138.0" width="230.0" height="36.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="385.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">Config живий</text>
+<line x1="500.0" y1="156.0" x2="916.0" y2="156.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="710.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">s посилається в нікуди</text>
+<text x="248.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">з C++23</text>
+<rect x="270.0" y="238.0" width="650.0" height="36.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="700.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">Config живий увесь цикл</text>
+<text x="270.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">вираз обчислено</text>
+<text x="500.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">кінець повного виразу</text>
+<text x="920.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">кінець циклу</text>
+<text x="510.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="510.0" dy="0.0">До C++23 життя продовжували лише результату всього виразу, а не тимчасовим усередині нього.</tspan><tspan x="510.0" dy="16.9">P2718R0 поширив продовження на всі тимчасові об'єкти виразу-діапазону.</tspan></text>
+</svg>

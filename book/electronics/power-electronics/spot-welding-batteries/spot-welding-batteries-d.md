@@ -84,9 +84,11 @@ E = ½ · C · U²
 
 Скільки саме тривати кожному імпульсу — залежить від стрічки й струму, і тут якраз потрібна прошивка, що точно відміряє мілісекунди. Ось як виглядає осердя такого керування на мікроконтролері: зарядили банк (чи просто маємо джерело), тоді двома імпульсами через силовий ключ пропускаємо струм.
 
-**Приклад (два імпульси на мікроконтролері).** Керуємо ключем зварювальника: перший імпульс коротший, другий довший, між ними — пауза. Тривалості — у мікросекундах, бо йдеться про одиниці мілісекунд:
+**Приклад (два імпульси на мікроконтролері).** Від контролера тут потрібно рівно двоє: **один цифровий вихід**, що тримає затвор ключа, і **лічба часу з мікросекундною точністю** — бо йдеться про одиниці мілісекунд, і зайва десята частка вже дає іншу точку. Перший імпульс коротший, другий довший, між ними — пауза. Нижче те саме осердя трьома середовищами; різниця лише в іменах функцій і в тому, звідки береться мікросекундна затримка:
 
-```c
+:::tabs
+
+```arduino
 #define WELD_PIN        12       // затвор силового MOSFET-ключа
 #define PULSE1_US     1500       // «пробити»: 1.5 мс
 #define GAP_US        3000       // пауза між імпульсами: 3 мс
@@ -108,6 +110,88 @@ void fire_weld(void)
     digitalWrite(WELD_PIN, LOW);
 }
 ```
+
+```esp-idf
+#include "driver/gpio.h"
+#include "esp_rom_sys.h"          // esp_rom_delay_us()
+#include "freertos/FreeRTOS.h"
+
+#define WELD_GPIO  GPIO_NUM_12    // затвор силового MOSFET-ключа
+#define PULSE1_US      1500       // «пробити»: 1.5 мс
+#define GAP_US         3000       // пауза між імпульсами: 3 мс
+#define PULSE2_US      5000       // «зварити»: 5 мс
+
+static portMUX_TYPE weld_mux = portMUX_INITIALIZER_UNLOCKED;
+
+void weld_init(void)
+{
+    gpio_config_t cfg = {
+        .pin_bit_mask = 1ULL << WELD_GPIO,
+        .mode         = GPIO_MODE_OUTPUT,
+        .pull_down_en = GPIO_PULLDOWN_ENABLE,   // ключ закритий, поки МК не ожив
+        .intr_type    = GPIO_INTR_DISABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&cfg));
+    gpio_set_level(WELD_GPIO, 0);
+}
+
+void fire_weld(void)
+{
+    // критична секція: ані планувальник, ані Wi-Fi не влізуть посеред імпульсу
+    portENTER_CRITICAL(&weld_mux);
+
+    gpio_set_level(WELD_GPIO, 1);   // пробити оксид
+    esp_rom_delay_us(PULSE1_US);
+    gpio_set_level(WELD_GPIO, 0);
+
+    esp_rom_delay_us(GAP_US);       // пауза
+
+    gpio_set_level(WELD_GPIO, 1);   // сплавити ядро
+    esp_rom_delay_us(PULSE2_US);
+    gpio_set_level(WELD_GPIO, 0);
+
+    portEXIT_CRITICAL(&weld_mux);
+}
+```
+
+```stm32
+#include "stm32f4xx_hal.h"
+
+#define WELD_PORT       GPIOB
+#define WELD_PIN        GPIO_PIN_12   // затвор силового MOSFET-ключа
+#define PULSE1_US     1500            // «пробити»: 1.5 мс
+#define GAP_US        3000            // пауза між імпульсами: 3 мс
+#define PULSE2_US     5000            // «зварити»: 5 мс
+
+// HAL_Delay міряє лише мілісекунди — замало. Беремо вільний таймер,
+// накручений подільником на 1 МГц: один тик = одна мікросекунда.
+extern TIM_HandleTypeDef htim6;
+
+static void delay_us(uint16_t us)
+{
+    __HAL_TIM_SET_COUNTER(&htim6, 0);
+    while (__HAL_TIM_GET_COUNTER(&htim6) < us) { }
+}
+
+void fire_weld(void)
+{
+    __disable_irq();   // жодного переривання посеред імпульсу
+
+    HAL_GPIO_WritePin(WELD_PORT, WELD_PIN, GPIO_PIN_SET);    // пробити оксид
+    delay_us(PULSE1_US);
+    HAL_GPIO_WritePin(WELD_PORT, WELD_PIN, GPIO_PIN_RESET);
+
+    delay_us(GAP_US);                                        // пауза
+
+    HAL_GPIO_WritePin(WELD_PORT, WELD_PIN, GPIO_PIN_SET);    // сплавити ядро
+    delay_us(PULSE2_US);
+    HAL_GPIO_WritePin(WELD_PORT, WELD_PIN, GPIO_PIN_RESET);
+
+    __enable_irq();
+}
+```
+
+:::
 
 Тривалості тут — типові орієнтири для тонкої нікелевої стрічки; під товщу стрічку чи слабше джерело їх добирають дослідом: збільшуй, поки точка не тримається міцно, але не так, щоб пропалити стрічку наскрізь чи перегріти комірку. У серйозних апаратах ці числа виставляють на панелі, а прошивка ще й стежить за напругою банку, щоб не стріляти недозарядженим.
 

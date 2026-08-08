@@ -1,544 +1,124 @@
 [
  {
   "op": "status",
-  "slug": "kernel-release-model",
+  "slug": "disk-quotas",
   "ver": "detailed",
   "status": "done"
  },
  {
   "op": "status",
-  "slug": "kernel-timekeeping",
+  "slug": "kernel-keyrings",
   "ver": "detailed",
   "status": "done"
  },
  {
   "op": "status",
-  "slug": "compat-32-on-64",
+  "slug": "ima-appraisal",
   "ver": "detailed",
   "status": "done"
  },
  {
   "op": "status",
-  "slug": "cpu-time-accounting",
+  "slug": "privilege-separation",
   "ver": "detailed",
   "status": "done"
  },
  {
   "op": "status",
-  "slug": "daemonize",
+  "slug": "polkit",
   "ver": "detailed",
   "status": "done"
  },
  {
   "op": "status",
-  "slug": "cpu-affinity",
+  "slug": "user-database-nss",
   "ver": "detailed",
   "status": "done"
  },
  {
   "op": "status",
-  "slug": "kernel-preemption",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "kernel-threads",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "binfmt-misc",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "virtual-address-space",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "paging-and-mmu",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "page-fault",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "mmap-model",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "copy-on-write",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "swap-and-reclaim",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "overcommit-and-oom",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "memory-accounting",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "allocator-and-kernel",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "huge-pages",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "address-space-randomization",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "file-descriptor",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "open-file-description",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "inode-model",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "directory-as-mapping",
-  "ver": "detailed",
-  "status": "done"
- },
- {
-  "op": "status",
-  "slug": "hard-and-symbolic-links",
+  "slug": "lsm-framework",
   "ver": "detailed",
   "status": "done"
  },
  {
   "op": "insert",
-  "slug": "kernel-release-model",
-  "section": "foundations",
+  "slug": "disk-quotas",
+  "section": "files",
   "type": "api",
-  "file": "api-release-metadata.md",
+  "file": "api-quota-control.md",
   "status": "done"
  },
  {
   "op": "insert",
-  "slug": "kernel-release-model",
-  "section": "foundations",
+  "slug": "disk-quotas",
+  "section": "files",
   "type": "hist",
-  "file": "hist-two-branches.md",
+  "file": "hist-quota-birth.md",
   "status": "done"
  },
  {
   "op": "insert",
-  "slug": "kernel-release-model",
-  "section": "foundations",
-  "type": "proj",
-  "file": "proj-where-is-my-fix.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "kernel-timekeeping",
-  "section": "foundations",
+  "slug": "kernel-keyrings",
+  "section": "permissions",
   "type": "hist",
-  "file": "hist-tick-to-tickless.md",
+  "file": "hist-key-service-birth.md",
   "status": "done"
  },
  {
   "op": "insert",
-  "slug": "kernel-timekeeping",
-  "section": "foundations",
-  "type": "math",
-  "file": "math-cycles-to-nanoseconds.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "kernel-timekeeping",
-  "section": "foundations",
-  "type": "proj",
-  "file": "proj-clock-lab.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "compat-32-on-64",
-  "section": "foundations",
+  "slug": "ima-appraisal",
+  "section": "permissions",
   "type": "api",
-  "file": "api-compat-contract.md",
+  "file": "api-ima-policy.md",
   "status": "done"
  },
  {
   "op": "insert",
-  "slug": "compat-32-on-64",
-  "section": "foundations",
+  "slug": "ima-appraisal",
+  "section": "permissions",
   "type": "hist",
-  "file": "hist-64bit-transition.md",
+  "file": "hist-ima-birth.md",
   "status": "done"
  },
  {
   "op": "insert",
-  "slug": "compat-32-on-64",
-  "section": "foundations",
+  "slug": "privilege-separation",
+  "section": "permissions",
+  "type": "hist",
+  "file": "hist-privsep-origins.md",
+  "status": "done"
+ },
+ {
+  "op": "insert",
+  "slug": "privilege-separation",
+  "section": "permissions",
   "type": "proj",
-  "file": "proj-see-the-seam.md",
+  "file": "proj-privsep-helper.md",
   "status": "done"
  },
  {
   "op": "insert",
-  "slug": "cpu-time-accounting",
-  "section": "processes",
+  "slug": "polkit",
+  "section": "permissions",
   "type": "api",
-  "file": "api-cputime-interfaces.md",
+  "file": "api-polkit-files.md",
   "status": "done"
  },
  {
   "op": "insert",
-  "slug": "cpu-time-accounting",
-  "section": "processes",
+  "slug": "polkit",
+  "section": "permissions",
   "type": "hist",
-  "file": "hist-tick-accounting.md",
+  "file": "hist-policykit-birth.md",
   "status": "done"
  },
  {
   "op": "insert",
-  "slug": "cpu-time-accounting",
-  "section": "processes",
-  "type": "math",
-  "file": "math-sampling-error.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "cpu-time-accounting",
-  "section": "processes",
-  "type": "proj",
-  "file": "proj-utime-vs-runtime.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "daemonize",
-  "section": "processes",
+  "slug": "user-database-nss",
+  "section": "permissions",
   "type": "hist",
-  "file": "hist-daemon-word.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "daemonize",
-  "section": "processes",
-  "type": "proj",
-  "file": "proj-daemonize.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "cpu-affinity",
-  "section": "processes",
-  "type": "api",
-  "file": "api-affinity-interfaces.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "cpu-affinity",
-  "section": "processes",
-  "type": "proj",
-  "file": "proj-isolated-core.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "kernel-preemption",
-  "section": "processes",
-  "type": "api",
-  "file": "api-preempt-controls.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "kernel-preemption",
-  "section": "processes",
-  "type": "hist",
-  "file": "hist-preemptible-kernel.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "kernel-preemption",
-  "section": "processes",
-  "type": "proj",
-  "file": "proj-measure-latency.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "kernel-threads",
-  "section": "processes",
-  "type": "api",
-  "file": "api-kthread-names.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "kernel-threads",
-  "section": "processes",
-  "type": "hist",
-  "file": "hist-from-daemonize-to-kworkers.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "kernel-threads",
-  "section": "processes",
-  "type": "proj",
-  "file": "proj-kthread-module.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "binfmt-misc",
-  "section": "processes",
-  "type": "api",
-  "file": "api-register-format.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "binfmt-misc",
-  "section": "processes",
-  "type": "hist",
-  "file": "hist-binfmt-misc.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "binfmt-misc",
-  "section": "processes",
-  "type": "proj",
-  "file": "proj-register-own-format.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "virtual-address-space",
-  "section": "memory",
-  "type": "api",
-  "file": "api-maps-format.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "virtual-address-space",
-  "section": "memory",
-  "type": "hist",
-  "file": "hist-one-level-store.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "virtual-address-space",
-  "section": "memory",
-  "type": "proj",
-  "file": "proj-address-space-probe.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "paging-and-mmu",
-  "section": "memory",
-  "type": "api",
-  "file": "api-pte-format.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "paging-and-mmu",
-  "section": "memory",
-  "type": "math",
-  "file": "math-page-table-cost.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "paging-and-mmu",
-  "section": "memory",
-  "type": "proj",
-  "file": "proj-virt-to-phys.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "page-fault",
-  "section": "memory",
-  "type": "api",
-  "file": "api-fault-counters.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "page-fault",
-  "section": "memory",
-  "type": "hist",
-  "file": "hist-demand-paging.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "page-fault",
-  "section": "memory",
-  "type": "proj",
-  "file": "proj-fault-cost.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "mmap-model",
-  "section": "memory",
-  "type": "api",
-  "file": "api-mmap-flags.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "mmap-model",
-  "section": "memory",
-  "type": "hist",
-  "file": "hist-mmap-origin.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "mmap-model",
-  "section": "memory",
-  "type": "proj",
-  "file": "proj-mmap-vs-read.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "copy-on-write",
-  "section": "memory",
-  "type": "api",
-  "file": "api-cow-controls.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "copy-on-write",
-  "section": "memory",
-  "type": "hist",
-  "file": "hist-dirty-cow.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "swap-and-reclaim",
-  "section": "memory",
-  "type": "api",
-  "file": "api-reclaim-counters.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "swap-and-reclaim",
-  "section": "memory",
-  "type": "hist",
-  "file": "hist-from-swapping-to-reclaim.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "swap-and-reclaim",
-  "section": "memory",
-  "type": "math",
-  "file": "math-thrashing-cliff.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "swap-and-reclaim",
-  "section": "memory",
-  "type": "proj",
-  "file": "proj-observe-reclaim.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "overcommit-and-oom",
-  "section": "memory",
-  "type": "api",
-  "file": "api-oom-knobs.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "overcommit-and-oom",
-  "section": "memory",
-  "type": "hist",
-  "file": "hist-out-of-fuel.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "memory-accounting",
-  "section": "memory",
-  "type": "hist",
-  "file": "hist-pss-birth.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "allocator-and-kernel",
-  "section": "memory",
-  "type": "hist",
-  "file": "hist-program-break.md",
-  "status": "done"
- },
- {
-  "op": "insert",
-  "slug": "huge-pages",
-  "section": "memory",
-  "type": "hist",
-  "file": "hist-huge-pages.md",
+  "file": "hist-shadow-and-nis.md",
   "status": "done"
  }
 ]

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одні байти, дві розкладки — і жодного повідомлення про помилку</text>
+<text x="500.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">зсув у байтах від початку структури</text>
+<text x="90.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="90.0" y1="64.0" x2="90.0" y2="74.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="295.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">4</text>
+<line x1="295.0" y1="64.0" x2="295.0" y2="74.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">8</text>
+<line x1="500.0" y1="64.0" x2="500.0" y2="74.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="705.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">12</text>
+<line x1="705.0" y1="64.0" x2="705.0" y2="74.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="910.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">16</text>
+<line x1="910.0" y1="64.0" x2="910.0" y2="74.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="90.0" y1="69.0" x2="910.0" y2="69.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">розкладка, яку створила бібліотека з _TIME_BITS=64</text>
+<rect x="90.0" y="112.0" width="410.0" height="42.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/><text x="295.0" y="137.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle"><tspan x="295.0" dy="0.0">tv_sec — 8 байтів</tspan></text>
+<rect x="500.0" y="112.0" width="205.0" height="42.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/><text x="602.5" y="137.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle"><tspan x="602.5" dy="0.0">tv_nsec — 4</tspan></text>
+<rect x="705.0" y="112.0" width="205.0" height="42.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="807.5" y="137.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="807.5" dy="0.0">набивка — 4</tspan></text>
+<text x="500.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">ті самі байти очима файлу, зібраного без прапорця</text>
+<rect x="90.0" y="208.0" width="205.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="192.5" y="233.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle"><tspan x="192.5" dy="0.0">tv_sec — 4</tspan></text>
+<rect x="295.0" y="208.0" width="205.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="397.5" y="233.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle"><tspan x="397.5" dy="0.0">tv_nsec — 4</tspan></text>
+<rect x="500.0" y="208.0" width="410.0" height="42.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="705.0" y="233.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="705.0" dy="0.0">структура вже скінчилася</tspan></text>
+<line x1="295.0" y1="154.0" x2="295.0" y2="208.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="500.0" y1="154.0" x2="500.0" y2="208.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="190.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="190.0" dy="0.0">молодша половина секунд —</tspan><tspan x="190.0" dy="15.6">доки вона менша за 2³¹,</tspan><tspan x="190.0" dy="15.6">збігається</tspan></text>
+<text x="520.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="520.0" dy="0.0">старша половина секунд —</tspan><tspan x="520.0" dy="15.6">сьогодні нулі, тож</tspan><tspan x="520.0" dy="15.6">наносекунди виходять 0</tspan></text>
+<text x="820.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="820.0" dy="0.0">наступне поле більшої</tspan><tspan x="820.0" dy="15.6">структури він візьме</tspan><tspan x="820.0" dy="15.6">з байта 8</tspan></text>
+</svg>

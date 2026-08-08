@@ -75,11 +75,17 @@
         { slug: "quicksort", title: "Швидке сортування (quicksort)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "selection-sort", title: "Сортування вибором (selection sort)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "binomial-heap", title: "Біноміальна купа", basic: { status: "pending" }, detailed: { status: "pending" } },
-        { slug: "spatial-index", title: "Просторовий індекс: R-дерево і квадродерево", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "spatial-index", title: "Просторовий індекс: R-дерево і квадродерево", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-spatial-index-birth.md", status: "done" }] , math: [{ file: "math-window-query-cost.md", status: "done" }] , proj: [{ file: "proj-rtree-insert.md", status: "done" }] },
         { slug: "z-order-curve", title: "Крива Мортона (Z-порядок): просторова близькість у лінійному ключі", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "hash-array-mapped-trie", title: "Геш-дерево з бітовими мапами (HAMT)", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "timer-wheel", title: "Колесо таймерів", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "non-cryptographic-hash", title: "Некриптографічні хеш-функції: FNV, Murmur, xxHash", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "sorting-stability", title: "Стійкість сортування", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "interval-tree", title: "Дерево інтервалів: які відрізки накривають задану точку", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "raid-levels", title: "RAID: смуги, дзеркала й парність", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "kd-tree", title: "kd-дерево: поділ площини по черзі за координатами", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-kd-tree-birth.md", status: "done" }] , math: [{ file: "math-kd-range-cost.md", status: "done" }] , proj: [{ file: "proj-kd-nearest.md", status: "done" }] },
+        { slug: "quickselect", title: "Швидкий вибір: k-й за порядком за лінійний час", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "locality-sensitive-hashing", title: "Локально чутливе хешування (LSH): близькі точки в один кошик", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "graph-algorithms", title: "Графові", scope: "Обхід, шляхи, потоки, паросполучення та структурний аналіз графів і мереж.",
       topics: [
@@ -101,6 +107,13 @@
         { slug: "count-min-sketch", title: "Count-Min Sketch: приблизні лічильники частот за фіксовану пам'ять", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "polygon-offset", title: "Зсув контуру (еквідистанта): розширення й звуження многокутника та ламаної", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "polyline-simplification", title: "Спрощення ламаної: Дуглас–Пекер і жадібні проходи", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "convex-hull", title: "Опукла оболонка множини точок", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "sweep-line", title: "Замітальна пряма: події, статус і геометрія за один прохід", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "curse-of-dimensionality", title: "Прокляття розмірності: чому геометрія ламається у високих вимірах", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-curse-birth.md", status: "done" }] , math: [{ file: "math-distance-concentration.md", status: "done" }] , proj: [{ file: "proj-contrast-measure.md", status: "done" }] },
+        { slug: "nearest-neighbor-search", title: "Пошук найближчого сусіда: точний перебір, індекс і наближена відповідь", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "random-projection", title: "Випадкова проєкція і лема Джонсона — Лінденштрауса", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "gjk-collision", title: "Алгоритм GJK: перетин опуклих тіл через множину різниць", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "voronoi-diagram", title: "Діаграма Вороного", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "numerical-algorithms", title: "Числові", scope: "Арифметика великих чисел, лінійна алгебра, чисельні методи, точні та наближені обчислення.",
       topics: [
@@ -118,6 +131,7 @@
         { slug: "mean-shift", title: "Зсув до середнього", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "simulated-annealing", title: "Імітація відпалу (simulated annealing)", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "set-cover", title: "Задача про покриття множини", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "travelling-salesman", title: "Задача комівояжера", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "cryptographic-algorithms", title: "Криптографія", scope: "Шифрування, хеш-функції, цифрові підписи, протоколи обміну ключами.",
       topics: [
@@ -166,8 +180,10 @@
         { slug: "cobs-encoding", title: "Кодування COBS", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "crc-algorithm", title: "Алгоритм CRC: таблиця залишків і побітний метод", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "adaptive-bitrate", title: "Адаптивний бітрейт", basic: { status: "pending" }, detailed: { status: "empty" } },
-        { slug: "h264-nal-structure", title: "H.264: NAL-одиниці, SPS/PPS і ключові кадри", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "h264-nal-structure", title: "H.264: NAL-одиниці, SPS/PPS і ключові кадри", basic: { status: "empty" }, detailed: { status: "done" } , hist: [{ file: "hist-nal-layer.md", status: "done" }] , proj: [{ file: "proj-nal-parser.md", status: "done" }] , api: [{ file: "api-sps-pps.md", status: "done" }] },
         { slug: "exp-golomb", title: "Експоненційний код Голомба: ue(v) і se(v) у відеостандартах", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "cavlc", title: "CAVLC: контекстно-адаптивні коди змінної довжини", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "h264-profiles-levels", title: "Профілі та рівні H.264", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "machine-learning", title: "Машинне навчання", scope: "Алгоритми, що будують моделі з даних: навчання з учителем і без, ансамблі, нейромережі, навчання з підкріпленням.",
       topics: [
@@ -211,6 +227,7 @@
         { slug: "confidence-calibration", title: "Калібрування впевненості моделі", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "model-explainability", title: "Пояснюваність моделей", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "fairness-criteria", title: "Критерії справедливості моделі та їхня несумісність", basic: { status: "pending" }, detailed: { status: "pending" } },
+        { slug: "intrinsic-dimension", title: "Внутрішня розмірність даних і гіпотеза многовиду", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "computer-vision", title: "Зір", scope: "Аналіз зображень і відео: фільтрація, ознаки, сегментація, відновлення геометрії сцени.",
       topics: [
@@ -271,6 +288,9 @@
         { slug: "homography", title: "Гомографія: перетворення площини в площину", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "bundle-adjustment", title: "Оптимізація пучком (bundle adjustment)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "absolute-orientation", title: "Абсолютна орієнтація (суміщення двох наборів точок)", basic: { status: "pending" }, detailed: { status: "empty" } },
+        { slug: "image-georeferencing", title: "Геоприв'язка аерознімка: від пози камери до координат на землі", basic: { status: "empty" }, detailed: { status: "done" } , proj: [{ file: "proj-pixel-to-ground.md", status: "done" }] , math: [{ file: "math-georef-error.md", status: "done" }] , hist: [{ file: "hist-direct-georeferencing.md", status: "done" }] },
+        { slug: "orthorectification", title: "Ортотрансформування знімка", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "ground-control-points", title: "Опорні точки на місцевості (GCP)", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "signal-robotics", title: "Сигнали", scope: "Цифрова обробка сигналів (спектр, фільтрація, дискретизація) разом із плануванням руху, локалізацією та керуванням автономних агентів.",
       topics: [
@@ -362,9 +382,10 @@
         { slug: "welford-online", title: "Онлайн-алгоритм Велфорда", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "pole-zero-plot", title: "Площина полюсів-нулів", basic: { status: "pending" }, detailed: { status: "empty" } },
         { slug: "cic-filter", title: "CIC-фільтр (каскад інтегратор–гребінка)", basic: { status: "pending" }, detailed: { status: "pending" } },
-        { slug: "survey-grid-coverage", title: "Покриття полігону галсами: планування зйомки", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "survey-grid-coverage", title: "Покриття полігону галсами: планування зйомки", basic: { status: "empty" }, detailed: { status: "done" } , math: [{ file: "math-min-width.md", status: "done" }] , hist: [{ file: "hist-boustrophedon.md", status: "done" }] , proj: [{ file: "proj-coverage-c.md", status: "done" }] },
 
         { slug: "plot-downsampling", title: "Прорідження часового ряду для екрана: огинаюча замість кожного відліку", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "configuration-space", title: "Конфігураційний простір: рух тіла як рух точки", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
     { slug: "parallel-distributed", title: "Паралельні", scope: "Одночасне виконання на багатьох процесорах зі спільною пам'яттю та системи незалежних вузлів з обміном повідомленнями: примітиви, синхронізація, консенсус, відмовостійкість.",
       topics: [
@@ -381,6 +402,7 @@
         { slug: "operational-transformation", title: "Операційні перетворення (OT)", basic: { status: "pending" }, detailed: { status: "pending" } },
         { slug: "two-generals-problem", title: "Задача двох генералів", basic: { status: "empty" }, detailed: { status: "pending" } },
         { slug: "seqlock", title: "Seqlock: узгоджене читання без блокування читача", basic: { status: "empty" }, detailed: { status: "pending" } },
+        { slug: "work-span-model", title: "Робота і глибина: критичний шлях як межа паралельності", basic: { status: "empty" }, detailed: { status: "pending" } },
       ] },
   ]
 });

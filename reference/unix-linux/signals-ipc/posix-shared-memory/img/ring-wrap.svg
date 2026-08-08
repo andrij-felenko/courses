@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="90.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">запис лягає одним шматком</text>
+<rect x="90.0" y="70.0" width="740.0" height="56.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="300.0" y="70.0" width="380.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="490.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">зайнято читачем</text>
+<text x="190.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">вільно</text>
+<text x="760.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">вільно</text>
+<line x1="300.0" y1="160.0" x2="300.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">tail &amp; MASK</text>
+<line x1="680.0" y1="160.0" x2="680.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="680.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">head &amp; MASK</text>
+<text x="90.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">запис перетнув кінець тіла — дві копії замість однієї</text>
+<rect x="90.0" y="250.0" width="740.0" height="56.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="700.0" y="250.0" width="130.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="90.0" y="250.0" width="110.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="765.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">хвіст тіла</text>
+<text x="145.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">початок тіла</text>
+<text x="460.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">цього не чіпаємо</text>
+<line x1="700.0" y1="340.0" x2="700.0" y2="312.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="700.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">head &amp; MASK</text>
+<text x="450.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">зайнято = head − tail (беззнакова різниця) · вільно = size − зайнято · порожньо ⇔ head == tail</text>
+</svg>

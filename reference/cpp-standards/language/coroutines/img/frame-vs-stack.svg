@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр звичайного виклику й кадр корутини</text>
+<text x="280.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">звичайний виклик</text>
+<text x="180.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">стек</text>
+<rect x="120.0" y="110.0" width="320.0" height="50.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="280.0" y="139.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">кадр caller()</tspan></text>
+<rect x="120.0" y="176.0" width="320.0" height="66.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="280.0" y="205.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">кадр read_numbers()</tspan><tspan x="280.0" dy="15.6">локальні змінні</tspan></text>
+<text x="280.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">return знімає кадр зі стека —</text>
+<text x="280.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">локальні змінні гинуть разом із ним</text>
+<text x="280.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">спинитися посередині, віддати керування</text>
+<text x="280.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">й лишитися живою — нема як</text>
+<line x1="560.0" y1="44.0" x2="560.0" y2="440.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="6 5"/>
+<text x="900.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">виклик корутини</text>
+<text x="700.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">стек</text>
+<rect x="600.0" y="110.0" width="200.0" height="50.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="700.0" y="139.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">кадр caller()</tspan></text>
+<rect x="615.0" y="176.0" width="170.0" height="44.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/><text x="700.0" y="202.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">власник g</tspan></text>
+<text x="1030.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">поза стеком</text>
+<rect x="880.0" y="110.0" width="300.0" height="200.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="1030.0" y="175.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1030.0" dy="0.0">кадр корутини</tspan><tspan x="1030.0" dy="15.6"></tspan><tspan x="1030.0" dy="15.6">об'єкт promise</tspan><tspan x="1030.0" dy="15.6">копії параметрів</tspan><tspan x="1030.0" dy="15.6">індекс точки відновлення</tspan><tspan x="1030.0" dy="15.6">живі локальні</tspan></text>
+<text x="832.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">handle</text>
+<line x1="788.0" y1="200.0" x2="874.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="900.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">кадр живе, поки його хтось не знищить,</text>
+<text x="900.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">а стек caller() тим часом вільний</text>
+</svg>

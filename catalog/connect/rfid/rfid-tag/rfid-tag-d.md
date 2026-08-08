@@ -118,7 +118,10 @@ NTAG213/215/216    144/504/888 Б  без шифру, підпис NFC-налі�
 
 Найпростіше, що робить будь-яка система доступу, — **зчитати UID** брелка, коли його піднесли, і звірити з дозволеним списком. Це не вимагає жодних ключів: UID віддається відкрито.
 
-```cpp
+Порядок дій однаковий на будь-якому мікроконтролері: підняти шину SPI, скинути читач і ввімкнути його антену, а далі в циклі питати «чи є мітка в полі». Різниця лише в тому, **хто пише в регістри MFRC522**. В Arduino це бере на себе готова бібліотека, і код зводиться до кількох викликів; в ESP-IDF і STM32 HAL такої бібліотеки в комплекті немає — там ті самі регістри чипа адресують самі, поверх звичайного двобайтового SPI-обміну (адресний байт `(reg<<1)&0x7E`, старший біт — читання чи запис). Протокол при цьому той самий ISO 14443A: команда `REQA`, потім антиколізія, потім UID.
+
+:::tabs
+```arduino
 #include <SPI.h>
 #include <MFRC522.h>            // бібліотека miguelbalboa/rfid
 
@@ -150,12 +153,141 @@ void loop() {
   reader.PICC_HaltA();         // відпустити мітку, щоб не читати її по колу
 }
 ```
+```esp-idf
+#include "driver/spi_master.h"
+#include "esp_log.h"
+#include "esp_rom_sys.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+static const char *TAG = "rfid";
+static spi_device_handle_t rc;      // читач — звичайний SPI-пристрій
+
+// адресний байт MFRC522: (reg<<1)&0x7E; старший біт 1 — читання, 0 — запис
+static void wr(uint8_t reg, uint8_t v) {
+    uint8_t tx[2] = { (uint8_t)((reg << 1) & 0x7E), v };
+    spi_transaction_t t = { .length = 16, .tx_buffer = tx };
+    spi_device_polling_transmit(rc, &t);
+}
+static uint8_t rd(uint8_t reg) {
+    uint8_t tx[2] = { (uint8_t)(0x80 | ((reg << 1) & 0x7E)), 0 }, rx[2] = { 0 };
+    spi_transaction_t t = { .length = 16, .tx_buffer = tx, .rx_buffer = rx };
+    spi_device_polling_transmit(rc, &t);
+    return rx[1];
+}
+
+// один обмін із міткою: байти у FIFO → команда Transceive → відповідь із FIFO
+static int transceive(const uint8_t *tx, int n, uint8_t lastbits, uint8_t *rx, int max) {
+    wr(0x01, 0x00); wr(0x04, 0x7F); wr(0x0A, 0x80);  // Idle, скинути IRQ, чистити FIFO
+    for (int i = 0; i < n; i++) wr(0x09, tx[i]);     // FIFODataReg
+    wr(0x01, 0x0C);                                  // CommandReg = Transceive
+    wr(0x0D, 0x80 | lastbits);                       // BitFramingReg: StartSend
+    for (int i = 0; i < 40 && !(rd(0x04) & 0x30); i++) esp_rom_delay_us(500);
+    wr(0x0D, 0x00);
+    int len = rd(0x0A);                              // скільки байтів прийшло у FIFO
+    if (len > max) len = max;
+    for (int i = 0; i < len; i++) rx[i] = rd(0x09);
+    return len;
+}
+
+static void pcd_init(void) {                         // те, що робить PCD_Init()
+    wr(0x01, 0x0F); vTaskDelay(pdMS_TO_TICKS(50));   // SoftReset
+    wr(0x2A, 0x8D); wr(0x2B, 0x3E); wr(0x2D, 30); wr(0x2C, 0);  // таймер ~25 мс
+    wr(0x15, 0x40);                                  // TxASKReg: 100 % ASK
+    wr(0x11, 0x3D);                                  // ModeReg: преднастройка CRC
+    wr(0x14, rd(0x14) | 0x03);                       // TxControlReg: увімкнути антену
+}
+
+void app_main(void) {
+    spi_bus_config_t bus = { .mosi_io_num = 23, .miso_io_num = 19, .sclk_io_num = 18,
+                             .quadwp_io_num = -1, .quadhd_io_num = -1 };
+    spi_bus_initialize(SPI2_HOST, &bus, SPI_DMA_CH_AUTO);
+    spi_device_interface_config_t dev = { .clock_speed_hz = 4 * 1000 * 1000,
+                                          .mode = 0, .spics_io_num = 5, .queue_size = 1 };
+    spi_bus_add_device(SPI2_HOST, &dev, &rc);
+    pcd_init();
+
+    while (1) {
+        uint8_t reqa = 0x26, atqa[2], uid[5];
+        if (transceive(&reqa, 1, 7, atqa, 2) == 2) {        // REQA — кадр завдовжки 7 біт
+            uint8_t anti[2] = { 0x93, 0x20 };               // антиколізія, каскад 1
+            if (transceive(anti, 2, 0, uid, 5) == 5)        // 4 байти UID + байт BCC
+                ESP_LOGI(TAG, "UID: %02X %02X %02X %02X", uid[0], uid[1], uid[2], uid[3]);
+        }
+        vTaskDelay(pdMS_TO_TICKS(200));
+    }
+}
+```
+```stm32
+#include "main.h"
+#include <stdio.h>
+
+extern SPI_HandleTypeDef  hspi1;     // SPI1 на читач; вибір кристала смикаємо самі
+extern UART_HandleTypeDef huart2;
+
+#define CS_LOW()   HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_RESET)
+#define CS_HIGH()  HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_SET)
+
+// адресний байт MFRC522: (reg<<1)&0x7E; старший біт 1 — читання, 0 — запис
+static void wr(uint8_t reg, uint8_t v) {
+    uint8_t tx[2] = { (uint8_t)((reg << 1) & 0x7E), v };
+    CS_LOW();  HAL_SPI_Transmit(&hspi1, tx, 2, HAL_MAX_DELAY);  CS_HIGH();
+}
+static uint8_t rd(uint8_t reg) {
+    uint8_t tx[2] = { (uint8_t)(0x80 | ((reg << 1) & 0x7E)), 0 }, rx[2] = { 0 };
+    CS_LOW();  HAL_SPI_TransmitReceive(&hspi1, tx, rx, 2, HAL_MAX_DELAY);  CS_HIGH();
+    return rx[1];
+}
+
+// один обмін із міткою: байти у FIFO → команда Transceive → відповідь із FIFO
+static int transceive(const uint8_t *tx, int n, uint8_t lastbits, uint8_t *rx, int max) {
+    wr(0x01, 0x00); wr(0x04, 0x7F); wr(0x0A, 0x80);  // Idle, скинути IRQ, чистити FIFO
+    for (int i = 0; i < n; i++) wr(0x09, tx[i]);     // FIFODataReg
+    wr(0x01, 0x0C);                                  // CommandReg = Transceive
+    wr(0x0D, 0x80 | lastbits);                       // BitFramingReg: StartSend
+    for (int i = 0; i < 20 && !(rd(0x04) & 0x30); i++) HAL_Delay(1);
+    wr(0x0D, 0x00);
+    int len = rd(0x0A);                              // скільки байтів прийшло у FIFO
+    if (len > max) len = max;
+    for (int i = 0; i < len; i++) rx[i] = rd(0x09);
+    return len;
+}
+
+static void pcd_init(void) {                         // те, що робить PCD_Init()
+    wr(0x01, 0x0F); HAL_Delay(50);                   // SoftReset
+    wr(0x2A, 0x8D); wr(0x2B, 0x3E); wr(0x2D, 30); wr(0x2C, 0);  // таймер ~25 мс
+    wr(0x15, 0x40);                                  // TxASKReg: 100 % ASK
+    wr(0x11, 0x3D);                                  // ModeReg: преднастройка CRC
+    wr(0x14, rd(0x14) | 0x03);                       // TxControlReg: увімкнути антену
+}
+
+int main(void) {
+    HAL_Init();  SystemClock_Config();
+    MX_GPIO_Init();  MX_SPI1_Init();  MX_USART2_UART_Init();
+    pcd_init();
+
+    while (1) {
+        uint8_t reqa = 0x26, atqa[2], uid[5], line[40];
+        if (transceive(&reqa, 1, 7, atqa, 2) == 2) {        // REQA — кадр завдовжки 7 біт
+            uint8_t anti[2] = { 0x93, 0x20 };               // антиколізія, каскад 1
+            if (transceive(anti, 2, 0, uid, 5) == 5) {      // 4 байти UID + байт BCC
+                int k = snprintf((char *)line, sizeof line, "UID: %02X %02X %02X %02X\r\n",
+                                 uid[0], uid[1], uid[2], uid[3]);
+                HAL_UART_Transmit(&huart2, line, k, HAL_MAX_DELAY);
+            }
+        }
+        HAL_Delay(200);
+    }
+}
+```
+:::
 
 Це весь код «безключового» доступу: піднесли брелок — у порт вивалився його UID у шістнадцятковому вигляді (наприклад `UID: A4 3F 2C 91`). Далі ви просто порівнюєте його з масивом дозволених. **Але пам'ятайте**: така перевірка ламається магічним брелком за долар — UID не секрет.
 
 Щоб дістатися **захищених даних** усередині сектора, спершу треба **автентифікуватися ключем** цього сектора — інакше читач отримає відмову, а не байти:
 
-```cpp
+:::tabs
+```arduino
 // прочитати блок 4 (перший блок даних сектора 1), ключ A за замовчуванням
 MFRC522::MIFARE_Key key;
 for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;   // заводський ключ FF·6
@@ -180,8 +312,96 @@ if (st == MFRC522::STATUS_OK) {
 }
 reader.PCD_StopCrypto1();        // ЗАВЖДИ закрити шифрування після роботи
 ```
+```esp-idf
+#include <string.h>
 
-Тут видно всю логіку захисту MIFARE в дії: **спершу ключ, тоді дані**. Новий брелок з заводу має на всіх секторах ключ `FF FF FF FF FF FF` — тому перший приклад майже завжди спрацює на «цілинній» мітці; у реальній системі ключі змінюють на свої. Дрібна, але злюща пастка: `PCD_StopCrypto1()` наприкінці **обов'язковий** — якщо його забути, читач лишиться у стані шифрування й **наступну мітку не прочитає**, а ви годину шукатимете «плаваючий» баг.
+static uint8_t key[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };  // заводський ключ FF·6
+static const uint8_t block = 4;   // перший блок даних сектора 1
+
+// CRC_A рахує сам чип: команда CalcCRC, результат у CRCResultReg
+static void crc_a(const uint8_t *d, int n, uint8_t *out) {
+    wr(0x01, 0x00); wr(0x05, 0x04); wr(0x0A, 0x80);  // Idle, скинути CRCIRq, чистити FIFO
+    for (int i = 0; i < n; i++) wr(0x09, d[i]);
+    wr(0x01, 0x03);                                  // CommandReg = CalcCRC
+    while (!(rd(0x05) & 0x04)) { }                   // DivIrqReg.CRCIRq
+    out[0] = rd(0x22); out[1] = rd(0x21);            // молодший байт, тоді старший
+}
+
+// КРОК 1: довести знання ключа A саме для цього сектора
+static bool authenticate(const uint8_t *uid) {
+    uint8_t f[12] = { 0x60, block };                 // 0x60 — автентифікація ключем A
+    memcpy(f + 2, key, 6);
+    memcpy(f + 8, uid, 4);                           // 4 байти UID цієї мітки
+    wr(0x01, 0x00); wr(0x04, 0x7F); wr(0x0A, 0x80);
+    for (int i = 0; i < 12; i++) wr(0x09, f[i]);
+    wr(0x01, 0x0E);                                  // CommandReg = MFAuthent
+    for (int i = 0; i < 40 && !(rd(0x04) & 0x10); i++) esp_rom_delay_us(500);
+    return rd(0x08) & 0x08;                          // Status2Reg.MFCrypto1On — ключ підійшов
+}
+
+void read_block(const uint8_t *uid) {
+    if (!authenticate(uid)) {
+        ESP_LOGW(TAG, "Ключ не підійшов — сектор замкнений");
+        return;                                      // без ключа далі ходу немає
+    }
+    // КРОК 2: сектор відкритий — читаємо блок (кадр 0x30, номер, CRC_A)
+    uint8_t cmd[4] = { 0x30, block }, buf[18];       // 16 байтів даних + 2 контрольної суми
+    crc_a(cmd, 2, cmd + 2);
+    if (transceive(cmd, 4, 0, buf, 18) >= 16)
+        ESP_LOG_BUFFER_HEX(TAG, buf, 16);
+
+    wr(0x08, rd(0x08) & ~0x08);   // ЗАВЖДИ зняти MFCrypto1On після роботи
+}
+```
+```stm32
+#include <string.h>
+
+static uint8_t key[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };  // заводський ключ FF·6
+static const uint8_t block = 4;   // перший блок даних сектора 1
+
+// CRC_A рахує сам чип: команда CalcCRC, результат у CRCResultReg
+static void crc_a(const uint8_t *d, int n, uint8_t *out) {
+    wr(0x01, 0x00); wr(0x05, 0x04); wr(0x0A, 0x80);  // Idle, скинути CRCIRq, чистити FIFO
+    for (int i = 0; i < n; i++) wr(0x09, d[i]);
+    wr(0x01, 0x03);                                  // CommandReg = CalcCRC
+    while (!(rd(0x05) & 0x04)) { }                   // DivIrqReg.CRCIRq
+    out[0] = rd(0x22); out[1] = rd(0x21);            // молодший байт, тоді старший
+}
+
+// КРОК 1: довести знання ключа A саме для цього сектора
+static int authenticate(const uint8_t *uid) {
+    uint8_t f[12] = { 0x60, block };                 // 0x60 — автентифікація ключем A
+    memcpy(f + 2, key, 6);
+    memcpy(f + 8, uid, 4);                           // 4 байти UID цієї мітки
+    wr(0x01, 0x00); wr(0x04, 0x7F); wr(0x0A, 0x80);
+    for (int i = 0; i < 12; i++) wr(0x09, f[i]);
+    wr(0x01, 0x0E);                                  // CommandReg = MFAuthent
+    for (int i = 0; i < 20 && !(rd(0x04) & 0x10); i++) HAL_Delay(1);
+    return rd(0x08) & 0x08;                          // Status2Reg.MFCrypto1On — ключ підійшов
+}
+
+void read_block(const uint8_t *uid) {
+    char line[64];  int k = 0;
+    if (!authenticate(uid)) {
+        k = snprintf(line, sizeof line, "Ключ не підійшов — сектор замкнений\r\n");
+        HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+        return;                                      // без ключа далі ходу немає
+    }
+    // КРОК 2: сектор відкритий — читаємо блок (кадр 0x30, номер, CRC_A)
+    uint8_t cmd[4] = { 0x30, block }, buf[18];       // 16 байтів даних + 2 контрольної суми
+    crc_a(cmd, 2, cmd + 2);
+    if (transceive(cmd, 4, 0, buf, 18) >= 16) {
+        for (int i = 0; i < 16; i++)
+            k += snprintf(line + k, sizeof line - k, "%02X ", buf[i]);
+        k += snprintf(line + k, sizeof line - k, "\r\n");
+        HAL_UART_Transmit(&huart2, (uint8_t *)line, k, HAL_MAX_DELAY);
+    }
+    wr(0x08, rd(0x08) & ~0x08);   // ЗАВЖДИ зняти MFCrypto1On після роботи
+}
+```
+:::
+
+Тут видно всю логіку захисту MIFARE в дії: **спершу ключ, тоді дані**. Новий брелок з заводу має на всіх секторах ключ `FF FF FF FF FF FF` — тому перший приклад майже завжди спрацює на «цілинній» мітці; у реальній системі ключі змінюють на свої. Дрібна, але злюща пастка: після роботи із захищеним сектором читач **обов'язково** треба вивести зі стану шифрування — якщо цього не зробити, він у ньому й лишиться та **наступну мітку не прочитає**, а ви годину шукатимете «плаваючий» баг. У самому чипі це один біт `MFCrypto1On` у регістрі `Status2Reg`: Arduino-бібліотека знімає його викликом `PCD_StopCrypto1()`, а там, де бібліотеки немає, той біт гасять руками.
 
 > Повний робочий проєкт — читання UID, автентифікація, читання й **запис** блоків, дамп усієї картки, поводження з різними чипами й типові граблі бібліотеки — зібрано окремо: [Читаємо й пишемо брелок: код із читачем](book:connect/rfid-tag/api-read-write.md). Розводку читача пін-у-пін і його власні пастки — у статті про [сам зчитувач RC522](book:connect/rfid-rc522).
 

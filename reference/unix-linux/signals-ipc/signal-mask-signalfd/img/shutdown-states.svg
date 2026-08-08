@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1110 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1110" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="550.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три стани наглядача й події, що їх перемикають</text>
+<text x="560.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наглядач має три стани, і всі переходи приносять дескриптори</text>
+<rect x="340.0" y="66.0" width="400.0" height="92.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="540.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">RUNNING</text>
+<text x="540.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">діти працюють, цикл спить в epoll_wait,</tspan><tspan x="540.0" dy="15.6">наглядач не робить нічого</tspan></text>
+<line x1="540.0" y1="158.0" x2="540.0" y2="206.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="768.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start"><tspan x="768.0" dy="0.0">SIGINT або SIGTERM,</tspan><tspan x="768.0" dy="15.6">прочитаний із signalfd</tspan></text>
+<rect x="340.0" y="208.0" width="400.0" height="112.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="540.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">DRAINING</text>
+<text x="540.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">SIGTERM кожній живій дитині,</tspan><tspan x="540.0" dy="15.6">timerfd заведено на пільгові 2 с,</tspan><tspan x="540.0" dy="15.6">цикл далі приймає події</tspan></text>
+<line x1="540.0" y1="320.0" x2="540.0" y2="366.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="768.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start"><tspan x="768.0" dy="0.0">timerfd став готовим:</tspan><tspan x="768.0" dy="15.6">пільговий час вичерпано</tspan></text>
+<rect x="340.0" y="368.0" width="400.0" height="92.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="540.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">KILLING</text>
+<text x="540.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">SIGKILL решті — цього сигналу</tspan><tspan x="540.0" dy="15.6">не блокують і не ігнорують</tspan></text>
+<line x1="540.0" y1="460.0" x2="540.0" y2="504.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="768.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start"><tspan x="768.0" dy="0.0">останній SIGCHLD:</tspan><tspan x="768.0" dy="15.6">живих дітей не лишилось</tspan></text>
+<rect x="390.0" y="506.0" width="300.0" height="56.0" rx="6" fill="#fbfcff" stroke="#1a1a1a" stroke-width="2.0"/><text x="540.0" y="538.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">вихід із циклу</tspan></text>
+<rect x="24.0" y="208.0" width="286.0" height="252.0" rx="8" fill="#fbfcff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="167.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">У БУДЬ-ЯКОМУ СТАНІ</text>
+<text x="167.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="167.0" dy="0.0">SIGCHLD із того самого</tspan><tspan x="167.0" dy="15.6">дескриптора каже лише</tspan><tspan x="167.0" dy="15.6">«щось змінилося».</tspan><tspan x="167.0" dy="15.6">Скільки саме дітей вийшло,</tspan><tspan x="167.0" dy="15.6">покаже waitpid(WNOHANG)</tspan><tspan x="167.0" dy="15.6">у циклі — доки не поверне</tspan><tspan x="167.0" dy="15.6">нуль або мінус одиницю.</tspan></text>
+</svg>

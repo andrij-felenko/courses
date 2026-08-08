@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приватний і спільний ключ черги очікування</text>
+<text x="150.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процес A</text>
+<rect x="50.0" y="62.0" width="200.0" height="210.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="150.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">адресний простір A</text>
+<text x="830.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Процес B</text>
+<rect x="730.0" y="62.0" width="200.0" height="210.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="830.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">адресний простір B</text>
+<rect x="62.0" y="93.5" width="176.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="114.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">замок @ 0x7f2a1000</tspan></text>
+<rect x="742.0" y="193.5" width="176.0" height="33.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="830.0" y="214.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="830.0" dy="0.0">замок @ 0x55c17000</tspan></text>
+<rect x="400.0" y="133.9" width="180.0" height="52.2" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="490.0" y="155.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">одна фізична</tspan><tspan x="490.0" dy="18.2">сторінка</tspan></text>
+<line x1="238.0" y1="112.0" x2="394.0" y2="148.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="742.0" y1="208.0" x2="586.0" y2="175.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="330.0" width="400.0" height="210.0" rx="6" fill="#fdf6f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="250.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Приватний ключ</text>
+<text x="250.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">(адресний простір, адреса)</text>
+<text x="250.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">A  →  (mm_A, 0x7f2a1000)</text>
+<text x="250.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">B  →  (mm_B, 0x55c17000)</text>
+<line x1="80.0" y1="472.0" x2="420.0" y2="472.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="250.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">дві різні черги:</text>
+<text x="250.0" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">пробудження не доходить</text>
+<rect x="530.0" y="330.0" width="400.0" height="210.0" rx="6" fill="#f2fbf6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="730.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Спільний ключ</text>
+<text x="730.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">(сторінка, зсув у ній)</text>
+<text x="730.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">A  →  (сторінка, +0x40)</text>
+<text x="730.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">B  →  (сторінка, +0x40)</text>
+<line x1="560.0" y1="472.0" x2="900.0" y2="472.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="730.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">одна черга на обох:</text>
+<text x="730.0" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">PTHREAD_PROCESS_SHARED</text>
+</svg>

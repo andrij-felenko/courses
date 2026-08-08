@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1030 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1030" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="316.5" y="37.0" width="387.0" height="36.0" rx="6" fill="#eef3f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="60.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">dump(std::vector&lt;lib::Widget&gt;{}, 3.5)</tspan></text>
+<line x1="430.0" y1="80.0" x2="295.0" y2="116.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="80.0" x2="760.0" y2="116.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="120.0" width="490.0" height="235.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="295.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">аргумент 1: std::vector&lt;lib::Widget&gt;</text>
+<rect x="116.8" y="190.1" width="116.3" height="49.9" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="175.0" y="211.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">шаблон vector</tspan><tspan x="175.0" dy="16.9">→ простір std</tspan></text>
+<rect x="308.7" y="190.1" width="212.7" height="49.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="415.0" y="211.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="415.0" dy="0.0">аргумент lib::Widget</tspan><tspan x="415.0" dy="16.9">→ клас Widget, простір lib</tspan></text>
+<text x="295.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="295.0" dy="0.0">асоційовано: простори std і lib,</tspan><tspan x="295.0" dy="16.9">класи vector&lt;lib::Widget&gt; і lib::Widget</tspan></text>
+<rect x="580.0" y="120.0" width="390.0" height="235.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="775.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">аргумент 2: double</text>
+<rect x="713.1" y="198.5" width="123.7" height="33.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="775.0" y="219.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="775.0" dy="0.0">вбудований тип</tspan></text>
+<text x="775.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="775.0" dy="0.0">асоційовано: нічого —</tspan><tspan x="775.0" dy="16.9">простору на ім'я «double» немає</tspan></text>
+<line x1="295.0" y1="357.0" x2="440.0" y2="400.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="775.0" y1="357.0" x2="620.0" y2="400.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="309.4" y="410.5" width="401.3" height="35.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/><text x="510.0" y="433.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">ADL шукає ім'я dump у просторах std і lib</tspan></text>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="271.8" y="37.0" width="456.5" height="36.0" rx="6" fill="#eef3f8" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="60.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">log(w, 1)   — некваліфіковане ім'я у виклику</tspan></text>
+<line x1="430.0" y1="80.0" x2="250.0" y2="116.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="80.0" x2="750.0" y2="116.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="120.0" width="400.0" height="200.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="250.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звичайний пошук</text>
+<text x="250.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="250.0" dy="0.0">іде назовні по областях:</tspan><tspan x="250.0" dy="16.9">блок → клас → простір → глобальна;</tspan><tspan x="250.0" dy="16.9">спиняється на ПЕРШІЙ із таким іменем</tspan></text>
+<rect x="164.2" y="268.0" width="171.6" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="250.0" y="289.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">::log(lib::W, long)</tspan></text>
+<rect x="550.0" y="120.0" width="400.0" height="200.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="750.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пошук за аргументами</text>
+<text x="750.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="750.0" dy="0.0">бере ТИПИ аргументів:</tspan><tspan x="750.0" dy="16.9">lib::W → простір lib;</tspan><tspan x="750.0" dy="16.9">int → нічого не додає</tspan></text>
+<rect x="676.2" y="268.0" width="147.7" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="750.0" y="289.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">lib::log(W, int)</tspan></text>
+<line x1="250.0" y1="322.0" x2="448.0" y2="360.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="750.0" y1="322.0" x2="552.0" y2="360.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="369.1" y="370.5" width="261.8" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="393.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">спільна множина кандидатів</tspan></text>
+<line x1="500.0" y1="414.0" x2="500.0" y2="452.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="301.9" y="462.5" width="396.2" height="35.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="1.5"/><text x="500.0" y="485.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">розв'язання перевантажень → lib::log(W, int)</tspan></text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оберт сигналу: підроблений виклик і розбирання кадру</text>
+<rect x="30.0" y="92.0" width="1180.0" height="130.0" rx="8" fill="#fbfcff" stroke="#6b7280" stroke-width="1.3"/>
+<text x="46.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">режим користувача</text>
+<rect x="30.0" y="372.0" width="1180.0" height="130.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.3"/>
+<text x="46.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">режим ядра</text>
+<rect x="46.0" y="146.0" width="190.0" height="74.0" rx="6" fill="#fbfcff" stroke="#6b7280" stroke-width="1.8"/><text x="141.0" y="179.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="141.0" dy="0.0">перервана інструкція</tspan><tspan x="141.0" dy="16.2">програми</tspan></text>
+<rect x="276.0" y="426.0" width="214.0" height="74.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="383.0" y="451.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="383.0" dy="0.0">ядро на межі повернення</tspan><tspan x="383.0" dy="16.2">бачить сигнал і будує</tspan><tspan x="383.0" dy="16.2">кадр на стеку</tspan></text>
+<rect x="516.0" y="146.0" width="200.0" height="74.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/><text x="616.0" y="179.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="616.0" dy="0.0">обробник виконується</tspan><tspan x="616.0" dy="16.2">як звичайна функція</tspan></text>
+<rect x="740.0" y="146.0" width="190.0" height="74.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="835.0" y="171.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="835.0" dy="0.0">інструкція повернення</tspan><tspan x="835.0" dy="16.2">→ батут:</tspan><tspan x="835.0" dy="16.2">mov $15,%rax; syscall</tspan></text>
+<rect x="956.0" y="426.0" width="224.0" height="74.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="1068.0" y="451.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1068.0" dy="0.0">rt_sigreturn:</tspan><tspan x="1068.0" dy="16.2">читає кадр, ставить маску,</tspan><tspan x="1068.0" dy="16.2">відновлює всі регістри</tspan></text>
+<line x1="236.0" y1="224.0" x2="300.0" y2="424.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="424.0" x2="560.0" y2="224.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="716.0" y1="184.0" x2="736.0" y2="184.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="930.0" y1="224.0" x2="990.0" y2="424.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="1068.0" y1="504.0" x2="1068.0" y2="560.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="1068.0" y1="560.0" x2="141.0" y2="560.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="141.0" y1="560.0" x2="141.0" y2="226.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="604.0" y="584.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">керування повертається на ту саму інструкцію, усі регістри й прапорці — як були</text>
+<text x="620.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Межу режимів перетинають чотири рази: два спуски в ядро й два підйоми назад</text>
+</svg>

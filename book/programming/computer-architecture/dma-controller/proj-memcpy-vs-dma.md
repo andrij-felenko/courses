@@ -46,12 +46,37 @@ T_dma = O_dma + N · t_per_byte
 
 ### Як міряти чесно
 
-Найточніший інструмент тут — **цикловий лічильник ядра** `esp_cpu_get_cycle_count()`: копія блоку на ESP32 займає десятки–тисячі тактів, а лічильник рахує кожен із них без власних накладних витрат. Такти ÷ 240 МГц = час у секундах, звідси — байти/с. Альтернатива через [`esp_timer_get_time()` — лічильник мікросекунд](book:programming/millis-micros) надто груба для таких коротких операцій.
+Найточніший інструмент тут — **цикловий лічильник ядра**: майже кожне сучасне ядро має регістр, що інкрементується щотакту, і читання цього регістра коштує одну інструкцію. Називається він скрізь по-різному: `DWT->CYCCNT` на Cortex-M, `esp_cpu_get_cycle_count()` на ESP32. Копія блоку займає десятки–тисячі тактів, а лічильник рахує кожен із них без власних накладних витрат. Такти ÷ тактову частоту ядра = час у секундах, звідси — байти/с. Альтернатива через [лічильник мікросекунд](book:programming/millis-micros) — `micros()` в Arduino, `esp_timer_get_time()` в ESP-IDF — надто груба для таких коротких операцій.
 
 **Таймер CPU-копії:**
 
-```c
+:::tabs
+```arduino
 #include <Arduino.h>
+
+/* Буфери — 4-байтово вирівняні (копіювальник іде словами, не байтами) */
+static uint8_t src[4096] __attribute__((aligned(4)));
+static uint8_t dst[4096] __attribute__((aligned(4)));
+
+/* Зчитати цикловий лічильник ядра (плата на ESP32) */
+static inline uint32_t cyc(void) {
+    return esp_cpu_get_cycle_count();
+}
+
+/* Повертає кількість тактів, потрачених на memcpy(d, s, n) */
+uint32_t bench_memcpy(void *d, const void *s, size_t n) {
+    uint32_t t0 = cyc();
+    memcpy(d, s, n);
+    uint32_t t1 = cyc();
+    return t1 - t0;   /* різниця тактів; про обгортання лічильника — нижче */
+}
+```
+```esp-idf
+#include <string.h>
+#include "esp_cpu.h"
+#include "esp_log.h"
+
+static const char *TAG = "bench";
 
 /* Буфери — 4-байтово вирівняні (копіювальник іде словами, не байтами) */
 static uint8_t src[4096] __attribute__((aligned(4)));
@@ -69,16 +94,51 @@ uint32_t bench_memcpy(void *d, const void *s, size_t n) {
     uint32_t t1 = cyc();
     return t1 - t0;   /* різниця тактів; про обгортання лічильника — нижче */
 }
-```
 
-Тепер те саме для DMA. Низькорівневі [дескриптори й канали DMA](book:programming/dma-channels) тут не потрібні — скористаємося готовим примітивом IDF `esp_async_memcpy`, який приховує внутрішні деталі й надає простий інтерфейс «M2M-копія з колбеком готовності». Для нас це чорна скринька: «DMA-копіювальник на шині».
+void app_main(void) {
+    ESP_LOGI(TAG, "memcpy 4096 Б: %u тактів",
+             (unsigned)bench_memcpy(dst, src, sizeof(src)));
+}
+```
+```stm32
+#include "stm32f4xx_hal.h"
+#include <string.h>
+
+/* Буфери — 4-байтово вирівняні (копіювальник іде словами, не байтами) */
+static uint8_t src[4096] __attribute__((aligned(4)));
+static uint8_t dst[4096] __attribute__((aligned(4)));
+
+/* На Cortex-M3/M4/M7 цикловий лічильник — це DWT->CYCCNT з блока налагодження;
+   на відміну від ESP32 його треба ввімкнути руками, один раз при старті */
+static void cyc_init(void) {
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    DWT->CYCCNT = 0;
+    DWT->CTRL  |= DWT_CTRL_CYCCNTENA_Msk;
+}
+
+static inline uint32_t cyc(void) {
+    return DWT->CYCCNT;
+}
+
+/* Повертає кількість тактів, потрачених на memcpy(d, s, n) */
+uint32_t bench_memcpy(void *d, const void *s, size_t n) {
+    uint32_t t0 = cyc();
+    memcpy(d, s, n);
+    uint32_t t1 = cyc();
+    return t1 - t0;   /* різниця тактів; про обгортання лічильника — нижче */
+}
+```
+:::
+
+Тепер те саме для DMA. Робота від середовища вимагається однакова: налаштувати канал на режим пам'ять→пам'ять, дати старт і дізнатися про завершення — з колбека або з прапорця переривання. Розписувати [дескриптори й канали DMA](book:programming/dma-channels) вручну тут не будемо: там, де середовище дає готовий M2M-примітив (`esp_async_memcpy` в ESP-IDF), беремо його; де готового нема, канал заводиться через вендорний HAL (STM32). Для нас це чорна скринька: «DMA-копіювальник на шині».
 
 **Таймер DMA-копії:**
 
-```c
+:::tabs
+```esp-idf
 #include "esp_async_memcpy.h"
 
-/* Одноразове налаштування драйвера (виконується один раз у setup()) */
+/* Одноразове налаштування драйвера (виконується один раз при старті) */
 static async_memcpy_handle_t mcp_handle;
 
 void dma_init(void) {
@@ -106,6 +166,49 @@ uint32_t bench_dma(void *d, void *s, size_t n) {
     return t1 - t0;
 }
 ```
+```stm32
+#include "stm32f4xx_hal.h"
+
+/* Прапорець готовності — volatile: колбек виконується в ISR */
+static volatile bool dma_done;
+static DMA_HandleTypeDef hdma;
+
+static void dma_cb(DMA_HandleTypeDef *h) { dma_done = true; }
+
+/* Одноразове налаштування каналу (виконується один раз при старті) */
+void dma_init(void) {
+    __HAL_RCC_DMA2_CLK_ENABLE();          /* M2M вміє лише DMA2 на F4 */
+    hdma.Instance                 = DMA2_Stream0;
+    hdma.Init.Channel             = DMA_CHANNEL_0;
+    hdma.Init.Direction           = DMA_MEMORY_TO_MEMORY;
+    hdma.Init.PeriphInc           = DMA_PINC_ENABLE;   /* джерело теж інкрементуємо */
+    hdma.Init.MemInc              = DMA_MINC_ENABLE;
+    hdma.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+    hdma.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;
+    hdma.Init.Mode                = DMA_NORMAL;
+    hdma.Init.Priority            = DMA_PRIORITY_HIGH;
+    hdma.Init.FIFOMode            = DMA_FIFOMODE_ENABLE;  /* у M2M FIFO обов'язкове */
+    hdma.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
+    HAL_DMA_Init(&hdma);
+    HAL_DMA_RegisterCallback(&hdma, HAL_DMA_XFER_CPLT_CB_ID, dma_cb);
+    HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
+}
+
+void DMA2_Stream0_IRQHandler(void) { HAL_DMA_IRQHandler(&hdma); }
+
+/* Повертає повний час "старт → готовність" у тактах (включаючи busy-wait) */
+uint32_t bench_dma(void *d, void *s, size_t n) {
+    dma_done = false;
+    uint32_t t0 = cyc();
+    /* у M2M джерело йде першим аргументом-адресою, а довжина рахується
+       НЕ в байтах, а в елементах обраної розрядності — тут у словах */
+    HAL_DMA_Start_IT(&hdma, (uint32_t)s, (uint32_t)d, n / 4);
+    while (!dma_done) {}       /* busy-wait: ядро чекає завершення */
+    uint32_t t1 = cyc();
+    return t1 - t0;
+}
+```
+:::
 
 Важливо: `bench_dma` вимірює **повний час до готовності** — старт плюс очікування. Саме це чесно порівнювати з блокуючим `memcpy`: обидва повертають керування лише коли дані вже скопійовані.
 

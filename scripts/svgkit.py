@@ -37,10 +37,13 @@ def text_width(s, size=14, bold=False):
     return len(str(s)) * size * k
 
 def fit_font(s, max_w, size=14, bold=False, min_size=9):
-    """Зменшити шрифт, якщо текст не влазить у max_w; не нижче min_size."""
+    """Зменшити шрифт, якщо текст не влазить у max_w; НІКОЛИ не нижче min_size.
+    ⚠️ Умова циклу перевіряє розмір ДО віднімання, тож дробовий старт (11.5) міг зійти нижче
+    підлоги: 9.5 > 9 → мінус 1 → 8.5. А text() друкує розмір через «%d», тобто ВІДТИНАЄ дріб —
+    у файлі виходило font-size="8", і гейт справедливо лаявся. Тому затискаємо результат."""
     while size > min_size and text_width(s, size, bold) > max_w:
         size -= 1
-    return size
+    return max(size, min_size)
 
 # ── Примітиви ──────────────────────────────────────────────────────────────
 def text(x, y, s, size=14, color=INK, anchor="middle", bold=False, italic=False):
