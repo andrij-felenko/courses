@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1330 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1330" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="660.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Покажчик читання й функції переміщення</text>
+<text x="660.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">seek лише наводить, next робить запис поточним</text>
+<text x="660.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">після будь-якого seek поточного запису ще немає — покажчик стоїть у проміжку</text>
+<rect x="150.0" y="186.0" width="170.0" height="88.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="235.0" y="234.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">запис 1</tspan></text>
+<rect x="360.0" y="186.0" width="170.0" height="88.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="445.0" y="234.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">запис 2</tspan></text>
+<rect x="570.0" y="186.0" width="170.0" height="88.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="655.0" y="217.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">запис 3</tspan><tspan x="655.0" dy="16.9">саме на нього вказує</tspan><tspan x="655.0" dy="16.9">збережений курсор</tspan></text>
+<rect x="780.0" y="186.0" width="170.0" height="88.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="865.0" y="234.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="865.0" dy="0.0">запис 4</tspan></text>
+<rect x="990.0" y="186.0" width="170.0" height="88.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="1075.0" y="234.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="1075.0" dy="0.0">запис 5</tspan></text>
+<line x1="130.0" y1="162.0" x2="130.0" y2="296.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 5"/>
+<line x1="340.0" y1="162.0" x2="340.0" y2="296.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 5"/>
+<line x1="550.0" y1="162.0" x2="550.0" y2="296.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 5"/>
+<line x1="760.0" y1="162.0" x2="760.0" y2="296.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 5"/>
+<line x1="970.0" y1="162.0" x2="970.0" y2="296.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 5"/>
+<line x1="1180.0" y1="162.0" x2="1180.0" y2="296.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 5"/>
+<text x="150.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">seek_head()</text>
+<line x1="150.0" y1="128.0" x2="130.0" y2="158.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">seek_cursor(c)</text>
+<line x1="550.0" y1="128.0" x2="550.0" y2="158.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1180.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">seek_tail()</text>
+<line x1="1180.0" y1="128.0" x2="1180.0" y2="158.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="132.0" y1="336.0" x2="226.0" y2="336.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="248.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">sd_journal_next() — запис 1 стає поточним</text>
+<line x1="1180.0" y1="386.0" x2="880.0" y2="386.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="858.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">sd_journal_previous_skip(2) від хвоста — запис 4</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="88.0" width="200.0" height="72.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="140.0" y="128.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">open(&quot;/dev/ttyUSB0&quot;)</tspan></text>
+<rect x="280.0" y="88.0" width="200.0" height="72.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/><text x="380.0" y="120.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">розбір шляху</tspan><tspan x="380.0" dy="16.9">дає inode</tspan></text>
+<rect x="520.0" y="88.0" width="200.0" height="72.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/><text x="620.0" y="120.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">у inode: тип «c»</tspan><tspan x="620.0" dy="16.9">мітка 188 : 0</tspan></text>
+<rect x="760.0" y="88.0" width="200.0" height="72.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="860.0" y="120.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">реєстр символьних</tspan><tspan x="860.0" dy="16.9">пристроїв → cdev</tspan></text>
+<rect x="1000.0" y="88.0" width="200.0" height="72.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="1100.0" y="120.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1100.0" dy="0.0">struct file:</tspan><tspan x="1100.0" dy="16.9">операції ← драйвер</tspan></text>
+<line x1="244.0" y1="124.0" x2="276.0" y2="124.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="484.0" y1="124.0" x2="516.0" y2="124.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="724.0" y1="124.0" x2="756.0" y2="124.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="964.0" y1="124.0" x2="996.0" y2="124.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="400.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">працює файлова система</text>
+<text x="980.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">працює ядро за міткою</text>
+<line x1="1100.0" y1="162.0" x2="1100.0" y2="202.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="760.0" y="206.0" width="440.0" height="56.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/><text x="980.0" y="238.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="980.0" dy="0.0">далі read, write, ioctl ідуть просто в драйвер</tspan></text>
+<text x="980.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">файлова система, де лежав вузол, більше не бере участі</text>
+</svg>

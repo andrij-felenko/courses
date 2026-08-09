@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1270 820" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1270" height="820" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="630.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що відбувається, коли пристрій замовк</text>
+<line x1="250.0" y1="70.0" x2="250.0" y2="704.0" stroke="#333333" stroke-width="2.0"/>
+<text x="216.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">0 с</text>
+<circle cx="250.0" cy="102.0" r="7.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="310.0" y="82.0" width="890.0" height="40.0" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/><text x="755.0" y="106.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">контролерові віддано команду, таймер пішов</tspan></text>
+<text x="216.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">30 с</text>
+<circle cx="250.0" cy="178.0" r="7.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="310.0" y="158.0" width="890.0" height="40.0" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="755.0" y="182.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">строк очікування сплив — відповіді немає</tspan></text>
+<text x="216.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">одразу</text>
+<circle cx="250.0" cy="266.0" r="7.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="310.0" y="234.0" width="890.0" height="64.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="755.0" y="261.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">ядро просить контролер скасувати саме цю команду</tspan><tspan x="755.0" dy="18.2">решта команд адаптера працює далі</tspan></text>
+<text x="216.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">скасовано</text>
+<circle cx="250.0" cy="354.0" r="7.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="310.0" y="334.0" width="890.0" height="40.0" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="755.0" y="358.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">команда тихо йде на повтор — ніхто нічого не помітив</tspan></text>
+<text x="216.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">не скасовано</text>
+<circle cx="250.0" cy="442.0" r="7.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="310.0" y="410.0" width="890.0" height="64.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="755.0" y="437.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">доля команди невідома: пристрій може прокинутися</tspan><tspan x="755.0" dy="18.2">й записати в буфер, уже відданий іншому</tspan></text>
+<text x="216.0" y="559.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">пауза</text>
+<circle cx="250.0" cy="554.0" r="7.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="310.0" y="510.0" width="890.0" height="88.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="755.0" y="540.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">обробник чекає, доки решта команд адаптера завершиться</tspan><tspan x="755.0" dy="18.2">або впаде за власним таймером — це і є та зупинка,</tspan><tspan x="755.0" dy="18.2">яку видно на здорових дисках того самого контролера</tspan></text>
+<text x="216.0" y="671.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="end" font-weight="700">драбина</text>
+<circle cx="250.0" cy="666.0" r="7.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<rect x="310.0" y="634.0" width="890.0" height="64.0" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="755.0" y="661.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">сенс-дані → START STOP UNIT → скидання логічної одиниці →</tspan><tspan x="755.0" dy="18.2">цілі → шини → контролера → пристрій вимкнено</tspan></text>
+</svg>

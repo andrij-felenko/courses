@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1310 660" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1310" height="660" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="650.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підпис накриває шлях до старту, але не те, що роблять з ядром після старту</text>
+<text x="650.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">що накриває перевірка підпису</text>
+<rect x="70.0" y="56.0" width="230.0" height="70.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="185.0" y="96.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">прошивка UEFI</tspan></text>
+<line x1="302.0" y1="91.0" x2="366.0" y2="91.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="370.0" y="56.0" width="230.0" height="70.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="485.0" y="86.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">завантажувач</tspan><tspan x="485.0" dy="19.5">shim і GRUB</tspan></text>
+<line x1="602.0" y1="91.0" x2="666.0" y2="91.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="670.0" y="56.0" width="230.0" height="70.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="785.0" y="86.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="785.0" dy="0.0">образ ядра</tspan><tspan x="785.0" dy="19.5">vmlinuz</tspan></text>
+<line x1="902.0" y1="91.0" x2="966.0" y2="91.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="970.0" y="56.0" width="260.0" height="70.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="1100.0" y="96.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="1100.0" dy="0.0">ядро запустилося</tspan></text>
+<text x="650.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">кожна ланка перевіряє підпис наступної</text>
+<text x="650.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">чого ця перевірка вже не бачить</text>
+<rect x="70.0" y="240.0" width="250.0" height="300.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="195.0" y="374.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="195.0" dy="0.0">root</tspan><tspan x="195.0" dy="20.8">у системі,</tspan><tspan x="195.0" dy="20.8">що вже працює</tspan></text>
+<rect x="420.0" y="240.0" width="330.0" height="52.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="1.5"/><text x="585.0" y="270.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">запис у /dev/mem за фізичною адресою</tspan></text>
+<line x1="322.0" y1="266.0" x2="416.0" y2="266.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="752.0" y1="266.0" x2="846.0" y2="266.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="420.0" y="300.0" width="330.0" height="52.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="1.5"/><text x="585.0" y="330.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">kexec непідписаного ядра</tspan></text>
+<line x1="322.0" y1="326.0" x2="416.0" y2="326.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="752.0" y1="326.0" x2="846.0" y2="326.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="420.0" y="360.0" width="330.0" height="52.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="1.5"/><text x="585.0" y="390.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">запис у MSR і порти вводу-виводу</tspan></text>
+<line x1="322.0" y1="386.0" x2="416.0" y2="386.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="752.0" y1="386.0" x2="846.0" y2="386.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="420.0" y="420.0" width="330.0" height="52.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="1.5"/><text x="585.0" y="450.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">підміна таблиць ACPI з initramfs</tspan></text>
+<line x1="322.0" y1="446.0" x2="416.0" y2="446.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="752.0" y1="446.0" x2="846.0" y2="446.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="420.0" y="480.0" width="330.0" height="52.0" rx="6" fill="#fff6e5" stroke="#b8860b" stroke-width="1.5"/><text x="585.0" y="510.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="585.0" dy="0.0">kprobes у код працюючого ядра</tspan></text>
+<line x1="322.0" y1="506.0" x2="416.0" y2="506.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="752.0" y1="506.0" x2="846.0" y2="506.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="850.0" y="240.0" width="380.0" height="300.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="1040.0" y="385.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1040.0" dy="0.0">адресний простір</tspan><tspan x="1040.0" dy="20.8">ядра, що вже працює</tspan></text>
+</svg>

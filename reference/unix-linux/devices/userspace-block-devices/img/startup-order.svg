@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1290 810" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1290" height="810" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="640.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок запуску сервера ublk і що існує після кожного кроку</text>
+<text x="340.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">що робить сервер</text>
+<text x="930.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">що після цього існує в системі</text>
+<line x1="680.0" y1="66.0" x2="680.0" y2="742.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="8 6"/>
+<rect x="222.3" y="81.0" width="235.5" height="57.9" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="106.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">відкрити /dev/ublk-control,</tspan><tspan x="340.0" dy="16.9">кільце з IORING_SETUP_SQE128</tspan></text>
+<text x="720.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">ще нічого;</text>
+<text x="720.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">керуюча команда — 32 байти, у звичайний SQE не влазить</text>
+<line x1="467.7" y1="110.0" x2="674.0" y2="110.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="340.0" y1="144.9" x2="340.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="244.5" y="206.0" width="191.0" height="57.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="231.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">ADD_DEV:</tspan><tspan x="340.0" dy="16.9">одна черга, глибина 64</tspan></text>
+<text x="720.0" y="225.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">з'явився символьний /dev/ublkc0;</text>
+<text x="720.0" y="245.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">ядро вписало номер пристрою назад у структуру</text>
+<line x1="445.5" y1="234.9" x2="674.0" y2="234.9" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="340.0" y1="269.9" x2="340.0" y2="324.9" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="226.0" y="330.9" width="228.1" height="57.9" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">SET_PARAMS:</tspan><tspan x="340.0" dy="16.9">ємність, логічний блок, кеш</tspan></text>
+<text x="720.0" y="350.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">геометрія оголошена;</text>
+<text x="720.0" y="370.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">не оголосив кеш — FLUSH не прийде ніколи</text>
+<line x1="464.0" y1="359.9" x2="674.0" y2="359.9" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="340.0" y1="394.8" x2="340.0" y2="449.9" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="455.9" width="279.9" height="57.9" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="480.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">відкрити /dev/ublkc0, mmap описів,</tspan><tspan x="340.0" dy="16.9">буфери на кожен тег</tspan></text>
+<text x="720.0" y="475.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">канал є: 64 комірки по 32 байти;</text>
+<text x="720.0" y="495.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">пам'ять під дані виділена наперед і закріплена</text>
+<line x1="490.0" y1="484.8" x2="674.0" y2="484.8" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="340.0" y1="519.8" x2="340.0" y2="574.8" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="233.4" y="580.8" width="213.2" height="57.9" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="605.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">FETCH_REQ на всі 64 теги,</tspan><tspan x="340.0" dy="16.9">один submit</tspan></text>
+<text x="720.0" y="600.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">кожен тег озброєний, лічильник ядра повний;</text>
+<text x="720.0" y="620.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">цей потік став власником черги</text>
+<line x1="456.6" y1="609.8" x2="674.0" y2="609.8" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="340.0" y1="644.8" x2="340.0" y2="708.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="222.3" y="714.2" width="235.5" height="41.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="739.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">START_DEV(pid цього процесу)</tspan></text>
+<text x="720.0" y="725.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">з'явився блоковий /dev/ublkb0;</text>
+<text x="720.0" y="745.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-style="italic">звідси приходить перший запит</text>
+<line x1="467.7" y1="734.8" x2="674.0" y2="734.8" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="222.0" y1="592.0" x2="222.0" y2="690.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="222.0" y1="690.0" x2="222.0" y2="700.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="80.0" y="628.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="80.0" dy="0.0">START_DEV не поверне</tspan><tspan x="80.0" dy="16.2">керування, доки всі теги</tspan><tspan x="80.0" dy="16.2">не озброєні</tspan></text>
+</svg>

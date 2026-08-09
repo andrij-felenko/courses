@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1150 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1150" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="570.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Діапазон замикається сам: LockOnReset і тіньовий MBR</text>
+<text x="50.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">стан діапазону</text>
+<text x="50.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">що віддає LBA 0</text>
+<rect x="315.3" y="113.0" width="89.4" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="134.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">замкнено</tspan></text>
+<rect x="636.6" y="113.0" width="106.8" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="690.0" y="134.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">відімкнено</tspan></text>
+<rect x="955.3" y="113.0" width="89.4" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="1000.0" y="134.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1000.0" dy="0.0">замкнено</tspan></text>
+<line x1="414.7" y1="130.0" x2="626.6" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="520.7" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">Unlock з PIN, далі MBRDone</text>
+<line x1="753.4" y1="130.0" x2="945.3" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="849.3" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">втрата живлення</text>
+<rect x="305.5" y="247.1" width="108.9" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="268.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">тіньовий MBR</tspan><tspan x="360.0" dy="16.9">(образ PBA)</tspan></text>
+<rect x="631.8" y="247.1" width="116.3" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="690.0" y="268.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">справжні дані</tspan><tspan x="690.0" dy="16.9">розділу</tspan></text>
+<rect x="945.5" y="247.1" width="108.9" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="1000.0" y="268.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1000.0" dy="0.0">тіньовий MBR</tspan><tspan x="1000.0" dy="16.9">(образ PBA)</tspan></text>
+<line x1="360.0" y1="155.0" x2="360.0" y2="239.1" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 4"/>
+<line x1="690.0" y1="155.0" x2="690.0" y2="239.1" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 4"/>
+<line x1="1000.0" y1="155.0" x2="1000.0" y2="239.1" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="570.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">шифротекст на носії весь час той самий — замок керує доступом, а не вмістом</text>
+</svg>

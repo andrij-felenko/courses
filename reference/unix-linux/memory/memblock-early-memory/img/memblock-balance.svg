@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1310 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1310" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="650.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Від суми memblock.memory до MemTotal: куди дівається різниця</text>
+<line x1="290.0" y1="62.0" x2="1240.0" y2="62.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="290.0" y1="56.0" x2="290.0" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="290.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0 ГіБ</text>
+<line x1="527.5" y1="56.0" x2="527.5" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="527.5" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">4 ГіБ</text>
+<line x1="765.0" y1="56.0" x2="765.0" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="765.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">8 ГіБ</text>
+<line x1="1002.5" y1="56.0" x2="1002.5" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="1002.5" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">12 ГіБ</text>
+<line x1="1240.0" y1="56.0" x2="1240.0" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="1240.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">16 ГіБ</text>
+<rect x="290.0" y="95.0" width="946.3" height="44.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<rect x="1236.3" y="95.0" width="9.0" height="44.0" rx="6" fill="#eceff3" stroke="#333333" stroke-width="1.4"/>
+<text x="25.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start"><tspan x="25.0" dy="0.0">Σ memblock.memory</tspan><tspan x="25.0" dy="18.2">знімок у debugfs</tspan></text>
+<text x="290.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">16.00 ГіБ — усе, що прошивка назвала пам'яттю; сірий хвіст — 64 МіБ NOMAP, яких ядро не відображає й нікому не роздає</text>
+<rect x="290.0" y="205.0" width="946.3" height="44.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<text x="25.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start"><tspan x="25.0" dy="0.0">кадри з описувачем</tspan><tspan x="25.0" dy="18.2">physpages</tspan></text>
+<text x="290.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">15.94 ГіБ — рівно друге число в рядку журналу «Memory: … / … available»</text>
+<rect x="290.0" y="315.0" width="901.8" height="44.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="1191.8" y="315.0" width="44.5" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="25.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start"><tspan x="25.0" dy="0.0">мить memblock_free_all()</tspan><tspan x="25.0" dy="18.2">хто що дістав</tspan></text>
+<text x="290.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">15.19 ГіБ пішло розподільникові сторінок · 768 МіБ лишилося в reserved (описувачі, образ ядра, initramfs, 256 МіБ CMA)</text>
+<rect x="290.0" y="425.0" width="901.8" height="44.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="1191.8" y="425.0" width="14.8" height="44.0" rx="6" fill="#fff5e0" stroke="#333333" stroke-width="1.4"/>
+<rect x="1206.6" y="425.0" width="9.0" height="44.0" rx="6" fill="#fff5e0" stroke="#333333" stroke-width="1.4"/>
+<text x="25.0" y="441.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start"><tspan x="25.0" dy="0.0">MemTotal зараз</tspan><tspan x="25.0" dy="18.2">/proc/meminfo</tspan></text>
+<text x="290.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">15.48 ГіБ — до розподільника пізніше повернулися CMA (256 МіБ) та звільнені init-секції з initramfs (40 МіБ)</text>
+</svg>

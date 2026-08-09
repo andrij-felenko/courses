@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1450 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1450" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="720.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три доби ранньої пам'яті та момент передачі</text>
+<rect x="40.0" y="200.0" width="360.0" height="230.0" rx="6" fill="#eceff3" stroke="#333333" stroke-width="1.6"/>
+<text x="220.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прошивка передала карту</text>
+<text x="60.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">e820 · таблиці EFI · дерево пристроїв</text>
+<text x="60.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">діапазони описані, але власника</text>
+<text x="60.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">в них ще немає</text>
+<text x="60.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">виділити не можна нічим</text>
+<rect x="500.0" y="200.0" width="400.0" height="230.0" rx="6" fill="#fff5e0" stroke="#333333" stroke-width="1.6"/>
+<text x="700.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доба memblock</text>
+<text x="520.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">memblock_add — що взагалі є</text>
+<text x="520.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">memblock_reserve — що зайняте</text>
+<text x="520.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">memblock_alloc — виділити зверху вниз</text>
+<text x="520.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">описувачі, таблиці, pgdat, CMA</text>
+<rect x="1000.0" y="200.0" width="400.0" height="230.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="1200.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Після memblock_free_all()</text>
+<text x="1020.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">вільні діапазони віддані buddy</text>
+<text x="1020.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">далі — alloc_pages і kmalloc</text>
+<text x="1020.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">код і масиви memblock звільнено</text>
+<text x="1020.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">разом із рештою секцій .init</text>
+<line x1="410.0" y1="315.0" x2="490.0" y2="315.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="910.0" y1="315.0" x2="990.0" y2="315.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="450.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">розбір карти</text>
+<text x="950.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">передача естафети</text>
+</svg>

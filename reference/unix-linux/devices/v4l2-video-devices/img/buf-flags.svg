@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="24.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">команда або подія</text>
+<text x="510.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">стан буфера</text>
+<text x="760.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">що покаже QUERYBUF</text>
+<text x="24.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">VIDIOC_REQBUFS</text>
+<rect x="300.0" y="60.0" width="420.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="90.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">буфер виділено, ще не відображено</tspan></text>
+<text x="760.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">прапорців нема</text>
+<text x="24.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">mmap()</text>
+<rect x="300.0" y="130.0" width="420.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="160.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">пам'ять видно програмі</tspan></text>
+<text x="760.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">MAPPED</text>
+<text x="24.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">VIDIOC_QBUF</text>
+<rect x="300.0" y="200.0" width="420.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="510.0" y="230.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">у вхідній черзі або наповнюється</tspan></text>
+<text x="760.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">MAPPED | QUEUED</text>
+<text x="24.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">кадр завершено</text>
+<rect x="300.0" y="270.0" width="420.0" height="52.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="510.0" y="300.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">у вихідній черзі, poll дає POLLIN</tspan></text>
+<text x="760.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">MAPPED | DONE</text>
+<text x="24.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">VIDIOC_DQBUF</text>
+<rect x="300.0" y="340.0" width="420.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="370.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">знову в руках програми</tspan></text>
+<text x="760.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">MAPPED, іноді ERROR</text>
+<line x1="510.0" y1="114.0" x2="510.0" y2="126.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="184.0" x2="510.0" y2="196.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="254.0" x2="510.0" y2="266.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="324.0" x2="510.0" y2="336.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="24.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">VIDIOC_STREAMOFF повертає буфери з обох черг у другий рядок: QUEUED і DONE знято, дані втрачено</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1570 1040" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1570" height="1040" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="780.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обмін по шині й те, що при цьому відбувається з дескриптором</text>
+<rect x="261.5" y="74.0" width="157.0" height="44.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="101.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">наша програма</tspan></text>
+<rect x="906.2" y="74.0" width="87.5" height="44.0" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="950.0" y="101.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="950.0" dy="0.0">logind</tspan></text>
+<rect x="1261.6" y="74.5" width="176.8" height="43.0" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/><text x="1350.0" y="101.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1350.0" dy="0.0">доля дескриптора</tspan></text>
+<line x1="340.0" y1="138.0" x2="340.0" y2="970.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,7"/>
+<line x1="950.0" y1="138.0" x2="950.0" y2="970.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,7"/>
+<line x1="352.0" y1="196.0" x2="938.0" y2="196.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle">TakeControl(false)</text>
+<line x1="352.0" y1="268.0" x2="938.0" y2="268.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle">TakeDevice(major, minor)</text>
+<line x1="938.0" y1="344.0" x2="352.0" y2="344.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle">fd₁  ·  inactive = false</text>
+<rect x="1262.2" y="315.9" width="175.6" height="56.2" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="1350.0" y="339.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="1350.0" dy="0.0">fd₁ живий</tspan><tspan x="1350.0" dy="18.2">read() віддає події</tspan></text>
+<rect x="461.2" y="402.0" width="157.7" height="36.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="540.0" y="424.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">read(fd₁) у циклі</tspan></text>
+<line x1="938.0" y1="510.0" x2="352.0" y2="510.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle">PauseDevice(major, minor, «pause»)</text>
+<line x1="352.0" y1="582.0" x2="938.0" y2="582.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="568.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle">PauseDeviceComplete(major, minor)</text>
+<rect x="1278.2" y="481.9" width="143.7" height="56.2" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="1350.0" y="505.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="1350.0" dy="0.0">EVIOCREVOKE</tspan><tspan x="1350.0" dy="18.2">на копії logind</tspan></text>
+<rect x="1258.2" y="617.9" width="183.6" height="56.2" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="1350.0" y="641.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="1350.0" dy="0.0">fd₁ мертвий назавжди</tspan><tspan x="1350.0" dy="18.2">read() → ENODEV</tspan></text>
+<line x1="70.0" y1="664.0" x2="540.0" y2="664.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="8,8"/>
+<text x="800.0" y="669.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle">місце перемкнулося на інший сеанс</text>
+<line x1="1060.0" y1="664.0" x2="1180.0" y2="664.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="8,8"/>
+<line x1="938.0" y1="780.0" x2="352.0" y2="780.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="766.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle">ResumeDevice(major, minor, fd₂)</text>
+<rect x="1258.2" y="791.9" width="183.6" height="56.2" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="1350.0" y="815.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="1350.0" dy="0.0">fd₂ — ІНШЕ відкриття</tspan><tspan x="1350.0" dy="18.2">вузла, знову живе</tspan></text>
+<rect x="441.3" y="834.0" width="237.5" height="36.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="560.0" y="856.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">close(fd₁);  fd₁ = dup(fd₂)</tspan></text>
+<line x1="352.0" y1="930.0" x2="938.0" y2="930.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="916.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle">ReleaseDevice  ·  ReleaseControl</text>
+</svg>

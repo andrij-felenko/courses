@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1130 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1130" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="60.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">пам'ять програми</text>
+<rect x="140.0" y="92.0" width="320.0" height="72.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="124.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">пакет команд кадру N</tspan><tspan x="300.0" dy="15.6">стан · прив'язки · виклики малювання</tspan></text>
+<rect x="620.0" y="92.0" width="320.0" height="72.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="780.0" y="124.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">пакет команд кадру N+1</tspan><tspan x="780.0" dy="15.6">будується просто зараз</tspan></text>
+<rect x="140.0" y="270.0" width="160.0" height="58.0" rx="6" fill="#f1f2f4" stroke="#333333" stroke-width="1.5"/><text x="220.0" y="303.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="220.0" dy="0.0">виконано</tspan></text>
+<rect x="300.0" y="270.0" width="160.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="380.0" y="295.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">стрибок</tspan><tspan x="380.0" dy="15.6">на пакет N</tspan></text>
+<rect x="460.0" y="270.0" width="160.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="540.0" y="295.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">стрибок</tspan><tspan x="540.0" dy="15.6">на пакет N+1</tspan></text>
+<rect x="620.0" y="270.0" width="160.0" height="58.0" rx="6" fill="#f1f2f4" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="303.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="700.0" dy="0.0">вільно</tspan></text>
+<rect x="780.0" y="270.0" width="160.0" height="58.0" rx="6" fill="#f1f2f4" stroke="#333333" stroke-width="1.5"/><text x="860.0" y="303.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="860.0" dy="0.0">вільно</tspan></text>
+<text x="60.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">кільце команд у пам'яті, розмір сталий</text>
+<line x1="300.0" y1="166.0" x2="380.0" y2="264.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="760.0" y1="166.0" x2="560.0" y2="264.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="372.0" x2="300.0" y2="332.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">читає GPU</text>
+<line x1="620.0" y1="372.0" x2="620.0" y2="332.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="750.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">сюди CPU допише наступний стрибок</text>
+<line x1="940.0" y1="332.0" x2="940.0" y2="440.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="6,5"/>
+<line x1="940.0" y1="440.0" x2="140.0" y2="440.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="6,5"/>
+<line x1="140.0" y1="440.0" x2="140.0" y2="332.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="540.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">кінець кільця — це його початок: місце не кінчається, воно повертається</text>
+<rect x="140.0" y="500.0" width="380.0" height="66.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="330.0" y="529.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">командний процесор GPU</tspan><tspan x="330.0" dy="15.6">читає кільце й стрибає в пакет</tspan></text>
+<rect x="620.0" y="500.0" width="320.0" height="66.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="780.0" y="529.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">регістр-дзвінок</tspan><tspan x="780.0" dy="15.6">CPU пише сюди новий кінець</tspan></text>
+<line x1="200.0" y1="496.0" x2="200.0" y2="336.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="880.0" y1="496.0" x2="880.0" y2="336.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

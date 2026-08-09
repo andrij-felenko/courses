@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1310 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1310" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="50.0" y="170.0" width="240.0" height="96.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="170.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">інструкція store</text>
+<text x="170.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">запис у відображення</text>
+<rect x="370.0" y="170.0" width="240.0" height="96.0" rx="8" fill="#fdf3e7" stroke="#c0392b" stroke-width="1.8"/>
+<text x="490.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">кеш процесора</text>
+<text x="490.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">зникає з живленням</text>
+<rect x="690.0" y="170.0" width="240.0" height="96.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="810.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">черга контролера пам'яті</text>
+<text x="810.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">переживе зникнення живлення</text>
+<rect x="1010.0" y="170.0" width="240.0" height="96.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="1130.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">комірки носія</text>
+<text x="1130.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">остаточне місце даних</text>
+<line x1="296.0" y1="218.0" x2="364.0" y2="218.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="330.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">сама лише</tspan><tspan x="330.0" dy="14.3">інструкція</tspan></text>
+<line x1="616.0" y1="218.0" x2="684.0" y2="218.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="650.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">CLWB або</tspan><tspan x="650.0" dy="14.3">нетемпоральний store</tspan></text>
+<line x1="936.0" y1="218.0" x2="1004.0" y2="218.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="970.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="970.0" dy="0.0">далі — без участі</tspan><tspan x="970.0" dy="14.3">програми</tspan></text>
+<line x1="50.0" y1="316.0" x2="610.0" y2="316.0" stroke="#c0392b" stroke-width="2.4"/>
+<text x="330.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle"><tspan x="330.0" dy="0.0">летюче: усе, що не пішло далі,</tspan><tspan x="330.0" dy="15.6">зникає разом із живленням</tspan></text>
+<line x1="690.0" y1="316.0" x2="1250.0" y2="316.0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="970.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle"><tspan x="970.0" dy="0.0">захищений домен: живлення зникло —</tspan><tspan x="970.0" dy="15.6">вміст черги все одно дійде до комірок</tspan></text>
+<text x="650.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">межа між двома половинами і є справжнім моментом «записано»;</tspan><tspan x="650.0" dy="15.6">SFENCE потрібен, щоб знати, що попередні CLWB уже перетнули цю межу</tspan></text>
+</svg>

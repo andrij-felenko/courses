@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1270 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1270" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="630.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">initrd проти initramfs</text>
+<rect x="40.0" y="56.0" width="560.0" height="500.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="660.0" y="56.0" width="560.0" height="500.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="320.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">initrd — образ файлової системи</text>
+<text x="940.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">initramfs — архів cpio</text>
+<rect x="80.0" y="124.0" width="480.0" height="62.0" rx="6" fill="#fff6e5" stroke="#6b7280" stroke-width="1.5"/><text x="320.0" y="160.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">стиснений образ у пам'яті</tspan></text>
+<line x1="320.0" y1="186.0" x2="320.0" y2="218.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="80.0" y="220.0" width="480.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="320.0" y="246.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">/dev/ram0 — блоковий пристрій</tspan><tspan x="320.0" dy="18.2">розмір задано ще під час збирання</tspan></text>
+<line x1="320.0" y1="282.0" x2="320.0" y2="314.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="80.0" y="316.0" width="480.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="320.0" y="351.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">драйвер файлової системи читає блоки</tspan></text>
+<line x1="320.0" y1="378.0" x2="320.0" y2="410.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="80.0" y="412.0" width="480.0" height="62.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="320.0" y="447.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">кеш сторінок — ті самі байти вдруге</tspan></text>
+<text x="320.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">пам'ять повертається лише разом з усім пристроєм</text>
+<rect x="700.0" y="124.0" width="480.0" height="62.0" rx="6" fill="#fff6e5" stroke="#6b7280" stroke-width="1.5"/><text x="940.0" y="160.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="940.0" dy="0.0">стиснений архів у пам'яті</tspan></text>
+<line x1="940.0" y1="186.0" x2="940.0" y2="246.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="700.0" y="248.0" width="480.0" height="62.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="940.0" y="283.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="940.0" dy="0.0">розпакувальник ядра створює файли</tspan></text>
+<line x1="940.0" y1="310.0" x2="940.0" y2="370.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="700.0" y="372.0" width="480.0" height="62.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="940.0" y="407.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="940.0" dy="0.0">rootfs: файли в кеші сторінок — одна копія</tspan></text>
+<text x="940.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">видалили файл — його сторінки вільні тієї ж миті</text>
+</svg>

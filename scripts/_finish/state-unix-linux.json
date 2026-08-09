@@ -1,7 +1,7 @@
 {
  "book": "unix-linux",
  "kind": "reference",
- "limit": 159,
+ "limit": 268,
  "concurrency": 4,
  "skipArticles": true,
  "units": [
@@ -141,6 +141,12 @@
    "section": "foundations",
    "slug": "livepatch",
    "title": "Живе латання ядра: livepatch і модель узгодженості",
+   "level": "detailed"
+  },
+  {
+   "section": "foundations",
+   "slug": "kernel-taint",
+   "title": "Заплямоване ядро: прапорці taint і що вони означають при розборі аварій",
    "level": "detailed"
   },
   {
@@ -324,6 +330,24 @@
    "level": "detailed"
   },
   {
+   "section": "processes",
+   "slug": "cpu-isolation",
+   "title": "Ізоляція ядер процесора: isolcpus, nohz_full і боротьба за тишу на гарячому ядрі",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "sessions-and-process-groups",
+   "title": "Сеанси, групи процесів і керуючий термінал",
+   "level": "detailed"
+  },
+  {
+   "section": "processes",
+   "slug": "preempt-rt",
+   "title": "Гілка реального часу PREEMPT_RT",
+   "level": "detailed"
+  },
+  {
    "section": "memory",
    "slug": "virtual-address-space",
    "title": "Віртуальний адресний простір процесу",
@@ -441,6 +465,54 @@
    "section": "memory",
    "slug": "tlb-shootdown",
    "title": "Розсилання скидань TLB: чому правка таблиці сторінок коштує міжпроцесорних переривань",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "cma-contiguous-allocator",
+   "title": "CMA: резерв суцільної фізичної пам'яті для пристроїв",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "page-pinning-gup",
+   "title": "Закріплення сторінок для пристрою: get_user_pages і pin_user_pages",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "memory-locking",
+   "title": "Прибивання пам'яті: mlock, mlockall і сторінки, яких не можна віддати",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "memblock-early-memory",
+   "title": "memblock: пам'ять до того, як з'явився розподільник сторінок",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "mmu-notifiers",
+   "title": "Сповіщувачі MMU: як драйвер дізнається, що ядро забирає сторінку",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "sparsemem-and-vmemmap",
+   "title": "Модель фізичної пам'яті: SPARSEMEM, vmemmap і масив описувачів кадрів",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "hmm-address-space-mirroring",
+   "title": "HMM: дзеркалення адресного простору процесу в пам'яті прискорювача",
+   "level": "detailed"
+  },
+  {
+   "section": "memory",
+   "slug": "cgroup-writeback",
+   "title": "Фоновий запис по cgroup: чия брудна сторінка й хто платить за її злив",
    "level": "detailed"
   },
   {
@@ -660,6 +732,42 @@
    "level": "detailed"
   },
   {
+   "section": "files",
+   "slug": "filesystem-freeze",
+   "title": "Заморожування файлової системи: узгоджений момент для знімка",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "fscrypt",
+   "title": "fscrypt: шифрування на рівні файлової системи",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "configfs",
+   "title": "configfs: об'єкти ядра, які створює простір користувача",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "dax-direct-access",
+   "title": "DAX: пряме звертання до файлів на постійній пам'яті",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "virtiofs",
+   "title": "virtiofs: каталог хоста у віртуальній машині через спільну пам'ять",
+   "level": "detailed"
+  },
+  {
+   "section": "files",
+   "slug": "zonefs",
+   "title": "zonefs: кожна зона носія як звичайний файл",
+   "level": "detailed"
+  },
+  {
    "section": "io",
    "slug": "blocking-and-nonblocking",
    "title": "Блокуючий і неблокуючий режим",
@@ -741,6 +849,12 @@
    "section": "io",
    "slug": "linux-aio-io-submit",
    "title": "Асинхронний ввід-вивід ядра: io_submit і його межі",
+   "level": "detailed"
+  },
+  {
+   "section": "io",
+   "slug": "io-priorities",
+   "title": "Пріоритет вводу-виводу: класи ionice та ioprio_set",
    "level": "detailed"
   },
   {
@@ -928,143 +1042,548 @@
    "slug": "lsm-framework",
    "title": "LSM: каркас гачків безпеки в ядрі",
    "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "landlock",
+   "title": "Landlock: непривілейоване обмеження доступу до файлів",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "ldap-directory",
+   "title": "Каталог LDAP як мережеве джерело облікових записів",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "sudo",
+   "title": "sudo: підвищення прав за правилами sudoers",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "userdb-varlink",
+   "title": "userdb: облікові записи як записи JSON через Varlink",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "sssd",
+   "title": "SSSD: демон, що тримає з'єднання з каталогом і кеш облікових записів",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "su-switch-user",
+   "title": "su: перемикання на іншого користувача",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "systemd-homed",
+   "title": "systemd-homed: домівка як переносний підписаний образ",
+   "level": "detailed"
+  },
+  {
+   "section": "permissions",
+   "slug": "kernel-lockdown",
+   "title": "Режим блокування ядра (lockdown): чого не можна навіть root",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "device-file-model",
+   "title": "Файл пристрою: символьний і блоковий",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "major-minor-numbers",
+   "title": "Старший і молодший номери пристрою",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "sysfs-device-model",
+   "title": "Модель пристроїв у sysfs",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "udev-rules",
+   "title": "udev: іменування пристроїв і правила",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "kernel-modules",
+   "title": "Модулі ядра: завантаження, параметри, залежності",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "tty-and-termios",
+   "title": "TTY і послідовний порт: модель termios",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "usb-in-linux",
+   "title": "USB у Linux: шина, класи, доступ із простору користувача",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "interrupts-bottom-halves",
+   "title": "Переривання, softirq і робочі черги",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "dma-and-buffers",
+   "title": "DMA і відображення буферів у ядрі",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "ioctl-interface",
+   "title": "Керуючий канал до драйвера: ioctl",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "device-mapper",
+   "title": "Device mapper: блоковий пристрій, зібраний із шарів",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "dma-buf",
+   "title": "dma-buf: спільний буфер між драйверами",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "v4l2-video-devices",
+   "title": "V4L2: модель відеопристрою в ядрі",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "block-device-model",
+   "title": "Блоковий пристрій: сектори, блоки й черга запитів",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "random-devices",
+   "title": "Джерело випадковості в ядрі: /dev/random, /dev/urandom і getrandom",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "rcu-mechanism",
+   "title": "RCU: читання без замків і відкладене звільнення",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "inter-processor-interrupts",
+   "title": "Міжпроцесорні переривання: як одне ядро змушує інші виконати код",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "discard-and-trim",
+   "title": "Discard і TRIM: як файлова система каже носієві, що блоки більше не потрібні",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "cpuidle-and-cstates",
+   "title": "Простій ядра процесора: cpuidle і глибина сну",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "lvm-and-snapshots",
+   "title": "LVM: логічні томи й миттєві знімки",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "loop-device",
+   "title": "Loop-пристрій: файл у вигляді блокового пристрою",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "dm-verity",
+   "title": "dm-verity: блоковий пристрій під деревом Меркла",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "pseudo-terminal",
+   "title": "Псевдотермінал: термінал без заліза",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "dm-crypt",
+   "title": "dm-crypt: прозоре шифрування блокового пристрою",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "device-tree",
+   "title": "Дерево пристроїв: як прошивка описує недискаверабельне залізо",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "terminal-escape-sequences",
+   "title": "Керуючі послідовності термінала: як програма малює на екрані",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "usb-host-controller",
+   "title": "Драйвер контролера хоста USB: xHCI і планування передач",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "usb-gadget",
+   "title": "USB-gadget: Linux у ролі пристрою, а не хоста",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "dm-multipath",
+   "title": "Multipath: кілька шляхів до одного сховища",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "drm-kms",
+   "title": "DRM і KMS: модель графічного пристрою в ядрі",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "dma-fence-sync",
+   "title": "dma-fence і sync_file: хто каже, що буфер готовий",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "media-controller-graph",
+   "title": "Media Controller: граф пристроїв замість одного вузла",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "io-schedulers",
+   "title": "Планувальники блокового введення-виведення: none, mq-deadline, BFQ і Kyber",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "disk-partitions",
+   "title": "Розділи диска: таблиця розділів, вирівнювання й що з цього бачить ядро",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "virtio-rng",
+   "title": "virtio-rng: непередбачність від гіпервізора до гостьового ядра",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "dm-thin-provisioning",
+   "title": "Тонке виділення: dm-thin, спільний пул і повернення місця",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "secure-erase-and-sanitize",
+   "title": "Надійне стирання носія: ATA Secure Erase, Sanitize і чому discard для цього не годиться",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "userspace-block-devices",
+   "title": "Блоковий пристрій із простору користувача: NBD і ublk",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "dm-integrity",
+   "title": "dm-integrity: контрольні суми на записуваному блоковому пристрої",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "runtime-power-management",
+   "title": "Присипляння пристрою на ходу: runtime PM",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "kernel-crypto-api",
+   "title": "Криптографічна підсистема ядра: імена алгоритмів і трансформації",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "platform-bus",
+   "title": "Шина platform: дім для заліза, яке не можна перелічити",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "terminfo-database",
+   "title": "База terminfo: як програма дізнається мову свого термінала",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "virtual-console",
+   "title": "Віртуальна консоль Linux: емулятор термінала всередині ядра",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "usb-bulk-streams",
+   "title": "Bulk-стрими USB 3: кілька кілець на одну кінцеву точку",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "scsi-subsystem",
+   "title": "Підсистема SCSI: команди, сенс-коди й обробка помилок",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "nvme-in-linux",
+   "title": "NVMe в Linux: черги, простори імен і власна багатошляховість",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "gpu-command-submission",
+   "title": "Подання роботи на графічний процесор: черги команд і планувальник",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "media-request-api",
+   "title": "Медіазапити: параметри й буфер, застосовані до кадру атомарно",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "writeback-throttling",
+   "title": "Гальмування фонового запису: wbt і цільова затримка читання",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "io-cgroup-control",
+   "title": "Обмеження блокового вводу-виводу по cgroup: io.max, io.latency і iocost",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "zoned-block-devices",
+   "title": "Зонований блоковий пристрій: зони, послідовний запис і хто стежить за порядком",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "md-raid",
+   "title": "Програмний RAID у Linux: md, рівні масиву й відновлення",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "virtio-transport",
+   "title": "virtio: паравіртуалізована шина й віртчерги",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "vm-generation-id",
+   "title": "VM Generation ID: як гість дізнається, що його клонували",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "sed-opal-drives",
+   "title": "Самошифрувальний носій: TCG Opal і підтримка sed-opal у ядрі",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "scsi-generic-passthrough",
+   "title": "Наскрізні команди до пристрою: SG_IO, ATA passthrough і чому вони йдуть повз блоковий шар",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "block-integrity-profile",
+   "title": "Профіль цілісності блокового шару: T10 DIF/DIX і додаткові байти на сектор",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "power-domains-genpd",
+   "title": "Домени живлення в ядрі: genpd і спільний вимикач на групу пристроїв",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "module-signing",
+   "title": "Підпис модулів ядра: чому ядро відмовляється вантажити чужий код",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "driver-probe-and-binding",
+   "title": "Прив'язка драйвера до пристрою: probe, збіг за таблицею й відкладена спроба",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "hwmon",
+   "title": "hwmon: клас датчиків у ядрі й одиниці в sysfs",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "scsi-target-lio",
+   "title": "Ціль SCSI в ядрі (LIO): як машина віддає своє сховище",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "input-evdev",
+   "title": "Підсистема вводу й evdev: як натиск клавіші стає структурою input_event",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "persistent-memory-devices",
+   "title": "Постійна пам'ять як пристрій: NVDIMM, простори імен і /dev/pmem",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "mmio-and-ioremap",
+   "title": "Регістри пристрою в пам'яті: ioremap і доступ через readl/writel",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "devres-managed-resources",
+   "title": "Керовані ресурси драйвера: сімейство devm_ і автоматичне звільнення",
+   "level": "detailed"
+  },
+  {
+   "section": "devices",
+   "slug": "ncurses",
+   "title": "ncurses: бібліотека повноекранних програм у терміналі",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "boot-chain",
+   "title": "Ланцюг завантаження: від прошивки до init",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "bootloader-and-cmdline",
+   "title": "Завантажувач і командний рядок ядра",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "initramfs",
+   "title": "initramfs: тимчасовий корінь",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "init-and-pid1",
+   "title": "Роль init і особливість PID 1",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "systemd-model",
+   "title": "systemd: юніти, залежності, цілі",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "service-lifecycle",
+   "title": "Життєвий цикл служби й політика перезапуску",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "socket-activation",
+   "title": "Активація за сокетом",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "journald-logging",
+   "title": "journald: журнал як структуровані записи",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "suspend-and-resume",
+   "title": "Призупинення й пробудження: suspend, hibernate і стан пристроїв",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "kernel-initcalls",
+   "title": "Ініціалізація підсистем ядра: initcall і порядок стартів",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "logind-sessions-seats",
+   "title": "systemd-logind: сеанси, місця (seats) і хто зараз за комп'ютером",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "dynamic-service-users",
+   "title": "DynamicUser: обліковий запис, що живе рівно стільки, скільки служба",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "uefi-firmware",
+   "title": "UEFI: прошивка як середовище виконання",
+   "level": "detailed"
+  },
+  {
+   "section": "boot-init",
+   "slug": "secure-boot",
+   "title": "Secure Boot: перевірений ланцюг завантаження",
+   "level": "detailed"
   }
  ],
- "insertsDone": [
-  {
-   "section": "files",
-   "topicSlug": "disk-quotas",
-   "topicTitle": "Дискові квоти: облік місця за власником",
-   "file": "api-quota-control.md",
-   "type": "api"
-  },
-  {
-   "section": "files",
-   "topicSlug": "disk-quotas",
-   "topicTitle": "Дискові квоти: облік місця за власником",
-   "file": "hist-quota-birth.md",
-   "type": "hist"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "kernel-keyrings",
-   "topicTitle": "Кільця ключів ядра: add_key, keyctl і довірені сертифікати",
-   "file": "hist-key-service-birth.md",
-   "type": "hist"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "ima-appraisal",
-   "topicTitle": "IMA: вимірювання й оцінка цілісності файлів у ядрі",
-   "file": "api-ima-policy.md",
-   "type": "api"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "ima-appraisal",
-   "topicTitle": "IMA: вимірювання й оцінка цілісності файлів у ядрі",
-   "file": "hist-ima-birth.md",
-   "type": "hist"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "privilege-separation",
-   "topicTitle": "Розділення привілеїв: маленький довірений процес і решта",
-   "file": "hist-privsep-origins.md",
-   "type": "hist"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "privilege-separation",
-   "topicTitle": "Розділення привілеїв: маленький довірений процес і решта",
-   "file": "proj-privsep-helper.md",
-   "type": "proj"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "polkit",
-   "topicTitle": "polkit: хто дозволяє непривілейованому процесу привілейовану дію",
-   "file": "api-polkit-files.md",
-   "type": "api"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "polkit",
-   "topicTitle": "polkit: хто дозволяє непривілейованому процесу привілейовану дію",
-   "file": "hist-policykit-birth.md",
-   "type": "hist"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "user-database-nss",
-   "topicTitle": "База облікових записів: passwd, group, shadow і шар NSS",
-   "file": "hist-shadow-and-nis.md",
-   "type": "hist"
-  }
- ],
- "inserts": [
-  {
-   "section": "permissions",
-   "topicSlug": "kernel-keyrings",
-   "topicTitle": "Кільця ключів ядра: add_key, keyctl і довірені сертифікати",
-   "file": "api-keyctl-surface.md",
-   "type": "api"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "kernel-keyrings",
-   "topicTitle": "Кільця ключів ядра: add_key, keyctl і довірені сертифікати",
-   "file": "proj-key-possession.md",
-   "type": "proj"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "ima-appraisal",
-   "topicTitle": "IMA: вимірювання й оцінка цілісності файлів у ядрі",
-   "file": "proj-replay-measurements.md",
-   "type": "proj"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "polkit",
-   "topicTitle": "polkit: хто дозволяє непривілейованому процесу привілейовану дію",
-   "file": "proj-polkit-mechanism.md",
-   "type": "proj"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "user-database-nss",
-   "topicTitle": "База облікових записів: passwd, group, shadow і шар NSS",
-   "file": "proj-nss-module.md",
-   "type": "proj"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "user-database-nss",
-   "topicTitle": "База облікових записів: passwd, group, shadow і шар NSS",
-   "file": "api-nsswitch-and-getent.md",
-   "type": "api"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "lsm-framework",
-   "topicTitle": "LSM: каркас гачків безпеки в ядрі",
-   "file": "hist-restrictive-hooks.md",
-   "type": "hist"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "lsm-framework",
-   "topicTitle": "LSM: каркас гачків безпеки в ядрі",
-   "file": "proj-bpf-lsm.md",
-   "type": "proj"
-  },
-  {
-   "section": "permissions",
-   "topicSlug": "lsm-framework",
-   "topicTitle": "LSM: каркас гачків безпеки в ядрі",
-   "file": "api-lsm-module.md",
-   "type": "api"
-  }
- ]
+ "insertsDone": [],
+ "inserts": []
 }

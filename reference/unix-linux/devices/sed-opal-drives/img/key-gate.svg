@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1130 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1130" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="560.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключ носія не виходить назовні: PIN лише відчиняє ворота</text>
+<line x1="250.0" y1="62.0" x2="250.0" y2="400.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="6 5"/>
+<text x="250.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">межа носія</text>
+<rect x="80.9" y="98.9" width="98.1" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="130.0" y="120.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">PIN</tspan><tspan x="130.0" dy="18.2">від хоста</tspan></text>
+<rect x="366.2" y="98.9" width="147.7" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="120.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">KEK</tspan><tspan x="440.0" dy="18.2">виводиться з PIN</tspan></text>
+<rect x="697.5" y="98.9" width="184.9" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="790.0" y="120.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="790.0" dy="0.0">MEK — ключ носія</tspan><tspan x="790.0" dy="18.2">назовні не виходить</tspan></text>
+<line x1="187.1" y1="125.0" x2="358.2" y2="125.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="521.8" y1="125.0" x2="689.5" y2="125.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="84.1" y="308.9" width="91.8" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="130.0" y="330.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">сектор</tspan><tspan x="130.0" dy="18.2">від хоста</tspan></text>
+<rect x="716.2" y="308.9" width="147.7" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="790.0" y="330.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">шифратор AES-XTS</tspan><tspan x="790.0" dy="18.2">у тракті даних</tspan></text>
+<rect x="960.1" y="308.9" width="99.8" height="52.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="1010.0" y="330.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="1010.0" dy="0.0">NAND:</tspan><tspan x="1010.0" dy="18.2">шифротекст</tspan></text>
+<line x1="183.9" y1="335.0" x2="708.2" y2="335.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="871.8" y1="335.0" x2="952.1" y2="335.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="790.0" y1="159.1" x2="790.0" y2="300.9" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="700.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">ключ подається лише тоді,</text>
+<text x="700.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">коли діапазон відімкнено</text>
+<text x="560.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">GenKey → новий MEK: старий шифротекст лишається на місці, але прочитати його вже нічим</text>
+</svg>

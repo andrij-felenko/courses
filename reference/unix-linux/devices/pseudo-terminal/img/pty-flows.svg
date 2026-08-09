@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що ядро робить із байтом у кожному напрямку</text>
+<rect x="250.0" y="70.0" width="580.0" height="330.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.4"/>
+<text x="540.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">ядро: пара псевдотермінала</text>
+<rect x="31.1" y="175.1" width="197.8" height="49.9" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="130.0" y="196.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">процес на ведучому кінці</tspan><tspan x="130.0" dy="16.9">емулятор, sshd, tmux</tspan></text>
+<rect x="843.7" y="175.1" width="212.7" height="49.9" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="950.0" y="196.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="950.0" dy="0.0">процес на підлеглому кінці</tspan><tspan x="950.0" dy="16.9">оболонка, редактор</tspan></text>
+<text x="540.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">напрямок «клавіатура»: write на ведучому → read на підлеглому</text>
+<rect x="280.0" y="142.0" width="230.0" height="62.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="395.0" y="169.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="395.0" dy="0.0">вхідна обробка</tspan><tspan x="395.0" dy="15.6">ICRNL · ISIG · ECHO</tspan></text>
+<rect x="560.0" y="142.0" width="230.0" height="62.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="675.0" y="169.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">канонічний буфер</tspan><tspan x="675.0" dy="15.6">рядок віддають після \n</tspan></text>
+<line x1="212.0" y1="173.0" x2="278.0" y2="173.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="512.0" y1="173.0" x2="558.0" y2="173.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="792.0" y1="173.0" x2="878.0" y2="173.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="214.0" x2="170.0" y2="244.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="310.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end">відлуння: байт повертає ядро само,</text>
+<text x="310.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end">програма на підлеглому кінці ні до чого</text>
+<line x1="430.0" y1="214.0" x2="430.0" y2="300.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="444.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">SIGINT групі процесів переднього плану</text>
+<rect x="560.0" y="330.0" width="230.0" height="56.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.5"/><text x="675.0" y="354.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">вихідна обробка</tspan><tspan x="675.0" dy="15.6">ONLCR: \n → \r\n</tspan></text>
+<line x1="878.0" y1="358.0" x2="794.0" y2="358.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="558.0" y1="358.0" x2="212.0" y2="358.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="540.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">напрямок «екран»: write на підлеглому → read на ведучому</text>
+</svg>

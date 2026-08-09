@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1350 910" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1350" height="910" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="670.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок перший: хто взагалі потрапляє в транзакцію</text>
+<rect x="140.9" y="202.5" width="178.1" height="35.0" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="230.0" y="225.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">multi-user.target</tspan></text>
+<rect x="870.1" y="83.0" width="139.7" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="940.0" y="104.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="940.0" dy="0.0">local-fs.target</tspan></text>
+<line x1="329.1" y1="220.0" x2="860.1" y2="100.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<rect x="834.2" y="143.0" width="211.5" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="940.0" y="164.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="940.0" dy="0.0">systemd-journald.service</tspan></text>
+<line x1="329.1" y1="220.0" x2="824.2" y2="160.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<rect x="882.1" y="203.0" width="115.8" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="940.0" y="224.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="940.0" dy="0.0">sshd.service</tspan></text>
+<line x1="329.1" y1="220.0" x2="872.1" y2="220.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<rect x="858.2" y="263.0" width="163.6" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="940.0" y="284.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="940.0" dy="0.0">postgresql.service</tspan></text>
+<line x1="329.1" y1="220.0" x2="848.2" y2="280.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<rect x="878.1" y="323.0" width="123.7" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="940.0" y="344.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="940.0" dy="0.0">nginx.service</tspan></text>
+<line x1="329.1" y1="220.0" x2="868.1" y2="340.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,5"/>
+<text x="230.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">мета, яку попросили</text>
+<text x="230.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">підняти</text>
+<text x="940.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">ребра потреби (Wants=/Requires=) тягнуть за собою</text>
+<text x="940.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">все, без чого мета не має сенсу — і так далі вглиб</text>
+<line x1="60.0" y1="452.0" x2="1280.0" y2="452.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="8,6"/>
+<text x="670.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок другий: ребра черги розкладають той самий набір на хвилі</text>
+<text x="200.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">хвиля 1</text>
+<text x="530.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">хвиля 2</text>
+<text x="860.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">хвиля 3</text>
+<text x="1170.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">хвиля 4</text>
+<rect x="130.2" y="683.0" width="139.7" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="200.0" y="704.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">local-fs.target</tspan></text>
+<rect x="424.2" y="603.0" width="211.5" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="530.0" y="624.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">systemd-journald.service</tspan></text>
+<rect x="472.1" y="683.0" width="115.8" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="530.0" y="704.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">sshd.service</tspan></text>
+<rect x="448.2" y="763.0" width="163.6" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="530.0" y="784.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">postgresql.service</tspan></text>
+<rect x="798.1" y="763.0" width="123.7" height="34.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="860.0" y="784.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="860.0" dy="0.0">nginx.service</tspan></text>
+<rect x="1086.2" y="683.0" width="167.6" height="34.0" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="1170.0" y="704.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1170.0" dy="0.0">multi-user.target</tspan></text>
+<line x1="277.9" y1="700.0" x2="416.2" y2="620.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="277.9" y1="700.0" x2="464.1" y2="700.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="277.9" y1="700.0" x2="440.2" y2="780.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="619.8" y1="780.0" x2="790.1" y2="780.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="643.8" y1="620.0" x2="1078.2" y2="700.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="595.9" y1="700.0" x2="1078.2" y2="700.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="929.9" y1="780.0" x2="1078.2" y2="700.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="670.0" y="862.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">Три юніти другої хвилі нічим не впорядковані між собою — тому їх пускають разом</text>
+</svg>

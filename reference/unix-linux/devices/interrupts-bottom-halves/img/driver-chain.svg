@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1350 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1350" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="670.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хто що виконує в драйвері з трьома нижніми половинами</text>
+<text x="350.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">лінію замасковано, доки не повернеться потік (IRQF_ONESHOT)</text>
+<line x1="70.0" y1="74.0" x2="630.0" y2="74.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+<line x1="70.0" y1="74.0" x2="70.0" y2="86.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="630.0" y1="74.0" x2="630.0" y2="86.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="70.0" y="100.0" width="260.0" height="86.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="200.0" y="131.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">верхня половина</tspan><tspan x="200.0" dy="16.2">апаратний контекст</tspan><tspan x="200.0" dy="16.2">спати не можна</tspan></text>
+<text x="200.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">мітка часу, IRQ_WAKE_THREAD</text>
+<text x="200.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">мікросекунди</text>
+<rect x="370.0" y="100.0" width="260.0" height="86.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.8"/><text x="500.0" y="131.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">потік irq/NN-davach</tspan><tspan x="500.0" dy="16.2">задача, SCHED_FIFO 50</tspan><tspan x="500.0" dy="16.2">спати можна</tspan></text>
+<text x="500.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">читає блок вибірок по шині</text>
+<text x="500.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">сотні мікросекунд</text>
+<rect x="690.0" y="100.0" width="260.0" height="86.0" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="1.8"/><text x="820.0" y="131.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">BH-робота, WQ_BH</tspan><tspan x="820.0" dy="16.2">softirq на тому ж ядрі</tspan><tspan x="820.0" dy="16.2">спати не можна</tspan></text>
+<text x="820.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">перерахунок і штовх у кільце</text>
+<text x="820.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">мікросекунди</text>
+<rect x="990.0" y="100.0" width="260.0" height="86.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.8"/><text x="1120.0" y="131.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1120.0" dy="0.0">kworker</tspan><tspan x="1120.0" dy="16.2">задача, nice 0</tspan><tspan x="1120.0" dy="16.2">спати можна</tspan></text>
+<text x="1120.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">зводить статистику</text>
+<text x="1120.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">коли дасть планувальник</text>
+<line x1="332.0" y1="143.0" x2="366.0" y2="143.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="632.0" y1="143.0" x2="686.0" y2="143.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="952.0" y1="143.0" x2="986.0" y2="143.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="70.0" y="300.0" width="300.0" height="72.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.8"/><text x="220.0" y="332.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">read()</tspan><tspan x="220.0" dy="16.9">спить на черзі очікування</tspan></text>
+<rect x="560.0" y="300.0" width="340.0" height="72.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.8"/><text x="730.0" y="332.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">кільце на 64 вибірки й пакет</tspan><tspan x="730.0" dy="16.9">спін-замок</tspan></text>
+<rect x="990.0" y="300.0" width="260.0" height="72.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.8"/><text x="1120.0" y="332.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1120.0" dy="0.0">зведена статистика</tspan><tspan x="1120.0" dy="16.9">м'ютекс</tspan></text>
+<line x1="800.0" y1="250.0" x2="780.0" y2="296.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="1120.0" y1="250.0" x2="1120.0" y2="296.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="556.0" y1="336.0" x2="374.0" y2="336.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="465.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">одна вибірка на виклик</text>
+<line x1="904.0" y1="336.0" x2="984.0" y2="336.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="944.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">пакет</text>
+<line x1="1250.0" y1="450.0" x2="70.0" y2="450.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="660.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">розбирання — проти течії: free_irq → cancel(BH-робота) → cancel(статистика) → звільнення пам'яті</text>
+</svg>

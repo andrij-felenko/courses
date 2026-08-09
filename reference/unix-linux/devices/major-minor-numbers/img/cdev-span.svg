@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1170 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1170" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="580.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">зарезервувати номери — ще не означає поставити за ними код</text>
+<rect x="70.0" y="60.0" width="1020.0" height="48.0" rx="9" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/><text x="580.0" y="88.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">alloc_chrdev_region(&amp;first, 0, 4, &quot;fanout&quot;)  —  в обох випадках однаково: пари 511:0 … 511:3 записано за модулем</tspan></text>
+<rect x="70.0" y="142.0" width="470.0" height="48.0" rx="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="305.0" y="170.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="305.0" dy="0.0">cdev_add(&amp;cdev, first, 4)</tspan></text>
+<rect x="70.0" y="210.0" width="110.0" height="54.0" rx="7" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="125.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">511:0</text>
+<rect x="190.0" y="210.0" width="110.0" height="54.0" rx="7" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="245.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">511:1</text>
+<rect x="310.0" y="210.0" width="110.0" height="54.0" rx="7" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="365.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">511:2</text>
+<rect x="430.0" y="210.0" width="110.0" height="54.0" rx="7" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="485.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">511:3</text>
+<rect x="70.0" y="292.0" width="470.0" height="52.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="305.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">один cdev · одна таблиця операцій</text>
+<line x1="125.0" y1="288.0" x2="125.0" y2="270.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="245.0" y1="288.0" x2="245.0" y2="270.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="365.0" y1="288.0" x2="365.0" y2="270.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="485.0" y1="288.0" x2="485.0" y2="270.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="305.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="305.0" dy="0.0">open будь-якого з чотирьох вузлів доходить до драйвера,</tspan><tspan x="305.0" dy="16.9">а той обирає примірник за молодшим номером</tspan></text>
+<rect x="620.0" y="142.0" width="470.0" height="48.0" rx="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="855.0" y="170.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="855.0" dy="0.0">cdev_add(&amp;cdev, first, 1)</tspan></text>
+<rect x="620.0" y="210.0" width="110.0" height="54.0" rx="7" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="675.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">511:0</text>
+<rect x="740.0" y="210.0" width="110.0" height="54.0" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="795.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">511:1</text>
+<rect x="860.0" y="210.0" width="110.0" height="54.0" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="915.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">511:2</text>
+<rect x="980.0" y="210.0" width="110.0" height="54.0" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="1035.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">511:3</text>
+<rect x="620.0" y="292.0" width="110.0" height="52.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="675.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">cdev</text>
+<line x1="675.0" y1="288.0" x2="675.0" y2="270.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="740.0" y="292.0" width="350.0" height="52.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="915.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">у мапі порожньо</text>
+<text x="855.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle"><tspan x="855.0" dy="0.0">open /dev/fanout1 віддає ENXIO,</tspan><tspan x="855.0" dy="16.9">хоча вузол і пара чисел бездоганні</tspan></text>
+</svg>

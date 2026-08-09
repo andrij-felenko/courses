@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="50.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">без явного доповнення:   __u32 want;  __u64 issued;</text>
+<text x="210.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">32-бітний x86</text>
+<rect x="230.0" y="70.0" width="120.0" height="38.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="290.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">want · 4 Б</text>
+<rect x="350.0" y="70.0" width="240.0" height="38.0" rx="4" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="470.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">issued · 8 Б</text>
+<text x="730.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">sizeof 12  →  0xC00C4203</text>
+<text x="210.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">x86-64</text>
+<rect x="230.0" y="128.0" width="120.0" height="38.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="290.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">want · 4 Б</text>
+<rect x="350.0" y="128.0" width="120.0" height="38.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="410.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">дірка · 4 Б</text>
+<rect x="470.0" y="128.0" width="240.0" height="38.0" rx="4" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="590.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">issued · 8 Б</text>
+<text x="730.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">sizeof 16  →  0xC0104203</text>
+<text x="50.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">з явним доповненням:   __u32 want;  __u32 __pad;  __u64 issued;</text>
+<text x="210.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">обидва ABI</text>
+<rect x="230.0" y="250.0" width="120.0" height="38.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="290.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">want · 4 Б</text>
+<rect x="350.0" y="250.0" width="120.0" height="38.0" rx="4" fill="#fff6e5" stroke="#b8860b" stroke-width="1.6"/>
+<text x="410.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">__pad · 4 Б</text>
+<rect x="470.0" y="250.0" width="240.0" height="38.0" rx="4" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="590.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">issued · 8 Б</text>
+<text x="730.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">sizeof 16  →  0xC0104203</text>
+<line x1="50.0" y1="330.0" x2="950.0" y2="330.0" stroke="#333333" stroke-width="1.2"/>
+<text x="50.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">Розмір структури вкладено в саме число команди — це поле «розмір», біти 29–16.</text>
+<text x="50.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">Інший sizeof дає інше число, switch у драйвері його не впізнає й віддає −ENOTTY —</text>
+<text x="50.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">хоч програма й драйвер зібрані з одного заголовка.</text>
+</svg>

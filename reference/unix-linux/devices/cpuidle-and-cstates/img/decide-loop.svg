@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1330 670" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1330" height="670" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="660.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ставка робиться до простою, а перевіряється після нього</text>
+<rect x="522.3" y="53.2" width="235.5" height="33.5" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.8"/><text x="640.0" y="74.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">задача простою: роботи немає</tspan></text>
+<rect x="518.4" y="173.2" width="243.2" height="33.5" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="1.8"/><text x="640.0" y="194.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">керувальник: cpuidle_select()</tspan></text>
+<rect x="487.6" y="303.2" width="304.7" height="33.5" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.8"/><text x="640.0" y="324.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">драйвер: cpuidle_enter() → mwait 0x20</tspan></text>
+<rect x="503.0" y="433.2" width="273.9" height="33.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="640.0" y="454.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">переривання будить ядро процесора</tspan></text>
+<rect x="537.7" y="553.2" width="204.7" height="33.5" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="1.8"/><text x="640.0" y="574.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">облік: cpuidle_reflect()</tspan></text>
+<line x1="640.0" y1="88.8" x2="640.0" y2="165.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="640.0" y1="208.8" x2="640.0" y2="295.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="640.0" y1="338.8" x2="640.0" y2="425.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="640.0" y1="468.8" x2="640.0" y2="545.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="127.4" y="101.8" width="205.2" height="32.5" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.4"/><text x="230.0" y="122.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">час до найближчого таймера</tspan></text>
+<line x1="338.6" y1="118.0" x2="508.4" y2="190.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="138.1" y="173.8" width="183.9" height="32.5" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.4"/><text x="230.0" y="194.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">вісім останніх простоїв</tspan></text>
+<line x1="327.9" y1="190.0" x2="508.4" y2="190.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="91.8" y="245.8" width="276.5" height="32.5" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.4"/><text x="230.0" y="266.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">межа затримки з /dev/cpu_dma_latency</tspan></text>
+<line x1="374.2" y1="262.0" x2="508.4" y2="190.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="108.2" y="545.6" width="283.6" height="48.8" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.4"/><text x="250.0" y="566.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">above: простій вийшов закороткий</tspan><tspan x="250.0" dy="16.2">below: глибший стан підійшов би краще</tspan></text>
+<line x1="529.7" y1="570.0" x2="399.8" y2="570.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="750.3" y1="570.0" x2="1160.0" y2="570.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="1160.0" y1="570.0" x2="1160.0" y2="190.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="1160.0" y1="190.0" x2="771.6" y2="190.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="1144.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">наступний прохід циклу</text>
+</svg>

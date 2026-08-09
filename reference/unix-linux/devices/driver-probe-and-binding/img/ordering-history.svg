@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-22.6 -10 1762.6 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-22.6" y="-10" width="1762.6" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="870.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як у Linux розв'язували порядок ініціалізації драйверів</text>
+<line x1="60.0" y1="235.0" x2="1680.0" y2="235.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="100.0" y1="235.0" x2="100.0" y2="168.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="100.0" cy="235.0" r="7.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="-12.6" y="78.4" width="225.2" height="63.2" rx="6" fill="#fdf1ea" stroke="#333333" stroke-width="1.5"/><text x="100.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">до 2011</tspan><tspan x="100.0" dy="15.6">порядок задають рівні initcall</tspan><tspan x="100.0" dy="15.6">і порядок лінкування</tspan></text>
+<line x1="335.0" y1="235.0" x2="335.0" y2="302.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="335.0" cy="235.0" r="7.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="232.5" y="328.4" width="205.0" height="63.2" rx="6" fill="#fdf1ea" stroke="#333333" stroke-width="1.5"/><text x="335.0" y="348.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">2011</tspan><tspan x="335.0" dy="15.6">ARM іде в дерево пристроїв:</tspan><tspan x="335.0" dy="15.6">одне ядро на сотні плат</tspan></text>
+<line x1="570.0" y1="235.0" x2="570.0" y2="168.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="570.0" cy="235.0" r="7.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="464.2" y="78.4" width="211.5" height="63.2" rx="6" fill="#eff7ef" stroke="#333333" stroke-width="1.5"/><text x="570.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="570.0" dy="0.0">3.4 · 2012</tspan><tspan x="570.0" dy="15.6">−EPROBE_DEFER: драйвер каже</tspan><tspan x="570.0" dy="15.6">«ще не можу» і чекає в черзі</tspan></text>
+<line x1="805.0" y1="235.0" x2="805.0" y2="302.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="805.0" cy="235.0" r="7.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="702.5" y="328.4" width="205.0" height="63.2" rx="6" fill="#eef4fb" stroke="#333333" stroke-width="1.5"/><text x="805.0" y="348.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="805.0" dy="0.0">4.10 · 2017</tspan><tspan x="805.0" dy="15.6">зв'язки між пристроями:</tspan><tspan x="805.0" dy="15.6">порядок сну й вимкнення</tspan></text>
+<line x1="1040.0" y1="235.0" x2="1040.0" y2="168.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="1040.0" cy="235.0" r="7.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="937.5" y="78.4" width="205.0" height="63.2" rx="6" fill="#eef4fb" stroke="#333333" stroke-width="1.5"/><text x="1040.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1040.0" dy="0.0">4.19 · 2018</tspan><tspan x="1040.0" dy="15.6">deferred_probe_timeout:</tspan><tspan x="1040.0" dy="15.6">коли припинити чекати</tspan></text>
+<line x1="1275.0" y1="235.0" x2="1275.0" y2="302.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="1275.0" cy="235.0" r="7.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="1172.5" y="328.4" width="205.0" height="63.2" rx="6" fill="#eff7ef" stroke="#333333" stroke-width="1.5"/><text x="1275.0" y="348.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1275.0" dy="0.0">5.5 · 2020</tspan><tspan x="1275.0" dy="15.6">зв'язки будують</tspan><tspan x="1275.0" dy="15.6">з дерева пристроїв</tspan></text>
+<line x1="1510.0" y1="235.0" x2="1510.0" y2="168.0" stroke="#6b7280" stroke-width="1.2"/>
+<circle cx="1510.0" cy="235.0" r="7.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<rect x="1407.5" y="78.4" width="205.0" height="63.2" rx="6" fill="#eff7ef" stroke="#333333" stroke-width="1.5"/><text x="1510.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1510.0" dy="0.0">5.13 · 2021</tspan><tspan x="1510.0" dy="15.6">fw_devlink увімкнено типово</tspan><tspan x="1510.0" dy="15.6">(після відкоту в 5.12)</tspan></text>
+<text x="870.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">спершу порядок задавали руками, потім навчилися пробувати ще раз, далі — читати залежності з опису прошивки</text>
+</svg>

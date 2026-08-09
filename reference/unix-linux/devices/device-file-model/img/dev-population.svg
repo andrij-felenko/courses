@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1110 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1110" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="24.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="start" font-weight="700">ядро</text>
+<text x="24.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="start" font-weight="700">простір користувача</text>
+<rect x="40.0" y="76.0" width="230.0" height="74.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="155.0" y="109.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">під'єднано</tspan><tspan x="155.0" dy="16.9">пристрій</tspan></text>
+<rect x="300.0" y="76.0" width="230.0" height="74.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="415.0" y="109.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="415.0" dy="0.0">драйвер реєструє:</tspan><tspan x="415.0" dy="16.9">клас і номери</tspan></text>
+<rect x="560.0" y="76.0" width="230.0" height="74.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="675.0" y="109.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">devtmpfs: вузол у /dev</tspan><tspan x="675.0" dy="16.9">з типовими правами</tspan></text>
+<line x1="274.0" y1="113.0" x2="296.0" y2="113.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="534.0" y1="113.0" x2="556.0" y2="113.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="300.0" y="236.0" width="230.0" height="74.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/><text x="415.0" y="269.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="415.0" dy="0.0">подія (uevent)</tspan><tspan x="415.0" dy="16.9">надходить до udev</tspan></text>
+<rect x="560.0" y="236.0" width="230.0" height="74.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/><text x="675.0" y="269.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="675.0" dy="0.0">правила udev:</tspan><tspan x="675.0" dy="16.9">власник, група, права</tspan></text>
+<rect x="820.0" y="236.0" width="230.0" height="74.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/><text x="935.0" y="269.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="935.0" dy="0.0">стійкі імена:</tspan><tspan x="935.0" dy="16.9">/dev/disk/by-id/…</tspan></text>
+<line x1="534.0" y1="273.0" x2="556.0" y2="273.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="794.0" y1="273.0" x2="816.0" y2="273.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="415.0" y1="152.0" x2="415.0" y2="232.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="675.0" y1="232.0" x2="675.0" y2="152.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="660.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">міняє права на вже створеному вузлі</text>
+</svg>

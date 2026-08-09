@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1310 790" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1310" height="790" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">ядро</text>
+<text x="1035.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">простір користувача</text>
+<line x1="290.0" y1="92.0" x2="1260.0" y2="92.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="40.0" y="140.0" width="250.0" height="130.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="165.0" y="200.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">статичний /dev</tspan><tspan x="165.0" dy="19.5">до 2000</tspan></text>
+<rect x="330.0" y="140.0" width="420.0" height="130.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="540.0" y="200.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">вузлів не створює:</tspan><tspan x="540.0" dy="19.5">лише роздає номери</tspan></text>
+<rect x="810.0" y="140.0" width="450.0" height="130.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="1035.0" y="200.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="1035.0" dy="0.0">MAKEDEV робить тисячі</tspan><tspan x="1035.0" dy="19.5">вузлів наперед, один раз</tspan></text>
+<line x1="762.0" y1="205.0" x2="798.0" y2="205.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="350.0" width="250.0" height="130.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="165.0" y="410.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">devfs</tspan><tspan x="165.0" dy="19.5">2000 — 2006</tspan></text>
+<rect x="330.0" y="350.0" width="420.0" height="130.0" rx="8" fill="#fdecea" stroke="#333333" stroke-width="1.6"/>
+<text x="540.0" y="410.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">сам створює вузли</tspan><tspan x="540.0" dy="19.5">і сам дає їм імена</tspan></text>
+<rect x="810.0" y="350.0" width="450.0" height="130.0" rx="8" fill="#fdecea" stroke="#333333" stroke-width="1.6"/>
+<text x="1035.0" y="410.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="1035.0" dy="0.0">devfsd доганяє події:</tspan><tspan x="1035.0" dy="19.5">права, посилання, гонки</tspan></text>
+<line x1="762.0" y1="415.0" x2="798.0" y2="415.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="560.0" width="250.0" height="130.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="165.0" y="620.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">udev + devtmpfs</tspan><tspan x="165.0" dy="19.5">з 2003 / з 2009</tspan></text>
+<rect x="330.0" y="560.0" width="420.0" height="130.0" rx="8" fill="#eaf6ef" stroke="#333333" stroke-width="1.6"/>
+<text x="540.0" y="620.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">devtmpfs: голий вузол</tspan><tspan x="540.0" dy="19.5">із типовим ім'ям</tspan></text>
+<rect x="810.0" y="560.0" width="450.0" height="130.0" rx="8" fill="#eaf6ef" stroke="#333333" stroke-width="1.6"/>
+<text x="1035.0" y="620.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="1035.0" dy="0.0">udev: ім'я, права,</tspan><tspan x="1035.0" dy="19.5">посилання — за правилами</tspan></text>
+<line x1="762.0" y1="625.0" x2="798.0" y2="625.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="780.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">подія летить у порожнечу</text>
+<text x="780.0" y="550.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">вузол уже є, коли по нього приходять</text>
+<text x="650.0" y="730.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle" font-style="italic">межа рухалася двічі: усередину ядра — і назад назовні</text>
+</svg>

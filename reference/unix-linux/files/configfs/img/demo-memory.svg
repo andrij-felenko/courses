@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1210 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1210" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каталоги демо-модуля і пам'ять, яку вони займають</text>
+<text x="600.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два каталоги — одна виділена ділянка</text>
+<rect x="40.0" y="66.0" width="470.0" height="470.0" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.5"/>
+<text x="275.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="700">що видно в оболонці</text>
+<text x="70.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">/sys/kernel/config/demo/</text>
+<text x="104.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">t1/</text>
+<text x="140.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">limit</text>
+<text x="140.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">label</text>
+<text x="140.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">nr_links</text>
+<text x="140.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">slots/</text>
+<text x="176.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">s0/</text>
+<text x="212.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">weight</text>
+<text x="70.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">типова група slots/ і файли —</text>
+<text x="70.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">не окремі речі, а частини t1</text>
+<rect x="630.0" y="110.0" width="530.0" height="250.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="2.0"/>
+<text x="895.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">kzalloc(sizeof(struct demo_target))</text>
+<rect x="652.0" y="162.0" width="486.0" height="40.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/><text x="895.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="895.0" dy="0.0">struct config_group group;</tspan></text>
+<rect x="652.0" y="212.0" width="486.0" height="40.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/><text x="895.0" y="236.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="895.0" dy="0.0">struct config_group slots;</tspan></text>
+<rect x="652.0" y="262.0" width="486.0" height="40.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/><text x="895.0" y="286.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="895.0" dy="0.0">unsigned int limit;   char label[64];</tspan></text>
+<rect x="652.0" y="306.0" width="486.0" height="40.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/><text x="895.0" y="330.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="895.0" dy="0.0">unsigned int nr_links;</tspan></text>
+<rect x="630.0" y="400.0" width="530.0" height="150.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="895.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">kzalloc(sizeof(struct demo_slot))</text>
+<rect x="652.0" y="448.0" width="486.0" height="40.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/><text x="895.0" y="472.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="895.0" dy="0.0">struct config_item item;</tspan></text>
+<rect x="652.0" y="496.0" width="486.0" height="40.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.3"/><text x="895.0" y="520.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="895.0" dy="0.0">unsigned int weight;</tspan></text>
+<line x1="330.0" y1="182.0" x2="646.0" y2="182.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="330.0" y1="332.0" x2="646.0" y2="232.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="330.0" y1="370.0" x2="646.0" y2="468.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

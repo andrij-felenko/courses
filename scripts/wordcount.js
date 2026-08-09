@@ -2,11 +2,12 @@
 /* ============================================================================
    wordcount.js — лічильник ПРОЗИ за AUTHORING.md §3 (без код-блоків, фігур, розмітки).
    Класифікує файли за іменем (нейминг §2):
-     <slug>/<slug>.md       → базова стаття   (378–1008)
-     <slug>/<slug>-d.md     → детальна стаття (1080–6300; каталог — до 10080)
-     <slug>/<type>-<name>.md (type ∈ hist/comp/math/proj/api) → вставка (378–5670)
+     <slug>/<slug>.md       → базова стаття   (500–1200)
+     <slug>/<slug>-d.md     → детальна стаття (1000–6500; виняткова стеля — 9000)
+     <slug>/<type>-<name>.md (type ∈ hist/comp/math/proj/api) → вставка (400–5000; виняток-перелік — 9000)
+   ДОПУСК ±10% (§3): у межах 10% за смугу — «~» (попередження), далі — «▲»/«▽».
    Плюс ЗАЛІЗО §3 «базова ≤ ½ детальної»: для кожної теми, де є ОБИДВІ версії, рахує
-   відношення слів; базова, довша за половину своєї детальної, — ПОРУШЕННЯ (не попередження).
+   відношення слів; базова, довша за половину своєї детальної, — ПОРУШЕННЯ; у межах допуску ±10% (до 0.55) — попередження «~».
    Універсальний — параметр: тека книги/каталогу/довідника/курсу.
 
    Запуск:  node scripts/wordcount.js book/chemistry
@@ -19,7 +20,12 @@ const path = require("path");
 const root = process.argv[2];
 const showAll = process.argv.includes("--all");
 if (!root) { console.error("Вкажи теку, напр.: node scripts/wordcount.js book/chemistry"); process.exit(1); }
-const CEIL_DETAILED = /(^|[\\/])catalog([\\/]|$)/.test(root) ? 10080 : 6300;   // каталог — до 10080
+/* Смуги §3. Виняткові стелі (9000) НЕ показуємо як норму — вони для рідкісних тем,
+   тому вихід за звичайну стелю позначаємо, але до 9000 звемо «виняток», а не «понад». */
+const CEIL_DETAILED = 6500, CEIL_DETAILED_MAX = 9000;
+const CEIL_INSERT = 5000, CEIL_INSERT_MAX = 9000;
+const TOL = 0.10;                       // §3: допуск ±10% — у цих межах попереджаємо, не лаємось
+const soft = (w, lo, hi) => w >= lo * (1 - TOL) && w <= hi * (1 + TOL);
 
 function walk(dir, out) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -60,9 +66,23 @@ function classify(base, dir) {
   return "other";
 }
 function band(kind, w) {
-  if (kind === "insert") return w < 378 ? "▽ мала вставка (<378)" : w <= 5670 ? "✓ вставка (378–5670)" : "▲ завелика (>5670) — поділити";
-  if (kind === "detailed") return w < 1080 ? "▽ детальна нижче (<1080)" : w <= CEIL_DETAILED ? `✓ детальна (1080–${CEIL_DETAILED})` : `▲ понад (>${CEIL_DETAILED})`;
-  if (kind === "basic") return w < 378 ? "✖ мало (<378)" : w <= 1008 ? "✓ базова (378–1008)" : "▲ понад базову (>1008) — на детальну?";
+  if (kind === "insert") {
+    if (w >= 400 && w <= CEIL_INSERT) return `✓ вставка (400–${CEIL_INSERT})`;
+    if (soft(w, 400, CEIL_INSERT)) return "~ вставка в допуску ±10%";
+    if (w < 400) return "▽ мала вставка (<400)";
+    return w <= CEIL_INSERT_MAX ? `⌇ великий перелік (${CEIL_INSERT}–${CEIL_INSERT_MAX}) — чи справді неподільний?` : `▲ завелика (>${CEIL_INSERT_MAX}) — поділити`;
+  }
+  if (kind === "detailed") {
+    if (w >= 1000 && w <= CEIL_DETAILED) return `✓ детальна (1000–${CEIL_DETAILED})`;
+    if (soft(w, 1000, CEIL_DETAILED)) return "~ детальна в допуску ±10%";
+    if (w < 1000) return "▽ детальна нижче (<1000)";
+    return w <= CEIL_DETAILED_MAX ? `⌇ дуже велика (${CEIL_DETAILED}–${CEIL_DETAILED_MAX}) — виняток §3` : `▲ понад (>${CEIL_DETAILED_MAX})`;
+  }
+  if (kind === "basic") {
+    if (w >= 500 && w <= 1200) return "✓ базова (500–1200)";
+    if (soft(w, 500, 1200)) return "~ базова в допуску ±10%";
+    return w < 500 ? "✖ мало (<500)" : "▲ понад базову (>1200) — на детальну?";
+  }
   return "· інше";
 }
 
@@ -116,15 +136,16 @@ for (const e of byDir.values()) {
   pairs.push({ ...e, ratio: e.detailed ? e.basic / e.detailed : Infinity });
 }
 pairs.sort((a, b) => b.ratio - a.ratio);
-const bad = pairs.filter((p) => p.ratio > 0.5);
+const bad = pairs.filter((p) => p.ratio > 0.5 * (1 + TOL));           // §3: ½ з допуском ±10%
+const warn = pairs.filter((p) => p.ratio > 0.5 && p.ratio <= 0.5 * (1 + TOL));
 console.log(`\n-- ПАРИ базова↔детальна (§3: базова ≤ ½ детальної) --  пар: ${pairs.length}`);
 if (pairs.length) {
   const rows = showAll ? pairs : bad;
   for (const p of rows) {
-    const mark = p.ratio > 0.5 ? "✖ ПОРУШЕННЯ" : "✓";
+    const mark = p.ratio > 0.5 * (1 + TOL) ? "✖ ПОРУШЕННЯ" : p.ratio > 0.5 ? "~ у допуску" : "✓";
     console.log(`  ${mark.padEnd(12)} ${String(Math.round(p.ratio * 100)).padStart(3)}%  база ${String(p.basic).padStart(5)}w / деталь ${String(p.detailed).padStart(6)}w  (стеля бази ${Math.floor(p.detailed / 2)}w)  ${p.branch}/${p.slug}`);
   }
-  console.log(`  ✖ порушень ${bad.length} · ✓ у нормі ${pairs.length - bad.length}${!showAll && bad.length ? "" : !showAll ? " (усі пари — --all)" : ""}`);
+  console.log(`  ✖ порушень ${bad.length} · ~ у допуску ${warn.length} · ✓ у нормі ${pairs.length - bad.length - warn.length}${!showAll && bad.length ? "" : !showAll ? " (усі пари — --all)" : ""}`);
   if (bad.length) console.log(`  → скоротити базову до ≤ половини детальної; не стискається без утрати суті — базової не писати (basic:empty, §3)`);
 }
 if (lonelyBasic.length) console.log(`\n· базових без детальної на диску: ${lonelyBasic.length}${showAll ? " — " + lonelyBasic.map((e) => `${e.branch}/${e.slug}`).join(", ") : " (--all покаже перелік)"}  · детальна — основна версія (§3)`);

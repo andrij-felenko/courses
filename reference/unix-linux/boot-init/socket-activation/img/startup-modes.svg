@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1210 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1210" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="400.0" y="30.0" width="400.0" height="60.0" rx="6" fill="#eceff1" stroke="#6b7280" stroke-width="1.4"/><text x="600.0" y="65.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">старт echod</tspan></text>
+<line x1="600.0" y1="90.0" x2="600.0" y2="128.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="400.0" y="128.0" width="400.0" height="84.0" rx="6" fill="#fff6e5" stroke="#6b7280" stroke-width="1.6"/><text x="600.0" y="165.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">LISTEN_PID збігається</tspan><tspan x="600.0" dy="18.2">з власним номером процесу?</tspan></text>
+<text x="300.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ні, або змінних немає</text>
+<line x1="400.0" y1="170.0" x2="210.0" y2="170.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="210.0" y1="170.0" x2="210.0" y2="288.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="288.0" width="300.0" height="84.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="210.0" y="325.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">socket · bind · listen</tspan><tspan x="210.0" dy="18.2">порт 9000 робимо самі</tspan></text>
+<text x="626.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">так</text>
+<line x1="600.0" y1="212.0" x2="600.0" y2="288.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="400.0" y="288.0" width="400.0" height="84.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="600.0" y="325.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">LISTEN_FDS=1, дескриптор 3</tspan><tspan x="600.0" dy="18.2">прив'язаний і готовий</tspan></text>
+<line x1="600.0" y1="372.0" x2="600.0" y2="424.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="400.0" y="424.0" width="400.0" height="84.0" rx="6" fill="#fff6e5" stroke="#6b7280" stroke-width="1.6"/><text x="600.0" y="461.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">SO_ACCEPTCONN каже,</tspan><tspan x="600.0" dy="18.2">що це слухач?</tspan></text>
+<text x="852.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">ні: Accept=yes</text>
+<line x1="800.0" y1="466.0" x2="906.0" y2="466.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="906.0" y="424.0" width="264.0" height="84.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="1038.0" y="462.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1038.0" dy="0.0">це вже прийняте з'єднання:</tspan><tspan x="1038.0" dy="16.9">обслужити його й вийти</tspan></text>
+<text x="626.0" y="540.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">так</text>
+<line x1="600.0" y1="508.0" x2="600.0" y2="580.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="372.0" x2="210.0" y2="580.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="580.0" width="740.0" height="76.0" rx="6" fill="#eceff1" stroke="#6b7280" stroke-width="1.5"/><text x="430.0" y="623.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">цикл accept: приймаємо з'єднання одне за одним</tspan></text>
+</svg>

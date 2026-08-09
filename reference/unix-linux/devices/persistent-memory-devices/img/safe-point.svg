@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1380 716" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1380" height="716" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="335.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">повернення з обробника</text>
+<text x="1015.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">стрибок у безпечну точку</text>
+<rect x="70.0" y="90.0" width="530.0" height="76.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="335.0" y="132.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">memcpy читає з відображення</tspan></text>
+<line x1="335.0" y1="170.0" x2="335.0" y2="186.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="70.0" y="190.0" width="530.0" height="76.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="335.0" y="224.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">бита комірка → SIGBUS:</tspan><tspan x="335.0" dy="16.2">ядро вставляє кадр обробника</tspan></text>
+<line x1="335.0" y1="270.0" x2="335.0" y2="286.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="70.0" y="290.0" width="530.0" height="76.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="335.0" y="324.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">обробник запам'ятав адресу</tspan><tspan x="335.0" dy="16.2">й зробив return</tspan></text>
+<line x1="335.0" y1="370.0" x2="335.0" y2="386.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="70.0" y="390.0" width="530.0" height="76.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="335.0" y="424.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">ядро відновило кадр</tspan><tspan x="335.0" dy="16.2">і повторює ТУ САМУ інструкцію</tspan></text>
+<rect x="740.0" y="90.0" width="550.0" height="76.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="1015.0" y="124.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1015.0" dy="0.0">sigsetjmp(env, 1): точка й маска</tspan><tspan x="1015.0" dy="16.2">сигналів запам'ятані, повернуто 0</tspan></text>
+<line x1="1015.0" y1="170.0" x2="1015.0" y2="186.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="740.0" y="190.0" width="550.0" height="76.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="1015.0" y="232.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1015.0" dy="0.0">memcpy читає з відображення</tspan></text>
+<line x1="1015.0" y1="270.0" x2="1015.0" y2="286.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="740.0" y="290.0" width="550.0" height="76.0" rx="6" fill="#fdf3e7" stroke="#27ae60" stroke-width="1.8"/><text x="1015.0" y="324.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1015.0" dy="0.0">бита комірка → SIGBUS: обробник зберіг</tspan><tspan x="1015.0" dy="16.2">si_addr, si_code, si_addr_lsb</tspan></text>
+<line x1="1015.0" y1="370.0" x2="1015.0" y2="386.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="740.0" y="390.0" width="550.0" height="76.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="1015.0" y="432.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1015.0" dy="0.0">siglongjmp(env, 1)</tspan></text>
+<line x1="1015.0" y1="470.0" x2="1015.0" y2="486.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="740.0" y="490.0" width="550.0" height="76.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="1015.0" y="524.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="1015.0" dy="0.0">та сама перевірка повертає 1 — інша гілка:</tspan><tspan x="1015.0" dy="16.2">розчистити відрізок і читати далі</tspan></text>
+<line x1="335.0" y1="470.0" x2="335.0" y2="508.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="335.0" y1="508.0" x2="30.0" y2="508.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="30.0" y1="508.0" x2="30.0" y2="128.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="30.0" y1="128.0" x2="66.0" y2="128.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="335.0" y="544.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">та сама інструкція: програма жива й зовсім нерухома</text>
+<line x1="1294.0" y1="428.0" x2="1340.0" y2="428.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="7,5"/>
+<line x1="1340.0" y1="428.0" x2="1340.0" y2="128.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="7,5"/>
+<line x1="1340.0" y1="128.0" x2="1294.0" y2="128.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="1015.0" y="604.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">інструкція, що не виконалася, не виконується вже ніколи</text>
+<text x="685.0" y="658.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">різниця не в тому, куди потрапляє керування,</tspan><tspan x="685.0" dy="16.9">а в тому, що бита адреса більше не читається</tspan></text>
+</svg>

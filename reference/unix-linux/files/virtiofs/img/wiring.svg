@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1370 711.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1370" height="711.8" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="340.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">де ім'я оголошують</text>
+<text x="1030.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">де воно мусить збігтися</text>
+<rect x="60.0" y="104.0" width="560.0" height="92.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="340.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">virtiofsd --socket-path=/tmp/vfsd.sock</text>
+<text x="340.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">демон створює цей сокет і слухає його</text>
+<rect x="760.0" y="104.0" width="540.0" height="92.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="1030.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">-chardev socket,id=char0,path=/tmp/vfsd.sock</text>
+<text x="1030.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">QEMU під'єднується до вже піднятого демона</text>
+<line x1="634.0" y1="150.0" x2="746.0" y2="150.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="60.0" y="234.0" width="560.0" height="92.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="340.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">-chardev socket,id=char0</text>
+<text x="340.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ім'я символьного пристрою всередині QEMU</text>
+<rect x="760.0" y="234.0" width="540.0" height="92.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="1030.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">-device vhost-user-fs-pci,chardev=char0</text>
+<text x="1030.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">пристрій бере з нього канал vhost-user</text>
+<line x1="634.0" y1="280.0" x2="746.0" y2="280.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="60.0" y="364.0" width="560.0" height="92.0" rx="8" fill="#fdf3e7" stroke="#c0392b" stroke-width="1.8"/>
+<text x="340.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">-device vhost-user-fs-pci,tag=myfs</text>
+<text x="340.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">мітка лягає в поле tag конфігурації пристрою</text>
+<rect x="760.0" y="364.0" width="540.0" height="92.0" rx="8" fill="#fdf3e7" stroke="#c0392b" stroke-width="1.8"/>
+<text x="1030.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">guest# mount -t virtiofs myfs /mnt</text>
+<text x="1030.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">гість шукає пристрій саме з цією міткою</text>
+<line x1="634.0" y1="410.0" x2="746.0" y2="410.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="60.0" y="494.0" width="560.0" height="92.0" rx="8" fill="#f2f3f5" stroke="#6b7280" stroke-width="1.8"/>
+<text x="340.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">-object memory-backend-memfd,id=mem,share=on</text>
+<text x="340.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">пам'ять гостя — у розділюваному об'єкті</text>
+<rect x="760.0" y="494.0" width="540.0" height="92.0" rx="8" fill="#f2f3f5" stroke="#6b7280" stroke-width="1.8"/>
+<text x="1030.0" y="530.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">-numa node,memdev=mem</text>
+<text x="1030.0" y="556.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">саме цей об'єкт і стає пам'яттю гостя</text>
+<line x1="634.0" y1="540.0" x2="746.0" y2="540.0" stroke="#6b7280" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="471.6" y="644.2" width="416.7" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="680.0" y="664.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">share=on — не оптимізація: без розділюваного об'єкта</tspan><tspan x="680.0" dy="15.6">демонові нема чого відображати, і черги не працюють зовсім</tspan></text>
+</svg>

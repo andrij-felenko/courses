@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1330 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1330" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="660.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каталог стану під стіною /var/lib/private</text>
+<rect x="40.0" y="56.0" width="600.0" height="500.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="340.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">погляд хоста</text>
+<rect x="80.0" y="118.0" width="520.0" height="66.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="340.0" y="155.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">/var/lib/metrics  →  private/metrics</tspan></text>
+<line x1="340.0" y1="184.0" x2="340.0" y2="226.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="80.0" y="230.0" width="520.0" height="78.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="340.0" y="264.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">/var/lib/private</tspan><tspan x="340.0" dy="18.2">root:root, режим 0700 — стіна</tspan></text>
+<line x1="340.0" y1="308.0" x2="340.0" y2="350.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="120.0" y="354.0" width="440.0" height="78.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="340.0" y="388.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="340.0" dy="0.0">/var/lib/private/metrics</tspan><tspan x="340.0" dy="18.2">власник — тимчасове число 61234</tspan></text>
+<text x="340.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">стороння служба з тим самим числом</text>
+<text x="340.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">спиняється на стіні, а не на каталозі</text>
+<rect x="700.0" y="56.0" width="580.0" height="500.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="990.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">погляд самої служби</text>
+<rect x="740.0" y="118.0" width="500.0" height="66.0" rx="6" fill="#eceff1" stroke="#6b7280" stroke-width="1.5"/><text x="990.0" y="155.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="990.0" dy="0.0">власний простір монтувань</tspan></text>
+<line x1="990.0" y1="184.0" x2="990.0" y2="226.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="740.0" y="230.0" width="500.0" height="78.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="990.0" y="264.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="990.0" dy="0.0">bind-монтування справжнього каталогу</tspan><tspan x="990.0" dy="18.2">на /var/lib/metrics</tspan></text>
+<line x1="990.0" y1="308.0" x2="990.0" y2="350.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="760.0" y="354.0" width="460.0" height="78.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="990.0" y="388.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="990.0" dy="0.0">/var/lib/metrics</tspan><tspan x="990.0" dy="18.2">звичайний власний каталог</tspan></text>
+<text x="990.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">про існування private служба</text>
+<text x="990.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">не знає нічого</text>
+</svg>

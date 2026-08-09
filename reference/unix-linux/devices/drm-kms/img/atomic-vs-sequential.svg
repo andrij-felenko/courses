@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1030 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1030" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="30.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Послідовно: кожен виклик застосовується сам по собі</text>
+<rect x="30.0" y="74.0" width="280.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="170.0" y="103.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">SETCRTC</tspan></text>
+<text x="170.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">новий режим</text>
+<rect x="370.0" y="74.0" width="280.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="103.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">SETPLANE</tspan></text>
+<text x="510.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">накладка на весь екран</text>
+<rect x="710.0" y="74.0" width="280.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="850.0" y="103.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">PAGE_FLIP</tspan></text>
+<text x="850.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">нова адреса буфера</text>
+<line x1="316.0" y1="99.0" x2="366.0" y2="99.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="656.0" y1="99.0" x2="706.0" y2="99.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="170.0" cy="186.0" r="10.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="510.0" cy="186.0" r="10.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="850.0" cy="186.0" r="10.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="510.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">смуги пам'яті не вистачає саме тут</text>
+<text x="30.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Драйвер відмовляє посеред шляху — режим уже змінено, плоскість ні. Спитати наперед нема як.</text>
+<text x="30.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Атомарно: увесь бажаний стан приїздить одним списком</text>
+<rect x="30.0" y="344.0" width="400.0" height="84.0" rx="6" fill="#dceffe" stroke="#2457d6" stroke-width="1.5"/><text x="230.0" y="390.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">DRM_IOCTL_MODE_ATOMIC</tspan></text>
+<text x="230.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">пари «об'єкт · властивість · значення»</text>
+<line x1="438.0" y1="372.0" x2="560.0" y2="372.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="566.0" y="350.0" width="420.0" height="44.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="776.0" y="376.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="776.0" dy="0.0">TEST_ONLY: так чи ні, нічого не змінено</tspan></text>
+<line x1="438.0" y1="410.0" x2="560.0" y2="410.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="566.0" y="388.0" width="420.0" height="44.0" rx="6" fill="#dceffe" stroke="#2457d6" stroke-width="1.5"/><text x="776.0" y="414.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="776.0" dy="0.0">застосувати цілком, на найближчій паузі</tspan></text>
+<text x="566.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Проміжного стану не існує: або новий кадр увесь, або старий увесь.</text>
+</svg>

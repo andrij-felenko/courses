@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що показує power/runtime_status і хто його змінює</text>
+<rect x="195.0" y="141.5" width="210.0" height="37.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="2.2"/><text x="300.0" y="165.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">active</tspan></text>
+<rect x="835.0" y="141.5" width="210.0" height="37.0" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="2.2"/><text x="940.0" y="165.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="940.0" dy="0.0">suspending</tspan></text>
+<rect x="835.0" y="381.5" width="210.0" height="37.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.2"/><text x="940.0" y="405.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="940.0" dy="0.0">suspended</tspan></text>
+<rect x="195.0" y="381.5" width="210.0" height="37.0" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="2.2"/><text x="300.0" y="405.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="300.0" dy="0.0">resuming</tspan></text>
+<line x1="405.0" y1="138.0" x2="835.0" y2="138.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="620.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">лічильник = 0, дітей не лишилось,</text>
+<text x="620.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">затримка добігла</text>
+<line x1="1000.0" y1="190.0" x2="1000.0" y2="370.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1016.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">.runtime_suspend()</text>
+<text x="1016.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start">повернув 0</text>
+<line x1="835.0" y1="182.0" x2="405.0" y2="182.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="620.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">повернув −EBUSY або −EAGAIN:</text>
+<text x="620.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">хтось устиг зайняти пристрій</text>
+<line x1="835.0" y1="400.0" x2="405.0" y2="400.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="620.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">pm_runtime_get…() або сигнал</text>
+<text x="620.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">пробудження від самого заліза</text>
+<line x1="240.0" y1="370.0" x2="240.0" y2="190.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="224.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">.runtime_resume()</text>
+<text x="224.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">повернув 0</text>
+<rect x="409.9" y="477.7" width="420.1" height="68.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="620.0" y="499.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">error</tspan><tspan x="620.0" dy="17.6">будь-яка інша помилка: помічники більше не працюють,</tspan><tspan x="620.0" dy="17.6">доки статус не виставлять руками</tspan></text>
+<line x1="940.0" y1="200.0" x2="700.0" y2="469.7" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="440.0" x2="540.0" y2="469.7" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+</svg>

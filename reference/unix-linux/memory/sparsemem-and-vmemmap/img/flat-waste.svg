@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1430 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1430" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="710.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Плаский масив описувачів над дірявим адресним простором</text>
+<line x1="250.0" y1="96.0" x2="1330.0" y2="96.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="250.0" y1="88.0" x2="250.0" y2="104.0" stroke="#333333" stroke-width="1.2"/>
+<text x="250.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="520.0" y1="88.0" x2="520.0" y2="104.0" stroke="#333333" stroke-width="1.2"/>
+<text x="520.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">1 ТіБ</text>
+<line x1="790.0" y1="88.0" x2="790.0" y2="104.0" stroke="#333333" stroke-width="1.2"/>
+<text x="790.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">2 ТіБ</text>
+<line x1="1060.0" y1="88.0" x2="1060.0" y2="104.0" stroke="#333333" stroke-width="1.2"/>
+<text x="1060.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">3 ТіБ</text>
+<line x1="1330.0" y1="88.0" x2="1330.0" y2="104.0" stroke="#333333" stroke-width="1.2"/>
+<text x="1330.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">4 ТіБ</text>
+<text x="790.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle">фізичні адреси, які машина здатна адресувати</text>
+<rect x="250.0" y="150.0" width="9.0" height="54.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="520.0" y="150.0" width="9.0" height="54.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.6"/>
+<text x="280.2" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">банк 32 ГіБ</text>
+<text x="550.2" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="start">банк 32 ГіБ другого вузла</text>
+<text x="30.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start"><tspan x="30.0" dy="0.0">є насправді</tspan><tspan x="30.0" dy="19.5">64 ГіБ</tspan></text>
+<rect x="250.0" y="320.0" width="1080.0" height="54.0" rx="6" fill="#eceff3" stroke="#333333" stroke-width="1.6"/>
+<rect x="250.0" y="320.0" width="9.0" height="54.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="520.0" y="320.0" width="9.0" height="54.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="30.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start"><tspan x="30.0" dy="0.0">плаский масив</tspan><tspan x="30.0" dy="19.5">mem_map[]</tspan></text>
+<text x="751.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">описувачі кадрів, яких не існує</text>
+<rect x="491.9" y="456.8" width="596.3" height="66.5" rx="6" fill="#fff5e0" stroke="#c0392b" stroke-width="1.5"/><text x="790.0" y="485.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">індекс — номер кадру, тож масив мусить накрити ВЕСЬ проміжок адрес</tspan><tspan x="790.0" dy="19.5">4 ТіБ ÷ 4 КіБ × 64 Б = 64 ГіБ описувачів на 64 ГіБ пам'яті</tspan></text>
+</svg>

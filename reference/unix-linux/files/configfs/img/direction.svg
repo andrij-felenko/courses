@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1210 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1210" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="600.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Напрямок створення в sysfs і configfs</text>
+<text x="600.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хто в кого просить: два протилежні напрямки</text>
+<rect x="40.0" y="62.0" width="520.0" height="400.0" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="640.0" y="62.0" width="520.0" height="400.0" rx="6" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.5"/>
+<text x="300.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle" font-weight="700">sysfs — показ наявного</text>
+<text x="900.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle" font-weight="700">configfs — створення нового</text>
+<rect x="70.0" y="116.0" width="460.0" height="62.0" rx="6" fill="#eef0f3" stroke="#333333" stroke-width="2.0"/><text x="300.0" y="151.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">ЯДРО</tspan></text>
+<rect x="70.0" y="248.0" width="460.0" height="62.0" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="2.0"/><text x="300.0" y="283.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">ДЕРЕВО ІМЕН</tspan></text>
+<rect x="70.0" y="380.0" width="460.0" height="62.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/><text x="300.0" y="415.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">ПРОСТІР КОРИСТУВАЧА</tspan></text>
+<rect x="670.0" y="116.0" width="460.0" height="62.0" rx="6" fill="#eef0f3" stroke="#333333" stroke-width="2.0"/><text x="900.0" y="151.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">ЯДРО</tspan></text>
+<rect x="670.0" y="248.0" width="460.0" height="62.0" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="2.0"/><text x="900.0" y="283.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">ДЕРЕВО ІМЕН</tspan></text>
+<rect x="670.0" y="380.0" width="460.0" height="62.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="2.0"/><text x="900.0" y="415.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">ПРОСТІР КОРИСТУВАЧА</tspan></text>
+<line x1="200.0" y1="180.0" x2="200.0" y2="244.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="214.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">знайшло залізо —</text>
+<text x="214.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">каталог з'явився сам</text>
+<line x1="200.0" y1="378.0" x2="200.0" y2="314.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="214.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">write у наявний атрибут</text>
+<text x="214.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">змінює те, що вже є</text>
+<line x1="468.0" y1="378.0" x2="468.0" y2="316.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<text x="461.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="700">✕</text>
+<text x="468.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">mkdir</text>
+<line x1="800.0" y1="378.0" x2="800.0" y2="314.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="814.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">mkdir створює каталог</text>
+<text x="814.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">командою людини</text>
+<line x1="800.0" y1="246.0" x2="800.0" y2="182.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="814.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">ядро виділяє об'єкт</text>
+<text x="814.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">у відповідь на каталог</text>
+</svg>

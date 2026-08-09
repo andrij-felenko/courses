@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1410 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1410" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="700.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два масиви memblock і вільні вікна між ними</text>
+<line x1="260.0" y1="62.0" x2="1250.0" y2="62.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="260.0" y1="56.0" x2="260.0" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="260.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">0 ГіБ</text>
+<line x1="507.5" y1="56.0" x2="507.5" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="507.5" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">2 ГіБ</text>
+<line x1="755.0" y1="56.0" x2="755.0" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="755.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">4 ГіБ</text>
+<line x1="1002.5" y1="56.0" x2="1002.5" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="1002.5" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">6 ГіБ</text>
+<line x1="1250.0" y1="56.0" x2="1250.0" y2="68.0" stroke="#333333" stroke-width="1.2"/>
+<text x="1250.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">8 ГіБ</text>
+<rect x="260.0" y="110.0" width="433.1" height="46.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<rect x="755.0" y="110.0" width="495.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<text x="724.1" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">діра адрес</text>
+<rect x="371.4" y="230.0" width="12.4" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="377.6" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">образ ядра</text>
+<rect x="458.0" y="230.0" width="18.6" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="467.3" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">initramfs</text>
+<rect x="581.8" y="230.0" width="37.1" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="600.3" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">область CMA</text>
+<rect x="674.6" y="230.0" width="18.6" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="683.8" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">таблиці прошивки</text>
+<rect x="1188.1" y="230.0" width="61.9" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="1219.1" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">описувачі сторінок</text>
+<rect x="260.0" y="350.0" width="111.4" height="46.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="383.8" y="350.0" width="74.2" height="46.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="476.6" y="350.0" width="105.2" height="46.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="618.9" y="350.0" width="55.7" height="46.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="755.0" y="350.0" width="433.1" height="46.0" rx="6" fill="#eafaf0" stroke="#2457d6" stroke-width="1.4"/>
+<text x="30.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start"><tspan x="30.0" dy="0.0">memory[]</tspan><tspan x="30.0" dy="18.2">що взагалі є</tspan></text>
+<text x="30.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start"><tspan x="30.0" dy="0.0">reserved[]</tspan><tspan x="30.0" dy="18.2">що вже зайняте</tspan></text>
+<text x="30.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start"><tspan x="30.0" dy="0.0">вільно</tspan><tspan x="30.0" dy="18.2">рахують щоразу</tspan></text>
+</svg>

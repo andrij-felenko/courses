@@ -167,14 +167,25 @@ function allSlugs() {
     темах — це майже напевно одне поняття двома слугами (streaming-threads ↔ threads-and-queues). */
 const STOP = new Set(["and", "vs", "the", "of", "in", "to", "a", "for", "with", "model", "basics", "types", "api"]);
 const wordsOf = (s) => s.split("-").filter((x) => x.length > 2 && !STOP.has(x));
+/** Вкладеність рахуємо ПО МЕЖАХ сегментів, а не сирим includes: інакше «io» «збігається»
+    з «virtio-paravirtual-bus», і сигнал тоне в шумі. */
+const segIn = (a, b) => (b + "-").includes(a + "-") && (("-" + b).includes("-" + a));
+/** Нормалізований слуг (без дефісів). Саме цю діру пройшов «dmabuf-sharing» повз «dma-buf»:
+    посегментно спільних слів у них НЕМА, а без дефісів один — префікс іншого. */
+const normOf = (s) => s.replace(/-/g, "");
 function similarSlugs(slug) {
   const existing = allSlugs().filter((s) => s !== slug);
   const freq = new Map();
   for (const s of existing) for (const w of new Set(wordsOf(s))) freq.set(w, (freq.get(w) || 0) + 1);
   const mine = new Set(wordsOf(slug));
+  const nMine = normOf(slug);
   const hits = [];
   for (const s of existing) {
-    if (s.includes(slug) || slug.includes(s)) { hits.push(s); continue; }
+    if (segIn(s, slug) || segIn(slug, s)) { hits.push(s); continue; }
+    const nS = normOf(s);
+    // нормалізована рівність/вкладеність: dma-buf ↔ dmabuf-sharing, drm-kms ↔ drmkms-model
+    if (nMine.length >= 5 && nS.length >= 5 && (nS === nMine || nS.startsWith(nMine) || nMine.startsWith(nS)
+        || nS.endsWith(nMine) || nMine.endsWith(nS))) { hits.push(s); continue; }
     const other = new Set(wordsOf(s));
     const shared = [...mine].filter((x) => other.has(x));
     if (!shared.length) continue;
@@ -184,12 +195,40 @@ function similarSlugs(slug) {
   return hits;
 }
 
+/** Слуги ІНШИХ книг корпусу — той самий слуг у двох книгах ніхто не перевіряв, і так
+    розійшлися vdso (unix-linux ↔ programming) та gpu-command-submission. Читаємо сирі
+    маніфести регуляркою (не eval): дешево й без побічних ефектів. */
+let FOREIGN = null;
+function foreignSlugs() {
+  if (FOREIGN) return FOREIGN;
+  FOREIGN = new Map();   // slug → "книга/секція"
+  const root = path.resolve(path.dirname(MF), "..", "..");
+  const mine = path.resolve(MF);
+  for (const kind of ["book", "catalog", "reference"]) {
+    const dir = path.join(root, kind);
+    if (!fs.existsSync(dir)) continue;
+    for (const bk of fs.readdirSync(dir)) {
+      const f = path.join(dir, bk, "manifest.js");
+      if (!fs.existsSync(f) || path.resolve(f) === mine) continue;
+      let src; try { src = fs.readFileSync(f, "utf8"); } catch (e) { continue; }
+      for (const l of src.split(/\r?\n/)) {
+        const m = l.match(/\{\s*slug:\s*"([a-z0-9-]+)"/);
+        if (m && /\b(?:basic|detailed):\s*\{/.test(l) && !FOREIGN.has(m[1])) FOREIGN.set(m[1], `${bk}`);
+      }
+    }
+  }
+  return FOREIGN;
+}
+
 function opTopic(o) {
   if (findTopicLine(o.slug) >= 0) { report.skipped.push(`тема «${o.slug}» вже є`); return; }
   // §4/§6: перш ніж заводити, перевіряємо, чи це не та сама тема іншим слугом. Не блокуємо —
   // рішення про об'єднання людське, — але кажемо ГОЛОСНО, бо мовчазний дубль коштує зайвої статті.
   const near = similarSlugs(o.slug);
   if (near.length) report.similar.push(`«${o.slug}» схожа на: ${near.join(", ")} — перевір, чи не той самий термін (§4)`);
+  // той самий слуг в ІНШІЙ книзі — окремий, сильніший сигнал: дві книги не тримають одну статтю
+  const foreign = foreignSlugs().get(o.slug);
+  if (foreign) report.similar.push(`«${o.slug}» ВЖЕ Є в книзі «${foreign}» — вирішіть, чия це тема (§1)`);
   const basic = o.basic || "empty";
   const detailed = o.detailed || "pending";           // §3/§6: у чергу йде ДЕТАЛЬНА
   const sa = findSectionArray(o.section);
@@ -233,6 +272,22 @@ if (!DRY && changed) fs.writeFileSync(MF, OUT);
 
 console.log(`manifest-patch ${path.basename(path.dirname(MF))}: статусів ${report.status}, умовних ${report.statusIf}, вставок ${report.insert}, нових тем ${report.topic}; тем у книзі ${nBefore}→${nAfter}${DRY ? " (DRY — не записано)" : changed ? "" : " (нічого міняти)"}`);
 if (report.skipped.length) console.log(`  ~ пропущено (вже так): ${report.skipped.length}${report.skipped.length <= 12 ? " — " + report.skipped.join("; ") : ""}`);
-if (report.similar.length) { console.log(`  ⚠ МОЖЛИВІ ДУБЛІ ПОНЯТТЯ: ${report.similar.length}`); for (const s of report.similar) console.log(`     • ${s}`); }
+if (report.similar.length) {
+  console.log(`  ⚠ МОЖЛИВІ ДУБЛІ ПОНЯТТЯ: ${report.similar.length}`);
+  for (const s of report.similar) console.log(`     • ${s}`);
+  /* Кладемо НА ДИСК. Причина конкретна: цей скрипт запускає одноразовий агент, і його stdout
+     нікуди не потрапляє — а як агент іще й помре (2026-08-09: API error на фазі «Маніфест»),
+     вивід гине разом з ним. Саме так у корпус мовчки зайшли чотири дублі. Диск переживає все. */
+  try {
+    const dir = path.join(path.dirname(MF), "..", "..", "scripts", "_finish");
+    fs.mkdirSync(dir, { recursive: true });
+    const bk = path.basename(path.dirname(MF));
+    const out = path.join(dir, `_dupes-${bk}.json`);
+    let prev = []; try { prev = JSON.parse(fs.readFileSync(out, "utf8")); } catch (e) {}
+    const merged = [...new Set([...(Array.isArray(prev) ? prev : []), ...report.similar])];
+    if (!DRY) fs.writeFileSync(out, JSON.stringify(merged, null, 2));
+    console.log(`     ↳ ${DRY ? "(DRY, не записано) " : ""}список на диску: scripts/_finish/_dupes-${bk}.json`);
+  } catch (e) { console.log(`     ↳ не зберіг список дублів: ${e.message}`); }
+}
 if (report.errors.length) { console.log(`  ✖ помилок: ${report.errors.length}`); for (const e of report.errors.slice(0, 20)) console.log(`     • ${e}`); }
 process.exit(report.errors.length ? 1 : 0);

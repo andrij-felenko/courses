@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1290 670" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1290" height="670" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="640.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія піддерева configfs</text>
+<text x="640.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Одне дерево — каталоги трьох різних походжень</text>
+<rect x="60.0" y="86.0" width="181.6" height="38.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.8"/><text x="150.8" y="109.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="150.8" dy="0.0">/sys/kernel/config/</tspan></text>
+<rect x="110.0" y="136.0" width="150.0" height="38.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.8"/><text x="185.0" y="159.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="185.0" dy="0.0">usb_gadget/</tspan></text>
+<rect x="170.0" y="186.0" width="150.0" height="38.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.8"/><text x="245.0" y="209.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">g1/</tspan></text>
+<rect x="230.0" y="236.0" width="237.5" height="38.0" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="1.8"/><text x="348.7" y="259.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="348.7" dy="0.0">idVendor   idProduct   UDC</tspan></text>
+<rect x="230.0" y="286.0" width="150.0" height="38.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="305.0" y="309.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="305.0" dy="0.0">strings/</tspan></text>
+<rect x="290.0" y="336.0" width="150.0" height="38.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.8"/><text x="365.0" y="359.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">0x409/</tspan></text>
+<rect x="230.0" y="386.0" width="150.0" height="38.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="305.0" y="409.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="305.0" dy="0.0">functions/</tspan></text>
+<rect x="290.0" y="436.0" width="150.0" height="38.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.8"/><text x="365.0" y="459.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">acm.usb0/</tspan></text>
+<rect x="230.0" y="486.0" width="150.0" height="38.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="305.0" y="509.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="305.0" dy="0.0">configs/</tspan></text>
+<rect x="290.0" y="536.0" width="150.0" height="38.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.8"/><text x="365.0" y="559.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">c.1/</tspan></text>
+<rect x="350.0" y="586.0" width="150.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="425.0" y="609.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="425.0" dy="0.0">acm.usb0  →</tspan></text>
+<line x1="76.0" y1="124.0" x2="76.0" y2="155.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="76.0" y1="155.0" x2="110.0" y2="155.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="126.0" y1="174.0" x2="126.0" y2="205.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="126.0" y1="205.0" x2="170.0" y2="205.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="186.0" y1="224.0" x2="186.0" y2="255.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="186.0" y1="255.0" x2="230.0" y2="255.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="186.0" y1="224.0" x2="186.0" y2="305.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="186.0" y1="305.0" x2="230.0" y2="305.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="186.0" y1="224.0" x2="186.0" y2="405.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="186.0" y1="405.0" x2="230.0" y2="405.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="186.0" y1="224.0" x2="186.0" y2="505.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="186.0" y1="505.0" x2="230.0" y2="505.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="246.0" y1="324.0" x2="246.0" y2="355.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="246.0" y1="355.0" x2="290.0" y2="355.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="246.0" y1="424.0" x2="246.0" y2="455.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="246.0" y1="455.0" x2="290.0" y2="455.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="246.0" y1="524.0" x2="246.0" y2="555.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="246.0" y1="555.0" x2="290.0" y2="555.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="306.0" y1="574.0" x2="306.0" y2="605.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="306.0" y1="605.0" x2="350.0" y2="605.0" stroke="#6b7280" stroke-width="1.4"/>
+<line x1="500.0" y1="605.0" x2="620.0" y2="605.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6 5"/>
+<line x1="620.0" y1="605.0" x2="620.0" y2="455.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6 5"/>
+<line x1="620.0" y1="455.0" x2="444.0" y2="455.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="634.0" y="593.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">символьне посилання —</text>
+<text x="634.0" y="613.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">оголошений зв'язок</text>
+<rect x="830.0" y="96.0" width="400.0" height="46.0" rx="6" fill="#eef0f3" stroke="#6b7280" stroke-width="1.8"/><text x="1030.0" y="123.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1030.0" dy="0.0">заводить модуль ядра — не видалити</tspan></text>
+<rect x="830.0" y="168.0" width="400.0" height="46.0" rx="6" fill="#e6f5ec" stroke="#27ae60" stroke-width="1.8"/><text x="1030.0" y="195.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1030.0" dy="0.0">створює mkdir — це і є об'єкт</tspan></text>
+<rect x="830.0" y="240.0" width="400.0" height="46.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="1030.0" y="267.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1030.0" dy="0.0">типова група — частина об'єкта</tspan></text>
+<rect x="830.0" y="312.0" width="400.0" height="46.0" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="1.8"/><text x="1030.0" y="339.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1030.0" dy="0.0">атрибут — файл, заданий типом</tspan></text>
+<rect x="830.0" y="384.0" width="400.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="1030.0" y="411.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1030.0" dy="0.0">посилання — зв'язок між об'єктами</tspan></text>
+<rect x="830.0" y="468.0" width="400.0" height="92.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="1030.0" y="501.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1030.0" dy="0.0">нового файлу не створити:</tspan><tspan x="1030.0" dy="16.9">у таблиці дій над каталогом</tspan><tspan x="1030.0" dy="16.9">просто немає такої функції</tspan></text>
+</svg>

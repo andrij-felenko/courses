@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1030 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1030" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="60.0" y="70.0" width="806.0" height="46.0" rx="6" fill="#dceffe" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="866.0" y="70.0" width="34.0" height="46.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="463.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">розгортка 1080 видимих рядків — 16.0 мс</text>
+<line x1="883.0" y1="116.0" x2="883.0" y2="150.0" stroke="#c0392b" stroke-width="1.4"/>
+<text x="883.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">пауза 45 рядків — 0.667 мс</text>
+<text x="60.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start">один період кадру при 60 Гц — 16.67 мс</text>
+<rect x="120.0" y="258.0" width="780.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="866.0" y1="178.0" x2="120.0" y2="258.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="5,5"/>
+<line x1="900.0" y1="178.0" x2="900.0" y2="258.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="5,5"/>
+<text x="510.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">та сама пауза, збільшена: усе, що встигне ядро, побачить наступний кадр</text>
+<circle cx="215.0" cy="288.0" r="9.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="215.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">переривання</text>
+<circle cx="500.0" cy="288.0" r="9.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="500.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">запис нової адреси</text>
+<circle cx="790.0" cy="288.0" r="9.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="790.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">подія на дескрипторі</text>
+<line x1="224.0" y1="288.0" x2="491.0" y2="288.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="509.0" y1="288.0" x2="781.0" y2="288.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="60.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Апаратура читає адресу буфера один раз на кадр — на початку. Перезаписати її треба саме тут:</text>
+<text x="60.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">раніше — і піввисоти екрана покаже старий буфер, а піввисоти новий; пізніше — зміна чекатиме ще 16.67 мс.</text>
+</svg>

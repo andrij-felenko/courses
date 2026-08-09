@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1250 680" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1250" height="680" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="620.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Той самий Requires=, два прогони: коли менеджер дізнається про збій</text>
+<text x="44.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="start" font-weight="700">Прогін 1: Requires= є, After= немає</text>
+<text x="44.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">late-dep.service</text>
+<rect x="320.0" y="148.0" width="627.3" height="36.0" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/>
+<text x="633.6" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">працює 10 секунд</text>
+<text x="963.3" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">✗ падає</text>
+<text x="44.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">app.service</text>
+<rect x="320.0" y="206.0" width="26.0" height="36.0" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/>
+<text x="364.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">✓ відпрацював і завершився — про збій не дізнається ніколи</text>
+<line x1="320.0" y1="270.0" x2="1010.0" y2="270.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="320.0" y1="265.0" x2="320.0" y2="275.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="320.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0 с</text>
+<line x1="445.5" y1="265.0" x2="445.5" y2="275.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="445.5" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">2 с</text>
+<line x1="570.9" y1="265.0" x2="570.9" y2="275.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="570.9" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">4 с</text>
+<line x1="696.4" y1="265.0" x2="696.4" y2="275.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="696.4" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">6 с</text>
+<line x1="821.8" y1="265.0" x2="821.8" y2="275.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="821.8" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">8 с</text>
+<line x1="947.3" y1="265.0" x2="947.3" y2="275.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="947.3" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">10 с</text>
+<text x="44.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="start" font-weight="700">Прогін 2: додано After=late-dep.service</text>
+<text x="44.0" y="497.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">late-dep.service</text>
+<rect x="320.0" y="474.0" width="627.3" height="36.0" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/>
+<text x="633.6" y="497.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">працює 10 секунд</text>
+<text x="963.3" y="497.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">✗ падає</text>
+<text x="44.0" y="555.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start">app.service</text>
+<rect x="320.0" y="532.0" width="627.3" height="36.0" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/>
+<text x="633.6" y="555.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">робота стоїть у стані waiting</text>
+<text x="963.3" y="555.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">✗ dependency</text>
+<line x1="320.0" y1="596.0" x2="1010.0" y2="596.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="320.0" y1="591.0" x2="320.0" y2="601.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="320.0" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">0 с</text>
+<line x1="445.5" y1="591.0" x2="445.5" y2="601.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="445.5" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">2 с</text>
+<line x1="570.9" y1="591.0" x2="570.9" y2="601.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="570.9" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">4 с</text>
+<line x1="696.4" y1="591.0" x2="696.4" y2="601.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="696.4" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">6 с</text>
+<line x1="821.8" y1="591.0" x2="821.8" y2="601.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="821.8" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">8 с</text>
+<line x1="947.3" y1="591.0" x2="947.3" y2="601.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="947.3" y="620.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">10 с</text>
+</svg>

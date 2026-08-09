@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1330 810" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1330" height="810" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="460.0" y="24.0" width="400.0" height="52.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="660.0" y="55.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">драйвер підхопив нове залізо</tspan></text>
+<rect x="30.0" y="150.0" width="360.0" height="106.0" rx="8" fill="#eaf0fd" stroke="#333333" stroke-width="1.6"/>
+<text x="210.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">тека в sysfs</tspan><tspan x="210.0" dy="16.9">/sys/devices/…/ttyUSB0</tspan><tspan x="210.0" dy="16.9">атрибути й ланцюг предків</tspan></text>
+<line x1="660.0" y1="78.0" x2="210.0" y2="146.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="480.0" y="150.0" width="360.0" height="106.0" rx="8" fill="#eaf6ef" stroke="#333333" stroke-width="1.6"/>
+<text x="660.0" y="198.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">вузол у /dev (devtmpfs)</tspan><tspan x="660.0" dy="16.9">ttyUSB0   root:root   0600</tspan></text>
+<line x1="660.0" y1="78.0" x2="660.0" y2="146.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="930.0" y="150.0" width="360.0" height="106.0" rx="8" fill="#fdecea" stroke="#333333" stroke-width="1.6"/>
+<text x="1110.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1110.0" dy="0.0">повідомлення uevent</tspan><tspan x="1110.0" dy="16.9">netlink, широкомовно</tspan><tspan x="1110.0" dy="16.9">ACTION  DEVPATH  MAJOR  MINOR</tspan></text>
+<line x1="660.0" y1="78.0" x2="1110.0" y2="146.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="660.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-style="italic">усе вище робить ядро саме · усе нижче — звичайна програма</text>
+<line x1="20.0" y1="322.0" x2="1300.0" y2="322.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="9 7"/>
+<rect x="420.0" y="360.0" width="480.0" height="88.0" rx="8" fill="#fff6e5" stroke="#333333" stroke-width="1.6"/>
+<text x="660.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">systemd-udevd</tspan><tspan x="660.0" dy="16.9">властивості події + атрибути з sysfs</tspan><tspan x="660.0" dy="16.9">по всьому ланцюгу предків</tspan></text>
+<line x1="1110.0" y1="258.0" x2="830.0" y2="356.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="258.0" x2="490.0" y2="356.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="460.0" y="494.0" width="400.0" height="56.0" rx="8" fill="#eef0f3" stroke="#333333" stroke-width="1.6"/>
+<text x="660.0" y="527.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">набір правил</tspan></text>
+<line x1="660.0" y1="448.0" x2="660.0" y2="490.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="20.0" y="610.0" width="290.0" height="88.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="165.0" y="649.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">додаткове ім'я</tspan><tspan x="165.0" dy="16.9">/dev/laser → ttyUSB0</tspan></text>
+<line x1="660.0" y1="550.0" x2="165.0" y2="606.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="350.0" y="610.0" width="290.0" height="88.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="495.0" y="649.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="495.0" dy="0.0">власник, група, режим</tspan><tspan x="495.0" dy="16.9">root:dialout   0660</tspan></text>
+<line x1="660.0" y1="550.0" x2="495.0" y2="606.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="680.0" y="610.0" width="290.0" height="88.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="825.0" y="649.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="825.0" dy="0.0">властивості в базі</tspan><tspan x="825.0" dy="16.9">/run/udev</tspan></text>
+<line x1="660.0" y1="550.0" x2="825.0" y2="606.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="1010.0" y="610.0" width="290.0" height="88.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="1155.0" y="649.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1155.0" dy="0.0">позначки й RUN</tspan><tspan x="1155.0" dy="16.9">передача службі</tspan></text>
+<line x1="660.0" y1="550.0" x2="1155.0" y2="606.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="660.0" y="752.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-style="italic">вузол уже існував — правило його не створює, а виправляє</text>
+</svg>

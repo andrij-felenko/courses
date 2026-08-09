@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1290 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1290" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="640.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова смуга зупинки служби</text>
+<line x1="260.0" y1="120.0" x2="1210.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="110.0" x2="320.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="320.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">SIGTERM усій групі</text>
+<line x1="620.0" y1="110.0" x2="620.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="620.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">більшість вийшла сама</text>
+<line x1="900.0" y1="110.0" x2="900.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="900.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">сплив TimeoutStopSec</text>
+<line x1="1050.0" y1="110.0" x2="1050.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="1050.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">SIGKILL решті</text>
+<text x="250.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">головний процес</text>
+<rect x="260.0" y="197.0" width="300.0" height="26.0" rx="4" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="250.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">робітник</text>
+<rect x="260.0" y="277.0" width="380.0" height="26.0" rx="4" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="250.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">помічник, що завис</text>
+<rect x="260.0" y="357.0" width="790.0" height="26.0" rx="4" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="900.0" y="357.0" width="150.0" height="26.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="320.0" y1="132.0" x2="320.0" y2="392.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<line x1="900.0" y1="132.0" x2="900.0" y2="392.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<line x1="1050.0" y1="132.0" x2="1050.0" y2="392.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="1150.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="end">група порожня → inactive</text>
+<text x="620.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">юніт лишається в deactivating, доки в групі є хоч один процес</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1410 710" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1410" height="710" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="700.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ім'я алгоритму — це вираз, а не ярлик</text>
+<rect x="274.5" y="126.5" width="311.0" height="47.0" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="430.0" y="155.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">authenc(hmac(sha256),cbc(aes))</tspan></text>
+<text x="430.0" y="110.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">те, що просить IPsec</text>
+<rect x="153.1" y="299.0" width="123.8" height="42.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="215.0" y="324.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">hmac(sha256)</tspan></text>
+<text x="215.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">шаблон hmac</text>
+<rect x="177.1" y="459.0" width="75.9" height="42.0" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="215.0" y="484.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">sha256</tspan></text>
+<text x="215.0" y="527.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">геш</text>
+<line x1="430.0" y1="173.5" x2="215.0" y2="295.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="215.0" y1="381.0" x2="215.0" y2="455.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="599.1" y="299.0" width="91.8" height="42.0" rx="6" fill="#eaf0fd" stroke="#333333" stroke-width="1.5"/><text x="645.0" y="324.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="645.0" dy="0.0">cbc(aes)</tspan></text>
+<text x="645.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">шаблон cbc</text>
+<rect x="619.0" y="459.0" width="51.9" height="42.0" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="645.0" y="484.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="645.0" dy="0.0">aes</tspan></text>
+<text x="645.0" y="527.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">блоковий шифр</text>
+<line x1="430.0" y1="173.5" x2="645.0" y2="295.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="645.0" y1="381.0" x2="645.0" y2="455.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="1011.4" y="151.6" width="267.1" height="76.8" rx="6" fill="#eceff1" stroke="#6b7280" stroke-width="1.4"/><text x="1145.0" y="177.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="1145.0" dy="0.0">один запис від заліза:</tspan><tspan x="1145.0" dy="16.9">caam-authenc-hmac-sha256-cbc-aes</tspan><tspan x="1145.0" dy="16.9">пріоритет 3000</tspan></text>
+<line x1="1011.4" y1="190.0" x2="585.5" y2="162.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="1145.0" y="258.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">те саме узагальнене ім'я</text>
+<text x="700.0" y="610.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Ядро вміє скласти алгоритм із шаблону й базового шифру на першу ж вимогу.</text>
+<text x="700.0" y="640.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">Але порівнює воно рядок цілком — тож рушій може зареєструвати всю конструкцію одним шматком.</text>
+</svg>

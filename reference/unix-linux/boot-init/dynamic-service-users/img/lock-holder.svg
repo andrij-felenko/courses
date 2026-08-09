@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1110 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1110" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="550.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Замок належить опису відкритого файлу, а не процесові</text>
+<rect x="30.0" y="54.0" width="500.0" height="380.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="280.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Окремий open() — окремий опис</text>
+<rect x="60.0" y="112.0" width="190.0" height="54.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="155.0" y="134.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">процес</tspan><tspan x="155.0" dy="18.2">fd 3</tspan></text>
+<rect x="310.0" y="112.0" width="190.0" height="54.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="405.0" y="134.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="405.0" dy="0.0">той самий процес</tspan><tspan x="405.0" dy="18.2">fd 4</tspan></text>
+<line x1="155.0" y1="166.0" x2="155.0" y2="208.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="405.0" y1="166.0" x2="405.0" y2="208.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="212.0" width="190.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="155.0" y="241.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">опис №1</tspan></text>
+<rect x="310.0" y="212.0" width="190.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="405.0" y="241.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="405.0" dy="0.0">опис №2</tspan></text>
+<line x1="155.0" y1="262.0" x2="235.0" y2="312.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="405.0" y1="262.0" x2="325.0" y2="312.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="130.0" y="316.0" width="300.0" height="50.0" rx="6" fill="#eceff1" stroke="#6b7280" stroke-width="1.5"/><text x="280.0" y="345.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">файл-замок 64667</tspan></text>
+<text x="280.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">flock на описі №2 → EWOULDBLOCK:</text>
+<text x="280.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">число вже зайняте</text>
+<rect x="570.0" y="54.0" width="500.0" height="380.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="820.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">fork, dup, передача сокетом — опис один</text>
+<rect x="600.0" y="112.0" width="190.0" height="54.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="695.0" y="134.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">процес A</tspan><tspan x="695.0" dy="18.2">fd 3</tspan></text>
+<rect x="850.0" y="112.0" width="190.0" height="54.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="945.0" y="134.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="945.0" dy="0.0">процес B</tspan><tspan x="945.0" dy="18.2">fd 3</tspan></text>
+<line x1="695.0" y1="166.0" x2="785.0" y2="212.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="945.0" y1="166.0" x2="855.0" y2="212.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="730.0" y="216.0" width="180.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="820.0" y="245.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">опис №1</tspan></text>
+<line x1="820.0" y1="266.0" x2="820.0" y2="312.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="670.0" y="316.0" width="300.0" height="50.0" rx="6" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/><text x="820.0" y="345.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">файл-замок 64667</tspan></text>
+<text x="820.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">замок цілий, поки живий хоч один fd;</text>
+<text x="820.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">зникає на закритті ОСТАННЬОГО</text>
+</svg>

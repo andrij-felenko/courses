@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1270 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1270" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="130.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">виклик</text>
+<rect x="30.0" y="148.0" width="200.0" height="72.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="130.0" y="188.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">open(&quot;/dev/ttyS3&quot;)</tspan></text>
+<text x="410.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">інод файла пристрою</text>
+<rect x="290.0" y="118.0" width="240.0" height="132.0" rx="8" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/><text x="410.0" y="163.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">тип: символьний</tspan><tspan x="410.0" dy="16.9">старший 4</tspan><tspan x="410.0" dy="16.9">молодший 67</tspan><tspan x="410.0" dy="16.9">вмісту немає</tspan></text>
+<text x="680.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">таблиця за старшим</text>
+<rect x="590.0" y="118.0" width="180.0" height="33.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="680.0" y="139.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1  пам'ять</text>
+<rect x="590.0" y="151.0" width="180.0" height="33.0" rx="4" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="680.0" y="172.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4  порти tty</text>
+<rect x="590.0" y="184.0" width="180.0" height="33.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="680.0" y="205.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">5  консоль</text>
+<rect x="590.0" y="217.0" width="180.0" height="33.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="680.0" y="238.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">10  misc</text>
+<text x="935.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">код драйвера</text>
+<rect x="830.0" y="118.0" width="210.0" height="132.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.8"/><text x="935.0" y="180.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="935.0" dy="0.0">таблиця операцій</tspan><tspan x="935.0" dy="16.9">read · write · ioctl</tspan></text>
+<text x="1160.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">примірник</text>
+<rect x="1100.0" y="154.0" width="130.0" height="60.0" rx="8" fill="#fff6e5" stroke="#b8860b" stroke-width="1.8"/><text x="1165.0" y="188.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1165.0" dy="0.0">порт 3</tspan></text>
+<line x1="234.0" y1="184.0" x2="286.0" y2="184.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="534.0" y1="184.0" x2="586.0" y2="184.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="774.0" y1="184.0" x2="826.0" y2="184.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="1044.0" y1="184.0" x2="1096.0" y2="184.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="680.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ядро доводить пару до запису, зробленого драйвером</text>
+<line x1="410.0" y1="250.0" x2="410.0" y2="356.0" stroke="#b8860b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<line x1="410.0" y1="356.0" x2="1165.0" y2="356.0" stroke="#b8860b" stroke-width="2.0" stroke-dasharray="6 5"/>
+<line x1="1165.0" y1="356.0" x2="1165.0" y2="218.0" stroke="#b8860b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="700.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">молодший 67 ядро віддає драйверові недоторканим; той віднімає 64 і дістає свій третій порт</text>
+</svg>

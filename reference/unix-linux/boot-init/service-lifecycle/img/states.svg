@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1370 700" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1370" height="700" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="680.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стани служби й переходи між ними</text>
+<rect x="118.8" y="152.8" width="122.3" height="54.5" rx="6" fill="#eceff1" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="175.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">inactive</tspan><tspan x="180.0" dy="19.5">не запущена</tspan></text>
+<rect x="454.2" y="152.8" width="131.6" height="54.5" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="520.0" y="175.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">activating</tspan><tspan x="520.0" dy="19.5">запускається</tspan></text>
+<rect x="842.1" y="152.8" width="75.8" height="54.5" rx="6" fill="#eaf6ef" stroke="#333333" stroke-width="1.5"/><text x="880.0" y="175.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">active</tspan><tspan x="880.0" dy="19.5">працює</tspan></text>
+<rect x="1144.2" y="152.8" width="131.6" height="54.5" rx="6" fill="#fff6e5" stroke="#333333" stroke-width="1.5"/><text x="1210.0" y="175.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="1210.0" dy="0.0">deactivating</tspan><tspan x="1210.0" dy="19.5">зупиняється</tspan></text>
+<rect x="842.1" y="472.8" width="75.8" height="54.5" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="880.0" y="495.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">failed</tspan><tspan x="880.0" dy="19.5">впала</tspan></text>
+<line x1="251.2" y1="180.0" x2="444.2" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="347.7" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">systemctl start</text>
+<line x1="595.8" y1="180.0" x2="832.1" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="714.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">ознака готовності за Type=</text>
+<line x1="927.9" y1="180.0" x2="1134.2" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1031.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">зупинку наказали</text>
+<line x1="1210.0" y1="207.2" x2="1210.0" y2="320.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="1210.0" y1="320.0" x2="180.0" y2="320.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="180.0" y1="320.0" x2="180.0" y2="213.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="700.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">cgroup спорожніла</text>
+<line x1="880.0" y1="213.2" x2="880.0" y2="466.8" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="898.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start">процес завершився невдало</text>
+<text x="898.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start">або промовчав сторожовий таймер</text>
+<line x1="520.0" y1="207.2" x2="520.0" y2="500.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="520.0" y1="500.0" x2="832.1" y2="500.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="676.0" y="532.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle">збій запуску або сплив таймаут</text>
+<line x1="880.0" y1="527.2" x2="880.0" y2="612.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="880.0" y1="612.0" x2="470.0" y2="612.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="470.0" y1="612.0" x2="470.0" y2="213.2" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="700.0" y="640.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle">перезапуск за політикою після паузи</text>
+</svg>
