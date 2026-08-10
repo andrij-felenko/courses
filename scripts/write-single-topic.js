@@ -188,6 +188,18 @@ if (detailedExists) {
     auditIssues.push(`Substantive Depth Violation: Detailed article is hovering near floor (${words} words). Target median in AUTHORING.md §3 is 2100–2600 words. Expand deep mathematical proofs, axioms, edge cases, and mechanics.`);
   }
 
+  // Check for repeated dummy word loops or garbage padding (e.g. "Текст Текст Текст...")
+  const wordsArray = text.trim().split(/\s+/);
+  let consecutiveRepeatCount = 0;
+  for (let i = 1; i < wordsArray.length; i++) {
+    if (wordsArray[i].toLowerCase() === wordsArray[i - 1].toLowerCase() && wordsArray[i].length > 1) {
+      consecutiveRepeatCount++;
+    }
+  }
+  if (consecutiveRepeatCount > 10 || /Текст Текст|Lorem ipsum|placeholder|sample text|Історія Історія|Доведення Доведення/i.test(text)) {
+    auditIssues.push(`Garbage Text Violation: Detected repetitive dummy text padding ("Текст Текст...", repeated words loop). Write authentic, deep Feynman prose!`);
+  }
+
   if (!text.includes('<preknowlist>')) {
     auditIssues.push(`Missing <preknowlist> in main article.`);
   }
