@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інкапсуляція SCSI в iSCSI</text>
+<rect x="265.0" y="80.0" width="250.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="390.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SCSI CDB — напр. READ(10)</text>
+<line x1="390.0" y1="136.0" x2="390.0" y2="228.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="230.0" y="180.0" width="480.0" height="140.0" rx="6" fill="#e0f0ff" stroke="#0044aa" stroke-width="1.5"/>
+<text x="310.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">iSCSI PDU</text>
+<rect x="250.0" y="230.0" width="270.0" height="72.0" rx="6" fill="#fff" stroke="#333333" stroke-width="1.5"/>
+<text x="385.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="385.0" dy="0.0">BHS — заголовок, 48 байтів</tspan><tspan x="385.0" dy="15.6">усередині: поле на 16 байтів під CDB</tspan></text>
+<rect x="540.0" y="230.0" width="150.0" height="72.0" rx="6" fill="#fff" stroke="#333333" stroke-width="1.5"/>
+<text x="615.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="615.0" dy="0.0">Data Segment —</tspan><tspan x="615.0" dy="15.6">самі дані</tspan></text>
+<line x1="470.0" y1="320.0" x2="470.0" y2="356.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="230.0" y="356.0" width="480.0" height="60.0" rx="6" fill="#e0ffe0" stroke="#00aa00" stroke-width="1.5"/>
+<text x="470.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">TCP/IP — кадри Ethernet, порт 3260</text>
+</svg>

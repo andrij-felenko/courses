@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 710 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="710" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура підсистеми libata в ядрі Linux</text>
+<rect x="100.0" y="63.0" width="500.0" height="34.0" rx="10" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="84.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Простір користувача (fdisk, mkfs, hdparm, smartctl)</tspan></text>
+<line x1="350.0" y1="110.0" x2="350.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="100.0" y="153.9" width="500.0" height="52.2" rx="10" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="350.0" y="175.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">SCSI Mid-layer</tspan><tspan x="350.0" dy="18.2">(універсальний шар, пристрої /dev/sdX)</tspan></text>
+<line x1="350.0" y1="210.0" x2="350.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="100.0" y="253.9" width="500.0" height="52.2" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="350.0" y="275.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">libata</tspan><tspan x="350.0" dy="18.2">(Трансляція SAT: SCSI-to-ATA Translation)</tspan></text>
+<line x1="350.0" y1="310.0" x2="350.0" y2="350.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="100.0" y="363.0" width="500.0" height="34.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="350.0" y="384.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Апаратний контролер (AHCI / SATA / IDE)</tspan></text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="50.0" y="50.0" width="150.0" height="100.0" rx="10" fill="#3498db" stroke="#2980b9" stroke-width="1.5"/>
+<text x="125.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="700">systemd</text>
+<rect x="600.0" y="50.0" width="150.0" height="100.0" rx="10" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+<text x="675.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="700">Service Process</text>
+<text x="675.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">(User=appuser)</text>
+<line x1="200.0" y1="100.0" x2="600.0" y2="100.0" stroke="#34495e" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#34495e" text-anchor="middle">RUNTIME_DIRECTORY=/run/myapp</text>
+<rect x="50.0" y="250.0" width="700.0" height="120.0" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="80.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Файлова система</text>
+<rect x="100.0" y="300.0" width="180.0" height="50.0" rx="5" fill="#f1c40f" stroke="#f39c12" stroke-width="1.5"/>
+<text x="190.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">RuntimeDirectory</text>
+<text x="190.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">/run/myapp</text>
+<line x1="125.0" y1="150.0" x2="190.0" y2="290.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="5,5"/>
+<circle cx="190.0" cy="290.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="675.0" y1="150.0" x2="190.0" y2="290.0" stroke="#8e44ad" stroke-width="2.0"/>
+<circle cx="190.0" cy="290.0" r="3.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<rect x="300.0" y="300.0" width="180.0" height="50.0" rx="5" fill="#f1c40f" stroke="#f39c12" stroke-width="1.5"/>
+<text x="390.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">StateDirectory</text>
+<text x="390.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">/var/lib/myapp</text>
+<line x1="125.0" y1="150.0" x2="390.0" y2="290.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="5,5"/>
+<circle cx="390.0" cy="290.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="675.0" y1="150.0" x2="390.0" y2="290.0" stroke="#8e44ad" stroke-width="2.0"/>
+<circle cx="390.0" cy="290.0" r="3.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<rect x="500.0" y="300.0" width="180.0" height="50.0" rx="5" fill="#f1c40f" stroke="#f39c12" stroke-width="1.5"/>
+<text x="590.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">LogsDirectory</text>
+<text x="590.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">/var/log/myapp</text>
+<line x1="125.0" y1="150.0" x2="590.0" y2="290.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="5,5"/>
+<circle cx="590.0" cy="290.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="675.0" y1="150.0" x2="590.0" y2="290.0" stroke="#8e44ad" stroke-width="2.0"/>
+<circle cx="590.0" cy="290.0" r="3.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="150.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">1. Створює &amp; chown</text>
+<text x="600.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="end">2. Читає / Пише</text>
+</svg>

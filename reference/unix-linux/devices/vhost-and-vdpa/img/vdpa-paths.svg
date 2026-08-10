@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="50.0" y="50.0" width="200.0" height="350.0" rx="10" fill="#f0f0f0" stroke="#333" stroke-width="2.0"/>
+<text x="150.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Classic Virtio (QEMU)</text>
+<rect x="70.0" y="100.0" width="160.0" height="60.0" rx="6" fill="#e6f2ff" stroke="#0066cc" stroke-width="1.5"/>
+<text x="150.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">VM (Guest OS)</text>
+<rect x="70.0" y="200.0" width="160.0" height="60.0" rx="6" fill="#fff2e6" stroke="#cc6600" stroke-width="1.5"/>
+<text x="150.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">QEMU (Userspace)</text>
+<rect x="70.0" y="300.0" width="160.0" height="60.0" rx="6" fill="#e6ffe6" stroke="#009900" stroke-width="1.5"/>
+<text x="150.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Host Kernel (Tap)</text>
+<line x1="150.0" y1="160.0" x2="150.0" y2="200.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="260.0" x2="150.0" y2="300.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="300.0" y="50.0" width="200.0" height="350.0" rx="10" fill="#f0f0f0" stroke="#333" stroke-width="2.0"/>
+<text x="400.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">vhost-net (Kernel)</text>
+<rect x="320.0" y="100.0" width="160.0" height="60.0" rx="6" fill="#e6f2ff" stroke="#0066cc" stroke-width="1.5"/>
+<text x="400.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">VM (Guest OS)</text>
+<rect x="320.0" y="200.0" width="160.0" height="60.0" rx="6" fill="#e6ffe6" stroke="#009900" stroke-width="1.5"/>
+<text x="400.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">vhost thread</tspan><tspan x="400.0" dy="18.2">(Host Kernel)</tspan></text>
+<rect x="320.0" y="300.0" width="160.0" height="60.0" rx="6" fill="#e6ffe6" stroke="#009900" stroke-width="1.5"/>
+<text x="400.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Host Network Stack</text>
+<line x1="400.0" y1="160.0" x2="400.0" y2="200.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="260.0" x2="400.0" y2="300.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="550.0" y="50.0" width="200.0" height="350.0" rx="10" fill="#f0f0f0" stroke="#333" stroke-width="2.0"/>
+<text x="650.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">vDPA (Hardware)</text>
+<rect x="570.0" y="100.0" width="160.0" height="60.0" rx="6" fill="#e6f2ff" stroke="#0066cc" stroke-width="1.5"/>
+<text x="650.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">VM (Guest OS)</text>
+<rect x="570.0" y="300.0" width="160.0" height="60.0" rx="6" fill="#ffe6e6" stroke="#cc0000" stroke-width="1.5"/>
+<text x="650.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">SmartNIC/DPU</tspan><tspan x="650.0" dy="18.2">(vDPA Hardware)</tspan></text>
+<line x1="650.0" y1="160.0" x2="650.0" y2="300.0" stroke="#333" stroke-width="3.0" marker-end="url(#arrow)"/>
+<rect x="668.4" y="212.2" width="83.2" height="35.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="710.0" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">Direct Ring</tspan><tspan x="710.0" dy="15.6">Access</tspan></text>
+</svg>

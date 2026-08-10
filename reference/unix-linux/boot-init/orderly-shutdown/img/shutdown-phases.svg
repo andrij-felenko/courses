@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <style>
+        .box { fill: #f0f0f0; stroke: #333; stroke-width: 2px; rx: 5px; ry: 5px; }
+        .text { font-family: monospace; font-size: 14px; fill: #333; }
+        .title { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #000; }
+        .arrow { stroke: #666; stroke-width: 2px; marker-end: url(#arrowhead); }
+    </style>
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+        </marker>
+    </defs>
+    
+    <text x="400" y="30" text-anchor="middle" class="title">Фази впорядкованого вимкнення Linux</text>
+    
+    <!-- Фаза 1 -->
+    <rect x="50" y="80" width="150" height="60" class="box" />
+    <text x="125" y="105" text-anchor="middle" class="text">1. systemd target</text>
+    <text x="125" y="125" text-anchor="middle" class="text">poweroff.target</text>
+    
+    <!-- Arrow -->
+    <line x1="200" y1="110" x2="250" y2="110" class="arrow" />
+    
+    <!-- Фаза 2 -->
+    <rect x="250" y="80" width="150" height="60" class="box" />
+    <text x="325" y="105" text-anchor="middle" class="text">2. Зупинка служб</text>
+    <text x="325" y="125" text-anchor="middle" class="text">SIGTERM → SIGKILL</text>
+
+    <!-- Arrow -->
+    <line x1="400" y1="110" x2="450" y2="110" class="arrow" />
+    
+    <!-- Фаза 3 -->
+    <rect x="450" y="80" width="150" height="60" class="box" />
+    <text x="525" y="105" text-anchor="middle" class="text">3. Sync &amp; Unmount</text>
+    <text x="525" y="125" text-anchor="middle" class="text">remount-ro</text>
+    
+    <!-- Arrow -->
+    <line x1="600" y1="110" x2="650" y2="110" class="arrow" />
+    
+    <!-- Фаза 4 -->
+    <rect x="650" y="80" width="150" height="60" class="box" />
+    <text x="725" y="105" text-anchor="middle" class="text">4. sys_reboot</text>
+    <text x="725" y="125" text-anchor="middle" class="text">ACPI S5 (Power Off)</text>
+
+</svg>

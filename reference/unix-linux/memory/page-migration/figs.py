@@ -1,0 +1,72 @@
+import os
+
+SVG_CONTENT = """<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="430" viewBox="0 0 800 430" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .box { fill: #f0f0f0; stroke: #333; stroke-width: 2; }
+      .text { font-family: sans-serif; font-size: 14px; fill: #333; }
+      .title { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #111; }
+      .arrow { stroke: #666; stroke-width: 2; marker-end: url(#arrowhead); }
+      .mig { fill: #ffe0b2; stroke: #ff9800; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+    </marker>
+  </defs>
+
+  <!-- Stage 1 -->
+  <text x="50" y="30" class="title">1. Initial State</text>
+  <rect x="50" y="50" width="100" height="40" class="box" />
+  <text x="75" y="75" class="text">PTE (Valid)</text>
+  <rect x="250" y="50" width="100" height="40" class="box" />
+  <text x="270" y="75" class="text">Page A</text>
+  <line x1="150" y1="70" x2="240" y2="70" class="arrow" />
+
+  <!-- Stage 2 -->
+  <text x="50" y="130" class="title">2. Unmap &amp; Migration Entry</text>
+  <rect x="50" y="150" width="120" height="40" class="box mig" />
+  <text x="60" y="175" class="text">Migration Entry</text>
+  <rect x="250" y="150" width="100" height="40" class="box" />
+  <text x="270" y="175" class="text">Page A</text>
+  
+  <rect x="450" y="150" width="100" height="40" class="box" />
+  <text x="470" y="175" class="text">Page B (New)</text>
+
+  <!-- Stage 3 -->
+  <text x="50" y="230" class="title">3. Copy Data</text>
+  <rect x="50" y="250" width="120" height="40" class="box mig" />
+  <text x="60" y="275" class="text">Migration Entry</text>
+  <rect x="250" y="250" width="100" height="40" class="box" />
+  <text x="270" y="275" class="text">Page A (Old)</text>
+  
+  <rect x="450" y="250" width="100" height="40" class="box" />
+  <text x="470" y="275" class="text">Page B (New)</text>
+  <line x1="350" y1="270" x2="440" y2="270" class="arrow" stroke-dasharray="5,5" />
+  <text x="375" y="260" class="text">Copy</text>
+
+  <!-- Stage 4 -->
+  <text x="50" y="330" class="title">4. Remap</text>
+  <rect x="50" y="350" width="100" height="40" class="box" />
+  <text x="75" y="375" class="text">PTE (Valid)</text>
+  
+  <rect x="250" y="350" width="100" height="40" class="box" fill="#e0e0e0" />
+  <text x="265" y="375" class="text">Page A (Free)</text>
+  
+  <rect x="450" y="350" width="100" height="40" class="box" />
+  <text x="470" y="375" class="text">Page B (New)</text>
+  <polyline points="100,390 100,412 500,412 500,394" class="arrow" fill="none" />
+
+</svg>
+"""
+
+def main():
+    img_dir = os.path.join(os.path.dirname(__file__), 'img')
+    os.makedirs(img_dir, exist_ok=True)
+    path = os.path.join(img_dir, 'migration-stages.svg')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(SVG_CONTENT)
+    print(f"Generated {path}")
+
+if __name__ == '__main__':
+    main()
