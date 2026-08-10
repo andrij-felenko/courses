@@ -17,8 +17,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-truth-tables.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-boolean-eval.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-truth-table-generator.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "propositional-logic",
@@ -27,8 +47,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-propositional-logic.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-deduction-theorem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sat-dpll-solver.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "first-order-logic",
@@ -37,8 +77,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-first-order-logic.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-prenex-skolem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-first-order-unifier.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "proof-systems-gentzen",
@@ -47,8 +107,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gentzen-proof-theory.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-cut-elimination-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sequent-calculus-prover.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "resolution-principle",
@@ -57,8 +137,28 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-robinson-resolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [],
+          "math": [
+            {
+              "file": "math-refutation-completeness.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resolution-prover.md",
+              "status": "done"
+            }
+          ],
+          "api": []
         },
         {
           "slug": "model-theory-basics",

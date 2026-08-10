@@ -264,9 +264,30 @@ insertFiles.forEach(ins => {
     auditIssues.push(`Insert ${ins} word count (${insWords}) outside 400–5000 range.`);
   }
 
-  // Rule 6: Code validity in proj-* and api-* inserts
-  if ((prefix === 'proj' || prefix === 'api') && !insText.includes('```')) {
-    auditIssues.push(`Insert ${ins} (${prefix}) missing concrete code or structured interface spec code block.`);
+  // Rule 6: Type-Specific Semantic & Structural Audit (§3 AUTHORING.md)
+  if (prefix === 'proj') {
+    if (!insText.includes('```')) {
+      auditIssues.push(`Insert ${ins} (proj) missing concrete code implementation block.`);
+    }
+    // Calculate prose words outside code blocks
+    const proseWithoutCode = insText.replace(/```[\s\S]*?```/g, '').trim();
+    const proseWords = proseWithoutCode.split(/\s+/).filter(Boolean).length;
+    if (proseWords < 200) {
+      auditIssues.push(`Insert ${ins} (proj) is a raw code dump with insufficient explanatory prose (${proseWords} words outside code). Must include problem statement, architectural logic, step-by-step code breakdown, and I/O complexity analysis.`);
+    }
+  } else if (prefix === 'api') {
+    if (!insText.includes('```') && !insText.includes('|')) {
+      auditIssues.push(`Insert ${ins} (api) missing structured API specification code block or table.`);
+    }
+    const proseWords = insText.replace(/```[\s\S]*?```/g, '').trim().split(/\s+/).filter(Boolean).length;
+    if (proseWords < 150) {
+      auditIssues.push(`Insert ${ins} (api) missing contract explanation, invariants, or usage patterns.`);
+    }
+  } else if (prefix === 'math') {
+    const proseWords = insText.replace(/\$\$[\s\S]*?\$\$/g, '').trim().split(/\s+/).filter(Boolean).length;
+    if (proseWords < 200) {
+      auditIssues.push(`Insert ${ins} (math) is a raw formula dump without explanatory prose (${proseWords} words). Must explain mathematical intuition, step-by-step derivation, and practical meaning.`);
+    }
   }
 
   if (foundInserts[prefix]) {
