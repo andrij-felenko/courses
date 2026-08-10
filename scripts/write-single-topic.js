@@ -5,27 +5,45 @@ const { execSync } = require('child_process');
 const ROOT = 'E:\\develop\\courses';
 
 function parseArgs() {
-  const raw = process.argv[2];
-  if (!raw) {
-    return { book: 'cpp-standards', kind: 'reference', section: '', slug: '' };
+  const arg1 = process.argv[2];
+  const arg2 = process.argv[3];
+  const arg3 = process.argv[4];
+  const arg4 = process.argv[5];
+
+  let book = 'math';
+  let kind = 'book';
+  let section = '';
+  let slug = '';
+
+  if (arg1) {
+    if (arg1.startsWith('{')) {
+      try {
+        const parsed = JSON.parse(arg1);
+        book = parsed.book || book;
+        kind = parsed.kind || kind;
+        section = parsed.section || '';
+        slug = parsed.slug || '';
+      } catch (e) {}
+    } else {
+      book = arg1;
+      if (arg2) kind = arg2;
+      if (arg3) section = arg3;
+      if (arg4) slug = arg4;
+    }
   }
-  try {
-    return JSON.parse(raw);
-  } catch (e) {
-    return { book: 'cpp-standards', kind: 'reference', section: '', slug: '' };
-  }
+
+  return { book, kind, section, slug };
 }
 
 const config = parseArgs();
-const BOOK = config.book || 'cpp-standards';
-const KIND = config.kind || 'reference';
-const TARGET_SECTION = config.section || '';
-const TARGET_SLUG = config.slug || '';
+const BOOK = config.book;
+const KIND = config.kind;
+const TARGET_SECTION = config.section;
+const TARGET_SLUG = config.slug;
 
 console.log(`================================================================`);
-console.log(`🚀 SINGLE-TOPIC MULTI-AGENT AUDITOR & AUTHOR WITH DISCOVERY`);
-console.log(`Language Standard: C++ IS FREQUENTLY REQUIRED ALONGSIDE C IN :::tabs`);
-console.log(`Target: ${KIND}/${BOOK} | Effort: XHIGH`);
+console.log(`🚀 SINGLE-TOPIC ITERATIVE AUDITOR & AUTHOR: ${KIND}/${BOOK}`);
+console.log(`Rules: Feynman Method | Deep Substantive Explanation (Target Median: 2100–2600 words) | Zero Childish Fluff/Analogies | Pure Math Prose`);
 console.log(`================================================================`);
 
 // 1. Load Manifest
@@ -151,80 +169,139 @@ if (detailedExists) {
   }
 }
 
-// 3. Final Verification Phase (C++ REQUIRED ALONGSIDE C IN :::tabs)
+// 3. Strict Cognitive Auditor (Feynman + Depth Target 2100–2600 + Low Cognitive Load + Zero Fictional Fluff)
 console.log(`\n================================================================`);
-console.log(`[Verification] Checking Canon Compliance (C++ FREQUENTLY REQUIRED IN :::tabs) for ${targetUnit.slug}`);
+console.log(`[Cognitive & Feynman Auditor] Iterative Verification for ${targetUnit.slug}`);
 console.log(`================================================================`);
 
 let passesAll = true;
+const auditIssues = [];
+
 if (detailedExists) {
   const text = fs.readFileSync(detailedFile, 'utf8');
   const words = text.trim().split(/\s+/).length;
   console.log(`✓ Detailed article present (${words} words).`);
 
+  // SUBSTANTIVE DEPTH CHECK: Median target for detailed articles is 2100–2600 words (§3 AUTHORING.md).
+  // 1000 is lower bound floor, not the goal! We enforce at least 1800 words for true deep coverage.
+  if (words < 1800) {
+    auditIssues.push(`Substantive Depth Violation: Detailed article is hovering near floor (${words} words). Target median in AUTHORING.md §3 is 2100–2600 words. Expand deep mathematical proofs, axioms, edge cases, and mechanics.`);
+  }
+
   if (!text.includes('<preknowlist>')) {
-    console.log(`✖ Missing <preknowlist> in main article.`);
-    passesAll = false;
-  }
-  if (!text.includes('🔧 **Навіщо це.**')) {
-    console.log(`✖ Missing practical value frame (> 🔧 **Навіщо це.**).`);
-    passesAll = false;
+    auditIssues.push(`Missing <preknowlist> in main article.`);
   }
 
-  // §5 Tabs & C++ Enforcement: If C code is present, check if C++ tab (@tab C++) is also provided inside :::tabs
-  const hasC = text.includes('```c');
-  const hasCppTab = text.includes('@tab C++') || text.includes('```cpp') || text.includes('```c++');
+  // Check intro narrative
+  const cleanText = text.replace(/<preknowlist>[\s\S]*?<\/preknowlist>/g, '');
+  const proseParagraphs = cleanText.split(/\r?\n\s*\r?\n/).map(p => p.trim()).filter(p => p && !p.startsWith('#'));
+  const firstPara = proseParagraphs[0] || '';
 
-  if (hasC && !hasCppTab) {
-    console.log(`⚠️ Warning: C code present without corresponding C++ tab (@tab C++) inside :::tabs.`);
-    // Enforce C++ tab recommendation
+  if (firstPara.length < 40) {
+    auditIssues.push(`Intro sentence missing or too short.`);
   }
 
-  if (hasCppTab) {
-    console.log(`✓ C++ implementation tab (@tab C++) present.`);
+  // Check: NO Childish Fictional Fluff Tropes
+  const forbiddenTropes = [/перукар/i, /детектив/i, /фотокамер/i, /монет/i, /уяви себе/i, /гра у/i, /містечк/i, /підкидан/i];
+  const foundTropes = forbiddenTropes.filter(re => re.test(text));
+  if (foundTropes.length > 0) {
+    auditIssues.push(`Cognitive Fluff Violation: Contains forbidden childish fictional story tropes (${foundTropes.map(r => r.source).join(', ')}). Explain directly on the math concept itself!`);
   }
+
+  // Check: Cognitive Ease (Conceptual clarity, cause-and-effect flow, zero friction in mental model)
+  const causeEffectIndicators = [/отже/i, /тому/i, /це означає/i, /звідси випливає/i, /як наслідок/i, /припускаємо/i];
+  const hasCauseEffect = causeEffectIndicators.some(re => re.test(text));
+  if (!hasCauseEffect) {
+    auditIssues.push(`Cognitive Ease Violation: Missing clear logical cause-and-effect transitions (отже, тому, це означає, звідси випливає) to make conceptual understanding effortless.`);
+  }
+
+  // Domain-based code block check:
+  // Code in main text is allowed IF the book category/domain naturally demands it (programming, algorithms, reference/unix-linux).
+  // Non-code domains (math, chemistry, physics, philosophy) keep main text focused on domain prose; code goes into proj-*/api-* inserts.
+  const nonCodeBooks = ['math', 'chemistry', 'physics', 'philosophy'];
+  if (KIND === 'book' && nonCodeBooks.includes(BOOK)) {
+    if (text.includes('```c') || text.includes('```cpp') || text.includes('```python') || text.includes('```js')) {
+      auditIssues.push(`Domain Violation: Main article in ${BOOK} book should contain domain-pure prose (${BOOK}). Code belongs in proj-*/api-* inserts or programming/algorithm books.`);
+    }
+  }
+
 } else {
-  console.log(`✖ Detailed article file missing: ${detailedFile}`);
-  passesAll = false;
+  auditIssues.push(`Detailed article file missing: ${detailedFile}`);
 }
 
+// Evaluate Inserts (Full 5 insert types: hist, comp, math, proj, api)
 const filesInDir = fs.readdirSync(topicDir);
 const insertFiles = filesInDir.filter(f => f.match(/^(hist|comp|math|proj|api)-.*\.md$/));
-console.log(`Found ${insertFiles.length} insert sub-article(s).`);
+console.log(`Found ${insertFiles.length} insert sub-article(s) (Inserts are contextual: 0 is valid if self-contained).`);
+
+const foundInserts = { hist: [], comp: [], math: [], proj: [], api: [] };
 
 insertFiles.forEach(ins => {
   const insText = fs.readFileSync(path.join(topicDir, ins), 'utf8');
   const insWords = insText.trim().split(/\s+/).length;
+  const prefix = ins.split('-')[0];
+
+  // Rule 1: H1 Title
+  if (!insText.trim().startsWith('#')) {
+    auditIssues.push(`Insert ${ins} missing H1 title header (# Title).`);
+  }
+  // Rule 2: Self-justifying intro
+  const insParagraphs = insText.split(/\r?\n\s*\r?\n/).map(p => p.trim()).filter(p => p && !p.startsWith('#'));
+  const firstInsPara = insParagraphs[0] || '';
+  if (firstInsPara.length < 30) {
+    auditIssues.push(`Insert ${ins} missing self-justifying intro sentence.`);
+  }
+  // Rule 3: No preknowlist in inserts
   if (insText.includes('<preknowlist>')) {
-    console.log(`✖ Forbidden <preknowlist> in insert: ${ins}`);
-    passesAll = false;
+    auditIssues.push(`Forbidden <preknowlist> in insert: ${ins}`);
   }
+  // Rule 4: No backward navigation cards
   if (insText.match(/🔗 Тема|▶️ До теми/)) {
-    console.log(`✖ Forbidden backward card in insert: ${ins}`);
-    passesAll = false;
+    auditIssues.push(`Forbidden backward card in insert: ${ins}`);
   }
+  // Rule 5: Word count (400–5000)
   if (insWords < 400 || insWords > 5000) {
-    console.log(`✖ Insert ${ins} word count (${insWords}) outside 400–5000 range.`);
-    passesAll = false;
+    auditIssues.push(`Insert ${ins} word count (${insWords}) outside 400–5000 range.`);
+  }
+
+  // Rule 6: Code validity in proj-* and api-* inserts
+  if ((prefix === 'proj' || prefix === 'api') && !insText.includes('```')) {
+    auditIssues.push(`Insert ${ins} (${prefix}) missing concrete code or structured interface spec code block.`);
+  }
+
+  if (foundInserts[prefix]) {
+    foundInserts[prefix].push({ file: ins, status: 'done' });
   }
 });
 
-// Update Manifest if Passed
-if (passesAll) {
+// Report Results
+if (auditIssues.length === 0) {
   bookMeta.sections.forEach(sec => {
     sec.topics.forEach(top => {
       if (top.slug === targetUnit.slug && sec.slug === targetUnit.section) {
         if (top.detailed) top.detailed.status = 'done';
         else top.status = 'done';
         if (top.basic) top.basic.status = 'empty';
+
+        // Sync insert arrays in manifest with actual existing inserts
+        top.hist = foundInserts.hist;
+        top.comp = foundInserts.comp;
+        top.math = foundInserts.math;
+        top.proj = foundInserts.proj;
+        top.api = foundInserts.api;
       }
     });
   });
   const updatedManifestJs = 'window.__BOOKS__ = window.__BOOKS__ || [];\nwindow.__BOOKS__.push(\n' + JSON.stringify(bookMeta, null, 2) + '\n);\n';
   fs.writeFileSync(manifestPath, updatedManifestJs, 'utf8');
-  console.log(`\n✓ Topic [${targetUnit.slug}] marked as DONE in manifest.js.`);
+  console.log(`\n🎉 100% PERFECT! Topic [${targetUnit.slug}] passed all cognitive & Feynman checks. Marked as DONE in manifest.js.`);
 } else {
-  console.log(`\n⚠️ Topic [${targetUnit.slug}] requires authoring/fixing pass.`);
+  console.log(`\n⚠️ AUDIT FAILED for [${targetUnit.slug}]. Iterative refinement pass needed!`);
+  console.log(`   Found ${auditIssues.length} issue(s):`);
+  auditIssues.forEach((issue, idx) => {
+    console.log(`   ${idx + 1}. ✖ ${issue}`);
+  });
+  process.exit(1);
 }
 
 console.log(`\n================================================================`);
