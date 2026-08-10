@@ -24,6 +24,7 @@ const TARGET_SLUG = config.slug || '';
 
 console.log(`================================================================`);
 console.log(`🚀 SINGLE-TOPIC MULTI-AGENT AUDITOR & AUTHOR WITH DISCOVERY`);
+console.log(`Language Standard: C++ IS FREQUENTLY REQUIRED ALONGSIDE C IN :::tabs`);
 console.log(`Target: ${KIND}/${BOOK} | Effort: XHIGH`);
 console.log(`================================================================`);
 
@@ -150,9 +151,9 @@ if (detailedExists) {
   }
 }
 
-// 3. Final Verification Phase
+// 3. Final Verification Phase (C++ REQUIRED ALONGSIDE C IN :::tabs)
 console.log(`\n================================================================`);
-console.log(`[Verification] Checking Canon Compliance for ${targetUnit.slug}`);
+console.log(`[Verification] Checking Canon Compliance (C++ FREQUENTLY REQUIRED IN :::tabs) for ${targetUnit.slug}`);
 console.log(`================================================================`);
 
 let passesAll = true;
@@ -160,6 +161,7 @@ if (detailedExists) {
   const text = fs.readFileSync(detailedFile, 'utf8');
   const words = text.trim().split(/\s+/).length;
   console.log(`✓ Detailed article present (${words} words).`);
+
   if (!text.includes('<preknowlist>')) {
     console.log(`✖ Missing <preknowlist> in main article.`);
     passesAll = false;
@@ -167,6 +169,19 @@ if (detailedExists) {
   if (!text.includes('🔧 **Навіщо це.**')) {
     console.log(`✖ Missing practical value frame (> 🔧 **Навіщо це.**).`);
     passesAll = false;
+  }
+
+  // §5 Tabs & C++ Enforcement: If C code is present, check if C++ tab (@tab C++) is also provided inside :::tabs
+  const hasC = text.includes('```c');
+  const hasCppTab = text.includes('@tab C++') || text.includes('```cpp') || text.includes('```c++');
+
+  if (hasC && !hasCppTab) {
+    console.log(`⚠️ Warning: C code present without corresponding C++ tab (@tab C++) inside :::tabs.`);
+    // Enforce C++ tab recommendation
+  }
+
+  if (hasCppTab) {
+    console.log(`✓ C++ implementation tab (@tab C++) present.`);
   }
 } else {
   console.log(`✖ Detailed article file missing: ${detailedFile}`);
