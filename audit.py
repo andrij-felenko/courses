@@ -1,105 +1,64 @@
+﻿# -*- coding: utf-8 -*-
 import os
+import glob
 import re
 import json
-from pathlib import Path
 
-TARGET_DIRS = ["files", "io", "storage"]
-BASE_DIR = Path(r"E:\develop\courses\reference\unix-linux")
+base_dirs = [
+    'e:/develop/courses/reference/unix-linux/foundations',
+    'e:/develop/courses/reference/unix-linux/processes'
+]
 
-def process_files():
-    report = []
-    
-    # regex for navigation cards
-    nav_card_re = re.compile(r'^\s*(?:🔗|▶️|🔙).*', re.MULTILINE)
-    nav_text_re = re.compile(r'^\s*(?:Повернутися до|Тема, до якої).*', re.MULTILINE | re.IGNORECASE)
-    
-    for d in TARGET_DIRS:
-        dp = BASE_DIR / d
-        if not dp.exists():
-            continue
-        
-        for filepath in dp.rglob("*.md"):
-            name = filepath.name
-            if not (name.startswith("hist-") or name.startswith("comp-") or 
-                    name.startswith("math-") or name.startswith("proj-") or 
-                    name.startswith("api-")):
-                continue
-                
-            with open(filepath, "r", encoding="utf-8") as f:
-                content = f.read()
-                
-            original_content = content
-            
-            # Rule 3: No reverse navigation cards
-            content = nav_card_re.sub('', content)
-            content = nav_text_re.sub('', content)
-            
-            # Remove empty lines created by removals
-            content = re.sub(r'\n{3,}', '\n\n', content)
-            content = content.strip() + "\n"
-            
-            # Rule 1: Starts with H1
-            lines = content.split('\n')
-            if lines and not lines[0].startswith('# '):
-                if lines[0].startswith('##'):
-                    lines[0] = '# ' + lines[0].lstrip('#').strip()
-                else:
-                    lines.insert(0, '# 📜 ' + filepath.stem.replace('-', ' ').title())
-            content = '\n'.join(lines)
-            
-            # Rule 4: Word count
-            word_count = len(re.findall(r'\b\w+\b', content))
-            max_words = 9000 if name.startswith("api-") else 5000
-            
-            word_status = "OK"
-            if word_count < 400:
-                word_status = f"Too short ({word_count})"
-            elif word_count > max_words:
-                word_status = f"Too long ({word_count})"
-                
-            if content != original_content:
-                with open(filepath, "w", encoding="utf-8") as f:
-                    f.write(content)
-                    
-            report.append({
-                "file": str(filepath.relative_to(BASE_DIR)),
-                "modified": content != original_content,
-                "word_count_status": word_status,
-                "word_count": word_count
-            })
-            
-    return report
+patterns = ['hist-*.md', 'comp-*.md', 'math-*.md', 'proj-*.md', 'api-*.md']
+files = []
 
-def update_manifest():
-    manifest_path = BASE_DIR / "manifest.js"
-    if not manifest_path.exists():
-        return False
-        
-    with open(manifest_path, "r", encoding="utf-8") as f:
-        content = f.read()
-        
-    def repl(m):
-        return m.group(1) + '"status": "done"'
+for base in base_dirs:
+    for pattern in patterns:
+        for root, dirs, filenames in os.walk(base):
+            import fnmatch
+            for filename in fnmatch.filter(filenames, pattern):
+                files.append(os.path.join(root, filename))
 
-    new_content = re.sub(r'("file":\s*"[^"]+\.md",\s*)"status":\s*"[^"]+"', repl, content)
-    
-    if new_content != content:
-        with open(manifest_path, "w", encoding="utf-8") as f:
-            f.write(new_content)
-        return True
-    return False
+report = {}
 
-if __name__ == "__main__":
-    rep = process_files()
-    man_updated = update_manifest()
+for file in files:
+    try:
+        with open(file, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except Exception:
+        continue
+
+    original_content = content
+    issues_found = []
     
-    output = {
-        "files_processed": len(rep),
-        "manifest_updated": man_updated,
-        "files": rep
-    }
+    if not content.startswith('# '):
+        issues_found.append('No H1 header at the start')
+        if not re.search(r'^# ', content, flags=re.MULTILINE):
+            content = '# 📜 Untitled\n\n' + content
     
-    with open(BASE_DIR / "audit_report.json", "w", encoding="utf-8") as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
-    
-    print("Done")
+    if '🔗 Тема' in content or '▶️ До теми' in content:
+        issues_found.append('Contains reverse navigation cards')
+        content = re.sub(r'(?i)^.*(?:🔗 Тема|▶️ До теми).*$\n?', '', content, flags=re.MULTILINE)
+
+    if '<preknowlist>' in content:
+        issues_found.append('Contains <preknowlist>')
+        content = re.sub(r'<preknowlist>.*?</preknowlist>\n?', '', content, flags=re.DOTALL)
+
+    words = len(content.split())
+    if words < 400 or words > 5000:
+        issues_found.append(f'Word count {words} is out of 400-5000 range')
+
+    if '`	ext' in content or '`pseudo' in content:
+        issues_found.append('Contains pseudo code blocks')
+
+    if content != original_content:
+        with open(file, 'w', encoding='utf-8') as f:
+            f.write(content)
+            
+    if issues_found or content != original_content:
+        report[file] = {
+            'fixed': content != original_content,
+            'issues': issues_found
+        }
+
+print(json.dumps(report, ensure_ascii=False, indent=2))

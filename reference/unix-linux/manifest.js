@@ -14,7 +14,7 @@ window.__BOOKS__.push(
           "slug": "unix-philosophy",
           "title": "Філософія Unix: малі програми, що складаються",
           "basic": {
-            "status": "done"
+            "status": "empty"
           },
           "detailed": {
             "status": "done"
@@ -42,7 +42,7 @@ window.__BOOKS__.push(
           "slug": "everything-is-a-file",
           "title": "«Усе є файлом»: один інтерфейс на все",
           "basic": {
-            "status": "done"
+            "status": "empty"
           },
           "detailed": {
             "status": "done"
@@ -102,7 +102,7 @@ window.__BOOKS__.push(
           "slug": "unix-lineage",
           "title": "Родовід Unix: AT&T, BSD і поява Linux",
           "basic": {
-            "status": "done"
+            "status": "empty"
           },
           "detailed": {
             "status": "done"
@@ -1245,8 +1245,26 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-atomic-instructions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lockfree-ringbuffer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kernel-atomic-ops.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "memory-barriers",
@@ -1255,8 +1273,26 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-out-of-order-cpu.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lockfree-stack.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kernel-memory-barriers.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "kernel-locking",
@@ -3669,8 +3705,26 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-btrfs-creation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-btrfs-key-search.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-btrfs-tree-types.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "btrfs-checksums-scrubbing-raid",
@@ -3679,8 +3733,26 @@ window.__BOOKS__.push(
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-silent-data-corruption.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crc32c-btrfs.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-btrfs-scrub-ioctl.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "zfs-on-linux-arc",
