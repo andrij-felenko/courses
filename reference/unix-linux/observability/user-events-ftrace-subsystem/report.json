@@ -1,0 +1,33 @@
+{
+  "project": "reference/unix-linux",
+  "section": "observability",
+  "slug": "user-events-ftrace-subsystem",
+  "status": "completed",
+  "files_generated": [
+    {
+      "filename": "figs.py",
+      "description": "Python script to generate the architecture SVG diagram."
+    },
+    {
+      "filename": "architecture.svg",
+      "description": "Generated SVG diagram showing the User Events architecture."
+    },
+    {
+      "filename": "user-events-ftrace-subsystem-d.md",
+      "description": "Comprehensive markdown article covering the User Events subsystem in ftrace."
+    }
+  ],
+  "details": {
+    "word_count": "approx 1500",
+    "topics_covered": [
+      "Introduction and motivation",
+      "Architecture and Kernel integration",
+      "Event registration (ABI)",
+      "Zero-overhead mmap status checking",
+      "Event generation (writev)",
+      "Full C code example",
+      "Integration with eBPF and perf",
+      "Dynamic sizing and security"
+    ]
+  }
+}

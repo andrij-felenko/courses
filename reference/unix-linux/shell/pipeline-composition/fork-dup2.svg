@@ -1,0 +1,23 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <g font-family="monospace" font-size="12">
+    <!-- FDs -->
+    <text x="50" y="50" font-weight="bold">Parent (Shell)</text>
+    <text x="50" y="80">0: stdin</text>
+    <text x="50" y="100">1: stdout</text>
+    
+    <path d="M100 120 L100 180" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="110" y="150">fork()</text>
+    
+    <text x="50" y="220" font-weight="bold">Child (Writer: ls)</text>
+    <text x="50" y="250">0: stdin</text>
+    <text x="50" y="270" fill="red">1: stdout -> dup2(pipe[1])</text>
+    <text x="50" y="290">3: pipefd[0] (closed)</text>
+    <text x="50" y="310">4: pipefd[1] (closed)</text>
+    
+    <text x="350" y="220" font-weight="bold">Child (Reader: wc)</text>
+    <text x="350" y="250" fill="green">0: stdin -> dup2(pipe[0])</text>
+    <text x="350" y="270">1: stdout</text>
+    <text x="350" y="290">3: pipefd[0] (closed)</text>
+    <text x="350" y="310">4: pipefd[1] (closed)</text>
+  </g>
+</svg>

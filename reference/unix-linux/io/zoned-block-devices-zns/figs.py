@@ -1,0 +1,34 @@
+import os
+
+def render_zbd_architecture():
+    svg = """<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <rect x="50" y="50" width="500" height="300" fill="#f0f0f0" stroke="#000000" stroke-width="2"/>
+  <text x="300" y="80" font-family="Arial" font-size="20" text-anchor="middle">Zoned Block Device (ZBD) Architecture</text>
+  
+  <rect x="80" y="100" width="120" height="200" fill="#cce5ff" stroke="#004c99" stroke-width="2"/>
+  <text x="140" y="130" font-family="Arial" font-size="14" text-anchor="middle">Conventional</text>
+  <text x="140" y="150" font-family="Arial" font-size="14" text-anchor="middle">Zone</text>
+  <text x="140" y="200" font-family="Arial" font-size="12" text-anchor="middle">Random Writes</text>
+  
+  <rect x="240" y="100" width="120" height="200" fill="#ffcccc" stroke="#990000" stroke-width="2"/>
+  <text x="300" y="130" font-family="Arial" font-size="14" text-anchor="middle">Sequential</text>
+  <text x="300" y="150" font-family="Arial" font-size="14" text-anchor="middle">Zone (SMR)</text>
+  <text x="300" y="200" font-family="Arial" font-size="12" text-anchor="middle">Sequential</text>
+  <text x="300" y="220" font-family="Arial" font-size="12" text-anchor="middle">Writes Only</text>
+  <line x1="260" y1="260" x2="340" y2="260" stroke="#000000" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="400" y="100" width="120" height="200" fill="#ccffcc" stroke="#006600" stroke-width="2"/>
+  <text x="460" y="130" font-family="Arial" font-size="14" text-anchor="middle">ZNS</text>
+  <text x="460" y="150" font-family="Arial" font-size="14" text-anchor="middle">Zone (NVMe)</text>
+  <text x="460" y="200" font-family="Arial" font-size="12" text-anchor="middle">Sequential</text>
+  <text x="460" y="220" font-family="Arial" font-size="12" text-anchor="middle">Writes Only</text>
+</svg>"""
+    with open("zbd_architecture.svg", "w") as f:
+        f.write(svg)
+
+def render():
+    render_zbd_architecture()
+
+if __name__ == "__main__":
+    render()

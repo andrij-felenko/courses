@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+    <rect width="800" height="300" fill="#ffffff"/>
+    
+    <rect x="50" y="50" width="300" height="200" fill="#f8f9fa" stroke="#6c757d" stroke-width="2"/>
+    <text x="200" y="80" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle">Original Memory</text>
+    <text x="80" y="120" font-family="monospace" font-size="16">0x400500: 48 c7 c0</text>
+    <text x="80" y="150" font-family="monospace" font-size="16">0x400503: 01 00 00</text>
+    <text x="80" y="180" font-family="monospace" font-size="16">0x400506: 0f 05</text>
+    
+    <path d="M 370 150 L 430 150" stroke="#007bff" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    <text x="400" y="140" font-family="Arial" font-size="14" text-anchor="middle" fill="#007bff">PTRACE_POKEDATA</text>
+    
+    <rect x="450" y="50" width="300" height="200" fill="#fff3cd" stroke="#856404" stroke-width="2"/>
+    <text x="600" y="80" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle">Modified Memory</text>
+    <text x="480" y="120" font-family="monospace" font-size="16">0x400500: 48 c7 c0</text>
+    <text x="480" y="150" font-family="monospace" font-size="16" fill="#dc3545">0x400503: cc 00 00</text>
+    <text x="480" y="180" font-family="monospace" font-size="16">0x400506: 0f 05</text>
+    <text x="650" y="150" font-family="Arial" font-size="12" fill="#dc3545">&lt;-- int 3</text>
+    
+    <defs>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#007bff"/>
+        </marker>
+    </defs>
+</svg>

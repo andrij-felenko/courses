@@ -1,0 +1,37 @@
+import os
+
+def render():
+    svg_content = '''<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Client to Server TCP Handshake -->
+  <text x="100" y="50" font-family="Arial" font-size="20">Client (connect)</text>
+  <text x="500" y="50" font-family="Arial" font-size="20">Server (listen/accept)</text>
+
+  <!-- Lifelines -->
+  <line x1="150" y1="70" x2="150" y2="500" stroke="black" stroke-width="2"/>
+  <line x1="550" y1="70" x2="550" y2="500" stroke="black" stroke-width="2"/>
+
+  <!-- SYN -->
+  <line x1="150" y1="120" x2="550" y2="170" stroke="blue" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="300" y="130" font-family="Arial" font-size="14" fill="blue">SYN (State: SYN_SENT)</text>
+
+  <!-- SYN-ACK -->
+  <line x1="550" y1="220" x2="150" y2="270" stroke="green" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="300" y="230" font-family="Arial" font-size="14" fill="green">SYN-ACK (State: SYN_RECV)</text>
+
+  <!-- ACK -->
+  <line x1="150" y1="320" x2="550" y2="370" stroke="red" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="300" y="330" font-family="Arial" font-size="14" fill="red">ACK (State: ESTABLISHED)</text>
+
+  <!-- Arrows def -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+    </marker>
+  </defs>
+</svg>'''
+    
+    with open('socket-tcp.svg', 'w') as f:
+        f.write(svg_content)
+
+if __name__ == '__main__':
+    render()

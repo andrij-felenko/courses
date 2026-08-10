@@ -1,0 +1,27 @@
+{
+  "audit": {
+    "module": "reference/unix-linux",
+    "topic": "btrfs-copy-on-write-and-subvolumes",
+    "status": "completed",
+    "actions_taken": [
+      "Renamed topic directory from btrfs-internals to btrfs-copy-on-write-and-subvolumes.",
+      "Rewrote detailed version btrfs-copy-on-write-and-subvolumes-d.md with deep semantic focus on CoW, Subvolumes, and Snapshots.",
+      "Added basic version btrfs-copy-on-write-and-subvolumes.md per §3 rules.",
+      "Added preknowlist and book: links to previous chapters (kernel-and-userspace, file-block-allocation).",
+      "Extracted B-Tree Architecture, Checksums, RAID, and Scrubbing into new standalone topics in manifest.js to maintain the 'one topic per article' atomicity rule.",
+      "Included code examples for creating subvolumes and snapshots using Bash, Python, and C (ioctls) with :::tabs."
+    ],
+    "new_topics_extracted": [
+      {
+        "slug": "btrfs-b-tree-architecture",
+        "title": "Btrfs: Архітектура B-дерев",
+        "reason": "Розділення фізичної структури B-дерев (fs_tree, chunk_tree) та концепції CoW."
+      },
+      {
+        "slug": "btrfs-checksums-scrubbing-raid",
+        "title": "Btrfs: Контрольні суми, Scrubbing та RAID",
+        "reason": "Розділення питань цілісності даних (silent data corruption) від управління субтомами."
+      }
+    ]
+  }
+}

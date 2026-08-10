@@ -1,0 +1,34 @@
+import os
+import sys
+
+def render():
+    svg_content = """<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
+    <rect x="50" y="50" width="700" height="300" fill="#f8f9fa" stroke="#343a40" stroke-width="2" rx="10"/>
+    <text x="400" y="90" font-family="sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#343a40">Seccomp-BPF Архітектура</text>
+    
+    <rect x="100" y="150" width="200" height="120" fill="#cce5ff" stroke="#004085" stroke-width="2" rx="5"/>
+    <text x="200" y="210" font-family="sans-serif" font-size="20" text-anchor="middle" fill="#004085">User Space</text>
+    <text x="200" y="235" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#004085">(System Call)</text>
+    
+    <path d="M 300 210 L 480 210" stroke="#343a40" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="390" y="200" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#343a40">seccomp_data</text>
+    
+    <rect x="500" y="130" width="200" height="160" fill="#d4edda" stroke="#155724" stroke-width="2" rx="5"/>
+    <text x="600" y="170" font-family="sans-serif" font-size="20" text-anchor="middle" fill="#155724">Kernel Space</text>
+    <text x="600" y="200" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#155724">cBPF Filter</text>
+    <rect x="520" y="220" width="160" height="40" fill="#f8d7da" stroke="#721c24" stroke-width="1" rx="3"/>
+    <text x="600" y="245" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#721c24">ALLOW / KILL / ERRNO</text>
+    
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#343a40" />
+        </marker>
+    </defs>
+</svg>"""
+    with open("seccomp_arch.svg", "w", encoding="utf-8") as f:
+        f.write(svg_content)
+    print("SVG rendered successfully.")
+
+if __name__ == "__main__":
+    render()

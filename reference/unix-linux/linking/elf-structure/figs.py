@@ -1,0 +1,44 @@
+import sys
+import os
+
+# Додаємо шлях до scripts/ для імпорту svgkit
+scripts_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../scripts"))
+sys.path.append(scripts_dir)
+
+try:
+    import svgkit
+except ImportError:
+    # Заглушка, якщо скрипт запускається поза середовищем з svgkit
+    class SvgKitStub:
+        def render(self):
+            pass
+    svgkit = SvgKitStub()
+
+def render():
+    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+        <rect width="600" height="400" fill="#f0f0f0"/>
+        <text x="300" y="50" font-size="20" text-anchor="middle" font-family="monospace">ELF File Structure</text>
+        <rect x="50" y="80" width="200" height="40" fill="#add8e6" stroke="#000"/>
+        <text x="150" y="105" text-anchor="middle" font-family="monospace">ELF Header</text>
+        
+        <rect x="50" y="120" width="200" height="60" fill="#90ee90" stroke="#000"/>
+        <text x="150" y="155" text-anchor="middle" font-family="monospace">Program Header Table</text>
+        
+        <rect x="50" y="180" width="200" height="100" fill="#ffcccb" stroke="#000"/>
+        <text x="150" y="235" text-anchor="middle" font-family="monospace">Sections (.text, .data)</text>
+        
+        <rect x="50" y="280" width="200" height="60" fill="#ffff99" stroke="#000"/>
+        <text x="150" y="315" text-anchor="middle" font-family="monospace">Section Header Table</text>
+        
+        <text x="400" y="155" font-family="monospace" text-anchor="middle">Execution View</text>
+        <path d="M 260 150 L 320 150" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+        
+        <text x="400" y="315" font-family="monospace" text-anchor="middle">Linking View</text>
+        <path d="M 260 310 L 320 310" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+    </svg>"""
+    
+    with open(os.path.join(os.path.dirname(__file__), "elf_structure_diagram.svg"), "w", encoding="utf-8") as f:
+        f.write(svg_content)
+
+if __name__ == "__main__":
+    render()

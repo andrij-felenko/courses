@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
+    <rect x="10" y="10" width="780" height="380" rx="10" ry="10" fill="#f9f9f9" stroke="#ccc"/>
+    <rect x="30" y="50" width="340" height="320" rx="5" ry="5" fill="#e6f2ff" stroke="#99c2ff"/>
+    <text x="150" y="40" font-size="16" font-family="Arial" font-weight="bold">Kernel Space</text>
+    <rect x="70" y="100" width="260" height="60" rx="5" ry="5" fill="#cce0ff" stroke="#66a3ff"/>
+    <text x="100" y="135" font-size="14" font-family="Arial">Network Interface Card (NIC)</text>
+    <rect x="70" y="200" width="260" height="60" rx="5" ry="5" fill="#cce0ff" stroke="#66a3ff"/>
+    <text x="110" y="235" font-size="14" font-family="Arial">AF_PACKET Socket Driver</text>
+    <rect x="430" y="50" width="340" height="320" rx="5" ry="5" fill="#ffe6e6" stroke="#ff9999"/>
+    <text x="560" y="40" font-size="16" font-family="Arial" font-weight="bold">User Space</text>
+    <rect x="470" y="100" width="260" height="60" rx="5" ry="5" fill="#ffcccc" stroke="#ff6666"/>
+    <text x="490" y="135" font-size="14" font-family="Arial">User Application (e.g., tcpdump)</text>
+    <rect x="320" y="290" width="160" height="60" rx="5" ry="5" fill="#e6ffe6" stroke="#66cc66"/>
+    <text x="340" y="315" font-size="14" font-family="Arial" font-weight="bold">Shared Memory</text>
+    <text x="355" y="335" font-size="12" font-family="Arial">(Ring Buffer)</text>
+    <line x1="200" y1="160" x2="200" y2="200" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="210" y="185" font-size="12" font-family="Arial">Interrupt / NAPI</text>
+    <line x1="200" y1="260" x2="200" y2="320" stroke="black" stroke-width="2"/>
+    <line x1="200" y1="320" x2="320" y2="320" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="220" y="310" font-size="12" font-family="Arial" font-style="italic">Direct Write</text>
+    <line x1="480" y1="320" x2="600" y2="320" stroke="black" stroke-width="2"/>
+    <line x1="600" y1="320" x2="600" y2="160" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="610" y="250" font-size="12" font-family="Arial" font-style="italic">Zero-copy Read</text>
+    <line x1="600" y1="160" x2="600" y2="200" stroke="blue" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="610" y="190" font-size="12" font-family="Arial" fill="blue">mmap() mapping</text>
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+        </marker>
+    </defs>
+</svg>

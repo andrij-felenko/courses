@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="50.0" y="50.0" width="700.0" height="100.0" rx="6" fill="#f0f0f0" stroke="#333" stroke-width="2.0"/>
+<text x="120.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">User Space</text>
+<rect x="100.0" y="90.0" width="150.0" height="40.0" rx="6" fill="#d9edf7" stroke="#31708f" stroke-width="1.5"/>
+<text x="175.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">LVM (lvm2)</text>
+<rect x="300.0" y="90.0" width="150.0" height="40.0" rx="6" fill="#d9edf7" stroke="#31708f" stroke-width="1.5"/>
+<text x="375.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">cryptsetup</text>
+<rect x="500.0" y="90.0" width="150.0" height="40.0" rx="6" fill="#d9edf7" stroke="#31708f" stroke-width="1.5"/>
+<text x="575.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">dmsetup</text>
+<rect x="300.0" y="180.0" width="200.0" height="40.0" rx="6" fill="#fcf8e3" stroke="#8a6d3b" stroke-width="1.5"/>
+<text x="400.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">/dev/mapper/control (ioctl)</text>
+<rect x="50.0" y="250.0" width="700.0" height="120.0" rx="6" fill="#dff0d8" stroke="#3c763d" stroke-width="2.0"/>
+<text x="145.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kernel Space (dm-mod)</text>
+<rect x="100.0" y="300.0" width="150.0" height="40.0" rx="6" fill="#c4e3f3" stroke="#31708f" stroke-width="1.5"/>
+<text x="175.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Target: linear</text>
+<rect x="300.0" y="300.0" width="150.0" height="40.0" rx="6" fill="#c4e3f3" stroke="#31708f" stroke-width="1.5"/>
+<text x="375.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Target: crypt</text>
+<rect x="500.0" y="300.0" width="150.0" height="40.0" rx="6" fill="#c4e3f3" stroke="#31708f" stroke-width="1.5"/>
+<text x="575.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Target: snapshot</text>
+<line x1="175.0" y1="130.0" x2="380.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="375.0" y1="130.0" x2="400.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="130.0" x2="420.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="220.0" x2="400.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

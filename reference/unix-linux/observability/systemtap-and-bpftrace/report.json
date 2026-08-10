@@ -1,0 +1,17 @@
+{
+  "audit_result": "success",
+  "actions": [
+    "Created detailed article E:\\develop\\courses\\reference\\unix-linux\\observability\\systemtap-and-bpftrace\\systemtap-and-bpftrace-d.md combining the content of bpftrace-dynamic-tracing-d.md and systemtap-scripting-d.md.",
+    "Ensured deep semantic analysis, comparing DTrace legacy, Kernel Module compilation vs eBPF JIT, and handling of USDT probes.",
+    "Included :::tabs for side-by-side code comparisons (bpftrace vs SystemTap).",
+    "Included preknowlist referencing foundations/kernel-and-userspace, observability/ebpf, observability/kprobes using book: links.",
+    "Skipped basic version creation because detailed version is ~1000 words, strictly complying with AUTHORING.md §3 rule ('< 2250 слів → базової НЕ пишемо'). Basic status in manifest is set to 'empty'.",
+    "Replaced old slugs bpftrace-dynamic-tracing and systemtap-scripting with systemtap-and-bpftrace in manifest.js."
+  ],
+  "status_updates": {
+    "systemtap-and-bpftrace": {
+      "basic": "empty",
+      "detailed": "done"
+    }
+  }
+}

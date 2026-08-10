@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+    <rect width="100%" height="100%" fill="#fafafa"/>
+    
+    <!-- User Space -->
+    <rect x="50" y="50" width="300" height="300" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="10"/>
+    <text x="200" y="80" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#0d47a1" text-anchor="middle">User Space</text>
+    
+    <!-- Kernel Space -->
+    <rect x="450" y="50" width="300" height="300" fill="#fff3e0" stroke="#e65100" stroke-width="2" rx="10"/>
+    <text x="600" y="80" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#e65100" text-anchor="middle">Kernel Space</text>
+    
+    <!-- Syscall path -->
+    <path d="M 200 120 C 350 120, 450 200, 600 200" fill="none" stroke="#d32f2f" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrow-red)"/>
+    <text x="400" y="140" font-family="Arial" font-size="14" fill="#d32f2f" text-anchor="middle">Standard Syscall (Context Switch)</text>
+    
+    <!-- vDSO path -->
+    <rect x="100" y="220" width="200" height="100" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="5"/>
+    <text x="200" y="250" font-family="Arial" font-size="16" font-weight="bold" fill="#1b5e20" text-anchor="middle">vDSO mapped library</text>
+    <text x="200" y="275" font-family="Arial" font-size="14" fill="#1b5e20" text-anchor="middle">gettimeofday()</text>
+    
+    <path d="M 200 160 L 200 220" fill="none" stroke="#2e7d32" stroke-width="3" marker-end="url(#arrow-green)"/>
+    <text x="140" y="190" font-family="Arial" font-size="14" fill="#2e7d32">Fast call</text>
+    
+    <defs>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#d32f2f"/>
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#2e7d32"/>
+        </marker>
+    </defs>
+</svg>

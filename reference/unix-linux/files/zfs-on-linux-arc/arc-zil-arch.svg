@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура ZFS ARC, L2ARC та ZIL</text>
+<rect x="50.0" y="100.0" width="300.0" height="250.0" rx="10" fill="#e0e0e0" stroke="#333" stroke-width="1.5"/>
+<text x="200.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">System RAM</text>
+<rect x="75.0" y="150.0" width="250.0" height="120.0" rx="5" fill="#bbdefb" stroke="#1976d2" stroke-width="1.5"/>
+<text x="200.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">ARC (Adaptive Replacement Cache)</text>
+<rect x="90.0" y="200.0" width="100.0" height="40.0" rx="6" fill="#90caf9" stroke="#0d47a1" stroke-width="1.5"/>
+<text x="140.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">MRU (Recent)</text>
+<rect x="210.0" y="200.0" width="100.0" height="40.0" rx="6" fill="#90caf9" stroke="#0d47a1" stroke-width="1.5"/>
+<text x="260.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">MFU (Frequent)</text>
+<rect x="450.0" y="100.0" width="250.0" height="120.0" rx="10" fill="#ffe0b2" stroke="#f57c00" stroke-width="1.5"/>
+<text x="575.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">SSD Cache (Read)</text>
+<rect x="475.0" y="150.0" width="200.0" height="50.0" rx="6" fill="#ffcc80" stroke="#e65100" stroke-width="1.5"/>
+<text x="575.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">L2ARC</text>
+<rect x="450.0" y="250.0" width="250.0" height="120.0" rx="10" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+<text x="575.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">SSD/NVMe (Write Intent)</text>
+<rect x="475.0" y="300.0" width="200.0" height="50.0" rx="6" fill="#a5d6a7" stroke="#1b5e20" stroke-width="1.5"/>
+<text x="575.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle">ZIL / SLOG</text>
+<line x1="325.0" y1="200.0" x2="450.0" y2="175.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="325.0" y1="250.0" x2="450.0" y2="300.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

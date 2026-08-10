@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 610 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="610" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="300.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура підсистеми DRM Accel</text>
+<rect x="50.0" y="60.0" width="500.0" height="100.0" rx="6" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
+<text x="300.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1565c0" text-anchor="middle" font-weight="700">Простір користувача (User Space)</text>
+<rect x="47.2" y="105.0" width="175.6" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="135.0" y="124.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">TensorFlow / PyTorch</tspan></text>
+<rect x="204.2" y="105.0" width="191.6" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="124.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">User Mode Driver (UMD)</tspan></text>
+<rect x="385.2" y="105.0" width="159.6" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="465.0" y="124.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="465.0" dy="0.0">libdrm (Accel API)</tspan></text>
+<rect x="50.0" y="200.0" width="500.0" height="100.0" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+<text x="300.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2e7d32" text-anchor="middle" font-weight="700">Простір ядра (Kernel Space, Linux 6.3+)</text>
+<rect x="95.1" y="245.0" width="79.8" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="135.0" y="264.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">DRM Core</tspan></text>
+<rect x="216.2" y="245.0" width="167.6" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="264.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">DRM Accel Framework</tspan></text>
+<rect x="365.2" y="245.0" width="199.5" height="30.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="465.0" y="264.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="465.0" dy="0.0">KMD (Intel VPU, Habana)</tspan></text>
+<rect x="50.0" y="330.0" width="500.0" height="50.0" rx="6" fill="#fff3e0" stroke="#fb8c00" stroke-width="1.5"/>
+<text x="300.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#e65100" text-anchor="middle" font-weight="700">Апаратне забезпечення: NPUs, TPUs, AI Accelerators</text>
+<line x1="300.0" y1="140.0" x2="300.0" y2="235.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="310.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">/dev/accel/accel0</text>
+<line x1="300.0" y1="280.0" x2="300.0" y2="330.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <rect x="50" y="50" width="700" height="300" fill="#f0f0f0" stroke="#333" rx="10"/>
+  <text x="60" y="75" font-size="16" font-weight="bold" font-family="sans-serif">Host OS (AppArmor Default Namespace)</text>
+  
+  <rect x="80" y="100" width="640" height="230" fill="#e0eaf5" stroke="#4a86e8" rx="8"/>
+  <text x="90" y="125" font-size="14" font-family="sans-serif">Container Engine Profile (docker-default)</text>
+  
+  <rect x="110" y="150" width="580" height="160" fill="#d9ead3" stroke="#6aa84f" rx="6"/>
+  <text x="120" y="175" font-size="14" font-family="sans-serif">Container AppArmor Namespace (lxd-container-1)</text>
+  
+  <rect x="140" y="200" width="240" height="90" fill="#fff2cc" stroke="#f1c232" rx="4"/>
+  <text x="150" y="225" font-size="12" font-family="sans-serif">Profile A (nginx)</text>
+  <text x="150" y="255" font-size="10" fill="#555" font-family="monospace">Stacked: lxd-container-1//nginx</text>
+  
+  <rect x="410" y="200" width="240" height="90" fill="#f4cccc" stroke="#e06666" rx="4"/>
+  <text x="420" y="225" font-size="12" font-family="sans-serif">Profile B (db)</text>
+  <text x="420" y="255" font-size="10" fill="#555" font-family="monospace">Stacked: lxd-container-1//db</text>
+</svg>

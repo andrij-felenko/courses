@@ -1,0 +1,29 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
+<defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="black" />
+        </marker>
+    </defs>
+<rect x="0" y="0" width="800" height="500" fill="#f9f9f9" stroke="#e0e0e0" rx="0"/>
+<text x="400" y="40" font-size="24" fill="black" text-anchor="middle" font-weight="bold">REPL Цикл Оболонки (Read-Eval-Print Loop)</text>
+<rect x="0" y="110" width="200" height="80" fill="#e8f4f8" stroke="#666" rx="10"/>
+<text x="100" y="145" font-size="18" fill="black" text-anchor="middle" font-weight="bold">READ</text>
+<text x="100" y="170" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">Читання рядка з stdin</text>
+<rect x="300" y="110" width="200" height="80" fill="#fcf4e3" stroke="#666" rx="10"/>
+<text x="400" y="145" font-size="18" fill="black" text-anchor="middle" font-weight="bold">EVAL (Parse & Expand)</text>
+<text x="400" y="170" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">Лексика, Парсинг, AST, Globbing</text>
+<rect x="600" y="110" width="200" height="80" fill="#fdece8" stroke="#666" rx="10"/>
+<text x="700" y="145" font-size="18" fill="black" text-anchor="middle" font-weight="bold">EXECUTE</text>
+<text x="700" y="170" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">fork(), exec(), wait()</text>
+<rect x="600" y="310" width="200" height="80" fill="#eef8eb" stroke="#666" rx="10"/>
+<text x="700" y="345" font-size="18" fill="black" text-anchor="middle" font-weight="bold">PRINT</text>
+<text x="700" y="370" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">Вивід stdout/stderr</text>
+<rect x="0" y="310" width="200" height="80" fill="#f4ecf8" stroke="#666" rx="10"/>
+<text x="100" y="345" font-size="18" fill="black" text-anchor="middle" font-weight="bold">LOOP</text>
+<text x="100" y="370" font-size="12" fill="#333" text-anchor="middle" font-weight="normal">Повернення до запрошення</text>
+<line x1="200" y1="150" x2="300" y2="150" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="500" y1="150" x2="600" y2="150" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="700" y1="190" x2="700" y2="310" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="600" y1="350" x2="200" y2="350" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="100" y1="310" x2="100" y2="190" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>

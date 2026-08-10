@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <rect width="100%" height="100%" fill="#f8f9fa"/>
+    <text x="400" y="50" font-family="Arial" font-size="24" text-anchor="middle" fill="#333">Архітектура Landlock LSM</text>
+    
+    <g transform="translate(100, 100)">
+        <rect x="0" y="0" width="200" height="100" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+        <text x="100" y="45" font-family="Arial" font-size="16" text-anchor="middle" fill="#0d47a1">Process (Thread)</text>
+        <text x="100" y="75" font-family="Arial" font-size="14" text-anchor="middle" fill="#0d47a1">prctl(NO_NEW_PRIVS)</text>
+    </g>
+
+    <g transform="translate(450, 100)">
+        <rect x="0" y="0" width="250" height="200" rx="10" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+        <text x="125" y="30" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#1b5e20">Landlock Ruleset</text>
+        
+        <rect x="25" y="50" width="200" height="40" rx="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+        <text x="125" y="75" font-family="Arial" font-size="14" text-anchor="middle" fill="#1b5e20">Rule: /usr (R_OK, X_OK)</text>
+        
+        <rect x="25" y="100" width="200" height="40" rx="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+        <text x="125" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#1b5e20">Rule: /etc (R_OK)</text>
+        
+        <rect x="25" y="150" width="200" height="40" rx="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+        <text x="125" y="175" font-family="Arial" font-size="14" text-anchor="middle" fill="#1b5e20">Rule: /home/user (RW)</text>
+    </g>
+
+    <path d="M 300 150 L 440 150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="370" y="140" font-family="Arial" font-size="14" text-anchor="middle" fill="#666">landlock_restrict_self()</text>
+
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#666" />
+        </marker>
+    </defs>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <style>
+      .rect { fill: #2c3e50; stroke: #ecf0f1; stroke-width: 2; rx: 8; ry: 8; }
+      .rect-enc { fill: #c0392b; stroke: #ecf0f1; stroke-width: 2; rx: 8; ry: 8; }
+      .text { fill: #ecf0f1; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+      .text-sub { fill: #bdc3c7; font-family: 'Inter', sans-serif; font-size: 11px; text-anchor: middle; }
+      .line { stroke: #7f8c8d; stroke-width: 2; fill: none; }
+      .label { fill: #7f8c8d; font-family: 'Inter', sans-serif; font-size: 12px; }
+    </style>
+  </defs>
+
+  <!-- Nodes -->
+  <rect class="rect" x="300" y="30" width="200" height="50"/>
+  <text class="text" x="400" y="55">pool (unencrypted)</text>
+
+  <rect class="rect-enc" x="150" y="130" width="200" height="60"/>
+  <text class="text" x="250" y="155">pool/data</text>
+  <text class="text-sub" x="250" y="175">Encryption Root (Key A)</text>
+
+  <rect class="rect-enc" x="50" y="250" width="180" height="60"/>
+  <text class="text" x="140" y="275">pool/data/home</text>
+  <text class="text-sub" x="140" y="295">Inherits Key A</text>
+
+  <rect class="rect-enc" x="270" y="250" width="180" height="60"/>
+  <text class="text" x="360" y="275">pool/data/secret</text>
+  <text class="text-sub" x="360" y="295">Encryption Root (Key B)</text>
+
+  <rect class="rect" x="450" y="130" width="200" height="50"/>
+  <text class="text" x="550" y="160">pool/public (unencrypted)</text>
+
+  <!-- Edges -->
+  <path class="line" d="M 400 80 L 250 130"/>
+  <path class="line" d="M 400 80 L 550 130"/>
+  <path class="line" d="M 250 190 L 140 250"/>
+  <path class="line" d="M 250 190 L 360 250"/>
+
+</svg>

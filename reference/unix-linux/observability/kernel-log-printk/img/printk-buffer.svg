@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфер printk</text>
+<rect x="100.0" y="150.0" width="600.0" height="100.0" rx="8" fill="#fbfcff" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="200.0" y1="150.0" x2="200.0" y2="250.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="300.0" y1="150.0" x2="300.0" y2="250.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="400.0" y1="150.0" x2="400.0" y2="250.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="500.0" y1="150.0" x2="500.0" y2="250.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="600.0" y1="150.0" x2="600.0" y2="250.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="150.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Record 1
+(timestamp, level)</text>
+<text x="350.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Record 3
+(timestamp, level)</text>
+<text x="650.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Record N
+(timestamp, level)</text>
+<line x1="150.0" y1="300.0" x2="150.0" y2="260.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="150.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Read Pointer (syslog)</text>
+<line x1="550.0" y1="300.0" x2="550.0" y2="260.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="550.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Write Pointer (printk)</text>
+<rect x="150.0" y="50.0" width="150.0" height="50.0" rx="4" fill="#fdecea" stroke="#2457d6" stroke-width="2.0"/>
+<text x="225.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Interrupt (hardirq)</text>
+<line x1="225.0" y1="100.0" x2="350.0" y2="140.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="400.0" y="50.0" width="150.0" height="50.0" rx="4" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="475.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kernel Thread</text>
+<line x1="475.0" y1="100.0" x2="450.0" y2="140.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

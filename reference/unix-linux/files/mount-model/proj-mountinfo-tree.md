@@ -72,7 +72,7 @@
 Дві рівноцінні реалізації одного алгоритму. Обидві читають `/proc/self/mountinfo` (або файл із `MOUNTINFO=…`, щоб перевіряти на збережених знімках), без аргументів друкують дерево, а з аргументами відповідають по кожному шляху.
 
 :::tabs
-
+== C++
 ```cpp
 // mountwhich.cpp — дерево монтувань із mountinfo і пошук монтування за шляхом.
 // g++ -O2 -std=c++17 -o mountwhich mountwhich.cpp
@@ -300,7 +300,7 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
-
+== Go
 ```go
 // mountwhich.go — той самий алгоритм. Потрібен Go 1.21+ (пакет slices).
 // go build -o mountwhich mountwhich.go

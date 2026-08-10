@@ -1,0 +1,41 @@
+import sys
+import os
+
+def render():
+    svg = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+    <rect width="800" height="500" fill="#fcfcfc"/>
+    <text x="400" y="40" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">Архітектура протоколу sd_notify (NOTIFY_SOCKET)</text>
+    
+    <rect x="50" y="100" width="250" height="300" rx="10" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2"/>
+    <text x="175" y="130" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle">systemd (PID 1)</text>
+    <rect x="80" y="160" width="190" height="40" rx="5" fill="#bbdefb"/>
+    <text x="175" y="185" font-family="sans-serif" font-size="14" text-anchor="middle">AF_UNIX Datagram Socket</text>
+    
+    <rect x="500" y="100" width="250" height="300" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="2"/>
+    <text x="625" y="130" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Служба (Type=notify)</text>
+    
+    <line x1="500" y1="200" x2="290" y2="200" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="395" y="190" font-family="sans-serif" font-size="14" text-anchor="middle">READY=1</text>
+    
+    <line x1="500" y1="250" x2="290" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="395" y="240" font-family="sans-serif" font-size="14" text-anchor="middle">STATUS=Processing requests...</text>
+    
+    <line x1="500" y1="300" x2="290" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="395" y="290" font-family="sans-serif" font-size="14" text-anchor="middle">WATCHDOG=1</text>
+
+    <line x1="500" y1="350" x2="290" y2="350" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="395" y="340" font-family="sans-serif" font-size="14" text-anchor="middle">RELOADING=1</text>
+
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#333" />
+        </marker>
+    </defs>
+</svg>"""
+    
+    with open("notify_socket.svg", "w", encoding="utf-8") as f:
+        f.write(svg)
+    print("SVG generated: notify_socket.svg")
+
+if __name__ == "__main__":
+    render()

@@ -1,0 +1,24 @@
+{
+  "title": "Валідатор блокувань Lockdep",
+  "slug": "lockdep-lock-validator",
+  "status": "done",
+  "metadata": {
+    "type": "reference",
+    "book": "unix-linux",
+    "section": "observability"
+  },
+  "content_summary": {
+    "words": 3500,
+    "topics_covered": [
+      "Lock classes concept",
+      "Dependency graph and ABBA detection",
+      "IRQ vs non-IRQ contexts",
+      "CONFIG_PROVE_LOCKING",
+      "Annotations and false positives"
+    ]
+  },
+  "assets": [
+    "figs/lock_graph.svg"
+  ],
+  "authoring_rules_checked": true
+}

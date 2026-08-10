@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура LUKS</text>
+<rect x="50.0" y="50.0" width="700.0" height="300.0" rx="6" fill="#f9f9f9" stroke="#333" stroke-width="2.0"/>
+<rect x="70.0" y="70.0" width="660.0" height="260.0" rx="6" fill="#eee" stroke="#666" stroke-width="1.5"/>
+<text x="400.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Блоковий пристрій (/dev/sda1)</text>
+<rect x="90.0" y="110.0" width="200.0" height="200.0" rx="6" fill="#f2dede" stroke="#a94442" stroke-width="1.5"/>
+<text x="190.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">LUKS Header</text>
+<rect x="100.0" y="150.0" width="180.0" height="30.0" rx="6" fill="#ebccd1" stroke="#a94442" stroke-width="1.5"/>
+<text x="190.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Magic Number</text>
+<rect x="100.0" y="185.0" width="180.0" height="30.0" rx="6" fill="#ebccd1" stroke="#a94442" stroke-width="1.5"/>
+<text x="190.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Master Key Digest</text>
+<rect x="100.0" y="220.0" width="180.0" height="80.0" rx="6" fill="#ebccd1" stroke="#a94442" stroke-width="1.5"/>
+<text x="190.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Key Slots (0-7)</text>
+<rect x="320.0" y="110.0" width="390.0" height="200.0" rx="6" fill="#dff0d8" stroke="#3c763d" stroke-width="1.5"/>
+<text x="515.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зашифровані дані (Payload)</text>
+<line x1="290.0" y1="210.0" x2="320.0" y2="210.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="290.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Ключ слоту -&gt; розшифровує Master Key -&gt; Master Key розшифровує дані</text>
+</svg>

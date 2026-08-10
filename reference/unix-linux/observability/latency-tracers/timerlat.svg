@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="400" y="40" font-size="24" text-anchor="middle" fill="#333">timerlat: Вимірювання затримки таймера</text>
+  
+  <!-- Осі -->
+  <line x1="100" y1="300" x2="700" y2="300" stroke="#000" stroke-width="2"/>
+  <line x1="100" y1="300" x2="100" y2="100" stroke="#000" stroke-width="2"/>
+  
+  <text x="400" y="340" font-size="16" text-anchor="middle" fill="#000">Час (мкс)</text>
+  
+  <!-- Цільовий час -->
+  <line x1="300" y1="300" x2="300" y2="150" stroke="#f44336" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="300" y="140" font-size="14" fill="#d32f2f" text-anchor="middle">Очікуваний час</text>
+  
+  <!-- Фактичний час -->
+  <line x1="500" y1="300" x2="500" y2="180" stroke="#4caf50" stroke-width="2"/>
+  <text x="500" y="170" font-size="14" fill="#388e3c" text-anchor="middle">Фактичний виклик</text>
+  
+  <!-- Затримка -->
+  <line x1="300" y1="250" x2="500" y2="250" stroke="#2196f3" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="400" y="240" font-size="14" fill="#1976d2" text-anchor="middle">Затримка (Latency)</text>
+  
+</svg>

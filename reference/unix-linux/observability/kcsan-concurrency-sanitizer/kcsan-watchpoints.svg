@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">KCSAN Watchpoint Mechanism</text>
+<rect x="122.2" y="123.9" width="155.7" height="52.2" rx="6" fill="#e0f7fa" stroke="#333333" stroke-width="1.5"/><text x="200.0" y="145.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Thread A (CPU 0)</tspan><tspan x="200.0" dy="18.2">__tsan_read/write</tspan></text>
+<rect x="522.2" y="123.9" width="155.7" height="52.2" rx="6" fill="#ffebee" stroke="#333333" stroke-width="1.5"/><text x="600.0" y="145.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Thread B (CPU 1)</tspan><tspan x="600.0" dy="18.2">__tsan_read/write</tspan></text>
+<rect x="306.2" y="273.9" width="187.6" height="52.2" rx="6" fill="#f5f5f5" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="295.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Shared Memory Address</tspan><tspan x="400.0" dy="18.2">(Watchpoint active)</tspan></text>
+<line x1="200.0" y1="181.1" x2="380.0" y2="280.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="270.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-style="italic">Set Watchpoint &amp; Delay</text>
+<line x1="600.0" y1="181.1" x2="420.0" y2="280.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="540.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-style="italic">Access &amp; Hit Watchpoint</text>
+<rect x="307.5" y="363.0" width="184.9" height="34.0" rx="6" fill="#fdecea" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="384.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Data Race Detected!</tspan></text>
+<line x1="400.0" y1="331.1" x2="400.0" y2="355.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

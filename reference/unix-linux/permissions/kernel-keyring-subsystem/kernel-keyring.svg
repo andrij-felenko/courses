@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><defs><marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#000" /></marker></defs>
+<rect x="50" y="50" width="700" height="300" fill="#f0f8ff" stroke="#4682b4" rx="10" />
+<text x="60" y="70" font-family="sans-serif" font-size="16" text-anchor="start" fill="#4682b4">Kernel Space (Key Retention Service)</text>
+<rect x="100" y="100" width="180" height="200" fill="#e6e6fa" stroke="#9370db" rx="0" />
+<text x="190" y="130" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Session Keyring</text>
+<rect x="120" y="150" width="140" height="40" fill="#ffffff" stroke="#000" rx="0" />
+<text x="190" y="175" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Key: 'user:mykey'</text>
+<rect x="120" y="200" width="140" height="40" fill="#ffffff" stroke="#000" rx="0" />
+<text x="190" y="225" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Key: 'logon:ext4'</text>
+<rect x="350" y="150" width="150" height="100" fill="#ffe4e1" stroke="#cd5c5c" rx="0" />
+<text x="425" y="180" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">TPM Module</text>
+<text x="425" y="210" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">(Hardware)</text>
+<rect x="550" y="100" width="150" height="80" fill="#f5f5dc" stroke="#bdb76b" rx="0" />
+<text x="625" y="130" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">User Space</text>
+<text x="625" y="155" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Process (keyctl)</text>
+<line x1="550" y1="140" x2="280" y2="140" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+<text x="415" y="130" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Syscalls: request_key()</text>
+<line x1="260" y1="220" x2="350" y2="220" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+<text x="305" y="210" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#000">Trusted</text></svg>

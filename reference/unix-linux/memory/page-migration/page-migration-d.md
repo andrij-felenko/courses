@@ -1,5 +1,9 @@
 # Міграція сторінок: перенести вміст в інший кадр, не зламавши посилань
 
+<preknowlist>
+- [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базові поняття системних викликів та VFS.
+</preknowlist>
+
 <details>
 <summary>Що треба знати перед читанням</summary>
 

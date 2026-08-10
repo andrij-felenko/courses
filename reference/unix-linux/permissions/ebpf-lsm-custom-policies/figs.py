@@ -1,0 +1,45 @@
+import os
+import sys
+
+def render():
+    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
+        <rect width="100%" height="100%" fill="#f0f0f0"/>
+        <text x="400" y="50" font-family="sans-serif" font-size="24" text-anchor="middle">BPF-LSM Architecture</text>
+        
+        <rect x="100" y="100" width="200" height="80" rx="10" fill="#a0c4ff"/>
+        <text x="200" y="145" font-family="sans-serif" font-size="16" text-anchor="middle">User Space (bpftool)</text>
+        
+        <path d="M 200 180 L 200 240" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+        
+        <rect x="100" y="240" width="600" height="120" rx="10" fill="#caffbf"/>
+        <text x="400" y="265" font-family="sans-serif" font-size="18" text-anchor="middle">Linux Kernel Space</text>
+        
+        <rect x="150" y="280" width="150" height="60" rx="5" fill="#fdffb6"/>
+        <text x="225" y="315" font-family="sans-serif" font-size="14" text-anchor="middle">eBPF Verifier</text>
+        
+        <rect x="350" y="280" width="150" height="60" rx="5" fill="#ffadad"/>
+        <text x="425" y="315" font-family="sans-serif" font-size="14" text-anchor="middle">LSM Hooks</text>
+        
+        <rect x="550" y="280" width="100" height="60" rx="5" fill="#ffd6a5"/>
+        <text x="600" y="315" font-family="sans-serif" font-size="14" text-anchor="middle">JIT Compiler</text>
+        
+        <path d="M 300 310 L 350 310" stroke="black" stroke-width="2"/>
+        <path d="M 500 310 L 550 310" stroke="black" stroke-width="2"/>
+        
+        <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+            </marker>
+        </defs>
+    </svg>"""
+    with open("bpf_lsm_arch.svg", "w", encoding="utf-8") as f:
+        f.write(svg_content)
+    
+if __name__ == "__main__":
+    try:
+        sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", "scripts"))
+        import svgkit
+        # Using svgkit if available...
+    except ImportError:
+        pass
+    render()

@@ -1,0 +1,19 @@
+{
+    "status": "success",
+    "module": "reference/unix-linux",
+    "chapter": "io",
+    "slug": "blk-iopoll-and-io-polling",
+    "files_generated": [
+        "blk-iopoll-and-io-polling-d.md",
+        "figs.py",
+        "fig-interrupt-vs-polling.svg"
+    ],
+    "word_count_estimate": 3500,
+    "topics_covered": [
+        "Block Layer IO Polling (HIPRI / RWF_HIPRI)",
+        "ublk / nvme polling mode",
+        "Interrupt overhead & sub-microsecond latency",
+        "/sys/block/X/queue/io_poll",
+        "iopoll_q"
+    ]
+}

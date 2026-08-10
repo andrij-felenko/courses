@@ -1,0 +1,55 @@
+import sys
+import os
+
+def render():
+    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400">
+    <rect x="50" y="50" width="700" height="300" fill="#f0f0f0" stroke="#333" />
+    <!-- Network in -->
+    <path d="M 0 150 L 100 150" stroke="black" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="10" y="140">Network</text>
+    
+    <!-- PREROUTING -->
+    <rect x="100" y="125" width="120" height="50" fill="#ffcccb" stroke="#333" />
+    <text x="110" y="155">PREROUTING</text>
+    
+    <!-- Routing decision -->
+    <polygon points="280,125 340,150 280,175 220,150" fill="#add8e6" stroke="#333" />
+    <text x="240" y="155">Routing</text>
+    <path d="M 220 150 L 250 150" stroke="black" stroke-width="2"/>
+    
+    <!-- INPUT -->
+    <rect x="280" y="50" width="120" height="50" fill="#ffcccb" stroke="#333" />
+    <text x="315" y="80">INPUT</text>
+    <path d="M 280 140 L 280 100" stroke="black" stroke-width="2"/>
+    
+    <!-- FORWARD -->
+    <rect x="360" y="125" width="120" height="50" fill="#ffcccb" stroke="#333" />
+    <text x="385" y="155">FORWARD</text>
+    <path d="M 340 150 L 360 150" stroke="black" stroke-width="2"/>
+    
+    <!-- Local Process -->
+    <rect x="450" y="30" width="150" height="60" fill="#e0f7fa" stroke="#333" />
+    <text x="470" y="65">Local Process</text>
+    <path d="M 400 75 L 450 75" stroke="black" stroke-width="2"/>
+    
+    <!-- OUTPUT -->
+    <rect x="450" y="125" width="120" height="50" fill="#ffcccb" stroke="#333" />
+    <text x="475" y="155">OUTPUT</text>
+    <path d="M 525 90 L 525 125" stroke="black" stroke-width="2"/>
+    
+    <!-- POSTROUTING -->
+    <rect x="600" y="125" width="120" height="50" fill="#ffcccb" stroke="#333" />
+    <text x="610" y="155">POSTROUTING</text>
+    <path d="M 570 150 L 600 150" stroke="black" stroke-width="2"/>
+    <path d="M 480 150 L 520 150" stroke="black" stroke-width="2" stroke-dasharray="4"/>
+    
+    <!-- Network out -->
+    <path d="M 720 150 L 800 150" stroke="black" stroke-width="4"/>
+    <text x="730" y="140">Network</text>
+</svg>"""
+    os.makedirs(os.path.dirname(os.path.abspath(__file__)), exist_ok=True)
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "netfilter_hooks.svg"), "w") as f:
+        f.write(svg_content)
+
+if __name__ == "__main__":
+    render()

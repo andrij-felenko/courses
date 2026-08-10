@@ -1,0 +1,26 @@
+import os
+
+def render():
+    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">
+    <rect x="100" y="300" width="400" height="50" fill="#e0e0e0" stroke="#333" />
+    <text x="300" y="330" font-size="16" text-anchor="middle">Повільний пристрій (Origin HDD)</text>
+    
+    <rect x="200" y="150" width="200" height="50" fill="#ffcc80" stroke="#333" />
+    <text x="300" y="180" font-size="14" text-anchor="middle">Швидкий пристрій (Cache SSD)</text>
+    
+    <rect x="420" y="150" width="100" height="50" fill="#80cbc4" stroke="#333" />
+    <text x="470" y="180" font-size="14" text-anchor="middle">Метадані</text>
+    
+    <rect x="150" y="50" width="300" height="50" fill="#90caf9" stroke="#333" />
+    <text x="300" y="80" font-size="16" text-anchor="middle">dm-cache target (Device Mapper)</text>
+    
+    <line x1="300" y1="100" x2="300" y2="150" stroke="#333" stroke-width="2" />
+    <line x1="300" y1="200" x2="300" y2="300" stroke="#333" stroke-width="2" />
+    <line x1="470" y1="100" x2="470" y2="150" stroke="#333" stroke-width="2" />
+</svg>"""
+    
+    with open(os.path.join(os.path.dirname(__file__), "dm_cache_arch.svg"), "w", encoding="utf-8") as f:
+        f.write(svg_content)
+
+if __name__ == "__main__":
+    render()

@@ -1,0 +1,25 @@
+{
+  "audit": {
+    "file": "network-stack-architecture-d.md",
+    "status": "refactored",
+    "topics_covered": [
+      "sk_buff",
+      "NAPI",
+      "net_device",
+      "Socket Layer",
+      "IP/TCP pipeline",
+      "Traffic Control (qdisc)",
+      "XDP / DPDK"
+    ],
+    "basic_version": {
+      "created": true,
+      "file": "network-stack-architecture.md",
+      "compliance": "§3 rules met (under 1200 words, twice as short as detailed)"
+    },
+    "links_fixed": [
+      "book:unix-linux/kernel-and-userspace",
+      "book:unix-linux/memory-management"
+    ],
+    "tabs_added": true
+  }
+}

@@ -1,0 +1,55 @@
+import os
+
+def render():
+    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+    <rect width="600" height="400" fill="#f8f9fa"/>
+    <text x="300" y="30" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">sched_ext Architecture</text>
+    
+    <!-- User Space -->
+    <rect x="50" y="50" width="500" height="100" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+    <text x="300" y="80" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">User Space (Optional Daemon)</text>
+    <rect x="200" y="90" width="200" height="40" fill="#bbdefb" stroke="#1976d2" stroke-width="1"/>
+    <text x="300" y="115" font-family="Arial" font-size="14" text-anchor="middle">scx_rustland / scx_lavd</text>
+    
+    <!-- Boundary -->
+    <line x1="50" y1="170" x2="550" y2="170" stroke="#000" stroke-dasharray="5,5" stroke-width="2"/>
+    <text x="500" y="165" font-family="Arial" font-size="12">System Call Interface</text>
+
+    <!-- Kernel Space -->
+    <rect x="50" y="190" width="500" height="190" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+    <text x="300" y="215" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">Kernel Space</text>
+    
+    <!-- BPF Program -->
+    <rect x="70" y="240" width="200" height="120" fill="#c8e6c9" stroke="#388e3c" stroke-width="1"/>
+    <text x="170" y="260" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">BPF Program</text>
+    <text x="170" y="280" font-family="Arial" font-size="12" text-anchor="middle">BPF_PROG_TYPE_STRUCT_OPS</text>
+    <text x="170" y="300" font-family="Arial" font-size="12" text-anchor="middle">ops.enqueue</text>
+    <text x="170" y="320" font-family="Arial" font-size="12" text-anchor="middle">ops.dispatch</text>
+    <text x="170" y="340" font-family="Arial" font-size="12" text-anchor="middle">ops.select_cpu</text>
+    
+    <!-- Core Scheduler -->
+    <rect x="330" y="240" width="200" height="120" fill="#ffecb3" stroke="#fbc02d" stroke-width="1"/>
+    <text x="430" y="260" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Core Scheduler</text>
+    <text x="430" y="290" font-family="Arial" font-size="12" text-anchor="middle">ext_sched_class</text>
+    <text x="430" y="310" font-family="Arial" font-size="12" text-anchor="middle">Global DSQ</text>
+    <text x="430" y="330" font-family="Arial" font-size="12" text-anchor="middle">Local DSQ</text>
+
+    <!-- Arrows -->
+    <path d="M 270 290 L 320 290" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M 320 310 L 270 310" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+    
+    <path d="M 170 130 L 170 240" stroke="#1976d2" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow)"/>
+    <text x="180" y="190" font-family="Arial" font-size="10" fill="#1976d2">BPF Maps</text>
+
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#000"/>
+        </marker>
+    </defs>
+</svg>"""
+    os.makedirs('figs', exist_ok=True)
+    with open('figs/sched_ext_arch.svg', 'w', encoding='utf-8') as f:
+        f.write(svg_content)
+
+if __name__ == '__main__':
+    render()

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+    <rect width="800" height="600" fill="#f0f0f0"/>
+    <text x="400" y="300" font-family="sans-serif" font-size="24" text-anchor="middle">Virtio-FS Architecture</text>
+    <rect x="100" y="100" width="250" height="400" fill="#cce5ff" stroke="#004085"/>
+    <text x="225" y="140" font-family="sans-serif" font-size="18" text-anchor="middle">Guest OS</text>
+    <rect x="450" y="100" width="250" height="400" fill="#d4edda" stroke="#155724"/>
+    <text x="575" y="140" font-family="sans-serif" font-size="18" text-anchor="middle">Host OS</text>
+    <path d="M 350 300 L 450 300" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="400" y="290" font-family="sans-serif" font-size="14" text-anchor="middle">DAX / Virtqueue</text>
+</svg>

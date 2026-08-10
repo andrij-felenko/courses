@@ -1,0 +1,44 @@
+import os
+import sys
+
+def create_uclamp_svg(filename):
+    svg = """<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e1e1e" />
+  
+  <text x="400" y="30" font-family="Arial" font-size="20" fill="#ffffff" text-anchor="middle">Utilization Clamping (uclamp)</text>
+  
+  <line x1="50" y1="350" x2="750" y2="350" stroke="#ffffff" stroke-width="2" />
+  <line x1="50" y1="50" x2="50" y2="350" stroke="#ffffff" stroke-width="2" />
+  
+  <text x="35" y="60" font-family="Arial" font-size="14" fill="#ffffff">1024</text>
+  <text x="40" y="350" font-family="Arial" font-size="14" fill="#ffffff">0</text>
+  <text x="750" y="370" font-family="Arial" font-size="14" fill="#ffffff">Time</text>
+  <text x="20" y="200" font-family="Arial" font-size="14" fill="#ffffff" transform="rotate(-90 20 200)">Utilization</text>
+  
+  <!-- uclamp.max -->
+  <line x1="50" y1="120" x2="750" y2="120" stroke="#ff5555" stroke-width="2" stroke-dasharray="5,5" />
+  <text x="760" y="125" font-family="Arial" font-size="14" fill="#ff5555">uclamp.max (e.g. 700)</text>
+  
+  <!-- uclamp.min -->
+  <line x1="50" y1="280" x2="750" y2="280" stroke="#55ff55" stroke-width="2" stroke-dasharray="5,5" />
+  <text x="760" y="285" font-family="Arial" font-size="14" fill="#55ff55">uclamp.min (e.g. 200)</text>
+  
+  <!-- Original Load (PELT) -->
+  <path d="M 50 350 Q 150 150 250 80 T 450 100 T 650 300 L 750 350" fill="none" stroke="#5555ff" stroke-width="2" />
+  <text x="250" y="70" font-family="Arial" font-size="14" fill="#5555ff">Raw PELT Signal</text>
+  
+  <!-- Clamped Load -->
+  <path d="M 50 280 L 120 280 Q 150 200 180 120 L 400 120 Q 550 120 620 280 L 750 280" fill="none" stroke="#ffff55" stroke-width="4" />
+  <text x="400" y="110" font-family="Arial" font-size="14" fill="#ffff55">Clamped Signal</text>
+  
+</svg>"""
+    with open(filename, "w") as f:
+        f.write(svg)
+
+def render():
+    create_uclamp_svg("uclamp_concept.svg")
+    print("SVG generated successfully.")
+
+if __name__ == "__main__":
+    render()

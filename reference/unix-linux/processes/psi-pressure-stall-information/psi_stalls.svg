@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+    <defs>
+        <style>
+            .text { font-family: sans-serif; font-size: 14px; }
+            .title { font-family: sans-serif; font-size: 18px; font-weight: bold; }
+            .box { stroke: #333; stroke-width: 2; }
+            .some { fill: #ffe0b2; }
+            .full { fill: #ef9a9a; }
+            .run { fill: #c8e6c9; }
+        </style>
+    </defs>
+    
+    <text x="400" y="30" text-anchor="middle" class="title">Концепція PSI: 'some' та 'full' stalls</text>
+
+    <!-- Task A -->
+    <text x="50" y="85" class="text">Завдання A</text>
+    <rect x="150" y="70" width="200" height="30" class="box run" />
+    <text x="250" y="90" text-anchor="middle" class="text">Виконується (CPU)</text>
+    <rect x="350" y="70" width="150" height="30" class="box some" />
+    <text x="425" y="90" text-anchor="middle" class="text">Очікує (IO/Mem)</text>
+    <rect x="500" y="70" width="200" height="30" class="box run" />
+    <text x="600" y="90" text-anchor="middle" class="text">Виконується</text>
+
+    <!-- Task B -->
+    <text x="50" y="145" class="text">Завдання B</text>
+    <rect x="150" y="130" width="100" height="30" class="box run" />
+    <text x="200" y="150" text-anchor="middle" class="text">Виконується</text>
+    <rect x="250" y="130" width="400" height="30" class="box some" />
+    <text x="450" y="150" text-anchor="middle" class="text">Очікує (IO/Mem)</text>
+    <rect x="650" y="130" width="50" height="30" class="box run" />
+
+    <!-- PSI SOME -->
+    <text x="50" y="225" class="text" font-weight="bold">PSI SOME</text>
+    <rect x="150" y="210" width="100" height="30" fill="#eee" class="box" />
+    <rect x="250" y="210" width="400" height="30" class="box some" />
+    <text x="450" y="230" text-anchor="middle" class="text">Час, коли хоча б одне завдання очікує</text>
+    <rect x="650" y="210" width="50" height="30" fill="#eee" class="box" />
+
+    <!-- PSI FULL -->
+    <text x="50" y="285" class="text" font-weight="bold">PSI FULL</text>
+    <rect x="150" y="270" width="200" height="30" fill="#eee" class="box" />
+    <rect x="350" y="270" width="150" height="30" class="box full" />
+    <text x="425" y="290" text-anchor="middle" class="text">Усі завдання очікують</text>
+    <rect x="500" y="270" width="200" height="30" fill="#eee" class="box" />
+
+    <!-- Legend -->
+    <rect x="150" y="340" width="20" height="20" class="box run" />
+    <text x="180" y="355" class="text">Робота (CPU)</text>
+    <rect x="300" y="340" width="20" height="20" class="box some" />
+    <text x="330" y="355" class="text">Стан 'some' (затримка 1+ завдань)</text>
+    <rect x="550" y="340" width="20" height="20" class="box full" />
+    <text x="580" y="355" class="text">Стан 'full' (затримка ВСІХ завдань)</text>
+
+</svg>

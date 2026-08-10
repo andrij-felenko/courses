@@ -1,0 +1,32 @@
+import os
+import sys
+
+def render():
+    print("Rendering SVG for io_uring architecture")
+    svg_content = """<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="white"/>
+  <rect x="50" y="50" width="200" height="300" fill="#f0f0f0" stroke="black"/>
+  <text x="150" y="70" text-anchor="middle" font-weight="bold" font-family="sans-serif">User Space</text>
+  <rect x="350" y="50" width="200" height="300" fill="#e0e0f0" stroke="black"/>
+  <text x="450" y="70" text-anchor="middle" font-weight="bold" font-family="sans-serif">Kernel Space</text>
+  
+  <rect x="100" y="100" width="100" height="50" fill="#c0ffc0" stroke="black"/>
+  <text x="150" y="130" text-anchor="middle" font-family="sans-serif">Application</text>
+  
+  <ellipse cx="300" cy="160" rx="40" ry="25" fill="#ffffc0" stroke="black"/>
+  <text x="300" y="165" text-anchor="middle" font-size="14" font-family="sans-serif">SQ Ring</text>
+  
+  <ellipse cx="300" cy="280" rx="40" ry="25" fill="#ffc0c0" stroke="black"/>
+  <text x="300" y="285" text-anchor="middle" font-size="14" font-family="sans-serif">CQ Ring</text>
+
+  <rect x="400" y="135" width="100" height="50" fill="#c0c0ff" stroke="black"/>
+  <text x="450" y="165" text-anchor="middle" font-family="sans-serif">SQPOLL</text>
+  
+  <path d="M 150 150 L 150 280 L 260 280" stroke="black" stroke-width="2" fill="none"/>
+  <path d="M 260 160 L 150 160 L 150 150" stroke="black" stroke-width="2" fill="none"/>
+</svg>"""
+    with open("io-uring-arch.svg", "w") as f:
+        f.write(svg_content)
+
+if __name__ == "__main__":
+    render()

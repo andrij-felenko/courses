@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">NVMe Target (nvmet) Architecture in Linux Kernel</text>
+<rect x="30.0" y="60.0" width="740.0" height="100.0" rx="6" fill="#e6f7ff" stroke="#91d5ff" stroke-width="1.5"/>
+<text x="400.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">User Space</text>
+<rect x="100.0" y="100.0" width="150.0" height="40.0" rx="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1.5"/>
+<text x="175.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">nvmetcli</text>
+<rect x="550.0" y="100.0" width="150.0" height="40.0" rx="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1.5"/>
+<text x="625.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">configfs API</text>
+<rect x="30.0" y="180.0" width="740.0" height="290.0" rx="6" fill="#f6ffed" stroke="#b7eb8f" stroke-width="1.5"/>
+<text x="400.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kernel Space</text>
+<rect x="250.0" y="240.0" width="300.0" height="60.0" rx="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1.5"/>
+<text x="400.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">nvmet (Core NVMe Target)</text>
+<rect x="150.0" y="340.0" width="120.0" height="50.0" rx="5" fill="#fff1b8" stroke="#faad14" stroke-width="1.5"/>
+<text x="210.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">nvmet-tcp</text>
+<rect x="340.0" y="340.0" width="120.0" height="50.0" rx="5" fill="#fff1b8" stroke="#faad14" stroke-width="1.5"/>
+<text x="400.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">nvmet-rdma</text>
+<rect x="530.0" y="340.0" width="120.0" height="50.0" rx="5" fill="#fff1b8" stroke="#faad14" stroke-width="1.5"/>
+<text x="590.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">nvmet-fc</text>
+<rect x="250.0" y="410.0" width="300.0" height="40.0" rx="5" fill="#ffd6e7" stroke="#eb2f96" stroke-width="1.5"/>
+<text x="400.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Block Device / File Backend</text>
+<line x1="175.0" y1="140.0" x2="175.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="140.0" x2="625.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="300.0" x2="210.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="300.0" x2="400.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="300.0" x2="590.0" y2="340.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

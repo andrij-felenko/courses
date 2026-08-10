@@ -1,4 +1,7 @@
+# Proj Opp Dt Example
+
 ```devicetree
+
 cpus {
     cpu@0 {
         compatible = "arm,cortex-a53";

@@ -1,0 +1,232 @@
+[
+  {
+    "section": "processes",
+    "slug": "nohz-adaptive-tickless",
+    "title": "Адаптивне ядро без тиків (NO_HZ_FULL)"
+  },
+  {
+    "section": "processes",
+    "slug": "preempt-rt-architecture",
+    "title": "Real-Time Linux patchset (PREEMPT_RT)"
+  },
+  {
+    "section": "processes",
+    "slug": "cpu-isolation-csets",
+    "title": "Ізоляція CPU для низьких затримок (isolcpus)"
+  },
+  {
+    "section": "processes",
+    "slug": "deadline-scheduler",
+    "title": "Планувальник SCHED_DEADLINE та алгоритм EDF"
+  },
+  {
+    "section": "processes",
+    "slug": "high-resolution-timers",
+    "title": "Таймери високої точності (hrtimers)"
+  },
+  {
+    "section": "processes",
+    "slug": "cgroups-v2-unified-hierarchy",
+    "title": "Cgroups v2: єдина ієрархія"
+  },
+  {
+    "section": "memory",
+    "slug": "asynchronous-page-reclaim",
+    "title": "Асинхронне витіснення сторінок: kswapd та watermarks"
+  },
+  {
+    "section": "files",
+    "slug": "device-mapper-dm-crypt",
+    "title": "Device Mapper: LVM, DM-Crypt та LUKS"
+  },
+  {
+    "section": "files",
+    "slug": "btrfs-internals",
+    "title": "Файлова система Btrfs: B-Tree та CoW"
+  },
+  {
+    "section": "files",
+    "slug": "zfs-on-linux-arc",
+    "title": "ZFS у Linux: ARC кеш та ZIL"
+  },
+  {
+    "section": "io",
+    "slug": "io-uring-architecture",
+    "title": "Сучасний асинхронний ввід-вивід io_uring"
+  },
+  {
+    "section": "io",
+    "slug": "block-layer-mq",
+    "title": "Багаточергова підсистема блокового вводу-виводу (blk-mq)"
+  },
+  {
+    "section": "permissions",
+    "slug": "selinux-type-enforcement",
+    "title": "SELinux: Type Enforcement та контексти безпеки"
+  },
+  {
+    "section": "permissions",
+    "slug": "apparmor-path-rules",
+    "title": "AppArmor: профілі на основі шляхів"
+  },
+  {
+    "section": "permissions",
+    "slug": "landlock-unprivileged-sandboxing",
+    "title": "Landlock LSM: безпривілейоване обмеження файлового доступу"
+  },
+  {
+    "section": "permissions",
+    "slug": "seccomp-bpf-filtering",
+    "title": "Фільтрація системних викликів Seccomp-BPF"
+  },
+  {
+    "section": "permissions",
+    "slug": "lsm-stacking-framework",
+    "title": "Каркас модулів безпеки Linux (LSM Hooks)"
+  },
+  {
+    "section": "permissions",
+    "slug": "kernel-keyring-subsystem",
+    "title": "Підсистема ключів ядра (Kernel Keyring)"
+  },
+  {
+    "section": "permissions",
+    "slug": "kernel-crypto-framework",
+    "title": "Криптографічний API ядра (Kernel Crypto API)"
+  },
+  {
+    "section": "permissions",
+    "slug": "pam-authentication-stack",
+    "title": "Платформа авторизації PAM"
+  },
+  {
+    "section": "permissions",
+    "slug": "user-namespaces-uid-mapping",
+    "title": "Юзер-простори імен (User Namespaces)"
+  },
+  {
+    "section": "permissions",
+    "slug": "rootless-containers-architecture",
+    "title": "Безкорінна контейнеризація"
+  },
+  {
+    "section": "devices",
+    "slug": "kvm-architecture",
+    "title": "Апаратно-асистентна віртуалізація ядра (KVM)"
+  },
+  {
+    "section": "devices",
+    "slug": "vfio-passthrough",
+    "title": "Парапрохідність пристроїв та IOMMU-групи (VFIO)"
+  },
+  {
+    "section": "devices",
+    "slug": "sr-iov-virtual-functions",
+    "title": "Апаратне розділення пристроїв (SR-IOV)"
+  },
+  {
+    "section": "devices",
+    "slug": "virtio-pci-spec",
+    "title": "Специфікація Virtio: virtqueues та vring"
+  },
+  {
+    "section": "devices",
+    "slug": "xen-dom0-domu",
+    "title": "Гіпервізор Xen: Dom0, DomU та grant tables"
+  },
+  {
+    "section": "devices",
+    "slug": "nvme-over-fabrics-rdma-tcp",
+    "title": "NVMe over Fabrics (NVMe-oF)"
+  },
+  {
+    "section": "devices",
+    "slug": "pcie-express-bus-subsystem",
+    "title": "Підсистема PCI Express"
+  },
+  {
+    "section": "devices",
+    "slug": "usb-core-subsystem",
+    "title": "Ядро підсистеми USB"
+  },
+  {
+    "section": "devices",
+    "slug": "cpufreq-and-cpuidle",
+    "title": "Управління частотою та станами CPU (cpufreq, cpuidle)"
+  },
+  {
+    "section": "devices",
+    "slug": "thermal-management-framework",
+    "title": "Термальний фреймворк ядра"
+  },
+  {
+    "section": "boot-init",
+    "slug": "device-tree-flattened-dtb",
+    "title": "Дерево пристроїв (Device Tree, DTB)"
+  },
+  {
+    "section": "networking",
+    "slug": "vhost-net-acceleration",
+    "title": "Прискорення мережі у віртуалізації (vhost-net)"
+  },
+  {
+    "section": "networking",
+    "slug": "xdp-express-data-path",
+    "title": "eXpress Data Path (XDP): обробка пакетів на NIC"
+  },
+  {
+    "section": "networking",
+    "slug": "wireguard-kernel-architecture",
+    "title": "Ядерний тунель WireGuard"
+  },
+  {
+    "section": "networking",
+    "slug": "ebpf-traffic-control-clsact",
+    "title": "eBPF у підсистемі Traffic Control"
+  },
+  {
+    "section": "networking",
+    "slug": "bonding-and-team-drivers",
+    "title": "Агрегація каналів: Bonding та Team"
+  },
+  {
+    "section": "networking",
+    "slug": "macvlan-macvtap-drivers",
+    "title": "Драйвери Macvlan та Macvtap"
+  },
+  {
+    "section": "networking",
+    "slug": "multipath-tcp-mptcp",
+    "title": "Багатошляховий TCP (MPTCP)"
+  },
+  {
+    "section": "observability",
+    "slug": "bpftrace-dynamic-tracing",
+    "title": "Високорівневе трасування через bpftrace"
+  },
+  {
+    "section": "observability",
+    "slug": "systemtap-scripting",
+    "title": "Інструментарій SystemTap"
+  },
+  {
+    "section": "observability",
+    "slug": "lockdep-lock-validator",
+    "title": "Валідатор блокувань Lockdep"
+  },
+  {
+    "section": "observability",
+    "slug": "kasan-kernel-address-sanitizer",
+    "title": "Kernel Address Sanitizer (KASAN)"
+  },
+  {
+    "section": "observability",
+    "slug": "kcsan-concurrency-sanitizer",
+    "title": "Kernel Concurrency Sanitizer (KCSAN)"
+  },
+  {
+    "section": "observability",
+    "slug": "kmemleak-leak-detector",
+    "title": "Виявлення витоків пам'яті ядра (Kmemleak)"
+  }
+]

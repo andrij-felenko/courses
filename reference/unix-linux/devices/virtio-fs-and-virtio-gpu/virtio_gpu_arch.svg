@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+    <rect width="800" height="600" fill="#f0f0f0"/>
+    <text x="400" y="300" font-family="sans-serif" font-size="24" text-anchor="middle">Virtio-GPU Architecture</text>
+    <rect x="100" y="100" width="250" height="400" fill="#fff3cd" stroke="#856404"/>
+    <text x="225" y="140" font-family="sans-serif" font-size="18" text-anchor="middle">Guest (Mesa/VirGL)</text>
+    <rect x="450" y="100" width="250" height="400" fill="#f8d7da" stroke="#721c24"/>
+    <text x="575" y="140" font-family="sans-serif" font-size="18" text-anchor="middle">Host (virglrenderer)</text>
+    <path d="M 350 300 L 450 300" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="400" y="290" font-family="sans-serif" font-size="14" text-anchor="middle">Virtqueue (Commands)</text>
+</svg>

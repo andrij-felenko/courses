@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура Linux Kernel Crypto API</text>
+<rect x="30.0" y="30.0" width="740.0" height="100.0" rx="6" fill="#e1f5fe" stroke="#0277bd" stroke-width="1.5"/>
+<text x="400.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#01579b" text-anchor="middle" font-weight="700">User Space (Applications, OpenSSL, AF_ALG sockets)</text>
+<rect x="30.0" y="150.0" width="740.0" height="200.0" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+<text x="400.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1b5e20" text-anchor="middle" font-weight="700">Kernel Space (Linux Crypto API)</text>
+<rect x="50.0" y="200.0" width="200.0" height="120.0" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+<text x="150.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Crypto Core</text>
+<text x="150.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Framework &amp; Registry</text>
+<text x="150.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">/proc/crypto</text>
+<rect x="270.0" y="200.0" width="200.0" height="120.0" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+<text x="370.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Kernel Subsystems</text>
+<text x="370.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">IPsec, dm-crypt</text>
+<text x="370.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">ext4 crypto, mac80211</text>
+<rect x="490.0" y="200.0" width="260.0" height="120.0" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+<text x="620.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Algorithm Implementations</text>
+<text x="620.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Generic C (aes-generic)</text>
+<text x="620.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle">Arch-specific (aes-ni)</text>
+<rect x="30.0" y="370.0" width="740.0" height="100.0" rx="6" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+<text x="400.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#e65100" text-anchor="middle" font-weight="700">Hardware Accelerators (Intel QAT, AMD CCP, ARM CE)</text>
+<line x1="400.0" y1="130.0" x2="400.0" y2="150.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="350.0" x2="400.0" y2="370.0" stroke="#333" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

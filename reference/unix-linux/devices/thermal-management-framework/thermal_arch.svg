@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Linux Thermal Framework Architecture</text>
+<rect x="50.0" y="70.0" width="700.0" height="360.0" rx="10" fill="#e8f4fa" stroke="#a2c4d8" stroke-width="1.5"/>
+<text x="400.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#3b5b72" text-anchor="middle">Kernel Space</text>
+<rect x="250.0" y="150.0" width="300.0" height="100.0" rx="5" fill="#c3deef" stroke="#5792b5" stroke-width="1.5"/>
+<text x="400.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1c3b52" text-anchor="middle" font-weight="700">Thermal Core</text>
+<text x="400.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2f5b7a" text-anchor="middle">/sys/class/thermal/</text>
+<rect x="100.0" y="150.0" width="120.0" height="100.0" rx="5" fill="#d2f2d9" stroke="#66a877" stroke-width="1.5"/>
+<text x="160.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2a5737" text-anchor="middle" font-weight="700">Governors</text>
+<text x="160.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#3c6b4b" text-anchor="middle">(Step_wise,</text>
+<text x="160.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#3c6b4b" text-anchor="middle">Power_allocator)</text>
+<rect x="200.0" y="320.0" width="180.0" height="80.0" rx="5" fill="#f9e3e3" stroke="#b56363" stroke-width="1.5"/>
+<text x="290.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#612323" text-anchor="middle" font-weight="700">Thermal Zones</text>
+<text x="290.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#753535" text-anchor="middle">(Sensors / Trip Points)</text>
+<rect x="420.0" y="320.0" width="180.0" height="80.0" rx="5" fill="#e1f0ec" stroke="#629e8e" stroke-width="1.5"/>
+<text x="510.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#23473f" text-anchor="middle" font-weight="700">Cooling Devices</text>
+<text x="510.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#355c53" text-anchor="middle">(cpufreq, devfreq, fan)</text>
+<rect x="50.0" y="450.0" width="700.0" height="40.0" rx="6" fill="#f0f0f0" stroke="#cccccc" stroke-width="1.5"/>
+<text x="400.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#555555" text-anchor="middle">Hardware (SoC, Thermistors, Fans, CPU)</text>
+<line x1="220.0" y1="200.0" x2="245.0" y2="200.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="210.0" x2="225.0" y2="210.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="320.0" x2="350.0" y2="255.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="255.0" x2="510.0" y2="320.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

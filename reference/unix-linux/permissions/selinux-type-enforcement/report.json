@@ -1,0 +1,24 @@
+{
+  "task": "Create reference article for Unix and Linux",
+  "topic": "SELinux: Type Enforcement",
+  "slug": "selinux-type-enforcement",
+  "status": "completed",
+  "files_created": [
+    "selinux-type-enforcement-d.md",
+    "figs.py",
+    "selinux-te.svg"
+  ],
+  "content_details": {
+    "sections": [
+      "Вступ до SELinux (MAC vs DAC)",
+      "Архітектура SELinux та LSM",
+      "Контексти безпеки (user:role:type:sensitivity)",
+      "Type Enforcement (TE)",
+      "Access Vector Cache (AVC) та avc_has_perm()",
+      "Targeted Policy",
+      "Управління: semanage та restorecon",
+      "Траблшутинг"
+    ],
+    "word_count_estimate": 3500
+  }
+}

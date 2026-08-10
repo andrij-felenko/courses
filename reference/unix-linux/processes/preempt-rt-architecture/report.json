@@ -1,0 +1,21 @@
+{
+  "module": "reference/unix-linux",
+  "section": "processes",
+  "slug": "preempt-rt-architecture",
+  "title": "Real-Time Linux patchset (PREEMPT_RT)",
+  "status": "done",
+  "files_created": [
+    "preempt-rt-architecture-d.md",
+    "figs.py",
+    "fig_irq.svg",
+    "fig_pi.svg"
+  ],
+  "topics_covered": [
+    "PREEMPT_RT patchset basics",
+    "spinlock_t to rt_mutex transformation",
+    "forced threaded IRQs",
+    "priority inheritance",
+    "minimizing interrupt latencies"
+  ],
+  "word_count_approx": 3500
+}

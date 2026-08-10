@@ -1,15 +1,10 @@
 {
-  "ok": true,
-  "slug": "memory-hotplug",
-  "section": "memory",
-  "files": [
-    "memory-hotplug-d.md",
-    "memory-hotplug.md",
-    "figs.py",
-    "sparsemem_struct.svg",
-    "hotplug_transition.svg"
+  "file": "memory-hotplug-d.md",
+  "actions": [
+    "Refactored <preknowlist> to use list of book: links without <details> wrapper.",
+    "Deleted memory-hotplug.md since detailed version is < 2250 words (violates basic version requirement of §3).",
+    "Updated manifest.js to set basic status of memory-hotplug to empty.",
+    "Wrapped bash code blocks in :::tabs as per domain rules."
   ],
-  "inserts": [],
-  "needBasicSelf": false,
-  "newTopics": []
+  "status": "success"
 }

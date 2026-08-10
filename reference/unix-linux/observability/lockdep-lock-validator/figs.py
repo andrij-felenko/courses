@@ -1,0 +1,48 @@
+import sys
+import os
+
+# Спроба імпортувати svgkit, якщо він є в scripts/
+try:
+    sys.path.append(os.path.abspath('../../../scripts'))
+    import svgkit
+except ImportError:
+    svgkit = None
+
+def render():
+    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+    <rect width="800" height="400" fill="#f8f9fa"/>
+    <g font-family="sans-serif" font-size="14">
+        <!-- Node A -->
+        <rect x="150" y="150" width="120" height="60" rx="10" fill="#d1e7dd" stroke="#0f5132" stroke-width="2"/>
+        <text x="210" y="185" text-anchor="middle" fill="#0f5132" font-weight="bold">Клас A</text>
+        <text x="210" y="205" text-anchor="middle" fill="#0f5132" font-size="12">(напр. inode-&gt;i_mutex)</text>
+        
+        <!-- Node B -->
+        <rect x="500" y="150" width="120" height="60" rx="10" fill="#cfe2ff" stroke="#084298" stroke-width="2"/>
+        <text x="560" y="185" text-anchor="middle" fill="#084298" font-weight="bold">Клас B</text>
+        <text x="560" y="205" text-anchor="middle" fill="#084298" font-size="12">(напр. page-&gt;lock)</text>
+
+        <!-- Arrow A -> B -->
+        <path d="M 270 170 L 490 170" fill="none" stroke="#212529" stroke-width="3" marker-end="url(#arrowhead)"/>
+        <text x="380" y="160" text-anchor="middle" fill="#212529" font-size="12">Взято B під час A</text>
+
+        <!-- Arrow B -> A (Deadlock) -->
+        <path d="M 500 190 L 280 190" fill="none" stroke="#dc3545" stroke-width="3" stroke-dasharray="5,5" marker-end="url(#arrowhead-red)"/>
+        <text x="390" y="210" text-anchor="middle" fill="#dc3545" font-weight="bold">Спроба взяти A під час B (Дедлок!)</text>
+    </g>
+
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#212529"/>
+        </marker>
+        <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#dc3545"/>
+        </marker>
+    </defs>
+</svg>"""
+    
+    with open("lock_graph.svg", "w", encoding="utf-8") as f:
+        f.write(svg_content)
+
+if __name__ == '__main__':
+    render()

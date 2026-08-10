@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" font-family="sans-serif" font-size="20" text-anchor="middle" font-weight="bold">Планування SCHED_DEADLINE (EDF + CBS)</text>
+
+  <!-- Timeline Axis -->
+  <line x1="50" y1="200" x2="750" y2="200" stroke="black" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="760" y="205" font-family="sans-serif" font-size="16">Час (t)</text>
+
+  <!-- Task 1 (Red) -->
+  <rect x="100" y="100" width="100" height="40" fill="#ff9999" stroke="#ff0000" stroke-width="2" />
+  <text x="150" y="125" font-family="sans-serif" font-size="14" text-anchor="middle">Task 1 (r_1)</text>
+
+  <line x1="100" y1="90" x2="100" y2="210" stroke="#ff0000" stroke-width="1" stroke-dasharray="4" />
+  <text x="100" y="225" font-family="sans-serif" font-size="12" text-anchor="middle">t=0 (Arrival)</text>
+
+  <line x1="300" y1="90" x2="300" y2="210" stroke="#ff0000" stroke-width="2" />
+  <text x="300" y="225" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#ff0000">D_1</text>
+  <text x="300" y="240" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#ff0000">(Deadline 1)</text>
+
+  <!-- Task 2 (Blue) -->
+  <rect x="200" y="150" width="80" height="40" fill="#99ccff" stroke="#0000ff" stroke-width="2" />
+  <text x="240" y="175" font-family="sans-serif" font-size="14" text-anchor="middle">Task 2 (r_2)</text>
+  
+  <line x1="200" y1="140" x2="200" y2="210" stroke="#0000ff" stroke-width="1" stroke-dasharray="4" />
+  <text x="200" y="225" font-family="sans-serif" font-size="12" text-anchor="middle">Arrival 2</text>
+
+  <line x1="450" y1="140" x2="450" y2="210" stroke="#0000ff" stroke-width="2" />
+  <text x="450" y="225" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#0000ff">D_2</text>
+
+  <!-- CBS bandwidth replenished -->
+  <path d="M 100 300 Q 150 250 200 300" fill="none" stroke="#009900" stroke-width="2" stroke-dasharray="5"/>
+  <text x="150" y="320" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#009900">CBS Replenishment</text>
+</svg>

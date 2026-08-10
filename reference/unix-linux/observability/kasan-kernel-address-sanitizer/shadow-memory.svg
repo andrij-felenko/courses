@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300">
+    <rect width="100%" height="100%" fill="#f4f4f4"/>
+    <text x="50" y="50" font-family="Arial" font-size="20">Shadow Memory Mapping</text>
+    <rect x="50" y="100" width="300" height="50" fill="#aaf" stroke="#000"/>
+    <text x="150" y="130" font-family="Arial">Main Memory (8 bytes)</text>
+    <line x1="200" y1="150" x2="200" y2="200" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="175" y="200" width="50" height="50" fill="#faa" stroke="#000"/>
+    <text x="180" y="230" font-family="Arial">1 Byte</text>
+    <text x="235" y="230" font-family="Arial">Shadow Memory</text>
+</svg>

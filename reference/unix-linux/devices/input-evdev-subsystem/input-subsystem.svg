@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="50.0" y="400.0" width="700.0" height="60.0" rx="6" fill="#f0f0f0" stroke="#333" stroke-width="2.0"/>
+<text x="400.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle">Hardware (USB, I2C, PS/2, Bluetooth)</text>
+<rect x="50.0" y="300.0" width="700.0" height="60.0" rx="6" fill="#d0e0ff" stroke="#333" stroke-width="2.0"/>
+<text x="400.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle">Device Drivers (usbhid, i2c-hid, psmouse)</text>
+<rect x="50.0" y="200.0" width="700.0" height="60.0" rx="6" fill="#ffeedd" stroke="#333" stroke-width="2.0"/>
+<text x="400.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle" font-weight="700">Input Core (input.c)</text>
+<rect x="100.0" y="100.0" width="150.0" height="60.0" rx="6" fill="#e0ffe0" stroke="#333" stroke-width="2.0"/>
+<text x="175.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle">evdev</text>
+<rect x="325.0" y="100.0" width="150.0" height="60.0" rx="6" fill="#e0ffe0" stroke="#333" stroke-width="2.0"/>
+<text x="400.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle">mousedev</text>
+<rect x="550.0" y="100.0" width="150.0" height="60.0" rx="6" fill="#e0ffe0" stroke="#333" stroke-width="2.0"/>
+<text x="625.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle">joydev</text>
+<rect x="50.0" y="10.0" width="700.0" height="60.0" rx="6" fill="#f9f9f9" stroke="#333" stroke-width="2.0"/>
+<text x="400.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="middle">User Space (libinput, Xorg, Wayland, evtest)</text>
+<line x1="400.0" y1="400.0" x2="400.0" y2="365.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="300.0" x2="400.0" y2="265.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="175.0" y1="200.0" x2="175.0" y2="165.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="200.0" x2="400.0" y2="165.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="200.0" x2="625.0" y2="165.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="175.0" y1="100.0" x2="175.0" y2="75.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="100.0" x2="400.0" y2="75.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="625.0" y1="100.0" x2="625.0" y2="75.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="200.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#555" text-anchor="middle">/dev/input/eventX</text>
+<text x="425.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#555" text-anchor="middle">/dev/input/mice</text>
+<text x="650.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#555" text-anchor="middle">/dev/input/jsX</text>
+</svg>

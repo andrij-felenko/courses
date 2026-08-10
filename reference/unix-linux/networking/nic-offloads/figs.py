@@ -1,0 +1,53 @@
+import sys
+import os
+
+def render():
+    out_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <rect width="100%" height="100%" fill="#ffffff" />
+    <text x="400" y="30" font-family="sans-serif" font-size="20" text-anchor="middle" font-weight="bold">Шлях пакету з GSO та TSO</text>
+    
+    <!-- OS TCP/IP Stack -->
+    <rect x="50" y="60" width="200" height="300" rx="10" fill="#f8f9fa" stroke="#343a40" stroke-width="2" />
+    <text x="150" y="90" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">TCP/IP Стек (Ядро)</text>
+    <rect x="80" y="120" width="140" height="150" fill="#e9ecef" stroke="#6c757d" />
+    <text x="150" y="200" font-family="sans-serif" font-size="14" text-anchor="middle">Блок даних</text>
+    <text x="150" y="220" font-family="sans-serif" font-size="12" fill="#495057" text-anchor="middle">(до 64 КБ)</text>
+    
+    <path d="M 250 195 L 340 195" stroke="#007bff" stroke-width="4" marker-end="url(#arrow)" />
+    
+    <!-- GSO block -->
+    <rect x="350" y="150" width="120" height="90" rx="10" fill="#cce5ff" stroke="#004085" stroke-width="2" />
+    <text x="410" y="190" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">GSO</text>
+    <text x="410" y="210" font-family="sans-serif" font-size="12" text-anchor="middle">(Програмно)</text>
+    <text x="410" y="230" font-family="sans-serif" font-size="10" fill="#004085" text-anchor="middle">Якщо TSO не підтримується</text>
+    
+    <path d="M 470 195 L 560 195" stroke="#28a745" stroke-width="4" stroke-dasharray="5,5" marker-end="url(#arrow-green)" />
+    
+    <!-- NIC block -->
+    <rect x="570" y="110" width="180" height="200" rx="10" fill="#d4edda" stroke="#155724" stroke-width="2" />
+    <text x="660" y="140" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Мережева карта (NIC)</text>
+    <rect x="610" y="170" width="100" height="40" fill="#c3e6cb" stroke="#155724" />
+    <text x="660" y="195" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">TSO</text>
+    
+    <rect x="590" y="240" width="40" height="30" fill="#fff" stroke="#155724" />
+    <rect x="640" y="240" width="40" height="30" fill="#fff" stroke="#155724" />
+    <rect x="690" y="240" width="40" height="30" fill="#fff" stroke="#155724" />
+    <text x="660" y="295" font-family="sans-serif" font-size="12" text-anchor="middle">MTU-sized пакети (1500B)</text>
+    
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#007bff" />
+        </marker>
+        <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#28a745" />
+        </marker>
+    </defs>
+</svg>"""
+
+    with open(os.path.join(out_dir, "gso-tso.svg"), "w", encoding="utf-8") as f:
+        f.write(svg_content)
+
+if __name__ == '__main__':
+    render()

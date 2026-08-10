@@ -1,0 +1,25 @@
+{
+  "task": "Write article on Unix/Linux Kernel Keyring Subsystem",
+  "status": "completed",
+  "files_generated": [
+    "kernel-keyring-subsystem-d.md",
+    "figs.py",
+    "kernel-keyring.svg",
+    "report.json"
+  ],
+  "details": {
+    "module": "reference/unix-linux",
+    "section": "permissions",
+    "slug": "kernel-keyring-subsystem",
+    "topics_covered": [
+      "Linux Kernel Key Retention Service",
+      "add_key()",
+      "request_key()",
+      "keyctl()",
+      "key types (user, logon, encrypted, trusted)",
+      "/proc/keys",
+      "TPM-backed keys",
+      "Secret storage in kernel"
+    ]
+  }
+}

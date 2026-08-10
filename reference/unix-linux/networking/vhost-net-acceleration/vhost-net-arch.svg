@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500">
+<rect x="50" y="50" width="300" height="400" fill="#f0f0f0" stroke="#333" stroke_width="2" />
+<text x="150" y="80" font_size="20" font_family="sans-serif" font_weight="bold">Guest OS</text>
+<rect x="100" y="120" width="200" height="80" fill="#cce5ff" stroke="#004085" stroke_width="2" />
+<text x="125" y="165" font_size="18" font_family="sans-serif">virtio-net Driver</text>
+<rect x="450" y="50" width="300" height="400" fill="#f0f0f0" stroke="#333" stroke_width="2" />
+<text x="560" y="80" font_size="20" font_family="sans-serif" font_weight="bold">Host OS</text>
+<rect x="500" y="120" width="200" height="80" fill="#d4edda" stroke="#155724" stroke_width="2" />
+<text x="530" y="165" font_size="18" font_family="sans-serif">QEMU (Control)</text>
+<rect x="500" y="240" width="200" height="80" fill="#f8d7da" stroke="#721c24" stroke_width="2" />
+<text x="535" y="285" font_size="18" font_family="sans-serif">vhost-net (Data)</text>
+<rect x="320" y="150" width="160" height="120" fill="#e2e3e5" stroke="#383d41" stroke_width="2" stroke_dasharray="5,5" />
+<text x="375" y="210" font_size="16" font_family="sans-serif" font_weight="bold">vring</text>
+<text x="335" y="235" font_size="14" font_family="sans-serif">(Shared Memory)</text>
+<line x1="200" y1="200" x2="320" y2="200" stroke="#333" stroke_width="2" stroke_dasharray="4,4" />
+<line x1="480" y1="280" x2="400" y2="270" stroke="#333" stroke_width="2" stroke_dasharray="4,4" />
+</svg>

@@ -1,0 +1,31 @@
+import os
+
+svg_content1 = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <rect width="800" height="400" fill="#f8f9fa"/>
+    <text x="400" y="50" font-family="sans-serif" font-size="24" text-anchor="middle" fill="#333">Відображення UID у User Namespace</text>
+    <rect x="100" y="100" width="250" height="200" fill="#e9ecef" stroke="#ced4da" stroke-width="2" rx="10"/>
+    <text x="225" y="140" font-family="sans-serif" font-size="18" text-anchor="middle" fill="#495057">Host Namespace</text>
+    <text x="225" y="190" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#495057">UID 1000 (real user)</text>
+    <text x="225" y="230" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#495057">UID 100000 (subuid range)</text>
+    
+    <rect x="450" y="100" width="250" height="200" fill="#e9ecef" stroke="#ced4da" stroke-width="2" rx="10"/>
+    <text x="575" y="140" font-family="sans-serif" font-size="18" text-anchor="middle" fill="#495057">User Namespace</text>
+    <text x="575" y="190" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#495057">UID 0 (root)</text>
+    <text x="575" y="230" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#495057">UID 1-65536</text>
+    
+    <path d="M 350 185 L 440 185" stroke="#adb5bd" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M 350 225 L 440 225" stroke="#adb5bd" stroke-width="2" marker-end="url(#arrow)"/>
+    
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#adb5bd" />
+        </marker>
+    </defs>
+</svg>"""
+
+def render():
+    with open('fig-uid-mapping.svg', 'w', encoding='utf-8') as f:
+        f.write(svg_content1)
+
+if __name__ == '__main__':
+    render()

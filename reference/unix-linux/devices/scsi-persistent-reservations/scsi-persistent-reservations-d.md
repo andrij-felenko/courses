@@ -1,5 +1,9 @@
 # Постійні резервації SCSI: як вузли кластера ділять один диск
 
+<preknowlist>
+- [Концепції ядра Linux](book:unix-linux/kernel-and-userspace) — базові поняття системних викликів та VFS.
+</preknowlist>
+
 <details>
 <summary>Що треба знати перед читанням</summary>
 <div class="preknowlist">

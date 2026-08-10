@@ -1,0 +1,21 @@
+{
+  "module": "kernel-crypto-framework",
+  "book": "reference/unix-linux",
+  "chapter": "permissions",
+  "files": [
+    "kernel-crypto-framework-d.md",
+    "figs.py",
+    "crypto-arch.svg"
+  ],
+  "status": "done",
+  "word_count_estimate": 4500,
+  "topics_covered": [
+    "Linux Kernel Crypto API architecture",
+    "struct crypto_alg and TFM (transform objects)",
+    "Synchronous vs Asynchronous requests",
+    "AF_ALG sockets (userspace access)",
+    "Hardware accelerators (AES-NI, Intel QAT)",
+    "/proc/crypto diagnostics",
+    "Writing a custom crypto module (C code example)"
+  ]
+}

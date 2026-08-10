@@ -149,6 +149,8 @@ utime' = 12.000 − 1.9636     = 10.0364 s
 
 `getrusage()`, `times()` і поля 14–15 у `/proc/<pid>/stat` віддають результат `cputime_adjust()` — точну суму з вибірковим поділом.
 
+:::tabs
+== C
 ```c
 #include <stdio.h>
 #include <time.h>
@@ -170,6 +172,22 @@ int main(void) {
     return 0;
 }
 ```
+== Python
+```python
+import time
+import resource
+
+# Точна сума (CLOCK_PROCESS_CPUTIME_ID)
+exact = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID)
+
+# Поділ на user/sys через getrusage
+usage = resource.getrusage(resource.RUSAGE_SELF)
+user = usage.ru_utime
+sys = usage.ru_stime
+
+print(f"точно: {exact:.6f}   user+sys: {user + sys:.6f}   (user {user:.6f}, sys {sys:.6f})")
+```
+:::
 
 Два перші числа збігатимуться з точністю до того, що між викликами минув якийсь час; два останні — оцінки. Тому вимірювати оптимізацію алгоритму за `ru_utime` — це міряти рулеткою, у якої ціна поділки залежить від того, скільки системних викликів робить сусідній код. Правильна величина для такого — повний процесорний час потоку з `CLOCK_THREAD_CPUTIME_ID`.
 

@@ -1,0 +1,61 @@
+import os
+
+def render():
+    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <style>
+      .box { fill: #f0f0f0; stroke: #333; stroke-width: 2px; rx: 5px; ry: 5px; }
+      .kernel-box { fill: #e0f7fa; stroke: #00838f; stroke-width: 2px; rx: 5px; ry: 5px; }
+      .userspace-box { fill: #fce4ec; stroke: #c2185b; stroke-width: 2px; rx: 5px; ry: 5px; }
+      .text-title { font-family: sans-serif; font-weight: bold; font-size: 16px; text-anchor: middle; }
+      .text-body { font-family: sans-serif; font-size: 14px; text-anchor: middle; }
+      .arrow { stroke: #333; stroke-width: 2px; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+
+  <!-- Userspace -->
+  <rect x="50" y="20" width="700" height="150" class="userspace-box" stroke-dasharray="5,5" />
+  <text x="400" y="45" class="text-title" fill="#c2185b">Userspace (pm_type = 1)</text>
+  
+  <rect x="100" y="60" width="200" height="80" class="box" />
+  <text x="200" y="90" class="text-title">mptcpd</text>
+  <text x="200" y="110" class="text-body">Userspace Path Manager</text>
+
+  <rect x="500" y="60" width="200" height="80" class="box" />
+  <text x="600" y="90" class="text-title">ip mptcp</text>
+  <text x="600" y="110" class="text-body">Configuration Utility</text>
+
+  <!-- Kernel -->
+  <rect x="50" y="190" width="700" height="190" class="kernel-box" stroke-dasharray="5,5" />
+  <text x="400" y="215" class="text-title" fill="#00838f">Kernel Space</text>
+
+  <rect x="100" y="240" width="600" height="120" class="box" />
+  <text x="400" y="270" class="text-title">Linux MPTCP Implementation</text>
+
+  <rect x="120" y="290" width="250" height="50" class="box" fill="#fff" />
+  <text x="245" y="320" class="text-body">Generic Netlink (GENL_NAME_MPTCP)</text>
+
+  <rect x="430" y="290" width="250" height="50" class="box" fill="#fff" />
+  <text x="555" y="310" class="text-title">In-Kernel Path Manager</text>
+  <text x="555" y="330" class="text-body">(pm_type = 0)</text>
+
+  <!-- Arrows -->
+  <path d="M 200 140 L 200 240" class="arrow" />
+  <text x="145" y="180" class="text-body">Netlink Events / API</text>
+
+  <path d="M 600 140 L 600 290" class="arrow" />
+  <text x="665" y="210" class="text-body">Policy Limits &amp; Endpoints</text>
+
+</svg>
+"""
+    output_dir = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(output_dir, "mptcp_path_management.svg")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(svg_content)
+    print(f"Generated {output_path}")
+
+if __name__ == "__main__":
+    render()

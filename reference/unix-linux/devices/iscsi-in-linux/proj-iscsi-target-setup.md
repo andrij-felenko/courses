@@ -10,18 +10,10 @@
 
 У більшості сучасних дистрибутивів потрібно встановити `targetcli`:
 
-:::tabs
-== Ubuntu/Debian
 ```bash
 sudo apt update
 sudo apt install targetcli-fb
 ```
-== CentOS/RHEL
-```bash
-sudo dnf install targetcli
-sudo systemctl enable --now target
-```
-:::
 
 ## Крок 2: Запуск інтерактивної оболонки
 

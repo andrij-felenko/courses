@@ -1,0 +1,60 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Фон -->
+    <rect x="20" y="20" width="760" height="560" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2" rx="15"/>
+    <text x="400" y="60" font-family="sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#343a40">Модель Пакетного Менеджера</text>
+    
+    <!-- Пакет -->
+    <g transform="translate(60, 100)">
+        <rect width="260" height="400" fill="#e3f2fd" stroke="#0d6efd" stroke-width="2" rx="10"/>
+        <text x="130" y="40" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#0d47a1">Програмний Пакет</text>
+        
+        <rect x="20" y="70" width="220" height="80" fill="#bbdefb" stroke="#1976d2" stroke-width="1" rx="5"/>
+        <text x="130" y="95" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Метадані</text>
+        <text x="130" y="115" font-family="sans-serif" font-size="12" text-anchor="middle">Назва, Версія, Архітектура</text>
+        <text x="130" y="135" font-family="sans-serif" font-size="12" text-anchor="middle">Залежності, Конфлікти</text>
+        
+        <rect x="20" y="170" width="220" height="80" fill="#bbdefb" stroke="#1976d2" stroke-width="1" rx="5"/>
+        <text x="130" y="195" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Керуючі Скрипти</text>
+        <text x="130" y="215" font-family="sans-serif" font-size="12" text-anchor="middle">pre-install, post-install</text>
+        <text x="130" y="235" font-family="sans-serif" font-size="12" text-anchor="middle">pre-remove, post-remove</text>
+        
+        <rect x="20" y="270" width="220" height="100" fill="#bbdefb" stroke="#1976d2" stroke-width="1" rx="5"/>
+        <text x="130" y="295" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Payload (Архів)</text>
+        <text x="130" y="320" font-family="sans-serif" font-size="12" text-anchor="middle">Бінарні файли (/usr/bin)</text>
+        <text x="130" y="340" font-family="sans-serif" font-size="12" text-anchor="middle">Бібліотеки (/usr/lib)</text>
+        <text x="130" y="360" font-family="sans-serif" font-size="12" text-anchor="middle">Конфіги (/etc)</text>
+    </g>
+
+    <!-- Стрілки та процес -->
+    <g transform="translate(350, 300)">
+        <path d="M 0 -20 L 80 -20" stroke="#495057" stroke-width="4" marker-end="url(#arrow)"/>
+        <text x="40" y="-30" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#495057">Інсталяція</text>
+        <text x="40" y="10" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#6c757d">Перевірка хешів</text>
+    </g>
+
+    <!-- База Даних -->
+    <g transform="translate(480, 100)">
+        <rect width="260" height="400" fill="#e8f5e9" stroke="#198754" stroke-width="2" rx="10"/>
+        <text x="130" y="40" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#1b5e20">Системна База Даних</text>
+        
+        <rect x="20" y="70" width="220" height="80" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1" rx="5"/>
+        <text x="130" y="105" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Граф Залежностей</text>
+        <text x="130" y="130" font-family="sans-serif" font-size="12" text-anchor="middle">Вирішення конфліктів</text>
+        
+        <rect x="20" y="170" width="220" height="120" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1" rx="5"/>
+        <text x="130" y="200" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Реєстр Файлів</text>
+        <text x="130" y="230" font-family="sans-serif" font-size="12" text-anchor="start" x="40">• Шляхи до файлів</text>
+        <text x="130" y="250" font-family="sans-serif" font-size="12" text-anchor="start" x="40">• Права доступу</text>
+        <text x="130" y="270" font-family="sans-serif" font-size="12" text-anchor="start" x="40">• Контрольні суми</text>
+        
+        <rect x="20" y="310" width="220" height="60" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1" rx="5"/>
+        <text x="130" y="335" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Стан Пакетів</text>
+        <text x="130" y="355" font-family="sans-serif" font-size="12" text-anchor="middle">Installed / Unpacked</text>
+    </g>
+
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#495057"/>
+        </marker>
+    </defs>
+</svg>

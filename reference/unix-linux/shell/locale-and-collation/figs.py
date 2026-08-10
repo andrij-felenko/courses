@@ -1,0 +1,36 @@
+import os
+
+svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect x="50" y="20" width="300" height="50" rx="10" fill="#f0f0f0" stroke="#333"/>
+  <text x="200" y="50" text-anchor="middle" font-family="sans-serif" font-size="16">LC_ALL (Overrides all)</text>
+  
+  <path d="M 200 70 L 200 100" stroke="#333" marker-end="url(#arrow)"/>
+  
+  <rect x="50" y="100" width="300" height="50" rx="10" fill="#e0e0ff" stroke="#333"/>
+  <text x="200" y="130" text-anchor="middle" font-family="sans-serif" font-size="16">LC_* (e.g. LC_CTYPE, LC_COLLATE)</text>
+  
+  <path d="M 200 150 L 200 180" stroke="#333" marker-end="url(#arrow)"/>
+  
+  <rect x="50" y="180" width="300" height="50" rx="10" fill="#ffe0e0" stroke="#333"/>
+  <text x="200" y="210" text-anchor="middle" font-family="sans-serif" font-size="16">LANG (Default fallback)</text>
+  
+  <path d="M 200 230 L 200 260" stroke="#333" marker-end="url(#arrow)"/>
+  
+  <rect x="50" y="260" width="300" height="30" fill="#f9f9f9" stroke="#999" stroke-dasharray="4"/>
+  <text x="200" y="280" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#666">System Default (C/POSIX)</text>
+  
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+    </marker>
+  </defs>
+</svg>
+"""
+
+def render():
+    os.makedirs(os.path.join(os.path.dirname(__file__), "figs"), exist_ok=True)
+    with open(os.path.join(os.path.dirname(__file__), "figs", "locale_hierarchy.svg"), "w", encoding="utf-8") as f:
+        f.write(svg_content)
+
+if __name__ == "__main__":
+    render()
