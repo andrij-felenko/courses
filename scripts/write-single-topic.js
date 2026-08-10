@@ -215,6 +215,13 @@ if (detailedExists) {
     auditIssues.push(`Cognitive Ease Violation: Missing clear logical cause-and-effect transitions (отже, тому, це означає, звідси випливає) to make conceptual understanding effortless.`);
   }
 
+  // Check: NO LaTeX Notation (§5 AUTHORING.md)
+  // The reader engine (book.js) has ZERO KaTeX/MathJax renderer. LaTeX renders as raw unparsed $...\$ / backslashes!
+  const latexRegex = /\$|\\frac|\\mathbb|\\mathcal|\\text\{|\\log_|\\sqrt|\\cdot|\\le|\\ge|\\to|\\forall|\\exists|\\land|\\lor|\\neg|\\vdash|\\models/;
+  if (latexRegex.test(text)) {
+    auditIssues.push(`LaTeX Formula Violation in detailed article: NO LaTeX allowed ($...$, \\frac, \\mathbb, etc.). The browser engine has no KaTeX! Convert to Unicode symbols (· ≤ ≥ → ∀ ∃ ¬ ∧ ∨ ⊢), inline code, or aligned formula code blocks.`);
+  }
+
   // Domain-based code block check:
   // Code in main text is allowed IF the book category/domain naturally demands it (programming, algorithms, reference/unix-linux).
   // Non-code domains (math, chemistry, physics, philosophy) keep main text focused on domain prose; code goes into proj-*/api-* inserts.
@@ -223,6 +230,42 @@ if (detailedExists) {
     if (text.includes('```c') || text.includes('```cpp') || text.includes('```python') || text.includes('```js')) {
       auditIssues.push(`Domain Violation: Main article in ${BOOK} book should contain domain-pure prose (${BOOK}). Code belongs in proj-*/api-* inserts or programming/algorithm books.`);
     }
+  }
+
+  // SVG Figure Audit (§5 AUTHORING.md)
+  const figsPyPath = path.join(topicDir, 'figs.py');
+  const imgDir = path.join(topicDir, 'img');
+  const hasFigsPy = fs.existsSync(figsPyPath);
+  const hasImgDir = fs.existsSync(imgDir) && fs.readdirSync(imgDir).some(f => f.endsWith('.svg'));
+  
+  // 1. Run figs.py if present
+  if (hasFigsPy) {
+    try {
+      const { execSync } = require('child_process');
+      execSync(`python figs.py`, { cwd: topicDir, stdio: 'pipe' });
+    } catch (e) {
+      auditIssues.push(`SVG Generation Failure: figs.py failed to execute cleanly in ${topicDir}. Error: ${e.message}`);
+    }
+  }
+
+  // 2. Run svgcheck.py if img/ directory has SVG files
+  if (hasImgDir) {
+    try {
+      const { execSync } = require('child_process');
+      const rootDir = path.resolve(__dirname, '..');
+      const relImgPath = path.relative(rootDir, imgDir).replace(/\\/g, '/');
+      execSync(`python scripts/svgcheck.py ${relImgPath} --links`, { cwd: rootDir, stdio: 'pipe' });
+    } catch (e) {
+      auditIssues.push(`SVG Geometry Violation: svgcheck.py found overlapping text/lines or missing links in ${imgDir}. Output: ${e.stdout ? e.stdout.toString() : e.message}`);
+    }
+  }
+
+  // 3. Check if visual concepts exist but no SVG is linked
+  const visualKeywords = [/дерево/i, /куб/i, /автомат/i, /граф/i, /схема/i, /архітектур/i, /діаграм/i, /ієрархі/i];
+  const hasVisualKeyword = visualKeywords.some(re => re.test(text));
+  const hasSvgReference = text.includes('.svg');
+  if (hasVisualKeyword && !hasSvgReference && !hasFigsPy) {
+    auditIssues.push(`SVG Figure Missing: Topic contains visual/structural concepts (${visualKeywords.filter(r => r.test(text)).map(r => r.source).join(', ')}), but has no figs.py script or linked SVG diagram in prose. Create figs.py using scripts/svgkit.py!`);
   }
 
 } else {
@@ -262,6 +305,12 @@ insertFiles.forEach(ins => {
   // Rule 5: Word count (400–5000)
   if (insWords < 400 || insWords > 5000) {
     auditIssues.push(`Insert ${ins} word count (${insWords}) outside 400–5000 range.`);
+  }
+
+  // Rule 6: NO LaTeX Notation in Inserts (§5 AUTHORING.md)
+  const insLatexRegex = /\$|\\frac|\\mathbb|\\mathcal|\\text\{|\\log_|\\sqrt|\\cdot|\\le|\\ge|\\to|\\forall|\\exists|\\land|\\lor|\\neg|\\vdash|\\models/;
+  if (insLatexRegex.test(insText)) {
+    auditIssues.push(`LaTeX Formula Violation in insert ${ins}: NO LaTeX allowed ($...$, \\frac, \\mathbb, etc.). The browser engine has no KaTeX! Convert to Unicode symbols (· ≤ ≥ → ∀ ∃ ¬ ∧ ∨ ⊢), inline code, or aligned formula code blocks.`);
   }
 
   // Rule 6: Type-Specific Semantic & Structural Audit (§3 AUTHORING.md)

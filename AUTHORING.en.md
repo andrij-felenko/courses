@@ -212,7 +212,21 @@ Manifest (§2): each version has its own `status` — `basic:{status}`, `detaile
 
 ## §5 Formulas, examples, figures
 
-**Formulas.** **NO LaTeX** (the renderer doesn't show it) — Unicode in the text: `10⁻⁹, ε, ≈, ×, ·, ², ₀, Δ, σ, ω, →, ⇄`. Step-by-step computations and key formulas — in **monospace code blocks**, aligned on `=`. The separator is a **dot** (`3.3`). Exactly as many formulas as needed; if there's a formula, it's **used**.
+**Formulas. NO LaTeX — none at all, in any form.** Not `$…$`, not `$$…$$`, not `\(…\)`, `\[…\]`, `\frac{}`, `\sqrt{}`, `\text{}`, `\mathbb{}`, `\le`, `\cdot`, `\log_2`. **The reason is not stylistic: the engine has no math renderer** — no KaTeX, no MathJax (check it: `grep -c katex book.js` → 0). There is therefore nothing to turn the markup into a formula, and the reader sees literal dollars, backslashes and braces in the middle of a sentence. Two forms, both working:
+
+1. **A short symbol inside prose — inline code.** Not `$N$` but `` `N` ``; not `$O(\log n)$` but `` `O(log n)` ``; not `$x_i$` but `` `x[i]` ``.
+2. **A formula, a derivation, a step-by-step computation — a code block**, aligned on `=`, **with the step named in square brackets**: the reader must see not only what came out, but which rule was applied.
+
+```
+A·B + A·B̄
+= A·(B + B̄)      [distributivity: factored out A]
+= A·1            [complement: B + B̄ = 1]
+= A              [identity: A·1 = A]
+```
+
+**The character set** (covers nearly everything): `· × ÷ ± ∓ ≈ ≠ ≤ ≥ ≡ √ ∑ ∏ ∫ ∞ ∂ ∇` · powers `⁰¹²³⁴ⁿ⁻` and indices `₀₁₂ₙ` · sets `∈ ∉ ⊂ ⊆ ⊃ ∪ ∩ ∅` · logic `∀ ∃ ¬ ∧ ∨ → ⇒ ⇔ ⊢ ⊨ ⊤ ⊥` · Greek `α β γ δ ε θ λ μ π σ ω Δ Σ Ω` · arrows `→ ← ↔ ⇄ ↦`. An overbar (negation) is the combining U+0304 placed **after** the letter: `ā`, `b̄`. Matrices, nested fractions and large derivation trees are drawn as a **figure** (§5, `figs.py`), not assembled out of characters.
+
+The separator is a **dot** (`3.3`). Exactly as many formulas as needed; if there's a formula, it is **used**, not left as decoration.
 
 **Worked example.** **A bold caption-premise** → a code block with a **step-by-step computation** → a conclusion. The code is real and correct, **not pseudocode**.
 
