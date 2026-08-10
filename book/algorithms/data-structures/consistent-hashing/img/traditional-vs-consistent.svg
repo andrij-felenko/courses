@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Традиційний sharding  hash(k) mod N  проти  Консистентного кільця</text>
+<line x1="480.0" y1="50.0" x2="480.0" y2="490.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,5"/>
+<text x="240.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Традиційне: hash(k) mod N</text>
+<text x="240.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Вилучення 1 вузла змінює N → 3 з 4</text>
+<text x="40.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">При N = 4:</text>
+<text x="40.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">k0: mod 4 = 0</text>
+<text x="210.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">→  Вузол 0</text>
+<text x="40.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">k1: mod 4 = 1</text>
+<text x="210.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">→  Вузол 1</text>
+<text x="40.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">k2: mod 4 = 2</text>
+<text x="210.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">→  Вузол 2</text>
+<text x="40.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">k3: mod 4 = 3</text>
+<text x="210.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">→  Вузол 3 (впав)</text>
+<text x="40.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">k4: mod 4 = 0</text>
+<text x="210.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">→  Вузол 0</text>
+<text x="40.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">k5: mod 4 = 1</text>
+<text x="210.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">→  Вузол 1</text>
+<text x="40.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">При N = 3 (після збою Вузла 3):</text>
+<text x="40.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">k0: mod 3 = 0</text>
+<text x="210.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">→  Вузол 0 (без змін)</text>
+<text x="40.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">k1: mod 3 = 1</text>
+<text x="210.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">→  Вузол 1 (без змін)</text>
+<text x="40.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">k2: mod 3 = 2</text>
+<text x="210.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">→  Вузол 2 (без змін)</text>
+<text x="40.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">k3: mod 3 = 0</text>
+<text x="210.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">→  Вузол 0 (ПЕРЕЇЗД)</text>
+<text x="40.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">k4: mod 3 = 1</text>
+<text x="210.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">→  Вузол 1 (ПЕРЕЇЗД!)</text>
+<text x="40.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">k5: mod 3 = 2</text>
+<text x="210.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">→  Вузол 2 (ПЕРЕЇЗД!)</text>
+<rect x="29.1" y="449.0" width="421.8" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="240.0" y="469.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">75% ключів змінили вузол → Каскадний шторм cache miss!</tspan></text>
+<text x="720.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Консистентне кільце: hash(k) ∈ [0, 2³²−1]</text>
+<text x="720.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">При збої ключі зміщуються лише до сусіда</text>
+<circle cx="720.0" cy="230.0" r="95.0" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<circle cx="720.0" cy="135.0" r="14.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="720.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">N0</text>
+<circle cx="815.0" cy="230.0" r="14.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="815.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">N1</text>
+<circle cx="720.0" cy="325.0" r="14.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="720.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">N2</text>
+<circle cx="625.0" cy="230.0" r="14.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="625.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">N3</text>
+<line x1="630.0" y1="212.0" x2="702.0" y2="140.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="630.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">ключі N3 → N0</text>
+<text x="720.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Вузли N0, N1, N2 зберегли 100% своїх ключів.</text>
+<text x="720.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Лише ключі знівеченого N3 перейшли до N0.</text>
+<rect x="527.7" y="449.0" width="384.6" height="32.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="469.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">Лише 1/N = 25% ключів ребалансовано! Нуль шторму.</tspan></text>
+</svg>

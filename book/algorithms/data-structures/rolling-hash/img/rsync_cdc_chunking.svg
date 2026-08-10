@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння підходів до чанкінгу при дедуплікації даних</text>
+<text x="60.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Фіксований поділ (Fixed-size Chunking) — чутливий до зсуву:</text>
+<text x="60.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Оригінал:</text>
+<rect x="140.0" y="82.0" width="144.0" height="34.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="212.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок A1</text>
+<rect x="290.0" y="82.0" width="144.0" height="34.0" rx="4" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="362.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок A2</text>
+<rect x="440.0" y="82.0" width="144.0" height="34.0" rx="4" fill="#93c5fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="512.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок A3</text>
+<rect x="590.0" y="82.0" width="144.0" height="34.0" rx="4" fill="#60a5fa" stroke="#2457d6" stroke-width="1.2"/>
+<text x="662.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок A4</text>
+<text x="60.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">+1 байт:</text>
+<rect x="140.0" y="130.0" width="144.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="212.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Змінено! (1)</text>
+<rect x="290.0" y="130.0" width="144.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="362.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Змінено! (2)</text>
+<rect x="440.0" y="130.0" width="144.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="512.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Змінено! (3)</text>
+<rect x="590.0" y="130.0" width="144.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="662.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Змінено! (4)</text>
+<text x="820.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="end" font-weight="700">0% збігів!</text>
+<line x1="50.0" y1="185.0" x2="810.0" y2="185.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="60.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Поділ за вмістом (CDC з ковзним хешем) — стійкий до зсуву:</text>
+<text x="60.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Оригінал:</text>
+<rect x="140.0" y="238.0" width="114.0" height="34.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="197.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Блок B1</text>
+<line x1="257.0" y1="234.0" x2="257.0" y2="276.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="2,2"/>
+<rect x="260.0" y="238.0" width="184.0" height="34.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="352.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Блок B2</text>
+<line x1="447.0" y1="234.0" x2="447.0" y2="276.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="2,2"/>
+<rect x="450.0" y="238.0" width="104.0" height="34.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="502.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Блок B3</text>
+<line x1="557.0" y1="234.0" x2="557.0" y2="276.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="2,2"/>
+<rect x="560.0" y="238.0" width="154.0" height="34.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="637.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Блок B4</text>
+<text x="60.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start">+1 байт:</text>
+<rect x="140.0" y="300.0" width="120.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="200.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Блок B1'</text>
+<rect x="266.0" y="300.0" width="184.0" height="34.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="358.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Блок B2</text>
+<rect x="456.0" y="300.0" width="104.0" height="34.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="508.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Блок B3</text>
+<rect x="566.0" y="300.0" width="154.0" height="34.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="643.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Блок B4</text>
+<text x="820.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="end" font-weight="700">75% збігів!</text>
+<text x="430.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Межа блоку спрацьовує коли H(вікно) mod S == 0 (маркер вмісту)</text>
+</svg>

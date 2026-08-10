@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пріоритет операторів у геометрії AST</text>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вираз:  2 + 3 × 4</text>
+<text x="410.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Множення має вищий пріоритет за додавання — воно занурюється глибше в дерево</text>
+<line x1="340.0" y1="130.0" x2="220.0" y2="220.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="340.0" y1="130.0" x2="460.0" y2="220.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="460.0" y1="220.0" x2="390.0" y2="310.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="460.0" y1="220.0" x2="530.0" y2="310.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="287.7" y="115.5" width="104.7" height="29.0" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.8"/><text x="340.0" y="134.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">BinaryOp: +</tspan></text>
+<rect x="171.7" y="205.5" width="96.6" height="29.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/><text x="220.0" y="224.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Literal: 2</tspan></text>
+<rect x="407.7" y="205.5" width="104.7" height="29.0" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.8"/><text x="460.0" y="224.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="460.0" dy="0.0">BinaryOp: ×</tspan></text>
+<rect x="341.7" y="295.5" width="96.6" height="29.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/><text x="390.0" y="314.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Literal: 3</tspan></text>
+<rect x="481.7" y="295.5" width="96.6" height="29.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/><text x="530.0" y="314.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">Literal: 4</tspan></text>
+<rect x="610.0" y="120.0" width="180.0" height="230.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="700.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок обчислення</text>
+<text x="700.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(Post-order traversal)</text>
+<text x="625.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Крок 1:  3 × 4 = 12</text>
+<text x="625.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">(піддерево «×» обчислюється першим)</text>
+<text x="625.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Крок 2:  2 + 12 = 14</text>
+<text x="625.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">(корінь «+» чекає на результат)</text>
+<text x="575.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">① Спочатку</text>
+<text x="160.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">② Потім</text>
+</svg>

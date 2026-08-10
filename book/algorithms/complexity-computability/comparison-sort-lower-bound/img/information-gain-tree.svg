@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="800" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звуження простору перестановок при кожному порівнянні</text>
+<text x="400.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кожне порівняння дає ≤ 1 біт інформації й ділить простір кандидатів щонайбільше навпіл</text>
+<rect x="35.0" y="85.0" width="150.0" height="230.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="110.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Початковий стан</text>
+<line x1="50.0" y1="130.0" x2="170.0" y2="130.0" stroke="#333333" stroke-width="1.0"/>
+<text x="110.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">N! кандидатів</text>
+<text x="110.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Невизначеність:</text>
+<text x="110.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">I = log₂ (N!) біт</text>
+<rect x="225.0" y="85.0" width="150.0" height="230.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="300.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Після 1-го порівняння</text>
+<line x1="240.0" y1="130.0" x2="360.0" y2="130.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="300.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">≤ N! / 2 кандидатів</text>
+<text x="300.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Отримано 1 біт:</text>
+<text x="300.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">I₁ = log₂ (N!) - 1</text>
+<rect x="415.0" y="85.0" width="150.0" height="230.0" rx="8" fill="#fef9e7" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="490.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Після k-го порівняння</text>
+<line x1="430.0" y1="130.0" x2="550.0" y2="130.0" stroke="#e08a1e" stroke-width="1.0"/>
+<text x="490.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e08a1e" text-anchor="middle" font-weight="700">≤ N! / 2ᵏ кандидатів</text>
+<text x="490.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Отримано k біт:</text>
+<text x="490.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Iₖ = log₂ (N!) - k</text>
+<rect x="605.0" y="85.0" width="150.0" height="230.0" rx="8" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.8"/>
+<text x="680.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фінальний результат</text>
+<line x1="620.0" y1="130.0" x2="740.0" y2="130.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="680.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1 точна перестановка</text>
+<text x="680.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Невизначеність = 0:</text>
+<text x="680.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Повністю відсортовано</text>
+<line x1="190.0" y1="200.0" x2="220.0" y2="200.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="205.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">-1 біт</text>
+<line x1="380.0" y1="200.0" x2="410.0" y2="200.0" stroke="#e08a1e" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="395.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e08a1e" text-anchor="middle" font-weight="700">...</text>
+<line x1="570.0" y1="200.0" x2="600.0" y2="200.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="585.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">k = ⌈log₂N!⌉</text>
+<rect x="60.0" y="330.0" width="680.0" height="34.0" rx="4" fill="#fdfefe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="400.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула інформаційної стелі: мінімальна кількість запитань k ≥ ⌈log₂ (N!)⌉ = Ω(N log N)</text></svg>

@@ -1,7 +1,7 @@
 {
  "book": "algorithms",
  "kind": "book",
- "limit": 164,
+ "limit": 175,
  "concurrency": 4,
  "skipArticles": true,
  "units": [
@@ -72,6 +72,18 @@
    "level": "basic"
   },
   {
+   "section": "complexity-computability",
+   "slug": "comparison-sort-lower-bound",
+   "title": "Нижня межа сортування порівняннями (Ω(n log n))",
+   "level": "detailed"
+  },
+  {
+   "section": "complexity-computability",
+   "slug": "online-competitive-analysis",
+   "title": "Онлайнові алгоритми й конкурентний аналіз",
+   "level": "detailed"
+  },
+  {
    "section": "design-paradigms",
    "slug": "backpressure",
    "title": "Протитиск (backpressure)",
@@ -99,6 +111,18 @@
    "section": "design-paradigms",
    "slug": "dynamic-programming",
    "title": "Динамічне програмування",
+   "level": "detailed"
+  },
+  {
+   "section": "design-paradigms",
+   "slug": "greedy-algorithms",
+   "title": "Жадібні алгоритми",
+   "level": "detailed"
+  },
+  {
+   "section": "design-paradigms",
+   "slug": "backtracking",
+   "title": "Пошук із поверненням (backtracking)",
    "level": "detailed"
   },
   {
@@ -187,6 +211,42 @@
   },
   {
    "section": "data-structures",
+   "slug": "sorting-networks",
+   "title": "Сортувальні мережі",
+   "level": "detailed"
+  },
+  {
+   "section": "data-structures",
+   "slug": "rolling-hash",
+   "title": "Ковзний хеш (rolling hash)",
+   "level": "detailed"
+  },
+  {
+   "section": "data-structures",
+   "slug": "binary-search",
+   "title": "Двійковий пошук",
+   "level": "detailed"
+  },
+  {
+   "section": "data-structures",
+   "slug": "abstract-syntax-tree",
+   "title": "Абстрактне синтаксичне дерево (AST)",
+   "level": "detailed"
+  },
+  {
+   "section": "data-structures",
+   "slug": "lsm-tree",
+   "title": "B-tree vs LSM-tree / log-structured",
+   "level": "detailed"
+  },
+  {
+   "section": "data-structures",
+   "slug": "consistent-hashing",
+   "title": "Консистентне хешування",
+   "level": "detailed"
+  },
+  {
+   "section": "data-structures",
    "slug": "binary-decision-diagram",
    "title": "Двійкова діаграма рішень (BDD)",
    "level": "detailed"
@@ -213,6 +273,12 @@
    "section": "data-structures",
    "slug": "fibonacci-heap",
    "title": "Фібоначчієва купа",
+   "level": "detailed"
+  },
+  {
+   "section": "data-structures",
+   "slug": "deque",
+   "title": "Двобічна черга (deque)",
    "level": "detailed"
   },
   {

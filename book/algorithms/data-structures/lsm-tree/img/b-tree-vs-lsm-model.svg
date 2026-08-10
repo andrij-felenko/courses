@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Парадигми оновлення даних: in-place в B-tree проти append-only в LSM-tree</text>
+<rect x="20.0" y="50.0" width="445.0" height="370.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="242.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">B-tree (Оновлення на місці / In-place)</text>
+<text x="242.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Випадковий модифікуючий запис у 4 KB сторінки</text>
+<rect x="142.0" y="115.0" width="200.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="242.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Корінь B-дерева в RAM</text>
+<rect x="40.0" y="205.0" width="405.0" height="115.0" rx="6" fill="#fafafa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="242.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Файл БД на диску (випадково розташовані сторінки)</text>
+<rect x="55.0" y="240.0" width="80.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="95.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сторінка A</text>
+<text x="95.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4 KB</text>
+<rect x="150.0" y="240.0" width="80.0" height="50.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="2.0"/>
+<text x="190.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сторінка B</text>
+<text x="190.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4 KB</text>
+<rect x="245.0" y="240.0" width="80.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="285.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сторінка C</text>
+<text x="285.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4 KB</text>
+<rect x="340.0" y="240.0" width="80.0" height="50.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="2.0"/>
+<text x="380.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сторінка D</text>
+<text x="380.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4 KB</text>
+<line x1="190.0" y1="151.0" x2="190.0" y2="240.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="151.0" x2="380.0" y2="240.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Випадкові I/O виклики</text>
+<text x="285.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">(Seek / FTL Wear)</text>
+<rect x="40.0" y="335.0" width="405.0" height="70.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="242.5" y="360.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="242.5" dy="0.0">Властивість: читання O(log N) дуже швидке.</tspan><tspan x="242.5" dy="13.0">Недолік: кожен новий або змінений запис переписує цілу 4 KB сторінку</tspan><tspan x="242.5" dy="13.0">на диску -&gt; високий WAF та знос накопичувача.</tspan></text>
+<rect x="495.0" y="50.0" width="445.0" height="370.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="717.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">LSM-tree (Журнально-пакетний / Append-only)</text>
+<text x="717.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Послідовний запис буфера у впорядковані файли</text>
+<rect x="545.0" y="120.0" width="160.0" height="45.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="625.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">MemTable (RAM)</text>
+<text x="625.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сортований буфер</text>
+<rect x="745.0" y="120.0" width="160.0" height="45.0" rx="6" fill="#eef4ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="825.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#3b82f6" text-anchor="middle" font-weight="700">WAL (Журнал)</text>
+<text x="825.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Послідовний допис</text>
+<line x1="625.0" y1="165.0" x2="625.0" y2="235.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="695.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Flush (Flush кран)</text>
+<rect x="515.0" y="235.0" width="405.0" height="80.0" rx="6" fill="#f1f8e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="717.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Диск: SSTables (Неперервні відсортовані блоки)</text>
+<rect x="530.0" y="265.0" width="80.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="570.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST 1 (L0)</text>
+<rect x="630.0" y="265.0" width="80.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="670.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST 2 (L0)</text>
+<rect x="730.0" y="265.0" width="80.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="770.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST 3 (L1)</text>
+<rect x="830.0" y="265.0" width="80.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="870.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST 4 (L1)</text>
+<rect x="515.0" y="335.0" width="405.0" height="70.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="717.5" y="359.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="717.5" dy="0.0">Властивість: записи накопичуються в RAM і скидаються на диск</tspan><tspan x="717.5" dy="14.3">єдиним послідовним потоком. Максимальна швидкість запису,</tspan><tspan x="717.5" dy="14.3">нуль випадкового перезапису.</tspan></text>
+</svg>

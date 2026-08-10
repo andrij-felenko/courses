@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="920" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бітонічна сортувальна мережа Батчера (Bitonic Sort) для N = 8</text>
+<line x1="110.0" y1="80.0" x2="830.0" y2="80.0" stroke="#4b5563" stroke-width="2.0"/>
+<text x="85.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">0</text>
+<line x1="110.0" y1="128.0" x2="830.0" y2="128.0" stroke="#4b5563" stroke-width="2.0"/>
+<text x="85.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">1</text>
+<line x1="110.0" y1="176.0" x2="830.0" y2="176.0" stroke="#4b5563" stroke-width="2.0"/>
+<text x="85.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">2</text>
+<line x1="110.0" y1="224.0" x2="830.0" y2="224.0" stroke="#4b5563" stroke-width="2.0"/>
+<text x="85.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">3</text>
+<line x1="110.0" y1="272.0" x2="830.0" y2="272.0" stroke="#4b5563" stroke-width="2.0"/>
+<text x="85.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">4</text>
+<line x1="110.0" y1="320.0" x2="830.0" y2="320.0" stroke="#4b5563" stroke-width="2.0"/>
+<text x="85.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">5</text>
+<line x1="110.0" y1="368.0" x2="830.0" y2="368.0" stroke="#4b5563" stroke-width="2.0"/>
+<text x="85.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">6</text>
+<line x1="110.0" y1="416.0" x2="830.0" y2="416.0" stroke="#4b5563" stroke-width="2.0"/>
+<text x="85.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="end">7</text>
+<line x1="200.0" y1="60.0" x2="200.0" y2="430.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="200.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 1</text>
+<line x1="200.0" y1="80.0" x2="200.0" y2="128.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="200.0" cy="80.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="200.0" cy="128.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="200.0" y1="176.0" x2="200.0" y2="224.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="200.0" cy="176.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="200.0" cy="224.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="200.0" y1="272.0" x2="200.0" y2="320.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="200.0" cy="272.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="200.0" cy="320.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="200.0" y1="368.0" x2="200.0" y2="416.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="200.0" cy="368.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="200.0" cy="416.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="330.0" y1="60.0" x2="330.0" y2="430.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="330.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 2</text>
+<line x1="430.0" y1="60.0" x2="430.0" y2="430.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="430.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 3</text>
+<line x1="330.0" y1="80.0" x2="330.0" y2="224.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="330.0" cy="80.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="330.0" cy="224.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="330.0" y1="128.0" x2="330.0" y2="176.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="330.0" cy="128.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="330.0" cy="176.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="330.0" y1="272.0" x2="330.0" y2="416.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="330.0" cy="272.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="330.0" cy="416.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="330.0" y1="320.0" x2="330.0" y2="368.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="330.0" cy="320.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="330.0" cy="368.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="430.0" y1="80.0" x2="430.0" y2="128.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="430.0" cy="80.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="430.0" cy="128.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="430.0" y1="176.0" x2="430.0" y2="224.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="430.0" cy="176.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="430.0" cy="224.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="430.0" y1="272.0" x2="430.0" y2="320.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="430.0" cy="272.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="430.0" cy="320.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="430.0" y1="368.0" x2="430.0" y2="416.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="430.0" cy="368.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="430.0" cy="416.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="560.0" y1="60.0" x2="560.0" y2="430.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="560.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 4</text>
+<line x1="660.0" y1="60.0" x2="660.0" y2="430.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="660.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 5</text>
+<line x1="760.0" y1="60.0" x2="760.0" y2="430.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="760.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Такт 6</text>
+<line x1="560.0" y1="80.0" x2="560.0" y2="272.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="560.0" cy="80.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="560.0" cy="272.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="560.0" y1="128.0" x2="560.0" y2="320.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="560.0" cy="128.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="560.0" cy="320.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="560.0" y1="176.0" x2="560.0" y2="368.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="560.0" cy="176.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="560.0" cy="368.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="560.0" y1="224.0" x2="560.0" y2="416.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="560.0" cy="224.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="560.0" cy="416.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="660.0" y1="80.0" x2="660.0" y2="176.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="660.0" cy="80.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="660.0" cy="176.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="660.0" y1="128.0" x2="660.0" y2="224.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="660.0" cy="128.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="660.0" cy="224.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="660.0" y1="272.0" x2="660.0" y2="368.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="660.0" cy="272.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="660.0" cy="368.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="660.0" y1="320.0" x2="660.0" y2="416.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="660.0" cy="320.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="660.0" cy="416.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="760.0" y1="80.0" x2="760.0" y2="128.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="760.0" cy="80.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="760.0" cy="128.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="760.0" y1="176.0" x2="760.0" y2="224.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="760.0" cy="176.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="760.0" cy="224.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="760.0" y1="272.0" x2="760.0" y2="320.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="760.0" cy="272.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="760.0" cy="320.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<line x1="760.0" y1="368.0" x2="760.0" y2="416.0" stroke="#2563eb" stroke-width="2.4"/>
+<circle cx="760.0" cy="368.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<circle cx="760.0" cy="416.0" r="5.0" fill="#1e40af" stroke="#1e40af" stroke-width="1.5"/>
+<text x="200.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Крок 1 (довжина 2)</text>
+<text x="380.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Крок 2 (довжина 4)</text>
+<text x="660.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Крок 3 (довжина 8 — підсумкове злиття)</text>
+<text x="460.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Всього компараторів S = 19, Паралельна глибина D = 6 тактів</text></svg>

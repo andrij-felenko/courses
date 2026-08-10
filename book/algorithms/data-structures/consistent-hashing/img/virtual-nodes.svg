@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проблема нерівномірності та її розв'язок через віртуальні вузли (vnodes)</text>
+<line x1="460.0" y1="55.0" x2="460.0" y2="460.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="5,5"/>
+<text x="230.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Без vnodes (3 фізичні вузли)</text>
+<text x="230.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Випадкове розставляння → дисбаланс до 500%</text>
+<circle cx="230.0" cy="215.0" r="100.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="247.4" cy="116.5" r="15.0" fill="#e74c3c" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="251.9" y="90.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">A (8%)</text>
+<circle cx="294.3" cy="138.4" r="15.0" fill="#3498db" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="311.0" y="118.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="165.7" cy="291.6" r="15.0" fill="#2ecc71" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="149.0" y="311.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<polyline points="294.3,138.4 300.7,144.3 306.6,150.7 311.9,157.6 316.6,165.0 320.6,172.7 324.0,180.8 326.6,189.1 328.5,197.6 329.6,206.3 330.0,215.0 329.6,223.7 328.5,232.4 326.6,240.9 324.0,249.2 320.6,257.3 316.6,265.0 311.9,272.4 306.6,279.3 300.7,285.7 294.3,291.6 287.4,296.9 280.0,301.6 272.3,305.6 264.2,309.0 255.9,311.6 247.4,313.5 238.7,314.6 230.0,315.0 221.3,314.6 212.6,313.5 204.1,311.6 195.8,309.0 187.7,305.6 180.0,301.6 172.6,296.9 165.7,291.6" fill="none" stroke="#27ae60" stroke-width="4.5" stroke-linejoin="round"/>
+<text x="230.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Вузол C:
+50% навантаження</text>
+<rect x="85.6" y="386.8" width="288.8" height="46.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="230.0" y="406.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle"><tspan x="230.0" dy="0.0">Дисперсія навантаження σ² висока!</tspan><tspan x="230.0" dy="15.0">Один вузол перевантажений, інші пустують.</tspan></text>
+<text x="690.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">З віртуальними вузлами (vnodes)</text>
+<text x="690.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">V = 100..250 vnodes → рівномірність ±5%</text>
+<circle cx="690.0" cy="215.0" r="100.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="690.0" cy="115.0" r="11.0" fill="#e74c3c" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="690.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">A1</text>
+<circle cx="754.3" cy="138.4" r="11.0" fill="#3498db" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="754.3" y="138.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">B1</text>
+<circle cx="788.5" cy="197.6" r="11.0" fill="#2ecc71" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="788.5" y="190.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">C1</text>
+<circle cx="776.6" cy="265.0" r="11.0" fill="#e74c3c" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="776.6" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">A2</text>
+<circle cx="724.2" cy="309.0" r="11.0" fill="#3498db" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="724.2" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">B2</text>
+<circle cx="655.8" cy="309.0" r="11.0" fill="#2ecc71" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="655.8" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">C2</text>
+<circle cx="603.4" cy="265.0" r="11.0" fill="#e74c3c" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="603.4" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">A3</text>
+<circle cx="591.5" cy="197.6" r="11.0" fill="#3498db" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="591.5" y="190.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">B3</text>
+<circle cx="625.7" cy="138.4" r="11.0" fill="#2ecc71" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="625.7" y="138.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">C3</text>
+<text x="690.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ідеальне
+переплетення</text>
+<rect x="555.2" y="386.8" width="269.6" height="46.5" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="690.0" y="406.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">Кожен фізичний вузол отримує ~33.3%</tspan><tspan x="690.0" dy="15.0">завдяки закону великих чисел (ЗВЧ).</tspan></text>
+</svg>

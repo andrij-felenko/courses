@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 900 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="900" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="880.0" height="390.0" rx="6" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метод заміни (Exchange Argument) для доведення оптимальності</text>
+<text x="100.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Жадібний розв'язок G:</text>
+<rect x="275.0" y="90.0" width="50.0" height="32.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="300.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">g₁</text>
+<rect x="355.0" y="90.0" width="50.0" height="32.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">g₂</text>
+<rect x="435.0" y="90.0" width="50.0" height="32.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.8"/>
+<text x="460.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">g₃</text>
+<rect x="515.0" y="90.0" width="50.0" height="32.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="540.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">...</text>
+<rect x="595.0" y="90.0" width="50.0" height="32.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="620.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">gₖ</text>
+<text x="100.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Оптимальний розв'язок O:</text>
+<rect x="275.0" y="200.0" width="50.0" height="32.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="300.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">g₁</text>
+<rect x="355.0" y="200.0" width="50.0" height="32.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle">g₂</text>
+<rect x="435.0" y="200.0" width="50.0" height="32.0" rx="6" fill="#e8f8ed" stroke="#27ae60" stroke-width="1.8"/>
+<text x="460.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">o₃</text>
+<rect x="515.0" y="200.0" width="50.0" height="32.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="540.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">...</text>
+<rect x="595.0" y="200.0" width="50.0" height="32.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="620.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">oₖ</text>
+<line x1="460.0" y1="125.0" x2="460.0" y2="195.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="505.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Заміна o₃ → g₃</text>
+<rect x="128.8" y="283.6" width="622.5" height="52.8" rx="6" fill="#fffdf5" stroke="#f59e0b" stroke-width="1.5"/><text x="440.0" y="306.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#78350f" text-anchor="middle"><tspan x="440.0" dy="0.0">Оскільки w(g₃) ≥ w(o₃), заміна не зменшує вагу: w(O') = w(O) − w(o₃) + w(g₃) ≥ w(O).</tspan><tspan x="440.0" dy="16.2">Отже, трансформований розв'язок O' залишається оптимальним!</tspan></text>
+</svg>

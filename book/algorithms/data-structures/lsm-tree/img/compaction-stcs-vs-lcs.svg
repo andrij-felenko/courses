@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-57.75 -10 1140.75 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-57.75" y="-10" width="1140.75" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стратегії ущільнення (Compaction): Size-Tiered (STCS) проти Levelled (LCS)</text>
+<rect x="20.0" y="50.0" width="445.0" height="390.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="242.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Size-Tiered (STCS)</text>
+<text x="242.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Оптимізовано під швидкий запис (Низький WAF)</text>
+<text x="120.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4 файли подібного розміру:</text>
+<rect x="40.0" y="145.0" width="90.0" height="45.0" rx="6" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+<text x="85.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST 1 (10 MB)</text>
+<rect x="140.0" y="145.0" width="90.0" height="45.0" rx="6" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+<text x="185.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST 2 (10 MB)</text>
+<rect x="240.0" y="145.0" width="90.0" height="45.0" rx="6" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+<text x="285.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST 3 (10 MB)</text>
+<rect x="340.0" y="145.0" width="90.0" height="45.0" rx="6" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+<text x="385.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST 4 (10 MB)</text>
+<line x1="242.0" y1="195.0" x2="242.0" y2="245.0" stroke="#3b82f6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="340.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3b82f6" text-anchor="start" font-weight="700">Merge-Sort ущільнення</text>
+<rect x="142.0" y="250.0" width="200.0" height="60.0" rx="6" fill="#ffe0b2" stroke="#f57c00" stroke-width="2.0"/>
+<text x="242.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 об'єднаний SSTable (40 MB)</text>
+<rect x="40.0" y="325.0" width="405.0" height="100.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="242.5" y="372.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="242.5" dy="0.0">Перевага: менше перезаписів під час ущільнення -&gt; низький WAF.</tspan><tspan x="242.5" dy="11.7">Недолік: тимчасове подвоєння обсягу (Space Amp до 100%), дублювання ключів у файлах однієї ваговій категорії -&gt; високий Read Amp.</tspan></text>
+<rect x="495.0" y="50.0" width="445.0" height="390.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="717.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Levelled (LCS)</text>
+<text x="717.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Оптимізовано під точкове читання та економію диска</text>
+<text x="575.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівень L_i (10 MB):</text>
+<rect x="695.0" y="115.0" width="110.0" height="35.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="2.0"/>
+<text x="750.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SST X [10..20]</text>
+<line x1="750.0" y1="150.0" x2="750.0" y2="185.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="575.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівень L_{i+1} (100 MB):</text>
+<rect x="510.0" y="220.0" width="96.0" height="45.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="558.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST A [1..12]</text>
+<rect x="612.0" y="220.0" width="96.0" height="45.0" rx="6" fill="#e9f8ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="660.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">SST B [13..25]</text>
+<rect x="714.0" y="220.0" width="96.0" height="45.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="762.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SST C [26..40]</text>
+<rect x="816.0" y="220.0" width="96.0" height="45.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="864.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SST D [41..60]</text>
+<rect x="515.0" y="280.0" width="405.0" height="145.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/><text x="717.5" y="349.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="717.5" dy="0.0">Перевага: жорсткі неперетинні діапазони на кожному рівні L1..LN -&gt; унікальність ключів, низький Space Amp (~10%), точкове читання робить лише 1 I/O на рівень.</tspan><tspan x="717.5" dy="11.7">Недолік: вищий WAF (один файл з L_i переписує ~10 файлів на L_{i+1}).</tspan></text>
+</svg>
