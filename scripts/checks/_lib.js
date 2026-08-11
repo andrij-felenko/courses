@@ -159,6 +159,51 @@ function proseWords(md) {
   return words;
 }
 
+/* ── маніфест книги, до якої належить тема ────────────────────────────────────
+   Тека теми — `<вид>/<книга>/<секція>/<слуг>` (у курсі — `<модуль>` замість секції),
+   тож маніфест завжди на два сегменти вище. Читаємо тим самим способом, що й
+   manifest-patch: виконуємо файл у пісочниці й беремо зареєстрований об'єкт.      */
+function manifestOf(dir) {
+  const rel = path.relative(ROOT, path.resolve(dir)).split(/[\\/]/);
+  if (rel.length < 3) return null;
+  const [kind, book] = rel;
+  const mfPath = path.join(ROOT, kind, book, "manifest.js");
+  if (!fs.existsSync(mfPath)) return null;
+  let m, isGuide = false;
+  try {
+    /* масиви засіваємо самі: маніфест починається з `window.__BOOKS__ = window.__BOOKS__ || []`,
+       але покладатися на це не варто — без засіву падає весь розбір і тема виглядає «без маніфесту» */
+    const sb = { __BOOKS__: [], __GUIDES__: [] };
+    new Function("window", fs.readFileSync(mfPath, "utf8"))(sb);
+    isGuide = Array.isArray(sb.__GUIDES__) && sb.__GUIDES__.length;
+    m = (isGuide ? sb.__GUIDES__ : sb.__BOOKS__ || [])[0];
+  } catch { return null; }
+  if (!m) return null;
+
+  const topics = [];
+  if (isGuide) {
+    (m.modules || []).forEach((mod) => (mod.chapters || [{ steps: mod.steps || [] }]).forEach(
+      (ch) => (ch.steps || []).forEach((s) => { if (s.slug) topics.push(s); })));
+    (m.sections || []).forEach((s) => (s.topics || []).forEach((t) => topics.push(t)));
+  } else {
+    (m.sections || []).forEach((s) => (s.topics || []).forEach((t) => topics.push(t)));
+  }
+  const slug = path.basename(path.resolve(dir));
+  return { path: mfPath, kind, book, isGuide, all: topics, topic: topics.find((t) => t.slug === slug) || null };
+}
+
+/* Черга нових тем Antigravity — теми, які ще не в маніфесті, але вже вирішено завести.
+   Лінк на таку тему битим НЕ вважається: її зареєструє finish-batch наприкінці батчу. */
+function queuedTopics(dir) {
+  const rel = path.relative(ROOT, path.resolve(dir)).split(/[\\/]/);
+  const book = rel[1];
+  if (!book) return [];
+  try {
+    return JSON.parse(fs.readFileSync(path.join(ROOT, "scripts", "_finish", `_ag-newtopics-${book}.json`), "utf8"))
+      .filter((t) => !t.applied).map((t) => t.slug);
+  } catch { return []; }
+}
+
 /* ── зовнішні команди ─────────────────────────────────────────────────────── */
 function run(cmd) {
   try { return { out: execSync(cmd, { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 }).toString(), code: 0 }; }
@@ -256,6 +301,7 @@ function adjudicate(dir, items, ask) {
 module.exports = {
   PASS, DEFECT, JUDGE, USAGE, ROOT, SCALE, INSERT_TYPES, KIND_LABEL, BASIC_GATE,
   bandOf, classify, readTopic, read, strip, codeBlocks, proseWords, run, resolveDir, python,
+  manifestOf, queuedTopics,
   head, pass, defects, adjudicate,
   keyOf, norm, loadVerdicts, saveVerdicts, loadItems, saveItems, verdictPath, itemsPath, topicKey,
 };

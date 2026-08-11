@@ -28,13 +28,24 @@ const bad = [];
 const rel = path.relative(L.ROOT, path.resolve(DIR));
 const needle = [rel, rel.replace(/\\/g, "/"), rel.replace(/\//g, "\\")];
 
-/* (1) биті лінки — свої */
+/* (1) биті лінки — свої. Лінк на тему, яка вже в ЧЕРЗІ нових тем, битим не вважаємо:
+       її зареєструє finish-batch наприкінці батчу, і саме так канон §6 велить робити —
+       «краще зайвий стаб, ніж мовчазна діра». Інакше автор не мав би права послатися
+       на щойно виявлену прогалину, і батч не закрився б ніколи. */
+const queued = L.queuedTopics(DIR);
 const r = L.run("node scripts/linkcheck.js");
 let inBroken = false;
 r.out.split(/\r?\n/).forEach((line) => {
   if (/^===/.test(line)) { inBroken = /БИТІ/.test(line); return; }
   if (!inBroken || !line.trim()) return;
-  if (needle.some((n) => line.includes(n))) bad.push(`битий лінк: ${line.trim().slice(0, 140)}`);
+  if (!needle.some((n) => line.includes(n))) return;
+  const seg = (line.match(/(?:book|guide):([^\s—]+)/) || [])[1];
+  const targetSlug = seg ? seg.split("/")[1] : null;
+  if (targetSlug && queued.includes(targetSlug)) {
+    console.log(`  · лінк на «${targetSlug}» — тема вже в черзі нових, буде зареєстрована наприкінці батчу`);
+    return;
+  }
+  bad.push(`битий лінк: ${line.trim().slice(0, 140)}`);
 });
 
 /* (2) передумови в детальній */

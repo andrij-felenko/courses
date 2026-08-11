@@ -8,7 +8,7 @@
      node scripts/checks/gate.js --topics <тека> <тека> …
 
    Коди виходу:
-     0 — ГОТОВО: усі 15 перевірок дали 0. Тільки в цьому стані тему можна
+     0 — ГОТОВО: усі 16 перевірок дали 0. Тільки в цьому стані тему можна
          вважати написаною (і аж потім, наприкінці батчу, вписати в маніфест).
      1 — Є РОБОТА: перелічено, які перевірки й що саме просять.
      4 — ЗАСТІЙ: коло минуло, а ні файли теми, ні вироки не змінились. Означає,
@@ -129,7 +129,7 @@ if (DIRS.length > 1) {
   summary.forEach((s) => console.log(`  ${s.ready ? "✓ готово " : "· у роботі"}  коло ${String(s.round).padStart(2)}  дефектів ${s.defects} · вироків чекає ${s.judge}${s.stalled ? "  ⚠ ЗАСТІЙ" : ""}   ${s.dir}`));
   const done = summary.filter((s) => s.ready).length;
   console.log(`\n  готових тем: ${done} із ${summary.length}`);
-  if (done === summary.length) console.log(`  → усі теми пройшли всі 15 перевірок. Аж ТЕПЕР можна правити маніфест:\n    node scripts/antigravity/finish-batch.js --book <книга> --kind <вид> --apply`);
+  if (done === summary.length) console.log(`  → усі теми пройшли всі 16 перевірок. Аж ТЕПЕР можна правити маніфест:\n    node scripts/antigravity/finish-batch.js --book <книга> --kind <вид> --apply`);
 }
 
 process.exit(anyStall ? 4 : anyWork ? 1 : 0);
