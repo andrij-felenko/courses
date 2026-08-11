@@ -236,6 +236,30 @@ The separator is a **dot** (`3.3`). Exactly as many formulas as needed; if there
 
 **C/C++ in `programming` and `algorithms` — mandatory, except pure frontend.** In the `proj` examples of these two books **C or C++ is mandatory** (as the main language or at least one of the `:::tabs` tabs) — **everywhere except pure client-side frontend** (browser UI, DOM, components, styles). **Backend and servers are under the rule too:** a high-load server in C++ is apt, so a server/system/compute/algorithmic `proj` gets C/C++ by default. The exception is only the client frontend, which we write in the stack's languages without coercion.
 
+**Where there is C, there must be C++ too — everywhere C++ is possible at all.** This is not "C or C++, pick one", it is **C and C++**: the moment an example is written in C, a C++ tab is added to it — unless C++ is physically impossible there. The reason is simple: the same task in C++ reads differently and shows the reader a second way of thinking about it — lifetime instead of manual release, a type instead of a convention, a container instead of a "pointer + length" pair.
+
+**Three cases where C++ genuinely is impossible** — and only these are the exception:
+
+- **kernel space**: modules, drivers, anything linked into the Linux kernel. There is no library, no exceptions, no stack unwinding there — C++ is not an option, and no tab is added;
+- **an example about C itself as a language**: the preprocessor, ABI conventions, compiler-generated code, `_Generic`, a flexible array member. Here the subject *is* C, not the task;
+- **someone else's interface shown as-is**: a library header, a syscall declaration, a struct from `uapi/`. We are quoting, not writing.
+
+Everything else — user space, files and sockets, format parsing, computation, data structures, utilities — **gets both tabs**.
+
+⚠️ **The C++ tab must be C++, not C with a different extension.** A mechanical translation with `printf` and `malloc` still inside shows nothing and is worse than no tab at all. An idiomatic equivalent means exactly what C++ changes in *this* task:
+
+```
+C                                  C++
+malloc / free                  →   a container or std::unique_ptr
+close(fd) at the end and goto  →   a wrapper with a destructor (RAII)
+char* plus a separate length   →   std::string_view / std::span
+error code via return          →   std::expected or an exception — per the example's convention
+macro wrapper                  →   a template or constexpr function
+void* plus size                →   a template over the type
+```
+
+If after such a translation the C++ tab **differs in nothing but the headers** — that is the sign the example is C-shaped by nature: better to keep one tab than to display a difference that isn't there.
+
 **Several languages at once — `:::tabs` tabs.** When the same example is equally apt in 2–5 languages (typical in books for a broad programming audience), wrap the fences in a container — the engine gives a **tab switcher on top**, shared across the whole page (the choice is remembered). **EACH tab is an independently correct, idiomatic equivalent of this exact example, not a mechanical transliteration.** A language that doesn't fit the example well is **dropped, not dragged in**. Syntax (the language in the fence-info gives the tab name):
 ````
 :::tabs

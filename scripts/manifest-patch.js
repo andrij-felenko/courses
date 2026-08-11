@@ -168,27 +168,116 @@ function opInsert(o) {
   const status = o.status || "done";
   const i = findTopicLine(o.slug);
   if (i < 0) return report.errors.push(`нема теми «${o.slug}» для вставки ${file}`);
+
   const line = lines[i];
-  const arrRe = new RegExp(`${type}:\\s*\\[([^\\]]*)\\]`);
-  const am = line.match(arrRe);
-  if (am) {
-    const fileRe = new RegExp(`\\{\\s*file:\\s*"${esc(file)}"\\s*,\\s*status:\\s*"([a-z]+)"\\s*\\}`);
-    const fm = am[1].match(fileRe);
-    if (fm) {
-      if (fm[1] === status) { report.skipped.push(`${o.slug}/${file} вже ${status}`); return; }
-      lines[i] = line.replace(fileRe, `{ file: "${file}", status: "${status}" }`);
+  const isSingleLine = /^\s*\{.*\}\s*,?\s*$/.test(line);
+
+  if (isSingleLine) {
+    const arrRe = new RegExp(`"?${type}"?:\\s*\\[([^\\]]*)\\]`);
+    const am = line.match(arrRe);
+    if (am) {
+      const fileRe = new RegExp(`\\{\\s*"?file"?:\\s*"${esc(file)}"\\s*,\\s*"?status"?:\\s*"([a-z]+)"\\s*\\}`);
+      const fm = am[1].match(fileRe);
+      if (fm) {
+        if (fm[1] === status) { report.skipped.push(`${o.slug}/${file} вже ${status}`); return; }
+        lines[i] = line.replace(fileRe, `{ file: "${file}", status: "${status}" }`);
+      } else {
+        const body = am[1].trim();
+        const next = body ? `"${type}": [${am[1].replace(/\s*$/, "")}, { file: "${file}", status: "${status}" }]`
+                          : `"${type}": [{ file: "${file}", status: "${status}" }]`;
+        lines[i] = line.replace(arrRe, next);
+      }
     } else {
-      const body = am[1].trim();
-      const next = body ? `${type}: [${am[1].replace(/\s*$/, "")}, { file: "${file}", status: "${status}" }]`
-                        : `${type}: [{ file: "${file}", status: "${status}" }]`;
-      lines[i] = line.replace(arrRe, next);
+      const close = line.lastIndexOf("}");
+      const tail = line.slice(close);
+      const head = line.slice(0, close).replace(/,\s*$/, "");
+      lines[i] = `${head}, "${type}": [{ file: "${file}", status: "${status}" }] ${tail}`;
     }
   } else {
-    // масиву типу ще нема — додаємо перед закриттям об'єкта теми (останнє " }" у рядку)
-    const close = line.lastIndexOf("}");
-    const tail = line.slice(close);                      // "}," або "}"
-    const head = line.slice(0, close).replace(/,\s*$/, "");
-    lines[i] = `${head}, ${type}: [{ file: "${file}", status: "${status}" }] ${tail}`;
+    // Многорядковий (JSON-стиль) маніфест
+    let startLine = i;
+    while (startLine > 0 && !/^\s*\{/.test(lines[startLine])) {
+      startLine--;
+    }
+    let endLine = i;
+    const nextSlug = new RegExp(`^\\s*"?slug"?\\s*:`);
+    for (let j = i + 1; j < lines.length; j++) {
+      if (nextSlug.test(lines[j])) { endLine = j - 1; break; }
+      if (/^\s*\}[,\s]*$/.test(lines[j])) { endLine = j; break; }
+    }
+
+    const blockText = lines.slice(startLine, endLine + 1).join("\n");
+    const arrRe = new RegExp(`"?${type}"?:\\s*\\[([\\s\\S]*?)\\]`);
+    const am = blockText.match(arrRe);
+
+    if (am) {
+      const fileRe = new RegExp(`\\{\\s*"?file"?:\\s*"${esc(file)}"\\s*,\\s*"?status"?:\\s*"([a-z]+)"\\s*\\}`);
+      const fm = am[1].match(fileRe);
+      if (fm) {
+        if (fm[1] === status) { report.skipped.push(`${o.slug}/${file} вже ${status}`); return; }
+        for (let j = startLine; j <= endLine; j++) {
+          if (lines[j].includes(file)) {
+            for (let k = j; k <= Math.min(j + 3, endLine); k++) {
+              if (lines[k].includes("status")) {
+                lines[k] = lines[k].replace(/"status":\s*"[a-z]+"/, `"status": "${status}"`);
+                lines[k] = lines[k].replace(/status:\s*"[a-z]+"/, `status: "${status}"`);
+                break;
+              }
+            }
+            break;
+          }
+        }
+      } else {
+        let typeArrayLine = -1;
+        const typeRe = new RegExp(`^\\s*"?${type}"?\\s*:\\s*\\[`);
+        for (let j = startLine; j <= endLine; j++) {
+          if (typeRe.test(lines[j])) { typeArrayLine = j; break; }
+        }
+        if (typeArrayLine >= 0) {
+          let closeArrayLine = typeArrayLine;
+          for (let j = typeArrayLine; j <= endLine; j++) {
+            if (lines[j].includes("]")) { closeArrayLine = j; break; }
+          }
+          const indent = indentOf(lines[typeArrayLine]) + "    ";
+          const newEntryLines = [
+            `${indent}{`,
+            `${indent}  "file": "${file}",`,
+            `${indent}  "status": "${status}"`,
+            `${indent}}`
+          ];
+          if (lines[closeArrayLine].trim() === "]") {
+            if (closeArrayLine > typeArrayLine && !lines[closeArrayLine - 1].trim().endsWith(",")) {
+              lines[closeArrayLine - 1] += ",";
+            }
+            lines.splice(closeArrayLine, 0, ...newEntryLines);
+          } else {
+            const newArrayContent = [
+              `${indentOf(lines[typeArrayLine])}"${type}": [`,
+              ...newEntryLines,
+              `${indentOf(lines[typeArrayLine])}]`
+            ];
+            const hasComma = lines[typeArrayLine].trim().endsWith(",");
+            if (hasComma) newArrayContent[newArrayContent.length - 1] += ",";
+            lines.splice(typeArrayLine, 1, ...newArrayContent);
+          }
+        }
+      }
+    } else {
+      let insertPos = endLine;
+      const indent = indentOf(lines[i]);
+      if (lines[insertPos - 1] && !lines[insertPos - 1].trim().endsWith(",") && !lines[insertPos - 1].trim().endsWith("{")) {
+        lines[insertPos - 1] += ",";
+      }
+      const newArrayLines = [
+        `${indent}"${type}": [`,
+        `${indent}  {`,
+        `${indent}    "file": "${file}",`,
+        `${indent}    "status": "${status}"`,
+        `${indent}  }`,
+        `${indent}],`
+      ];
+      lines.splice(insertPos, 0, ...newArrayLines);
+    }
   }
   report.insert++;
 }
