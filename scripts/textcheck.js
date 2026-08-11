@@ -332,10 +332,9 @@ if (want(7)) {
       RUS_RE.lastIndex = 0; let m;
       while ((m = RUS_RE.exec(text)))
         R.svgText.push({ file: rel, n, kind: "русизм", word: m[2], to: RUS_HINT[m[2].toLowerCase()] || "", ctx: text });
-      for (const w of text.match(/[а-яіїєґА-ЯІЇЄҐ'’]{5,}/g) || []) {
-        const t = typoOf(w.toLowerCase());
-        if (t) R.svgText.push({ file: rel, n, kind: "описка", word: w, to: t.to, ctx: text });
-      }
+      /* Описки у фігурах НЕ шукаємо частотним детектором: він не розрізняє живу рідкісну
+         словоформу («наповнилась») від справжньої описки — українська флективна, і відстань
+         2 постійно влучає в сусідню форму. Лишаються гомогліфи й словник русизмів. */
     }
     if (APPLY && dirty) { fs.writeFileSync(sf, out); fixedFiles++; }
   }

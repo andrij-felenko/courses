@@ -143,7 +143,7 @@ electronics 41% нерівні по галузях (`_finish/detnorm2.js`):
 **`resumeFromRunId` НЕ вживати** — він same-session-only; батчі йшли в сесіях `6752e8fc…`/`c4e9035a…`, ми вже не там. Натомість — свіжий прогін: payload уже перезібраний і **досі точний** (аудит збігається з ним один-в-один), регенерувати не треба.
 
 ```
-Workflow scriptPath="scripts/write-batch.js" args=<вміст scripts/_finish/args-<book>.json>
+Workflow scriptPath="scripts/claude/write-batch.js" args=<вміст scripts/_finish/args-<book>.json>
 ```
 
 **Args уже durable в репо** (`scripts/_finish/`, перенесено з %TEMP% 2026-07-17 — тимчасову теку могло вимести):
@@ -166,7 +166,7 @@ node scripts/wordcount.js book/<book> --all
 node scripts/_finish/audit.js      # вставок БРАКУЄ → 0, незаведених тем → 0
 ```
 
-## Що змінено в `scripts/write-batch.js` (зворотно сумісно, ще не закомічено)
+## Що змінено в `scripts/claude/write-batch.js` (зворотно сумісно, ще не закомічено)
 
 Нові опційні args; без них поведінка стара:
 - `skipArticles: true | ["slug",…]` — пропустити фазу «Статті» цілком / для перелічених тем;

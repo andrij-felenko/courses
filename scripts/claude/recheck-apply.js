@@ -1,6 +1,6 @@
-/* scripts/recheck-apply.js — застосовує рішення воркфлоу до book-маніфестів (статуси topic+вставок, levels).
-   Запуск:  node scripts/recheck-apply.js <runFile.js> <output.json>
-     runFile  — scripts/recheck-run.js (EMBED.topics: [{book,section,slug,inserts}], у ТОМУ Ж порядку, що й reports)
+/* scripts/claude/recheck-apply.js — застосовує рішення воркфлоу до book-маніфестів (статуси topic+вставок, levels).
+   Запуск:  node scripts/claude/recheck-apply.js <runFile.js> <output.json>
+     runFile  — scripts/claude/recheck-run.js (EMBED.topics: [{book,section,slug,inserts}], у ТОМУ Ж порядку, що й reports)
      output   — JSON воркфлоу (result.reports[], той самий порядок)
    Працює ЛІНІЙНО по рядках маніфесту, ключ — унікальний origin теми (тож дублікати slug не плутаються).
    Нічого не пише, доки всі рішення не зматчено; наприкінці — node-check-сумісний результат. */
@@ -10,7 +10,7 @@ const vm = require("vm");
 const ROOT = path.resolve(__dirname, "..");
 
 const runFile = process.argv[2], outFile = process.argv[3];
-if (!runFile || !outFile) { console.error("usage: node scripts/recheck-apply.js <runFile.js> <output.json>"); process.exit(1); }
+if (!runFile || !outFile) { console.error("usage: node scripts/claude/recheck-apply.js <runFile.js> <output.json>"); process.exit(1); }
 
 // EMBED.topics із run-файлу
 const runSrc = fs.readFileSync(runFile, "utf8");

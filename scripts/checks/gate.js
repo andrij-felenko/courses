@@ -1,0 +1,134 @@
+#!/usr/bin/env node
+/* ============================================================================
+   gate.js — ОДИН вимикач конвеєра: тема готова чи ні.
+
+   Ужиток:
+     node scripts/checks/gate.js <тека теми> [--quiet]
+     node scripts/checks/gate.js --batch scripts/_finish/_batch-<книга>.json
+     node scripts/checks/gate.js --topics <тека> <тека> …
+
+   Коди виходу:
+     0 — ГОТОВО: усі 15 перевірок дали 0. Тільки в цьому стані тему можна
+         вважати написаною (і аж потім, наприкінці батчу, вписати в маніфест).
+     1 — Є РОБОТА: перелічено, які перевірки й що саме просять.
+     4 — ЗАСТІЙ: коло минуло, а ні файли теми, ні вироки не змінились. Означає,
+         що агенти крутяться намарне — оркестратор мусить втрутитись, а не
+         запускати те саме тринадцятий раз.
+     3 — ужиток.
+
+   ЧОМУ ЦЕ СКІНЧЕННО. Кожне коло або міняє текст теми, або додає вирок — і те,
+   й те міняє підпис кола. Однаковий підпис двічі поспіль означає, що коло
+   нічого не зробило: далі крутити немає сенсу, це вже не робота, а зациклення.
+   ========================================================================== */
+"use strict";
+const fs = require("fs");
+const path = require("path");
+const crypto = require("crypto");
+const { execSync } = require("child_process");
+const L = require("./_lib.js");
+
+const argv = process.argv.slice(2);
+const QUIET = argv.includes("--quiet");
+const here = __dirname;
+const CHECKS = fs.readdirSync(here).filter((f) => /^\d\d-.*\.js$/.test(f)).sort();
+
+function topics() {
+  const bi = argv.indexOf("--batch");
+  if (bi >= 0) {
+    const p = argv[bi + 1];
+    const j = JSON.parse(fs.readFileSync(p, "utf8"));
+    const list = Array.isArray(j) ? j : (j.topics || j.units || []);
+    return list.map((x) => (typeof x === "string" ? x : x.dir)).filter(Boolean);
+  }
+  const ti = argv.indexOf("--topics");
+  if (ti >= 0) return argv.slice(ti + 1).filter((a) => !a.startsWith("--"));
+  const one = argv.find((a) => !a.startsWith("--"));
+  return one ? [one] : [];
+}
+
+const DIRS = topics();
+if (!DIRS.length) {
+  console.error("Ужиток: node scripts/checks/gate.js <тека теми> | --batch <файл.json> | --topics <тека>…");
+  process.exit(L.USAGE);
+}
+
+function contentHash(dir) {
+  const h = crypto.createHash("sha1");
+  const walk = (d) => {
+    for (const e of fs.readdirSync(d, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+      if (e.name === "__pycache__") continue;
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (/\.(md|svg|py)$/.test(e.name)) h.update(e.name + ":" + fs.readFileSync(p));
+    }
+  };
+  walk(dir);
+  return h.digest("hex").slice(0, 16);
+}
+
+function runCheck(file, dir) {
+  try {
+    const out = execSync(`node "${path.join(here, file)}" "${dir}"`, { maxBuffer: 32 * 1024 * 1024 }).toString();
+    return { code: 0, out };
+  } catch (e) {
+    return { code: e.status || 1, out: ((e.stdout || "") + (e.stderr || "")).toString() };
+  }
+}
+
+const MARK = { 0: "✓ ПРОЙДЕНО", 1: "✖ ДЕФЕКТИ", 2: "◆ ПОТРІБЕН ВИРОК", 3: "! УЖИТОК" };
+let anyWork = false, anyStall = false;
+const summary = [];
+
+for (const dir of DIRS) {
+  if (!fs.existsSync(dir)) { console.error(`нема теки: ${dir}`); process.exit(L.USAGE); }
+  console.log(`\n════════ ${dir} ════════`);
+  const res = CHECKS.map((f) => ({ f, ...runCheck(f, dir) }));
+
+  res.forEach((r) => {
+    const tail = r.out.split(/\r?\n/).filter((l) => l.trim()).slice(-1)[0] || "";
+    console.log(`  ${MARK[r.code] || ("? " + r.code)}`.padEnd(22) + r.f.padEnd(18) + (r.code ? tail.slice(0, 90) : ""));
+    if (!QUIET && r.code === 1) {
+      r.out.split(/\r?\n/).filter((l) => /^\s{2}\d+\./.test(l)).slice(0, 6).forEach((l) => console.log("        " + l.trim().slice(0, 160)));
+    }
+  });
+
+  const defects = res.filter((r) => r.code === 1);
+  const judge = res.filter((r) => r.code === 2);
+  const ready = !defects.length && !judge.length;
+
+  /* підпис кола: вміст теми + коди перевірок + кількість вироків */
+  const vdir = path.join(L.ROOT, "scripts", "_finish", "_verdicts", L.topicKey(dir));
+  let vcount = 0;
+  if (fs.existsSync(vdir)) for (const f of fs.readdirSync(vdir)) if (/^\d\d\.json$/.test(f)) vcount += Object.keys(JSON.parse(fs.readFileSync(path.join(vdir, f), "utf8"))).length;
+  const sig = contentHash(dir) + "|" + res.map((r) => r.code).join("") + "|v" + vcount;
+
+  const roundsFile = path.join(vdir, "_rounds.json");
+  let rounds = [];
+  try { rounds = JSON.parse(fs.readFileSync(roundsFile, "utf8")); } catch { }
+  const stalled = !ready && rounds.length && rounds[rounds.length - 1] === sig;
+  rounds.push(sig);
+  fs.mkdirSync(vdir, { recursive: true });
+  fs.writeFileSync(roundsFile, JSON.stringify(rounds.slice(-20), null, 2), "utf8");
+
+  console.log(`\n  коло ${rounds.length} · дефектів ${defects.length} · чекають вироку ${judge.length}` + (ready ? "  →  ГОТОВО" : ""));
+  if (stalled) {
+    anyStall = true;
+    console.log(`  ⚠ ЗАСТІЙ: підпис кола не змінився з минулого разу — ні текст, ні вироки не зрушили.`);
+    console.log(`    Не запускай те саме знову: розберись, чому агент нічого не змінив, або познач тему на розсуд людини.`);
+  }
+  if (!ready) {
+    anyWork = true;
+    console.log(`  далі: ` + [...defects, ...judge].map((r) => `node scripts/checks/${r.f} "${dir}"`).join("  ·  "));
+  }
+  summary.push({ dir, ready, defects: defects.length, judge: judge.length, round: rounds.length, stalled });
+}
+
+if (DIRS.length > 1) {
+  console.log(`\n════════ ПІДСУМОК БАТЧУ ════════`);
+  summary.forEach((s) => console.log(`  ${s.ready ? "✓ готово " : "· у роботі"}  коло ${String(s.round).padStart(2)}  дефектів ${s.defects} · вироків чекає ${s.judge}${s.stalled ? "  ⚠ ЗАСТІЙ" : ""}   ${s.dir}`));
+  const done = summary.filter((s) => s.ready).length;
+  console.log(`\n  готових тем: ${done} із ${summary.length}`);
+  if (done === summary.length) console.log(`  → усі теми пройшли всі 15 перевірок. Аж ТЕПЕР можна правити маніфест:\n    node scripts/antigravity/finish-batch.js --book <книга> --kind <вид> --apply`);
+}
+
+process.exit(anyStall ? 4 : anyWork ? 1 : 0);

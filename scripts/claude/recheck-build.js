@@ -1,9 +1,9 @@
-/* scripts/recheck-build.js — генерує самодостатній воркфлоу scripts/recheck-run.js
+/* scripts/claude/recheck-build.js — генерує самодостатній воркфлоу scripts/claude/recheck-run.js
    із ВБУДОВАНИМ батчем (обхід ліміту розміру args воркфлоу-тулзи).
    Запуск:
-     node scripts/recheck-build.js <book> [start=0] [count=5]          // черга recheck однієї книги, у порядку маніфесту
-     node scripts/recheck-build.js guide:<slug> [start=0] [count=10]   // у порядку КРОКІВ курсу (ref→book-тема), лише recheck, без дублів
-   Потім:   Workflow scriptPath="scripts/recheck-run.js"  (БЕЗ args). */
+     node scripts/claude/recheck-build.js <book> [start=0] [count=5]          // черга recheck однієї книги, у порядку маніфесту
+     node scripts/claude/recheck-build.js guide:<slug> [start=0] [count=10]   // у порядку КРОКІВ курсу (ref→book-тема), лише recheck, без дублів
+   Потім:   Workflow scriptPath="scripts/claude/recheck-run.js"  (БЕЗ args). */
 const { execFileSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
@@ -136,7 +136,7 @@ const tmpl = fs.readFileSync(path.join(__dirname, "recheck-audit.js"), "utf8");
 if (!tmpl.includes("/*__EMBED__*/")) { console.error("У шаблоні recheck-audit.js немає маркера /*__EMBED__*/"); process.exit(3); }
 fs.writeFileSync(path.join(__dirname, "recheck-run.js"), tmpl.replace("/*__EMBED__*/", "const EMBED = " + JSON.stringify(EMBED) + ";"));
 
-console.log(`wrote scripts/recheck-run.js — target=${target} start=${start} count=${topics.length} (recheck-черга всього ${fullQueue.length})`);
+console.log(`wrote scripts/claude/recheck-run.js — target=${target} start=${start} count=${topics.length} (recheck-черга всього ${fullQueue.length})`);
 if (Object.keys(skipped).length) console.log("пропущено non-recheck ref-цілей:", JSON.stringify(skipped));
 if (unresolved.length) console.log(`UNRESOLVED ref-ів: ${unresolved.length}; напр.: ${unresolved.slice(0, 6).join(", ")}`);
 console.log("батч:\n  " + topics.map((t, i) => `${start + i}. ${t.book}/${t.section}/${t.slug} — «${t.title}»`).join("\n  "));
