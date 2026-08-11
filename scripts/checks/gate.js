@@ -46,7 +46,8 @@ function topics() {
   return one ? [one] : [];
 }
 
-const DIRS = topics();
+const RAW = topics();
+const DIRS = RAW.map((d) => L.resolveDir(d) || d);   // шлях приймаємо і від cwd, і від кореня репо
 if (!DIRS.length) {
   console.error("Ужиток: node scripts/checks/gate.js <тека теми> | --batch <файл.json> | --topics <тека>…");
   process.exit(L.USAGE);

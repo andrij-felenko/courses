@@ -3,6 +3,7 @@ name: write-topic
 description: АВТОР теми — пише детальну статтю, базову (коли треба), вставки й фігури за каноном. Маніфесту не чіпає, нових тем не починає, власний текст не судить.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -13,7 +14,6 @@ tools:
     - replace_file_content
     - write_to_file
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Автор теми

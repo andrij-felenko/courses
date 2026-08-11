@@ -3,6 +3,7 @@ name: check-language
 description: Перевірка 02 конвеєра — мова: гомогліфи, русизми, склейки. СУДДЯ: запускає scripts/checks/02-language.js, кладе вирок із доказом на кожен пункт і нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 02 — мова: гомогліфи, русизми, склейки

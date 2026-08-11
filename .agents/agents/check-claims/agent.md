@@ -3,6 +3,7 @@ name: check-claims
 description: Перевірка 15 конвеєра — обґрунтованість тверджень (§4.6). СУДДЯ: запускає scripts/checks/15-claims.js і на кожне твердження показує його опору в тексті або визнає дефектом. Нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 15 — обґрунтованість тверджень

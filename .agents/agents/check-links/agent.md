@@ -3,6 +3,7 @@ name: check-links
 description: Перевірка 05 конвеєра — лінки, передумови, доступність вставок. СУДДЯ: запускає scripts/checks/05-links.js, кладе вирок із доказом на кожен пункт і нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 05 — лінки, передумови, доступність вставок

@@ -3,6 +3,7 @@ name: check-thread
 description: Перевірка 12 конвеєра — наскрізна нитка. СУДДЯ: запускає scripts/checks/12-thread.js, кладе вирок із доказом на кожен пункт і нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 12 — наскрізна нитка

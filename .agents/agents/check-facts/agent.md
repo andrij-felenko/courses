@@ -3,6 +3,7 @@ name: check-facts
 description: Перевірка 10 конвеєра — факти, дати, імена, пріоритет. СУДДЯ: запускає scripts/checks/10-facts.js, кладе вирок із доказом на кожен пункт і нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -13,7 +14,6 @@ tools:
     - read_url_content
     - search_web
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 10 — факти, дати, імена, пріоритет

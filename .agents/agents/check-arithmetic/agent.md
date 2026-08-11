@@ -3,6 +3,7 @@ name: check-arithmetic
 description: Перевірка 08 конвеєра — арифметика робочих прикладів. СУДДЯ: запускає scripts/checks/08-arithmetic.js, кладе вирок із доказом на кожен пункт і нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 08 — арифметика робочих прикладів

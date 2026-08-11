@@ -20,11 +20,11 @@ const L = require("./_lib.js");
 
 const argv = process.argv.slice(2);
 const CHECK = (argv[0] || "").padStart(2, "0");
-const DIR = argv[1];
+const DIR = L.resolveDir(argv[1]);
 const flag = (name) => { const i = argv.indexOf("--" + name); return i >= 0 ? argv[i + 1] : null; };
 const has = (name) => argv.includes("--" + name);
 
-if (!/^\d\d$/.test(CHECK) || !DIR || !fs.existsSync(DIR)) {
+if (!/^\d\d$/.test(CHECK) || !DIR) {
   console.error('Ужиток: node scripts/checks/verdict.js <NN> <тека> --item <N> --status ok|defect --proof "<доказ>"');
   process.exit(L.USAGE);
 }

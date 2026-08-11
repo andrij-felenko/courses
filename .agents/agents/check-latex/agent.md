@@ -3,6 +3,7 @@ name: check-latex
 description: Перевірка 01 конвеєра — формули: LaTeX і оформлення обчислень. СУДДЯ: запускає scripts/checks/01-latex.js, кладе вирок із доказом на кожен пункт і нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 01 — формули: LaTeX і оформлення обчислень

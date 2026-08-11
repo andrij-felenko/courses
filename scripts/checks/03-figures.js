@@ -13,8 +13,8 @@ const fs = require("fs");
 const path = require("path");
 const L = require("./_lib.js");
 
-const DIR = process.argv[2];
-if (!DIR || !fs.existsSync(DIR)) { console.error("Вкажи теку теми"); process.exit(L.USAGE); }
+const DIR = L.resolveDir(process.argv[2]);
+if (!DIR) { console.error("Вкажи теку теми (шлях від кореня репо або абсолютний)"); process.exit(L.USAGE); }
 const T = L.readTopic(DIR);
 L.head("03", "фігури: геометрія, місце, підключення", DIR);
 
@@ -30,10 +30,18 @@ const bad = [];
 
 /* (1) геометрія й підключення — оракул svgcheck */
 if (hasImg) {
-  const r = L.run(`python scripts/svgcheck.py "${DIR}" --links`);
-  console.log(r.out.trimEnd());
-  if (!/із зауваженнями: 0/.test(r.out)) bad.push("svgcheck дав зауваження — правити у figs.py і перегенерувати (руками .svg не чіпати)");
-  if (/нема файлу|відсутн/i.test(r.out)) bad.push("є підключення в .md без файлу фігури");
+  const py = L.python();
+  if (!py) {
+    /* Без інтерпретатора фігури НЕ перевірено. Сказати це прямо — інакше вийшло б
+       мовчазне «svgcheck дав зауваження» там, де насправді просто нема чим перевіряти. */
+    bad.push("не знайдено інтерпретатора Python (пробував python, py -3, python3) — фігури НЕ перевірено; це вада середовища, а не теми");
+  } else {
+    const r = L.run(`${py} scripts/svgcheck.py "${DIR}" --links`);
+    console.log(r.out.trimEnd());
+    if (!/із зауваженнями: \d/.test(r.out)) bad.push(`svgcheck не дав підсумку (запуск: ${py} scripts/svgcheck.py) — перевірити руками`);
+    else if (!/із зауваженнями: 0/.test(r.out)) bad.push("svgcheck дав зауваження — правити у figs.py і перегенерувати (руками .svg не чіпати)");
+    if (/нема файлу|відсутн/i.test(r.out)) bad.push("є підключення в .md без файлу фігури");
+  }
 }
 
 /* (2) місце й імена */

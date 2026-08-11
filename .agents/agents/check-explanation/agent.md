@@ -3,6 +3,7 @@ name: check-explanation
 description: Перевірка 14 конвеєра — пояснення чи підручник (§4). СУДДЯ: запускає scripts/checks/14-explanation.js, судить читанням і кладе вирок із цитатою. Нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 14 — пояснення чи підручник

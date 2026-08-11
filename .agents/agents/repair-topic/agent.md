@@ -3,6 +3,7 @@ name: repair-topic
 description: РЕМОНТНИК — переписує рівно те, що завалили перевірки, і нічого більше. Вироків не ставить, маніфесту не чіпає, текст не скорочує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -13,7 +14,6 @@ tools:
     - replace_file_content
     - write_to_file
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Ремонтник теми

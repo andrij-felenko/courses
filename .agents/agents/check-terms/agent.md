@@ -3,6 +3,7 @@ name: check-terms
 description: Перевірка 09 конвеєра — один термін на поняття. СУДДЯ: запускає scripts/checks/09-terms.js, кладе вирок із доказом на кожен пункт і нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 09 — один термін на поняття

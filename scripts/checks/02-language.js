@@ -15,8 +15,8 @@ const path = require("path");
 const fs = require("fs");
 const L = require("./_lib.js");
 
-const DIR = process.argv[2];
-if (!DIR || !fs.existsSync(DIR)) { console.error("Вкажи теку теми"); process.exit(L.USAGE); }
+const DIR = L.resolveDir(process.argv[2]);
+if (!DIR) { console.error("Вкажи теку теми (шлях від кореня репо або абсолютний)"); process.exit(L.USAGE); }
 const T = L.readTopic(DIR);
 L.head("02", "мова: гомогліфи, русизми, склейки", DIR);
 if (!T.files.length) L.pass("у теці немає .md");

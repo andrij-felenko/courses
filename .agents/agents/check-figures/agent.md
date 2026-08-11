@@ -3,6 +3,7 @@ name: check-figures
 description: Перевірка 03 конвеєра — фігури: геометрія, місце, підключення. СУДДЯ: запускає scripts/checks/03-figures.js, кладе вирок із доказом на кожен пункт і нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 03 — фігури: геометрія, місце, підключення

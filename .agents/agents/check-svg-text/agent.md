@@ -3,6 +3,7 @@ name: check-svg-text
 description: Перевірка 04 конвеєра — текст усередині фігур. СУДДЯ: запускає scripts/checks/04-svg-text.js, кладе вирок із доказом на кожен пункт і нічого не переписує.
 model: inherit
 subagent: true
+mainAgent: false
 tools:
     - view_file
     - grep_search
@@ -11,7 +12,6 @@ tools:
     - run_command
     - send_message
 commandExecutionPolicy: auto
-hidden: false
 ---
 
 # Перевірка 04 — текст усередині фігур
